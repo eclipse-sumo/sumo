@@ -34,6 +34,12 @@ person_number
 # successive stops on different edges should raise an error (teleporting instead via #6325)
 stop_teleport_stop
 
+# successive stops on different edges with attribute jump
+stop_jump_stop
+
+# successive stops on different edges with attribute jump
+stop_instajump_stop
+
 # wait at busStop in a lefthand network
 lefthand_wait
 

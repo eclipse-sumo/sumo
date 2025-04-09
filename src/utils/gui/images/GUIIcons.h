@@ -489,8 +489,10 @@ enum class GUIIcon {
     /// @name Netedit Demand elements icons
     /// @{
     ROUTE,
+    ROUTEREF,
     ROUTEDISTRIBUTION,
     VTYPE,
+    VTYPEREF,
     VTYPE_DEFAULT,
     VTYPE_BIKE,
     VTYPE_TAXI,

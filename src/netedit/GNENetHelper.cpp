@@ -52,7 +52,6 @@
 #include <netedit/elements/additional/GNERouteProbe.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/additional/GNETAZSourceSink.h>
-#include <netedit/elements/additional/GNETAZSourceSink.h>
 #include <netedit/elements/additional/GNETractionSubstation.h>
 #include <netedit/elements/additional/GNEVaporizer.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
@@ -65,12 +64,15 @@
 #include <netedit/elements/demand/GNEPersonTrip.h>
 #include <netedit/elements/demand/GNERide.h>
 #include <netedit/elements/demand/GNERoute.h>
+#include <netedit/elements/demand/GNERouteRef.h>
+#include <netedit/elements/demand/GNEVTypeRef.h>
 #include <netedit/elements/demand/GNEStop.h>
 #include <netedit/elements/demand/GNEStopPlan.h>
 #include <netedit/elements/demand/GNETranship.h>
 #include <netedit/elements/demand/GNETransport.h>
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/elements/demand/GNEVTypeDistribution.h>
+#include <netedit/elements/demand/GNERouteDistribution.h>
 #include <netedit/elements/demand/GNEVehicle.h>
 #include <netedit/elements/demand/GNEWalk.h>
 #include <netedit/elements/network/GNEConnection.h>
@@ -2905,7 +2907,7 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriersRecursively(const GNET
         }
     }
     // iterate over children
-    for (const auto child : tag->getTagChildren()) {
+    for (const auto child : tag->getHierarchicalChildren()) {
         retrieveAttributeCarriersRecursively(child, ACs);
     }
 }
@@ -2972,13 +2974,21 @@ GNENetHelper::ACTemplate::buildTemplates() {
     myTemplates[GNE_TAG_JPS_WALKABLEAREA] = new GNEPoly(GNE_TAG_JPS_WALKABLEAREA, myNet);
     myTemplates[GNE_TAG_JPS_OBSTACLE] = new GNEPoly(GNE_TAG_JPS_OBSTACLE, myNet);
     // vTypes
-    myTemplates[SUMO_TAG_VTYPE] = new GNEVType(myNet);
+    const auto vTypes = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::VTYPE);
+    for (const auto vType : vTypes) {
+        myTemplates[vType->getTag()] = new GNEVType(vType->getTag(), myNet);
+    }
+    // vType distributions
     myTemplates[SUMO_TAG_VTYPE_DISTRIBUTION] = new GNEVTypeDistribution(myNet);
-    // routes
+    myTemplates[GNE_TAG_VTYPEREF] = new GNEVTypeRef(myNet);
+    // routes (basic and embedded)
     const auto routes = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::ROUTE);
     for (const auto route : routes) {
         myTemplates[route->getTag()] = new GNERoute(route->getTag(), myNet);
     }
+    // route distribution
+    myTemplates[SUMO_TAG_ROUTE_DISTRIBUTION] = new GNERouteDistribution(myNet);
+    myTemplates[GNE_TAG_ROUTEREF] = new GNERouteRef(myNet);
     // vehicles
     const auto vehicles = myNet->getTagPropertiesDatabase()->getTagPropertiesByType(GNETagProperties::Type::VEHICLE);
     for (const auto vehicle : vehicles) {

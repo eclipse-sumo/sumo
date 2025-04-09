@@ -1787,16 +1787,6 @@ TraCIServer::writePositionVector(tcpip::Storage& outputStorage, const libsumo::T
 
 
 bool
-TraCIServer::readTypeCheckingInt(tcpip::Storage& inputStorage, int& into) {
-    if (inputStorage.readUnsignedByte() != libsumo::TYPE_INTEGER) {
-        return false;
-    }
-    into = inputStorage.readInt();
-    return true;
-}
-
-
-bool
 TraCIServer::readTypeCheckingDouble(tcpip::Storage& inputStorage, double& into) {
     if (inputStorage.readUnsignedByte() != libsumo::TYPE_DOUBLE) {
         return false;

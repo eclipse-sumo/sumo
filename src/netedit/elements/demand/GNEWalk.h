@@ -43,16 +43,14 @@ public:
     GNEWalk(SumoXMLTag tag, GNENet* net);
 
     /**@brief constructor called in buildWalk
-     * @param[in] net Network in which this Walk is placed
      * @param[in] tag walk tag
-     * @param[in] icon walk icon
      * @param[in] personParent person parent
      * @param[in] planParameters plan parameters
      * @param[in] arrivalPosition arrival position
      * @param[in] speed speed (not together with duration)
      * @param[in] duration duration (not together with speed)
      */
-    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
+    GNEWalk(SumoXMLTag tag, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
             const double arrivalPosition, const double speed, const SUMOTime duration);
 
     /// @brief destructor

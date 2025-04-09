@@ -174,10 +174,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     libsumo::StorageHelper::readStage(inputStorage, stage);
                     libsumo::Person::appendStage(id, stage);
                 } else {
-                    int stageType;
-                    if (!server.readTypeCheckingInt(inputStorage, stageType)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for adding a stage must be the stage type given as int.", outputStorage);
-                    }
+                    const int stageType = StoHelp::readTypedInt(inputStorage, "The first parameter for adding a stage must be the stage type given as int.");
                     if (stageType == libsumo::STAGE_DRIVING) {
                         // append driving stage
                         if (numParameters != 4) {
@@ -255,10 +252,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (inputStorage.readInt() != 2) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Replacing a person stage requires a compound object of size 2.", outputStorage);
                 }
-                int nextStageIndex = 0;
-                if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "First parameter of replace stage should be an integer", outputStorage);
-                }
+                const int nextStageIndex = StoHelp::readTypedInt(inputStorage,  "First parameter of replace stage should be an integer");
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter of replace stage should be a compound object", outputStorage);
                 }
@@ -272,10 +266,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             break;
 
             case libsumo::REMOVE_STAGE: {
-                int nextStageIndex = 0;
-                if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
-                }
+                const int nextStageIndex = StoHelp::readTypedInt(inputStorage, "The message must contain the stage index.");
                 libsumo::Person::removeStage(id, nextStageIndex);
             }
             break;

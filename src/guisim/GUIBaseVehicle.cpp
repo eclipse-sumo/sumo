@@ -602,14 +602,18 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glTranslated(0, 0.7 * s.vehicleName.scaledSize(s.scale), 0);
         glRotated(s.angle, 0, 0, 1);
         const double value = getColorValue(s, s.vehicleColorer.getActive());
-        GLHelper::drawTextSettings(s.vehicleValue, toString(value), Position(0, 0), s.scale, s.angle);
+        if (value != s.MISSING_DATA) {
+            GLHelper::drawTextSettings(s.vehicleValue, toString(value), Position(0, 0), s.scale, s.angle);
+        }
     }
     if (s.vehicleScaleValue.show(this)) {
         glRotated(-s.angle, 0, 0, 1);
         glTranslated(0, 0.7 * s.vehicleName.scaledSize(s.scale), 0);
         glRotated(s.angle, 0, 0, 1);
         const double value = getScaleValue(s, s.vehicleScaler.getActive());
-        GLHelper::drawTextSettings(s.vehicleScaleValue, toString(value), Position(0, 0), s.scale, s.angle);
+        if (value != s.MISSING_DATA) {
+            GLHelper::drawTextSettings(s.vehicleScaleValue, toString(value), Position(0, 0), s.scale, s.angle);
+        }
     }
     if (s.vehicleText.show(this)) {
         std::string error;

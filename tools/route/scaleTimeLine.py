@@ -54,11 +54,12 @@ def get_options(args=None):
     ap.add_argument("-o", "--output-file", dest="outfile", category="output", type=ap.file,
                     help="define the output filename")
     ap.add_argument("--timeline-list", dest="timelinelist", type=str,
-                    default="3600,200,200,200,200,200,200,200,200,200,200,200,200",
+                    # TGw2_PKW from https://sumo.dlr.de/docs/Demand/Importing_O/D_Matrices.html#daily_time_lines
+                    # multiplied by 10 (suitable for using with peak-hour-traffic and tools/route/route_1htoday.py
+                    default="3600,8,5,4,3,4,12,45,74,66,52,50,50,52,53,56,67,84,86,74,50,39,30,21,16",
                     help="Define the interval duration and then the scaled percentage for each interval; "
                     "e.g. 200% of the current demand")
     ap.add_argument("--timeline-pair", dest="timelinepair", type=str,
-                    default="7200,200;7200,200;7200,200;7200,200;7200,200;7200,200",
                     help="Define the timeline pairs (duration, scacled percentage)")
     ap.add_argument("--random", action="store_true", dest="random", category="random",
                     default=False, help="use a random seed to initialize the random number generator")
@@ -67,16 +68,14 @@ def get_options(args=None):
                     default=False, help="tell me what you are doing")
     options = ap.parse_args(args=args)
 
-    if options.timelinelist:
+    if options.timelinepair:
+        pairs = [x.split(',') for x in options.timelinepair.split(';')]
+        options.timelinelist = []
+        for d, s in pairs:
+            options.timelinelist.append([float(d), float(s)])
+    else:
         duration = float(options.timelinelist.split(",")[0])
         options.timelinelist = [[duration, float(i)] for i in options.timelinelist.split(",")[1:]]
-
-    elif options.timelinepair:
-        timelinelist = [x.split(',') for x in options.timelinepair.split(';')]
-        options.timelinelist = []
-        for data in timelinelist:
-            options.timelinelist.append([float(x) for x in data])
-        # options.timelinelist = list(map(float, templist))
 
     options.routefiles = options.routefiles.split(',')
     if not options.outfile:
@@ -119,9 +118,9 @@ def getScale(depart, periodList, periodMap):
     scale = 1.
     for i, p in enumerate(periodList):
         if i == 0 and depart < p:
-            scale = periodMap[p]/100.
-        elif depart < p and depart >= periodList[i-1]:
-            scale = periodMap[p]/100.
+            scale = periodMap[p] / 100.
+        elif depart < p and depart >= periodList[i - 1]:
+            scale = periodMap[p] / 100.
 
     return scale
 
@@ -132,16 +131,14 @@ def writeObjs(totalList, outf):
 
 
 def scaleRoutes(options, outf):
-    lastDepart = 0
-    lastBegin = 0
     periodMap = {}
     accPeriod = 0
     periodList = []
     idMap = {}
-    for d in options.timelinelist:
-        accPeriod += d[0]
+    for duration, scale in options.timelinelist:
+        accPeriod += duration
         periodList.append(accPeriod)
-        periodMap[accPeriod] = d[1]
+        periodMap[accPeriod] = scale
 
     # get all ids
     for routefile in options.routefiles:
@@ -150,40 +147,51 @@ def scaleRoutes(options, outf):
 
     # scale the number of objs for each pre-defined interval
     for routefile in options.routefiles:
+        lastDepart = 0
         currIndex = 0
         candidatsList = []
+        periodBegin = 0
+        periodEnd = periodList[currIndex]
         for elem in sumolib.xml.parse(routefile, ['vehicle', 'trip', 'flow', 'person', 'personFlow', 'vType']):
             if elem.name == 'vType':
-                outf.write(elem.toXML(' '*4))
+                outf.write(elem.toXML(' ' * 4))
             elif elem.name in ['flow', 'personFlow']:
                 begin = parseTime(elem.begin)
-                if begin < lastBegin:
+                if begin < lastDepart:
                     sys.stderr.write("Unsorted departure %s for %s '%s'" % (
                         begin, elem.tag, elem.id))
-                    lastBegin = begin
+                    lastDepart = begin
                 scale = getScale(begin, periodList, periodMap)
-                elem.number = str(int(getFlowNumber(elem) * scale))
-                outf.write(elem.toXML(' '*4))
+                if elem.hasAttribute("number"):
+                    elem.number = str(int(getFlowNumber(elem) * scale))
+                elif elem.hasAttribute("period"):
+                    if "exp" in elem.period:
+                        rate = float(elem.period[4:-2])
+                        elem.period = 'exp(%s)' % rate * scale
+                    else:
+                        elem.period = float(elem.period) / scale
+                outf.write(elem.toXML(' ' * 4))
             else:
                 depart = parseTime(elem.depart)
                 if depart < lastDepart:
                     sys.stderr.write("Unsorted departure %s for %s '%s'" % (
                         depart, elem.tag, elem.id))
                     lastDepart = depart
-                if depart < periodList[currIndex] and (currIndex == 0 or depart >= periodList[currIndex - 1]):
+                if depart >= periodBegin and depart < periodEnd:
                     candidatsList.append(elem)
                 else:
-                    if currIndex < len(periodList):
-                        if candidatsList:
-                            totalList, idMap = getScaledObjList(periodMap, periodList, currIndex, candidatsList, idMap)
-                            writeObjs(totalList, outf)
-                            currIndex += 1
-                            candidatsList = []
-                            # check the current or the first object in the next period
-                            if depart < periodList[currIndex] and depart >= periodList[currIndex - 1]:
-                                candidatsList.append(elem)
-                    else:
-                        outf.write(elem.toXML(' '*4))
+                    # write old period and start new period
+                    if candidatsList:
+                        totalList, idMap = getScaledObjList(periodMap, periodList, currIndex, candidatsList, idMap)
+                        writeObjs(totalList, outf)
+                        candidatsList.clear()
+                    while currIndex + 1 < len(periodList):
+                        currIndex += 1
+                        periodBegin = periodEnd
+                        periodEnd = periodList[currIndex]
+                        if depart >= periodBegin and depart < periodEnd:
+                            candidatsList.append(elem)
+                            break
         if candidatsList:
             totalList, idMap = getScaledObjList(periodMap, periodList, currIndex, candidatsList, idMap)
             writeObjs(totalList, outf)

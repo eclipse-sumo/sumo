@@ -155,6 +155,9 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                     throw ProcessError("Invalid nextPhase " + toString(iNext) + " in tlLogic '" + getID()
                                        + "', program '" + getProgramID() + "' with " + toString(phases.size()) + " phases");
                 }
+                if (iNext == i && (int)nextPhases.size() == 1 && (int)phases.size() > 1) {
+                    WRITE_WARNINGF("Phase % only loops backs to itself in tlLogic '%', program '%'.", i, getID(), getProgramID());
+                }
                 const std::string optionalFrom = iNextDefault ? "" : " from phase " + toString(i);
                 const std::string& state1 = phases[i]->getState();
                 const std::string& state2 = phases[iNext]->getState();

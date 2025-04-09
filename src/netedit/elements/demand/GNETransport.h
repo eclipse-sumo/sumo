@@ -43,16 +43,14 @@ public:
     GNETransport(SumoXMLTag tag, GNENet* net);
 
     /**@brief constructor called in buildTransport
-     * @param[in] net Network in which this Transport is placed
      * @param[in] tag transport tag
-     * @param[in] icon transport icon
      * @param[in] containerParent container parent
      * @param[in] planParameters plan parameters
      * @param[in] arrivalPosition arrival position
      * @param[in] lines transport lines
      * @param[in] group transport group
      */
-    GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
+    GNETransport(SumoXMLTag tag, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
                  const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group);
 
     /// @brief destructor

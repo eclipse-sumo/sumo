@@ -105,17 +105,6 @@ public class Trafficlight {
     }
 
     /**
-     * Returns the external state.
-     *
-     * @param tlsID a string identifying the traffic light
-     * @return compound of the external state
-     */
-
-    public static SumoCommand getExternalState(String tlsID) {
-        return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_EXTERNAL_STATE, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_COMPOUND);
-    }
-
-    /**
      * Returns a list of IDs of all traffic lights within the scenario.
      *
      * @return a list of IDs of all TLS

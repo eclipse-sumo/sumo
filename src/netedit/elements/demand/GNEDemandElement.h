@@ -26,8 +26,6 @@
 #include <netedit/elements/GNEPathElement.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 
-#include "GNEDemandElementDistribution.h"
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -38,7 +36,7 @@ class SUMOVehicleParameter;
 // class definitions
 // ===========================================================================
 
-class GNEDemandElement : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement, public GNEMoveElement, public GNEDemandElementDistribution {
+class GNEDemandElement : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement, public GNEMoveElement {
 
 public:
     /// @brief friend declaration (needed for vTypes)
@@ -62,24 +60,19 @@ public:
      * @param[in] id Gl-id of the demand element element (Must be unique)
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
      * @param[in] filename file in which this AttributeCarrier is stored
-     * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
-     * @param[in] icon additional icon
      * @param[in] pathOptions path options
      */
-    GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag,
-                     GUIIcon icon, const int pathOptions);
+    GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename,
+                     SumoXMLTag tag, const GNEPathElement::Options pathOptions);
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
-     * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
-     * @param[in] icon additional icon
      * @param[in] pathOptions path options
      */
-    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
-                     const int pathOptions);
+    GNEDemandElement(GNEDemandElement* demandElementParent, SumoXMLTag tag, const GNEPathElement::Options pathOptions);
 
     /// @brief Destructor
     virtual ~GNEDemandElement();
@@ -383,9 +376,6 @@ protected:
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
 
-    /// @brief set VTypeDistribution parent
-    void setVTypeDistributionParent(const std::string& value);
-
     /// @}
 
     /// @brief auxiliar struct used for calculate pathStopIndex
@@ -415,9 +405,6 @@ protected:
 
     /// @brief get color by scheme (used by vehicles, persons and containers)
     RGBColor getColorByScheme(const GUIColorer& c, const SUMOVehicleParameter* parameters) const;
-
-    /// @brief get distribution in which the given element is part
-    std::string getDistributionParents() const;
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;

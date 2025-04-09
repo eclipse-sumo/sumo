@@ -30,3 +30,9 @@ variations_subsecond_IDM
 
 # two vehicles approach with different action step length offsets
 action_step_offset
+
+# 3 zipper links in mutual conflict
+3links
+
+# 4  zipper links in multiple conflicts
+4links

@@ -208,7 +208,6 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 }
                 std::string from, to, vtype;
                 double depart;
-                int routingMode;
                 if (!server.readTypeCheckingString(inputStorage, from)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as first parameter.", outputStorage);
                 }
@@ -221,9 +220,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingDouble(inputStorage, depart)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as fourth parameter.", outputStorage);
                 }
-                if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires an integer as fifth parameter.", outputStorage);
-                }
+                const int routingMode = StoHelp::readTypedInt(inputStorage, "Retrieval of a route requires an integer as fifth parameter.");
                 libsumo::StorageHelper::writeStage(server.getWrapperStorage(), libsumo::Simulation::findRoute(from, to, vtype, depart, routingMode));
                 break;
             }
@@ -236,7 +233,6 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 }
                 std::string from, to, modes, ptype, vtype, destStop;
                 double depart, speed, walkFactor, departPos, arrivalPos, departPosLat;
-                int routingMode;
                 if (!server.readTypeCheckingString(inputStorage, from)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as first parameter.", outputStorage);
                 }
@@ -249,9 +245,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingDouble(inputStorage, depart)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as fourth parameter.", outputStorage);
                 }
-                if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires an integer as fifth parameter.", outputStorage);
-                }
+                const int routingMode = StoHelp::readTypedInt(inputStorage, "Retrieval of a route requires an integer as fifth parameter.");
                 if (!server.readTypeCheckingDouble(inputStorage, speed)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a double as sixth parameter.", outputStorage);
                 }

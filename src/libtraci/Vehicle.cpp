@@ -274,20 +274,7 @@ Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_FOES, vehID, &content);
     ret.readInt(); // compound size
-    const int n = StoHelp::readTypedInt(ret); // number of foe informations
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCIJunctionFoe info;
-        info.foeId = StoHelp::readTypedString(ret);
-        info.egoDist = StoHelp::readTypedDouble(ret);
-        info.foeDist = StoHelp::readTypedDouble(ret);
-        info.egoExitDist = StoHelp::readTypedDouble(ret);
-        info.foeExitDist = StoHelp::readTypedDouble(ret);
-        info.egoLane = StoHelp::readTypedString(ret);
-        info.foeLane = StoHelp::readTypedString(ret);
-        info.egoResponse = StoHelp::readBool(ret);
-        info.foeResponse = StoHelp::readBool(ret);
-        result.emplace_back(info);
-    }
+    StoHelp::readJunctionFoeVector(ret, result);
     return result;
 }
 
@@ -348,33 +335,7 @@ Vehicle::getBestLanes(const std::string& vehID) {
     std::vector<libsumo::TraCIBestLanesData> result;
     tcpip::Storage& ret = Dom::get(libsumo::VAR_BEST_LANES, vehID);
     ret.readInt();
-    ret.readUnsignedByte();
-
-    const int n = ret.readInt(); // number of following edge information
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCIBestLanesData info;
-        ret.readUnsignedByte();
-        info.laneID = ret.readString();
-
-        ret.readUnsignedByte();
-        info.length = ret.readDouble();
-
-        ret.readUnsignedByte();
-        info.occupation = ret.readDouble();
-
-        ret.readUnsignedByte();
-        info.bestLaneOffset = ret.readByte();
-
-        ret.readUnsignedByte();
-        info.allowsContinuation = (ret.readUnsignedByte() == 1);
-
-        ret.readUnsignedByte();
-        int m = ret.readInt();
-        while (m-- > 0) {
-            info.continuationLanes.push_back(ret.readString());
-        }
-        result.push_back(info);
-    }
+    StoHelp::readBestLanesVector(ret, result);
     return result;
 }
 
@@ -385,25 +346,7 @@ Vehicle::getNextTLS(const std::string& vehID) {
     std::vector<libsumo::TraCINextTLSData> result;
     tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_TLS, vehID);
     ret.readInt(); // components
-    // number of items
-    ret.readUnsignedByte();
-    const int n = ret.readInt();
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCINextTLSData d;
-        ret.readUnsignedByte();
-        d.id = ret.readString();
-
-        ret.readUnsignedByte();
-        d.tlIndex = ret.readInt();
-
-        ret.readUnsignedByte();
-        d.dist = ret.readDouble();
-
-        ret.readUnsignedByte();
-        d.state = (char)ret.readByte();
-
-        result.push_back(d);
-    }
+    StoHelp::readTLSDataVector(ret, result);
     return result;
 }
 
@@ -436,28 +379,7 @@ Vehicle::getStops(const std::string& vehID, int limit) {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_STOPS2, vehID, &content);
     ret.readInt(); // components
-    // number of items
-    const int n = StoHelp::readCompound(ret);
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCINextStopData s;
-        s.lane = StoHelp::readTypedString(ret);
-        s.endPos = StoHelp::readTypedDouble(ret);
-        s.stoppingPlaceID = StoHelp::readTypedString(ret);
-        s.stopFlags = StoHelp::readTypedInt(ret);
-        s.duration = StoHelp::readTypedDouble(ret);
-        s.until = StoHelp::readTypedDouble(ret);
-        s.startPos = StoHelp::readTypedDouble(ret);
-        s.intendedArrival = StoHelp::readTypedDouble(ret);
-        s.arrival = StoHelp::readTypedDouble(ret);
-        s.depart = StoHelp::readTypedDouble(ret);
-        s.split = StoHelp::readTypedString(ret);
-        s.join = StoHelp::readTypedString(ret);
-        s.actType = StoHelp::readTypedString(ret);
-        s.tripId = StoHelp::readTypedString(ret);
-        s.line = StoHelp::readTypedString(ret);
-        s.speed = StoHelp::readTypedDouble(ret);
-        result.emplace_back(s);
-    }
+    StoHelp::readStopVector(ret, result);
     return result;
 }
 
@@ -558,10 +480,8 @@ Vehicle::getLaneChangeState(const std::string& vehID, int direction) {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::CMD_CHANGELANE, vehID, &content);
     ret.readInt(); // components
-    ret.readUnsignedByte();
-    const int stateWithoutTraCI = ret.readInt();
-    ret.readUnsignedByte();
-    const int state = ret.readInt();
+    const int stateWithoutTraCI = StoHelp::readTypedInt(ret);
+    const int state = StoHelp::readTypedInt(ret);
     return std::make_pair(stateWithoutTraCI, state);
 }
 

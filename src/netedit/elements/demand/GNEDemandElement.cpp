@@ -20,7 +20,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNESegment.h>
-#include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPlanSelector.h>
@@ -45,22 +45,22 @@
 #pragma warning(push)
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
-GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename, GUIGlObjectType type, SumoXMLTag tag,
-                                   GUIIcon icon, const int pathOptions) :
+GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename,
+                                   SumoXMLTag tag, const GNEPathElement::Options pathOptions) :
     GNEAttributeCarrier(tag, net, filename, id.empty()),
-    GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
+    GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), id,
+                GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     GNEPathElement(pathOptions),
-    GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon,
-                                   const int options) :
-    GNEAttributeCarrier(tag, net, demandElementParent->getFilename(), false),
-    GUIGlObject(type, demandElementParent->getID(), GUIIconSubSys::getIcon(icon)),
-    GNEPathElement(options),
-    GNEDemandElementDistribution(this),
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, SumoXMLTag tag,
+                                   const GNEPathElement::Options pathOptions) :
+    GNEAttributeCarrier(tag, demandElementParent->getNet(), demandElementParent->getFilename(), false),
+    GUIGlObject(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), demandElementParent->getID(),
+                GUIIconSubSys::getIcon(demandElementParent->getNet()->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
+    GNEPathElement(pathOptions),
     myStackedLabelNumber(0) {
 }
 #ifdef _MSC_VER
@@ -247,12 +247,12 @@ GNEDemandElement::checkDrawDeleteContourSmall() const {
     if (myTagProperty->vehicleRoute()) {
         const auto route = myNet->getViewNet()->getViewObjectsSelector().getDemandElementFront();
         if (route && (route == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
-            return (getParentDemandElements().at(1) == route); 
+            return (getParentDemandElements().at(1) == route);
         }
-    }else if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+    } else if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
         const auto vehicle = myNet->getViewNet()->getViewObjectsSelector().getDemandElementFront();
         if (vehicle && (vehicle == myNet->getViewNet()->getViewObjectsSelector().getAttributeCarrierFront())) {
-            return (getParentDemandElements().front() == vehicle); 
+            return (getParentDemandElements().front() == vehicle);
         }
     }
     return false;
@@ -624,14 +624,6 @@ GNEDemandElement::replaceDemandElementParent(SumoXMLTag tag, const std::string& 
 }
 
 
-void
-GNEDemandElement::setVTypeDistributionParent(const std::string& value) {
-    // note: distribution parents can be null
-    auto newVTypeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value, false);
-    GNEHierarchicalElement::updateParent(this, 0, newVTypeDistribution);
-}
-
-
 bool
 GNEDemandElement::checkChildDemandElementRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
@@ -824,27 +816,6 @@ GNEDemandElement::getColorByScheme(const GUIColorer& c, const SUMOVehicleParamet
             return c.getScheme().getColor(0);
         }
     }
-}
-
-
-std::string
-GNEDemandElement::getDistributionParents() const {
-    SumoXMLTag tagDistribution = SUMO_TAG_NOTHING;
-    if (myTagProperty->getTag() == SUMO_TAG_VTYPE) {
-        tagDistribution = SUMO_TAG_VTYPE_DISTRIBUTION;
-    } else if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
-        tagDistribution = SUMO_TAG_ROUTE_DISTRIBUTION;
-    } else {
-        return "";
-    }
-    // check if the current element is in the distributions
-    std::vector<std::string> distributionParents;
-    for (const auto& distribution : myNet->getAttributeCarriers()->getDemandElements().at(tagDistribution)) {
-        if (distribution.second->keyExists(this)) {
-            distributionParents.push_back(distribution.second->getID());
-        }
-    }
-    return toString(distributionParents);
 }
 
 

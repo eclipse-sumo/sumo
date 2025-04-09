@@ -37,12 +37,12 @@
 // ===========================================================================
 
 GNEEdgeData::GNEEdgeData(GNENet* net) :
-    GNEGenericData(GNE_TAG_EDGEREL_SINGLE, GUIIcon::EDGEDATA, GLO_EDGEDATA, net) {
+    GNEGenericData(GNE_TAG_EDGEREL_SINGLE, net) {
 }
 
 
 GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edge, const Parameterised::Map& parameters) :
-    GNEGenericData(GNE_TAG_EDGEREL_SINGLE, GUIIcon::EDGEDATA, GLO_EDGEDATA, dataIntervalParent, parameters) {
+    GNEGenericData(GNE_TAG_EDGEREL_SINGLE, dataIntervalParent, parameters) {
     // set parents
     setParent<GNEEdge*>(edge);
 }

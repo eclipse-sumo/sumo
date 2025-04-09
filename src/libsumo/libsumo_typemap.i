@@ -89,6 +89,13 @@
     $1 = &vars;
 }
 
+%{
+#if PY_MAJOR_VERSION < 3
+#define PyUnicodeCheck PyStringCheck
+#define PyUnicode_AsUTF8 PyString_AsString
+#endif
+%}
+
 %typemap(in) const libsumo::TraCIResults& (libsumo::TraCIResults parameters) {
     if (!PyDict_Check($input)) {
         PyErr_SetString(PyExc_TypeError, "Expecting a dict");
@@ -484,17 +491,29 @@ SUBSCRIBE_HELPER(MeanData)
 SUBSCRIBE_HELPER(VariableSpeedSign)
 SUBSCRIBE_HELPER(RouteProbe)
 
-%pythonprepend SWIG_MODULE::Simulation::subscribe(const std::string&, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&) %{
-    if len(args) > 1 and args[1] is None:
-        args = (args[0], [-1]) + args[2:]
-%}
-
-%pythonprepend SWIG_MODULE::Simulation::subscribeContext(const std::string&, int, double, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&) %{
+%pythonprepend SWIG_MODULE::Simulation::subscribe(const std::vector<int>&, double, double, const libsumo::TraCIResults&) %{
+    if len(args) > 0 and args[0] is None:
+        args = ([-1],) + args[1:]
     if len(args) > 3 and args[3] is None:
-        args = (args[0], args[1], args[2], [-1]) + args[4:]
+        args = args[:3] + ({},)
     if "varIDs" in kwargs and kwargs["varIDs"] is None:
         kwargs["varIDs"] = [-1]
+    if "parameters" in kwargs and kwargs["parameters"] is None:
+        kwargs["parameters"] = {}
 %}
+
+%pythonprepend SWIG_MODULE::Simulation::subscribeContext(const std::string&, int, double, const std::vector<int>&, double, double, const libsumo::TraCIResults&) %{
+    if len(args) > 3 and args[3] is None:
+        args = (args[0], args[1], args[2], [-1]) + args[4:]
+    if len(args) > 6 and args[6] is None:
+        args = args[:6] + ({},)
+    if "varIDs" in kwargs and kwargs["varIDs"] is None:
+        kwargs["varIDs"] = [-1]
+    if "parameters" in kwargs and kwargs["parameters"] is None:
+        kwargs["parameters"] = {}
+%}
+
+%ignore SWIG_MODULE::Simulation::subscribe(const std::string&, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&);
 
 #endif // SWIGPYTHON
 
@@ -550,6 +569,7 @@ SUBSCRIBE_HELPER(RouteProbe)
 %shared_ptr(libsumo::TraCIReservation)
 %shared_ptr(libsumo::TraCIReservationVectorWrapped)
 %shared_ptr(libsumo::TraCICollision)
+%shared_ptr(libsumo::TraCICollisionVectorWrapped)
 %shared_ptr(libsumo::TraCISignalConstraint)
 %shared_ptr(libsumo::TraCISignalConstraintVectorWrapped)
 %shared_ptr(libsumo::TraCIJunctionFoe)

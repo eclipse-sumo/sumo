@@ -132,6 +132,12 @@ protected:
     /// @brief fill common POI attributes
     void fillCommonPOIAttributes(GNETagProperties* tagProperties);
 
+    /// @brief fill common route attributes
+    void fillCommonRouteAttributes(GNETagProperties* tagProperties);
+
+    /// @brief fill common vType attributes
+    void fillCommonVTypeAttributes(GNETagProperties* tagProperties);
+
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
     void fillCommonVehicleAttributes(GNETagProperties* tagProperties);
 
@@ -211,7 +217,7 @@ protected:
     void fillOutputAttribute(GNETagProperties* tagProperties);
 
     /// @brief fill imgFile attribute
-    void fillImgFileAttribute(GNETagProperties* tagProperties);
+    void fillImgFileAttribute(GNETagProperties* tagProperties, const bool isExtended);
 
     /// @brief fill depart attribute
     void fillDepartAttribute(GNETagProperties* tagProperties);
@@ -236,6 +242,9 @@ protected:
 
     /// @brief fill detector threshold attribute
     void fillDetectorThresholdAttributes(GNETagProperties* tagProperties, const bool includingJam);
+
+    /// @brief fill distribution probability attribute
+    void fillDistributionProbability(GNETagProperties* tagProperties);
 
     /// @}
 

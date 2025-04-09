@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
-#include <netedit/GNETagProperties.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/foxtools/MFXMenuHeader.h>
@@ -35,9 +35,10 @@
 // method definitions
 // ===========================================================================
 
-GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon) :
+GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, SumoXMLTag tag) :
     GNEAttributeCarrier(tag, net, "", false),
-    GUIGlObject(type, id, GUIIconSubSys::getIcon(icon)),
+    GUIGlObject(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGLType(), id,
+                GUIIconSubSys::getIcon(net->getTagPropertiesDatabase()->getTagProperty(tag, true)->getGUIIcon())),
     myShapeEdited(false) {
 }
 

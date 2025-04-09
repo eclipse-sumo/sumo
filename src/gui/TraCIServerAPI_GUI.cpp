@@ -138,13 +138,8 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingString(inputStorage, filename)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The first variable must be a file name.", outputStorage);
                 }
-                int width = 0, height = 0;
-                if (!server.readTypeCheckingInt(inputStorage, width)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The second variable must be the width given as int.", outputStorage);
-                }
-                if (!server.readTypeCheckingInt(inputStorage, height)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The third variable must be the height given as int.", outputStorage);
-                }
+                const int width = StoHelp::readTypedInt(inputStorage, "The second variable must be the width given as int.");
+                const int height = StoHelp::readTypedInt(inputStorage, "The third variable must be the height given as int.");
                 // take screenshot after the current step is finished (showing the same state as sumo-gui and netstate-output)
                 libsumo::GUI::screenshot(id, filename, width, height);
                 break;
@@ -169,10 +164,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingString(inputStorage, scheme)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The first variable must be a scheme name.", outputStorage);
                 }
-                int viewType;
-                if (!server.readTypeCheckingInt(inputStorage, viewType)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The second variable must be the view type given as int.", outputStorage);
-                }
+                const int viewType = StoHelp::readTypedInt(inputStorage, "The second variable must be the view type given as int.");
                 libsumo::GUI::addView(id, scheme,
                                       viewType == 1 ?  GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL);
                 break;

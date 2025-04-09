@@ -41,15 +41,14 @@ class GNEGenericData : public GNEAttributeCarrier, public GNEHierarchicalElement
 
 public:
     /// @brief default Constructor
-    GNEGenericData(SumoXMLTag tag, GUIIcon icon, const GUIGlObjectType type, GNENet* net);
+    GNEGenericData(SumoXMLTag tag, GNENet* net);
 
     /**@brief Constructor
      * @param[in] tag generic data Tag (edgeData, laneData, etc.)
-     * @param[in] GLType GUIGlObjectType associated to this Generic Data
      * @param[in] dataIntervalParent pointer to data interval parent
      * @param[in] parameters parameters map
      */
-    GNEGenericData(const SumoXMLTag tag, GUIIcon icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
+    GNEGenericData(const SumoXMLTag tag, GNEDataInterval* dataIntervalParent,
                    const Parameterised::Map& parameters);
 
     /// @brief Destructor

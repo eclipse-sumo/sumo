@@ -69,10 +69,7 @@ TraCIServerAPI_LaneArea::processSet(TraCIServer& server, tcpip::Storage& inputSt
     try {
         switch (variable) {
             case libsumo::VAR_VIRTUAL_DETECTION: {
-                int vehNum = -1;
-                if (!server.readTypeCheckingInt(inputStorage, vehNum)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_LANEAREA_VARIABLE, "Overriding the number of detected vehicles requires an integer", outputStorage);
-                }
+                const int vehNum = StoHelp::readTypedInt(inputStorage, "Overriding the number of detected vehicles requires an integer");
                 libsumo::LaneArea::overrideVehicleNumber(id, vehNum);
                 break;
             }

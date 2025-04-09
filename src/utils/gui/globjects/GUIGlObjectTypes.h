@@ -103,34 +103,38 @@ enum GUIGlObjectType {
     GLO_DET_ENTRY = 114,
     /// @brief a DetExit detector
     GLO_DET_EXIT = 115,
+    /// @brief a DetExit detector
+    GLO_DET_ENTRYEXIT = 116,
     /// @brief a Rerouter
-    GLO_REROUTER = 116,
+    GLO_REROUTER = 117,
     /// @brief a rerouter interval
-    GLO_REROUTER_INTERVAL = 117,
+    GLO_REROUTER_INTERVAL = 118,
     /// @brief a closing reroute
-    GLO_REROUTER_CLOSINGREROUTE = 118,
+    GLO_REROUTER_CLOSINGREROUTE = 119,
     /// @brief a closing lane reroute
-    GLO_REROUTER_CLOSINGLANEREROUTE = 119,
+    GLO_REROUTER_CLOSINGLANEREROUTE = 120,
     /// @brief a parking area reroute
-    GLO_REROUTER_PARKINGAREAREROUTE = 120,
+    GLO_REROUTER_PARKINGAREAREROUTE = 121,
     /// @brief a destination probability reroute
-    GLO_REROUTER_DESTPROBREROUTE = 121,
+    GLO_REROUTER_DESTPROBREROUTE = 122,
     /// @brief a route probability reroute
-    GLO_REROUTER_ROUTEPROBREROUTE = 122,
+    GLO_REROUTER_ROUTEPROBREROUTE = 123,
     /// @brief a Rerouter over edge
-    GLO_REROUTER_EDGE = 123,
+    GLO_REROUTER_EDGE = 124,
     /// @brief a Variable Speed Sign
-    GLO_VSS = 124,
+    GLO_VSS = 125,
     /// @brief a Variable Speed Sign step
-    GLO_VSS_STEP = 125,
-    /// @brief a Calibrator
-    GLO_CALIBRATOR = 126,
+    GLO_VSS_STEP = 126,
+    /// @brief a calibrator
+    GLO_CALIBRATOR = 127,
+    /// @brief a calibrator flow
+    GLO_CALIBRATOR_FLOW = 128,
     /// @brief a RouteProbe
-    GLO_ROUTEPROBE = 127,
+    GLO_ROUTEPROBE = 129,
     /// @brief a Vaporizer
-    GLO_VAPORIZER = 128,
+    GLO_VAPORIZER = 130,
     /// @brief a Acces
-    GLO_ACCESS = 129,
+    GLO_ACCESS = 131,
     /// @brief reserved GLO type for packing all wire elements
     GLO_WIRE = 140,
     /// @brief a segment of an overhead line
@@ -170,6 +174,10 @@ enum GUIGlObjectType {
     GLO_ROUTEELEMENT = 300,
     /// @bief vTypes
     GLO_VTYPE = 301,
+    /// @brief vtype ref
+    GLO_VTYPE_REF = 302,
+    /// @brief vtype distribution
+    GLO_VTYPE_DISTRIBUTION = 303,
 
     /// @}
 
@@ -180,6 +188,10 @@ enum GUIGlObjectType {
     GLO_ROUTE = 310,
     /// @brief a route
     GLO_ROUTE_EMBEDDED = 311,
+    /// @brief route ref
+    GLO_ROUTE_REF = 312,
+    /// @brief route distribution
+    GLO_ROUTE_DISTRIBUTION = 313,
 
     /// @}
 
@@ -255,6 +267,14 @@ enum GUIGlObjectType {
     GLO_EDGERELDATA = 501,
     /// @brief TAZ relation data
     GLO_TAZRELDATA = 502,
+    /// @brief meanData
+    GLO_MEANDATA = 503,
+
+    /// @brief data set
+    GLO_DATASET = 504,
+
+    /// @brief data interval
+    GLO_DATAINTERVAL = 505,
 
     /// @}
 

@@ -81,6 +81,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"e1DetectorInstant",       GLO_E1DETECTOR_INSTANT},
     {"e2Detector",              GLO_E2DETECTOR},
     {"e3Detector",              GLO_E3DETECTOR},
+    {"entryExitDetector",       GLO_DET_ENTRYEXIT},
     {"entryDetector",           GLO_DET_ENTRY},
     {"exitDetector",            GLO_DET_EXIT},
     {"rerouter",                GLO_REROUTER},
@@ -94,6 +95,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"variableSpeedSign",       GLO_VSS},
     {"variableSpeedSignStep",   GLO_VSS_STEP},
     {"calibrator",              GLO_CALIBRATOR},
+    {"calibratorFlow",          GLO_CALIBRATOR_FLOW},
     {"routeProbe",              GLO_ROUTEPROBE},
     {"vaporizer",               GLO_VAPORIZER},
     {"wire",                    GLO_WIRE},
@@ -112,9 +114,13 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     //
     {"routeElement",            GLO_ROUTEELEMENT},
     {"vType",                   GLO_VTYPE},
+    {"vTypeRef",                GLO_VTYPE_REF},
+    {"vTypeDistribution",       GLO_VTYPE_DISTRIBUTION},
     //
     {"route",                   GLO_ROUTE},
     {"routeEmbedded",           GLO_ROUTE_EMBEDDED},
+    {"routeRef",                GLO_ROUTE_REF},
+    {"routeDistribution",       GLO_ROUTE_DISTRIBUTION},
     //
     {"ride",                    GLO_RIDE},
     {"walk",                    GLO_WALK},
@@ -139,6 +145,9 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"edgeData",                GLO_EDGEDATA},
     {"edgeRelData",             GLO_EDGERELDATA},
     {"TAZRelData",              GLO_TAZRELDATA},
+    {"meanData",                GLO_MEANDATA},
+    {"dataSet",                 GLO_DATASET},
+    {"dataInterval",            GLO_DATAINTERVAL},
     //
     {"lockIcon",                GLO_LOCKICON},
     {"textName",                GLO_TEXTNAME},

@@ -29,28 +29,50 @@ import route_departOffset
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
-    from sumolib.options import ArgumentParser
+    from sumolib.options import ArgumentParser  # noqa
+    from sumolib.xml import parse  # noqa
+    from sumolib.miscutils import openz  # noqa
+    import sumolib  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
 def get_options(args=None):
-    optParser = ArgumentParser()
-    optParser.add_argument("input_network", category='input', help="Provide an input network")
-    return optParser.parse_args(args=args)
+    op = ArgumentParser()
+    op.add_argument("routes", category='input',
+                    help="Provide an input route file for 1h")
+    op.add_argument("-o", "--output-file", category='output', dest="output",
+                    help="Set an output file to contain all routes")
+    op.add_argument("-v", "--verbose", dest="verbose", action="store_true", default=False,
+                    help="tell me what you are doing")
+    return op.parse_args(args=args)
 
 
 def main(options):
+    output_files = []
     for i in range(0, 24):
-        out = options.input_network
+        out = options.routes
         out = out[:out.find(".")] + "_" + str(i) + out[out.find("."):]
-        print("Building routes for hour " + str(i) + " into '" + out + "'...")
+        output_files.append(out)
+        if options.verbose:
+            print("Building routes for hour " + str(i) + " into '" + out + "'...")
         route_departOffset.main(
             route_departOffset.get_options([
-                "--input-file", options.input_network,
+                "--input-file", options.routes,
                 "--output-file", out,
                 "--depart-offset", str(i * 3600),
                 "--modify-ids"]))
+
+    if options.output:
+        with openz(options.output, 'w') as outf:
+            sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)
+            for out in output_files:
+                with openz(out) as tmpf:
+                    for line in tmpf:
+                        if "<routes" not in line and "</routes>" not in line:
+                            outf.write(line)
+                os.remove(out)
+            outf.write('</routes>\n')
 
 
 if __name__ == "__main__":

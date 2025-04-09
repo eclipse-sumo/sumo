@@ -218,6 +218,8 @@ and then setting the options **--astar.landmark-distances landmarks.txt --astar.
 - by using *astar* together with the option **--astar.all-distances** {{DT_FILE}} the A\* algorithm is
   used together with a complete (and often huge) distance table to allow for blazing fast search. This is only recommended for medium sized networks with a high number of routing queries
 
+!!! caution
+    pre-computed distance tables are not useful when planning to perform routing with either one of the options **--weights.priority-factor** or **--weights.random-factor** as these change the actual distances.
 
 ## CH (Contraction Hierarchies)
 

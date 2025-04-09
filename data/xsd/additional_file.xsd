@@ -113,6 +113,7 @@
                             <xsd:complexType>
                                 <xsd:attribute name="main" type="xsd:string" use="required"/>
                                 <xsd:attribute name="siding" type="xsd:string" use="required"/>
+                                <xsd:attribute name="minSaving" type="nonNegativeFloatType" use="optional"/>
                             </xsd:complexType>
                         </xsd:element>
                     </xsd:choice>
@@ -377,6 +378,7 @@
                             <xsd:complexType>
                                 <xsd:attribute name="main" type="xsd:string" use="required"/>
                                 <xsd:attribute name="siding" type="xsd:string" use="required"/>
+                                <xsd:attribute name="minSaving" type="nonNegativeFloatType" use="optional"/>
                             </xsd:complexType>
                         </xsd:element>
                     </xsd:choice>

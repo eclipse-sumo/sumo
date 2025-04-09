@@ -26,12 +26,22 @@ title: ChangeLog
   - Fixed collision due to unsafe lane changing ahead of a zipper merge #16305
   - Fixed duplicate collision output when using **--collision-action warn** #16397
   - Fixed misclassification of some frontal-collisions as normal (rear-end) collision #16398
+  - Fixed invalid formula for coasting deceleration in case of steep inclines #16309
+  - Fixed invalid rail behavior after rerouting #16431
+  - Fixed blocked lane changes on a junctionsvehicle on junction #16443
  
 - netedit
   - Restored functionality for setting custom geometry point by entering values #16179 (regression in 1.20.0)
+  - Fixed overly large endpoint markers in move mode #16266 (regression in 1.22.0)
   - Fixed invalid connections after using *reset connections* #16127
   - Saving demand that was loaded from a sumocfg in multiple route files is now working #14805
   - Fixed handling of special vType params for visualizing rail carriages #16334
+  - Fixed nvalid geometry of person plans that end in a stopLane #15355
+  - Fixed invalid geometry of person plan from stoppingPlace to stoppingPlace  #15348
+
+- sumo-gui
+  - Fixed rendering of rail carriages when scaled by length/geometry #16425
+  - Visualization option *scale length with geometry* now works for rail carriages and allows rendering with unscaled length #11576
 
 - netconvert
   - Fixed unsafe program transition from 'G' to 'g' #16289 (regression in 1.20.0)
@@ -44,9 +54,13 @@ title: ChangeLog
   - Fixed invalid bus connections when guessing #16291
   - Fixed invalid right-of-way rules at traffic lights with uncommon phase layouts. #16338
   - Fixed missing signalID params in OpenDRIVE import #16403
+  - Fixed crash when using option **--join-tram-dist** #16393
+  - Fixed bug where option **--edges.join-tram-dist** didn't join enough #16408
+  - Fixed `nan` value in generated network when loading connections with custom length value and length-0 geometry #16441
 
 - durarouter
   - Fixed invalid route output when loading invalid routes with stops and setting option **--ignore-errors** #16365
+  - Improved error message when loading **--astar.landmark-distances** together with taz #16400
  
 - TraCI
   - Setting vehicle parameter 'lcContRight' is now working #16147
@@ -55,6 +69,8 @@ title: ChangeLog
   - Fixed invalid active person count after person removal #16192
   - `person.removeStage` now works for a taxi-driving stage if the taxi is already en route to pick-up #11620
   - Subscription to `lane.getAngle` is now working #16360
+  - Subscriptions to methods with additional parameters now work in libsumo #16383
+  - Function `edge.subscribeContext` now correctly collects vehicles at low dist regardless of lane number #16422
 
 - Tools
   - `sumolib.net.lane.getClosestLanePosAndDist` now gives correct results when lane length differs from shape length #16269
@@ -78,10 +94,13 @@ title: ChangeLog
   - The **--full-output** now includes vehicle road slope (in degrees) in networks with elevation data #16389
   - Collisions that happen as the direct result of lane-changing are now distinguished as "side"-collisions in errors and **--collision-output** #16396
   - The warning "bus stop too short" no longer occurs if a stop fills the whole length of it's lane or if it's `parkingLength` is set to a sufficiently high value #16391
+  - Zipper junctions with an arbitrary number of conflicting connections are now supported #11874
 
 - netedit
   - Each object now tracks the file from which it was loaded to facilitate working with projects where multiple route- or additional-files are used #12430
   - Now drawing cyan dotted contour around object with open popup menu #16344
+  - In delete mode, hovering over a junction will highlight all edges that would be deleted when deleting the junction #14114
+  - Selection of rerouter edges now uses improved highlight and permits toggling of edges #16430
 
 - netconvert
   - Added option **--junctions.join.parallel-threshold DEGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
@@ -104,6 +123,7 @@ title: ChangeLog
   - `simulation.getMinExpectedNumber` now takes into account pending taxi reservations #16187
   - Addedd function `person.getWalkingDistance` #16197
   - Added `lanearea` functions `getIntervalMeanTimeLoss` and `getLastIntervalMeanTimeLoss` #16311
+  - Added function `domainID` to all domains. This can be used as the target domain in `subscribeContext` #16418
 
 
 - Tools
@@ -115,13 +135,16 @@ title: ChangeLog
   - sumolib: function `xml.parse` is now useful when loading nested elements and not providing argument `element_names`. The new attribute `outputLevel` (default 1) controls which elements to retrieve #16211
   - sumolib: Objects loaded with function `xml.parse` now preserve their attribute order when serialized with `toXML` #16254
   - [remap_additionals.py](Tools/Net.md#remap_additionalspy): convert infrastructure from one network to another network (which may differ in geometry, lanes and edge splits) #16206
-  - [remap_renamed.py](Tools/Net.md#remap_renamedpy): convert route files and additioanal files after renaming network ids (i.e. with **--numerical-ids**) #16252
+  - [remap_renamed.py](Tools/Net.md#remap_renamedpy): convert route files and additional files after renaming network ids (i.e. with **--numerical-ids**) #16252
+  - [remap_network.py]: New tool for finding correspondence between networks based on geometry #16409
   - ptlines2flows.py: now sorts written routes and flows by id #16222
   - ptlines2flows.py: now safely handles missing edges #16293  - 
   - gtfs2pt.py: now supports option **--merged-csv** for loading transit schedule data from a single file #16310
   - gtfs2pt.py: now supports option **--patched-stops** to customize stop-to-lane assignment for individual stops #10720
   - gtfs2pt.py: now supports option **--stops** for giving a list of candidate stop edges to guide mapping. This can can greatly improve running time #16326
   - gtfs2pt.py: improved running time through caching #15856
+  - gtfs2pt.py: now supports option **--bus-parking** to make buses clear the road when stopping #16415
+  - net2geojson.py: option **--traffic-lights** can now be used to include the shapes of traffic signals #16419
 
 
 ### Miscellaneous

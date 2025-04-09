@@ -66,6 +66,11 @@
 //#define DEBUGCOND (true)
 //#define DEBUGCOND (veh.getID() == "")
 
+/// assume that a faster train has more priority and a slower train doesn't matter
+#define DEFAULT_PRIO_OVERTAKER 1
+#define DEFAULT_PRIO_OVERTAKEN 0
+#define DEFAULT_MAXDELAY 7200
+
 // ===========================================================================
 // static member definition
 // ===========================================================================
@@ -292,6 +297,13 @@ MSTriggeredRerouter::myStartElement(int element,
         if (myParsedRerouteInterval.sidingExit == nullptr) {
             throw InvalidArgument("The siding within rerouter '" + getID() + "' does not have a rail signal.");
         }
+        for (auto it = myParsedRerouteInterval.cSiding.begin(); it != myParsedRerouteInterval.cSiding.end(); it++) {
+            myParsedRerouteInterval.sidingLength += (*it)->getLength();
+            if ((*it)->getToJunction()->getID() == myParsedRerouteInterval.sidingExit->getID()) {
+                break;
+            }
+        }
+        myParsedRerouteInterval.minSaving = attrs.getOpt<double>(SUMO_ATTR_MINSAVING, getID().c_str(), ok, 300);
     }
 }
 
@@ -535,6 +547,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             return false;
         }
         SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
+        if (veh.getLength() > rerouteDef->sidingLength) {
+            return false;
+        }
         const ConstMSEdgeVector& oldEdges = veh.getRoute().getEdges();
         auto mainStart = std::find(veh.getCurrentRouteEdge(), oldEdges.end(), rerouteDef->main.front());
         if (mainStart == oldEdges.end()
@@ -545,7 +560,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             //std::cout << SIMTIME << " veh=" << veh.getID() << " wrong route or stop\n";
             return false;
         }
-        std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, rerouteDef->main);
+        std::pair<const SUMOVehicle*, MSRailSignal*> overtaker_signal = overtakingTrain(veh, mainStart, rerouteDef);
         if (overtaker_signal.first != nullptr) {
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
                     ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->closed)
@@ -823,12 +838,19 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 
 std::pair<const SUMOVehicle*, MSRailSignal*>
-MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const MSEdgeVector& main) {
+MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const MSTriggeredRerouter::RerouteInterval* def) {
+    const MSEdgeVector& main = def->main;
     const double vMax = veh.getMaxSpeed();
+    const double prio = veh.getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKEN, false);
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt it_veh = c.loadedVehBegin(); it_veh != c.loadedVehEnd(); ++it_veh) {
-        const SUMOVehicle* veh2 = (*it_veh).second;
+        const MSBaseVehicle* veh2 = dynamic_cast<const MSBaseVehicle*>((*it_veh).second);
         if (veh2->isOnRoad() && veh2->getMaxSpeed() > vMax) {
+            const double arrivalDelay = veh2->getStopArrivalDelay();
+            const double delay = MAX2(veh2->getStopDelay(), arrivalDelay == INVALID_DOUBLE ? 0 : arrivalDelay);
+            if (delay > veh2->getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".maxDelay", false, DEFAULT_MAXDELAY, false)) {
+                continue;
+            }
             const ConstMSEdgeVector& route2 = veh2->getRoute().getEdges();
             auto itOnMain2 = route2.end();
             int mainIndex = 0;
@@ -850,6 +872,7 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 for (auto it = veh2->getCurrentRouteEdge(); it != itOnMain2; it++) {
                     timeToMain2 += (*it)->getMinimumTravelTime(veh2);
                 }
+                double exitMain2Time = timeToMain2;
                 double commonTime = 0;
                 double commonTime2 = 0;
                 int nCommon = 0;
@@ -858,15 +881,22 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                     const MSEdge* common = *itOnMain;
                     commonTime += common->getMinimumTravelTime(&veh);
                     commonTime2 += common->getMinimumTravelTime(veh2);
+                    if (nCommon < (int)main.size() - mainIndex) {
+                        exitMain2Time = timeToMain2 + commonTime2;
+                    }
                     nCommon++;
                     itOnMain++;
                     itOnMain2++;
                 }
                 exitMain2 += MIN2(nCommon, (int)main.size() - mainIndex);
                 const double saving = timeToMain + commonTime - (timeToMain2 + commonTime2);
-                //std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID() << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2
-                //    << " ttm=" << timeToMain << " ttm2=" << timeToMain2 << " saving=" << saving << "\n";
-                if (saving > 300) {
+                const double loss = exitMain2Time; // lower bound because veh2 also has to exit the block
+                const double prio2 = veh2->getFloatParam(toString(SUMO_TAG_OVERTAKING_REROUTE) + ".prio", false, DEFAULT_PRIO_OVERTAKER, false);
+                const double netSaving = prio2 * saving - prio * loss;
+                //std::cout << " veh=" << veh.getID() << " veh2=" << veh2->getID()
+                //    << " nCommon=" << nCommon << " cT=" << commonTime << " cT2=" << commonTime2 << " ttm=" << timeToMain << " ttm2=" << timeToMain2
+                //    << " saving=" << saving << " loss=" << loss << " prio=" << prio << " prio2=" << prio2 << " netSaving=" << netSaving << "\n";
+                if (netSaving > def->minSaving) {
                     MSRailSignal* s = findSignal(veh2->getCurrentRouteEdge(), exitMain2);
                     if (s != nullptr) {
                         return std::make_pair(veh2, s);

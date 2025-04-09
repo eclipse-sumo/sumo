@@ -25,8 +25,8 @@
 // ===========================================================================
 
 GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const Type tagType,
-                                   const Property tagProperty, const Over myTagOver,
-                                   const Conflicts conflicts, const GUIIcon icon, const SumoXMLTag XMLTag,
+                                   const Property tagProperty, const Over myTagOver, const Conflicts conflicts,
+                                   const GUIIcon icon, const GUIGlObjectType GLType, const SumoXMLTag XMLTag,
                                    const std::string tooltip, const std::vector<SumoXMLTag> XMLParentTags,
                                    const unsigned int backgroundColor, const std::string selectorText) :
     myTag(tag),
@@ -37,6 +37,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, GNETagProperties* paren
     myTagOver(myTagOver),
     myConflicts(conflicts),
     myIcon(icon),
+    myGLType(GLType),
     myXMLTag(XMLTag),
     myTooltipText(tooltip),
     myXMLParentTags(XMLParentTags),
@@ -218,6 +219,10 @@ GNETagProperties::checkTagIntegrity() const {
     if (vClassIcon() && !hasAttribute(SUMO_ATTR_VCLASS)) {
         throw FormatException("Element require attribute SUMO_ATTR_VCLASS");
     }
+    // check glType
+    if (!isHierarchicalTag() && (myGLType == GUIGlObjectType::GLO_MAX)) {
+        throw FormatException("Only hierarchical tags can have a GLType GLO_MAX");
+    }
     // check integrity of all attributes
     for (const auto& attributeProperty : myAttributeProperties) {
         attributeProperty->checkAttributeIntegrity();
@@ -387,6 +392,12 @@ GNETagProperties::getGUIIcon() const {
 }
 
 
+GUIGlObjectType
+GNETagProperties::getGLType() const {
+    return myGLType;
+}
+
+
 SumoXMLTag
 GNETagProperties::getXMLTag() const {
     return myXMLTag;
@@ -400,13 +411,13 @@ GNETagProperties::getXMLParentTags() const {
 
 
 const GNETagProperties*
-GNETagProperties::getParent() const {
+GNETagProperties::getHierarchicalParent() const {
     return myParent;
 }
 
 
 const std::vector<const GNETagProperties*>
-GNETagProperties::getParentHierarchy() const {
+GNETagProperties::getHierarchicalParentsRecuersively() const {
     // get the list of all roots
     std::vector<const GNETagProperties*> parents;
     parents.push_back(this);
@@ -419,13 +430,13 @@ GNETagProperties::getParentHierarchy() const {
 
 
 const std::vector<const GNETagProperties*>&
-GNETagProperties::getTagChildren() const {
+GNETagProperties::getHierarchicalChildren() const {
     return myChildren;
 }
 
 
 std::vector<const GNETagProperties*>
-GNETagProperties::getTagChildrenRecursively() const {
+GNETagProperties::getHierarchicalChildrenRecursively() const {
     std::vector<const GNETagProperties*> children;
     // obtain all tags recursively (including this)
     getChildrenTagProperties(this, children);
@@ -434,7 +445,7 @@ GNETagProperties::getTagChildrenRecursively() const {
 
 
 std::map<std::string, const GNEAttributeProperties*>
-GNETagProperties::getAttributeChildrenRecursively(const bool onlyCommon, const bool onlyDrawables) const {
+GNETagProperties::getHierarchicalChildrenAttributesRecursively(const bool onlyCommon, const bool onlyDrawables) const {
     std::map<std::string, const GNEAttributeProperties*> allChildrenAttributes;
     // obtain all children attributes recursively (including this)
     getChildrenAttributes(this, allChildrenAttributes, onlyDrawables);
@@ -442,7 +453,7 @@ GNETagProperties::getAttributeChildrenRecursively(const bool onlyCommon, const b
     if (onlyCommon) {
         std::map<std::string, const GNEAttributeProperties*> commonChildrenAttributes;
         // get all tag children and take only the common attributes
-        const auto tagChildren = getTagChildrenRecursively();
+        const auto tagChildren = getHierarchicalChildrenRecursively();
         // iterate over all children and check if exist in child tag
         for (const auto& attributeChild : allChildrenAttributes) {
             bool isCommon = true;
@@ -469,7 +480,7 @@ GNETagProperties::getSupermode() const {
     if (myParent == nullptr) {
         throw ProcessError("Root doesn't have an associated supermode");
     } else {
-        auto parents = getParentHierarchy();
+        auto parents = getHierarchicalParentsRecuersively();
         // continue depending of supermode
         if (parents.at(1)->getTag() == GNE_TAG_SUPERMODE_NETWORK) {
             return Supermode::NETWORK;
@@ -909,7 +920,7 @@ GNETagProperties::planToStoppingPlace() const {
 
 bool
 GNETagProperties::isChild() const {
-    return (myTagProperty & Property::CHILD) ;
+    return (myTagProperty & Property::XMLCHILD) ;
 }
 
 

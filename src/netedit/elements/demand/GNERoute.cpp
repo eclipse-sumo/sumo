@@ -77,37 +77,34 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 // ===========================================================================
 
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", GLO_ROUTE, tag, GUIIcon::ROUTE, GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
+    GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
 }
 
 
 GNERoute::GNERoute(GNENet* net) :
-    GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, "", GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE,
+    GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, "", SUMO_TAG_ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
 }
 
-
-GNERoute::GNERoute(const std::string& id, GNENet* net, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(id, net, originalRoute->getFilename(), GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE,
-                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
+// copy
+GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute) :
+    GNEDemandElement(id, originalRoute->getNet(), originalRoute->getFilename(), originalRoute->getTagProperty()->getTag(),
+                     originalRoute->getPathElementOptions()),
     Parameterised(originalRoute->getACParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-    myProbability(parse<double>(originalRoute->getAttribute(SUMO_ATTR_PROB))),
     myVClass(originalRoute->getVClass()) {
     // set parents
     setParents<GNEEdge*>(originalRoute->getParentEdges());
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
-
-GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIcon::ROUTE,
-                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
+// copy (embedded)
+GNERoute::GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
+    GNEDemandElement(vehicleParent, originalRoute->getTagProperty()->getTag(), originalRoute->getPathElementOptions()),
     Parameterised(originalRoute->getACParametersMap()),
     myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-    myProbability(parse<double>(originalRoute->getAttribute(SUMO_ATTR_PROB))),
     myVClass(originalRoute->getVClass()) {
     // set parents
     setParents<GNEEdge*>(originalRoute->getParentEdges());
@@ -115,33 +112,31 @@ GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElemen
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
-
+// basic
 GNERoute::GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass,
                    const std::vector<GNEEdge*>& edges, const RGBColor& color, const int repeat,
-                   const SUMOTime cycleTime, const double probability, const Parameterised::Map& parameters) :
-    GNEDemandElement(id, net, filename, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIcon::ROUTE,
+                   const SUMOTime cycleTime, const Parameterised::Map& parameters) :
+    GNEDemandElement(id, net, filename, SUMO_TAG_ROUTE,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     Parameterised(parameters),
     myColor(color),
     myRepeat(repeat),
     myCycleTime(cycleTime),
-    myProbability(probability),
     myVClass(vClass) {
     // set parents
     setParents<GNEEdge*>(edges);
 }
 
 
-GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges,
-                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const double probability,
-                   const Parameterised::Map& parameters) :
-    GNEDemandElement(vehicleParent, net, GLO_ROUTE_EMBEDDED, GNE_TAG_ROUTE_EMBEDDED, GUIIcon::ROUTE,
+// embedded route
+GNERoute::GNERoute(GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
+                   const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
+    GNEDemandElement(vehicleParent, GNE_TAG_ROUTE_EMBEDDED,
                      GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
     Parameterised(parameters),
     myColor(color),
     myRepeat(repeat),
     myCycleTime(cycleTime),
-    myProbability(probability),
     myVClass(vehicleParent->getVClass()) {
     // set parents
     setParents<GNEEdge*>(edges);
@@ -199,15 +194,22 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     if (myCycleTime != myTagProperty->getDefaultTimeValue(SUMO_ATTR_CYCLETIME)) {
         device.writeAttr(SUMO_ATTR_CYCLETIME, time2string(myCycleTime));
     }
+    // write probability if we have exactly one routeRef
+    std::vector<GNEDemandElement*> refs;
+    for (const auto& routeChild : getChildDemandElements()) {
+        if (routeChild->getTagProperty()->getTag() == GNE_TAG_ROUTEREF) {
+            refs.push_back(routeChild);
+        }
+    }
+    if (refs.size() == 1) {
+        device.writeAttr(SUMO_ATTR_PROB, refs.front()->getAttribute(SUMO_ATTR_PROB));
+    }
     // write sorted stops
     if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
-        if (myProbability != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_PROB)) {
-            device.writeAttr(SUMO_ATTR_PROB, toString(myProbability));
-        }
         // write stops
-        for (const auto& demandElement : getChildDemandElements()) {
-            if (demandElement->getTagProperty()->isVehicleStop()) {
-                demandElement->writeDemandElement(device);
+        for (const auto& routeChild : getChildDemandElements()) {
+            if (routeChild->getTagProperty()->isVehicleStop()) {
+                routeChild->writeDemandElement(device);
             }
         }
     }
@@ -526,10 +528,6 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return toString(myRepeat);
         case SUMO_ATTR_CYCLETIME:
             return time2string(myCycleTime);
-        case SUMO_ATTR_PROB:
-            return toString(myProbability);
-        case GNE_ATTR_ROUTE_DISTRIBUTION:
-            return getDistributionParents();
         default:
             return getCommonAttribute(this, key);
     }
@@ -563,14 +561,8 @@ GNERoute::getAttributePosition(SumoXMLAttr key) const {
 
 
 bool
-GNERoute::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case GNE_ATTR_ROUTE_DISTRIBUTION:
-        case SUMO_ATTR_PROB:
-            return false;
-        default:
-            return true;
-    }
+GNERoute::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    return true;
 }
 
 
@@ -584,7 +576,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_REPEAT:
         case SUMO_ATTR_CYCLETIME:
-        case SUMO_ATTR_PROB:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         // special case due depart and arrival edge vehicles
@@ -649,8 +640,6 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_PROB:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
         default:
             return isCommonValid(key, value);
     }
@@ -714,7 +703,7 @@ GNERoute::copyRoute(const GNERoute* originalRoute) {
     // generate new route ID
     const std::string newRouteID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
     // create new route
-    GNERoute* newRoute = new GNERoute(newRouteID, net, originalRoute);
+    GNERoute* newRoute = new GNERoute(newRouteID, originalRoute);
     // add new route using undo-list
     undoList->begin(originalRoute, TLF("copy % '%'", originalRoute->getTagStr(), newRouteID));
     net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(newRoute, true), true);
@@ -831,13 +820,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myCycleTime = myTagProperty->getDefaultTimeValue(key);
             } else {
                 myCycleTime = string2time(value);
-            }
-            break;
-        case SUMO_ATTR_PROB:
-            if (value.empty()) {
-                myProbability = myTagProperty->getDefaultDoubleValue(key);
-            } else {
-                myProbability = parse<double>(value);
             }
             break;
         default:

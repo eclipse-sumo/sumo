@@ -135,6 +135,8 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
     if (myStep != myPlan->end()) {
         if ((*myStep)->getStageType() == MSStageType::WALKING && (prior->getStageType() != MSStageType::ACCESS || prior->getDestination() != (*myStep)->getFromEdge())) {
             checkAccess(prior, false);
+        } else if ((*myStep)->getStageType() == MSStageType::WAITING && prior->getStageType() == MSStageType::WAITING && prior->getDestination() != (*myStep)->getFromEdge()) {
+            checkAccess(prior, false);
         }
         (*myStep)->proceed(net, this, time, prior);
         return true;

@@ -171,8 +171,12 @@ enum SumoXMLTag {
     SUMO_TAG_FLOWSTATE,
     /// @brief description of a vehicle/person/container type
     SUMO_TAG_VTYPE,
-    /// @brief begin/end of the description of a route
+    /// @brief reference to a vType (used in VType distributions)
+    GNE_TAG_VTYPEREF,
+    /// @brief description of a route
     SUMO_TAG_ROUTE,
+    /// @brief virtual element used to reference routes with distributions
+    GNE_TAG_ROUTEREF,
     /// @brief embedded route
     GNE_TAG_ROUTE_EMBEDDED,
     /// @brief description of a logic request within the junction
@@ -824,6 +828,8 @@ enum SumoXMLTag {
     GNE_TAG_ATTRIBUTES_ALL,
     /// @}
 
+    /// @brief tag used for indicate that there is an error (usually loading elements in handlers)
+    SUMO_TAG_ERROR,
     /// @brief invalid tag, must be the last one
     SUMO_TAG_NOTHING,
 };
@@ -1700,6 +1706,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_VISIBLE,
     SUMO_ATTR_MAIN,
     SUMO_ATTR_SIDING,
+    SUMO_ATTR_MINSAVING,
     SUMO_ATTR_LIMIT,
     SUMO_ATTR_ACTIVE,
     SUMO_ATTR_ARRIVALTIME,
@@ -1852,8 +1859,6 @@ enum SumoXMLAttr {
     GNE_ATTR_STOPINDEX,
     /// @brief stop index (position in the parent's path)
     GNE_ATTR_PATHSTOPINDEX,
-    /// @brief check number of additional children (used in vTypeDistribution)
-    GNE_ATTR_ADDITIONALCHILDREN,
     /// @brief person/container geometry start position
     GNE_ATTR_PLAN_GEOMETRY_STARTPOS,
     /// @brief person/container geometry end position

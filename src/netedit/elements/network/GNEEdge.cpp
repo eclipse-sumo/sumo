@@ -76,7 +76,7 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_cons
 // ===========================================================================
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
-    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, GUIIcon::EDGE),
+    GNENetworkElement(net, nbe->getID(), SUMO_TAG_EDGE),
     myNBEdge(nbe),
     myAmResponsible(false),
     myWasSplit(wasSplit),
@@ -231,6 +231,9 @@ GNEEdge::checkDrawFromContour() const {
         if (planCreator) {
             if (planCreator->getPlanParameteres().fromEdge == getID()) {
                 return true;
+            } else if ((planCreator->getPlanParameteres().consecutiveEdges.size() > 0) &&
+                       (planCreator->getPlanParameteres().consecutiveEdges.front() == getID())) {
+                return true;
             }
         } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             const auto& selectedEdges = viewParent->getVehicleFrame()->getPathCreator()->getSelectedEdges();
@@ -285,6 +288,9 @@ GNEEdge::checkDrawToContour() const {
         // continue depending of planCreator
         if (planCreator) {
             if (planCreator->getPlanParameteres().toEdge == getID()) {
+                return true;
+            } else if ((planCreator->getPlanParameteres().consecutiveEdges.size() > 1) &&
+                       (planCreator->getPlanParameteres().consecutiveEdges.back() == getID())) {
                 return true;
             }
         } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {

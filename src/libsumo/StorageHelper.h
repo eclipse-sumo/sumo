@@ -162,7 +162,7 @@ public:
         return size;
     }
 
-    static inline void readPolygon(tcpip::Storage& ret, libsumo::TraCIPositionVector& poly, const std::string& error = "") {
+    static inline void readPolygon(tcpip::Storage& ret, libsumo::TraCIPositionVector& poly) {
         int size = ret.readUnsignedByte();
         if (size == 0) {
             size = ret.readInt();
@@ -211,15 +211,174 @@ public:
     }
 
     static inline void readVehicleDataVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCIVehicleData>& result, const std::string& error = "") {
-        const int n = readTypedInt(inputStorage);
+        const int n = readTypedInt(inputStorage, error);
         for (int i = 0; i < n; ++i) {
             libsumo::TraCIVehicleData vd;
-            vd.id = readTypedString(inputStorage);
-            vd.length = readTypedDouble(inputStorage);
-            vd.entryTime = readTypedDouble(inputStorage);
-            vd.leaveTime = readTypedDouble(inputStorage);
-            vd.typeID = readTypedString(inputStorage);
-            result.push_back(vd);
+            vd.id = readTypedString(inputStorage, error);
+            vd.length = readTypedDouble(inputStorage, error);
+            vd.entryTime = readTypedDouble(inputStorage, error);
+            vd.leaveTime = readTypedDouble(inputStorage, error);
+            vd.typeID = readTypedString(inputStorage, error);
+            result.emplace_back(vd);
+        }
+    }
+
+    static inline void readReservation(tcpip::Storage& inputStorage, libsumo::TraCIReservation& result, const std::string& error = "") {
+        readCompound(inputStorage, 10, error);
+        result.id = readTypedString(inputStorage, error);
+        result.persons = readTypedStringList(inputStorage, error);
+        result.group = readTypedString(inputStorage, error);
+        result.fromEdge = readTypedString(inputStorage, error);
+        result.toEdge = readTypedString(inputStorage, error);
+        result.departPos = readTypedDouble(inputStorage, error);
+        result.arrivalPos = readTypedDouble(inputStorage, error);
+        result.depart = readTypedDouble(inputStorage, error);
+        result.reservationTime = readTypedDouble(inputStorage, error);
+        result.state = readTypedInt(inputStorage, error);
+    }
+
+    static inline void readLogic(tcpip::Storage& inputStorage, libsumo::TraCILogic& logic, const std::string& error = "") {
+        readCompound(inputStorage, 5, error);
+        logic.programID = readTypedString(inputStorage);
+        logic.type = readTypedInt(inputStorage);
+        logic.currentPhaseIndex = readTypedInt(inputStorage);
+        int numPhases = readCompound(inputStorage);
+        while (numPhases-- > 0) {
+            readCompound(inputStorage, 6);
+            libsumo::TraCIPhase* phase = new libsumo::TraCIPhase();
+            phase->duration = readTypedDouble(inputStorage);
+            phase->state = readTypedString(inputStorage);
+            phase->minDur = readTypedDouble(inputStorage);
+            phase->maxDur = readTypedDouble(inputStorage);
+            int numNext = readCompound(inputStorage);
+            while (numNext-- > 0) {
+                phase->next.push_back(readTypedInt(inputStorage));
+            }
+            phase->name = readTypedString(inputStorage);
+            logic.phases.emplace_back(phase);
+        }
+        int numParams = readCompound(inputStorage);
+        while (numParams-- > 0) {
+            const std::vector<std::string> key_value = readTypedStringList(inputStorage);
+            logic.subParameter[key_value[0]] = key_value[1];
+        }
+    }
+
+    static inline void readConstraintVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCISignalConstraint>& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage, error);
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCISignalConstraint c;
+            c.signalId = readTypedString(inputStorage);
+            c.tripId = readTypedString(inputStorage);
+            c.foeId = readTypedString(inputStorage);
+            c.foeSignal = readTypedString(inputStorage);
+            c.limit = readTypedInt(inputStorage);
+            c.type = readTypedInt(inputStorage);
+            c.mustWait = readTypedByte(inputStorage) != 0;
+            c.active = readTypedByte(inputStorage) != 0;
+            const std::vector<std::string> paramItems = readTypedStringList(inputStorage);
+            for (int j = 0; j < (int)paramItems.size(); j += 2) {
+                c.param[paramItems[j]] = paramItems[j + 1];
+            }
+            result.emplace_back(c);
+        }
+    }
+
+    static inline void readLinkVectorVector(tcpip::Storage& inputStorage, std::vector< std::vector<libsumo::TraCILink> >& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage, error);
+        for (int i = 0; i < n; ++i) {
+            std::vector<libsumo::TraCILink> controlledLinks;
+            int numLinks = readTypedInt(inputStorage);
+            while (numLinks-- > 0) {
+                std::vector<std::string> link = readTypedStringList(inputStorage);
+                controlledLinks.emplace_back(link[0], link[2], link[1]);
+            }
+            result.emplace_back(controlledLinks);
+        }
+    }
+
+
+    static inline void readBestLanesVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCIBestLanesData>& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage, error);
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCIBestLanesData info;
+            info.laneID = readTypedString(inputStorage);
+            info.length = readTypedDouble(inputStorage);
+            info.occupation = readTypedDouble(inputStorage);
+            info.bestLaneOffset = readTypedUnsignedByte(inputStorage);
+            info.allowsContinuation = readBool(inputStorage);
+            info.continuationLanes = readTypedStringList(inputStorage, error);
+            result.emplace_back(info);
+        }
+    }
+
+    static inline void readCollisionVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCICollision>& result, const std::string& error = "") {
+        int numCollisions = readTypedInt(inputStorage, error);
+        while (numCollisions-- > 0) {
+            libsumo::TraCICollision c;
+            c.collider = readTypedString(inputStorage);
+            c.victim = readTypedString(inputStorage);
+            c.colliderType = readTypedString(inputStorage);
+            c.victimType = readTypedString(inputStorage);
+            c.colliderSpeed = readTypedDouble(inputStorage);
+            c.victimSpeed = readTypedDouble(inputStorage);
+            c.type = readTypedString(inputStorage);
+            c.lane = readTypedString(inputStorage);
+            c.pos = readTypedDouble(inputStorage);
+            result.emplace_back(c);
+        }
+    }
+
+    static inline void readJunctionFoeVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCIJunctionFoe>& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage, error);
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCIJunctionFoe info;
+            info.foeId = readTypedString(inputStorage);
+            info.egoDist = readTypedDouble(inputStorage);
+            info.foeDist = readTypedDouble(inputStorage);
+            info.egoExitDist = readTypedDouble(inputStorage);
+            info.foeExitDist = readTypedDouble(inputStorage);
+            info.egoLane = readTypedString(inputStorage);
+            info.foeLane = readTypedString(inputStorage);
+            info.egoResponse = readBool(inputStorage);
+            info.foeResponse = readBool(inputStorage);
+            result.emplace_back(info);
+        }
+    }
+
+    static inline void readStopVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCINextStopData>& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage, error);
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCINextStopData s;
+            s.lane = readTypedString(inputStorage);
+            s.endPos = readTypedDouble(inputStorage);
+            s.stoppingPlaceID = readTypedString(inputStorage);
+            s.stopFlags = readTypedInt(inputStorage);
+            s.duration = readTypedDouble(inputStorage);
+            s.until = readTypedDouble(inputStorage);
+            s.startPos = readTypedDouble(inputStorage);
+            s.intendedArrival = readTypedDouble(inputStorage);
+            s.arrival = readTypedDouble(inputStorage);
+            s.depart = readTypedDouble(inputStorage);
+            s.split = readTypedString(inputStorage);
+            s.join = readTypedString(inputStorage);
+            s.actType = readTypedString(inputStorage);
+            s.tripId = readTypedString(inputStorage);
+            s.line = readTypedString(inputStorage);
+            s.speed = readTypedDouble(inputStorage);
+            result.emplace_back(s);
+        }
+    }
+
+    static inline void readTLSDataVector(tcpip::Storage& inputStorage, std::vector<libsumo::TraCINextTLSData>& result, const std::string& error = "") {
+        const int n = readTypedInt(inputStorage, error);
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCINextTLSData tls;
+            tls.id = readTypedString(inputStorage);
+            tls.tlIndex = readTypedInt(inputStorage);
+            tls.dist = readTypedDouble(inputStorage);
+            tls.state = (char)readTypedByte(inputStorage);
+            result.emplace_back(tls);
         }
     }
 

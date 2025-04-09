@@ -278,9 +278,9 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     }
     // straight connections prohibit turning connections if the priorities are equal
     // (unless the junction is a bent priority junction)
+    LinkDirection ld1 = myJunction->getDirection(from1, to1);
+    LinkDirection ld2 = myJunction->getDirection(from2, to2);
     if (!typeEqual && !myJunction->isBentPriority()) {
-        LinkDirection ld1 = myJunction->getDirection(from1, to1);
-        LinkDirection ld2 = myJunction->getDirection(from2, to2);
 #ifdef DEBUG_SETBLOCKING
         if (DEBUGCOND) std::cout << "setBlocking"
                                      << " 1:" << from1->getID() << "->" << to1->getID()
@@ -321,6 +321,11 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         }
     }
     */
+#ifdef DEBUG_SETBLOCKING
+            if (DEBUGCOND) std::cout << "setBlocking1"
+                                         << " 1:" << from1->getID() << "->" << to1->getID()
+                                         << " 2:" << from2->getID() << "->" << to2->getID();
+#endif
 
     // compute the yielding due to the right-before-left rule
     // (or left-before-right rule)
@@ -331,17 +336,18 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     while (*c1 != from1 && *c1 != from2) {
         if (*c1 == to2) {
             // if we encounter to2 the second one prohibits the first
-            if (myJunction->getType() == SumoXMLNodeType::LEFT_BEFORE_RIGHT) {
+            if (myJunction->getType() == SumoXMLNodeType::LEFT_BEFORE_RIGHT
+                    && (ld1 != LinkDirection::LEFT || ld2 == LinkDirection::LEFT || (from1->getTurnDestination(true) != to2 && ld2 != LinkDirection::RIGHT))) {
                 myForbids[idx1][idx2] = true;
+#ifdef DEBUG_SETBLOCKING
+                if (DEBUGCOND) std::cout << " case1: 2 yields\n";
+#endif
             } else {
                 myForbids[idx2][idx1] = true;
-            }
 #ifdef DEBUG_SETBLOCKING
-            if (DEBUGCOND) std::cout << "setBlocking"
-                                         << " 1:" << from1->getID() << "->" << to1->getID()
-                                         << " 2:" << from2->getID() << "->" << to2->getID()
-                                         << " 1 yields\n";
+                if (DEBUGCOND) std::cout << " case1: 1 yields\n";
 #endif
+            }
             return;
         }
         NBContHelper::nextCW(myAll, c1);
@@ -353,26 +359,24 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     while (*c2 != from2 && *c2 != from1) {
         if (*c2 == to1) {
             // if we encounter to1 the second one prohibits the first
-            if (myJunction->getType() == SumoXMLNodeType::LEFT_BEFORE_RIGHT) {
+            if (myJunction->getType() == SumoXMLNodeType::LEFT_BEFORE_RIGHT
+                    && (ld2 != LinkDirection::LEFT || ld1 == LinkDirection::LEFT || (from2->getTurnDestination(true) != to1 && ld1 != LinkDirection::RIGHT))) {
                 myForbids[idx2][idx1] = true;
+#ifdef DEBUG_SETBLOCKING
+                if (DEBUGCOND) std::cout << " case2: 1 yields\n";
+#endif
             } else {
                 myForbids[idx1][idx2] = true;
-            }
 #ifdef DEBUG_SETBLOCKING
-            if (DEBUGCOND) std::cout << "setBlocking"
-                                         << " 1:" << from1->getID() << "->" << to1->getID()
-                                         << " 2:" << from2->getID() << "->" << to2->getID()
-                                         << " 2 yields\n";
+                if (DEBUGCOND) std::cout << " case2: 2 yields\n";
 #endif
+            }
             return;
         }
         NBContHelper::nextCW(myAll, c2);
     }
 #ifdef DEBUG_SETBLOCKING
-    if (DEBUGCOND) std::cout << "setBlocking"
-                                 << " 1:" << from1->getID() << "->" << to1->getID()
-                                 << " 2:" << from2->getID() << "->" << to2->getID()
-                                 << " noDecision\n";
+    if (DEBUGCOND) std::cout << " noDecision\n";
 #endif
 }
 

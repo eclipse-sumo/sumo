@@ -42,7 +42,7 @@ class MSStageWaiting : public MSStage {
 public:
     /// constructor
     MSStageWaiting(const MSEdge* destination, MSStoppingPlace* toStop, SUMOTime duration, SUMOTime until,
-                   double pos, const std::string& actType, const bool initial);
+                   double pos, const std::string& actType, const bool initial, SUMOTime jumpDuration = -1);
 
     /// destructor
     virtual ~MSStageWaiting();
@@ -55,6 +55,10 @@ public:
     SUMOTime getUntil() const;
 
     SUMOTime getPlannedDuration() const;
+
+    SUMOTime getJumpDuration() const {
+        return myJumpDuration;
+    }
 
     SUMOTime getTravelTime() const {
         // not a travelling stage
@@ -115,6 +119,9 @@ private:
 
     /// @brief The type of activity
     std::string myActType;
+
+    /// @brief the jump duration if this stop is followed by a jump
+    SUMOTime myJumpDuration;
 
     /// @brief stores the actual end time of the stop (combination of duration and until)
     SUMOTime myStopEndTime;

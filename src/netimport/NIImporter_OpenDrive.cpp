@@ -66,6 +66,9 @@
 #define DEBUG_COND(road) ((road)->id == DEBUG_ID)
 #define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), DEBUG_ID))
 #define DEBUG_COND3(roadID) (roadID == DEBUG_ID)
+//#define DEBUG_COND(road) (true)
+//#define DEBUG_COND2(edgeID) (true)
+//#define DEBUG_COND3(roadID) (true)
 
 // ===========================================================================
 // definitions
@@ -1220,7 +1223,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c,
                                         + " wEnd=" + (destLane.widthData.empty() ? "?" : toString(destLane.widthData.front().computeAt(cn.shape.length2D())))
                                         + " width=" + toString(destLane.width) + "\n";
 #endif
-                            if (abs(destLane.id) <= abs(referenceLane)) {
+                            if (abs(destLane.id) <= abs(referenceLane) || abs(destLane.id) == abs(c.toLane)) {
                                 const double multiplier = offsetFactor * (destLane.id == referenceLane ? 0.5 : 1);
 #ifdef DEBUG_INTERNALSHAPES
                                 destPred += "     multiplier=" + toString(multiplier) + "\n";
@@ -1295,8 +1298,8 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c,
                               << c.getDescription()
                               << " dest=" << dest->id
                               << " refLane=" << referenceLane
-                              << " destPred\n" << destPred
-                              << " offsets=" << offsets
+                              << "\n destPred=" << destPred
+                              << "\n offsets=" << offsets
                               << "\n shape=" << dest->geom
                               << "\n shape2=" << cn.shape
                               << "\n";
@@ -1384,7 +1387,8 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                 if (l.linkType != OPENDRIVE_LT_SUCCESSOR) {
                     std::swap(c.fromEdge, c.toEdge);
                     std::swap(c.fromLane, c.toLane);
-                    std::swap(c.fromCP, c.toCP);
+                    c.fromCP = c.toCP;
+                    c.toCP = OPENDRIVE_CP_START;
                 }
                 if (edges.find(c.fromEdge) == edges.end()) {
                     WRITE_ERRORF(TL("While setting connections: incoming road '%' is not known."), c.fromEdge);
@@ -1416,7 +1420,8 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                 if (l.linkType != OPENDRIVE_LT_SUCCESSOR) {
                     std::swap(c.fromEdge, c.toEdge);
                     std::swap(c.fromLane, c.toLane);
-                    std::swap(c.fromCP, c.toCP);
+                    c.fromCP = c.toCP;
+                    c.toCP = OPENDRIVE_CP_START;
                 }
                 if (edges.find(c.fromEdge) == edges.end()) {
                     WRITE_ERRORF(TL("While setting connections: incoming road '%' is not known."), c.fromEdge);
@@ -1570,7 +1575,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         }
 #ifdef DEBUG_SHAPE
         if (DEBUG_COND3(e.id)) {
-            std::cout << " initialGeom=" << e.geom << "\n";
+            std::cout << e.id << " initialGeom=" << e.geom << "\n";
         }
 #endif
         if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
@@ -1583,7 +1588,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         e.geom = e.geom.simplified2(false);
 #ifdef DEBUG_SHAPE
         if (DEBUG_COND3(e.id)) {
-            std::cout << " reducedGeom=" << e.geom << "\n";
+            std::cout << e.id << " reducedGeom=" << e.geom << "\n";
         }
 #endif
         if (!NBNetBuilder::transformCoordinates(e.geom)) {
@@ -2900,6 +2905,11 @@ NIImporter_OpenDrive::sanitizeWidths(std::vector<OpenDriveLane>& lanes, double l
             }
             if (maxNoShort > 0) {
                 l.width = maxNoShort;
+#ifdef DEBUG_VARIABLE_WIDTHS
+                if (gDebugFlag1) {
+                    std::cout << "   lane=" << l.id << " width=" << l.width << "\n";
+                }
+#endif
             }
         }
     }

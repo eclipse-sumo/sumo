@@ -61,31 +61,8 @@ TrafficLight::getAllProgramLogics(const std::string& tlsID) {
     std::vector<libsumo::TraCILogic> result;
     int numLogics = ret.readInt();
     while (numLogics-- > 0) {
-        StoHelp::readCompound(ret, 5);
         libsumo::TraCILogic logic;
-        logic.programID = StoHelp::readTypedString(ret);
-        logic.type = StoHelp::readTypedInt(ret);
-        logic.currentPhaseIndex = StoHelp::readTypedInt(ret);
-        int numPhases = StoHelp::readCompound(ret);
-        while (numPhases-- > 0) {
-            StoHelp::readCompound(ret, 6);
-            libsumo::TraCIPhase* phase = new libsumo::TraCIPhase();
-            phase->duration = StoHelp::readTypedDouble(ret);
-            phase->state = StoHelp::readTypedString(ret);
-            phase->minDur = StoHelp::readTypedDouble(ret);
-            phase->maxDur = StoHelp::readTypedDouble(ret);
-            int numNext = StoHelp::readCompound(ret);
-            while (numNext-- > 0) {
-                phase->next.push_back(StoHelp::readTypedInt(ret));
-            }
-            phase->name = StoHelp::readTypedString(ret);
-            logic.phases.emplace_back(phase);
-        }
-        int numParams = StoHelp::readCompound(ret);
-        while (numParams-- > 0) {
-            const std::vector<std::string> key_value = StoHelp::readTypedStringList(ret);
-            logic.subParameter[key_value[0]] = key_value[1];
-        }
+        StoHelp::readLogic(ret, logic);
         result.emplace_back(logic);
     }
     return result;
@@ -110,16 +87,7 @@ TrafficLight::getControlledLinks(const std::string& tlsID) {
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONTROLLED_LINKS, tlsID);
     std::vector< std::vector<libsumo::TraCILink> > result;
     ret.readInt();
-    int numSignals = StoHelp::readTypedInt(ret);
-    while (numSignals-- > 0) {
-        std::vector<libsumo::TraCILink> controlledLinks;
-        int numLinks = StoHelp::readTypedInt(ret);
-        while (numLinks-- > 0) {
-            std::vector<std::string> link = StoHelp::readTypedStringList(ret);
-            controlledLinks.emplace_back(link[0], link[2], link[1]);
-        }
-        result.emplace_back(controlledLinks);
-    }
+    StoHelp::readLinkVectorVector(ret, result);
     return result;
 }
 
@@ -200,25 +168,7 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONSTRAINT, tlsID, &content);
     ret.readInt(); // components
-    // number of items
-    ret.readUnsignedByte();
-    const int n = ret.readInt();
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCISignalConstraint c;
-        c.signalId = StoHelp::readTypedString(ret);
-        c.tripId = StoHelp::readTypedString(ret);
-        c.foeId = StoHelp::readTypedString(ret);
-        c.foeSignal = StoHelp::readTypedString(ret);
-        c.limit = StoHelp::readTypedInt(ret);
-        c.type = StoHelp::readTypedInt(ret);
-        c.mustWait = StoHelp::readTypedByte(ret) != 0;
-        c.active = StoHelp::readTypedByte(ret) != 0;
-        const std::vector<std::string> paramItems = StoHelp::readTypedStringList(ret);
-        for (int j = 0; j < (int)paramItems.size(); j += 2) {
-            c.param[paramItems[j]] = paramItems[j + 1];
-        }
-        result.push_back(c);
-    }
+    StoHelp::readConstraintVector(ret, result);
     return result;
 }
 
@@ -230,25 +180,7 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONSTRAINT_BYFOE, foeSignal, &content);
     ret.readInt(); // components
-    // number of items
-    ret.readUnsignedByte();
-    const int n = ret.readInt();
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCISignalConstraint c;
-        c.signalId = StoHelp::readTypedString(ret);
-        c.tripId = StoHelp::readTypedString(ret);
-        c.foeId = StoHelp::readTypedString(ret);
-        c.foeSignal = StoHelp::readTypedString(ret);
-        c.limit = StoHelp::readTypedInt(ret);
-        c.type = StoHelp::readTypedInt(ret);
-        c.mustWait = StoHelp::readTypedByte(ret) != 0;
-        c.active = StoHelp::readTypedByte(ret) != 0;
-        const std::vector<std::string> paramItems = StoHelp::readTypedStringList(ret);
-        for (int j = 0; j < (int)paramItems.size(); j += 2) {
-            c.param[paramItems[j]] = paramItems[j + 1];
-        }
-        result.push_back(c);
-    }
+    StoHelp::readConstraintVector(ret, result);
     return result;
 }
 

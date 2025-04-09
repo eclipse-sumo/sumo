@@ -1412,7 +1412,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             } else if (myActiveTransportablePlan->back()->getDestination() != edge) {
                 if (myActiveTransportablePlan->back()->getDestination()->isTazConnector()) {
                     myActiveTransportablePlan->back()->setDestination(edge, toStop);
-                } else {
+                } else if (myActiveTransportablePlan->back()->getJumpDuration() < 0) {
                     throw ProcessError(TLF("Disconnected plan for % '%' (%!=%).", myActiveTypeName, myVehicleParameter->id,
                                            edge->getID(), myActiveTransportablePlan->back()->getDestination()->getID()));
                 }
@@ -1434,7 +1434,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 pos = myActiveTransportablePlan->back()->unspecifiedArrivalPos() ?
                       MSStage::ARRIVALPOS_UNSPECIFIED : myActiveTransportablePlan->back()->getArrivalPos();
             }
-            myActiveTransportablePlan->push_back(new MSStageWaiting(edge, toStop, stop.duration, stop.until, pos, actType, false));
+            myActiveTransportablePlan->push_back(new MSStageWaiting(edge, toStop, stop.duration, stop.until, pos, actType, false, stop.jump));
             result = myActiveTransportablePlan->back();
 
         } else if (myVehicleParameter != nullptr) {

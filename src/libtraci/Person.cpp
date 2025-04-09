@@ -115,6 +115,7 @@ Person::getWalkingDistance2D(const std::string& personID, double x, double y) {
     return Dom::getDouble(libsumo::DISTANCE_REQUEST, personID, &content);
 }
 
+
 std::vector<libsumo::TraCIReservation>
 Person::getTaxiReservations(int onlyNew) {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
@@ -125,17 +126,7 @@ Person::getTaxiReservations(int onlyNew) {
     int numReservations = ret.readInt();
     while (numReservations-- > 0) {
         libsumo::TraCIReservation r;
-        StoHelp::readCompound(ret, 10);
-        r.id = StoHelp::readTypedString(ret);
-        r.persons = StoHelp::readTypedStringList(ret);
-        r.group = StoHelp::readTypedString(ret);
-        r.fromEdge = StoHelp::readTypedString(ret);
-        r.toEdge = StoHelp::readTypedString(ret);
-        r.departPos = StoHelp::readTypedDouble(ret);
-        r.arrivalPos = StoHelp::readTypedDouble(ret);
-        r.depart = StoHelp::readTypedDouble(ret);
-        r.reservationTime = StoHelp::readTypedDouble(ret);
-        r.state = StoHelp::readTypedInt(ret);
+        StoHelp::readReservation(ret, r);
         result.emplace_back(r);
     }
     return result;

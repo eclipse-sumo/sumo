@@ -360,21 +360,8 @@ Simulation::getCollisions() {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_COLLISIONS, "");
     std::vector<libsumo::TraCICollision> result;
-    StoHelp::readCompound(ret);
-    int numCollisions = ret.readInt();
-    while (numCollisions-- > 0) {
-        libsumo::TraCICollision c;
-        c.collider = StoHelp::readTypedString(ret);
-        c.victim = StoHelp::readTypedString(ret);
-        c.colliderType = StoHelp::readTypedString(ret);
-        c.victimType = StoHelp::readTypedString(ret);
-        c.colliderSpeed = StoHelp::readTypedDouble(ret);
-        c.victimSpeed = StoHelp::readTypedDouble(ret);
-        c.type = StoHelp::readTypedString(ret);
-        c.lane = StoHelp::readTypedString(ret);
-        c.pos = StoHelp::readTypedDouble(ret);
-        result.emplace_back(c);
-    }
+    ret.readInt();
+    StoHelp::readCollisionVector(ret, result);
     return result;
 }
 
@@ -585,8 +572,8 @@ Simulation::writeMessage(const std::string& msg) {
 
 
 void
-Simulation::subscribe(const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& params) {
-    libtraci::Connection::getActive().subscribe(libsumo::CMD_SUBSCRIBE_SIM_VARIABLE, "", begin, end, -1, -1, varIDs, params);
+Simulation::subscribe(const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& parameters) {
+    libtraci::Connection::getActive().subscribe(libsumo::CMD_SUBSCRIBE_SIM_VARIABLE, "", begin, end, -1, -1, varIDs, parameters);
 }
 
 

@@ -29,6 +29,7 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <libsumo/Polygon.h>
 #include <libsumo/Helper.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_Polygon.h"
 
@@ -96,10 +97,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case libsumo::VAR_FILL: {
-                int value = 0;
-                if (!server.readTypeCheckingInt(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "'fill' must be defined using an integer.", outputStorage);
-                }
+                const int value = StoHelp::readTypedInt(inputStorage, "'fill' must be defined using an integer.");
                 libsumo::Polygon::setFilled(id, value != 0);
             }
             break;
@@ -132,10 +130,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The third polygon parameter must be 'fill' encoded as ubyte.", outputStorage);
                 }
                 bool fill = value != 0;
-                int layer = 0;
-                if (!server.readTypeCheckingInt(inputStorage, layer)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The fourth polygon parameter must be the layer encoded as int.", outputStorage);
-                }
+                const int layer = StoHelp::readTypedInt(inputStorage, "The fourth polygon parameter must be the layer encoded as int.");
                 PositionVector shape;
                 if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The fifth polygon parameter must be the shape.", outputStorage);
@@ -189,13 +184,8 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case libsumo::REMOVE: {
-                int layer = 0; // !!! layer not used yet (shouldn't the id be enough?)
-                if (!server.readTypeCheckingInt(inputStorage, layer)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The layer must be given using an int.", outputStorage);
-                }
-
-                libsumo::Polygon::remove(id, layer);
-
+                // !!! layer not used yet (shouldn't the id be enough?)
+                libsumo::Polygon::remove(id, StoHelp::readTypedInt(inputStorage, "The layer must be given using an int."));
             }
             break;
             case libsumo::VAR_PARAMETER: {

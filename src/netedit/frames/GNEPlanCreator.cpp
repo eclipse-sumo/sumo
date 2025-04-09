@@ -181,19 +181,19 @@ GNEPlanCreator::planCanBeCreated(const GNEDemandElement* planTemplate) const {
     if (planTemplate == nullptr) {
         return false;
     } else if (planTemplate->getTagProperty()->isPlanPersonTrip()) {
-        return GNEDemandElementPlan::getPersonTripTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return myPlanParameteres.getPersonTripTag() != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty()->isPlanWalk()) {
-        return GNEDemandElementPlan::getWalkTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return myPlanParameteres.getWalkTag() != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty()->isPlanRide()) {
-        return GNEDemandElementPlan::getRideTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return myPlanParameteres.getRideTag() != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty()->isPlanTransport()) {
-        return GNEDemandElementPlan::getTransportTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return myPlanParameteres.getTransportTag() != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty()->isPlanTranship()) {
-        return GNEDemandElementPlan::getTranshipTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return myPlanParameteres.getTranshipTag() != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty()->isPlanStopPerson()) {
-        return GNEDemandElementPlan::getPersonStopTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return myPlanParameteres.getPersonStopTag() != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty()->isPlanStopContainer()) {
-        return GNEDemandElementPlan::getContainerStopTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return myPlanParameteres.getContainerStopTag() != SUMO_TAG_NOTHING;
     } else {
         return false;
     }

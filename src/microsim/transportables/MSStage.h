@@ -129,6 +129,11 @@ public:
         return nullptr;
     }
 
+    /// Returns the current lane (if applicable)
+    virtual SUMOTime getJumpDuration() const {
+        return -1;
+    }
+
     ///
     MSStageType getStageType() const {
         return myType;

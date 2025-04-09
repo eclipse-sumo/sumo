@@ -43,9 +43,7 @@ public:
     GNETranship(SumoXMLTag tag, GNENet* net);
 
     /**@brief constructor called in buildTranship
-     * @param[in] net Network in which this Tranship is placed
      * @param[in] tag tranship tag
-     * @param[in] icon tranship icon
      * @param[in] containerParent demand element parent
      * @param[in] planParameters plan parameters
      * @param[in] departPosition depart pos
@@ -53,7 +51,7 @@ public:
      * @param[in] speed tranship speed (not together with duration)
      * @param[in] duraiton tranship duration (not together with speed)
      */
-    GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
+    GNETranship(SumoXMLTag tag, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
                 const double departPosition, const double arrivalPosition, const double speed, const SUMOTime duration);
 
     /// @brief destructor

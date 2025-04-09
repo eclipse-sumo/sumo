@@ -756,6 +756,17 @@ MSLink::getApproaching(const SUMOVehicle* veh) const {
 }
 
 
+const MSLink::ApproachingVehicleInformation*
+MSLink::getApproachingPtr(const SUMOVehicle* veh) const {
+    auto i = myApproachingVehicles.find(veh);
+    if (i != myApproachingVehicles.end()) {
+        return &i->second;
+    } else {
+        return nullptr;
+    }
+}
+
+
 void
 MSLink::clearState() {
     myApproachingVehicles.clear();
@@ -1886,7 +1897,7 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
             double dist = ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength();
             const bool inFront = isInFront(ego, egoPath, p->getPosition()) || isInFront(ego, egoPath, getFuturePosition(p));
             if (inFront) {
-                dist -= ego->getVehicleType().getMinGap();
+                dist -= MAX2(ego->getVehicleType().getMinGap(), MSPModel::SAFETY_GAP);
             }
 #ifdef DEBUG_WALKINGAREA
             if (ego->isSelected()) {
@@ -2021,13 +2032,6 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         // link should have LINKSTATE_MAJOR in this case
         assert(false);
         return vSafe;
-    } else if (myFoeLinks.size() > 1) {
-        std::vector<int> foeIndices;
-        for (const MSLink* foeLink : myFoeLinks) {
-            foeIndices.push_back(foeLink->getIndex());
-        }
-        throw ProcessError("Zipper junctions with more than two conflicting lanes are not supported (at junction '"
-                           + myJunction->getID() + "' link " + toString(getIndex()) + " has foes " + toString(foeIndices) + ")");
     }
     const double brakeGap = ego->getCarFollowModel().brakeGap(vSafe, ego->getCarFollowModel().getMaxDecel(), TS);
     if (dist > MAX2(myFoeVisibilityDistance, brakeGap)) {
@@ -2047,6 +2051,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
              << " numFoes=" << foes->size()
              << "\n")
 #endif
+    const bool uniqueFoeLink = myFoeLinks.size() == 1;
     MSLink* foeLink = myFoeLinks[0];
     for (const auto& item : *foes) {
         if (!item->isVehicle()) {
@@ -2054,7 +2059,22 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         }
         const MSVehicle* foe = dynamic_cast<const MSVehicle*>(item);
         assert(foe != 0);
-        const ApproachingVehicleInformation& avi = foeLink->getApproaching(foe);
+        const ApproachingVehicleInformation* aviPtr = nullptr;
+        if (uniqueFoeLink) {
+            aviPtr = foeLink->getApproachingPtr(foe);
+        } else {
+            // figure out which link is approached by the current foe
+            for (MSLink* fl : myFoeLinks) {
+                aviPtr = fl->getApproachingPtr(foe);
+                if (aviPtr != nullptr) {
+                    break;
+                }
+            }
+        }
+        if (aviPtr == nullptr) {
+            continue;
+        }
+        const ApproachingVehicleInformation& avi = *aviPtr;
         const double foeDist = (foe->isActive() ? avi.dist : MAX2(0.0, avi.dist -
                                 STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - foe->getLastActionTime()) * avi.speed));
 

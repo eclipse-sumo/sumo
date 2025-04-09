@@ -60,18 +60,22 @@ public:
     /// @brief build vType
     bool buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter);
 
+    /// @brief build vType ref
+    bool buildVTypeRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& vTypeID, const double probability);
+
     /// @brief build vType distribution
-    bool buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
-                                const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities);
+    bool buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic);
 
     /// @brief build route
     bool buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                     const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                     const double probability, const Parameterised::Map& routeParameters);
 
+    /// @brief build route ref
+    bool buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& routeID, const double probability);
+
     /// @brief build route distribution
-    bool buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                                const std::vector<std::string>& routeIDs, const std::vector<double>& probabilities);
+    bool buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id);
 
     /// @brief build a vehicle over an existent route
     bool buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
@@ -79,7 +83,7 @@ public:
     /// @brief build a vehicle with an embedded route
     bool buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                                    const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                                   const double probability, const Parameterised::Map& routeParameters);
+                                   const Parameterised::Map& routeParameters);
 
     /// @brief build a flow over an existent route
     bool buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
@@ -87,7 +91,7 @@ public:
     /// @brief build a flow with an embedded route
     bool buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                                 const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                                const double probability, const Parameterised::Map& routeParameters);
+                                const Parameterised::Map& routeParameters);
 
     /// @brief build trip
     bool buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
@@ -274,6 +278,12 @@ protected:
     /// @brief get container parent
     GNEDemandElement* getContainerParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
+    /// @brief get route distribution parent
+    GNEDemandElement* getRouteDistributionParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
+    /// @brief get vType distribution parent
+    GNEDemandElement* getVTypeDistributionParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
     /// @brief get distribution elements
     bool getDistributionElements(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag distributionElementTag,
                                  const std::vector<std::string>& distributionElementIDs, const std::vector<double>& probabilities,
@@ -300,15 +310,6 @@ private:
 
     /// @brief flag to check if overwrite elements
     const bool myOverwrite;
-
-    /// @brief vehicle tags
-    static const std::vector<SumoXMLTag> myVehicleTags;
-
-    /// @brief person tags
-    static const std::vector<SumoXMLTag> myPersonTags;
-
-    /// @brief container tags
-    static const std::vector<SumoXMLTag> myContainerTags;
 
     /// @brief invalidate default onstructor
     GNERouteHandler() = delete;

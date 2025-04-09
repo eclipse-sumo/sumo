@@ -1108,12 +1108,15 @@ GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos
 void
 GNENet::reverseEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->begin(edge, TL("reverse edge"));
+    auto fromJunction = edge->getFromJunction();
+    auto ToJunction = edge->getToJunction();
     deleteEdge(edge, undoList, false); // still exists. we delete it so we can reuse the name in case of resplit
-    GNEEdge* reversed = createEdge(edge->getToJunction(), edge->getFromJunction(), edge, undoList, edge->getID(), false, true);
-    assert(reversed != 0);
-    reversed->setAttribute(SUMO_ATTR_SHAPE, toString(edge->getNBEdge()->getInnerGeometry().reverse()), undoList);
-    reversed->setAttribute(GNE_ATTR_SHAPE_START, edge->getAttribute(GNE_ATTR_SHAPE_END), undoList);
-    reversed->setAttribute(GNE_ATTR_SHAPE_END, edge->getAttribute(GNE_ATTR_SHAPE_START), undoList);
+    GNEEdge* reversed = createEdge(ToJunction, fromJunction, edge, undoList, edge->getID(), false, true);
+    if (reversed) {
+        reversed->setAttribute(SUMO_ATTR_SHAPE, toString(edge->getNBEdge()->getInnerGeometry().reverse()), undoList);
+        reversed->setAttribute(GNE_ATTR_SHAPE_START, edge->getAttribute(GNE_ATTR_SHAPE_END), undoList);
+        reversed->setAttribute(GNE_ATTR_SHAPE_END, edge->getAttribute(GNE_ATTR_SHAPE_START), undoList);
+    }
     undoList->end();
 }
 
@@ -2371,11 +2374,9 @@ GNENet::saveAdditionalsConfirmed() {
         device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
         // write vTypes with additional childrens (due calibrators)
         writeVTypeComment(device, additionalsByFilename.second, true);
-        writeVTypeDistributions(device, additionalsByFilename.second, true);
         writeVTypes(device, additionalsByFilename.second, true);
         // write routes with additional children (due route prob reroutes)
         writeRouteComment(device, additionalsByFilename.second, true);
-        writeRouteDistributions(device, additionalsByFilename.second, true);
         writeRoutes(device, additionalsByFilename.second, true);
         // routeProbes
         writeRouteProbeComment(device, additionalsByFilename.second);
@@ -2444,11 +2445,11 @@ GNENet::saveDemandElementsConfirmed() {
         // first  write all vTypeDistributions (and their vTypes)
         writeVTypeComment(device, demandByFilename.second, false);
         writeVTypes(device, demandByFilename.second, false);
-        writeVTypeDistributions(device, demandByFilename.second, false);
+        writeVTypeDistributions(device, demandByFilename.second);
         // now write all routes (and their associated stops), except routes with additional children (due routeProbReroutes)
         writeRouteComment(device, demandByFilename.second, false);
         writeRoutes(device, demandByFilename.second, false);
-        writeRouteDistributions(device, demandByFilename.second, false);
+        writeRouteDistributions(device, demandByFilename.second);
         // sort vehicles/persons by depart
         std::map<double, std::map<std::pair<SumoXMLTag, std::string>, GNEDemandElement*> > vehiclesSortedByDepart;
         for (const auto& demandElementTag : myAttributeCarriers->getDemandElements()) {
@@ -2573,16 +2574,12 @@ GNENet::writeDemandByType(OutputDevice& device, const std::unordered_set<const G
 
 
 void
-GNENet::writeRouteDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const {
+GNENet::writeRouteDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const {
     std::map<std::string, GNEDemandElement*> sortedElements;
     // first write route Distributions
     for (const auto& routeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE_DISTRIBUTION)) {
         if (ACs.count(routeDistribution.second) > 0) {
-            // get number of additional children
-            const auto numChildren = routeDistribution.second->getAttributeDouble(GNE_ATTR_ADDITIONALCHILDREN);
-            if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
-                sortedElements[routeDistribution.second->getID()] = routeDistribution.second;
-            }
+            sortedElements[routeDistribution.second->getID()] = routeDistribution.second;
         }
     }
     for (const auto& element : sortedElements) {
@@ -2597,9 +2594,19 @@ GNENet::writeRoutes(OutputDevice& device, const std::unordered_set<const GNEAttr
     std::map<std::string, GNEDemandElement*> sortedRoutes;
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         if (ACs.count(route.second) > 0) {
-            if ((additionalFile && (route.second->getChildAdditionals().size() > 0)) ||
-                    (!additionalFile && (route.second->getChildAdditionals().size() == 0))) {
-                sortedRoutes[route.second->getID()] = route.second;
+            // first check if element is part of a distribution
+            int numRefs = 0;
+            for (const auto vTypeChild : route.second->getChildDemandElements()) {
+                if (vTypeChild->getTagProperty()->getTag() == GNE_TAG_ROUTEREF) {
+                    numRefs++;
+                }
+            }
+            // routes with reference 1 will be saved in route distribution
+            if (numRefs != 1) {
+                if ((additionalFile && (route.second->getChildAdditionals().size() > 0)) ||
+                        (!additionalFile && (route.second->getChildAdditionals().size() == 0))) {
+                    sortedRoutes[route.second->getID()] = route.second;
+                }
             }
         }
     }
@@ -2610,16 +2617,12 @@ GNENet::writeRoutes(OutputDevice& device, const std::unordered_set<const GNEAttr
 
 
 void
-GNENet::writeVTypeDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const {
+GNENet::writeVTypeDistributions(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs) const {
     std::map<std::string, GNEDemandElement*> sortedElements;
     // first write vType Distributions
     for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
         if (ACs.count(vTypeDistribution.second) > 0) {
-            // get number of additional children
-            const auto numChildren = vTypeDistribution.second->getAttributeDouble(GNE_ATTR_ADDITIONALCHILDREN);
-            if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
-                sortedElements[vTypeDistribution.second->getID()] = vTypeDistribution.second;
-            }
+            sortedElements[vTypeDistribution.second->getID()] = vTypeDistribution.second;
         }
     }
     for (const auto& element : sortedElements) {

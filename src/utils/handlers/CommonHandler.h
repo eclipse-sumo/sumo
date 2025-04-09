@@ -74,7 +74,7 @@ protected:
     bool checkListOfVehicleTypes(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& vTypeIDs);
 
     /// @brief check if the given object is within a distribution (VType or routes)
-    bool checkDistribution(CommonXMLStructure::SumoBaseObject* obj);
+    bool checkWithinDistribution(CommonXMLStructure::SumoBaseObject* obj);
 
     /// @brief check vehicle parents
     bool checkVehicleParents(CommonXMLStructure::SumoBaseObject* obj);

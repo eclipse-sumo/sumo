@@ -199,7 +199,7 @@ struct TraCIPosition : TraCIResult {
  * @brief An edgeId, position and laneIndex
  */
 struct TraCIRoadPosition : TraCIResult {
-    TraCIRoadPosition(const std::string e="", const double p=INVALID_DOUBLE_VALUE, const int li=INVALID_INT_VALUE) : edgeID(e), pos(p), laneIndex(li) {}
+    TraCIRoadPosition(const std::string e = "", const double p = INVALID_DOUBLE_VALUE, const int li = INVALID_INT_VALUE) : edgeID(e), pos(p), laneIndex(li) {}
     std::string getString() const {
         std::ostringstream os;
         os << "TraCIRoadPosition(" << edgeID << "_" << laneIndex << "," << pos << ")";
@@ -255,7 +255,7 @@ struct TraCIPositionVector : TraCIResult {
 
 
 struct TraCIInt : TraCIResult {
-    TraCIInt(int v=0, int t=libsumo::TYPE_INTEGER) : value(v), traciType(t) {}
+    TraCIInt(int v = 0, int t = libsumo::TYPE_INTEGER) : value(v), traciType(t) {}
     std::string getString() const {
         std::ostringstream os;
         os << value;
@@ -273,7 +273,7 @@ struct TraCIInt : TraCIResult {
 
 
 struct TraCIDouble : TraCIResult {
-    TraCIDouble(double v=0.) : value(v) {}
+    TraCIDouble(double v = 0.) : value(v) {}
     std::string getString() const {
         std::ostringstream os;
         os << value;
@@ -290,7 +290,7 @@ struct TraCIDouble : TraCIResult {
 
 
 struct TraCIString : TraCIResult {
-    TraCIString(std::string v="") : value(v) {}
+    TraCIString(std::string v = "") : value(v) {}
     std::string getString() const {
         return value;
     }
@@ -838,6 +838,27 @@ struct TraCICollision {
     std::string lane;
     /// @brief The position of the collision along the lane
     double pos;
+
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCICollision(collider=" << collider << ", victim=" << victim << ")";
+        return os.str();
+    }
+};
+
+
+struct TraCICollisionVectorWrapped : TraCIResult {
+    std::string getString() const {
+        std::ostringstream os;
+        os << "TraCICollisionVectorWrapped[";
+        for (const TraCICollision& v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCICollision> value;
 };
 
 

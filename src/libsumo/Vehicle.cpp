@@ -331,7 +331,7 @@ std::pair<std::string, double>
 Vehicle::getLeader(const std::string& vehID, double dist) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     if (veh->isOnRoad()) {
-        std::pair<const MSVehicle* const, double> leaderInfo = veh->getLeader(dist);
+        std::pair<const MSVehicle* const, double> leaderInfo = veh->getLeader(dist, false);
         const std::string leaderID = leaderInfo.first != nullptr ? leaderInfo.first->getID() : "";
         double gap = leaderInfo.second;
         if (leaderInfo.first != nullptr

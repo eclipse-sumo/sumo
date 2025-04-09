@@ -40,7 +40,7 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, "", GLO_STOP, tag, GUIIcon::STOP, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT),
     GNEDemandElementPlan(this, -1, -1),
     myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkin)gAreas
@@ -60,8 +60,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIcon::STOP, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEStop::GNEStop(SumoXMLTag tag, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
+    GNEDemandElement(stopParent, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVehicleParameter::Stop(stopParameter),
     GNEDemandElementPlan(this, -1, -1),
     myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
@@ -89,8 +89,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
 }
 
 
-GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIcon::STOP, GNEPathElement::Options::DEMAND_ELEMENT),
+GNEStop::GNEStop(SumoXMLTag tag, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
+    GNEDemandElement(stopParent, tag, GNEPathElement::Options::DEMAND_ELEMENT),
     SUMOVehicleParameter::Stop(stopParameter),
     GNEDemandElementPlan(this, -1, -1),
     myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {

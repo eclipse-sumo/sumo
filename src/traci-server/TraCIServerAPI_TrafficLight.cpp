@@ -65,66 +65,6 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.wrapSignalConstraintVector(id, variable, libsumo::TrafficLight::swapConstraints(id, tripId, foeSignal, foeId));
                     break;
                 }
-                case libsumo::TL_EXTERNAL_STATE: {
-                    if (!MSNet::getInstance()->getTLSControl().knows(id)) {
-                        throw libsumo::TraCIException("Traffic light '" + id + "' is not known");
-                    }
-                    MSTrafficLightLogic* tls = MSNet::getInstance()->getTLSControl().get(id).getActive();
-                    const std::string& state = tls->getCurrentPhaseDef().getState();
-                    const Parameterised::Map& params = tls->getParametersMap();
-                    int num = 0;
-                    for (Parameterised::Map::const_iterator i = params.begin(); i != params.end(); ++i) {
-                        if ("connection:" == (*i).first.substr(0, 11)) {
-                            ++num;
-                        }
-                    }
-
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt(num * 2);
-                    for (Parameterised::Map::const_iterator i = params.begin(); i != params.end(); ++i) {
-                        if ("connection:" != (*i).first.substr(0, 11)) {
-                            continue;
-                        }
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString((*i).second); // foreign id
-                        std::string connection = (*i).first.substr(11);
-                        std::string from, to;
-                        const std::string::size_type b = connection.find("->");
-                        if (b == std::string::npos) {
-                            from = connection;
-                        } else {
-                            from = connection.substr(0, b);
-                            to = connection.substr(b + 2);
-                        }
-                        bool denotesEdge = from.find("_") == std::string::npos;
-                        MSLane* fromLane = nullptr;
-                        const MSTrafficLightLogic::LaneVectorVector& lanes = tls->getLaneVectors();
-                        MSTrafficLightLogic::LaneVectorVector::const_iterator j = lanes.begin();
-                        for (; j != lanes.end() && fromLane == nullptr;) {
-                            for (MSTrafficLightLogic::LaneVector::const_iterator k = (*j).begin(); k != (*j).end() && fromLane == nullptr;) {
-                                if (denotesEdge && (*k)->getEdge().getID() == from) {
-                                    fromLane = *k;
-                                } else if (!denotesEdge && (*k)->getID() == from) {
-                                    fromLane = *k;
-                                }
-                                if (fromLane == nullptr) {
-                                    ++k;
-                                }
-                            }
-                            if (fromLane == nullptr) {
-                                ++j;
-                            }
-                        }
-                        if (fromLane == nullptr) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_GET_TL_VARIABLE, "Could not find edge or lane '" + from + "' in traffic light '" + id + "'.", outputStorage);
-                        }
-                        int pos = (int)std::distance(lanes.begin(), j);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        server.getWrapperStorage().writeUnsignedByte(state[pos]); // state
-                    }
-                    break;
-                }
                 default:
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_TL_VARIABLE, "Get TLS Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }
@@ -157,11 +97,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
     try {
         switch (variable) {
             case libsumo::TL_PHASE_INDEX: {
-                int index = 0;
-                if (!server.readTypeCheckingInt(inputStorage, index)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The phase index must be given as an integer.", outputStorage);
-                }
-                libsumo::TrafficLight::setPhase(id, index);
+                libsumo::TrafficLight::setPhase(id, StoHelp::readTypedInt(inputStorage, "The phase index must be given as an integer."));
             }
             break;
             case libsumo::VAR_NAME: {
@@ -206,12 +142,8 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 if (!server.readTypeCheckingString(inputStorage, logic.programID)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 1. parameter (programID) must be a string.", outputStorage);
                 }
-                if (!server.readTypeCheckingInt(inputStorage, logic.type)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 2. parameter (type) must be an int.", outputStorage);
-                }
-                if (!server.readTypeCheckingInt(inputStorage, logic.currentPhaseIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 3. parameter (index) must be an int.", outputStorage);
-                }
+                logic.type = StoHelp::readTypedInt(inputStorage, "set program: 2. parameter (type) must be an int.");
+                logic.currentPhaseIndex = StoHelp::readTypedInt(inputStorage, "set program: 3. parameter (index) must be an int.");
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for the phases.", outputStorage);
                 }
@@ -245,11 +177,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     }
                     const int numNext = inputStorage.readInt();
                     for (int k = 0; k < numNext; k++) {
-                        int nextEntry;
-                        if (!server.readTypeCheckingInt(inputStorage, nextEntry)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.5. parameter (next) must be a list of int.", outputStorage);
-                        }
-                        next.push_back(nextEntry);
+                        next.push_back(StoHelp::readTypedInt(inputStorage, "set program: 4.5. parameter (next) must be a list of int."));
                     }
                     if (items == 6) {
                         if (!server.readTypeCheckingString(inputStorage, name)) {
@@ -317,14 +245,8 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 if (!server.readTypeCheckingString(inputStorage, foeId)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe tripId must be given as a string.", outputStorage);
                 }
-                int type;
-                if (!server.readTypeCheckingInt(inputStorage, type)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The type must be an int.", outputStorage);
-                }
-                int limit;
-                if (!server.readTypeCheckingInt(inputStorage, limit)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The limit must be an int.", outputStorage);
-                }
+                const int type = StoHelp::readTypedInt(inputStorage, "The type must be an int.");
+                const int limit = StoHelp::readTypedInt(inputStorage, "The limit must be an int.");
                 libsumo::TrafficLight::addConstraint(id, tripId, foeSignal, foeId, type, limit);
             }
             break;

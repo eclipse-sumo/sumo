@@ -20,9 +20,9 @@
 #pragma once
 #include <config.h>
 
+#include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/images/GUIIcons.h>
 #include <netedit/GNEViewNetHelper.h>
-
 #include "GNEAttributeProperties.h"
 
 // ===========================================================================
@@ -81,7 +81,7 @@ public:
         NOTDRAWABLE =           1 << 0,     // Element cannot be drawn in view
         GEOSHAPE =              1 << 1,     // Element's shape acn be defined using a GEO Shape
         DIALOG =                1 << 2,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        CHILD =                 1 << 3,     // Element is child of another element and will be written in XML without id (Example: E3Entry -> E3Detector...)
+        XMLCHILD =              1 << 3,     // Element is child of another element and will be written in XML (Example: E3Entry -> E3Detector...)
         REPARENT =              1 << 4,     // Element can be reparent
         NOTSELECTABLE =         1 << 5,     // Element cannot be selected
         NOPARAMETERS =          1 << 6,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
@@ -144,7 +144,8 @@ public:
 
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, GNETagProperties* parent, const Type tagType, const Property tagProperty, const Over tagOver,
-                     const Conflicts conflicts, const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> XMLParentTags = {},
+                     const Conflicts conflicts, const GUIIcon icon, const GUIGlObjectType GLType, const SumoXMLTag XMLTag,
+                     const std::string tooltip, std::vector<SumoXMLTag> XMLParentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string selectorText = "");
 
     /// @brief parameter constructor for hierarchical elements
@@ -190,14 +191,23 @@ public:
     /// @brief get number of attributes
     int getNumberOfAttributes() const;
 
-    /// @brief get GUI icon associated to this Tag
+    /// @brief get GUI icon associated to this tag property
     GUIIcon getGUIIcon() const;
+
+    /// @brief get GUIGlObjectType associated with this tag property
+    GUIGlObjectType getGLType() const;
+
+    /// @brief default values
+    /// @{
 
     /// @brief get XML tag
     SumoXMLTag getXMLTag() const;
 
     /// @brief get XML parent tags
     const std::vector<SumoXMLTag>& getXMLParentTags() const;
+
+    /// @brief return true if tag correspond to an element that can be reparent
+    bool canBeReparent() const;
 
     /// @brief default values
     /// @{
@@ -225,25 +235,25 @@ public:
     /// @brief hierarchy functions
     /// @{
 
-    /// @brief get parent of this element
-    const GNETagProperties* getParent() const;
+    /// @brief get hierarchical parent of this element
+    const GNETagProperties* getHierarchicalParent() const;
 
     /// @brief get all parents, beginning from current element (root not included) untils this element
-    const std::vector<const GNETagProperties*> getParentHierarchy() const;
+    const std::vector<const GNETagProperties*> getHierarchicalParentsRecuersively() const;
 
     /// @brief get children of this tag property
-    const std::vector<const GNETagProperties*>& getTagChildren() const;
+    const std::vector<const GNETagProperties*>& getHierarchicalChildren() const;
 
     /// @brief get all children tags (Including children of their children)
-    std::vector<const GNETagProperties*> getTagChildrenRecursively() const;
+    std::vector<const GNETagProperties*> getHierarchicalChildrenRecursively() const;
 
     /// @brief get all children attributes sorted by name (Including this)
-    std::map<std::string, const GNEAttributeProperties*> getAttributeChildrenRecursively(const bool onlyCommon, const bool onlyDrawables) const;
+    std::map<std::string, const GNEAttributeProperties*> getHierarchicalChildrenAttributesRecursively(const bool onlyCommon, const bool onlyDrawables) const;
+
+    /// @}
 
     /// @brief get supermode associated with this tag
     Supermode getSupermode() const;
-
-    /// @}
 
     /// @brief check if this is a hirearchical tag
     bool isHierarchicalTag() const;
@@ -515,9 +525,6 @@ public:
     /// @brief return true if Tag correspond to an element that has to be placed in RTREE
     bool isPlacedInRTree() const;
 
-    /// @brief return true if tag correspond to an element that can be reparent
-    bool canBeReparent() const;
-
     /// @brief return true if tag correspond to an element that center camera after creation
     bool canCenterCameraAfterCreation() const;
 
@@ -559,8 +566,11 @@ private:
     /// @brief vector with the attribute values vinculated with this Tag
     std::vector<const GNEAttributeProperties*> myAttributeProperties;
 
-    /// @brief icon associated to this Tag
+    /// @brief icon associated to this tag property
     const GUIIcon myIcon = GUIIcon::EMPTY;
+
+    /// @brief GUIGlObjectType associated with this tag property
+    const GUIGlObjectType myGLType = GUIGlObjectType::GLO_MAX;
 
     /// @brief Tag written in XML and used in GNENetHelper::AttributeCarriers
     const SumoXMLTag myXMLTag = SUMO_TAG_NOTHING;
