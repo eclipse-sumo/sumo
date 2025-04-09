@@ -66,6 +66,9 @@
 #define DEBUG_COND(road) ((road)->id == DEBUG_ID)
 #define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), DEBUG_ID))
 #define DEBUG_COND3(roadID) (roadID == DEBUG_ID)
+//#define DEBUG_COND(road) (true)
+//#define DEBUG_COND2(edgeID) (true)
+//#define DEBUG_COND3(roadID) (true)
 
 // ===========================================================================
 // definitions
@@ -1295,8 +1298,8 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c,
                               << c.getDescription()
                               << " dest=" << dest->id
                               << " refLane=" << referenceLane
-                              << " destPred\n" << destPred
-                              << " offsets=" << offsets
+                              << "\n destPred=" << destPred
+                              << "\n offsets=" << offsets
                               << "\n shape=" << dest->geom
                               << "\n shape2=" << cn.shape
                               << "\n";
@@ -1572,7 +1575,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         }
 #ifdef DEBUG_SHAPE
         if (DEBUG_COND3(e.id)) {
-            std::cout << " initialGeom=" << e.geom << "\n";
+            std::cout << e.id << " initialGeom=" << e.geom << "\n";
         }
 #endif
         if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
@@ -1585,7 +1588,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         e.geom = e.geom.simplified2(false);
 #ifdef DEBUG_SHAPE
         if (DEBUG_COND3(e.id)) {
-            std::cout << " reducedGeom=" << e.geom << "\n";
+            std::cout << e.id << " reducedGeom=" << e.geom << "\n";
         }
 #endif
         if (!NBNetBuilder::transformCoordinates(e.geom)) {
@@ -2902,6 +2905,11 @@ NIImporter_OpenDrive::sanitizeWidths(std::vector<OpenDriveLane>& lanes, double l
             }
             if (maxNoShort > 0) {
                 l.width = maxNoShort;
+#ifdef DEBUG_VARIABLE_WIDTHS
+                if (gDebugFlag1) {
+                    std::cout << "   lane=" << l.id << " width=" << l.width << "\n";
+                }
+#endif
             }
         }
     }
