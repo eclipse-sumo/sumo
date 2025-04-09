@@ -222,6 +222,14 @@ RouteHandler::endParseAttributes() {
                 delete obj;
                 break;
             case SUMO_TAG_VTYPE:
+                // special case, because embedded and distribution routes are created within other elements
+                if (obj->getParentSumoBaseObject() == nullptr) {
+                    // parse object and all their childrens
+                    parseSumoBaseObject(obj);
+                    // delete object (and all of their childrens)
+                    delete obj;
+                }
+                break;
             case SUMO_TAG_TRIP:
             case SUMO_TAG_VEHICLE:
             case SUMO_TAG_FLOW:
@@ -247,10 +255,16 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     switch (obj->getTag()) {
         // vTypes
         case SUMO_TAG_VTYPE:
-            // avoid create distributions here
-            if (!checkWithinDistribution(obj)) {
+            // check if parse vType or Ref
+            if (obj->hasStringAttribute(SUMO_ATTR_REFID)) {
+                if (buildVTypeRef(obj,
+                                    obj->getStringAttribute(SUMO_ATTR_REFID),
+                                    obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
+                    obj->markAsCreated();
+                }
+            } else {
                 if (buildVType(obj,
-                               obj->getVehicleTypeParameter())) {
+                                obj->getVehicleTypeParameter())) {
                     obj->markAsCreated();
                 }
             }

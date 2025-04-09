@@ -58,6 +58,20 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
     if (myDeterministic != myTagProperty->getDefaultIntValue(SUMO_ATTR_DETERMINISTIC)) {
         device.writeAttr(SUMO_ATTR_DETERMINISTIC, myDeterministic);
     }
+    // check if write vType or refs)
+    for (const auto& refChild : getChildDemandElements()) {
+        int numReferences = 0;
+        for (const auto& vTypeChild : refChild->getParentDemandElements().at(1)->getChildDemandElements()) {
+            if (vTypeChild->getTagProperty()->getTag() == GNE_TAG_VTYPEREF) {
+                numReferences++;
+            }
+        }
+        if (numReferences == 1) {
+            refChild->getParentDemandElements().at(1)->writeDemandElement(device);
+        } else {
+            refChild->writeDemandElement(device);
+        }
+    }
     device.closeTag();
 }
 

@@ -518,8 +518,11 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 const MSLane* const crossing = myCrossings[waitingStage];
                 const MSLink* link = crossing->getIncomingLanes().front().viaLink;
                 if (waitingStage == myCrossingWaits[crossing].second && link->getTLLogic() != nullptr) {
-                    // we are walking backwards on a traffic light, there is a different link to check
+                    // we are walking backwards on a traffic light, there are different links to check
                     link = crossing->getLinkCont().front();
+                    if (link->getTLLogic() == nullptr) {
+                        link = crossing->getLogicalPredecessorLane()->getLinkTo(crossing);
+                    }
                 }
                 // compare to and maybe adapt for MSPModel_Striping.cpp:1264
                 const double passingClearanceTime = person->getFloatParam("pedestrian.timegap-crossing");

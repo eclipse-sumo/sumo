@@ -350,7 +350,7 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings::Detail d, const 
                                 const RGBColor& color, const double radius, const double exaggeration,
                                 const bool editingElevation) {
     // check detail level
-    if (d <= GUIVisualizationSettings::Detail::GeometryPoint) {
+    if (editingElevation || (d <= GUIVisualizationSettings::Detail::GeometryPoint)) {
         // get exaggeratedRadio
         const double exaggeratedRadio = (radius * exaggeration);
         // iterate over geometryPoints

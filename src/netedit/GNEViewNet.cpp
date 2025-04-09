@@ -5852,11 +5852,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_TLS: {
-            if (myViewObjectsSelector.getJunctionFront() || myViewObjectsSelector.getAdditionalFront()) {
-                // edit TLS in TLSEditor frame
-                myViewParent->getTLSEditorFrame()->editTLS(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
-                updateViewNet();
-            }
+            // edit TLS in TLSEditor frame
+            myViewParent->getTLSEditorFrame()->editTLS(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
             // process click
             processClick(eventData);
             break;
