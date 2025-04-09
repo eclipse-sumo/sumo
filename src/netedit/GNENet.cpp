@@ -2634,19 +2634,27 @@ GNENet::writeVTypeDistributions(OutputDevice& device, const std::unordered_set<c
 
 void
 GNENet::writeVTypes(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs, const bool additionalFile) const {
-    std::map<std::string, GNEDemandElement*> sortedElements;
-    // write vTypes
+    std::map<std::string, GNEDemandElement*> sortedVTypes;
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (ACs.count(vType.second) > 0) {
-            // get number of additional children
-            const auto numChildren = vType.second->getChildAdditionals().size();
-            if ((additionalFile && (numChildren != 0)) || (!additionalFile && (numChildren == 0))) {
-                sortedElements[vType.second->getID()] = vType.second;
+            // first check if element is part of a distribution
+            int numRefs = 0;
+            for (const auto vTypeChild : vType.second->getChildDemandElements()) {
+                if (vTypeChild->getTagProperty()->getTag() == GNE_TAG_VTYPEREF) {
+                    numRefs++;
+                }
+            }
+            // vTypes with reference 1 will be saved in vType distribution
+            if (numRefs != 1) {
+                if ((additionalFile && (vType.second->getChildAdditionals().size() > 0)) ||
+                        (!additionalFile && (vType.second->getChildAdditionals().size() == 0))) {
+                    sortedVTypes[vType.second->getID()] = vType.second;
+                }
             }
         }
     }
-    for (const auto& element : sortedElements) {
-        element.second->writeDemandElement(device);
+    for (const auto& vType : sortedVTypes) {
+        vType.second->writeDemandElement(device);
     }
 }
 

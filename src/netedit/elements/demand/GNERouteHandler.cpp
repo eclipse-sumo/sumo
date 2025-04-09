@@ -2611,10 +2611,10 @@ GNERouteHandler::getVTypeDistributionParent(const CommonXMLStructure::SumoBaseOb
     if (sumoBaseObject->getParentSumoBaseObject() == nullptr) {
         return nullptr;
     }
-    if (sumoBaseObject->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROUTE_DISTRIBUTION) {
+    if (sumoBaseObject->getParentSumoBaseObject()->getTag() != SUMO_TAG_VTYPE_DISTRIBUTION) {
         return nullptr;
     }
-    return myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    return myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
 }
 
 
