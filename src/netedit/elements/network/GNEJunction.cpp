@@ -1848,7 +1848,7 @@ GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
 void
 GNEJunction::drawElevation(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
     // check if draw elevation
-    if ((d <= GUIVisualizationSettings::Detail::Text) && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
+    if (myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
         GLHelper::pushMatrix();
         // Translate to center of junction
         glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 0.1);
