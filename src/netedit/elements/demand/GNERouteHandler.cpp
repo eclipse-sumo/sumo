@@ -111,17 +111,31 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
         } else {
             // create vType/pType using myCurrentVType
             GNEDemandElement* vType = new GNEVType(myNet, myFilename, vTypeParameter);
-            // check if add this vType to a distribution
-            GNEDemandElement* vTypeDistribution = nullptr;
-            if (sumoBaseObject->getParentSumoBaseObject() && sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {
-                vTypeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+            // if this vType was created within a vType distribution, we have to create an extra vTypeRef
+            GNEDemandElement* vTypeRef = nullptr;
+            GNEDemandElement* distributionParent = nullptr;
+            if (sumoBaseObject->getParentSumoBaseObject() && (sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION)) {
+                const auto& vTypeDistributionID = sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID);
+                distributionParent = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vTypeDistributionID, false);
+                if (distributionParent) {
+                    vTypeRef = new GNEVTypeRef(distributionParent, vType, vTypeParameter.defaultProbability);
+                } else {
+                    WRITE_WARNING(TLF("VType '%' with probability % cannot be referenced with distribution '%'", vTypeParameter.id, toString(vTypeParameter.defaultProbability), vTypeDistributionID));
+                }
             }
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(vType, TL("add ") + vType->getTagStr() + " '" + vTypeParameter.id + "'");
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
+                if (vTypeRef) {
+                    myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeRef, true), true);
+                }
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vType);
+                if (vTypeRef) {
+                    distributionParent->addChildElement(vTypeRef);
+                    vType->addChildElement(vTypeRef);
+                }
                 vType->incRef("buildVType");
             }
             return true;
