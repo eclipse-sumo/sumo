@@ -377,7 +377,7 @@ private:
     void drawTLSIcon(const GUIVisualizationSettings& s) const;
 
     /// @brief draw elevation
-    void drawElevation(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawElevation(const GUIVisualizationSettings& s) const;
 
     /// @brief draw junction name
     void drawJunctionName(const GUIVisualizationSettings& s) const;

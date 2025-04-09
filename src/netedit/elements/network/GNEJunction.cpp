@@ -686,7 +686,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 // draw TLS
                 drawTLSIcon(s);
                 // draw elevation
-                drawElevation(s, d);
+                drawElevation(s);
                 // pop layer Matrix
                 GLHelper::popMatrix();
                 // draw lock icon
@@ -1846,7 +1846,7 @@ GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEJunction::drawElevation(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+GNEJunction::drawElevation(const GUIVisualizationSettings& s) const {
     // check if draw elevation
     if (myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
         GLHelper::pushMatrix();

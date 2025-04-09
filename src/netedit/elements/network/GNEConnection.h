@@ -228,11 +228,11 @@ protected:
     /// @brief connection geometry
     GUIGeometry myConnectionGeometry;
 
+    /// @brief junction maker geometry
+    GUIGeometry myInternalJunctionMarkerGeometry;
+
     /// @brief flag to indicate that connection's shape has to be updated
     bool myShapeDeprecated;
-
-    /// @brief waiting position for internal junction
-    PositionVector myInternalJunctionMarker;
 
 private:
     /// @brief set attribute after validation

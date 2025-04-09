@@ -101,12 +101,13 @@ GNEConnection::updateGeometry() {
         if (nbCon.haveVia && (nbCon.shape.size() > 0)) {
             // create marker for internal junction waiting position (contPos)
             const double orthoLength = 0.5;
-            myInternalJunctionMarker = nbCon.shape.getOrthogonal(nbCon.shape.back(), 10, true, 0.1);
-            if (myInternalJunctionMarker.length() < orthoLength) {
-                myInternalJunctionMarker.extrapolate(orthoLength - myInternalJunctionMarker.length());
+            PositionVector internalJunctionMarker = nbCon.shape.getOrthogonal(nbCon.shape.back(), 10, true, 0.1);
+            if (internalJunctionMarker.length() < orthoLength) {
+                internalJunctionMarker.extrapolate(orthoLength - internalJunctionMarker.length());
             }
+            myInternalJunctionMarkerGeometry.updateGeometry(internalJunctionMarker);
         } else {
-            myInternalJunctionMarker.clear();
+            myInternalJunctionMarkerGeometry.clearGeometry();
         }
         // mark connection as non-deprecated
         myShapeDeprecated = false;
@@ -583,8 +584,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                     for (NBTrafficLightDefinition* tlDef : defs) {
                         for (const NBConnection& c2 : tlDef->getControlledLinks()) {
                             if (c2.getTo() == c.toEdge && c2.getFrom() != from) {
-                                LinkDirection dir = from->getToNode()->getDirection(c2.getFrom(), c2.getTo());
-                                if (dir == LinkDirection::STRAIGHT) {
+                                if (from->getToNode()->getDirection(c2.getFrom(), c2.getTo()) == LinkDirection::STRAIGHT) {
                                     linkIndex2 = c2.getTLIndex();
                                     break;
                                 }
@@ -710,8 +710,9 @@ GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisual
         // draw arrows over connection
         drawConnectionArrows(s, connectionColor);
         // check if internal junction marker has to be drawn
-        if (myInternalJunctionMarker.size() > 0) {
-            GLHelper::drawLine(myInternalJunctionMarker);
+        if (myInternalJunctionMarkerGeometry.getShape().size() > 0) {
+            GLHelper::setColor(RGBColor::GREY);
+            GUIGeometry::drawGeometry(d, myInternalJunctionMarkerGeometry, s.connectionSettings.connectionWidth * exaggeration * 0.5);
         }
         // draw edge values
         drawEdgeValues(s, shape);
