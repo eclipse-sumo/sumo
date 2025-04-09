@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -85,8 +86,13 @@ GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsS
             viewObjects.filterEdges();
         }
     }
+    // check if previously we clicked an edge and now we want to inspect their lane
+    bool toogleInspectEdgeLane = false;
+    if (!myOnlyJunctions && (myOverlappedACs.size() > 0) && (myOverlappedACs.front()->getTagProperty()->getTag() == SUMO_TAG_EDGE) && shiftKeyPressed) {
+        toogleInspectEdgeLane = true;
+    }
     // in this point, check if we want to iterate over existent overlapped inspection, or we want to inspet a new set of elements
-    if ((myClickedPosition != Position::INVALID) && (myClickedPosition.distanceSquaredTo(clickedPosition) < 1)) {
+    if (!toogleInspectEdgeLane && (myOverlappedACs.size() > 0) && (myClickedPosition != Position::INVALID) && (myClickedPosition.distanceSquaredTo(clickedPosition) < 2)) {
         if (shiftKeyPressed) {
             onCmdInspectPreviousElement(nullptr, 0, nullptr);
         } else {
@@ -157,6 +163,15 @@ GNEOverlappedInspection::getNumberOfOverlappedACs() const {
     return (int)myOverlappedACs.size();
 }
 
+
+GNEAttributeCarrier*
+GNEOverlappedInspection::getCurrentAC() const {
+    if (myOverlappedACs.size() > 0) {
+        return myOverlappedACs.at(myItemIndex);
+    } else {
+        return nullptr;
+    }
+}
 
 long
 GNEOverlappedInspection::onCmdInspectPreviousElement(FXObject*, FXSelector, void*) {

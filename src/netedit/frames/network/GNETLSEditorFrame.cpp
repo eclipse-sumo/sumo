@@ -170,17 +170,22 @@ GNETLSEditorFrame::editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, c
             // show objects under cursor
             myOverlappedInspection->showOverlappedInspection(viewObjects, clickedPosition, shiftKeyPressed);
             // hide if we inspect only one junction
-            if (myOverlappedInspection->getNumberOfOverlappedACs() == 1) {
-                myOverlappedInspection->clearOverlappedInspection();
+            if (myOverlappedInspection->getNumberOfOverlappedACs()) {
+                if (myOverlappedInspection->getNumberOfOverlappedACs() == 1) {
+                    myOverlappedInspection->hiderOverlappedInspection();
+                }
+                for (const auto &junction : viewObjects.getJunctions()) {
+                    if (junction == myOverlappedInspection->getCurrentAC()) {
+                        editJunction(junction);
+                    }
+                }
             }
-            editJunction(viewObjects.getJunctionFront());
         }
     } else if (viewObjects.getAdditionalFront() && myTLSAttributes->isSetDetectorsToggleButtonEnabled() &&
                (viewObjects.getAdditionalFront()->getTagProperty()->getTag() == SUMO_TAG_INDUCTION_LOOP)) {
         myTLSAttributes->toggleE1DetectorSelection(viewObjects.getAdditionalFront());
-    } else {
-        myViewNet->setStatusBarText(TL("Click over a junction to edit a TLS"));
     }
+    myViewNet->update();
 }
 
 

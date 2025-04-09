@@ -60,8 +60,11 @@ public:
     /// @brief check if overlappedInspection modul is shown
     bool overlappedInspectionShown() const;
 
-    /// @brief get number of overlapped ACSs
+    /// @brief get number of overlapped ACs
     int getNumberOfOverlappedACs() const;
+
+    /// @brief get current AC
+    GNEAttributeCarrier* getCurrentAC() const;
 
     /// @name FOX-callbacks
     /// @{
