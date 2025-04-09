@@ -24,7 +24,7 @@
 #include <GL/glew.h>
 #endif
 
-#include <glm.hpp>
+#include <glm/glm.hpp>
 
 #include <map>
 #include <vector>

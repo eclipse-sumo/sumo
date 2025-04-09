@@ -22,7 +22,7 @@
 
 #include <vector>
 #define GLM_SWIZZLE
-#include <glm.hpp>
+#include <glm/glm.hpp>
 
 
 // ===========================================================================

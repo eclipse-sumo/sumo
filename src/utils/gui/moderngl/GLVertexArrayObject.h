@@ -38,11 +38,9 @@ public:
     GLuint getID() const;
     GLuint getVertexBufferID() const;
     GLuint getIndexBufferID() const;
-    GLenum getGeometryType() const;
     unsigned long long getVertexSize() const;
     unsigned long long getIndexSize() const;
     void setAttributes(const std::vector<GLAttributeDefinition>& attributes);
-    void setGeometryType(GLenum type);
     void setItemSize(const unsigned long long vertexCount, const unsigned long long indexCount);
     void clearBuffer();
     bool addVertexData(std::vector<GLBufferStruct>& data, GLenum geometryType = GL_TRIANGLES);
@@ -63,4 +61,6 @@ private:
     unsigned long long myVertexInputSize;
     std::vector< GLAttributeDefinition> myAttributes;
     std::vector <std::pair<GLenum, unsigned long long>> myGeometries;
+    std::vector <std::pair<unsigned int, unsigned long long>> myTextureUsages;
+    bool myUseTextures = false;
 };

@@ -22,8 +22,8 @@
 #include <iostream>
 
 #include "GLTransformStack.h"
-#include "gtc/matrix_transform.hpp"
-#include <gtx/string_cast.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 #include <utils/common/UtilExceptions.h>
 
 // ===========================================================================
@@ -84,15 +84,9 @@ GLTransformStack::translate(const glm::vec3& t) {
 
 void
 GLTransformStack::rotate(const float angle, const glm::vec3& axis) {
-    // TODO: how???
     // subtract current pivot point and add it again after the transformation
     glm::mat4 currentMatrix = *myStack.rbegin();
-    currentMatrix = glm::rotate(currentMatrix, angle, axis);
-/*
-#ifdef _DEBUG
-    std::cout << "GLTransformStack::rotate by " << angle << " deg = " << angle << ",\n\tmatrix " << glm::to_string(currentMatrix) << std::endl;
-#endif
-*/
+    currentMatrix = glm::rotate(currentMatrix, glm::radians(angle), axis);
     *myStack.rbegin() = currentMatrix;
 }
 
