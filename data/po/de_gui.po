@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-10 07:35+0000\n"
+"PO-Revision-Date: 2025-04-10 14:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4265,27 +4265,27 @@ msgstr ""
 
 #: src/netedit/GNEAttributeProperties.cpp:337
 msgid "integer"
-msgstr ""
+msgstr "Ganzzahl"
 
 #: src/netedit/GNEAttributeProperties.cpp:340
 msgid "float"
-msgstr ""
+msgstr "Fließkommazahl"
 
 #: src/netedit/GNEAttributeProperties.cpp:343
 msgid "SUMOTime"
-msgstr ""
+msgstr "SUMOTime"
 
 #: src/netedit/GNEAttributeProperties.cpp:346
 msgid "boolean"
-msgstr ""
+msgstr "Boolscher Wert"
 
 #: src/netedit/GNEAttributeProperties.cpp:349
 msgid "string"
-msgstr ""
+msgstr "Zeichenkette"
 
 #: src/netedit/GNEAttributeProperties.cpp:352
 msgid "position"
-msgstr ""
+msgstr "Position"
 
 #: src/netedit/GNEAttributeProperties.cpp:355
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2200
@@ -4294,32 +4294,34 @@ msgstr "Farbe"
 
 #: src/netedit/GNEAttributeProperties.cpp:358
 msgid "vClass"
-msgstr ""
+msgstr "Fahrzeugklasse"
 
 #: src/netedit/GNEAttributeProperties.cpp:361
 #: src/netedit/GNEAttributeProperties.cpp:365
 msgid "filename"
-msgstr ""
+msgstr "Dateiname"
 
 #: src/netedit/GNEAttributeProperties.cpp:362
 msgid "(Existent)"
-msgstr ""
+msgstr "(vorhanden)"
 
 #: src/netedit/GNEAttributeProperties.cpp:368
 msgid "probability"
-msgstr ""
+msgstr "Wahrscheinlichkeit"
 
 #: src/netedit/GNEAttributeProperties.cpp:369
+#, fuzzy
 msgid "[0, 1]"
-msgstr ""
+msgstr "[0, 1]"
 
 #: src/netedit/GNEAttributeProperties.cpp:372
 msgid "angle"
-msgstr ""
+msgstr "Winkel"
 
 #: src/netedit/GNEAttributeProperties.cpp:373
+#, fuzzy
 msgid "[0, 360]"
-msgstr ""
+msgstr "[0, 360]"
 
 #: src/netedit/GNEAttributeProperties.cpp:649
 #, c-format
@@ -5042,12 +5044,12 @@ msgstr "Flüsse"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:468
 msgid "Vehicle flows"
-msgstr ""
+msgstr "Fahrzeugflüsse"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:473
 #: src/netedit/GNETagPropertiesDatabase.cpp:475
 msgid "Vehicle stops"
-msgstr ""
+msgstr "Fahrzeughalte"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:480
 #: src/netedit/GNETagPropertiesDatabase.cpp:482
@@ -5065,17 +5067,17 @@ msgstr "Personenfahrten"
 #: src/netedit/GNETagPropertiesDatabase.cpp:494
 #: src/netedit/GNETagPropertiesDatabase.cpp:496
 msgid "Person rides"
-msgstr ""
+msgstr "Personenmitfahrten"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:501
 #: src/netedit/GNETagPropertiesDatabase.cpp:503
 msgid "Person walks"
-msgstr ""
+msgstr "Personenfußwege"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:508
 #: src/netedit/GNETagPropertiesDatabase.cpp:510
 msgid "Person stop"
-msgstr ""
+msgstr "Personenaufenthalt"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:515
 #: src/netedit/GNETagPropertiesDatabase.cpp:517
@@ -5086,17 +5088,17 @@ msgstr "Containerpläne"
 #: src/netedit/GNETagPropertiesDatabase.cpp:522
 #: src/netedit/GNETagPropertiesDatabase.cpp:524
 msgid "Container transports"
-msgstr ""
+msgstr "Containertransporte"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:529
 #: src/netedit/GNETagPropertiesDatabase.cpp:531
 msgid "Container tranships"
-msgstr ""
+msgstr "Containerumladevorgänge"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:536
 #: src/netedit/GNETagPropertiesDatabase.cpp:538
 msgid "Container stops"
-msgstr ""
+msgstr "Containerhalte"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:543
 #: src/netedit/GNETagPropertiesDatabase.cpp:545
@@ -7461,7 +7463,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6918
 msgid "The path to the additional file"
-msgstr ""
+msgstr "Der Pfad zur Datei mit weiteren Elementen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6920
 msgid "add. file"
@@ -7469,7 +7471,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6925
 msgid "The path to the route file"
-msgstr ""
+msgstr "Der Pfad zur Routendatei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6927
 msgid "route file"
@@ -7478,7 +7480,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6932
 #: src/netedit/GNETagPropertiesDatabase.cpp:6939
 msgid "The path to the data file"
-msgstr ""
+msgstr "Der Pfad zur Datendatei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6934
 msgid "data file"
