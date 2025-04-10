@@ -526,6 +526,13 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     if (edge->getToJunction()->getNBNode()->isTLControlled() && (edge->getToJunction()->getGNEIncomingEdges().size() <= 1)) {
         edge->getToJunction()->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
     }
+    const std::string oppLaneID = edge->getChildLanes().back()->getAttribute(GNE_ATTR_OPPOSITE);
+    if (oppLaneID != "") {
+        GNELane* lane = myAttributeCarriers->retrieveLane(oppLaneID, false);
+        if (lane != nullptr) {
+            lane->setAttribute(GNE_ATTR_OPPOSITE, "", undoList);
+        }
+    }
     // Delete edge
     undoList->add(new GNEChange_Edge(edge, false), true);
     // remove edge requires always a recompute (due geometry and connections)
