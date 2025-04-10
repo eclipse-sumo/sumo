@@ -1230,6 +1230,9 @@ public:
     /// @brief recheck whether all lanes within the edge are all right and optimises the connections once again
     bool recheckLanes();
 
+    /// @brief recheck whether all opposite and bidi settings are consistent
+    void recheckOpposite(const NBEdgeCont& ec, bool fixOppositeLengths); 
+
     /** @brief Add a connection to the previously computed turnaround, if wished
      * and a turning direction exists (myTurnDestination!=0)
      * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
