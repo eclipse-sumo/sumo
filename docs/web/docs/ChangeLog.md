@@ -106,7 +106,7 @@ title: ChangeLog
   - Pedestrians are now included in full output #16159
   - Added stop attribute `jumpUntil` to set a minimum time for the end of a jump #16153
   - Tram insertion automatically uses moving-block mode when there are no rail signals for tram in the network #16208
-  - Taxis that transfer passengers at a busStop now register at that stop. This shops up in **--stop-output**. #16263
+  - Taxis that transfer passengers at a busStop now register at that stop. This shows up in **--stop-output**. #16263
   - Road slope is now used in HBEFA computation #16307
   - Rerouting device now supports `<param key="ignoreDest" value="1"/>` to support rerouting to any parkingArea regardless of visibility or occupancy of the current destination. One use case is to control to [idle-algorithm for finding the next taxi stand](Simulation/Taxi.md#idle_behavior) #16387
   - The **--full-output** now includes vehicle road slope (in degrees) in networks with elevation data #16389
@@ -153,14 +153,14 @@ title: ChangeLog
 - Tools
   - randomTrips.py: When option **--validate** is set, the generated amount of vehicles is guaranteed (by replacing invalid trips with new valid trips) #8843
   - netcheck.py: Added option **--right-of-way** to find selected cases of faulty right-of-way rules (currently only on-ramps are check) #16036
-  - jtcrouter.py: Added option **--additional-files** which are passed to [jtrrouter.md] #16191
+  - jtcrouter.py: Added option **--additional-files** which are passed to [jtrrouter](jtrrouter.md) #16191
   - csv2xml.py: Added option **--flat** to convert arbitrary csv files without a schema #16204
   - plotXMLAttributes.py: Added option **--xstr** and **--ystr** to force data interpretation as category #16205
   - sumolib: function `xml.parse` is now useful when loading nested elements and not providing argument `element_names`. The new attribute `outputLevel` (default 1) controls which elements to retrieve #16211
   - sumolib: Objects loaded with function `xml.parse` now preserve their attribute order when serialized with `toXML` #16254
   - [remap_additionals.py](Tools/Net.md#remap_additionalspy): convert infrastructure from one network to another network (which may differ in geometry, lanes and edge splits) #16206
   - [remap_renamed.py](Tools/Net.md#remap_renamedpy): convert route files and additional files after renaming network ids (i.e. with **--numerical-ids**) #16252
-  - [remap_network.py]: New tool for finding correspondence between networks based on geometry #16409
+  - [remap_network.py](Tools/Net.md#remap_renamedpy): New tool for finding correspondence between networks based on geometry #16409
   - ptlines2flows.py: now sorts written routes and flows by id #16222
   - ptlines2flows.py: now safely handles missing edges #16293  - 
   - gtfs2pt.py: now supports option **--merged-csv** for loading transit schedule data from a single file #16310
