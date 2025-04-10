@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-03-27 10:01+0000\n"
-"Last-Translator: Benjamin Couéraud <bcoueraud87@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/fr/>\n"
+"PO-Revision-Date: 2025-04-10 09:01+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:1633
 #: src/netedit/GNEApplicationWindow.cpp:1634
 msgid "N/A"
-msgstr "N/A"
+msgstr "ND"
 
 #: src/gui/GUIApplicationWindow.cpp:307
 #: src/netedit/GNEApplicationWindow.cpp:536
@@ -865,7 +865,7 @@ msgstr "Simulation terminée au temps : %. (%)"
 
 #: src/gui/GUIApplicationWindow.cpp:2083
 msgid "Simulation ended at time: %."
-msgstr "Simulation terminée au temps : %."
+msgstr "Simulation terminée au temps: %."
 
 #: src/gui/GUIApplicationWindow.cpp:2084
 msgid "Reason:"
@@ -4325,9 +4325,9 @@ msgid "Attribute '%' already inserted"
 msgstr ""
 
 #: src/netedit/GNELoadThread.cpp:98
-#, fuzzy, c-format
+#, c-format
 msgid "Loading of sumo config file '%' failed."
-msgstr "Chargement de la configuration sumo '"
+msgstr "Chargement de la configuration sumo '%' échoué."
 
 #: src/netedit/GNELoadThread.cpp:111
 #, fuzzy, c-format
