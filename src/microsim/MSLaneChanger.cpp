@@ -1570,7 +1570,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             }
 #endif
             const MSLane* oppLane = (*it)->getOpposite();
-            if (oppLane == nullptr || !oppLane->allowsVehicleClass(vehicle->getVClass())) {
+            if ((oppLane == nullptr && !isEmergency) || (oppLane != nullptr && !oppLane->allowsVehicleClass(vehicle->getVClass()))) {
                 // opposite lane ends
                 break;
             }
