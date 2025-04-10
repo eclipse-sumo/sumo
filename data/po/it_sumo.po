@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-10 07:35+0000\n"
+"PO-Revision-Date: 2025-04-10 14:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8313,27 +8313,27 @@ msgstr "Probabilità per strade di continuare a ogni nodo"
 
 #: src/netgen/NGFrame.cpp:187
 msgid "Probability for a node having at most 1 neighbor"
-msgstr ""
+msgstr "Probabilità di un nodo di avere al più un vicino"
 
 #: src/netgen/NGFrame.cpp:192
 msgid "Probability for a node having at most 2 neighbors"
-msgstr ""
+msgstr "Probabilità di un nodo di avere al più due vicini"
 
 #: src/netgen/NGFrame.cpp:197
 msgid "Probability for a node having at most 3 neighbors"
-msgstr ""
+msgstr "Probabilità di un nodo di avere al più tre vicini"
 
 #: src/netgen/NGFrame.cpp:202
 msgid "Probability for a node having at most 4 neighbors"
-msgstr ""
+msgstr "Probabilità di un nodo di avere al più quattro vicini"
 
 #: src/netgen/NGFrame.cpp:207
 msgid "Probability for a node having at most 5 neighbors"
-msgstr ""
+msgstr "Probabilità di un nodo di avere al più cinque vicini"
 
 #: src/netgen/NGFrame.cpp:212
 msgid "Probability for a node having at most 6 neighbors"
-msgstr ""
+msgstr "Probabilità di un nodo di avere al più sei vicini"
 
 #: src/netgen/NGFrame.cpp:215
 msgid "Place nodes on a regular grid with spacing rand.min-distance"
