@@ -442,7 +442,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 myParent->getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
             if (ri != nullptr && prob > 0) {
                 // draw only if the edge is closed at this time
-                MSEdgeVector& closedEdges = ri->getClosed();
+                MSEdgeVector closedEdges = ri->getClosed();
                 if (std::find(closedEdges.begin(), closedEdges.end(), myEdge) != closedEdges.end()) {
                     const int noLanes = (int)myFGPositions.size();
                     for (int j = 0; j < noLanes; ++j) {
