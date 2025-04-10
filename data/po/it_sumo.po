@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-08 08:27+0000\n"
+"PO-Revision-Date: 2025-04-10 07:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -970,11 +970,12 @@ msgstr "Trovate % definizioni meanData con il codice identificativo '%'."
 #: src/libsumo/Person.cpp:149
 msgid "Edge '%' does not occur within the remaining walk of person '%'."
 msgstr ""
+"L'arco '%' non è presente nel cammino ancora da percorrere della persona '%'."
 
 #: src/libsumo/Person.cpp:162
 #, c-format
 msgid "Person '%' is not walking"
-msgstr ""
+msgstr "La persona '%' non sta camminando"
 
 #: src/libsumo/Person.cpp:585
 #, c-format
@@ -2745,14 +2746,18 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:728
 msgid "Factor for calculating the net free-jam headway time"
 msgstr ""
+"Fattore per calcolare l'intervallo di tempo tra un segmento libero e uno di "
+"ingorgo"
 
 #: src/microsim/MSFrame.cpp:730
 msgid "Factor for calculating the jam-free headway time"
 msgstr ""
+"Fattore per calcolare l'intervallo di tempo tra un segmento di ingorgo e uno "
+"libero"
 
 #: src/microsim/MSFrame.cpp:732
 msgid "Factor for calculating the jam-jam headway time"
-msgstr ""
+msgstr "Fattore per calcolare l'intervallo di tempo tra due segmenti di ingorgo"
 
 #: src/microsim/MSFrame.cpp:737
 msgid "Enable multiple queues at edge ends"
@@ -2782,6 +2787,8 @@ msgstr "Attiva il sorpasso mesoscopico"
 msgid ""
 "Time interval for rechecking insertion into the next segment after failure"
 msgstr ""
+"Periodo per riprovare l'inserzione nel segmento successivo dopo un tentativo "
+"fallito"
 
 #: src/microsim/MSFrame.cpp:772
 msgid "Load visualisation settings from FILE"
@@ -2875,7 +2882,7 @@ msgstr "Fattore di graduazione invalido."
 
 #: src/microsim/MSFrame.cpp:896
 msgid "A vehroute-output file is needed for exit times."
-msgstr ""
+msgstr "Bisogna attivare vehroute-output per le ore di arrivo."
 
 #: src/microsim/MSFrame.cpp:908
 msgid "You can either restart or quit on end."
