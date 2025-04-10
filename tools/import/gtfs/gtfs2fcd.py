@@ -31,6 +31,7 @@ import zipfile
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
+from sumolib.miscutils import humanReadableTime  # noqa
 import traceExporter  # noqa
 import gtfs2osm  # noqa
 
@@ -54,7 +55,8 @@ def add_options():
                     (", ".join(gtfs2osm.OSM2SUMO_MODES.keys())))
     op.add_argument("--vtype-output", default="vtypes.xml", category="output", type=op.file,
                     help="file to write the generated vehicle types to")
-    op.add_argument("--write-terminals", action="store_true", default=False, dest="writeTerminals", category="processing",
+    op.add_argument("--write-terminals", action="store_true", default=False,
+                    dest="writeTerminals", category="processing",
                     help="Write vehicle parameters that describe terminal stops and times")
     op.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
                     help="write times as h:m:s")
