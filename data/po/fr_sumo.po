@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-01-23 14:35+0000\n"
+"PO-Revision-Date: 2025-04-10 09:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/fr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -2791,7 +2791,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:685
 msgid "Simulation ended at time: %."
-msgstr ""
+msgstr "Simulation terminée au temps: %."
 
 #: src/microsim/MSNet.cpp:687
 msgid "Reason: "
@@ -9883,7 +9883,7 @@ msgstr ""
 
 #: src/osgview/GUIOSGView.cpp:985 src/osgview/GUIOSGView.cpp:986
 msgid "N/A"
-msgstr ""
+msgstr "ND"
 
 #: src/polyconvert/PCLoaderArcView.cpp:112
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:208
