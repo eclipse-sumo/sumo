@@ -29,15 +29,24 @@ title: ChangeLog
   - Fixed invalid formula for coasting deceleration in case of steep inclines #16309
   - Fixed invalid rail behavior after rerouting #16431
   - Fixed blocked lane changes on a junctionsvehicle on junction #16443
+  - Fixed deadlock between vehicle and pedestrian on walkingarea #16458
+  - The electric vehicle model now honors engine shuttoff via params `shutOffStopDuration` and `shutOffAutoDuration` #16341
+  - JuPedSim-pedestrians now take into account traffic lights when walking against the direction of the edge. #16313
+  
  
 - netedit
   - Restored functionality for setting custom geometry point by entering values #16179 (regression in 1.20.0)
+  - Improved visibility of internal junction markers on connections #16485 (regression in 1.20.0)
+  - Move mode with elevation checkbox active now shows elevation numbers again when zoomed out #16236 (regression in 1.20.0)
+  - Fixed missing edge colors when defining person walk #16461 (regression in 1.21.0)
   - Fixed overly large endpoint markers in move mode #16266 (regression in 1.22.0)
+  - Fixed crash when TL controlled junction overlaps with another uncontrolled one #16483 (regression in 1.22.0)
   - Fixed invalid connections after using *reset connections* #16127
   - Saving demand that was loaded from a sumocfg in multiple route files is now working #14805
   - Fixed handling of special vType params for visualizing rail carriages #16334
   - Fixed nvalid geometry of person plans that end in a stopLane #15355
   - Fixed invalid geometry of person plan from stoppingPlace to stoppingPlace  #15348
+  - Fixed crash after deleting edges with opposite-lane information #16500
 
 - sumo-gui
   - Fixed rendering of rail carriages when scaled by length/geometry #16425
@@ -57,6 +66,8 @@ title: ChangeLog
   - Fixed crash when using option **--join-tram-dist** #16393
   - Fixed bug where option **--edges.join-tram-dist** didn't join enough #16408
   - Fixed `nan` value in generated network when loading connections with custom length value and length-0 geometry #16441
+  - Fixed invalid right of way with respect to left-turns from the oncoming direction at junctiop type `left_before_right` #16480
+  - Fixed invalid internal lane shape when importin OpenDRIVE #16482
 
 - durarouter
   - Fixed invalid route output when loading invalid routes with stops and setting option **--ignore-errors** #16365
@@ -71,6 +82,7 @@ title: ChangeLog
   - Subscription to `lane.getAngle` is now working #16360
   - Subscriptions to methods with additional parameters now work in libsumo #16383
   - Function `edge.subscribeContext` now correctly collects vehicles at low dist regardless of lane number #16422
+  - Function `vehicle.getLeader` no longer contains traffic that crosses the path of the ego vehicle (without ever becoming a leader) #13842
 
 - Tools
   - `sumolib.net.lane.getClosestLanePosAndDist` now gives correct results when lane length differs from shape length #16269
@@ -79,7 +91,13 @@ title: ChangeLog
   - gtfs2pt.py: Fixed invalid stop placement on disallowed lane #16352
   - gtfs2pt.py: Now warning about input that provokes negative stop-until times #16322
   - route2sel.py: Fixed crash when loading flow/trip that references a route id #16395
-  - randomTrips.py: Fixed inconsistent behavior of option **--verbose** #11861  
+  - randomTrips.py: Fixed inconsistent behavior of option **--verbose** #11861
+  - scaleRoutes.py: Fixed bug in scaling #16474
+  - scaleRoutes.py: Fixed crashes when input exceeds the ocnfigured time range #16467
+  - scaleRoutes.py: option **--timeline-pair** is now working #16473
+  - scaleRoutes.py: Now works with flows defined via `period` #16470
+  - route_1htoDay.py: fixed misleading option help text #16466
+  - route_1htoDay.py: now supports option **--output-file** to put all vehicles into a single file that can be used with **scaleTimeLine.py** #16468
 
 ### Enhancements
 
@@ -95,6 +113,12 @@ title: ChangeLog
   - Collisions that happen as the direct result of lane-changing are now distinguished as "side"-collisions in errors and **--collision-output** #16396
   - The warning "bus stop too short" no longer occurs if a stop fills the whole length of it's lane or if it's `parkingLength` is set to a sufficiently high value #16391
   - Zipper junctions with an arbitrary number of conflicting connections are now supported #11874
+  - Electric vehicle model parameter `constantPowerIntake` is no longer affected by `propulsionEfficiency` or `recuperationEfficiency` #16463
+  - vType attribute `jmTimegapMinor` may now be negative to provoke collisions #16478
+  - person plan element `<stop>` now supports attribute `jump`. When this is set a person may jump between subsequent stops at different locations, taking the configured time to do so #6325
+  - Signal plans where a phase loops back onto itself with no alternative next phase now raise a warning #16487
+  - Emergency vehicles may now perform opposite overtaking of queues even when the downstream edge has no opposite edge #16499
+
 
 - netedit
   - Each object now tracks the file from which it was loaded to facilitate working with projects where multiple route- or additional-files are used #12430
@@ -105,7 +129,7 @@ title: ChangeLog
 - netconvert
   - Added option **--junctions.join.parallel-threshold DEGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
   - Added option **--osm.annotate-defaults** to document whether speed and lane number were based on OSM data or typemap default values #16094
-  - Trams now use safe and efficient zipper merging where possible when no tram rail signals are defined. Option ** --railway.signal.permit-unsignalized** can be used to configure other vClasses that are subject to this behavior #16216
+  - Trams now use safe and efficient zipper merging where possible when no tram rail signals are defined. Option ** --railway.signal.permit-unsignalized** can be used to configure other vClasses that are subject to this behavior #16216  
 
 - sumo-gui
   - started work on Japanese translation #16129
@@ -144,7 +168,10 @@ title: ChangeLog
   - gtfs2pt.py: now supports option **--stops** for giving a list of candidate stop edges to guide mapping. This can can greatly improve running time #16326
   - gtfs2pt.py: improved running time through caching #15856
   - gtfs2pt.py: now supports option **--bus-parking** to make buses clear the road when stopping #16415
+  - gtfs2pt.py: added option **--write-terminals** to include vehicle `<params>`s that describe the known terminal stops of the full route (even if only part of the route is used) #16154
   - net2geojson.py: option **--traffic-lights** can now be used to include the shapes of traffic signals #16419
+  - scaleRoutes.py: now uses a non-constant default timeline #16469
+
 
 
 ### Miscellaneous
