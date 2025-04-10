@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-10 11:05:10 by Eclipse SUMO sumo Version v1_22_0+1397-d6aff3c2a24
+<!-- generated on 2025-04-10 11:55:46 by Eclipse SUMO sumo Version v1_22_0+1401-ab43cd12c2e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <output>
         <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
         <lanechange-output value="lanechanges.xml"/>
     </output>
 
@@ -36,4 +37,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <lanechanges>
+    <change id="overtaking" type="emergency" time="8.00" from="WC_0" to="CW_0" dir="1" speed="5.40" pos="54.30" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.40" origLeaderSecureGap="0.90" origLeaderSpeed="0.00"/>
 </lanechanges>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-10 11:05:32 by Eclipse SUMO sumo Version v1_22_0+1397-d6aff3c2a24
+<!-- generated on 2025-04-10 11:55:46 by Eclipse SUMO sumo Version v1_22_0+1401-ab43cd12c2e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,12 +37,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="overtaking" depart="1.00" departLane="WC_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="24.00" arrivalLane="CE_0" arrivalPos="92.80" arrivalSpeed="13.89" duration="23.00" routeLength="200.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="8.57" rerouteNo="0" devices="tripinfo_overtaking bluelight_overtaking" vType="emergency" speedFactor="1.00" vaporized="">
+        <bluelight/>
+    </tripinfo>
     <tripinfo id="blockers.0" depart="0.00" departLane="WC_0" departPos="92.70" departSpeed="0.00" departDelay="0.00" arrival="54.00" arrivalLane="CE_0" arrivalPos="92.80" arrivalSpeed="13.89" duration="54.00" routeLength="107.52" waitingTime="44.00" waitingCount="1" stopTime="0.00" timeLoss="46.19" rerouteNo="0" devices="tripinfo_blockers.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="blockers.1" depart="0.00" departLane="WC_0" departPos="85.10" departSpeed="0.00" departDelay="0.00" arrival="56.00" arrivalLane="CE_0" arrivalPos="92.80" arrivalSpeed="13.89" duration="56.00" routeLength="115.12" waitingTime="45.00" waitingCount="1" stopTime="0.00" timeLoss="47.19" rerouteNo="0" devices="tripinfo_blockers.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="blockers.2" depart="0.00" departLane="WC_0" departPos="77.50" departSpeed="0.00" departDelay="0.00" arrival="58.00" arrivalLane="CE_0" arrivalPos="92.80" arrivalSpeed="13.89" duration="58.00" routeLength="122.72" waitingTime="46.00" waitingCount="1" stopTime="0.00" timeLoss="48.18" rerouteNo="0" devices="tripinfo_blockers.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="blockers.3" depart="0.00" departLane="WC_0" departPos="69.90" departSpeed="0.00" departDelay="0.00" arrival="59.00" arrivalLane="CE_0" arrivalPos="92.80" arrivalSpeed="13.89" duration="59.00" routeLength="130.32" waitingTime="47.00" waitingCount="1" stopTime="0.00" timeLoss="49.17" rerouteNo="0" devices="tripinfo_blockers.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="blockers.4" depart="0.00" departLane="WC_0" departPos="62.30" departSpeed="0.00" departDelay="0.00" arrival="61.00" arrivalLane="CE_0" arrivalPos="92.80" arrivalSpeed="13.89" duration="61.00" routeLength="137.92" waitingTime="48.00" waitingCount="1" stopTime="0.00" timeLoss="50.16" rerouteNo="0" devices="tripinfo_blockers.4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="overtaking" depart="1.00" departLane="WC_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="62.00" arrivalLane="CE_0" arrivalPos="92.80" arrivalSpeed="13.89" duration="61.00" routeLength="200.22" waitingTime="40.00" waitingCount="1" stopTime="0.00" timeLoss="46.22" rerouteNo="0" devices="tripinfo_overtaking bluelight_overtaking" vType="emergency" speedFactor="1.00" vaporized="">
-        <bluelight/>
-    </tripinfo>
 </tripinfos>
