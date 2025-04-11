@@ -1607,6 +1607,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             // ignore foe vehicles that will not pass
             if ((!cannotIgnore || leader->isStopped() || sameTarget)
                     && !willPass
+                    && (avi.arrivalTime == INVALID_TIME || leader->getSpeed() < SUMO_const_haltingSpeed)
                     && leader->isFrontOnLane(foeLane)
                     && !isOpposite
                     && !inTheWay
