@@ -702,13 +702,12 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
     // build the list of internal lane ids
     std::vector<std::string> internalLaneIDs;
     std::map<std::string, std::string> viaIDs;
-    for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
-        const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-            if ((*k).toEdge != nullptr) {
-                internalLaneIDs.push_back((*k).getInternalLaneID());
-                if ((*k).viaID != "") {
-                    viaIDs[(*k).getInternalLaneID()] = ((*k).getInternalViaLaneID());
+    for (const NBEdge* in : incoming) {
+        for (const auto& con : in->getConnections()) {
+            if (con.toEdge != nullptr) {
+                internalLaneIDs.push_back(con.getInternalLaneID());
+                if (con.viaID != "") {
+                    viaIDs[con.getInternalLaneID()] = (con.getInternalViaLaneID());
                 }
             }
         }
@@ -717,19 +716,18 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
         internalLaneIDs.push_back(c->id + "_0");
     }
     // write the internal nodes
-    for (std::vector<NBEdge*>::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
-        const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-            if ((*k).toEdge == nullptr || !(*k).haveVia) {
+    for (const NBEdge* in : incoming) {
+        for (const auto& con : in->getConnections()) {
+            if (con.toEdge == nullptr || !con.haveVia) {
                 continue;
             }
-            Position pos = (*k).shape[-1];
-            into.openTag(SUMO_TAG_JUNCTION).writeAttr(SUMO_ATTR_ID, (*k).getInternalViaLaneID());
+            Position pos = con.shape[-1];
+            into.openTag(SUMO_TAG_JUNCTION).writeAttr(SUMO_ATTR_ID, con.getInternalViaLaneID());
             into.writeAttr(SUMO_ATTR_TYPE, SumoXMLNodeType::INTERNAL);
             NWFrame::writePositionLong(pos, into);
-            std::string incLanes = (*k).getInternalLaneID();
+            std::string incLanes = con.getInternalLaneID();
             std::vector<std::string> foeIDs;
-            for (std::string incLane : (*k).foeIncomingLanes) {
+            for (std::string incLane : con.foeIncomingLanes) {
                 if (incLane[0] == ':') {
                     // intersecting left turns
                     const int index = StringUtils::toInt(incLane.substr(1));
@@ -741,9 +739,9 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
                 incLanes += " " + incLane;
             }
             into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
-            const std::vector<int>& foes = (*k).foeInternalLinks;
-            for (std::vector<int>::const_iterator it = foes.begin(); it != foes.end(); ++it) {
-                foeIDs.push_back(internalLaneIDs[*it]);
+            const std::vector<int>& foes = con.foeInternalLinks;
+            for (int foe : foes) {
+                foeIDs.push_back(internalLaneIDs[foe]);
             }
             into.writeAttr(SUMO_ATTR_INTLANES, joinToString(foeIDs, " "));
             into.closeTag();
