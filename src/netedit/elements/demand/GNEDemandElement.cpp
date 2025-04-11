@@ -458,26 +458,8 @@ GNEDemandElement::getTypeParent() const {
     } else if (!getParentDemandElements().at(0)->getTagProperty()->isType()
                && !getParentDemandElements().at(0)->getTagProperty()->isTypeDist()) {
         throw InvalidArgument("The first parent isn't a type");
-    } else if (getParentDemandElements().at(0)->getTagProperty()->getTag() == SUMO_TAG_VTYPE) {
-        return getParentDemandElements().at(0);
     } else {
-        // get typeDistribution ID
-        const auto typeDistributionID = getParentDemandElements().at(0)->getID();
-        // obtain all types with the given typeDistribution sorted by ID
-        std::map<std::string, GNEDemandElement*> sortedTypes;
-        for (const auto& type : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-            if (type.second->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == typeDistributionID) {
-                sortedTypes[type.second->getID()] = type.second;
-            }
-        }
-        // return first type, or default vType
-        if (sortedTypes.size() > 0) {
-            return sortedTypes.begin()->second;
-        } else if (myNet->getAttributeCarriers()->getDemandElements().size() > 0) {
-            return myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).begin()->second;
-        } else {
-            throw InvalidArgument("no vTypes");
-        }
+        return getParentDemandElements().at(0);
     }
 }
 
