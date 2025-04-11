@@ -101,9 +101,6 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
     if (myAttributeProperty & Property::NO_PROPERTY) {
         throw FormatException("Attr properties cannot be empty");
     }
-    if (myEditProperty & Edit::NO_EDIT) {
-        throw FormatException("Attr edition properties cannot be empty");
-    }
     // check that positive attributes correspond only to a int, floats or SUMOTimes
     if (isPositive() && !isNumerical()) {
         throw FormatException("Only int, floats or SUMOTimes can be positive");

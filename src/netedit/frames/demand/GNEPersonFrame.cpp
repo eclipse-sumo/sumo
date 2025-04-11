@@ -193,7 +193,7 @@ GNEPersonFrame::tagSelected() {
         } else {
             // hide modules
             myPlanSelector->hidePlanSelector();
-            myPersonPlanAttributesEditor->hideAttributesEditor();
+            myPersonAttributesEditor->hideAttributesEditor();
             myPersonPlanAttributesEditor->hideAttributesEditor();
             myPlanCreator->hidePathCreatorModule();
             myPlanCreatorLegend->hidePlanCreatorLegend();
@@ -233,7 +233,7 @@ GNEPersonFrame::demandElementSelected() {
     } else {
         // hide modules
         myPlanSelector->hidePlanSelector();
-        myPersonPlanAttributesEditor->hideAttributesEditor();
+        myPersonAttributesEditor->hideAttributesEditor();
         myPersonPlanAttributesEditor->hideAttributesEditor();
         myPlanCreator->hidePathCreatorModule();
     }
@@ -243,7 +243,7 @@ GNEPersonFrame::demandElementSelected() {
 bool
 GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
-    if (!myPersonPlanAttributesEditor->checkAttributes(true) || !myPersonPlanAttributesEditor->checkAttributes(true)) {
+    if (!myPersonAttributesEditor->checkAttributes(true) || !myPersonPlanAttributesEditor->checkAttributes(true)) {
         return false;
     } else if (myPlanCreator->planCanBeCreated(myPlanSelector->getCurrentPlanTemplate())) {
         // begin undo-redo operation
@@ -263,7 +263,7 @@ GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
             // abort path creation
             myPlanCreator->abortPathCreation();
             // refresh person and personPlan attributes
-            myPersonPlanAttributesEditor->refreshAttributesEditor();
+            myPersonAttributesEditor->refreshAttributesEditor();
             myPersonPlanAttributesEditor->refreshAttributesEditor();
             // compute person
             person->computePathElement();

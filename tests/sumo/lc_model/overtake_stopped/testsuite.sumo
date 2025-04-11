@@ -22,6 +22,9 @@ stopped_2left_minimal
 # overtaking a maze of stopped vehicles
 stopped_slalom
 
+# overtaking a maze of stopped vehicles
+stopped_slalom2
+
 # overtake a vehicle that is 1000m
 very_long
 

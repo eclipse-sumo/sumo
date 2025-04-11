@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-08 13:52:26 by Eclipse SUMO sumo Version v1_14_1+16863-ce7ff89bb23
+<!-- generated on 2025-04-11 11:40:35 by Eclipse SUMO sumo Version v1_22_0+1430-d07913e668f
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -404,6 +404,7 @@
             <xsd:element name="device.ssm.geo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.write-positions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.write-lane-positions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.write-na" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.exclude-conflict-types" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

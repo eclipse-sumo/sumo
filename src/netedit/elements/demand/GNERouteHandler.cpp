@@ -1082,7 +1082,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
     } else if (planParents.checkIntegrity(transhipTag, containerParent, planParameters)) {
         // build tranship
         GNEDemandElement* tranship = new GNETranship(transhipTag, containerParent, planParents,
-                arrivalPosition, departPosition, speed, duration);
+                departPosition, arrivalPosition, speed, duration);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(tranship, TLF("add % in '%'", tranship->getTagStr(), containerParent->getID()));
@@ -1710,14 +1710,14 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_VEHICLE_WITHROUTE;
             // build embedded route
-            routeHandler.buildVehicleEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 1, {});
+            routeHandler.buildVehicleEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
         } else {
             // change tag in vehicle parameters
             vehicleParameters.tag = SUMO_TAG_VEHICLE;
             // generate route ID
             const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
-            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, 0, 0, 1.0, {});
+            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, 0, 0, 0, {});
             // set route ID in vehicle parameters
             vehicleParameters.routeid = routeID;
             // create vehicle
@@ -1801,14 +1801,14 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             // change tag in vehicle parameters
             vehicleParameters.tag = GNE_TAG_FLOW_WITHROUTE;
             // build embedded route
-            routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 1, {});
+            routeHandler.buildFlowEmbeddedRoute(nullptr, vehicleParameters, edgeIDs, RGBColor::INVISIBLE, 0, 0, {});
         } else {
             // change tag in vehicle parameters
             vehicleParameters.tag = SUMO_TAG_FLOW;
             // generate a new route id
             const std::string routeID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
             // build route
-            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, 0, 0, 1.0, {});
+            routeHandler.buildRoute(nullptr, routeID, vClass, edgeIDs, routeColor, 0, 0, 0, {});
             // set route ID in vehicle parameters
             vehicleParameters.routeid = routeID;
             // create vehicle

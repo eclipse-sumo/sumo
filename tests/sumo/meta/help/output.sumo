@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_14_1+16863-ce7ff89bb23
+Eclipse SUMO sumo Version v1_22_0+1430-d07913e668f
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -712,6 +712,8 @@ SSM Device Options:
                                         for each timestep
   --device.ssm.write-lane-positions    Whether to write lanes and their
                                         positions for each timestep
+  --device.ssm.write-na                Whether to write conflict outputs with
+                                        no data as NA values or skip it
   --device.ssm.exclude-conflict-types STR  Which conflicts will be excluded
                                         from the log according to the conflict
                                         type they have been classified

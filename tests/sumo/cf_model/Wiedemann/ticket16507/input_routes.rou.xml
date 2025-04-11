@@ -1,0 +1,24 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" vClass="passenger" carFollowModel="Wiedemann" sigma="0"/>
+    <vType id="bike" vClass="bicycle"/>
+      
+
+    <vehicle id="flow_0" depart="0"  type="car">
+        <route edges="1" probability="1.0" />
+    </vehicle>
+    <!--
+    -->
+    <vehicle id="Obstacle_1" type="DEFAULT_BIKETYPE" depart="0" departPos="stop" departLane="best">
+        <route edges="1" />
+        <stop lane="1_1" endPos="130" until="3600.0" />
+    </vehicle>
+    <vehicle id="Obstacle_2" type="DEFAULT_BIKETYPE" depart="0" departPos="stop" departLane="best">
+        <route edges="1" />
+        <stop lane="1_1" endPos="95" until="3600.0" />
+    </vehicle>
+
+    <vehicle id="Obstacle_5" type="DEFAULT_BIKETYPE" depart="0" departPos="stop" departLane="best">
+        <route edges="1" />
+        <stop lane="1_0" endPos="115" until="3600.0" />
+    </vehicle>
+</routes>

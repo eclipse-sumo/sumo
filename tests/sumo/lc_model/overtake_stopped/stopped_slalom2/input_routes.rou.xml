@@ -1,0 +1,13 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <trip id="flow_0" from="1" to="1" depart="0" departLane="1" />
+
+    <vehicle id="Obstacle_4" depart="0" departPos="85.04943045109695" departLane="best">
+        <route edges="1" />
+        <stop lane="1_1" endPos="85.04943045109695" until="3600.0" />
+    </vehicle>
+    <vehicle id="Obstacle_5" depart="0" departPos="115.48675089666523" departLane="best">
+        <route edges="1" />
+        <stop lane="1_0" endPos="115.48675089666523" until="3600.0" />
+    </vehicle>
+</routes>

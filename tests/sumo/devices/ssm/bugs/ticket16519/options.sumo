@@ -1,0 +1,3 @@
+{CLEAR --default.speeddev 0} -n net.net.xml -r input_routes.rou.xml 
+--step-length=0.25 --extrapolate-departpos=true --device.ssm.file ssm.xml 
+--device.ssm.probability 1 --device.ssm.measures TTC --device.ssm.range 200 --no-step-log 

@@ -209,7 +209,7 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
                     return childDemandElement->getParentDemandElements().at(1)->getAttribute(key);
                 }
             }
-            return getCommonAttribute(this, key);
+            return "";
     }
 }
 

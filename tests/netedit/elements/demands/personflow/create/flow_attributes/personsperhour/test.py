@@ -40,8 +40,8 @@ netedit.changeElement("personFlow")
 # change person plan
 netedit.changePersonPlan("walk", True)
 
-# set invalid personFlow number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.begin, "dummy")
+# set invalid arrival pos
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacing, "dummySpacing")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -50,14 +50,40 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 # press enter to create route
 netedit.typeEnter()
 
-# set invalid personFlow number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.begin, "-20")
+# set invalid arrival pos
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacing, "personsPerHour")
+
+# press enter to create flow
+netedit.typeEnter()
+
+# set valid arrival pos
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "dummy")
+
+# create flow
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeEnter()
 
-# set invalid personFlow number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.begin, "7.3")
+# set valid arrival pos
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "-30")
+
+# press enter to create route
+netedit.typeEnter()
+
+# set valid arrival pos
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "20.5")
+
+# press enter to create route
+netedit.typeEnter()
+
+# set valid arrival pos
+netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "22")
+
+# create flow
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeEnter()

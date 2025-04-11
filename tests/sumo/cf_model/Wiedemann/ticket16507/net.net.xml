@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-11 13:20:06 by Eclipse SUMO netedit Version v1_22_0+1438-2e002eccedd
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="1214.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="1214.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="1"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="190.00,-4.00" convBoundary="0.00,0.00,165.24,0.07" origBoundary="-190.00,-10.00,140.48,18.14" projParameter="!"/>
+
+    <type id="driving" priority="1" disallow="pedestrian container cable_car subway aircraft wheelchair scooter drone"/>
+
+    <edge id="1" from="1.end" to="1" priority="1" type="driving" shape="0.00,0.00 140.00,0.00">
+        <lane id="1_0" index="0" disallow="pedestrian container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="165.24" width="3.50" shape="0.00,-5.25 165.24,-5.25" type="driving">
+            <param key="origId" value="1_5"/>
+        </lane>
+        <lane id="1_1" index="1" disallow="pedestrian container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="165.24" width="3.50" shape="0.00,-1.75 165.24,-1.75" type="driving">
+            <param key="origId" value="1_4"/>
+        </lane>
+    </edge>
+
+    <junction id="1" type="dead_end" x="165.24" y="0.07" incLanes="1_0 1_1" intLanes="" shape="165.24,-7.00 165.24,0.00"/>
+    <junction id="1.end" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-7.00"/>
+
+</net>

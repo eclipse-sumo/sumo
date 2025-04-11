@@ -7,6 +7,9 @@ ego_straight_foe_left
 # Crossing conflict. Both going straight, ego on major
 ego_major
 
+# Crossing conflict. Both going straight, ego on major
+ego_major_noNA
+
 # Crossing conflict. Both going straight, ego on major. Encounter log created during foe being already in the conflict area.
 ego_major_log_begin_during_conflict
 

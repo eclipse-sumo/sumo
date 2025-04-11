@@ -1,0 +1,2 @@
+Error: SSM exclude-conflict-type 'foo' is not supported. Aborting construction of SSM device 'ssm_ego'.
+Error: SSM exclude-conflict-type 'foo' is not supported. Aborting construction of SSM device 'ssm_foe'.

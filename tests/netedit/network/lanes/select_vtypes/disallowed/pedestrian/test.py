@@ -33,7 +33,7 @@ netedit.selectMode()
 
 # select all edges with allow = "all" and remove it
 # (we cannot use "=all" since "all" is expanded to include all vClassess)
-netedit.selectItems("Network", "lane", "allow", "pedestrian")
+netedit.selectItems("Network elements", "lane", "allow", "pedestrian")
 netedit.deleteSelectedItems()
 
 # recompute

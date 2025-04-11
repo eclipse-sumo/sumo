@@ -750,6 +750,8 @@ private:
     bool myWritePositions;
     /// Wether to print the lanes and positions for all timesteps and conflicts
     bool myWriteLanesPositions;
+    /// Wether to write measuers with NA entries
+    bool myWriteNA;
     /// Whether to exclude certain conflicts containing certain conflict types from the output
     bool myFilterConflictTypes;
     /// Which conflict types to exclude from the output

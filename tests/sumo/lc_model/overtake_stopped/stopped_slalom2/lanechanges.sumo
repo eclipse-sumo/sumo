@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-11 12:08:32 by Eclipse SUMO sumo Version v1_22_0+1435-aa1bc6d92e4
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<lanechanges>
+    <change id="flow_0" type="DEFAULT_VEHTYPE" time="1.00" from="1_1" to="1_0" dir="-1" speed="2.20" pos="7.30" reason="strategic|urgent" leaderGap="103.19" leaderSecureGap="2.20" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="72.75" origLeaderSecureGap="2.20" origLeaderSpeed="0.00"/>
+    <change id="flow_0" type="DEFAULT_VEHTYPE" time="10.00" from="1_0" to="1_1" dir="1" speed="10.34" pos="100.17" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="10.13" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="10.31" origLeaderSecureGap="10.27" origLeaderSpeed="0.00"/>
+</lanechanges>

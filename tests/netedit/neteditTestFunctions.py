@@ -2121,7 +2121,7 @@ def changePersonPlan(personPlan, flow):
     focusOnFrame()
     # jump to person plan
     if (flow):
-        for _ in range(30):
+        for _ in range(29):
             typeTab()
     else:
         for _ in range(22):
@@ -2182,7 +2182,7 @@ def changeContainerPlan(containerPlan, flow):
     focusOnFrame()
     # jump to container plan
     if (flow):
-        for _ in range(30):
+        for _ in range(29):
             typeTab()
     else:
         for _ in range(22):
@@ -2561,12 +2561,12 @@ def selectItems(elementClass, elementType, attribute, value):
     # paste the new elementClass
     pasteIntoTextField(elementClass)
     # jump to element
-    for _ in range(3):
+    for _ in range(2):
         typeTab()
     # paste the new elementType
     pasteIntoTextField(elementType)
     # jump to attribute
-    for _ in range(2):
+    for _ in range(3):
         typeTab()
     # paste the new attribute
     pasteIntoTextField(attribute)
