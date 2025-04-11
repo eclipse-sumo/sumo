@@ -9,11 +9,16 @@ set(utils_iodevices_STAT_SRCS
    OutputDevice_File.h
    OutputDevice_String.cpp
    OutputDevice_String.h
-   OutputDevice_Network.cpp
-   OutputDevice_Network.h
+   # OutputDevice_Network.cpp
+   # OutputDevice_Network.h
+   OutputDevice_Parquet.cpp
+   OutputDevice_Parquet.h
    OutputFormatter.h
    PlainXMLFormatter.cpp
    PlainXMLFormatter.h
+   StreamDevices.h
+   S3Utils.h
+   S3Utils.cpp
 )
 
 add_library(utils_iodevices STATIC ${utils_iodevices_STAT_SRCS})

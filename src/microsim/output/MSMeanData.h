@@ -388,12 +388,21 @@ public:
         return std::vector<std::string>();
     }
 
+    /// @brief Initializes the schema for Parquet output
+    void initParquetSchema(OutputDevice& dev);
+
     /// @brief return attribute value for the given lane
     virtual double getAttributeValue(const MSLane* lane, SumoXMLAttr a, double defaultValue) const {
         UNUSED_PARAMETER(lane);
         UNUSED_PARAMETER(a);
         return defaultValue;
     }
+
+    /// @brief Helper method to write SUMOTime attributes with correct type handling
+    static void writeTimeAttributeF(OutputDevice& dev, SumoXMLAttr attr, SUMOTime time, long long int attributeMask = -1);
+
+    /// @brief Helper method to consistently format time values for Parquet output
+    static double formatTimeForParquet(SUMOTime time);
 
 protected:
     /** @brief Create an instance of MeanDataValues

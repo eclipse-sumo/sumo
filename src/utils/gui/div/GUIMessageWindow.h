@@ -124,28 +124,25 @@ private:
         /// @brief constructor
         MsgOutputDevice(GUIMessageWindow* msgWindow, GUIEventType type) :
             myMsgWindow(msgWindow),
-            myType(type) { }
+            myType(type){ 
+                /// @todo We should design a new formatter type for this.
+                myFormatter = new PlainXMLFormatter();
+                myStreamDevice = new OStreamDevice(new std::ostringstream());
+            }
 
         /// @brief destructor
         ~MsgOutputDevice() { }
 
     protected:
-        /// @brief get Output Stream
-        std::ostream& getOStream() {
-            return myStream;
-        }
         /// @brief write hook
         void postWriteHook() {
-            myMsgWindow->appendMsg(myType, myStream.str());
-            myStream.str("");
+            myMsgWindow->appendMsg(myType, getOStream().str());
+            getOStream().str("");
         }
 
     private:
         /// @brief pointer to message Windows
         GUIMessageWindow* myMsgWindow;
-
-        /// @brief output string stream
-        std::ostringstream myStream;
 
         /// @brief type of event
         GUIEventType myType;
