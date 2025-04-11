@@ -3974,7 +3974,7 @@ MSDevice_SSM::writeLanesPositions(const SUMOVehicle& v) {
     } else {
         writeLanesPos = oc.getBool("device.ssm.write-lane-positions");
         if (oc.isDefault("device.ssm.write-lane-positions") && (myIssuedParameterWarnFlags & SSM_WARN_LANEPOS) == 0) {
-            WRITE_MESSAGEF(TL("Vehicle '%' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '%'."), v.getID(), toString(writeLanesPos));
+            WRITE_MESSAGEF(TL("Vehicle '%' does not supply vehicle parameter 'device.ssm.write-lane-positions'. Using default of '%'."), v.getID(), toString(writeLanesPos));
             myIssuedParameterWarnFlags |= SSM_WARN_LANEPOS;
         }
     }
