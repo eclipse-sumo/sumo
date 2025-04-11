@@ -417,7 +417,9 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOTrafficObject& obj) co
                 for (const auto& settings : ri.closed) {
                     closed.push_back(settings.first);
                 }
-                if (affected(edgeIndices, closed) || affected(edgeIndices, ri.closedLanesAffected)) {
+                if (affected(edgeIndices, closed)
+                        || affected(edgeIndices, ri.closedLanesAffected)
+                        || affected(edgeIndices, ri.main)) {
                     return &ri;
                 }
             }
