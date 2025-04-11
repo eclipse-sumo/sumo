@@ -1563,9 +1563,9 @@ MSLane::planMovements(SUMOTime t) {
 
 
 void
-MSLane::setJunctionApproaches(const SUMOTime t) const {
+MSLane::setJunctionApproaches() const {
     for (MSVehicle* const veh : myVehicles) {
-        veh->setApproachingForAllLinks(t);
+        veh->setApproachingForAllLinks();
     }
 }
 

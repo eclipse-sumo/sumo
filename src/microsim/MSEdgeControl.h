@@ -118,7 +118,7 @@ public:
      *
      * This method goes through all active lanes calling their "setJunctionApproaches" method.
      */
-    void setJunctionApproaches(SUMOTime t);
+    void setJunctionApproaches();
 
 
     /** @brief Executes planned vehicle movements with regards to right-of-way

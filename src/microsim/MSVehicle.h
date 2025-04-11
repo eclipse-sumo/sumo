@@ -333,7 +333,7 @@ public:
 
     /** @brief Register junction approaches for all link items in the current
      * plan */
-    void setApproachingForAllLinks(const SUMOTime t);
+    void setApproachingForAllLinks();
 
     /// @brief register approach on insertion
     void registerInsertionApproach(MSLink* link, double dist);

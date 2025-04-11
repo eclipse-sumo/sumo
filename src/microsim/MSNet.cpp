@@ -797,7 +797,7 @@ MSNet::simulationStep(const bool onlyMove) {
         myEdges->planMovements(myStep);
 
         // register junction approaches based on planned velocities as basis for right-of-way decision
-        myEdges->setJunctionApproaches(myStep);
+        myEdges->setJunctionApproaches();
 
         // decide right-of-way and execute movements
         myEdges->executeMovements(myStep);
