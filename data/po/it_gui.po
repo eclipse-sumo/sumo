@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-03-31 14:06+0000\n"
+"PO-Revision-Date: 2025-04-11 07:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2836,11 +2836,11 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:3711
 #, c-format
 msgid "Reloading of additional file '%' failed."
-msgstr ""
+msgstr "Il caricamento ripetuto del file di elementi addizionali '%' è fallito."
 
 #: src/netedit/GNEApplicationWindow.cpp:3767
 msgid "Additionals saved"
-msgstr ""
+msgstr "Elementi addizionali salvati"
 
 #: src/netedit/GNEApplicationWindow.cpp:3770
 msgid "Saving additional aborted"
@@ -2856,7 +2856,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3840
 msgid "JuPedSim elements saved"
-msgstr ""
+msgstr "Elementi JuPedSim salvati"
 
 #: src/netedit/GNEApplicationWindow.cpp:3843
 msgid "Saving JuPedSim aborted"
@@ -2887,11 +2887,11 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:3925
 #, c-format
 msgid "Reloading of route file '%'failed."
-msgstr ""
+msgstr "Il caricamento ripetuto del file di itinerari '%' è fallito."
 
 #: src/netedit/GNEApplicationWindow.cpp:3979
 msgid "Demand elements saved"
-msgstr ""
+msgstr "Elementi di domanda salvati"
 
 #: src/netedit/GNEApplicationWindow.cpp:3982
 #: src/netedit/GNEApplicationWindow.cpp:4159
@@ -2931,7 +2931,7 @@ msgstr "Ricaricamento del file di dati fallito: "
 
 #: src/netedit/GNEApplicationWindow.cpp:4156
 msgid "Data elements saved"
-msgstr ""
+msgstr "Elementi di dati salvati"
 
 #: src/netedit/GNEApplicationWindow.cpp:4164
 msgid "Saving data elements failed!"
