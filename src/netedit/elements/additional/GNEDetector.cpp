@@ -53,6 +53,10 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& 
     myNextEdges(nextEdges),
     myDetectPersons(detectPersons),
     myFriendlyPosition(friendlyPos) {
+    // update output filename
+    if (outputFilename.empty()) {
+        myOutputFilename = id + ".xml";
+    }
     // set parents
     setParent<GNELane*>(lane);
 }
@@ -71,6 +75,10 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, const std::string& 
     myNextEdges(nextEdges),
     myDetectPersons(detectPersons),
     myFriendlyPosition(friendlyPos) {
+    // update output filename
+    if (outputFilename.empty()) {
+        myOutputFilename = id + ".xml";
+    }
     // set parents
     setParents<GNELane*>(lanes);
 }
