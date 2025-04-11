@@ -4015,11 +4015,11 @@ MSDevice_SSM::filterByConflictType(const SUMOVehicle& v, std::string deviceID, s
             confirmed.insert(FOE_ENCOUNTERTYPES.begin(), FOE_ENCOUNTERTYPES.end());
         } else if (*i == "ego") {
             confirmed.insert(EGO_ENCOUNTERTYPES.begin(), EGO_ENCOUNTERTYPES.end());
-        } else if (encounterToString(static_cast<EncounterType>(std::stoi(*i))) != "UNKNOWN") {
+        } else if (StringUtils::isInt(*i) && encounterToString(static_cast<EncounterType>(StringUtils::toInt(*i))) != "UNKNOWN") {
             confirmed.insert(std::stoi(*i));
         } else {
             // Given identifier is unknown
-            WRITE_ERRORF(TL("SSM order filter '%' is not supported. Aborting construction of SSM device '%'."), *i, deviceID);
+            WRITE_ERRORF(TL("SSM exclude-conflict-type '%' is not supported. Aborting construction of SSM device '%'."), *i, deviceID);
             return false;
         }
     }
