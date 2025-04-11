@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-24 13:30:34 by Eclipse SUMO sumo Version v1_22_0+0970-8ce7f81f1b1
+<!-- generated on 2025-04-11 09:24:09 by Eclipse SUMO sumo Version v1_22_0+1413-e2e7024d54a
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -21,15 +21,15 @@
     </report>
 
     <traci_server>
-        <remote-port value="44803"/>
+        <remote-port value="42441"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
 <collisions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/collision_file.xsd">
-    <collision time="4.00" type="collision" lane="SC_3" pos="25.10" collider="c0" victim="v0" colliderType="reckless" victimType="slow" colliderSpeed="15.00" victimSpeed="5.00"/>
-    <collision time="4.00" type="collision" lane="SC_4" pos="25.10" collider="c1" victim="v1" colliderType="reckless" victimType="slow" colliderSpeed="15.00" victimSpeed="5.00"/>
-    <collision time="15.00" type="sharedLane" lane="EC_0" pos="85.15" collider="c3" victim="pWE.37" colliderType="reckless" victimType="DEFAULT_PEDTYPE" colliderSpeed="15.00" victimSpeed="0.00"/>
-    <collision time="16.00" type="crossing" lane=":C_3_0" pos="13.28" collider="c2" victim="pWE.3" colliderType="reckless" victimType="DEFAULT_PEDTYPE" colliderSpeed="15.00" victimSpeed="1.37"/>
+    <collision time="4.00" type="collision" lane="SC_3" pos="25.10" collider="c0" victim="v0" colliderType="reckless" victimType="slow" colliderSpeed="15.00" victimSpeed="5.00" colliderFront="104.95,25.10" colliderBack="104.95,15.10" victimFront="104.95,25.10" victimBack="104.95,20.10"/>
+    <collision time="4.00" type="collision" lane="SC_4" pos="25.10" collider="c1" victim="v1" colliderType="reckless" victimType="slow" colliderSpeed="15.00" victimSpeed="5.00" colliderFront="101.65,25.10" colliderBack="101.65,15.10" victimFront="101.65,25.10" victimBack="101.65,20.10"/>
+    <collision time="15.00" type="sharedLane" lane="EC_0" pos="85.15" collider="c3" victim="pWE.37" colliderType="reckless" victimType="DEFAULT_PEDTYPE" colliderSpeed="15.00" victimSpeed="0.00" colliderFront="114.90,110.10" colliderBack="124.90,110.10" victimFront="114.85,109.67" victimBack="114.85,109.67"/>
+    <collision time="16.00" type="crossing" lane=":C_3_0" pos="13.28" collider="c2" victim="pWE.3" colliderType="reckless" victimType="DEFAULT_PEDTYPE" colliderSpeed="15.00" victimSpeed="1.37" colliderFront="95.05,105.00" colliderBack="95.05,115.00" victimFront="94.37,110.84" victimBack="94.37,110.84"/>
 </collisions>
