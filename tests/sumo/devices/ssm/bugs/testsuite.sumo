@@ -19,3 +19,6 @@ ticket11336
 
 # SSM device reports collisions with oncoming traffic on another lane
 ticket13918
+
+# SSM device reports invalid lane geometry and indirect left turn
+ticket16519
