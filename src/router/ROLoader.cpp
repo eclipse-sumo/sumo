@@ -125,12 +125,6 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     } else {
         PROGRESS_DONE_MESSAGE();
     }
-    if (myOptions.exists("restriction-params") && myOptions.isSet("restriction-params")) {
-        const std::vector<std::string> paramKeys = myOptions.getStringVector("restriction-params");
-        for (auto& edgeIt : toFill.getEdgeMap()) {
-            edgeIt.second->cacheParamRestrictions(paramKeys);
-        }
-    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNINGF(TL("Deprecated vehicle classes '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
@@ -156,6 +150,12 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         toFill.addJunctionTaz(eb);
     }
     toFill.setBidiEdges(handler.getBidiMap());
+    if (myOptions.exists("restriction-params") && myOptions.isSet("restriction-params")) {
+        const std::vector<std::string> paramKeys = myOptions.getStringVector("restriction-params");
+        for (auto& edgeIt : toFill.getEdgeMap()) {
+            edgeIt.second->cacheParamRestrictions(paramKeys);
+        }
+    }
 }
 
 
