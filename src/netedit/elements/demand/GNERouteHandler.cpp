@@ -1082,7 +1082,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
     } else if (planParents.checkIntegrity(transhipTag, containerParent, planParameters)) {
         // build tranship
         GNEDemandElement* tranship = new GNETranship(transhipTag, containerParent, planParents,
-                arrivalPosition, departPosition, speed, duration);
+                departPosition, arrivalPosition, speed, duration);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(tranship, TLF("add % in '%'", tranship->getTagStr(), containerParent->getID()));

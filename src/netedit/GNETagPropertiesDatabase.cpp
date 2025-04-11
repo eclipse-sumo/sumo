@@ -8252,7 +8252,7 @@ GNETagPropertiesDatabase::fillWalkCommonAttributes(GNETagProperties* tagProperti
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_SPEED,
                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                               TL("speed of the person for this tranship in m/s (not together with duration)"),
+                               TLF("speed of the person for this % in m/s (not together with duration)", tagProperties->getTagStr()),
                                "1.39");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DURATION,
