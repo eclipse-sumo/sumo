@@ -2561,12 +2561,12 @@ def selectItems(elementClass, elementType, attribute, value):
     # paste the new elementClass
     pasteIntoTextField(elementClass)
     # jump to element
-    for _ in range(3):
+    for _ in range(2):
         typeTab()
     # paste the new elementType
     pasteIntoTextField(elementType)
     # jump to attribute
-    for _ in range(2):
+    for _ in range(3):
         typeTab()
     # paste the new attribute
     pasteIntoTextField(attribute)
