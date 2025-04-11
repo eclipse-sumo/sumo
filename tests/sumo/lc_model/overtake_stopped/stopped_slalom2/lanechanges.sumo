@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-11 11:38:00 by Eclipse SUMO sumo Version v1_22_0+1430-d07913e668f
+<!-- generated on 2025-04-11 12:08:32 by Eclipse SUMO sumo Version v1_22_0+1435-aa1bc6d92e4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,11 +37,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <lanechanges>
     <change id="flow_0" type="DEFAULT_VEHTYPE" time="1.00" from="1_1" to="1_0" dir="-1" speed="2.20" pos="7.30" reason="strategic|urgent" leaderGap="103.19" leaderSecureGap="2.20" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="72.75" origLeaderSecureGap="2.20" origLeaderSpeed="0.00"/>
-    <change id="flow_0" type="DEFAULT_VEHTYPE" time="2.00" from="1_0" to="1_1" dir="1" speed="4.74" pos="12.03" reason="strategic|urgent" leaderGap="68.02" leaderSecureGap="4.97" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="98.46" origLeaderSecureGap="4.97" origLeaderSpeed="0.00"/>
-    <change id="flow_0" type="DEFAULT_VEHTYPE" time="3.00" from="1_1" to="1_0" dir="-1" speed="6.45" pos="18.48" reason="strategic|urgent" leaderGap="92.01" leaderSecureGap="8.40" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="61.57" origLeaderSecureGap="8.40" origLeaderSpeed="0.00"/>
-    <change id="flow_0" type="DEFAULT_VEHTYPE" time="4.00" from="1_0" to="1_1" dir="1" speed="8.99" pos="27.47" reason="strategic|urgent" leaderGap="52.58" leaderSecureGap="13.48" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="83.02" origLeaderSecureGap="13.48" origLeaderSpeed="0.00"/>
-    <change id="flow_0" type="DEFAULT_VEHTYPE" time="5.00" from="1_1" to="1_0" dir="-1" speed="10.58" pos="38.05" reason="strategic|urgent" leaderGap="72.43" leaderSecureGap="18.24" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="42.00" origLeaderSecureGap="18.24" origLeaderSpeed="0.00"/>
-    <change id="flow_0" type="DEFAULT_VEHTYPE" time="6.00" from="1_0" to="1_1" dir="1" speed="12.47" pos="50.52" reason="strategic|urgent" leaderGap="29.53" leaderSecureGap="23.92" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="59.96" origLeaderSecureGap="23.92" origLeaderSpeed="0.00"/>
-    <change id="flow_0" type="DEFAULT_VEHTYPE" time="7.00" from="1_1" to="1_0" dir="-1" speed="12.92" pos="63.44" reason="strategic|urgent" leaderGap="47.04" leaderSecureGap="25.26" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="16.60" origLeaderSecureGap="25.26" origLeaderSpeed="0.00"/>
-    <change id="flow_0" type="DEFAULT_VEHTYPE" time="10.00" from="1_0" to="1_1" dir="1" speed="10.30" pos="100.36" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="10.31" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="10.13" origLeaderSecureGap="11.17" origLeaderSpeed="0.00"/>
+    <change id="flow_0" type="DEFAULT_VEHTYPE" time="10.00" from="1_0" to="1_1" dir="1" speed="10.34" pos="100.17" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="10.13" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="10.31" origLeaderSecureGap="10.27" origLeaderSpeed="0.00"/>
 </lanechanges>
