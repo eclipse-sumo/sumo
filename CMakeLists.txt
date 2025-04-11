@@ -301,11 +301,11 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/freetype-2.??.?")
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
     file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-?.??")
-    file(GLOB GLEW_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/glew-2.?.?")
-    file(GLOB GLM_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/glm-?.?.?.?")
+    file(GLOB GLEW_PATH "${SUMO_LIBRARIES}/glew-2.?.?")
+    file(GLOB GLM_PATH "${SUMO_LIBRARIES}/glm-?.?.?.?")
     set(glm_DIR "${GLM_PATH}/cmake/glm") # if necessary
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GLEW_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GLEW_PATH};${GLM_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
@@ -397,7 +397,7 @@ if (FOX_FOUND)
         #file(GLOB GLM_ROOT "${SUMO_LIBRARIES}/3rdPartyLibs/glm-?.?.?.?")
         find_package(glm REQUIRED)
         message(STATUS "Found GLM: " ${GLM_INCLUDE_DIRS})
-        include_directories("${GLM_INCLUDE_DIRS}")
+        include_directories(${GLM_INCLUDE_DIRS})
         set(HAVE_FOX 1)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} GUI")
     else ()
