@@ -1,0 +1,8 @@
+<additional>
+    <rerouter id="closeMultiple" edges="E0">
+          <interval begin="100" end="250">
+              <closingLaneReroute id="E0_0" allow="pedestrian"/>
+              <closingLaneReroute id="E0_1" allow="bus"/>
+          </interval>
+    </rerouter>
+</additional>

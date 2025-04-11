@@ -97,21 +97,23 @@ GNEVTypeDistribution::fixDemandElementProblem() {
 
 SUMOVehicleClass
 GNEVTypeDistribution::getVClass() const {
-    if (getChildDemandElements().size() > 0) {
-        return getChildDemandElements().front()->getVClass();
-    } else {
-        return SVC_IGNORING;
+    for (const auto& childDemandElement : getChildDemandElements()) {
+        if (childDemandElement->getTagProperty()->hasAttribute(SUMO_ATTR_REFID)) {
+            return childDemandElement->getVClass();
+        }
     }
+    return SVC_IGNORING;
 }
 
 
 const RGBColor&
 GNEVTypeDistribution::getColor() const {
-    if (getChildDemandElements().size() > 0) {
-        return getChildDemandElements().front()->getColor();
-    } else {
-        return RGBColor::INVISIBLE;
+    for (const auto& childDemandElement : getChildDemandElements()) {
+        if (childDemandElement->getTagProperty()->hasAttribute(SUMO_ATTR_REFID)) {
+            return childDemandElement->getColor();
+        }
     }
+    return RGBColor::YELLOW;
 }
 
 
@@ -201,6 +203,12 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
                 return toString(myDeterministic);
             }
         default:
+            // check if the given attribute is part of
+            for (const auto& childDemandElement : getChildDemandElements()) {
+                if (childDemandElement->getTagProperty()->hasAttribute(SUMO_ATTR_REFID)) {
+                    return childDemandElement->getParentDemandElements().at(1)->getAttribute(key);
+                }
+            }
             return getCommonAttribute(this, key);
     }
 }
@@ -208,13 +216,32 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEVTypeDistribution::getAttributeDouble(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
+    // first try to get value from type child
+    for (const auto& childDemandElement : getChildDemandElements()) {
+        if (childDemandElement->getTagProperty()->hasAttribute(SUMO_ATTR_REFID)) {
+            return childDemandElement->getParentDemandElements().at(1)->getAttributeDouble(key);
+        }
+    }
+    // special cases for vehicles
+    switch (key) {
+        case SUMO_ATTR_WIDTH:
+            return 1;
+        case SUMO_ATTR_LENGTH:
+            return 3;
+        default:
+            return 0;
+    }
 }
 
 
 Position
 GNEVTypeDistribution::getAttributePosition(SumoXMLAttr key) const {
-    throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
+    for (const auto& childDemandElement : getChildDemandElements()) {
+        if (childDemandElement->getTagProperty()->hasAttribute(SUMO_ATTR_REFID)) {
+            return childDemandElement->getAttributePosition(key);
+        }
+    }
+    return Position();
 }
 
 

@@ -1,0 +1,6 @@
+<routes>
+    <route id="r0" edges="E0"/>
+    <vType id="bus" vClass="bus" color="1,0,0" length="12"/>
+    <flow id="car" begin="0" end="250" route="r0" period="30" departLane="best"/>
+    <flow id="bus" type="bus" begin="0" end="250" route="r0" period="70" departLane="best"/>
+</routes>

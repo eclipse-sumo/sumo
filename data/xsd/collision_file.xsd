@@ -23,6 +23,10 @@
             <xsd:attribute name="victimType" use="required" type="xsd:string"/>
             <xsd:attribute name="colliderSpeed" use="required" type="xsd:string"/>
             <xsd:attribute name="victimSpeed" use="required" type="xsd:string"/>
+            <xsd:attribute name="colliderFront" use="optional" type="positionType"/>
+            <xsd:attribute name="victimFront" use="optional" type="positionType"/>
+            <xsd:attribute name="colliderBack" use="optional" type="positionType"/>
+            <xsd:attribute name="victimBack" use="optional" type="positionType"/>
         </xsd:complexType>
     </xsd:element>
 

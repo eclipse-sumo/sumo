@@ -5354,8 +5354,8 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
 
 
 void
-MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
-    if (!checkActionStep(t)) {
+MSVehicle::setApproachingForAllLinks() {
+    if (!myActionStep) {
         return;
     }
     removeApproachingInformation(myLFLinkLanesPrev);

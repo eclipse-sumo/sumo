@@ -457,7 +457,7 @@ GNEAdditionalFrame::initBaseAdditionalObject(const GNETagProperties* tagProperty
             return false;
         } else {
             myBaseAdditional->addStringAttribute(SUMO_ATTR_LANE, viewObjects.getLaneFront()->getID());
-            myBaseAdditional->addDoubleAttribute(GNE_ATTR_LANELENGTH, viewObjects.getLaneFront()->getLaneShapeLength());
+            myBaseAdditional->addDoubleAttribute(GNE_ATTR_LANELENGTH, viewObjects.getLaneFront()->getLaneShapeLength() / viewObjects.getLaneFront()->getLengthGeometryFactor());
             // Obtain position of the mouse over lane (limited over grid)
             const double mousePositionOverLane = viewObjects.getLaneFront()->getLaneShape().nearest_offset_to_point2D(viewPosSnapped) / viewObjects.getLaneFront()->getLengthGeometryFactor();
             // special case for access

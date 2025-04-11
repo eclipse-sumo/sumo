@@ -1,0 +1,13 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="emergency" vClass="emergency" jmDriveAfterRedTime="1000" sigma="0">
+        <param key="has.bluelight.device" value="true"/>
+    </vType>
+
+    <route id="WE" edges="WC CE"/>
+    <route id="WN" edges="WC CN"/>
+
+    <flow id="blockers"  route="WE" departPos="last" begin="0" end="0" number="5"/>
+    <vehicle id="overtaking" type="emergency" route="WN" departPos="0"  depart="1"/>
+
+</routes>

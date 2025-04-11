@@ -3161,6 +3161,84 @@ NBEdge::recheckLanes() {
 }
 
 
+void NBEdge::recheckOpposite(const NBEdgeCont& ec, bool fixOppositeLengths) {
+    if (getNumLanes() == 0) {
+        return;
+    }
+    const int leftmostLane = getNumLanes() - 1;
+    // check oppositeID stored in other lanes
+    for (int i = 0; i < leftmostLane; i++) {
+        const std::string& oppositeID = getLanes()[i].oppositeID;
+        NBEdge* oppEdge = ec.retrieve(oppositeID.substr(0, oppositeID.rfind("_")));
+        if (oppositeID != "" && oppositeID != "-") {
+            if (getLanes().back().oppositeID == "" && oppEdge != nullptr) {
+                getLaneStruct(leftmostLane).oppositeID = oppositeID;
+                WRITE_WARNINGF(TL("Moving opposite lane '%' from invalid lane '%' to lane index %."), oppositeID, getLaneID(i), leftmostLane);
+            } else {
+                WRITE_WARNINGF(TL("Removing opposite lane '%' for invalid lane '%'."), oppositeID, getLaneID(i));
+            }
+            getLaneStruct(i).oppositeID = "";
+        }
+    }
+    const std::string& oppositeID = getLanes().back().oppositeID;
+    if (oppositeID != "" && oppositeID != "-") {
+        NBEdge* oppEdge = ec.retrieve(oppositeID.substr(0, oppositeID.rfind("_")));
+        if (oppEdge == nullptr) {
+            WRITE_WARNINGF(TL("Removing unknown opposite lane '%' for edge '%'."), oppositeID, getID());
+            getLaneStruct(leftmostLane).oppositeID = "";
+        } else {
+            if (oppEdge->getLaneID(oppEdge->getNumLanes() - 1) != oppositeID) {
+                const std::string oppEdgeLeftmost = oppEdge->getLaneID(oppEdge->getNumLanes() - 1);
+                WRITE_WARNINGF(TL("Adapting invalid opposite lane '%' for edge '%' to '%'."), oppositeID, getID(), oppEdgeLeftmost);
+                getLaneStruct(leftmostLane).oppositeID = oppEdgeLeftmost;
+            }
+            NBEdge::Lane& oppLane = oppEdge->getLaneStruct(oppEdge->getNumLanes() - 1);
+            if (oppLane.oppositeID == "") {
+                const std::string leftmostID = getLaneID(leftmostLane);
+                WRITE_WARNINGF(TL("Adapting missing opposite lane '%' for edge '%'."), leftmostID, oppEdge->getID());
+                oppLane.oppositeID = leftmostID;
+            }
+            if (fabs(oppEdge->getLoadedLength() - getLoadedLength()) > NUMERICAL_EPS) {
+                if (fixOppositeLengths) {
+                    const double avgLength = 0.5 * (getFinalLength() + oppEdge->getFinalLength());
+                    WRITE_WARNINGF(TL("Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."),
+                            oppositeID, oppEdge->getLoadedLength(), getID(), getLoadedLength());
+                    setLoadedLength(avgLength);
+                    oppEdge->setLoadedLength(avgLength);
+                } else {
+                    WRITE_ERROR("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) +
+                            ") differs in length from edge '" + getID() + "' (length " +
+                            toString(getLoadedLength()) + "). Set --opposites.guess.fix-lengths to fix this.");
+                    getLaneStruct(getNumLanes() - 1).oppositeID = "";
+                }
+            }
+            if (oppEdge->getFromNode() != getToNode() || oppEdge->getToNode() != getFromNode()) {
+                WRITE_ERRORF(TL("Opposite lane '%' does not connect the same nodes as edge '%'!"), oppositeID, getID());
+                getLaneStruct(getNumLanes() - 1).oppositeID = "";
+            }
+        }
+    }
+    // check for matching bidi lane shapes (at least for the simple case of 1-lane edges)
+    const NBEdge* bidi = getBidiEdge();
+    if (bidi != nullptr && getNumLanes() == 1 && bidi->getNumLanes() == 1 && getID() < bidi->getID()) {
+        getLaneStruct(0).shape = bidi->getLaneStruct(0).shape.reverse();
+    }
+    // check for valid offset and speed
+    const double startOffset = isBidiRail() ? getTurnDestination(true)->getEndOffset() : 0;
+    int i = 0;
+    for (const NBEdge::Lane& l : getLanes()) {
+        if (startOffset + l.endOffset > getLength()) {
+            WRITE_WARNINGF(TL("Invalid endOffset % at lane '%' with length % (startOffset %)."),
+                    toString(l.endOffset), getLaneID(i), toString(l.shape.length()), toString(startOffset));
+        } else if (l.speed < 0.) {
+            WRITE_WARNINGF(TL("Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."), toString(l.speed), getLaneID(i));
+        } else if (l.speed == 0.) {
+            WRITE_WARNINGF(TL("Lane '%' has a maximum allowed speed of 0."), getLaneID(i));
+        }
+        i++;
+    }
+}
+
 void NBEdge::removeInvalidConnections() {
     // check restrictions
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {

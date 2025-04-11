@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-10 11:20:13 by Eclipse SUMO sumo Version v1_22_0+1397-d6aff3c2a24
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="blockers.0" depart="0.00" departLane="WC_0" departPos="95.15" departSpeed="0.00" departDelay="0.00" arrival="54.00" arrivalLane="CE_0" arrivalPos="95.25" arrivalSpeed="13.89" duration="54.00" routeLength="104.85" waitingTime="44.00" waitingCount="1" stopTime="0.00" timeLoss="46.19" rerouteNo="0" devices="tripinfo_blockers.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blockers.1" depart="0.00" departLane="WC_0" departPos="87.55" departSpeed="0.00" departDelay="0.00" arrival="57.00" arrivalLane="CE_0" arrivalPos="95.25" arrivalSpeed="13.89" duration="57.00" routeLength="112.45" waitingTime="45.00" waitingCount="1" stopTime="0.00" timeLoss="48.73" rerouteNo="0" devices="tripinfo_blockers.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blockers2.0" depart="30.00" departLane="EC_0" departPos="95.15" departSpeed="0.00" departDelay="0.00" arrival="59.00" arrivalLane="CW_0" arrivalPos="95.25" arrivalSpeed="13.89" duration="29.00" routeLength="104.85" waitingTime="16.00" waitingCount="3" stopTime="0.00" timeLoss="20.68" rerouteNo="0" devices="tripinfo_blockers2.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking" depart="1.00" departLane="WC_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="60.00" arrivalLane="CS_0" arrivalPos="95.25" arrivalSpeed="13.89" duration="59.00" routeLength="195.50" waitingTime="37.00" waitingCount="1" stopTime="0.00" timeLoss="44.34" rerouteNo="0" devices="tripinfo_overtaking" vType="emergency" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blockers2.1" depart="30.00" departLane="EC_0" departPos="87.55" departSpeed="0.00" departDelay="0.00" arrival="60.00" arrivalLane="CW_0" arrivalPos="95.25" arrivalSpeed="13.89" duration="30.00" routeLength="112.45" waitingTime="16.00" waitingCount="2" stopTime="0.00" timeLoss="21.67" rerouteNo="0" devices="tripinfo_blockers2.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blockers.2" depart="0.00" departLane="WC_0" departPos="79.95" departSpeed="0.00" departDelay="0.00" arrival="62.00" arrivalLane="CE_0" arrivalPos="95.25" arrivalSpeed="13.89" duration="62.00" routeLength="120.05" waitingTime="48.00" waitingCount="3" stopTime="0.00" timeLoss="52.74" rerouteNo="0" devices="tripinfo_blockers.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blockers2.2" depart="30.00" departLane="EC_0" departPos="79.95" departSpeed="0.00" departDelay="0.00" arrival="62.00" arrivalLane="CW_0" arrivalPos="95.25" arrivalSpeed="13.89" duration="32.00" routeLength="120.05" waitingTime="17.00" waitingCount="2" stopTime="0.00" timeLoss="22.67" rerouteNo="0" devices="tripinfo_blockers2.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blockers.3" depart="0.00" departLane="WC_0" departPos="72.35" departSpeed="0.00" departDelay="0.00" arrival="63.00" arrivalLane="CE_0" arrivalPos="95.25" arrivalSpeed="13.89" duration="63.00" routeLength="127.65" waitingTime="49.00" waitingCount="3" stopTime="0.00" timeLoss="53.73" rerouteNo="0" devices="tripinfo_blockers.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blockers2.3" depart="30.00" departLane="EC_0" departPos="72.35" departSpeed="0.00" departDelay="0.00" arrival="63.00" arrivalLane="CW_0" arrivalPos="95.25" arrivalSpeed="13.89" duration="33.00" routeLength="127.65" waitingTime="18.00" waitingCount="2" stopTime="0.00" timeLoss="23.66" rerouteNo="0" devices="tripinfo_blockers2.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blockers.4" depart="0.00" departLane="WC_0" departPos="64.75" departSpeed="0.00" departDelay="0.00" arrival="65.00" arrivalLane="CE_0" arrivalPos="95.25" arrivalSpeed="13.89" duration="65.00" routeLength="135.25" waitingTime="50.00" waitingCount="3" stopTime="0.00" timeLoss="54.73" rerouteNo="0" devices="tripinfo_blockers.4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blockers2.4" depart="30.00" departLane="EC_0" departPos="64.75" departSpeed="0.00" departDelay="0.00" arrival="65.00" arrivalLane="CW_0" arrivalPos="95.25" arrivalSpeed="13.89" duration="35.00" routeLength="135.25" waitingTime="19.00" waitingCount="2" stopTime="0.00" timeLoss="24.65" rerouteNo="0" devices="tripinfo_blockers2.4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>

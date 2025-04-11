@@ -184,9 +184,9 @@ MSEdgeControl::planMovements(SUMOTime t) {
 
 
 void
-MSEdgeControl::setJunctionApproaches(SUMOTime t) {
+MSEdgeControl::setJunctionApproaches() {
     for (MSLane* const lane : myActiveLanes) {
-        lane->setJunctionApproaches(t);
+        lane->setJunctionApproaches();
     }
 }
 

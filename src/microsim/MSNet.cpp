@@ -559,6 +559,10 @@ MSNet::writeCollisions() const {
             od.writeAttr("victimType", c.victimType);
             od.writeAttr("colliderSpeed", c.colliderSpeed);
             od.writeAttr("victimSpeed", c.victimSpeed);
+            od.writeAttr("colliderFront", c.colliderFront);
+            od.writeAttr("colliderBack", c.colliderBack);
+            od.writeAttr("victimFront", c.victimFront);
+            od.writeAttr("victimBack", c.victimBack);
             od.closeTag();
         }
     }
@@ -797,7 +801,7 @@ MSNet::simulationStep(const bool onlyMove) {
         myEdges->planMovements(myStep);
 
         // register junction approaches based on planned velocities as basis for right-of-way decision
-        myEdges->setJunctionApproaches(myStep);
+        myEdges->setJunctionApproaches();
 
         // decide right-of-way and execute movements
         myEdges->executeMovements(myStep);
@@ -1347,6 +1351,10 @@ MSNet::registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObj
     c.victimType = victim->getVehicleType().getID();
     c.colliderSpeed = collider->getSpeed();
     c.victimSpeed = victim->getSpeed();
+    c.colliderFront = collider->getPosition();
+    c.victimFront = victim->getPosition();
+    c.colliderBack = collider->getPosition(-collider->getVehicleType().getLength());
+    c.victimBack = victim->getPosition(-victim->getVehicleType().getLength());
     c.type = collisionType;
     c.lane = lane;
     c.pos = pos;

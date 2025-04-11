@@ -25,6 +25,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include <utils/common/Command.h>
 #include <utils/common/Named.h>
 #include <utils/xml/SUMOSAXHandler.h>
@@ -79,8 +80,6 @@ public:
     /** @brief Destructor */
     virtual ~MSTriggeredRerouter();
 
-    //typedef std::pair<MSParkingArea*, bool> ParkingAreaVisible;
-
     /**
      * @struct RerouteInterval
      * Describes the rerouting definitions valid for an interval
@@ -92,23 +91,22 @@ public:
         SUMOTime begin;
         /// The end time these definitions are valid
         SUMOTime end;
-        /// The list of closed edges
-        MSEdgeVector closed;
-        /// The list of closed lanes
-        std::vector<MSLane*> closedLanes;
-        /// The list of edges that are affect by closed lanes
+        /// The map of closed edges to their permissions
+        std::map<MSEdge*, SVCPermissions> closed;
+        /// The list of closed lanes to their permissions
+        std::map<MSLane*, SVCPermissions> closedLanes;
+        /// The list of edges that are affected by closed lanes
         MSEdgeVector closedLanesAffected;
         /// The distributions of new destinations or vias to use
         RandomDistributor<MSEdge*> edgeProbs;
         /// The distributions of new routes to use
         RandomDistributor<ConstMSRoutePtr> routeProbs;
-        /// The permissions to use
-        SVCPermissions permissions;
         /// The distributions of new parking areas to use as destinations
-        //RandomDistributor<ParkingAreaVisible> parkProbs;
         RandomDistributor<MSStoppingPlaceRerouter::StoppingPlaceVisible> parkProbs;
         /// The edge probs are vias and not destinations
         bool isVia = false;
+        /// The permissions are all SVCAll
+        bool permissionsAllowAll = false;
 
         /// @name overtakingReroute
         ///@{
@@ -125,6 +123,14 @@ public:
         /// @brief The threshold in savings for triggering reroute
         double minSaving;
         //}
+
+        MSEdgeVector getClosed() const {
+            MSEdgeVector v;
+            for (const auto& settings : closed) {
+                v.push_back(settings.first);
+            }
+            return v;
+        }
     };
 
     /** @brief Tries to reroute the vehicle
