@@ -48,10 +48,10 @@ maxspeedlat
 
 actionsteplength
 
-carriagelength
+#carriagelength
 
-locomotivelength
+#locomotivelength
 
-carriagegap
+#carriagegap
 
 parameters

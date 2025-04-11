@@ -2070,9 +2070,7 @@ class type:
 
     class edit:
         id = 8
-        typeDist = 8
         vClass = 9
-        vClassEdited = 9
         colorButton = 11
         color = 12
         length = 13
@@ -2128,9 +2126,9 @@ class type:
         minGapLat = 30
         maxSpeedLat = 31
         actionStepLength = 32
-        carriageLength = 33
-        locomotiveLength = 34
-        carriageGap = 35
+        # carriageLength = 33
+        # locomotiveLength = 34
+        # carriageGap = 35
         parametersButton = 36
         parameters = 37
 
@@ -3620,7 +3618,7 @@ class person:
         color = 5
         departPos = 6
         depart = 7
-        parameters = 10
+        parameters = 9
 
 
 class personFlow:
@@ -3630,12 +3628,12 @@ class personFlow:
         color = 10
         departPos = 11
         begin = 12
-        terminate = 16
-        end = 18
-        number = 19
-        spacing = 18
-        terminateOption = 20
-        spacingOption = 21
+        terminate = 14
+        end = 16
+        number = 17
+        spacing = 16
+        terminateOption = 18
+        spacingOption = 19
 
     class inspect:
         id = 1
@@ -3645,12 +3643,12 @@ class personFlow:
         color = 6
         departPos = 7
         begin = 8
-        terminate = 11
-        spacing = 13
-        end = 14
-        terminateOption = 15
-        spacingOption = 16
-        parameters = 19
+        terminate = 10
+        spacing = 12
+        end = 13
+        terminateOption = 14
+        spacingOption = 15
+        parameters = 17
 
     class inspectSelection:
         typeButton = 1
@@ -3659,11 +3657,11 @@ class personFlow:
         color = 5
         departPos = 6
         begin = 7
-        terminate = 10
-        spacing = 12
-        terminateOption = 14
-        spacingOption = 15
-        parameters = 18
+        terminate = 9
+        spacing = 11
+        terminateOption = 13
+        spacingOption = 14
+        parameters = 16
 
 # PersonPlans
 
@@ -4224,7 +4222,7 @@ class container:
         color = 6
         departPos = 7
         depart = 8
-        parameters = 11
+        parameters = 10
 
     class inspectSelection:
         typeButton = 1
@@ -4233,7 +4231,7 @@ class container:
         color = 5
         departPos = 6
         depart = 7
-        parameters = 10
+        parameters = 9
 
 
 class containerFlow:
@@ -4243,12 +4241,12 @@ class containerFlow:
         color = 10
         departPos = 11
         begin = 12
-        terminate = 16
-        end = 18
-        number = 19
-        spacing = 18
-        terminateOption = 20
-        spacingOption = 21
+        terminate = 14
+        end = 16
+        number = 17
+        spacing = 16
+        terminateOption = 18
+        spacingOption = 19
 
     class inspect:
         id = 1
@@ -4258,12 +4256,12 @@ class containerFlow:
         color = 6
         departPos = 7
         begin = 8
-        terminate = 11
-        spacing = 13
-        end = 14
-        terminateOption = 15
-        spacingOption = 16
-        parameters = 19
+        terminate = 10
+        spacing = 12
+        end = 13
+        terminateOption = 14
+        spacingOption = 15
+        parameters = 17
 
     class inspectSelection:
         typeButton = 1
@@ -4272,11 +4270,11 @@ class containerFlow:
         color = 5
         departPos = 6
         begin = 7
-        terminate = 10
-        spacing = 12
-        terminateOption = 14
-        spacingOption = 15
-        parameters = 18
+        terminate = 9
+        spacing = 11
+        terminateOption = 13
+        spacingOption = 14
+        parameters = 16
 
 # PersonPlans
 

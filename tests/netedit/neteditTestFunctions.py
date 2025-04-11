@@ -2121,7 +2121,7 @@ def changePersonPlan(personPlan, flow):
     focusOnFrame()
     # jump to person plan
     if (flow):
-        for _ in range(30):
+        for _ in range(29):
             typeTab()
     else:
         for _ in range(22):
@@ -2182,7 +2182,7 @@ def changeContainerPlan(containerPlan, flow):
     focusOnFrame()
     # jump to container plan
     if (flow):
-        for _ in range(30):
+        for _ in range(29):
             typeTab()
     else:
         for _ in range(22):
