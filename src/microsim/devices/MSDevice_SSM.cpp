@@ -4015,6 +4015,8 @@ MSDevice_SSM::filterByConflictType(const SUMOVehicle& v, std::string deviceID, s
             confirmed.insert(FOE_ENCOUNTERTYPES.begin(), FOE_ENCOUNTERTYPES.end());
         } else if (*i == "ego") {
             confirmed.insert(EGO_ENCOUNTERTYPES.begin(), EGO_ENCOUNTERTYPES.end());
+        } else if (*i == "none") {
+            return true;
         } else if (StringUtils::isInt(*i) && encounterToString(static_cast<EncounterType>(StringUtils::toInt(*i))) != "UNKNOWN") {
             confirmed.insert(std::stoi(*i));
         } else {
