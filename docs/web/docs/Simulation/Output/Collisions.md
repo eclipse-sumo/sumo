@@ -32,15 +32,21 @@ The following output attributes are generated:
 | colliderType       | (type) id         | The type of the collider                                              |
 | victimType         | (type) id         | The type of the victim                                                |
 | colliderSpeed      | m/s               | The speed of the collider                                             |
-| victimSpeed        | ms/               | The speed of the victim                                               |
+| victimSpeed        | m/s               | The speed of the victim                                               |
+| colliderFront      | coordinate        | The x,y coordinate of the center of the colliders front bumper        |
+| victimFront        | coordinate        | The x,y coordinate of the center of the victims front bumper          |
+| colliderBack       | coordinate        | The x,y coordinate of the center of the colliders rear bumper         |
+| victimBack         | coordinate        | The x,y coordinate of the center of the victims rear bumper           |
+
+
 
 ## Collision Types
 The following collision types are written
 
 - collision: rear collision (leader vehicle is the victim)
 - frontal: collision will driving through the opposite direction lane (the vehicle using the opposite direction lane is the collider)
-- side: collision that happens as a direct result of lane-changing
-- junction: collision between vehicles on a junction. Collider and Victim are assigned arbitrarily.
+- side: collision that happens as a direct result of lane-changing 
+- junction: collision between vehicles on a junction. Vehicle with right of way is assigned as victim
 - sharedLane: collision between vehicle and person on the same lane. The person is always the victim
 - crossing: collision between vehicle and person on a pedestrian crossing. The person is always the victim
 - walkingarea: collision between vehicle and person on a walkingarea. The person is always the victim
