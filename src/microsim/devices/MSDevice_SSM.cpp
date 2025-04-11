@@ -2664,7 +2664,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 foeConflictLane = foeConflictLane->getFirstInternalInConnection(offset);
                 foeDistToConflictLane -= offset;
                 // find the distances to the conflict from the junction entry for both vehicles
-                // Here we also determine the real crossing lanes (before the conflict lane is the first lane of the connection)
+                // Here we also determine the real crossing lanes (before, the conflict lane is the first lane of the connection)
                 // for the ego
                 double egoDistToConflictFromJunctionEntry = INVALID_DOUBLE;
                 while (foeConflictLane != nullptr && foeConflictLane->isInternal()) {
