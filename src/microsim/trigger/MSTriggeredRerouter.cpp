@@ -413,11 +413,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOTrafficObject& obj) co
             }
             if (!ri.closed.empty() || !ri.closedLanesAffected.empty() || !ri.main.empty()) {
                 const std::set<SUMOTrafficObject::NumericalID>& edgeIndices = obj.getUpcomingEdgeIDs();
-                MSEdgeVector closed;
-                for (const auto& settings : ri.closed) {
-                    closed.push_back(settings.first);
-                }
-                if (affected(edgeIndices, closed)
+                if (affected(edgeIndices, ri.getClosed())
                         || affected(edgeIndices, ri.closedLanesAffected)
                         || affected(edgeIndices, ri.main)) {
                     return &ri;
