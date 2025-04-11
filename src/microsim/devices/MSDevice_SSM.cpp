@@ -254,6 +254,8 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.ssm.write-positions", "SSM Device", TL("Whether to write positions (coordinates) for each timestep"));
     oc.doRegister("device.ssm.write-lane-positions", new Option_Bool(false));
     oc.addDescription("device.ssm.write-lane-positions", "SSM Device", TL("Whether to write lanes and their positions for each timestep"));
+    oc.doRegister("device.ssm.write-na", new Option_Bool(true));
+    oc.addDescription("device.ssm.write-na", "SSM Device", TL("Whether to write conflict outputs with no data as NA values or skip it"));
     oc.doRegister("device.ssm.exclude-conflict-types", new Option_String(""));
     oc.addDescription("device.ssm.exclude-conflict-types", "SSM Device", TL("Which conflicts will be excluded from the log according to the conflict type they have been classified (combination of values in 'ego', 'foe' , '', any numerical valid conflict type code). An empty value will log all and 'ego'/'foe' refer to a certain conflict type subset."));
 }
@@ -3095,7 +3097,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             myOutputFile->openTag("TTCSpan").writeAttr("values", makeStringWithNAs(e->TTCspan, INVALID_DOUBLE)).closeTag();
         }
         if (e->minTTC.time == INVALID_DOUBLE) {
-            myOutputFile->openTag("minTTC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            if (myWriteNA) {
+                myOutputFile->openTag("minTTC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            }
         } else {
             std::string time = ::toString(e->minTTC.time);
             std::string type = ::toString(int(e->minTTC.type));
@@ -3113,7 +3117,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             myOutputFile->openTag("DRACSpan").writeAttr("values", makeStringWithNAs(e->DRACspan, {0.0, INVALID_DOUBLE})).closeTag();
         }
         if (e->maxDRAC.time == INVALID_DOUBLE) {
-            myOutputFile->openTag("maxDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            if (myWriteNA) {
+                myOutputFile->openTag("maxDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            }
         } else {
             std::string time = ::toString(e->maxDRAC.time);
             std::string type = ::toString(int(e->maxDRAC.type));
@@ -3128,7 +3134,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
     }
     if (myComputePET) {
         if (e->PET.time == INVALID_DOUBLE) {
-            myOutputFile->openTag("PET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            if (myWriteNA) {
+                myOutputFile->openTag("PET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            }
         } else {
             std::string time = ::toString(e->PET.time);
             std::string type = ::toString(int(e->PET.type));
@@ -3146,7 +3154,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             myOutputFile->openTag("PPETSpan").writeAttr("values", makeStringWithNAs(e->PPETspan, INVALID_DOUBLE)).closeTag();
         }
         if (e->minPPET.time == INVALID_DOUBLE) {
-            myOutputFile->openTag("minPPET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            if (myWriteNA) {
+                myOutputFile->openTag("minPPET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            }
         } else {
             std::string time = ::toString(e->minPPET.time);
             std::string type = ::toString(int(e->minPPET.type));
@@ -3164,7 +3174,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             myOutputFile->openTag("MDRACSpan").writeAttr("values", makeStringWithNAs(e->MDRACspan, {0.0, INVALID_DOUBLE})).closeTag();
         }
         if (e->maxMDRAC.time == INVALID_DOUBLE) {
-            myOutputFile->openTag("maxMDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            if (myWriteNA) {
+                myOutputFile->openTag("maxMDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            }
         } else {
             std::string time = ::toString(e->maxMDRAC.time);
             std::string type = ::toString(int(e->maxMDRAC.type));
@@ -3235,6 +3247,7 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myUseGeoCoords(useGeoCoords),
     myWritePositions(writePositions),
     myWriteLanesPositions(writeLanesPositions),
+    myWriteNA(holder.getBoolParam("device.ssm.write-na", true, true)),
     myOldestActiveEncounterBegin(INVALID_DOUBLE),
     myMaxBR(std::make_pair(-1, Position(0., 0.)), 0.0),
     myMinSGAP(std::make_pair(std::make_pair(-1, Position(0., 0.)), std::numeric_limits<double>::max()), ""),
