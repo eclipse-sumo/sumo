@@ -18,6 +18,7 @@ output:legacy getNextStops
 output:Using libsumo as traci as requested by environment variable.
 output:FatalTraCIError 'Infeasible context domain \([0-9]*\)'{REPLACE FatalTraCIError 'Connection closed by SUMO.'}
 output:A GUIMainWindow instance was not yet constructed\.{REPLACE GUI is not running, command not implemented in command line sumo}
+output:at 0x[0-9a-f]*{REPLACE at (ADDRESS)}
 log:Error: Answered with error to command 0x[0-9a-f]*:
 log:***Starting server on port
 log:TraCI {REPLACE Libsumo }
