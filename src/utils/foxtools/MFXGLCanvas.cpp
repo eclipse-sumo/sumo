@@ -17,22 +17,20 @@
 ///
 // GL canvas ready for OpenGL3.3
 /****************************************************************************/
-#include <windows.h>
-//#include <GL/glew.h>
-#include "MFXGLCanvas.h"
+#include <config.h>
+
 #ifdef WIN32
+#include <windows.h>
 #include <GL/wglew.h>
 #else
 #include <GL/glxew.h>
 #endif
 
-//#include "MFXGLVisual.h"
-
-//#include <utils/common/MsgHandler.h>
-
 #ifndef HAVE_GL_H
 #define HAVE_GL_H
 #endif
+
+#include "MFXGLCanvas.h"
 
 /*
   OLD JEROEN COMMENTS:
@@ -48,63 +46,67 @@
 
 
 // Object implementation
-FXIMPLEMENT(MFXGLCanvas,FXGLCanvas,NULL,0)
+FXIMPLEMENT(MFXGLCanvas, FXGLCanvas, NULL, 0)
 
 
 // For serialization
-MFXGLCanvas::MFXGLCanvas(){
-    flags|=FLAG_ENABLED|FLAG_SHOWN;
-    sgnext=this;
-    sgprev=this;
-    ctx=0;
+MFXGLCanvas::MFXGLCanvas() {
+    flags |= FLAG_ENABLED | FLAG_SHOWN;
+    sgnext = this;
+    sgprev = this;
+    ctx = 0;
 }
 
 
 // Make a canvas
-MFXGLCanvas::MFXGLCanvas(FXComposite* p,MFXGLVisual *vis,FXObject* tgt,FXSelector sel,FXuint opts,FXint x,FXint y,FXint w,FXint h):
-    FXGLCanvas(p, (FXGLVisual*)vis, tgt,sel,opts,x,y,w,h){
-    flags|=FLAG_ENABLED|FLAG_SHOWN;
-    visual=(FXGLVisual*)vis;
-    sgnext=this;
-    sgprev=this;
-    ctx=0;
+MFXGLCanvas::MFXGLCanvas(FXComposite* p, MFXGLVisual* vis, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h):
+    FXGLCanvas(p, (FXGLVisual*)vis, tgt, sel, opts, x, y, w, h) {
+    flags |= FLAG_ENABLED | FLAG_SHOWN;
+    visual = (FXGLVisual*)vis;
+    sgnext = this;
+    sgprev = this;
+    ctx = 0;
 }
 
 
 // Make a canvas sharing display lists
-MFXGLCanvas::MFXGLCanvas(FXComposite* p,MFXGLVisual *vis,MFXGLCanvas* sharegroup,FXObject* tgt,FXSelector sel,FXuint opts,FXint x,FXint y,FXint w,FXint h):
-    FXGLCanvas(p, (FXGLVisual*)vis, tgt,sel,opts,x,y,w,h){
-    flags|=FLAG_ENABLED|FLAG_SHOWN;
-    visual= (FXGLVisual*)vis;
-    if(sharegroup){
-        sgnext=sharegroup;
-        sgprev=sharegroup->sgprev;
-        sharegroup->sgprev=this;
-        sgprev->sgnext=this;
+MFXGLCanvas::MFXGLCanvas(FXComposite* p, MFXGLVisual* vis, MFXGLCanvas* sharegroup, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h):
+    FXGLCanvas(p, (FXGLVisual*)vis, tgt, sel, opts, x, y, w, h) {
+    flags |= FLAG_ENABLED | FLAG_SHOWN;
+    visual = (FXGLVisual*)vis;
+    if (sharegroup) {
+        sgnext = sharegroup;
+        sgprev = sharegroup->sgprev;
+        sharegroup->sgprev = this;
+        sgprev->sgnext = this;
+    } else {
+        sgnext = this;
+        sgprev = this;
     }
-    else{
-        sgnext=this;
-        sgprev=this;
-    }
-    ctx=0;
+    ctx = 0;
 }
 
 
 
 #ifdef WIN32
-const char* 
-MFXGLCanvas::GetClass() const { return "FXGLCanvas"; } // the name is linked to a WIN API Window definition in the original FOX toolkit
+const char*
+MFXGLCanvas::GetClass() const {
+    return "FXGLCanvas";    // the name is linked to a WIN API Window definition in the original FOX toolkit
+}
 #endif
 
 
 // Return TRUE if it is sharing display lists
-FXbool MFXGLCanvas::isShared() const { return TRUE /*sgnext != this*/; }
+FXbool MFXGLCanvas::isShared() const {
+    return TRUE /*sgnext != this*/;
+}
 
 
 // Create X window (GL CANVAS)
-void MFXGLCanvas::create(){
+void MFXGLCanvas::create() {
     FXTRACE((50, "MFXGLCanvas::create\n"));
 
+#ifdef WIN32
     if (myWglCreateContextAttribsARB == nullptr || myWglChoosePixelFormatARB == nullptr) {
         WNDCLASSA window_class{ 0 };
         window_class.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
@@ -121,18 +123,18 @@ void MFXGLCanvas::create(){
         }
 
         HWND dummy_window = CreateWindowExA(
-            0,
-            window_class.lpszClassName,
-            "Dummy OpenGL Window",
-            0,
-            CW_USEDEFAULT,
-            CW_USEDEFAULT,
-            CW_USEDEFAULT,
-            CW_USEDEFAULT,
-            0,
-            0,
-            window_class.hInstance,
-            0);
+                                0,
+                                window_class.lpszClassName,
+                                "Dummy OpenGL Window",
+                                0,
+                                CW_USEDEFAULT,
+                                CW_USEDEFAULT,
+                                CW_USEDEFAULT,
+                                CW_USEDEFAULT,
+                                0,
+                                0,
+                                window_class.hInstance,
+                                0);
 
         if (!dummy_window) {
             const DWORD error = GetLastError();
@@ -176,197 +178,200 @@ void MFXGLCanvas::create(){
         }
 
         myWglCreateContextAttribsARB = (wglCreateContextAttribsARB_type*)wglGetProcAddress(
-            "wglCreateContextAttribsARB");
+                                           "wglCreateContextAttribsARB");
         myWglChoosePixelFormatARB = (wglChoosePixelFormatARB_type*)wglGetProcAddress(
-            "wglChoosePixelFormatARB");
+                                        "wglChoosePixelFormatARB");
 
         wglMakeCurrent(dummy_dc, 0);
         wglDeleteContext(dummy_context);
         ::ReleaseDC(dummy_window, dummy_dc);
         DestroyWindow(dummy_window);
     }
+#endif
 
     FXTRACE((50, "MFXGLCanvas::create before FXWindow\n"));
     FXWindow::create();
     FXTRACE((50, "MFXGLCanvas::create after FXWindow\n"));
 
 #ifdef HAVE_GL_H
-    if(!ctx){
-        void *sharedctx=NULL;
+    if (!ctx) {
+        void* sharedctx = NULL;
 
         // Must have GL info available
-        if(!visual->getInfo()){
+        if (!visual->getInfo()) {
             throw FXWindowException("unable to create GL window.");
         }
 
         // Sharing display lists with other context
-        if(sgnext!=this){
+        if (sgnext != this) {
 
             // Find another member of the group which is already created, and get its context
-            MFXGLCanvas *canvas=sgnext;
-            while(canvas!=this){
-            sharedctx=canvas->ctx;
-            if(sharedctx) break;
-            canvas=canvas->sgnext;
+            MFXGLCanvas* canvas = sgnext;
+            while (canvas != this) {
+                sharedctx = canvas->ctx;
+                if (sharedctx) {
+                    break;
+                }
+                canvas = canvas->sgnext;
+            }
+
+            // The visuals have to match, the book says...
+            if (sgnext->getVisual() != canvas->getVisual()) {
+                throw FXWindowException("unable to create GL window.");
+            }
         }
 
-        // The visuals have to match, the book says...
-        if(sgnext->getVisual()!=canvas->getVisual()){
+#ifndef WIN32
+
+        // Make context
+        ctx = glXCreateContext((Display*)getApp()->getDisplay(), (XVisualInfo*)visual->getInfo(), (GLXContext)sharedctx, TRUE);
+        if (!ctx) {
             throw FXWindowException("unable to create GL window.");
         }
-    }
 
-    #ifndef WIN32
+#else
 
-    // Make context
-    ctx=glXCreateContext((Display*)getApp()->getDisplay(),(XVisualInfo*)visual->getInfo(),(GLXContext)sharedctx,TRUE);
-    if(!ctx){
-        throw FXWindowException("unable to create GL window.");
-    }
+        FXTRACE((50, "MFXGLCanvas::create before SetPixelFormat\n"));
 
-    #else
+        // Now we can choose a pixel format the modern way, using wglChoosePixelFormatARB.
+        int pixel_format_attribs[] = {
+            WGL_DRAW_TO_WINDOW_ARB,     GL_TRUE,
+            WGL_SUPPORT_OPENGL_ARB,     GL_TRUE,
+            WGL_DOUBLE_BUFFER_ARB,      GL_TRUE,
+            WGL_ACCELERATION_ARB,       WGL_FULL_ACCELERATION_ARB,
+            WGL_PIXEL_TYPE_ARB,         WGL_TYPE_RGBA_ARB,
+            WGL_COLOR_BITS_ARB,         32,
+            WGL_DEPTH_BITS_ARB,         24,
+            WGL_STENCIL_BITS_ARB,       8,
+            0
+        };
 
-    FXTRACE((50, "MFXGLCanvas::create before SetPixelFormat\n"));
+        HDC hdc = ::GetDC((HWND)xid);
 
-    // Now we can choose a pixel format the modern way, using wglChoosePixelFormatARB.
-    int pixel_format_attribs[] = {
-        WGL_DRAW_TO_WINDOW_ARB,     GL_TRUE,
-        WGL_SUPPORT_OPENGL_ARB,     GL_TRUE,
-        WGL_DOUBLE_BUFFER_ARB,      GL_TRUE,
-        WGL_ACCELERATION_ARB,       WGL_FULL_ACCELERATION_ARB,
-        WGL_PIXEL_TYPE_ARB,         WGL_TYPE_RGBA_ARB,
-        WGL_COLOR_BITS_ARB,         32,
-        WGL_DEPTH_BITS_ARB,         24,
-        WGL_STENCIL_BITS_ARB,       8,
-        0
-    };
-
-    HDC hdc = ::GetDC((HWND)xid);
-
-    int pixel_format;
-    UINT num_formats;
-    myWglChoosePixelFormatARB(hdc, pixel_format_attribs, 0, 1, &pixel_format, &num_formats);
-    if (!num_formats) {
-        throw FXWindowException("Failed to set the OpenGL 3.3 pixel format.");
-    }
-
-    PIXELFORMATDESCRIPTOR pfd;
-    DescribePixelFormat(hdc, pixel_format, sizeof(pfd), &pfd);
-    if (!SetPixelFormat(hdc, pixel_format, &pfd)) {
-        throw FXWindowException("Failed to set the OpenGL 3.3 pixel format.");
-    }
-
-#if _DEBUG
-    int glFlags = 0;
-    glFlags |= WGL_CONTEXT_DEBUG_BIT_ARB;
-#endif
-
-    // Specify that we want to create an OpenGL 3.3 core profile context
-    int gl33_attribs[] = {
-        WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
-        WGL_CONTEXT_MINOR_VERSION_ARB, 3,
-        WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB, // WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
-#if _DEBUG
-        WGL_CONTEXT_FLAGS_ARB, glFlags,
-#endif
-        0,
-    };
-
-    ctx = myWglCreateContextAttribsARB(hdc, 0, gl33_attribs);
-    if (!ctx) {
-        FXTRACE((50, "MFXGLCanvas::create Failed to create OpenGL 3.3 context.\n"));
-        throw FXWindowException("Failed to create OpenGL 3.3 context.");
-    }
-
-    if (!wglMakeCurrent(hdc, (HGLRC)ctx)) {
-        FXTRACE((50, "MFXGLCanvas::create Failed to activate OpenGL 3.3 rendering context.\n"));
-        throw FXWindowException("Failed to activate OpenGL 3.3 rendering context.");
-    }
-
-    // Make that the pixel format of the device context
-    /*
-    HDC hdc=::GetDC((HWND)xid);
-    if(!SetPixelFormat(hdc,(FXint)(FXival)visual->getVisual(),(PIXELFORMATDESCRIPTOR*)visual->getInfo())){
-        throw FXWindowException("unable to create GL window.");
-    }
-
-
-    
-    FXTRACE((50, "MFXGLCanvas::create before wglCreateContext\n"));
-
-    // Make context
-    ctx=(void*)wglCreateContext(hdc);
-    if(!ctx){
-        throw FXWindowException("unable to create GL window.");
-    }
-
-    FXTRACE((50, "MFXGLCanvas::create before wglShareLists\n"));
-    */
-
-    // I hope I didn't get this backward; the new context obviously has no
-    // display lists yet, but the old one may have, as it has already been around
-    // for a while.  If you see this fail and can't explain why, then that might
-    // be what's going on.  Report this to jeroen@fox-toolkit.org
-    // not to be used with modern OpenGL?
-    /*
-    if(sharedctx && !wglShareLists((HGLRC)sharedctx,(HGLRC)ctx)){
-        throw FXWindowException("unable to create GL window.");
-    }
-    */
-
-    GLenum err = glewInit();
-    FXTRACE((1, "GLEW init returned %u\n", err));
-
-    if (err == GLEW_OK) {
-        glClearColor(1.f, 1.f, 1.f, 0.f);
-#if _DEBUG
-        int contextFlags = 0;
-        glGetIntegerv(GL_CONTEXT_FLAGS, &contextFlags);
-        if (contextFlags & GL_CONTEXT_FLAG_DEBUG_BIT) {
-            glEnable(GL_DEBUG_OUTPUT);
-            glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-            glDebugMessageCallback(GLDebugMessageCallback, 0);
-            glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+        int pixel_format;
+        UINT num_formats;
+        myWglChoosePixelFormatARB(hdc, pixel_format_attribs, 0, 1, &pixel_format, &num_formats);
+        if (!num_formats) {
+            throw FXWindowException("Failed to set the OpenGL 3.3 pixel format.");
         }
+
+        PIXELFORMATDESCRIPTOR pfd;
+        DescribePixelFormat(hdc, pixel_format, sizeof(pfd), &pfd);
+        if (!SetPixelFormat(hdc, pixel_format, &pfd)) {
+            throw FXWindowException("Failed to set the OpenGL 3.3 pixel format.");
+        }
+
+#if _DEBUG
+        int glFlags = 0;
+        glFlags |= WGL_CONTEXT_DEBUG_BIT_ARB;
 #endif
-    }
 
-    ::ReleaseDC((HWND)xid,hdc);
+        // Specify that we want to create an OpenGL 3.3 core profile context
+        int gl33_attribs[] = {
+            WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
+            WGL_CONTEXT_MINOR_VERSION_ARB, 3,
+            WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB, // WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
+#if _DEBUG
+            WGL_CONTEXT_FLAGS_ARB, glFlags,
+#endif
+            0,
+        };
 
-    FXTRACE((50, "MFXGLCanvas::create end\n"));
+        ctx = myWglCreateContextAttribsARB(hdc, 0, gl33_attribs);
+        if (!ctx) {
+            FXTRACE((50, "MFXGLCanvas::create Failed to create OpenGL 3.3 context.\n"));
+            throw FXWindowException("Failed to create OpenGL 3.3 context.");
+        }
 
-    #endif
+        if (!wglMakeCurrent(hdc, (HGLRC)ctx)) {
+            FXTRACE((50, "MFXGLCanvas::create Failed to activate OpenGL 3.3 rendering context.\n"));
+            throw FXWindowException("Failed to activate OpenGL 3.3 rendering context.");
+        }
+
+        // Make that the pixel format of the device context
+        /*
+        HDC hdc=::GetDC((HWND)xid);
+        if(!SetPixelFormat(hdc,(FXint)(FXival)visual->getVisual(),(PIXELFORMATDESCRIPTOR*)visual->getInfo())){
+            throw FXWindowException("unable to create GL window.");
+        }
+
+
+
+        FXTRACE((50, "MFXGLCanvas::create before wglCreateContext\n"));
+
+        // Make context
+        ctx=(void*)wglCreateContext(hdc);
+        if(!ctx){
+            throw FXWindowException("unable to create GL window.");
+        }
+
+        FXTRACE((50, "MFXGLCanvas::create before wglShareLists\n"));
+        */
+
+        // I hope I didn't get this backward; the new context obviously has no
+        // display lists yet, but the old one may have, as it has already been around
+        // for a while.  If you see this fail and can't explain why, then that might
+        // be what's going on.  Report this to jeroen@fox-toolkit.org
+        // not to be used with modern OpenGL?
+        /*
+        if(sharedctx && !wglShareLists((HGLRC)sharedctx,(HGLRC)ctx)){
+            throw FXWindowException("unable to create GL window.");
+        }
+        */
+
+        GLenum err = glewInit();
+        FXTRACE((1, "GLEW init returned %u\n", err));
+
+        if (err == GLEW_OK) {
+            glClearColor(1.f, 1.f, 1.f, 0.f);
+#if _DEBUG
+            int contextFlags = 0;
+            glGetIntegerv(GL_CONTEXT_FLAGS, &contextFlags);
+            if (contextFlags & GL_CONTEXT_FLAG_DEBUG_BIT) {
+                glEnable(GL_DEBUG_OUTPUT);
+                glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+                glDebugMessageCallback(GLDebugMessageCallback, 0);
+                glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+            }
+#endif
+        }
+
+        ::ReleaseDC((HWND)xid, hdc);
+
+        FXTRACE((50, "MFXGLCanvas::create end\n"));
+
+#endif
     }
 #endif
 }
 
 
 // Detach the GL Canvas
-void MFXGLCanvas::detach(){
+void MFXGLCanvas::detach() {
 #ifdef HAVE_GL_H
-  if(ctx){
-    // Will this leak memory?
-    ctx=0;
+    if (ctx) {
+        // Will this leak memory?
+        ctx = 0;
     }
 #endif
-  FXWindow::detach();
-  }
+    FXWindow::detach();
+}
 
 
 // Destroy the GL Canvas
-void MFXGLCanvas::destroy(){
+void MFXGLCanvas::destroy() {
 #ifdef HAVE_GL_H
-  if(ctx){
+    if (ctx) {
 #ifndef WIN32
-    glXDestroyContext((Display*)getApp()->getDisplay(),(GLXContext)ctx);
+        glXDestroyContext((Display*)getApp()->getDisplay(), (GLXContext)ctx);
 #else
-    wglDeleteContext((HGLRC)ctx);
+        wglDeleteContext((HGLRC)ctx);
 #endif
-    ctx=0;
+        ctx = 0;
     }
 #endif
-  FXWindow::destroy();
-  }
+    FXWindow::destroy();
+}
 
 
 long
@@ -378,131 +383,129 @@ MFXGLCanvas::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
 
 //  Make the rendering context of GL Canvas current
 FXbool
-MFXGLCanvas::makeCurrent(){
+MFXGLCanvas::makeCurrent() {
 #ifdef HAVE_GL_H
-  if(ctx){
+    if (ctx) {
 #ifndef WIN32
-    return glXMakeCurrent((Display*)getApp()->getDisplay(),xid,(GLXContext)ctx);
+        return glXMakeCurrent((Display*)getApp()->getDisplay(), xid, (GLXContext)ctx);
 #else
-    HDC hdc=::GetDC((HWND)xid);
-    /*
-    if(visual->colormap){
-      SelectPalette(hdc,(HPALETTE)visual->colormap,FALSE);
-      RealizePalette(hdc);
-    }
-    */
-    BOOL bStatus=wglMakeCurrent(hdc,(HGLRC)ctx);
-    return bStatus;
+        HDC hdc =::GetDC((HWND)xid);
+        /*
+        if(visual->colormap){
+          SelectPalette(hdc,(HPALETTE)visual->colormap,FALSE);
+          RealizePalette(hdc);
+        }
+        */
+        BOOL bStatus = wglMakeCurrent(hdc, (HGLRC)ctx);
+        return bStatus;
 #endif
     }
 #endif
-  return FALSE;
-  }
+    return FALSE;
+}
 
 
 //  Make the rendering context of GL Canvas current
 FXbool
-MFXGLCanvas::makeNonCurrent(){
+MFXGLCanvas::makeNonCurrent() {
 #ifdef HAVE_GL_H
-  if(ctx){
+    if (ctx) {
 #ifndef WIN32
-    return glXMakeCurrent((Display*)getApp()->getDisplay(),None,(GLXContext)NULL);
+        return glXMakeCurrent((Display*)getApp()->getDisplay(), None, (GLXContext)NULL);
 #else
-    // According to "Steve Granja" <sjgranja@hks.com>,
-    // ::ReleaseDC is still necessary even for owned DC's.
-    // So release it here to prevent resource leak.
-    ::ReleaseDC((HWND)xid,wglGetCurrentDC());
-    BOOL bStatus=wglMakeCurrent(NULL,NULL);
-    return bStatus;
+        // According to "Steve Granja" <sjgranja@hks.com>,
+        // ::ReleaseDC is still necessary even for owned DC's.
+        // So release it here to prevent resource leak.
+        ::ReleaseDC((HWND)xid, wglGetCurrentDC());
+        BOOL bStatus = wglMakeCurrent(NULL, NULL);
+        return bStatus;
 #endif
     }
 #endif
-  return FALSE;
-  }
+    return FALSE;
+}
 
 
 // Return current context, if any
 void*
-MFXGLCanvas::getCurrentContext(){
+MFXGLCanvas::getCurrentContext() {
 #ifdef HAVE_GL_H
 #ifndef WIN32
-  return (void*)glXGetCurrentContext();
+    return (void*)glXGetCurrentContext();
 #else
-  return (void*)wglGetCurrentContext();
+    return (void*)wglGetCurrentContext();
 #endif
 #else
-  return NULL;
+    return NULL;
 #endif
-  }
+}
 
 
 //  Return TRUE if this window's context is current
 FXbool
 MFXGLCanvas::isCurrent() const {
 #ifdef HAVE_GL_H
-  if(ctx){
+    if (ctx) {
 #ifndef WIN32
-    return (glXGetCurrentContext() == (GLXContext)ctx);
+        return (glXGetCurrentContext() == (GLXContext)ctx);
 #else
-    return (wglGetCurrentContext() == (HGLRC)ctx);
+        return (wglGetCurrentContext() == (HGLRC)ctx);
 #endif
     }
 #endif
-  return FALSE;
-  }
+    return FALSE;
+}
 
 
 // Used by GL to swap the buffers in double buffer mode, or flush a single buffer
 void
-MFXGLCanvas::swapBuffers(){
+MFXGLCanvas::swapBuffers() {
 #ifdef HAVE_GL_H
 #ifndef WIN32
-  glXSwapBuffers((Display*)getApp()->getDisplay(),xid);
+    glXSwapBuffers((Display*)getApp()->getDisplay(), xid);
 #else
-  // SwapBuffers(wglGetCurrentDC());
-  // wglSwapLayerBuffers(wglGetCurrentDC(),WGL_SWAP_MAIN_PLANE);
-  HDC hdc=wglGetCurrentDC();
-  if(wglSwapLayerBuffers(hdc,WGL_SWAP_MAIN_PLANE)==FALSE){
-    SwapBuffers(hdc);
+    // SwapBuffers(wglGetCurrentDC());
+    // wglSwapLayerBuffers(wglGetCurrentDC(),WGL_SWAP_MAIN_PLANE);
+    HDC hdc = wglGetCurrentDC();
+    if (wglSwapLayerBuffers(hdc, WGL_SWAP_MAIN_PLANE) == FALSE) {
+        SwapBuffers(hdc);
     }
 #endif
 #endif
-  }
+}
 
 
 // Save object to stream
 void
 MFXGLCanvas::save(FXStream& store) const {
-  FXWindow::save(store);
-  store << sgnext;
-  store << sgprev;
-  }
+    FXWindow::save(store);
+    store << sgnext;
+    store << sgprev;
+}
 
 
 // Load object from stream
 void
-MFXGLCanvas::load(FXStream& store){
-  FXWindow::load(store);
-  store >> sgnext;
-  store >> sgprev;
-  }
+MFXGLCanvas::load(FXStream& store) {
+    FXWindow::load(store);
+    store >> sgnext;
+    store >> sgprev;
+}
 
 
 // Close and release any resources
-MFXGLCanvas::~MFXGLCanvas(){
-  sgnext->sgprev=sgprev;
-  sgprev->sgnext=sgnext;
-  sgnext=(MFXGLCanvas*)-1L;
-  sgprev=(MFXGLCanvas*)-1L;
+MFXGLCanvas::~MFXGLCanvas() {
+    sgnext->sgprev = sgprev;
+    sgprev->sgnext = sgnext;
+    sgnext = (MFXGLCanvas*) - 1L;
+    sgprev = (MFXGLCanvas*) - 1L;
 #ifdef HAVE_GL_H
-  if(ctx){
+    if (ctx) {
 #ifndef WIN32
-    glXDestroyContext((Display*)getApp()->getDisplay(),(GLXContext)ctx);
+        glXDestroyContext((Display*)getApp()->getDisplay(), (GLXContext)ctx);
 #else
-    wglDeleteContext((HGLRC)ctx);
+        wglDeleteContext((HGLRC)ctx);
 #endif
     }
 #endif
-  }
-
-
+}

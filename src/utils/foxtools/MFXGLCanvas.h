@@ -37,9 +37,11 @@
 #undef NOMINMAX
 #endif
 
+#ifdef WIN32
 typedef HGLRC WINAPI wglCreateContextAttribsARB_type(HDC hdc, HGLRC hShareContext, const int* attribList);
 typedef BOOL WINAPI wglChoosePixelFormatARB_type(HDC hdc, const int* piAttribIList,
-    const FLOAT* pfAttribFList, UINT nMaxFormats, int* piFormats, UINT* nNumFormats);
+        const FLOAT* pfAttribFList, UINT nMaxFormats, int* piFormats, UINT* nNumFormats);
+#endif
 
 class MFXGLVisual;
 
@@ -51,8 +53,10 @@ private:
     MFXGLCanvas* sgprev;  // Share group previous in share list
 protected:
     void* ctx;     // GL Context
+#ifdef WIN32
     wglCreateContextAttribsARB_type* myWglCreateContextAttribsARB = nullptr;
     wglChoosePixelFormatARB_type* myWglChoosePixelFormatARB = nullptr;
+#endif
 
 protected:
     MFXGLCanvas();
@@ -63,163 +67,168 @@ private:
 #ifdef WIN32
     virtual const char* GetClass() const;
 #endif
-    public:
-        /**
-        * Construct an OpenGL-capable canvas, with its own private display list.
-        */
-        MFXGLCanvas(FXComposite* p, MFXGLVisual* vis, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
+public:
+    /**
+    * Construct an OpenGL-capable canvas, with its own private display list.
+    */
+    MFXGLCanvas(FXComposite* p, MFXGLVisual* vis, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
-        /**
-        * Construct an OpenGL-capable canvas, sharing display
-        * list with another GL canvas.  This canvas becomes a member
-        * of a display list share group.  All members of the display
-        * list share group have to have the same visual.
-        */
-        MFXGLCanvas(FXComposite* p, MFXGLVisual* vis, MFXGLCanvas* sharegroup, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
+    /**
+    * Construct an OpenGL-capable canvas, sharing display
+    * list with another GL canvas.  This canvas becomes a member
+    * of a display list share group.  All members of the display
+    * list share group have to have the same visual.
+    */
+    MFXGLCanvas(FXComposite* p, MFXGLVisual* vis, MFXGLCanvas* sharegroup, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
-        /// Return TRUE if it is sharing display lists
-        FXbool isShared() const;
+    /// Return TRUE if it is sharing display lists
+    FXbool isShared() const;
 
-        /// Create all of the server-side resources for this window
-        void create();
+    /// Create all of the server-side resources for this window
+    void create();
 
-        /// Detach the server-side resources for this window
-        void detach();
+    /// Detach the server-side resources for this window
+    void detach();
 
-        /// Destroy the server-side resources for this window
-        void destroy();
+    /// Destroy the server-side resources for this window
+    void destroy();
 
-        /// @brief overload to forward the window size to modern OpenGL (projection using the width/height)
-        long onUpdate(FXObject* sender, FXSelector, void*);
+    /// @brief overload to forward the window size to modern OpenGL (projection using the width/height)
+    long onUpdate(FXObject* sender, FXSelector, void*);
 
-        /// Make OpenGL context current prior to performing OpenGL commands
-        FXbool makeCurrent();
+    /// Make OpenGL context current prior to performing OpenGL commands
+    FXbool makeCurrent();
 
-        /// Make OpenGL context non current
-        FXbool makeNonCurrent();
+    /// Make OpenGL context non current
+    FXbool makeNonCurrent();
 
-        /// Return TRUE if this window's context is current
-        FXbool isCurrent() const;
+    /// Return TRUE if this window's context is current
+    FXbool isCurrent() const;
 
-        /// Return current context, if any
-        static void* getCurrentContext();
+    /// Return current context, if any
+    static void* getCurrentContext();
 
-        /// Get GL context handle
-        void* getContext() const { return ctx; }
+    /// Get GL context handle
+    void* getContext() const {
+        return ctx;
+    }
 
-        /// Swap front and back buffer
-        void swapBuffers();
+    /// Swap front and back buffer
+    void swapBuffers();
 
-        /// Save object to stream
-        void save(FXStream& store) const;
+    /// Save object to stream
+    void save(FXStream& store) const;
 
-        /// Load object from stream
-        void load(FXStream& store);
+    /// Load object from stream
+    void load(FXStream& store);
 
-        /// Destructor
-        virtual ~MFXGLCanvas();
+    /// Destructor
+    virtual ~MFXGLCanvas();
 
-    };
+};
 
 /// @brief debug callback function to print the GL (error) message
 /// taken from https://gist.github.com/liam-middlebrook/c52b069e4be2d87a6d2f
+#ifndef WIN32
+#define APIENTRY
+#endif
+
 static void APIENTRY GLDebugMessageCallback(GLenum source, GLenum type, GLuint /*id*/,
-    GLenum severity, GLsizei /*length*/,
-    const GLchar* msg, const void* /*data*/)
-{
+        GLenum severity, GLsizei /*length*/,
+        const GLchar* msg, const void* /*data*/) {
     char* _source;
     char* _type;
     char* _severity;
 
     switch (source) {
-    case GL_DEBUG_SOURCE_API:
-        _source = "API";
-        break;
+        case GL_DEBUG_SOURCE_API:
+            _source = "API";
+            break;
 
-    case GL_DEBUG_SOURCE_WINDOW_SYSTEM:
-        _source = "WINDOW SYSTEM";
-        break;
+        case GL_DEBUG_SOURCE_WINDOW_SYSTEM:
+            _source = "WINDOW SYSTEM";
+            break;
 
-    case GL_DEBUG_SOURCE_SHADER_COMPILER:
-        _source = "SHADER COMPILER";
-        break;
+        case GL_DEBUG_SOURCE_SHADER_COMPILER:
+            _source = "SHADER COMPILER";
+            break;
 
-    case GL_DEBUG_SOURCE_THIRD_PARTY:
-        _source = "THIRD PARTY";
-        break;
+        case GL_DEBUG_SOURCE_THIRD_PARTY:
+            _source = "THIRD PARTY";
+            break;
 
-    case GL_DEBUG_SOURCE_APPLICATION:
-        _source = "APPLICATION";
-        break;
+        case GL_DEBUG_SOURCE_APPLICATION:
+            _source = "APPLICATION";
+            break;
 
-    case GL_DEBUG_SOURCE_OTHER:
-        _source = "UNKNOWN";
-        break;
+        case GL_DEBUG_SOURCE_OTHER:
+            _source = "UNKNOWN";
+            break;
 
-    default:
-        _source = "UNKNOWN";
-        break;
+        default:
+            _source = "UNKNOWN";
+            break;
     }
 
     switch (type) {
-    case GL_DEBUG_TYPE_ERROR:
-        _type = "ERROR";
-        break;
+        case GL_DEBUG_TYPE_ERROR:
+            _type = "ERROR";
+            break;
 
-    case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
-        _type = "DEPRECATED BEHAVIOR";
-        break;
+        case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
+            _type = "DEPRECATED BEHAVIOR";
+            break;
 
-    case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
-        _type = "UDEFINED BEHAVIOR";
-        break;
+        case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
+            _type = "UDEFINED BEHAVIOR";
+            break;
 
-    case GL_DEBUG_TYPE_PORTABILITY:
-        _type = "PORTABILITY";
-        break;
+        case GL_DEBUG_TYPE_PORTABILITY:
+            _type = "PORTABILITY";
+            break;
 
-    case GL_DEBUG_TYPE_PERFORMANCE:
-        _type = "PERFORMANCE";
-        break;
+        case GL_DEBUG_TYPE_PERFORMANCE:
+            _type = "PERFORMANCE";
+            break;
 
-    case GL_DEBUG_TYPE_OTHER:
-        _type = "OTHER";
-        break;
+        case GL_DEBUG_TYPE_OTHER:
+            _type = "OTHER";
+            break;
 
-    case GL_DEBUG_TYPE_MARKER:
-        _type = "MARKER";
-        break;
+        case GL_DEBUG_TYPE_MARKER:
+            _type = "MARKER";
+            break;
 
-    default:
-        _type = "UNKNOWN";
-        break;
+        default:
+            _type = "UNKNOWN";
+            break;
     }
 
     switch (severity) {
-    case GL_DEBUG_SEVERITY_HIGH:
-        _severity = "HIGH";
-        break;
+        case GL_DEBUG_SEVERITY_HIGH:
+            _severity = "HIGH";
+            break;
 
-    case GL_DEBUG_SEVERITY_MEDIUM:
-        _severity = "MEDIUM";
-        break;
+        case GL_DEBUG_SEVERITY_MEDIUM:
+            _severity = "MEDIUM";
+            break;
 
-    case GL_DEBUG_SEVERITY_LOW:
-        _severity = "LOW";
-        break;
+        case GL_DEBUG_SEVERITY_LOW:
+            _severity = "LOW";
+            break;
 
-    case GL_DEBUG_SEVERITY_NOTIFICATION:
-        _severity = "NOTIFICATION";
-        break;
+        case GL_DEBUG_SEVERITY_NOTIFICATION:
+            _severity = "NOTIFICATION";
+            break;
 
-    default:
-        _severity = "UNKNOWN";
-        break;
+        default:
+            _severity = "UNKNOWN";
+            break;
     }
 
     fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
-        (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
-        type, severity, msg);
+            (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+            type, severity, msg);
 
     //WRITE_MESSAGEF("%: % of % severity, raised from %: %\n", id, _type, _severity, _source, msg);
 }

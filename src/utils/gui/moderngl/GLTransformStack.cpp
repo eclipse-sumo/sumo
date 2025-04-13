@@ -17,7 +17,6 @@
 ///
 //
 /****************************************************************************/
-#pragma once
 #include <config.h>
 #include <iostream>
 
@@ -116,14 +115,14 @@ GLTransformStack::applyTransform(const glm::vec3& v) const {
     }
     glm::vec4 result = myStack.back() * glm::vec4(v, 1.);
 
-/*
-#ifdef _DEBUG
-    // plot stored matrices and the currently cached one, input and result of the transformation
-    std::cout << "GLTransformStack::applyTransform(" << glm::to_string(v) << ")" << std::endl;
-    std::cout << "\tcached matrix: " << glm::to_string(myStack.back()) << std::endl;
-    std::cout << "\tresult vector: " << glm::to_string(result) << std::endl;
-#endif
-*/
+    /*
+    #ifdef _DEBUG
+        // plot stored matrices and the currently cached one, input and result of the transformation
+        std::cout << "GLTransformStack::applyTransform(" << glm::to_string(v) << ")" << std::endl;
+        std::cout << "\tcached matrix: " << glm::to_string(myStack.back()) << std::endl;
+        std::cout << "\tresult vector: " << glm::to_string(result) << std::endl;
+    #endif
+    */
 
     return glm::vec3(result.x / result.w, result.y / result.w, result.z / result.w);
     //return (myCurrentTransform * glm::vec4(v, 1.)).xyz;
