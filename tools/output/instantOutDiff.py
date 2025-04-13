@@ -30,6 +30,7 @@ sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib
 from sumolib.miscutils import Statistics, parseTime  # noqa
 from sumolib.options import ArgumentParser  # noqa
+from sumolib.net import lane2edge
 
 
 def get_options(args=None):
@@ -39,22 +40,27 @@ def get_options(args=None):
     argParser.add_argument("output", help="the output file")
     argParser.add_argument("--event-type", dest="eType", default="leave",
                            help="Which type of detection event to compare (enter, stay, leave)")
+    argParser.add_argument("--combine-lanes", action="store_true", dest="combineLanes",
+                           default=False, help="do not distinguish detectors by lane id")
     argParser.add_argument("--filter-ids", dest="filterIDs",
                            help="only use detector ids with the given substring")
     options = argParser.parse_args(args=args)
     return options
 
-def parseTimes(fname, eType):
+def parseTimes(fname, options):
     detTimes = defaultdict(list)  # detID -> [time1, time2, ...]
     for event in sumolib.xml.parse_fast(fname, 'instantOut', ['id', 'time', 'state']):
-        if event.state == eType:
-            detTimes[event.id].append(parseTime(event.time))
+        if event.state == options.eType:
+            detID = event.id
+            if options.combineLanes:
+                detID = lane2edge(detID)
+            detTimes[detID].append(parseTime(event.time))
     return detTimes
 
 def write_diff(options):
 
-    origTimes = parseTimes(options.orig, options.eType)
-    newTimes = parseTimes(options.new, options.eType)
+    origTimes = parseTimes(options.orig, options)
+    newTimes = parseTimes(options.new, options)
 
     countMismatch = Statistics('Count mismatch')
     absCountMismatch = Statistics('Count mismatch (absolute)')
