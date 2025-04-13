@@ -13,7 +13,7 @@
 
 # @file    generateDetectors.py
 # @author  Jakob Erdmann
-# @date    2011-10-07
+# @date    2025-04-13
 
 from __future__ import absolute_import
 from __future__ import print_function
