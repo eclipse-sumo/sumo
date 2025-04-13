@@ -69,7 +69,7 @@ def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Sample routes to match counts")
     # input
     op.add_argument("-r", "--route-files", category="input", dest="routeFiles", type=op.route_file_list,
-                    help="Input route file")
+                    help="Input route file", required=True)
     op.add_argument("-t", "--turn-files", category="input", dest="turnFiles", type=op.file_list,
                     help="Input turn-count file")
     op.add_argument("-T", "--turn-ratio-files", category="input", dest="turnRatioFiles", type=op.file_list,
@@ -176,13 +176,13 @@ def get_options(args=None):
              and options.turnRatioFiles is None
              and options.edgeDataFiles is None
              and options.odFiles is None)):
-        op.print_help()
+        sys.stderr.write("At least one file with counting data must be loaded\n")
         sys.exit()
     if options.writeRouteIDs and options.writeRouteDist:
-        sys.stderr.write("Only one of the options --write-route-ids and --write-route-distribution may be used")
+        sys.stderr.write("Only one of the options --write-route-ids and --write-route-distribution may be used\n")
         sys.exit()
     if options.writeFlows not in [None, "number", "probability", "poisson"]:
-        sys.stderr.write("Options --write-flows only accepts arguments 'number', 'probability' and 'poisson'")
+        sys.stderr.write("Options --write-flows only accepts arguments 'number', 'probability' and 'poisson'\n")
         sys.exit()
 
     for attr in ["edgeDataAttr", "arrivalAttr", "departAttr", "turnAttr", "turnRatioAttr"]:

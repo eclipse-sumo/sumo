@@ -1,5 +1,5 @@
 <configuration>
-    <route-files value="None" type="route_file" help="Input route file" category="input" listSeparator=","/>
+    <route-files value="None" type="route_file" help="Input route file" category="input" required="true" listSeparator=","/>
     <turn-files value="None" type="file" help="Input turn-count file" category="input" listSeparator=","/>
     <turn-ratio-files value="None" type="file" help="Input turn-ratio file" category="input" listSeparator=","/>
     <edgedata-files value="None" type="file" help="Input edgeData file (for counts)" category="input" listSeparator=","/>
