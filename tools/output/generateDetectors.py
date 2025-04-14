@@ -18,8 +18,6 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-import logging
-import optparse
 import os
 import sys
 import random
@@ -28,6 +26,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import openz  # noqa
+
 
 def get_options(args=None):
     ap = ArgumentParser(description="Generate detectors on selected network edges")
@@ -98,6 +97,7 @@ def main(options):
 
     if options.verbose:
         print("Wrote %s detectors." % numWritten)
+
 
 if __name__ == "__main__":
     main(get_options())

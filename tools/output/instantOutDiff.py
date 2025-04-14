@@ -27,10 +27,10 @@ import sys
 import bisect
 from collections import defaultdict
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
-import sumolib
+import sumolib  # noqa
 from sumolib.miscutils import Statistics, parseTime  # noqa
 from sumolib.options import ArgumentParser  # noqa
-from sumolib.net import lane2edge
+from sumolib.net import lane2edge  # noqa
 
 
 def get_options(args=None):
@@ -47,6 +47,7 @@ def get_options(args=None):
     options = argParser.parse_args(args=args)
     return options
 
+
 def parseTimes(fname, options):
     detTimes = defaultdict(list)  # detID -> [time1, time2, ...]
     for event in sumolib.xml.parse_fast(fname, 'instantOut', ['id', 'time', 'state']):
@@ -57,8 +58,8 @@ def parseTimes(fname, options):
             detTimes[detID].append(parseTime(event.time))
     return detTimes
 
-def write_diff(options):
 
+def write_diff(options):
     origTimes = parseTimes(options.orig, options)
     newTimes = parseTimes(options.new, options)
 
@@ -95,6 +96,7 @@ def write_diff(options):
     print(countMismatch)
     print(absCountMismatch)
     print(totalTimeMismatch)
+
 
 if __name__ == "__main__":
     options = get_options()
