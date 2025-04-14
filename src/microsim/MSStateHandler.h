@@ -133,6 +133,9 @@ private:
     /// @brief vehicles that were removed when loading state
     int myRemoved;
 
+    /// @brief index of the currently parse flowState
+    int myFlowIndex;
+
     /// @brief rail signal for which constraints are being loaded
     MSRailSignal* myConstrainedSignal;
 
