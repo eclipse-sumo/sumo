@@ -1690,6 +1690,14 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                                   << "\n";
                     }
 #endif
+                    if (MSGlobals::gIgnoreJunctionBlocker < std::numeric_limits<SUMOTime>::max()) {
+                        if (collider->getWaitingTime() >= MSGlobals::gIgnoreJunctionBlocker
+                                || victim->getWaitingTime() >= MSGlobals::gIgnoreJunctionBlocker) {
+                            // ignored vehicles should not tigger collision
+                            continue;
+                        }
+                    }
+
                     if (colliderBoundary.overlapsWith(victim->getBoundingBox())) {
                         // make a detailed check
                         PositionVector boundingPoly = collider->getBoundingPoly();
