@@ -104,6 +104,7 @@ scaled:scaled.rou.xml
 detectors:e1.add.xml
 detectors:e2.add.xml
 detectors:e3.add.xml
+detectors:det.add.xml
 meandata:edge-mean-data.add.xml
 meandata:lane-mean-data.add.xml
 connections:connections.con.xml

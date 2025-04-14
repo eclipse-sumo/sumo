@@ -1,0 +1,5 @@
+usage: generateDetectors.py [-h] [-c FILE] [-C FILE] [--save-template FILE] -n
+                            NET_FILE -o OUTPUT [--period PERIOD]
+                            [--prefix PREFIX] [-r RESULTS] [--relpos RELPOS]
+                            [-t DTYPE] [--vclass VCLASS] [-s SEED] [-v]
+generateDetectors.py: error: the following arguments are required: -n/--net-file, -o/--output
