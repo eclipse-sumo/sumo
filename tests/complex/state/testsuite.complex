@@ -112,3 +112,6 @@ stops_looped2
 
 # see #13110
 arrivalPos_random
+
+# ensure that insertionChecks are loaded
+insertionChecks
