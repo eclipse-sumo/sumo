@@ -112,6 +112,3 @@ stops_looped2
 
 # see #13110
 arrivalPos_random
-
-# two vehicles saved and reloaded
-replay
