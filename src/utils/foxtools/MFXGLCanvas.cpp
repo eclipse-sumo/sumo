@@ -19,6 +19,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include "MFXGLCanvas.h"
+
 #ifdef WIN32
 #include <windows.h>
 #include <GL/wglew.h>
@@ -29,8 +31,6 @@
 #ifndef HAVE_GL_H
 #define HAVE_GL_H
 #endif
-
-#include "MFXGLCanvas.h"
 
 /*
   OLD JEROEN COMMENTS:
