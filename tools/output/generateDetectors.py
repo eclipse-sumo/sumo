@@ -55,7 +55,9 @@ def get_options(args=None):
     ap.add_option("--probability", type=float, default=1,
                   help="app detector with the given probability ]0, 1]")
     ap.add_option("-t", "--detector-type", dest="dType", default="inductionLoop",
-                  help="one of %s or the corresponding shortcut %s" % (SHORT_NAMES.values(), SHORT_NAMES.keys()))
+                  help="one of %s or the corresponding shortcut %s" % (
+                      list(SHORT_NAMES.values()),
+                      list(SHORT_NAMES.keys())))
     ap.add_option("--vclass", default="passenger",
                   help="only place detectors on lanes that permit the given vehicle class")
     ap.add_option("--length", type=float,
