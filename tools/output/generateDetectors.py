@@ -89,7 +89,7 @@ def main(options):
                         options.dType,
                         options.prefix, lane.getID(),
                         lane.getID(),
-                        options.getRelpos(lane),
+                        "%.2f" % options.getRelpos(lane),
                         period,
                         options.results))
 
