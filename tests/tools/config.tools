@@ -84,6 +84,7 @@ copy_test_path:ptlines.xml
 copy_test_path:input_edgedata.xml
 copy_test_path:summary.xml
 copy_test_path:config_file.txt
+copy_test_path:config.xml
 copy_test_path:input.toolcfg
 copy_test_path:input_sel.txt
 copy_test_path:matsim_plans.xml

@@ -63,6 +63,13 @@ stats_joined
 # plot multiple statistic-output files
 stats_by_file
 
+# plot multiple statistic-output files
+stats_config
+
+# plot multiple statistic-output files
+# file-names in config separated by ','
+stats_config2
+
 # plot fcd output and ignore ids
 fcd_speed_density
 
