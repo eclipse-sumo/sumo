@@ -44,6 +44,9 @@ rerouting_looped_stops
 flow
 
 # flow saved and loaded
+flow_stops
+
+# flow saved and loaded
 flow_poisson
 
 # multique saved and loaded, tests also human readable time
