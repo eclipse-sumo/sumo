@@ -1,2 +1,1 @@
-Warning: Person 'p1' aborted waiting for v1 at edge 'beg'.
-Warning: Vehicle 'v1' aborted waiting for a person that will never come.
+Warning: Teleporting person 'p1' from vehicle destination edge 'end' to intended destination edge 'middle' time=199.00

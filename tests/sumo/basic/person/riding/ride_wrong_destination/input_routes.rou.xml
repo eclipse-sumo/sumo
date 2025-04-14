@@ -5,7 +5,7 @@
             <stop lane="beg_0" startPos="200" endPos="220" triggered="true"/>
         </route>
     </vehicle>
-    <person id="p1" depart="0">
+    <person id="p1" depart="0" departPos="210">
         <ride from="beg" to="middle" lines="v1"/>
         <walk edges="middle end" duration="10"/>
     </person>
