@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-10 14:36+0000\n"
+"PO-Revision-Date: 2025-04-15 00:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1035,7 +1035,7 @@ msgstr ""
 
 #: src/libsumo/Vehicle.cpp:1534
 msgid "Ignoring indexOffset % for vehicle '%' on laneIndex %."
-msgstr ""
+msgstr "IndexOffset % del veicolo '%' sull'indice di corsia % viene ignorato."
 
 #: src/libsumo/Vehicle.cpp:1589 src/libsumo/Vehicle.cpp:2010
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:424
@@ -2741,7 +2741,7 @@ msgstr "Lunghezza di un segmento di arco nella simulazione mesoscopica"
 
 #: src/microsim/MSFrame.cpp:726
 msgid "Factor for calculating the net free-free headway time"
-msgstr ""
+msgstr "Fattore per calcolare l'intervallo di tempo tra due segmenti liberi"
 
 #: src/microsim/MSFrame.cpp:728
 msgid "Factor for calculating the net free-jam headway time"
@@ -2977,6 +2977,8 @@ msgid ""
 "Railsignal-deadlock will not be detected because time-to-teleport (%) is "
 "lower than time-to-teleport.railsignal-deadlock (%)."
 msgstr ""
+"Dei blocchi causati da segnali ferroviari non verranno rivelati perché time-"
+"to-teleport (%) è minore di time-to-teleport.railsignal-deadlock (%)."
 
 #: src/microsim/MSFrame.cpp:1051
 msgid "You need a non-negative delay."
@@ -3087,7 +3089,7 @@ msgstr "collisione frontale"
 
 #: src/microsim/MSLane.cpp:2021
 msgid "side collision"
-msgstr ""
+msgstr "collisione laterale"
 
 #: src/microsim/MSLane.cpp:2024
 msgid "junction collision"
@@ -4073,6 +4075,8 @@ msgid ""
 "The resistivity of overhead wire segment connected to vehicle % is < 0. Set "
 "to 1e-6."
 msgstr ""
+"La resistività del segmento di catenaria connesso al veicolo % è <0. Viene "
+"impostata a 1e-6."
 
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:416
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:512
