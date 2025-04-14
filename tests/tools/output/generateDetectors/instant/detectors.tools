@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-14 08:16:22.076252 by generateDetectors.py v1_22_0+1472-5ea49a81914
+<!-- generated on 2025-04-14 08:20:49.375173 by generateDetectors.py v1_22_0+1474-d973ee3c063
 <configuration>
     <net-file value="input_net.net.xml"/>
     <output value="det.add.xml"/>
