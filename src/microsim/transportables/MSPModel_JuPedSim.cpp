@@ -290,10 +290,15 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
             if (dir != UNDEFINED_DIRECTION) {
                 ConstMSEdgeVector crossingRoute;
                 MSNet::getInstance()->getPedestrianRouter(0).compute(prev, e, 0, 0, stage->getMaxSpeed(person), 0, dir == FORWARD ? prev->getToJunction() : prev->getFromJunction(), crossingRoute, true);
+                const MSEdge* wa = nullptr;
                 for (const MSEdge* const ce : crossingRoute) {
                     if (ce->isCrossing()) {
                         const MSLane* const crossing = getSidewalk<MSEdge, MSLane>(ce);
                         if (myCrossingWaits.count(crossing) > 0) {
+                            if (waitingStage != 0 && wa != nullptr) {
+                                // we already have a waiting stage we need an intermediate waypoint
+                                waypoints.push_back({waitingStage, wa->getLanes()[0]->getShape().getCentroid(), wa->getWidth() / 2.});
+                            }
                             const MSLane* const prevLane = getSidewalk<MSEdge, MSLane>(prev);
                             const Position& startPos = dir == FORWARD ? prevLane->getShape().back() : prevLane->getShape().front();
                             // choose the waiting set closer to the lane "end"
@@ -305,6 +310,9 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
                         } else {
                             throw ProcessError(TLF("No waiting set for crossing at %.", ce->getID()));
                         }
+                    }
+                    if (ce->isWalkingArea()) {
+                        wa = ce;
                     }
                 }
             }
