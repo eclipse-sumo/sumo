@@ -400,7 +400,20 @@ class ArgumentParser(argparse.ArgumentParser):
                     if option.name in self._fix_path_args and not value.startswith("http"):
                         value = os.path.join(os.path.dirname(cfg_file), value)
                     if option.name in pos_map and option.name != 'remaining_args':
-                        pos_args[pos_map[option.name]] = value
+                        if ',' in value:
+                            value = value.split(',')
+                        else:
+                            value = value.split()
+                        for i, v in enumerate(value):
+                            pos_args[pos_map[option.name]] = v
+                            if i + 1 < len(value):
+                                # shift pos_map
+                                pos_args.append(None)
+                                curPos = pos_map[option.name]
+                                for o, pos in pos_map.items():
+                                    if pos >= curPos:
+                                        pos_map[o] += 1
+
                     elif not is_set:
                         if value == "True":
                             config_args += ["--" + option.name]
