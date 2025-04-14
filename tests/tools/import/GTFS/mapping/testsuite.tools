@@ -25,5 +25,8 @@ vclass_disallowed
 # ensure correct stop placement if some lanes are forbidden
 lane_disallowed
 
+# set stops to parking
+parking
+
 # import public transport using a network that doesn't cover all stops
 subnet
