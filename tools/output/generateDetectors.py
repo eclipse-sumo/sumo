@@ -42,6 +42,8 @@ def get_options(args=None):
                   help="The name of the file the detectors write their output into. Defaults to det.out.xml.")
     ap.add_option("--relpos", default=0.5,
                   help="relative detector position along the edge [0,1] or 'random'")
+    ap.add_option("--probability", type=float, default=1,
+                  help="app detector with the given probability ]0, 1]")
     ap.add_option("-t", "--detector-type", dest="dType", default="inductionLoop",
                   help="one of (inductionLoop, instantInductionLoop)")
     ap.add_option("--vclass", default="passenger",
@@ -83,15 +85,18 @@ def main(options):
         period = '' if options.dType == "instantInductionLoop" else 'period="%s" ' % options.period
         for edge in net.getEdges():
             for lane in edge.getLanes():
-                if lane.allows(options.vclass):
-                    numWritten += 1
-                    fout.write('    <%s id="%s%s" lane="%s" pos="%s" %sfile="%s"/>\n' % (
-                        options.dType,
-                        options.prefix, lane.getID(),
-                        lane.getID(),
-                        "%.2f" % options.getRelpos(lane),
-                        period,
-                        options.results))
+                if not lane.allows(options.vclass):
+                    continue
+                if options.probability < 1 and random.random() > options.probability:
+                    continue
+                numWritten += 1
+                fout.write('    <%s id="%s%s" lane="%s" pos="%s" %sfile="%s"/>\n' % (
+                    options.dType,
+                    options.prefix, lane.getID(),
+                    lane.getID(),
+                    "%.2f" % options.getRelpos(lane),
+                    period,
+                    options.results))
 
         fout.write('</additional>\n')
 
