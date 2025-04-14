@@ -27,6 +27,16 @@ import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import openz  # noqa
 
+SHORT_NAMES = {
+        'E1': 'inductionLoop',
+        'E1I': 'instantInductionLoop',
+        'E2': 'laneAreaDetector',
+        #  'E3': 'multiEntryExitDetector'
+        }
+
+NEED_EXTENT = ['laneAreaDetector',
+               #  'multiEntryExitDetector'
+               ]
 
 def get_options(args=None):
     ap = ArgumentParser(description="Generate detectors on selected network edges")
@@ -45,15 +55,19 @@ def get_options(args=None):
     ap.add_option("--probability", type=float, default=1,
                   help="app detector with the given probability ]0, 1]")
     ap.add_option("-t", "--detector-type", dest="dType", default="inductionLoop",
-                  help="one of (inductionLoop, instantInductionLoop)")
+                  help="one of %s or the corresponding shortcut %s" % (SHORT_NAMES.values(), SHORT_NAMES.keys()))
     ap.add_option("--vclass", default="passenger",
                   help="only place detectors on lanes that permit the given vehicle class")
+    ap.add_option("--length", type=float,
+                  help="Set length for detector types that support it")
     ap.add_option("-s", "--seed", type=int, default=42, help="random seed")
     ap.add_option("-v", "--verbose", action="store_true", default=False,
                   help="tell me what you are doing")
     options = ap.parse_args(args=args)
 
-    if options.dType not in ['inductionLoop', 'instantInductionLoop']:
+    options.dType = SHORT_NAMES.get(options.dType, options.dType)
+
+    if options.dType not in SHORT_NAMES.values():
         sys.exit("Unsupported value '%s' for option --detector-type ")
 
     if options.relpos is not None:
@@ -65,6 +79,9 @@ def get_options(args=None):
                 options.getRelpos = lambda lane: lane.getLength() * random.random()
             else:
                 sys.exit("option --relpos must be set to 'random' or to a float value from [0,1]")
+
+    if options.length and options.dType == "instantInductionLoop":
+        sys.exit("Unsupported option --length for detector-type %s" % options.dType)
 
     return options
 
@@ -83,6 +100,14 @@ def main(options):
     with openz(options.output, 'w') as fout:
         sumolib.writeXMLHeader(fout, "$Id$", "additional", options=options)
         period = '' if options.dType == "instantInductionLoop" else 'period="%s" ' % options.period
+        length = '' if options.length is None else 'length="%s" ' % options.length
+        endPos = ''
+        friendlyPos = ''
+        if length != '':
+            friendlyPos = 'friendlyPos="true" '
+        elif options.dType in NEED_EXTENT:
+            endPos = 'endPos="-1" ' 
+
         for edge in net.getEdges():
             for lane in edge.getLanes():
                 if not lane.allows(options.vclass):
@@ -90,12 +115,12 @@ def main(options):
                 if options.probability < 1 and random.random() > options.probability:
                     continue
                 numWritten += 1
-                fout.write('    <%s id="%s%s" lane="%s" pos="%s" %sfile="%s"/>\n' % (
+                fout.write('    <%s id="%s%s" lane="%s" pos="%s" %s%s%s%sfile="%s"/>\n' % (
                     options.dType,
                     options.prefix, lane.getID(),
                     lane.getID(),
                     "%.2f" % options.getRelpos(lane),
-                    period,
+                    period, length, endPos, friendlyPos,
                     options.results))
 
         fout.write('</additional>\n')
