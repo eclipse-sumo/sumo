@@ -236,6 +236,7 @@ class Builder(object):
         if self.data["publicTransport"]:
             self.filename("stops", "_stops.add.xml")
             netconvertOptions += ",--ptstop-output,%s" % self.files["stops"]
+            netconvertOptions += ",--ptstop-output.no-bidi"
             self.filename("ptlines", "_ptlines.xml")
             self.filename("ptroutes", "_pt.rou.xml")
             netconvertOptions += ",--ptline-output,%s" % self.files["ptlines"]
