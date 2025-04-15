@@ -121,7 +121,6 @@ NBPTStopCont::assignLanes(NBEdgeCont& cont) {
 
 int
 NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
-    //scnd pass set correct lane
     int existingBidiStops = 0;
     std::vector<std::shared_ptr<NBPTStop> > toAdd;
     for (auto i = myPTStops.begin(); i != myPTStops.end(); i++) {
@@ -170,6 +169,27 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
         WRITE_MESSAGEF(TL("Added % stops for superposed rail edges."), toString(toAdd.size()));
     }
     return (int)toAdd.size() + existingBidiStops;
+}
+
+
+int
+NBPTStopCont::countBidiStops(NBEdgeCont& ec) const {
+    int existingBidiStops = 0;
+    for (auto item : myPTStops) {
+        auto stop = item.second;
+        NBEdge* edge = ec.getByID(stop->getEdgeId());
+        if (edge != nullptr && edge->isBidiRail()) {
+            NBEdge* bidiEdge = edge->getTurnDestination(true);
+            assert(bidiEdge != 0);
+            const std::string id = getReverseID(stop->getID());
+            // @note loaded pairs of bidi-stops might have arbitrary ids and we should rather search through all stops on bidiEdge
+            auto it = myPTStops.find(id);
+            if (it != myPTStops.end() && it->second->getEdgeId() == bidiEdge->getID()) {
+                existingBidiStops++;
+            }
+        }
+    }
+    return existingBidiStops;
 }
 
 
