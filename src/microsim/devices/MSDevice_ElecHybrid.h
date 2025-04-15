@@ -23,7 +23,6 @@
 
 #include <microsim/devices/MSVehicleDevice.h>
 #include <microsim/MSVehicle.h>
-#include <microsim/trigger/MSOverheadWire.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/emissions/EnergyParams.h>
 
@@ -32,6 +31,9 @@
 // ===========================================================================
 class SUMOVehicle;
 class MSDevice_Emissions;
+class MSOverheadWire;
+class Element;
+class Node;
 
 
 // ===========================================================================

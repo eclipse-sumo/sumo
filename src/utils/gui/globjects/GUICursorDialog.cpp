@@ -24,8 +24,6 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
-#include <netedit/GNEUndoList.h>
-
 #include "GUICursorDialog.h"
 
 

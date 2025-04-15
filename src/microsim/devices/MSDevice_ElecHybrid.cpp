@@ -38,6 +38,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSEdgeControl.h>
+#include <microsim/trigger/MSOverheadWire.h>
 #include <mesosim/MEVehicle.h>
 #include "MSDevice_Tripinfo.h"
 #include "MSDevice_Emissions.h"

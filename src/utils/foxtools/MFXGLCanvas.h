@@ -27,6 +27,12 @@
 #ifndef __glew_h__
 #include <GL/glew.h>
 #endif
+
+#ifndef WIN32
+#include <GL/glxew.h>
+#undef True
+#undef False
+#endif
 #include "fxheader.h"
 
 #ifdef WIN32
@@ -41,6 +47,8 @@
 typedef HGLRC WINAPI wglCreateContextAttribsARB_type(HDC hdc, HGLRC hShareContext, const int* attribList);
 typedef BOOL WINAPI wglChoosePixelFormatARB_type(HDC hdc, const int* piAttribIList,
         const FLOAT* pfAttribFList, UINT nMaxFormats, int* piFormats, UINT* nNumFormats);
+#else
+typedef GLXContext(*glXCreateContextAttribsARBProc)(Display*, GLXFBConfig, GLXContext, Bool, const int*);
 #endif
 
 class MFXGLVisual;
@@ -56,6 +64,8 @@ protected:
 #ifdef WIN32
     wglCreateContextAttribsARB_type* myWglCreateContextAttribsARB = nullptr;
     wglChoosePixelFormatARB_type* myWglChoosePixelFormatARB = nullptr;
+#else
+    glXCreateContextAttribsARBProc glXCreateContextAttribsARB = 0;
 #endif
 
 protected:
@@ -136,9 +146,9 @@ public:
 static void APIENTRY GLDebugMessageCallback(GLenum source, GLenum type, GLuint /*id*/,
         GLenum severity, GLsizei /*length*/,
         const GLchar* msg, const void* /*data*/) {
-    char* _source;
-    char* _type;
-    char* _severity;
+    const char* _source;
+    const char* _type;
+    const char* _severity;
 
     switch (source) {
         case GL_DEBUG_SOURCE_API:
@@ -226,9 +236,9 @@ static void APIENTRY GLDebugMessageCallback(GLenum source, GLenum type, GLuint /
             break;
     }
 
-    fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+    fprintf(stderr, "GL CALLBACK: %s type = 0x%x (%s), severity = 0x%x (%s), source = 0x%x (%s), message = %s\n",
             (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
-            type, severity, msg);
+            type, _type, severity, _severity, source, _source, msg);
 
     //WRITE_MESSAGEF("%: % of % severity, raised from %: %\n", id, _type, _severity, _source, msg);
 }
