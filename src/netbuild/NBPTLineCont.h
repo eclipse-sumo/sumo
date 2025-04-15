@@ -58,7 +58,7 @@ public:
     /// @brief ensure that all turn lanes have sufficient permissions
     void fixPermissions();
 
-    std::set<std::string>& getServedPTStops();
+    std::set<std::string> getServedPTStops();
 private:
 
     static const int FWD;
@@ -77,8 +77,6 @@ private:
     std::shared_ptr<NBPTStop> findWay(NBPTLine* line, std::shared_ptr<NBPTStop> stop, const NBEdgeCont& ec, NBPTStopCont& sc) const;
 
     void constructRoute(NBPTLine* myPTLine, const NBEdgeCont& cont);
-
-    std::set<std::string> myServedPTStops;
 
     static double getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBVehicle>& router,
                           const std::shared_ptr<NBPTStop> from, const std::shared_ptr<NBPTStop> to, const NBVehicle* veh);

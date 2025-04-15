@@ -162,17 +162,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
 
-    if (oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up")) {
-        before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Cleaning up public transport stops that are not served by any line"));
-        myPTStopCont.postprocess(myPTLineCont.getServedPTStops());
-        PROGRESS_TIME_MESSAGE(before);
-    } else {
-        int numDeletedStops = myPTStopCont.cleanupDeleted(myEdgeCont);
-        if (numDeletedStops > 0) {
-            WRITE_WARNINGF(TL("Removed % pt stops because they could not be assigned to the network"), toString(numDeletedStops));
-        }
-    }
-
     if (!myPTStopCont.getStops().empty() && !oc.getBool("ptstop-output.no-bidi")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Align pt stop id signs with corresponding edge id signs"));
         myPTStopCont.alignIdSigns();
@@ -710,6 +699,17 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     myPTLineCont.removeInvalidEdges(myEdgeCont);
     // ensure that all turning lanes have sufficient permissions
     myPTLineCont.fixPermissions();
+    if (oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up")) {
+        before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Cleaning up public transport stops that are not served by any line"));
+        std::set<std::string> usedStops = myPTLineCont.getServedPTStops();
+        myPTStopCont.postprocess(usedStops);
+        PROGRESS_TIME_MESSAGE(before);
+    } else {
+        int numDeletedStops = myPTStopCont.cleanupDeleted(myEdgeCont);
+        if (numDeletedStops > 0) {
+            WRITE_WARNINGF(TL("Removed % pt stops because they could not be assigned to the network"), toString(numDeletedStops));
+        }
+    }
 
     if (oc.exists("ignore-change-restrictions") && !oc.isDefault("ignore-change-restrictions")) {
         SVCPermissions ignoring = parseVehicleClasses(oc.getStringVector("ignore-change-restrictions"));

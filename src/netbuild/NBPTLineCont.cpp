@@ -106,9 +106,6 @@ NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
         }
         line->deleteInvalidStops(ec, sc);
         //line->deleteDuplicateStops();
-        for (std::shared_ptr<NBPTStop> stop : line->getStops()) {
-            myServedPTStops.insert(stop->getID());
-        }
     }
 }
 
@@ -469,9 +466,16 @@ NBPTLineCont::replaceEdge(const std::string& edgeID, const EdgeVector& replaceme
 }
 
 
-std::set<std::string>&
+std::set<std::string>
 NBPTLineCont::getServedPTStops() {
-    return myServedPTStops;
+    std::set<std::string> result;
+    for (auto& item : myPTLines) {
+        NBPTLine* line = item.second;
+        for (std::shared_ptr<NBPTStop> stop : line->getStops()) {
+            result.insert(stop->getID());
+        }
+    }
+    return result;
 }
 
 
