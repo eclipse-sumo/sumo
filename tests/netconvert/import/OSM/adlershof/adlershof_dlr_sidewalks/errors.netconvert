@@ -18,13 +18,13 @@ Warning: Cannot revise pt stop localization for pt line '1201388', which consist
 Warning: PT stop '851572693' has been moved to edge '-46150481#0'.
 Warning: PT stop '1553912606' has been moved to edge '-141968830#1'.
 Warning: PT stop '1094134880' has been moved to edge '-141968799'.
+Warning: Shape for junction '158710676' has distance 21.60 to its given position.
 Warning: Removing pt stop '588394564' on non existing edge ''.
 Warning: Removing pt stop '588394578' on non existing edge ''.
 Warning: Removing pt stop '663346697' on non existing edge ''.
 Warning: Removing pt stop '735390157' on non existing edge ''.
 Warning: Removing pt stop '852932403' on non existing edge ''.
 Warning: Removed 5 pt stops because they could not be assigned to the network
-Warning: Shape for junction '158710676' has distance 21.60 to its given position.
 Warning: Could not find edge for parkingArea '46039050#2'.
 Warning: Could not find edge for parkingArea '46039050#3'.
 Warning: Could not find edge for parkingArea '46039050#5'.
