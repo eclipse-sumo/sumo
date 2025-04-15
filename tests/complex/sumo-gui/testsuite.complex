@@ -1,6 +1,5 @@
 # test functionalty of the stateRelay.py tool
 stateReplay
-pyautogui_start_stop
 
 # testing replay of fcd data
 fcdReplay
