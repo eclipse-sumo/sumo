@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-16 12:41+0000\n"
+"PO-Revision-Date: 2025-04-16 12:43+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -7461,15 +7461,15 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6910
 msgid "center view"
-msgstr ""
+msgstr "centrar vista"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6918
 msgid "The path to the additional file"
-msgstr ""
+msgstr "La ruta al archivo adicional"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6920
 msgid "add. file"
-msgstr ""
+msgstr "archivo adicional"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6925
 msgid "The path to the route file"
