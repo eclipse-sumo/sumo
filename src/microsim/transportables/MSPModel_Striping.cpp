@@ -2327,7 +2327,7 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
               << " path=" << (myWalkingAreaPath == nullptr ? "null" : (myWalkingAreaPath->from->getID() + "->" + myWalkingAreaPath->to->getID())) << "\n";
 #endif
 
-    if (lane != myLane && myLane != nullptr) {
+    if (lane != myLane && myLane != nullptr && lane != nullptr) {
         pm->remove(this);
         pm->registerActive();
     }

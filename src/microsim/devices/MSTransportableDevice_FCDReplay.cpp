@@ -79,13 +79,16 @@ MSTransportableDevice_FCDReplay::~MSTransportableDevice_FCDReplay() {
 
 bool
 MSTransportableDevice_FCDReplay::move(SUMOTime currentTime) {
+    if (!myHolder.hasDeparted()) { // need to check this first for trajectories of size 1
+        return false;
+    }
     if (myTrajectory == nullptr || myTrajectoryIndex == (int)myTrajectory->size()) {
         // removing person
         return true;
     }
     MSPerson* person = dynamic_cast<MSPerson*>(&myHolder);
     const auto& te = myTrajectory->at(myTrajectoryIndex);
-    if (person == nullptr || !person->hasDeparted() || te.time > currentTime) {
+    if (person == nullptr || te.time > currentTime) {
         return false;
     }
     if (person->getCurrentStageType() == MSStageType::DRIVING) {
@@ -111,7 +114,11 @@ MSTransportableDevice_FCDReplay::move(SUMOTime currentTime) {
         }
     }
     if (person->getCurrentStageType() == MSStageType::WALKING) {
-        libsumo::Person::moveToXY(person->getID(), te.edgeOrLane, te.pos.x(), te.pos.y(), te.angle, 7);
+        try {
+            libsumo::Person::moveToXY(person->getID(), te.edgeOrLane, te.pos.x(), te.pos.y(), te.angle, 7, 0.1);
+        } catch (const libsumo::TraCIException& e) {
+            WRITE_WARNING(e.what());
+        }
         MSStageWalking* walk = static_cast<MSStageWalking*>(person->getCurrentStage());
         if (myTrajectoryIndex > 0 && myTrajectory->at(myTrajectoryIndex - 1).edgeOrLane != te.edgeOrLane) {
             walk->moveToNextEdge(person, currentTime, 1, nullptr, true);

@@ -976,6 +976,10 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
         found = Helper::moveToXYMap_matchingRoutePosition(pos, edgeID,
                 ev, routeIndex, vClass, true,
                 bestDistance, &lane, lanePos, routeOffset);
+        if (bestDistance > maxRouteDistance) {
+            found = false;
+            lane = nullptr;
+        }
     } else {
         double speed = pos.distanceTo2D(p->getPosition()); // !!!veh->getSpeed();
         found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle,
@@ -1012,7 +1016,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
             }
         }
     }
-    if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
+    if (found || mayLeaveNetwork) {
         // compute lateral offset
         if (found) {
             const double perpDist = lane->getShape().distance2D(pos, false);
@@ -1038,7 +1042,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
             // mapped position may differ from pos
             pos = lane->geometryPositionAtOffset(lanePos, -lanePosLat);
         }
-        assert((found && lane != 0) || (!found && lane == 0));
+        assert((found && lane != nullptr) || (!found && lane == nullptr));
         switch (p->getStageType(0)) {
             case MSStageType::WALKING: {
                 if (angle == INVALID_DOUBLE_VALUE) {
