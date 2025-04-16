@@ -174,7 +174,7 @@ title: ChangeLog
   - [remap_network.py](Tools/Net.md#remap_renamedpy): New tool for finding correspondence between networks based on geometry #16409
   - ptlines2flows.py: now sorts written routes and flows by id #16222
   - ptlines2flows.py: now safely handles missing edges #16293  - 
-  - gtfs2pt.py: now supports option **--merged-csv** for loading transit schedule data from a single file #16310
+  - gtfs2pt.py: now supports option **--merged-csv** for loading transit schedule data from a single file and option **--merged-csv-output** for creating such a file from GTFS input. #16310
   - gtfs2pt.py: now supports option **--patched-stops** to customize stop-to-lane assignment for individual stops #10720
   - gtfs2pt.py: now supports option **--stops** for giving a list of candidate stop edges to guide mapping. This can can greatly improve running time #16326
   - gtfs2pt.py: improved running time through caching #15856
