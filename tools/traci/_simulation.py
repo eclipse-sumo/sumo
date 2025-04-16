@@ -21,7 +21,7 @@ from __future__ import absolute_import
 import warnings
 from . import constants as tc
 from .domain import Domain
-from .exceptions import FatalTraCIError
+from .exceptions import FatalTraCIError, deprecated
 
 
 class Stage(object):
@@ -460,15 +460,18 @@ class SimulationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
 
+    @deprecated("busstop.getIDList")
     def getBusStopIDList(self):
         return self._getUniversal(tc.VAR_BUS_STOP_ID_LIST)
 
+    @deprecated("busstop.getPersonCount")
     def getBusStopWaiting(self, stopID):
         """getBusStopWaiting() -> integer
         Get the total number of waiting persons at the named bus stop.
         """
         return self._getUniversal(tc.VAR_BUS_STOP_WAITING, stopID)
 
+    @deprecated("busstop.getPersonIDs")
     def getBusStopWaitingIDList(self, stopID):
         """getBusStopWaiting() -> list(string)
         Get the IDs of waiting persons at the named bus stop.
