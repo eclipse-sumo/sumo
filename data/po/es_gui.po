@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-04-16 14:36+0200\n"
-"PO-Revision-Date: 2025-02-07 12:22+0000\n"
+"POT-Creation-Date: 2025-04-08 15:43+0200\n"
+"PO-Revision-Date: 2025-04-16 12:41+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:307 src/gui/GUIApplicationWindow.cpp:310
 #: src/gui/GUIApplicationWindow.cpp:2267 src/gui/GUIApplicationWindow.cpp:2268
@@ -7552,15 +7552,15 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7028
 msgid "Length of %"
-msgstr ""
+msgstr "Longitud de %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7034
 msgid "Force size during creation"
-msgstr ""
+msgstr "Forzar tamaño durante la creación"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7036
 msgid "force size"
-msgstr ""
+msgstr "forzar tamaño"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7041
 msgid "Reference position used for creating %"
@@ -8644,11 +8644,11 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8565
 #: src/netedit/GNETagPropertiesDatabase.cpp:8570
 msgid "ID of %"
-msgstr ""
+msgstr "ID de %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8580
 msgid "Optional name for %"
-msgstr ""
+msgstr "Nombre opcional para %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8591
 #: src/netedit/GNETagPropertiesDatabase.cpp:8597
@@ -10919,7 +10919,7 @@ msgstr "cerrar diálogo"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:220
 #: src/netedit/frames/GNEAttributesEditorType.cpp:434
 msgid "reset %"
-msgstr ""
+msgstr "restablecer %"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:250
 msgid "Nothing to enable, implement in Children"
@@ -12383,7 +12383,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:86
 msgid "Reset attributes"
-msgstr ""
+msgstr "Restablecer atributos"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:94
 msgid "Edit extended attributes"
@@ -12396,7 +12396,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:306
 msgid "Invalid value '%' in attribute %"
-msgstr ""
+msgstr "Valor no válido '%' en el atributo %"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:460
 #: src/netedit/frames/GNEAttributesEditorType.cpp:486
@@ -12611,7 +12611,7 @@ msgstr "Atributo"
 
 #: src/netedit/frames/GNEFrame.cpp:200
 msgid "Category"
-msgstr ""
+msgstr "Categoría"
 
 #: src/netedit/frames/GNEFrame.cpp:201
 msgid "Description"
@@ -12747,7 +12747,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:490
 msgid "Show all attributes"
-msgstr ""
+msgstr "Mostrar todos los atributos"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:492
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:506
@@ -13144,7 +13144,7 @@ msgstr "Usar el seleccionado"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:55
 msgid "Selected elements"
-msgstr ""
+msgstr "Elementos seleccionados"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:85
 msgid ""
@@ -13156,11 +13156,11 @@ msgstr ""
 #: src/netedit/frames/GNEViewObjectSelector.cpp:86
 #, c-format
 msgid "-Click over % to select"
-msgstr ""
+msgstr "-Clic sobre % para seleccionar"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:87
 msgid "-ESC to clear elements"
-msgstr ""
+msgstr "-ESC para despejar selección"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:88
 #, c-format
@@ -13175,7 +13175,7 @@ msgstr ""
 #: src/netedit/frames/GNEViewObjectSelector.cpp:151
 #, c-format
 msgid "List of % cannot be empty"
-msgstr ""
+msgstr "La lista de % no puede estar vacía"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:60
 msgid "Delete geometry points"
@@ -13268,7 +13268,7 @@ msgstr "Forzar dibujar los puntos geométricos"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:106
 msgid "Move only junction center"
-msgstr ""
+msgstr "Mover solo el centro del cruce"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:172
 msgid "Demand move options"
@@ -14036,7 +14036,7 @@ msgstr ""
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:415
 #: src/netedit/frames/network/GNEWireFrame.cpp:201
 msgid "A % must be selected before insertion of %."
-msgstr ""
+msgstr "Se debe seleccionar un % antes de insertar un %."
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:67
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:77
