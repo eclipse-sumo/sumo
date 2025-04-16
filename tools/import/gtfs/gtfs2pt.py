@@ -252,6 +252,7 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                     mappedRoute = sumolib.route.mapTrace(trace, net, radius, verbose=options.verbose,
                                                          fillGaps=options.fill_gaps, gapPenalty=5000.,
                                                          vClass=vclass, vias=vias,
+                                                         fastest=True,
                                                          reversalPenalty=1000.)
                     traceCache[trace] = mappedRoute
 
