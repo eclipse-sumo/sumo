@@ -494,6 +494,9 @@ def main(options):
         gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
         routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
         gtfsZip.fp.close()
+        if options.mergedCSVOutput:
+            full_data_merged = gtfs2fcd.get_merged_data(options)
+            full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
 
         if routes.empty or trips_on_day.empty:
             return

@@ -46,6 +46,8 @@ def add_options():
                     help="define gtfs zip file to load (mandatory)")
     gp.add_argument("--merged-csv", category="input", type=op.data_file, dest="mergedCSV",
                     help="define csv file for loading merged data (instead of gtfs data)")
+    op.add_argument("--merged-csv-output", category="output", type=op.data_file, dest="mergedCSVOutput",
+                    help="define csv file for saving merged GTFS data")
     op.add_argument("--date", category="input", required=False, help="define the day to import, format: 'YYYYMMDD'")
     op.add_argument("--fcd", category="input", type=op.data_file,
                     help="directory to write / read the generated FCD files to / from")
@@ -116,7 +118,6 @@ def get_merged_data(options):
                                      'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
                                      'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
                                      'arrival_time', 'departure_time']].drop_duplicates()
-    #  merged.to_csv("tmp.csv", sep=";", index=False)
     return merged
 
 
@@ -135,6 +136,8 @@ def main(options):
                                        dtype={"route_type": str})
     else:
         full_data_merged = get_merged_data(options)
+    if options.mergedCSVOutput:
+        full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
     if full_data_merged.empty:
         return False
     fcdFile = {}
