@@ -874,7 +874,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                 # overwritten by later call to duarouter
                 if options.additional is None:
                     options.additional = options.vtypeout
-                else:
+                elif options.vtypeout not in options.additional:
                     options.additional = options.additional + "," + options.vtypeout
                 with open(options.vtypeout, 'w') as fouttype:
                     sumolib.writeXMLHeader(fouttype, "$Id$", "additional", options=options)
@@ -991,7 +991,8 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
     for router, routerargs in [('duarouter', duargs), ('marouter', maargs)]:
         if router in options_to_forward:
             for option in options_to_forward[router]:
-                option[0] = '--' + option[0]
+                if not option[0].startswith('--'):
+                    option[0] = '--' + option[0]
                 if option[0] not in routerargs:
                     routerargs += option
                 else:
