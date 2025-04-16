@@ -33,3 +33,6 @@ subnet
 
 # test case from the berlin sbahn network
 sbahn
+
+# test case from the berlin sbahn network (#16544)
+sbahn2
