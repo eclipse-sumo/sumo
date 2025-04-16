@@ -3237,7 +3237,7 @@ msgstr "Cargar tipos de arista (EdgeTypes) en la red actual."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save Edge Types"
-msgstr "Salvar tipos de arista (edgeTypes)"
+msgstr "Guardar tipos de arista (edgeTypes)"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save edge types of the current net."
