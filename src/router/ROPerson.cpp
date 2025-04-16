@@ -396,7 +396,8 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
             } else {
                 // write origin for first element of the plan
                 const ROEdge* origin = trip == myPlan.front() && resultItems.empty() ? trip->getOrigin() : nullptr;
-                resultItems.push_back(new Ride(start, origin, nullptr, item.line, trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop, item.intended, TIME2STEPS(item.depart)));
+                const std::string line = OptionsCont::getOptions().getBool("persontrip.ride-public-any") ? "ANY" : item.line;
+                resultItems.push_back(new Ride(start, origin, nullptr, line, trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop, item.intended, TIME2STEPS(item.depart)));
             }
         }
         start += TIME2STEPS(item.cost);
