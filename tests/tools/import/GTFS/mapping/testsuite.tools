@@ -30,3 +30,6 @@ parking
 
 # import public transport using a network that doesn't cover all stops
 subnet
+
+# test case from the berlin sbahn network
+sbahn

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-16 14:08:31.907990 by gtfs2pt.py v1_22_0+1521-07d7a238385
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <human-readable-time value="True"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="255711950.0" lane="-4752796#1_0" startPos="0.00" endPos="110.00" friendlyPos="true" name="S Attilastr. (Berlin)"/>
+    <trainStop id="255711950.1" lane="718121904_0" startPos="0.00" endPos="162.42" friendlyPos="true" name="S Priesterweg (Berlin)"/>
+</additional>

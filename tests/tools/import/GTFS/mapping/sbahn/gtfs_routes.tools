@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-16 14:08:31.919299 by gtfs2pt.py v1_22_0+1521-07d7a238385
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <human-readable-time value="True"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="255711950" edges="4752796#2 -4752796#2 -4752796#1 -4752796#0 -4753113#0 -718121901 -368769080 -5087058 -10360537#5 -304386516 29327006#2 29327006#3 29327006#4 29327006#5 29327006#6 27681620#1 27681621#0 27681621#1 27681621#2 27681621#3 27733812 142047346 27733813 -27733813 -142047346 -27733812 -136703812#0 -27681621#2 -27681621#1 -27681621#0 -27681620#1 -27681620#0 -29327006#5 -29327006#4 -29327006#3 -29327006#2 -29327006#1 -29327006#0 -368769081 -368769078 -5087062 -5087063 -257731631#0 257731631#0 257731631#1 5087062 718121904">
+        <stop busStop="255711950.0" duration="00:00:10" until="00:00:00"/> <!-- S Attilastr. (Berlin) -->
+        <stop busStop="255711950.1" duration="00:00:10" until="00:02:42"/> <!-- S Priesterweg (Berlin) -->
+    </route>
+    <vehicle id="255711950.0" route="255711950" type="light_rail" depart="05:11:20" line="255711950">
+        <param key="gtfs.route_name" value="S2"/>
+        <param key="gtfs.trip_headsign" value="S Buch (Berlin)"/>
+    </vehicle>
+</routes>
