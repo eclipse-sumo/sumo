@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-11 08:27+0000\n"
+"PO-Revision-Date: 2025-04-16 10:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:307 src/gui/GUIApplicationWindow.cpp:310
 #: src/gui/GUIApplicationWindow.cpp:2267 src/gui/GUIApplicationWindow.cpp:2268
@@ -4239,51 +4239,51 @@ msgstr "Flusso"
 
 #: src/netedit/GNEAttributeProperties.cpp:304
 msgid "Netedit"
-msgstr ""
+msgstr "Netedit"
 
 #: src/netedit/GNEAttributeProperties.cpp:306
 msgid "Internal"
-msgstr ""
+msgstr "Interno"
 
 #: src/netedit/GNEAttributeProperties.cpp:319
 msgid "list of "
-msgstr ""
+msgstr "elenco di "
 
 #: src/netedit/GNEAttributeProperties.cpp:327
 msgid "non-negative "
-msgstr ""
+msgstr "non negativo "
 
 #: src/netedit/GNEAttributeProperties.cpp:330
 msgid "discrete "
-msgstr ""
+msgstr "discreto "
 
 #: src/netedit/GNEAttributeProperties.cpp:333
 msgid "unique "
-msgstr ""
+msgstr "unico "
 
 #: src/netedit/GNEAttributeProperties.cpp:337
 msgid "integer"
-msgstr ""
+msgstr "numero integro"
 
 #: src/netedit/GNEAttributeProperties.cpp:340
 msgid "float"
-msgstr ""
+msgstr "numero in virgola mobile"
 
 #: src/netedit/GNEAttributeProperties.cpp:343
 msgid "SUMOTime"
-msgstr ""
+msgstr "SUMOTime"
 
 #: src/netedit/GNEAttributeProperties.cpp:346
 msgid "boolean"
-msgstr ""
+msgstr "valore booleano"
 
 #: src/netedit/GNEAttributeProperties.cpp:349
 msgid "string"
-msgstr ""
+msgstr "sequenza di caratteri"
 
 #: src/netedit/GNEAttributeProperties.cpp:352
 msgid "position"
-msgstr ""
+msgstr "posizione"
 
 #: src/netedit/GNEAttributeProperties.cpp:355
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2200
@@ -4292,32 +4292,32 @@ msgstr "colore"
 
 #: src/netedit/GNEAttributeProperties.cpp:358
 msgid "vClass"
-msgstr ""
+msgstr "classe di veicoli"
 
 #: src/netedit/GNEAttributeProperties.cpp:361
 #: src/netedit/GNEAttributeProperties.cpp:365
 msgid "filename"
-msgstr ""
+msgstr "nome di file"
 
 #: src/netedit/GNEAttributeProperties.cpp:362
 msgid "(Existent)"
-msgstr ""
+msgstr "(esistente)"
 
 #: src/netedit/GNEAttributeProperties.cpp:368
 msgid "probability"
-msgstr ""
+msgstr "probabilità"
 
 #: src/netedit/GNEAttributeProperties.cpp:369
 msgid "[0, 1]"
-msgstr ""
+msgstr "[0, 1]"
 
 #: src/netedit/GNEAttributeProperties.cpp:372
 msgid "angle"
-msgstr ""
+msgstr "angolo"
 
 #: src/netedit/GNEAttributeProperties.cpp:373
 msgid "[0, 360]"
-msgstr ""
+msgstr "[0, 360]"
 
 #: src/netedit/GNEAttributeProperties.cpp:649
 #, c-format
