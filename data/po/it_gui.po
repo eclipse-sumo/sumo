@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-16 10:51+0000\n"
+"PO-Revision-Date: 2025-04-16 12:41+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -4970,7 +4970,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:380
 msgid "Root"
-msgstr ""
+msgstr "Radice"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:385
 #: src/netedit/GNETagPropertiesDatabase.cpp:387
@@ -5044,12 +5044,12 @@ msgstr "Flussi"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:468
 msgid "Vehicle flows"
-msgstr ""
+msgstr "Flussi di veicoli"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:473
 #: src/netedit/GNETagPropertiesDatabase.cpp:475
 msgid "Vehicle stops"
-msgstr ""
+msgstr "Fermate di veicoli"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:480
 #: src/netedit/GNETagPropertiesDatabase.cpp:482
@@ -5067,17 +5067,17 @@ msgstr "Corse di persone"
 #: src/netedit/GNETagPropertiesDatabase.cpp:494
 #: src/netedit/GNETagPropertiesDatabase.cpp:496
 msgid "Person rides"
-msgstr ""
+msgstr "Passaggi di persone"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:501
 #: src/netedit/GNETagPropertiesDatabase.cpp:503
 msgid "Person walks"
-msgstr ""
+msgstr "Cammini di persone"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:508
 #: src/netedit/GNETagPropertiesDatabase.cpp:510
 msgid "Person stop"
-msgstr ""
+msgstr "Soste di persone"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:515
 #: src/netedit/GNETagPropertiesDatabase.cpp:517
@@ -5088,17 +5088,17 @@ msgstr "Piani di contenitori"
 #: src/netedit/GNETagPropertiesDatabase.cpp:522
 #: src/netedit/GNETagPropertiesDatabase.cpp:524
 msgid "Container transports"
-msgstr ""
+msgstr "Trasporti di contenitori"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:529
 #: src/netedit/GNETagPropertiesDatabase.cpp:531
 msgid "Container tranships"
-msgstr ""
+msgstr "Trasbordi di contenitori"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:536
 #: src/netedit/GNETagPropertiesDatabase.cpp:538
 msgid "Container stops"
-msgstr ""
+msgstr "Fermate di contenitori"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:543
 #: src/netedit/GNETagPropertiesDatabase.cpp:545
@@ -7450,11 +7450,11 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6910
 msgid "center view"
-msgstr ""
+msgstr "centra veduta"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6918
 msgid "The path to the additional file"
-msgstr ""
+msgstr "Il percorso del file addizionale"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6920
 msgid "add. file"
@@ -7462,20 +7462,20 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6925
 msgid "The path to the route file"
-msgstr ""
+msgstr "Il percorso del file di itinerari"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6927
 msgid "route file"
-msgstr ""
+msgstr "file di itinerari"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6932
 #: src/netedit/GNETagPropertiesDatabase.cpp:6939
 msgid "The path to the data file"
-msgstr ""
+msgstr "Il percorso del file di dati"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6934
 msgid "data file"
-msgstr ""
+msgstr "file di dati"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6941
 msgid "mean file"
@@ -7509,7 +7509,7 @@ msgstr "parametri"
 #: src/netedit/elements/additional/GNEStoppingPlace.cpp:384
 #: src/netedit/elements/additional/GNEStoppingPlace.cpp:439
 msgid "lane start"
-msgstr ""
+msgstr "inizio di corsia"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6999
 #: src/netedit/elements/additional/GNEOverheadWire.cpp:469
@@ -7518,11 +7518,11 @@ msgstr ""
 #: src/netedit/elements/additional/GNEStoppingPlace.cpp:392
 #: src/netedit/elements/additional/GNEStoppingPlace.cpp:446
 msgid "lane end"
-msgstr ""
+msgstr "termine di corsia"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7013
 msgid "Length of %"
-msgstr ""
+msgstr "Lunghezza di %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7019
 msgid "Force size during creation"
@@ -12582,7 +12582,7 @@ msgstr "Uscenti"
 
 #: src/netedit/frames/GNEElementTree.cpp:869
 msgid "SourceSinks (%)"
-msgstr ""
+msgstr "Sorgenti e scarichi (%)"
 
 #: src/netedit/frames/GNEElementTree.cpp:890
 #: src/netedit/frames/GNEElementTree.cpp:916
@@ -12599,7 +12599,7 @@ msgstr "Attributo"
 
 #: src/netedit/frames/GNEFrame.cpp:200
 msgid "Category"
-msgstr ""
+msgstr "Categoria"
 
 #: src/netedit/frames/GNEFrame.cpp:201
 msgid "Description"
@@ -12734,7 +12734,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:490
 msgid "Show all attributes"
-msgstr ""
+msgstr "Mostra tutti gli attributi"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:492
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:506
@@ -12744,7 +12744,7 @@ msgstr "<tutto>"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:495
 msgid "No common attributes defined"
-msgstr ""
+msgstr "Nessun attributo generale definito"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:51
 msgid "Overlapped junctions"
