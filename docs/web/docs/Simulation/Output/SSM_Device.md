@@ -104,7 +104,7 @@ The following table lists the different encounter types along with their codes, 
 | 18   | FOLLOWING_PASSED           | The encounter has been a following situation, but is not active any more.                                                                                                                                                 ||||
 | 19   | MERGING_PASSED             | The encounter has been a merging situation, but is not active any more.                                                                                                                                                   ||||
 | 20   | ONCOMING                   | The vehicles are driving [towards each other on the same lane](../../Simulation/OppositeDirectionDriving.md).                                                                                                             | foeFront - egoFront | egoSpeed + foeSpeed | midpoint between vehicles|
-| <font color="lightgray">111  | <font color="lightgray">COLLISION                  | <font color="lightgray">Collision (currently not implemented, might be differentiated further).                                                                           ||||
+| 111  | COLLISION                  | Collision.                                                                           ||||
 
 
 ## Space Gap Definitions
