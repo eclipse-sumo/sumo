@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_22_0+1430-d07913e668f
+Eclipse SUMO sumo Version v1_22_0+1555-5374c615e56
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -473,6 +473,8 @@ Routing Options:
                                         and destination will share a taxi by
                                         default
   --persontrip.taxi.waiting-time TIME  Estimated time for taxi pickup
+  --persontrip.ride-public-any         Permit entering any public transport
+                                        vehicle that stops at the destination
   --railway.max-train-length FLOAT     Use FLOAT as a maximum train length when
                                         initializing the railway router
   --replay-rerouting                   Replay exact rerouting sequence from
