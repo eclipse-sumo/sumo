@@ -185,6 +185,7 @@ def splitNet(options):
                         continue
                     if doNavteqOut:
                         subprocess.call(netcCall + ["-s", netPrefix + ".net.xml", "-o", "NUL", "--dismiss-vclasses"
+                                                    "--no-internal-links",  #  traceMap ignores internal links
                                                     "--dlr-navteq-output", netPrefix])
                 typedNets[mode] = (inp, netPrefix)
     return edgeMap, invEdgeMap, typedNets
