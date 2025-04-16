@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2024-12-11 12:10+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2025-04-16 11:17+0000\n"
+"Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -13437,52 +13437,52 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1803
 msgid "Sumo config files (*.sumocfg))"
-msgstr ""
+msgstr "Archivos de configuración de sumo (*.sumocfg)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1809
 msgid "Netedit config files (*.netecfg)"
-msgstr ""
+msgstr "Archivos de configuración de netedit (*.netecfg)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1815
 msgid "Netconvert config files (*.netccfg)"
-msgstr ""
+msgstr "Archivos de configuración de netconvert (*.netccfg)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1821
 msgid "OSM network files (*.osm, *.osm.gz)"
-msgstr ""
+msgstr "Archivos de red OSM (*.osm, *.osm.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1827
 msgid "SUMO network files (*.net.xml, *.net.xml.gz)"
-msgstr ""
+msgstr "Archivos de red de SUMO (*.net.xml, *.net.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1833
 msgid "TLS files (*.ttl.xml, *.ttl.xml.gz)"
-msgstr ""
+msgstr "Archivos TLS (*.ttl.xml, *.ttl.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1839
 msgid "Junction files (*.nod.xml, *.nod.xml.gz)"
-msgstr ""
+msgstr "Archivos de cruce (*.nod.xml, *.nod.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1845
 msgid "Edge type files (*.ttl.xml, *.ttl.xml.gz)"
-msgstr ""
+msgstr "Archivos de tipo de arista (*.ttl.xml, *.ttl.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1851
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1874
 msgid "Additional files (*.add.xml, *.add.xml.gz)"
-msgstr ""
+msgstr "Archivos adicionales (*.add.xml, *.add.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1862
 msgid "Route files (*.rou.xml, *.rou.xml.gz)"
-msgstr ""
+msgstr "Archivos de ruta (*.rou.xml, *.rou.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1868
 msgid "Edge data files (*.xml, *.xml.gz)"
-msgstr ""
+msgstr "Archivos Edge Data (*.xml, *.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1873
 msgid "Mean data files (*.med.add.xml, *.med.add.xml.gz)"
-msgstr ""
+msgstr "Archivos Mean Data (*.med.add.xml, *.med.add.xml.gz)"
 
 #: src/utils/xml/XMLSubSys.cpp:73
 msgid ""
