@@ -32,7 +32,13 @@ title: ChangeLog
   - Fixed deadlock between vehicle and pedestrian on walkingarea #16458
   - The electric vehicle model now honors engine shuttoff via params `shutOffStopDuration` and `shutOffAutoDuration` #16341
   - JuPedSim-pedestrians now take into account traffic lights when walking against the direction of the edge. #16313
-  
+  - SSM device: fixed unhelpful error message on invalid `device.ssm.exclude-conflict-types` #16511
+  - SSM device: fixed problems with indirect left turn #16519
+  - Fixed bug where right-turning vehicle ignores bicycle on indirect left turn #16520
+  - Option **--ignore-junction-blocker** now longer triggers junction collisions #16525
+  - Stops in flows are now correctly handled when saving and loading state #16527
+  - Fixed invalid behavior when rerouter closes multiple lanes or edges with different permissions in the same interval #13846
+  - Fixed rare crash on loading rail simulation with internal links #16532
  
 - netedit
   - Restored functionality for setting custom geometry point by entering values #16179 (regression in 1.20.0)
@@ -68,10 +74,13 @@ title: ChangeLog
   - Fixed `nan` value in generated network when loading connections with custom length value and length-0 geometry #16441
   - Fixed invalid right of way with respect to left-turns from the oncoming direction at junctiop type `left_before_right` #16480
   - Fixed invalid internal lane shape when importin OpenDRIVE #16482
+  - Fixed invalid ptline-output when running with option **--ptstop-output.no-bidi** #16534
+  - Option **--ptline-clean-up** now cleans up more stops #16540
 
 - durarouter
   - Fixed invalid route output when loading invalid routes with stops and setting option **--ignore-errors** #16365
   - Improved error message when loading **--astar.landmark-distances** together with taz #16400
+  - Fixed crash when loading restriction-params with taz #16514
  
 - TraCI
   - Setting vehicle parameter 'lcContRight' is now working #16147
@@ -98,6 +107,7 @@ title: ChangeLog
   - scaleRoutes.py: Now works with flows defined via `period` #16470
   - route_1htoDay.py: fixed misleading option help text #16466
   - route_1htoDay.py: now supports option **--output-file** to put all vehicles into a single file that can be used with **scaleTimeLine.py** #16468
+  - loading tool config with multiple positional input file arguments now works #16447
 
 ### Enhancements
 
@@ -118,7 +128,8 @@ title: ChangeLog
   - person plan element `<stop>` now supports attribute `jump`. When this is set a person may jump between subsequent stops at different locations, taking the configured time to do so #6325
   - Signal plans where a phase loops back onto itself with no alternative next phase now raise a warning #16487
   - Emergency vehicles may now perform opposite overtaking of queues even when the downstream edge has no opposite edge #16499
-
+  - collision-output now writes network coordindates of the front and rear of the involved vehicles #16509
+  - SSM device parameter "write-na" can be used to disable conflict information where all values are `n/a` #16513
 
 - netedit
   - Each object now tracks the file from which it was loaded to facilitate working with projects where multiple route- or additional-files are used #12430
@@ -171,8 +182,8 @@ title: ChangeLog
   - gtfs2pt.py: added option **--write-terminals** to include vehicle `<params>`s that describe the known terminal stops of the full route (even if only part of the route is used) #16154
   - net2geojson.py: option **--traffic-lights** can now be used to include the shapes of traffic signals #16419
   - scaleRoutes.py: now uses a non-constant default timeline #16469
-
-
+  - [generateDetectors.py](Tools/Output.md#generatedetectorspy): new tool for generating detectors on arbitrary network edges #16523
+  - osmWebWizard.py: No longer generating superfluous bidi-stops #16533
 
 ### Miscellaneous
 
