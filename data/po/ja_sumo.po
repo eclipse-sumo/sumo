@@ -12246,7 +12246,7 @@ msgid "State GZipped XML files (*.xml.gz)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1803
-msgid "Sumo config files (*.sumocfg))"
+msgid "Sumo config files (*.sumocfg)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1809
