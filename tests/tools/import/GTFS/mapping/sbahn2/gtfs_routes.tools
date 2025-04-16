@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-16 14:25:52.504050 by gtfs2pt.py v1_22_0+1541-786d2352924
+<!-- generated on 2025-04-16 14:32:36.604757 by gtfs2pt.py v1_22_0+1542-cb6fbc43d72
 <configuration>
     <merged-csv value="data.csv"/>
     <vtype-output value="vehtypes.xml"/>
@@ -12,7 +12,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="255743249" edges="52782252#2 19744868#0 191680447#0 191680447#1 191680443 191680460#1 191680457#0 191680457#1 191680457#2 191680457#3 191680457#4 191680457#5 191680457#6 191680457#7 527200509 32548219#0 32548219#1 32548219#2 321030049#3 463435053#1">
+    <route id="255743249" edges="52782252#2 19744868#0 19744868#1 4526351#1 1154993712 1243591605#0 1243591605#1 321030049#1 321030049#2 321030049#3 463435053#1">
         <stop busStop="255743249.11" duration="00:00:10" until="00:00:00"/> <!-- S Südkreuz Bhf (Berlin) -->
         <stop busStop="255743249.12" duration="00:00:10" until="00:02:24"/> <!-- S+U Tempelhof (Berlin) -->
     </route>
