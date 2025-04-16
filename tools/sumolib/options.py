@@ -97,6 +97,7 @@ def assign_prefixed_options(args, allowed_programs):
     remaining = []
     consumed = False
     for arg_index, arg in enumerate(args):
+        used = False
         if consumed:
             consumed = False
             continue
@@ -106,14 +107,18 @@ def assign_prefixed_options(args, allowed_programs):
                 program = arg[2:separator_index]
                 if program in allowed_programs:
                     try:
-                        if '--' in args[arg_index+1]:
-                            raise ValueError()
-                        option = [arg[separator_index+1:], args[arg_index+1]]
+                        if '=' in arg:
+                            option = arg[separator_index+1:].split('=')
+                        else:
+                            if '--' in args[arg_index+1]:
+                                raise ValueError()
+                            option = [arg[separator_index+1:], args[arg_index+1]]
+                            consumed = True
                     except (IndexError, ValueError):
                         raise ValueError("Please amend prefixed argument %s with a value." % arg)
+                    used = True
                     prefixed_options.setdefault(program, []).append(option)
-                    consumed = True
-        if not consumed:
+        if not used:
             remaining.append(arg)
     return prefixed_options, remaining
 
