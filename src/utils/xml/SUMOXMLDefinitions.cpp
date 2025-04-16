@@ -1799,7 +1799,7 @@ StringBijection<StateFileExtension>::Entry SUMOXMLDefinitions::stateFileExtensio
 };
 
 StringBijection<SumoConfigFileExtension>::Entry SUMOXMLDefinitions::sumoConfigFileExtensionValues[] = {
-    {TL("Sumo config files (*.sumocfg)"),  SumoConfigFileExtension::SUMOCONF},
+    {TL("Sumo config files (*.sumocfg)"),   SumoConfigFileExtension::SUMOCONF},
     {TL("XML files (*.xml)"),               SumoConfigFileExtension::XML},
     {TL("All files (*)"),                   SumoConfigFileExtension::ALL} //< must be the last one
 };
