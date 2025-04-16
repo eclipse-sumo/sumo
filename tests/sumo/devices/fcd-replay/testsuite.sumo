@@ -9,3 +9,6 @@ gap
 # points don't form a continous route (and no connection is possible)
 disconnect
 persons
+
+# persons moving freely (jupedsim replay)
+persons_offnet
