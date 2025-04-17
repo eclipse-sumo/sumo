@@ -173,14 +173,14 @@ Simulation::step(const double time) {
         if (t == 0) {
             MSNet::getInstance()->simulationStep();
         } else {
-            while (MSNet::getInstance()->getCurrentTimeStep() < t) {
+            while (SIMSTEP < t) {
                 MSNet::getInstance()->simulationStep();
             }
         }
 #ifdef HAVE_LIBSUMOGUI
     }
 #endif
-    Helper::handleSubscriptions(t);
+    Helper::handleSubscriptions(SIMSTEP);
 }
 
 
