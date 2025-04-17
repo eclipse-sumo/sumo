@@ -54,11 +54,12 @@ def main(options):
 
     net = sumolib.net.readNet(options.network)
     for routefile in options.routeFiles:
+        lastEdges = None
         for elem in sumolib.xml.parse(routefile, ['vehicle', 'flow', 'route'], heterogeneous=True):
             if elem.name == 'route':
+                lastEdges = [net.getEdge(e) for e in elem.edges.split()]
                 if elem.id:
-                    edges = [net.getEdge(e) for e in elem.edges.split()]
-                    routes[elem.id] = edges
+                    routes[elem.id] = lastEdges
                 else:
                     #  embedded route
                     continue
@@ -67,7 +68,7 @@ def main(options):
                 if type(elem.route) == str:
                     edges = routes[elem.route]
                 else:
-                    edges = [net.getEdge(e) for e in elem.route[0].edges.split()]
+                    edges = lastEdges
                 numReversals = 0
                 for e, e2 in zip(edges[:-1], edges[1:]):
                     if e.getBidi() == e2:
