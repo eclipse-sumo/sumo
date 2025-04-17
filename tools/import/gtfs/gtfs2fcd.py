@@ -137,6 +137,7 @@ def main(options):
     else:
         full_data_merged = get_merged_data(options)
     if options.mergedCSVOutput:
+        full_data_merged.sort_values(by=['trip_id', 'stop_sequence'], inplace=True)
         full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
     if full_data_merged.empty:
         return False

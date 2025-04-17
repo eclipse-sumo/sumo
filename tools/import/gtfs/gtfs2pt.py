@@ -498,6 +498,7 @@ def main(options):
         gtfsZip.fp.close()
         if options.mergedCSVOutput:
             full_data_merged = gtfs2fcd.get_merged_data(options)
+            full_data_merged.sort_values(by=['trip_id', 'stop_sequence'], inplace=True)
             full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
 
         if routes.empty or trips_on_day.empty:
