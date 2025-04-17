@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-17 09:08+0000\n"
+"PO-Revision-Date: 2025-04-18 12:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -4972,7 +4972,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:89
 #, c-format
 msgid "Property for tag '%' not defined"
-msgstr ""
+msgstr "La proprietà del tag '%' è indefinita"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:102
 #, c-format
@@ -4986,22 +4986,22 @@ msgstr "Radice"
 #: src/netedit/GNETagPropertiesDatabase.cpp:385
 #: src/netedit/GNETagPropertiesDatabase.cpp:387
 msgid "Supermode network"
-msgstr ""
+msgstr "Supermodo rete"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:391
 #: src/netedit/GNETagPropertiesDatabase.cpp:393
 msgid "Supermode demand"
-msgstr ""
+msgstr "Supermodo domanda"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:397
 #: src/netedit/GNETagPropertiesDatabase.cpp:399
 msgid "Supermode data"
-msgstr ""
+msgstr "Supermodo dati"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:404
 #: src/netedit/GNETagPropertiesDatabase.cpp:406
 msgid "Network elements"
-msgstr ""
+msgstr "Elementi di rete"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:411
 #: src/netedit/GNETagPropertiesDatabase.cpp:413
@@ -5012,7 +5012,7 @@ msgstr "Elementi addizionali"
 #: src/netedit/GNETagPropertiesDatabase.cpp:418
 #: src/netedit/GNETagPropertiesDatabase.cpp:420
 msgid "Stopping places"
-msgstr ""
+msgstr "Luoghi di fermata"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:432
 #: src/netedit/GNETagPropertiesDatabase.cpp:434
@@ -5114,7 +5114,7 @@ msgstr "Fermate di contenitori"
 #: src/netedit/GNETagPropertiesDatabase.cpp:543
 #: src/netedit/GNETagPropertiesDatabase.cpp:545
 msgid "Datas"
-msgstr ""
+msgstr "Dati"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:572
 #: src/netedit/frames/network/GNECrossingFrame.cpp:67
@@ -5385,12 +5385,16 @@ msgstr "La larghezza dei passaggi pedonali"
 #: src/netedit/GNETagPropertiesDatabase.cpp:961
 msgid "sets the tls-index for this crossing (-1 means automatic assignment)"
 msgstr ""
+"assegna l'indice semaforico di questo passaggio pedonale (-1 indica "
+"l'assegnamento automatico)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:967
 msgid ""
 "sets the opposite-direction tls-index for this crossing (-1 means not "
 "assigned)"
 msgstr ""
+"assegna l'indice semaforico della direzione opposta di questo passaggio "
+"pedonale (-1 equivale a nessun indice assegnato)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:973
 msgid "Overrides default shape of pedestrian crossing"
@@ -5474,12 +5478,16 @@ msgid ""
 "sets index of this connection within the controlling traffic light (-1 means"
 " automatic assignment)"
 msgstr ""
+"assegna l'indice di questo collegamento nel semaforo controllante (-1 indica "
+"l'assegnamento automatico)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1073
 msgid ""
 "sets index for the internal junction of this connection within the "
 "controlling traffic light (-1 means internal junction not controlled)"
 msgstr ""
+"assegna l'indice dell'incrocio interno di questo collegamento nel semaforo "
+"controllante (-1 indica un incrocio interno non controllato)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1081
 msgid "sets custom speed limit for the connection"
@@ -5564,6 +5572,8 @@ msgstr "Accesso"
 msgid ""
 "The walking length of the access in meters (default is geometric length)"
 msgstr ""
+"La distanza di cammino di questo accesso in metri (il valore standard "
+"equivale alla lunghezza geometrica)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1240
 #: src/netedit/GNETagPropertiesDatabase.cpp:4763
