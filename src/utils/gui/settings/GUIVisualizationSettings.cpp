@@ -2077,9 +2077,6 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("disableHideByZoom", disableHideByZoom);
     dev.writeAttr("edgeParam", edgeParam);
     dev.writeAttr("laneParam", laneParam);
-    dev.writeAttr("vehicleParam", vehicleParam);
-    dev.writeAttr("vehicleScaleParam", vehicleScaleParam);
-    dev.writeAttr("vehicleTextParam", vehicleTextParam);
     dev.writeAttr("edgeData", edgeData);
     dev.writeAttr("edgeDataID", edgeDataID);
     dev.writeAttr("edgeDataScaling", edgeDataScaling);
@@ -2121,6 +2118,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("drawReversed", drawReversed);
     dev.writeAttr("showParkingInfo", showParkingInfo);
     dev.writeAttr("showChargingInfo", showChargingInfo);
+    dev.writeAttr("vehicleParam", vehicleParam);
+    dev.writeAttr("vehicleScaleParam", vehicleScaleParam);
+    dev.writeAttr("vehicleTextParam", vehicleTextParam);
     dev.lf();
     dev << "                 ";
     vehicleName.print(dev, "vehicleName");
