@@ -4956,9 +4956,9 @@ msgid "The period between successive calls to the dispatcher"
 msgstr "Il periodo tra due chiamate succesive dell'invio"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:98
-msgid "The behavior of idle taxis [stop|randomCircling]"
+msgid "The behavior of idle taxis [stop|randomCircling|taxistand]"
 msgstr ""
-"Il comportamento di taxi inattivi (senza carico) [stop|randomCircling]"
+"Il comportamento di taxi inattivi (senza carico) [stop|randomCircling|taxistand]"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:101
 msgid "Write information from the idling algorithm to FILE"
