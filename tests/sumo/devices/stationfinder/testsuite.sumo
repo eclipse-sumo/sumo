@@ -19,6 +19,9 @@ notFound
 # Vehicles take the most suitable chargingStations where chargingStastions have different configurations with charging station output
 searching
 
+# Vehicles take the most suitable chargingStations where chargingStastions have different configurations with charging station output
+start_low
+
 # Vehicles take the most suitable charging station without checking whether the battery charge is sufficient to complete the route
 searchingNoEnergyCheck
 
