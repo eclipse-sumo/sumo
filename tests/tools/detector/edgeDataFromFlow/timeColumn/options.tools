@@ -1,0 +1,7 @@
+-d input_detectors.det.xml -f input_flows.txt -o edgedata.xml
+--id-column DetectorName
+--time-column Stunde
+--time-scale 3600
+--end 24
+--interval 1
+--verbose
