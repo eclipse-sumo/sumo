@@ -70,6 +70,7 @@ def get_options(args=None):
 def main():
     options = get_options()
     net = sumolib.net.readNet(options.netfile)
+    seenIDs = set()
     with sumolib.openz(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, root="additional", options=options)
         inputf = sumolib.openz(options.detfile)
@@ -102,8 +103,16 @@ def main():
             best = lanes[0][1]
             pos = min(best.getLength(),
                       sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint((x, y), best.getShape()))
-            outf.write('    <inductionLoop id="%s" lane="%s" pos="%.2f" file="%s" freq="%s"/>\n' % (
-                       detID, best.getID(), pos, options.detOut, options.interval))
+            commentStart, commentEnd = "", ""
+            if detID in seenIDs:
+                commentStart = "!--"
+                commentEnd = "--"
+            outf.write('    <%sinductionLoop id="%s" lane="%s" pos="%.2f" file="%s" freq="%s"/%s>\n' % (
+                       commentStart,
+                       detID, best.getID(), pos, options.detOut,
+                       options.interval,
+                       commentEnd))
+            seenIDs.add(detID)
 
         outf.write('</additional>\n')
         inputf.close()
