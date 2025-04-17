@@ -1612,11 +1612,11 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             myCurrentEdge->setParameter(key, value);
         } else if (key == "public_transport" && value == "platform") {
             myCurrentEdge->myExtraTags["platform"] = "yes";
-        } else if (key == "parking:lane:both" && !StringUtils::startsWith(value, "no")) {
+        } else if ((key == "parking:both" || key == "parking:lane:both") && !StringUtils::startsWith(value, "no")) {
             myCurrentEdge->myParkingType |= PARKING_BOTH;
-        } else if (key == "parking:lane:left" && !StringUtils::startsWith(value, "no")) {
+        } else if ((key == "parking:left" || key == "parking:lane:left") && !StringUtils::startsWith(value, "no")) {
             myCurrentEdge->myParkingType |= PARKING_LEFT;
-        } else if (key == "parking:lane:right" && !StringUtils::startsWith(value, "no")) {
+        } else if ((key == "parking:right" || key == "parking:lane:right") && !StringUtils::startsWith(value, "no")) {
             myCurrentEdge->myParkingType |= PARKING_RIGHT;
         } else if (key == "change" || key == "change:lanes") {
             myCurrentEdge->myChangeForward = myCurrentEdge->myChangeBackward = interpretChangeType(value);
