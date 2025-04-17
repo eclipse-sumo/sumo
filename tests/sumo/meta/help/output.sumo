@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_22_0+1555-5374c615e56
+Eclipse SUMO sumo Version v1_22_0+1597-8878c360237
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -869,7 +869,7 @@ Taxi Device Options:
   --device.taxi.dispatch-period TIME   The period between successive calls to
                                         the dispatcher
   --device.taxi.idle-algorithm STR     The behavior of idle taxis
-                                        [stop|randomCircling]
+                                        [stop|randomCircling|taxistand]
   --device.taxi.idle-algorithm.output FILE  Write information from the idling
                                         algorithm to FILE
 
