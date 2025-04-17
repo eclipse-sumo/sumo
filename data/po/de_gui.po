@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:36+0200\n"
-"PO-Revision-Date: 2025-04-10 14:36+0000\n"
+"PO-Revision-Date: 2025-04-17 08:54+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:307 src/gui/GUIApplicationWindow.cpp:310
 #: src/gui/GUIApplicationWindow.cpp:2267 src/gui/GUIApplicationWindow.cpp:2268
@@ -2433,7 +2434,7 @@ msgstr "Geschwindigkeitsfaktor"
 
 #: src/guisim/GUIVehicle.cpp:253
 msgid "startupDelay [s]"
-msgstr ""
+msgstr "Abfahrtsverzögerung [s]"
 
 #: src/guisim/GUIVehicle.cpp:255
 msgid "action step length [s]"
@@ -3283,15 +3284,15 @@ msgstr "Speichere weitere Daten und Shapes."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save Additionals unified as..."
-msgstr ""
+msgstr "Weitere Daten gesammelt speichern in ..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save all additional elements to the chosen file."
-msgstr ""
+msgstr "Speichert alle weiteren Elemente in der gewählten Datei."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "Save JuPedSim Elements as..."
-msgstr ""
+msgstr "JuPedSim-Elemente speichern in..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "Save JuPedSim elements in a separated file."
@@ -3323,11 +3324,11 @@ msgstr "Speichere Nachfrageelemente."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:486
 msgid "Save Demand Elements unified as..."
-msgstr ""
+msgstr "Nachfrageelemente gesammelt speichern in..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:486
 msgid "Save all demand elements to the chosen file"
-msgstr ""
+msgstr "Speichert alle Nachfrageelemente in der gewählten Datei"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:492
 msgid "Reload Demand Elements"
@@ -3355,11 +3356,11 @@ msgstr "Speichere Datenelemente."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:510
 msgid "Save Data Elements unified as..."
-msgstr ""
+msgstr "Datenelemente gesammelt speichern in..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:510
 msgid "Save all data elements to the chosen file."
-msgstr ""
+msgstr "Speichert alle Datenelemente in der gewählten Datei."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:516
 msgid "Reload Data Elements"
@@ -3387,11 +3388,11 @@ msgstr "Speichere meanData und Shapes."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:534
 msgid "Save MeanDatas unified as..."
-msgstr ""
+msgstr "MeanData gesammelt speichern in..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:534
 msgid "Save all meanData elements to the chosen file."
-msgstr ""
+msgstr "Speichert alle MeanData-Elemente in der gewählten Datei."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:540
 msgid "Reload MeanDatas"
@@ -4248,27 +4249,27 @@ msgstr "Fluss"
 
 #: src/netedit/GNEAttributeProperties.cpp:301
 msgid "Netedit"
-msgstr ""
+msgstr "Netedit"
 
 #: src/netedit/GNEAttributeProperties.cpp:303
 msgid "Internal"
-msgstr ""
+msgstr "Intern"
 
 #: src/netedit/GNEAttributeProperties.cpp:316
 msgid "list of "
-msgstr ""
+msgstr "Liste von "
 
 #: src/netedit/GNEAttributeProperties.cpp:324
 msgid "non-negative "
-msgstr ""
+msgstr "nicht negativ "
 
 #: src/netedit/GNEAttributeProperties.cpp:327
 msgid "discrete "
-msgstr ""
+msgstr "diskret "
 
 #: src/netedit/GNEAttributeProperties.cpp:330
 msgid "unique "
-msgstr ""
+msgstr "einzigartig "
 
 #: src/netedit/GNEAttributeProperties.cpp:334
 msgid "integer"
