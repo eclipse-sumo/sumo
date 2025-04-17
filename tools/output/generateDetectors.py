@@ -38,6 +38,7 @@ NEED_EXTENT = ['laneAreaDetector',
                #  'multiEntryExitDetector'
                ]
 
+
 def get_options(args=None):
     ap = ArgumentParser(description="Generate detectors on selected network edges")
     ap.add_option("-n", "--net-file", dest="net_file", type=ap.net_file, required=True,
@@ -108,7 +109,7 @@ def main(options):
         if length != '':
             friendlyPos = 'friendlyPos="true" '
         elif options.dType in NEED_EXTENT:
-            endPos = 'endPos="-1" ' 
+            endPos = 'endPos="-1" '
 
         for edge in net.getEdges():
             for lane in edge.getLanes():
