@@ -8,6 +8,7 @@ turn_lanes
 
 # creating opposite-direction edge due to sidewalk information
 sidewalks
+parking
 adlershof
 
 # In this scenario, two nodes with the same coordinates start the shape of an edge. The scenario also tests traffic signals and isolated roads.
