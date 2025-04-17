@@ -164,3 +164,12 @@ Examples:
 <SUMO_HOME>/tools/output/scheduleStats.py -r <input-route-file> -s <stop-file> -t d -i 50
 <SUMO_HOME>/tools/output/scheduleStats.py -r <input-route-file> -s <stop-file> -t a -g stopID -T median -I 10
 ```
+
+# checkReversals.py
+
+This tool counts the number of reversals per vehicle and also the number of reverals that occur per edge.
+
+Example:
+```
+<SUMO_HOME>/tools/route/checkReversals.py -n <input-net-file> -r <input-route-file> -o reversals.xml
+```
