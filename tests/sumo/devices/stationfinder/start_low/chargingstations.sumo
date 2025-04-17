@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-17 22:36:23 by Eclipse SUMO sumo Version v1_22_0+1605-1e9ca90a14a
+<!-- generated on 2025-04-17 22:42:49 by Eclipse SUMO sumo Version v1_22_0+1607-0f0378866ac
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,9 +21,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <output>
         <write-license value="true"/>
-        <battery-output value="battery.xml"/>
         <battery-output.precision value="4"/>
         <chargingstations-output value="chargingstations.xml"/>
+        <chargingstations-output.aggregated value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
@@ -46,18 +46,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <chargingstations-export>
-    <chargingStation id="CS1" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <chargingStation id="CS2" totalEnergyCharged="5.50" chargingSteps="2">
-        <vehicle id="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="5.50" chargingBegin="81.00" chargingEnd="82.00">
-            <step time="81.00" chargingStatus="chargingInTransit" energyCharged="2.75" partialCharge="2.75" power="11000.00" efficiency="0.90" actualBatteryCapacity="1837.33" maximumBatteryCapacity="35000.00"/>
-            <step time="82.00" chargingStatus="chargingInTransit" energyCharged="2.75" partialCharge="5.50" power="11000.00" efficiency="0.90" actualBatteryCapacity="1832.09" maximumBatteryCapacity="35000.00"/>
-        </vehicle>
-    </chargingStation>
-    <chargingStation id="CS3" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <chargingStation id="CS4" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <chargingStation id="CS5" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <chargingStation id="PCS1" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <chargingStation id="PCS2" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <chargingStation id="PCS3" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <chargingStation id="PCS4" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <chargingEvent chargingStationId="CS2" vehicle="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="1328.25" chargingBegin="81.00" chargingEnd="563.00" actualBatteryCapacity="3190.23" maximumBatteryCapacity="35000.00" minPower="11000.00" maxPower="11000.00" minCharge="2.75" maxCharge="2.75" minEfficiency="0.90" maxEfficiency="0.90"/>
 </chargingstations-export>
