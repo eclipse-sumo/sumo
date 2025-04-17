@@ -40,6 +40,8 @@ def get_options(args=None):
                     help="sumo network to use")
     ap.add_argument("-r", "--route-files", category='input', dest="routeFiles", required=True,
                     help="Input route files")
+    ap.add_argument("-o", "--output-file", category='output', dest="output",
+                    help="Output file for info on each reversing vehicle")
     options = ap.parse_args(args=args)
     options.routeFiles = options.routeFiles.split(',')
     return options
@@ -51,6 +53,11 @@ def main(options):
     nRevByEdge = defaultdict(lambda : 0)
     routes = {} # id -> edges
     nVehs = 0
+    
+    outf = None
+    if options.output:
+        outf = sumolib.openz(options.output, 'w')
+        sumolib.xml.writeHeader(outf, "$Id$", "reversals", options=options, rootAttrs=None)
 
     net = sumolib.net.readNet(options.network)
     for routefile in options.routeFiles:
@@ -69,13 +76,16 @@ def main(options):
                     edges = routes[elem.route]
                 else:
                     edges = lastEdges
-                numReversals = 0
+                reversals = []
                 for e, e2 in zip(edges[:-1], edges[1:]):
                     if e.getBidi() == e2:
-                        numReversals += 1
+                        reversals.append(e.getID())
                         nRevByEdge[e.getID()] += 1
-                if numReversals > 0:
-                    revByVeh.add(numReversals, elem.id)
+                if reversals:
+                    revByVeh.add(len(reversals), elem.id)
+                    if outf:
+                        outf.write('    <%s id="%s" reversalEdges="%s"/>\n' % (
+                            elem.name, elem.id, " ".join(reversals)))
     for e, n in nRevByEdge.items():
         revByEdge.add(n, e)
 
@@ -84,6 +94,10 @@ def main(options):
     print("Loaded %s vehicles" % nVehs)
     print(revByVeh)
     print(revByEdge)
+
+    if outf:
+        outf.write('</reversals>\n')
+        outf.close()
 
 if __name__ == "__main__":
     main(get_options())
