@@ -169,7 +169,7 @@ myLastOpportunisticSearch(-1) {
     }
     myReplacePlannedStop = MAX2(0., holder.getFloatParam("device.stationfinder.replacePlannedStop"));
     myDistanceToOriginalStop = holder.getFloatParam("device.stationfinder.maxDistanceToReplacedStop");
-    myUpdateSoC = -1.; // MAX2(0., mySearchSoC - DEFAULT_SOC_INTERVAL);
+    myUpdateSoC = 2; // check once at the beginning
     myCheckEnergyForRoute = holder.getBoolParam("device.stationfinder.checkEnergyForRoute");
 }
 
@@ -282,13 +282,13 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
             }
         }
     } else if (myChargingStation == nullptr &&
-               (myUpdateSoC < 0. || myUpdateSoC - currentSoC > DEFAULT_SOC_INTERVAL || (mySearchState == SEARCHSTATE_UNSUCCESSFUL &&
+               (currentSoC < myUpdateSoC || (mySearchState == SEARCHSTATE_UNSUCCESSFUL &&
                        now - myLastSearch >= myRepeatInterval && !myHolder.isStopped()))) {
         // check if a charging stop is already planned without the device, otherwise reroute inside this device
         if (!alreadyPlannedCharging() && now > myHolder.getDeparture()) {
             rerouteToChargingStation();
         }
-        myUpdateSoC = currentSoC;
+        myUpdateSoC = currentSoC - MAX2(0.1 * currentSoC, 0.01);
     }
     myLastChargeCheck = SIMSTEP;
     return true;
