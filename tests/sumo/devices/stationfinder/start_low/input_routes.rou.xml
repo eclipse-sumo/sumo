@@ -18,7 +18,7 @@
         <param key="recuperationEfficiency" value="0.8"/>
     </vType>
 
-    <trip id="veh0" type="ElectricVehicle1" depart="0.00" arrival="346.00" from="E2D2" to="A3A4">
+    <trip id="veh0" type="ElectricVehicle1" depart="0.00" from="E2D2" to="A3A4">
         <param key="device.battery.chargeLevel" value="2300"/>
         <param key="device.stationfinder.radius" value="600"/>
         <param key="device.stationfinder.emptyThreshold" value="0.03"/>
