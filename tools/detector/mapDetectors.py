@@ -49,7 +49,7 @@ def get_options(args=None):
                            help="Read detector x-coordinate (lon) from the given column")
     optParser.add_argument("-y", "--latitude-column", default="lat", dest="lat",
                            help="Read detector y-coordinate (lat) from the given column")
-    optParser.add_argument("--max-radius", type=float, default="1000", dest="maxRadius",
+    optParser.add_argument("--max-radius", type=float, default="100", dest="maxRadius",
                            help="specify maximum distance error when mapping coordinates")
     optParser.add_argument("--vclass", default="passenger",
                            help="only consider edges that permit the given vClass")
