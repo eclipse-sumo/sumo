@@ -50,10 +50,10 @@ def get_options(args=None):
 def main(options):
     revByVeh = Statistics("Reversals by vehicle")
     revByEdge = Statistics("Reversals by edge")
-    nRevByEdge = defaultdict(lambda : 0)
-    routes = {} # id -> edges
+    nRevByEdge = defaultdict(lambda: 0)
+    routes = {}  # id -> edges
     nVehs = 0
-    
+
     outf = None
     if options.output:
         outf = sumolib.openz(options.output, 'w')
@@ -72,7 +72,7 @@ def main(options):
                     continue
             else:
                 nVehs += 1
-                if type(elem.route) == str:
+                if type(elem.route) is str:
                     edges = routes[elem.route]
                 else:
                     edges = lastEdges
@@ -98,6 +98,7 @@ def main(options):
     if outf:
         outf.write('</reversals>\n')
         outf.close()
+
 
 if __name__ == "__main__":
     main(get_options())

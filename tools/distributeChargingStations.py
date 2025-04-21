@@ -306,8 +306,8 @@ def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, ch
         if endPos < 0:
             endPos += edge.getLength()
         posDownSize = (startPos, endPos) if chargingOnSpaces > 0 else (
-            startPos, startPos + (endPos - startPos)*chargingRoadSide/sum(parkingCapacity))
-        assert(posDownSize[0] < posDownSize[1])
+            startPos, startPos + (endPos - startPos) * chargingRoadSide / sum(parkingCapacity))
+        assert (posDownSize[0] < posDownSize[1])
         parkingArea.roadsideCapacity = str(chargingRoadSide)
         remainingSpaces = []
 

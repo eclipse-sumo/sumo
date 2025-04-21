@@ -85,7 +85,8 @@ def main(options):
     for flowcol in flowcols:
         detReader = detector.DetectorReader(options.detfile, LaneMap())
         tMin, tMax = detReader.findTimes(options.flowfile, tMin, tMax, options.detcol, options.timecol)
-        hasData = detReader.readFlows(options.flowfile, flow=flowcol, det=options.detcol, time=options.timecol, timeVal=0, timeMax=1440)
+        hasData = detReader.readFlows(options.flowfile, flow=flowcol, det=options.detcol,
+                                      time=options.timecol, timeVal=0, timeMax=1440)
         if options.verbose:
             print("flowColumn: %s hasData: %s" % (flowcol, hasData))
         readers[flowcol] = detReader
@@ -109,8 +110,8 @@ def main(options):
 
             for flowcol in flowcols:
                 detReader = detector.DetectorReader(options.detfile, LaneMap())
-                detReader.readFlows(options.flowfile, flow=flowcol, det=options.detcol, time=options.timecol, timeVal=beginM, timeMax=iEndM,
-                                    addDetectors=(options.detfile is None))
+                detReader.readFlows(options.flowfile, flow=flowcol, det=options.detcol, time=options.timecol,
+                                    timeVal=beginM, timeMax=iEndM, addDetectors=(options.detfile is None))
                 for edge, detData in detReader._edge2DetData.items():
                     maxFlow = 0
                     nGroups = 0
