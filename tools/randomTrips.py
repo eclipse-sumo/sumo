@@ -31,7 +31,7 @@ import math
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import euclidean, parseTime, intIfPossible  # noqa
+from sumolib.miscutils import euclidean, parseTime, intIfPossible, openz  # noqa
 from sumolib.geomhelper import naviDegree, minAngleDegreeDiff  # noqa
 from sumolib.net.lane import is_vehicle_class  # noqa
 
@@ -292,7 +292,7 @@ def get_options(args=None):
 
     options.typeFactors = defaultdict(lambda: 1.0)
     if options.typeFactorFile:
-        with open(options.typeFactorFile) as tff:
+        with openz(options.typeFactorFile) as tff:
             for line in tff:
                 typeID, factor = line.split()
                 options.typeFactors[typeID] = float(factor)
@@ -379,7 +379,7 @@ class RandomEdgeGenerator:
         weights = [(self.weight_fun(e) * normalizer, e.getID()) for e in self.net.getEdges()]
         weights.sort(reverse=True)
         total = sum([w for w, e in weights])
-        with open(fname, 'w+') as f:
+        with openz(fname, 'w+') as f:
             f.write('<edgedata>\n')
             f.write('    <interval id="%s" begin="%s" end="%s" totalWeight="%0.2f">\n' % (
                 interval_id, begin, end, total))
@@ -864,7 +864,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
 
         return idx + 1
 
-    with open(options.tripfile, 'w') as fouttrips:
+    with openz(options.tripfile, 'w') as fouttrips:
         sumolib.writeXMLHeader(fouttrips, "$Id$", "routes", options=options)
         if options.vehicle_class:
             vTypeDef = '    <vType id="%s" vClass="%s"%s/>\n' % (
@@ -876,7 +876,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                     options.additional = options.vtypeout
                 elif options.vtypeout not in options.additional:
                     options.additional = options.additional + "," + options.vtypeout
-                with open(options.vtypeout, 'w') as fouttype:
+                with openz(options.vtypeout, 'w') as fouttype:
                     sumolib.writeXMLHeader(fouttype, "$Id$", "additional", options=options)
                     fouttype.write(vTypeDef)
                     fouttype.write("</additional>\n")

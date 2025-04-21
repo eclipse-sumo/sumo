@@ -623,12 +623,24 @@ def insertOptionsHeader(filename, options):
     Inserts a comment header with the options used to call the script into an existing file.
     """
     header = buildHeader(options=options)
-    fileToPatch = fileinput.FileInput(filename, inplace=True)
-    for lineNbr, line in enumerate(fileToPatch):
-        if lineNbr == 2:
-            print(header, end='')
-        print(line, end='')
-    fileToPatch.close()
+    if not filename.endswith('.gz'):
+        fileToPatch = fileinput.FileInput(filename, inplace=True)
+        for lineNbr, line in enumerate(fileToPatch):
+            if lineNbr == 2:
+                print(header, end='')
+            print(line, end='')
+        fileToPatch.close()
+    else:
+        #  fileinput cannot use inplace together with compression
+        tmpfile = "tmp." + filename
+        with miscutils.openz(tmpfile, 'w') as tmpf:
+            with miscutils.openz(filename) as inpf:
+                for lineNbr, line in enumerate(inpf):
+                    if lineNbr == 2:
+                        tmpf.write(header)
+                    tmpf.write(line)
+        os.remove(filename)  # on windows, rename does not overwrite
+        os.rename(tmpfile, filename)
 
 
 def quoteattr(val, ensureUnicode=False):
