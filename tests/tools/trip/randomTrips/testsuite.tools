@@ -13,6 +13,9 @@ saveTemplate
 saveStdout
 loadConfig
 simple
+
+# write compressed routes
+compressed
 begin_end_human_readable
 
 # randomize departure times
