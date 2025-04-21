@@ -180,6 +180,9 @@ By default, normal edge geometries will be exported. This can be changed with op
 
 - **--lanes**: write lane geometries
 - **--internal**: write junction-internal edges or lanes
+- **--junctions**: export junction geometries
+- **--boundary**: write edge/lane boundaries instead of center-lines
+- **--traffic-lights** write coordinates for the [colored signals](../sumo-gui.md#right_of_way)
 
 # net2geojson.py
 
