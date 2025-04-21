@@ -65,6 +65,7 @@
 // ===========================================================================
 
 //#define DEBUG_JOINJUNCTIONS
+//#define DEBUG_REDUCE
 //#define DEBUG_JOINJUNCTIONS_CONNECTIONS
 //#define DEBUG_GUESSSIGNALS
 #define DEBUGNODEID ""
@@ -1648,7 +1649,9 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
 
 bool
 NBNodeCont::reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes, double maxDist, std::vector<NBNode*> cands) const {
-    //std::cout << "reduceToCircle  cs=" << circleSize << " cands=" << toString(cands, ',') << " startNodes=" << joinNamedToString(startNodes, ',') << "\n";
+#ifdef DEBUG_REDUCE
+    std::cout << "reduceToCircle  cs=" << circleSize << " cands=" << toString(cands, ',') << " startNodes=" << joinNamedToString(startNodes, ',') << "\n";
+#endif
     assert(circleSize >= 2);
     if ((int)cands.size() == circleSize) {
         if (cands.back()->getConnectionTo(cands.front()) != nullptr) {
@@ -1668,7 +1671,9 @@ NBNodeCont::reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes,
     }
     if ((int)cluster.size() <= circleSize || startNodes.size() == 0) {
         // no reduction possible
-        //std::cout << "    abort\n";
+#ifdef DEBUG_REDUCE
+        std::cout << "    abort\n";
+#endif
         return false;
     }
     if (cands.size() == 0) {
@@ -1696,7 +1701,9 @@ NBNodeCont::reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes,
             }
         }
     }
-    //std::cout << "    abort2\n";
+#ifdef DEBUG_REDUCE
+    std::cout << "    abort2\n";
+#endif
     return false;
 }
 
