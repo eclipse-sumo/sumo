@@ -411,7 +411,7 @@ private:
 
     /// @brief determine wether the cluster is not too complex for joining
     bool feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds,
-                         double maxDist, std::string& reason) const;
+                         double maxDist, std::string& reason, NBNode*& tryRemove) const;
 
     /// @brief joins the given node clusters
     void joinNodeClusters(NodeClusters clusters, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, bool resetConnections = false);
