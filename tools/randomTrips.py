@@ -136,7 +136,7 @@ def get_options(args=None):
                     "that enter the network, if they have at least the given length")
     op.add_argument("--fringe-junctions", category="weights", action="store_true", dest="fringeJunctions",
                     default=False, help="Determine fringe edges based on junction attribute 'fringe'")
-    op.add_argument("--vclass", "--edge-permission", category="weights", default="passenger",
+    op.add_argument("--edge-permission", "--vclass", category="weights",
                     help="only from and to edges which permit the given vehicle class")
     op.add_argument("--via-edge-types", category="weights", dest="viaEdgeTypes",
                     help="Set list of edge types that cannot be used for departure or arrival " +
@@ -202,14 +202,17 @@ def get_options(args=None):
                     "distribution with n=N and p=PERIOD/N where PERIOD is the argument given to --period")
 
     options = op.parse_args(args=args)
-    if options.vclass and not is_vehicle_class(options.vclass):
-        raise ValueError("The string '%s' doesn't correspond to a legit vehicle class." % options.vclass)
+    if options.edge_permission and not is_vehicle_class(options.edge_permission):
+        raise ValueError("The string '%s' doesn't correspond to a legit vehicle class." % options.edge_permission)
 
     if options.persontrips or options.personrides:
         options.pedestrians = True
 
-    if options.pedestrians:
-        options.vclass = 'pedestrian'
+    if options.edge_permission is None:
+        if options.vehicle_class:
+            options.edge_permission = options.vehicle_class
+        else:
+            options.edge_permission = 'pedestrian' if options.pedestrians else 'passenger'
     if options.validate and options.routefile is None:
         options.routefile = "routes.rou.xml"
 
@@ -221,7 +224,7 @@ def get_options(args=None):
         # Compute length of the network
         length = 0.  # In meters
         for edge in options.net.getEdges():
-            if edge.allows(options.vclass):
+            if edge.allows(options.edge_permission):
                 length += edge.getLaneNumber() * edge.getLength()
         if length == 0:
             raise ValueError("No valid edges for computing insertion-density")
@@ -459,7 +462,7 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
     def edge_probability(edge):
         bonus_connections = None if fringe_bonus is None else getattr(edge, fringe_bonus)
         forbidden_connections = None if fringe_forbidden is None else getattr(edge, fringe_forbidden)
-        if options.vclass and not edge.allows(options.vclass) and not stopDict:
+        if options.edge_permission and not edge.allows(options.edge_permission) and not stopDict:
             return 0  # not allowed
         if fringe_bonus is None and edge.is_fringe() and not options.pedestrians:
             return 0  # not suitable as intermediate way point

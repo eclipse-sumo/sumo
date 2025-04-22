@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-01-22 09:44:23 by Eclipse SUMO sumo Version v1_14_1+11363-50b43697ca8
+<!-- generated on 2025-04-22 10:44:43 by Eclipse SUMO sumo Version v1_22_0+1617-22b86256498
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -37,20 +37,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
-        <edge id="3/1to2/1" CO2_abs="59142.222222" NOx_normed="2.920167" fuel_perVeh="26948.888889"/>
-        <edge id="4/1to3/1" CO2_abs="63366.666667" NOx_normed="3.128750" fuel_perVeh="26948.888889"/>
+        <edge id="3/1to2/1" CO2_abs="50310.400000" NOx_normed="2.799510" fuel_perVeh="23300.400000"/>
+        <edge id="4/1to3/1" CO2_abs="53904.000000" NOx_normed="2.999475" fuel_perVeh="23300.400000"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
-        <edge id="1/1to0/1" CO2_abs="16897.777778" NOx_normed="0.834333" fuel_perVeh="26948.888889"/>
-        <edge id="2/1to1/1" CO2_abs="84488.888889" NOx_normed="4.171667" fuel_perVeh="26948.888889"/>
-        <edge id="3/1to2/1" CO2_abs="25346.666667" NOx_normed="1.251500" fuel_perVeh="26948.888889"/>
+        <edge id="1/1to0/1" CO2_abs="14374.400000" NOx_normed="0.799860" fuel_perVeh="23300.400000"/>
+        <edge id="2/1to1/1" CO2_abs="71872.000000" NOx_normed="3.999300" fuel_perVeh="23300.400000"/>
+        <edge id="3/1to2/1" CO2_abs="21561.600000" NOx_normed="1.199790" fuel_perVeh="23300.400000"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
-        <edge id="1/1to0/1" CO2_abs="63366.666667" NOx_normed="6.257500" fuel_perVeh="26948.888889"/>
+        <edge id="1/1to0/1" CO2_abs="53904.000000" NOx_normed="5.998950" fuel_perVeh="23300.400000"/>
     </interval>
 </meandata>

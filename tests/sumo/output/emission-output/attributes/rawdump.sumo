@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-14 09:25:19 by Eclipse SUMO sumo Version v1_20_0+0555-fbf9c930d35
+<!-- generated on 2025-04-22 10:44:44 by Eclipse SUMO sumo Version v1_22_0+1617-22b86256498
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,33 +45,33 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <emission-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/emission_file.xsd">
     <timestep time="0.00">
-        <vehicle id="0" CO2="2112.22" PMx="0.01" route="r1" waiting="0.00"/>
+        <vehicle id="0" CO2="1796.80" PMx="0.28" route="r1" waiting="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="0" CO2="2112.22" PMx="0.01" route="r1" waiting="0.00"/>
+        <vehicle id="0" CO2="1796.80" PMx="0.28" route="r1" waiting="0.00"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="0" CO2="2112.22" PMx="0.01" route="r1" waiting="0.00"/>
+        <vehicle id="0" CO2="1796.80" PMx="0.28" route="r1" waiting="0.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="0" CO2="2112.22" PMx="0.01" route="r1" waiting="0.00"/>
+        <vehicle id="0" CO2="1796.80" PMx="0.28" route="r1" waiting="0.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="0" CO2="2112.22" PMx="0.01" route="r1" waiting="0.00"/>
+        <vehicle id="0" CO2="1796.80" PMx="0.28" route="r1" waiting="0.00"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="0" CO2="2112.22" PMx="0.01" route="r1" waiting="0.00"/>
+        <vehicle id="0" CO2="1796.80" PMx="0.28" route="r1" waiting="0.00"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="0" CO2="2112.22" PMx="0.01" route="r1" waiting="0.00"/>
+        <vehicle id="0" CO2="1796.80" PMx="0.28" route="r1" waiting="0.00"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="0" CO2="2112.22" PMx="0.01" route="r1" waiting="0.00"/>
+        <vehicle id="0" CO2="1796.80" PMx="0.28" route="r1" waiting="0.00"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="0" CO2="2112.22" PMx="0.01" route="r1" waiting="0.00"/>
+        <vehicle id="0" CO2="1796.80" PMx="0.28" route="r1" waiting="0.00"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="0" CO2="2112.22" PMx="0.01" route="r1" waiting="0.00"/>
+        <vehicle id="0" CO2="1796.80" PMx="0.28" route="r1" waiting="0.00"/>
     </timestep>
 </emission-export>

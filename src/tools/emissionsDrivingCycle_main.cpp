@@ -84,7 +84,7 @@ main(int argc, char** argv) {
     oc.doRegister("additional-files", new Option_FileName());
     oc.addDescription("additional-files", "Input", TL("Load emission parameters (vTypes) from FILE(s)"));
 
-    oc.doRegister("emission-class", 'e', new Option_String("unknown"));
+    oc.doRegister("emission-class", 'e', new Option_String("HBEFA4/default"));
     oc.addDescription("emission-class", "Input", TL("Defines for which emission class the emissions shall be generated. "));
 
     oc.doRegister("vtype", new Option_String());

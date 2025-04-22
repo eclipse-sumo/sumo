@@ -22,6 +22,7 @@
 
 #include <limits>
 #include <cmath>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
@@ -244,6 +245,7 @@ PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicle
         if (eClass == "zero") {
             return myZeroHelper.getClassByName("default", vc);
         }
+        WRITE_WARNINGF("Emission classes should always use the model as a prefix, please recheck '%'. Starting with SUMO 1.24 this will be an error.", eClass)
         // default HBEFA2
         return myHBEFA2Helper.getClassByName(eClass, vc);
     }
