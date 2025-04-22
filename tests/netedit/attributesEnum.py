@@ -335,15 +335,15 @@ class edge:
 
 class lane:
     class create:
-        add = 26
-        remove = 27
-        speed = 28
-        allowButton = 29
-        allow = 30
-        disallow = 31
-        width = 32
-        parameters = 33
-        parametersButton = 34
+        add = 24
+        remove = 25
+        speed = 26
+        allowButton = 27
+        allow = 28
+        disallow = 29
+        width = 30
+        parameters = 32
+        parametersButton = 33
 
     class inspect:
         speed = 1
@@ -2757,12 +2757,12 @@ class routeFlow:
         arrivalPosLat = 21
         insertionChecks = 22
         begin = 23
-        terminate = 27
-        end = 29
-        number = 30
-        spacing = 29
-        terminateOption = 31
-        spacingOption = 32
+        terminate = 25
+        end = 27
+        number = 28
+        spacing = 27
+        terminateOption = 29
+        spacingOption = 30
 
     class inspect:
         id = 1
@@ -2786,12 +2786,12 @@ class routeFlow:
         arrivalPosLat = 20
         insertionChecks = 21
         begin = 22
-        terminate = 25
-        spacing = 27
-        end = 28
-        terminateOption = 29
-        spacingOption = 30
-        parameters = 33
+        terminate = 24
+        spacing = 26
+        end = 27
+        terminateOption = 28
+        spacingOption = 29
+        parameters = 31
 
     class inspectSelection:
         typeButton = 1
@@ -2811,10 +2811,11 @@ class routeFlow:
         arrivalPosLat = 16
         insertionChecks = 17
         begin = 18
-        terminate = 21
-        spacing = 23
-        terminateOption = 25
-        spacingOption = 26
+        terminate = 20
+        spacing = 22
+        end = 23
+        terminateOption = 24
+        spacingOption = 25
         parameters = 27
 
 # flow (embedded route)
@@ -3609,7 +3610,7 @@ class person:
         color = 6
         departPos = 7
         depart = 8
-        parameters = 11
+        parameters = 10
 
     class inspectSelection:
         typeButton = 1
