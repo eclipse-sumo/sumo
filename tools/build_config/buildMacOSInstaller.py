@@ -152,6 +152,12 @@ def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, 
     ]
     subprocess.run(cmake_install_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+    # Remove unneeded libsumo and libtraci folders from the tools directory
+    # (If the user needs libsumo or libtraci, they should install these tools with pip)
+    print(" - Removing libsumo and libtraci folders from tools")
+    shutil.rmtree(os.path.join(version_dir, name, "share", "sumo", "tools", "libsumo"), ignore_errors=True)
+    shutil.rmtree(os.path.join(version_dir, name, "share", "sumo", "tools", "libtraci"), ignore_errors=True)
+
     # We need to add a symlink to the binary folder to have the same folder structure
     os.symlink("../../bin", os.path.join(version_dir, name, "share", "sumo", "bin"))
 
