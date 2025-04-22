@@ -12728,7 +12728,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:85
 msgid ""
-"-This additional requiere to\n"
+"-This additional requires to\n"
 " select at least\n"
 " one element"
 msgstr ""
