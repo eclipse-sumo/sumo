@@ -2757,12 +2757,12 @@ class routeFlow:
         arrivalPosLat = 21
         insertionChecks = 22
         begin = 23
-        terminate = 27
-        end = 29
-        number = 30
-        spacing = 29
-        terminateOption = 31
-        spacingOption = 32
+        terminate = 25
+        end = 27
+        number = 28
+        spacing = 27
+        terminateOption = 29
+        spacingOption = 30
 
     class inspect:
         id = 1
@@ -2786,12 +2786,12 @@ class routeFlow:
         arrivalPosLat = 20
         insertionChecks = 21
         begin = 22
-        terminate = 25
-        spacing = 27
-        end = 28
-        terminateOption = 29
-        spacingOption = 30
-        parameters = 33
+        terminate = 24
+        spacing = 26
+        end = 27
+        terminateOption = 28
+        spacingOption = 29
+        parameters = 31
 
     class inspectSelection:
         typeButton = 1
@@ -2811,10 +2811,11 @@ class routeFlow:
         arrivalPosLat = 16
         insertionChecks = 17
         begin = 18
-        terminate = 21
-        spacing = 23
-        terminateOption = 25
-        spacingOption = 26
+        terminate = 20
+        spacing = 22
+        end = 23
+        terminateOption = 24
+        spacingOption = 25
         parameters = 27
 
 # flow (embedded route)
