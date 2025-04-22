@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-10 21:05:29 by Eclipse SUMO netedit Version v1_22_0+1430-7f2ae5b5e0c
+<!-- generated on 2025-04-22 14:26:01 by Eclipse SUMO netedit Version v1_22_0+1684-43f55675c1e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <flow id="flow" begin="0.00" from="Edge0" to="Edge2" end="36.00" number="18">
         <stop chargingStation="chargingStationA" duration="60.00" speed="13.89" actType=";;;;;;;;;;"/>
         <stop chargingStation="chargingStationA" duration="60.00" speed="13.89"/>
-        <stop chargingStation="chargingStationA" duration="60.00" speed="13.89"/>
+        <stop chargingStation="chargingStationA" duration="60.00" speed="13.89" actType="dummy Act"/>
         <stop chargingStation="chargingStationA" duration="60.00" speed="13.89" actType="singing"/>
     </flow>
 </routes>
