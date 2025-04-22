@@ -209,6 +209,7 @@ errors:^This will probably
 errors:^[0-9]*\.*[0-9]*: WARNING:
 errors:^WARNING:
 errors:^UserWarning:
+errors:traci.simulation.getBusStop
 errors:getNextStops
 
 
