@@ -99,3 +99,9 @@ ride_and_stop_tolerance
 
 # If a vehicle leaves the simulation before delivering all passengers a warning should be triggered
 ride_wrong_destination
+
+# If a vehicle leaves the simulation on the passenger destination edge without stopping, no warning should be triggered
+ride_noDestStop
+
+# If a vehicle leaves the simulation on the passenger destination edge without stopping, no warning should be triggered
+ride_train_noDestStop

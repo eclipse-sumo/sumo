@@ -1,5 +1,5 @@
 [run_dependent_text]
-errors:Error: Answered with error to command 0x[0-9a-f]*: {REPLACE Error: }
+errors:Error: Answered with error to command 0x[0-9a-fA-F]*: {REPLACE Error: }
 errors:UserWarning: Parameter order has changed {LINES 2}
 errors:UserWarning: Call to deprecated function {LINES 2}
 errors:Quitting (on error).
@@ -18,7 +18,8 @@ output:legacy getNextStops
 output:Using libsumo as traci as requested by environment variable.
 output:FatalTraCIError 'Infeasible context domain \([0-9]*\)'{REPLACE FatalTraCIError 'Connection closed by SUMO.'}
 output:A GUIMainWindow instance was not yet constructed\.{REPLACE GUI is not running, command not implemented in command line sumo}
-log:Error: Answered with error to command 0x[0-9a-f]*:
+output:at 0x[0-9a-fA-F]*{REPLACE at (ADDRESS)}
+log:Error: Answered with error to command 0x[0-9a-fA-F]*:
 log:***Starting server on port
 log:TraCI {REPLACE Libsumo }
 log:version .* started via libsumo {REPLACE started }

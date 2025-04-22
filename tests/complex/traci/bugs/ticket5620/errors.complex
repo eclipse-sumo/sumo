@@ -1,0 +1,2 @@
+/scr1/sumo/tests/../tests/complex/traci/bugs/ticket5620/runner.py:34: UserWarning: Call to deprecated function getBusStopWaitingIDList, use busstop.getPersonIDs instead.
+  traci.simulation.getBusStopWaitingIDList("busStop1")))

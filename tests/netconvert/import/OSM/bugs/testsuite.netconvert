@@ -151,3 +151,6 @@ ticket16366
 
 # invalid join
 ticket16366b
+
+# missing join
+ticket16557

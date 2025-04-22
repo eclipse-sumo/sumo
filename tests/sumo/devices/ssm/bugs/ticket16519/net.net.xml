@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-11 13:30:31 by Eclipse SUMO netedit Version v1_22_0+1438-2e002eccedd
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2025-04-11 16:43:50 by Eclipse SUMO netconvert Version v1_22_0+1450-ff3555ebd51
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumocfg-file value="/localdata1/debug/16519/test.sumocfg"/>
-        <route-files value="/localdata1/debug/16519/input_routes.rou.xml"/>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="sumo/devices/ssm/bugs/ticket16519/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="sumo/devices/ssm/bugs/ticket16519/net.net.xml"/>
     </output>
 
     <processing>
@@ -21,7 +19,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
         <junctions.limit-turn-speed value="-1.00"/>
@@ -32,7 +29,7 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -311,7 +308,7 @@
     <junction id=":C_29_0" type="internal" x="111.81" y="105.01" incLanes=":C_8_0 EC_2" intLanes=":C_7_0 :C_13_0 :C_16_0 :C_16_1 :C_24_0 :C_c0_0 :C_c1_0"/>
     <junction id=":C_30_0" type="internal" x="108.67" y="100.89" incLanes=":C_11_0 WC_2 WC_3 WC_4" intLanes=":C_1_0 :C_3_0 :C_3_1 :C_5_0 :C_13_0 :C_14_0 :C_16_0 :C_16_1 :C_18_0 :C_19_0 :C_20_0 :C_21_0 :C_22_0 :C_22_1 :C_c1_0 :C_c2_0"/>
     <junction id=":C_31_0" type="internal" x="108.90" y="91.54" incLanes=":C_12_0" intLanes=":C_5_0 :C_20_0 :C_22_0 :C_22_1 :C_c1_0 :C_c2_0"/>
-    <junction id=":C_32_0" type="internal" x="109.11" y="106.90" incLanes=":C_14_0 NC_2 NC_3 NC_4 SC_2 SC_3 SC_4" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_3_1 :C_5_0 :C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_13_0 :C_16_0 :C_16_1 :C_20_0 :C_22_0 :C_22_1 :C_24_0 :C_c2_0 :C_c3_0"/>
+    <junction id=":C_32_0" type="internal" x="109.11" y="106.90" incLanes=":C_14_0 NC_2 NC_3 NC_4 SC_2 SC_3 SC_4" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_3_1 :C_5_0 :C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_13_0 :C_15_0 :C_16_0 :C_16_1 :C_20_0 :C_22_0 :C_22_1 :C_24_0 :C_c2_0 :C_c3_0"/>
     <junction id=":C_33_0" type="internal" x="105.01" y="87.43" incLanes=":C_15_0 SC_2" intLanes=":C_5_0 :C_13_0 :C_14_0 :C_20_0 :C_22_0 :C_22_1 :C_c1_0 :C_c2_0"/>
     <junction id=":C_34_0" type="internal" x="100.89" y="91.06" incLanes=":C_18_0 NC_2 NC_3 NC_4" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_3_1 :C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_20_0 :C_22_0 :C_22_1 :C_24_0 :C_c2_0 :C_c3_0"/>
     <junction id=":C_35_0" type="internal" x="91.98" y="90.35" incLanes=":C_19_0" intLanes=":C_1_0 :C_3_0 :C_3_1 :C_11_0 :C_c2_0 :C_c3_0"/>

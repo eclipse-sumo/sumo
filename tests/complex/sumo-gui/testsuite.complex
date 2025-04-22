@@ -1,0 +1,5 @@
+# test functionalty of the stateRelay.py tool
+stateReplay
+
+# testing replay of fcd data
+fcdReplay

@@ -64,10 +64,6 @@ vehroute-roundtrip
 
 # testing option parsing
 options
-
-# testing replay of fcd data
-fcdReplay
-gui
 max_depart
 overtake
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-02 07:34:56.429207 by gtfs2pt.py v1_22_0+1212-bfc5d0fcc2a
+<!-- generated on 2025-04-22 09:01:45.832857 by gtfs2pt.py v1_22_0+1618-e44b8c02817
   options: -n test/osm.net.xml.gz <doubleminus>gtfs data/GTFS_VBB_Mitte_20190713.zip <doubleminus>date 20190713 <doubleminus>osm-routes test/osm_ptlines.xml
 -->
 
@@ -706,8 +706,8 @@
         <stop busStop="070101007373_0" arrival="2880" duration="10" until="2880"/><!--stopSequence="20.0/26.0" "Berlin, Berliner Rathaus"-->
         <stop busStop="070101006653_0" arrival="2940" duration="10" until="2940"/><!--stopSequence="21.0/26.0" "S+U Jannowitzbrücke (Berlin)"-->
     </vehicle>
-    <route id="8179" edges="112128419#2 -1133992822#0 -1133992736#0 -1123151415#3 -1123151415#2 -1123151415#0 -24241797#2 -24241797#0 19002357#1 1179820019#0 1179820253#0 1179820253#1 1179820254#3 19002363#1 19002363#2 19002363#3 19002363#4 84960597#1 84960597#2 83517332#1 316746323#3 743631784#0 370359204#1 370359204#2 370359204#3 156364570#2 156364570#3 156364556#1 202157002#0 202157002#1 202157002#2 606078072#1 -534588621#3 -534588621#2 606078071#0 61583423#1 82654059#0 82654059#1 1133457735#1 1133457733 1332751227#0 81112790#0 81112790#1 23851930 11549895 233835641#0 233835641#2 753730627#0 753730627#1 4773463#1 4611723 541763976 120359703"/>
-    <vehicle id="114273462.0" route="8179" line="17488_700_114273462" depart="2160" departEdge="0" arrivalEdge="52" type="bus" color="89,91,98">
+    <route id="8179" edges="112128419#2 -1133992822#0 -1133992736#0 -1123151415#3 -1123151415#2 -1123151415#0 -24241797#2 -24241797#0 19002357#1 1179820019#0 1179820253#0 1179820253#1 1179820254#3 19002363#1 19002363#2 19002363#3 19002363#4 84960597#1 84960597#2 83517332#1 316746323#3 743631784#0 370359204#1 370359204#2 370359204#3 1374309650 156364570#2 156364570#3 156364556#1 202157002#0 202157002#1 202157002#2 606078072#1 -534588621#3 -534588621#2 606078071#0 61583423#1 82654059#0 82654059#1 1133457735#1 1133457733 1332751227#0 81112790#0 81112790#1 23851930 11549895 233835641#0 233835641#2 753730627#0 753730627#1 4773463#1 4611723 541763976 120359703"/>
+    <vehicle id="114273462.0" route="8179" line="17488_700_114273462" depart="2160" departEdge="0" arrivalEdge="53" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="Berlin, U Theodor-Heuss-Platz West"/>
         <stop busStop="070101007174_0" arrival="2160" duration="10" until="2160"/><!--stopSequence="0.0/8.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -753,8 +753,8 @@
         <stop busStop="060100000431_0" arrival="2580" duration="10" until="2622"/><!--stopSequence="14.0/17.0" "S+U Friedrichstr. Bhf (Berlin)"-->
         <stop busStop="060100025441_0" arrival="2694" duration="10" until="2724"/><!--stopSequence="15.0/17.0" "S+U Brandenburger Tor (Berlin)"-->
     </vehicle>
-    <route id="8176" edges="4773464#0 4773464#1 4611724 625843709 304627753#0 304627753#1 1151326816 328426208#0 328426208#2 1320422403#0 1320422403#1 -625843712 -23851930 1320422402 1320422400#0 82654055 1133457765#0 606078065 1112054538 61583424#1 534588621#0 534588621#3 284493291#0 4773465#2 1127592486#1 490365295#0 -156364570#4 -156364570#2 -387892378 -370359204#2 -370359204#1 -743631784#0 -316746323#4 46140376#1 46140376#2 -84960597#2 -84960597#1 11103418#3 23809678#1 23809678#2 23809678#4 23809678#5 23809678#6 23809678#7 23809678#8 1157231004#1 -19002363#5 -19002363#3 -19002363#2 -19002363#1 -19002363#0 -1179820254#0 -1179820253#0 -1179820019#0 4613292#0 4613308#2 756306892 112128419#1 112128419#2"/>
-    <vehicle id="114273498.0" route="8176" line="17488_700_114273498" depart="2400" departEdge="0" arrivalEdge="58" type="bus" color="89,91,98">
+    <route id="8176" edges="4773464#0 4773464#1 4611724 625843709 304627753#0 304627753#1 1151326816 328426208#0 328426208#2 1320422403#0 1320422403#1 -625843712 -23851930 1320422402 1320422400#0 82654055 1133457765#0 606078065 1112054538 61583424#1 534588621#0 534588621#3 284493291#0 4773465#2 1127592486#1 490365295#0 -156364570#4 -156364570#2 -1374309650 -387892378 -370359204#2 -370359204#1 -743631784#0 -316746323#4 46140376#1 46140376#2 -84960597#2 -84960597#1 11103418#3 23809678#1 23809678#2 23809678#4 23809678#5 23809678#6 23809678#7 23809678#8 1157231004#1 -19002363#5 -19002363#3 -19002363#2 -19002363#1 -19002363#0 -1179820254#0 -1179820253#0 -1179820019#0 4613292#0 4613308#2 756306892 112128419#1 112128419#2"/>
+    <vehicle id="114273498.0" route="8176" line="17488_700_114273498" depart="2400" departEdge="0" arrivalEdge="59" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070101005262_0" arrival="2580" duration="10" until="2580"/><!--stopSequence="9.0/14.0" "U Spittelmarkt (Berlin)"-->
@@ -997,7 +997,7 @@
         <stop busStop="070101007373_0" arrival="4680" duration="10" until="4680"/><!--stopSequence="20.0/26.0" "Berlin, Berliner Rathaus"-->
         <stop busStop="070101006653_0" arrival="4740" duration="10" until="4740"/><!--stopSequence="21.0/26.0" "S+U Jannowitzbrücke (Berlin)"-->
     </vehicle>
-    <vehicle id="114273463.0" route="8179" line="17488_700_114273462" depart="3960" departEdge="0" arrivalEdge="52" type="bus" color="89,91,98">
+    <vehicle id="114273463.0" route="8179" line="17488_700_114273462" depart="3960" departEdge="0" arrivalEdge="53" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="Berlin, U Theodor-Heuss-Platz West"/>
         <stop busStop="070101007174_0" arrival="3960" duration="10" until="3960"/><!--stopSequence="0.0/8.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -1042,7 +1042,7 @@
         <stop busStop="070301009587_0" arrival="4380" duration="10" until="4380"/><!--stopSequence="10.0/12.0" "Berlin, Mollstr./Prenzlauer Allee"-->
         <stop busStop="070301008815_0" arrival="4500" duration="10" until="4500"/><!--stopSequence="11.0/12.0" "Berlin, Memhardstr."-->
     </vehicle>
-    <vehicle id="114273499.0" route="8176" line="17488_700_114273498" depart="4200" departEdge="0" arrivalEdge="58" type="bus" color="89,91,98">
+    <vehicle id="114273499.0" route="8176" line="17488_700_114273498" depart="4200" departEdge="0" arrivalEdge="59" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070101005262_0" arrival="4380" duration="10" until="4380"/><!--stopSequence="26.0/31.0" "U Spittelmarkt (Berlin)"-->
@@ -1246,7 +1246,7 @@
         <stop busStop="070201054002_0" arrival="5700" duration="10" until="5700"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="5820" duration="10" until="5820"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114273464.0" route="8179" line="17488_700_114273462" depart="5760" departEdge="0" arrivalEdge="52" type="bus" color="89,91,98">
+    <vehicle id="114273464.0" route="8179" line="17488_700_114273462" depart="5760" departEdge="0" arrivalEdge="53" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="Berlin, U Theodor-Heuss-Platz West"/>
         <stop busStop="070101007174_0" arrival="5760" duration="10" until="5760"/><!--stopSequence="0.0/8.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -1288,7 +1288,7 @@
         <stop busStop="070301008816_0" arrival="5880" duration="10" until="5880"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="6180" duration="10" until="6180"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114273502.0" route="8176" line="17488_700_114273498" depart="6000" departEdge="0" arrivalEdge="58" type="bus" color="89,91,98">
+    <vehicle id="114273502.0" route="8176" line="17488_700_114273498" depart="6000" departEdge="0" arrivalEdge="59" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070101005262_0" arrival="6180" duration="10" until="6180"/><!--stopSequence="35.0/40.0" "U Spittelmarkt (Berlin)"-->
@@ -1492,7 +1492,7 @@
         <stop busStop="070101007373_0" arrival="8280" duration="10" until="8280"/><!--stopSequence="20.0/26.0" "Berlin, Berliner Rathaus"-->
         <stop busStop="070101006653_0" arrival="8340" duration="10" until="8340"/><!--stopSequence="21.0/26.0" "S+U Jannowitzbrücke (Berlin)"-->
     </vehicle>
-    <vehicle id="114273465.0" route="8179" line="17488_700_114273462" depart="7560" departEdge="0" arrivalEdge="52" type="bus" color="89,91,98">
+    <vehicle id="114273465.0" route="8179" line="17488_700_114273462" depart="7560" departEdge="0" arrivalEdge="53" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="Berlin, U Theodor-Heuss-Platz West"/>
         <stop busStop="070101007174_0" arrival="7560" duration="10" until="7560"/><!--stopSequence="0.0/8.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -1517,7 +1517,7 @@
         <stop busStop="070301008816_0" arrival="7680" duration="10" until="7680"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="7980" duration="10" until="7980"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114273503.0" route="8176" line="17488_700_114273498" depart="7800" departEdge="0" arrivalEdge="58" type="bus" color="89,91,98">
+    <vehicle id="114273503.0" route="8176" line="17488_700_114273498" depart="7800" departEdge="0" arrivalEdge="59" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070101005262_0" arrival="7980" duration="10" until="7980"/><!--stopSequence="35.0/40.0" "U Spittelmarkt (Berlin)"-->
@@ -1715,7 +1715,7 @@
         <stop busStop="070101007373_0" arrival="10080" duration="10" until="10080"/><!--stopSequence="20.0/26.0" "Berlin, Berliner Rathaus"-->
         <stop busStop="070101006653_0" arrival="10140" duration="10" until="10140"/><!--stopSequence="21.0/26.0" "S+U Jannowitzbrücke (Berlin)"-->
     </vehicle>
-    <vehicle id="114273466.0" route="8179" line="17488_700_114273462" depart="9360" departEdge="0" arrivalEdge="52" type="bus" color="89,91,98">
+    <vehicle id="114273466.0" route="8179" line="17488_700_114273462" depart="9360" departEdge="0" arrivalEdge="53" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="Berlin, U Theodor-Heuss-Platz West"/>
         <stop busStop="070101007174_0" arrival="9360" duration="10" until="9360"/><!--stopSequence="0.0/8.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -1740,7 +1740,7 @@
         <stop busStop="070301008816_0" arrival="9480" duration="10" until="9480"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="9780" duration="10" until="9780"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114273504.0" route="8176" line="17488_700_114273498" depart="9600" departEdge="0" arrivalEdge="58" type="bus" color="89,91,98">
+    <vehicle id="114273504.0" route="8176" line="17488_700_114273498" depart="9600" departEdge="0" arrivalEdge="59" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070101005262_0" arrival="9780" duration="10" until="9780"/><!--stopSequence="35.0/40.0" "U Spittelmarkt (Berlin)"-->
@@ -1945,7 +1945,7 @@
         <stop busStop="070101007373_0" arrival="11880" duration="10" until="11880"/><!--stopSequence="20.0/26.0" "Berlin, Berliner Rathaus"-->
         <stop busStop="070101006653_0" arrival="11940" duration="10" until="11940"/><!--stopSequence="21.0/26.0" "S+U Jannowitzbrücke (Berlin)"-->
     </vehicle>
-    <vehicle id="114273461.0" route="8179" line="17488_700_114273462" depart="11160" departEdge="0" arrivalEdge="52" type="bus" color="89,91,98">
+    <vehicle id="114273461.0" route="8179" line="17488_700_114273462" depart="11160" departEdge="0" arrivalEdge="53" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="Berlin, U Theodor-Heuss-Platz West"/>
         <stop busStop="070101007174_0" arrival="11160" duration="10" until="11160"/><!--stopSequence="0.0/8.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -1970,7 +1970,7 @@
         <stop busStop="070301008816_0" arrival="11280" duration="10" until="11280"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="11580" duration="10" until="11580"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114273505.0" route="8176" line="17488_700_114273498" depart="11400" departEdge="0" arrivalEdge="58" type="bus" color="89,91,98">
+    <vehicle id="114273505.0" route="8176" line="17488_700_114273498" depart="11400" departEdge="0" arrivalEdge="59" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070101005262_0" arrival="11580" duration="10" until="11580"/><!--stopSequence="35.0/40.0" "U Spittelmarkt (Berlin)"-->
@@ -2141,7 +2141,7 @@
         <stop busStop="070201054002_0" arrival="12900" duration="10" until="12900"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="13020" duration="10" until="13020"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114273467.0" route="8179" line="17488_700_114273462" depart="12960" departEdge="0" arrivalEdge="52" type="bus" color="89,91,98">
+    <vehicle id="114273467.0" route="8179" line="17488_700_114273462" depart="12960" departEdge="0" arrivalEdge="53" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="U Theodor-Heuss-Platz"/>
         <stop busStop="070101007174_0" arrival="12960" duration="10" until="12960"/><!--stopSequence="0.0/8.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -2176,7 +2176,7 @@
         <stop busStop="070301008816_0" arrival="13080" duration="10" until="13080"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="13380" duration="10" until="13380"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114273500.0" route="8176" line="17488_700_114273498" depart="13200" departEdge="0" arrivalEdge="58" type="bus" color="89,91,98">
+    <vehicle id="114273500.0" route="8176" line="17488_700_114273498" depart="13200" departEdge="0" arrivalEdge="59" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070101005262_0" arrival="13380" duration="10" until="13380"/><!--stopSequence="35.0/40.0" "U Spittelmarkt (Berlin)"-->
@@ -2347,7 +2347,7 @@
         <stop busStop="070201054002_0" arrival="14700" duration="10" until="14700"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="14820" duration="10" until="14820"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114273468.0" route="8179" line="17488_700_114273462" depart="14760" departEdge="0" arrivalEdge="52" type="bus" color="89,91,98">
+    <vehicle id="114273468.0" route="8179" line="17488_700_114273462" depart="14760" departEdge="0" arrivalEdge="53" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="Berlin, U Theodor-Heuss-Platz West"/>
         <stop busStop="070101007174_0" arrival="14760" duration="10" until="14760"/><!--stopSequence="0.0/8.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -2382,7 +2382,7 @@
         <stop busStop="070301008816_0" arrival="14880" duration="10" until="14880"/><!--stopSequence="0.0/7.0" "S+U Alexanderplatz Bhf/Dircksenstr. (Berlin)"-->
         <stop busStop="070301008811_0" arrival="15180" duration="10" until="15180"/><!--stopSequence="3.0/7.0" "Berlin, Mollstr./Otto-Braun-Str."-->
     </vehicle>
-    <vehicle id="114273501.0" route="8176" line="17488_700_114273498" depart="15000" departEdge="0" arrivalEdge="58" type="bus" color="89,91,98">
+    <vehicle id="114273501.0" route="8176" line="17488_700_114273498" depart="15000" departEdge="0" arrivalEdge="59" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070101005262_0" arrival="15180" duration="10" until="15180"/><!--stopSequence="35.0/40.0" "U Spittelmarkt (Berlin)"-->
@@ -2561,7 +2561,7 @@
         <stop busStop="070101007373_0" arrival="17280" duration="10" until="17280"/><!--stopSequence="20.0/26.0" "Berlin, Berliner Rathaus"-->
         <stop busStop="070101006653_0" arrival="17340" duration="10" until="17340"/><!--stopSequence="21.0/26.0" "S+U Jannowitzbrücke (Berlin)"-->
     </vehicle>
-    <vehicle id="114273457.0" route="8179" line="17488_700_114273462" depart="16560" departEdge="0" arrivalEdge="52" type="bus" color="89,91,98">
+    <vehicle id="114273457.0" route="8179" line="17488_700_114273462" depart="16560" departEdge="0" arrivalEdge="53" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="U Platz der Luftbrücke"/>
         <stop busStop="070101007174_0" arrival="16560" duration="10" until="16560"/><!--stopSequence="0.0/8.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -2585,7 +2585,7 @@
         <stop busStop="070101007156_0" arrival="16860" duration="10" until="16860"/><!--stopSequence="1.0/9.0" "S+U Alexanderplatz (Bln) [Bus K.-Liebknecht-Str]"-->
         <stop busStop="070101007309_0" arrival="16920" duration="10" until="16920"/><!--stopSequence="2.0/9.0" "Berlin, Spandauer Str./Marienkirche"-->
     </vehicle>
-    <vehicle id="114273506.0" route="8176" line="17488_700_114273498" depart="16800" departEdge="0" arrivalEdge="58" type="bus" color="89,91,98">
+    <vehicle id="114273506.0" route="8176" line="17488_700_114273498" depart="16800" departEdge="0" arrivalEdge="59" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070101005262_0" arrival="16980" duration="10" until="16980"/><!--stopSequence="35.0/40.0" "U Spittelmarkt (Berlin)"-->
@@ -2753,7 +2753,7 @@
         <stop busStop="070201054002_0" arrival="18330" duration="10" until="18330"/><!--stopSequence="0.0/3.0" "S+U Alexanderplatz (Berlin) [U5]"-->
         <stop busStop="070201053902_0" arrival="18450" duration="10" until="18450"/><!--stopSequence="1.0/3.0" "U Schillingstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114273458.0" route="8179" line="17488_700_114273462" depart="18360" departEdge="0" arrivalEdge="52" type="bus" color="89,91,98">
+    <vehicle id="114273458.0" route="8179" line="17488_700_114273462" depart="18360" departEdge="0" arrivalEdge="53" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="U Platz der Luftbrücke"/>
         <stop busStop="070101007174_0" arrival="18360" duration="10" until="18360"/><!--stopSequence="0.0/8.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
@@ -2797,7 +2797,7 @@
         <stop busStop="070101007156_0" arrival="18660" duration="10" until="18660"/><!--stopSequence="1.0/9.0" "S+U Alexanderplatz (Bln) [Bus K.-Liebknecht-Str]"-->
         <stop busStop="070101007309_0" arrival="18720" duration="10" until="18720"/><!--stopSequence="2.0/9.0" "Berlin, Spandauer Str./Marienkirche"-->
     </vehicle>
-    <vehicle id="114273507.0" route="8176" line="17488_700_114273498" depart="18600" departEdge="0" arrivalEdge="58" type="bus" color="89,91,98">
+    <vehicle id="114273507.0" route="8176" line="17488_700_114273498" depart="18600" departEdge="0" arrivalEdge="59" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="S+U Alexanderplatz"/>
         <stop busStop="070101005262_0" arrival="18780" duration="10" until="18780"/><!--stopSequence="35.0/40.0" "U Spittelmarkt (Berlin)"-->
@@ -3139,7 +3139,7 @@
         <stop busStop="070101006846_0" arrival="20520" duration="10" until="20520"/><!--stopSequence="16.0/17.0" "U Weinmeisterstr./Gipsstr. (Berlin)"-->
         <stop busStop="070101007153_0" arrival="20640" duration="10" until="20640"/><!--stopSequence="17.0/17.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->
     </vehicle>
-    <vehicle id="114273459.0" route="8179" line="17488_700_114273462" depart="20160" departEdge="0" arrivalEdge="52" type="bus" color="89,91,98">
+    <vehicle id="114273459.0" route="8179" line="17488_700_114273462" depart="20160" departEdge="0" arrivalEdge="53" type="bus" color="89,91,98">
         <param key="gtfs.route_name" value="N42"/>
         <param key="gtfs.trip_headsign" value="U Platz der Luftbrücke"/>
         <stop busStop="070101007174_0" arrival="20160" duration="10" until="20160"/><!--stopSequence="0.0/8.0" "Berlin, S+U Alexanderplatz Bhf/Memhardstr. (Berlin)"-->

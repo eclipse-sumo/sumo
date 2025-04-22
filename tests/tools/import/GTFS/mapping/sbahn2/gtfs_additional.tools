@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-16 14:25:52.490651 by gtfs2pt.py v1_22_0+1541-786d2352924
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <human-readable-time value="True"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+    <radius value="200.0"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="255743249.11" lane="52782252#2_0" startPos="0.00" endPos="178.87" friendlyPos="true" name="S Südkreuz Bhf (Berlin)"/>
+    <trainStop id="255743249.12" lane="463435053#1_0" startPos="0.00" endPos="161.56" friendlyPos="true" name="S+U Tempelhof (Berlin)"/>
+</additional>

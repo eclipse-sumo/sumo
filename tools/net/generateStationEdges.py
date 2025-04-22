@@ -57,7 +57,7 @@ def main(options):
             sumolib.writeXMLHeader(out_n, "$Id$")  # noqa
             out_e.write('<edges>\n')
             out_n.write('<nodes>\n')
-            for stop in sumolib.xml.parse(options.stopfile, 'busStop', heterogeneous=True):
+            for stop in sumolib.xml.parse(options.stopfile, ['busStop', 'trainStop'], heterogeneous=True):
                 edge_id = stop.id + "_access"
                 x, y = sumolib.geomhelper.positionAtShapeOffset(
                     net.getLane(stop.lane).getShape(),

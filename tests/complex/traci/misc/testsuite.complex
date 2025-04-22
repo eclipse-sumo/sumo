@@ -47,3 +47,6 @@ signature
 
 # testing all subscriptions
 subscription
+
+# test subscription with begin and end time
+subscription_time

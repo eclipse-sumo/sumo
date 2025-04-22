@@ -97,6 +97,7 @@ def assign_prefixed_options(args, allowed_programs):
     remaining = []
     consumed = False
     for arg_index, arg in enumerate(args):
+        used = False
         if consumed:
             consumed = False
             continue
@@ -106,14 +107,18 @@ def assign_prefixed_options(args, allowed_programs):
                 program = arg[2:separator_index]
                 if program in allowed_programs:
                     try:
-                        if '--' in args[arg_index+1]:
-                            raise ValueError()
-                        option = [arg[separator_index+1:], args[arg_index+1]]
+                        if '=' in arg:
+                            option = arg[separator_index+1:].split('=')
+                        else:
+                            if '--' in args[arg_index+1]:
+                                raise ValueError()
+                            option = [arg[separator_index+1:], args[arg_index+1]]
+                            consumed = True
                     except (IndexError, ValueError):
                         raise ValueError("Please amend prefixed argument %s with a value." % arg)
+                    used = True
                     prefixed_options.setdefault(program, []).append(option)
-                    consumed = True
-        if not consumed:
+        if not used:
             remaining.append(arg)
     return prefixed_options, remaining
 
@@ -400,7 +405,20 @@ class ArgumentParser(argparse.ArgumentParser):
                     if option.name in self._fix_path_args and not value.startswith("http"):
                         value = os.path.join(os.path.dirname(cfg_file), value)
                     if option.name in pos_map and option.name != 'remaining_args':
-                        pos_args[pos_map[option.name]] = value
+                        if ',' in value:
+                            value = value.split(',')
+                        else:
+                            value = value.split()
+                        for i, v in enumerate(value):
+                            pos_args[pos_map[option.name]] = v
+                            if i + 1 < len(value):
+                                # shift pos_map
+                                pos_args.append(None)
+                                curPos = pos_map[option.name]
+                                for o, pos in pos_map.items():
+                                    if pos >= curPos:
+                                        pos_map[o] += 1
+
                     elif not is_set:
                         if value == "True":
                             config_args += ["--" + option.name]

@@ -1,0 +1,5 @@
+-n net.net.xml --merged-csv data.csv --vtype-output vehtypes.xml
+--stops input_stops.xml
+-H
+--radius 200
+tools/import/gtfs/gtfs2pt.py

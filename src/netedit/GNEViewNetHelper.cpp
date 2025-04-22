@@ -3798,7 +3798,7 @@ GNEViewNetHelper::CommonCheckableButtons::buildCommonCheckableButtons() {
     auto tooltipMenu = myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu();
     // inspect button
     inspectButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-                                           std::string("\t") + TL("Inspect mode") + std::string("\t") + TL("Mode for inspect elements and change their attributes. (I)"),
+                                           std::string("\t") + TL("Inspect mode") + std::string("\t") + TL("Mode to inspect elements and change their attributes. (I)"),
                                            GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myViewNet, MID_HOTKEY_I_MODE_INSPECT, GUIDesignMFXCheckableButtonSquare);
     inspectButton->create();
     // delete button

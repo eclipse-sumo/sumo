@@ -55,6 +55,7 @@ class Edge:
         self._params = {}
         self._bidi = None
         self._selected = False
+        self._lengthGeometryFactor = 1
 
     def getName(self):
         return self._name
@@ -225,9 +226,15 @@ class Edge:
         self._shape = [(x, y) for x, y, z in self._shape3D]  # noqa
         self._shapeWithJunctions = [(x, y) for x, y, z in self._shapeWithJunctions3D]  # noqa
         self._rawShape = [(x, y) for x, y, z in self._rawShape3D]  # noqa
+        shapeLength = sumolib.geomhelper.polyLength(self.getShape())
+        if shapeLength > 0:
+            self._lengthGeometryFactor = self.getLength() / shapeLength
 
     def getLength(self):
         return self._lanes[0].getLength()
+
+    def getLengthGeometryFactor(self):
+        return self._lengthGeometryFactor
 
     def setTLS(self, tls):
         self._tls = tls

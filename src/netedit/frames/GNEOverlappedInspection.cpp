@@ -239,9 +239,9 @@ GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
     std::ostringstream help;
     help
             << TL(" - Click in the same position") << "\n"
-            << TL("   for inspect next element") << "\n"
+            << TL("   to inspect next element") << "\n"
             << TL(" - Shift + Click in the same") << "\n"
-            << TL("   position for inspect") << "\n"
+            << TL("   position to inspect") << "\n"
             << TL("   previous element");
     new FXLabel(helpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // "OK"

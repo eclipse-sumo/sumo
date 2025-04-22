@@ -43,6 +43,9 @@ car_walk_departPos
 # public transport and walk possible
 public_walk
 
+# public transport and walk possible
+public_any_walk
+
 # public transport  cannot be used due to speedfactor
 public_walk_speedfactor
 

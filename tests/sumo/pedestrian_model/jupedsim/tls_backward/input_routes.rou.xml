@@ -13,5 +13,8 @@
         <walk from="-E5" to="-E6"/>
         <walk from="-E6" to="-E7"/>
     </personFlow>
+    <personFlow id="pf_2" begin="0.00" departPos="base" color="cyan" end="3600.00" personsPerHour="450">
+        <walk from="E6.51" to="-E7"/>
+    </personFlow>
 
 </routes>

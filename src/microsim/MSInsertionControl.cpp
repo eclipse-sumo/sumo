@@ -406,6 +406,9 @@ MSInsertionControl::saveState(OutputDevice& out) {
         if (flow.pars->wasSet(VEHPARS_FORCE_REROUTE)) {
             out.writeAttr(SUMO_ATTR_REROUTE, true);
         }
+        for (const SUMOVehicleParameter::Stop& stop : flow.pars->stops) {
+            stop.write(out);
+        }
         out.closeTag();
     }
 }

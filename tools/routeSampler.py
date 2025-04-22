@@ -44,32 +44,11 @@ from sumolib.statistics import setPrecision  # noqa
 PRESERVE_INPUT_COUNT = 'input'
 
 
-def _run_func(args):
-    func, interval, kwargs, num = args
-    kwargs["cpuIndex"] = num
-    return num, func(interval=interval, **kwargs)
-
-
-def multi_process(cpu_num, interval_list, func, outf, mismatchf, **kwargs):
-    cpu_count = min(cpu_num, multiprocessing.cpu_count()-1, len(interval_list))
-    interval_split = np.array_split(interval_list, cpu_count)
-    # pool = multiprocessing.Pool(processes=cpu_count)
-    with multiprocessing.get_context("spawn").Pool() as pool:
-        results = pool.map(_run_func, [(func, interval, kwargs, i) for i, interval in enumerate(interval_split)])
-        # pool.close()
-        results = sorted(results, key=lambda x: x[0])
-        for _, result in results:
-            outf.write("".join(result[-2]))
-            if mismatchf is not None:
-                mismatchf.write("".join(result[-1]))
-        return results
-
-
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Sample routes to match counts")
     # input
     op.add_argument("-r", "--route-files", category="input", dest="routeFiles", type=op.route_file_list,
-                    help="Input route file")
+                    help="Input route file", required=True)
     op.add_argument("-t", "--turn-files", category="input", dest="turnFiles", type=op.file_list,
                     help="Input turn-count file")
     op.add_argument("-T", "--turn-ratio-files", category="input", dest="turnRatioFiles", type=op.file_list,
@@ -176,13 +155,13 @@ def get_options(args=None):
              and options.turnRatioFiles is None
              and options.edgeDataFiles is None
              and options.odFiles is None)):
-        op.print_help()
+        sys.stderr.write("At least one file with counting data must be loaded\n")
         sys.exit()
     if options.writeRouteIDs and options.writeRouteDist:
-        sys.stderr.write("Only one of the options --write-route-ids and --write-route-distribution may be used")
+        sys.stderr.write("Only one of the options --write-route-ids and --write-route-distribution may be used\n")
         sys.exit()
     if options.writeFlows not in [None, "number", "probability", "poisson"]:
-        sys.stderr.write("Options --write-flows only accepts arguments 'number', 'probability' and 'poisson'")
+        sys.stderr.write("Options --write-flows only accepts arguments 'number', 'probability' and 'poisson'\n")
         sys.exit()
 
     for attr in ["edgeDataAttr", "arrivalAttr", "departAttr", "turnAttr", "turnRatioAttr"]:
@@ -234,6 +213,79 @@ def get_options(args=None):
         options.departDistVals = list(map(float, options.departDistVals.split(sep)))
 
     return options
+
+
+class Routes:
+    def __init__(self, routefiles, keepStops, rng):
+        self.rng = rng
+        self.all = []
+        self.edgeProbs = defaultdict(zero)
+        self.edgeIDs = {}
+        self.withProb = 0
+        self.routeStops = defaultdict(list)  # list of list of stops for the given edges
+        for routefile in routefiles:
+            warned = False
+            # not all routes may have specified probability, in this case use their number of occurrences
+            for r in sumolib.xml.parse(routefile, ['route', 'walk'], heterogeneous=True):
+                if r.edges is None:
+                    if not warned:
+                        print("Warning: Ignoring walk in file '%s' because it does not contain edges." % routefile,
+                              file=sys.stderr)
+                        warned = True
+                    continue
+                edges = tuple(r.edges.split())
+                self.all.append(edges)
+                prob = float(r.getAttributeSecure("probability", 1))
+                if r.hasAttribute("probability"):
+                    self.withProb += 1
+                    prob = float(r.probability)
+                else:
+                    prob = 1
+                if prob <= 0:
+                    print("Warning: route probability must be positive (edges=%s)" % r.edges, file=sys.stderr)
+                    prob = 0
+                if r.hasAttribute("id"):
+                    self.edgeIDs[edges] = r.id
+                self.edgeProbs[edges] += prob
+                if keepStops and r.stop:
+                    self.routeStops[edges].append(list(r.stop))
+
+        self.unique = sorted(list(self.edgeProbs.keys()))
+        self.uniqueSets = [set(edges) for edges in self.unique]
+        self.number = len(self.unique)
+        self.edges2index = dict([(e, i) for i, e in enumerate(self.unique)])
+        if len(self.unique) == 0:
+            print("Error: no input routes loaded", file=sys.stderr)
+            sys.exit()
+        self.probabilities = np.array([self.edgeProbs[e] for e in self.unique], dtype=np.float64)
+
+    def write(self, outf, prefix, intervalPrefix, routeIndex, count, writeDist=False):
+        edges = self.unique[routeIndex]
+        indent = ' ' * 8
+        comment = []
+        probability = ""
+        ID = ' id="%s%s%s"' % (prefix, intervalPrefix, routeIndex) if prefix is not None else ""
+        if writeDist:
+            probability = ' probability="%s"' % count
+        elif ID:
+            indent = ' ' * 4
+            comment.append(str(count))
+        if ID and edges in self.edgeIDs:
+            comment.append("(%s)" % self.edgeIDs[edges])
+        comment = ' '.join(comment)
+        if comment:
+            comment = " <!-- %s -->" % comment
+
+        stops = []
+        stopCandidates = self.routeStops.get(edges)
+        if stopCandidates:
+            stops = stopCandidates[self.rng.choice(range(len(stopCandidates)))]
+        close = '' if stops else '/'
+        outf.write('%s<route%s edges="%s"%s%s>%s\n' % (indent, ID, ' '.join(edges), probability, close, comment))
+        if stops:
+            for stop in stops:
+                outf.write(stop.toXML(indent + ' ' * 4))
+            outf.write('%s</route>\n' % indent)
 
 
 class DepartDist:
@@ -367,6 +419,27 @@ class CountData:
             ", isDest=True" if self.isDest else "",
             ", isRatio=True" if self.isRatio else "",
             (", sibs=%s" % len(self.ratioSiblings)) if self.isRatio else "")
+
+
+def _run_func(args):
+    func, interval, kwargs, num = args
+    kwargs["cpuIndex"] = num
+    return num, func(interval=interval, **kwargs)
+
+
+def multi_process(cpu_num, interval_list, func, outf, mismatchf, **kwargs):
+    cpu_count = min(cpu_num, multiprocessing.cpu_count()-1, len(interval_list))
+    interval_split = np.array_split(interval_list, cpu_count)
+    # pool = multiprocessing.Pool(processes=cpu_count)
+    with multiprocessing.get_context("spawn").Pool() as pool:
+        results = pool.map(_run_func, [(func, interval, kwargs, i) for i, interval in enumerate(interval_split)])
+        # pool.close()
+        results = sorted(results, key=lambda x: x[0])
+        for _, result in results:
+            outf.write("".join(result[-2]))
+            if mismatchf is not None:
+                mismatchf.write("".join(result[-1]))
+        return results
 
 
 def inTaz(options, edge, tazID, isOrigin):
@@ -645,79 +718,6 @@ def zero():
     return 0
 
 
-class Routes:
-    def __init__(self, routefiles, keepStops, rng):
-        self.rng = rng
-        self.all = []
-        self.edgeProbs = defaultdict(zero)
-        self.edgeIDs = {}
-        self.withProb = 0
-        self.routeStops = defaultdict(list)  # list of list of stops for the given edges
-        for routefile in routefiles:
-            warned = False
-            # not all routes may have specified probability, in this case use their number of occurrences
-            for r in sumolib.xml.parse(routefile, ['route', 'walk'], heterogeneous=True):
-                if r.edges is None:
-                    if not warned:
-                        print("Warning: Ignoring walk in file '%s' because it does not contain edges." % routefile,
-                              file=sys.stderr)
-                        warned = True
-                    continue
-                edges = tuple(r.edges.split())
-                self.all.append(edges)
-                prob = float(r.getAttributeSecure("probability", 1))
-                if r.hasAttribute("probability"):
-                    self.withProb += 1
-                    prob = float(r.probability)
-                else:
-                    prob = 1
-                if prob <= 0:
-                    print("Warning: route probability must be positive (edges=%s)" % r.edges, file=sys.stderr)
-                    prob = 0
-                if r.hasAttribute("id"):
-                    self.edgeIDs[edges] = r.id
-                self.edgeProbs[edges] += prob
-                if keepStops and r.stop:
-                    self.routeStops[edges].append(list(r.stop))
-
-        self.unique = sorted(list(self.edgeProbs.keys()))
-        self.uniqueSets = [set(edges) for edges in self.unique]
-        self.number = len(self.unique)
-        self.edges2index = dict([(e, i) for i, e in enumerate(self.unique)])
-        if len(self.unique) == 0:
-            print("Error: no input routes loaded", file=sys.stderr)
-            sys.exit()
-        self.probabilities = np.array([self.edgeProbs[e] for e in self.unique], dtype=np.float64)
-
-    def write(self, outf, prefix, intervalPrefix, routeIndex, count, writeDist=False):
-        edges = self.unique[routeIndex]
-        indent = ' ' * 8
-        comment = []
-        probability = ""
-        ID = ' id="%s%s%s"' % (prefix, intervalPrefix, routeIndex) if prefix is not None else ""
-        if writeDist:
-            probability = ' probability="%s"' % count
-        elif ID:
-            indent = ' ' * 4
-            comment.append(str(count))
-        if ID and edges in self.edgeIDs:
-            comment.append("(%s)" % self.edgeIDs[edges])
-        comment = ' '.join(comment)
-        if comment:
-            comment = " <!-- %s -->" % comment
-
-        stops = []
-        stopCandidates = self.routeStops.get(edges)
-        if stopCandidates:
-            stops = stopCandidates[self.rng.choice(range(len(stopCandidates)))]
-        close = '' if stops else '/'
-        outf.write('%s<route%s edges="%s"%s%s>%s\n' % (indent, ID, ' '.join(edges), probability, close, comment))
-        if stops:
-            for stop in stops:
-                outf.write(stop.toXML(indent + ' ' * 4))
-            outf.write('%s</route>\n' % indent)
-
-
 def initTurnRatioSiblings(routes, countData, turnTotal):
     ratioIndices = set()
     # todo: use routes to complete incomplete sibling lists
@@ -809,113 +809,6 @@ def initTotalCounts(options, routes, intervals, b, e):
             sys.stderr.write("Error: --total-count must be a single value" +
                              " or match the number of data intervals (%s)" % len(intervals))
             sys.exit()
-
-
-def main(options):
-    rng = np.random.RandomState(options.seed)
-
-    with Benchmarker(options.verboseTiming, "Loading routes"):
-        routes = Routes(options.routeFiles, options.keepStops, rng)
-
-    intervals = getIntervals(options)
-    if len(intervals) == 0:
-        print("Error: no intervals loaded", file=sys.stderr)
-        sys.exit()
-
-    # preliminary integrity check for the whole time range
-    b = intervals[0][0]
-    e = intervals[-1][-1]
-    with Benchmarker(options.verboseTiming, "Loading counts"):
-        countData = parseCounts(options, routes, b, e, True)
-    routeUsage = getRouteUsage(routes, countData)
-
-    for cd in countData:
-        if cd.count > 0 and not cd.routeSet:
-            msg = ""
-            if cd.isOrigin and cd.isDest:
-                msg = "start at edge '%s' and end at edge '%s'" % (cd.edgeTuple[0], cd.edgeTuple[-1])
-            elif cd.isOrigin:
-                msg = "start at edge '%s'" % cd.edgeTuple[0]
-            elif cd.isDest:
-                msg = "end at edge '%s'" % cd.edgeTuple[-1]
-            elif len(cd.edgeTuple) > 1:
-                msg = "pass edges '%s'" % ' '.join(cd.edgeTuple)
-            else:
-                msg = "pass edge '%s'" % ' '.join(cd.edgeTuple)
-            print("Warning: no routes %s (count %s)" % (msg, cd.count), file=sys.stderr)
-
-    if options.verbose:
-        print("Loaded %s routes (%s distinct)" % (len(routes.all), routes.number))
-        if options.weighted:
-            print("Loaded probability for %s routes" % routes.withProb)
-        if options.verboseHistogram:
-            edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
-            detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
-            for i, edges in enumerate(routes.unique):
-                edgeCount.add(len(edges), i)
-                detectorCount.add(len(routeUsage[i]), i)
-            print("input %s" % edgeCount)
-            print("input %s" % detectorCount)
-
-    mismatchf = None
-    if options.mismatchOut:
-        mismatchf = open(options.mismatchOut, 'w')
-        sumolib.writeXMLHeader(mismatchf, "$Id$", options=options)  # noqa
-        mismatchf.write('<data>\n')
-
-    if options.totalCount:
-        initTotalCounts(options, routes, intervals, b, e)
-
-    underflowSummary = sumolib.miscutils.Statistics("avg interval underflow")
-    overflowSummary = sumolib.miscutils.Statistics("avg interval overflow")
-    gehSummary = sumolib.miscutils.Statistics("avg interval GEH%")
-    ratioSummary = sumolib.miscutils.Statistics("avg interval ratio mismatch%")
-    inputCountSummary = sumolib.miscutils.Statistics("avg interval input count")
-    usedRoutesSummary = sumolib.miscutils.Statistics("avg interval written vehs")
-
-    with open(options.out, 'w') as outf, Benchmarker(options.verboseTiming, "Sampling all intervals"):
-        sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
-        if options.threads > 1:
-            # call the multiprocessing function
-            results = multi_process(options.threads, intervals,
-                                    _solveIntervalMP, outf, mismatchf, options=options, routes=routes)
-            # handle the uFlow, oFlow and GEH
-            for _, result in results:
-                for i, begin in enumerate(result[0]):
-                    underflowSummary.add(result[1][i], begin)
-                    overflowSummary.add(result[2][i], begin)
-                    gehSummary.add(result[3][i], begin)
-                    if result[4][i] is not None:
-                        ratioSummary.add(result[4][i], begin)
-                    inputCountSummary.add(result[5][i], begin)
-                    usedRoutesSummary.add(sum(result[6][i]), begin)
-        else:
-            for i, (begin, end) in enumerate(intervals):
-                intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
-                intervalCount = options.totalCount[i] if options.totalCount else None
-                uFlow, oFlow, gehOK, ratioPerc, inputCount, usedRoutes, _ = solveInterval(
-                    options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount)
-                underflowSummary.add(uFlow, begin)
-                overflowSummary.add(oFlow, begin)
-                gehSummary.add(gehOK, begin)
-                if ratioPerc is not None:
-                    ratioSummary.add(ratioPerc, begin)
-                inputCountSummary.add(inputCount, begin)
-                usedRoutesSummary.add(sum(usedRoutes), begin)
-        outf.write('</routes>\n')
-
-    if options.mismatchOut:
-        mismatchf.write('</data>\n')
-        mismatchf.close()
-
-    if len(intervals) > 1:
-        print(inputCountSummary)
-        print(usedRoutesSummary)
-        print(underflowSummary)
-        print(overflowSummary)
-        print(gehSummary)
-        if ratioSummary.count() > 0:
-            print(ratioSummary)
 
 
 def _sample_skewed(sampleSet, rng, probabilityMap):
@@ -1371,6 +1264,113 @@ def writeMismatch(options, mismatchf, countData, begin, end):
             print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple,
                   file=sys.stderr)
     mismatchf.write('    </interval>\n')
+
+
+def main(options):
+    rng = np.random.RandomState(options.seed)
+
+    with Benchmarker(options.verboseTiming, "Loading routes"):
+        routes = Routes(options.routeFiles, options.keepStops, rng)
+
+    intervals = getIntervals(options)
+    if len(intervals) == 0:
+        print("Error: no intervals loaded", file=sys.stderr)
+        sys.exit()
+
+    # preliminary integrity check for the whole time range
+    b = intervals[0][0]
+    e = intervals[-1][-1]
+    with Benchmarker(options.verboseTiming, "Loading counts"):
+        countData = parseCounts(options, routes, b, e, True)
+    routeUsage = getRouteUsage(routes, countData)
+
+    for cd in countData:
+        if cd.count > 0 and not cd.routeSet:
+            msg = ""
+            if cd.isOrigin and cd.isDest:
+                msg = "start at edge '%s' and end at edge '%s'" % (cd.edgeTuple[0], cd.edgeTuple[-1])
+            elif cd.isOrigin:
+                msg = "start at edge '%s'" % cd.edgeTuple[0]
+            elif cd.isDest:
+                msg = "end at edge '%s'" % cd.edgeTuple[-1]
+            elif len(cd.edgeTuple) > 1:
+                msg = "pass edges '%s'" % ' '.join(cd.edgeTuple)
+            else:
+                msg = "pass edge '%s'" % ' '.join(cd.edgeTuple)
+            print("Warning: no routes %s (count %s)" % (msg, cd.count), file=sys.stderr)
+
+    if options.verbose:
+        print("Loaded %s routes (%s distinct)" % (len(routes.all), routes.number))
+        if options.weighted:
+            print("Loaded probability for %s routes" % routes.withProb)
+        if options.verboseHistogram:
+            edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
+            detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
+            for i, edges in enumerate(routes.unique):
+                edgeCount.add(len(edges), i)
+                detectorCount.add(len(routeUsage[i]), i)
+            print("input %s" % edgeCount)
+            print("input %s" % detectorCount)
+
+    mismatchf = None
+    if options.mismatchOut:
+        mismatchf = open(options.mismatchOut, 'w')
+        sumolib.writeXMLHeader(mismatchf, "$Id$", options=options)  # noqa
+        mismatchf.write('<data>\n')
+
+    if options.totalCount:
+        initTotalCounts(options, routes, intervals, b, e)
+
+    underflowSummary = sumolib.miscutils.Statistics("avg interval underflow")
+    overflowSummary = sumolib.miscutils.Statistics("avg interval overflow")
+    gehSummary = sumolib.miscutils.Statistics("avg interval GEH%")
+    ratioSummary = sumolib.miscutils.Statistics("avg interval ratio mismatch%")
+    inputCountSummary = sumolib.miscutils.Statistics("avg interval input count")
+    usedRoutesSummary = sumolib.miscutils.Statistics("avg interval written vehs")
+
+    with open(options.out, 'w') as outf, Benchmarker(options.verboseTiming, "Sampling all intervals"):
+        sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
+        if options.threads > 1:
+            # call the multiprocessing function
+            results = multi_process(options.threads, intervals,
+                                    _solveIntervalMP, outf, mismatchf, options=options, routes=routes)
+            # handle the uFlow, oFlow and GEH
+            for _, result in results:
+                for i, begin in enumerate(result[0]):
+                    underflowSummary.add(result[1][i], begin)
+                    overflowSummary.add(result[2][i], begin)
+                    gehSummary.add(result[3][i], begin)
+                    if result[4][i] is not None:
+                        ratioSummary.add(result[4][i], begin)
+                    inputCountSummary.add(result[5][i], begin)
+                    usedRoutesSummary.add(sum(result[6][i]), begin)
+        else:
+            for i, (begin, end) in enumerate(intervals):
+                intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
+                intervalCount = options.totalCount[i] if options.totalCount else None
+                uFlow, oFlow, gehOK, ratioPerc, inputCount, usedRoutes, _ = solveInterval(
+                    options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount)
+                underflowSummary.add(uFlow, begin)
+                overflowSummary.add(oFlow, begin)
+                gehSummary.add(gehOK, begin)
+                if ratioPerc is not None:
+                    ratioSummary.add(ratioPerc, begin)
+                inputCountSummary.add(inputCount, begin)
+                usedRoutesSummary.add(sum(usedRoutes), begin)
+        outf.write('</routes>\n')
+
+    if options.mismatchOut:
+        mismatchf.write('</data>\n')
+        mismatchf.close()
+
+    if len(intervals) > 1:
+        print(inputCountSummary)
+        print(usedRoutesSummary)
+        print(underflowSummary)
+        print(overflowSummary)
+        print(gehSummary)
+        if ratioSummary.count() > 0:
+            print(ratioSummary)
 
 
 if __name__ == "__main__":

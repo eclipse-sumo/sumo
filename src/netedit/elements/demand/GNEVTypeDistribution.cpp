@@ -60,16 +60,18 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
     }
     // check if write vType or refs)
     for (const auto& refChild : getChildDemandElements()) {
-        int numReferences = 0;
-        for (const auto& vTypeChild : refChild->getParentDemandElements().at(1)->getChildDemandElements()) {
-            if (vTypeChild->getTagProperty()->getTag() == GNE_TAG_VTYPEREF) {
-                numReferences++;
+        if (refChild->getTagProperty()->getTag() == GNE_TAG_VTYPEREF) {
+            int numReferences = 0;
+            for (const auto& vTypeChild : refChild->getParentDemandElements().at(1)->getChildDemandElements()) {
+                if (vTypeChild->getTagProperty()->getTag() == GNE_TAG_VTYPEREF) {
+                    numReferences++;
+                }
             }
-        }
-        if (numReferences == 1) {
-            refChild->getParentDemandElements().at(1)->writeDemandElement(device);
-        } else {
-            refChild->writeDemandElement(device);
+            if (numReferences == 1) {
+                refChild->getParentDemandElements().at(1)->writeDemandElement(device);
+            } else {
+                refChild->writeDemandElement(device);
+            }
         }
     }
     device.closeTag();

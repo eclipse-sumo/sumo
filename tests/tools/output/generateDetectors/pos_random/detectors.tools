@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-14 08:20:49.399551 by generateDetectors.py v1_22_0+1474-d973ee3c063
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <output value="det.add.xml"/>
+    <relpos value="random"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <inductionLoop id="1fi_0" lane="1fi_0" pos="158.90" period="60" file="det.out.xml"/>
+    <inductionLoop id="1o_0" lane="1o_0" pos="12.22" period="60" file="det.out.xml"/>
+    <inductionLoop id="1si_0" lane="1si_0" pos="65.22" period="60" file="det.out.xml"/>
+    <inductionLoop id="1si_1" lane="1si_1" pos="52.93" period="60" file="det.out.xml"/>
+    <inductionLoop id="1si_2" lane="1si_2" pos="174.65" period="60" file="det.out.xml"/>
+    <inductionLoop id="2fi_0" lane="2fi_0" pos="168.16" period="60" file="det.out.xml"/>
+    <inductionLoop id="2o_0" lane="2o_0" pos="435.96" period="60" file="det.out.xml"/>
+    <inductionLoop id="2si_0" lane="2si_0" pos="20.62" period="60" file="det.out.xml"/>
+    <inductionLoop id="2si_1" lane="2si_1" pos="100.06" period="60" file="det.out.xml"/>
+    <inductionLoop id="2si_2" lane="2si_2" pos="7.07" period="60" file="det.out.xml"/>
+    <inductionLoop id="3fi_0" lane="3fi_0" pos="54.33" period="60" file="det.out.xml"/>
+    <inductionLoop id="3o_0" lane="3o_0" pos="246.94" period="60" file="det.out.xml"/>
+    <inductionLoop id="3si_0" lane="3si_0" pos="6.29" period="60" file="det.out.xml"/>
+    <inductionLoop id="3si_1" lane="3si_1" pos="47.15" period="60" file="det.out.xml"/>
+    <inductionLoop id="3si_2" lane="3si_2" pos="154.12" period="60" file="det.out.xml"/>
+    <inductionLoop id="4fi_0" lane="4fi_0" pos="135.42" period="60" file="det.out.xml"/>
+    <inductionLoop id="4o_0" lane="4o_0" pos="107.72" period="60" file="det.out.xml"/>
+    <inductionLoop id="4si_0" lane="4si_0" pos="139.74" period="60" file="det.out.xml"/>
+    <inductionLoop id="4si_1" lane="4si_1" pos="191.96" period="60" file="det.out.xml"/>
+    <inductionLoop id="4si_2" lane="4si_2" pos="1.54" period="60" file="det.out.xml"/>
+</additional>

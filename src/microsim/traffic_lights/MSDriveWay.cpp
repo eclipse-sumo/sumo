@@ -1767,6 +1767,12 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
             route.push_back(&lane->getEdge());
         }
     }
+    if (route.empty()) {
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+        std::cout << SIMTIME << " abort subFoe dw=" << getID() << " foe=" << foe->getID() << " empty subRoute\n";
+#endif
+        return false;
+    }
     if (myRoute.size() > route.size()) {
         // route continues. make sure the subDriveway does not end with a reversal
         const MSEdge* lastNormal = route.back();

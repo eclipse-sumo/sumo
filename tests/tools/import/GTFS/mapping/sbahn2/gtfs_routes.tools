@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-16 14:32:36.604757 by gtfs2pt.py v1_22_0+1542-cb6fbc43d72
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <human-readable-time value="True"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+    <radius value="200.0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="255743249" edges="52782252#2 19744868#0 19744868#1 4526351#1 1154993712 1243591605#0 1243591605#1 321030049#1 321030049#2 321030049#3 463435053#1">
+        <stop busStop="255743249.11" duration="00:00:10" until="00:00:00"/> <!-- S Südkreuz Bhf (Berlin) -->
+        <stop busStop="255743249.12" duration="00:00:10" until="00:02:24"/> <!-- S+U Tempelhof (Berlin) -->
+    </route>
+    <vehicle id="255743249.0" route="255743249" type="light_rail" depart="07:05:44" line="255743249">
+        <param key="gtfs.route_name" value="S42"/>
+        <param key="gtfs.trip_headsign" value="Ringbahn S 42"/>
+    </vehicle>
+</routes>

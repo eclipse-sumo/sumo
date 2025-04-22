@@ -46,6 +46,12 @@ def get_options(args=None):
                         help="read detector flows to compare to from FILE (mandatory)", metavar="FILE")
     parser.add_argument("-o", "--output-file", dest="output", category="output", type=ArgumentParser.edgedata_file,
                         help="output edgeData FILE (mandatory)", metavar="FILE")
+    parser.add_argument("--id-column", default="Detector", dest="detcol",
+                        help="Read detector ids from the given column")
+    parser.add_argument("--time-column", default="Time", dest="timecol",
+                        help="Read detector time from the given column")
+    parser.add_argument("--time-scale", type=int, default=60, dest="timescale",
+                        help="Interpretation of time units in seconds (default 60)")
     parser.add_argument("-q", "--flow-columns", dest="flowcols", default="qPKW,qLKW", type=str,
                         help="which columns contains flows (specified via column header)", metavar="STRING")
     parser.add_argument("-b", "--begin", default=0, type=ArgumentParser.time,
@@ -78,8 +84,9 @@ def main(options):
     tMax = None
     for flowcol in flowcols:
         detReader = detector.DetectorReader(options.detfile, LaneMap())
-        tMin, tMax = detReader.findTimes(options.flowfile, tMin, tMax)
-        hasData = detReader.readFlows(options.flowfile, flow=flowcol, time="Time", timeVal=0, timeMax=1440)
+        tMin, tMax = detReader.findTimes(options.flowfile, tMin, tMax, options.detcol, options.timecol)
+        hasData = detReader.readFlows(options.flowfile, flow=flowcol, det=options.detcol,
+                                      time=options.timecol, timeVal=0, timeMax=1440)
         if options.verbose:
             print("flowColumn: %s hasData: %s" % (flowcol, hasData))
         readers[flowcol] = detReader
@@ -87,9 +94,10 @@ def main(options):
     if options.verbose:
         print("found data from minute %s to %s" % (int(tMin), int(tMax)))
 
-    beginM = int(sumolib.miscutils.parseTime(options.begin, 60) / 60)
-    intervalM = int(sumolib.miscutils.parseTime(options.interval, 60) / 60)
-    endM = min(int(sumolib.miscutils.parseTime(options.end, 60) / 60), tMax)
+    ts = options.timescale
+    beginM = int(sumolib.miscutils.parseTime(options.begin, ts) / ts)
+    intervalM = int(sumolib.miscutils.parseTime(options.interval, ts) / ts)
+    endM = min(int(sumolib.miscutils.parseTime(options.end, ts) / ts), tMax)
 
     with open(options.output, "w") as outf:
         root = "measurements" if options.cadyts else "data"
@@ -102,8 +110,8 @@ def main(options):
 
             for flowcol in flowcols:
                 detReader = detector.DetectorReader(options.detfile, LaneMap())
-                detReader.readFlows(options.flowfile, flow=flowcol, time="Time", timeVal=beginM, timeMax=iEndM,
-                                    addDetectors=(options.detfile is None))
+                detReader.readFlows(options.flowfile, flow=flowcol, det=options.detcol, time=options.timecol,
+                                    timeVal=beginM, timeMax=iEndM, addDetectors=(options.detfile is None))
                 for edge, detData in detReader._edge2DetData.items():
                     maxFlow = 0
                     nGroups = 0
@@ -120,9 +128,9 @@ def main(options):
             if options.cadyts:
                 for edge in sorted(edges.keys()):
                     print('    <singlelink link="%s" start="%s" end="%s" value="%s" stddev="8" type="COUNT_VEH"/>' %
-                          (edge, beginM * 60, iEndM * 60, sum(edges[edge].values())), file=outf)
+                          (edge, beginM * ts, iEndM * ts, sum(edges[edge].values())), file=outf)
             else:
-                outf.write('    <interval id="flowdata" begin="%s" end="%s">\n' % (beginM * 60, iEndM * 60))
+                outf.write('    <interval id="flowdata" begin="%s" end="%s">\n' % (beginM * ts, iEndM * ts))
                 for edge in sorted(edges.keys()):
                     attrs = ' '.join(['%s="%s"' % (k, v) for k, v in sorted(edges[edge].items())])
                     outf.write('        <edge id="%s" %s groups="%s"/>\n' % (edge, attrs, nGroups))

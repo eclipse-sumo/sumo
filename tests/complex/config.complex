@@ -187,6 +187,8 @@ errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 errors:error: XDG_RUNTIME_DIR is invalid or not set in the environment.
 errors:MESA: error: ZINK: {LINES 2}
 errors:\\{REPLACE /}
+errors:Fontconfig warning:
+errors:Unable to revert mtime:
 ps:%%CreationDate
 gtfs_additional:<!-- generated on{[->]}-->
 gtfs_routes:<!-- generated on{[->]}-->
@@ -207,6 +209,7 @@ errors:^This will probably
 errors:^[0-9]*\.*[0-9]*: WARNING:
 errors:^WARNING:
 errors:^UserWarning:
+errors:traci.simulation.getBusStop
 errors:getNextStops
 
 

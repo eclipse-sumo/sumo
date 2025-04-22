@@ -111,6 +111,7 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
     myVCAttrs(nullptr),
     myLastParameterised(nullptr),
     myRemoved(0),
+    myFlowIndex(-1),
     myConstrainedSignal(nullptr) {
     myAmLoadingState = true;
     const std::vector<std::string> vehIDs = OptionsCont::getOptions().getStringVector("load-state.remove-vehicles");
@@ -254,8 +255,8 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             SUMOVehicleParameter* pars = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOWSTATE, attrs, true, true, -1, -1, true);
             pars->repetitionsDone = attrs.get<int>(SUMO_ATTR_DONE, pars->id.c_str(), ok);
             pars->repetitionTotalOffset = attrs.getOptSUMOTimeReporting(SUMO_ATTR_NEXT, pars->id.c_str(), ok, 0);
-            int index = attrs.getInt(SUMO_ATTR_INDEX);
-            MSNet::getInstance()->getInsertionControl().addFlow(pars, index);
+            myFlowIndex = attrs.getInt(SUMO_ATTR_INDEX);
+            myVehicleParameter = pars;
             break;
         }
         case SUMO_TAG_VTYPE: {
@@ -440,6 +441,11 @@ MSStateHandler::myEndElement(int element) {
             tc.fixLoadCount(transportable);
             delete myAttrs;
             myAttrs = nullptr;
+            break;
+        }
+        case SUMO_TAG_FLOWSTATE: {
+            MSNet::getInstance()->getInsertionControl().addFlow(myVehicleParameter, myFlowIndex);
+            myVehicleParameter = nullptr;
             break;
         }
         case SUMO_TAG_SNAPSHOT: {

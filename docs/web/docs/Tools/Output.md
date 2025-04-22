@@ -112,6 +112,18 @@ Script for generating mean data definitions from detector definitions.
 Execute the *generateITetrisINetworkMetrics.py* script with *--help*
 option to get details about usage and available options.
 
+## generateDetectors.py
+
+Script for generating [different detectors](../Simulation/Output/index.md#simulated_detectors)
+for some or all lanes in the supplied network file.
+
+Example usage:
+```
+python tools\output\generateDetectors.py -n .net.net.xml -o detectors.add.xml --detector-type instantInductionLoop
+```
+
+Execute the *generateDetectors.py* script with *--help* option to get details about additional options.
+
 ## generateTLSE1Detectors.py
 
 Script for generating [E1 detectors (induction loops)](../Simulation/Output/Induction_Loops_Detectors_(E1).md)

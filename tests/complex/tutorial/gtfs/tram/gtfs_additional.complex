@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-05 08:23:33.085352 by gtfs2pt.py v1_22_0+0645-2f787e04826
+<!-- generated on 2025-04-22 09:01:51.316017 by gtfs2pt.py v1_22_0+1618-e44b8c02817
 <configuration>
     <gtfs value="https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip"/>
     <date value="20160713"/>
@@ -41,18 +41,6 @@
         <access friendlyPos="true" lane="-445947592_0" pos="23.53" length="3.17"/>
         <access friendlyPos="true" lane="23532795#0_0" pos="22.62" length="126.86"/>
         <access friendlyPos="true" lane="445947592_0" pos="103.51" length="1.63"/>
-    </trainStop>
-    <trainStop id="257596.7" lane="110800148_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Wendenschloß (Berlin)">
-        <access friendlyPos="true" lane="-23532795#0_0" pos="29.69" length="121.00"/>
-        <access friendlyPos="true" lane="-32204604#0_0" pos="0.00" length="22.32"/>
-        <access friendlyPos="true" lane="-32204604#1_0" pos="18.47" length="0.38"/>
-        <access friendlyPos="true" lane="-445947592_0" pos="127.04" length="39.33"/>
-        <access friendlyPos="true" lane="32204604#0_0" pos="90.78" length="22.68"/>
-        <access friendlyPos="true" lane="32204604#1_0" pos="9.45" length="4.41"/>
-        <access friendlyPos="true" lane="445947587_0" pos="3.41" length="16.44"/>
-        <access friendlyPos="true" lane="445947591#0_0" pos="63.07" length="37.13"/>
-        <access friendlyPos="true" lane="445947591#2_0" pos="10.82" length="24.06"/>
-        <access friendlyPos="true" lane="445947592_0" pos="0.00" length="39.73"/>
     </trainStop>
     <trainStop id="259570.5" lane="180390329#0_0" startPos="183.46" endPos="243.46" friendlyPos="true" name="Wassersportallee (Berlin)">
         <access friendlyPos="true" lane="-17272871_0" pos="0.00" length="22.83"/>

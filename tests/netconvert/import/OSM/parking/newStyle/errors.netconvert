@@ -1,0 +1,13 @@
+Warning: Removing pt stop '588394577' on non existing edge '399028977#1'.
+Warning: Removing pt stop '588394578' on non existing edge '399028978#1'.
+Warning: Cannot revise pt stop localization for pt line '1119047', which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '1227012', which consist of one way only. Ignoring!
+Warning: Ignoring parking area on edge '142575699#1' due to insufficient space.
+Warning: Ignoring parking area on edge '-142575699#1' due to insufficient space.
+Warning: Ignoring parking area on edge '142575699#2' due to insufficient space.
+Warning: Ignoring parking area on edge '-142575699#2' due to insufficient space.
+Warning: Could not find edge for parkingArea '142575699#3'.
+Warning: Could not find edge for parkingArea '-142575699#3'.
+Warning: Ignoring parking area on edge '143308532#0' due to insufficient space.
+Warning: Could not find edge for parkingArea '143308532#5'.
+Warning: 11 total messages of type: Ignoring parking area on edge '%' due to insufficient space.

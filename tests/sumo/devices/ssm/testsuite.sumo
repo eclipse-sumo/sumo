@@ -27,6 +27,7 @@ recurrent_net
 
 # test geo-coords output
 geo_coords
+collisions
 bugs
 errors
 more_cases_TODO

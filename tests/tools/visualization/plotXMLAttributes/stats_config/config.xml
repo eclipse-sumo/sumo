@@ -1,0 +1,9 @@
+<configuration>
+    <files value="input_data.xml input_data2.xml"/>
+    <xattr value="@COUNT"/>
+    <yattr value="collisions"/>
+    <idattr value="@NONE"/>
+    <csv-output value="out.csv"/>
+    <output value="image.png"/>
+    <blind value="True"/>
+</configuration>

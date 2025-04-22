@@ -1,0 +1,3 @@
+trip_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+255711950;10144_109;S2;109;de:11000:900068301:1:50;S Attilastr. (Berlin);52.447898;13.360727;1.0;;;;S Buch (Berlin);18660;18690
+255711950;10144_109;S2;109;de:11000:900058102:2:51;S Priesterweg (Berlin);52.459905;13.356324;2.0;;;;S Buch (Berlin);18804;18852

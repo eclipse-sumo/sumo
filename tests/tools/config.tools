@@ -84,6 +84,7 @@ copy_test_path:ptlines.xml
 copy_test_path:input_edgedata.xml
 copy_test_path:summary.xml
 copy_test_path:config_file.txt
+copy_test_path:config.xml
 copy_test_path:input.toolcfg
 copy_test_path:input_sel.txt
 copy_test_path:matsim_plans.xml
@@ -104,6 +105,7 @@ scaled:scaled.rou.xml
 detectors:e1.add.xml
 detectors:e2.add.xml
 detectors:e3.add.xml
+detectors:det.add.xml
 meandata:edge-mean-data.add.xml
 meandata:lane-mean-data.add.xml
 connections:connections.con.xml
@@ -362,6 +364,7 @@ diff_nod:<!-- generated on{[->]}-->
 diff_tll:<!-- generated on{[->]}-->
 diff_xml:<!-- generated on{[->]}-->
 meandata:<!-- generated on{[->]}-->
+detectors:<!-- generated on{[->]}-->
 scaled:<!-- generated on{[->]}-->
 scaledObj:<!-- generated on{[->]}-->
 gtfs_additional:<!-- generated on{[->]}-->

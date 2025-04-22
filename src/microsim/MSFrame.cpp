@@ -672,6 +672,9 @@ MSFrame::fillOptions() {
     oc.doRegister("persontrip.taxi.waiting-time", new Option_String("300", "TIME"));
     oc.addDescription("persontrip.taxi.waiting-time", "Routing", TL("Estimated time for taxi pickup"));
 
+    oc.doRegister("persontrip.ride-public-any", new Option_Bool(false));
+    oc.addDescription("persontrip.ride-public-any", "Routing", TL("Permit entering any public transport vehicle that stops at the destination"));
+
     oc.doRegister("railway.max-train-length", new Option_Float(1000.0));
     oc.addDescription("railway.max-train-length", "Routing", TL("Use FLOAT as a maximum train length when initializing the railway router"));
 

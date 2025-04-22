@@ -79,7 +79,7 @@ MSInternalJunction::postloadInit() {
                     // initializing myLinkFoeInternalLanes in MSRightOfWayJunction
                     // Indirect left turns for bicycles are a special case
                     // because they both intersect on their second part with the first part of the other one
-                    // and only one of the has priority
+                    // and only one of them has priority
                     myInternalLaneFoes.push_back(lane);
                 }
                 if (std::find(myInternalLaneFoes.begin(), myInternalLaneFoes.end(), link->getViaLane()) == myInternalLaneFoes.end()) {

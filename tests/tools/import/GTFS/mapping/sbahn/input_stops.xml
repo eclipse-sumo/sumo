@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="27429866" name="Priesterweg" lane="29327005#1_0" startPos="0.00" endPos="135.11" friendlyPos="true" lines="S25 S26"/>
+    <busStop id="34663472" name="Priesterweg" lane="718121903_0" startPos="0.00" endPos="165.77" friendlyPos="true" lines="S2"/>
+    <busStop id="34663477" name="Priesterweg" lane="718121904_0" startPos="0.00" endPos="162.42" friendlyPos="true" lines="S25 S26"/>
+    <busStop id="34663482" name="Priesterweg" lane="368769080_0" startPos="0.00" endPos="133.61" friendlyPos="true" lines="S2"/>
+</additional>

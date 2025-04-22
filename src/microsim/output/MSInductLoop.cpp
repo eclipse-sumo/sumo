@@ -475,7 +475,7 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool includeEarly, bool leaveTi
     }
     for (const auto& i : myVehiclesOnDet) {
         if ((!lastInterval && (i.second >= t || leaveTime || forOccupancy))
-                || (lastInterval && i.second < t)) { // no need to check leave time, they are still on the detector
+                || (lastInterval && i.second < t && t - i.second < STEPS2TIME(DELTA_T))) { // no need to check leave time, they are still on the detector
             SUMOTrafficObject* const v = i.first;
             VehicleData d(*v, i.second, HAS_NOT_LEFT_DETECTOR, false);
             d.speedM = v->getSpeed();

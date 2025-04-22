@@ -1,0 +1,11 @@
+<configuration>
+    <net-file value="net2.net.xml"/>
+    <route-file value="out.rou.xml"/>
+    <vtype-output value="out.add.xml"/>
+    <vehicle-class value="passenger"/>
+    <allow-fringe value="True"/>
+    <remove-loops value="True"/>
+    <end value="20.0"/>
+    <duarouter-exit-times value="true"/>
+    <duarouter-route-length value="true"/>
+</configuration>

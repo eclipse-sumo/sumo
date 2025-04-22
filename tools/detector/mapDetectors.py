@@ -49,7 +49,7 @@ def get_options(args=None):
                            help="Read detector x-coordinate (lon) from the given column")
     optParser.add_argument("-y", "--latitude-column", default="lat", dest="lat",
                            help="Read detector y-coordinate (lat) from the given column")
-    optParser.add_argument("--max-radius", type=float, default="1000", dest="maxRadius",
+    optParser.add_argument("--max-radius", type=float, default="100", dest="maxRadius",
                            help="specify maximum distance error when mapping coordinates")
     optParser.add_argument("--vclass", default="passenger",
                            help="only consider edges that permit the given vClass")
@@ -57,8 +57,10 @@ def get_options(args=None):
                            type=optParser.file, help="Define the output file that generated detectors shall write to")
     optParser.add_argument("--interval", default=3600, type=optParser.time,
                            help="Define the aggregation interval of generated detectors")
-    optParser.add_argument("-v", "--verbose", action="store_true",
-                           default=False, help="tell me what you are doing")
+    optParser.add_argument("--write-params", action="store_true", dest="writeParams", default=False,
+                           help="Write additional columns as detector parameters")
+    optParser.add_argument("-v", "--verbose", action="store_true", default=False,
+                           help="tell me what you are doing")
     options = optParser.parse_args(args=args)
     if not options.netfile or not options.detfile or not options.outfile:
         optParser.print_help()
@@ -70,19 +72,26 @@ def get_options(args=None):
 def main():
     options = get_options()
     net = sumolib.net.readNet(options.netfile)
+    seenIDs = set()
     with sumolib.openz(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, root="additional", options=options)
         inputf = sumolib.openz(options.detfile)
         reader = csv.DictReader(inputf, delimiter=options.delimiter)
         checkedFields = False
+        extraCols = []
         for row in reader:
             if not checkedFields:
                 checkedFields = True
+                if options.writeParams:
+                    extraCols = list(reader.fieldnames)
                 for attr in ["id", "lon", "lat"]:
                     colName = getattr(options, attr)
                     if colName not in row:
                         sys.exit("Required column %s not found. Available columns are %s" % (
                                  colName, ",".join(row.keys())))
+                    elif extraCols:
+                        extraCols.remove(colName)
+
             detID = row[options.id]
             lon = float(row[options.lon])
             lat = float(row[options.lat])
@@ -102,8 +111,26 @@ def main():
             best = lanes[0][1]
             pos = min(best.getLength(),
                       sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint((x, y), best.getShape()))
-            outf.write('    <inductionLoop id="%s" lane="%s" pos="%.2f" file="%s" freq="%s"/>\n' % (
-                       detID, best.getID(), pos, options.detOut, options.interval))
+            commentStart, commentEnd = "", ""
+            if detID in seenIDs:
+                commentStart = "!--"
+                commentEnd = "--"
+            endTag = "/" + commentEnd
+            if extraCols:
+                endTag = ""
+            outf.write(' ' * 4 + '<%sinductionLoop id="%s" lane="%s" pos="%.2f" file="%s" freq="%s"%s>\n' % (
+                       commentStart,
+                       detID, best.getID(), pos, options.detOut,
+                       options.interval,
+                       endTag))
+            if extraCols:
+                for col in extraCols:
+                    outf.write(' ' * 8 + '<param key="%s" value="%s"/>\n' % (
+                        sumolib.xml.xmlescape(col),
+                        sumolib.xml.xmlescape(row[col])))
+                outf.write(' ' * 4 + '</inductionLoop%s>\n' % commentEnd)
+
+            seenIDs.add(detID)
 
         outf.write('</additional>\n')
         inputf.close()

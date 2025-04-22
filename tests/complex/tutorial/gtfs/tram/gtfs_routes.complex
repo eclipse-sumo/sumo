@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-22 08:55:37.373233 by gtfs2pt.py v1_17_0+0358-01bfcce5421
+<!-- generated on 2025-04-22 09:01:51.701799 by gtfs2pt.py v1_22_0+1618-e44b8c02817
 <configuration>
     <gtfs value="https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip"/>
     <date value="20160713"/>
@@ -25,11 +25,11 @@
         <stop busStop="257252.6" duration="10" until="60"/> <!-- Segewaldweg (Berlin) -->
         <stop busStop="257252.7" duration="10" until="120"/> <!-- Mayschweg (Berlin) -->
     </route>
-    <route id="257596" edges="107701626 110800148">
+    <route id="257596" edges="107701626 110800148 386219212 171419641">
         <stop busStop="257596.4" duration="10" until="0"/> <!-- Zur Nachtheide (Berlin) -->
         <stop busStop="257596.5" duration="10" until="60"/> <!-- Lienhardweg (Berlin) -->
         <stop busStop="257596.6" duration="10" until="120"/> <!-- Müggelbergallee (Berlin) -->
-        <stop busStop="257596.7" duration="10" until="180"/> <!-- Wendenschloß (Berlin) -->
+        <stop busStop="257252.0" duration="10" until="180"/> <!-- Wendenschloß (Berlin) -->
     </route>
     <route id="259570" edges="180390329#0 180390329#1 180390329#2 180390329#3 180390329#4 180390329#5 180390329#6 180390329#7 180390329#8 180390329#9 180390329#10 180390329#11 180390329#12 180390329#13 180390329#14 180390329#15 180390329#16 180390329#17 180390329#18 180390329#19 180390329#20 180390329#21 180390329#22 180390329#23 180390329#24 180390329#25 180390329#26 180390329#27 180390329#28 170799109#0 170799109#1 170799109#2 170799109#3 158537642#0 158537642#1 158537642#2 158537642#3 158537642#4 169008810#0 169008810#2 169008810#3 169008810#4 169008810#5 169008810#6 169008810#7 169008810#8 169008810#9 169008810#10 169008810#12 169008810#13 169008810#14 169008810#15 169008810#17 158512978#0 158512978#1">
         <stop busStop="259570.5" duration="10" until="0"/> <!-- Wassersportallee (Berlin) -->

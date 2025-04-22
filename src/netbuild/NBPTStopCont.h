@@ -74,6 +74,9 @@ public:
     /// @brief duplicate stops for superposed rail edges and return the number of generated stops
     int generateBidiStops(NBEdgeCont& cont);
 
+    /// @brief count number of stop-pairs for superposed rail-edges
+    int countBidiStops(NBEdgeCont& cont) const;
+
     void localizePTStops(NBEdgeCont& cont);
 
     void assignEdgeForFloatingStops(NBEdgeCont& cont, double maxRadius);

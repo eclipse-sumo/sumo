@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-11 11:40:35 by Eclipse SUMO sumo Version v1_22_0+1430-d07913e668f
+<!-- generated on 2025-04-16 22:56:03 by Eclipse SUMO sumo Version v1_22_0+1555-5374c615e56
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -265,6 +265,7 @@
             <xsd:element name="persontrip.transfer.walk-taxi" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.default.group" type="strOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.taxi.waiting-time" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.ride-public-any" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.max-train-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="replay-rerouting" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.probability" type="floatOptionType" minOccurs="0"/>

@@ -62,8 +62,8 @@ def main():
                 lastTime[obj.id] = time
 
     removeAtTime = defaultdict(list)  # time -> objects to remove
-    for oID, t in lastTime.items():
-        removeAtTime[t + deltaT].append(oID)
+    for oID, rt in lastTime.items():
+        removeAtTime[rt + deltaT].append(oID)
 
     end = max(max(lastTime.values()), traci.simulation.getEndTime())
     created = set()

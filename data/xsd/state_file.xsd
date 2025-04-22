@@ -113,10 +113,13 @@
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
         <xsd:attribute name="departPosLat" type="departPosLatType"/>
         <xsd:attribute name="arrivalPosLat" type="arrivalPosLatType"/>
-        <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
+        <xsd:attribute name="arrival" type="timeType"/>
         <xsd:attribute name="routeLength" type="nonNegativeFloatType"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="insertionChecks" type="xsd:string"/>
+        <xsd:attribute name="parkingBadges" type="xsd:string"/>
         <xsd:attribute name="pos" type="xsd:string"/>
         <xsd:attribute name="posLat" type="floatType"/>
         <xsd:attribute name="speed" type="xsd:string"/>

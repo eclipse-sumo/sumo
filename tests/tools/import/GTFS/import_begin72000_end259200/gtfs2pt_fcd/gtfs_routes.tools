@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-17 10:02:13.320964 by gtfs2pt.py v1_17_0+0321-17b203b
+<!-- generated on 2025-04-16 14:33:49.905574 by gtfs2pt.py v1_22_0+1542-cb6fbc43d72
 <configuration>
     <gtfs value="gtfs.zip"/>
     <date value="20201111"/>
     <modes value="bus"/>
     <vtype-output value="vehtypes.xml"/>
-    <begin value="72000"/>
-    <end value="259200"/>
+    <begin value="72000.0"/>
+    <end value="259200.0"/>
     <network value="net.net.xml"/>
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="132244371" edges="27220201#0 61312640#0 27220216 319583927#0 29087077#0 25730280#0 25730280#3 25730282 315422094 315422095#0 315422095#1 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0">
+    <route id="132244371" edges="27220201#0 61312640#0 27220216 319583927#0 29087077#0 25730280#0 25730280#3 25730282 315422094 315422095#0 315422095#1 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 32055586#0 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0">
         <stop busStop="132244371.0" duration="10" until="0"/> <!-- Braunschweig Rathaus -->
         <stop busStop="132244371.1" duration="10" until="120"/> <!-- Braunschweig Schloss -->
         <stop busStop="132244371.2" duration="10" until="240"/> <!-- Braunschweig John-F.-Kennedy-Platz -->
@@ -59,10 +59,10 @@
     </route>
     <route id="132194506" edges="32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2">
         <stop busStop="132194506.0" duration="10" until="0"/> <!-- Braunschweig John-F.-Kennedy-Platz -->
-        <stop busStop="132244371.3" duration="10" until="60"/> <!-- Braunschweig Friedrich-Wilhelm-Platz -->
+        <stop busStop="132194506.1" duration="10" until="60"/> <!-- Braunschweig Friedrich-Wilhelm-Platz -->
         <stop busStop="132189814.7" duration="10" until="180"/> <!-- Braunschweig Holzhof -->
     </route>
-    <route id="132183536" edges="316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 316682907 316682910#0 25076286#0 43328051#0">
+    <route id="132183536" edges="316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 43328051#0">
         <stop busStop="132183536.0" duration="10" until="0"/> <!-- Braunschweig Holzhof -->
         <stop busStop="132183536.1" duration="10" until="60"/> <!-- Braunschweig Am Wassertor -->
         <stop busStop="132183536.2" duration="10" until="180"/> <!-- Braunschweig John-F.-Kennedy-Platz -->

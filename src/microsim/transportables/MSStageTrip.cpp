@@ -281,7 +281,8 @@ MSStageTrip::reroute(const SUMOTime time, MSTransportableRouter& router, MSTrans
                     vehControl.addVehicle(minVehicle->getID(), minVehicle);
                     carUsed = true;
                 } else {
-                    previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, 0.0, std::vector<std::string>({ it->line }), myGroup, it->intended, TIME2STEPS(it->depart));
+                    const std::string line = OptionsCont::getOptions().getBool("persontrip.ride-public-any") ? "ANY" : it->line;
+                    previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, 0.0, std::vector<std::string>({ line }), myGroup, it->intended, TIME2STEPS(it->depart));
                     previous->setParameters(*this);
                     previous->setCosts(it->cost);
                     previous->setTrip(this);

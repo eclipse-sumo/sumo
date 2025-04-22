@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-14 14:39:00 by Eclipse SUMO sumo Version v1_22_0+1491-6ef8282ea1d
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0.0" depart="0.00" arrival="254.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
+    </vehicle>
+
+    <vehicle id="0.1" depart="10.00" arrival="260.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
+    </vehicle>
+
+    <vehicle id="0.2" depart="20.00" arrival="262.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
+    </vehicle>
+
+    <vehicle id="0.3" depart="30.00" arrival="339.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
+    </vehicle>
+
+    <vehicle id="0.4" depart="40.00" arrival="343.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
+    </vehicle>
+
+    <vehicle id="0.5" depart="50.00" arrival="354.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        <stop edge="1/1to2/1" duration="10.00"/>
+    </vehicle>
+
+    <vehicle id="0.6" depart="60.00" arrival="426.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        <stop edge="1/1to2/1" duration="10.00"/>
+    </vehicle>
+
+    <vehicle id="0.7" depart="70.00" arrival="435.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        <stop edge="1/1to2/1" duration="10.00"/>
+    </vehicle>
+
+    <vehicle id="0.8" depart="80.00" arrival="437.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        <stop edge="1/1to2/1" duration="10.00"/>
+    </vehicle>
+
+    <vehicle id="0.9" depart="90.00" arrival="520.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        <stop edge="1/1to2/1" duration="10.00"/>
+    </vehicle>
+
+</routes>

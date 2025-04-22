@@ -1,0 +1,10 @@
+--no-step-log -v --net-file=net.net.xml
+--route-files input_routes.rou.xml --end 400
+--collision.action warn
+--step-length 0.5
+--device.ssm.probability 1
+--device.ssm.file ssm.xml
+--device.ssm.measures TTC,DRAC,PET,PPET,MDRAC
+--device.driverstate.probability 1
+--device.driverstate.initialAwareness 0.2
+--max-depart-delay 5

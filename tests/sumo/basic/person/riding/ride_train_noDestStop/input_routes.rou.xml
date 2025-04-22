@@ -1,0 +1,10 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v1" depart="0" type="DEFAULT_RAILTYPE">
+        <route edges="E0 E1"/>
+        <stop trainStop="ts_0" triggered="true" parking="false"/>
+    </vehicle>
+    <person id="p1" depart="0">
+        <stop trainStop="ts_0" duration="0"/>
+        <ride to="E1" lines="v1"/>
+    </person>
+</routes>

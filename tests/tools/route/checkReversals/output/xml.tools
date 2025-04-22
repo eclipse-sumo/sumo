@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-17 10:15:33.925318 by checkReversals.py v1_22_0+1573-92ded5ce967
+<configuration>
+    <network value="net.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.xml"/>
+</configuration>
+-->
+
+<reversals>
+    <vehicle id="v_0" reversalEdges="E4 -E4"/>
+    <vehicle id="v_1" reversalEdges="E4 -E4"/>
+</reversals>

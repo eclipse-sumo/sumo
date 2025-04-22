@@ -1,0 +1,64 @@
+step 0.0
+subscribing to vehicle param 'simTime'
+subscribing to person param 'simTime'
+subscribing to edge param 'simTime'
+subscribing to lane param 'simTime'
+subscribing to vType param 'simTime'
+subscribing to route param 'simTime'
+subscribing to trafficlight param 'simTime'
+step 1.0
+vehicle result: {}
+person result: {}
+edge result: {}
+lane result: {}
+vType result: {}
+route result: {}
+trafficlight result: {}
+step 2.0
+vehicle result: {'veh0': {62: ('simTime', '2.0')}}
+person result: {'ped0': {62: ('simTime', '2.0')}}
+edge result: {'1o': {62: ('simTime', '2.0')}}
+lane result: {'1o_0': {62: ('simTime', '2.0')}}
+vType result: {'pType': {62: ('simTime', '2.0')}}
+route result: {'horizontal': {62: ('simTime', '2.0')}}
+trafficlight result: {'0': {62: ('simTime', '2.0')}}
+step 3.0
+vehicle result: {'veh0': {62: ('simTime', '3.0')}}
+person result: {'ped0': {62: ('simTime', '3.0')}}
+edge result: {'1o': {62: ('simTime', '3.0')}}
+lane result: {'1o_0': {62: ('simTime', '3.0')}}
+vType result: {'pType': {62: ('simTime', '3.0')}}
+route result: {'horizontal': {62: ('simTime', '3.0')}}
+trafficlight result: {'0': {62: ('simTime', '3.0')}}
+step 4.0
+vehicle result: {'veh0': {62: ('simTime', '4.0')}}
+person result: {'ped0': {62: ('simTime', '4.0')}}
+edge result: {'1o': {62: ('simTime', '4.0')}}
+lane result: {'1o_0': {62: ('simTime', '4.0')}}
+vType result: {'pType': {62: ('simTime', '4.0')}}
+route result: {'horizontal': {62: ('simTime', '4.0')}}
+trafficlight result: {'0': {62: ('simTime', '4.0')}}
+step 5.0
+vehicle result: {}
+person result: {}
+edge result: {}
+lane result: {}
+vType result: {}
+route result: {}
+trafficlight result: {}
+step 6.0
+vehicle result: {}
+person result: {}
+edge result: {}
+lane result: {}
+vType result: {}
+route result: {}
+trafficlight result: {}
+step 7.0
+vehicle result: {}
+person result: {}
+edge result: {}
+lane result: {}
+vType result: {}
+route result: {}
+trafficlight result: {}

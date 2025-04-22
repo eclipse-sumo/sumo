@@ -1,3 +1,6 @@
+# test tool for checking rail routes
+checkReversals
+
 # test for scale up/down demand with given timeline info
 scaleTimeline
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-17 11:47:05.397013 by mapDetectors.py v1_22_0+1587-45eec3afdd1
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <detector-file value="data.txt"/>
+    <delimiter value=","/>
+    <output-file value="out.add.xml"/>
+    <id-column value="customID"/>
+    <max-radius value="1000.0"/>
+    <write-params value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <inductionLoop id="8032" lane="323916051#2_0" pos="44.24" file="detector.out.xml" freq="3600">
+        <param key="direction" value="N"/>
+        <param key="comment" value="example"/>
+    </inductionLoop>
+    <inductionLoop id="8026" lane="323916051#2_0" pos="12.21" file="detector.out.xml" freq="3600">
+        <param key="direction" value="S"/>
+        <param key="comment" value="example2"/>
+    </inductionLoop>
+</additional>

@@ -106,7 +106,6 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myInvalidJamThreshold(invalidJamThreshold),
     myAmLocal(local),
     myHaveInvalidJam(false) {
-    myInstances[id] = this;
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
         writeXMLDetectorProlog(*myOutput);
@@ -117,6 +116,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
             init();
         }
     }
+    myInstances[id] = this;
     if (addLaneMeanData && myEdge != nullptr) {
         // disabled for METriggeredCalibrator
         for (MSLane* const eLane : myEdge->getLanes()) {

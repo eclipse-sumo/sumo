@@ -52,6 +52,9 @@ unusable_bus
 # public transport via bustops
 busstop
 
+# public transport via bustops
+busstop_any
+
 # public transport via bustops, person arrives very early
 busstop_early
 
