@@ -6120,14 +6120,16 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         case DemandEditMode::DEMAND_PERSON: {
             // filter additionals (except stoppingPlaces and TAZs)
             myViewObjectsSelector.filterAdditionals(false, false);
-            // special case if we're creating person over walk routes
-            if (myViewParent->getPersonFrame()->getPlanSelector()->getCurrentPlanTagProperties()->planRoute()) {
-                myViewObjectsSelector.filterDemandElements(false);
-            } else {
-                myViewObjectsSelector.filterDemandElements(true);
+            if (myViewParent->getPersonFrame()->getPlanSelector()->getCurrentPlanTagProperties()) {
+                // special case if we're creating person over walk routes
+                if (myViewParent->getPersonFrame()->getPlanSelector()->getCurrentPlanTagProperties()->planRoute()) {
+                    myViewObjectsSelector.filterDemandElements(false);
+                } else {
+                    myViewObjectsSelector.filterDemandElements(true);
+                }
+                // Handle click
+                myViewParent->getPersonFrame()->addPerson(myViewObjectsSelector);
             }
-            // Handle click
-            myViewParent->getPersonFrame()->addPerson(myViewObjectsSelector);
             // process click
             processClick(eventData);
             break;
@@ -6135,14 +6137,16 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         case DemandEditMode::DEMAND_PERSONPLAN: {
             // filter additionals (except stoppingPlaces and TAZs)
             myViewObjectsSelector.filterAdditionals(false, false);
-            // special case if we're creating person over walk routes
-            if (myViewParent->getPersonPlanFrame()->getPlanSelector()->getCurrentPlanTagProperties()->planRoute()) {
-                myViewObjectsSelector.filterDemandElements(false);
-            } else {
-                myViewObjectsSelector.filterDemandElements(true);
+            if (myViewParent->getPersonPlanFrame()->getPlanSelector()->getCurrentPlanTagProperties()) {
+                // special case if we're creating person over walk routes
+                if (myViewParent->getPersonPlanFrame()->getPlanSelector()->getCurrentPlanTagProperties()->planRoute()) {
+                    myViewObjectsSelector.filterDemandElements(false);
+                } else {
+                    myViewObjectsSelector.filterDemandElements(true);
+                }
+                // Handle person plan click
+                myViewParent->getPersonPlanFrame()->addPersonPlanElement(myViewObjectsSelector);
             }
-            // Handle person plan click
-            myViewParent->getPersonPlanFrame()->addPersonPlanElement(myViewObjectsSelector);
             // process click
             processClick(eventData);
             break;
