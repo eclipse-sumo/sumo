@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-16 12:43+0000\n"
+"PO-Revision-Date: 2025-04-22 14:28+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2437,7 +2438,7 @@ msgstr "factor de velocidad"
 
 #: src/guisim/GUIVehicle.cpp:253
 msgid "startupDelay [s]"
-msgstr ""
+msgstr "retraso en el arranque [s]"
 
 #: src/guisim/GUIVehicle.cpp:255
 msgid "action step length [s]"
@@ -3137,12 +3138,14 @@ msgstr "Elementos meanData"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid "Allow undoing element loading"
-msgstr ""
+msgstr "Permitir deshacer la carga de elementos"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid ""
 "Allow to undo loading of elements (Slow if a lot of elements are loaded)"
 msgstr ""
+"Permitir deshacer la carga de elementos (puede ser lenta si son muchos "
+"elementos)"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:314
 msgid "Close the network."
@@ -3291,7 +3294,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "Save JuPedSim Elements as..."
-msgstr ""
+msgstr "Guardar elementos JuPedSim como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "Save JuPedSim elements in a separated file."
@@ -3781,7 +3784,7 @@ msgstr "Mostrar la ventana del historial de deshacer/rehacer."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1293
 msgid "Allow undo-redo"
-msgstr ""
+msgstr "Permitir deshacer/rehacer"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1315
 msgid "Clear front element"
@@ -6182,7 +6185,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2601
 msgid "Deterministic distribution"
-msgstr ""
+msgstr "Distribución determinista"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2615
 msgid "VehicleType"
@@ -8475,7 +8478,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8255
 #, c-format
 msgid "speed of the person for this % in m/s (not together with duration)"
-msgstr ""
+msgstr "velocidad de la persona para este % en m/s (no junto con la duración)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8261
 #: src/netedit/GNETagPropertiesDatabase.cpp:8307
@@ -8733,7 +8736,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8729
 #, c-format
 msgid "The RGBA color with which the % shall be displayed"
-msgstr ""
+msgstr "El color RGBA con el que se mostrará el %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8739
 #, c-format
@@ -8782,7 +8785,7 @@ msgstr ""
 
 #: src/netedit/GNEUndoList.cpp:469
 msgid "Disabled undo"
-msgstr ""
+msgstr "Deshacer desactivado"
 
 #: src/netedit/GNEUndoList.cpp:471 src/netedit/GNEUndoList.cpp:473
 msgid "Cannot Undo in the middle of "
@@ -8790,7 +8793,7 @@ msgstr "No se puede deshacer en medio de "
 
 #: src/netedit/GNEUndoList.cpp:520
 msgid "Disabled redo"
-msgstr ""
+msgstr "Rehacer desactivado"
 
 #: src/netedit/GNEUndoList.cpp:522 src/netedit/GNEUndoList.cpp:524
 msgid "Cannot Redo in the middle of "
@@ -11633,6 +11636,8 @@ msgstr "eliminar % '%'"
 msgid ""
 "VType '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
+"No se puede hacer referencia al vType '%' con probabilidad % con la "
+"distribución '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:127
 #: src/netedit/elements/demand/GNERouteHandler.cpp:160
@@ -11654,7 +11659,7 @@ msgstr ""
 #: src/netedit/elements/demand/GNERouteHandler.cpp:981
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1015
 msgid "add % '%'"
-msgstr ""
+msgstr "añadir % '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:229
 msgid ""
@@ -11786,7 +11791,7 @@ msgstr ""
 #: src/netedit/elements/demand/GNERouteRef.cpp:266
 #: src/netedit/elements/demand/GNEVTypeRef.cpp:266
 msgid "%: % -> %"
-msgstr ""
+msgstr "%: % -> %"
 
 #: src/netedit/elements/demand/GNEStop.cpp:333
 msgid "Invalid Stop parent"
@@ -12363,11 +12368,11 @@ msgstr "Abrir ventana para editar color"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:730
 msgid "Open dialog for select an existent file"
-msgstr ""
+msgstr "Abrir el cuadro de diálogo para seleccionar un archivo existente"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:732
 msgid "Open dialog for select or create an existent file"
-msgstr ""
+msgstr "Abrir el cuadro de diálogo para seleccionar o crear archivo"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:78
 msgid "Front element"
@@ -12379,7 +12384,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:84
 msgid "Open help attributes dialog"
-msgstr ""
+msgstr "Abrir el cuadro de diálogo de ayuda de atributos"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:86
 msgid "Reset attributes"
@@ -12757,7 +12762,7 @@ msgstr "<todo>"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:495
 msgid "No common attributes defined"
-msgstr ""
+msgstr "No hay atributos comunes definidos"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:52
 msgid "Overlapped junctions"
@@ -13165,7 +13170,7 @@ msgstr "-ESC para despejar selección"
 #: src/netedit/frames/GNEViewObjectSelector.cpp:88
 #, c-format
 msgid "Use selected %s"
-msgstr ""
+msgstr "Usar % seleccionados"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:90
 #, c-format
