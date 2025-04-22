@@ -1177,3 +1177,4 @@ The attributes are described in the following.
 | **node**       | id (string)                                                       | The name of the node at which this walking area is located      |
 | **edges**      | ids (list of strings)                                                                                               | The (road) edges which uniquely define the walking area. Usually a single edge with a side walk that connects to the walking area is sufficient. In case the walking area does not connect to any side walks but rather connects two pedestrian crossings, the edges that are being crossed by both crossings must be used. |
 | **shape**      | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!). | specifies a custom shape for this walking area.
+| width          | double | custom width for waiting/walking on this walking area |
