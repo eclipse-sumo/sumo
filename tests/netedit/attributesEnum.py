@@ -335,15 +335,15 @@ class edge:
 
 class lane:
     class create:
-        add = 26
-        remove = 27
-        speed = 28
-        allowButton = 29
-        allow = 30
-        disallow = 31
-        width = 32
-        parameters = 33
-        parametersButton = 34
+        add = 23
+        remove = 24
+        speed = 25
+        allowButton = 26
+        allow = 27
+        disallow = 28
+        width = 29
+        parameters = 31
+        parametersButton = 32
 
     class inspect:
         speed = 1
