@@ -115,21 +115,6 @@ pipeline {
                         """
                     }
 
-                    // Sign individual files in share/sumo/tools
-                    def additionalFiles = [
-                        "framework/EclipseSUMO.framework/EclipseSUMO/share/sumo/tools/libsumo/_libsumo.so",
-                        "framework/EclipseSUMO.framework/EclipseSUMO/share/sumo/tools/libtraci/_libtraci.so",
-                    ]
-                    additionalFiles.each { file ->
-                        sh """
-                            signed_file="${file}-signed"
-                            curl -s -o "\${signed_file}" -F "file=@${file}" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
-                            # keep the original permissions
-                            chmod --reference="${file}" "\${signed_file}"
-                            mv -v "\${signed_file}" "${file}"
-                        """
-                    }
-
                     sh """
                         zip -q -r --symlinks "framework-signed.zip" framework
                         zip -q -r --symlinks "apps-signed.zip"      apps
