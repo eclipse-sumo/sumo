@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-22 16:33:41.110680 by ptlines2flows.py v1_22_0+1632-ead47d2726a
+<configuration>
+    <net-file value="net.net.xml.gz"/>
+    <ptlines-file value="ptlines.xml"/>
+    <ptstops-file value="input_additional.add.xml"/>
+    <output-file value="out.flows.xml"/>
+    <min-stops value="0"/>
+    <extend-to-fringe value="True"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <vType id="tram" vClass="tram"/>
+    <vType id="train" vClass="rail"/>
+    <vType id="subway" vClass="subway"/>
+    <vType id="light_rail" vClass="rail_urban"/>
+    <vType id="monorail" vClass="rail_urban"/>
+    <vType id="trolleybus" vClass="bus"/>
+    <vType id="minibus" vClass="bus"/>
+    <vType id="share_taxi" vClass="taxi"/>
+    <vType id="aerialway" vClass="cable_car" length="2.5" width="2" personCapacity="4"/>
+    <vType id="ferry" vClass="ship"/>
+    <route id="tram_61:0" color="102,153,51" edges="1309359433 1149198443#0 1149198443#1 1378993687#0 1378993687#1 466720637 1030416096#0" >
+        <stop busStop="12120515970" duration="20" until="45.0"/> <!-- S Schöneweide/Sterndamm -->
+        <stop busStop="9214990855" duration="20" until="148.0"/> <!-- Nieberstraße -->
+        <stop busStop="9214990840" duration="20" until="213.0"/> <!-- Landfliegerstraße -->
+    </route>
+    <route id="tram_61:1" color="102,153,51" edges="229589519#0 229589519#1 115663980 288073839 175769905#0 175769905#2" >
+        <stop busStop="3264968574" duration="20" until="61.0"/> <!-- Bahnhofstraße/Seelenbinderstraße -->
+        <stop busStop="1861845636@2077982" duration="20" until="137.0"/> <!-- Bahnhofstraße/Lindenstraße -->
+    </route>
+    <flow id="tram_61:0" type="tram" route="tram_61:0" begin="0.0" end="3600.0" period="1200" line="61:0" >
+        <param key="name" value="Tram 61: S-Schöneweide/Sterndamm =&gt; Rahnsdorf/Waldschänke"/>
+        <param key="completeness" value="0.09"/>
+    </flow>
+    <flow id="tram_61:1" type="tram" route="tram_61:1" begin="0.0" end="3600.0" period="1200" line="61:1" >
+        <param key="name" value="Tram 61: Rahnsdorf/Waldschänke =&gt; S-Schöneweide/Sterndamm"/>
+        <param key="completeness" value="0.06"/>
+    </flow>
+</routes>

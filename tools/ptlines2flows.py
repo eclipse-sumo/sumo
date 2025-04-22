@@ -291,6 +291,21 @@ def createTrips(options):
                         if options.verbose:
                             print(("Cannot extend route after last stop for line '%s' " +
                                    "(stop edge %s not in route)") % (line.id, lastStop))
+                    else:
+                        # if route is split, the route is incomplete and we
+                        # should not extend beyond the split
+                        net = getNet(options)
+                        prev = None
+                        lastStopIndex = edges.index(lastStop)
+                        for e in edges[lastStopIndex:]:
+                            edge = net.getEdge(e)
+                            if prev is not None and not prev.getConnections(edge):
+                                toEdge = prev.getID()
+                                if options.verbose:
+                                    print("Extending up to route split between %s and %s" % (
+                                        prev.getID(), edge.getID()))
+                                break
+                            prev = edge
             else:
                 if options.extendFringe and options.verbose:
                     print("Cannot extend route to fringe for line '%s' (not enough edges given)" % line.id)

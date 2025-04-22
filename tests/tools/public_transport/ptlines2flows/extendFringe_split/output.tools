@@ -1,0 +1,10 @@
+generating trips...
+Extending up to route split between 1030416096#0 and 175925600#0
+Extending up to route split between 175769905#2 and 466720638#0
+Imported 2 lines with 5 stops and skipped 0 lines
+   tram: 2
+done.
+running SUMO to determine actual departure times...
+done.
+creating routes...
+done.
