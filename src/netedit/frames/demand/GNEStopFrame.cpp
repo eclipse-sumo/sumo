@@ -253,6 +253,15 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
             if ((stopTag == GNE_TAG_WAYPOINT_LANE) && (stop.speed == 0)) {
                 stop.speed = lane->getSpeed();
             }
+            const Position viewPosSnapped = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation());
+            const double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(viewPosSnapped) / lane->getLengthGeometryFactor();
+            stop.startPos = mousePositionOverLane - 10;
+            if (stop.startPos < 0) {
+                stop.startPos = 0;
+            }
+            stop.parametersSet |= STOP_START_SET;
+            stop.endPos = mousePositionOverLane;
+            stop.parametersSet |= STOP_END_SET;
         } else {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_LANE) + " to create a stop placed in a " + toString(SUMO_TAG_LANE));
             return false;
@@ -399,23 +408,6 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     CommonXMLStructure::SumoBaseObject* stopBaseObject = new CommonXMLStructure::SumoBaseObject(myStopParentBaseObject);
     // get stop attributes
     myAttributesEditor->fillSumoBaseObject(stopBaseObject);
-    // add netedit values
-    if (!stop.edge.empty() || !stop.lane.empty()) {
-        // check if start position can be parsed
-        if (stopBaseObject->hasDoubleAttribute(SUMO_ATTR_STARTPOS)) {
-            stop.startPos = stopBaseObject->getDoubleAttribute(SUMO_ATTR_STARTPOS);
-            stop.parametersSet |= STOP_START_SET;
-        } else {
-            stop.startPos = INVALID_DOUBLE;
-        }
-        // check if end position can be parsed
-        if (stopBaseObject->hasDoubleAttribute(SUMO_ATTR_ENDPOS)) {
-            stop.endPos = stopBaseObject->getDoubleAttribute(SUMO_ATTR_ENDPOS);
-            stop.parametersSet |= STOP_END_SET;
-        } else {
-            stop.endPos = INVALID_DOUBLE;
-        }
-    }
     // obtain friendly position
     if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS)) {
         stop.friendlyPos = stopBaseObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS);
