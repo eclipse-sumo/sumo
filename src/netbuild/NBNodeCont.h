@@ -395,7 +395,7 @@ private:
     void generateNodeClusters(double maxDist, NodeClusters& into) const;
 
     /// @brief remove geometry-like fringe nodes from cluster
-    void pruneClusterFringe(NodeSet& cluster, double maxDist) const;
+    void pruneClusterFringe(NodeSet& cluster, double maxDist, bool remove2TLS = false) const;
 
     /// @brief avoid removal of long edges when joining junction clusters
     static int pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun = false);

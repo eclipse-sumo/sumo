@@ -966,13 +966,14 @@ NBNodeCont::joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLight
 }
 
 void
-NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist) const {
+NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist, bool remove2TLS) const {
 #ifdef DEBUG_JOINJUNCTIONS
     if (gDebugFlag1) {
         std::cout << "pruning cluster=" << joinNamedToString(cluster, ' ') << "\n";
     }
 #endif
     // iteratively remove the fringe
+    NodeSet geometryLikeTLS;
     bool pruneFringe = true;
     bool pruneNoisyFringe = false;
     // collect nodes that shall be joined due to distance but are not connected
@@ -1045,6 +1046,8 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist) const {
                     std::cout << "  pruned n=" << n->getID() << "\n";
                 }
 #endif
+            } else if (outsideNeighbors.size() <= 1 && clusterNeighbors.size() == 1) {
+                geometryLikeTLS.insert(n);
             }
         }
         if (!pruneFringe && !pruneNoisyFringe) {
@@ -1053,6 +1056,9 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist) const {
             pruneNoisyFringe = true;
 
         }
+    }
+    if (remove2TLS && geometryLikeTLS.size() == cluster.size()) {
+        cluster.clear();
     }
 }
 
@@ -1693,8 +1699,8 @@ NBNodeCont::reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes,
             // cluster found
             NodeSet candCluster;
             candCluster.insert(cands.begin(), cands.end());
-            pruneClusterFringe(candCluster, maxDist);
-            const bool feasible = (int)candCluster.size() == circleSize;
+            pruneClusterFringe(candCluster, maxDist, true);
+            bool feasible = (int)candCluster.size() == circleSize;
             if (feasible) {
                 cluster.clear();
                 cluster.insert(cands.begin(), cands.end());
