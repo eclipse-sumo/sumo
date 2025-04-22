@@ -77,16 +77,17 @@ def getFlows(options):
     maxDepart = 0
     begin = 0
     interval = options.interval if options.interval is not None else 1e20
-    # intervalBegin -> edge -> followerEdge -> count
-    intervalEdgePairFlowsMap = defaultdict(dict)
+    # intervalBegin -> edge -> followerEdge -> veh_type -> count
+    intervalEdgePairFlowsMap = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(int))))
     for file in options.routefiles:
         if options.verbose:
             print("route file:%s" % file)
-        for veh in sumolib.output.parse(file, 'vehicle'):
+        for veh,route in sumolib.output.parse_fast_nested(file, 'vehicle',['type','depart'],'route',['edges']):
             depart = parseTime(veh.depart)
             if depart < options.begin or depart > options.end:
                 continue
-            edgesList = veh.route[0].edges.split()
+            veh_type = veh.type if hasattr(veh, 'type') else 'default'
+            edgesList = route.edges.split()
             minDepart = min(minDepart, depart)
             maxDepart = max(maxDepart, depart)
             edgePairFlowsMap = intervalEdgePairFlowsMap[depart - depart % interval]
@@ -96,9 +97,11 @@ def getFlows(options):
                     if e not in edgePairFlowsMap:
                         edgePairFlowsMap[e] = {}
                     if next not in edgePairFlowsMap[e]:
-                        edgePairFlowsMap[e][next] = 0
+                        edgePairFlowsMap[e][next] = {}
+                    if veh_type not in edgePairFlowsMap[e][next]:
+                        edgePairFlowsMap[e][next][veh_type] = 0
 
-                    edgePairFlowsMap[e][next] += 1
+                    edgePairFlowsMap[e][next][veh_type] += 1
 
     if options.interval is None:
         yield intervalEdgePairFlowsMap[0], minDepart, maxDepart
@@ -116,14 +119,16 @@ def main(options):
             outf.write('    <interval id="%s" begin="%s" end="%s">\n' % (options.id, minDepart, maxDepart))
             for from_edge in sorted(edgePairFlowsMap.keys()):
                 if options.prob:
-                    s = sum(edgePairFlowsMap[from_edge].values())
-                    for to_edge, count in sorted(edgePairFlowsMap[from_edge].items()):
-                        outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" probability="%.2f"/>\n' %
-                                   (from_edge, to_edge, count / s))
+                    for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
+                        s = sum(type_counts.values())
+                        for veh_type, count in sorted(type_counts.items()):
+                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" vType="%s" probability="%.2f"/>\n' %
+                                       (from_edge, to_edge, veh_type, count / s))
                 else:
-                    for to_edge, count in sorted(edgePairFlowsMap[from_edge].items()):
-                        outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" count="%s"/>\n' %
-                                   (from_edge, to_edge, count))
+                    for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
+                        for veh_type, count in sorted(type_counts.items()):
+                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" vType="%s" count="%s"/>\n' %
+                                       (from_edge, to_edge, veh_type, count))
             outf.write('    </interval>\n')
         outf.write('</data>\n')
     outf.close()
