@@ -1289,9 +1289,9 @@ GNEApplicationWindowHelper::EditMenuCommands::buildUndoRedoMenuCommands(FXMenuPa
                          TL("Show undo/redo history"), "", TL("Open undo/redo history dialog."),
                          GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), myGNEApp, MID_GNE_UNDOLISTDIALOG);
     // add checkBox for recomputing in data mode
-    menuCheckAllowUndoRedo = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                             TL("Allow undo-redo"), "", "",
-                             GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), myGNEApp, MID_GNE_TOGGLE_UNDOREDO);
+    menuCheckAllowUndoRedo = GUIDesigns::buildFXMenuCheckbox(editMenu,
+                             TL("Allow undo-redo"), "",
+                             myGNEApp, MID_GNE_TOGGLE_UNDOREDO);
     menuCheckAllowUndoRedo->setCheck(myGNEApp->getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedo", true));
 }
 
