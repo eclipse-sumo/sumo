@@ -1,0 +1,16 @@
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '204977490').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurrence for edge '805982873').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '1118063532').
+Warning: Removing pt stop '1106283819' on non existing edge '805982873'.
+Warning: Removing pt stop '1716251972' on non existing edge '86614777#0'.
+Warning: Removing pt stop '247362578' on non existing edge '10699887#6'.
+Warning: Removing pt stop '247362579' on non existing edge '86614777#0'.
+Warning: Removing pt stop '94963733' on non existing edge '10699887#6'.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '247362578' (Ottomar-Geschke-Straße). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '247362579' (Ottomar-Geschke-Straße). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1106283819' (Spindlersfeld). Thus, it will be removed!
+Warning: Converting invalid rail_crossing to priority junction '2172111685'.
+Warning: Converting invalid rail_crossing to priority junction '2172111691'.
+Warning: Converting invalid rail_crossing to priority junction '3287250461'.
+Warning: Converting invalid rail_crossing to priority junction '3287250462'.
+Warning: Reducing junction cluster 11296015991,2267191684,257742677,2855739088,297091393,297091812,8917696753 (parallel incoming -65538633#0,1118064016#2).
