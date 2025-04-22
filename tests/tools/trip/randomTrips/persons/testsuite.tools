@@ -32,6 +32,9 @@ persontrips_junctionTaz_flow
 
 # generate random taxi rides
 taxirides
+
+# generate random taxi trips
+taxitrips
 fringeFactor
 pedestrians_random-departpos_arrivalpos
 

@@ -36,7 +36,7 @@
     <allow-fringe value="False" type="bool" help="Allow departing on edges that leave the network and arriving on edges that enter the network (via turnarounds or as 1-edge trips" category="weights"/>
     <allow-fringe.min-length value="None" type="float" help="Allow departing on edges that leave the network and arriving on edges that enter the network, if they have at least the given length" category="weights"/>
     <fringe-junctions value="False" type="bool" help="Determine fringe edges based on junction attribute 'fringe'" category="weights"/>
-    <vclass value="passenger" type="string" help="only from and to edges which permit the given vehicle class" category="weights"/>
+    <edge-permission value="None" type="string" help="only from and to edges which permit the given vehicle class" category="weights"/>
     <via-edge-types value="None" type="string" help="Set list of edge types that cannot be used for departure or arrival (unless being on the fringe)" category="weights"/>
     <allow-roundabouts value="False" type="bool" help="Permit trips that start or end inside a roundabout" category="weights"/>
     <seed value="42" type="int" help="random seed" category="processing"/>

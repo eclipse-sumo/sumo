@@ -312,7 +312,7 @@ void
 ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride) {
     if (myUsingETimeLine) {
         double value = myLength / mySpeed;
-        const SUMOEmissionClass c = PollutantsInterface::getClassByName("unknown");
+        const SUMOEmissionClass c = PollutantsInterface::getClassByName("HBEFA4/default");
         if (measure == "CO") {
             value = PollutantsInterface::compute(c, PollutantsInterface::CO, mySpeed, 0, 0, nullptr) * value; // @todo: give correct slope
         }

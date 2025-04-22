@@ -17,7 +17,7 @@ actionStepLength 1.0
 imperfection 0.5
 tau 1.0
 vClass passenger
-emissionclass HBEFA3/PC_G_EU4
+emissionclass HBEFA4/PC_petrol_Euro-4
 shape passenger
 MinGap 2.5
 width 1.8
