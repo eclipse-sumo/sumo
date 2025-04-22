@@ -481,21 +481,29 @@ void
 GNEAttributesEditorType::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
     const auto undoList = myFrameParent->getViewNet()->getUndoList();
     const auto tagProperty = myEditedACs.front()->getTagProperty();
-    // first check if we're editing a single attribute
-    if (myEditedACs.size() > 1) {
-        undoList->begin(tagProperty->getGUIIcon(), TLF("change multiple % attributes", tagProperty->getTagStr()));
-    }
-    // Set new value of attribute in all edited ACs
-    for (const auto& editedAC : myEditedACs) {
-        if (value) {
-            editedAC->enableAttribute(attr, undoList);
-        } else {
-            editedAC->disableAttribute(attr, undoList);
+        // continue depending if we're creating or inspecting
+    if (isEditorTypeCreator()) {
+        // Set new value of attribute in all edited ACs without undo-redo
+        for (const auto& editedAC : myEditedACs) {
+            editedAC->toggleAttribute(attr, value);
         }
-    }
-    // finish change multiple attributes or ID Attributes
-    if ((myEditedACs.size() > 1) || (attr == SUMO_ATTR_ID)) {
-        undoList->end();
+    } else if (isEditorTypeEditor()) {
+        // first check if we're editing a single attribute
+        if (myEditedACs.size() > 1) {
+            undoList->begin(tagProperty->getGUIIcon(), TLF("change multiple % attributes", tagProperty->getTagStr()));
+        }
+        // Set new value of attribute in all edited ACs
+        for (const auto& editedAC : myEditedACs) {
+            if (value) {
+                editedAC->enableAttribute(attr, undoList);
+            } else {
+                editedAC->disableAttribute(attr, undoList);
+            }
+        }
+        // finish change multiple attributes or ID Attributes
+        if ((myEditedACs.size() > 1) || (attr == SUMO_ATTR_ID)) {
+            undoList->end();
+        }
     }
     refreshAttributesEditor();
     // update frame parent (needed to update other attribute tables)
