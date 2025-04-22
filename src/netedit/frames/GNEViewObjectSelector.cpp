@@ -82,7 +82,7 @@ GNEViewObjectSelector::showNetworkElementsSelector(const SumoXMLTag tag, const S
     myTag = tag;
     myAttribute = attribute;
     // update info
-    myLabel->setText((TL("-This additional requiere to\n select at least\n one element") + std::string("\n") +
+    myLabel->setText((TL("-This additional requires to\n select at least\n one element") + std::string("\n") +
                       TLF("-Click over % to select", toString(tag)) + std::string("\n") +
                       TL("-ESC to clear elements")).c_str());
     myUseSelected->setText(TLF("Use selected %s", toString(tag)).c_str());
