@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-15 13:01:45 by Eclipse SUMO sumo Version v1_13_0+0844-22f88dc7bc3
+<!-- generated on 2025-04-22 10:44:43 by Eclipse SUMO sumo Version v1_22_0+1617-22b86256498
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -37,13 +37,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="15.00" id="dump_15">
-        <edge id="4/1to3/1" sampledSeconds="23.00" CO_abs="442.750000" CO2_abs="48581.111111" HC_abs="3.060278" PMx_abs="0.286861" NOx_abs="15.991389" fuel_abs="15495.611111" electricity_abs="0"
-            CO_normed="265.650000" CO2_normed="29148.666667" HC_normed="1.836167" PMx_normed="0.172117" NOx_normed="9.594833" fuel_normed="9297.366667" electricity_normed="0"
-            traveltime="40.00" CO_perVeh="770.000000" CO2_perVeh="84488.888889" HC_perVeh="5.322222" PMx_perVeh="0.498889" NOx_perVeh="27.811111" fuel_perVeh="26948.888889" electricity_perVeh="0"/>
+        <edge id="4/1to3/1" sampledSeconds="23.00" CO_abs="70.357000" CO2_abs="41326.400000" HC_abs="0.490360" PMx_abs="6.368562" NOx_abs="15.330650" fuel_abs="13397.730000" electricity_abs="0"
+            CO_normed="42.214200" CO2_normed="24795.840000" HC_normed="0.294216" PMx_normed="3.821137" NOx_normed="9.198390" fuel_normed="8038.638000" electricity_normed="0"
+            traveltime="40.00" CO_perVeh="122.360000" CO2_perVeh="71872.000000" HC_perVeh="0.852800" PMx_perVeh="11.075760" NOx_perVeh="26.662000" fuel_perVeh="23300.400000" electricity_perVeh="0"/>
     </interval>
 </meandata>
