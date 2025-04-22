@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-05 08:24:39.738345 by gtfs2pt.py v1_22_0+0645-2f787e04826
+<!-- generated on 2025-04-22 09:04:01.193952 by gtfs2pt.py v1_22_0+1618-e44b8c02817
 <configuration>
     <gtfs value="https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip"/>
     <date value="20160713"/>
@@ -13,124 +13,105 @@
     <busStop id="109241.1" lane="38417587#2_0" startPos="1574.46" endPos="1587.46" friendlyPos="true" name="Niederlehme, Wederdamm"/>
     <busStop id="109241.2" lane="-38417587#2_0" startPos="1253.86" endPos="1266.86" friendlyPos="true" name="Ziegenhals, Friedrich-Engels-Str."/>
     <busStop id="109241.3" lane="38417588_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Ziegenhals, Neubau"/>
-    <busStop id="109241.4" lane="-708450472#1_0" startPos="38.36" endPos="51.36" friendlyPos="true" name="Ziegenhals, Schulstr."/>
+    <busStop id="109241.4" lane="708450472#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Ziegenhals, Schulstr."/>
     <busStop id="109241.5" lane="-382263640#0_0" startPos="118.36" endPos="131.36" friendlyPos="true" name="Ziegenhals, Sporthaus"/>
     <busStop id="109241.6" lane="-206903446#15_0" startPos="37.68" endPos="50.68" friendlyPos="true" name="Ziegenhals, Schwarzer Weg"/>
     <busStop id="109241.7" lane="-206903446#7_0" startPos="149.72" endPos="162.72" friendlyPos="true" name="Ziegenhals, Erlenweg"/>
     <busStop id="109241.8" lane="-206903446#0_0" startPos="11.09" endPos="24.09" friendlyPos="true" name="Ziegenhals, Pappelweg"/>
     <busStop id="109241.9" lane="-35630851#3_0" startPos="100.12" endPos="113.12" friendlyPos="true" name="Wernsdorf, Waldeck"/>
     <busStop id="109242.6" lane="35630851#3_0" startPos="49.80" endPos="62.80" friendlyPos="true" name="Wernsdorf, Waldeck"/>
-    <busStop id="109242.7" lane="206903446#0_0" startPos="59.60" endPos="72.60" friendlyPos="true" name="Ziegenhals, Pappelweg"/>
     <busStop id="109242.8" lane="206903446#7_0" startPos="5.02" endPos="18.02" friendlyPos="true" name="Ziegenhals, Erlenweg"/>
     <busStop id="109242.9" lane="206903446#15_0" startPos="83.21" endPos="96.21" friendlyPos="true" name="Ziegenhals, Schwarzer Weg"/>
     <busStop id="109242.10" lane="382263640#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Ziegenhals, Sporthaus"/>
-    <busStop id="109242.11" lane="708450472#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Ziegenhals, Schulstr."/>
-    <busStop id="109242.12" lane="785847089#1_0" startPos="2.69" endPos="15.69" friendlyPos="true" name="Ziegenhals, Neubau"/>
     <busStop id="109242.13" lane="38417587#2_0" startPos="319.20" endPos="332.20" friendlyPos="true" name="Ziegenhals, Friedrich-Engels-Str."/>
-    <busStop id="109243.0" lane="-86499884#0_0" startPos="205.23" endPos="218.23" friendlyPos="true" name="Ziegenhals, Neubau"/>
     <busStop id="109244.0" lane="-112698780#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="S Zeuthen"/>
     <busStop id="109244.1" lane="797340923_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Zeuthen, Schillerstr."/>
     <busStop id="109244.2" lane="8068171#6_0" startPos="37.05" endPos="50.05" friendlyPos="true" name="Zeuthen, Heinrich-Heine-Str."/>
     <busStop id="109244.3" lane="-4045247#4_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Zeuthen, Havellandstr."/>
     <busStop id="109244.4" lane="4068154#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Eichwalde, Friedenstr."/>
     <busStop id="109244.5" lane="4068154#1_0" startPos="17.23" endPos="30.23" friendlyPos="true" name="Eichwalde, Tschaikowskistr."/>
-    <busStop id="109244.6" lane="4068154#19_0" startPos="10.03" endPos="23.03" friendlyPos="true" name="Eichwalde, Schmöckwitzer Str."/>
+    <busStop id="109244.6" lane="4935233#5_0" startPos="17.30" endPos="30.30" friendlyPos="true" name="Eichwalde, Schmöckwitzer Str."/>
     <busStop id="109244.7" lane="240539089#4_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Zum Seeblick (Berlin)"/>
-    <busStop id="109244.8" lane="4463781#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)"/>
+    <busStop id="109244.8" lane="-4463781#1_0" startPos="5.11" endPos="18.11" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)"/>
     <busStop id="109244.9" lane="4463796#1_0" startPos="374.05" endPos="387.05" friendlyPos="true" name="Wernsdorfer Str. (Berlin)"/>
     <busStop id="109244.10" lane="4463796#3_0" startPos="74.48" endPos="87.48" friendlyPos="true" name="Intercamping (Berlin)"/>
-    <busStop id="109244.11" lane="38416189#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Berlin, Schmöckwitzwerder"/>
+    <busStop id="109244.11" lane="-38416189#0_0" startPos="28.75" endPos="41.75" friendlyPos="true" name="Berlin, Schmöckwitzwerder"/>
     <busStop id="109244.13" lane="38415026#2_0" startPos="63.63" endPos="76.63" friendlyPos="true" name="Wernsdorf, Dorfaue"/>
     <busStop id="280370.10" lane="-38415026#2_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Wernsdorf, Dorfaue"/>
-    <busStop id="280370.12" lane="-38416189#0_0" startPos="28.75" endPos="41.75" friendlyPos="true" name="Berlin, Schmöckwitzwerder"/>
     <busStop id="280370.13" lane="-4463796#3_0" startPos="62.57" endPos="75.57" friendlyPos="true" name="Intercamping (Berlin)"/>
     <busStop id="280370.14" lane="-4463796#1_0" startPos="69.86" endPos="82.86" friendlyPos="true" name="Wernsdorfer Str. (Berlin)"/>
-    <busStop id="280370.15" lane="-4463781#1_0" startPos="5.11" endPos="18.11" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)"/>
-    <busStop id="280370.17" lane="-4068154#19_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Eichwalde, Schmöckwitzer Str."/>
+    <busStop id="280370.17" lane="-4935233#5_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Eichwalde, Schmöckwitzer Str."/>
     <busStop id="280370.18" lane="-4068154#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Eichwalde, Tschaikowskistr."/>
     <busStop id="280370.19" lane="-4068154#0_0" startPos="167.32" endPos="180.32" friendlyPos="true" name="Eichwalde, Friedenstr."/>
     <busStop id="280370.20" lane="4045247#4_0" startPos="14.48" endPos="27.48" friendlyPos="true" name="Zeuthen, Havellandstr."/>
-    <busStop id="280370.21" lane="-8068139#3_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Zeuthen, Maxim-Gorki-Str."/>
-    <busStop id="280370.22" lane="112698780#1_0" startPos="81.21" endPos="94.21" friendlyPos="true" name="S Zeuthen"/>
+    <busStop id="280370.21" lane="132063304#4_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Zeuthen, Maxim-Gorki-Str."/>
     <busStop id="281591.21" lane="-203010184#1_0" startPos="4.99" endPos="17.99" friendlyPos="true" name="Zeuthen, Seegarten"/>
     <busStop id="109251.3" lane="589705321_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Wildau, Blumenkorso"/>
     <busStop id="109251.4" lane="589705321_0" startPos="231.04" endPos="244.04" friendlyPos="true" name="Miersdorf, Hoherlehmer Str."/>
     <busStop id="109251.5" lane="589705321_0" startPos="702.88" endPos="715.88" friendlyPos="true" name="Miersdorf, Am Hochwald"/>
     <busStop id="109251.6" lane="-164719886_0" startPos="20.64" endPos="33.64" friendlyPos="true" name="Miersdorf, See"/>
-    <busStop id="109251.7" lane="-782714969#9_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Miersdorf, Wüstemarker Weg"/>
-    <busStop id="109251.8" lane="-782714969#3_0" startPos="85.46" endPos="98.46" friendlyPos="true" name="Schulzendorf (LDS), Bremer Str."/>
+    <busStop id="109251.7" lane="782714969#9_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Miersdorf, Wüstemarker Weg"/>
+    <busStop id="109251.8" lane="782714969#3_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Bremer Str."/>
     <busStop id="109251.9" lane="-107422474#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Münchener Str."/>
     <busStop id="109251.10" lane="-9326424#4_0" startPos="3.23" endPos="16.23" friendlyPos="true" name="Schulzendorf (LDS), Zum Mühlenschlag"/>
     <busStop id="109251.11" lane="-9326424#0_0" startPos="76.94" endPos="89.94" friendlyPos="true" name="Schulzendorf (LDS), Miersdorfer Str."/>
     <busStop id="109251.12" lane="-155037634#2_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Alt Schulzendorf"/>
-    <busStop id="109261.5" lane="155037634#2_0" startPos="20.28" endPos="33.28" friendlyPos="true" name="Schulzendorf (LDS), Alt Schulzendorf"/>
     <busStop id="109261.6" lane="9326424#0_0" startPos="64.70" endPos="77.70" friendlyPos="true" name="Schulzendorf (LDS), Miersdorfer Str."/>
     <busStop id="109261.7" lane="9326424#4_0" startPos="174.61" endPos="187.61" friendlyPos="true" name="Schulzendorf (LDS), Zum Mühlenschlag"/>
     <busStop id="109261.8" lane="107422474#1_0" startPos="129.87" endPos="142.87" friendlyPos="true" name="Schulzendorf (LDS), Münchener Str."/>
-    <busStop id="109261.9" lane="782714969#3_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Bremer Str."/>
-    <busStop id="109261.10" lane="782714969#9_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Miersdorf, Wüstemarker Weg"/>
     <busStop id="109261.11" lane="164719886_0" startPos="29.27" endPos="42.27" friendlyPos="true" name="Miersdorf, See"/>
     <busStop id="109261.12" lane="-589705321_0" startPos="227.35" endPos="240.35" friendlyPos="true" name="Miersdorf, Am Hochwald"/>
     <busStop id="109261.13" lane="-589705321_0" startPos="699.18" endPos="712.18" friendlyPos="true" name="Miersdorf, Hoherlehmer Str."/>
-    <busStop id="109261.14" lane="-589705321_0" startPos="943.23" endPos="956.23" friendlyPos="true" name="Wildau, Blumenkorso"/>
     <busStop id="281396.8" lane="-59226983#0_0" startPos="194.81" endPos="207.81" friendlyPos="true" name="Wildau, Westkorso"/>
     <busStop id="281396.9" lane="36852342#0_0" startPos="8.42" endPos="21.42" friendlyPos="true" name="Zeuthen, Fontaneallee"/>
     <busStop id="281396.10" lane="36852342#1_0" startPos="146.00" endPos="159.00" friendlyPos="true" name="Zeuthen, Seniorenstift"/>
-    <busStop id="109298.7" lane="-131942163#1_0" startPos="6.66" endPos="19.66" friendlyPos="true" name="Waltersdorf (bei Berlin), Weidenweg"/>
+    <busStop id="109298.7" lane="131942163#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Waltersdorf (bei Berlin), Weidenweg"/>
     <busStop id="109298.8" lane="-107370599#2_0" startPos="5.31" endPos="18.31" friendlyPos="true" name="Schulzendorf (LDS), Waldstr."/>
     <busStop id="109298.9" lane="-107370597#8_0" startPos="47.21" endPos="60.21" friendlyPos="true" name="Schulzendorf (LDS), Lindenstr."/>
     <busStop id="109298.10" lane="-107370597#4_0" startPos="125.01" endPos="138.01" friendlyPos="true" name="Schulzendorf (LDS), A.-Bebel-Str."/>
     <busStop id="109298.11" lane="4920440#1_0" startPos="6.54" endPos="19.54" friendlyPos="true" name="Schulzendorf (LDS), Puschkinstr."/>
     <busStop id="109298.12" lane="415907064#2_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), R.-Breitscheid-Str."/>
-    <busStop id="109298.13" lane="-782804639#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="S Eichwalde"/>
-    <busStop id="109298.14" lane="-415907064#2_0" startPos="12.31" endPos="25.31" friendlyPos="true" name="Schulzendorf (LDS), R.-Breitscheid-Str."/>
-    <busStop id="109298.15" lane="-4930561#2_0" startPos="77.54" endPos="90.54" friendlyPos="true" name="Schulzendorf (LDS), Dohlenstieg"/>
+    <busStop id="109298.13" lane="4935155#3_0" startPos="158.23" endPos="171.23" friendlyPos="true" name="S Eichwalde"/>
+    <busStop id="109298.15" lane="4930561#2_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Dohlenstieg"/>
     <busStop id="109298.16" lane="-783262512_0" startPos="55.38" endPos="68.38" friendlyPos="true" name="Schulzendorf (LDS), Flutgraben"/>
-    <busStop id="109298.17" lane="4920409#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Ortszentrum"/>
+    <busStop id="109298.17" lane="24278479#4_0" startPos="40.16" endPos="53.16" friendlyPos="true" name="Schulzendorf (LDS), Ortszentrum"/>
     <busStop id="109298.18" lane="-415907032#2_0" startPos="288.81" endPos="301.81" friendlyPos="true" name="Schulzendorf (LDS), Illgenstr."/>
     <busStop id="109298.19" lane="383158977_0" startPos="7.61" endPos="20.61" friendlyPos="true" name="Schulzendorf (LDS), Herweghstr."/>
     <busStop id="109298.20" lane="381307675#2_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Kita"/>
     <busStop id="109298.21" lane="-4920748#3_0" startPos="76.96" endPos="89.96" friendlyPos="true" name="Schulzendorf (LDS), Otto-Krien-Str."/>
+    <busStop id="109306.0" lane="-782804639#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="S Eichwalde"/>
     <busStop id="109328.0" lane="-4935155#3_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="S Eichwalde"/>
     <busStop id="109328.1" lane="-415907040#3_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), K.-Marx-Str."/>
-    <busStop id="109328.2" lane="107370599#2_0" startPos="73.13" endPos="86.13" friendlyPos="true" name="Schulzendorf (LDS), Waldstr."/>
-    <busStop id="109328.3" lane="131942163#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Waltersdorf (bei Berlin), Weidenweg"/>
     <busStop id="109329.14" lane="-36852342#0_0" startPos="476.69" endPos="489.69" friendlyPos="true" name="Zeuthen, Fontaneallee"/>
-    <busStop id="109329.15" lane="59226983#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Wildau, Westkorso"/>
     <busStop id="109329.16" lane="7365284#1_0" startPos="3.49" endPos="16.49" friendlyPos="true" name="Zeuthen, Große Zeuthener Allee"/>
     <busStop id="109329.17" lane="-627588107#0_0" startPos="35.83" endPos="48.83" friendlyPos="true" name="Zeuthen, Friedhof"/>
     <busStop id="109329.18" lane="4054042#3_0" startPos="42.38" endPos="55.38" friendlyPos="true" name="Miersdorf, Kirche"/>
     <busStop id="109329.22" lane="4920748#3_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Otto-Krien-Str."/>
-    <busStop id="109329.23" lane="-381307675#2_0" startPos="98.66" endPos="111.66" friendlyPos="true" name="Schulzendorf (LDS), Kita"/>
     <busStop id="109329.24" lane="-383158977_0" startPos="62.37" endPos="75.37" friendlyPos="true" name="Schulzendorf (LDS), Herweghstr."/>
     <busStop id="109329.25" lane="415907032#2_0" startPos="5.91" endPos="18.91" friendlyPos="true" name="Schulzendorf (LDS), Illgenstr."/>
-    <busStop id="109329.26" lane="-4920409#0_0" startPos="95.17" endPos="108.17" friendlyPos="true" name="Schulzendorf (LDS), Ortszentrum"/>
+    <busStop id="109329.26" lane="-24278479#4_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Ortszentrum"/>
     <busStop id="109329.27" lane="783262512_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Flutgraben"/>
-    <busStop id="109329.28" lane="4930561#2_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Dohlenstieg"/>
     <busStop id="109329.29" lane="-415907050_0" startPos="73.29" endPos="86.29" friendlyPos="true" name="Schulzendorf (LDS), K.-Liebknecht-Str."/>
-    <busStop id="109329.31" lane="782714967#2_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="S Eichwalde"/>
-    <busStop id="109337.29" lane="782804639#1_0" startPos="54.83" endPos="67.83" friendlyPos="true" name="S Eichwalde"/>
+    <busStop id="109337.29" lane="4935155#5_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="S Eichwalde"/>
     <busStop id="109412.4" lane="4920400#0_0" startPos="22.01" endPos="35.01" friendlyPos="true" name="Schulzendorf (LDS), Freiligrathstr."/>
     <busStop id="109412.6" lane="-4920400#1_0" startPos="6.42" endPos="19.42" friendlyPos="true" name="Schulzendorf (LDS), W.-Rathenau-Str."/>
-    <busStop id="109412.7" lane="-4920400#0_0" startPos="68.35" endPos="81.35" friendlyPos="true" name="Schulzendorf (LDS), Freiligrathstr."/>
-    <busStop id="280055.8" lane="4920636#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Miersdorf, Kirche"/>
     <busStop id="280055.9" lane="-4045249#1_0" startPos="6.69" endPos="19.69" friendlyPos="true" name="Miersdorf, Hankelweg"/>
+    <busStop id="281066.0" lane="112698780#1_0" startPos="81.21" endPos="94.21" friendlyPos="true" name="S Zeuthen"/>
     <busStop id="281066.1" lane="783261313#0_0" startPos="69.33" endPos="82.33" friendlyPos="true" name="Zeuthen, Miersdorfer Chaussee"/>
     <busStop id="281759.8" lane="114441235#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Zeuthen, Forstallee"/>
     <busStop id="280371.10" lane="4920400#1_0" startPos="315.17" endPos="328.17" friendlyPos="true" name="Schulzendorf (LDS), W.-Rathenau-Str."/>
-    <busStop id="281065.0" lane="4935155#5_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="S Eichwalde"/>
-    <busStop id="281153.1" lane="-24278479#4_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Ortszentrum"/>
+    <busStop id="281153.0" lane="-4920400#0_0" startPos="68.35" endPos="81.35" friendlyPos="true" name="Schulzendorf (LDS), Freiligrathstr."/>
     <busStop id="150035.12" lane="207086006_0" startPos="3.62" endPos="16.62" friendlyPos="true" name="S Altglienicke (Berlin)"/>
     <busStop id="151740.0" lane="156066220#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="S Grünau (Berlin) [Busendstelle]"/>
-    <busStop id="151740.1" lane="-220911301#0_0" startPos="32.31" endPos="45.31" friendlyPos="true" name="Waltersdorfer Str. (Berlin)"/>
+    <busStop id="151740.1" lane="220911301#0_0" startPos="7.50" endPos="20.50" friendlyPos="true" name="Waltersdorfer Str. (Berlin)"/>
     <busStop id="151740.2" lane="-46101882#3_0" startPos="66.17" endPos="79.17" friendlyPos="true" name="Zur Gartenstadt (Berlin)"/>
     <busStop id="151740.3" lane="-46101882#0_0" startPos="48.88" endPos="61.88" friendlyPos="true" name="Sausenberger Str. (Berlin)"/>
     <busStop id="151784.2" lane="450661504#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Drössestr. (Berlin)"/>
     <busStop id="151784.3" lane="450661504#5_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Gartenstadtweg (Berlin)"/>
     <busStop id="151784.4" lane="658716827#0_0" startPos="20.64" endPos="33.64" friendlyPos="true" name="S Grünau (Berlin) [Richterstr.]"/>
+    <busStop id="151784.5" lane="82212044_0" startPos="28.38" endPos="41.38" friendlyPos="true" name="S Grünau (Berlin) [Busendstelle]"/>
     <busStop id="151987.4" lane="46101882#0_0" startPos="117.09" endPos="130.09" friendlyPos="true" name="Sausenberger Str. (Berlin)"/>
     <busStop id="151987.5" lane="46101882#3_0" startPos="12.79" endPos="25.79" friendlyPos="true" name="Zur Gartenstadt (Berlin)"/>
-    <busStop id="151987.6" lane="220911301#0_0" startPos="7.50" endPos="20.50" friendlyPos="true" name="Waltersdorfer Str. (Berlin)"/>
     <busStop id="152000.2" lane="-450661504#5_0" startPos="57.65" endPos="70.65" friendlyPos="true" name="Gartenstadtweg (Berlin)"/>
     <busStop id="154196.1" lane="10587012#4_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Teikyo-University (Berlin)"/>
     <busStop id="154196.2" lane="10587012#5_0" startPos="389.25" endPos="402.25" friendlyPos="true" name="Zeltplatz (Berlin)"/>
@@ -139,9 +120,9 @@
     <busStop id="154196.5" lane="10587008#1_0" startPos="189.26" endPos="202.26" friendlyPos="true" name="Moßkopfring (Berlin)"/>
     <busStop id="154260.0" lane="-10587008#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Moßkopfring (Berlin)"/>
     <busStop id="154260.1" lane="-389273282_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Zeuthener Weg (Berlin)"/>
-    <busStop id="154260.2" lane="-389273284#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Fährallee (Berlin)"/>
     <busStop id="154260.3" lane="-10587012#5_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Zeltplatz (Berlin)"/>
     <busStop id="154260.4" lane="-10587012#4_0" startPos="414.95" endPos="427.95" friendlyPos="true" name="Teikyo-University (Berlin)"/>
+    <busStop id="187834.1" lane="-220911301#0_0" startPos="32.31" endPos="45.31" friendlyPos="true" name="Waltersdorfer Str. (Berlin)"/>
     <busStop id="187834.2" lane="-658716831#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Joachimstr. (Berlin)"/>
     <busStop id="187834.3" lane="-151627032#6_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Neptunstr. (Berlin)"/>
     <busStop id="187834.4" lane="-151627032#3_0" startPos="5.73" endPos="18.73" friendlyPos="true" name="Merkurstr. (Berlin)"/>
@@ -150,48 +131,38 @@
     <busStop id="187834.7" lane="-51304499#3_0" startPos="55.02" endPos="68.02" friendlyPos="true" name="Reihersteg (Berlin)"/>
     <busStop id="187834.8" lane="-386629497_0" startPos="26.86" endPos="39.86" friendlyPos="true" name="Waltersdorfer Str./Parchwitzer Str. (Berlin)"/>
     <busStop id="187834.9" lane="-377862710#3_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Lindenstr./Waltersdorfer Str. (Berlin)"/>
-    <busStop id="187834.10" lane="-469728367_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Waldstr./Stadtgrenze (Berlin)"/>
+    <busStop id="187834.10" lane="469728367_0" startPos="7.89" endPos="20.89" friendlyPos="true" name="Waldstr./Stadtgrenze (Berlin)"/>
     <busStop id="187834.11" lane="-82212037#1_0" startPos="21.84" endPos="34.84" friendlyPos="true" name="Waltersdorf (bei Berlin), Gaspumpstation"/>
     <busStop id="187834.12" lane="-4463790_0" startPos="201.91" endPos="214.91" friendlyPos="true" name="Waltersdorf (bei Berlin), Grünauer Str."/>
-    <busStop id="187856.10" lane="-377862710#1_0" startPos="42.14" endPos="55.14" friendlyPos="true" name="Waldstr./Stadtgrenze (Berlin)"/>
-    <busStop id="187982.trimmed.0" lane="-51304499#2_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Reihersteg (Berlin)"/>
     <busStop id="187986.0" lane="377862710#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Waldstr./Stadtgrenze (Berlin)"/>
     <busStop id="187986.1" lane="377862710#3_0" startPos="97.20" endPos="110.20" friendlyPos="true" name="Lindenstr./Waltersdorfer Str. (Berlin)"/>
     <busStop id="187986.2" lane="386629497_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Waltersdorfer Str./Parchwitzer Str. (Berlin)"/>
     <busStop id="187986.3" lane="51304499#3_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Reihersteg (Berlin)"/>
-    <busStop id="187986.5" lane="51304499#8_0" startPos="178.10" endPos="191.10" friendlyPos="true" name="Schulzendorfer Str./Parchwitzer Str. (Berlin)"/>
     <busStop id="187986.6" lane="151627032#3_0" startPos="71.30" endPos="84.30" friendlyPos="true" name="Merkurstr. (Berlin)"/>
     <busStop id="187986.7" lane="151627032#6_0" startPos="68.75" endPos="81.75" friendlyPos="true" name="Neptunstr. (Berlin)"/>
     <busStop id="187986.8" lane="658716831#0_0" startPos="79.57" endPos="92.57" friendlyPos="true" name="Joachimstr. (Berlin)"/>
     <busStop id="188146.2" lane="4463790_0" startPos="260.31" endPos="273.31" friendlyPos="true" name="Waltersdorf (bei Berlin), Grünauer Str."/>
     <busStop id="188146.3" lane="82212037#1_0" startPos="81.51" endPos="94.51" friendlyPos="true" name="Waltersdorf (bei Berlin), Gaspumpstation"/>
-    <busStop id="188146.4" lane="469728367_0" startPos="7.89" endPos="20.89" friendlyPos="true" name="Waldstr./Stadtgrenze (Berlin)"/>
     <busStop id="202043.5" lane="153260655#3_0" startPos="8.77" endPos="21.77" friendlyPos="true" name="Krankenhaus Hedwigshöhe (Berlin)"/>
     <busStop id="202125.0" lane="-153260655#3_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Krankenhaus Hedwigshöhe (Berlin)"/>
     <busStop id="202209.0" lane="388188275#0_0" startPos="11.06" endPos="24.06" friendlyPos="true" name="Müggelheim/Dorf (Berlin)"/>
-    <busStop id="202209.1" lane="62450101#0_0" startPos="69.62" endPos="82.62" friendlyPos="true" name="Alt-Müggelheim (Berlin)"/>
+    <busStop id="202209.1" lane="-62450101#0_0" startPos="15.24" endPos="28.24" friendlyPos="true" name="Alt-Müggelheim (Berlin)"/>
     <busStop id="202209.2" lane="312839304#2_0" startPos="48.03" endPos="61.03" friendlyPos="true" name="Waldfriedhof Müggelheim (Berlin)"/>
-    <busStop id="202209.3" lane="737018349#1_0" startPos="474.61" endPos="487.61" friendlyPos="true" name="Gosener Kanal (Berlin)"/>
-    <busStop id="202253.0" lane="-737018349#1_0" startPos="49.61" endPos="62.61" friendlyPos="true" name="Gosener Kanal (Berlin)"/>
+    <busStop id="202209.3" lane="-737018349#1_0" startPos="49.61" endPos="62.61" friendlyPos="true" name="Gosener Kanal (Berlin)"/>
     <busStop id="202253.1" lane="-312839304#2_0" startPos="240.59" endPos="253.59" friendlyPos="true" name="Waldfriedhof Müggelheim (Berlin)"/>
-    <busStop id="202253.2" lane="-62450101#0_0" startPos="15.24" endPos="28.24" friendlyPos="true" name="Alt-Müggelheim (Berlin)"/>
     <busStop id="236553.9" lane="-169076541#2_0" startPos="18.81" endPos="31.81" friendlyPos="true" name="S Grünau (Berlin) [Wassersportallee]"/>
     <busStop id="236553.10" lane="-52153733#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Wassersportallee (Berlin)"/>
     <busStop id="236553.11" lane="-528663684#0_0" startPos="115.41" endPos="128.41" friendlyPos="true" name="Regattastr./Schule (Berlin)"/>
-    <busStop id="236569.13" lane="52153733#1_0" startPos="34.53" endPos="47.53" friendlyPos="true" name="Wassersportallee (Berlin)"/>
-    <busStop id="236569.14" lane="169076541#2_0" startPos="46.90" endPos="59.90" friendlyPos="true" name="S Grünau (Berlin) [Wassersportallee]"/>
-    <busStop id="236569.16" lane="-40337452#0_0" startPos="143.12" endPos="156.12" friendlyPos="true" name="Waltersdorfer Str./Parchwitzer Str. (Berlin)"/>
     <busStop id="53997.2" lane="-32204604#1_0" startPos="5.47" endPos="18.47" friendlyPos="true" name="Wendenschloß (Berlin)"/>
-    <busStop id="54007.0" lane="32204604#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Wendenschloß (Berlin)"/>
     <busStop id="54007.1" lane="445947592_0" startPos="90.51" endPos="103.51" friendlyPos="true" name="Müggelbergallee (Berlin)"/>
-    <busStop id="236759.3" lane="328362698#1_0" startPos="4.09" endPos="17.09" friendlyPos="true" name="S Grünau (Berlin) [Adlergestell]"/>
+    <busStop id="236759.3" lane="-658716829_0" startPos="0.83" endPos="13.83" friendlyPos="true" name="S Grünau (Berlin) [Adlergestell]"/>
     <busStop id="236778.2" lane="511575457#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Adlergestell/Vetschauer Allee (Berlin)"/>
-    <busStop id="236778.3" lane="116171834#3_0" startPos="14.93" endPos="27.93" friendlyPos="true" name="Lübbenauer Weg (Berlin)"/>
-    <busStop id="236778.4" lane="116171834#7_0" startPos="18.43" endPos="31.43" friendlyPos="true" name="Schappachstr. (Berlin)"/>
+    <busStop id="236778.3" lane="-116171834#3_0" startPos="140.58" endPos="153.58" friendlyPos="true" name="Lübbenauer Weg (Berlin)"/>
+    <busStop id="236778.4" lane="-116171834#7_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schappachstr. (Berlin)"/>
+    <busStop id="236778.5" lane="328362698#1_0" startPos="4.09" endPos="17.09" friendlyPos="true" name="S Grünau (Berlin) [Adlergestell]"/>
     <busStop id="236811.3" lane="26427693#0_0" startPos="432.52" endPos="445.52" friendlyPos="true" name="Rübezahl (Berlin)"/>
     <busStop id="236811.4" lane="26427693#1_0" startPos="7.74" endPos="20.74" friendlyPos="true" name="Müggelseeperle (Berlin)"/>
     <busStop id="236811.5" lane="-605914559#0_0" startPos="450.19" endPos="463.19" friendlyPos="true" name="Odernheimer Str. (Berlin)"/>
-    <busStop id="236831.0" lane="605914559#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Odernheimer Str. (Berlin)"/>
     <busStop id="236831.1" lane="605914559#0_0" startPos="384.42" endPos="397.42" friendlyPos="true" name="Raumbacher Str. (Berlin)"/>
     <busStop id="236831.2" lane="605914559#2_0" startPos="44.99" endPos="57.99" friendlyPos="true" name="Rehborner Str. (Berlin)"/>
     <busStop id="236831.3" lane="605914559#10_0" startPos="9.45" endPos="22.45" friendlyPos="true" name="Annweilerweg (Berlin)"/>
@@ -200,7 +171,6 @@
     <busStop id="236831.7" lane="-26427693#0_0" startPos="810.33" endPos="823.33" friendlyPos="true" name="Rübezahl (Berlin)"/>
     <busStop id="246782.7" lane="-605914559#10_0" startPos="22.03" endPos="35.03" friendlyPos="true" name="Annweilerweg (Berlin)"/>
     <busStop id="246782.8" lane="-605914559#2_0" startPos="49.47" endPos="62.47" friendlyPos="true" name="Rehborner Str. (Berlin)"/>
-    <busStop id="246782.9" lane="-605914559#0_0" startPos="52.71" endPos="65.71" friendlyPos="true" name="Raumbacher Str. (Berlin)"/>
     <trainStop id="281018.1" lane="72875304_0" startPos="559.70" endPos="669.70" friendlyPos="true" name="S Altglienicke (Berlin)">
         <access friendlyPos="true" lane="207086006_1" pos="16.63" length="36.65"/>
         <access friendlyPos="true" lane="303118027_0" pos="1111.83" length="60.67"/>
@@ -314,18 +284,6 @@
         <access friendlyPos="true" lane="-445947592_0" pos="23.53" length="3.17"/>
         <access friendlyPos="true" lane="23532795#0_0" pos="22.62" length="126.86"/>
         <access friendlyPos="true" lane="445947592_0" pos="103.51" length="1.63"/>
-    </trainStop>
-    <trainStop id="257596.7" lane="110800148_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Wendenschloß (Berlin)">
-        <access friendlyPos="true" lane="-23532795#0_0" pos="29.69" length="121.00"/>
-        <access friendlyPos="true" lane="-32204604#0_0" pos="0.00" length="22.32"/>
-        <access friendlyPos="true" lane="-32204604#1_0" pos="18.47" length="0.38"/>
-        <access friendlyPos="true" lane="-445947592_0" pos="127.04" length="39.33"/>
-        <access friendlyPos="true" lane="32204604#0_0" pos="90.78" length="22.68"/>
-        <access friendlyPos="true" lane="32204604#1_0" pos="9.45" length="4.41"/>
-        <access friendlyPos="true" lane="445947587_0" pos="3.41" length="16.44"/>
-        <access friendlyPos="true" lane="445947591#0_0" pos="63.07" length="37.13"/>
-        <access friendlyPos="true" lane="445947591#2_0" pos="10.82" length="24.06"/>
-        <access friendlyPos="true" lane="445947592_0" pos="0.00" length="39.73"/>
     </trainStop>
     <trainStop id="259570.5" lane="180390329#0_0" startPos="183.46" endPos="243.46" friendlyPos="true" name="Wassersportallee (Berlin)">
         <access friendlyPos="true" lane="-17272871_0" pos="0.00" length="22.83"/>
