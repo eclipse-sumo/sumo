@@ -3609,7 +3609,7 @@ class person:
         color = 6
         departPos = 7
         depart = 8
-        parameters = 11
+        parameters = 10
 
     class inspectSelection:
         typeButton = 1

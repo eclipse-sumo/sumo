@@ -1,2 +1,5 @@
+Warning: Invalid value 'dummyTerminate' in attribute terminate
+Warning: Invalid value 'dummy' in attribute end
 Warning: Double edges aren't allowed
 Warning: Double stoppingPlaces aren't allowed
+Warning: Invalid value 'dummy' in attribute number
