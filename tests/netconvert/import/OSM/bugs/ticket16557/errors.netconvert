@@ -13,4 +13,4 @@ Warning: Converting invalid rail_crossing to priority junction '2172111685'.
 Warning: Converting invalid rail_crossing to priority junction '2172111691'.
 Warning: Converting invalid rail_crossing to priority junction '3287250461'.
 Warning: Converting invalid rail_crossing to priority junction '3287250462'.
-Warning: Not joining junctions 11296015991,2267191684,257742677,2855739088,297091393,297091812,8917696753 (parallel incoming -65538633#0,1118064016#2).
+Warning: Reducing junction cluster 11296015991,2267191684,257742677,2855739088,297091393,297091812,8917696753 (parallel incoming -65538633#0,1118064016#2).
