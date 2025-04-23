@@ -101,6 +101,7 @@ title: ChangeLog
   - gtfs2pt.py: Now warning about input that provokes negative stop-until times #16322
   - route2sel.py: Fixed crash when loading flow/trip that references a route id #16395
   - randomTrips.py: Fixed inconsistent behavior of option **--verbose** #11861
+  - randomTrips.py: Fixed override of **--edge-permission** when using **--persontrips** #16471
   - scaleRoutes.py: Fixed bug in scaling #16474
   - scaleRoutes.py: Fixed crashes when input exceeds the ocnfigured time range #16467
   - scaleRoutes.py: option **--timeline-pair** is now working #16473
@@ -163,6 +164,7 @@ title: ChangeLog
 
 - Tools
   - randomTrips.py: When option **--validate** is set, the generated amount of vehicles is guaranteed (by replacing invalid trips with new valid trips) #8843
+  - randomTrips.py: Using value of **--vehicle-class** as default for **--edge-permission** #16471
   - netcheck.py: Added option **--right-of-way** to find selected cases of faulty right-of-way rules (currently only on-ramps are check) #16036
   - jtcrouter.py: Added option **--additional-files** which are passed to [jtrrouter](jtrrouter.md) #16191
   - csv2xml.py: Added option **--flat** to convert arbitrary csv files without a schema #16204
