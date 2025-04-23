@@ -35,6 +35,9 @@ unknown_to
 # parsing an existing plan
 full_plan
 
+# parsing an existing plan
+ride_no_line
+
 # test stages that end at a stopping place (busStop etc)
 stoppingPlace
 
