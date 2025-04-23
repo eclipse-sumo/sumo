@@ -1,7 +1,2 @@
 Error: Attribute 'friendlyPos' in definition of a access Invalid Bool Format dummyfriendlypos.
-Error: Could not build busStop with ID 'busStop_0' in netedit; Invalid position over lane.
-Error: Could not build access with ID '' in netedit; busStop parent with ID 'busStop_0' doesn't exist.
-Error: Could not build access with ID '' in netedit; busStop parent with ID 'busStop_0' doesn't exist.
-Error: Could not build access with ID '' in netedit; busStop parent with ID 'busStop_0' doesn't exist.
-Error: Could not build access with ID '' in netedit; busStop parent with ID 'busStop_0' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/additionals/access/load/friendlypos/additionals.add.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.23Apr125759.22316\netedit.gui\elements\additionals\access\load\friendlypos\additionals.add.xml failed.
