@@ -35,8 +35,8 @@ ROJTREdgeBuilder::~ROJTREdgeBuilder() {}
 
 
 ROEdge*
-ROJTREdgeBuilder::buildEdge(const std::string& name, RONode* from, RONode* to, const int priority) {
-    return new ROJTREdge(name, from, to, getNextIndex(), priority);
+ROJTREdgeBuilder::buildEdge(const std::string& name, RONode* from, RONode* to, const int priority, const std::string& type) {
+    return new ROJTREdge(name, from, to, getNextIndex(), priority, type);
 }
 
 

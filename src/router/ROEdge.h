@@ -78,7 +78,7 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      */
-    ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority);
+    ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type);
 
     /** @brief Constructor for dummy edge, only used when building the connectivity graph **/
     ROEdge(const std::string& id, const RONode* from, const RONode* to, SVCPermissions p);
@@ -461,7 +461,7 @@ public:
         if (isTazConnector()) {
             return 0;
         } else if (veh != 0) {
-            return myLength / MIN2(veh->getType()->maxSpeed, veh->getChosenSpeedFactor() * mySpeed);
+            return myLength / MIN2(veh->getType()->maxSpeed, veh->getChosenSpeedFactor() * getVClassMaxSpeed(veh->getVClass()));
         } else {
             return myLength / mySpeed;
         }
@@ -473,7 +473,7 @@ public:
         double ret = 0;
         if (!edge->getStoredEffort(time, ret)) {
             const SUMOVTypeParameter* const type = veh->getType();
-            const double vMax = MIN2(type->maxSpeed, edge->mySpeed);
+            const double vMax = MIN2(type->maxSpeed, edge->getVClassMaxSpeed(veh->getVClass()));
             const double accel = type->getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
             ret = PollutantsInterface::computeDefault(type->emissionClass, ET, vMax, accel, 0, edge->getTravelTime(veh, time), nullptr); // @todo: give correct slope
         }
@@ -512,6 +512,11 @@ public:
     /// @brief get edge priority (road class)
     int getPriority() const {
         return myPriority;
+    }
+
+    /// @brief get edge type
+    const std::string& getType() const {
+        return myType;
     }
 
     const RONode* getFromJunction() const {
@@ -592,6 +597,9 @@ protected:
 
     /// @brief The edge priority (road class)
     const int myPriority;
+
+    /// @brief the type of this edge
+    const std::string myType;
 
     /// @brief The maximum speed allowed on this edge
     double mySpeed;

@@ -94,6 +94,9 @@ public:
      */
     const std::map<SUMOVehicleClass, double>* getRestrictions(const std::string& id) const;
 
+    bool hasRestrictions() const {
+        return !myRestrictions.empty();
+    }
 
     /// @name Insertion and retrieval of graph parts
     //@{
