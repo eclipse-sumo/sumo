@@ -33,8 +33,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTREdge::ROJTREdge(const std::string& id, RONode* from, RONode* to, int index, const int priority) :
-    ROEdge(id, from, to, index, priority),
+ROJTREdge::ROJTREdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type) :
+    ROEdge(id, from, to, index, priority, type),
     mySourceFlows(0)
 {}
 

@@ -36,8 +36,8 @@ ROMAEdgeBuilder::~ROMAEdgeBuilder() {}
 
 
 ROEdge*
-ROMAEdgeBuilder::buildEdge(const std::string& name, RONode* from, RONode* to, const int priority) {
-    return new ROMAEdge(name, from, to, getNextIndex(), priority);
+ROMAEdgeBuilder::buildEdge(const std::string& name, RONode* from, RONode* to, const int priority, const std::string& type) {
+    return new ROMAEdge(name, from, to, getNextIndex(), priority, type);
 }
 
 

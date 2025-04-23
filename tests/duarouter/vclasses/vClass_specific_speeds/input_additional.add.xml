@@ -1,0 +1,10 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <type id="edgeTypeA">
+        <restriction vClass="passenger" speed="10.00"/>
+        <restriction vClass="truck" speed="20.00"/>
+    </type>
+    <type id="edgeTypeB">
+        <restriction vClass="passenger" speed="15.00"/>
+        <restriction vClass="truck" speed="5"/>
+    </type>
+</additional>

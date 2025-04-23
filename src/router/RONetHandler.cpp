@@ -201,10 +201,9 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
         toNode = new RONode(to);
         myNet.addNode(toNode);
     }
+    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentName.c_str(), ok, "");
     // build the edge
-    myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority);
-    // set the type
-    myCurrentEdge->setRestrictions(myNet.getRestrictions(attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentName.c_str(), ok, "")));
+    myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority, type);
     myCurrentEdge->setFunction(func);
 
     if (myNet.addEdge(myCurrentEdge)) {
@@ -421,8 +420,8 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    ROEdge* const sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", nullptr, nullptr, 0);
-    ROEdge* const source = myEdgeBuilder.buildEdge(myCurrentName + "-source", nullptr, nullptr, 0);
+    ROEdge* const sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", nullptr, nullptr, 0, "");
+    ROEdge* const source = myEdgeBuilder.buildEdge(myCurrentName + "-source", nullptr, nullptr, 0, "");
     myNet.addDistrict(myCurrentName, source, sink);
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         const std::vector<std::string>& desc = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, myCurrentName.c_str(), ok);
