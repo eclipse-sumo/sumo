@@ -286,6 +286,8 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
         } else {
             // reset base object
             resetBaseAdditionalObject();
+            // set tag
+            myBaseAdditional->setTag(SUMO_TAG_LANE_AREA_DETECTOR);
             // get attributes and values
             myAdditionalAttributesEditor->fillSumoBaseObject(myBaseAdditional);
             // add lane IDs
