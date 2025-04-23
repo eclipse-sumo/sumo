@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 31 14:06:58 2020 by Eclipse SUMO Version v1_5_0+1032-50dde386b3
+<!-- generated on 2025-04-22 20:30:18 by Eclipse SUMO sumo Version v1_22_0+1646-d8cbcaf97a5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -24,7 +29,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -37,20 +41,20 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
-        <edge id="3/1to2/1" NOx_abs="12.515000" CO_normed="51.975000" HC_perVeh="5.322222"/>
-        <edge id="4/1to3/1" NOx_abs="27.811111" CO_normed="115.500000" HC_perVeh="5.322222"/>
+        <edge id="3/1to2/1" NOx_abs="11.997900" CO_normed="8.259300" HC_perVeh="0.852800"/>
+        <edge id="4/1to3/1" NOx_abs="26.662000" CO_normed="18.354000" HC_perVeh="0.852800"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
-        <edge id="2/1to1/1" NOx_abs="26.420556" CO_normed="109.725000" HC_perVeh="5.322222"/>
-        <edge id="3/1to2/1" NOx_abs="15.296111" CO_normed="63.525000" HC_perVeh="5.322222"/>
+        <edge id="2/1to1/1" NOx_abs="25.328900" CO_normed="17.436300" HC_perVeh="0.852800"/>
+        <edge id="3/1to2/1" NOx_abs="14.664100" CO_normed="10.094700" HC_perVeh="0.852800"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
-        <edge id="1/1to0/1" NOx_abs="20.163056" CO_normed="167.475000" HC_perVeh="5.322222"/>
-        <edge id="2/1to1/1" NOx_abs="1.390556" CO_normed="11.550000" HC_perVeh="5.322222"/>
+        <edge id="1/1to0/1" NOx_abs="19.329950" CO_normed="26.613300" HC_perVeh="0.852800"/>
+        <edge id="2/1to1/1" NOx_abs="1.333100" CO_normed="1.835400" HC_perVeh="0.852800"/>
     </interval>
 </meandata>

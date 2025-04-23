@@ -64,7 +64,7 @@ setup(
     packages=['libsumo'],
     package_dir={'': package_dir},
     package_data={'libsumo': ['*.pyd', '*.so', '*.dylib']},
-    install_requires=['traci>='+SUMO_VERSION, 'eclipse-sumo>='+SUMO_VERSION],
+    install_requires=['traci>='+SUMO_VERSION, 'eclipse-sumo'],
     cmdclass={'install': InstallPlatlib},
     distclass=BinaryDistribution
 )
