@@ -8652,7 +8652,7 @@ GNETagPropertiesDatabase::fillOutputAttribute(GNETagProperties* tagProperties) {
     auto output = new GNEAttributeProperties(tagProperties, SUMO_ATTR_OUTPUT,
             GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
             GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-            TL("Path to the output file to writting information"));
+            TL("Path to the output file for writing information"));
     output->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getMultilineString());
 }
 
