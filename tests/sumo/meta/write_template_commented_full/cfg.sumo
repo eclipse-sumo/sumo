@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-17 14:25:29 by Eclipse SUMO sumo Version v1_22_0+1597-8878c360237
+<!-- generated on 2025-04-23 15:01:05 by Eclipse SUMO sumo Version v1_22_0+1667-a7a5d2842b6
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -488,6 +488,9 @@
 
         <!-- Do not build blocks longer than FLOAT and issue a warning instead -->
         <railsignal.max-block-length value="20000" type="FLOAT"/>
+
+        <!-- List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them -->
+        <railsignal.default-classes value="rail,rail_fast,rail_electric,rail_urban" type="STR[]"/>
 
         <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
         <time-to-impatience value="180" type="TIME"/>
@@ -1424,9 +1427,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

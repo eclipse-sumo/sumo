@@ -115,7 +115,7 @@ title: ChangeLog
   - `departPos=stop` now works for any departLane on the stop edge #16133
   - Pedestrians are now included in full output #16159
   - Added stop attribute `jumpUntil` to set a minimum time for the end of a jump #16153
-  - Tram insertion automatically uses moving-block mode when there are no rail signals for tram in the network #16208
+  - Tram insertion automatically uses moving-block mode when there are no rail signals for tram in the network. The behavior can be configured with option **--railsignal.default-classes** #16208
   - Taxis that transfer passengers at a busStop now register at that stop. This shows up in **--stop-output**. #16263
   - Road slope is now used in HBEFA computation #16307
   - Rerouting device now supports `<param key="ignoreDest" value="1"/>` to support rerouting to any parkingArea regardless of visibility or occupancy of the current destination. One use case is to control to [idle-algorithm for finding the next taxi stand](Simulation/Taxi.md#idle_behavior) #16387

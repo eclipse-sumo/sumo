@@ -107,7 +107,6 @@ def get_options(args=None):
     if options.types is not None:
         options.types = options.types.split(',')
 
-    options.net = None
     return options
 
 
@@ -162,25 +161,8 @@ def writeTypes(fout, prefix, options):
     <vType id="%sferry" vClass="ship"%s/>""" % tuple(prefixes_and_sf), file=fout)
 
 
-def getStopEdge(stopsLanes, stop):
-    return stopsLanes[stop].rsplit("_", 1)[0]
-
-
-def getNet(options):
-    if options.net is None:
-        options.net = sumolib.net.readNet(options.netfile)
-    return options.net
-
-
 def createTrips(options):
     print("generating trips...")
-    stopsLanes = {}
-    stopNames = {}
-    for stop in sumolib.output.parse(options.ptstops, 'busStop'):
-        stopsLanes[stop.id] = stop.lane
-        if stop.name:
-            stopNames[stop.id] = stop.attr_name
-
     tripList = []  # ids
     trpMap = {}  # ids->PTLine
 
@@ -203,18 +185,9 @@ def createTrips(options):
                 line.setAttribute("period", options.period)
         if line.busStop is not None:
             for stop in line.busStop:
-                if stop.id not in stopsLanes:
+                if stop.id not in options.stopEdges:
                     sys.stderr.write("Warning: skipping unknown stop '%s'\n" % stop.id)
                     continue
-                laneId = stopsLanes[stop.id]
-                try:
-                    edge_id, lane_index = laneId.rsplit("_", 1)
-                except ValueError:
-                    if options.ignoreErrors:
-                        sys.stderr.write("Warning: ignoring stop '%s' on invalid lane '%s'\n" % (stop.id, laneId))
-                        continue
-                    else:
-                        sys.exit("Invalid lane '%s' for stop '%s'" % (laneId, stop.id))
                 stop_ids.append(stop.id)
 
         if options.types is not None and line.type not in options.types:
@@ -254,8 +227,8 @@ def createTrips(options):
         fromEdge = None
         toEdge = None
         vias = []
+        net = options.net
         if line.route is not None:
-            net = getNet(options)
             missing = []
             for e in line.route[0].edges.split():
                 if net.hasEdge(e):
@@ -279,8 +252,8 @@ def createTrips(options):
                 # ensure that route actually covers the terminal stops
                 # (otherwise rail network may be invalid beyond stops)
                 if len(stop_ids) > 0:
-                    firstStop = getStopEdge(stopsLanes, stop_ids[0])
-                    lastStop = getStopEdge(stopsLanes, stop_ids[-1])
+                    firstStop = options.stopEdges[stop_ids[0]]
+                    lastStop = options.stopEdges[stop_ids[-1]]
                     if firstStop not in edges:
                         fromEdge = firstStop
                         if options.verbose:
@@ -294,7 +267,6 @@ def createTrips(options):
                     else:
                         # if route is split, the route is incomplete and we
                         # should not extend beyond the split
-                        net = getNet(options)
                         prev = None
                         lastStopIndex = edges.index(lastStop)
                         for e in edges[lastStopIndex:]:
@@ -313,8 +285,8 @@ def createTrips(options):
                     sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
                     numSkipped += 1
                     continue
-                fromEdge = getStopEdge(stopsLanes, stop_ids[0])
-                toEdge = getStopEdge(stopsLanes, stop_ids[-1])
+                fromEdge = options.stopEdges[stop_ids[0]]
+                toEdge = options.stopEdges[stop_ids[-1]]
 
         missingBefore = 0 if line.completeness == 1 else line.missingBefore
         missingAfter = 0 if line.completeness == 1 else line.missingAfter
@@ -335,16 +307,17 @@ def createTrips(options):
 
     if options.join:
         joinTrips(options, tripList, trpMap)
-    writeTrips(options, tripList, trpMap, stopNames)
+    writeTrips(options, tripList, trpMap)
     if options.verbose:
         print("Imported %s lines with %s stops and skipped %s lines" % (numLines, numStops, numSkipped))
         for lineType, count in sorted(typeCount.items()):
             print("   %s: %s" % (lineType, count))
     print("done.")
-    return trpMap, stopNames
+    return trpMap
 
 
 def joinTrips(options, tripList, trpMap):
+    net = optins.net
     # join opposite pairs of trips
     linePairs = collections.defaultdict(list)
     for tripID, ptl in trpMap.items():
@@ -354,7 +327,6 @@ def joinTrips(options, tripList, trpMap):
         if len(tripIDs) > 2:
             sys.stderr.write("Warning: Cannot join line '%s' with %s trips\n" % (refOrig, len(tripIDs)))
         elif len(tripIDs) == 2:
-            net = getNet(options)
             ptl1 = trpMap[tripIDs[0]]
             ptl2 = trpMap[tripIDs[1]]
             join1 = distCheck(options, refOrig, ptl1.toEdge, ptl2.fromEdge)
@@ -404,7 +376,7 @@ def joinTrips(options, tripList, trpMap):
 
 
 def distCheck(options, refOrig, eID1, eID2):
-    net = getNet(options)
+    net = options.net
     shape1 = net.getEdge(eID1).getShape(True)
     shape2 = net.getEdge(eID2).getShape(True)
     minDist = options.joinThreshold + 1
@@ -418,7 +390,7 @@ def distCheck(options, refOrig, eID1, eID2):
         return True
 
 
-def writeTrips(options, tripList, trpMap, stopNames):
+def writeTrips(options, tripList, trpMap):
     with codecs.open(options.trips, 'w', encoding="UTF8") as fouttrips:
         sumolib.writeXMLHeader(
             fouttrips, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
@@ -434,7 +406,7 @@ def writeTrips(options, tripList, trpMap, stopNames):
                     tripID, ptl.typeID, ptl.depart, ptl.fromEdge, ptl.toEdge, via))
             for i, stop in enumerate(ptl.stop_ids):
                 dur = options.stopduration + options.stopdurationSlack
-                comment = "  <!-- %s -->" % stopNames[stop]
+                comment = "  <!-- %s -->" % options.stopNames.get(stop)
                 if i in ptl.jumps:
                     jump = ' jump="%s"' % ptl.jumps[i]
                 else:
@@ -452,6 +424,7 @@ def runSimulation(options):
                      "--begin", str(options.begin),
                      "--no-step-log",
                      "--ignore-route-errors",
+                     "--time-to-teleport.disconnected", "0",
                      "--error-log", options.trips + ".errorlog",
                      "-a", options.ptstops,
                      "--device.rerouting.adaptation-interval", "0",  # ignore tls and traffic effects
@@ -466,7 +439,8 @@ def formatTime(seconds):
     return "%02i:%02i:%02i" % (seconds / 3600, (seconds % 3600) / 60, (seconds % 60))
 
 
-def createRoutes(options, trpMap, stopNames):
+def createRoutes(options, trpMap):
+    net = options.net
     print("creating routes...")
     stopsUntil = collections.defaultdict(list)
     for stop in sumolib.output.parse_fast(options.stopinfos, 'stopinfo', ['id', 'ended', 'busStop']):
@@ -497,10 +471,10 @@ def createRoutes(options, trpMap, stopNames):
                 continue
             else:
                 sys.exit("Could not parse edges for vehicle '%s'\n" % id)
+
         flows.append((id, flowID, ptline.ref, vehicle.type, float(vehicle.depart)))
         actualDepart[id] = float(vehicle.depart)
         parking = ' parking="true"' if vehicle.type == "bus" and options.busparking else ''
-        stops = vehicle.stop
         color = ' color="%s"' % ptline.color if ptline.color is not None else ""
         repeat = ""
         if len(ptline.terminalIndices) == 2 and stops:
@@ -512,15 +486,42 @@ def createRoutes(options, trpMap, stopNames):
                 if numRepeats > 1:
                     repeat = ' repeat="%s" cycleTime="%s"' % (numRepeats, ft(cycleTime))
 
+
+        stops = vehicle.stop
+        # jump over disconnected parts
+        jumps = {}  # edge -> duration
+        usedJumps = set()
+        prev = None
+        for edgeID in edges.split():
+            edge = net.getEdge(edgeID)
+            if prev is not None and not prev.getConnections(edge):
+                jumpDist = geomhelper.distance(prev.getToNode().getCoord(), edge.getFromNode().getCoord())
+                jumpSpeed = (prev.getSpeed() + edge.getSpeed()) * 0.5
+                jumpDuration = jumpDist / jumpSpeed
+                jumps[prev.getID()] = jumpDuration
+            prev = edge
+        # record all stops on an edge (only the last stop needs to jump when there is a disconnect
+        edgeStops = collections.defaultdict(list)
+        if stops is not None:
+            for stop in stops:
+                edgeStops[options.stopEdges[stop.busStop]].append(stop.busStop)
+
         tmpio.write('    <route id="%s"%s edges="%s"%s >\n' % (flowID, color, edges, repeat))
-        if vehicle.stop is not None:
+        if stops is not None:
+            untilOffset = 0
             for stop in stops:
                 if (id, stop.busStop) in stopsUntil:
+                    stopEdge = options.stopEdges[stop.busStop]
                     until = stopsUntil[(id, stop.busStop)]
-                    stopname = ' <!-- %s -->' % stopNames[stop.busStop] if stop.busStop in stopNames else ''
-                    untilZeroBased = until[0] - actualDepart[id]
+                    stopname = ' <!-- %s -->' % options.stopNames[stop.busStop] if stop.busStop in options.stopNames else ''
+                    untilZeroBased = until[0] - actualDepart[id] + untilOffset
                     if stop.jump is not None:
                         jump = ' jump="%s"' % stop.jump
+                    elif stopEdge in jumps and stop.busStop == edgeStops[stopEdge][-1]:
+                        #  only the last stop on an edge needs the jump
+                        usedJumps.add(stopEdge)
+                        untilOffset += jumps[stopEdge]
+                        jump = ' jump="%s"' % jumps[stopEdge]
                     else:
                         jump = ""
                     if len(until) > 1:
@@ -533,6 +534,11 @@ def createRoutes(options, trpMap, stopNames):
                     sys.stderr.write("Warning: Missing stop '%s' for flow '%s'\n" % (stop.busStop, id))
         else:
             sys.stderr.write("Warning: No stops for flow '%s'\n" % id)
+        for edgeID, jumpDuration in jumps.items():
+            if edgeID not in usedJumps:
+                tmpio.write(
+                        '        <stop edge="%s" speed="999" jump="%s" index="fit"/>\n' % ( edgeID, jumpDuration))
+
         tmpio.write('    </route>\n')
         routes.append((flowID, tmpio.getvalue()))
 
@@ -585,10 +591,18 @@ def main(options):
     if options.seed:
         random.seed(options.seed)
     sys.stderr.flush()
-    trpMap, stopNames = createTrips(options)
+    options.net = sumolib.net.readNet(options.netfile)
+    options.stopEdges = {}
+    options.stopNames = {}
+    for stop in sumolib.output.parse(options.ptstops, ['busStop', 'trainStop']):
+        options.stopEdges[stop.id] = sumolib.net.lane2edge(stop.lane)
+        if stop.name:
+            options.stopNames[stop.id] = stop.attr_name
+
+    trpMap = createTrips(options)
     sys.stderr.flush()
     runSimulation(options)
-    createRoutes(options, trpMap, stopNames)
+    createRoutes(options, trpMap)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-23 14:23:14.596833 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_22_0+1663-d2026fbddb0
+<configuration>
+    <net-file value="net.net.xml.gz"/>
+    <ptlines-file value="ptlines.xml"/>
+    <ptstops-file value="input_additional.add.xml"/>
+    <output-file value="out.flows.xml"/>
+    <min-stops value="0"/>
+    <extend-to-fringe value="True"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus" speedFactor="0.95"/>
+    <vType id="tram" vClass="tram" speedFactor="1.0"/>
+    <vType id="train" vClass="rail"/>
+    <vType id="subway" vClass="subway"/>
+    <vType id="light_rail" vClass="rail_urban"/>
+    <vType id="monorail" vClass="rail_urban"/>
+    <vType id="trolleybus" vClass="bus" speedFactor="0.95"/>
+    <vType id="minibus" vClass="bus" speedFactor="0.95"/>
+    <vType id="share_taxi" vClass="taxi" speedFactor="0.95"/>
+    <vType id="aerialway" vClass="cable_car" length="2.5" width="2" personCapacity="4"/>
+    <vType id="ferry" vClass="ship"/>
+    <trip id="0_tram_61:0" type="tram" depart="0" departLane="best" from="1309359433" to="288073814">
+        <stop busStop="12120515970" duration="30"/>  <!-- S Schöneweide/Sterndamm -->
+        <stop busStop="9214990855" duration="30"/>  <!-- Nieberstraße -->
+        <stop busStop="9214990840" duration="30"/>  <!-- Landfliegerstraße -->
+        <stop busStop="370884692" duration="30"/>  <!-- Bahnhofstraße/Lindenstraße -->
+    </trip>
+    <trip id="1_tram_61:1" type="tram" depart="0" departLane="best" from="1309359433" to="288073814">
+        <stop busStop="370884692" duration="30"/>  <!-- Bahnhofstraße/Lindenstraße -->
+    </trip>
+</routes>

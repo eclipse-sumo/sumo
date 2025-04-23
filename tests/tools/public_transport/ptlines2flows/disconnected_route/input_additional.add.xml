@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-23 14:20:12 by Eclipse SUMO netedit Version v1_22_0+1650-3f40bfd91cd
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="10691172578" name="S Schöneweide/Sterndamm" lane="1309327659_0" startPos="52.80" endPos="77.80" friendlyPos="1" lines="21">
+        <access lane="-1309105167#1_0" pos="0.00" length="107.81" friendlyPos="1"/>
+        <access lane="-1311804741_0" pos="63.55" length="37.72" friendlyPos="1"/>
+        <access lane="1309105167#1_0" pos="6.18" length="104.89" friendlyPos="1"/>
+        <access lane="1309359433_0" pos="64.22" length="32.92" friendlyPos="1"/>
+        <access lane="1311804740_0" pos="6.31" length="63.28" friendlyPos="1"/>
+    </busStop>
+    <busStop id="10691172580" name="S Schöneweide/Sterndamm" lane="1309105171_0" startPos="54.84" endPos="79.84" friendlyPos="1" lines="37">
+        <access lane="-1309105167#1_0" pos="0.00" length="106.07" friendlyPos="1"/>
+        <access lane="-1311804741_0" pos="62.66" length="28.55" friendlyPos="1"/>
+        <access lane="1309105167#1_0" pos="6.18" length="103.95" friendlyPos="1"/>
+        <access lane="1309359433_0" pos="65.11" length="23.75" friendlyPos="1"/>
+        <access lane="1311804740_0" pos="7.32" length="54.14" friendlyPos="1"/>
+    </busStop>
+    <busStop id="12120515960" name="S Schöneweide/Sterndamm" lane="1311804740_1" startPos="66.27" endPos="91.27" friendlyPos="1" lines="M17 21 37 60 67"/>
+    <busStop id="12120515970" name="S Schöneweide/Sterndamm" lane="1309359433_1" startPos="73.38" endPos="98.38" friendlyPos="1" lines="M17 60 61"/>
+    <busStop id="12120515983" name="S Schöneweide/Sterndamm" lane="1309359432_0" startPos="53.14" endPos="78.14" friendlyPos="1" lines="67">
+        <access lane="-1309105167#1_0" pos="0.00" length="109.71" friendlyPos="1"/>
+        <access lane="-1311804741_0" pos="64.50" length="45.73" friendlyPos="1"/>
+        <access lane="1309105167#1_0" pos="6.18" length="106.12" friendlyPos="1"/>
+        <access lane="1309359433_0" pos="63.27" length="40.93" friendlyPos="1"/>
+        <access lane="1311804740_0" pos="5.60" length="71.35" friendlyPos="1"/>
+    </busStop>
+    <busStop id="12142537642" name="S Schöneweide/Sterndamm" lane="1309359433_1" startPos="70.25" endPos="85.25" friendlyPos="1" lines="160 163 X11 265 M11 166"/>
+    <busStop id="12142537648" name="S Schöneweide/Sterndamm" lane="1311804740_1" startPos="8.12" endPos="23.12" friendlyPos="1" lines="160 265"/>
+    <busStop id="1827009395" name="Bahnhofstraße/Seelenbinderstraße" lane="288073824_0" startPos="320.51" endPos="345.51" friendlyPos="1" lines="60 62 68 63"/>
+    <busStop id="1861845636" name="Bahnhofstraße/Lindenstraße" lane="175769919#0_1" startPos="42.66" endPos="67.66" friendlyPos="1" lines="27 67"/>
+    <busStop id="1861845636@2077982" name="Bahnhofstraße/Lindenstraße" lane="175769905#2_1" startPos="0.00" endPos="14.08" friendlyPos="1" lines="61 62 68 63"/>
+    <busStop id="1867580138" name="Sterndamm/Königsheideweg" lane="226161425#0_0" startPos="666.68" endPos="691.68" friendlyPos="1" lines="60"/>
+    <busStop id="247352251" name="Pietschkerstraße" lane="226161425#0_0" startPos="238.19" endPos="263.19" friendlyPos="1" lines="60"/>
+    <busStop id="247352344" name="Sterndamm/Königsheideweg" lane="81283573#0_0" startPos="185.76" endPos="210.76" friendlyPos="1" lines="60"/>
+    <busStop id="3264968574" name="Bahnhofstraße/Seelenbinderstraße" lane="115663980_0" startPos="94.62" endPos="119.62" friendlyPos="1" lines="60 61 62 68 63"/>
+    <busStop id="370884692" name="Bahnhofstraße/Lindenstraße" lane="175925602_1" startPos="40.04" endPos="65.04" friendlyPos="1" lines="60 62 68 63"/>
+    <busStop id="3923335406" name="Bahnhofstraße/Lindenstraße" lane="175925602_1" startPos="58.91" endPos="73.91" friendlyPos="1" lines="164 N90"/>
+    <busStop id="852932396" name="Pietschkerstraße" lane="81283573#0_0" startPos="545.18" endPos="570.18" friendlyPos="1" lines="60"/>
+    <busStop id="9214990840" name="Landfliegerstraße" lane="1030416096#0_0" startPos="646.82" endPos="671.82" friendlyPos="1" lines="M17 61"/>
+    <busStop id="9214990841" name="Landfliegerstraße" lane="466720638#0_0" startPos="323.05" endPos="348.05" friendlyPos="1" lines="M17"/>
+    <busStop id="9214990854" name="Nieberstraße" lane="466720638#0_0" startPos="725.59" endPos="750.59" friendlyPos="1" lines="M17"/>
+    <busStop id="9214990855" name="Nieberstraße" lane="1030416096#0_0" startPos="234.76" endPos="259.76" friendlyPos="1" lines="M17 61"/>
+</additional>

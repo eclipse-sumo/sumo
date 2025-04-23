@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_22_0+1597-8878c360237
+Eclipse SUMO sumo Version v1_22_0+1667-a7a5d2842b6
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -321,6 +321,9 @@ Processing Options:
                                         mode by default
   --railsignal.max-block-length FLOAT  Do not build blocks longer than FLOAT
                                         and issue a warning instead
+  --railsignal.default-classes STR[]   List vehicle classes that uses
+                                        block-based insertion checks even when
+                                        the network has no rail signals for them
   --time-to-impatience TIME            Specify how long a vehicle may wait
                                         until impatience grows from 0 to 1,
                                         defaults to 300, non-positive values
@@ -1022,8 +1025,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
