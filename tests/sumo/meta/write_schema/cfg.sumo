@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-23 15:01:05 by Eclipse SUMO sumo Version v1_22_0+1667-a7a5d2842b6
+<!-- generated on 2025-04-23 23:15:27 by Eclipse SUMO sumo Version v1_22_0+1676-989a5715aeb
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -266,7 +266,7 @@
             <xsd:element name="persontrip.transfer.walk-taxi" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.default.group" type="strOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.taxi.waiting-time" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="persontrip.ride-public-any" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.ride-public-line" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.max-train-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="replay-rerouting" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.probability" type="floatOptionType" minOccurs="0"/>
@@ -608,6 +608,7 @@
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tracker-interval" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>
