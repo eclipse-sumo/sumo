@@ -158,7 +158,10 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& op
     } else if (arrPos != 0 && arrPos != std::numeric_limits<double>::infinity()) {
         os.writeAttr(SUMO_ATTR_ARRIVALPOS, arrPos);
     }
-    os.writeAttr(SUMO_ATTR_LINES, lines);
+    if (lines != "ANY") {
+        // no need to write the default
+        os.writeAttr(SUMO_ATTR_LINES, lines);
+    }
     if (group != "") {
         os.writeAttr(SUMO_ATTR_GROUP, group);
     }
@@ -396,7 +399,7 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
             } else {
                 // write origin for first element of the plan
                 const ROEdge* origin = trip == myPlan.front() && resultItems.empty() ? trip->getOrigin() : nullptr;
-                const std::string line = OptionsCont::getOptions().getBool("persontrip.ride-public-any") ? "ANY" : item.line;
+                const std::string line = OptionsCont::getOptions().getBool("persontrip.ride-public-line") ? item.line : "ANY";
                 resultItems.push_back(new Ride(start, origin, nullptr, line, trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop, item.intended, TIME2STEPS(item.depart)));
             }
         }

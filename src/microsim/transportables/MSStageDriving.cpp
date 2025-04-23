@@ -407,7 +407,10 @@ MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool wi
     } else if (!unspecifiedArrivalPos()) {
         os.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPos);
     }
-    os.writeAttr(SUMO_ATTR_LINES, myLines);
+    if (myLines.size() > 1 || *myLines.begin() != "ANY") {
+        // no need to write the default
+        os.writeAttr(SUMO_ATTR_LINES, myLines);
+    }
     if (myIntendedVehicleID != "") {
         os.writeAttr(SUMO_ATTR_INTENDED, myIntendedVehicleID);
     }
