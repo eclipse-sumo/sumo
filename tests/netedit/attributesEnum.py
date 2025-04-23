@@ -2082,6 +2082,12 @@ class type:
         decel = 19
         sigma = 20
         tau = 21
+        parameters = 23
+        parametersButton = 24
+        routeFileButton = 26
+        routeFile = 27
+        helpDialog = 28
+        reset = 29
 
     class editDefault:
         vClass = 7
@@ -2097,6 +2103,12 @@ class type:
         decel = 17
         sigma = 18
         tau = 19
+        parameters = 21
+        parametersButton = 22
+        routeFileButton = 24
+        routeFile = 25
+        helpDialog = 26
+        reset = 27
 
     class editDialog:
         vClass = 1
@@ -2142,6 +2154,12 @@ class route:
         color = 9
         repeat = 10
         cycletime = 11
+        parameters = 13
+        parametersButton = 14
+        routeFileButton = 16
+        routeFile = 17
+        helpDialog = 18
+        reset = 19
 
     class inspect:
         id = 1
@@ -2150,14 +2168,24 @@ class route:
         color = 4
         repeat = 5
         cycletime = 6
-        parameters = 9
+        parameters = 8
+        parametersButton = 9
+        routeFileButton = 11
+        routeFile = 12
+        helpDialog = 13
+        reset = 14
 
     class inspectSelection:
         colorButton = 1
         color = 2
         repeat = 3
         cycletime = 4
-        parameters = 7
+        parameters = 6
+        parametersButton = 7
+        routeFileButton = 9
+        routeFile = 10
+        helpDialog = 11
+        reset = 12
 
 # trip (from-to edges)
 
@@ -2181,6 +2209,12 @@ class trip:
         arrivalPosLat = 21
         insertionChecks = 22
         depart = 23
+        parameters = 25
+        parametersButton = 26
+        routeFileButton = 28
+        routeFile = 29
+        helpDialog = 30
+        reset = 31
 
     class inspect:
         id = 1
@@ -2204,7 +2238,12 @@ class trip:
         arrivalPosLat = 20
         insertionChecks = 21
         depart = 22
-        parameters = 25
+        parameters = 24
+        parametersButton = 25
+        routeFileButton = 27
+        routeFile = 28
+        helpDialog = 29
+        reset = 30
 
     class inspectSelection:
         typeButton = 1
@@ -2224,7 +2263,12 @@ class trip:
         arrivalPosLat = 16
         insertionChecks = 17
         depart = 18
-        parameters = 21
+        parameters = 20
+        parametersButton = 21
+        routeFileButton = 23
+        routeFile = 24
+        helpDialog = 25
+        reset = 26
 
 # trip (from-to junctions)
 
@@ -2248,6 +2292,12 @@ class tripJunction:
         arrivalPosLat = 21
         insertionChecks = 22
         depart = 23
+        parameters = 25
+        parametersButton = 26
+        routeFileButton = 28
+        routeFile = 29
+        helpDialog = 30
+        reset = 31
 
     class inspect:
         id = 1
@@ -2270,7 +2320,12 @@ class tripJunction:
         arrivalPosLat = 19
         insertionChecks = 20
         depart = 21
-        parameters = 24
+        parameters = 23
+        parametersButton = 24
+        routeFileButton = 26
+        routeFile = 27
+        helpDialog = 28
+        reset = 29
 
     class inspectSelection:
         typeButton = 1
@@ -2290,7 +2345,12 @@ class tripJunction:
         arrivalPosLat = 16
         insertionChecks = 17
         depart = 18
-        parameters = 21
+        parameters = 20
+        parametersButton = 21
+        routeFileButton = 23
+        routeFile = 24
+        helpDialog = 25
+        reset = 26
 
 # trip (from-to TAZs)
 
@@ -2314,6 +2374,12 @@ class tripTAZ:
         arrivalPosLat = 21
         insertionChecks = 22
         depart = 23
+        parameters = 25
+        parametersButton = 26
+        routeFileButton = 28
+        routeFile = 29
+        helpDialog = 30
+        reset = 31
 
     class inspect:
         id = 1
@@ -2336,7 +2402,12 @@ class tripTAZ:
         arrivalPosLat = 19
         insertionChecks = 20
         depart = 21
-        parameters = 24
+        parameters = 23
+        parametersButton = 24
+        routeFileButton = 26
+        routeFile = 27
+        helpDialog = 28
+        reset = 29
 
     class inspectSelection:
         typeButton = 1
@@ -2356,7 +2427,12 @@ class tripTAZ:
         arrivalPosLat = 16
         insertionChecks = 17
         depart = 18
-        parameters = 21
+        parameters = 20
+        parametersButton = 21
+        routeFileButton = 23
+        routeFile = 24
+        helpDialog = 25
+        reset = 26
 
 # vehicle (over route)
 
@@ -2380,6 +2456,12 @@ class vehicle:
         arrivalPosLat = 21
         insertionChecks = 22
         depart = 23
+        parameters = 25
+        parametersButton = 26
+        routeFileButton = 28
+        routeFile = 29
+        helpDialog = 30
+        reset = 31
 
     class inspect:
         id = 1
@@ -2403,7 +2485,12 @@ class vehicle:
         arrivalPosLat = 20
         insertionChecks = 21
         depart = 22
-        parameters = 25
+        parameters = 24
+        parametersButton = 25
+        routeFileButton = 27
+        routeFile = 28
+        helpDialog = 29
+        reset = 30
 
     class inspectSelection:
         typeButton = 1
@@ -2423,7 +2510,12 @@ class vehicle:
         arrivalPosLat = 16
         insertionChecks = 17
         depart = 18
-        parameters = 21
+        parameters = 20
+        parametersButton = 21
+        routeFileButton = 23
+        routeFile = 24
+        helpDialog = 25
+        reset = 26
 
 # vehicle (embedded route)
 
@@ -2447,6 +2539,12 @@ class vehicleEmbedded:
         arrivalPosLat = 21
         insertionChecks = 22
         depart = 23
+        parameters = 25
+        parametersButton = 26
+        routeFileButton = 28
+        routeFile = 29
+        helpDialog = 30
+        reset = 31
 
     class inspect:
         id = 1
@@ -2469,7 +2567,12 @@ class vehicleEmbedded:
         arrivalPosLat = 19
         insertionChecks = 20
         depart = 21
-        parameters = 24
+        parameters = 23
+        parametersButton = 24
+        routeFileButton = 26
+        routeFile = 27
+        helpDialog = 28
+        reset = 29
 
     class inspectSelection:
         typeButton = 1
@@ -2489,7 +2592,12 @@ class vehicleEmbedded:
         arrivalPosLat = 16
         insertionChecks = 17
         depart = 18
-        parameters = 21
+        parameters = 20
+        parametersButton = 21
+        routeFileButton = 23
+        routeFile = 24
+        helpDialog = 25
+        reset = 26
 
 # flow (from-to edges)
 
@@ -2513,12 +2621,18 @@ class flow:
         arrivalPosLat = 21
         insertionChecks = 22
         begin = 23
-        terminate = 27
-        end = 29
-        number = 30
-        spacing = 29
-        terminateOption = 31
-        spacingOption = 32
+        terminate = 25
+        spacing = 27
+        end = 27
+        number = 28
+        terminateOption = 29
+        spacingOption = 30
+        parameters = 32
+        parametersButton = 33
+        routeFileButton = 35
+        routeFile = 36
+        helpDialog = 37
+        reset = 38
 
     class inspect:
         id = 1
@@ -2542,12 +2656,18 @@ class flow:
         arrivalPosLat = 20
         insertionChecks = 21
         begin = 22
-        terminate = 25
-        spacing = 27
-        end = 28
-        terminateOption = 29
-        spacingOption = 30
-        parameters = 33
+        terminate = 24
+        spacing = 26
+        end = 26                         
+        number = 27
+        terminateOption = 28
+        spacingOption = 29
+        parameters = 31
+        parametersButton = 32
+        routeFileButton = 34
+        routeFile = 35
+        helpDialog = 36
+        reset = 37
 
     class inspectSelection:
         typeButton = 1
@@ -2567,11 +2687,18 @@ class flow:
         arrivalPosLat = 16
         insertionChecks = 17
         begin = 18
-        terminate = 21
-        spacing = 23
-        terminateOption = 25
-        spacingOption = 26
+        terminate = 20
+        spacing = 22
+        end = 22                         
+        number = 23
+        terminateOption = 24
+        spacingOption = 25
         parameters = 27
+        parametersButton = 28
+        routeFileButton = 30
+        routeFile = 31
+        helpDialog = 32
+        reset = 33
 
 # flow (from-to junctions)
 
@@ -2595,12 +2722,18 @@ class flowJunction:
         arrivalPosLat = 21
         insertionChecks = 22
         begin = 23
-        terminate = 27
-        end = 29
-        number = 30
-        spacing = 29
-        terminateOption = 31
-        spacingOption = 32
+        terminate = 25
+        spacing = 27
+        end = 27
+        number = 28
+        terminateOption = 29
+        spacingOption = 30
+        parameters = 32
+        parametersButton = 33
+        routeFileButton = 35
+        routeFile = 36
+        helpDialog = 37
+        reset = 38
 
     class inspect:
         id = 1
@@ -2608,27 +2741,34 @@ class flowJunction:
         type = 3
         fromJunction = 5
         toJunction = 6
-        colorButton = 7
-        color = 8
-        departLane = 9
-        departPos = 10
-        departSpeed = 11
-        arrivalLane = 12
-        arrivalPos = 13
-        arrivalSpeed = 14
-        line = 15
-        personNumber = 16
-        containerNumber = 17
-        departPosLat = 18
-        arrivalPosLat = 19
-        insertionChecks = 20
-        begin = 21
+        via = 7
+        colorButton = 8
+        color = 9
+        departLane = 10
+        departPos = 11
+        departSpeed = 12
+        arrivalLane = 13
+        arrivalPos = 14
+        arrivalSpeed = 15
+        line = 16
+        personNumber = 17
+        containerNumber = 18
+        departPosLat = 19
+        arrivalPosLat = 20
+        insertionChecks = 21
+        begin = 22
         terminate = 24
         spacing = 26
-        end = 27
+        end = 26                         
+        number = 27
         terminateOption = 28
         spacingOption = 29
-        parameters = 32
+        parameters = 31
+        parametersButton = 32
+        routeFileButton = 34
+        routeFile = 35
+        helpDialog = 36
+        reset = 37
 
     class inspectSelection:
         typeButton = 1
@@ -2648,11 +2788,18 @@ class flowJunction:
         arrivalPosLat = 16
         insertionChecks = 17
         begin = 18
-        terminate = 21
-        spacing = 23
-        terminateOption = 25
-        spacingOption = 26
+        terminate = 20
+        spacing = 22
+        end = 22                         
+        number = 23
+        terminateOption = 24
+        spacingOption = 25
         parameters = 27
+        parametersButton = 28
+        routeFileButton = 30
+        routeFile = 31
+        helpDialog = 32
+        reset = 33
 
 # flow (from-to TAZs)
 
@@ -2676,12 +2823,18 @@ class flowTAZ:
         arrivalPosLat = 21
         insertionChecks = 22
         begin = 23
-        terminate = 27
-        end = 29
-        number = 30
-        spacing = 29
-        terminateOption = 31
-        spacingOption = 32
+        terminate = 25
+        spacing = 27
+        end = 27
+        number = 28
+        terminateOption = 29
+        spacingOption = 30
+        parameters = 32
+        parametersButton = 33
+        routeFileButton = 35
+        routeFile = 36
+        helpDialog = 37
+        reset = 38
 
     class inspect:
         id = 1
@@ -2704,12 +2857,18 @@ class flowTAZ:
         arrivalPosLat = 19
         insertionChecks = 20
         begin = 21
-        terminate = 24
-        spacing = 26
-        end = 27
-        terminateOption = 28
-        spacingOption = 29
-        parameters = 32
+        terminate = 23
+        spacing = 25
+        end = 25                         
+        number = 26
+        terminateOption = 27
+        spacingOption = 28
+        parameters = 30
+        parametersButton = 31
+        routeFileButton = 33
+        routeFile = 34
+        helpDialog = 35
+        reset = 36
 
     class inspectSelection:
         typeButton = 1
@@ -2729,11 +2888,18 @@ class flowTAZ:
         arrivalPosLat = 16
         insertionChecks = 17
         begin = 18
-        terminate = 21
-        spacing = 23
-        terminateOption = 25
-        spacingOption = 26
+        terminate = 20
+        spacing = 22
+        end = 22                         
+        number = 23
+        terminateOption = 24
+        spacingOption = 25
         parameters = 27
+        parametersButton = 28
+        routeFileButton = 30
+        routeFile = 31
+        helpDialog = 32
+        reset = 33
 
 # flow (over route)
 
@@ -2758,11 +2924,17 @@ class routeFlow:
         insertionChecks = 22
         begin = 23
         terminate = 25
+        spacing = 27
         end = 27
         number = 28
-        spacing = 27
         terminateOption = 29
         spacingOption = 30
+        parameters = 32
+        parametersButton = 33
+        routeFileButton = 35
+        routeFile = 36
+        helpDialog = 37
+        reset = 38
 
     class inspect:
         id = 1
@@ -2788,10 +2960,16 @@ class routeFlow:
         begin = 22
         terminate = 24
         spacing = 26
-        end = 27
+        end = 26                         
+        number = 27
         terminateOption = 28
         spacingOption = 29
         parameters = 31
+        parametersButton = 32
+        routeFileButton = 34
+        routeFile = 35
+        helpDialog = 36
+        reset = 37
 
     class inspectSelection:
         typeButton = 1
@@ -2813,10 +2991,16 @@ class routeFlow:
         begin = 18
         terminate = 20
         spacing = 22
-        end = 23
+        end = 22                         
+        number = 23
         terminateOption = 24
         spacingOption = 25
         parameters = 27
+        parametersButton = 28
+        routeFileButton = 30
+        routeFile = 31
+        helpDialog = 32
+        reset = 33
 
 # flow (embedded route)
 
@@ -2840,12 +3024,18 @@ class flowEmbedded:
         arrivalPosLat = 21
         insertionChecks = 22
         begin = 23
-        terminate = 27
-        end = 29
-        number = 30
-        spacing = 29
-        terminateOption = 31
-        spacingOption = 32
+        terminate = 25
+        spacing = 27
+        end = 27
+        number = 28
+        terminateOption = 29
+        spacingOption = 30
+        parameters = 32
+        parametersButton = 33
+        routeFileButton = 35
+        routeFile = 36
+        helpDialog = 37
+        reset = 38
 
     class inspect:
         id = 1
@@ -2868,12 +3058,18 @@ class flowEmbedded:
         arrivalPosLat = 19
         insertionChecks = 20
         begin = 21
-        terminate = 24
-        spacing = 26
-        end = 27
-        terminateOption = 28
-        spacingOption = 29
-        parameters = 32
+        terminate = 23
+        spacing = 25
+        end = 25                         
+        number = 26
+        terminateOption = 27
+        spacingOption = 28
+        parameters = 30
+        parametersButton = 31
+        routeFileButton = 33
+        routeFile = 34
+        helpDialog = 35
+        reset = 36
 
     class inspectSelection:
         typeButton = 1
@@ -2893,11 +3089,18 @@ class flowEmbedded:
         arrivalPosLat = 16
         insertionChecks = 17
         begin = 18
-        terminate = 21
-        spacing = 23
-        terminateOption = 25
-        spacingOption = 26
+        terminate = 20
+        spacing = 22
+        end = 22                         
+        number = 23
+        terminateOption = 24
+        spacingOption = 25
         parameters = 27
+        parametersButton = 28
+        routeFileButton = 30
+        routeFile = 31
+        helpDialog = 32
+        reset = 33
 
 # stop over bus stop
 
