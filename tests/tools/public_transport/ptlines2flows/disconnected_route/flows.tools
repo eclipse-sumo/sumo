@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-23 14:34:25.089033 by ptlines2flows.py v1_22_0+1663-d2026fbddb0
+<!-- generated on 2025-04-23 14:35:03.275871 by ptlines2flows.py v1_22_0+1664-3380a42f35e
 <configuration>
     <net-file value="net.net.xml.gz"/>
     <ptlines-file value="ptlines.xml"/>
@@ -27,11 +27,12 @@
     <route id="tram_61:0" color="102,153,51" edges="1309359433 1149198443#0 1149198443#1 1378993687#0 1378993687#1 466720637 1030416096#0 175925602 288073824 288073814" >
         <stop busStop="12120515970" duration="20" until="45.0"/> <!-- S Schöneweide/Sterndamm -->
         <stop busStop="9214990855" duration="20" until="148.0"/> <!-- Nieberstraße -->
-        <stop busStop="9214990840" duration="20" until="213.0"/> <!-- Landfliegerstraße -->
-        <stop busStop="370884692" duration="20" until="576.0"/> <!-- Bahnhofstraße/Lindenstraße -->
+        <stop busStop="9214990840" duration="20" until="213.0" jump="248.1676639456272"/> <!-- Landfliegerstraße -->
+        <stop busStop="370884692" duration="20" until="524.1676639456272"/> <!-- Bahnhofstraße/Lindenstraße -->
     </route>
     <route id="tram_61:1" color="102,153,51" edges="1309359433 175925602 288073824 288073814" >
-        <stop busStop="370884692" duration="20" until="388.0"/> <!-- Bahnhofstraße/Lindenstraße -->
+        <stop busStop="370884692" duration="20" until="48.0"/> <!-- Bahnhofstraße/Lindenstraße -->
+        <stop edge="1309359433" speed="999" jump="306.7793915830034" index="fit"/>
     </route>
     <flow id="tram_61:0" type="tram" route="tram_61:0" begin="0.0" end="3600.0" period="1200" line="61:0" >
         <param key="name" value="Tram 61: S-Schöneweide/Sterndamm =&gt; Rahnsdorf/Waldschänke"/>
