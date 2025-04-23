@@ -247,7 +247,7 @@ class PersonDomain(VTypeDomain):
         """splitTaxiReservation(string, list(string)) -> string
         Splits given list of person ids from the reservation with the given id
         and creates a new reservation for these persons. Returns the new
-        reservation id
+        reservation id.
         """
         return self._getUniversal(tc.SPLIT_TAXI_RESERVATIONS, reservationID, "l", personIDs)
 

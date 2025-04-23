@@ -83,68 +83,54 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
 ### Value Retrieval
 
 - Traffic Objects
-  - [Vehicle Value
-    Retrieval](TraCI/Vehicle_Value_Retrieval.md) retrieve
+  - [Vehicle Value Retrieval](TraCI/Vehicle_Value_Retrieval.md) retrieve
     information about vehicles
-  - [Person Value
-    Retrieval](TraCI/Person_Value_Retrieval.md) retrieve
+  - [Person Value Retrieval](TraCI/Person_Value_Retrieval.md) retrieve
     information about persons
-  - [Vehicle Type Value
-    Retrieval](TraCI/VehicleType_Value_Retrieval.md)
+  - [Vehicle Type Value Retrieval](TraCI/VehicleType_Value_Retrieval.md)
     retrieve information about vehicle types
   - [Route Value Retrieval](TraCI/Route_Value_Retrieval.md)
     retrieve information about routes
 - Detectors and Outputs
-  - [Induction Loop Value
-    Retrieval](TraCI/Induction_Loop_Value_Retrieval.md)
+  - [Induction Loop Value Retrieval](TraCI/Induction_Loop_Value_Retrieval.md)
     retrieve information about induction loops
-  - [Lane Area Detector Value
-    Retrieval](TraCI/Lane_Area_Detector_Value_Retrieval.md)
+  - [Lane Area Detector Value Retrieval](TraCI/Lane_Area_Detector_Value_Retrieval.md)
     retrieve information about lane area detectors
-  - [Multi-Entry-Exit Detectors Value
-    Retrieval](TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval.md)
+  - [Multi-Entry-Exit Detectors Value Retrieval](TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval.md)
     retrieve information about multi-entry/multi-exit detectors
-  - [Calibrator Value
-    Retrieval](TraCI/Calibrator.md)
+  - [Calibrator Value Retrieval](TraCI/Calibrator.md)
     retrieve information about calibrators
   - [RouteProbe](TraCI/RouteProbe.md)
     retrieve information about the RouteProbe
 - Network
-  - [Junction Value
-    Retrieval](TraCI/Junction_Value_Retrieval.md) retrieve
+  - [Junction Value Retrieval](TraCI/Junction_Value_Retrieval.md) retrieve
     information about junctions
   - [Edge Value Retrieval](TraCI/Edge_Value_Retrieval.md)
     retrieve information about edges
   - [Lane Value Retrieval](TraCI/Lane_Value_Retrieval.md)
     retrieve information about lanes
 - Infrastructure
-  - [Traffic Lights Value
-    Retrieval](TraCI/Traffic_Lights_Value_Retrieval.md)
+  - [Traffic Lights Value Retrieval](TraCI/Traffic_Lights_Value_Retrieval.md)
     retrieve information about traffic lights
-  - [BusStop Value
-    Retrieval](TraCI/BusStop.md)
+  - [BusStop Value Retrieval](TraCI/BusStop.md)
     retrieve information about BusStops
-  - [Charging Station Value
-    Retrieval](TraCI/ChargingStation.md)
+  - [Charging Station Value Retrieval](TraCI/ChargingStation.md)
     retrieve information about charging stations
-  - [Parking Area Value
-    Retrieval](TraCI/ParkingArea.md)
+  - [Parking Area Value Retrieval](TraCI/ParkingArea.md)
     retrieve information about parking areas
-  - [Overhead Wire Value
-    Retrieval](TraCI/OverheadWire.md)
+  - [Overhead Wire Value Retrieval](TraCI/OverheadWire.md)
     retrieve information about overhead wires
-   - [Rerouter](TraCI/Rerouter.md)
+  - [Rerouter](TraCI/Rerouter.md)
     retrieve information about the rerouter
- - Misc
-  - [Simulation Value
-    Retrieval](TraCI/Simulation_Value_Retrieval.md) retrieve
+- Misc
+  - [Simulation Value Retrieval](TraCI/Simulation_Value_Retrieval.md) retrieve
     information about the simulation
   - [GUI Value Retrieval](TraCI/GUI_Value_Retrieval.md)
     retrieve information about the simulation visualization
   - [PoI Value Retrieval](TraCI/POI_Value_Retrieval.md)
     retrieve information about points-of-interest
-  - [Polygon Value
-    Retrieval](TraCI/Polygon_Value_Retrieval.md) retrieve information about polygons
+  - [Polygon Value Retrieval](TraCI/Polygon_Value_Retrieval.md)
+    retrieve information about polygons
 
 
 ###  State Changing
@@ -190,10 +176,16 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
 
 ### Subscriptions
 
-- [TraCI/Object Variable
-    Subscription](TraCI/Object_Variable_Subscription.md)
-- [TraCI/Object Context
-    Subscription](TraCI/Object_Context_Subscription.md)
+Subscriptions are a way to get notified repeatedly about changes in variables.
+They are applicable to all variables mentioned in the respective value retrieval section
+of the domain in question unless noted otherwise.
+For details see the separate page on [object variable subscription](TraCI/Object_Variable_Subscription.md).
+
+It is also possible to subscribe to values of objects
+surrounding another object (e.g. all vehicles around a certain junction).
+This is called [context subscription](TraCI/Object_Context_Subscription.md).
+
+Subscriptions may be faster than repeated value retrieval, see the section on [Performance](#performance).
 
 
 ## Using SUMO as a library

@@ -10,8 +10,12 @@ title: Traffic Lights Value Retrieval
 
 Asks for the value of a certain variable of the named traffic light. The
 value returned is the state of the asked variable/value within the last
-simulation step. The following variable values can be retrieved, the
-type of the return value is also shown in the table.
+simulation step. The following variable values can be retrieved and subscribed to.
+The type of the return
+value is also shown in the table. It is not possible to subscribe to
+swap constraints which is technically more of a change function
+and just implemented as a retrieval function because it needs a return value.
+
 
 **Overview Retrievable Traffic Lights Variables**
 
@@ -32,6 +36,7 @@ type of the return value is also shown in the table.
 | blocking vehicles (0x25)                            | stringList         | Returns the ids of vehicles that occupy the subsequent rail signal block                                                                                                                                                                                                                                                                                                                                                                                                                    | [getBlockingVehicles](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getBlockingVehicles)                   |
 | rival vehicles (0x30)                            | stringList         | Returns the ids of vehicles that are approaching the same rail signal block                                                                                                                                                                                                                                                                                                                                                                                                                    | [getRivalVehicles](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getRivalVehicles)   |
 | priority vehicles (0x31)                            | stringList         | Returns the ids of vehicles that are approaching the same rail signal block with higher priority                                                                                                                                                                                                                                                                                                                                                                                                                   | [getPriorityVehicles](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getPriorityVehicles)      |
+| swap constraints (0x32)                            | list(Constraint)         | Reverse the given constraint and return list of new constraints that were created (by swapping) to avoid deadlock. | [swapConstraints](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-swapConstraints)      |
 
 
 Please note:
