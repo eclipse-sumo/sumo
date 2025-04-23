@@ -74,11 +74,13 @@ jobs:
 
     - name: Building Examples and Tests
       run: |
+        export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
     - name: Running texttest
       run: |
+        export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
         brew install texttest
         sumo/tests/runTests.sh -b ci -v ci -ts meta
 
