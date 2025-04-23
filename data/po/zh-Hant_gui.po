@@ -8376,7 +8376,7 @@ msgid "The path to the output file"
 msgstr "輸出檔案的路徑"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8655
-msgid "Path to the output file to writting information"
+msgid "Path to the output file for writing information"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8667

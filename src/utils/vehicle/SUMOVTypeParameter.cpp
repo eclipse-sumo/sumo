@@ -164,7 +164,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             personCapacity = 2;
             containerCapacity = 1;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "RT_le7.5t_Euro-VI_A-C", vclass);
-            mass = 6500.;
+            mass = 4500.;
             speedFactor.getParameter()[1] = 0.05;
             break;
         case SVC_TRAILER:
@@ -176,7 +176,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             personCapacity = 2;
             containerCapacity = 2;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "TT_AT_gt34-40t_Euro-VI_A-C", vclass);
-            mass = 26000.;
+            mass = 13000.;
             speedFactor.getParameter()[1] = 0.05;
             break;
         case SVC_BUS:
@@ -189,7 +189,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             // the following values keep better consistency with the default bus length,
             // although the most frequent city bus seems to have 3 axes and >18t according to the HBEFA4 data
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "UBus_Std_gt15-18t_Euro-VI_A-C", vclass);
-            mass = 15000.;
+            mass = 12000.;
             break;
         case SVC_COACH:
             maxSpeed = 100. / 3.6;
@@ -199,7 +199,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             osgFile = "car-minibus-citrus.obj";
             personCapacity = 70;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "Coach_3-Axes_gt18t_Euro-VI_A-C", vclass);
-            mass = 28000.;
+            mass = 25000.;
             speedFactor.getParameter()[1] = 0.05;
             break;
         case SVC_TRAM:

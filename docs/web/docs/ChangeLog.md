@@ -39,7 +39,7 @@ title: ChangeLog
   - Stops in flows are now correctly handled when saving and loading state #16527
   - Fixed invalid behavior when rerouter closes multiple lanes or edges with different permissions in the same interval #13846
   - Fixed rare crash on loading rail simulation with internal links #16532
- 
+
 - netedit
   - Restored functionality for setting custom geometry point by entering values #16179 (regression in 1.20.0)
   - Improved visibility of internal junction markers on connections #16485 (regression in 1.20.0)
@@ -81,7 +81,7 @@ title: ChangeLog
   - Fixed invalid route output when loading invalid routes with stops and setting option **--ignore-errors** #16365
   - Improved error message when loading **--astar.landmark-distances** together with taz #16400
   - Fixed crash when loading restriction-params with taz #16514
- 
+
 - TraCI
   - Setting vehicle parameter 'lcContRight' is now working #16147
   - Fixed bug where `traci.vehicle.moveToXY` matched onto the wrong internal lane #15282
@@ -140,7 +140,7 @@ title: ChangeLog
 - netconvert
   - Added option **--junctions.join.parallel-threshold DEGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
   - Added option **--osm.annotate-defaults** to document whether speed and lane number were based on OSM data or typemap default values #16094
-  - Trams now use safe and efficient zipper merging where possible when no tram rail signals are defined. Option ** --railway.signal.permit-unsignalized** can be used to configure other vClasses that are subject to this behavior #16216  
+  - Trams now use safe and efficient zipper merging where possible when no tram rail signals are defined. Option ** --railway.signal.permit-unsignalized** can be used to configure other vClasses that are subject to this behavior #16216
 
 - sumo-gui
   - started work on Japanese translation #16129
@@ -151,7 +151,7 @@ title: ChangeLog
 - od2trips
   - Added warning when a taz has no source or sinks #16112
 
-- TracI
+- TraCI
   - `vehicle.setSpeedMode` now supports a 7th bit to control adherence to the road speed limit #3811
   - `traci.start` now supports argument `traceGetters="print"`. When this is set, the generated traceFile will print the outputs of all *get* commands when replayed. #16156
   - Added function `traci.route.delete` #15452
@@ -173,7 +173,7 @@ title: ChangeLog
   - [remap_renamed.py](Tools/Net.md#remap_renamedpy): convert route files and additional files after renaming network ids (i.e. with **--numerical-ids**) #16252
   - [remap_network.py](Tools/Net.md#remap_renamedpy): New tool for finding correspondence between networks based on geometry #16409
   - ptlines2flows.py: now sorts written routes and flows by id #16222
-  - ptlines2flows.py: now safely handles missing edges #16293  - 
+  - ptlines2flows.py: now safely handles missing edges #16293
   - gtfs2pt.py: now supports option **--merged-csv** for loading transit schedule data from a single file and option **--merged-csv-output** for creating such a file from GTFS input. #16310
   - gtfs2pt.py: now supports option **--patched-stops** to customize stop-to-lane assignment for individual stops #10720
   - gtfs2pt.py: now supports option **--stops** for giving a list of candidate stop edges to guide mapping. This can can greatly improve running time #16326
@@ -189,6 +189,7 @@ title: ChangeLog
 
 - In netedit, the default extension of edge data files is now *.xml, instead of *.dat.xml #16257
 - Netedit: unified contextual menus for all elements #15314
+- The new default emission model is now [HBEFA4](models/Emissions/HBEFA4-based.md) #15950. Please note that this means a major reduction especially in the values for CO and HC at low speeds.
 
 
 
