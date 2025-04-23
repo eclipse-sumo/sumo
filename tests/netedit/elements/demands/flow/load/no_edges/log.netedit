@@ -1,2 +1,2 @@
-Error: Could not build flow with ID 'flow_0' in netedit; Requieres either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.07Jan110842.11083/netedit.gui/elements/demands/flow/load/no_edges/routes.rou.xml failed.
+Error: Could not build flow with ID 'flow_0' in netedit; Requires either a route or an embedded route or a from-to attribute (Edges, junctions or TAZs).
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.23Apr104630.39804/netedit.gui/elements/demands/flow/load/no_edges/routes.rou.xml failed.
