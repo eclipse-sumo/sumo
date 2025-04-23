@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-06 20:56:24 by Eclipse SUMO sumo Version v1_15_0+2236-c679189c704
+<!-- generated on 2025-04-23 23:32:08 by Eclipse SUMO sumo Version v1_22_0+1676-989a5715aeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <meso-junction-control value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -126,23 +126,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </person>
 
     <person id="p1" depart="0.00">
-        <ride from="beg" to="end" busStop="bs" lines="ANY" vehicle="NULL" started="-1" ended="-1"/>
+        <ride from="beg" to="end" busStop="bs" vehicle="NULL" started="-1" ended="-1"/>
     </person>
 
     <person id="p2" depart="0.00">
-        <ride from="beg" to="end" trainStop="ts" lines="ANY" vehicle="NULL" started="-1" ended="-1"/>
+        <ride from="beg" to="end" trainStop="ts" vehicle="NULL" started="-1" ended="-1"/>
     </person>
 
     <person id="p3" depart="0.00">
-        <ride from="beg" to="end" containerStop="cs" lines="ANY" vehicle="NULL" started="-1" ended="-1"/>
+        <ride from="beg" to="end" containerStop="cs" vehicle="NULL" started="-1" ended="-1"/>
     </person>
 
     <person id="p4" depart="0.00">
-        <ride from="beg" to="end" parkingArea="pa" lines="ANY" vehicle="NULL" started="-1" ended="-1"/>
+        <ride from="beg" to="end" parkingArea="pa" vehicle="NULL" started="-1" ended="-1"/>
     </person>
 
     <person id="p5" depart="0.00">
-        <ride from="beg" to="end" chargingStation="cc" lines="ANY" vehicle="NULL" started="-1" ended="-1"/>
+        <ride from="beg" to="end" chargingStation="cc" vehicle="NULL" started="-1" ended="-1"/>
     </person>
 
 </routes>
