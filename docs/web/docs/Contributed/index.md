@@ -128,6 +128,10 @@ The following extensions are managed and supported by other parties.
 
     SUMO as a cloud service to build, run and analyze simulation scenarios, developed by the DLR spin-off company co4e GmbH
 
+- [TrafficFluid-Sim](https://www.trafficfluid.tuc.gr/en/trafficfluid-sim)
+
+  TrafficFluid-Sim is an open source, microscopic traffic simulation tool for automated vehicles driving in lane-free traffic environments in the era of Connected and Automated Vehicles. The simulator is an extension of SUMO that explicitly targets the lane-free traffic paradigm. 
+
 # Purgatory
 
 The following extensions exist or have existed, but their state is
