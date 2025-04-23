@@ -1,0 +1,2 @@
+Error: Could not build parkingArea with ID 'pa_0' in netedit; Found another parkingArea with the same ID.
+Warning: Invalid value ';;;;' in attribute id
