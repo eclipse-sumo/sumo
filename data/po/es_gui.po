@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-22 14:28+0000\n"
+"PO-Revision-Date: 2025-04-23 09:21+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -3286,11 +3286,11 @@ msgstr "Guardar elementos adicionales y formas (shapes)."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save Additionals unified as..."
-msgstr ""
+msgstr "Guardar elementos adicionales unificados como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save all additional elements to the chosen file."
-msgstr ""
+msgstr "Guardar todos los elementos adicionales en el archivo seleccionado."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "Save JuPedSim Elements as..."
@@ -3326,11 +3326,11 @@ msgstr "Guardar elementos de demanda."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:486
 msgid "Save Demand Elements unified as..."
-msgstr ""
+msgstr "Guardar elementos de demanda unificados como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:486
 msgid "Save all demand elements to the chosen file"
-msgstr ""
+msgstr "Guardar todos los elementos de demanda en el archivo seleccionado"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:492
 msgid "Reload Demand Elements"
@@ -3358,11 +3358,11 @@ msgstr "Guardar elementos de demanda."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:510
 msgid "Save Data Elements unified as..."
-msgstr ""
+msgstr "Guardar elementos de datos unificados como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:510
 msgid "Save all data elements to the chosen file."
-msgstr ""
+msgstr "Guardar todos los elementos de datos en el archivo seleccionado."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:516
 msgid "Reload Data Elements"
@@ -3390,11 +3390,11 @@ msgstr "Guardar meanDatas y formas (shapes)."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:534
 msgid "Save MeanDatas unified as..."
-msgstr ""
+msgstr "Guardar elementos meanData unificados como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:534
 msgid "Save all meanData elements to the chosen file."
-msgstr ""
+msgstr "Guardar todos los elementos meanData en el archivo seleccionado."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:540
 msgid "Reload MeanDatas"
@@ -6193,15 +6193,15 @@ msgstr "Tipo de vehículo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2631
 msgid "VType (Ref)"
-msgstr ""
+msgstr "VType (Ref)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2638
 msgid "VType distribution in which this vTypeRef is defined"
-msgstr ""
+msgstr "Distribución de vType en la que se define este vTypeRef"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2643
 msgid "Reference ID of vType"
-msgstr ""
+msgstr "ID de referencia del vType"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2661
 msgid "TripEdges"
@@ -12315,7 +12315,7 @@ msgstr "Attributos del flujo (flow)"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:34
 msgid "Geo attributes"
-msgstr ""
+msgstr "Atributos geográficos"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:35
 msgid "Parameters"
@@ -13157,6 +13157,9 @@ msgid ""
 " select at least\n"
 " one element"
 msgstr ""
+"-Este adicional requiere que\n"
+" se seleccione al menos\n"
+" un elemento"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:86
 #, c-format
