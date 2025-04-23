@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-22 16:07:33 by Eclipse SUMO netconvert Version v1_22_0+1631-e4f1257a91c
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
+        <osm-files value="osm_bbox.osm.xml.gz"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml.gz"/>
+        <output.street-names value="true"/>
+        <output.original-names value="true"/>
+        <ptstop-output value="osm_stops.add.xml"/>
+        <ptline-output value="osm_ptlines.xml"/>
+        <ptline-clean-up value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <tls_building>
+        <tls.discard-simple value="true"/>
+        <tls.join value="true"/>
+        <tls.guess-signals value="true"/>
+        <tls.default-type value="actuated"/>
+    </tls_building>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+    </ramp_guessing>
+
+    <junctions>
+        <junctions.join value="true"/>
+        <junctions.corner-detail value="5"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+</netconvertConfiguration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="2077981" name="Tram 61: S-Schöneweide/Sterndamm =&gt; Rahnsdorf/Waldschänke" line="61" type="tram" vClass="tram" period="1200" color="102,153,51" completeness="0.09" missingAfter="32">
+        <route edges="1309359433 1149198443#0 1149198443#1 1378993687#0 1378993687#1 466720637 1030416096#0 175925600#0 175925602 288073824 288073814"/>
+        <busStop id="12120515970" name="S Schöneweide/Sterndamm"/>
+        <busStop id="9214990855" name="Nieberstraße"/>
+        <busStop id="9214990840" name="Landfliegerstraße"/>
+        <busStop id="370884692" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+
+    <ptLine id="2077981b" name="Tram 61: S-Schöneweide/Sterndamm =&gt; Rahnsdorf/Waldschänke" line="61" type="tram" vClass="tram" period="1200" color="102,153,51" completeness="0.09" missingAfter="32">
+        <route edges="1309359433 1149198443#0 1149198443#1 1378993687#0 1378993687#1 466720637 1030416096#0 175925600#0 175925602 288073824 288073814"/>
+        <busStop id="370884692" name="Bahnhofstraße/Lindenstraße"/>
+    </ptLine>
+
+</ptLines>
