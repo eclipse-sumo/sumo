@@ -39,6 +39,8 @@ title: ChangeLog
   - Stops in flows are now correctly handled when saving and loading state #16527
   - Fixed invalid behavior when rerouter closes multiple lanes or edges with different permissions in the same interval #13846
   - Fixed rare crash on loading rail simulation with internal links #16532
+  - Fixed insufficient precision when using **--fcd-replay** with JuPedSim #16047
+  - Fixed bug where stationfinder device fails to search for station after failed estimation at low charge #16562
 
 - netedit
   - Restored functionality for setting custom geometry point by entering values #16179 (regression in 1.20.0)
@@ -57,6 +59,8 @@ title: ChangeLog
 - sumo-gui
   - Fixed rendering of rail carriages when scaled by length/geometry #16425
   - Visualization option *scale length with geometry* now works for rail carriages and allows rendering with unscaled length #11576
+  - Fixed crash on invalid output file path for calibrators #16545
+  - vehicle color param and vehicle text param are not correctly saved in settings #16561
 
 - netconvert
   - Fixed unsafe program transition from 'G' to 'g' #16289 (regression in 1.20.0)
@@ -76,11 +80,14 @@ title: ChangeLog
   - Fixed invalid internal lane shape when importin OpenDRIVE #16482
   - Fixed invalid ptline-output when running with option **--ptstop-output.no-bidi** #16534
   - Option **--ptline-clean-up** now cleans up more stops #16540
+  - Fixed invalid ptline-output when running with option **--ptstop-output.no-bidi** #16534
+  - Fixed failure to join junctions #16557
 
 - durarouter
   - Fixed invalid route output when loading invalid routes with stops and setting option **--ignore-errors** #16365
   - Improved error message when loading **--astar.landmark-distances** together with taz #16400
   - Fixed crash when loading restriction-params with taz #16514
+  - vClass-specific speed restrictions are now working #16580
 
 - TraCI
   - Setting vehicle parameter 'lcContRight' is now working #16147
@@ -92,6 +99,7 @@ title: ChangeLog
   - Subscriptions to methods with additional parameters now work in libsumo #16383
   - Function `edge.subscribeContext` now correctly collects vehicles at low dist regardless of lane number #16422
   - Function `vehicle.getLeader` no longer contains traffic that crosses the path of the ego vehicle (without ever becoming a leader) #13842
+  - libsumo subscriptions no longer ignore begin and end time #16411
 
 - Tools
   - `sumolib.net.lane.getClosestLanePosAndDist` now gives correct results when lane length differs from shape length #16269
@@ -99,15 +107,23 @@ title: ChangeLog
   - gtfs2pt.py: Fixed problem that caused invalid routes to be written #16336
   - gtfs2pt.py: Fixed invalid stop placement on disallowed lane #16352
   - gtfs2pt.py: Now warning about input that provokes negative stop-until times #16322
+  - gtfs2pt.py: Fixed exaggerated penalty for alternative departure edge #16543
+  - gtfs2pt.py: edge speed is no longer ignored when mapping #16544
   - route2sel.py: Fixed crash when loading flow/trip that references a route id #16395
   - randomTrips.py: Fixed inconsistent behavior of option **--verbose** #11861
   - randomTrips.py: Fixed override of **--edge-permission** when using **--persontrips** #16471
+  - randomTrips.py: can now load custom boolean duarouter option from config #16551
+  - randomTrips.py: writing .rou.xml.gz is now working #16556
   - scaleRoutes.py: Fixed bug in scaling #16474
   - scaleRoutes.py: Fixed crashes when input exceeds the ocnfigured time range #16467
   - scaleRoutes.py: option **--timeline-pair** is now working #16473
   - scaleRoutes.py: Now works with flows defined via `period` #16470
   - route_1htoDay.py: fixed misleading option help text #16466
   - route_1htoDay.py: now supports option **--output-file** to put all vehicles into a single file that can be used with **scaleTimeLine.py** #16468
+  - analyzePersonPlans.py: fixed invalid car use classification #16549
+  - distributeChargingStations.py: Fixed invalid position of generated parking area when input contains negative positions #16560
+  - ptlines2flows.py: Fixed invalid route with **--extend-to-fringe** when pt line is split #16573
+  - ptlines2flows.py: No longer writing invalid (disconnected) routes when using a modified input network. Instead disconnected parts are bridged with jumps #16292
   - loading tool config with multiple positional input file arguments now works #16447
 
 ### Enhancements
@@ -131,6 +147,7 @@ title: ChangeLog
   - Emergency vehicles may now perform opposite overtaking of queues even when the downstream edge has no opposite edge #16499
   - collision-output now writes network coordindates of the front and rear of the involved vehicles #16509
   - SSM device parameter "write-na" can be used to disable conflict information where all values are `n/a` #16513
+  - public transport rides that are created for a personTrip now use any vehicle that stops at the destination by default. The previous behavior of restricting rides to a single line id can be restored with option **--persontrip.ride-public-line**. #12263
 
 - netedit
   - Each object now tracks the file from which it was loaded to facilitate working with projects where multiple route- or additional-files are used #12430
@@ -142,6 +159,7 @@ title: ChangeLog
   - Added option **--junctions.join.parallel-threshold DEGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
   - Added option **--osm.annotate-defaults** to document whether speed and lane number were based on OSM data or typemap default values #16094
   - Trams now use safe and efficient zipper merging where possible when no tram rail signals are defined. Option ** --railway.signal.permit-unsignalized** can be used to configure other vClasses that are subject to this behavior #16216
+  - OSM: newer tagging schemes for on-street parking are now supported #16558
 
 - sumo-gui
   - started work on Japanese translation #16129
@@ -152,6 +170,9 @@ title: ChangeLog
 - od2trips
   - Added warning when a taz has no source or sinks #16112
 
+- duarouter
+  - public transport rides that are created for a personTrip now use any vehicle that stops at the destination by default. The previous behavior of restricting rides to a single line id can be restored with option **--persontrip.ride-public-line**. #12263
+
 - TraCI
   - `vehicle.setSpeedMode` now supports a 7th bit to control adherence to the road speed limit #3811
   - `traci.start` now supports argument `traceGetters="print"`. When this is set, the generated traceFile will print the outputs of all *get* commands when replayed. #16156
@@ -160,7 +181,6 @@ title: ChangeLog
   - Addedd function `person.getWalkingDistance` #16197
   - Added `lanearea` functions `getIntervalMeanTimeLoss` and `getLastIntervalMeanTimeLoss` #16311
   - Added function `domainID` to all domains. This can be used as the target domain in `subscribeContext` #16418
-
 
 - Tools
   - randomTrips.py: When option **--validate** is set, the generated amount of vehicles is guaranteed (by replacing invalid trips with new valid trips) #8843
@@ -186,14 +206,21 @@ title: ChangeLog
   - scaleRoutes.py: now uses a non-constant default timeline #16469
   - [generateDetectors.py](Tools/Output.md#generatedetectorspy): new tool for generating detectors on arbitrary network edges #16523
   - osmWebWizard.py: No longer generating superfluous bidi-stops #16533
+  - [checkReversals.py](Tools/Railways.md#checkreversalspy): new tool for counting train reversals in route file #16542
+  - [mapDetectors.py](Tools/Detector.md#mapdetectorspy): now filters duplicates #16553
+  - [mapDetectors.py](Tools/Detector.md#mapdetectorspy): Option **--write-params** can be used to import further data columns #16554
+  - edgeDataFromFlow.py: Now supports custom column names with option **--id-column** and **--time-column** and custom interpretation of time values with option **--time-scale** #16555
+
 
 ### Miscellaneous
 
 - In netedit, the default extension of edge data files is now *.xml, instead of *.dat.xml #16257
 - Netedit: unified contextual menus for all elements #15314
 - The new default emission model is now [HBEFA4](models/Emissions/HBEFA4-based.md) #15950. Please note that this means a major reduction especially in the values for CO and HC at low speeds.
-
-
+- The function `traci.simulation.getBusStop` is now deprecated. Functions from `traci.busstop` should be used instead. #16433
+- mapDetectors.py: no longer searching up to range 1000 by default #16571
+- person-ride attribute `lines="ANY"` is no longer written as this is the default value when loading a ride without `line` attribute. #12263
+  
 
 ## Version 1.22.0 (04.02.2025)
 
