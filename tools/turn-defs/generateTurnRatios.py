@@ -55,6 +55,8 @@ def get_options(args=None):
     ap.add_option("-i", "--interval", help="custom aggregation interval (seconds or H:M:S)")
     ap.add_option("-v", "--verbose", dest="verbose", action="store_true",
                   default=False, help="tell me what you are doing")
+    ap.add_option("--split-types", dest="split_types", action="store_true",
+                  default=False, help="split output by vehicle types")
     options = ap.parse_args(args=args)
 
     if options.begin is not None:
@@ -118,17 +120,52 @@ def main(options):
         for edgePairFlowsMap, minDepart, maxDepart in getFlows(options):
             outf.write('    <interval id="%s" begin="%s" end="%s">\n' % (options.id, minDepart, maxDepart))
             for from_edge in sorted(edgePairFlowsMap.keys()):
-                if options.prob:
-                    for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
-                        s = sum(type_counts.values())
-                        for veh_type, count in sorted(type_counts.items()):
-                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" vType="%s" probability="%.2f"/>\n' %
-                                       (from_edge, to_edge, veh_type, count / s))
+                if options.split_types:
+                    if options.prob:
+                        # Calculate total counts for each vehicle type across all destination edges
+                        total_counts = {}
+                        for to_edge, type_counts in edgePairFlowsMap[from_edge].items():
+                            for veh_type, count in type_counts.items():
+                                if veh_type not in total_counts:
+                                    total_counts[veh_type] = 0
+                                total_counts[veh_type] += count
+                        
+                        # Write probabilities for each edge pair and vehicle type
+                        for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
+                            attrs = []
+                            for veh_type, count in sorted(type_counts.items()):
+                                if total_counts[veh_type] > 0:
+                                    prob = count / total_counts[veh_type]
+                                    attrs.append('%s_probability="%.2f"' % (veh_type, prob))
+                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s/>\n' %
+                                    (from_edge, to_edge, ' '.join(attrs)))
+                    else:
+                        for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
+                            attrs = []
+                            for veh_type, count in sorted(type_counts.items()):
+                                attrs.append('%s_count="%s"' % (veh_type, count))
+                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s/>\n' %
+                                    (from_edge, to_edge, ' '.join(attrs)))
                 else:
-                    for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
-                        for veh_type, count in sorted(type_counts.items()):
-                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" vType="%s" count="%s"/>\n' %
-                                       (from_edge, to_edge, veh_type, count))
+                    if options.prob:
+                        # Calculate total counts across all vehicle types and destination edges
+                        total_count = 0
+                        for to_edge, type_counts in edgePairFlowsMap[from_edge].items():
+                            total_count += sum(type_counts.values())
+                        
+                        # Write probabilities for each edge pair (combined across all vehicle types)
+                        for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
+                            count = sum(type_counts.values())
+                            if total_count > 0:
+                                prob = count / total_count
+                                outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" probability="%.2f"/>\n' %
+                                        (from_edge, to_edge, prob))
+                    else:
+                        # Write combined counts for each edge pair (summed across all vehicle types)
+                        for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
+                            count = sum(type_counts.values())
+                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" count="%s"/>\n' %
+                                    (from_edge, to_edge, count))
             outf.write('    </interval>\n')
         outf.write('</data>\n')
     outf.close()
