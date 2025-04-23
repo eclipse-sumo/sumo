@@ -98,6 +98,9 @@ public:
         return (mySignalizedClasses & svc) == svc;
     }
 
+    static void initSignalized(SVCPermissions svc) {
+        mySignalizedClasses = svc;
+    }
 
 protected:
 

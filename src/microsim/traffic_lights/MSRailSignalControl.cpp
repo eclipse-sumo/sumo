@@ -39,7 +39,7 @@
 // static value definitions
 // ===========================================================================
 MSRailSignalControl* MSRailSignalControl::myInstance(nullptr);
-SVCPermissions MSRailSignalControl::mySignalizedClasses(SVC_RAIL | SVC_RAIL_FAST | SVC_RAIL_ELECTRIC | SVC_RAIL_URBAN);
+SVCPermissions MSRailSignalControl::mySignalizedClasses(SVC_UNSPECIFIED);
 
 // ===========================================================================
 // method definitions

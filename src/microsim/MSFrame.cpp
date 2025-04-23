@@ -48,6 +48,7 @@
 #include <microsim/devices/MSDevice.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/output/MSStopOut.h>
+#include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SystemFrame.h>
 #include "MSFrame.h"
@@ -507,6 +508,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("railsignal.max-block-length", new Option_Float(2e4));
     oc.addDescription("railsignal.max-block-length", "Processing", TL("Do not build blocks longer than FLOAT and issue a warning instead"));
+
+    oc.doRegister("railsignal.default-classes", new Option_StringVector(StringVector({"rail", "rail_fast", "rail_electric", "rail_urban"})));
+    oc.addDescription("railsignal.default-classes", "Processing", TL("List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them"));
 
     oc.doRegister("time-to-impatience", new Option_String("180", "TIME"));
     oc.addDescription("time-to-impatience", "Processing", TL("Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth"));
@@ -1186,6 +1190,12 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gTLSYellowMinDecel = oc.getFloat("tls.yellow.min-decel");
     MSGlobals::gUseStopEnded = oc.getBool("use-stop-ended");
     MSGlobals::gUseStopStarted = oc.getBool("use-stop-started");
+
+    SVCPermissions defaultClasses = 0;
+    for (const std::string& vClassName : oc.getStringVector("railsignal.default-classes")) {
+        defaultClasses |= parseVehicleClasses(vClassName);
+    }
+    MSRailSignalControl::initSignalized(defaultClasses);
 
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {
