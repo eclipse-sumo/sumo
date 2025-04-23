@@ -68,9 +68,20 @@ GNEStop::GNEStop(SumoXMLTag tag, GNEDemandElement* stopParent, GNEAdditional* st
     // set parents
     setParent<GNEAdditional*>(stoppingPlace);
     setParent<GNEDemandElement*>(stopParent);
-    // enable parking for stops in parkingAreas
-    if ((tag == GNE_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
-        parametersSet |= STOP_PARKING_SET;
+    // set triggered values
+    if (triggered) {
+        parametersSet |= STOP_TRIGGER_SET;
+        if (awaitedPersons.size() > 0) {
+            parametersSet |= STOP_EXPECTED_SET;
+        }
+    } else if (containerTriggered) {
+        parametersSet |= STOP_TRIGGER_SET;
+        parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+        if (awaitedPersons.size() > 0) {
+            parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
+        }
+    } else if (joinTriggered) {
+        parametersSet |= STOP_TRIGGER_SET;
     }
     // set parking
     if (parametersSet & STOP_PARKING_SET) {
@@ -97,10 +108,27 @@ GNEStop::GNEStop(SumoXMLTag tag, GNEDemandElement* stopParent, GNELane* lane, co
     // set parents
     setParent<GNELane*>(lane);
     setParent<GNEDemandElement*>(stopParent);
+    // set triggered values
+    if (triggered) {
+        parametersSet |= STOP_TRIGGER_SET;
+        if (awaitedPersons.size() > 0) {
+            parametersSet |= STOP_EXPECTED_SET;
+        }
+    } else if (containerTriggered) {
+        parametersSet |= STOP_TRIGGER_SET;
+        parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+        if (awaitedPersons.size() > 0) {
+            parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
+        }
+    } else if (joinTriggered) {
+        parametersSet |= STOP_TRIGGER_SET;
+    }
     // set parking
     if (parametersSet & STOP_PARKING_SET) {
         parking = ParkingType::OFFROAD;
     }
+    // set trigger
+    (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
