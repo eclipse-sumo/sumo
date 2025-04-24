@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13, macos-14]
+        os: [macos-13, macos-14, macos-15]
         jps_version: ['v1.2.1']
     runs-on: ${{ matrix.os }}
     env:
@@ -43,6 +43,7 @@ jobs:
         brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
 
     - name: Cloning jupedsim
+      if: matrix.os != 'macos-13'
       uses: actions/checkout@v4
       with:
         repository: PedestrianDynamics/jupedsim
@@ -56,6 +57,7 @@ jobs:
         key: ${{ matrix.os }}
 
     - name: Building libjupedsim
+      if: matrix.os != 'macos-13'
       run: |
         cmake -B jupedsim-build -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache jupedsim
         cmake --build jupedsim-build -j4 --config Release
