@@ -515,15 +515,19 @@ bool
 MSLane::freeInsertion(MSVehicle& veh, double mspeed, double posLat,
                       MSMoveReminder::Notification notification) {
     // try to insert teleporting vehicles fully on this lane
+    double maxPos = myLength;
+    if (veh.hasStops() && veh.getNextStop().edge == veh.getCurrentRouteEdge()) {
+        maxPos = MAX2(0.0, veh.getNextStop().getEndPos(veh));
+    }
     const double minPos = (notification == MSMoveReminder::NOTIFICATION_TELEPORT ?
-                           MIN2(myLength, veh.getVehicleType().getLength()) : 0);
+                           MIN2(maxPos, veh.getVehicleType().getLength()) : 0);
     veh.setTentativeLaneAndPosition(this, minPos, 0);
     if (myVehicles.size() == 0) {
         // ensure sufficient gap to followers on predecessor lanes
         const double backOffset = minPos - veh.getVehicleType().getLength();
         const double missingRearGap = getMissingRearGap(&veh, backOffset, mspeed);
         if (missingRearGap > 0) {
-            if (minPos + missingRearGap <= myLength) {
+            if (minPos + missingRearGap <= maxPos) {
                 // @note. The rear gap is tailored to mspeed. If it changes due
                 // to a leader vehicle (on subsequent lanes) insertion will
                 // still fail. Under the right combination of acceleration and
@@ -570,11 +574,11 @@ MSLane::freeInsertion(MSVehicle& veh, double mspeed, double posLat,
         }
 
         // compute the space needed to not collide with leader
-        double frontMax = getLength();
+        double frontMax = maxPos;
         if (leader != nullptr) {
             double leaderRearPos = leader->getBackPositionOnLane(this);
             double frontGapNeeded = veh.getCarFollowModel().getSecureGap(&veh, leader, speed, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel()) + veh.getVehicleType().getMinGap();
-            frontMax = leaderRearPos - frontGapNeeded;
+            frontMax = MIN2(maxPos, leaderRearPos - frontGapNeeded);
         }
         // compute the space needed to not let the follower collide
         const double followPos = follower->getPositionOnLane() + follower->getVehicleType().getMinGap();
