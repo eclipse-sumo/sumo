@@ -61,9 +61,9 @@ A build can be triggered either by using the command palette (`CMake: Build`) or
 
 ### Running and Debugging
 
-One of the generated binaries either with or without a debugger can be started in the `Run` menu or by pressing <kbd>F5</kbd> or <kbd>Ctrl</kbd> + <kbd>F5</kbd>. In the next step, you will quickly notice, that Visual Studio Code requires the definition of run configurations. These are defined in the `.vscode/launch.json` configuration file. You can click on the `Add Configuration...` button on the bottom to add a new configuration for SUMO.
+One of the generated binaries either with or without a debugger can be started in the `Run` menu or by pressing <kbd>F5</kbd> or <kbd>Ctrl</kbd> + <kbd>F5</kbd>. In the next step, you will quickly notice, that Visual Studio Code requires the definition of run configurations. These are defined in the `.vscode/launch.json` configuration file. To generate a good launch.json for sumo, you can run the script tools/devel/generate_vscode_tasks.py (be aware that it overwrites any existing launch.json). You can also click on the `Add Configuration...` button on the bottom to add a new configuration for SUMO.
 
-A simple configuration to launch `sumo` can be seen here:
+A simple configuration to launch `sumo` on macOS can be seen here:
 
 ```
 {

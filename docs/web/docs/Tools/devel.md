@@ -19,3 +19,7 @@ or git bisect to compare performance of different sumo versions.
 # rebuild_cscope.sh
 
 Script for building ctags/cscope index files
+
+# generate_vscode_tasks.py
+
+Generate launch.json and tasks.json for debugging SUMO with Visual Studio Code. On Windows it will generate a config which works with the Visual C++ debugger on other systems it will use gdb.
