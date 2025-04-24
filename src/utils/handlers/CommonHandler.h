@@ -129,9 +129,6 @@ protected:
     /// @brief write error "invalid list of lanes"
     bool writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& id);
 
-    /// @brief write error "invalid distribution"
-    bool writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id);
-
     /// @brief write error "invalid parent element" giving ids of current and parent element
     bool writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parentTag, const std::string& parentID);
 

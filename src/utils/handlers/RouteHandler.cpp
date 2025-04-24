@@ -183,15 +183,17 @@ RouteHandler::endParseAttributes() {
                 // overwritte probabilities in children
                 for (int i = 0; i < (int)obj->getStringListAttribute(SUMO_ATTR_ROUTES).size(); i++) {
                     const auto& routeID = obj->getStringListAttribute(SUMO_ATTR_ROUTES).at(i);
-                    const double probability = obj->getDoubleListAttribute(SUMO_ATTR_PROBS).at(i);
-                    // find child
-                    for (auto objChild : obj->getSumoBaseObjectChildren()) {
-                        if (objChild->hasStringAttribute(SUMO_ATTR_ID) && (objChild->getStringAttribute(SUMO_ATTR_ID) == routeID)) {
-                            // routes
-                            objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
-                        } else if (objChild->hasStringAttribute(SUMO_ATTR_REFID) && (objChild->getStringAttribute(SUMO_ATTR_REFID) == routeID)) {
-                            // routeReferences
-                            objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+                    if (i < (int)obj->getDoubleListAttribute(SUMO_ATTR_PROBS).size()) {
+                        const double probability = obj->getDoubleListAttribute(SUMO_ATTR_PROBS).at(i);
+                        // find child
+                        for (auto objChild : obj->getSumoBaseObjectChildren()) {
+                            if (objChild->hasStringAttribute(SUMO_ATTR_ID) && (objChild->getStringAttribute(SUMO_ATTR_ID) == routeID)) {
+                                // routes
+                                objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+                            } else if (objChild->hasStringAttribute(SUMO_ATTR_REFID) && (objChild->getStringAttribute(SUMO_ATTR_REFID) == routeID)) {
+                                // routeReferences
+                                objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+                            }
                         }
                     }
                 }
@@ -204,15 +206,17 @@ RouteHandler::endParseAttributes() {
                 // overwritte probabilities in children
                 for (int i = 0; i < (int)obj->getStringListAttribute(SUMO_ATTR_VTYPES).size(); i++) {
                     const auto& vTypeID = obj->getStringListAttribute(SUMO_ATTR_VTYPES).at(i);
-                    const double probability = obj->getDoubleListAttribute(SUMO_ATTR_PROBS).at(i);
-                    // find child
-                    for (auto objChild : obj->getSumoBaseObjectChildren()) {
-                        if (objChild->hasStringAttribute(SUMO_ATTR_ID) && (objChild->getStringAttribute(SUMO_ATTR_ID) == vTypeID)) {
-                            // vTypes
-                            objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
-                        } else if (objChild->hasStringAttribute(SUMO_ATTR_REFID) && (objChild->getStringAttribute(SUMO_ATTR_REFID) == vTypeID)) {
-                            // vTypeReferences
-                            objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+                    if (i < (int)obj->getDoubleListAttribute(SUMO_ATTR_PROBS).size()) {
+                        const double probability = obj->getDoubleListAttribute(SUMO_ATTR_PROBS).at(i);
+                        // find child
+                        for (auto objChild : obj->getSumoBaseObjectChildren()) {
+                            if (objChild->hasStringAttribute(SUMO_ATTR_ID) && (objChild->getStringAttribute(SUMO_ATTR_ID) == vTypeID)) {
+                                // vTypes
+                                objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+                            } else if (objChild->hasStringAttribute(SUMO_ATTR_REFID) && (objChild->getStringAttribute(SUMO_ATTR_REFID) == vTypeID)) {
+                                // vTypeReferences
+                                objChild->addDoubleAttribute(SUMO_ATTR_PROB, probability);
+                            }
                         }
                     }
                 }
@@ -563,18 +567,8 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     // optional attributes
     const int deterministic = attrs.getOpt<int>(SUMO_ATTR_DETERMINISTIC, id.c_str(), parsedOk, -1);
-    std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk);
-    std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
-    // adjust sizes of both vectors
-    if (vTypes.size() < probabilities.size()) {
-        probabilities = std::vector<double>(probabilities.begin(), probabilities.begin() + vTypes.size());
-    } else if (probabilities.size() < vTypes.size()) {
-        vTypes = std::vector<std::string>(vTypes.begin(), vTypes.begin() + probabilities.size());
-    }
-    // check distribution
-    if (vTypes.size() != probabilities.size()) {
-        parsedOk = writeErrorInvalidDistribution(SUMO_TAG_VTYPE_DISTRIBUTION, id);
-    }
+    const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, id.c_str(), parsedOk);
+    const std::vector<double> probabilities = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PROBS, id.c_str(), parsedOk);
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE_DISTRIBUTION);
