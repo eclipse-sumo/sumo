@@ -120,7 +120,7 @@ its data type, except "length".
 **constraint:**
 
 |  string      |  string      |  string      |  string      |  int     | int      |  byte     |  byte      |  stringList   | 
-| :----------: | :----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |
+| :----------: | :----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |
 | signalId     | tripId    |  foeId    |  foeSignalId     |  limit     |  constraint type  | mustWait    |  active     |  params of the form: key,value,...,key,value    |   
 
 ## Extended retrieval messages
