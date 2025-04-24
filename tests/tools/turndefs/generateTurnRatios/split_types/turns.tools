@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-24 11:24:49.172303 by generateTurnRatios.py v1_22_0+1712-9239f208210
+  options: -r input_routes.rou.xml -o turns.xml -v <doubleminus>split-types
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="generated" begin="0.0" end="99.0">
+        <edgeRelation from="-109" to="-109.80.00" bike_count="2" car_count="3" default_count="5"/>
+        <edgeRelation from="-109.80.00" to="-11" bike_count="2" car_count="4" default_count="3"/>
+        <edgeRelation from="-109.80.00" to="23" bike_count="2" default_count="2"/>
+        <edgeRelation from="-11" to="-11.80.00" bike_count="5" car_count="6" default_count="10"/>
+        <edgeRelation from="-11.80.00" to="15" bike_count="1" default_count="1"/>
+        <edgeRelation from="-11.80.00" to="3" bike_count="5" car_count="6" default_count="6"/>
+        <edgeRelation from="-11.80.00" to="5" default_count="2"/>
+        <edgeRelation from="-120" to="-120.180.00" bike_count="1" default_count="6"/>
+        <edgeRelation from="-120.180.00" to="-64" default_count="3"/>
+        <edgeRelation from="-120.180.00" to="-75" default_count="2"/>
+        <edgeRelation from="-123" to="-123.121.42" bike_count="1" default_count="5"/>
+        <edgeRelation from="-123.121.42" to="-109" default_count="1"/>
+        <edgeRelation from="-123.121.42" to="-120" bike_count="1" default_count="3"/>
+        <edgeRelation from="-123.121.42" to="131" bike_count="1" default_count="1"/>
+        <edgeRelation from="-131" to="-131.180.00" bike_count="1" car_count="1" default_count="4"/>
+        <edgeRelation from="-131.180.00" to="-109" bike_count="1" default_count="2"/>
+        <edgeRelation from="-131.180.00" to="131" default_count="2"/>
+        <edgeRelation from="-144" to="-144.121.42" car_count="3" default_count="2"/>
+        <edgeRelation from="-144.121.42" to="-131" car_count="1" default_count="1"/>
+        <edgeRelation from="-144.121.42" to="144" car_count="2"/>
+        <edgeRelation from="-144.121.42" to="152" car_count="1" default_count="1"/>
+        <edgeRelation from="-148" to="-148.80.00" default_count="2"/>
+        <edgeRelation from="-148.80.00" to="-131" default_count="1"/>
+        <edgeRelation from="-148.80.00" to="144" default_count="1"/>
+        <edgeRelation from="-15" to="-15.180.00" car_count="2" default_count="5"/>
+        <edgeRelation from="-15.180.00" to="11" bike_count="1" default_count="1"/>
+        <edgeRelation from="-15.180.00" to="15" default_count="1"/>
+        <edgeRelation from="-15.180.00" to="3" car_count="1" default_count="3"/>
+        <edgeRelation from="-15.180.00" to="5" car_count="1"/>
+        <edgeRelation from="-152.80.00" to="-131" bike_count="1" default_count="1"/>
+        <edgeRelation from="-23" to="-23.80.00" bike_count="2" car_count="3" default_count="14"/>
+        <edgeRelation from="-23.80.00" to="-11" bike_count="2" car_count="2" default_count="8"/>
+        <edgeRelation from="-23.80.00" to="109" default_count="6"/>
+        <edgeRelation from="-23.80.00" to="23" car_count="1"/>
+        <edgeRelation from="-27" to="-27.80.00" bike_count="5" car_count="6" default_count="11"/>
+        <edgeRelation from="-27.80.00" to="-3" bike_count="2" car_count="6" default_count="9"/>
+        <edgeRelation from="-27.80.00" to="-71" bike_count="2"/>
+        <edgeRelation from="-27.80.00" to="27" default_count="2"/>
+        <edgeRelation from="-3" to="-3.180.00" bike_count="3" car_count="7" default_count="12"/>
+        <edgeRelation from="-3.180.00" to="11" bike_count="2" car_count="3" default_count="12"/>
+        <edgeRelation from="-3.180.00" to="15" car_count="4" default_count="1"/>
+        <edgeRelation from="-3.180.00" to="3" default_count="1"/>
+        <edgeRelation from="-31" to="-31.80.00" bike_count="3" car_count="2" default_count="10"/>
+        <edgeRelation from="-31.80.00" to="-23" bike_count="2" car_count="2" default_count="9"/>
+        <edgeRelation from="-31.80.00" to="31" default_count="1"/>
+        <edgeRelation from="-31.80.00" to="37" default_count="1"/>
+        <edgeRelation from="-37" to="-37.80.00" car_count="2" default_count="2"/>
+        <edgeRelation from="-37.80.00" to="-23" car_count="1" default_count="5"/>
+        <edgeRelation from="-43" to="-43.80.00" bike_count="1" default_count="4"/>
+        <edgeRelation from="-43.80.00" to="-27" bike_count="2" car_count="1" default_count="3"/>
+        <edgeRelation from="-43.80.00" to="43" default_count="1"/>
+        <edgeRelation from="-45" to="-45.80.00" bike_count="1" default_count="3"/>
+        <edgeRelation from="-45.80.00" to="-27" bike_count="2" car_count="1" default_count="2"/>
+        <edgeRelation from="-55" to="-55.80.00" bike_count="1" car_count="3" default_count="6"/>
+        <edgeRelation from="-55.80.00" to="-27" car_count="2" default_count="3"/>
+        <edgeRelation from="-58" to="-58.121.42" default_count="6"/>
+        <edgeRelation from="-58.121.42" to="-31" default_count="3"/>
+        <edgeRelation from="-58.121.42" to="64" default_count="1"/>
+        <edgeRelation from="-60" to="-60.80.00" bike_count="1" car_count="2" default_count="5"/>
+        <edgeRelation from="-60.80.00" to="-31" bike_count="1" car_count="2" default_count="4"/>
+        <edgeRelation from="-60.80.00" to="64" default_count="1"/>
+        <edgeRelation from="-64" to="-64.80.00" default_count="6"/>
+        <edgeRelation from="-64.80.00" to="-31" bike_count="1" default_count="2"/>
+        <edgeRelation from="-64.80.00" to="58" default_count="2"/>
+        <edgeRelation from="-64.80.00" to="64" default_count="2"/>
+        <edgeRelation from="-68" to="-43" bike_count="1" default_count="2"/>
+        <edgeRelation from="-71" to="-55" bike_count="2" car_count="1" default_count="5"/>
+        <edgeRelation from="-75" to="-75.121.42" default_count="3"/>
+        <edgeRelation from="-75.121.42" to="-60" car_count="1" default_count="2"/>
+        <edgeRelation from="-75.121.42" to="75" default_count="1"/>
+        <edgeRelation from="-79" to="-79.80.00" bike_count="1" car_count="1" default_count="1"/>
+        <edgeRelation from="-79.80.00" to="-60" bike_count="1" car_count="1" default_count="1"/>
+        <edgeRelation from="-79.80.00" to="75" car_count="1" default_count="2"/>
+        <edgeRelation from="-92.180.00" to="-60" default_count="1"/>
+        <edgeRelation from="109" to="109.80.00" bike_count="2" default_count="9"/>
+        <edgeRelation from="109.80.00" to="-109" bike_count="1" default_count="2"/>
+        <edgeRelation from="109.80.00" to="-120" default_count="1"/>
+        <edgeRelation from="109.80.00" to="123" bike_count="1" default_count="1"/>
+        <edgeRelation from="109.80.00" to="131" default_count="4"/>
+        <edgeRelation from="11" to="11.80.00" bike_count="3" car_count="4" default_count="13"/>
+        <edgeRelation from="11.80.00" to="-11" default_count="1"/>
+        <edgeRelation from="11.80.00" to="109" bike_count="1" default_count="3"/>
+        <edgeRelation from="11.80.00" to="23" bike_count="2" car_count="4" default_count="9"/>
+        <edgeRelation from="120" to="120.180.00" bike_count="1" car_count="4" default_count="6"/>
+        <edgeRelation from="120.180.00" to="-109" car_count="3" default_count="1"/>
+        <edgeRelation from="120.180.00" to="-120" default_count="2"/>
+        <edgeRelation from="120.180.00" to="123" default_count="1"/>
+        <edgeRelation from="120.180.00" to="131" bike_count="1" car_count="1" default_count="1"/>
+        <edgeRelation from="123" to="123.121.42" bike_count="1" default_count="3"/>
+        <edgeRelation from="123.121.42" to="-123" default_count="1"/>
+        <edgeRelation from="123.121.42" to="-15" default_count="1"/>
+        <edgeRelation from="131" to="131.180.00" bike_count="1" car_count="2" default_count="6"/>
+        <edgeRelation from="131.180.00" to="-131" bike_count="1" car_count="1" default_count="1"/>
+        <edgeRelation from="131.180.00" to="144" car_count="1" default_count="2"/>
+        <edgeRelation from="144" to="144.121.42" car_count="3" default_count="4"/>
+        <edgeRelation from="144.121.42" to="-123" default_count="2"/>
+        <edgeRelation from="144.121.42" to="-15" car_count="2" default_count="2"/>
+        <edgeRelation from="15" to="15.180.00" bike_count="1" car_count="4" default_count="5"/>
+        <edgeRelation from="15.180.00" to="-123" bike_count="1" default_count="2"/>
+        <edgeRelation from="15.180.00" to="-144" car_count="3"/>
+        <edgeRelation from="15.180.00" to="-15" default_count="1"/>
+        <edgeRelation from="23" to="23.80.00" bike_count="4" car_count="4" default_count="12"/>
+        <edgeRelation from="23.80.00" to="-23" default_count="1"/>
+        <edgeRelation from="23.80.00" to="31" bike_count="3" car_count="4" default_count="8"/>
+        <edgeRelation from="23.80.00" to="37" bike_count="1" default_count="2"/>
+        <edgeRelation from="27" to="27.80.00" bike_count="3" car_count="5" default_count="10"/>
+        <edgeRelation from="27.80.00" to="-27" bike_count="1" car_count="2" default_count="4"/>
+        <edgeRelation from="27.80.00" to="43" bike_count="1" car_count="1" default_count="2"/>
+        <edgeRelation from="27.80.00" to="45" car_count="1" default_count="1"/>
+        <edgeRelation from="27.80.00" to="55" bike_count="1" car_count="1" default_count="1"/>
+        <edgeRelation from="3" to="3.180.00" bike_count="5" car_count="7" default_count="11"/>
+        <edgeRelation from="3.180.00" to="-3" bike_count="2" default_count="4"/>
+        <edgeRelation from="3.180.00" to="-71" car_count="1" default_count="4"/>
+        <edgeRelation from="3.180.00" to="27" bike_count="3" car_count="5" default_count="5"/>
+        <edgeRelation from="31" to="31.80.00" bike_count="3" car_count="4" default_count="8"/>
+        <edgeRelation from="31.80.00" to="-31" bike_count="1" default_count="1"/>
+        <edgeRelation from="31.80.00" to="58" car_count="1" default_count="3"/>
+        <edgeRelation from="31.80.00" to="60" car_count="2" default_count="1"/>
+        <edgeRelation from="31.80.00" to="64" bike_count="2" car_count="1" default_count="3"/>
+        <edgeRelation from="37" to="-58" bike_count="1" default_count="5"/>
+        <edgeRelation from="43" to="68" bike_count="1" car_count="1" default_count="3"/>
+        <edgeRelation from="45" to="-68" bike_count="1" default_count="2"/>
+        <edgeRelation from="55" to="71" bike_count="1" car_count="1" default_count="1"/>
+        <edgeRelation from="58" to="-37" car_count="2" default_count="1"/>
+        <edgeRelation from="60" to="60.80.00" car_count="2" default_count="1"/>
+        <edgeRelation from="60.80.00" to="-60" default_count="1"/>
+        <edgeRelation from="60.80.00" to="75" bike_count="1" car_count="1" default_count="1"/>
+        <edgeRelation from="60.80.00" to="92" car_count="1"/>
+        <edgeRelation from="64" to="64.80.00" bike_count="2" car_count="1" default_count="7"/>
+        <edgeRelation from="64.80.00" to="-64" default_count="2"/>
+        <edgeRelation from="64.80.00" to="-75" default_count="1"/>
+        <edgeRelation from="64.80.00" to="120" bike_count="2" default_count="3"/>
+        <edgeRelation from="68" to="-45" bike_count="2" car_count="1" default_count="3"/>
+        <edgeRelation from="71" to="71.121.42" default_count="1"/>
+        <edgeRelation from="71.121.42" to="-3" car_count="1" default_count="1"/>
+        <edgeRelation from="75" to="75.121.42" bike_count="1" car_count="2" default_count="4"/>
+        <edgeRelation from="75.121.42" to="-75" bike_count="1"/>
+        <edgeRelation from="75.121.42" to="120" car_count="1" default_count="2"/>
+    </interval>
+</data>
