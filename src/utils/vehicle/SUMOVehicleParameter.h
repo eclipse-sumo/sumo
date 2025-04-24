@@ -104,6 +104,7 @@ const int STOP_JUMP_UNTIL_SET = 2 << 21;
 
 const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
 
+const std::string LINE_ANY = "ANY";
 
 // ===========================================================================
 // enum definitions

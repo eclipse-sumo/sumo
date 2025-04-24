@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-10 09:08:41 by Eclipse SUMO duarouter Version v1_9_2+0439-960336d
+<!-- generated on 2025-04-23 23:10:42 by Eclipse SUMO duarouter Version v1_22_0+1676-989a5715aeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -17,25 +22,23 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <output-file value="routes.rou.xml"/>
         <write-license value="true"/>
-        <alternatives-output value="routes.rou.alt.xml"/>
     </output>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</duarouterConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="avoidWalking" maxSpeed="0.50"/>
     <person id="p0" type="avoidWalking" depart="0.00" departPos="900.00">
         <walk edges="A0B0 accessC" busStop="stopC_W"/> <!-- C -->
-        <ride busStop="stopA_W" lines="train2:1" intended="train_train2:1.0" depart="599.00"/> <!-- A -->
+        <ride busStop="stopA_W" intended="train_train2:1.0" depart="599.00"/> <!-- A -->
         <walk edges="accessA" busStop="stopA_N"/> <!-- A -->
-        <ride busStop="stopB_N" lines="train1:0" intended="train_train1:0.2" depart="1601.00"/> <!-- B -->
+        <ride busStop="stopB_N" intended="train_train1:0.2" depart="1601.00"/> <!-- B -->
         <walk edges="accessB A1B1" arrivalPos="100.00"/>
     </person>
 </routes>

@@ -557,7 +557,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
         // hence, we use an event to be safe for all case
 
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new WrappingCommand<MSBaseVehicle>(this,
-                    &MSBaseVehicle::activateRemindersOnReroute), SIMSTEP);
+                &MSBaseVehicle::activateRemindersOnReroute), SIMSTEP);
     }
 #ifdef DEBUG_REPLACE_ROUTE
     if (DEBUG_COND) {
@@ -1060,7 +1060,7 @@ MSBaseVehicle::getDevice(const std::type_info& type) const {
 void
 MSBaseVehicle::saveState(OutputDevice& out) {
     // the parameters may hold the name of a vTypeDistribution but we are interested in the actual type
-    const std::string& typeID = MSNet::getInstance()->getVehicleControl().hasVTypeDistribution(myParameter->vtypeid) || getVehicleType().isVehicleSpecific() ? getVehicleType().getID() : "";
+    const std::string& typeID = myParameter->vtypeid != getVehicleType().getID() ? getVehicleType().getID() : "";
     myParameter->write(out, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, typeID);
     // params and stops must be written in child classes since they may wish to add additional attributes first
     out.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());

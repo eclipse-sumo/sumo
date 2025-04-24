@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-23 15:01:05 by Eclipse SUMO sumo Version v1_22_0+1667-a7a5d2842b6
+<!-- generated on 2025-04-23 23:15:27 by Eclipse SUMO sumo Version v1_22_0+1676-989a5715aeb
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -654,8 +654,8 @@
         <!-- Estimated time for taxi pickup -->
         <persontrip.taxi.waiting-time value="300" type="TIME"/>
 
-        <!-- Permit entering any public transport vehicle that stops at the destination -->
-        <persontrip.ride-public-any value="false" type="BOOL"/>
+        <!-- Only use the intended public transport line rather than any alternative line that stops at the destination -->
+        <persontrip.ride-public-line value="false" type="BOOL"/>
 
         <!-- Use FLOAT as a maximum train length when initializing the railway router -->
         <railway.max-train-length value="1000" type="FLOAT"/>
@@ -1427,6 +1427,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

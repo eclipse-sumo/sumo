@@ -104,9 +104,6 @@ trips into routes and automatically discard disconnected trips. It may
 be necessary to increase the number of generated random trips to account
 for a fraction disconnected, discarded trips.
 
-!!! caution
-    When using the option **--vehicle-class** the same value should be set for option **--edge-permission**
-
 Sometimes it is desirable to obtain validated trips rather than routes
 (i.e. to make use of [one-shot route
 assignment](../Demand/Dynamic_User_Assignment.md#oneshot-assignment)).
@@ -161,6 +158,11 @@ information on the simulation of pedestrians.
 Note that the option **--vehicle-class** should only be used as a quick shorthand to
 generate trips for the standard type of the given vehicle class since it
 places a standard vType definition in the generated trips file.
+
+!!! note
+    Since SUMO 1.23.0 when using the option **--vehicle-class** the same value is used as a default for the option **--edge-permission**.
+    Furthermore using **--pedestrians** or **--persontrips** imply **--edge-permission pedestrian**.
+    Different permissions can still be requested by using **--edge-permission** explicitly.
 
 ### Automatically generating a vehicle type
 

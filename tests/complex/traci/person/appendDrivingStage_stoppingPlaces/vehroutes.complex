@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-31 12:24:39 by Eclipse SUMO sumo Version v1_20_0+1492-33af377ca45
+<!-- generated on 2025-04-24 08:25:35 by Eclipse SUMO sumo Version v1_22_0+1682-e70fdd855be
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,7 +18,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="35205"/>
+        <remote-port value="32961"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -31,22 +31,22 @@
 
     <person id="p.0" depart="0.00" arrival="27.00">
         <stop lane="SC_0" endPos="0.00" duration="5.00"/>
-        <ride from="SC" to="CN" busStop="bs" lines="ANY"/>
+        <ride from="SC" to="CN" busStop="bs"/>
     </person>
 
     <person id="p.2" depart="0.40" arrival="27.00">
         <stop lane="SC_0" endPos="0.00" duration="5.00"/>
-        <ride from="SC" to="CN" parkingArea="pa" lines="ANY"/>
+        <ride from="SC" to="CN" parkingArea="pa"/>
     </person>
 
     <person id="p.3" depart="0.60" arrival="27.00">
         <stop lane="SC_0" endPos="0.00" duration="5.00"/>
-        <ride from="SC" to="CN" chargingStation="cs" lines="ANY"/>
+        <ride from="SC" to="CN" chargingStation="cs"/>
     </person>
 
     <person id="p.1" depart="0.20" arrival="53.00">
         <stop lane="SC_0" endPos="0.00" duration="5.00"/>
-        <ride from="SC" to="CN" trainStop="ts" lines="ANY"/>
+        <ride from="SC" to="CN" trainStop="ts"/>
     </person>
 
     <vehicle id="carrier" depart="0.00" arrival="93.00">

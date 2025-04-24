@@ -1090,12 +1090,12 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     }
     double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
                         stop == nullptr ? std::numeric_limits<double>::infinity() : stop->endPos);
-    const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
+    const std::string lines = attrs.getOpt<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok, LINE_ANY);
     const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, pid.c_str(), ok, "");
 
     if (plan.empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED) {
-        StringTokenizer st(desc);
-        if (st.size() != 1) {
+        StringTokenizer st(lines);
+        if (st.size() != 1 || st.get(0) == LINE_ANY) {
             myErrorOutput->inform("Triggered departure for person '" + pid + "' requires a unique lines value.");
             return;
         }
@@ -1111,7 +1111,7 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
         }
         myVehicleParameter->depart = vehDepart + 1; // write person after vehicle
     }
-    ROPerson::addRide(plan, from, to, desc, arrivalPos, stoppingPlaceID, group);
+    ROPerson::addRide(plan, from, to, lines, arrivalPos, stoppingPlaceID, group);
 }
 
 

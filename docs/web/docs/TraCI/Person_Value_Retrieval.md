@@ -15,8 +15,11 @@ network - due not being yet inserted into the network or being
 teleported within the current time step - a default "error" value is
 returned.
 
-The following variable values can be retrieved, the type of the return
-value is also shown in the table.
+The following variable values can be retrieved and subscribed to.
+The type of the return
+value is also shown in the table. It is not possible to subscribe to
+split taxi reservation which is technically more of a change function
+and just implemented as a retrieval function because it needs a return value.
 
 <center>
 **Overview Retrievable Person Variables**
@@ -42,7 +45,8 @@ value is also shown in the table.
 | next edge (0xc1)        | string                  | Returns the next edge on the persons route while it is walking. If there is no further edge or the person is in another stage, returns the empty string.       | [getNextEdge](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getNextEdge)         |
 | remaining stages (0xc2) | int                     | Returns the number of remaining stages for the given person including the current stage.                                                                       | [getRemainingStages](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getStage)     |
 | vehicle (0xc3)          | string                  | Returns the id of the vehicle if the person is in stage driving and has entered a vehicle.                                                                     | [getVehicle](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getVehicle)           |
-| taxi reservations (0xc6)| list(Stage) (see below)     | Returns all reservations. If onlyNew is 1, each reservation is returned only once.                                                                     | [getTaxiReservations](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getTaxiReservations)           |
+| taxi reservations (0xc6)| list(Reservation) (see below)     | Returns all reservations. If onlyNew is 1, each reservation is returned only once.                                                                     | [getTaxiReservations](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-getTaxiReservations)           |
+| split taxi reservations (0xc7)| string     | Splits persons from the given reservation and creates a new one for them. Returns the new reservation id. | [splitTaxiReservation](https://sumo.dlr.de/pydoc/traci._person.html#PersonDomain-splitTaxiReservation)           |
 
 ## Response 0xb4: Person Variable
 

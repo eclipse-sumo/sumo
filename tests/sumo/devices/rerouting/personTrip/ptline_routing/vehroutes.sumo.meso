@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-08 14:35:32 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2025-04-23 23:32:14 by Eclipse SUMO sumo Version v1_22_0+1676-989a5715aeb
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -13,10 +13,6 @@
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
-    <processing>
-        <pedestrian.model value="nonInteracting"/>
-    </processing>
-
     <report>
         <no-step-log value="true"/>
     </report>
@@ -25,7 +21,7 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -49,7 +45,7 @@
 
     <person id="p0" depart="0.00" arrival="407.00">
         <walk edges="beg" busStop="beg_0"/>
-        <ride from="beg" to="end" busStop="end_0" lines="bus" intended="bus.3" depart="300.00"/>
+        <ride from="beg" to="end" busStop="end_0" intended="bus.3" depart="300.00"/>
         <walk edges="end"/>
     </person>
 
