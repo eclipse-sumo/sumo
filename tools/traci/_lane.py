@@ -89,23 +89,23 @@ class LaneDomain(Domain):
         return self._getUniversal(tc.VAR_WIDTH, laneID)
 
     def getAllowed(self, laneID):
-        """getAllowed(string) -> list(string)
+        """getAllowed(string) -> tuple(string)
 
-        Returns a list of allowed vehicle classes. An empty list means all vehicles are allowed.
+        Returns a tuple of allowed vehicle classes. An empty tuple means all vehicles are allowed.
         """
         return self._getUniversal(tc.LANE_ALLOWED, laneID)
 
     def getDisallowed(self, laneID):
-        """getDisallowed(string) -> list(string)
+        """getDisallowed(string) -> tuple(string)
 
-        Returns a list of disallowed vehicle classes.
+        Returns a tuple of disallowed vehicle classes.
         """
         return self._getUniversal(tc.LANE_DISALLOWED, laneID)
 
     def getChangePermissions(self, laneID, direction):
-        """getChangePermissions(string, int) -> list(string)
+        """getChangePermissions(string, int) -> tuple(string)
 
-        Returns a list of vehicle classesa allowed to change to the neighbor lane indicated by the direction
+        Returns a tuple of vehicle classesa allowed to change to the neighbor lane indicated by the direction
         (left=0, right=1).
         """
         return self._getUniversal(tc.LANE_CHANGES, laneID, "b", direction)
@@ -118,8 +118,8 @@ class LaneDomain(Domain):
         return self._getUniversal(tc.LANE_LINK_NUMBER, laneID)
 
     def getLinks(self, laneID, extended=True):
-        """getLinks(string) -> list((string, bool, bool, bool))
-        A list containing id of successor lane together with priority, open and foe
+        """getLinks(string) -> tuple((string, bool, bool, bool))
+        A tuple containing id of successor lane together with priority, open and foe
         for each link.
         if extended=True, each result tuple contains
         (string approachedLane, bool hasPrio, bool isOpen, bool hasFoe,
@@ -143,9 +143,9 @@ class LaneDomain(Domain):
             return [tuple(d[:4]) for d in complete_data]
 
     def getShape(self, laneID):
-        """getShape(string) -> list((double, double))
+        """getShape(string) -> tuple((double, double))
 
-        List of 2D positions (cartesian) describing the geometry.
+        Tuple of 2D positions (cartesian) describing the geometry.
         """
         return self._getUniversal(tc.VAR_SHAPE, laneID)
 
@@ -270,27 +270,27 @@ class LaneDomain(Domain):
         return self._getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, laneID)
 
     def getLastStepVehicleIDs(self, laneID):
-        """getLastStepVehicleIDs(string) -> list(string)
+        """getLastStepVehicleIDs(string) -> tuple(string)
 
         Returns the ids of the vehicles for the last time step on the given lane.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, laneID)
 
     def getFoes(self, laneID, toLaneID):
-        """getFoes(string, string) -> list(string)
+        """getFoes(string, string) -> tuple(string)
         Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID.
         """
         return self._getUniversal(tc.VAR_FOES, laneID, "s", toLaneID)
 
     def getInternalFoes(self, laneID):
-        """getFoes(string) -> list(string)
+        """getFoes(string) -> tuple(string)
         Returns the ids of internal lanes that are in conflict with the given internal lane id.
         """
         return self.getFoes(laneID, "")
 
     def getPendingVehicles(self, laneID):
-        """getPendingVehicles(string) -> list(string)
-        Returns a list of all vehicle ids waiting for insertion on this lane (with depart delay).
+        """getPendingVehicles(string) -> tuple(string)
+        Returns a tuple of all vehicle ids waiting for insertion on this lane (with depart delay).
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES, laneID)
 

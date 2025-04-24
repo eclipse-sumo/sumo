@@ -395,7 +395,7 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_ROUTE_INDEX, vehID)
 
     def getRoute(self, vehID):
-        """getRoute(string) -> list(string)
+        """getRoute(string) -> tuple(string)
 
         Returns the ids of the edges the vehicle's route is made of.
         """
@@ -480,8 +480,8 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_PERSON_NUMBER, vehID)
 
     def getPersonIDList(self, vehID):
-        """getPersonIDList(string) -> list(string)
-        Returns the list of persons who are riding in this vehicle.
+        """getPersonIDList(string) -> tuple(string)
+        Returns the tuple of persons who are riding in this vehicle.
         """
         return self._getUniversal(tc.LAST_STEP_PERSON_ID_LIST, vehID)
 
@@ -576,7 +576,7 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_LINE, vehID)
 
     def getVia(self, vehID):
-        """getVia(string) -> list(string)
+        """getVia(string) -> tuple(string)
 
         Returns the ids of via edges for this vehicle
         """
@@ -641,7 +641,7 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_FOLLOWER, vehID, "d", dist)
 
     def getRightFollowers(self, vehID, blockingOnly=False):
-        """ getRightFollowers(string, bool) -> list(tuple(string, double))
+        """ getRightFollowers(string, bool) -> tuple(tuple(string, double))
         Convenience method, see getNeighbors()
         """
         if blockingOnly:
@@ -651,7 +651,7 @@ class VehicleDomain(VTypeDomain):
         return self.getNeighbors(vehID, mode)
 
     def getRightLeaders(self, vehID, blockingOnly=False):
-        """ getRightLeaders(string, bool) -> list(tuple(string, double))
+        """ getRightLeaders(string, bool) -> tuple(tuple(string, double))
         Convenience method, see getNeighbors()
         """
         if blockingOnly:
@@ -661,7 +661,7 @@ class VehicleDomain(VTypeDomain):
         return self.getNeighbors(vehID, mode)
 
     def getLeftFollowers(self, vehID, blockingOnly=False):
-        """ getLeftFollowers(string, bool) -> list(pair(string, double))
+        """ getLeftFollowers(string, bool) -> tuple(tuple(string, double))
         Convenience method, see getNeighbors()
         """
         if blockingOnly:
@@ -671,7 +671,7 @@ class VehicleDomain(VTypeDomain):
         return self.getNeighbors(vehID, mode)
 
     def getLeftLeaders(self, vehID, blockingOnly=False):
-        """ getLeftLeaders(string, bool) -> list(pair(string, double))
+        """ getLeftLeaders(string, bool) -> tuple(tuple(string, double))
         Convenience method, see getNeighbors()
         """
         if blockingOnly:
@@ -681,14 +681,14 @@ class VehicleDomain(VTypeDomain):
         return self.getNeighbors(vehID, mode)
 
     def getNeighbors(self, vehID, mode):
-        """ getNeighbors(string, byte) -> list(pair(string, double))
+        """ getNeighbors(string, byte) -> tuple(tuple(string, double))
 
         The parameter mode is a bitset (UBYTE), specifying the following:
         bit 1: query lateral direction (left:0, right:1)
         bit 2: query longitudinal direction (followers:0, leaders:1)
         bit 3: blocking (return all:0, return only blockers:1)
 
-        The returned list contains pairs (ID, dist) for all lane change relevant neighboring leaders, resp. followers,
+        The returned tuple contains pairs (ID, dist) for all lane change relevant neighboring leaders, resp. followers,
         along with their longitudinal distance to the ego vehicle (egoFront - egoMinGap to leaderBack, resp.
         followerFront - followerMinGap to egoBack. The value can be negative for overlapping neighs).
         For the non-sublane case, the lists will contain at most one entry.
@@ -741,9 +741,9 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_TIMELOSS, vehID)
 
     def getNextTLS(self, vehID):
-        """getNextTLS(string) ->
+        """getNextTLS(string) -> tuple(tuple(string, int, double, string))
 
-        Return list of upcoming traffic lights [(tlsID, tlsIndex, distance, state), ...]
+        Return tuple of upcoming traffic lights [(tlsID, tlsIndex, distance, state), ...]
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
 
@@ -751,16 +751,16 @@ class VehicleDomain(VTypeDomain):
     def getJunctionFoes(self, vehID, dist=0.):
         """getJunctionFoes(string, double) -> complex
 
-        Return list of junction foes [(foeId, egoDist, foeDist, egoExitDist, foeExitDist,
+        Return tuple of junction foes [(foeId, egoDist, foeDist, egoExitDist, foeExitDist,
         egoLane, foeLane, egoResponse, foeResponse), ...] within the given distance to the given vehicle.
         """
         return self._getUniversal(tc.VAR_FOES, vehID, "d", dist)
 
     @deprecated()
     def getNextStops(self, vehID):
-        """getNextStops(string) -> [(string, double, string, int, double, double), ...]
+        """getNextStops(string) -> tuple(tuple(string, double, string, int, double, double))
 
-        Return list of upcoming stops [(lane, endPos, stoppingPlaceID, stopFlags, duration, until), ...]
+        Return tuple of upcoming stops ((lane, endPos, stoppingPlaceID, stopFlags, duration, until), ...)
         where integer stopFlag is defined as:
                1 * stopped +
                2 * parking +
@@ -775,17 +775,17 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
 
     def getNextLinks(self, vehID):
-        """getNextLinks(string) -> [(string, string, bool, bool, bool, string, string, double), ...]
+        """getNextLinks(string) -> tuple(tuple(string, string, bool, bool, bool, string, string, double))
 
-        Return list of upcoming links along the route [(lane, via, priority, opened, foe,
-         state, direction, length), ...]
+        Return tuple of upcoming links along the route ((lane, via, priority, opened, foe,
+         state, direction, length), ...)
         """
         return self._getUniversal(tc.VAR_NEXT_LINKS, vehID)
 
     def getStops(self, vehID, limit=0):
-        """getStops(string, int) -> [StopData, ...],
+        """getStops(string, int) -> tuple(StopData)
 
-        Return a list of StopData object. The flags are the same as for setStop and
+        Return a tuple of StopData object. The flags are the same as for setStop and
         replaceStop (and different from getNextStops(!) for backward compatibility):
                1 * parking +
                2 * personTriggered +
@@ -899,8 +899,8 @@ class VehicleDomain(VTypeDomain):
     def getLaneChangeStatePretty(self, vehID, direction):
         """getLaneChangeStatePretty(string, int) -> ([string, ...], [string, ...])
         Return the lane change state for the vehicle as two lists of string
-        constants. The first list returns the state as computed by the lane change
-        model and the second list returns the state after incorporation TraCI requests.
+        constants. The first tuple returns the state as computed by the lane change
+        model and the second tuple returns the state after incorporation TraCI requests.
         """
         constants = {
             0: 'stay',
@@ -922,7 +922,7 @@ class VehicleDomain(VTypeDomain):
         }
 
         def prettifyBitstring(intval):
-            return [v for k, v in constants.items() if (intval & 2**k)]
+            return tuple([v for k, v in constants.items() if (intval & 2**k)])
 
         state, stateTraCI = self.getLaneChangeState(vehID, direction)
         return prettifyBitstring(state), prettifyBitstring(stateTraCI)
@@ -970,8 +970,8 @@ class VehicleDomain(VTypeDomain):
 
     @alias_param("taxiState", "flag")
     def getTaxiFleet(self, taxiState=0):
-        """getTaxiFleet(int) -> list(string)
-        Return the list of all taxis with the given taxiState:
+        """getTaxiFleet(int) -> tuple(string)
+        Return the tuple of all taxis with the given taxiState:
         0 : empty
         1 : pickup
         2 : occupied
@@ -979,13 +979,13 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_TAXI_FLEET, "", "i", taxiState)
 
     def getLoadedIDList(self):
-        """getLoadedIDList() -> list(string)
+        """getLoadedIDList() -> tuple(string)
         returns all loaded vehicles that have not yet left the simulation
         """
         return self._getUniversal(tc.VAR_LOADED_LIST, "")
 
     def getTeleportingIDList(self):
-        """getTeleportingIDList() -> list(string)
+        """getTeleportingIDList() -> tuple(string)
         returns all teleporting or jumping vehicles
         """
         return self._getUniversal(tc.VAR_TELEPORTING_LIST, "")

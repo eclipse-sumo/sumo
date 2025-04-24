@@ -174,22 +174,22 @@ class EdgeDomain(Domain):
         return self._getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, edgeID)
 
     def getLastStepVehicleIDs(self, edgeID):
-        """getLastStepVehicleIDs(string) -> list(string)
+        """getLastStepVehicleIDs(string) -> tuple(string)
 
         Returns the ids of the vehicles for the last time step on the given edge.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, edgeID)
 
     def getLastStepPersonIDs(self, edgeID):
-        """getLastStepPersonIDs(string) -> list(string)
+        """getLastStepPersonIDs(string) -> tuple(string)
 
         Returns the ids of the persons on the given edge during the last time step.
         """
         return self._getUniversal(tc.LAST_STEP_PERSON_ID_LIST, edgeID)
 
     def getPendingVehicles(self, edgeID):
-        """getPendingVehicles(string) -> list(string)
-        Returns a list of all vehicle ids waiting for insertion on this edge (with depart delay)
+        """getPendingVehicles(string) -> tuple(string)
+        Returns a tuple of all vehicle ids waiting for insertion on this edge (with depart delay)
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES, edgeID)
 

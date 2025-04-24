@@ -169,18 +169,18 @@ class Domain:
         self._connection._sendCmd(self._cmdSetID, varID, objectID, format, *values)
 
     def getIDList(self):
-        """getIDList() -> list(string)
+        """getIDList() -> tuple(string)
 
-        Returns a list of all objects in the network.
+        Returns a tuple of all objects in the network.
         """
-        return self._getUniversal(tc.TRACI_ID_LIST, "")
+        return self._getUniversal(tc.TRACI_ID_LIST)
 
     def getIDCount(self):
         """getIDCount() -> integer
 
         Returns the number of currently loaded objects.
         """
-        return self._getUniversal(tc.ID_COUNT, "")
+        return self._getUniversal(tc.ID_COUNT)
 
     def domainID(self):
         return self._cmdGetID

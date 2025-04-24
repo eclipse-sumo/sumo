@@ -61,7 +61,7 @@ class OverheadWireDomain(Domain):
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_NUMBER, stopID)
 
     def getVehicleIDs(self, stopID):
-        """getVehicleIDs() -> list(string)
+        """getVehicleIDs() -> tuple(string)
         Get the IDs of vehicles stopped at the named overhead wire.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_IDS, stopID)

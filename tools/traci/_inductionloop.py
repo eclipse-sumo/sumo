@@ -32,7 +32,7 @@ def readVehicleData(result):
         leaveTime = result.readTypedDouble()
         typeID = result.readTypedString()
         data.append((vehID, length, entryTime, leaveTime, typeID))
-    return data
+    return tuple(data)
 
 
 _RETURN_VALUE_FUNC = {tc.LAST_STEP_VEHICLE_DATA: readVehicleData}
@@ -76,9 +76,9 @@ class InductionLoopDomain(Domain):
         return self._getUniversal(tc.LAST_STEP_MEAN_SPEED, loopID)
 
     def getLastStepVehicleIDs(self, loopID):
-        """getLastStepVehicleIDs(string) -> list(string)
+        """getLastStepVehicleIDs(string) -> tuple(string)
 
-        Returns the list of ids of vehicles that were on the named induction loop in the last simulation step.
+        Returns the tuple of ids of vehicles that were on the named induction loop in the last simulation step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, loopID)
 
@@ -104,7 +104,7 @@ class InductionLoopDomain(Domain):
         return self._getUniversal(tc.LAST_STEP_TIME_SINCE_DETECTION, loopID)
 
     def getVehicleData(self, loopID):
-        """getVehicleData(string) -> [(veh_id, veh_length, entry_time, exit_time, vType), ...]
+        """getVehicleData(string) -> tuple((veh_id, veh_length, entry_time, exit_time, vType), ...)
 
         Returns a complex structure containing several information about vehicles which passed the detector.
         """
@@ -133,7 +133,7 @@ class InductionLoopDomain(Domain):
         return self._getUniversal(tc.VAR_INTERVAL_NUMBER, loopID)
 
     def getIntervalVehicleIDs(self, loopID):
-        """getIntervalVehicleIDs(string) -> list(string)
+        """getIntervalVehicleIDs(string) -> tuple(string)
 
         Returns the ids of vehicles that passed the detector during the current interval
         """
@@ -162,7 +162,7 @@ class InductionLoopDomain(Domain):
         return self._getUniversal(tc.VAR_LAST_INTERVAL_NUMBER, loopID)
 
     def getLastIntervalVehicleIDs(self, loopID):
-        """getLastIntervalVehicleIDs(string) -> list(string)
+        """getLastIntervalVehicleIDs(string) -> tuple(string)
 
         Returns the ids of vehicles that passed the detector during the previous interval
         """

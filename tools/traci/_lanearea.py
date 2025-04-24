@@ -52,9 +52,9 @@ class LaneAreaDomain(Domain):
         return self._getUniversal(tc.LAST_STEP_MEAN_SPEED, detID)
 
     def getLastStepVehicleIDs(self, detID):
-        """getLastStepVehicleIDs(string) -> list(string)
+        """getLastStepVehicleIDs(string) -> tuple(string)
 
-        Returns the list of ids of vehicles that were on the named detector in the last simulation step.
+        Returns the tuple of ids of vehicles that were on the named detector in the last simulation step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_ID_LIST, detID)
 

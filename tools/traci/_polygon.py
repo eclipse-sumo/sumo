@@ -38,9 +38,9 @@ class PolygonDomain(Domain):
         return self._getUniversal(tc.VAR_TYPE, polygonID)
 
     def getShape(self, polygonID):
-        """getShape(string) -> list((double, double))
+        """getShape(string) -> tuple((double, double))
 
-        Returns the shape (list of 2D-positions) of this polygon.
+        Returns the shape (tuple of 2D-positions) of this polygon.
         """
         return self._getUniversal(tc.VAR_SHAPE, polygonID)
 

@@ -195,9 +195,9 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_NEXT_EDGE, personID)
 
     def getEdges(self, personID, nextStageIndex=0):
-        """getEdges(string, int) -> list(string)
+        """getEdges(string, int) -> tuple(string)
 
-        Returns a list of all edges in the nth next stage.
+        Returns a tuple of all edges in the nth next stage.
         For waiting stages this is a single edge
         For walking stages this is the complete route
         For driving stages this is [origin, destination]
@@ -237,7 +237,7 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_VEHICLE, personID)
 
     def getTaxiReservations(self, onlyNew=0):
-        """getTaxiReservations(int) -> list(Reservation)
+        """getTaxiReservations(int) -> tuple(Reservation)
         Returns all reservations. If onlyNew is 1, each reservation is returned
         only once
         """

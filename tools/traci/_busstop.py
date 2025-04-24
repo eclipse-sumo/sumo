@@ -61,7 +61,7 @@ class BusStopDomain(Domain):
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_NUMBER, stopID)
 
     def getVehicleIDs(self, stopID):
-        """getVehicleIDs(stopID) -> list(string)
+        """getVehicleIDs(stopID) -> tuple(string)
         Get the IDs of vehicles stopped at the named bus stop.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_IDS, stopID)
@@ -73,7 +73,7 @@ class BusStopDomain(Domain):
         return self._getUniversal(tc.VAR_BUS_STOP_WAITING, stopID)
 
     def getPersonIDs(self, stopID):
-        """getPersonIDs(string) -> list(string)
+        """getPersonIDs(string) -> tuple(string)
         Get the IDs of waiting persons at the named bus stop.
         """
         return self._getUniversal(tc.VAR_BUS_STOP_WAITING_IDS, stopID)
