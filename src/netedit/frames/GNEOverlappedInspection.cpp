@@ -39,10 +39,8 @@ FXDEFMAP(GNEOverlappedInspection) OverlappedInspectionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEOverlappedInspection::onCmdOverlappingHelp)
 };
 
-
 // Object implementation
 FXIMPLEMENT(GNEOverlappedInspection,       MFXGroupBoxModule,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
-
 
 // ===========================================================================
 // method definitions
@@ -92,7 +90,7 @@ GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsS
         toogleInspectEdgeLane = true;
     }
     // in this point, check if we want to iterate over existent overlapped inspection, or we want to inspet a new set of elements
-    if (!toogleInspectEdgeLane && (myOverlappedACs.size() > 0) && (myClickedPosition != Position::INVALID) && (myClickedPosition.distanceSquaredTo(clickedPosition) < 2)) {
+    if (!toogleInspectEdgeLane && (myOverlappedACs.size() > 0) && (myClickedPosition != Position::INVALID) && (myClickedPosition.distanceSquaredTo(clickedPosition) < 0.05)) {
         if (shiftKeyPressed) {
             onCmdInspectPreviousElement(nullptr, 0, nullptr);
         } else {
