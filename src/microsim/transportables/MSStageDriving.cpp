@@ -407,7 +407,7 @@ MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool wi
     } else if (!unspecifiedArrivalPos()) {
         os.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPos);
     }
-    if (myLines.size() > 1 || *myLines.begin() != "ANY") {
+    if (myLines.size() > 1 || *myLines.begin() != LINE_ANY) {
         // no need to write the default
         os.writeAttr(SUMO_ATTR_LINES, myLines);
     }
@@ -437,7 +437,7 @@ MSStageDriving::isWaitingFor(const SUMOVehicle* vehicle) const {
     assert(myLines.size() > 0);
     return (myLines.count(vehicle->getID()) > 0
             || ((myLines.count(vehicle->getParameter().line) > 0
-                 || myLines.count("ANY") > 0) &&
+                 || myLines.count(LINE_ANY) > 0) &&
                 // even if the line matches we still have to check for stops (#14526)
                 (myDestinationStop == nullptr
                  ? vehicle->stopsAtEdge(myDestination)
