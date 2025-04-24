@@ -90,12 +90,8 @@ GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsS
         toogleInspectEdgeLane = true;
     }
     // in this point, check if we want to iterate over existent overlapped inspection, or we want to inspet a new set of elements
-    if (!toogleInspectEdgeLane && (myOverlappedACs.size() > 0) && (myClickedPosition != Position::INVALID) && (myClickedPosition.distanceSquaredTo(clickedPosition) < 0.05)) {
-        if (shiftKeyPressed) {
-            onCmdInspectPreviousElement(nullptr, 0, nullptr);
-        } else {
-            onCmdInspectNextElement(nullptr, 0, nullptr);
-        }
+    if (!toogleInspectEdgeLane && (myOverlappedACs.size() > 0) && (myClickedPosition != Position::INVALID) && (myClickedPosition.distanceSquaredTo(clickedPosition) < 0.05) && (myShiftKeyPressed == shiftKeyPressed)) {
+        onCmdInspectNextElement(nullptr, 0, nullptr);
     } else {
         myOverlappedACs = viewObjects.getAttributeCarriers();
         myItemIndex = 0;
@@ -103,6 +99,7 @@ GNEOverlappedInspection::showOverlappedInspection(GNEViewNetHelper::ViewObjectsS
     }
     // update clicked position and refresh overlapped inspection
     myClickedPosition = clickedPosition;
+    myShiftKeyPressed = shiftKeyPressed;
     refreshOverlappedInspection();
 }
 

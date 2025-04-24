@@ -111,6 +111,9 @@ private:
     /// @brief clicked position
     Position myClickedPosition = Position::INVALID;
 
+    /// @brief shift key pressed
+    bool myShiftKeyPressed = false;
+
     /// @brief flag to indicate that this modul is only for junctions
     const bool myOnlyJunctions = false;
 
