@@ -298,10 +298,8 @@ GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
         mySelectorFrameParent->handleIDs(matches);
         myMatchString->setTextColor(FXRGB(0, 0, 0));
         myMatchString->killFocus();
-        myMatchStringButton->enable();
     } else {
         myMatchString->setTextColor(FXRGB(255, 0, 0));
-        myMatchStringButton->disable();
     }
     return 1;
 
@@ -497,11 +495,10 @@ GNEMatchAttribute::CurrentEditedProperties::CurrentEditedProperties(const GNEMat
     const auto database = myMatchAttributeParent->mySelectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase();
     setTagProperties(database->getTagProperty(SUMO_TAG_EDGE, true));
     setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_SPEED));
-    myNetworkMatchValue = ">= 10";
+    myNetworkMatchValue = ">10";
     setTagProperties(database->getTagProperty(SUMO_TAG_VEHICLE, true));
-    setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_ID));
+    setAttributeProperties(myDemandTagProperties.back()->getAttributeProperties(SUMO_ATTR_ID));
     setTagProperties(database->getTagProperty(GNE_TAG_DATAS, true));
-    setAttributeProperties(myNetworkTagProperties.back()->getAttributeProperties(SUMO_ATTR_ID));
 }
 
 
