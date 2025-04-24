@@ -89,7 +89,7 @@ def getFlows(options):
             depart = parseTime(veh.depart)
             if depart < options.begin or depart > options.end:
                 continue
-            veh_type = veh.type if hasattr(veh, 'type') else 'default'
+            veh_type = veh.type if veh.hasAttribute('type') else 'default'
             edgesList = route.edges.split()
             minDepart = min(minDepart, depart)
             maxDepart = max(maxDepart, depart)
