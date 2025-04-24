@@ -218,7 +218,6 @@ title: ChangeLog
 - In netedit, the default extension of edge data files is now *.xml, instead of *.dat.xml #16257
 - Netedit: unified contextual menus for all elements #15314
 - The new default emission model is now [HBEFA4](models/Emissions/HBEFA4-based.md) #15950. Please note that this means a major reduction especially in the values for CO and HC at low speeds.
-- The function `traci.simulation.getBusStop` is now deprecated. Functions from `traci.busstop` should be used instead. #16433
 - mapDetectors.py: no longer searching up to range 1000 by default #16571
 - person-ride attribute `lines="ANY"` is no longer written as this is the default value when loading a ride without `line` attribute. #12263
 - TraCI
@@ -226,7 +225,7 @@ title: ChangeLog
   - all TraCI functions in the python client should now return tuples instead of lists #15949
     - affected functions are inductionloop.getVehicleData, lane.getLinks, trafficlight.getControlledLinks, trafficlight.getConstraints*, trafficlight.getNemaPhaseCalls, vehicle.getLaneChangeStatePretty, vehicle.getNextLinks
   - the unused function TL_EXTERNAL_STATE has been removed (it had only a server implementation, no known client used it)
-  - the functions simulation.getBusStop* are deprecated in favor of the corresponding functions in the busstop domain #16433
+  - the functions `simulation.getBusStop*` are deprecated in favor of the corresponding functions in the busstop domain #16433
 
 ## Version 1.22.0 (04.02.2025)
 
