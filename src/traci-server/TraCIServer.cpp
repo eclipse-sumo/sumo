@@ -1414,9 +1414,14 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
                     message.writeChar(v);
                 }
                 tcpip::Storage tmpOutput;
-                if (myExecutors.find(getCommandId) != myExecutors.end()) {
-                    ok &= myExecutors[getCommandId](*this, message, tmpOutput);
-                } else {
+                try {
+                    if (myExecutors.find(getCommandId) != myExecutors.end()) {
+                        ok &= myExecutors[getCommandId](*this, message, tmpOutput);
+                    } else {
+                        writeStatusCmd(s.commandId, libsumo::RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
+                        ok = false;
+                    }
+                } catch (const std::invalid_argument&) {
                     writeStatusCmd(s.commandId, libsumo::RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
                     ok = false;
                 }

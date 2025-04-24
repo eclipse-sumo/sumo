@@ -291,14 +291,14 @@ Helper::handleSingleSubscription(const Subscription& s) {
     }
     auto wrapper = myWrapper.find(getCommandId);
     if (wrapper == myWrapper.end()) {
-        throw TraCIException("Unsupported command specified");
+        throw TraCIException("Unsupported command " + toHex(getCommandId, 2) + " specified");
     }
     std::shared_ptr<VariableWrapper> handler = wrapper->second;
     VariableWrapper* container = handler.get();
     if (s.contextDomain > 0) {
         auto containerWrapper = myWrapper.find(s.commandId + 0x20);
         if (containerWrapper == myWrapper.end()) {
-            throw TraCIException("Unsupported domain specified");
+            throw TraCIException("Unsupported domain " + toHex(s.commandId + 0x20, 2) + " specified");
         }
         container = containerWrapper->second.get();
         container->setContext(&s.id);
@@ -313,7 +313,13 @@ Helper::handleSingleSubscription(const Subscription& s) {
                     container->empty(objID);
                 } else {
                     (*k)->resetPos();
-                    handler->handle(objID, variable, container, k->get());
+                    try {
+                        if (!handler->handle(objID, variable, container, k->get())) {
+                            throw TraCIException("Unsupported variable " + toHex(variable, 2) + " specified");
+                        }
+                    } catch (const std::invalid_argument&) {
+                        throw TraCIException("Unsupported variable " + toHex(variable, 2) + " specified");
+                    }
                     ++k;
                 }
             }
