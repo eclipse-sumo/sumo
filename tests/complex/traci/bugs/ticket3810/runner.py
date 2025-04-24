@@ -39,11 +39,11 @@ for vehID in vehs:
     traci.vehicle.setLaneChangeMode(vehID, 0)
 
 for i in range(8):
+    print()
     t = traci.simulation.getTime()
     for vehID in vehs:
         for dir in [-1, 1]:
             s, sTraci = traci.vehicle.getLaneChangeStatePretty(vehID, dir)
             print("%s v=%s d=%s s=%s sTraci=%s" % (t, vehID, dir, s, sTraci))
     traci.simulationStep()
-    print()
 traci.close()

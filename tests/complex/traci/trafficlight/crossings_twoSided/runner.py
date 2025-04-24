@@ -50,7 +50,7 @@ def check():
     print("links", traci.trafficlight.getControlledLinks(tlsID))
     print("program", traci.trafficlight.getProgram(tlsID))
     print("phase", traci.trafficlight.getPhase(tlsID))
-    print("phaseName", traci.trafficlight.getPhaseName(tlsID))
+    print("phaseName '%s'" % traci.trafficlight.getPhaseName(tlsID))
     print("switch", traci.trafficlight.getNextSwitch(tlsID))
     print("duration", traci.trafficlight.getPhaseDuration(tlsID))
 
