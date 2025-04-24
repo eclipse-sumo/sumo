@@ -84,12 +84,13 @@ def getFlows(options):
     for file in options.routefiles:
         if options.verbose:
             print("route file:%s" % file)
-        for veh in sumolib.output.parse(file, 'vehicle'):
-            route = veh.route[0]
+        for veh, route in sumolib.output.parse_fast_nested(file, 'vehicle',['id', 'type','depart'],'route',['edges'],
+                optional=True):
             depart = parseTime(veh.depart)
             if depart < options.begin or depart > options.end:
                 continue
-            veh_type = veh.type if veh.hasAttribute('type') else 'default'
+            #  we could also use 'DEFAULT_VEHTYPE' here but that would clash with XML attribute naming conventions
+            veh_type = 'default' if veh.type is None else veh.type
             edgesList = route.edges.split()
             minDepart = min(minDepart, depart)
             maxDepart = max(maxDepart, depart)
