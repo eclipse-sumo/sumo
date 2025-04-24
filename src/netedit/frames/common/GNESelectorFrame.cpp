@@ -397,6 +397,7 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
             mySelectorFrameParent->myViewNet->getUndoList()->end();
         }
     }
+    mySelectorFrameParent->myViewNet->updateViewNet();
     return 1;
 }
 
