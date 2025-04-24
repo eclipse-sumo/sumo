@@ -251,11 +251,9 @@ def get(args=None):
         conn.set_tunnel(url.hostname, 443, headers)
     else:
         if url.scheme == "https":
-            if HAVE_CERTIFI:
-                context = ssl.create_default_context(cafile=certifi.where())
-                conn = httplib.HTTPSConnection(url.hostname, url.port, context=context)
-            else:
-                conn = httplib.HTTPSConnection(url.hostname, url.port)
+            context = ssl.create_default_context(cafile=certifi.where() if HAVE_CERTIFI else None)
+            context.minimum_version = ssl.TLSVersion.TLSv1_2
+            conn = httplib.HTTPSConnection(url.hostname, url.port, context=context)
         else:
             conn = httplib.HTTPConnection(url.hostname, url.port)
 
