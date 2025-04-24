@@ -181,7 +181,7 @@ title: ChangeLog
   - Addedd function `person.getWalkingDistance` #16197
   - Added `lanearea` functions `getIntervalMeanTimeLoss` and `getLastIntervalMeanTimeLoss` #16311
   - Added function `domainID` to all domains. This can be used as the target domain in `subscribeContext` #16418
-  - subscriptions to all complex types should now work #15963 #15962 #15785
+  - subscriptions to all complex types should now work #15963 #15962 #15785 #7648
 
 - Tools
   - randomTrips.py: When option **--validate** is set, the generated amount of vehicles is guaranteed (by replacing invalid trips with new valid trips) #8843
@@ -464,6 +464,7 @@ title: ChangeLog
     - The new option **--deadlock-output** can be use to log detected deadlocks and also their method of resolution
     - Logged deadlocks can be loaded as additional file to prevent them in a subsequent simulation #15569
     - A warning is given for unreasonable combinations of **--time-to-teleport** options #15816
+  - rerouter support a new radius attribute #15426
 
 - netedit
   - Additional output now writes chargingStation after parkingArea elements #15628
