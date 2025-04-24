@@ -63,9 +63,9 @@ There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and an
 If you want to build SUMO yourself, the steps for ubuntu are:
 
 ```
-sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
 cd <SUMO_DIR> # please insert the correct directory name here
 export SUMO_HOME="$PWD"
+sudo apt-get install $(cat build_config/build_req_deb.txt build_config/tools_req_deb.txt)
 cmake -B build .
 cmake --build build -j$(nproc)
 ```
