@@ -1869,10 +1869,9 @@ StringBijection<EdgeDataFileExtension>::Entry SUMOXMLDefinitions::edgeDataFileEx
 };
 
 StringBijection<MeanDataFileExtension>::Entry SUMOXMLDefinitions::meanDataFileExtensionsValues[] = {
-    {TL("Mean data files (*.med.add.xml, *.med.add.xml.gz)"),   MeanDataFileExtension::MED_ADD_XML},
-    {TL("Additional files (*.add.xml, *.add.xml.gz)"),          MeanDataFileExtension::ADD},
-    {TL("XML files (*.xml, *.xml.gz)"),                         MeanDataFileExtension::XML},
-    {TL("All files (*)"),                                       MeanDataFileExtension::ALL} //< must be the last one
+    {TL("Mean data files (*.add.xml, *.add.xml.gz)"),   MeanDataFileExtension::ADD},
+    {TL("XML files (*.xml, *.xml.gz)"),                 MeanDataFileExtension::XML},
+    {TL("All files (*)"),                               MeanDataFileExtension::ALL} //< must be the last one
 };
 
 SequentialStringBijection SUMOXMLDefinitions::Tags(

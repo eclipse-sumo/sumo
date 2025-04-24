@@ -2493,7 +2493,6 @@ enum class EdgeDataFileExtension {
 
 /// @brief mean data file extension
 enum class MeanDataFileExtension {
-    MED_ADD_XML,
     ADD,
     XML,
     ALL,
