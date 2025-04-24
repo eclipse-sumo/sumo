@@ -84,7 +84,8 @@ def getFlows(options):
     for file in options.routefiles:
         if options.verbose:
             print("route file:%s" % file)
-        for veh,route in sumolib.output.parse_fast_nested(file, 'vehicle',['type','depart'],'route',['edges']):
+        for veh in sumolib.output.parse(file, 'vehicle'):
+            route = veh.route[0]
             depart = parseTime(veh.depart)
             if depart < options.begin or depart > options.end:
                 continue
