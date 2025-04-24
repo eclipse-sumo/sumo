@@ -51,9 +51,6 @@ try:
                     else:
                         variable = source[s:source.index(")", s)]
                         remainder = ""
-                    if (variable in ("FIND_ROUTE", "POSITION_CONVERSION", "TL_CONSTRAINT_SWAP", "SPLIT_TAXI_RESERVATIONS", "VAR_NEXT_STOPS")  # noqa
-                            or (dt._name == "simulation" and ("BUS_STOP" in variable or variable in ("DISTANCE_REQUEST", "ID_COUNT", "TRACI_ID_LIST")))):  # noqa
-                        continue
                     if hasattr(traci.constants, variable):
                         print("Subscribing to %s.%s." % (dt._name, variable))
                         sys.stdout.flush()
@@ -91,10 +88,22 @@ try:
                             param = {v: ("tru", 2, ("1si", 0., 0), traci.constants.REQUEST_DRIVINGDIST)}
                         elif '"tou"' in remainder:
                             param = {v: ("tou", 2, (400., 495.), traci.constants.REQUEST_DRIVINGDIST)}
-                        if dt._name == "simulation":
-                            traci.simulation.subscribe([v], parameters=param)
-                        else:
-                            getattr(traci, dt._name).subscribe(name, [v], parameters=param)
+                        try:
+                            if dt._name == "simulation":
+                                traci.simulation.subscribe([v], parameters=param)
+                            else:
+                                getattr(traci, dt._name).subscribe(name, [v], parameters=param)
+                        except traci.TraCIException as ex:
+                            print(ex)
+        print("Expecting failure for %s.ADD subscription." % dt._name)
+        sys.stdout.flush()
+        try:
+            if dt._name == "simulation":
+                traci.simulation.subscribe([traci.constants.ADD])
+            else:
+                getattr(traci, dt._name).subscribe(name, [traci.constants.ADD])
+        except traci.TraCIException as ex:
+            print(ex)
     traci.simulationStep()
     for dt in pure_traci.DOMAINS:
         pprint(getattr(traci, dt._name).getAllSubscriptionResults())
