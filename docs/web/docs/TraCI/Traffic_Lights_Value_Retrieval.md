@@ -108,6 +108,29 @@ Each inner list (at position i of the outer list) describes the connections that
 
 By default, each index of the state controls exactly one connection so the inner lists all have length 1. However, the inner lists may be longer if [signal-groups](../Simulation/Traffic_Lights.md#defining_signal_groups) are used to simplify the 'state' attribute.
 
+### Structure of result compound object swap constraints (0x32)
+
+If you request a constraint swap, the result list of constraints indicates all the new contraints that were created a a result of the swap. Each part is preceded by a byte which represents
+its data type, except "length".
+
+|          integer               |       constraint                 | ... | 
+| :----------------------------: | :------------------------------: | :-: | 
+| Length (number of constraints) | constraint components, see below | ... |  
+
+**constraint:**
+
+|  string      |  string      |  string      |  string      |  int     | int      |  byte     |  byte      |  stringList   | 
+| :----------: | :----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |
+| signalId     | tripId    |  foeId    |  foeSignalId     |  limit     |  constraint type  | mustWait    |  active     |  params of the form: key,value,...,key,value    |   
+
+## Extended retrieval messages
+
+### swap constraints (0x32)
+
+|         byte          |              int              |        byte         |        string         |        byte         | string        |        byte         | string        |
+| :-------------------: | :---------------------------: | :-----------------: | :-------------------: | :-----------------: | :-----------: | :-----------------: | :-----------: |
+| value type *compound* | number of elements (always=3) | value type *string* | tripId of constraint  | value type *string* | foe signal id | value type *string* | foe trip id   |
+
 # Getting Traffic light parameters (0x7e)
 
 Traffic lights support retrieval of additional parameters using the [generic
