@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-19 15:39:01 by Eclipse SUMO netedit Version v1_20_0+1680-b67118a1887
+<!-- generated on 2025-04-25 16:15:48 by Eclipse SUMO netedit Version v1_22_0+1819-d3f1974c2b4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" depart="0.00">
         <route edges="Edge0 Edge1 Edge2" color="yellow"/>
-        <stop parkingArea="parkingAreaA" extension="3.50" parking="1"/>
+        <stop parkingArea="parkingAreaA" extension="3.50"/>
     </vehicle>
 </routes>
