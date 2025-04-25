@@ -29,8 +29,8 @@ class VariableSpeedSignDomain(Domain):
                         tc.CMD_SUBSCRIBE_VARIABLESPEEDSIGN_CONTEXT, tc.RESPONSE_SUBSCRIBE_VARIABLESPEEDSIGN_CONTEXT)
 
     def getLanes(self, vssID):
-        """getLanes(string) -> list(string)
+        """getLanes(string) -> tuple(string)
 
-        Returns a list of all lanes controlled by the variablespeedsign.
+        Returns a tuple of all lanes controlled by the variablespeedsign.
         """
         return self._getUniversal(tc.VAR_LANES, vssID)

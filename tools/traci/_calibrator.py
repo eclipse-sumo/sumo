@@ -82,9 +82,9 @@ class CalibratorDomain(Domain):
         return self._getUniversal(tc.VAR_ROUTE_PROBE, calibratorID)
 
     def getVTypes(self, calibratorID):
-        """getVTypes(string) -> list(string)
+        """getVTypes(string) -> tuple(string)
 
-        Returns a list of all types to which the calibrator applies (in a type filter is active)
+        Returns a tuple of all types to which the calibrator applies (in a type filter is active)
         """
         return self._getUniversal(tc.VAR_VTYPES, calibratorID)
 

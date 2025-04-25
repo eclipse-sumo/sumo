@@ -342,15 +342,15 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 };
 
 %typemap(out) std::vector<libsumo::TraCIVehicleData> {
-    $result = PyList_New($1.size());
+    $result = PyTuple_New($1.size());
     int index = 0;
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyList_SetItem($result, index++, Py_BuildValue("(sddds)",
-                                                       iter->id.c_str(),
-                                                       iter->length,
-                                                       iter->entryTime,
-                                                       iter->leaveTime,
-                                                       iter->typeID.c_str()));
+        PyTuple_SetItem($result, index++, Py_BuildValue("(sddds)",
+                                                        iter->id.c_str(),
+                                                        iter->length,
+                                                        iter->entryTime,
+                                                        iter->leaveTime,
+                                                        iter->typeID.c_str()));
     }
 };
 
@@ -386,18 +386,18 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 };
 
 %typemap(out) std::vector<std::vector<libsumo::TraCILink> > {
-    $result = PyList_New($1.size());
+    $result = PyTuple_New($1.size());
     int index = 0;
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyObject* innerList = PyList_New(iter->size());
+        PyObject* innerList = PyTuple_New(iter->size());
         int innerIndex = 0;
         for (auto inner = iter->begin(); inner != iter->end(); ++inner) {
-            PyList_SetItem(innerList, innerIndex++, Py_BuildValue("(sss)",
-                                                                  inner->fromLane.c_str(),
-                                                                  inner->toLane.c_str(),
-                                                                  inner->viaLane.c_str()));
+            PyTuple_SetItem(innerList, innerIndex++, Py_BuildValue("(sss)",
+                                                                   inner->fromLane.c_str(),
+                                                                   inner->toLane.c_str(),
+                                                                   inner->viaLane.c_str()));
         }
-        PyList_SetItem($result, index++, innerList);
+        PyTuple_SetItem($result, index++, innerList);
     }
 };
 

@@ -61,6 +61,16 @@ LAUNCH_TEMPLATE = {
     ]
 }
 
+LAUNCH_TEMPLATE_VS = {
+    "type": "cppvsdbg",
+    "request": "launch",
+    "args": [],
+    "stopAtEntry": False,
+    "cwd": "${workspaceFolder}/tests/",
+    "environment": [],
+    "console": "integratedTerminal"
+}
+
 
 if __name__ == "__main__":
     print("This script will overwrite any existing tasks.json and launch.json."
@@ -72,7 +82,7 @@ if __name__ == "__main__":
         t = dict(TASK_TEMPLATE)
         t.update(label="build " + app, targets=[app])
         tasks_content["tasks"].append(t)
-        lc = dict(LAUNCH_TEMPLATE)
+        lc = dict(LAUNCH_TEMPLATE_VS if os.name == "nt" else LAUNCH_TEMPLATE)
         lc.update(name=app + "D", program="${workspaceFolder}/bin/%sD" % app, preLaunchTask="build " + app)
         if "test" not in app.lower():
             lc.update(args=["test.%scfg" % app[:4]])

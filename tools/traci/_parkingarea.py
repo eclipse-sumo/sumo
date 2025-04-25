@@ -62,13 +62,13 @@ class ParkingAreaDomain(Domain):
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_NUMBER, stopID)
 
     def getVehicleIDs(self, stopID):
-        """getVehicleIDs(string) -> list(string)
+        """getVehicleIDs(string) -> tuple(string)
         Get the IDs of vehicles stopped at the named parking area.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_IDS, stopID)
 
     def getAcceptedBadges(self, stopID):
-        """getAcceptedBadges(string) -> list(string)
+        """getAcceptedBadges(string) -> tuple(string)
         Get the badge keywords which allow access to the parking area.
         """
         return self._getUniversal(tc.VAR_ACCESS_BADGE, stopID)

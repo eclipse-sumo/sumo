@@ -11,7 +11,7 @@ exitLanes ('2fi_0',)
 entryPositions (10.0,)
 exitPositions (30.0,)
 vehNum 1
-meanSpeed 6.20637786887
+meanSpeed 6.206377868866548
 vehIDs ('horiz',)
 haltNum 0
 lastTravelTime 0.0
@@ -19,7 +19,7 @@ lastHaltsPerVehicle 0.0
 lastTimeLoss 0.0
 lastVehicleSum 0
 parameter 42
-parameter from XML 1339
+parameter from XML '1339'
 {16: 1}
 step 3
 {16: 1}
@@ -27,7 +27,7 @@ step 4
 {16: 0}
 step 5
 {16: 0}
-lastTravelTime 2.57124014762
+lastTravelTime 2.571240147618508
 lastHaltsPerVehicle 0.0
 lastTimeLoss 0.834
 lastVehicleSum 1

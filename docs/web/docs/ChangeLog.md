@@ -181,6 +181,7 @@ title: ChangeLog
   - Addedd function `person.getWalkingDistance` #16197
   - Added `lanearea` functions `getIntervalMeanTimeLoss` and `getLastIntervalMeanTimeLoss` #16311
   - Added function `domainID` to all domains. This can be used as the target domain in `subscribeContext` #16418
+  - subscriptions to all complex types should now work #15963 #15962 #15785 #7648
 
 - Tools
   - randomTrips.py: When option **--validate** is set, the generated amount of vehicles is guaranteed (by replacing invalid trips with new valid trips) #8843
@@ -217,10 +218,14 @@ title: ChangeLog
 - In netedit, the default extension of edge data files is now *.xml, instead of *.dat.xml #16257
 - Netedit: unified contextual menus for all elements #15314
 - The new default emission model is now [HBEFA4](models/Emissions/HBEFA4-based.md) #15950. Please note that this means a major reduction especially in the values for CO and HC at low speeds.
-- The function `traci.simulation.getBusStop` is now deprecated. Functions from `traci.busstop` should be used instead. #16433
 - mapDetectors.py: no longer searching up to range 1000 by default #16571
 - person-ride attribute `lines="ANY"` is no longer written as this is the default value when loading a ride without `line` attribute. #12263
-  
+- TraCI
+  - the new TraCI version is 22
+  - all TraCI functions in the python client should now return tuples instead of lists #15949
+    - affected functions are inductionloop.getVehicleData, lane.getLinks, trafficlight.getControlledLinks, trafficlight.getConstraints*, trafficlight.getNemaPhaseCalls, vehicle.getLaneChangeStatePretty, vehicle.getNextLinks
+  - the unused function TL_EXTERNAL_STATE has been removed (it had only a server implementation, no known client used it)
+  - the functions `simulation.getBusStop*` are deprecated in favor of the corresponding functions in the busstop domain #16433
 
 ## Version 1.22.0 (04.02.2025)
 
@@ -459,6 +464,7 @@ title: ChangeLog
     - The new option **--deadlock-output** can be use to log detected deadlocks and also their method of resolution
     - Logged deadlocks can be loaded as additional file to prevent them in a subsequent simulation #15569
     - A warning is given for unreasonable combinations of **--time-to-teleport** options #15816
+  - rerouter support a new radius attribute #15426
 
 - netedit
   - Additional output now writes chargingStation after parkingArea elements #15628

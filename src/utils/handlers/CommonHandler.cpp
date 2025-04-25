@@ -361,12 +361,6 @@ CommonHandler::writeErrorInvalidLanes(const SumoXMLTag tag, const std::string& i
 
 
 bool
-CommonHandler::writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id) {
-    return writeError(TLF("Could not build % with ID '%' in netedit; Distinct number of distribution values and probabilities.", toString(tag), id));
-}
-
-
-bool
 CommonHandler::writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parentTag, const std::string& parentID) {
     return writeError(TLF("Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist.", toString(tag), id, toString(parentTag), parentID));
 }

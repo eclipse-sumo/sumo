@@ -48,7 +48,7 @@ print("laneID", traci.inductionloop.getLaneID(loopID))
 
 traci.inductionloop.setParameter(loopID, "foo", "42")
 print("parameter", traci.inductionloop.getParameter(loopID, "foo"))
-print("parameter from XML", traci.inductionloop.getParameter(loopID, "loadedFromXML"))
+print("parameter from XML '%s'" % traci.inductionloop.getParameter(loopID, "loadedFromXML"))
 
 traci.inductionloop.subscribe(loopID)
 print(traci.inductionloop.getSubscriptionResults(loopID))

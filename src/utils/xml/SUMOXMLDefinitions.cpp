@@ -808,6 +808,8 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "decel",                  SUMO_ATTR_DECEL },
     { "emergencyDecel",         SUMO_ATTR_EMERGENCYDECEL },
     { "apparentDecel",          SUMO_ATTR_APPARENTDECEL },
+    { "maxAccelProfile",        SUMO_ATTR_MAXACCEL_PROFILE },
+    { "desAccelProfile",        SUMO_ATTR_DESACCEL_PROFILE },
     { "actionStepLength",       SUMO_ATTR_ACTIONSTEPLENGTH },
     { "vClass",                 SUMO_ATTR_VCLASS },
     { "vClasses",               SUMO_ATTR_VCLASSES },
@@ -1869,10 +1871,9 @@ StringBijection<EdgeDataFileExtension>::Entry SUMOXMLDefinitions::edgeDataFileEx
 };
 
 StringBijection<MeanDataFileExtension>::Entry SUMOXMLDefinitions::meanDataFileExtensionsValues[] = {
-    {TL("Mean data files (*.med.add.xml, *.med.add.xml.gz)"),   MeanDataFileExtension::MED_ADD_XML},
-    {TL("Additional files (*.add.xml, *.add.xml.gz)"),          MeanDataFileExtension::ADD},
-    {TL("XML files (*.xml, *.xml.gz)"),                         MeanDataFileExtension::XML},
-    {TL("All files (*)"),                                       MeanDataFileExtension::ALL} //< must be the last one
+    {TL("Mean data files (*.add.xml, *.add.xml.gz)"),   MeanDataFileExtension::ADD},
+    {TL("XML files (*.xml, *.xml.gz)"),                 MeanDataFileExtension::XML},
+    {TL("All files (*)"),                               MeanDataFileExtension::ALL} //< must be the last one
 };
 
 SequentialStringBijection SUMOXMLDefinitions::Tags(

@@ -173,8 +173,6 @@ GNERouteHandler::buildVTypeRef(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 bool
 GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id, const int deterministic) {
-    // declare vector with vType and their probabilities
-    std::vector<const GNEDemandElement*> vTypes;
     // check conditions
     const auto element = retrieveDemandElement(NamespaceIDs::types, id);
     if (!checkElement(SUMO_TAG_VTYPE_DISTRIBUTION, element)) {
@@ -283,8 +281,6 @@ GNERouteHandler::buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 bool
 GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id) {
-    // declare vector with route and their probabilities
-    std::vector<const GNEDemandElement*> routes;
     // check conditions
     const auto element = retrieveDemandElement(NamespaceIDs::routes, id);
     if (!checkElement(SUMO_TAG_ROUTE_DISTRIBUTION, element)) {

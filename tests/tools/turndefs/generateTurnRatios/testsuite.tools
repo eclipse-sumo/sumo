@@ -2,3 +2,6 @@ default
 normalized_probabilities
 interval
 many_intervals
+
+# test for #16579
+split_types

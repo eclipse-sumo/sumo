@@ -20,3 +20,6 @@ time-to-teleport.disconnected_stop
 
 # test option time to teleport
 time-to-teleport.disconnected_higher
+
+# teleport should not skip stops on the insertion edge
+stop_after_teleport

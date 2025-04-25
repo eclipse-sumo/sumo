@@ -10,8 +10,11 @@ title: Simulation Value Retrieval
 
 Asks for the value of a certain simulation variable
 
-The following variable values can be retrieved, the type of the return
-value is also shown in the table.
+The following variable values can be retrieved and subscribed to.
+The type of the return
+value is also shown in the table. It is not possible to subscribe to
+position conversion (0x82), distance request (0x83), find route (0x86),
+find intermodal route (0x87) and all bus stop functions.
 
 <center>
 **Overview Retrievable Simulation Variables**
@@ -180,13 +183,13 @@ value is also shown in the table.
 <tr class="odd">
 <td><p>bus stop waiting (id 0x67)</p></td>
 <td><p>int</p></td>
-<td><p>Get the total number of waiting persons at the named bus stop.</p></td>
+<td><p>Get the total number of waiting persons at the named bus stop (deprecated, use busstop.getPersonCount instead).</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._simulation.html#SimulationDomain-getBusStopWaiting">getBusStopWaiting</a></p></td>
 </tr>
 <tr class="even">
 <td><p>bus stop waiting ids (id 0xef)</p></td>
 <td><p>stringList</p></td>
-<td><p>Get the ids of waiting persons at the named bus stop.</p></td>
+<td><p>Get the ids of waiting persons at the named bus stop (deprecated, use busstop.getPersonIDs instead).</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._simulation.html#SimulationDomain-getBusStopWaitingIDList">getBusStopWaitingIDList</a></p></td>
 </tr>
 <tr class="odd">

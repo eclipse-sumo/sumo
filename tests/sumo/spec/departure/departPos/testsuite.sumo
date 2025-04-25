@@ -4,6 +4,9 @@ pos_default
 # checks using a free position (1 vehicle)
 pos_free
 
+# checks using a free position (5 vehicles)
+pos_free_stop
+
 # checks using a free position (3 vehicles)
 pos_free_3veh
 

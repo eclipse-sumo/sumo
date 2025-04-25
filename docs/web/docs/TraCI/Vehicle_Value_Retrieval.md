@@ -15,8 +15,10 @@ network - due not being yet inserted into the network or being
 teleported within the current time step - a default "error" value is
 returned.
 
-The following variable values can be retrieved, the type of the return
-value is also shown in the table.
+The following variable values can be retrieved and subscribed to.
+The type of the return
+value is also shown in the table. It is not possible to subscribe to
+next stops (0x73).
 
 <center>
 **Overview Retrievable Vehicle Variables**
@@ -341,7 +343,7 @@ value is also shown in the table.
 <tr class="even">
 <td><p>next stops (0x73)</p></td>
 <td><p>complex</p></td>
-<td><p>Returns the list of upcoming stops, each as compound (laneID, endPos, ID, flags, duration, until). If flag 1 is set (stop reached), duration encodes the remaining duration. Negative values indicate being blocked from re-entering traffic after a parking stop.</p></td>
+<td><p>Returns the list of upcoming stops, each as compound (laneID, endPos, ID, flags, duration, until). If flag 1 is set (stop reached), duration encodes the remaining duration. Negative values indicate being blocked from re-entering traffic after a parking stop. This function is deprecated, use stops (0x74) instead.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getNextStops">getNextStops</a></p></td>
 </tr>
 <tr class="odd">

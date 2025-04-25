@@ -99,9 +99,9 @@ step 4.0
      lane 2fi_0
      vehNum 1
      haltNum 0
-     meanSpeed 11.3496341449
+     meanSpeed 11.34963414491471
      vehIDs ('veh0',)
-     occupancy 14.9447114755
+     occupancy 14.944711475466194
      jamLengthVeh 0
      jamLengthMet 0.0
   examining det1
@@ -110,13 +110,13 @@ step 4.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 9.83412692072
+     meanSpeed 9.83412692072495
      vehIDs ('veh1',)
-     occupancy 0.115968134579
+     occupancy 0.11596813457904885
      jamLengthVeh 0
      jamLengthMet 0.0
 parameter 42
-parameter from XML 1338
+parameter from XML '1338'
 laneareas ('det0', 'det1')
 lanearea count 2
 subscriptionResults:  {16: 1}
@@ -128,7 +128,7 @@ step 5.0
      lane 2fi_0
      vehNum 1
      haltNum 0
-     meanSpeed 11.6027110019
+     meanSpeed 11.60271100191716
      vehIDs ('veh0',)
      occupancy 20.0
      jamLengthVeh 0
@@ -139,7 +139,7 @@ step 5.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 9.30729605258
+     meanSpeed 9.307296052581362
      vehIDs ('veh1',)
      occupancy 1.25
      jamLengthVeh 0
@@ -153,9 +153,9 @@ step 6.0
      lane 2fi_0
      vehNum 1
      haltNum 0
-     meanSpeed 11.2124580181
+     meanSpeed 11.212458018114232
      vehIDs ('veh0',)
-     occupancy 13.7946124444
+     occupancy 13.794612444408244
      jamLengthVeh 0
      jamLengthMet 0.0
   examining det1
@@ -164,7 +164,7 @@ step 6.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 9.22505720542
+     meanSpeed 9.225057205424376
      vehIDs ('veh1',)
      occupancy 1.25
      jamLengthVeh 0
@@ -178,7 +178,7 @@ step 7.0
      lane 2fi_0
      vehNum 0
      haltNum 0
-     meanSpeed 11.5973828122
+     meanSpeed 11.597382812219113
      vehIDs ()
      occupancy 0.0
      jamLengthVeh 0
@@ -189,7 +189,7 @@ step 7.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 9.68085458289
+     meanSpeed 9.680854582885942
      vehIDs ('veh1',)
      occupancy 1.25
      jamLengthVeh 0
@@ -214,7 +214,7 @@ step 8.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 10.0822650435
+     meanSpeed 10.082265043451182
      vehIDs ('veh1',)
      occupancy 1.25
      jamLengthVeh 0
@@ -239,7 +239,7 @@ step 9.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 10.1021693948
+     meanSpeed 10.102169394825316
      vehIDs ('veh1',)
      occupancy 1.25
      jamLengthVeh 0
@@ -264,7 +264,7 @@ step 10.0
      lane 2o_0
      vehNum 1
      haltNum 0
-     meanSpeed 10.0020870077
+     meanSpeed 10.002087007702059
      vehIDs ('veh1',)
      occupancy 1.25
      jamLengthVeh 0

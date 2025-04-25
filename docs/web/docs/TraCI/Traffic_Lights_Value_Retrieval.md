@@ -13,7 +13,7 @@ value returned is the state of the asked variable/value within the last
 simulation step. The following variable values can be retrieved and subscribed to.
 The type of the return
 value is also shown in the table. It is not possible to subscribe to
-swap constraints which is technically more of a change function
+swap constraints (0x32) which is technically more of a change function
 and just implemented as a retrieval function because it needs a return value.
 
 
@@ -113,15 +113,15 @@ By default, each index of the state controls exactly one connection so the inner
 If you request a constraint swap, the result list of constraints indicates all the new contraints that were created a a result of the swap. Each part is preceded by a byte which represents
 its data type, except "length".
 
-|          integer               |       constraint                 | ... | 
-| :----------------------------: | :------------------------------: | :-: | 
-| Length (number of constraints) | constraint components, see below | ... |  
+|          integer               |       constraint                 | ... |
+| :----------------------------: | :------------------------------: | :-: |
+| Length (number of constraints) | constraint components, see below | ... |
 
 **constraint:**
 
-|  string      |  string      |  string      |  string      |  int     | int      |  byte     |  byte      |  stringList   | 
+|  string      |  string      |  string      |  string      |  int     | int      |  byte     |  byte      |  stringList   |
 | :----------: | :----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |
-| signalId     | tripId    |  foeId    |  foeSignalId     |  limit     |  constraint type  | mustWait    |  active     |  params of the form: key,value,...,key,value    |   
+| signalId     | tripId    |  foeId    |  foeSignalId     |  limit     |  constraint type  | mustWait    |  active     |  params of the form: key,value,...,key,value    |
 
 ## Extended retrieval messages
 

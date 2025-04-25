@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-24 09:59:39 by Eclipse SUMO netedit Version v1_22_0+1697-ab9c9eee8bf
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="t_0" depart="0.00" from="E0" to="E1">
+        <stop lane="E0_0" startPos="-5" endPos="-1" duration="1.00" jump="0"/>
+        <stop lane="E1_0" startPos="0.00" endPos="5" duration="60.00"/>
+    </trip>
+    <trip id="t_1" depart="0.00" from="E1" to="E1">
+        <stop lane="E1_0" startPos="0.00" endPos="5" duration="60.00"/>
+    </trip>
+</routes>

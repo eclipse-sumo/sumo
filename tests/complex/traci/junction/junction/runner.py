@@ -38,6 +38,7 @@ junctionID = "0"
 print("examining", junctionID)
 print("pos", traci.junction.getPosition(junctionID))
 print("pos3D", traci.junction.getPosition(junctionID, True))
+print("shape", traci.junction.getShape(junctionID))
 traci.junction.setParameter(junctionID, "foo", "42")
 print("parameter", traci.junction.getParameter(junctionID, "foo"))
 print("incomingEdges", traci.junction.getIncomingEdges(junctionID))

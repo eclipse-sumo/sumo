@@ -30,9 +30,9 @@ class RerouterDomain(Domain):
                         tc.CMD_SUBSCRIBE_REROUTER_CONTEXT, tc.RESPONSE_SUBSCRIBE_REROUTER_CONTEXT)
 
     # def getEdges(self, routeID):
-    #     """getEdges(string) -> list(string)
+    #     """getEdges(string) -> tuple(string)
 
-    #     Returns a list of all edges in the route.
+    #     Returns a tuple of all edges in the route.
     #     """
     #     return self._getUniversal(tc.VAR_EDGES, routeID)
 

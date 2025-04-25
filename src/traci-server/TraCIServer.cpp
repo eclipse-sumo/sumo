@@ -543,6 +543,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_FOLLOWER));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_NEIGHBORS));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_STOP_PARAMETER));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_NEXT_STOPS));  // this is just a dummy to trigger an error
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_NEXT_STOPS2));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_TAXI_FLEET));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER));
@@ -1414,9 +1415,14 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
                     message.writeChar(v);
                 }
                 tcpip::Storage tmpOutput;
-                if (myExecutors.find(getCommandId) != myExecutors.end()) {
-                    ok &= myExecutors[getCommandId](*this, message, tmpOutput);
-                } else {
+                try {
+                    if (myExecutors.find(getCommandId) != myExecutors.end()) {
+                        ok &= myExecutors[getCommandId](*this, message, tmpOutput);
+                    } else {
+                        writeStatusCmd(s.commandId, libsumo::RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
+                        ok = false;
+                    }
+                } catch (const std::invalid_argument&) {
                     writeStatusCmd(s.commandId, libsumo::RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
                     ok = false;
                 }

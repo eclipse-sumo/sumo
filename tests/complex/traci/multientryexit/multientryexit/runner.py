@@ -60,7 +60,7 @@ printAggregated()
 
 traci.multientryexit.setParameter(detID, "foo", "42")
 print("parameter", traci.multientryexit.getParameter(detID, "foo"))
-print("parameter from XML", traci.multientryexit.getParameter(detID, "loadedFromXML"))
+print("parameter from XML '%s'" % traci.multientryexit.getParameter(detID, "loadedFromXML"))
 
 traci.multientryexit.subscribe(detID)
 print(traci.multientryexit.getSubscriptionResults(detID))

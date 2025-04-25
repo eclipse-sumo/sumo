@@ -188,6 +188,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdSelectDeadEnds(FXObject*, FXSelect
         }
     }
     myConnectorFrameParent->getViewNet()->getViewParent()->getSelectorFrame()->handleIDs(deadEnds, GNESelectorFrame::ModificationMode::Operation::REPLACE);
+    myConnectorFrameParent->getViewNet()->updateViewNet();
     return 1;
 }
 
@@ -214,6 +215,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdSelectDeadStarts(FXObject*, FXSele
     }
     std::vector<GNEAttributeCarrier*> selectObjects(deadStarts.begin(), deadStarts.end());
     myConnectorFrameParent->getViewNet()->getViewParent()->getSelectorFrame()->handleIDs(selectObjects, GNESelectorFrame::ModificationMode::Operation::REPLACE);
+    myConnectorFrameParent->getViewNet()->updateViewNet();
     return 1;
 }
 
@@ -237,6 +239,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdSelectConflicts(FXObject*, FXSelec
 
     }
     myConnectorFrameParent->getViewNet()->getViewParent()->getSelectorFrame()->handleIDs(conflicts, GNESelectorFrame::ModificationMode::Operation::REPLACE);
+    myConnectorFrameParent->getViewNet()->updateViewNet();
     return 1;
 }
 
@@ -252,6 +255,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdSelectPass(FXObject*, FXSelector, 
         }
     }
     myConnectorFrameParent->getViewNet()->getViewParent()->getSelectorFrame()->handleIDs(pass, GNESelectorFrame::ModificationMode::Operation::REPLACE);
+    myConnectorFrameParent->getViewNet()->updateViewNet();
     return 1;
 }
 
@@ -279,6 +283,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdClearSelectedConnections(FXObject*
         myConnectorFrameParent->removeConnections(lane);
     }
     myConnectorFrameParent->getViewNet()->getUndoList()->end();
+    myConnectorFrameParent->getViewNet()->updateViewNet();
     return 1;
 }
 
@@ -297,6 +302,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*
         viewNet->getNet()->requireRecompute();
         viewNet->getNet()->computeNetwork(viewNet->getViewParent()->getGNEAppWindows());
     }
+    myConnectorFrameParent->getViewNet()->updateViewNet();
     return 1;
 }
 

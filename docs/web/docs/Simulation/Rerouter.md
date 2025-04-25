@@ -17,11 +17,14 @@ the definition. The declaration values are:
 | Attribute Name | Value Type  | Description                                                                                            |
 | -------------- | ----------- | ------------------------------------------------------------------------------------------------------ |
 | **id**         | id (string) | The id of of the rerouter                                                                              |
-| **edges**      | float       | An edge id or a list of edge ids where vehicles shall be rerouted                                      |
+| **edges**      | stringList  | A list of edge ids where vehicles shall be rerouted                                                    |
 | probability    | float       | The probability for vehicle rerouting (0-1), default 1                                                 |
 | timeThreshold  | time (s)    | minimum accumulated waiting time before the rerouter takes effect (default 0 applies always)           |
 | vTypes         | stringList  | Space-separated list of vType IDs for which this rerouter should apply (default "" applies to all)     |
 | off            | bool        | Whether the router should be inactive initially (and switched on in the gui), *default:false*          |
+| optional       | bool        | Whether the vehicle / person needs to request rerouting actively, *default:false*                      |
+| pos            | float       | The position on the edge, *default:undefined*                                                          |
+| radius         | float       | At which distance the rerouter will trigger, *default:infinity*                                        |
 
 A rerouter may work in several different ways. Within a time period you
 may close an edge, or assign new destinations or predefined routes to
@@ -349,7 +352,7 @@ When 'parking.probability.weight' is set to a positive value, a random number be
 Parameter Name         | Default value | Description                                                              |
 | -------------------- | ------------- | ------------------------------------------------------------------------ |
 | parking.anywhere     | -1            | permit using any free parkingArea along the way after doing unsuccessful parkingAreaReroute x times (-1 disables this behavior) |
-| parking.ignoreDest   | 0             | When rerouting is triggered, any alternative may be used regardless of visibility and occupancy of the current destination | 
+| parking.ignoreDest   | 0             | When rerouting is triggered, any alternative may be used regardless of visibility and occupancy of the current destination |
 | parking.frustration  | 100           | increases the preference for visibly free parkingAreas over time (after x unsuccessful parkingAreaReroutes, targets with unknown occupancy will assumed to be *almost* full)                                 |
 | parking.knowledge    | 0             | Let driver "guess" the exact occupancy of invisible parkingAreas with probability x                   |
 

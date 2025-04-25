@@ -1012,6 +1012,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_DECEL,
     SUMO_ATTR_EMERGENCYDECEL,
     SUMO_ATTR_APPARENTDECEL,
+    SUMO_ATTR_MAXACCEL_PROFILE,
+    SUMO_ATTR_DESACCEL_PROFILE,
     SUMO_ATTR_ACTIONSTEPLENGTH,
     SUMO_ATTR_VCLASS,
     SUMO_ATTR_VCLASSES,
@@ -2493,7 +2495,6 @@ enum class EdgeDataFileExtension {
 
 /// @brief mean data file extension
 enum class MeanDataFileExtension {
-    MED_ADD_XML,
     ADD,
     XML,
     ALL,

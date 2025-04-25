@@ -65,7 +65,7 @@ class ChargingStationDomain(Domain):
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_NUMBER, stopID)
 
     def getVehicleIDs(self, stopID):
-        """getVehicleIDs(string) -> list(string)
+        """getVehicleIDs(string) -> tuple(string)
 
         Get the IDs of vehicles stopped at the named charging station.
         """
