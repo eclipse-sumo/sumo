@@ -106,9 +106,9 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     const_cast<MSVehicleType*>(vtype)->setLength(myTrainParams.length);
 
     // init tabular curves
-    std::vector<double> speedTable = getValueTable(vtype, SUMO_ATTR_SPEED_TABLE);
-    std::vector<double> tractionTable = getValueTable(vtype, SUMO_ATTR_TRACTION_TABLE);
-    std::vector<double> resistanceTable = getValueTable(vtype, SUMO_ATTR_RESISTANCE_TABLE);
+    std::vector<double> speedTable = vtype->getParameter().getCFValueTable(SUMO_ATTR_SPEED_TABLE);
+    std::vector<double> tractionTable = vtype->getParameter().getCFValueTable(SUMO_ATTR_TRACTION_TABLE);
+    std::vector<double> resistanceTable = vtype->getParameter().getCFValueTable(SUMO_ATTR_RESISTANCE_TABLE);
     if (speedTable.size() > 0 || tractionTable.size() > 0 || resistanceTable.size() > 0) {
         if (speedTable.size() == 1) {
             throw ProcessError(TLF("Invalid size of speedTable for vType '%' (at least 2 values are required).", vtype->getID()));
@@ -163,19 +163,6 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
 
 
 MSCFModel_Rail::~MSCFModel_Rail() { }
-
-
-std::vector<double>
-MSCFModel_Rail::getValueTable(const MSVehicleType* vtype, SumoXMLAttr attr) {
-    std::vector<double> result;
-    const std::string values = vtype->getParameter().getCFParamString(attr, "");
-    if (!values.empty()) {
-        for (std::string value : StringTokenizer(values).getVector()) {
-            result.push_back(StringUtils::toDouble(value));
-        }
-    }
-    return result;
-}
 
 
 double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double gap,

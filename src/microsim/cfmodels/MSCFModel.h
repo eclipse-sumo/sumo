@@ -27,6 +27,7 @@
 #include <string>
 #include <vector>
 #include <utils/common/StdDefs.h>
+#include <utils/common/LinearApproxHelpers.h>
 #include <utils/common/SUMOTime.h>
 
 #define INVALID_SPEED 299792458 + 1 // nothing can go faster than the speed of light!
@@ -297,7 +298,7 @@ public:
     /** @brief Get the vehicle type's maximum acceleration profile depending on the velocity [m/s^2]
      * @return The maximum acceleration profile (in m/s^2) of vehicles of this class
      */
-    inline std::vector<std::pair<double, double> > getMaxAccelProfile() const {
+    inline LinearApproxHelpers::LinearApproxMap getMaxAccelProfile() const {
         return myMaxAccelProfile;
     }
 
@@ -305,7 +306,7 @@ public:
     /** @brief Get the vehicle type's desired acceleration profile depending on the velocity [m/s^2]
      * @return The desired acceleration profile (in m/s^2) of vehicles of this class
      */
-    inline std::vector<std::pair<double, double> > getDesAccelProfile() const {
+    inline LinearApproxHelpers::LinearApproxMap getDesAccelProfile() const {
         return myDesAccelProfile;
     }
 
@@ -595,14 +596,14 @@ public:
     /** @brief Sets a new value for maximum acceleration profile [m/s^2]
      * @param[in] accelProfile The new acceleration profile in m/s^2
      */
-    virtual void setMaxAccelProfile(std::vector<std::pair<double, double> > accelProfile) {
+    virtual void setMaxAccelProfile(const LinearApproxHelpers::LinearApproxMap& accelProfile) {
         myMaxAccelProfile = accelProfile;
     }
 
     /** @brief Sets a new value for desired acceleration profile [m/s^2]
      * @param[in] accelProfile The new acceleration profile in m/s^2
      */
-    virtual void setDesAccelProfile(std::vector<std::pair<double, double> > accelProfile) {
+    virtual void setDesAccelProfile(const LinearApproxHelpers::LinearApproxMap&  accelProfile) {
         myDesAccelProfile = accelProfile;
     }
 
@@ -760,10 +761,10 @@ protected:
     SUMOTime myStartupDelay;
 
     /// @brief The vehicle's maximum acceleration profile [m/s^2]
-    std::vector<std::pair<double, double> > myMaxAccelProfile;
+    LinearApproxHelpers::LinearApproxMap myMaxAccelProfile;
 
     /// @brief The vehicle's desired acceleration profile [m/s^2]
-    std::vector<std::pair<double, double> > myDesAccelProfile;
+    LinearApproxHelpers::LinearApproxMap myDesAccelProfile;
 
 
 

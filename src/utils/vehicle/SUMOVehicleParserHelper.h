@@ -182,7 +182,7 @@ public:
      *
      * @note  if the vector parameter set is an empty string, then the vtype map will not be changed
      */
-    static bool parseProfile(SUMOVTypeParameter* vtype, const std::string atm, const SumoXMLAttr attr);
+    static bool validProfile(SUMOVTypeParameter* vtype, const std::string data, const SumoXMLAttr attr);
 
     static int parseCarWalkTransfer(const OptionsCont& oc, const bool hasTaxi = false);
 

@@ -525,6 +525,7 @@ MSVehicleType::setApparentDecel(double apparentDecel) {
 
 void
 MSVehicleType::setMaxAccelProfile(std::vector<std::pair<double, double> > accelProfile) {
+    /*
     if (myOriginalType != nullptr) {
         accelProfile = myOriginalType->getCarFollowModel().getMaxAccelProfile();
     } else {
@@ -562,10 +563,12 @@ MSVehicleType::setMaxAccelProfile(std::vector<std::pair<double, double> > accelP
         count++;
     }
     myParameter.cfParameter[SUMO_ATTR_MAXACCEL_PROFILE] = accelProfileString.str();
+    */
 }
 
 void
 MSVehicleType::setDesAccelProfile(std::vector<std::pair<double, double> > accelProfile) {
+    /*
     if (myOriginalType != nullptr) {
         accelProfile = myOriginalType->getCarFollowModel().getDesAccelProfile();
     } else {
@@ -603,6 +606,7 @@ MSVehicleType::setDesAccelProfile(std::vector<std::pair<double, double> > accelP
         count++;
     }
     myParameter.cfParameter[SUMO_ATTR_DESACCEL_PROFILE] = accelProfileString.str();
+    */
 }
 
 void
@@ -622,5 +626,6 @@ MSVehicleType::setTau(double tau) {
     myCarFollowModel->setHeadwayTime(tau);
     myParameter.cfParameter[SUMO_ATTR_TAU] = toString(tau);
 }
+
 
 /****************************************************************************/

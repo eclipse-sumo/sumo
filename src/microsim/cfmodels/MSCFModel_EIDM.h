@@ -224,7 +224,11 @@ public:
      * @return The maximum acceleration (in m/s^2) of vehicles of this class
      */
     inline double getCurrentAccel(const double speed) const {
-        return interpolateProfile(speed, myDesAccelProfile);
+        if (myDesAccelProfile.empty()) {
+            return myAccel;
+        } else{
+            return LinearApproxHelpers::getInterpolatedValue(myDesAccelProfile, speed);
+        }
     }
 
     /** @brief Duplicates the car-following model
