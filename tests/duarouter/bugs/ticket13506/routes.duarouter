@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-27 12:20:11 by Eclipse SUMO duarouter Version v1_17_0+1285-35e842a
+<!-- generated on 2025-04-23 23:10:42 by Eclipse SUMO duarouter Version v1_22_0+1676-989a5715aeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -29,12 +29,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</duarouterConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="9585" depart="0.00">
-        <ride from="584100104#6" busStop="7116961518" lines="14:2" intended="subway_14:2.0" depart="514.00"/> <!-- 蓝天路 -->
+        <ride from="584100104#6" busStop="7116961518" intended="subway_14:2.0" depart="514.00"/> <!-- 蓝天路 -->
         <walk edges="182669299#4 182669299#3"/>
     </person>
 </routes>

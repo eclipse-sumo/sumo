@@ -13,6 +13,9 @@ TrafficLight
 # Tests retrieval of variables from lanes (0xa3)
 Lane
 
+# Tests retrieval of variables from stopping places
+StoppingPlaces
+
 # Tests retrieval of variables from vehicles (0xa4)
 Vehicle
 

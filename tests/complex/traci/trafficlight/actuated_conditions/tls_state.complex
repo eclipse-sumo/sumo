@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-20 12:07:39 by Eclipse SUMO sumo Version v1_12_0+2174-374ca17
+<!-- generated on 2024-03-26 08:14:34 by Eclipse SUMO sumo Version v1_19_0+1536-0ceca17c3ed
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -20,7 +20,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="42115"/>
+        <remote-port value="59231"/>
     </traci_server>
 
     <gui_only>
@@ -32,10 +32,10 @@
 -->
 
 <tlsStates detectors="C_1_D0.0 C_1_D0.1 C_1_D1.0 C_1_D1.1 C_1_D2.0 C_1_D2.1 C_1_D3.0 C_1_D3.1" conditions="EW EWL NS NSL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
-    <tlsState time="0.00" id="C" programID="1" phase="0" state="GgrrGgrr" detectors="0 0 0 0 0 0 0 0" conditions="0.00 0.00 0.00 0.00"/>
-    <tlsState time="1.00" id="C" programID="1" phase="0" state="GgrrGgrr" detectors="0 0 0 0 0 0 0 0" conditions="0.00 0.00 0.00 0.00"/>
-    <tlsState time="2.00" id="C" programID="1" phase="0" state="GgrrGgrr" detectors="0 0 0 0 0 0 0 0" conditions="0.00 0.00 0.00 0.00"/>
-    <tlsState time="3.00" id="C" programID="1" phase="0" state="GgrrGgrr" detectors="0 0 0 0 0 0 0 0" conditions="0.00 0.00 0.00 0.00"/>
+    <tlsState time="0.00" id="C" programID="1" phase="0" state="GgrrGgrr" detectors="0 0 0 0 0 0 0 0" conditions="1.00 1.00 1.00 1.00"/>
+    <tlsState time="1.00" id="C" programID="1" phase="0" state="GgrrGgrr" detectors="0 0 0 0 0 0 0 0" conditions="1.00 1.00 1.00 1.00"/>
+    <tlsState time="2.00" id="C" programID="1" phase="0" state="GgrrGgrr" detectors="0 0 0 0 0 0 0 0" conditions="1.00 1.00 1.00 1.00"/>
+    <tlsState time="3.00" id="C" programID="1" phase="0" state="GgrrGgrr" detectors="0 0 0 0 0 0 0 0" conditions="1.00 1.00 1.00 1.00"/>
     <tlsState time="4.00" id="C" programID="1" phase="0" state="GgrrGgrr" detectors="0 0 0 0 0 0 0 0" conditions="1.00 1.00 1.00 1.00"/>
     <tlsState time="5.00" id="C" programID="1" phase="1" state="ygrrygrr" detectors="0 0 0 0 0 0 0 0" conditions="1.00 1.00 1.00 1.00"/>
     <tlsState time="6.00" id="C" programID="1" phase="1" state="ygrrygrr" detectors="0 0 0 0 0 0 0 0" conditions="1.00 1.00 1.00 1.00"/>

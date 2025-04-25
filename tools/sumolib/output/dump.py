@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -44,7 +44,7 @@ class DumpReader(handler.ContentHandler):
         if name == 'interval':
             self._beginTime = float(attrs['begin'])
             self._intervalBegins.append(self._beginTime)
-            for a in self._attrsToCollect.itervalues():
+            for a in self._attrsToCollect.values():
                 self._values[a].append(collections.defaultdict(int))
         if name == 'edge' or name == 'lane':
             id = attrs['id']

@@ -1,0 +1,2 @@
+ -d input_detectors.det.xml input_flows.txt --verbose
+ -o output_data.txt

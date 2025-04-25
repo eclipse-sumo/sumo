@@ -7,6 +7,9 @@ default
 # use custom switching rules to replicate the default behavior
 replicate_default
 
+# use custom switching rules to replicate the default behavior
+replicate_default_simplified
+
 # change time gap condition for one phase
 custom_gapOut
 
@@ -49,3 +52,10 @@ bus_prio
 # 
 # (otherwise behave like the default actuated controller)
 allRed_default
+
+# similar to tlLayout=alternateOneWay, only one direction is permitted at a time.
+# However, the is aware of the traffic presence inside and switches immediately to either direction when it is safe to do so.
+alternate_oneWay
+
+# no checking for internal state (as a performance reference)
+alternate_oneWay_default

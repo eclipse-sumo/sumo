@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,27 +74,28 @@ NIImporter_ArcView::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         return;
     }
     // check whether the correct set of entries is given
-    //  and compute both file names
-    std::string dbf_file = oc.getString("shapefile-prefix") + ".dbf";
-    std::string shp_file = oc.getString("shapefile-prefix") + ".shp";
-    std::string shx_file = oc.getString("shapefile-prefix") + ".shx";
-    // check whether the files do exist
-    if (!FileHelpers::isReadable(dbf_file)) {
-        WRITE_ERROR("File not accessible: " + dbf_file);
-    }
-    if (!FileHelpers::isReadable(shp_file)) {
-        WRITE_ERROR("File not accessible: " + shp_file);
-    }
-    if (!FileHelpers::isReadable(shx_file)) {
-        WRITE_ERROR("File not accessible: " + shx_file);
+    //  and compute all file names
+    const std::string dbf_file = oc.getString("shapefile-prefix") + ".dbf";
+    const std::string shp_file = oc.getString("shapefile-prefix") + ".shp";
+    const std::string shx_file = oc.getString("shapefile-prefix") + ".shx";
+    if (!StringUtils::startsWith(shp_file, "/vsi")) {
+        // if we are not using a virtual file system, check whether the files do exist
+        if (!FileHelpers::isReadable(dbf_file)) {
+            WRITE_ERROR("File not accessible: " + dbf_file);
+        }
+        if (!FileHelpers::isReadable(shp_file)) {
+            WRITE_ERROR("File not accessible: " + shp_file);
+        }
+        if (!FileHelpers::isReadable(shx_file)) {
+            WRITE_ERROR("File not accessible: " + shx_file);
+        }
     }
     if (MsgHandler::getErrorInstance()->wasInformed()) {
         return;
     }
     // load the arcview files
-    NIImporter_ArcView loader(oc,
-                              nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(),
-                              dbf_file, shp_file, oc.getBool("speed-in-kmh"));
+    NIImporter_ArcView loader(oc, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(),
+                              shp_file, oc.getBool("speed-in-kmh"));
     loader.load();
 }
 
@@ -107,7 +108,6 @@ NIImporter_ArcView::NIImporter_ArcView(const OptionsCont& oc,
                                        NBNodeCont& nc,
                                        NBEdgeCont& ec,
                                        NBTypeCont& tc,
-                                       const std::string& dbf_name,
                                        const std::string& shp_name,
                                        bool speedInKMH)
     : myOptions(oc), mySHPName(shp_name),
@@ -116,7 +116,6 @@ NIImporter_ArcView::NIImporter_ArcView(const OptionsCont& oc,
       mySpeedInKMH(speedInKMH),
       myRunningEdgeID(0),
       myRunningNodeID(0) {
-    UNUSED_PARAMETER(dbf_name);
 }
 
 
@@ -344,6 +343,9 @@ NIImporter_ArcView::load() {
         if (dir == "B" || dir == "F" || dir == "" || myOptions.getBool("shapefile.all-bidirectional")) {
             if (myEdgeCont.retrieve(id) == 0) {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
+                if (spread == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
+                    spread = LaneSpreadFunction::ROADCENTER;
+                }
                 NBEdge* edge = new NBEdge(id, from, to, type, speed, NBEdge::UNSPECIFIED_FRICTION, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape, spread, name, origID);
                 edge->setPermissions(myTypeCont.getEdgeTypePermissions(type));
                 edge->setLoadedLength(length);
@@ -358,6 +360,9 @@ NIImporter_ArcView::load() {
         if ((dir == "B" || dir == "T" || myOptions.getBool("shapefile.all-bidirectional")) && !oneway) {
             if (myEdgeCont.retrieve("-" + id) == 0) {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
+                if (spread == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
+                    spread = LaneSpreadFunction::ROADCENTER;
+                }
                 NBEdge* edge = new NBEdge("-" + id, to, from, type, speed, NBEdge::UNSPECIFIED_FRICTION, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), spread, name, origID);
                 edge->setPermissions(myTypeCont.getEdgeTypePermissions(type));
                 edge->setLoadedLength(length);

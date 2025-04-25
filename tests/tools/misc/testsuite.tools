@@ -7,3 +7,5 @@ generateRerouters
 generateContinuousRerouters
 extractTest
 runSeeds
+distributeChargingStations
+generateLandmarks

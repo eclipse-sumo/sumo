@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -60,7 +60,7 @@ class DoorInfo:
                  shape=None,
                  parentPolygon=None,
                  atLengthsOfParent=None):
-        assert (len(shape) == 2), "expected two positions for door (got %d instead)" % len(shape)  # noqa
+        assert len(shape) == 2, "expected two positions for door (got %d instead)" % len(shape)
         self._id = id
         self._shape = shape
         self._width = sumolib.geomhelper.polyLength(shape)
@@ -90,6 +90,8 @@ def parse_args():
                            help="Choose all lanes allowing pedestrians in case of ambiguities (experimental)")
     argParser.add_argument("--allow-junctions", action="store_true",
                            help="Allow junctions as feasible pedestrian areas for JuPedSim (experimental)")
+    argParser.add_argument("--fixed-metadata", action="store_true",
+                           help="Write fixed metadata (creation date etc.) for stable tests")
 
     options = argParser.parse_args()
     if not options.netFile or not options.selectedObjectsFile:
@@ -119,7 +121,7 @@ def calculateBoundingPolygon(shape, width):
 
 
 def addInOutLaneToDoorList(polygon, inOutLane, net, doorInfoList, direction='in'):
-    assert (direction == 'in' or direction == 'out')
+    assert direction == 'in' or direction == 'out'
     lane = net.getLane(polygon.attributes[KEY_SUMO_ID])
     if DEBUG:
         print("DEBUG: lane (%s) \'%s\' for current lane \'%s\'" % (direction, inOutLane.getID(), lane.getID()))
@@ -176,7 +178,7 @@ def subtractDoorsFromPolygon(polygon, doorInfoList):
             print("DEBUG: doorInfo._atLengthsOfParent:", doorInfo._atLengthsOfParent)
         len1 = doorInfo._atLengthsOfParent[0]
         len2 = doorInfo._atLengthsOfParent[-1]
-        assert (len1 < len2), "len1 should be smaller than len2 (len1=%d, len2=%d)" % (len1, len2)  # noqa
+        assert len1 < len2, "len1 should be smaller than len2 (len1=%d, len2=%d)" % (len1, len2)
         if len2 - len1 > doorInfo._width:
             # corner case with inversely oriented door and closed parent polygon
             len1 = len2
@@ -317,6 +319,8 @@ def writeToDxf(polygons, doors, options):
 
 if __name__ == "__main__":
     options = parse_args()
+    if options.fixed_metadata:
+        ezdxf.options.set("core", "write_fixed_meta_data_for_testing", "true")
     net = sumolib.net.readNet(options.netFile, withInternal=True, withPedestrianConnections=True)
     selectedObjects = sumolib.files.selection.read(options.selectedObjectsFile, lanes2edges=False)
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -33,18 +34,16 @@ class GNEParkingArea;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEParkingAreaReroute
- * forces the rerouter to assign a new route
- */
-class GNEParkingAreaReroute : public GNEAdditional {
+
+class GNEParkingAreaReroute : public GNEAdditional, public Parameterised {
 
 public:
     /// @brief constructor
     GNEParkingAreaReroute(GNENet* net);
 
     /// @brief constructor
-    GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible);
+    GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea,
+                          const double probability, const bool visible);
 
     /// @brief destructor
     ~GNEParkingAreaReroute();
@@ -156,10 +155,10 @@ public:
 
 protected:
     /// @brief probability with which a vehicle will use the given edge as destination
-    double myProbability;
+    double myProbability = 0;
 
     /// @brief enable or disable visibility of Parking Area Reroute
-    bool myVisible;
+    bool myVisible = false;
 
 private:
     /// @brief set attribute after validation

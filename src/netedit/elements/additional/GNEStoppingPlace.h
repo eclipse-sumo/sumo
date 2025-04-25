@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,33 +19,38 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEStoppingPlace
- * @briefA abstract class to define common parameters and functions of stopping places
- */
+
 class GNEStoppingPlace : public GNEAdditional, public Parameterised {
 
 public:
-    /**@brief Constructor.
-     * @param[in] id Gl-id of the stopping place (Must be unique)
+    /**@brief Default constructor
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] type GUIGlObjectType of stoppingPlace
+     * @param[in] tag Type of xml tag that define the StoppingPlace (SUMO_TAG_BUS_STOP, SUMO_TAG_CHARGING_STATION, etc...)
+     */
+    GNEStoppingPlace(GNENet* net, SumoXMLTag tag);
+
+    /**@brief Constructor
+     * @param[in] id The name of the stopping place
+     * @param[in] net net in which this polygon is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] tag Type of xml tag that define the StoppingPlace (SUMO_TAG_BUS_STOP, SUMO_TAG_CHARGING_STATION, etc...)
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of stoppingPlace
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] color stoppingPlace color
      * @param[in] parameters generic parameters
      */
-    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, GNELane* lane,
+    GNEStoppingPlace(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag, GNELane* lane,
                      const double startPos, const double endPos, const std::string& name, bool friendlyPosition,
-                     const Parameterised::Map& parameters);
+                     const RGBColor& color, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
@@ -94,6 +99,7 @@ public:
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+
     /// @}
 
     /// @name inherited from GNEAdditional
@@ -107,6 +113,7 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -121,7 +128,7 @@ public:
      * @param[in] key The attribute key
      * @return double with the value associated to key
      */
-    virtual double getAttributeDouble(SumoXMLAttr key) const;
+    virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
 
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
@@ -140,37 +147,82 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool isAttributeEnabled(SumoXMLAttr key) const;
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
+
     /// @}
 
 protected:
     /// @brief The relative start position this stopping place is located at (-1 means empty)
-    double myStartPosition;
+    double myStartPosition = 0;
 
     /// @brief The  position this stopping place is located at (-1 means empty)
-    double myEndPosition;
+    double myEndPosition = 0;
 
     /// @brief Flag for friendly position
-    bool myFriendlyPosition;
+    bool myFriendlyPosition = false;
+
+    /// @brief RGB color
+    RGBColor myColor = RGBColor::INVISIBLE;
+
+    /// @brief size (only use in templates)
+    double mySize = 10;
+
+    /// @brief force size (only used in templates
+    bool myForceSize = false;
+
+    /// @brief reference position
+    ReferencePosition myReferencePosition = ReferencePosition::CENTER;
 
     /// @brief The position of the sign
-    Position mySignPos;
+    Position mySymbolPosition;
 
-    /// @brief circle width resolution for all stopping places
-    static const double myCircleWidth;
+    /// @brief circle contour
+    GNEContour mySymbolContour;
 
-    /// @brief squared circle width resolution for all stopping places
-    static const double myCircleWidthSquared;
+    /// @name Functions related with stoppingPlace attributes
+    /// @{
 
-    /// @brief inner circle width resolution for all stopping places
-    static const double myCircleInWidth;
+    /// @brief write common stoppingPlace attributes
+    void writeStoppingPlaceAttributes(OutputDevice& device) const;
 
-    /// @brief text inner circle width resolution for all stopping places
-    static const double myCircleInText;
+    /* @brief method for getting the stoppingPlace attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    std::string getStoppingPlaceAttribute(const Parameterised* parameterised, SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getStoppingPlaceAttributeDouble(SumoXMLAttr key) const;
+
+    /* @brief method for setting the stoppingPlace attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for check if new value for certain stoppingPlace attribute is valid
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     */
+    bool isStoppingPlaceValid(SumoXMLAttr key, const std::string& value) const;
+
+    /// @brief method for setting the stoppingPlace attribute and nothing else (used in GNEChange_Attribute)
+    void setStoppingPlaceAttribute(Parameterised* parameterised, SumoXMLAttr key, const std::string& value);
+
+    /// @}
 
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry(double movingToSide);
@@ -180,12 +232,12 @@ protected:
                    const RGBColor& color) const;
 
     /// @brief draw sign
-    void drawSign(const GUIVisualizationSettings::Detail d, const double exaggeration,
+    void drawSign(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration,
                   const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const;
 
     /// @brief check object in view
     void calculateStoppingPlaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                       const double width, const bool movingGeometryPoints) const;
+                                       const double width, const double exaggeration, const bool movingGeometryPoints) const;
 
 private:
     /// @brief set attribute after validation
@@ -202,6 +254,9 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /// @brief adjust lenght
+    void adjustLenght(const double length, GNEUndoList* undoList);
 
     /// @brief Invalidate set new position in the view
     void setPosition(const Position& pos) = delete;

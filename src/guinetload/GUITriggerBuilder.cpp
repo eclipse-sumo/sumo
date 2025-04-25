@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -59,8 +59,8 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
 MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
                                  MSEdgeVector& edges, double prob, bool off, bool optional,
-                                 SUMOTime timeThreshold, const std::string& vTypes, const Position& pos) {
-    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, off, optional, timeThreshold, vTypes, pos,
+                                 SUMOTime timeThreshold, const std::string& vTypes, const Position& pos, const double radius) {
+    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, off, optional, timeThreshold, vTypes, pos, radius,
             dynamic_cast<GUINet&>(net).getVisualisationSpeedUp());
     return rr;
 }
@@ -82,6 +82,7 @@ GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<st
 void
 GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
                                     const std::vector<std::string>& lines,
+                                    const std::vector<std::string>& badges,
                                     MSLane* lane,
                                     double frompos, double topos,
                                     unsigned int capacity,
@@ -90,7 +91,7 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
                                     const std::string& departPos,
                                     bool lefthand) {
     assert(myParkingArea == 0);
-    GUIParkingArea* stop = new GUIParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos, lefthand);
+    GUIParkingArea* stop = new GUIParkingArea(id, lines, badges, *lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos, lefthand);
     if (!net.addStoppingPlace(SUMO_TAG_PARKING_AREA, stop)) {
         delete stop;
         throw InvalidArgument("Could not build parking area '" + id + "'; probably declared twice.");
@@ -103,9 +104,10 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
 void
 GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
                                         const std::string& name, double chargingPower, double efficiency, bool chargeInTransit,
-                                        SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime) {
-    GUIChargingStation* chargingStation = new GUIChargingStation(id, *lane, frompos, topos, name, chargingPower, efficiency,
-            chargeInTransit, chargeDelay, chargeType, waitingTime);
+                                        SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime, MSParkingArea* parkingArea) {
+    GUIChargingStation* chargingStation = (parkingArea == nullptr) ? new GUIChargingStation(id, *lane, frompos, topos, name, chargingPower, efficiency,
+                                          chargeInTransit, chargeDelay, chargeType, waitingTime) : new GUIChargingStation(id, parkingArea, name, chargingPower, efficiency,
+                                                  chargeInTransit, chargeDelay, chargeType, waitingTime);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
@@ -148,6 +150,7 @@ void
 GUITriggerBuilder::endStoppingPlace() {
     if (myCurrentStop != nullptr) {
         static_cast<GUINet*>(MSNet::getInstance())->registerRenderedObject(dynamic_cast<GUIGlObject*>(myCurrentStop));
+        myCurrentStop->finishedLoading();
         myCurrentStop = nullptr;
     } else {
         throw InvalidArgument("Could not end a stopping place that is not opened.");

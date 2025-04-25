@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,17 +25,17 @@ import functools
 import warnings
 
 
-def deprecated(old_name=None):
+def deprecated(new_name=None):
     """This is a decorator which can be used to mark functions
     as deprecated. It will result in a warning being emitted
     when the function is used."""
     def Inner(func):
         @functools.wraps(func)
         def new_func(*args, **kwargs):
-            if old_name is None:
+            if new_name is None:
                 msg = "Call to deprecated function %s." % (func.__name__)
             else:
-                msg = "Call to deprecated function %s, use %s instead." % (old_name, func.__name__)
+                msg = "Call to deprecated function %s, use %s instead." % (func.__name__, new_name)
             warnings.warn(msg, stacklevel=2)
             return func(*args, **kwargs)
         return new_func

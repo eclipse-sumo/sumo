@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-20 15:29:25.445522 by randomTrips.py v1_21_0+1565-970ff40fbb2
+<configuration>
+    <net-file value="net.net.xml"/>
+    <pedestrians value="True"/>
+    <random-departpos value="True"/>
+    <random-arrivalpos value="True"/>
+    <min-distance value="1.0"/>
+    <end value="10.0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="0.00" departPos="11.54">
+        <walk from="NC" to="CS" arrivalPos="9.36"/>
+    </person>
+    <person id="1" depart="1.00" departPos="17.70">
+        <walk from="NC" to="CS" arrivalPos="1.25"/>
+    </person>
+    <person id="2" depart="2.00" departPos="1.11">
+        <walk from="CS" to="NC" arrivalPos="8.34"/>
+    </person>
+    <person id="3" depart="3.00" departPos="33.96">
+        <walk from="CS" to="NC" arrivalPos="0.27"/>
+    </person>
+    <person id="4" depart="4.00" departPos="3.89">
+        <walk from="NC" to="CS" arrivalPos="4.06"/>
+    </person>
+    <person id="5" depart="5.00" departPos="34.79">
+        <walk from="CS" to="NC" arrivalPos="25.95"/>
+    </person>
+    <person id="6" depart="6.00" departPos="9.56">
+        <walk from="NC" to="CS" arrivalPos="12.14"/>
+    </person>
+    <person id="7" depart="7.00" departPos="15.53">
+        <walk from="NC" to="CS" arrivalPos="8.79"/>
+    </person>
+    <person id="8" depart="8.00" departPos="27.19">
+        <walk from="CS" to="NC" arrivalPos="25.55"/>
+    </person>
+    <person id="9" depart="9.00" departPos="6.85">
+        <walk from="CS" to="NC" arrivalPos="15.92"/>
+    </person>
+</routes>

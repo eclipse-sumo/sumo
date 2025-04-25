@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -99,6 +99,10 @@ NIXMLPTHandler::myStartElement(int element,
                     myCurrentCompletion = attrs.get<double>(SUMO_ATTR_VALUE, nullptr, ok);
                 } else if (key == "name") {
                     myCurrentLine->setName(attrs.get<std::string>(SUMO_ATTR_VALUE, nullptr, ok));
+                } else if (key == "missingBefore") {
+                    myMissingBefore = attrs.get<int>(SUMO_ATTR_VALUE, nullptr, ok);
+                } else if (key == "missingAfter") {
+                    myMissingAfter = attrs.get<int>(SUMO_ATTR_VALUE, nullptr, ok);
                 }
             } else if (myCurrentStop != nullptr) {
                 const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
@@ -122,7 +126,9 @@ NIXMLPTHandler::myEndElement(int element) {
         case SUMO_TAG_PT_LINE:
         case SUMO_TAG_FLOW:
         case SUMO_TAG_TRIP:
-            myCurrentLine->setMyNumOfStops((int)((double)myCurrentLine->getStops().size() / myCurrentCompletion));
+            if (myCurrentLine != nullptr) {
+                myCurrentLine->setNumOfStops((int)((double)myCurrentLine->getStops().size() / myCurrentCompletion), myMissingBefore, myMissingAfter);
+            }
             myCurrentLine = nullptr;
             break;
         case SUMO_TAG_ROUTE:
@@ -140,8 +146,8 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "busStop", ok);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     const std::string laneID = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
-    const double startPos = attrs.get<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok);
-    const double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok);
+    double startPos = attrs.get<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok);
+    double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok);
     const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), ok, 0);
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor(false));
     //const std::string lines = attrs.get<std::string>(SUMO_ATTR_LINES, id.c_str(), ok);
@@ -167,6 +173,12 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
         permissions = SVC_BUS;
     }
     if (ok) {
+        if (startPos < 0) {
+            startPos += edge->getLoadedLength();
+        }
+        if (endPos < 0) {
+            endPos += edge->getLoadedLength();
+        }
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
         myCurrentStop = std::make_shared<NBPTStop>(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color, startPos);
         if (!myStopCont.insert(myCurrentStop)) {
@@ -206,8 +218,8 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "ptLine", ok);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
-    const std::string line = attrs.get<std::string>(SUMO_ATTR_LINE, id.c_str(), ok);
-    const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok);
+    const std::string line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, id.c_str(), ok, "");
+    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     SUMOVehicleClass vClass = NIImporter_OpenStreetMap::interpretTransportType(type);
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
         vClass = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, id.c_str(), ok));
@@ -216,11 +228,25 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
     const std::string nightService = attrs.getStringSecure("nightService", "");
     myCurrentCompletion = StringUtils::toDouble(attrs.getStringSecure("completeness", "1"));
+    myMissingBefore = StringUtils::toInt(attrs.getStringSecure("missingBefore", "0"));
+    myMissingAfter = StringUtils::toInt(attrs.getStringSecure("missingAfter", "0"));
     if (ok) {
-        myCurrentLine = new NBPTLine(id, name, type, line, intervalS / 60, nightService, vClass, color);
-        if (!myLineCont.insert(myCurrentLine)) {
-            WRITE_WARNINGF(TL("Ignoring duplicate PT line '%'."), id);
-            delete myCurrentLine;
+        // patching existing line?
+        myCurrentLine = myLineCont.retrieve(id);
+        if (myCurrentLine == nullptr) {
+            myCurrentLine = new NBPTLine(id, name, type, line, intervalS / 60, nightService, vClass, color);
+            myLineCont.insert(myCurrentLine);
+        } else {
+            WRITE_MESSAGEF(TL("Duplicate ptLine id occurred ('%'); assuming overwriting is wished."), id);
+            if (name != "") {
+                myCurrentLine->setName(name);
+            }
+            if (line != "") {
+                myCurrentLine->setRef(line);
+            }
+            if (intervalS != -1) {
+                myCurrentLine->setPeriod(intervalS);
+            }
         }
     }
 }
@@ -229,6 +255,8 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
 void
 NIXMLPTHandler::addPTLineFromFlow(const SUMOSAXAttributes& attrs) {
     bool ok = true;
+    myMissingBefore = 0;
+    myMissingAfter = 0;
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "flow", ok);
     const std::string line = attrs.get<std::string>(SUMO_ATTR_LINE, id.c_str(), ok);
     const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok);

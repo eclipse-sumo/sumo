@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,25 +17,26 @@
 ///
 // Main for netedit (adapted from guisim_main)
 /****************************************************************************/
-#include <config.h>
-
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
 
 #include <signal.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/foxtools/MsgHandlerSynchronized.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/xml/XMLSubSys.h>
-#include <netedit/elements/GNEAttributeCarrier.h>
+
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
 
 #include "GNEApplicationWindow.h"
 #include "GNELoadThread.h"
-
+#include "GNETagPropertiesDatabase.h"
+/*
+#ifdef _DEBUG_
+    #define SECUREEXCEPTION
+#endif
+*/
 
 // ===========================================================================
 // main function
@@ -51,12 +52,12 @@ main(int argc, char** argv) {
     // preload registry from sumo to decide on language
     FXRegistry reg("SUMO GUI", "sumo-gui");
     reg.read();
+    // set language
     gLanguage = reg.readStringEntry("gui", "language", gLanguage.c_str());
     int ret = 0;
-#ifndef _DEBUG
+    // run netedit with try-catch if we're in debug-mode
+#ifdef SECUREEXCEPTION
     try {
-#else
-    {
 #endif
         // initialise subsystems
         XMLSubSys::init();
@@ -64,46 +65,49 @@ main(int argc, char** argv) {
         GNELoadThread::fillOptions(neteditOptions);
         // set default options
         GNELoadThread::setDefaultOptions(neteditOptions);
+        // create tagPropertiesdatabase
+        const GNETagPropertiesDatabase* tagPropertiesDatabase = new GNETagPropertiesDatabase();
         // set arguments called through console
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions(true);
         if (neteditOptions.processMetaOptions(false)) {
             SystemFrame::close();
             return 0;
+        } else if (neteditOptions.isSet("attribute-help-output")) {
+            tagPropertiesDatabase->writeAttributeHelp();
+        } else {
+            // Make application
+            FXApp application("SUMO netedit", "netedit");
+            // Open display
+            application.init(argc, argv);
+            int minor, major;
+            if (!FXGLVisual::supported(&application, major, minor)) {
+                throw ProcessError(TL("This system has no OpenGL support. Exiting."));
+            }
+            // build the main window
+            GNEApplicationWindow* netedit = new GNEApplicationWindow(&application, tagPropertiesDatabase, "*.netc.cfg,*.netccfg");
+            gLanguage = neteditOptions.getString("language");
+            gSchemeStorage.init(&application, true);
+            netedit->dependentBuild();
+            // Create app
+            application.addSignal(SIGINT, netedit, MID_HOTKEY_CTRL_Q_CLOSE);
+            application.create();
+            // Load configuration given on command line
+            if (argc > 1) {
+                // Set default options
+                OptionsIO::setArgs(argc, argv);
+                // load options
+                netedit->loadOptionOnStartup();
+            }
+            // focus window at startup
+            netedit->setFocus();
+            // Run
+            ret = application.run();
+            // delete elements
+            delete tagPropertiesDatabase;
+            delete netedit;
         }
-        if (neteditOptions.isSet("attribute-help-output")) {
-            GNEAttributeCarrier::writeAttributeHelp();
-            SystemFrame::close();
-            return 0;
-        }
-        // Make application
-        FXApp application("SUMO netedit", "netedit");
-        // Open display
-        application.init(argc, argv);
-        int minor, major;
-        if (!FXGLVisual::supported(&application, major, minor)) {
-            throw ProcessError(TL("This system has no OpenGL support. Exiting."));
-        }
-        // build the main window
-        GNEApplicationWindow* window = new GNEApplicationWindow(&application, "*.netc.cfg,*.netccfg");
-        gLanguage = neteditOptions.getString("language");
-        gSchemeStorage.init(&application, true);
-        window->dependentBuild();
-        // Create app
-        application.addSignal(SIGINT, window, MID_HOTKEY_CTRL_Q_CLOSE);
-        application.create();
-        // Load configuration given on command line
-        if (argc > 1) {
-            // Set default options
-            OptionsIO::setArgs(argc, argv);
-            // load options
-            window->loadOptionOnStartup();
-        }
-        // focus window at startup
-        window->setFocus();
-        // Run
-        ret = application.run();
-#ifndef _DEBUG
+#ifdef SECUREEXCEPTION
     } catch (const std::exception& e) {
         if (std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
@@ -113,11 +117,10 @@ main(int argc, char** argv) {
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
-#endif
     }
+#endif
     SystemFrame::close();
     return ret;
 }
-
 
 /****************************************************************************/

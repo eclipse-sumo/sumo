@@ -1,0 +1,13 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 168
+TestFunctions: Clicked over position 704 - 418
+4
+DummyDisallowed
+
+authority  army, passenger; taxi. tram
+
+passenger authority army vip passenger hov bus coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Netedit closed successfully

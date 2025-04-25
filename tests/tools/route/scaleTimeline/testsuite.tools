@@ -3,3 +3,18 @@ objects
 
 # Tests for <SUMO_DIST>/tools/scaleTimeline.py
 flows
+
+# Tests for <SUMO_DIST>/tools/scaleTimeline.py
+flows2
+
+# Tests for <SUMO_DIST>/tools/scaleTimeline.py
+trips
+
+# Tests for <SUMO_DIST>/tools/scaleTimeline.py
+timeline_default
+
+# Tests for <SUMO_DIST>/tools/scaleTimeline.py
+timeline_list
+
+# Tests for <SUMO_DIST>/tools/scaleTimeline.py
+timeline_pair

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,6 +31,7 @@
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOTrafficObject.h>
 #include <microsim/MSRouterDefs.h>
+#include <microsim/MSVehicleType.h>
 #include "MSStage.h"
 
 
@@ -41,7 +42,6 @@ class MSEdge;
 class MSLane;
 class MSNet;
 class MSStoppingPlace;
-class MSVehicleType;
 class OutputDevice;
 class SUMOVehicleParameter;
 class SUMOVehicle;
@@ -145,6 +145,13 @@ public:
         return *myVType;
     }
 
+    /** @brief Returns the object's "vehicle" type parameter
+     * @return The object's type parameter
+     */
+    inline const SUMOVTypeParameter& getVTypeParameter() const {
+        return myVType->getParameter();
+    }
+
     /// @brief returns the associated RNG
     SumoRNG* getRNG() const;
 
@@ -178,6 +185,10 @@ public:
     /// @brief Returns the current lane (may be nullptr)
     const MSLane* getLane() const {
         return (*myStep)->getLane();
+    }
+
+    const MSLane* getBackLane() const {
+        return getLane();
     }
 
     /// @brief Returns the departure edge
@@ -329,6 +340,8 @@ public:
         return getArrivalEdge();
     }
 
+    bool reroute(SUMOTime t, const std::string& info, MSTransportableRouter& router, const bool onInit = false, const bool withTaz = false, const bool silent = false, const MSEdge* sink = nullptr);
+
     /// Replaces the current route by the given one
     bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
 
@@ -357,7 +370,7 @@ public:
     /// @brief return whether the person has reached the end of its plan
     bool hasArrived() const;
 
-    /// @brief return whether the transportable has started it's plan
+    /// @brief return whether the transportable has started its plan
     bool hasDeparted() const;
 
     /// @brief adapt plan when the vehicle reroutes and now stops at replacement instead of orig
@@ -384,6 +397,9 @@ public:
     virtual bool isSelected() const {
         return false;
     }
+
+    /// @brief return routing mode (configures router choice but also handling of transient permission changes)
+    virtual int getRoutingMode() const;
 
     /** @brief Saves the current state into the given stream
      */

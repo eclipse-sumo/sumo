@@ -1,0 +1,19 @@
+# as above but without rail signals
+crossing_tracks_collision
+
+# unsafe train insertion with an oncoming train beyond the insertion lookahead-horizon.
+frontal_collision
+
+# unsafe train insertion with an oncoming train beyond the insertion lookahead-horizon.	Collision occurs between when only the back of one vehicle is still on the collision edge
+frontal_collision_further
+
+# change train speeds to change assigned collider and victim roles
+frontal_collision_reverseRoles
+
+# unsafe train insertion with an oncoming train beyond the insertion lookahead-horizon. (short vehicles make this hard to detect because each sim step by itself looks safe
+# 
+# vehicles change edge while "jumping" through each other
+frontal_collision_jump
+
+# unsafe train insertion with an oncoming train beyond the insertion lookahead-horizon. (short vehicles make this hard to detect because each sim step by itself looks safe
+frontal_collision_jump_sameEdge

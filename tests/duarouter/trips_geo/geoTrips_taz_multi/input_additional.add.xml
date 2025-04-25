@@ -1,0 +1,8 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <taz id="taz0.a" edges="beg beg2left middle"/>
+    <taz id="taz0.b" edges="beg beg2left middle"/>
+    <taz id="taz0.c" edges="beg middle"/>
+    <taz id="taz0.d" edges="beg middle"/>
+    <taz id="taz1" edges="left left2end"/>
+
+</additional>

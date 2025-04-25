@@ -50,15 +50,22 @@ the router using an XML-file. The syntax of a single trip definition is:
 | fromLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#mapmatching)    |
 | toLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#mapmatching)    |
 | viaLonLat   | float, float [float,float]    | The network positions to pass along the way in geo-coordinates  [note](#mapmatching)   |
+| speedFactor   | float > 0                                   | Sets custom speedFactor (factor on road speed limit) and overrides the [speedFactor distribution](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#speed_distributions) of the vehicle type                                               |
+| insertionChecks  | string list  |  Sets the list of safety checks to perform during vehicle insertion. Possible values are: `all`, `none`, `collision`, `leaderGap`, `followerGap`, `junction`, `stop`, `arrivalSpeed`, `oncomingTrain`, `speedLimit`, `pedestrians`. default *all* |
+| parkingBadges | string list | list of keywords to access restricted parking areas (the default empty list will still allow access to unrestricted parking areas) |
 
 ## Routing between Junctions
 Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJunctions` to describe origin, destination and intermediate locations. This is a special form of TAZ-routing and it must be enabled by either setting the duarouter option **--junction-taz** or by loading TAZ-definitions that use the respective junction IDs. When using option **--junction-taz**, all edges outgoing from a junction may be used at the origin and all edges incoming to a junction may be used to reach the intermediate and final junctions.
 
+## Routing between Stops
+
+- When defining a `<trip>` with [stop](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints)-elements, routing will performed for each stop (starting a the trip origin or the prior stop) and ending at the destination.
+- If at least one stop is provided, either one of the `from` or `to` attributes (or `fromJunction`, `fromTaz`, ...) may be omitted.
+- If at least two stops are provided both of the `from` and `to` attributes may be omitted (the first stop serves as the origin while the last stop serves as the destination)
+- If a a stop with a [`jump`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#jumps)-attribute is given, the subsequent part of the route (to the next stop or the destination) will be disconnected
+
 ## Mapmatching
 Since version 1.2 duarouter supports mapping positions to roads using attributes that end with 'XY' or 'LonLat'. The latter only works in networks that are geo-referenced. The maximum distance for map-matching can be configured using option **--mapmatch.distance** (since version 1.5)
-
-!!! caution
-    SUMO does not yet support these mapping attributes.
 
 By setting the option **--mapmatch.junctions**, positions are mapped to junctions instead of edges. The routes are then [computed between junctions](#routing_between_junctions).
 
@@ -153,6 +160,10 @@ the *weight-attribute* must be defined:
 </meandata>
 ```
 
+# Access restrictions
+
+Access to a network edge is typiclly restricte by the [vehicle class](../Simulation/VehiclePermissions.md) defined in a [vehicle type](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#vehicle_types) but can also be customized with [numerical restrictions](../Simulation/VehiclePermissions.md#custom_access_restrictions).
+
 # Repair routes
 
 The **--repair** option intends to repair routes with connectivity problems.
@@ -244,10 +255,10 @@ When running [duarouter](../duarouter.md) you may encounter errors
 of the type
 
 ```
-Error: No connection between 'edge1' and 'edge2' found
+Error: No connection between 'edge1' and 'edge2' found
 ```
 
-This is caused be an unconnected network. If your network has vehicle
+This is caused by an unconnected network. If your network has vehicle
 class restrictions it may be that the connectivity is only lacking for
 particular vehicle classes which is less obvious from the GUI. You can
 ignore these routes using the option **--ignore-errors**. However, if a large proportion of

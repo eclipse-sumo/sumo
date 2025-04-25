@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials are made available under the
@@ -109,15 +109,15 @@ AGCity::generateWorkPositions() {
                 ++workPositionCounter;
             }
         }
-    } catch (const std::bad_alloc& e) {
+    } catch (const std::bad_alloc&) {
         std::cout << "Number of work positions at bad_alloc exception: " << workPositionCounter << std::endl;
-        throw e;
+        throw;
     }
     //std::cout << "Inner work positions done. " << workPositionCounter << " generated." << std::endl;
 
     // Work positions outside the city
     generateOutgoingWP();
-    std::cout << "--> work position: " << std::endl;
+    std::cout << "--> work position:" << std::endl;
     std::cout << "  |-> in city: " << workPositionCounter << std::endl;
     std::cout << "  |-> out city: " << statData.workPositions - workPositionCounter << std::endl;
     std::cout << "  |-> in+out city: " << statData.workPositions << std::endl;
@@ -233,7 +233,7 @@ AGCity::generatePopulation() {
     //cout << "number people: " << nbrSingle + nbrCouple + nbr3More + nbrChild << std::endl;
     //END TEST
 
-    std::cout << "--> population: " << std::endl;
+    std::cout << "--> population:" << std::endl;
     std::cout << "  |-> city households: " << nbrHH << std::endl;
     std::cout << "  |-> city people: " << nbrSingle + nbrCouple + nbrChild << std::endl;
     std::cout << "    |-> city single: " << nbrSingle << " / (in) couple: " << nbrCouple << std::endl;

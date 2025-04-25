@@ -1,0 +1,1 @@
+-r input_routes.rou.xml --timeline-pair 3600,50;3600,200;3600,100 -o out.rou.xml tools/route/scaleTimeLine.py

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,52 +19,79 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEdetector
- * @briefA abstract class to define common parameters and functions of detectors
- */
+
 class GNEDetector : public GNEAdditional, public Parameterised {
 
 public:
-    /**@brief Constructor.
+    /**@brief Default constructor
+     * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
+     */
+    GNEDetector(GNENet* net, SumoXMLTag tag);
+
+    /**@brief Constructor
      * @param[in] id Gl-id of the detector (Must be unique)
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] type GUIGlObjectType of detector
+     * @param[in] filename file in which this AttributeCarrier is stored
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] pos position of the detector on the lane
      * @param[in] period the aggregation period the values the detector collects shall be summed up.
-     * @param[in] parentLanes vector of parent lanes
+     * @param[in] lane parent lane
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
-     * @param[in] filename The path to the output file.
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
+     * @param[in] outputFilename The path to the output file.
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
-                const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename,
-                const std::vector<std::string>& vehicleTypes, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
+    GNEDetector(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag,
+                const double pos, const SUMOTime period, GNELane* lane, const std::string& outputFilename,
+                const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
+                const std::string& detectPersons, const std::string& name, const bool friendlyPos,
+                const Parameterised::Map& parameters);
 
-    /**@brief Constructor.
-     * @param[in] additionalParent parent additional of this detector (ID will be generated automatically)
+    /**@brief Constructor
+     * @param[in] id Gl-id of the detector (Must be unique)
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] type GUIGlObjectType of detector
+     * @param[in] filename file in which this AttributeCarrier is stored
+     * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
+     * @param[in] pos position of the detector on the lane
+     * @param[in] period the aggregation period the values the detector collects shall be summed up.
+     * @param[in] lanes vector of parent lanes
+     * @param[in] vehicleTypes space separated list of vehicle type ids to consider
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
+     * @param[in] outputFilename The path to the output file.
+     * @param[in] name detector name
+     * @param[in] friendlyPos enable or disable friendly positions
+     * @param[in] parameters generic parameters
+     */
+    GNEDetector(const std::string& id, GNENet* net, const std::string& filename, SumoXMLTag tag, const double pos,
+                const SUMOTime period, const std::vector<GNELane*>& lanes, const std::string& outputFilename,
+                const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges,
+                const std::string& detectPersons, const std::string& name, const bool friendlyPos,
+                const Parameterised::Map& parameters);
+
+    /**@brief Constructor
+     * @param[in] additionalParent parent additional of this detector (ID will be generated automatically)
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_INDUCTION_LOOP, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] pos position of the detector on the lane
      * @param[in] period the aggregation period the values the detector collects shall be summed up.
      * @param[in] parentLanes vector of parent lanes
-     * @param[in] filename The path to the output file.
+     * @param[in] outputFilename The path to the output file.
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
-                const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name,
-                const bool friendlyPos, const Parameterised::Map& parameters);
+    GNEDetector(GNEAdditional* additionalParent, SumoXMLTag tag, const double pos, const SUMOTime period, GNELane* lane,
+                const std::string& outputFilename, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -185,19 +212,59 @@ public:
 
 protected:
     /// @brief position of detector over Lane
-    double myPositionOverLane;
+    double myPositionOverLane = 0;
 
     /// @brief The aggregation period the values the detector collects shall be summed up.
-    SUMOTime myPeriod;
+    SUMOTime myPeriod = 0;
 
     /// @brief The path to the output file
-    std::string myFilename;
+    std::string myOutputFilename;
 
     /// @brief attribute vehicle types
     std::vector<std::string> myVehicleTypes;
 
+    /// @brief next edges
+    std::vector<std::string> myNextEdges;
+
+    /// @brief detect persons
+    std::string myDetectPersons;
+
     /// @brief Flag for friendly position
-    bool myFriendlyPosition;
+    bool myFriendlyPosition = false;
+
+    /* @brief method for getting the Attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    std::string getDetectorAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getDetectorAttributeDouble(SumoXMLAttr key) const;
+
+    /* @brief method for setting the attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setDetectorAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for checking if the key and their conrrespond attribute are valids
+     * @param[in] key The attribute key
+     * @param[in] value The value associated to key key
+     * @return true if the value is valid, false in other case
+     */
+    bool isDetectorValid(SumoXMLAttr key, const std::string& value);
+
+    /**@brief write additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeDetectorValues(OutputDevice& device) const;
+
+    /// @brief set attribute after validation
+    void setDetectorAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief draw E1 shape
     void drawE1Shape(const GUIVisualizationSettings::Detail d, const double exaggeration,

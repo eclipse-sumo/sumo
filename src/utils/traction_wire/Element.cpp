@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,7 +74,7 @@ void Element::setPowerWanted(double powerWantedIn) {
     this->powerWanted = powerWantedIn;
 }
 double Element::getVoltage() {
-    if (this->isenabled == false) {
+    if (!this->isenabled) {
         return DBL_MAX;
     }
     if (getType() == Element::ElementType::VOLTAGE_SOURCE_traction_wire) {
@@ -83,7 +83,7 @@ double Element::getVoltage() {
     return this->pNode->getVoltage() - this->nNode->getVoltage();
 }
 double Element::getCurrent() {
-    if (this->isenabled == false) {
+    if (!this->isenabled) {
         return DBL_MAX;
     }
     switch (this->type) {

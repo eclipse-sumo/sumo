@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-09 15:52:43 by Eclipse SUMO netconvert Version v1_17_0+0192-02ed9c7dd44
+<!-- generated on 2024-04-26 10:34:00 by Eclipse SUMO netconvert Version v1_19_0+1945-bdae8cdad73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-403883.80,-5802021.53" convBoundary="1723.51,772.39,1953.77,1059.88" origBoundary="13.587139,52.359123,13.641835,52.403761" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -59,48 +59,48 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="1"/>
 
     <edge id=":cluster_56455689_s56455689_0" function="internal">
-        <lane id=":cluster_56455689_s56455689_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="12.08" length="5.48" shape="1921.35,840.92 1920.76,842.42 1920.22,843.40 1919.48,844.25 1918.30,845.35"/>
+        <lane id=":cluster_56455689_s56455689_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="12.08" length="5.48" shape="1921.35,840.92 1920.76,842.42 1920.22,843.40 1919.48,844.25 1918.30,845.35"/>
     </edge>
     <edge id=":cluster_56455689_s56455689_1" function="internal">
-        <lane id=":cluster_56455689_s56455689_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="10.31" length="3.95" shape="1916.14,842.99 1917.00,842.20 1917.53,841.59 1917.92,840.88 1918.35,839.80"/>
+        <lane id=":cluster_56455689_s56455689_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="10.31" length="3.95" shape="1916.14,842.99 1917.00,842.20 1917.53,841.59 1917.92,840.88 1918.35,839.80"/>
     </edge>
     <edge id=":cluster_cluster_32444587_6273887394_scluster_32444587_6273887394_0" function="internal">
-        <lane id=":cluster_cluster_32444587_6273887394_scluster_32444587_6273887394_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="6.52" length="8.56" shape="1803.53,820.02 1801.23,819.68 1799.32,820.14 1797.81,821.38 1796.70,823.42"/>
+        <lane id=":cluster_cluster_32444587_6273887394_scluster_32444587_6273887394_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="6.52" length="8.56" shape="1803.53,820.02 1801.23,819.68 1799.32,820.14 1797.81,821.38 1796.70,823.42"/>
     </edge>
     <edge id=":cluster_cluster_32444587_6273887394_scluster_32444587_6273887394_1" function="internal">
-        <lane id=":cluster_cluster_32444587_6273887394_scluster_32444587_6273887394_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.02" length="13.46" shape="1793.70,822.29 1795.46,819.09 1797.83,817.13 1800.83,816.42 1804.44,816.96"/>
+        <lane id=":cluster_cluster_32444587_6273887394_scluster_32444587_6273887394_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="8.02" length="13.46" shape="1793.70,822.29 1795.46,819.09 1797.83,817.13 1800.83,816.42 1804.44,816.96"/>
     </edge>
 
     <edge id="-239924883" from="cluster_56455689_s56455689" to="cluster_cluster_32444587_6273887394_scluster_32444587_6273887394" name="Stadionstraße" priority="10" type="highway.tertiary" shape="1919.06,842.49 1914.11,847.01 1906.74,847.81 1898.68,846.48 1891.37,844.20 1797.56,816.60">
-        <lane id="-239924883_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="120.23" shape="1918.30,845.35 1914.80,848.54 1906.70,849.42 1898.31,848.04 1890.91,845.73 1803.53,820.02">
+        <lane id="-239924883_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="120.23" shape="1918.30,845.35 1914.80,848.54 1906.70,849.42 1898.31,848.04 1890.91,845.73 1803.53,820.02">
             <param key="origId" value="239924883"/>
         </lane>
         <param key="origTo" value="32444587"/>
         <param key="ref" value="K 6161"/>
     </edge>
     <edge id="-4930543#0" from="cluster_cluster_32444589_4396212913_scluster_32444589_4396212913" to="cluster_56455689_s56455689" name="Heinrich-Heine-Allee" priority="10" type="highway.tertiary" shape="1953.77,776.45 1944.61,786.37 1936.39,798.42 1929.35,814.81 1919.06,842.49">
-        <lane id="-4930543#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="72.56" shape="1954.95,777.54 1945.87,787.37 1937.80,799.19 1930.84,815.40 1921.35,840.92">
+        <lane id="-4930543#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="72.40" shape="1954.84,777.65 1945.87,787.37 1937.80,799.19 1930.84,815.40 1921.35,840.92">
             <param key="origId" value="4930543"/>
         </lane>
         <param key="origFrom" value="32444589"/>
         <param key="ref" value="K 6161"/>
     </edge>
     <edge id="239924883" from="cluster_cluster_32444587_6273887394_scluster_32444587_6273887394" to="cluster_56455689_s56455689" name="Stadionstraße" priority="10" type="highway.tertiary" shape="1797.56,816.60 1891.37,844.20 1898.68,846.48 1906.74,847.81 1914.11,847.01 1919.06,842.49">
-        <lane id="239924883_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="116.85" shape="1804.44,816.96 1891.83,842.67 1899.05,844.92 1906.78,846.20 1913.42,845.48 1916.14,842.99">
+        <lane id="239924883_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="116.85" shape="1804.44,816.96 1891.83,842.67 1899.05,844.92 1906.78,846.20 1913.42,845.48 1916.14,842.99">
             <param key="origId" value="239924883"/>
         </lane>
         <param key="origFrom" value="32444587"/>
         <param key="ref" value="K 6161"/>
     </edge>
     <edge id="239924889#3" from="cluster_cluster_32444587_6273887394_scluster_32444587_6273887394" to="cluster_cluster_32444589_4396212913_scluster_32444589_4396212913" priority="1" type="highway.footway" spreadType="center" shape="1801.10,809.17 1904.79,840.18 1911.80,836.87 1936.75,776.13 1944.61,775.48 1948.91,772.39">
-        <lane id="239924889#3_0" index="0" allow="pedestrian" speed="2.78" length="189.39" width="2.00" shape="1806.31,810.73 1904.79,840.18 1911.80,836.87 1936.75,776.13 1944.61,775.48 1948.91,772.39">
+        <lane id="239924889#3_0" index="0" allow="pedestrian" speed="2.78" length="190.18" width="2.00" shape="1806.31,810.73 1904.79,840.18 1911.80,836.87 1936.75,776.13 1944.61,775.48 1949.55,771.93">
             <param key="origId" value="239924889"/>
         </lane>
         <param key="origFrom" value="6273887394"/>
         <param key="origTo" value="4396212913"/>
     </edge>
     <edge id="4930543#0" from="cluster_56455689_s56455689" to="cluster_cluster_32444589_4396212913_scluster_32444589_4396212913" name="Heinrich-Heine-Allee" priority="10" type="highway.tertiary" shape="1919.06,842.49 1929.35,814.81 1936.39,798.42 1944.61,786.37 1953.77,776.45">
-        <lane id="4930543#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="73.81" shape="1918.35,839.80 1927.86,814.22 1934.98,797.65 1943.35,785.37 1952.59,775.36">
+        <lane id="4930543#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="73.65" shape="1918.35,839.80 1927.86,814.22 1934.98,797.65 1943.35,785.37 1952.49,775.48">
             <param key="origId" value="4930543"/>
         </lane>
         <param key="origTo" value="32444589"/>
@@ -112,13 +112,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="s-304426109#0" from="cluster_cluster_32444587_6273887394_scluster_32444587_6273887394" to="s32444585" name="Gerhart-Hauptmann-Allee" priority="3" type="highway.residential" shape="1797.56,816.60 1723.51,1012.91">
-        <lane id="s-304426109#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="203.13" shape="1796.70,823.42 1725.01,1013.47">
+        <lane id="s-304426109#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="8.33" length="203.13" shape="1796.70,823.42 1725.01,1013.47">
             <param key="origId" value="304426109"/>
         </lane>
         <param key="origFrom" value="32444587"/>
     </edge>
     <edge id="s304426109#0" from="s32444585" to="cluster_cluster_32444587_6273887394_scluster_32444587_6273887394" name="Gerhart-Hauptmann-Allee" priority="3" type="highway.residential" shape="1723.51,1012.91 1797.56,816.60">
-        <lane id="s304426109#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="203.13" shape="1722.01,1012.35 1793.70,822.29">
+        <lane id="s304426109#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="8.33" length="203.13" shape="1722.01,1012.35 1793.70,822.29">
             <param key="origId" value="304426109"/>
         </lane>
         <param key="origTo" value="32444587"/>
@@ -133,7 +133,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="cluster_cluster_32444589_4396212913_scluster_32444589_4396212913" type="dead_end" x="1951.34" y="774.42" incLanes="239924889#3_0 4930543#0_0" intLanes="" shape="1948.33,771.58 1949.49,773.20 1951.42,774.28 1956.12,778.62 1965.54,767.99 1970.68,761.14 1971.52,758.07 1968.08,758.79 1960.35,763.29"/>
+    <junction id="cluster_cluster_32444589_4396212913_scluster_32444589_4396212913" type="dead_end" x="1951.34" y="774.42" incLanes="239924889#3_0 4930543#0_0" intLanes="" shape="1948.97,771.12 1950.13,772.74 1951.31,774.39 1956.01,778.74"/>
     <junction id="s32444585" type="dead_end" x="1723.51" y="1012.91" incLanes="s-304426109#0_0" intLanes="" shape="1723.51,1012.91 1726.50,1014.04 1723.51,1012.91"/>
 
     <connection from="-239924883" to="s-304426109#0" fromLane="0" toLane="0" via=":cluster_cluster_32444587_6273887394_scluster_32444587_6273887394_0_0" dir="r" state="M"/>

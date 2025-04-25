@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -84,6 +84,20 @@ VClassIcons::getVClassIcon(const SUMOVehicleClass vc) {
             return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL_FAST);
         case SVC_SHIP:
             return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_SHIP);
+        case SVC_CONTAINER:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CONTAINER);
+        case SVC_CABLE_CAR:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CABLE_CAR);
+        case SVC_SUBWAY:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_SUBWAY);
+        case SVC_AIRCRAFT:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_AIRCRAFT);
+        case SVC_WHEELCHAIR:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_WHEELCHAIR);
+        case SVC_SCOOTER:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_SCOOTER);
+        case SVC_DRONE:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_DRONE);
         case SVC_CUSTOM1:
             return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
         case SVC_CUSTOM2:

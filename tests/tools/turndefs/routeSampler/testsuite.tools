@@ -24,6 +24,12 @@ totalCount
 
 # test origin destination inputs
 OD
+
+# load a custom  distribution for depart times
+departtime_dist
+
+# Use the input as a starting point for sampling
+keep_input
 verbose
 
 # save configuration file
@@ -34,6 +40,9 @@ save_template
 
 # using edgedata as input
 edgedata
+
+# read multiple attributes from the same edge
+edgedata_entered_departed
 
 # using edgedata as input to specify departure counts
 edgedata_departures
@@ -50,6 +59,9 @@ geh
 # test additional vehicle attributes
 attrs
 mismatch-output
+
+# change scaling for estimating hourly traffic
+gehScale
 
 # use linear programming to optimize route usage
 optimize_full

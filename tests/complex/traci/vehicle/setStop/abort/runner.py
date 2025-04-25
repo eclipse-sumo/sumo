@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -47,7 +47,7 @@ vehID = "ego"
 while traci.simulation.getMinExpectedNumber() > 0:
     if traci.vehicle.isStopped(vehID):
         stop = traci.vehicle.getStops(vehID, 1)[0]
-        assert(stop.stoppingPlaceID != "")
+        assert stop.stoppingPlaceID != ""
         traci.vehicle.setBusStop(vehID, stop.stoppingPlaceID, duration=0)
     traci.simulationStep()
 traci.close()

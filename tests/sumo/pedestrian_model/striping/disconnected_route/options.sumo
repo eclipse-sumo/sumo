@@ -1,1 +1,3 @@
---net-file three_split.net.xml --route-files input_routes.rou.xml --no-step-log --pedestrian.striping.dawdling 0.0 --tripinfo-output tripinfos.xml
+--net-file net.net.xml --route-files input_routes.rou.xml --no-step-log --pedestrian.striping.dawdling 0.0 --tripinfo-output tripinfos.xml
+--fcd-output fcd.xml 
+--fcd-output.attributes x,y

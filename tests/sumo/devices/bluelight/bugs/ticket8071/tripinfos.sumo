@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-08 11:26:40 by Eclipse SUMO sumo Version v1_12_0+0353-0cd4bcd
+<!-- generated on 2025-02-13 17:27:56 by Eclipse SUMO sumo Version v1_22_0+0234-4063b07f352
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -30,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -38,14 +37,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.bluelight.reactiondist value="60"/>
     </bluelight_device>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="f0.10" depart="50.00" departLane="beg_1" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="146.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="10.94" duration="96.00" routeLength="993.40" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="12.14" rerouteNo="0" devices="tripinfo_f0.10 bluelight_f0.10" vType="emg" speedFactor="0.85" vaporized="">
+    <tripinfo id="f0.10" depart="50.00" departLane="beg_1" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="146.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="10.94" duration="96.00" routeLength="993.40" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="12.12" rerouteNo="0" devices="tripinfo_f0.10 bluelight_f0.10" vType="emg" speedFactor="0.85" vaporized="">
         <bluelight/>
     </tripinfo>
-    <tripinfo id="f0.16" depart="80.00" departLane="beg_0" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="193.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="10.33" duration="113.00" routeLength="993.40" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="20.98" rerouteNo="0" devices="tripinfo_f0.16 bluelight_f0.16" vType="emg" speedFactor="0.78" vaporized="">
+    <tripinfo id="f0.16" depart="80.00" departLane="beg_0" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="193.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="10.33" duration="113.00" routeLength="993.40" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="20.94" rerouteNo="0" devices="tripinfo_f0.16 bluelight_f0.16" vType="emg" speedFactor="0.78" vaporized="">
         <bluelight/>
     </tripinfo>
 </tripinfos>

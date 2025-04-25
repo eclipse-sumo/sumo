@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,6 +50,7 @@
 #include <microsim/devices/MSDevice.h>
 #include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
+#include <microsim/devices/MSDevice_FCDReplay.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -266,7 +267,7 @@ NLBuilder::build() {
     if (myOptions.isSet("load-state")) {
         myNet.setCurrentTimeStep(string2time(myOptions.getString("begin")));
         const std::string& f = myOptions.getString("load-state");
-        long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + f + "'");
+        long before = PROGRESS_BEGIN_TIME_MESSAGE(TLF("Loading state from '%'", f));
         MSStateHandler h(f, string2time(myOptions.getString("load-state.offset")));
         XMLSubSys::runParser(h, f);
         if (MsgHandler::getErrorInstance()->wasInformed()) {
@@ -274,10 +275,20 @@ NLBuilder::build() {
         }
         PROGRESS_TIME_MESSAGE(before);
     }
+    // routes from FCD files
+    MSDevice_FCDReplay::init();
     // load routes
-    if (myOptions.isSet("route-files") && string2time(myOptions.getString("route-steps")) <= 0) {
-        if (!load("route-files")) {
-            return false;
+    if (myOptions.isSet("route-files")) {
+        if (string2time(myOptions.getString("route-steps")) <= 0) {
+            // incremental loading is disabled. Load route files fully
+            if (!load("route-files")) {
+                return false;
+            }
+        } else {
+            // message must come after additional-files have been loaded (but buildRouteLoaderControl was called earlier)
+            for (std::string file : myOptions.getStringVector("route-files")) {
+                WRITE_MESSAGE(TLF("Loading route-files incrementally from '%'", file));
+            }
         }
     }
     // optionally switch off traffic lights
@@ -464,7 +475,8 @@ NLBuilder::buildDefaultMeanData(const std::string& optionName, const std::string
             useLanes = false;
         }
         try {
-            myDetectorBuilder.createEdgeLaneMeanData(id, -1, 0, -1, "traffic", useLanes, false, false,
+            SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
+            myDetectorBuilder.createEdgeLaneMeanData(id, -1, begin, -1, "traffic", useLanes, false, false,
                     false, false, false, 100000, 0, SUMO_const_haltingSpeed, "", "", std::vector<MSEdge*>(), false,
                     OptionsCont::getOptions().getString(optionName));
         } catch (InvalidArgument& e) {

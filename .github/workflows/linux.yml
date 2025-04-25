@@ -1,0 +1,149 @@
+name: linux
+
+on:
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder
+      - 'docs/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder
+      - 'docs/**'
+  schedule:
+    - cron:  '5 0 * * *'
+
+jobs:
+  build:
+    # runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    strategy:
+      # Allow all other matrix-jobs to continue running, even if one of the jobs fails
+      fail-fast: false
+      matrix:
+        build_type: [full, minimal]
+        compiler: [gcc, clang]
+        jps_version: ['v1.2.1']
+        # include:
+        #   - build_type: full
+        #     jps_version: master
+        #     compiler: gcc
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v4
+      with:
+        path: sumo
+        fetch-depth: 0
+        # filter: tree:0  # no tree filter because sonar needs to do a git blame
+        # fetching the ref on tag runs to work around actions/checkout#1467
+        ref: ${{ github.ref }}
+
+    - name: Preparing Build System
+      run: |
+        sudo apt-get update
+        sudo apt-get install libunwind-dev  # to work around https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
+        sudo apt-get install $(cat sumo/build_config/build_req_deb.txt)
+        pipx install texttest
+
+    - name: Validate CITATION.cff
+      if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      uses: dieghernan/cff-validator@v4
+      with:
+        install-r: true
+        citation-path: sumo/CITATION.cff
+
+    - name: Cloning jupedsim
+      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
+      uses: actions/checkout@v4
+      with:
+        repository: PedestrianDynamics/jupedsim
+        ref: ${{ matrix.jps_version }}
+        path: jupedsim
+
+    - name: ccache
+      # do a clean build once a day
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ matrix.build_type }}-${{ matrix.compiler }}
+
+    - name: Building libjupedsim
+      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
+      run: |
+        cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache jupedsim
+        cmake --build jupedsim-build -j4 --config Release
+        cmake --install jupedsim-build --config Release
+
+    - name: Configuring SUMO
+      run: |
+        mkdir -p sumo/cmake-build
+        cd sumo/cmake-build
+        if [[ "${{ matrix.compiler }}" == "gcc" ]]; then export CC=gcc; export CXX=g++; fi
+        if [[ "${{ matrix.compiler }}" == "clang" ]]; then export CC=clang; export CXX=clang++; fi
+        if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake ..; fi
+        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF -DFMI=OFF ..; fi
+
+    - name: Building Traas
+      run: |
+        cd sumo/cmake-build
+        make traas
+
+    - name: Setting up SonarQube
+      if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      uses: warchant/setup-sonar-scanner@v8
+
+    - name: Building SUMO with SonarQube wrapper
+      if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      run: |
+        cd sumo/cmake-build
+        curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        unzip -o build-wrapper-linux-x86.zip
+        build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output make -j4
+        cd ..
+        sonar-scanner -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.cfamily.compile-commands=cmake-build/bw-output/compile_commands.json
+
+    - name: Building and Installing SUMO
+      run: |
+        cd sumo/cmake-build
+        make -j4
+        sudo make install
+
+    - name: Building Examples and Tests
+      if: matrix.build_type == 'full'
+      # the pipdeptree below is also just for debugging but often comes handy so keep it enabled
+      run: |
+        sudo apt-get install $(cat sumo/build_config/tools_req_deb.txt)
+        python3 -m venv testenv --system-site-packages
+        source testenv/bin/activate
+        python3 -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
+        python3 -m pip install pipdeptree
+        pipdeptree
+        cd sumo/cmake-build
+        make CTEST_OUTPUT_ON_FAILURE=1 examples test
+
+    - name: Extra tests
+      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
+      run: |
+        source testenv/bin/activate
+        sumo/tests/runTests.sh -b ci -a sumo.meso.ci,sumo.extra.ci
+        sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
+
+    - name: Compressing test results
+      if: failure()
+      run: zip -r texttesttmp.zip ~/.texttest/tmp
+
+    - name: Uploading test results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: texttesttmp-${{ matrix.compiler }}-${{ matrix.build_type }}
+        path: texttesttmp.zip
+        if-no-files-found: warn
+
+    - name: Uploading artifacts (SUMO binaries)
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-${{ matrix.compiler }}-${{ matrix.build_type }}-binaries
+        path: sumo/bin

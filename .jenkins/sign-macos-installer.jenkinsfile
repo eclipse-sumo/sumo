@@ -1,0 +1,343 @@
+import groovy.json.JsonSlurper
+
+pipeline {
+    agent {
+        label 'macos-14'
+    }
+    environment {
+        PATH = "${env.PATH}:/opt/homebrew/bin"
+        GITHUB_TOKEN = credentials('github-bot-token')
+    }
+    stages {
+        stage('Clean Workspace') {
+          steps {
+            cleanWs()
+          }
+        }
+        stage('Building SUMO & JuPedSim') {
+          steps {
+              sh '''
+                git config --global advice.detachedHead false
+
+                # Cloning JuPedSim
+                git clone -q --filter=tree:0 --branch v1.2.1 https://github.com/PedestrianDynamics/jupedsim.git
+
+                # Building JuPedSim
+                cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache -B jupedsim-build jupedsim
+                cmake --build jupedsim-build -j16 --config Release
+                cmake --install jupedsim-build --config Release
+
+                # Cloning SUMO
+                git clone -q --filter=tree:0 --branch main https://github.com/eclipse-sumo/sumo.git
+                export SUMO_HOME=\${WORKSPACE}/sumo
+
+                # Creating virtual env for Python for the whole process
+                /opt/homebrew/bin/python3.13 -m venv env
+                env/bin/python3 -m pip install --quiet -r sumo/tools/requirements.txt
+                env/bin/python3 -m pip install --quiet dmgbuild delocate
+
+                # Building SUMO & TraaS
+                export VIRTUAL_ENV=${WORKSPACE}/env
+                export PATH=${WORKSPACE}/env/bin:\$PATH
+                cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=sumo-install -B sumo-build sumo
+                cmake --build sumo-build -j16
+                cmake --build sumo-build --target traas
+              '''
+          }
+        }
+        stage('Creating Install Directories') {
+            steps {
+
+                sh '''
+                    # Creating the EclipseSUMO framework directory
+                    export DYLD_LIBRARY_PATH="${WORKSPACE}/jupedsim-install/lib"
+                    env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-dir \
+                            --build-dir sumo-build \
+                            --framework-dir framework
+                    zip -q -r --symlinks framework-unsigned.zip framework
+
+                    # Creating the EclipseSUMO launcher apps directory
+                    env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-apps-dir --apps-dir apps
+                    zip -q -r --symlinks apps-unsigned.zip apps
+                '''
+                stash name: 'framework-unsigned', includes: 'framework-unsigned.zip'
+                stash name: 'apps-unsigned',      includes: 'apps-unsigned.zip'
+            }
+        }
+        stage('Signing Binaries') {
+            agent {
+                label 'ubuntu-latest'
+            }
+            steps {
+                unstash 'framework-unsigned'
+                unstash 'apps-unsigned'
+                script {
+
+                    // Unzip the framework archive
+                    sh """
+                        unzip -q -o framework-unsigned.zip -d "${WORKSPACE}"
+                        unzip -q -o apps-unsigned.zip -d "${WORKSPACE}"
+                    """
+
+                    // Create the entitlements file
+                    def entitlementsFile = 'sumo.entitlements'
+                    writeFile file: entitlementsFile, text: '''
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.disable-executable-page-protection</key>
+    <true/>
+    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    <key>com.apple.security.cs.debugger</key>
+    <true/>
+</dict>
+</plist>
+        '''
+                    // Sign all files in the bin and lib folder (binaries and libraries)
+                    def subDirs = ["bin", "lib"]
+                    subDirs.each { subDir ->
+                        sh """
+                            for file in framework/EclipseSUMO.framework/EclipseSUMO/${subDir}/*; do
+                                signed_file="\${file}-signed"
+                                curl -s -o "\${signed_file}" -F "file=@\${file}" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
+                                # keep the original permissions
+                                chmod --reference="\${file}" "\${signed_file}"
+                                mv -v "\${signed_file}" "\${file}"
+                            done
+                        """
+                    }
+
+                    sh """
+                        zip -q -r --symlinks "framework-signed.zip" framework
+                        zip -q -r --symlinks "apps-signed.zip"      apps
+                    """
+                }
+
+                stash name: 'framework-signed', includes: 'framework-signed.zip'
+                stash name: 'apps-signed',      includes: 'apps-signed.zip'
+            }
+        }
+        stage('Creating *.pkg files') {
+            steps {
+                unstash 'framework-signed'
+                unstash 'apps-signed'
+                script {
+                    sh """
+                        rm -rf framework
+                        unzip -q -o framework-signed.zip -d "${WORKSPACE}"
+
+                        rm -rf apps
+                        unzip -q -o apps-signed.zip -d "${WORKSPACE}"
+
+                        rm -rf framework-pkg
+                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-pkg \
+                              --framework-dir framework \
+                              --framework-pkg-dir framework-pkg
+                        zip -q -r --symlinks "framework-pkg-unsigned.zip" framework-pkg
+
+                        rm -rf apps-pkg
+                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-apps-pkg \
+                              --apps-dir apps \
+                              --apps-pkg-dir apps-pkg
+                        zip -q -r --symlinks "apps-pkg-unsigned.zip" apps-pkg
+                    """
+                }
+
+                stash name: 'framework-pkg-unsigned', includes: 'framework-pkg-unsigned.zip'
+                stash name: 'apps-pkg-unsigned',      includes: 'apps-pkg-unsigned.zip'
+            }
+        }
+
+        stage('Signing *.pkg files') {
+            agent {
+                label 'ubuntu-latest'
+            }
+            steps {
+                unstash 'framework-pkg-unsigned'
+                unstash 'apps-pkg-unsigned'
+                script {
+
+                    // Unzip the framework archive
+                    sh """
+                        rm -rf framework-pkg
+                        unzip -q -o framework-pkg-unsigned.zip -d "${WORKSPACE}"
+
+                        rm -rf apps-pkg
+                        unzip -q -o apps-pkg-unsigned.zip -d "${WORKSPACE}"
+                    """
+
+                    // Create the entitlements file
+                    def entitlementsFile = 'sumo.entitlements'
+                    writeFile file: entitlementsFile, text: '''
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.disable-executable-page-protection</key>
+    <true/>
+    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    <key>com.apple.security.cs.debugger</key>
+    <true/>
+</dict>
+</plist>
+        '''
+                    def subDirs = ["framework-pkg", "apps-pkg"]
+                    subDirs.each { subDir ->
+                        sh """
+                            for file in ${subDir}/*; do
+                                signed_file="\${file}-signed"
+                                curl -s -o "\${signed_file}" -F "file=@\${file}" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
+                                # keep the original permissions
+                                chmod --reference="\${file}" "\${signed_file}"
+                                mv -v "\${signed_file}" "\${file}"
+                            done
+                        """
+                    }
+
+                    sh """
+                        zip -q -r --symlinks "framework-pkg-signed.zip" framework-pkg
+                        zip -q -r --symlinks "apps-pkg-signed.zip"      apps-pkg
+                    """
+                }
+
+                stash name: 'framework-pkg-signed', includes: 'framework-pkg-signed.zip'
+                stash name: 'apps-pkg-signed',      includes: 'apps-pkg-signed.zip'
+            }
+        }
+
+        stage('Creating Installer .pkg file') {
+            steps {
+                unstash 'framework-pkg-signed'
+                unstash 'apps-pkg-signed'
+                script {
+                    sh """
+                        rm -rf framework-pkg
+                        unzip -q -o framework-pkg-signed.zip -d "${WORKSPACE}"
+
+                        rm -rf apps-pkg
+                        unzip -q -o apps-pkg-signed.zip -d "${WORKSPACE}"
+
+                        rm -rf installer
+                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-installer-pkg \
+                            --framework-pkg-dir framework-pkg \
+                            --apps-pkg-dir apps-pkg
+                    """
+                }
+                stash name: 'installer-unsigned', includes: 'installer/sumo*.pkg'
+            }
+        }
+        stage('Signing and Notarizing Installer .pkg file') {
+            agent {
+                label 'ubuntu-latest'
+            }
+            steps {
+                unstash 'installer-unsigned'
+                script {
+                    // Create the entitlements file
+                    def entitlementsFile = 'sumo.entitlements'
+                    writeFile file: entitlementsFile, text: '''
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.disable-executable-page-protection</key>
+    <true/>
+    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    <key>com.apple.security.cs.debugger</key>
+    <true/>
+</dict>
+</plist>
+'''
+
+                    // Sign and initiate notarization for the installer pkg
+                    def response = sh(
+                        script: """
+                            file=\$(ls installer/sumo*.pkg)
+                            signed_file="\${file}-signed"
+                            curl -s -o "\$signed_file" -F "file=@\$file" -F "entitlements=@${entitlementsFile}" https://cbi-staging.eclipse.org/macos/codesign/sign
+                            # keep the original permissions
+                            chmod --reference="\${file}" "\${signed_file}"
+                            mv "\$signed_file" "\$file"
+
+                            # Start notarization
+                            curl -X POST -F file=@"\$file" -F 'options={"primaryBundleId": "org.eclipse.sumo", "staple": true};type=application/json' https://cbi.eclipse.org/macos/xcrun/notarize
+                        """,
+                        returnStdout: true
+                    ).trim()
+
+                    // Extract UUID and status from the response
+                    def uuidMatch = (response =~ /"uuid"\s*:\s*"([^"]+)"/)
+                    def statusMatch = (response =~ /"status"\s*:\s*"([^"]+)"/)
+                    if (!uuidMatch || !statusMatch) {
+                        error("Failed to extract UUID or status from notarization response: ${response}")
+                    }
+                    def uuid = uuidMatch[0][1]
+                    def status = statusMatch[0][1]
+
+                    echo "Notarization initiated with UUID: ${uuid}, initial status: ${status}"
+
+                    // Polling notarization status
+                    while (status == "IN_PROGRESS") {
+                        sleep 60
+                        def pollResponse = sh(
+                            script: "curl -s https://cbi.eclipse.org/macos/xcrun/${uuid}/status",
+                            returnStdout: true
+                        ).trim()
+
+                        statusMatch = (pollResponse =~ /"status"\s*:\s*"([^"]+)"/)
+                        if (!statusMatch) {
+                            error("Failed to extract status from notarization polling response: ${pollResponse}")
+                        }
+                        status = statusMatch[0][1]
+                        echo "Notarization progress: ${pollResponse}"
+                    }
+
+                    if (status != "COMPLETE") {
+                        error("Notarization failed: ${response}")
+                    }
+
+                    sh """
+                        # Determine the name of the file
+                        file=\$(ls installer/sumo*.pkg)
+                        file=\$(basename "\$file")
+
+                        rm -rf notarized
+                        mkdir notarized
+                        curl -s -o notarized/\$file https://cbi.eclipse.org/macos/xcrun/${uuid}/download
+                    """
+
+                    stash name: 'notarized', includes: 'notarized/sumo*.pkg'
+                }
+            }
+        }
+
+        stage('Uploading notarized artifacts to GitHub') {
+            steps {
+                // Make sure to have the notarized files in our workspace on the macOS node
+                unstash 'notarized'
+            }
+        }
+    }
+}

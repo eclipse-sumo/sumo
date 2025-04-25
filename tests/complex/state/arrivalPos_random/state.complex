@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-02 15:45:51 by Eclipse SUMO sumo Version v1_21_0+1635-bee1c8eab2a
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="20"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_21_0+1635-bee1c8eab2a" time="20.00" type="micro">
+    <route id="r0" state="1" edges="SC"/>
+    <delay number="3" begin="10" end="6" depart="3.00" time="46.00"/>
+    <vType id="DEFAULT_VEHTYPE" maxSpeed="5.00" sigma="0"/>
+    <vehicle id="f.4" depart="8.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="54.25" speedFactor="1.0303" state="10432 8000 0 5.10 0 1.24 19000 0 0" pos="53.90 48.90 5.00" speed="5.00 5.00" angle="0.00" posLat="0.00" waitingTime="100000 0">
+        <device id="vehroute_f.4" state="0 0.00 0.00 5.10 0"/>
+        <device id="tripinfo_f.4" state="SC_0 0 0 -5.1 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+    </vehicle>
+    <vehicle id="f.6" depart="12.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="68.34" speedFactor="1.0458" state="10432 12000 0 5.10 0 0.48 19000 0 0" pos="37.70 32.70 5.00" speed="5.00 5.00" angle="0.00" posLat="0.00" waitingTime="100000 0">
+        <device id="vehroute_f.6" state="0 0.00 0.00 5.10 0"/>
+        <device id="tripinfo_f.6" state="SC_0 0 0 -5.1 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+    </vehicle>
+    <vehicle id="f.8" depart="16.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="50.14" speedFactor="0.9379" state="10432 17000 0 5.10 0 0.76 19000 0 0" pos="11.29 6.29 4.40" speed="4.40 1.80" angle="0.00" posLat="0.00" waitingTime="100000 0">
+        <device id="vehroute_f.8" state="0 0.00 0.00 5.10 0"/>
+        <device id="tripinfo_f.8" state="SC_0 0 0 -5.1 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+    </vehicle>
+    <vehicle id="f.9" depart="18.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="68.51" speedFactor="0.8569" state="10432 9223372036854774807 0 -1.00 0 0.00 0 0 0" pos="5.10 0.10 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <device id="vehroute_f.9" state="-1 0.00 -1.00 -1.00 0"/>
+    </vehicle>
+    <lane id="SC_0">
+        <vehicles value="f.8 f.6 f.4"/>
+    </lane>
+    <tlLogic id="C" programID="0" phase="0" duration="20000"/>
+</snapshot>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,7 +30,7 @@
  * @brief A self-organizing traffic light logic based on a particular policy
  *
  * This traffic light logic is used to wrap the logic of a self-organizing
- * low-level policy into a functional traffic light logic. It's role is to
+ * low-level policy into a functional traffic light logic. Its role is to
  * use a low-level policy without an high-level policy to command it.
  */
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -29,12 +29,8 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-import matplotlib
-if 'matplotlib.backends' not in sys.modules:
-    if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
-        matplotlib.use('Agg')
-import matplotlib.pyplot as plt  # noqa
-import math  # noqa
+import math
+import matplotlib.pyplot as plt
 
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
@@ -65,6 +61,8 @@ def getOptions(args=None):
                          + " Default 'ds' plots Distance vs. Speed")
     optParser.add_option("--persons", category="processing", action="store_true",
                          default=False, help="plot person trajectories")
+    optParser.add_option("--meso", category="processing", action="store_true",
+                         default=False, help="plot meso trajectories")
     optParser.add_option("-s", "--show", category="processing", action="store_true",
                          default=False, help="show plot directly")
     optParser.add_option("--csv-output", category="output", dest="csv_output", help="write plot as csv", metavar="FILE")
@@ -153,6 +151,8 @@ def main(options):
     if options.persons:
         element = 'person'
         location = 'edge'
+    elif options.meso:
+        location = 'edge'
 
     routes = defaultdict(list)  # vehID -> recorded edges
     # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions, kilometrage)
@@ -175,7 +175,7 @@ def main(options):
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
                     vehID += "#" + suffix
-            if options.persons:
+            if options.persons or options.meso:
                 edge = vehicle.edge
             else:
                 edge = vehicle.lane[0:vehicle.lane.rfind('_')]

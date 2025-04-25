@@ -1,0 +1,4 @@
+Error: Attribute 'endPos' in definition of laneAreaDetector 'multiLaneAreaDetector_1' Invalid Number Format (double) dummyEndPos.
+Error: Attribute 'endPos' in definition of laneAreaDetector 'multiLaneAreaDetector_2' is empty.
+Error: Could not build multiLaneAreaDetector with ID 'multiLaneAreaDetector_3' in netedit; Invalid position over lane.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/additionals/e2multilanedetector/load/endpos/additionals.add.xml failed.

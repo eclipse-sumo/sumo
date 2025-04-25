@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -117,6 +117,12 @@ public:
     /// @brief compute phase state in regard to pedestrian crossings
     static std::string patchStateForCrossings(const std::string& state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
+    static std::string patchNEMAStateForCrossings(const std::string& state,
+            const std::vector<NBNode::Crossing*>& crossings,
+            const EdgeVector& fromEdges,
+            const EdgeVector& toEdges,
+            const NBEdge* greenEdge, NBEdge* otherChosen);
+
     /** @brief helper function for myCompute
      * @param[in] brakingTime Duration a vehicle needs for braking in front of the tls
      * @param[in] onlyConts whether the method is only called to compute myNeedsContRelation
@@ -183,6 +189,8 @@ protected:
 
     NBTrafficLightLogic* buildNemaPhases(
         const EdgeVector& fromEdges,
+        const EdgeVector& toEdges,
+        const std::vector<NBNode::Crossing*>& crossings,
         const std::vector<std::pair<NBEdge*, NBEdge*> >& chosenList,
         const std::vector<std::string>& straightStates,
         const std::vector<std::string>& leftStates);
@@ -191,7 +199,7 @@ protected:
     std::string filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e);
 
     /// @brief keep only valid NEMA phase names (for params)
-    void filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier);
+    void filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier, int barrierDefault = 0);
 
     /// @brief ensure that phase max durations before each barrier have the same sum in both rings
     void fixDurationSum(NBTrafficLightLogic* logic, const std::map<int, int>& names, int ring1a, int ring1b, int ring2a, int ring2b);

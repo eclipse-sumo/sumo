@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -110,7 +110,7 @@ public:
     /// @brief registers the coordinate transformation as having been loaded from the given file
     static void setLoadedPlain(const std::string& nodFile, const GeoConvHelper& loaded);
 
-    static GeoConvHelper* getLoadedPlain(const std::string& edgFile);
+    static GeoConvHelper* getLoadedPlain(const std::string& plainFile, const std::string& suffix = ".edg.xml");
 
     /// @brief @brief resets loaded location elements
     static void resetLoaded();
@@ -183,6 +183,10 @@ private:
 
 #ifdef PROJ_API_FILE
     void initProj(const std::string& proj);
+
+#ifdef PROJ_VERSION_MAJOR
+    bool checkError(projPJ projection) const;
+#endif
 
     /// @brief The proj.4-projection to use
     projPJ myProjection;

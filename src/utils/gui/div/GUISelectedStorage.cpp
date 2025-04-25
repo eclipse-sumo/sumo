@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -75,7 +75,7 @@ GUISelectedStorage::SingleTypeSelections::save(const std::string& filename) {
 }
 
 
-const std::set<GUIGlID>&
+const std::unordered_set<GUIGlID>&
 GUISelectedStorage::SingleTypeSelections::getSelected() const {
     return mySelected;
 }
@@ -113,7 +113,7 @@ void
 GUISelectedStorage::select(GUIGlID id, bool update) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError(TLF("Unknown object in GUISelectedStorage::select (id=%).", toString(id)));
+        throw ProcessError("Unknown object in GUISelectedStorage::select (id=" + toString(id) + ").");
     }
     GUIGlObjectType type = object->getType();
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -130,7 +130,7 @@ void
 GUISelectedStorage::deselect(GUIGlID id) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError(TLF("Unknown object in GUISelectedStorage::deselect (id=%).", toString(id)));
+        throw ProcessError("Unknown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
     }
     GUIGlObjectType type = object->getType();
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -147,7 +147,7 @@ void
 GUISelectedStorage::toggleSelection(GUIGlID id) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError(TLF("Unknown object in GUISelectedStorage::toggleSelection (id=%).", toString(id)));
+        throw ProcessError("Unknown object in GUISelectedStorage::toggleSelection (id=" + toString(id) + ").");
     }
 
     bool selected = isSelected(object->getType(), id);
@@ -160,13 +160,13 @@ GUISelectedStorage::toggleSelection(GUIGlID id) {
 }
 
 
-const std::set<GUIGlID>&
+const std::unordered_set<GUIGlID>&
 GUISelectedStorage::getSelected() const {
     return myAllSelected;
 }
 
 
-const std::set<GUIGlID>&
+const std::unordered_set<GUIGlID>&
 GUISelectedStorage::getSelected(GUIGlObjectType type) {
     return mySelections[type].getSelected();
 }
@@ -174,8 +174,8 @@ GUISelectedStorage::getSelected(GUIGlObjectType type) {
 
 void
 GUISelectedStorage::clear() {
-    for (std::map<GUIGlObjectType, SingleTypeSelections>::iterator it = mySelections.begin(); it != mySelections.end(); it++) {
-        it->second.clear();
+    for (auto& selection : mySelections) {
+        selection.second.clear();
     }
     myAllSelected.clear();
     if (myUpdateTarget) {
@@ -193,16 +193,11 @@ GUISelectedStorage::notifyChanged() {
 
 
 std::set<GUIGlID>
-GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GUIGlObjectType type, int maxErrors) {
+GUISelectedStorage::loadIDs(std::istream& strm, std::string& msgOut, GUIGlObjectType type, std::ostream* dynamicNotFound, int maxErrors) {
     std::set<GUIGlID> result;
     std::ostringstream msg;
-    std::ifstream strm(filename.c_str());
     int numIgnored = 0;
     int numMissing = 0;
-    if (!strm.good()) {
-        msgOut = "Could not open '" + filename + "'.\n";
-        return result;
-    }
     while (strm.good()) {
         std::string line;
         strm >> line;
@@ -218,22 +213,28 @@ GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GU
             if (type != GLO_MAX && (object->getType() != type)) {
                 numIgnored++;
                 if (numIgnored + numMissing <= maxErrors) {
-                    msg << "Ignoring item '" << line << "' because of invalid type " << toString(object->getType()) << "\n";
+                    msg << TLF("Ignoring item '%' because of invalid type %\n", line, toString(object->getType()));
                 }
             } else {
                 result.insert(object->getGlID());
             }
         } else {
             numMissing++;
-            if (numIgnored + numMissing <= maxErrors) {
-                msg << "Item '" + line + "' not found\n";
+            if (dynamicNotFound != nullptr && (
+                        StringUtils::startsWith(line, "vehicle:") ||
+                        StringUtils::startsWith(line, "person:") ||
+                        StringUtils::startsWith(line, "container:"))) {
+                (*dynamicNotFound) << line << "\n";
+            } else {
+                if (numIgnored + numMissing <= maxErrors) {
+                    msg << TLF("Item '%' not found\n", line);
+                }
             }
             continue;
         }
     }
-    strm.close();
     if (numIgnored + numMissing > maxErrors) {
-        msg << "...\n" << numIgnored << " objects ignored, " << numMissing << " objects not found\n";
+        msg << "...\n" << TLF("% objects ignored, % objects not found\n", numIgnored, numMissing);
     }
     msgOut = msg.str();
     return result;
@@ -241,11 +242,23 @@ GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GU
 
 
 std::string
-GUISelectedStorage::load(const std::string& filename, GUIGlObjectType type) {
+GUISelectedStorage::load(const std::string& filename, GUIGlObjectType type, std::ostream* dynamicNotFound) {
+    std::ifstream strm(filename.c_str());
+    if (!strm.good()) {
+        return TLF("Could not open '%'.\n", filename);
+    }
+    std::string errors = load(strm, type, dynamicNotFound);
+    strm.close();
+    return errors;
+}
+
+
+std::string
+GUISelectedStorage::load(std::istream& strm, GUIGlObjectType type, std::ostream* dynamicNotFound) {
     std::string errors;
-    const std::set<GUIGlID> ids = loadIDs(filename, errors, type);
-    for (std::set<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        select(*it, false);
+    const std::set<GUIGlID> ids = loadIDs(strm, errors, type, dynamicNotFound);
+    for (const auto glID : ids) {
+        select(glID, false);
     }
     if (myUpdateTarget) {
         myUpdateTarget->selectionUpdated();
@@ -279,14 +292,14 @@ GUISelectedStorage::remove2Update() {
 
 
 void
-GUISelectedStorage::save(const std::string& filename, const std::set<GUIGlID>& ids) {
+GUISelectedStorage::save(const std::string& filename, const std::unordered_set<GUIGlID>& ids) {
     OutputDevice& dev = OutputDevice::getDevice(filename);
-    for (std::set<GUIGlID>::const_iterator i = ids.begin(); i != ids.end(); ++i) {
-        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
+    for (const auto glID : ids) {
+        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
         if (object != nullptr) {
             std::string name = object->getFullName();
             dev << name << "\n";
-            GUIGlObjectStorage::gIDStorage.unblockObject(*i);
+            GUIGlObjectStorage::gIDStorage.unblockObject(glID);
         }
     }
     dev.close();

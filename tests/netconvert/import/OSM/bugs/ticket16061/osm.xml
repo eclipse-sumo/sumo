@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.0.1 (2981456 spike-07.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="51.0390450" minlon="2.3776840" maxlat="51.0393080" maxlon="2.3781480"/>
+ <node id="428208710" visible="true" version="7" changeset="126281566" timestamp="2022-09-16T23:41:50Z" user="Alexb60" uid="7453584" lat="51.0389703" lon="2.3777294">
+  <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+ </node>
+ <node id="583483898" visible="true" version="5" changeset="73901278" timestamp="2019-08-29T23:37:13Z" user="Alexb60" uid="7453584" lat="51.0381141" lon="2.3775752"/>
+ <node id="1329638138" visible="true" version="3" changeset="73901278" timestamp="2019-08-29T23:37:13Z" user="Alexb60" uid="7453584" lat="51.0386079" lon="2.3777334"/>
+ <node id="1329638139" visible="true" version="4" changeset="73901278" timestamp="2019-08-29T23:37:13Z" user="Alexb60" uid="7453584" lat="51.0386363" lon="2.3777418"/>
+ <node id="1329638141" visible="true" version="2" changeset="57982898" timestamp="2018-04-10T19:09:35Z" user="Max-Kritic" uid="414659" lat="51.0387856" lon="2.3776847"/>
+ <node id="1329638146" visible="true" version="2" changeset="73576191" timestamp="2019-08-21T11:32:47Z" user="Alexb60" uid="7453584" lat="51.0388303" lon="2.3776805"/>
+ <node id="1329638148" visible="true" version="3" changeset="73576191" timestamp="2019-08-21T11:32:47Z" user="Alexb60" uid="7453584" lat="51.0388832" lon="2.3776883"/>
+ <node id="2427983111" visible="true" version="2" changeset="73901278" timestamp="2019-08-29T23:37:13Z" user="Alexb60" uid="7453584" lat="51.0386621" lon="2.3777448"/>
+ <node id="3212356977" visible="true" version="5" changeset="126281566" timestamp="2022-09-16T23:41:51Z" user="Alexb60" uid="7453584" lat="51.0394317" lon="2.3781795"/>
+ <node id="5381662726" visible="true" version="1" changeset="56010189" timestamp="2018-02-02T22:31:19Z" user="Alexb60" uid="7453584" lat="51.0391987" lon="2.3779171"/>
+ <node id="5381662727" visible="true" version="2" changeset="73517750" timestamp="2019-08-19T23:58:36Z" user="Alexb60" uid="7453584" lat="51.0393652" lon="2.3780590"/>
+ <node id="5381662730" visible="true" version="1" changeset="56010189" timestamp="2018-02-02T22:31:19Z" user="Alexb60" uid="7453584" lat="51.0394155" lon="2.3781142"/>
+ <node id="5862375685" visible="true" version="4" changeset="126281566" timestamp="2022-09-16T23:41:51Z" user="Alexb60" uid="7453584" lat="51.0392889" lon="2.3780401">
+  <tag k="bus" v="yes"/>
+  <tag k="name" v="Hôtel de Ville"/>
+  <tag k="public_transport" v="stop_position"/>
+ </node>
+ <node id="6725323833" visible="true" version="10" changeset="149908165" timestamp="2024-04-12T12:18:53Z" user="Alexb60" uid="7453584" lat="51.0392560" lon="2.3780834">
+  <tag k="bench" v="yes"/>
+  <tag k="bin" v="yes"/>
+  <tag k="bus" v="yes"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="lit" v="yes"/>
+  <tag k="name" v="Hôtel de Ville"/>
+  <tag k="passenger_information_display" v="yes"/>
+  <tag k="public_transport" v="platform"/>
+  <tag k="shelter" v="yes"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="6731736405" visible="true" version="1" changeset="73576191" timestamp="2019-08-21T11:32:47Z" user="Alexb60" uid="7453584" lat="51.0388596" lon="2.3776822"/>
+ <node id="6731736406" visible="true" version="1" changeset="73576191" timestamp="2019-08-21T11:32:47Z" user="Alexb60" uid="7453584" lat="51.0389184" lon="2.3777016"/>
+ <node id="6758151081" visible="true" version="1" changeset="73901278" timestamp="2019-08-29T23:37:13Z" user="Alexb60" uid="7453584" lat="51.0387366" lon="2.3777003"/>
+ <node id="6758171487" visible="true" version="1" changeset="73901278" timestamp="2019-08-29T23:37:13Z" user="Alexb60" uid="7453584" lat="51.0386799" lon="2.3777451"/>
+ <node id="6790227203" visible="true" version="4" changeset="160689445" timestamp="2024-12-27T19:16:32Z" user="Alexb60" uid="7453584" lat="51.0393466" lon="2.3780964">
+  <tag k="crossing" v="uncontrolled"/>
+  <tag k="crossing:markings" v="zebra"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="9670725892" visible="true" version="1" changeset="119794695" timestamp="2022-04-16T18:32:14Z" user="ThomasDu" uid="11808659" lat="51.0392807" lon="2.3781111">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="9670725893" visible="true" version="1" changeset="119794695" timestamp="2022-04-16T18:32:14Z" user="ThomasDu" uid="11808659" lat="51.0392315" lon="2.3780652">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="9670725894" visible="true" version="1" changeset="119794695" timestamp="2022-04-16T18:32:14Z" user="ThomasDu" uid="11808659" lat="51.0391836" lon="2.3780136">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="9670725896" visible="true" version="1" changeset="119794695" timestamp="2022-04-16T18:32:14Z" user="ThomasDu" uid="11808659" lat="51.0391357" lon="2.3779599">
+  <tag k="natural" v="tree"/>
+ </node>
+ <node id="9705752731" visible="true" version="1" changeset="120394455" timestamp="2022-04-30T18:25:24Z" user="escribis" uid="12951226" lat="51.0391409" lon="2.3777064">
+  <tag k="highway" v="street_lamp"/>
+  <tag k="survey:date" v="2022-04-30"/>
+ </node>
+ <node id="10030620008" visible="true" version="1" changeset="126281566" timestamp="2022-09-16T23:41:49Z" user="Alexb60" uid="7453584" lat="51.0393233" lon="2.3780737">
+  <tag k="highway" v="traffic_signals"/>
+  <tag k="traffic_signals:direction" v="forward"/>
+ </node>
+ <node id="10030620068" visible="true" version="1" changeset="126281566" timestamp="2022-09-16T23:41:49Z" user="Alexb60" uid="7453584" lat="51.0387011" lon="2.3777401">
+  <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+ </node>
+ <way id="118179611" visible="true" version="13" changeset="126281566" timestamp="2022-09-16T23:41:52Z" user="Alexb60" uid="7453584">
+  <nd ref="428208710"/>
+  <nd ref="5862375685"/>
+  <nd ref="10030620008"/>
+  <nd ref="6790227203"/>
+  <nd ref="3212356977"/>
+  <tag k="access" v="yes"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="busway:right" v="lane"/>
+  <tag k="cycleway" v="no"/>
+  <tag k="foot" v="yes"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Place du Minck"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+</osm>

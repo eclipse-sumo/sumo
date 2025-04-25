@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -106,9 +106,12 @@ MSCFModel_CACC::~MSCFModel_CACC() {}
 
 double
 MSCFModel_CACC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion, const CalcReason usage) const {
-    // set "caccVehicleMode" parameter to default value
     if (!MSGlobals::gComputeLC && usage == CalcReason::CURRENT) {
-        const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[CC_MODE]);
+        CACCVehicleVariables* vars = (CACCVehicleVariables*)veh->getCarFollowVariables();
+        if (vars->lastUpdateTime != MSNet::getInstance()->getCurrentTimeStep()) {
+            // _v was not called in this step
+            const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[CC_MODE]);
+        }
     }
     return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion, usage);
 }
@@ -285,7 +288,7 @@ MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double gap2pre
             double desSpacing = myHeadwayTime * speed;
             double spacingErr = gap2pred - desSpacing;
             double accel = veh->getAcceleration();
-            double speedErr = predSpeed - speed + myHeadwayTime * accel;
+            double speedErr = predSpeed - speed - myHeadwayTime * accel;
 
             if ((spacingErr > 0 && spacingErr < 0.2) && (vErr < 0.1)) {
                 // gap mode
@@ -420,7 +423,7 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
         double desSpacing = myHeadwayTime * speed;
         double spacingErr = gap2pred - desSpacing;
         double accel = veh->getAcceleration();
-        double speedErr = predSpeed - speed + myHeadwayTime * accel;
+        double speedErr = predSpeed - speed - myHeadwayTime * accel;
 
         if ((spacingErr > 0 && spacingErr < 0.2) && (vErr < 0.1)) {
             // gap mode

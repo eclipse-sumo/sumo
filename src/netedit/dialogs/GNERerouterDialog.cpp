@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,17 +18,17 @@
 // Dialog for edit rerouters
 /****************************************************************************/
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/additional/GNERerouter.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNERerouterDialog.h"
 #include "GNERerouterIntervalDialog.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -83,12 +83,8 @@ long
 GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Check if there is overlapping between Intervals
     if (!myEditedAdditional->checkChildAdditionalsOverlapping()) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, "Overlapping detected", "%s", ("Values of '" + myEditedAdditional->getID() + "' cannot be saved. There are intervals overlapped.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else {
         // accept changes before closing dialog
@@ -135,7 +131,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     // get rerouter children
     std::vector<GNEAdditional*> rerouterChildren;
     for (const auto& rerouterChild : myEditedAdditional->getChildAdditionals()) {
-        if (!rerouterChild->getTagProperty().isSymbol()) {
+        if (!rerouterChild->getTagProperty()->isSymbol()) {
             rerouterChildren.push_back(rerouterChild);
         }
     }
@@ -169,7 +165,7 @@ GNERerouterDialog::updateIntervalTable() {
     // get rerouter children
     std::vector<GNEAdditional*> rerouterChildren;
     for (const auto& rerouterChild : myEditedAdditional->getChildAdditionals()) {
-        if (!rerouterChild->getTagProperty().isSymbol()) {
+        if (!rerouterChild->getTagProperty()->isSymbol()) {
             rerouterChildren.push_back(rerouterChild);
         }
     }

@@ -7,6 +7,8 @@ output:tcpip::Socket::recvAndCheck @ recv: Connection reset by peer{REPLACE Conn
 output:tcpip::Socket::recvAndCheck @ recv: peer shutdown{REPLACE Connection closed by SUMO.}
 output:legacy getNextStops
 output:Using libtraci as traci as requested by environment variable.
+output:error: XDG_RUNTIME_DIR is invalid or not set in the environment.
+output:at 0x[0-9a-fA-F]*{REPLACE at (ADDRESS)}
 log:traci.simulation.simulation_{REPLACE traci.simulation.}
 log:traci.simulation.step(0){REPLACE traci.simulationStep()}
 log:traci.simulation.close(){REPLACE traci.close()}

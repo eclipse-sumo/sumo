@@ -1,0 +1,2 @@
+speedFactor; normal(0.8,1.2)
+speedDev; normal(0.0,0.2)

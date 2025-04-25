@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,31 +20,31 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
-
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEMeanData
- * @brief An Element which don't belong to GNENet but has influence in the simulation
- */
-class GNEMeanData : public GNEHierarchicalElement {
+
+class GNEMeanData : public GNEAttributeCarrier, public GNEHierarchicalElement, public Parameterised {
 
 public:
     /// @brief Default constructor
-    GNEMeanData(GNENet* net, SumoXMLTag tag, const std::string& id);
+    GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename);
 
     /// @brief Parameter constructor
-    GNEMeanData(GNENet* net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
-                SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
+    GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename, const std::string& file, const SUMOTime period,
+                const SUMOTime begin, const SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
                 const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile,
-                std::string excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
+                const std::string& excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
                 const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold);
 
     /// @brief Destructor
     ~GNEMeanData();
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /**@brief write meanData element into a xml file
      * @param[in] device device in which write parameters of meanData element
@@ -80,6 +80,9 @@ public:
 
     /// @brief check if draw delete contour (pink/white)
     bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw delete contour small (pink/white)
+    bool checkDrawDeleteContourSmall() const;
 
     /// @brief check if draw select contour (blue)
     bool checkDrawSelectContour() const;

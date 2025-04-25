@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,6 +38,8 @@ public:
     /// @brief insert new line
     bool insert(NBPTLine* ptLine);
 
+    NBPTLine*  retrieve(const std::string& lineID);
+
     const std::map<std::string, NBPTLine*>& getLines() const {
         return myPTLines;
     }
@@ -56,7 +58,7 @@ public:
     /// @brief ensure that all turn lanes have sufficient permissions
     void fixPermissions();
 
-    std::set<std::string>& getServedPTStops();
+    std::set<std::string> getServedPTStops();
 private:
 
     static const int FWD;
@@ -75,8 +77,6 @@ private:
     std::shared_ptr<NBPTStop> findWay(NBPTLine* line, std::shared_ptr<NBPTStop> stop, const NBEdgeCont& ec, NBPTStopCont& sc) const;
 
     void constructRoute(NBPTLine* myPTLine, const NBEdgeCont& cont);
-
-    std::set<std::string> myServedPTStops;
 
     static double getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBVehicle>& router,
                           const std::shared_ptr<NBPTStop> from, const std::shared_ptr<NBPTStop> to, const NBVehicle* veh);

@@ -2,613 +2,604 @@
 Fix follower's lane.
 Subscribe to leader.
 Time 2.0: Gap 'follower'->'leader' = 17.741 (headway=4.117)
-'follower' speed = 4.30908521517
+'follower' speed = 4.3090852151656645
 Time 3.0: Gap 'follower'->'leader' = 31.732 (headway=4.593)
-'follower' speed = 6.90908521517
+'follower' speed = 6.909085215165664
 Time 4.0: Gap 'follower'->'leader' = 43.123 (headway=4.535)
-'follower' speed = 9.50908521517
+'follower' speed = 9.509085215165664
 Time 5.0: Gap 'follower'->'leader' = 51.914 (headway=4.287)
-'follower' speed = 12.1090852152
+'follower' speed = 12.109085215165663
 Time 6.0: Gap 'follower'->'leader' = 58.105 (headway=3.950)
-'follower' speed = 14.7090852152
+'follower' speed = 14.709085215165663
 Time 7.0: Gap 'follower'->'leader' = 61.696 (headway=3.564)
-'follower' speed = 17.3090852152
+'follower' speed = 17.309085215165663
 Time 8.0: Gap 'follower'->'leader' = 63.137 (headway=3.321)
-'follower' speed = 19.0094511291
+'follower' speed = 19.0094511290994
 Time 9.0: Gap 'follower'->'leader' = 63.217 (headway=3.156)
-'follower' speed = 20.0296706775
+'follower' speed = 20.02967067745964
 Time 10.0: Gap 'follower'->'leader' = 62.481 (headway=3.027)
-'follower' speed = 20.6418024065
+'follower' speed = 20.641802406475787
 Time 11.0: Gap 'follower'->'leader' = 61.256 (headway=2.916)
-'follower' speed = 21.0090814439
+'follower' speed = 21.009081443885474
 Time 12.0: Gap 'follower'->'leader' = 59.737 (headway=2.814)
-'follower' speed = 21.2294488663
+'follower' speed = 21.229448866331285
 Time 13.0: Gap 'follower'->'leader' = 58.041 (headway=2.717)
-'follower' speed = 21.3616693198
+'follower' speed = 21.36166931979877
 Time 14.0: Gap 'follower'->'leader' = 56.240 (headway=2.623)
-'follower' speed = 21.4410015919
+'follower' speed = 21.441001591879264
 Time 15.0: Gap 'follower'->'leader' = 54.375 (headway=2.530)
-'follower' speed = 21.4886009551
+'follower' speed = 21.48860095512756
 Time 16.0: Gap 'follower'->'leader' = 52.472 (headway=2.439)
-'follower' speed = 21.5171605731
+'follower' speed = 21.517160573076538
 Time 17.0: Gap 'follower'->'leader' = 50.546 (headway=2.347)
-'follower' speed = 21.5342963438
+'follower' speed = 21.534296343845924
 Time 18.0: Gap 'follower'->'leader' = 48.607 (headway=2.256)
-'follower' speed = 21.5445778063
+'follower' speed = 21.544577806307554
 Time 19.0: Gap 'follower'->'leader' = 46.659 (headway=2.165)
-'follower' speed = 21.5507466838
+'follower' speed = 21.550746683784535
 Time 20.0: Gap 'follower'->'leader' = 44.707 (headway=2.074)
-'follower' speed = 21.5544480103
+'follower' speed = 21.554448010270722
 Time 21.0: Gap 'follower'->'leader' = 42.751 (headway=1.983)
-'follower' speed = 21.5566688062
+'follower' speed = 21.556668806162435
 Time 22.0: Gap 'follower'->'leader' = 40.794 (headway=1.892)
-'follower' speed = 21.5580012837
+'follower' speed = 21.55800128369746
 Time 23.0: Gap 'follower'->'leader' = 38.835 (headway=1.801)
-'follower' speed = 21.5588007702
+'follower' speed = 21.55880077021848
 Time 24.0: Gap 'follower'->'leader' = 36.876 (headway=1.710)
-'follower' speed = 21.5592804621
+'follower' speed = 21.55928046213109
 Time 25.0: Gap 'follower'->'leader' = 34.917 (headway=1.620)
-'follower' speed = 21.5595682773
+'follower' speed = 21.559568277278654
 Time 26.0: Gap 'follower'->'leader' = 32.957 (headway=1.529)
-'follower' speed = 21.5597409664
+'follower' speed = 21.559740966367194
 Time 27.0: Gap 'follower'->'leader' = 30.997 (headway=1.438)
-'follower' speed = 21.5598445798
+'follower' speed = 21.559844579820318
 Time 28.0: Gap 'follower'->'leader' = 29.063 (headway=1.351)
-'follower' speed = 21.5090456328
-Time 29.0: Gap 'follower'->'leader' = 27.184 (headway=1.267)
-'follower' speed = 21.4488232742
-Time 30.0: Gap 'follower'->'leader' = 25.369 (headway=1.186)
-'follower' speed = 21.3820473026
-Time 31.0: Gap 'follower'->'leader' = 23.623 (headway=1.109)
-'follower' speed = 21.3095391523
-Time 32.0: Gap 'follower'->'leader' = 21.952 (headway=1.034)
-'follower' speed = 21.2320033751
-Time 33.0: Gap 'follower'->'leader' = 20.361 (headway=0.963)
-'follower' speed = 21.1501268281
-Time 34.0: Gap 'follower'->'leader' = 19.029 (headway=0.919)
-'follower' speed = 20.7134287621
-Time 35.0: Gap 'follower'->'leader' = 18.334 (headway=0.922)
-'follower' speed = 19.8780386454
-Time 36.0: Gap 'follower'->'leader' = 18.431 (headway=0.964)
-'follower' speed = 19.1273288178
-Time 37.0: Gap 'follower'->'leader' = 19.067 (headway=1.014)
-'follower' speed = 18.8000002392
-Time 38.0: Gap 'follower'->'leader' = 19.855 (headway=1.055)
-'follower' speed = 18.8249696003
-Time 39.0: Gap 'follower'->'leader' = 20.607 (headway=1.092)
-'follower' speed = 18.8701181189
-Time 40.0: Gap 'follower'->'leader' = 21.313 (headway=1.127)
-'follower' speed = 18.9175547075
-Time 41.0: Gap 'follower'->'leader' = 21.972 (headway=1.158)
-'follower' speed = 18.9660275052
-Time 42.0: Gap 'follower'->'leader' = 22.581 (headway=1.188)
-'follower' speed = 19.015177154
-Time 43.0: Gap 'follower'->'leader' = 23.141 (headway=1.214)
-'follower' speed = 19.064704403
-Time 44.0: Gap 'follower'->'leader' = 23.651 (headway=1.237)
-'follower' speed = 19.1143268294
-Time 45.0: Gap 'follower'->'leader' = 24.112 (headway=1.258)
-'follower' speed = 19.1637772031
-Time 46.0: Gap 'follower'->'leader' = 24.524 (headway=1.276)
-'follower' speed = 19.2128039436
-Time 47.0: Gap 'follower'->'leader' = 24.887 (headway=1.292)
-'follower' speed = 19.2611715788
-Time 48.0: Gap 'follower'->'leader' = 25.202 (headway=1.305)
-'follower' speed = 19.3086611
-Time 49.0: Gap 'follower'->'leader' = 25.470 (headway=1.316)
-'follower' speed = 19.3550702102
-Time 50.0: Gap 'follower'->'leader' = 25.693 (headway=1.324)
-'follower' speed = 19.4002134704
-Time 51.0: Gap 'follower'->'leader' = 25.871 (headway=1.331)
-'follower' speed = 19.4439223497
+'follower' speed = 21.509035271411207
+Time 29.0: Gap 'follower'->'leader' = 27.182 (headway=1.267)
+'follower' speed = 21.45389392142963
+Time 30.0: Gap 'follower'->'leader' = 25.358 (headway=1.185)
+'follower' speed = 21.39259462479356
+Time 31.0: Gap 'follower'->'leader' = 23.599 (headway=1.107)
+'follower' speed = 21.32585846543964
+Time 32.0: Gap 'follower'->'leader' = 21.909 (headway=1.031)
+'follower' speed = 21.254268505260498
+Time 33.0: Gap 'follower'->'leader' = 20.293 (headway=0.958)
+'follower' speed = 21.17840836550572
+Time 34.0: Gap 'follower'->'leader' = 18.951 (headway=0.915)
+'follower' speed = 20.704706596121397
+Time 35.0: Gap 'follower'->'leader' = 18.257 (headway=0.918)
+'follower' speed = 19.884046926544617
+Time 36.0: Gap 'follower'->'leader' = 18.325 (headway=0.956)
+'follower' speed = 19.178595444166028
+Time 37.0: Gap 'follower'->'leader' = 18.911 (headway=1.003)
+'follower' speed = 18.85101476020695
+Time 38.0: Gap 'follower'->'leader' = 19.639 (headway=1.040)
+'follower' speed = 18.891297360181806
+Time 39.0: Gap 'follower'->'leader' = 20.330 (headway=1.074)
+'follower' speed = 18.928459230272328
+Time 40.0: Gap 'follower'->'leader' = 20.982 (headway=1.106)
+'follower' speed = 18.96718384252595
+Time 41.0: Gap 'follower'->'leader' = 21.595 (headway=1.136)
+'follower' speed = 19.006961356315475
+Time 42.0: Gap 'follower'->'leader' = 22.167 (headway=1.164)
+'follower' speed = 19.047563098772674
+Time 43.0: Gap 'follower'->'leader' = 22.699 (headway=1.189)
+'follower' speed = 19.088754222823624
+Time 44.0: Gap 'follower'->'leader' = 23.190 (headway=1.212)
+'follower' speed = 19.130309572668097
+Time 45.0: Gap 'follower'->'leader' = 23.639 (headway=1.233)
+'follower' speed = 19.172013507492714
+Time 46.0: Gap 'follower'->'leader' = 24.046 (headway=1.251)
+'follower' speed = 19.21366048895257
+Time 47.0: Gap 'follower'->'leader' = 24.411 (headway=1.268)
+'follower' speed = 19.255055549109258
+Time 48.0: Gap 'follower'->'leader' = 24.736 (headway=1.282)
+'follower' speed = 19.296014686927332
+Time 49.0: Gap 'follower'->'leader' = 25.020 (headway=1.294)
+'follower' speed = 19.336365192692252
+Time 50.0: Gap 'follower'->'leader' = 25.264 (headway=1.304)
+'follower' speed = 19.375945902543712
+Time 51.0: Gap 'follower'->'leader' = 25.468 (headway=1.312)
+'follower' speed = 19.414607385410925
 ## Starting to open gap.
 (followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate) = ('follower', 5.0, 0.0, 10.0, 0.25)
 maxDecel = 0.01
-Time 52.0: Gap 'follower'->'leader' = 26.006 (headway=1.335)
-'follower' speed = 19.486045182
+Time 52.0: Gap 'follower'->'leader' = 25.635 (headway=1.318)
+'follower' speed = 19.452212064849764
+Current/target headway: 1.318/5.0
+Time 53.0: Gap 'follower'->'leader' = 25.788 (headway=1.326)
+'follower' speed = 19.442212064849762
+Current/target headway: 1.326/5.0
+Time 54.0: Gap 'follower'->'leader' = 25.950 (headway=1.335)
+'follower' speed = 19.43221206484976
 Current/target headway: 1.335/5.0
-Time 53.0: Gap 'follower'->'leader' = 26.125 (headway=1.341)
-'follower' speed = 19.476045182
-Current/target headway: 1.341/5.0
-Time 54.0: Gap 'follower'->'leader' = 26.254 (headway=1.349)
-'follower' speed = 19.466045182
-Current/target headway: 1.349/5.0
-Time 55.0: Gap 'follower'->'leader' = 26.393 (headway=1.357)
-'follower' speed = 19.456045182
-Current/target headway: 1.357/5.0
-Time 56.0: Gap 'follower'->'leader' = 26.541 (headway=1.365)
-'follower' speed = 19.446045182
-Current/target headway: 1.365/5.0
-Time 57.0: Gap 'follower'->'leader' = 26.700 (headway=1.374)
-'follower' speed = 19.436045182
-Current/target headway: 1.374/5.0
-Time 58.0: Gap 'follower'->'leader' = 26.869 (headway=1.383)
-'follower' speed = 19.426045182
-Current/target headway: 1.383/5.0
-Time 59.0: Gap 'follower'->'leader' = 27.048 (headway=1.393)
-'follower' speed = 19.416045182
-Current/target headway: 1.393/5.0
-Time 60.0: Gap 'follower'->'leader' = 27.237 (headway=1.404)
-'follower' speed = 19.406045182
-Current/target headway: 1.404/5.0
-Time 61.0: Gap 'follower'->'leader' = 27.436 (headway=1.415)
-'follower' speed = 19.396045182
-Current/target headway: 1.415/5.0
-Time 62.0: Gap 'follower'->'leader' = 27.645 (headway=1.426)
-'follower' speed = 19.386045182
-Current/target headway: 1.426/5.0
-Time 63.0: Gap 'follower'->'leader' = 27.864 (headway=1.438)
-'follower' speed = 19.376045182
-Current/target headway: 1.438/5.0
-Time 64.0: Gap 'follower'->'leader' = 28.093 (headway=1.451)
-'follower' speed = 19.366045182
-Current/target headway: 1.451/5.0
-Time 65.0: Gap 'follower'->'leader' = 28.332 (headway=1.464)
-'follower' speed = 19.356045182
-Current/target headway: 1.464/5.0
-Time 66.0: Gap 'follower'->'leader' = 28.581 (headway=1.477)
-'follower' speed = 19.346045182
-Current/target headway: 1.477/5.0
-Time 67.0: Gap 'follower'->'leader' = 28.840 (headway=1.492)
-'follower' speed = 19.336045182
-Current/target headway: 1.492/5.0
-Time 68.0: Gap 'follower'->'leader' = 29.109 (headway=1.506)
-'follower' speed = 19.326045182
-Current/target headway: 1.506/5.0
-Time 69.0: Gap 'follower'->'leader' = 29.388 (headway=1.521)
-'follower' speed = 19.316045182
-Current/target headway: 1.521/5.0
-Time 70.0: Gap 'follower'->'leader' = 29.677 (headway=1.537)
-'follower' speed = 19.306045182
-Current/target headway: 1.537/5.0
-Time 71.0: Gap 'follower'->'leader' = 29.976 (headway=1.553)
-'follower' speed = 19.296045182
-Current/target headway: 1.553/5.0
-Time 72.0: Gap 'follower'->'leader' = 30.285 (headway=1.570)
-'follower' speed = 19.286045182
+Time 55.0: Gap 'follower'->'leader' = 26.123 (headway=1.345)
+'follower' speed = 19.42221206484976
+Current/target headway: 1.345/5.0
+Time 56.0: Gap 'follower'->'leader' = 26.306 (headway=1.355)
+'follower' speed = 19.412212064849758
+Current/target headway: 1.355/5.0
+Time 57.0: Gap 'follower'->'leader' = 26.499 (headway=1.366)
+'follower' speed = 19.402212064849756
+Current/target headway: 1.366/5.0
+Time 58.0: Gap 'follower'->'leader' = 26.702 (headway=1.377)
+'follower' speed = 19.392212064849755
+Current/target headway: 1.377/5.0
+Time 59.0: Gap 'follower'->'leader' = 26.914 (headway=1.389)
+'follower' speed = 19.382212064849753
+Current/target headway: 1.389/5.0
+Time 60.0: Gap 'follower'->'leader' = 27.137 (headway=1.401)
+'follower' speed = 19.37221206484975
+Current/target headway: 1.401/5.0
+Time 61.0: Gap 'follower'->'leader' = 27.370 (headway=1.414)
+'follower' speed = 19.36221206484975
+Current/target headway: 1.414/5.0
+Time 62.0: Gap 'follower'->'leader' = 27.613 (headway=1.427)
+'follower' speed = 19.35221206484975
+Current/target headway: 1.427/5.0
+Time 63.0: Gap 'follower'->'leader' = 27.865 (headway=1.441)
+'follower' speed = 19.342212064849747
+Current/target headway: 1.441/5.0
+Time 64.0: Gap 'follower'->'leader' = 28.128 (headway=1.455)
+'follower' speed = 19.332212064849745
+Current/target headway: 1.455/5.0
+Time 65.0: Gap 'follower'->'leader' = 28.401 (headway=1.470)
+'follower' speed = 19.322212064849744
+Current/target headway: 1.470/5.0
+Time 66.0: Gap 'follower'->'leader' = 28.684 (headway=1.485)
+'follower' speed = 19.312212064849742
+Current/target headway: 1.485/5.0
+Time 67.0: Gap 'follower'->'leader' = 28.977 (headway=1.501)
+'follower' speed = 19.30221206484974
+Current/target headway: 1.501/5.0
+Time 68.0: Gap 'follower'->'leader' = 29.279 (headway=1.518)
+'follower' speed = 19.29221206484974
+Current/target headway: 1.518/5.0
+Time 69.0: Gap 'follower'->'leader' = 29.592 (headway=1.535)
+'follower' speed = 19.282212064849737
+Current/target headway: 1.535/5.0
+Time 70.0: Gap 'follower'->'leader' = 29.915 (headway=1.552)
+'follower' speed = 19.272212064849736
+Current/target headway: 1.552/5.0
+Time 71.0: Gap 'follower'->'leader' = 30.248 (headway=1.570)
+'follower' speed = 19.262212064849734
 Current/target headway: 1.570/5.0
-Time 73.0: Gap 'follower'->'leader' = 30.604 (headway=1.588)
-'follower' speed = 19.276045182
-Current/target headway: 1.588/5.0
-Time 74.0: Gap 'follower'->'leader' = 30.933 (headway=1.606)
-'follower' speed = 19.266045182
-Current/target headway: 1.606/5.0
-Time 75.0: Gap 'follower'->'leader' = 31.272 (headway=1.624)
-'follower' speed = 19.256045182
-Current/target headway: 1.624/5.0
-Time 76.0: Gap 'follower'->'leader' = 31.621 (headway=1.643)
-'follower' speed = 19.246045182
-Current/target headway: 1.643/5.0
-Time 77.0: Gap 'follower'->'leader' = 31.980 (headway=1.662)
-'follower' speed = 19.236045182
-Current/target headway: 1.662/5.0
-Time 78.0: Gap 'follower'->'leader' = 32.348 (headway=1.683)
-'follower' speed = 19.226045182
-Current/target headway: 1.683/5.0
-Time 79.0: Gap 'follower'->'leader' = 32.727 (headway=1.703)
-'follower' speed = 19.216045182
-Current/target headway: 1.703/5.0
-Time 80.0: Gap 'follower'->'leader' = 33.116 (headway=1.724)
-'follower' speed = 19.206045182
-Current/target headway: 1.724/5.0
-Time 81.0: Gap 'follower'->'leader' = 33.515 (headway=1.746)
-'follower' speed = 19.196045182
-Current/target headway: 1.746/5.0
-Time 82.0: Gap 'follower'->'leader' = 33.924 (headway=1.768)
-'follower' speed = 19.186045182
-Current/target headway: 1.768/5.0
-Time 83.0: Gap 'follower'->'leader' = 34.343 (headway=1.791)
-'follower' speed = 19.176045182
-Current/target headway: 1.791/5.0
-Time 84.0: Gap 'follower'->'leader' = 34.772 (headway=1.814)
-'follower' speed = 19.166045182
-Current/target headway: 1.814/5.0
-Time 85.0: Gap 'follower'->'leader' = 35.211 (headway=1.838)
-'follower' speed = 19.156045182
-Current/target headway: 1.838/5.0
-Time 86.0: Gap 'follower'->'leader' = 35.660 (headway=1.863)
-'follower' speed = 19.146045182
-Current/target headway: 1.863/5.0
-Time 87.0: Gap 'follower'->'leader' = 36.119 (headway=1.887)
-'follower' speed = 19.136045182
-Current/target headway: 1.887/5.0
-Time 88.0: Gap 'follower'->'leader' = 36.588 (headway=1.913)
-'follower' speed = 19.126045182
-Current/target headway: 1.913/5.0
-Time 89.0: Gap 'follower'->'leader' = 37.067 (headway=1.939)
-'follower' speed = 19.116045182
-Current/target headway: 1.939/5.0
-Time 90.0: Gap 'follower'->'leader' = 37.556 (headway=1.966)
-'follower' speed = 19.106045182
-Current/target headway: 1.966/5.0
-Time 91.0: Gap 'follower'->'leader' = 38.055 (headway=1.993)
-'follower' speed = 19.096045182
-Current/target headway: 1.993/5.0
-Time 92.0: Gap 'follower'->'leader' = 38.564 (headway=2.021)
-'follower' speed = 19.086045182
-Current/target headway: 2.021/5.0
-Time 93.0: Gap 'follower'->'leader' = 39.083 (headway=2.049)
-'follower' speed = 19.076045182
-Current/target headway: 2.049/5.0
-Time 94.0: Gap 'follower'->'leader' = 39.612 (headway=2.078)
-'follower' speed = 19.066045182
-Current/target headway: 2.078/5.0
-Time 95.0: Gap 'follower'->'leader' = 40.151 (headway=2.107)
-'follower' speed = 19.056045182
-Current/target headway: 2.107/5.0
-Time 96.0: Gap 'follower'->'leader' = 40.700 (headway=2.137)
-'follower' speed = 19.046045182
-Current/target headway: 2.137/5.0
-Time 97.0: Gap 'follower'->'leader' = 41.259 (headway=2.167)
-'follower' speed = 19.036045182
-Current/target headway: 2.167/5.0
-Time 98.0: Gap 'follower'->'leader' = 41.828 (headway=2.198)
-'follower' speed = 19.026045182
-Current/target headway: 2.198/5.0
-Time 99.0: Gap 'follower'->'leader' = 42.407 (headway=2.230)
-'follower' speed = 19.016045182
-Current/target headway: 2.230/5.0
-Time 100.0: Gap 'follower'->'leader' = 42.995 (headway=2.262)
-'follower' speed = 19.006045182
-Current/target headway: 2.262/5.0
-Time 101.0: Gap 'follower'->'leader' = 43.594 (headway=2.295)
-'follower' speed = 18.996045182
-Current/target headway: 2.295/5.0
-Time 102.0: Gap 'follower'->'leader' = 44.203 (headway=2.328)
-'follower' speed = 18.986045182
-Current/target headway: 2.328/5.0
-Time 103.0: Gap 'follower'->'leader' = 44.822 (headway=2.362)
-'follower' speed = 18.976045182
-Current/target headway: 2.362/5.0
-Time 104.0: Gap 'follower'->'leader' = 45.451 (headway=2.396)
-'follower' speed = 18.966045182
-Current/target headway: 2.396/5.0
-Time 105.0: Gap 'follower'->'leader' = 46.090 (headway=2.431)
-'follower' speed = 18.956045182
-Current/target headway: 2.431/5.0
-Time 106.0: Gap 'follower'->'leader' = 46.739 (headway=2.467)
-'follower' speed = 18.946045182
-Current/target headway: 2.467/5.0
-Time 107.0: Gap 'follower'->'leader' = 47.398 (headway=2.503)
-'follower' speed = 18.936045182
-Current/target headway: 2.503/5.0
-Time 108.0: Gap 'follower'->'leader' = 48.067 (headway=2.540)
-'follower' speed = 18.926045182
-Current/target headway: 2.540/5.0
-Time 109.0: Gap 'follower'->'leader' = 48.746 (headway=2.577)
-'follower' speed = 18.916045182
-Current/target headway: 2.577/5.0
-Time 110.0: Gap 'follower'->'leader' = 49.435 (headway=2.615)
-'follower' speed = 18.906045182
-Current/target headway: 2.615/5.0
-Time 111.0: Gap 'follower'->'leader' = 50.134 (headway=2.653)
-'follower' speed = 18.896045182
-Current/target headway: 2.653/5.0
-Time 112.0: Gap 'follower'->'leader' = 50.843 (headway=2.692)
-'follower' speed = 18.886045182
-Current/target headway: 2.692/5.0
-Time 113.0: Gap 'follower'->'leader' = 51.562 (headway=2.732)
-'follower' speed = 18.876045182
-Current/target headway: 2.732/5.0
-Time 114.0: Gap 'follower'->'leader' = 52.291 (headway=2.772)
-'follower' speed = 18.866045182
-Current/target headway: 2.772/5.0
-Time 115.0: Gap 'follower'->'leader' = 53.030 (headway=2.812)
-'follower' speed = 18.856045182
-Current/target headway: 2.812/5.0
-Time 116.0: Gap 'follower'->'leader' = 53.779 (headway=2.854)
-'follower' speed = 18.846045182
-Current/target headway: 2.854/5.0
-Time 117.0: Gap 'follower'->'leader' = 54.538 (headway=2.895)
-'follower' speed = 18.836045182
-Current/target headway: 2.895/5.0
-Time 118.0: Gap 'follower'->'leader' = 55.307 (headway=2.938)
-'follower' speed = 18.826045182
-Current/target headway: 2.938/5.0
-Time 119.0: Gap 'follower'->'leader' = 56.086 (headway=2.981)
-'follower' speed = 18.816045182
-Current/target headway: 2.981/5.0
-Time 120.0: Gap 'follower'->'leader' = 56.875 (headway=3.024)
-'follower' speed = 18.806045182
-Current/target headway: 3.024/5.0
-Time 121.0: Gap 'follower'->'leader' = 57.674 (headway=3.068)
-'follower' speed = 18.796045182
-Current/target headway: 3.068/5.0
-Time 122.0: Gap 'follower'->'leader' = 58.482 (headway=3.113)
-'follower' speed = 18.786045182
-Current/target headway: 3.113/5.0
-Time 123.0: Gap 'follower'->'leader' = 59.301 (headway=3.158)
-'follower' speed = 18.776045182
-Current/target headway: 3.158/5.0
-Time 124.0: Gap 'follower'->'leader' = 60.130 (headway=3.204)
-'follower' speed = 18.766045182
-Current/target headway: 3.204/5.0
-Time 125.0: Gap 'follower'->'leader' = 60.969 (headway=3.251)
-'follower' speed = 18.756045182
-Current/target headway: 3.251/5.0
-Time 126.0: Gap 'follower'->'leader' = 61.818 (headway=3.298)
-'follower' speed = 18.746045182
-Current/target headway: 3.298/5.0
-Time 127.0: Gap 'follower'->'leader' = 62.677 (headway=3.345)
-'follower' speed = 18.736045182
-Current/target headway: 3.345/5.0
-Time 128.0: Gap 'follower'->'leader' = 63.546 (headway=3.393)
-'follower' speed = 18.726045182
-Current/target headway: 3.393/5.0
-Time 129.0: Gap 'follower'->'leader' = 64.425 (headway=3.442)
-'follower' speed = 18.716045182
-Current/target headway: 3.442/5.0
-Time 130.0: Gap 'follower'->'leader' = 65.314 (headway=3.492)
-'follower' speed = 18.706045182
-Current/target headway: 3.492/5.0
-Time 131.0: Gap 'follower'->'leader' = 66.213 (headway=3.542)
-'follower' speed = 18.696045182
-Current/target headway: 3.542/5.0
-Time 132.0: Gap 'follower'->'leader' = 67.122 (headway=3.592)
-'follower' speed = 18.686045182
-Current/target headway: 3.592/5.0
-Time 133.0: Gap 'follower'->'leader' = 68.041 (headway=3.643)
-'follower' speed = 18.676045182
-Current/target headway: 3.643/5.0
-Time 134.0: Gap 'follower'->'leader' = 68.970 (headway=3.695)
-'follower' speed = 18.666045182
-Current/target headway: 3.695/5.0
-Time 135.0: Gap 'follower'->'leader' = 69.909 (headway=3.747)
-'follower' speed = 18.656045182
-Current/target headway: 3.747/5.0
-Time 136.0: Gap 'follower'->'leader' = 70.858 (headway=3.800)
-'follower' speed = 18.646045182
-Current/target headway: 3.800/5.0
-Time 137.0: Gap 'follower'->'leader' = 71.817 (headway=3.854)
-'follower' speed = 18.636045182
-Current/target headway: 3.854/5.0
-Time 138.0: Gap 'follower'->'leader' = 72.786 (headway=3.908)
-'follower' speed = 18.626045182
-Current/target headway: 3.908/5.0
-Time 139.0: Gap 'follower'->'leader' = 73.765 (headway=3.962)
-'follower' speed = 18.616045182
-Current/target headway: 3.962/5.0
-Time 140.0: Gap 'follower'->'leader' = 74.754 (headway=4.018)
-'follower' speed = 18.606045182
-Current/target headway: 4.018/5.0
-Time 141.0: Gap 'follower'->'leader' = 75.753 (headway=4.074)
-'follower' speed = 18.596045182
-Current/target headway: 4.074/5.0
-Time 142.0: Gap 'follower'->'leader' = 76.762 (headway=4.130)
-'follower' speed = 18.586045182
-Current/target headway: 4.130/5.0
-Time 143.0: Gap 'follower'->'leader' = 77.781 (headway=4.187)
-'follower' speed = 18.576045182
-Current/target headway: 4.187/5.0
-Time 144.0: Gap 'follower'->'leader' = 78.809 (headway=4.245)
-'follower' speed = 18.566045182
-Current/target headway: 4.245/5.0
-Time 145.0: Gap 'follower'->'leader' = 79.848 (headway=4.303)
-'follower' speed = 18.556045182
-Current/target headway: 4.303/5.0
-Time 146.0: Gap 'follower'->'leader' = 80.897 (headway=4.362)
-'follower' speed = 18.546045182
-Current/target headway: 4.362/5.0
-Time 147.0: Gap 'follower'->'leader' = 81.956 (headway=4.421)
-'follower' speed = 18.536045182
-Current/target headway: 4.421/5.0
-Time 148.0: Gap 'follower'->'leader' = 83.025 (headway=4.482)
-'follower' speed = 18.526045182
-Current/target headway: 4.482/5.0
-Time 149.0: Gap 'follower'->'leader' = 84.104 (headway=4.542)
-'follower' speed = 18.516045182
-Current/target headway: 4.542/5.0
-Time 150.0: Gap 'follower'->'leader' = 85.193 (headway=4.604)
-'follower' speed = 18.506045182
-Current/target headway: 4.604/5.0
-Time 151.0: Gap 'follower'->'leader' = 86.292 (headway=4.665)
-'follower' speed = 18.496045182
-Current/target headway: 4.665/5.0
-Time 152.0: Gap 'follower'->'leader' = 87.401 (headway=4.728)
-'follower' speed = 18.486045182
-Current/target headway: 4.728/5.0
-Time 153.0: Gap 'follower'->'leader' = 88.520 (headway=4.791)
-'follower' speed = 18.476045182
-Current/target headway: 4.791/5.0
-Time 154.0: Gap 'follower'->'leader' = 89.649 (headway=4.855)
-'follower' speed = 18.466045182
-Current/target headway: 4.855/5.0
-Time 155.0: Gap 'follower'->'leader' = 90.788 (headway=4.919)
-'follower' speed = 18.456045182
-Current/target headway: 4.919/5.0
-Time 156.0: Gap 'follower'->'leader' = 91.937 (headway=4.984)
-'follower' speed = 18.446045182
-Current/target headway: 4.984/5.0
-Time 157.0: Gap 'follower'->'leader' = 93.096 (headway=5.050)
-'follower' speed = 18.436045182
-Current/target headway: 5.050/5.0
+Time 72.0: Gap 'follower'->'leader' = 30.591 (headway=1.589)
+'follower' speed = 19.252212064849733
+Current/target headway: 1.589/5.0
+Time 73.0: Gap 'follower'->'leader' = 30.943 (headway=1.608)
+'follower' speed = 19.24221206484973
+Current/target headway: 1.608/5.0
+Time 74.0: Gap 'follower'->'leader' = 31.306 (headway=1.628)
+'follower' speed = 19.23221206484973
+Current/target headway: 1.628/5.0
+Time 75.0: Gap 'follower'->'leader' = 31.679 (headway=1.648)
+'follower' speed = 19.222212064849728
+Current/target headway: 1.648/5.0
+Time 76.0: Gap 'follower'->'leader' = 32.062 (headway=1.669)
+'follower' speed = 19.212212064849727
+Current/target headway: 1.669/5.0
+Time 77.0: Gap 'follower'->'leader' = 32.455 (headway=1.690)
+'follower' speed = 19.202212064849725
+Current/target headway: 1.690/5.0
+Time 78.0: Gap 'follower'->'leader' = 32.857 (headway=1.712)
+'follower' speed = 19.192212064849723
+Current/target headway: 1.712/5.0
+Time 79.0: Gap 'follower'->'leader' = 33.270 (headway=1.734)
+'follower' speed = 19.182212064849722
+Current/target headway: 1.734/5.0
+Time 80.0: Gap 'follower'->'leader' = 33.693 (headway=1.757)
+'follower' speed = 19.17221206484972
+Current/target headway: 1.757/5.0
+Time 81.0: Gap 'follower'->'leader' = 34.126 (headway=1.781)
+'follower' speed = 19.16221206484972
+Current/target headway: 1.781/5.0
+Time 82.0: Gap 'follower'->'leader' = 34.568 (headway=1.805)
+'follower' speed = 19.152212064849717
+Current/target headway: 1.805/5.0
+Time 83.0: Gap 'follower'->'leader' = 35.021 (headway=1.830)
+'follower' speed = 19.142212064849716
+Current/target headway: 1.830/5.0
+Time 84.0: Gap 'follower'->'leader' = 35.484 (headway=1.855)
+'follower' speed = 19.132212064849714
+Current/target headway: 1.855/5.0
+Time 85.0: Gap 'follower'->'leader' = 35.957 (headway=1.880)
+'follower' speed = 19.122212064849712
+Current/target headway: 1.880/5.0
+Time 86.0: Gap 'follower'->'leader' = 36.440 (headway=1.907)
+'follower' speed = 19.11221206484971
+Current/target headway: 1.907/5.0
+Time 87.0: Gap 'follower'->'leader' = 36.932 (headway=1.933)
+'follower' speed = 19.10221206484971
+Current/target headway: 1.933/5.0
+Time 88.0: Gap 'follower'->'leader' = 37.435 (headway=1.961)
+'follower' speed = 19.092212064849708
+Current/target headway: 1.961/5.0
+Time 89.0: Gap 'follower'->'leader' = 37.948 (headway=1.989)
+'follower' speed = 19.082212064849706
+Current/target headway: 1.989/5.0
+Time 90.0: Gap 'follower'->'leader' = 38.471 (headway=2.017)
+'follower' speed = 19.072212064849705
+Current/target headway: 2.017/5.0
+Time 91.0: Gap 'follower'->'leader' = 39.004 (headway=2.046)
+'follower' speed = 19.062212064849703
+Current/target headway: 2.046/5.0
+Time 92.0: Gap 'follower'->'leader' = 39.546 (headway=2.076)
+'follower' speed = 19.0522120648497
+Current/target headway: 2.076/5.0
+Time 93.0: Gap 'follower'->'leader' = 40.099 (headway=2.106)
+'follower' speed = 19.0422120648497
+Current/target headway: 2.106/5.0
+Time 94.0: Gap 'follower'->'leader' = 40.662 (headway=2.136)
+'follower' speed = 19.0322120648497
+Current/target headway: 2.136/5.0
+Time 95.0: Gap 'follower'->'leader' = 41.235 (headway=2.168)
+'follower' speed = 19.022212064849697
+Current/target headway: 2.168/5.0
+Time 96.0: Gap 'follower'->'leader' = 41.817 (headway=2.200)
+'follower' speed = 19.012212064849695
+Current/target headway: 2.200/5.0
+Time 97.0: Gap 'follower'->'leader' = 42.410 (headway=2.232)
+'follower' speed = 19.002212064849694
+Current/target headway: 2.232/5.0
+Time 98.0: Gap 'follower'->'leader' = 43.013 (headway=2.265)
+'follower' speed = 18.992212064849692
+Current/target headway: 2.265/5.0
+Time 99.0: Gap 'follower'->'leader' = 43.626 (headway=2.298)
+'follower' speed = 18.98221206484969
+Current/target headway: 2.298/5.0
+Time 100.0: Gap 'follower'->'leader' = 44.249 (headway=2.332)
+'follower' speed = 18.97221206484969
+Current/target headway: 2.332/5.0
+Time 101.0: Gap 'follower'->'leader' = 44.881 (headway=2.367)
+'follower' speed = 18.962212064849687
+Current/target headway: 2.367/5.0
+Time 102.0: Gap 'follower'->'leader' = 45.524 (headway=2.402)
+'follower' speed = 18.952212064849686
+Current/target headway: 2.402/5.0
+Time 103.0: Gap 'follower'->'leader' = 46.177 (headway=2.438)
+'follower' speed = 18.942212064849684
+Current/target headway: 2.438/5.0
+Time 104.0: Gap 'follower'->'leader' = 46.840 (headway=2.474)
+'follower' speed = 18.932212064849683
+Current/target headway: 2.474/5.0
+Time 105.0: Gap 'follower'->'leader' = 47.513 (headway=2.511)
+'follower' speed = 18.92221206484968
+Current/target headway: 2.511/5.0
+Time 106.0: Gap 'follower'->'leader' = 48.195 (headway=2.548)
+'follower' speed = 18.91221206484968
+Current/target headway: 2.548/5.0
+Time 107.0: Gap 'follower'->'leader' = 48.888 (headway=2.586)
+'follower' speed = 18.902212064849678
+Current/target headway: 2.586/5.0
+Time 108.0: Gap 'follower'->'leader' = 49.591 (headway=2.625)
+'follower' speed = 18.892212064849677
+Current/target headway: 2.625/5.0
+Time 109.0: Gap 'follower'->'leader' = 50.304 (headway=2.664)
+'follower' speed = 18.882212064849675
+Current/target headway: 2.664/5.0
+Time 110.0: Gap 'follower'->'leader' = 51.027 (headway=2.704)
+'follower' speed = 18.872212064849673
+Current/target headway: 2.704/5.0
+Time 111.0: Gap 'follower'->'leader' = 51.759 (headway=2.744)
+'follower' speed = 18.862212064849672
+Current/target headway: 2.744/5.0
+Time 112.0: Gap 'follower'->'leader' = 52.502 (headway=2.785)
+'follower' speed = 18.85221206484967
+Current/target headway: 2.785/5.0
+Time 113.0: Gap 'follower'->'leader' = 53.255 (headway=2.826)
+'follower' speed = 18.84221206484967
+Current/target headway: 2.826/5.0
+Time 114.0: Gap 'follower'->'leader' = 54.018 (headway=2.868)
+'follower' speed = 18.832212064849667
+Current/target headway: 2.868/5.0
+Time 115.0: Gap 'follower'->'leader' = 54.790 (headway=2.911)
+'follower' speed = 18.822212064849666
+Current/target headway: 2.911/5.0
+Time 116.0: Gap 'follower'->'leader' = 55.573 (headway=2.954)
+'follower' speed = 18.812212064849664
+Current/target headway: 2.954/5.0
+Time 117.0: Gap 'follower'->'leader' = 56.366 (headway=2.998)
+'follower' speed = 18.802212064849662
+Current/target headway: 2.998/5.0
+Time 118.0: Gap 'follower'->'leader' = 57.169 (headway=3.042)
+'follower' speed = 18.79221206484966
+Current/target headway: 3.042/5.0
+Time 119.0: Gap 'follower'->'leader' = 57.982 (headway=3.087)
+'follower' speed = 18.78221206484966
+Current/target headway: 3.087/5.0
+Time 120.0: Gap 'follower'->'leader' = 58.804 (headway=3.133)
+'follower' speed = 18.772212064849658
+Current/target headway: 3.133/5.0
+Time 121.0: Gap 'follower'->'leader' = 59.637 (headway=3.179)
+'follower' speed = 18.762212064849656
+Current/target headway: 3.179/5.0
+Time 122.0: Gap 'follower'->'leader' = 60.480 (headway=3.225)
+'follower' speed = 18.752212064849655
+Current/target headway: 3.225/5.0
+Time 123.0: Gap 'follower'->'leader' = 61.333 (headway=3.272)
+'follower' speed = 18.742212064849653
+Current/target headway: 3.272/5.0
+Time 124.0: Gap 'follower'->'leader' = 62.196 (headway=3.320)
+'follower' speed = 18.73221206484965
+Current/target headway: 3.320/5.0
+Time 125.0: Gap 'follower'->'leader' = 63.068 (headway=3.369)
+'follower' speed = 18.72221206484965
+Current/target headway: 3.369/5.0
+Time 126.0: Gap 'follower'->'leader' = 63.951 (headway=3.418)
+'follower' speed = 18.71221206484965
+Current/target headway: 3.418/5.0
+Time 127.0: Gap 'follower'->'leader' = 64.844 (headway=3.467)
+'follower' speed = 18.702212064849647
+Current/target headway: 3.467/5.0
+Time 128.0: Gap 'follower'->'leader' = 65.747 (headway=3.517)
+'follower' speed = 18.692212064849645
+Current/target headway: 3.517/5.0
+Time 129.0: Gap 'follower'->'leader' = 66.659 (headway=3.568)
+'follower' speed = 18.682212064849644
+Current/target headway: 3.568/5.0
+Time 130.0: Gap 'follower'->'leader' = 67.582 (headway=3.619)
+'follower' speed = 18.672212064849642
+Current/target headway: 3.619/5.0
+Time 131.0: Gap 'follower'->'leader' = 68.515 (headway=3.671)
+'follower' speed = 18.66221206484964
+Current/target headway: 3.671/5.0
+Time 132.0: Gap 'follower'->'leader' = 69.458 (headway=3.724)
+'follower' speed = 18.65221206484964
+Current/target headway: 3.724/5.0
+Time 133.0: Gap 'follower'->'leader' = 70.411 (headway=3.777)
+'follower' speed = 18.642212064849637
+Current/target headway: 3.777/5.0
+Time 134.0: Gap 'follower'->'leader' = 71.373 (headway=3.831)
+'follower' speed = 18.632212064849636
+Current/target headway: 3.831/5.0
+Time 135.0: Gap 'follower'->'leader' = 72.346 (headway=3.885)
+'follower' speed = 18.622212064849634
+Current/target headway: 3.885/5.0
+Time 136.0: Gap 'follower'->'leader' = 73.329 (headway=3.940)
+'follower' speed = 18.612212064849633
+Current/target headway: 3.940/5.0
+Time 137.0: Gap 'follower'->'leader' = 74.322 (headway=3.995)
+'follower' speed = 18.60221206484963
+Current/target headway: 3.995/5.0
+Time 138.0: Gap 'follower'->'leader' = 75.325 (headway=4.051)
+'follower' speed = 18.59221206484963
+Current/target headway: 4.051/5.0
+Time 139.0: Gap 'follower'->'leader' = 76.337 (headway=4.108)
+'follower' speed = 18.582212064849628
+Current/target headway: 4.108/5.0
+Time 140.0: Gap 'follower'->'leader' = 77.360 (headway=4.165)
+'follower' speed = 18.572212064849627
+Current/target headway: 4.165/5.0
+Time 141.0: Gap 'follower'->'leader' = 78.393 (headway=4.223)
+'follower' speed = 18.562212064849625
+Current/target headway: 4.223/5.0
+Time 142.0: Gap 'follower'->'leader' = 79.436 (headway=4.282)
+'follower' speed = 18.552212064849623
+Current/target headway: 4.282/5.0
+Time 143.0: Gap 'follower'->'leader' = 80.489 (headway=4.341)
+'follower' speed = 18.542212064849622
+Current/target headway: 4.341/5.0
+Time 144.0: Gap 'follower'->'leader' = 81.551 (headway=4.401)
+'follower' speed = 18.53221206484962
+Current/target headway: 4.401/5.0
+Time 145.0: Gap 'follower'->'leader' = 82.624 (headway=4.461)
+'follower' speed = 18.52221206484962
+Current/target headway: 4.461/5.0
+Time 146.0: Gap 'follower'->'leader' = 83.707 (headway=4.522)
+'follower' speed = 18.512212064849617
+Current/target headway: 4.522/5.0
+Time 147.0: Gap 'follower'->'leader' = 84.800 (headway=4.583)
+'follower' speed = 18.502212064849616
+Current/target headway: 4.583/5.0
+Time 148.0: Gap 'follower'->'leader' = 85.902 (headway=4.645)
+'follower' speed = 18.492212064849614
+Current/target headway: 4.645/5.0
+Time 149.0: Gap 'follower'->'leader' = 87.015 (headway=4.708)
+'follower' speed = 18.482212064849612
+Current/target headway: 4.708/5.0
+Time 150.0: Gap 'follower'->'leader' = 88.138 (headway=4.771)
+'follower' speed = 18.47221206484961
+Current/target headway: 4.771/5.0
+Time 151.0: Gap 'follower'->'leader' = 89.271 (headway=4.835)
+'follower' speed = 18.46221206484961
+Current/target headway: 4.835/5.0
+Time 152.0: Gap 'follower'->'leader' = 90.414 (headway=4.900)
+'follower' speed = 18.452212064849608
+Current/target headway: 4.900/5.0
+Time 153.0: Gap 'follower'->'leader' = 91.566 (headway=4.965)
+'follower' speed = 18.442212064849606
+Current/target headway: 4.965/5.0
+Time 154.0: Gap 'follower'->'leader' = 92.729 (headway=5.031)
+'follower' speed = 18.432212064849605
+Current/target headway: 5.031/5.0
 ## Target Headway attained.
 Remaining: 9.0
-Time 158.0: Gap 'follower'->'leader' = 94.230 (headway=5.095)
-'follower' speed = 18.4963212715
-Current/target headway: 5.095/5.0
+Time 155.0: Gap 'follower'->'leader' = 93.865 (headway=5.075)
+'follower' speed = 18.495942118066704
+Current/target headway: 5.075/5.0
 Remaining: 8.0
-Time 159.0: Gap 'follower'->'leader' = 94.721 (headway=4.803)
-'follower' speed = 19.7217927629
-Current/target headway: 4.803/5.0
+Time 156.0: Gap 'follower'->'leader' = 94.946 (headway=5.121)
+'follower' speed = 18.542139518530956
+Current/target headway: 5.121/5.0
 Remaining: 7.0
-Time 160.0: Gap 'follower'->'leader' = 94.231 (headway=4.606)
-'follower' speed = 20.4570756577
-Current/target headway: 4.606/5.0
+Time 157.0: Gap 'follower'->'leader' = 95.400 (headway=4.831)
+'follower' speed = 19.749283711118576
+Current/target headway: 4.831/5.0
 Remaining: 6.0
-Time 161.0: Gap 'follower'->'leader' = 93.154 (headway=4.457)
-'follower' speed = 20.8982453946
-Current/target headway: 4.457/5.0
+Time 158.0: Gap 'follower'->'leader' = 94.889 (headway=4.635)
+'follower' speed = 20.473570226671146
+Current/target headway: 4.635/5.0
 Remaining: 5.0
-Time 162.0: Gap 'follower'->'leader' = 91.765 (headway=4.353)
-'follower' speed = 21.0786368936
-Current/target headway: 4.353/5.0
+Time 159.0: Gap 'follower'->'leader' = 93.798 (headway=4.486)
+'follower' speed = 20.908142136002688
+Current/target headway: 4.486/5.0
 Remaining: 4.0
-Time 163.0: Gap 'follower'->'leader' = 90.291 (headway=4.286)
-'follower' speed = 21.0686368936
-Current/target headway: 4.286/5.0
+Time 160.0: Gap 'follower'->'leader' = 92.370 (headway=4.368)
+'follower' speed = 21.148333825882553
+Current/target headway: 4.368/5.0
 Remaining: 3.0
-Time 164.0: Gap 'follower'->'leader' = 88.828 (headway=4.218)
-'follower' speed = 21.0586368936
-Current/target headway: 4.218/5.0
+Time 161.0: Gap 'follower'->'leader' = 90.827 (headway=4.297)
+'follower' speed = 21.13833382588255
+Current/target headway: 4.297/5.0
 Remaining: 2.0
-Time 165.0: Gap 'follower'->'leader' = 87.374 (headway=4.151)
-'follower' speed = 21.0486368936
-Current/target headway: 4.151/5.0
+Time 162.0: Gap 'follower'->'leader' = 89.293 (headway=4.226)
+'follower' speed = 21.12833382588255
+Current/target headway: 4.226/5.0
 Remaining: 1.0
-Time 166.0: Gap 'follower'->'leader' = 85.931 (headway=4.084)
-'follower' speed = 21.0386368936
-Current/target headway: 4.084/5.0
+Time 163.0: Gap 'follower'->'leader' = 87.770 (headway=4.156)
+'follower' speed = 21.118333825882548
+Current/target headway: 4.156/5.0
 Remaining: 0.0
-Time 167.0: Gap 'follower'->'leader' = 84.497 (headway=4.018)
-'follower' speed = 21.0286368936
-Current/target headway: 4.018/5.0
+Time 164.0: Gap 'follower'->'leader' = 86.257 (headway=4.086)
+'follower' speed = 21.108333825882546
+Current/target headway: 4.086/5.0
 Remaining: 0.0
 ## Gap control expired.
-Time 168.0: Gap 'follower'->'leader' = 83.073 (headway=3.952)
-'follower' speed = 21.0186368936
+Time 165.0: Gap 'follower'->'leader' = 84.753 (headway=4.017)
+'follower' speed = 21.098333825882545
 Remaining: 0.0
-Time 169.0: Gap 'follower'->'leader' = 81.546 (headway=3.840)
-'follower' speed = 21.2351821362
+Time 166.0: Gap 'follower'->'leader' = 83.163 (headway=3.907)
+'follower' speed = 21.28300029552953
 Remaining: 0.0
-Time 170.0: Gap 'follower'->'leader' = 79.846 (headway=3.737)
-'follower' speed = 21.3651092817
+Time 167.0: Gap 'follower'->'leader' = 81.424 (headway=3.806)
+'follower' speed = 21.39380017731772
 Remaining: 0.0
-Time 171.0: Gap 'follower'->'leader' = 78.042 (headway=3.640)
-'follower' speed = 21.443065569
+Time 168.0: Gap 'follower'->'leader' = 79.597 (headway=3.709)
+'follower' speed = 21.46028010639063
 Remaining: 0.0
-Time 172.0: Gap 'follower'->'leader' = 76.176 (headway=3.545)
-'follower' speed = 21.4898393414
+Time 169.0: Gap 'follower'->'leader' = 77.717 (headway=3.615)
+'follower' speed = 21.50016806383438
 Remaining: 0.0
-Time 173.0: Gap 'follower'->'leader' = 74.272 (headway=3.452)
-'follower' speed = 21.5179036048
+Time 170.0: Gap 'follower'->'leader' = 75.805 (headway=3.522)
+'follower' speed = 21.52410083830063
 Remaining: 0.0
-Time 174.0: Gap 'follower'->'leader' = 72.346 (headway=3.359)
-'follower' speed = 21.5347421629
+Time 171.0: Gap 'follower'->'leader' = 73.873 (headway=3.430)
+'follower' speed = 21.538460502980378
 Remaining: 0.0
-Time 175.0: Gap 'follower'->'leader' = 70.406 (headway=3.268)
-'follower' speed = 21.5448452977
+Time 172.0: Gap 'follower'->'leader' = 71.931 (headway=3.338)
+'follower' speed = 21.547076301788227
 Remaining: 0.0
-Time 176.0: Gap 'follower'->'leader' = 68.458 (headway=3.177)
-'follower' speed = 21.5509071786
+Time 173.0: Gap 'follower'->'leader' = 69.981 (headway=3.247)
+'follower' speed = 21.552245781072937
 Remaining: 0.0
-Time 177.0: Gap 'follower'->'leader' = 66.505 (headway=3.085)
-'follower' speed = 21.5545443072
+Time 174.0: Gap 'follower'->'leader' = 68.027 (headway=3.156)
+'follower' speed = 21.555347468643763
 Remaining: 0.0
-Time 178.0: Gap 'follower'->'leader' = 64.549 (headway=2.994)
-'follower' speed = 21.5567265843
+Time 175.0: Gap 'follower'->'leader' = 66.071 (headway=3.065)
+'follower' speed = 21.557208481186258
 Remaining: 0.0
-Time 179.0: Gap 'follower'->'leader' = 62.592 (headway=2.903)
-'follower' speed = 21.5580359506
+Time 176.0: Gap 'follower'->'leader' = 64.113 (headway=2.974)
+'follower' speed = 21.558325088711754
 Remaining: 0.0
-Time 180.0: Gap 'follower'->'leader' = 60.634 (headway=2.812)
-'follower' speed = 21.5588215704
+Time 177.0: Gap 'follower'->'leader' = 62.154 (headway=2.883)
+'follower' speed = 21.558995053227054
 Remaining: 0.0
-Time 181.0: Gap 'follower'->'leader' = 58.675 (headway=2.722)
-'follower' speed = 21.5592929422
+Time 178.0: Gap 'follower'->'leader' = 60.195 (headway=2.792)
+'follower' speed = 21.559397031936232
 Remaining: 0.0
-Time 182.0: Gap 'follower'->'leader' = 56.715 (headway=2.631)
-'follower' speed = 21.5595757653
+Time 179.0: Gap 'follower'->'leader' = 58.236 (headway=2.701)
+'follower' speed = 21.55963821916174
 Remaining: 0.0
-Time 183.0: Gap 'follower'->'leader' = 54.756 (headway=2.540)
-'follower' speed = 21.5597454592
+Time 180.0: Gap 'follower'->'leader' = 56.276 (headway=2.610)
+'follower' speed = 21.559782931497047
 Remaining: 0.0
-Time 184.0: Gap 'follower'->'leader' = 52.796 (headway=2.449)
-'follower' speed = 21.5598472755
+Time 181.0: Gap 'follower'->'leader' = 54.316 (headway=2.519)
+'follower' speed = 21.55986975889823
 Remaining: 0.0
-Time 185.0: Gap 'follower'->'leader' = 50.836 (headway=2.358)
-'follower' speed = 21.5599083653
+Time 182.0: Gap 'follower'->'leader' = 52.356 (headway=2.428)
+'follower' speed = 21.55992185533894
 Remaining: 0.0
-Time 186.0: Gap 'follower'->'leader' = 48.876 (headway=2.267)
-'follower' speed = 21.5599450192
+Time 183.0: Gap 'follower'->'leader' = 50.396 (headway=2.338)
+'follower' speed = 21.559953113203363
 Remaining: 0.0
-Time 187.0: Gap 'follower'->'leader' = 46.916 (headway=2.176)
-'follower' speed = 21.5599670115
+Time 184.0: Gap 'follower'->'leader' = 48.436 (headway=2.247)
+'follower' speed = 21.55997186792202
 Remaining: 0.0
-Time 188.0: Gap 'follower'->'leader' = 44.956 (headway=2.085)
-'follower' speed = 21.5599802069
+Time 185.0: Gap 'follower'->'leader' = 46.476 (headway=2.156)
+'follower' speed = 21.559983120753213
 Remaining: 0.0
-Time 189.0: Gap 'follower'->'leader' = 42.996 (headway=1.994)
-'follower' speed = 21.5599881241
+Time 186.0: Gap 'follower'->'leader' = 44.516 (headway=2.065)
+'follower' speed = 21.55998987245193
 Remaining: 0.0
-Time 190.0: Gap 'follower'->'leader' = 41.036 (headway=1.903)
-'follower' speed = 21.5599928745
+Time 187.0: Gap 'follower'->'leader' = 42.556 (headway=1.974)
+'follower' speed = 21.559993923471158
 Remaining: 0.0
-Time 191.0: Gap 'follower'->'leader' = 39.076 (headway=1.812)
-'follower' speed = 21.5599957247
+Time 188.0: Gap 'follower'->'leader' = 40.596 (headway=1.883)
+'follower' speed = 21.559996354082696
 Remaining: 0.0
-Time 192.0: Gap 'follower'->'leader' = 37.116 (headway=1.722)
-'follower' speed = 21.5599974348
+Time 189.0: Gap 'follower'->'leader' = 38.636 (headway=1.792)
+'follower' speed = 21.55999781244962
 Remaining: 0.0
-Time 193.0: Gap 'follower'->'leader' = 35.156 (headway=1.631)
-'follower' speed = 21.5599984609
+Time 190.0: Gap 'follower'->'leader' = 36.677 (headway=1.701)
+'follower' speed = 21.559998687469772
 Remaining: 0.0
-Time 194.0: Gap 'follower'->'leader' = 33.196 (headway=1.540)
-'follower' speed = 21.5599990765
+Time 191.0: Gap 'follower'->'leader' = 34.717 (headway=1.610)
+'follower' speed = 21.559999212481863
 Remaining: 0.0
-Time 195.0: Gap 'follower'->'leader' = 31.236 (headway=1.449)
-'follower' speed = 21.5599994459
+Time 192.0: Gap 'follower'->'leader' = 32.757 (headway=1.519)
+'follower' speed = 21.55999952748912
 Remaining: 0.0
-Time 196.0: Gap 'follower'->'leader' = 29.301 (headway=1.362)
-'follower' speed = 21.5103796112
+Time 193.0: Gap 'follower'->'leader' = 30.797 (headway=1.428)
+'follower' speed = 21.559999716493472
 Remaining: 0.0
-Time 197.0: Gap 'follower'->'leader' = 27.420 (headway=1.278)
-'follower' speed = 21.4513319094
+Time 194.0: Gap 'follower'->'leader' = 28.862 (headway=1.342)
+'follower' speed = 21.508182240697202
 Remaining: 0.0
-Time 198.0: Gap 'follower'->'leader' = 25.601 (headway=1.197)
-'follower' speed = 21.3856561592
+Time 195.0: Gap 'follower'->'leader' = 26.982 (headway=1.258)
+'follower' speed = 21.45213515441678
 Remaining: 0.0
-Time 199.0: Gap 'follower'->'leader' = 23.852 (headway=1.119)
-'follower' speed = 21.3141687026
+Time 196.0: Gap 'follower'->'leader' = 25.161 (headway=1.176)
+'follower' speed = 21.389981344918205
 Remaining: 0.0
-Time 200.0: Gap 'follower'->'leader' = 22.176 (headway=1.044)
-'follower' speed = 21.2375729086
+Time 197.0: Gap 'follower'->'leader' = 23.405 (headway=1.098)
+'follower' speed = 21.32244603985462
 Remaining: 0.0
-Time 201.0: Gap 'follower'->'leader' = 20.579 (headway=0.973)
-'follower' speed = 21.1565551125
+Time 198.0: Gap 'follower'->'leader' = 21.719 (headway=1.022)
+'follower' speed = 21.25011318288585
 Remaining: 0.0
-Time 202.0: Gap 'follower'->'leader' = 19.193 (headway=0.922)
-'follower' speed = 20.8146131758
+Time 199.0: Gap 'follower'->'leader' = 20.107 (headway=0.950)
+'follower' speed = 21.173567112588774
 Remaining: 0.0
-Time 203.0: Gap 'follower'->'leader' = 18.382 (headway=0.919)
-'follower' speed = 20.0070831356
+Time 200.0: Gap 'follower'->'leader' = 18.811 (headway=0.912)
+'follower' speed = 20.618698865515906
 Remaining: 0.0
-Time 204.0: Gap 'follower'->'leader' = 18.371 (headway=0.956)
-'follower' speed = 19.2151570403
+Time 201.0: Gap 'follower'->'leader' = 18.210 (headway=0.921)
+'follower' speed = 19.781921005744703
 Remaining: 0.0
-Time 205.0: Gap 'follower'->'leader' = 18.956 (headway=1.007)
-'follower' speed = 18.8149701503
+Time 202.0: Gap 'follower'->'leader' = 18.366 (headway=0.961)
+'follower' speed = 19.107488085460375
 Remaining: 0.0
-Time 206.0: Gap 'follower'->'leader' = 19.707 (headway=1.044)
-'follower' speed = 18.8832534367
+Time 203.0: Gap 'follower'->'leader' = 18.996 (headway=1.009)
+'follower' speed = 18.832037332822708
 Remaining: 0.0
-Time 207.0: Gap 'follower'->'leader' = 20.402 (headway=1.078)
-'follower' speed = 18.9266232065
+Time 204.0: Gap 'follower'->'leader' = 19.721 (headway=1.042)
+'follower' speed = 18.918841625764788
 Remaining: 0.0
-Time 208.0: Gap 'follower'->'leader' = 21.054 (headway=1.110)
-'follower' speed = 18.9698372716
+Time 205.0: Gap 'follower'->'leader' = 20.385 (headway=1.076)
+'follower' speed = 18.952567684581535
 Remaining: 0.0
-Time 209.0: Gap 'follower'->'leader' = 21.662 (headway=1.139)
-'follower' speed = 19.0139256267
+Time 206.0: Gap 'follower'->'leader' = 21.013 (headway=1.107)
+'follower' speed = 18.990414198593765
 Remaining: 0.0
-Time 210.0: Gap 'follower'->'leader' = 22.226 (headway=1.166)
-'follower' speed = 19.0586734295
+Time 207.0: Gap 'follower'->'leader' = 21.604 (headway=1.135)
+'follower' speed = 19.029115676867608
 Remaining: 0.0
-Time 211.0: Gap 'follower'->'leader' = 22.744 (headway=1.191)
-'follower' speed = 19.1038115778
+Time 208.0: Gap 'follower'->'leader' = 22.155 (headway=1.162)
+'follower' speed = 19.06859700093466
 Remaining: 0.0
-Time 212.0: Gap 'follower'->'leader' = 23.218 (headway=1.212)
-'follower' speed = 19.1490804328
+Time 209.0: Gap 'follower'->'leader' = 22.666 (headway=1.186)
+'follower' speed = 19.108623578193853
 Remaining: 0.0
-Time 213.0: Gap 'follower'->'leader' = 23.646 (headway=1.232)
-'follower' speed = 19.1942338061
+Time 210.0: Gap 'follower'->'leader' = 23.137 (headway=1.208)
+'follower' speed = 19.148978379596365
 Remaining: 0.0
-Time 214.0: Gap 'follower'->'leader' = 24.030 (headway=1.249)
-'follower' speed = 19.2390396841
+Time 211.0: Gap 'follower'->'leader' = 23.568 (headway=1.228)
+'follower' speed = 19.189453250820094
 Remaining: 0.0
-Time 215.0: Gap 'follower'->'leader' = 24.368 (headway=1.264)
-'follower' speed = 19.2832806804
+Time 212.0: Gap 'follower'->'leader' = 23.958 (headway=1.246)
+'follower' speed = 19.229849921559417
 Remaining: 0.0
-Time 216.0: Gap 'follower'->'leader' = 24.663 (headway=1.276)
-'follower' speed = 19.3267543769
+Time 213.0: Gap 'follower'->'leader' = 24.309 (headway=1.261)
+'follower' speed = 19.269980427501352
 Remaining: 0.0

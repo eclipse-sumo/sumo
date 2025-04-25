@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -115,19 +115,15 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     }
     PROGRESS_BEGIN_MESSAGE(TL("Loading net"));
     RONetHandler handler(toFill, eb, !myOptions.exists("no-internal-links") || myOptions.getBool("no-internal-links"),
-                         myOptions.exists("weights.minor-penalty") ? myOptions.getFloat("weights.minor-penalty") : 0);
+                         myOptions.exists("weights.minor-penalty") ? myOptions.getFloat("weights.minor-penalty") : 0,
+                         myOptions.exists("weights.tls-penalty") ? myOptions.getFloat("weights.tls-penalty") : 0,
+                         myOptions.exists("weights.turnaround-penalty") ? myOptions.getFloat("weights.turnaround-penalty") : 0);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file, true)) {
         PROGRESS_FAILED_MESSAGE();
         throw ProcessError();
     } else {
         PROGRESS_DONE_MESSAGE();
-    }
-    if (myOptions.exists("restriction-params") && myOptions.isSet("restriction-params")) {
-        const std::vector<std::string> paramKeys = myOptions.getStringVector("restriction-params");
-        for (auto& edgeIt : toFill.getEdgeMap()) {
-            edgeIt.second->cacheParamRestrictions(paramKeys);
-        }
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNINGF(TL("Deprecated vehicle classes '%' in input network."), toString(deprecatedVehicleClassesSeen));
@@ -154,6 +150,17 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         toFill.addJunctionTaz(eb);
     }
     toFill.setBidiEdges(handler.getBidiMap());
+    if (myOptions.exists("restriction-params") && myOptions.isSet("restriction-params")) {
+        const std::vector<std::string> paramKeys = myOptions.getStringVector("restriction-params");
+        for (auto& edgeIt : toFill.getEdgeMap()) {
+            edgeIt.second->cacheParamRestrictions(paramKeys);
+        }
+    }
+    if (toFill.hasRestrictions()) {
+        for (auto& edgeIt : toFill.getEdgeMap()) {
+            edgeIt.second->setRestrictions(toFill.getRestrictions(edgeIt.second->getType()));
+        }
+    }
 }
 
 
@@ -302,5 +309,13 @@ ROLoader::writeStats(const SUMOTime time, const SUMOTime start, const SUMOTime a
     }
 }
 
-
+SUMORouteHandler*
+ROLoader::getRouteHandler() {
+    auto loader = myLoaders.getFirstLoader();
+    if (loader != nullptr) {
+        return loader->getRouteHandler();
+    } else {
+        return nullptr;
+    }
+}
 /****************************************************************************/

@@ -1,7 +1,8 @@
-Loading net-file from 'net2.net.xml' ... done (6ms).
+Loading net-file from 'net2.net.xml' ... done (1ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00.
-Simulation ended at time: 18.00
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation ended at time: 18.00.
 Reason: All vehicles have left the simulation.
 DijkstraRouter answered 2 queries and explored 3.00 edges on average.
-DijkstraRouter spent 0ms answering queries (0.00ms on average).
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).

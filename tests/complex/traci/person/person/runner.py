@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -72,7 +72,7 @@ traci.person.appendWalkingStage("newPerson", ["3si", "2si"], -20)
 traci.person.appendWaitingStage("newPerson", 10, "twiddling thumbs")
 traci.person.appendWalkingStage("newPerson", ["2si", "2o"], 20)
 traci.person.appendWaitingStage("newPerson", 20, "arrived")
-traci.person.setSpeedFactor("newPerson", 1.3)
+traci.person.setSpeedFactor("newPerson", 1.1)
 
 for i in range(3):
     checkStateChanges()
@@ -251,7 +251,7 @@ for i in range(10):
     traci.simulationStep()
 
 remaining = traci.person.getRemainingStages("p3")
-assert(remaining == 1)
+assert remaining == 1
 # replace current stage
 print_remaining_plan("p3", "(before replacement of current stage)")
 traci.person.replaceStage("p3", 0, stage2)

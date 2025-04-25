@@ -1,0 +1,17 @@
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurrence for edge '4315430').
+Warning: Ambiguous railway kilometrage direction for way '4480565' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '4741937' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '24757439' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '24757446' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '24757714' (assuming forward)
+Warning: Discarding unusable type 'railway.platform_edge' (first occurrence for edge '36373474').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '47974161').
+Warning: Value of railway:position is not numeric ('2.8+2') in node '9350976828'.
+Warning: Value of railway:position is not numeric ('2.8+2') in node '9350976827'.
+Warning: PT stop '1117011642' has been moved to edge '-550961652'.
+Warning: PT stop '1117011687' has been moved to edge '-23635777'.
+Warning: PT stop '1117011661' has been moved to edge '-23256161#0'.
+Warning: PT stop '1117011739' has been moved to edge '-550337516'.
+Warning: PT stop '1117011644' has been moved to edge '-217562762'.
+Warning: 32 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
+Warning: 7 total messages of type: PT stop '%' has been moved to edge '%'.

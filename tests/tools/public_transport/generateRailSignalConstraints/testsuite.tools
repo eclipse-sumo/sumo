@@ -35,3 +35,6 @@ started_ended
 
 # constraints for use of bidirectional sections in opposite directions
 bidi
+
+# the trains that merge at a switch target different stopping places which belong to the same operations control point (ocp)
+one_switch_two_ocp_tracks

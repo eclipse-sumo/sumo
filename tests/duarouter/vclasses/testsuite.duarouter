@@ -71,3 +71,6 @@ no_valid_connection
 
 # normal lanse would allow the movement but the connection forbids it
 internal_lane_forbidden
+
+# Tests for importing speed restrictions
+vClass_specific_speeds

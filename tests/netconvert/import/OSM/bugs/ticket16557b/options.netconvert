@@ -1,0 +1,6 @@
+--osm-files osm.xml.gz
+-R
+--junctions.join
+--no-internal-links
+--keep-edges.by-vclass passenger
+--tls.guess-signals

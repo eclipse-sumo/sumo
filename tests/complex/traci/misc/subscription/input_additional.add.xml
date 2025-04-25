@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-06-17 10:38:30 by Eclipse SUMO netedit Version v1_13_0+0955-f7ce321
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <routeProbe id="routeprobe_0" begin="0.00" period="3600.00" edge="1si" file="rp_0.xml"/>
+    <calibrator id="calibrator_0" lane="1si_0" pos="28.43">
+        <flow vehsPerHour="10" begin="0" end="3600"/>
+    </calibrator>
+    <busStop id="busstop_0" lane="1si_0" startPos="22.83" endPos="32.83"/>
+    <chargingStation id="chargingstation_0" lane="1si_1" startPos="35.95" endPos="45.95"/>
+    <parkingArea id="parkingarea_0" lane="2si_0" startPos="218.68" endPos="228.68"/>
+    <e1Detector id="inductionloop_0" lane="1si_2" pos="11.15" period="300.00" file="e1_0.xml"/>
+    <instantInductionLoop id="e1i_0" lane="1si_1" pos="21.63" file="e1i_0.xml"/>
+    <e2Detector id="lanearea_0" lane="2si_1" pos="226.15" length="10.00" period="300.00" file="e2_0.xml"/>
+    <e3Detector id="multientryexit_0" pos="281.07,507.88" period="300.00" file="e3_0.xml">
+        <detEntry lane="1si_1" pos="28.57"/>
+        <detExit lane="1si_1" pos="37.08"/>
+    </e3Detector>
+    <variableSpeedSign id="variablespeedsign_0" lanes="1si_1" pos="235.27,474.90"/>
+    <poly id="polygon_0" color="red" fill="0" layer="0.00" shape="261.126673,451.982114 272.090631,453.888889 276.221978,448.168563 265.258020,446.579584"/>
+    <poi id="poi_0" color="red" layer="202.00" x="274.48" y="459.55"/>
+    <overheadWireSegment id="overheadwire_0" lane="1si_0"/>
+    <route id="route_0" edges="1si"/>
+    <vType id="vehicletype_0"/>
+    <vehicle id="vehicle_0" depart="0">
+        <route edges="1si"/>
+        <stop lane="1si_0" endPos="100"/>
+    </vehicle>
+    <person id="person_0" depart="0">
+        <walk edges="1si"/>
+    </person>
+</additional>

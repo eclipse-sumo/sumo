@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -63,7 +63,7 @@ OptionsCont::getOptions() {
 
 
 OptionsCont::OptionsCont() {
-    myCopyrightNotices.push_back(TL("Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de"));
+    myCopyrightNotices.push_back(TL("Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de"));
 }
 
 
@@ -627,7 +627,6 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         return true;
     }
 
-    myWriteLicense = getBool("write-license");
     // check whether the help shall be printed
     if (getBool("help")) {
         std::cout << myFullName << std::endl;
@@ -809,8 +808,8 @@ OptionsCont::printHelp(std::ostream& os) {
         }
         if (!foundTopic) {
             // print topic list
-            os << "Help Topics:"  << std::endl;
-            for (std::string t : mySubTopics) {
+            os << "Help Topics:" << std::endl;
+            for (const std::string& t : mySubTopics) {
                 os << "    " << t << std::endl;
             }
         }
@@ -820,7 +819,7 @@ OptionsCont::printHelp(std::ostream& os) {
     os << "Usage: " << myAppName << " [OPTION]*" << std::endl;
     // print additional text if any
     if (myAdditionalMessage.length() > 0) {
-        os << myAdditionalMessage << std::endl << ' ' << std::endl;
+        os << myAdditionalMessage << std::endl << std::endl;
     }
     // print the options
     for (const auto& subTopic : mySubTopics) {
@@ -836,7 +835,7 @@ OptionsCont::printHelp(std::ostream& os) {
         }
     }
     os << std::endl;
-    os << "Report bugs at <https://github.com/eclipse/sumo/issues>." << std::endl;
+    os << "Report bugs at <https://github.com/eclipse-sumo/sumo/issues>." << std::endl;
     os << "Get in contact via <sumo@dlr.de>." << std::endl;
 }
 
@@ -888,13 +887,9 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
     if (!inComment) {
         writeXMLHeader(os, false);
     }
-    os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/";
-    if (myAppName == "sumo-gui") {
-        os << "sumo";
-    } else {
-        os << myAppName;
-    }
-    os << "Configuration.xsd\">" << std::endl << std::endl;
+    const std::string& app = myAppName == "sumo-gui" ? "sumo" : myAppName;
+    os << "<" << app << "Configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+       << "xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/" << app << "Configuration.xsd\">\n\n";
     for (std::string subtopic : mySubTopics) {
         if (subtopic == "Configuration" && !complete) {
             continue;
@@ -913,11 +908,11 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 continue;
             }
             if (!hadOne) {
-                os << "    <" << subtopic << ">" << std::endl;
+                os << "    <" << subtopic << ">\n";
             }
             // add the comment if wished
             if (addComments) {
-                os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->" << std::endl;
+                os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->\n";
             }
             // write the option and the value (if given)
             os << "        <" << name << " value=\"";
@@ -925,10 +920,16 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 if (o->isFileName() && relativeTo != "") {
                     StringVector fileList = StringTokenizer(o->getValueString(), ",").getVector();
                     for (auto& file : fileList) {
-                        file = FileHelpers::fixRelative(
-                                   StringUtils::urlEncode(file, " ;%"),
-                                   StringUtils::urlEncode(relativeTo, " ;%"),
-                                   forceRelative || getBool("save-configuration.relative"));
+                        if (StringUtils::startsWith(file, "${")) {
+                            // there is an environment variable up front, assume it points to an absolute path
+                            // not even forcing relativity makes sense here
+                            file = StringUtils::urlEncode(file, " ;%");
+                        } else {
+                            file = FileHelpers::fixRelative(
+                                       StringUtils::urlEncode(file, " ;%"),
+                                       StringUtils::urlEncode(relativeTo, " ;%"),
+                                       forceRelative || getBool("save-configuration.relative"));
+                        }
                     }
                     os << StringUtils::escapeXML(joinToString(fileList, ','), inComment);
                 } else {
@@ -951,27 +952,28 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                     os << "\" help=\"" << StringUtils::escapeXML(o->getDescription());
                 }
             }
-            os << "\"/>" << std::endl;
+            os << "\"/>\n";
             // append an endline if a comment was printed
             if (addComments) {
-                os << std::endl;
+                os << "\n";
             }
             hadOne = true;
         }
         if (hadOne) {
-            os << "    </" << subtopic << ">" << std::endl << std::endl;
+            os << "    </" << subtopic << ">\n\n";
         }
     }
-    os << "</configuration>" << std::endl;
+    os << "</" << app << "Configuration>" << std::endl;  // flushing seems like a good idea here
 }
 
 
 void
 OptionsCont::writeSchema(std::ostream& os) {
+    const std::string& app = myAppName == "sumo-gui" ? "sumo" : myAppName;
     writeXMLHeader(os, false);
     os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\n";
     os << "    <xsd:include schemaLocation=\"baseTypes.xsd\"/>\n";
-    os << "    <xsd:element name=\"configuration\" type=\"configurationType\"/>\n\n";
+    os << "    <xsd:element name=\"" << app << "Configuration\" type=\"configurationType\"/>\n\n";
     os << "    <xsd:complexType name=\"configurationType\">\n";
     os << "        <xsd:all>\n";
     for (std::string subtopic : mySubTopics) {
@@ -1021,7 +1023,7 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
     time(&rawtime);
     strftime(buffer, 80, "<!-- generated on %F %T by ", localtime(&rawtime));
     os << buffer << myFullName << "\n";
-    if (myWriteLicense) {
+    if (getBool("write-license")) {
         os << "This data file and the accompanying materials\n"
            "are made available under the terms of the Eclipse Public License v2.0\n"
            "which accompanies this distribution, and is available at\n"
@@ -1049,5 +1051,19 @@ OptionsCont::isInStringVector(const std::string& optionName,
     }
     return false;
 }
+
+
+OptionsCont*
+OptionsCont::clone() const {
+    // build a clone to call writeConfiguration on
+    // (with the possibility of changing a few settings and not affecting the original)
+    OptionsCont* oc = new OptionsCont(*this);
+    oc->resetWritable();
+    for (auto& addr : oc->myAddresses) {
+        addr.second = addr.second->clone();
+    }
+    return oc;
+}
+
 
 /****************************************************************************/

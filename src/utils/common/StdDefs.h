@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2005-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -65,7 +65,7 @@ const double INVALID_DOUBLE = std::numeric_limits<double>::max();
 
 /// @brief (M)ajor/(M)inor version for written networks and default version for loading
 typedef std::pair<int, double> MMVersion;
-const MMVersion NETWORK_VERSION(1, 16);
+const MMVersion NETWORK_VERSION(1, 20);
 
 /* -------------------------------------------------------------------------
  * templates for mathematical functions missing in some c++-implementations
@@ -118,11 +118,15 @@ extern int gPrecisionGeo; // for lon,lat
 extern int gPrecisionRandom; // for randomized values (i.e. speedFactor)
 extern bool gHumanReadableTime;
 extern bool gSimulation; // whether the current application is sumo or sumo-gui (as opposed to a router)
+extern bool gIgnoreUnknownVClass; // whether the unknown vehicle classes shall be ignored on loading (for upward compatibility)
 extern double gWeightsRandomFactor; // randomization for edge weights
 extern double gWeightsWalkOppositeFactor; // factor for walking against flow of traffic
 
 /// the language for GUI elements and messages
 extern std::string gLanguage;
+
+/// the default size for GUI elements
+extern int GUIDesignHeight;
 
 
 /// @brief global utility flags for debugging
@@ -133,8 +137,8 @@ extern bool gDebugFlag4;
 extern bool gDebugFlag5;
 extern bool gDebugFlag6;
 
-// synchronized output to stdout with << (i.e. DEBUGOUT(SIMTIME << " var=" << var << "\n")
-#define DEBUGOUT(msg) {std::ostringstream oss; oss << msg; std::cout << oss.str();}
+// synchronized output to stdout with << (i.e. DEBUGOUT(gDebugFlag1, SIMTIME << " var=" << var << "\n")
+#define DEBUGOUT(cond, msg) if (cond) {std::ostringstream oss; oss << msg; std::cout << oss.str();}
 
 /// @brief discrds mantissa bits beyond the given number
 double truncate(double x, int fractionBits);

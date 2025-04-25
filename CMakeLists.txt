@@ -15,9 +15,10 @@ option(FMI "Enable generation of an FMI library for SUMO" ON)
 option(NETEDIT "Enable build of netedit" ON)
 option(ENABLE_PYTHON_BINDINGS "Build Python Bindings" ON)
 option(ENABLE_JAVA_BINDINGS "Build Java Bindings" ON)
-option(ENABLE_CS_BINDINGS "Build C# Bindings")
+option(ENABLE_CS_BINDINGS "Build C# Bindings" ON)
 option(CCACHE_SUPPORT "Enable ccache support if installed" ON)
 option(TCMALLOC "Use tcmalloc if installed" ON)
+option(VERBOSE_SUB "Let sub-commands be more verbose")
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(JUPEDSIM_CUSTOMDIR "" CACHE PATH "Custom install location of jupedsim")
@@ -36,9 +37,9 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo")
 endif ()
 
+cmake_minimum_required(VERSION 3.5)
 project("${PROJECT_NAME}" CXX C)
 set(PACKAGE_VERSION "git")
-cmake_minimum_required(VERSION 3.5)
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
@@ -119,90 +120,6 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Coverage")
     endif ()
 elseif (MSVC)
-    # disable warnings (all versions)
-    option(DISABLEWARNING_C5264 "'const' variable is not used" ON)
-    option(DISABLEWARNING_C5267 "definition of implicit operator/constructor/destructor is deprecated" ON)
-    option(DISABLEWARNING_C4355 "'this' : used in base member initializer list" ON)
-    option(DISABLEWARNING_C4266 "'function' : no override available for virtual member function from base 'type'" ON)
-    option(DISABLEWARNING_C4127 "conditional expression is constant" ON)
-    option(DISABLEWARNING_C26495 "'variable' is uninitialized. Always initialize a member variable" ON)
-    # Specific warnings from MSVC15
-    if (MSVC_VERSION LESS 2000)
-        option(DISABLEWARNING_C4619 "there is no warning number xxxx" ON)
-        option(DISABLEWARNING_C4774 "format string expected not string literal" ON)
-        option(DISABLEWARNING_C4571 "structured exceptions (SEH) are no longer caught" ON)
-        option(DISABLEWARNING_C4820 "bytes padding added after data member" ON)
-        option(DISABLEWARNING_C4668 "macro not defined as a preprocessor macro, replacing with '0'" ON)
-        option(DISABLEWARNING_C4710 "function not inlined" ON)
-        option(DISABLEWARNING_C4625 "copy constructor was implicitly defined as deleted" ON)
-        option(DISABLEWARNING_C4626 "assignment operator was implicitly defined as deleted" ON)
-        option(DISABLEWARNING_C5026 "move constructor was implicitly defined as deleted" ON)
-        option(DISABLEWARNING_C5027 "move assignment was implicitly defined as deleted" ON)
-    endif()
-    # 5264
-    if (DISABLEWARNING_C5264)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5264")
-    endif (DISABLEWARNING_C5264)
-    # 5267
-    if (DISABLEWARNING_C5267)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5267")
-    endif (DISABLEWARNING_C5267)
-    # 4355
-    if (DISABLEWARNING_C4355)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4355")
-    endif (DISABLEWARNING_C4355)
-    # 4266
-    if (DISABLEWARNING_C4266)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4266")
-    endif (DISABLEWARNING_C4266)
-    # 4127
-    if (DISABLEWARNING_C4127)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127")
-    endif (DISABLEWARNING_C4127)
-    # 26495
-    if (DISABLEWARNING_C26495)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd26495")
-    endif (DISABLEWARNING_C26495)
-    # 4619
-    if (DISABLEWARNING_C4619)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4619")
-    endif (DISABLEWARNING_C4619)
-    # 4774
-    if (DISABLEWARNING_C4774)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4774")
-    endif (DISABLEWARNING_C4774)
-    # 4571
-    if (DISABLEWARNING_C4571)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4571")
-    endif (DISABLEWARNING_C4571)
-    # 4820
-    if (DISABLEWARNING_C4820)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4820")
-    endif (DISABLEWARNING_C4820)
-    # 4668
-    if (DISABLEWARNING_C4668)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4668")
-    endif (DISABLEWARNING_C4668)
-    # 4710
-    if (DISABLEWARNING_C4710)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4710")
-    endif (DISABLEWARNING_C4710)
-    # 4625
-    if (DISABLEWARNING_C4625)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4625")
-    endif (DISABLEWARNING_C4625)
-    # 4626
-    if (DISABLEWARNING_C4626)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4626")
-    endif (DISABLEWARNING_C4626)
-    # 5026
-    if (DISABLEWARNING_C5026)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5026")
-    endif (DISABLEWARNING_C5026)
-    # 5027
-    if (DISABLEWARNING_C5027)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5027")
-    endif (DISABLEWARNING_C5027)
     # enabling /WX is not possible due to warnings in external headers
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019
@@ -225,6 +142,8 @@ elseif (MSVC)
     endif ()
     # SWIG generates large obj files
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
+    # backward compatible mutex API, see https://github.com/actions/runner-images/issues/10004
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR")
     # exporting symbols for shared libraries needs to enabled explicitly
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
     # add option for enabling console in release mode
@@ -235,11 +154,10 @@ endif ()
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 if (CLANG_COMPILER)
     if (WIN32)
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,integer,unsigned-integer-overflow -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
-        # set iterator de bug level in 0
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,integer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
         add_compile_definitions(_ITERATOR_DEBUG_LEVEL=0)
     else ()
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,address,integer -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
     endif ()
 endif ()
 
@@ -283,9 +201,9 @@ else()
     # define variables for compatibility. refactor once older cmake unsupported
     if (Python_FOUND)
         set(PYTHONLIBS_FOUND ${Python_FOUND})
-        set(PYTHON_EXECUTABLE ${Python_EXECUTABLE})
-        set(PYTHON_LIBRARIES ${Python_LIBRARIES})
-        set(PYTHON_INCLUDE_DIRS ${Python_INCLUDE_DIRS})
+        set(PYTHON_EXECUTABLE ${Python_EXECUTABLE} CACHE FILEPATH "Python executable")
+        set(PYTHON_LIBRARIES ${Python_LIBRARIES} CACHE FILEPATH "Python libraries")
+        set(PYTHON_INCLUDE_DIRS ${Python_INCLUDE_DIRS} CACHE PATH "Python include folder")
         set(PYTHON_LIBRARY_DIRS ${Python_LIBRARY_DIRS})
     endif()
 endif()
@@ -296,17 +214,17 @@ if (MSVC AND ENABLE_PYTHON_BINDINGS)
                     OUTPUT_VARIABLE IS_PYTHON64 OUTPUT_STRIP_TRAILING_WHITESPACE)
     if (${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "/machine:x64")
         if (${IS_PYTHON64} STREQUAL "False")
-            message(STATUS "Did not find Python 64 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
+            message(WARNING "Did not find Python 64 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
             set(PYTHON_INCLUDE_DIRS "")
         endif()
     else()
         if (${IS_PYTHON64} STREQUAL "True")
-            message(STATUS "Did not find Python 32 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
+            message(WARNING "Did not find Python 32 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
             set(PYTHON_INCLUDE_DIRS "")
         endif()
     endif()
     if (NOT PYTHON_DEBUG_LIBRARY AND "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-        message(STATUS "Did not find Python debug library. Please reinstall your Python and enable the Python debug libraries in the installer.")
+        message(WARNING "Did not find Python debug library. Please reinstall your Python and enable the Python debug libraries in the installer.")
         set(PYTHON_INCLUDE_DIRS "")
     endif()
 endif()
@@ -377,7 +295,7 @@ if (SUMO_LIBRARIES AND WIN32)
     # Special option for MinGW32
     message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
     file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-3.?.?")
-    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??")
+    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.*")
     file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj-?.?.?")
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-?.?.??")
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/freetype-2.??.?")
@@ -390,9 +308,12 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${PROJ_PATH}/bin/*.dll"
                                  "${FOX_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
-#                                 "${FREETYPE_PATH}/bin/*.dll"
+                                 "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
+								 "${GDAL_PATH}/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/libspatialite-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/curl-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libssh2-*/bin/*.dll"
@@ -401,12 +322,23 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libxml2-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libiconv-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/openssl-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/sqlite-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/freexl-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/libexpat-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/librttopo-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/minizip-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
                                  )
     # check if MSVC dll runtimes have to be copied
     if (INSTALL_DLL_RUNTIMES)
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}/runtimes/*.dll")
         list(APPEND SUMO_LIBRARIES_DLL ${MSVC_DLLS})
     endif(INSTALL_DLL_RUNTIMES)
+    if (MSVC_VERSION GREATER 1919)
+        # fmt in SUMOLibraries only works with MSVC 2019 and later
+        file(GLOB fmt_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/fmt-??.?.?")
+    endif ()
     # declare flag for use google test
     set(USE_GOOGLETEST true)
     # check if use google test
@@ -450,11 +382,17 @@ endif (PROJ_FOUND)
 
 find_package(FOX)
 if (FOX_FOUND)
-    include_directories(SYSTEM ${FOX_INCLUDE_DIR})
-    add_definitions(${FOX_CXX_FLAGS})
-    add_definitions(-DFLOAT_MATH_FUNCTIONS)
-    set(HAVE_FOX 1)
-    set(ENABLED_FEATURES "${ENABLED_FEATURES} GUI")
+    set(OpenGL_GL_PREFERENCE LEGACY)
+    find_package(OpenGL)
+    if (OPENGL_FOUND AND OPENGL_GLU_FOUND)
+        include_directories(SYSTEM ${FOX_INCLUDE_DIR})
+        add_definitions(${FOX_CXX_FLAGS})
+        add_definitions(-DFLOAT_MATH_FUNCTIONS)
+        set(HAVE_FOX 1)
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} GUI")
+    else ()
+        message(WARNING "Fox is present but OpenGL or GLU cannot be found, GUI will be disabled.")
+    endif ()
 endif (FOX_FOUND)
 
 find_package(Freetype)
@@ -463,6 +401,27 @@ if (FREETYPE_FOUND)
 else (FREETYPE_FOUND)
     message(WARNING "FreeType cannot be found. If you are using SUMO libraries, update SUMO_LIBRARIES folder with git pull. Otherwise, specify manually FreeType include folder and libs.")
 endif (FREETYPE_FOUND)
+
+if (SUMO_LIBRARIES AND WIN32)
+    find_package(fmt PATHS ${fmt_PATH} NO_DEFAULT_PATH)
+    if (fmt_FOUND)
+        message(STATUS "Found FMT (SUMOLibraries): " ${fmt_DIR})
+        include_directories(SYSTEM "${fmt_PATH}/include")
+        set(FMT_LIBRARY fmt::fmt)
+        set(HAVE_FMT 1)
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} FMT")
+    endif (fmt_FOUND)
+elseif (NOT MSVC)
+    find_package(fmt QUIET)
+    if (fmt_FOUND)
+        set(HAVE_FMT 1)
+        set(FMT_LIBRARY fmt::fmt)
+        # next 2 lines could fix the include path for mambaforge fmt on DLR machines (maybe outdated cmake?)
+        # get_target_property(fmt_INCLUDE_DIR fmt::fmt INTERFACE_INCLUDE_DIRECTORIES)
+        # include_directories(SYSTEM ${fmt_INCLUDE_DIR})
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} FMT")
+    endif (fmt_FOUND)
+endif ()
 
 find_package(X11)
 if (X11_FOUND)
@@ -498,6 +457,14 @@ if (TCMALLOC)
         set(TCMALLOC_LIBRARY "")
     endif ()
 endif ()
+
+# Eigen (for overhead wire / electric circuit simulation)
+find_package(Eigen3 3.2)
+if (EIGEN3_FOUND)
+    include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
+    set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
+endif (EIGEN3_FOUND)
 
 if (CHECK_OPTIONAL_LIBS)
     file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-?.?.?")
@@ -544,20 +511,12 @@ if (CHECK_OPTIONAL_LIBS)
         endif (GL2PS_FOUND)
     endif ()
 
-    # Eigen (for overhead wire / electric circuit simulation)
-    find_package(Eigen3 3.2)
-    if (EIGEN3_FOUND)
-        include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
-        set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
-        set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
-    endif (EIGEN3_FOUND)
-
     find_package(jupedsim CONFIG HINTS ${JUPEDSIM_CUSTOMDIR} QUIET)
     if (jupedsim_FOUND)
         find_package(GEOS)
         if (GEOS_FOUND)
             include_directories(SYSTEM ${GEOS_INCLUDE_DIR})
-            set(JPS_VERSION "${jupedsim_VERSION_MINOR}0${jupedsim_VERSION_PATCH}")
+            set(JPS_VERSION "${jupedsim_VERSION_MAJOR}${jupedsim_VERSION_MINOR}${jupedsim_VERSION_PATCH}")
             set(ENABLED_FEATURES "${ENABLED_FEATURES} JuPedSim")
             message(STATUS "Found JuPedSim: ${jupedsim_DIR} ${jupedsim_VERSION}")
         else (GEOS_FOUND)
@@ -577,7 +536,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(commonlibs
         utils_distribution utils_handlers utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices utils_traction_wire foreign_tcpip
-        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${Intl_LIBRARIES})
+        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${Intl_LIBRARIES} ${FMT_LIBRARY})
 if (WIN32)
     set(commonlibs ${commonlibs} ws2_32)
 endif ()
@@ -601,8 +560,7 @@ if (MSVC)
             PATTERN "*.bat"
             PATTERN "*.dll"
             PATTERN "*d.dll" EXCLUDE
-            PATTERN "gtest*.dll" EXCLUDE
-            PATTERN "FOXDLLD-1.6.dll" EXCLUDE)
+            PATTERN "gtest*.dll" EXCLUDE)
 else ()
     include(GNUInstallDirs)
 endif ()
@@ -645,12 +603,13 @@ if (NOT ${PYTHON_SETUPTOOLS_MISSING})
         install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build_config/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
                 COMPONENT pytraci)
     else ()
-        add_custom_target(pure_wheels ALL
-                          COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py
-                          COMMAND ${PYTHON_EXECUTABLE} -m build --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
-                          COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-traci.py ./setup.py
-                          COMMAND ${PYTHON_EXECUTABLE} -m build --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
-                          WORKING_DIRECTORY ${TOOLS_DIR})
+        if (NOT VERBOSE_SUB)
+            set(PYTHON_BUILD_OPTS "-C--quiet")
+        endif ()
+        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py WORKING_DIRECTORY ${TOOLS_DIR} COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --wheel . -o ${CMAKE_BINARY_DIR})"
+                COMPONENT pysumolib)
+        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-traci.py ./setup.py WORKING_DIRECTORY ${TOOLS_DIR} COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --wheel . -o ${CMAKE_BINARY_DIR})"
+                COMPONENT pytraci)
         install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci)"
                 COMPONENT pytraci)
     endif ()
@@ -718,6 +677,9 @@ add_custom_target(install_mo DEPENDS ${I18N_DATA})
 
 # java targets
 find_program(MVN_EXECUTABLE mvn)
+if (NOT VERBOSE_SUB)
+    set(MVN_OPTS "-q")
+endif ()
 find_package(Java COMPONENTS Development)
 if (MVN_EXECUTABLE AND Java_FOUND)
     if (NOT DEFINED ENV{JAVA_HOME})
@@ -727,11 +689,11 @@ if (MVN_EXECUTABLE AND Java_FOUND)
         set(MVN_REPO "-Dmaven.repo.local=${CMAKE_BINARY_DIR}/m2")
     endif ()
     add_custom_target(traas
-        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode -f tools/contributed/traas/pom.xml clean install
+        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} ${MVN_OPTS} --batch-mode -f tools/contributed/traas/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.1.jar bin/TraaS.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(lisum
-        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode -f tools/contributed/lisum/pom.xml clean install
+        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} ${MVN_OPTS} --batch-mode -f tools/contributed/lisum/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum/lisum-core/target/lisum-core-1.0.2.jar bin/lisum-core.jar
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum/lisum-gui/target/lisum-gui-1.1.jar bin/lisum-gui.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
@@ -747,7 +709,7 @@ endif ()
 add_custom_target(doxygen
     COMMAND rm -rf docs/doxygen
     COMMAND mkdir docs/doxygen
-    COMMAND doxygen sumo.doxyconf &> doxygen.log
+    COMMAND doxygen sumo.doxyconf > doxygen.log 2>&1
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_property(TARGET doxygen PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET doxygen PROPERTY FOLDER "doc")
@@ -763,7 +725,7 @@ if (MVN_EXECUTABLE)
     add_custom_target(javadoc
         COMMAND rm -rf docs/javadoc
         COMMAND mkdir docs/javadoc
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml javadoc:javadoc
+        COMMAND ${MVN_EXECUTABLE} ${MVN_OPTS} --batch-mode -f tools/contributed/traas/pom.xml javadoc:javadoc
         COMMAND mv tools/contributed/traas/target/site/apidocs docs/javadoc/traas
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set_property(TARGET javadoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
@@ -847,9 +809,7 @@ set_property(TARGET examples PROPERTY FOLDER "doc")
 find_program(PYINSTALLER_FOUND "pyinstaller")
 if (PYINSTALLER_FOUND AND EXISTS ${CMAKE_SOURCE_DIR}/tools/game/runner.spec)
     add_custom_target(game
-        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/game/minwait.py
         COMMAND pyinstaller --noconfirm ${CMAKE_SOURCE_DIR}/tools/game/runner.spec
-        COMMAND ${CMAKE_COMMAND} -E chdir dist/runner ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_BINARY_DIR}/sumo-game.zip" --format=zip "."
     )
 endif()
 
@@ -871,9 +831,6 @@ if (GIT_FOUND)
         COMMAND rm -r sumo-${PACKAGE_VERSION}/docs/web/docs/images
         COMMAND ln -s ../../userdoc/images sumo-${PACKAGE_VERSION}/docs/web/docs/images
         COMMAND tar -czf sumo_${PACKAGE_VERSION}.orig.tar.gz --exclude "*.jar" sumo-${PACKAGE_VERSION}
-        COMMAND mkdir sumo-${PACKAGE_VERSION}/sumo-gui-macos
-        COMMAND cp -a build_config/macos/*/*.app sumo-${PACKAGE_VERSION}/sumo-gui-macos
-        COMMAND zip -rq sumo-gui-macos-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}/sumo-gui-macos/*.app
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_dependencies(dist examples doc ${JAVA_TARGETS})

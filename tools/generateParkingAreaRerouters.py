@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -164,6 +164,8 @@ class ReroutersGeneration(object):
         else:
             sequence = xml_tree
         for child in sequence:
+            if child.tag != "parkingArea":
+                continue
             self._parking_areas[child.attrib['id']] = child.attrib
 
             laneID = child.attrib['lane']
@@ -183,7 +185,8 @@ class ReroutersGeneration(object):
             pa = self._parking_areas[child.attrib['id']]
             pa['edge'] = lane.getEdge().getID()
             pa['pos'] = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), endPos)
-            pa['capacity'] = (int(child.get('roadsideCapacity', 0)) + len(child.findall('space')))
+            pa['capacity'] = (int(child.get('roadsideCapacity', 1 if len(child.findall('space')) == 0 else 0)) +
+                              len(child.findall('space')))
 
     # ---------------------------------------------------------------------------------------- #
     #                                 Rerouter Generation                                      #
@@ -450,4 +453,6 @@ def main(cmd_args):
 
 
 if __name__ == "__main__":
+    # see default start method 'fork' is unsafe and raises DeprecationWarning starting in Pythoon 3.12
+    multiprocessing.set_start_method('spawn')
     main(sys.argv[1:])

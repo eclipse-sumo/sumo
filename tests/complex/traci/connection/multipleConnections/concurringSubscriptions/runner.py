@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,7 +25,7 @@ import subprocess
 import sys
 import time
 import math
-from multiprocessing import Process, freeze_support
+import multiprocessing
 
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -98,7 +98,8 @@ def runSingle(sumoEndTime, traciEndTime, numClients, runNr):
     sumoProcess = subprocess.Popen(
         "%s -v --num-clients %s -c sumo.sumocfg -S -Q --remote-port %s" %
         (sumoBinary, numClients, PORT), shell=True, stdout=sys.stdout)  # Alternate ordering
-    procs = [Process(target=traciLoop, args=(PORT, traciEndTime, (i + 1), runNr)) for i in range(numClients)]
+    procs = [multiprocessing.Process(target=traciLoop, args=(PORT, traciEndTime, (i + 1), runNr))
+             for i in range(numClients)]
     for p in procs:
         p.start()
     for p in procs:
@@ -108,7 +109,7 @@ def runSingle(sumoEndTime, traciEndTime, numClients, runNr):
 
 
 if __name__ == '__main__':
-    freeze_support()
+    multiprocessing.set_start_method('spawn')
     numClients = 2
     runNr = 2
     print(" Testing multiclient subscriptions...")

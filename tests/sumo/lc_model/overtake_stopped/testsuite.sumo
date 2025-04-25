@@ -7,6 +7,24 @@ overtake_stopped_on_the_left_low_space
 # overtaking a stopped vehicle should not lead to total breakdown in flow
 stopped_right
 
+# overtaking to avoid two adjacent stopped vehicles
+stopped_2right_minimal
+
+# overtaking a stopped vehicle should not lead to total breakdown in flow
+stopped_left
+
+# overtaking a stopped vehicle should not lead to total breakdown in flow
+stopped_2left
+
+# overtaking to avoid two adjacent stopped vehicles
+stopped_2left_minimal
+
+# overtaking a maze of stopped vehicles
+stopped_slalom
+
+# overtaking a maze of stopped vehicles
+stopped_slalom2
+
 # overtake a vehicle that is 1000m
 very_long
 

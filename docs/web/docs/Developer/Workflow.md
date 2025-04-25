@@ -21,7 +21,7 @@ and actively support the three major desktop platforms (Windows, Linux, macOS).
 We develop in the "main" branch, without a dedicated "dev" branch.
 There are no branches for individual releases (just tags) and we do not backport critical
 fixes, so there are no parallel development lines. In other words there will never be a
-SUMO 1.9.1 if SUMO 1.10.0 has already been released, see also [Versioning](../Versioning.md#release-version).
+SUMO 1.9.1 if SUMO 1.10.0 has already been released, see also [Versioning](../Versioning.md#release_version).
 
 Although it is strongly encouraged to let the tests run before push, it is not being enforced
 by hooks or by mandatory pull requests. It even happens from time to time that a push may

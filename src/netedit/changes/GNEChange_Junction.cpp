@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,15 +17,18 @@
 ///
 // A network change in which a single junction is created or deleted
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEChange_Junction.h"
 
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
+
 FXIMPLEMENT_ABSTRACT(GNEChange_Junction, GNEChange, nullptr, 0)
 
 // ===========================================================================
@@ -42,11 +45,12 @@ GNEChange_Junction::GNEChange_Junction(GNEJunction* junction, bool forward):
 
 
 GNEChange_Junction::~GNEChange_Junction() {
-    myJunction->decRef("GNEChange_Junction");
-    if (myJunction->unreferenced()) {
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myJunction->getTagStr() + " '" + myJunction->getID() + "' in GNEChange_Junction");
-        delete myJunction;
+    // only continue we have undo-redo mode enabled
+    if (myJunction->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed()) {
+        myJunction->decRef("GNEChange_Junction");
+        if (myJunction->unreferenced()) {
+            delete myJunction;
+        }
     }
 }
 
@@ -54,22 +58,22 @@ GNEChange_Junction::~GNEChange_Junction() {
 void
 GNEChange_Junction::undo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myJunction->getTagStr() + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunction->unselectAttributeCarrier();
         }
-        // add junction to net
+        // delete junction from net
         myJunction->getNet()->getAttributeCarriers()->deleteSingleJunction(myJunction);
+        // remove element from parent and children
+        removeElementFromParentsAndChildren(myJunction);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myJunction->getTagStr() + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunction->selectAttributeCarrier();
         }
-        // delete junction from net
+        // add element in parent and children
+        addElementInParentsAndChildren(myJunction);
+        // insert junction in net
         myJunction->getNet()->getAttributeCarriers()->insertJunction(myJunction);
     }
     // enable save networkElements
@@ -80,23 +84,25 @@ GNEChange_Junction::undo() {
 void
 GNEChange_Junction::redo() {
     if (myForward) {
-        // show extra information for tests
-        WRITE_DEBUG("Adding " + myJunction->getTagStr() + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
         // select if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunction->selectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(myJunction);
         // add junction into net
         myJunction->getNet()->getAttributeCarriers()->insertJunction(myJunction);
     } else {
-        // show extra information for tests
-        WRITE_DEBUG("Removing " + myJunction->getTagStr() + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         // unselect if mySelectedElement is enabled
         if (mySelectedElement) {
             myJunction->unselectAttributeCarrier();
         }
+        // add element in parent and children
+        addElementInParentsAndChildren(myJunction);
         // delete junction from net
         myJunction->getNet()->getAttributeCarriers()->deleteSingleJunction(myJunction);
+        // remove element from parent and children
+        removeElementFromParentsAndChildren(myJunction);
     }
     // enable save networkElements
     myJunction->getNet()->getSavingStatus()->requireSaveNetwork();

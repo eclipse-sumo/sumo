@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -34,13 +34,15 @@ def fromVersionHeader():
     if not exists(versionFile):
         versionFile = join('src', 'version.h')
     if exists(versionFile):
-        version = open(versionFile).read().split()
+        with open(versionFile) as f:
+            version = f.read().split()
         if len(version) > 2:
             return version[2][1:-1]
     # try to find the version in the config.h
     configFile = join(dirname(__file__), '..', '..', 'src', 'config.h.cmake')
     if exists(configFile):
-        config = open(configFile).read()
+        with open(configFile) as f:
+            config = f.read()
         if "//#define HAVE_VERSION_H" in config:
             version = config.find("VERSION_STRING") + 16
             if version > 16:

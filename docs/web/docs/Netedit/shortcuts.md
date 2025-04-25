@@ -5,122 +5,122 @@ title: Shortcuts
 
 ## NETEDIT view shortcuts
 
-In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui.md#keyboard_shortcuts) there is a large number of netdit-specific shortcuts.
+In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui.md#keyboard_shortcuts) there is a large number of netedit-specific shortcuts.
 
 | Shortcut | |
 |:---:|:---:|
-| Ctrl + G | <span style="color:orange">Toggle grid |
-| Ctrl + PgUp | <span style="color:orange">Increase grid size |
-| Ctrl + PgDown | <span style="color:orange">Shrink grid size |
+| <kbd>Ctrl</kbd> + <kbd>G</kbd> | <span style="color:orange">Toggle grid |
+| <kbd>Ctrl</kbd> + <kbd>PgUp</kbd> | <span style="color:orange">Increase grid size |
+| <kbd>Ctrl</kbd> + <kbd>PgDown</kbd> | <span style="color:orange">Shrink grid size |
 
 ## NETEDIT mode shortcuts
 
 | Shortcut | Network mode | Demand Mode | Data Mode |
 |:---:|:---:|:-:|:---:|
-| A | <span style="color:orange">Additional mode | <span style="color:orange">Stop Mode | <span style="color:orange">- |
-| C | <span style="color:orange">Connection Mode | <span style="color:orange">Container mode | <span style="color:orange">Connection Data Mode |
-| D | <span style="color:orange">Delete Mode | <span style="color:orange">Delete Mode | <span style="color:orange">Delete Mode |
-| E | <span style="color:orange">Edge Mode | <span style="color:orange">- | <span style="color:orange">Edge Data Mode |
-| G | <span style="color:orange">- | <span style="color:orange">- | <span style="color:orange">- |
-| H | <span style="color:orange">Prohibition mode | <span style="color:orange">Container Plan mode | <span style="color:orange">- |
-| I | <span style="color:orange">Inspect Mode | <span style="color:orange">Inspect Mode | <span style="color:orange">Inspect Mode |
-| J | <span style="color:orange">- | <span style="color:orange">- | <span style="color:orange">Junction Data Mode |
-| L | <span style="color:orange">- | <span style="color:orange"> Person plan mode | <span style="color:orange">Lane Data Mode |
-| M | <span style="color:orange">Move Mode | <span style="color:orange">Move Mode | <span style="color:orange">- |
-| P | <span style="color:orange">Polygon Mode | <span style="color:orange">Person Mode | <span style="color:orange">- |
-| R | <span style="color:orange">Crossing Mode | <span style="color:orange">Route Mode | <span style="color:orange">Edge Rel Data Mode |
-| S | <span style="color:orange">Select Mode | <span style="color:orange">Select Mode | <span style="color:orange">Select Mode |
-| T | <span style="color:orange">Traffic Light Mode | <span style="color:orange">Type Mode | - |
-| V | <span style="color:orange">- | <span style="color:orange">Vehicle Mode | <span style="color:orange">- |
-| W | <span style="color:orange">Wire mode | <span style="color:orange">- | <span style="color:orange">- |
-| Z | <span style="color:orange">TAZ Mode | <span style="color:orange">- | <span style="color:orange">TAZ Data Mode |
-| F5 | <span style="color:orange">Recompute Network | <span style="color:orange">Recompute Demand | <span style="color:orange">Recompute Data |
-| F6 | <span style="color:orange">Clean Junctions | <span style="color:orange">Clean Routes | <span style="color:orange">Clean Data |
-| F7 | <span style="color:orange">Join selected junctions | <span style="color:orange">Join Routes | <span style="color:orange">Join Data |
-| F8 | <span style="color:orange">Clear invalid crossings | <span style="color:orange">Clear invalid demand elements | <span style="color:orange">clear invalid data elements |
+| <kbd>A</kbd> | <span style="color:orange">Additional mode | <span style="color:orange">Stop Mode | <span style="color:orange">- |
+| <kbd>C</kbd> | <span style="color:orange">Connection Mode | <span style="color:orange">Container mode | <span style="color:orange">Connection Data Mode |
+| <kbd>D</kbd> | <span style="color:orange">Delete Mode | <span style="color:orange">Delete Mode | <span style="color:orange">Delete Mode |
+| <kbd>E</kbd> | <span style="color:orange">Edge Mode | <span style="color:orange">- | <span style="color:orange">Edge Data Mode |
+| <kbd>G</kbd> | <span style="color:orange">- | <span style="color:orange">- | <span style="color:orange">- |
+| <kbd>H</kbd> | <span style="color:orange">Prohibition mode | <span style="color:orange">Container Plan mode | <span style="color:orange">- |
+| <kbd>I</kbd> | <span style="color:orange">Inspect Mode | <span style="color:orange">Inspect Mode | <span style="color:orange">Inspect Mode |
+| <kbd>J</kbd> | <span style="color:orange">- | <span style="color:orange">- | <span style="color:orange">Junction Data Mode |
+| <kbd>L</kbd> | <span style="color:orange">- | <span style="color:orange"> Person plan mode | <span style="color:orange">Lane Data Mode |
+| <kbd>M</kbd> | <span style="color:orange">Move Mode | <span style="color:orange">Move Mode | <span style="color:orange">- |
+| <kbd>P</kbd> | <span style="color:orange">Polygon Mode | <span style="color:orange">Person Mode | <span style="color:orange">- |
+| <kbd>R</kbd> | <span style="color:orange">Crossing Mode | <span style="color:orange">Route Mode | <span style="color:orange">Edge Rel Data Mode |
+| <kbd>S</kbd> | <span style="color:orange">Select Mode | <span style="color:orange">Select Mode | <span style="color:orange">Select Mode |
+| <kbd>T</kbd> | <span style="color:orange">Traffic Light Mode | <span style="color:orange">Type Mode | - |
+| <kbd>V</kbd> | <span style="color:orange">- | <span style="color:orange">Vehicle Mode | <span style="color:orange">- |
+| <kbd>W</kbd> | <span style="color:orange">Wire mode | <span style="color:orange">- | <span style="color:orange">- |
+| <kbd>Z</kbd> | <span style="color:orange">TAZ Mode | <span style="color:orange">- | <span style="color:orange">TAZ Data Mode |
+| <kbd>F5</kbd> | <span style="color:orange">Recompute Network | <span style="color:orange">Recompute Demand | <span style="color:orange">Recompute Data |
+| <kbd>F6</kbd> | <span style="color:orange">Clean Junctions | <span style="color:orange">Clean Routes | <span style="color:orange">Clean Data |
+| <kbd>F7</kbd> | <span style="color:orange">Join selected junctions | <span style="color:orange">Join Routes | <span style="color:orange">Join Data |
+| <kbd>F8</kbd> | <span style="color:orange">Clear invalid crossings | <span style="color:orange">Clear invalid demand elements | <span style="color:orange">clear invalid data elements |
 
 ## NETEDIT basic shortcuts
 
 | Shortcut | |
 |:---:|:---:|
-| ENTER | <span style="color:orange">Accept/create |
-| ESC | <span style="color:orange">Abort |
-| TAB | <span style="color:orange">Jump to next Element |
-| F1 | <span style="color:orange">Online documentation |
-| F2 | <span style="color:orange">Supermode Network |
-| F3 | <span style="color:orange">Supermode Demand |
-| F4 | <span style="color:orange">Supermode Data |
-| F9 | <span style="color:orange">Visualization settings |
-| F10 | <span style="color:orange">Open Options dialog |
-| F11 | <span style="color:orange">Set / Clear front element |
-| F12 | <span style="color:orange">About dialog |
+| <kbd>ENTER</kbd> | <span style="color:orange">Accept/create |
+| <kbd>ESC</kbd> | <span style="color:orange">Abort |
+| <kbd>TAB</kbd> | <span style="color:orange">Jump to next Element |
+| <kbd>F1</kbd> | <span style="color:orange">Online documentation |
+| <kbd>F2</kbd> | <span style="color:orange">Supermode Network |
+| <kbd>F3</kbd> | <span style="color:orange">Supermode Demand |
+| <kbd>F4</kbd> | <span style="color:orange">Supermode Data |
+| <kbd>F9</kbd> | <span style="color:orange">Visualization settings |
+| <kbd>F10</kbd> | <span style="color:orange">Open Options dialog |
+| <kbd>F11</kbd> | <span style="color:orange">Set / Clear front element |
+| <kbd>F12</kbd> | <span style="color:orange">About dialog |
 
 ## NETEDIT control shortcuts
 
 | Shortcut | |
 |:---:|:---:|
-| Ctrl + A | <span style="color:orange">Load additional elements |
-| Ctrl + B | <span style="color:orange">Load data elements |
-| Ctrl + C | <span style="color:orange">Copy |
-| Ctrl + D | <span style="color:orange">Load demand elements |
-| Ctrl + H | <span style="color:orange">Load edge type elements |
-| Ctrl + I | <span style="color:orange">Edit view port |
-| Ctrl + J | <span style="color:orange">Show junction shape |
-| Ctrl + K | <span style="color:orange">Load traffic lights |
-| Ctrl + L | <span style="color:orange">Save plain XML |
-| Ctrl + N | <span style="color:orange">New network |
-| Ctrl + Q | <span style="color:orange">Close SUMO/NETEDIT |
-| Ctrl + R | <span style="color:orange">Reload network |
-| Ctrl + S | <span style="color:orange">Save network |
-| Ctrl + T | <span style="color:orange">Toggle between SUMO/NETEDIT |
-| Ctrl + V | <span style="color:orange">Paste |
-| Ctrl + W | <span style="color:orange">Close Net |
-| Ctrl + X | <span style="color:orange">Cut |
-| Ctrl + Y | <span style="color:orange">Redo |
-| Ctrl + Z | <span style="color:orange">Undo |
-| Ctrl + F5 | <span style="color:orange">Volatile recomputing |
-| Ctrl + F7 | <span style="color:orange">Adjust person plans|
+| <kbd>Ctrl</kbd> + <kbd>A</kbd> | <span style="color:orange">Load additional elements |
+| <kbd>Ctrl</kbd> + <kbd>B</kbd> | <span style="color:orange">Load data elements |
+| <kbd>Ctrl</kbd> + <kbd>C</kbd> | <span style="color:orange">Copy |
+| <kbd>Ctrl</kbd> + <kbd>D</kbd> | <span style="color:orange">Load demand elements |
+| <kbd>Ctrl</kbd> + <kbd>H</kbd> | <span style="color:orange">Load edge type elements |
+| <kbd>Ctrl</kbd> + <kbd>I</kbd> | <span style="color:orange">Edit view port |
+| <kbd>Ctrl</kbd> + <kbd>J</kbd> | <span style="color:orange">Show junction shape |
+| <kbd>Ctrl</kbd> + <kbd>K</kbd> | <span style="color:orange">Load traffic lights |
+| <kbd>Ctrl</kbd> + <kbd>L</kbd> | <span style="color:orange">Save plain XML |
+| <kbd>Ctrl</kbd> + <kbd>N</kbd> | <span style="color:orange">New network |
+| <kbd>Ctrl</kbd> + <kbd>Q</kbd> | <span style="color:orange">Close SUMO/NETEDIT |
+| <kbd>Ctrl</kbd> + <kbd>R</kbd> | <span style="color:orange">Reload network |
+| <kbd>Ctrl</kbd> + <kbd>S</kbd> | <span style="color:orange">Save network |
+| <kbd>Ctrl</kbd> + <kbd>T</kbd> | <span style="color:orange">Toggle between SUMO/NETEDIT |
+| <kbd>Ctrl</kbd> + <kbd>V</kbd> | <span style="color:orange">Paste |
+| <kbd>Ctrl</kbd> + <kbd>W</kbd> | <span style="color:orange">Close Net |
+| <kbd>Ctrl</kbd> + <kbd>X</kbd> | <span style="color:orange">Cut |
+| <kbd>Ctrl</kbd> + <kbd>Y</kbd> | <span style="color:orange">Redo |
+| <kbd>Ctrl</kbd> + <kbd>Z</kbd> | <span style="color:orange">Undo |
+| <kbd>Ctrl</kbd> + <kbd>F5</kbd> | <span style="color:orange">Volatile recomputing |
+| <kbd>Ctrl</kbd> + <kbd>F7</kbd> | <span style="color:orange">Adjust person plans|
 
 ## NETEDIT locate shortcuts
 
 | Shortcut | |
 |:---:|:---:|
-| Shift + A | <span style="color:orange">Locate Additionals |
-| Shift + E | <span style="color:orange">Locate Edges |
-| Shift + J | <span style="color:orange">Locate Junctions |
-| Shift + L | <span style="color:orange">Locate Polygons |
-| Shift + O | <span style="color:orange">Locate POIs |
-| Shift + R | <span style="color:orange">Locate Routes |
-| Shift + S | <span style="color:orange">Locate Stops |
-| Shift + T | <span style="color:orange">Locate TLS |
-| Shift + V | <span style="color:orange">Locate Vehicles |
+| <kbd>Shift</kbd> + <kbd>A</kbd> | <span style="color:orange">Locate Additionals |
+| <kbd>Shift</kbd> + <kbd>E</kbd> | <span style="color:orange">Locate Edges |
+| <kbd>Shift</kbd> + <kbd>J</kbd> | <span style="color:orange">Locate Junctions |
+| <kbd>Shift</kbd> + <kbd>L</kbd> | <span style="color:orange">Locate Polygons |
+| <kbd>Shift</kbd> + <kbd>O</kbd> | <span style="color:orange">Locate POIs |
+| <kbd>Shift</kbd> + <kbd>R</kbd> | <span style="color:orange">Locate Routes |
+| <kbd>Shift</kbd> + <kbd>S</kbd> | <span style="color:orange">Locate Stops |
+| <kbd>Shift</kbd> + <kbd>T</kbd> | <span style="color:orange">Locate TLS |
+| <kbd>Shift</kbd> + <kbd>V</kbd> | <span style="color:orange">Locate Vehicles |
 
 ## NETEDIT save elements shortcuts
 
 | Shortcut |  |
 |:---:|:---:|
-| Control + Shift + A | <span style="color:orange">Save Additional Elements |
-| Control + Shift + B | <span style="color:orange">Save Data Elements |
-| Control + Shift + D | <span style="color:orange">Save Demand Elements |
-| Control + Shift + H | <span style="color:orange">Save Edge Type Elements |
-| Control + Shift + K | <span style="color:orange">Save Traffic Lights |
-| Control + Shift + N | <span style="color:orange">Save Network |
-| Control + Shift + O | <span style="color:orange">New window |
-| Control + Shift + R | <span style="color:orange">Force Save Network (Flag) |
-| Control + Shift + S | <span style="color:orange">Force Save Additional (Flag) |
-| Control + Shift + T | <span style="color:orange">Force Save Demand Elements (Flag) |
-| Control + Shift + U | <span style="color:orange">Force Save Data elements (Flag) |
-| Control + Shift + F12 | <span style="color:orange">Save Geometry for testing |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd> | <span style="color:orange">Save Additional Elements |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> | <span style="color:orange">Save Data Elements |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | <span style="color:orange">Save Demand Elements |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd> | <span style="color:orange">Save Edge Type Elements |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | <span style="color:orange">Save Traffic Lights |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | <span style="color:orange">Save Network |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd> | <span style="color:orange">New window |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> | <span style="color:orange">Force Save Network (Flag) |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | <span style="color:orange">Force Save Additional (Flag) |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd> | <span style="color:orange">Force Save Demand Elements (Flag) |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd> | <span style="color:orange">Force Save Data elements (Flag) |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F12</kbd> | <span style="color:orange">Save Geometry for testing |
 
 ## NETEDIT miscellaneous shortcuts
 
 | Shortcut | |
 |:---:|:---:|
-| Alt + 0-9 | <span style="color:orange">Toggle view / edit checkbox option |
-| Shift + TAB | <span style="color:orange">Jump to previous Element |
-| Shift + F1 | <span style="color:orange">Copy Edge template |
-| Shift + F2 | <span style="color:orange">Set Edge template |
-| Shift + F3 | <span style="color:orange">Clear Edge template |
-| Shift + F5 | <span style="color:orange">Compute Junction (volatile) |
-| Shift + F7 | <span style="color:orange">Adjust Person Plan |
-| Shift + F12 | <span style="color:orange">Focus upper element |
+| <kbd>Alt</kbd> + 0-9 | <span style="color:orange">Toggle view / edit checkbox option |
+| <kbd>Shift</kbd> + <kbd>TAB</kbd> | <span style="color:orange">Jump to previous Element |
+| <kbd>Shift</kbd> + <kbd>F1</kbd> | <span style="color:orange">Copy Edge template |
+| <kbd>Shift</kbd> + <kbd>F2</kbd> | <span style="color:orange">Set Edge template |
+| <kbd>Shift</kbd> + <kbd>F3</kbd> | <span style="color:orange">Clear Edge template |
+| <kbd>Shift</kbd> + <kbd>F5</kbd> | <span style="color:orange">Compute Junction (volatile) |
+| <kbd>Shift</kbd> + <kbd>F7</kbd> | <span style="color:orange">Adjust Person Plan |
+| <kbd>Shift</kbd> + <kbd>F12</kbd> | <span style="color:orange">Focus upper element |

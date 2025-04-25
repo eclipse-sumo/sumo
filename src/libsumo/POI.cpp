@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -160,8 +160,7 @@ POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, 
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     bool ok = shapeCont.addPOI(poiID, poiType, Helper::makeRGBColor(color),
                                Position(x, y), false, "", 0, false, 0, icon, layer,
-                               angle, imgFile, Shape::DEFAULT_RELATIVEPATH,
-                               width, height);
+                               angle, imgFile, width, height);
     if (ok && myTree != nullptr) {
         PointOfInterest* p = shapeCont.getPOIs().get(poiID);
         const float cmin[2] = {(float)p->x(), (float)p->y()};

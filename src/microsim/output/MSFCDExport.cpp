@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,6 +40,7 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
+#include <mesosim/MEVehicle.h>
 #include "MSFCDExport.h"
 
 
@@ -54,7 +55,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     if ((period > 0 && (timestep - begin) % period != 0) || timestep < begin) {
         return;
     }
-    const long long int mask = MSDevice_FCD::getWrittenAttributes();
+    const SumoXMLAttrMask mask = MSDevice_FCD::getWrittenAttributes();
     const bool maskSet = oc.isSet("fcd-output.attributes");
     const bool useGeo = oc.getBool("fcd-output.geo");
     const bool signals = oc.getBool("fcd-output.signals") || (maskSet && of.useAttribute(SUMO_ATTR_SIGNALS, mask));
@@ -126,8 +127,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 if (writeDistance) {
                     double lanePos = veh->getPositionOnLane();
                     if (microVeh != nullptr && microVeh->getLane()->isInternal()) {
-                        lanePos = microVeh->getRoute().getDistanceBetween(0, lanePos, microVeh->getEdge(), &microVeh->getLane()->getEdge(),
-                                  true, microVeh->getRoutePosition());
+                        lanePos = microVeh->getRoute().getDistanceBetween(0., lanePos, microVeh->getEdge()->getLanes()[0], microVeh->getLane(),
+                                  microVeh->getRoutePosition());
                     }
                     of.writeOptionalAttr(SUMO_ATTR_DISTANCE, veh->getEdge()->getDistanceAt(lanePos), mask);
                 }
@@ -154,6 +155,22 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                     if (value != "") {
                         of.writeAttr(StringUtils::escapeXML(key), StringUtils::escapeXML(value));
                     }
+                }
+                if (of.useAttribute(SUMO_ATTR_ARRIVALDELAY, mask)) {
+                    double arrivalDelay = baseVeh->getStopArrivalDelay();
+                    if (arrivalDelay == INVALID_DOUBLE) {
+                        // no upcoming stop also means that there is no delay
+                        arrivalDelay = 0;
+                    }
+                    of.writeOptionalAttr(SUMO_ATTR_ARRIVALDELAY, arrivalDelay, mask);
+                }
+                if (MSGlobals::gUseMesoSim) {
+                    const MEVehicle* mesoVeh = dynamic_cast<const MEVehicle*>(veh);
+                    of.writeOptionalAttr(SUMO_ATTR_SEGMENT, mesoVeh->getSegmentIndex(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_QUEUE, mesoVeh->getQueIndex(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_ENTRYTIME, mesoVeh->getLastEntryTimeSeconds(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_EVENTTIME, mesoVeh->getEventTimeSeconds(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_BLOCKTIME, mesoVeh->getBlockTime() == SUMOTime_MAX ? -1.0 : mesoVeh->getBlockTimeSeconds(), mask);
                 }
                 of.closeTag();
             }
@@ -223,7 +240,7 @@ MSFCDExport::hasOwnOutput(const MSTransportable* p, bool filter, bool shapeFilte
 void
 MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, const SUMOVehicle* v,
                                 bool filter, bool shapeFilter, bool inRadius,
-                                SumoXMLTag tag, bool useGeo, bool elevation, long long int mask) {
+                                SumoXMLTag tag, bool useGeo, bool elevation, SumoXMLAttrMask mask) {
     if (!hasOwnOutput(p, filter, shapeFilter, inRadius)) {
         return;
     }
@@ -245,6 +262,7 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportab
     of.writeOptionalAttr(SUMO_ATTR_EDGE, e->getID(), mask);
     of.writeOptionalAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()), mask);
     of.writeOptionalAttr(SUMO_ATTR_VEHICLE, v == nullptr ? "" : v->getID(), mask);
+    of.writeOptionalAttr(SUMO_ATTR_TYPE, p->getVehicleType().getID(), mask);
     of.closeTag();
 }
 

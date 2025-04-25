@@ -1,0 +1,6 @@
+Warning: Railsignal-deadlock will not be detected because time-to-teleport (150.00) is lower than time-to-teleport.railsignal-deadlock (200.00).
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Teleporting vehicle 't2'; waited too long, from edge 'a':0, time=178.20.
+Warning: Teleporting vehicle 't3'; waited too long, from edge '-g':0, time=178.20.
+Warning: Vehicle 't2' ends teleporting on edge 'c':0, time=185.40.
+Warning: Vehicle 't3' ends teleporting on edge '-e2':0, time=185.40.

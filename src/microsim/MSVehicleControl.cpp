@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,7 @@
 #include "MSEdge.h"
 #include "MSNet.h"
 #include "MSRouteHandler.h"
+#include "MSEventControl.h"
 #include "MSStop.h"
 #include <microsim/devices/MSVehicleDevice.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
@@ -65,6 +66,7 @@ MSVehicleControl::MSVehicleControl() :
 
     initDefaultTypes();
     myScale = OptionsCont::getOptions().getFloat("scale");
+    myKeepTime = string2time(OptionsCont::getOptions().getString("keep-after-arrival"));
 }
 
 
@@ -94,7 +96,7 @@ MSVehicleControl::initDefaultTypes() {
     defRailType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_RAILTYPE_ID] = MSVehicleType::build(defRailType);
 
-    SUMOVTypeParameter defContainerType(DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
+    SUMOVTypeParameter defContainerType(DEFAULT_CONTAINERTYPE_ID, SVC_CONTAINER);
     // ISO Container TEU (cannot set this based on vClass)
     defContainerType.length = 6.1;
     defContainerType.width = 2.4;
@@ -109,19 +111,21 @@ MSVehicleControl::initDefaultTypes() {
 SUMOVehicle*
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                ConstMSRoutePtr route, MSVehicleType* type,
-                               const bool ignoreStopErrors, const bool fromRouteFile, bool addRouteStops) {
-    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
-    initVehicle(built, ignoreStopErrors, addRouteStops);
+                               const bool ignoreStopErrors, const VehicleDefinitionSource source, bool addRouteStops) {
+    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(source == VehicleDefinitionSource::ROUTEFILE || source == VehicleDefinitionSource::STATE ? MSRouteHandler::getParsingRNG() : nullptr));
+    initVehicle(built, ignoreStopErrors, addRouteStops, source);
     return built;
 }
 
 
 void
-MSVehicleControl::initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops) {
+MSVehicleControl::initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors, bool addRouteStops, const VehicleDefinitionSource source) {
     myLoadedVehNo++;
     try {
         built->initDevices();
-        built->addStops(ignoreStopErrors, nullptr, addRouteStops);
+        if (source != VehicleDefinitionSource::STATE) {
+            built->addStops(ignoreStopErrors, nullptr, addRouteStops);
+        }
     } catch (ProcessError&) {
         delete built;
         throw;
@@ -171,7 +175,11 @@ MSVehicleControl::removePending() {
             // close tag after tripinfo (possibly including emissions from another device) have been written
             tripinfoOut->closeTag();
         }
-        deleteVehicle(veh);
+        if (myKeepTime == 0) {
+            deleteVehicle(veh);
+        } else {
+            deleteKeptVehicle(veh);
+        }
     }
     vehs.clear();
     if (tripinfoOut != nullptr) {
@@ -183,6 +191,12 @@ MSVehicleControl::removePending() {
 #endif
 }
 
+
+void
+MSVehicleControl::deleteKeptVehicle(SUMOVehicle* veh) {
+    myEndedVehNo++;
+    MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(new DeleteKeptVehicle(veh), SIMSTEP + myKeepTime);
+}
 
 void
 MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
@@ -332,10 +346,12 @@ MSVehicleControl::getVehicle(const std::string& id) const {
 
 
 void
-MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
-    myEndedVehNo++;
-    if (discard) {
-        myDiscarded++;
+MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard, bool wasKept) {
+    if (!wasKept) {
+        myEndedVehNo++;
+        if (discard) {
+            myDiscarded++;
+        }
     }
     if (veh != nullptr) {
         myVehicleDict.erase(veh->getID());
@@ -573,5 +589,14 @@ MSVehicleControl::adaptIntermodalRouter(MSTransportableRouter& router) const {
     }
 }
 
+// ===========================================================================
+// MSVehicleControl::DeleteKeptVehicle method definitions
+// ===========================================================================
+
+SUMOTime
+MSVehicleControl::DeleteKeptVehicle::execute(SUMOTime /*currentTime*/) {
+    MSNet::getInstance()->getVehicleControl().deleteVehicle(myVehicle, false, true);
+    return 0;
+}
 
 /****************************************************************************/

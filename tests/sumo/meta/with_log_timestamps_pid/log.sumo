@@ -1,5 +1,6 @@
-[2023-09-10 15:35:10.246] [PID: 504425] Loading net-file from 'net.net.xml' ... done (1ms).
-[2023-09-10 15:35:10.247] [PID: 504425] Loading done.
-[2023-09-10 15:35:10.258] [PID: 504425] Simulation version v1_18_0+1478-9621c80b0d6 started with time: 0.00.
-[2023-09-10 15:35:10.259] [PID: 504425] Simulation ended at time: 100.00
-[2023-09-10 15:35:10.259] [PID: 504425] Reason: The final simulation step has been reached.
+[2024-12-20 14:27:55.753] [PID: 4113205] Loading net-file from 'net.net.xml' ... done (1ms).
+[2024-12-20 14:27:55.754] [PID: 4113205] Loading route-files incrementally from 'input_routes.rou.xml'
+[2024-12-20 14:27:55.754] [PID: 4113205] Loading done.
+[2024-12-20 14:27:55.760] [PID: 4113205] Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+[2024-12-20 14:27:55.760] [PID: 4113205] Simulation ended at time: 100.00.
+[2024-12-20 14:27:55.760] [PID: 4113205] Reason: The final simulation step has been reached.

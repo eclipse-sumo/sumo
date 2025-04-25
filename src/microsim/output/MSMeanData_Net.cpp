@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,8 +43,9 @@
 //#define DEBUG_OCCUPANCY
 //#define DEBUG_OCCUPANCY2
 //#define DEBUG_NOTIFY_ENTER
-//#define DEBUG_COND (veh.getLane()->getID() == "31to211_0")
-#define DEBUG_COND (false)
+//#define DEBUG_COND (veh.getLane()->getID() == "")
+//#define DEBUG_COND (false)
+//#define DEBUG_COND2 (veh.getEdge()->getID() == "")
 
 
 // ===========================================================================
@@ -90,6 +91,7 @@ MSMeanData_Net::MSLaneMeanDataValues::reset(bool) {
     vehLengthSum = 0;
     occupationSum = 0;
     minimalVehicleLength = INVALID_DOUBLE;
+    resetTime = SIMSTEP;
 }
 
 
@@ -129,9 +131,9 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     const double travelledDistanceVehicleOnLane,
     const double meanLengthOnLane) {
 #ifdef DEBUG_OCCUPANCY
-    if (DEBUG_COND) {
+    if (DEBUG_COND2) {
         std::cout << SIMTIME << "\n  MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal()\n"
-                  << "  veh '" << veh.getID() << "' on lane '" << veh.getLane()->getID() << "'"
+                  << "  veh '" << veh.getID() << "' on edge '" << veh.getEdge()->getID() << "'"
                   << ", timeOnLane=" << timeOnLane
                   << ", meanSpeedVehicleOnLane=" << meanSpeedVehicleOnLane
                   << ",\ntravelledDistanceFrontOnLane=" << travelledDistanceFrontOnLane
@@ -159,6 +161,8 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     if (!veh.isStopped()) {
         if (myParent != nullptr && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
             waitSeconds += timeOnLane;
+        } else if (MSGlobals::gUseMesoSim) {
+            waitSeconds += STEPS2TIME(veh.getWaitingTime());
         }
         const double vmax = veh.getLane() == nullptr ? veh.getEdge()->getVehicleMaxSpeed(&veh) : veh.getLane()->getVehicleMaxSpeed(&veh);
         if (vmax > 0) {
@@ -241,17 +245,24 @@ MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const {
            && nVehLeft == 0 && nVehVaporized == 0 && nVehTeleported == 0 && nVehLaneChangeFrom == 0 && nVehLaneChangeTo == 0;
 }
 
+double
+MSMeanData_Net::MSLaneMeanDataValues::getOccupancy(SUMOTime period, int numLanes) const {
+    return occupationSum / STEPS2TIME(period) / myLaneLength / (double)numLanes * 100.;
+}
 
 void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-        const double numLanes, const double speedLimit, const double defaultTravelTime, const int numVehicles) const {
+        const int numLanes, const double speedLimit, const double defaultTravelTime, const int numVehicles) const {
 
-    const double density = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
-                                1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
-    const double laneDensity = density / numLanes;
+    double density = sampleSeconds / STEPS2TIME(period) * 1000. / myLaneLength;
+    if (MSGlobals::gLateralResolution < 0) {
+        // avoid exceeding upper bound
+        density = MIN2(density, 1000 * (double)numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+    }
+    const double laneDensity = density / (double)numLanes;
+    const double occupancy = getOccupancy(period, numLanes);
 #ifdef DEBUG_OCCUPANCY2
     // tests #3264
-    double occupancy = occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100;
     if (occupancy > 100) {
         std::cout << SIMTIME << " Encountered bad occupancy: " << occupancy
                   << ", myLaneLength=" << myLaneLength << ", period=" << STEPS2TIME(period) << ", occupationSum=" << occupationSum
@@ -266,7 +277,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
         if (sampleSeconds > 0) {
             dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupancy, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);
@@ -309,7 +320,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
             dev.writeOptionalAttr(SUMO_ATTR_OVERLAPTRAVELTIME, overlapTraveltime, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupancy, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);

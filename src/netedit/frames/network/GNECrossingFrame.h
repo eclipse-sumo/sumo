@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,8 +26,6 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
-class GNECrossing;
 
 // ===========================================================================
 // class definitions
@@ -96,8 +94,6 @@ public:
         /// @brief called when clear selection button is pressed
         long onCmdClearSelection(FXObject*, FXSelector, void*);
 
-        /// @brief called when invert selection button is pressed
-        long onCmdInvertSelection(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -113,9 +109,6 @@ public:
 
         /// @brief button for clear selection
         FXButton* myClearEdgesSelection;
-
-        /// @brief button for invert selection
-        FXButton* myInvertEdgesSelection;
 
         /// @brief current Junction
         GNEJunction* myCurrentJunction;
@@ -151,9 +144,6 @@ public:
         /// @brief clear edges
         void clearEdges();
 
-        /// @brief invert edges
-        void invertEdges(GNEJunction* parentJunction);
-
         /// @brief use selected eges
         void useSelectedEdges(GNEJunction* parentJunction);
 
@@ -185,9 +175,6 @@ public:
     private:
         /// @brief pointer to GNECrossingFrame parent
         GNECrossingFrame* myCrossingFrameParent;
-
-        /// @brief crossing template
-        GNECrossing* myCrossingTemplate;
 
         /// @brief current selected edges
         std::vector<GNEEdge*> myCurrentSelectedEdges;
@@ -292,6 +279,9 @@ public:
 
     /// @brief clear edges (used when user press ESC key in Crossing mode)
     void clearEdgesHotkey();
+
+    /// @brief get edge selector modul
+    GNECrossingFrame::EdgesSelector* getEdgesSelector() const;
 
 protected:
     /// @brief FOX need this

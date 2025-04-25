@@ -12,3 +12,9 @@ phemlight
 
 # PHEMlight V5 model
 phemlight5
+
+# default electric vehicle model
+energy
+
+# electric vehicle model with custom parameters
+energy_custom

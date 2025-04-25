@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,10 +32,10 @@
 // member definitions
 // ===========================================================================
 SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type, const RGBColor& color,
-                         const PositionVector& shape, bool geo, bool fill,
-                         double lineWidth, double layer, double angle, const std::string& imgFile, bool relativePath,
-                         const std::string& name, const Parameterised::Map& parameters) :
-    Shape(id, type, color, layer, angle, imgFile, name, relativePath),
+                         const PositionVector& shape, bool geo, bool fill, double lineWidth,
+                         double layer, double angle, const std::string& imgFile, const std::string& name,
+                         const Parameterised::Map& parameters) :
+    Shape(id, type, color, layer, angle, imgFile, name),
     Parameterised(parameters),
     myShape(shape),
     myGEO(geo),
@@ -124,14 +124,7 @@ SUMOPolygon::writeXML(OutputDevice& out, bool geo) const {
         out.writeAttr(SUMO_ATTR_ANGLE, getShapeNaviDegree());
     }
     if (getShapeImgFile() != Shape::DEFAULT_IMG_FILE) {
-        if (getShapeRelativePath()) {
-            // write only the file name, without file path
-            std::string file = getShapeImgFile();
-            file.erase(0, FileHelpers::getFilePath(getShapeImgFile()).size());
-            out.writeAttr(SUMO_ATTR_IMGFILE, file);
-        } else {
-            out.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
-        }
+        out.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
     }
     writeParams(out);
     out.closeTag();

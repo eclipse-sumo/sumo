@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2018-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2018-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,6 +40,10 @@ template<typename T = FX::FXMutex, bool IGNORE_COND = false>
 class ScopedLocker {
 
 public:
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4127) // mask warning about constant condition
+#endif
     /// Construct & lock associated mutex if the condition is true
     ScopedLocker(T& m, const bool condition = true)
         : myMutex(m), myCondition(condition) {
@@ -54,6 +58,9 @@ public:
             myMutex.unlock();
         }
     }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 private:
     T& myMutex;

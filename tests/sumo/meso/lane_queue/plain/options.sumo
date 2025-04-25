@@ -1,1 +1,3 @@
 --meso-lane-queue --vehroute-output=vehroutes.xml --no-step-log --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml
+--fcd-output fcd.xml
+--fcd-output.attributes edge,pos,segment,queue,entryTime,eventTime,blockTime

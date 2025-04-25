@@ -1,0 +1,13 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <trip id="v1" depart="triggered" departPos="0" from="WC" to="WC">
+        <stop edge="CE" triggered="person" endPos="50"/>
+    </trip>
+    <person id="p1" depart="0">
+        <ride from="WC" to="CE" lines="v1" arrivalPos="50"/>
+        <walk to="CE" arrivalPos="80"/>
+        <stop edge="CE" duration="100"/>
+        <walk to="CE" arrivalPos="48"/>
+        <ride from="CE" to="WC" lines="v1"/>
+    </person>
+</routes>

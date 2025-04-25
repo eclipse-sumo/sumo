@@ -13,6 +13,7 @@ The aim of the model is to correctly replicate submicroscopic acceleration profi
 
 - The model is intended to run with subsecond timesteps (0.05-0.5s). The model will produce unwanted emergency braking and collisions at higher step-lengths.
 - The EIDM uses lower safe gaps than the IDM (e.g. when changing lanes).
+- The EIDM may exceed the [lane speed limit](../Simulation/VehicleSpeed.md#edgelane_speed_and_speedfactor) (including the speedFactor) temporarily.
 - The model is based on the Improved Intelligent Driver Model, which can currently not be changed via parameters (e.g. to the IDM as base model).
 - The model is still in development, future releases may include:
     - spatial anticipation
@@ -27,6 +28,9 @@ The aim of the model is to correctly replicate submicroscopic acceleration profi
 !!! caution
     The model was not tested with option **--step-method.ballistic**. The author recommends to lower the step length to increase the realism of positional updates instead.
 
+!!! caution
+    The model is not compatible with the [actionSteps](../Car-Following-Models.md#actionsteplength) feature.
+ 
 ## References
 
 1. ["Extending the Intelligent Driver Model in SUMO and Verifying the Drive Off Trajectories with Aerial Measurements"](https://sumo.dlr.de/2020/SUMO2020_paper_28.pdf);

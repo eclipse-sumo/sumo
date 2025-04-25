@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-17 09:30:19 by Eclipse SUMO sumo Version v1_12_0+1410-8b2a08b68af
+<!-- generated on 2024-06-26 13:47:14 by Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -29,9 +29,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -41,9 +39,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.taxi.dispatch-algorithm.output value="dispatchinfos.xml"/>
     </taxi_device>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <DispatchInfo>
-    <dispatchShared time="60.00" id="trip_0" persons="p1" sharingPersons="p3 p1 p3 p1" type="routeExtension"/>
+    <dispatchShared time="60.00" id="trip_1" persons="p1" sharingPersons="p3 p1 p3 p1" type="routeExtension"/>
+    <dispatchShared time="360.00" id="trip_1" persons="p4" sharingPersons="p4 p6 p4 p6" type="routeExtension"/>
 </DispatchInfo>

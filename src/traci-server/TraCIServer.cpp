@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -49,7 +49,6 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/xml/XMLSubSys.h>
-#include <libsumo/Helper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
@@ -60,6 +59,8 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <libsumo/Helper.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/Simulation.h>
 #include <libsumo/Subscription.h>
 #include <libsumo/TraCIConstants.h>
@@ -114,6 +115,24 @@ TraCIServer::initWrapper(const int domainID, const int variable, const std::stri
     myWrapperStorage.writeUnsignedByte(domainID);
     myWrapperStorage.writeUnsignedByte(variable);
     myWrapperStorage.writeString(objID);
+}
+
+
+bool
+TraCIServer::wrapConnectionVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIConnection>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 8);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCIConnection& c : value) {
+        StoHelp::writeTypedString(myWrapperStorage, c.approachedLane);
+        StoHelp::writeTypedString(myWrapperStorage, c.approachedInternal);
+        StoHelp::writeTypedUnsignedByte(myWrapperStorage, c.hasPrio);
+        StoHelp::writeTypedUnsignedByte(myWrapperStorage, c.isOpen);
+        StoHelp::writeTypedUnsignedByte(myWrapperStorage, c.hasFoe);
+        StoHelp::writeTypedString(myWrapperStorage, c.state);
+        StoHelp::writeTypedString(myWrapperStorage, c.direction);
+        StoHelp::writeTypedDouble(myWrapperStorage, c.length);
+    }
+    return true;
 }
 
 
@@ -200,24 +219,218 @@ TraCIServer::wrapColor(const std::string& /* objID */, const int /* variable */,
 
 bool
 TraCIServer::wrapStringDoublePair(const std::string& /* objID */, const int /* variable */, const std::pair<std::string, double>& value) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    myWrapperStorage.writeInt(2);
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    myWrapperStorage.writeString(value.first);
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    myWrapperStorage.writeDouble(value.second);
+    StoHelp::writeCompound(myWrapperStorage, 2);
+    StoHelp::writeTypedString(myWrapperStorage, value.first);
+    StoHelp::writeTypedDouble(myWrapperStorage, value.second);
+    return true;
+}
+
+
+bool
+TraCIServer::wrapStringDoublePairList(const std::string& /* objID */, const int /* variable */, const std::vector<std::pair<std::string, double> >& value) {
+    StoHelp::writeCompound(myWrapperStorage, (int)value.size());
+    for (const auto& p : value) {
+        myWrapperStorage.writeString(p.first);
+        myWrapperStorage.writeDouble(p.second);
+    }
     return true;
 }
 
 
 bool
 TraCIServer::wrapStringPair(const std::string& /* objID */, const int /* variable */, const std::pair<std::string, std::string>& value) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    myWrapperStorage.writeInt(2);
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    myWrapperStorage.writeString(value.first);
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    myWrapperStorage.writeString(value.second);
+    StoHelp::writeCompound(myWrapperStorage, 2);
+    StoHelp::writeTypedString(myWrapperStorage, value.first);
+    StoHelp::writeTypedString(myWrapperStorage, value.second);
+    return true;
+}
+
+
+bool
+TraCIServer::wrapIntPair(const std::string& /* objID */, const int /* variable */, const std::pair<int, int>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 2);
+    StoHelp::writeTypedInt(myWrapperStorage, value.first);
+    StoHelp::writeTypedInt(myWrapperStorage, value.second);
+    return true;
+}
+
+
+bool
+TraCIServer::wrapStage(const std::string& /* objID */, const int /* variable */, const libsumo::TraCIStage& value) {
+    StoHelp::writeStage(myWrapperStorage, value);
+    return true;
+}
+
+
+bool
+TraCIServer::wrapReservationVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIReservation>& value) {
+    StoHelp::writeCompound(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCIReservation& r : value) {
+        StoHelp::writeCompound(myWrapperStorage, 10);
+        StoHelp::writeTypedString(myWrapperStorage, r.id);
+        StoHelp::writeTypedStringList(myWrapperStorage, r.persons);
+        StoHelp::writeTypedString(myWrapperStorage, r.group);
+        StoHelp::writeTypedString(myWrapperStorage, r.fromEdge);
+        StoHelp::writeTypedString(myWrapperStorage, r.toEdge);
+        StoHelp::writeTypedDouble(myWrapperStorage, r.departPos);
+        StoHelp::writeTypedDouble(myWrapperStorage, r.arrivalPos);
+        StoHelp::writeTypedDouble(myWrapperStorage, r.depart);
+        StoHelp::writeTypedDouble(myWrapperStorage, r.reservationTime);
+        StoHelp::writeTypedInt(myWrapperStorage, r.state);
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapLogicVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCILogic>& value) {
+    StoHelp::writeCompound(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCILogic& logic : value) {
+        StoHelp::writeCompound(myWrapperStorage, 5);
+        StoHelp::writeTypedString(myWrapperStorage, logic.programID);
+        StoHelp::writeTypedInt(myWrapperStorage, logic.type);
+        StoHelp::writeTypedInt(myWrapperStorage, logic.currentPhaseIndex);
+        StoHelp::writeCompound(myWrapperStorage, (int)logic.phases.size());
+        for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
+            StoHelp::writeCompound(myWrapperStorage, 6);
+            StoHelp::writeTypedDouble(myWrapperStorage, phase->duration);
+            StoHelp::writeTypedString(myWrapperStorage, phase->state);
+            StoHelp::writeTypedDouble(myWrapperStorage, phase->minDur);
+            StoHelp::writeTypedDouble(myWrapperStorage, phase->maxDur);
+            StoHelp::writeCompound(myWrapperStorage, (int)phase->next.size());
+            for (int n : phase->next) {
+                StoHelp::writeTypedInt(myWrapperStorage, n);
+            }
+            StoHelp::writeTypedString(myWrapperStorage, phase->name);
+        }
+        StoHelp::writeCompound(myWrapperStorage, (int)logic.subParameter.size());
+        for (const auto& item : logic.subParameter) {
+            StoHelp::writeTypedStringList(myWrapperStorage, std::vector<std::string> {item.first, item.second});
+        }
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapLinkVectorVector(const std::string& /* objID */, const int /* variable */, const std::vector<std::vector<libsumo::TraCILink> >& value) {
+    int cnt = 1;
+    for (const std::vector<libsumo::TraCILink>& sublinks : value) {
+        cnt += (int)sublinks.size() + 1;
+    }
+    StoHelp::writeCompound(myWrapperStorage, cnt);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const std::vector<libsumo::TraCILink>& sublinks : value) {
+        StoHelp::writeTypedInt(myWrapperStorage, (int)sublinks.size());
+        for (const libsumo::TraCILink& link : sublinks) {
+            StoHelp::writeTypedStringList(myWrapperStorage, std::vector<std::string>({ link.fromLane, link.toLane, link.viaLane }));
+        }
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapSignalConstraintVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCISignalConstraint>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 5);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const auto& c : value) {
+        StoHelp::writeConstraint(myWrapperStorage, c);
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapJunctionFoeVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIJunctionFoe>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 9);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const auto& c : value) {
+        StoHelp::writeTypedString(myWrapperStorage, c.foeId);
+        StoHelp::writeTypedDouble(myWrapperStorage, c.egoDist);
+        StoHelp::writeTypedDouble(myWrapperStorage, c.foeDist);
+        StoHelp::writeTypedDouble(myWrapperStorage, c.egoExitDist);
+        StoHelp::writeTypedDouble(myWrapperStorage, c.foeExitDist);
+        StoHelp::writeTypedString(myWrapperStorage, c.egoLane);
+        StoHelp::writeTypedString(myWrapperStorage, c.foeLane);
+        StoHelp::writeTypedUnsignedByte(myWrapperStorage, c.egoResponse);
+        StoHelp::writeTypedUnsignedByte(myWrapperStorage, c.foeResponse);
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapNextStopDataVector(const std::string& /* objID */, const int variable, const std::vector<libsumo::TraCINextStopData>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 4);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    const bool full = variable == libsumo::VAR_NEXT_STOPS2;
+    for (const auto& s : value) {
+        const int legacyStopFlags = (s.stopFlags << 1) + (s.arrival >= 0 ? 1 : 0);
+        StoHelp::writeTypedString(myWrapperStorage, s.lane);
+        StoHelp::writeTypedDouble(myWrapperStorage, s.endPos);
+        StoHelp::writeTypedString(myWrapperStorage, s.stoppingPlaceID);
+        StoHelp::writeTypedInt(myWrapperStorage, full ? s.stopFlags : legacyStopFlags);
+        StoHelp::writeTypedDouble(myWrapperStorage, s.duration);
+        StoHelp::writeTypedDouble(myWrapperStorage, s.until);
+        if (full) {
+            StoHelp::writeTypedDouble(myWrapperStorage, s.startPos);
+            StoHelp::writeTypedDouble(myWrapperStorage, s.intendedArrival);
+            StoHelp::writeTypedDouble(myWrapperStorage, s.arrival);
+            StoHelp::writeTypedDouble(myWrapperStorage, s.depart);
+            StoHelp::writeTypedString(myWrapperStorage, s.split);
+            StoHelp::writeTypedString(myWrapperStorage, s.join);
+            StoHelp::writeTypedString(myWrapperStorage, s.actType);
+            StoHelp::writeTypedString(myWrapperStorage, s.tripId);
+            StoHelp::writeTypedString(myWrapperStorage, s.line);
+            StoHelp::writeTypedDouble(myWrapperStorage, s.speed);
+        }
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapVehicleDataVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIVehicleData>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 5);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCIVehicleData& vd : value) {
+        StoHelp::writeTypedString(myWrapperStorage, vd.id);
+        StoHelp::writeTypedDouble(myWrapperStorage, vd.length);
+        StoHelp::writeTypedDouble(myWrapperStorage, vd.entryTime);
+        StoHelp::writeTypedDouble(myWrapperStorage, vd.leaveTime);
+        StoHelp::writeTypedString(myWrapperStorage, vd.typeID);
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapBestLanesDataVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCIBestLanesData>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 6);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCIBestLanesData& bld : value) {
+        StoHelp::writeTypedString(myWrapperStorage, bld.laneID);
+        StoHelp::writeTypedDouble(myWrapperStorage, bld.length);
+        StoHelp::writeTypedDouble(myWrapperStorage, bld.occupation);
+        StoHelp::writeTypedByte(myWrapperStorage, bld.bestLaneOffset);
+        StoHelp::writeTypedUnsignedByte(myWrapperStorage, bld.allowsContinuation ? 1 : 0);
+        StoHelp::writeTypedStringList(myWrapperStorage, bld.continuationLanes);
+    }
+    return true;
+}
+
+
+bool
+TraCIServer::wrapNextTLSDataVector(const std::string& /* objID */, const int /* variable */, const std::vector<libsumo::TraCINextTLSData>& value) {
+    StoHelp::writeCompound(myWrapperStorage, 1 + (int)value.size() * 4);
+    StoHelp::writeTypedInt(myWrapperStorage, (int)value.size());
+    for (const libsumo::TraCINextTLSData& tlsd : value) {
+        StoHelp::writeTypedString(myWrapperStorage, tlsd.id);
+        StoHelp::writeTypedInt(myWrapperStorage, tlsd.tlIndex);
+        StoHelp::writeTypedDouble(myWrapperStorage, tlsd.dist);
+        StoHelp::writeTypedByte(myWrapperStorage, tlsd.state);
+    }
     return true;
 }
 
@@ -301,8 +514,38 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myExecutors[libsumo::CMD_GET_OVERHEADWIRE_VARIABLE] = &TraCIServerAPI_OverheadWire::processGet;
     myExecutors[libsumo::CMD_SET_OVERHEADWIRE_VARIABLE] = &TraCIServerAPI_OverheadWire::processSet;
 
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_EDGE_EFFORT));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::VAR_ANGLE));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_LANE_VARIABLE, libsumo::VAR_ANGLE));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_LANE_VARIABLE, libsumo::LANE_CHANGES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_LANE_VARIABLE, libsumo::VAR_FOES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::DISTANCE_REQUEST));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_EDGES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_STAGE));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::VAR_TAXI_RESERVATIONS));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::SPLIT_TAXI_RESERVATIONS));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_BLOCKING_VEHICLES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_RIVAL_VEHICLES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_PRIORITY_VEHICLES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_CONSTRAINT));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::TL_CONSTRAINT_BYFOE));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::VAR_PERSON_NUMBER));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::DISTANCE_REQUEST));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_EDGE_EFFORT));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_FOLLOW_SPEED));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_SECURE_GAP));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_STOP_SPEED));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_FOES));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::CMD_CHANGELANE));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_LEADER));
     myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_FOLLOWER));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_NEIGHBORS));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_STOP_PARAMETER));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_NEXT_STOPS));  // this is just a dummy to trigger an error
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_NEXT_STOPS2));
+    myParameterized.insert(std::make_pair(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::VAR_TAXI_FLEET));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER));
     myParameterized.insert(std::make_pair(0, libsumo::VAR_PARAMETER_WITH_KEY));
 
@@ -1172,9 +1415,14 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
                     message.writeChar(v);
                 }
                 tcpip::Storage tmpOutput;
-                if (myExecutors.find(getCommandId) != myExecutors.end()) {
-                    ok &= myExecutors[getCommandId](*this, message, tmpOutput);
-                } else {
+                try {
+                    if (myExecutors.find(getCommandId) != myExecutors.end()) {
+                        ok &= myExecutors[getCommandId](*this, message, tmpOutput);
+                    } else {
+                        writeStatusCmd(s.commandId, libsumo::RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
+                        ok = false;
+                    }
+                } catch (const std::invalid_argument&) {
                     writeStatusCmd(s.commandId, libsumo::RTYPE_NOTIMPLEMENTED, "Unsupported command specified", tmpOutput);
                     ok = false;
                 }
@@ -1260,14 +1508,54 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
         variables.push_back(varID);
         parameters.push_back(std::make_shared<tcpip::Storage>());
         if ((myParameterized.count(std::make_pair(0, varID)) > 0) || (myParameterized.count(std::make_pair(commandId, varID)) > 0)) {
-            const int parType = myInputStorage.readUnsignedByte();
-            parameters.back()->writeUnsignedByte(parType);
-            if (parType == libsumo::TYPE_DOUBLE) {
-                parameters.back()->writeDouble(myInputStorage.readDouble());
-            } else if (parType == libsumo::TYPE_STRING) {
-                parameters.back()->writeString(myInputStorage.readString());
-            } else {
-                // Error!
+            if (!myInputStorage.valid_pos()) {
+                writeStatusCmd(commandId, libsumo::RTYPE_ERR, "Missing parameter for subscription " + toHex(commandId, 2));
+                return false;
+            }
+            int count = 1;
+            while (count-- > 0) {
+                const int parType = myInputStorage.readUnsignedByte();
+                parameters.back()->writeUnsignedByte(parType);
+                if (parType == libsumo::TYPE_DOUBLE) {
+                    parameters.back()->writeDouble(myInputStorage.readDouble());
+                } else if (parType == libsumo::TYPE_INTEGER) {
+                    parameters.back()->writeInt(myInputStorage.readInt());
+                } else if (parType == libsumo::TYPE_STRING) {
+                    parameters.back()->writeString(myInputStorage.readString());
+                } else if (parType == libsumo::TYPE_BYTE) {
+                    parameters.back()->writeByte(myInputStorage.readByte());
+                } else if (parType == libsumo::TYPE_UBYTE) {
+                    parameters.back()->writeUnsignedByte(myInputStorage.readUnsignedByte());
+                } else if (parType == libsumo::POSITION_2D) {
+                    parameters.back()->writeDouble(myInputStorage.readDouble());
+                    parameters.back()->writeDouble(myInputStorage.readDouble());
+                    if (varID == libsumo::DISTANCE_REQUEST) {
+                        parameters.back()->writeUnsignedByte(myInputStorage.readUnsignedByte());
+                        break;
+                    }
+                } else if (parType == libsumo::POSITION_3D) {
+                    parameters.back()->writeDouble(myInputStorage.readDouble());
+                    parameters.back()->writeDouble(myInputStorage.readDouble());
+                    parameters.back()->writeDouble(myInputStorage.readDouble());
+                    if (varID == libsumo::DISTANCE_REQUEST) {
+                        parameters.back()->writeUnsignedByte(myInputStorage.readUnsignedByte());
+                        break;
+                    }
+                } else if (parType == libsumo::POSITION_ROADMAP) {
+                    parameters.back()->writeString(myInputStorage.readString());
+                    parameters.back()->writeDouble(myInputStorage.readDouble());
+                    parameters.back()->writeUnsignedByte(myInputStorage.readUnsignedByte());
+                    if (varID == libsumo::DISTANCE_REQUEST) {
+                        parameters.back()->writeUnsignedByte(myInputStorage.readUnsignedByte());
+                        break;
+                    }
+                } else if (parType == libsumo::TYPE_COMPOUND) {
+                    count = myInputStorage.readInt();
+                    parameters.back()->writeInt(count);
+                } else {
+                    writeStatusCmd(commandId, libsumo::RTYPE_ERR, "Invalid parameter for subscription " + toHex(commandId, 2));
+                    return false;
+                }
             }
         }
     }
@@ -1501,16 +1789,6 @@ TraCIServer::writePositionVector(tcpip::Storage& outputStorage, const libsumo::T
         outputStorage.writeDouble(pos.x);
         outputStorage.writeDouble(pos.y);
     }
-}
-
-
-bool
-TraCIServer::readTypeCheckingInt(tcpip::Storage& inputStorage, int& into) {
-    if (inputStorage.readUnsignedByte() != libsumo::TYPE_INTEGER) {
-        return false;
-    }
-    into = inputStorage.readInt();
-    return true;
 }
 
 

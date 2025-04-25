@@ -3,3 +3,6 @@ default
 
 # increase timegap when passing minor link
 3s
+
+# reduce timegap when passing minor link and provoke collision
+negative

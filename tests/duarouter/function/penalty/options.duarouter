@@ -1,0 +1,6 @@
+-n input_net.net.xml
+-r input_routes.rou.xml
+--no-step-log
+--write-costs
+-o routes.rou.xml
+--alternatives-output NUL

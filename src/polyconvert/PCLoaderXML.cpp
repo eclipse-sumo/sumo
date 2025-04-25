@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -102,7 +102,7 @@ PCLoaderXML::myStartElement(int element,
     if (myTypeMap.has(type)) {
         const PCTypeMap::TypeDef& def = myTypeMap.get(type);
         discard = def.discard;
-        setDefaults(def.prefix, def.color, def.icon, def.layer, def.allowFill);
+        setDefaults(def.prefix, def.color, def.icon, def.layer, def.allowFill != PCTypeMap::Filltype::NOFILL);
     } else {
         setDefaults(myOptions.getString("prefix"), RGBColor::parseColor(myOptions.getString("color")),
                     myOptions.getString("icon"), myOptions.getFloat("layer"), myOptions.getBool("fill"));

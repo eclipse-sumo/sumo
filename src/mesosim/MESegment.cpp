@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -122,6 +122,10 @@ MESegment::MESegment(const std::string& id,
         if (allow != 0) {
             usableLanes++;
         }
+    }
+    if (usableLanes == 0) {
+        // cars won't drive here. Give sensible tau values capacity for the ignored classes
+        usableLanes = 1;
     }
     if (multiQueue) {
         if (next == nullptr) {
@@ -312,7 +316,7 @@ MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int
     }
     const SUMOVehicleClass svc = veh->getVClass();
     int minSize = std::numeric_limits<int>::max();
-    const MSEdge* const succ = myNextSegment == nullptr ? veh->succEdge(1) : nullptr;
+    const MSEdge* const succ = myNextSegment == nullptr ? veh->succEdge(veh->getEdge() == &myEdge ? 1 : 2) : nullptr;
     for (int i = 0; i < (int)myQueues.size(); i++) {
         const Queue& q = myQueues[i];
         const double newOccupancy = q.size() == 0 ? 0. : q.getOccupancy() + veh->getVehicleType().getLengthWithGap();
@@ -324,7 +328,10 @@ MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int
                         // - regular insertions must respect entryBlockTime
                         // - initial insertions should not cause additional jamming
                         // - inserted vehicle should be able to continue at the current speed
-                        if (q.getOccupancy() <= myJamThreshold && !hasBlockedLeader() && !myTLSPenalty) {
+                        if (veh->getInsertionChecks() == (int)InsertionCheck::NONE) {
+                            qIdx = i;
+                            minSize = q.size();
+                        } else if (q.getOccupancy() <= myJamThreshold && !hasBlockedLeader() && !myTLSPenalty) {
                             if (newOccupancy <= myJamThreshold) {
                                 qIdx = i;
                                 minSize = q.size();
@@ -478,7 +485,8 @@ MESegment::isOpen(const MEVehicle* veh) const {
                       << " override=" << limitedControlOverride(link)
                       << " isOpen=" << link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
                                                     veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
-                                                    veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime())
+                                                    veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime(),
+                                                    0, nullptr, false, veh)
                       << " et=" << veh->getEventTime()
                       << " v=" << veh->getSpeed()
                       << " vLeave=" << veh->estimateLeaveSpeed(link)
@@ -499,7 +507,8 @@ MESegment::isOpen(const MEVehicle* veh) const {
             || limitedControlOverride(link)
             || link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
                             veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
-                            veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime()));
+                            veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime(),
+                            0, nullptr, false, veh));
 }
 
 
@@ -616,9 +625,9 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
     }
     assert(veh->getEdge() == &getEdge());
     // route continues
-    const double maxSpeedOnEdge = veh->getEdge()->getVehicleMaxSpeed(veh);
-    const double uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);
     Queue& q = myQueues[qIdx];
+    const double maxSpeedOnEdge = veh->getEdge()->getLanes()[qIdx]->getVehicleMaxSpeed(veh);
+    const double uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);
     std::vector<MEVehicle*>& cars = q.getModifiableVehicles();
     MEVehicle* newLeader = nullptr; // first vehicle in the current queue
     const SUMOTime stopTime = veh->checkStop(time);
@@ -627,7 +636,8 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
         myEdge.addWaiting(veh);
     }
     if (veh->isParking()) {
-        veh->setEventTime(stopTime);
+        // parking stops should take at least 1ms
+        veh->setEventTime(MAX2(stopTime, veh->getEventTime() + 1));
         veh->setSegment(this, PARKING_QUEUE);
         myEdge.getLanes()[0]->addParking(veh);  // TODO for GUI only
     } else {
@@ -719,18 +729,23 @@ MESegment::newArrival(const MEVehicle* const v, double newSpeed, SUMOTime curren
     // since speed is only an upper bound pos may be to optimistic
     const double pos = MIN2(myLength, STEPS2TIME(currentTime - v->getLastEntryTime()) * v->getSpeed());
     // traveltime may not be 0
-    return currentTime + MAX2(TIME2STEPS((myLength - pos) / newSpeed), SUMOTime(1));
+    double tt = (myLength - pos) / MAX2(newSpeed, MESO_MIN_SPEED);
+    return currentTime + MAX2(TIME2STEPS(tt), SUMOTime(1));
 }
 
 
 void
-MESegment::setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh) {
+MESegment::setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh, int qIdx) {
     recomputeJamThreshold(jamThresh);
     //myTau_length = MAX2(MESO_MIN_SPEED, newSpeed) * myEdge.getLanes().size() / TIME2STEPS(1);
+    int i = 0;
     for (const Queue& q : myQueues) {
         if (q.size() != 0) {
-            setSpeedForQueue(newSpeed, currentTime, q.getBlockTime(), q.getVehicles());
+            if (qIdx == -1 || qIdx == i) {
+                setSpeedForQueue(newSpeed, currentTime, q.getBlockTime(), q.getVehicles());
+            }
         }
+        i++;
     }
 }
 
@@ -779,17 +794,14 @@ MESegment::clearState() {
 }
 
 void
-MESegment::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc, const SUMOTime block, const int queIdx) {
+MESegment::loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime blockTime, const int queIdx) {
     Queue& q = myQueues[queIdx];
-    for (const std::string& id : vehIds) {
-        MEVehicle* v = static_cast<MEVehicle*>(vc.getVehicle(id));
-        // vehicle could be removed due to options
-        if (v != nullptr) {
-            assert(v->getSegment() == this);
-            q.getModifiableVehicles().push_back(v);
-            myNumVehicles++;
-            q.setOccupancy(q.getOccupancy() + v->getVehicleType().getLengthWithGap());
-        }
+    for (SUMOVehicle* veh : vehs) {
+        MEVehicle* v = static_cast<MEVehicle*>(veh);
+        assert(v->getSegment() == this);
+        q.getModifiableVehicles().push_back(v);
+        myNumVehicles++;
+        q.setOccupancy(q.getOccupancy() + v->getVehicleType().getLengthWithGap());
     }
     if (q.size() != 0) {
         // add the last vehicle of this queue
@@ -797,7 +809,7 @@ MESegment::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& v
         MEVehicle* veh = q.getVehicles().back();
         MSGlobals::gMesoNet->addLeaderCar(veh, getLink(veh));
     }
-    q.setBlockTime(block);
+    q.setBlockTime(blockTime);
     q.setOccupancy(MIN2(q.getOccupancy(), myQueueCapacity));
 }
 

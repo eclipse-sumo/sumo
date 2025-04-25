@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="e" from="A" to="B" numLanes="7">
+        <lane index="0" width="0.001"/>
+        <lane index="1" width="3"/>
+        <lane index="2" width="0.001"/>
+        <lane index="3" width="3"/>
+        <lane index="4" width="0.001"/>
+        <lane index="5" width="3"/>
+        <lane index="6" width="0.001"/>
+    </edge>
+</edges>

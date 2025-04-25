@@ -2,7 +2,7 @@
 title: macOS Build
 ---
 
-This document describes how to install and build SUMO on macOS from its source code. If you don't want to **extend** SUMO, but just **use** it, you may want to simply follow the [installation instructions for macOS](index.md#macos) instead.
+This document describes how to install and build SUMO on macOS from its source code. If you don't want to **extend** SUMO, but just **use** it, you may want to simply download the installer [here](../Downloads.md#macos) instead.
 
 You may use one of two ways to build and install SUMO on macOS: **Homebrew** (recommended) and **MacPorts**.
 
@@ -16,7 +16,7 @@ The installation requires [Homebrew](https://brew.sh). If you did not already in
 ```
 and make sure your homebrew db is up-to-date.
 ```
-brew update
+brew update
 ```
 
 In order to compile the C++ source code files of SUMO, a C++ compiler is needed. On macOS the default C/C++ compiler is Clang. If you want to install the Clang compilers, please use the following command:
@@ -41,7 +41,7 @@ brew install xerces-c fox proj gdal gl2ps
 ```
 Depending on the SUMO features you want to enable during compilation, you may want to additional libraries. Most libraries are available in homebrew and should be recognized with CMake. Here is what you need to prepare some more features such as libsumo and the testing environment:
 ```
-brew install python swig eigen pygobject3 gtk+3 adwaita-icon-theme
+brew install python ccache googletest fmt swig eigen pygobject3 gtk+3 adwaita-icon-theme
 python3 -m pip install texttest
 ```
 You can optionally include OSG (OpenSceneGraph) to enable the experimental [3D-Visualization](../sumo-gui.md#3d_visualization):
@@ -81,6 +81,9 @@ The build process can now be triggered with the following command
 cd $SUMO_HOME
 cmake --build build --parallel $(sysctl -n hw.ncpu)
 ```
+
+You may want to also run `make install` or add `$SUMO_HOME/bin` to the `PATH`, in order to easily start `sumo` or any other application from the command line.
+
 ## Optional Steps
 
 ### TraCI as a Service (TraaS)
@@ -176,7 +179,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 ```
 
 !!! note
-    To build JuPedSim and build SUMO with JuPedSim follow the [instructions for the Linux build](Linux_Build.md#how-to-build-jupedsim-and-then-build-sumo-with-jupedsim)
+    To build JuPedSim and build SUMO with JuPedSim follow the [instructions for the Linux build](Linux_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim)
 
 # The Macports Approach (legacy)
 
@@ -186,7 +189,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 You should start by [installing Macports](https://www.macports.org/install.php). Afterwards start a terminal session and run
 
 ```
-sudo port install sumo
+sudo port install sumo
 ```
 
 While this will install a SUMO version you maybe do not want to use, it will pull in all dependencies you need.
@@ -194,7 +197,7 @@ While this will install a SUMO version you maybe do not want to use, it will pul
 If you want to build from a repository checkout you should additionally do
 
 ```
-sudo port install automake autoconf
+sudo port install automake autoconf
 ```
 
 After obtaining the [required libraries](Linux_Build.md#installing_required_tools_and_libraries)
@@ -204,5 +207,5 @@ might want to add another --prefix=/opt/sumo to the configure line.
 If you wish to use clang rather than gcc for compilation do:
 
 ```
-./configure CXX=clang++ CXXFLAGS="-stdlib=libstdc++"
+./configure CXX=clang++ CXXFLAGS="-stdlib=libstdc++"
 ```

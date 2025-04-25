@@ -1,0 +1,13 @@
+Invalid stop_sequence in input for trip 132189814
+Warning! Stop 1 for vehicle 132189814 starts earlier (37140) than previous stop (37320)
+Invalid stop_sequence in input for trip 132189814
+Warning! Stop 2 for vehicle 132189814 starts earlier (37080) than previous stop (37140)
+Invalid stop_sequence in input for trip 132189814
+Invalid stop_sequence in input for trip 132189814
+Warning! Stop 4 for vehicle 132189814 starts earlier (37200) than previous stop (37380)
+Invalid stop_sequence in input for trip 132189814
+Invalid stop_sequence in input for trip 132189814
+Warning! Stop 6 for vehicle 132189814 starts earlier (37020) than previous stop (37440)
+Invalid stop_sequence in input for trip 132189814
+Warning! Stop 7 for vehicle 132189814 starts earlier (36900) than previous stop (37020)
+Warning! No mapping library found, falling back to tracemapper.

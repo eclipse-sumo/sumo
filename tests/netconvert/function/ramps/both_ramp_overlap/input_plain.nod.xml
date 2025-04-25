@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-07 15:24:36 by Eclipse SUMO netedit Version v1_20_0+0009-62f9f363b7d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="raw.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="600.00,0.00" convBoundary="40.24,0.00,1150.00,100.00" origBoundary="-1000.00,0.00,1000.00,100.00" projParameter="!"/>
+
+    <node id="1" x="40.24" y="0.00" type="dead_end"/>
+    <node id="2" x="540.24" y="0.00" type="priority"/>
+    <node id="2a" x="240.24" y="100.00" type="dead_end"/>
+    <node id="3" x="600.00" y="0.00" type="priority"/>
+    <node id="4" x="650.00" y="0.00" type="priority"/>
+    <node id="4a" x="950.00" y="100.00" type="dead_end"/>
+    <node id="5" x="1150.00" y="0.00" type="dead_end"/>
+</nodes>

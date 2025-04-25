@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -78,8 +78,10 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
         dev = OutputDevice_CERR::getDevice();
     } else if (FileHelpers::isSocket(name)) {
         try {
-            int port = StringUtils::toInt(name.substr(name.find(":") + 1));
-            dev = new OutputDevice_Network(name.substr(0, name.find(":")), port);
+            const bool ipv6 = name[0] == '[';  // IPv6 adresses may be written like '[::1]:8000'
+            const size_t sepIndex = name.find(":", ipv6 ? name.find("]") : 0);
+            const int port = StringUtils::toInt(name.substr(sepIndex + 1));
+            dev = new OutputDevice_Network(ipv6 ? name.substr(1, sepIndex - 2) : name.substr(0, sepIndex), port);
         } catch (NumberFormatException&) {
             throw IOError("Given port number '" + name.substr(name.find(":") + 1) + "' is not numeric.");
         } catch (EmptyData&) {
@@ -129,7 +131,7 @@ OutputDevice&
 OutputDevice::getDeviceByOption(const std::string& optionName) {
     std::string devName = OptionsCont::getOptions().getString(optionName);
     if (myOutputDevices.find(devName) == myOutputDevices.end()) {
-        throw InvalidArgument("Device '" + devName + "' has not been created.");
+        throw InvalidArgument("Output device '" + devName + "' for option '" + optionName + "' has not been created.");
     }
     return OutputDevice::getDevice(devName);
 }
@@ -186,7 +188,7 @@ OutputDevice::realString(const double v, const int precision) {
     if (v == 0) {
         return "0";
     }
-    if (v < pow(10., -precision)) {
+    if (fabs(v) < pow(10., -precision)) {
         oss.setf(std::ios::scientific, std::ios::floatfield);
     } else {
         oss.setf(std::ios::fixed, std::ios::floatfield);     // use decimal format
@@ -290,9 +292,9 @@ OutputDevice::postWriteHook() {}
 
 
 void
-OutputDevice::inform(const std::string& msg, const char progress) {
-    if (progress != 0) {
-        getOStream() << msg << progress;
+OutputDevice::inform(const std::string& msg, const bool progress) {
+    if (progress) {
+        getOStream() << msg;
     } else {
         getOStream() << msg << '\n';
     }

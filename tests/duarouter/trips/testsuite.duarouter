@@ -125,3 +125,9 @@ departSpeed
 
 # test handling of depart time "begin"
 depart_begin
+
+# test option scale
+scale_0.5
+
+# test option scale
+scale_2.5

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNEDetector.h"
 
 // ===========================================================================
@@ -29,10 +30,7 @@ class GNEMultiEntryExitDetector;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEEntryExitDetector
- * Class for detector of type Entry
- */
+
 class GNEEntryExitDetector : public GNEDetector {
 
 public:
@@ -41,14 +39,13 @@ public:
 
     /**@brief Constructor
      * @param[in] entryExitTag Child Tag (Either SUMO_TAG_DET_ENTRY or SUMO_TAG_DET_EXIT)
-     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] parent pointer to GNEMultiEntryExitDetector of this GNEEntryExitDetector belongs
      * @param[in] lane Lane of this detector is placed
      * @param[in] pos position of the detector on the lane
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos, const bool friendlyPos,
+    GNEEntryExitDetector(SumoXMLTag entryExitTag, GNEAdditional* parent, GNELane* lane, const double pos, const bool friendlyPos,
                          const Parameterised::Map& parameters);
 
     /// @brief destructor

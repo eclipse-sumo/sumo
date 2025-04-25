@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -36,7 +36,7 @@ THISDIR = os.path.dirname(__file__)
 
 
 # we need to import python modules from the $SUMO_HOME/tools directory
-# If the the environment variable SUMO_HOME is not set, try to locate the python
+# If the environment variable SUMO_HOME is not set, try to locate the python
 # modules relative to this script
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')

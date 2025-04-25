@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/GNETagProperties.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
@@ -38,10 +39,10 @@ class GNEDemandElementSelector : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor with a single tag
-    GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, int tagType);
+    GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, const GNETagProperties::Type tagType);
 
     /// @brief constructor with tag type
-    GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes);
+    GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::Type>& tagTypes);
 
     /// @brief destructor
     ~GNEDemandElementSelector();
@@ -97,7 +98,7 @@ private:
     std::vector<SumoXMLTag> myDemandElementTags;
 
     /// @brief tag type (person, container or vehicle)
-    int myTagType;
+    GNETagProperties::Type myTagType;
 
     /// @brief flag for enable/disable multiple element selection
     bool mySelectingMultipleElements;

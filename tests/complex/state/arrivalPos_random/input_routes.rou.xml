@@ -1,0 +1,5 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0" maxSpeed="5"/>
+    <route id="r0" edges="SC"/>
+    <flow id="f" begin="0" number="10" period="2" arrivalPos="random" route="r0"/>
+</routes>

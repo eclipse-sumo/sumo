@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,19 +17,19 @@
 ///
 // The Widget for add polygons
 /****************************************************************************/
-#include <config.h>
 
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEDrawingShape.h>
+#include <netedit/frames/GNETagSelector.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIUserIO.h>
-#include <netedit/elements/additional/GNEAdditionalHandler.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNEShapeFrame.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -165,7 +165,7 @@ GNEShapeFrame::GEOPOICreator::onCmdSetFormat(FXObject* obj, FXSelector, void*) {
 long
 GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
     // first check if current GEO Position is valid
-    if (myShapeFrameParent->myShapeAttributes->areValuesValid()) {
+    if (myShapeFrameParent->myShapeAttributesEditor->checkAttributes(true)) {
         std::string geoPosStr = myCoordinatesTextField->getText().text();
         if (geoPosStr.empty()) {
             // use clipboard
@@ -182,13 +182,7 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             // create baseShape object
             myShapeFrameParent->createBaseShapeObject(SUMO_TAG_POI);
             // obtain shape attributes and values
-            myShapeFrameParent->myShapeAttributes->getAttributesAndValues(myShapeFrameParent->myBaseShape, true);
-            // obtain netedit attributes and values
-            myShapeFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(myShapeFrameParent->myBaseShape, nullptr);
-            // Check if ID has to be generated
-            if (!myShapeFrameParent->myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-                myShapeFrameParent->myBaseShape->addStringAttribute(SUMO_ATTR_ID, myShapeFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));
-            }
+            myShapeFrameParent->myShapeAttributesEditor->fillSumoBaseObject(myShapeFrameParent->myBaseShape);
             // force GEO attribute to true and obtain position
             myShapeFrameParent->myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
             Position geoPos = GNEAttributeCarrier::parse<Position>(geoPosStr);
@@ -196,25 +190,29 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             if (myLatLonRadioButton->getCheck() == TRUE) {
                 geoPos.swapXY();
             }
-            GeoConvHelper::getFinal().x2cartesian_const(geoPos);
             // add lon/lat
             myShapeFrameParent->myBaseShape->addDoubleAttribute(SUMO_ATTR_LON, geoPos.x());
             myShapeFrameParent->myBaseShape->addDoubleAttribute(SUMO_ATTR_LAT, geoPos.y());
             // set GEO Position as true
             myShapeFrameParent->myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
-            // add shape
-            myShapeFrameParent->addShape();
+            // declare additional handler
+            GNEAdditionalHandler additionalHandler(myShapeFrameParent->myViewNet->getNet(), myShapeFrameParent->myBaseShape->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
+                                                   myShapeFrameParent->myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+                                                   myShapeFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+            // build shape
+            additionalHandler.parseSumoBaseObject(myShapeFrameParent->myBaseShape);
             // check if view has to be centered over created GEO POI
             if (myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
                 // create a boundary over given GEO Position and center view over it
                 Boundary centerPosition;
+                GeoConvHelper::getFinal().x2cartesian_const(geoPos);
                 centerPosition.add(geoPos);
                 centerPosition = centerPosition.grow(10);
                 myShapeFrameParent->myViewNet->getViewParent()->getView()->centerTo(centerPosition);
             }
         }
         // refresh shape attributes
-        myShapeFrameParent->myShapeAttributes->refreshAttributesCreator();
+        myShapeFrameParent->myShapeAttributesEditor->refreshAttributesEditor();
     }
     return 1;
 }
@@ -229,13 +227,10 @@ GNEShapeFrame::GNEShapeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myBaseShape(nullptr) {
 
     // create item Selector module for shapes
-    myShapeTagSelector = new GNETagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
+    myShapeTagSelector = new GNETagSelector(this, GNETagProperties::Type::SHAPE, SUMO_TAG_POLY);
 
     // Create shape parameters
-    myShapeAttributes = new GNEAttributesCreator(this);
-
-    // Create Netedit parameter
-    myNeteditAttributes = new GNENeteditAttributes(this);
+    myShapeAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
 
     // Create drawing controls
     myDrawingShape = new GNEDrawingShape(this);
@@ -269,15 +264,15 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
     // check if current selected shape is valid
     if (myShapeTagSelector->getCurrentTemplateAC() != nullptr) {
         // get tag
-        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // continue depending of tag
         switch (shapeTag) {
             case SUMO_TAG_POI:
-                return processClickPOI(shapeTag, clickedPosition, viewObjects);
+                return processClickPOI(shapeTag, clickedPosition);
             case GNE_TAG_POIGEO:
-                return processClickPOIGeo(clickedPosition, viewObjects);
+                return processClickPOIGeo(clickedPosition);
             case GNE_TAG_POILANE:
-                return processClickPOILanes(clickedPosition, viewObjects);
+                return processClickPOILanes(viewObjects);
             case SUMO_TAG_POLY:
             case GNE_TAG_JPS_WALKABLEAREA:
             case GNE_TAG_JPS_OBSTACLE:
@@ -330,25 +325,18 @@ GNEShapeFrame::createBaseShapeObject(const SumoXMLTag shapeTag) {
 bool
 GNEShapeFrame::shapeDrawed() {
     // show warning dialogbox and stop check if input parameters are valid
-    if (!myShapeAttributes->areValuesValid()) {
-        myShapeAttributes->showWarningMessage();
+    if (!myShapeAttributesEditor->checkAttributes(true)) {
         return false;
     } else if (myDrawingShape->getTemporalShape().size() == 0) {
         WRITE_WARNING(TL("Polygon shape cannot be empty"));
         return false;
     } else {
         // get tag
-        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // create baseShape object
         createBaseShapeObject(shapeTag);
         // obtain shape attributes and values
-        myShapeAttributes->getAttributesAndValues(myBaseShape, true);
-        // obtain netedit attributes and values
-        myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, nullptr);
-        // Check if ID has to be generated
-        if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-            myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(shapeTag));
-        }
+        myShapeAttributesEditor->fillSumoBaseObject(myBaseShape);
         // obtain shape and check if has to be closed
         PositionVector temporalShape = myDrawingShape->getTemporalShape();
         if ((myBaseShape->hasBoolAttribute(GNE_ATTR_CLOSE_SHAPE) && myBaseShape->getBoolAttribute(GNE_ATTR_CLOSE_SHAPE)) ||
@@ -356,12 +344,14 @@ GNEShapeFrame::shapeDrawed() {
             temporalShape.closePolygon();
         }
         myBaseShape->addPositionVectorAttribute(SUMO_ATTR_SHAPE, temporalShape);
-        // obtain geo (by default false)
-        myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, false);
-        // add shape
-        addShape();
+        // declare additional handler
+        GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->hasStringAttribute(GNE_ATTR_DEMAND_FILE) ?
+                                               myBaseShape->getStringAttribute(GNE_ATTR_DEMAND_FILE) : "",
+                                               myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+        // build shape
+        additionalHandler.parseSumoBaseObject(myBaseShape);
         // refresh shape attributes
-        myShapeAttributes->refreshAttributesCreator();
+        myShapeAttributesEditor->refreshAttributesEditor();
         // shape added, then return true;
         return true;
     }
@@ -371,12 +361,10 @@ GNEShapeFrame::shapeDrawed() {
 void
 GNEShapeFrame::tagSelected() {
     if (myShapeTagSelector->getCurrentTemplateAC()) {
-        // if there are parameters, show and Recalc groupBox
-        myShapeAttributes->showAttributesCreatorModule(myShapeTagSelector->getCurrentTemplateAC(), {});
-        // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModule(myShapeTagSelector->getCurrentTemplateAC());
+        // show editors
+        myShapeAttributesEditor->showAttributesEditor(myShapeTagSelector->getCurrentTemplateAC(), true);
         // get shape tag
-        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+        SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty()->getTag();
         // Check if drawing mode has to be shown
         if ((shapeTag == SUMO_TAG_POLY) || (shapeTag == GNE_TAG_JPS_WALKABLEAREA) || (shapeTag == GNE_TAG_JPS_OBSTACLE)) {
             myDrawingShape->showDrawingShape();
@@ -391,20 +379,10 @@ GNEShapeFrame::tagSelected() {
         }
     } else {
         // hide all widgets
-        myShapeAttributes->hideAttributesCreatorModule();
-        myNeteditAttributes->hideNeteditAttributesModule();
+        myShapeAttributesEditor->hideAttributesEditor();
         myDrawingShape->hideDrawingShape();
         myGEOPOICreator->hideGEOPOICreatorModule();
     }
-}
-
-
-void
-GNEShapeFrame::addShape() {
-    // declare additional handler
-    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), true, false);
-    // build shape
-    additionalHandler.parseSumoBaseObject(myBaseShape);
 }
 
 
@@ -427,53 +405,43 @@ GNEShapeFrame::processClickPolygons(const Position& clickedPosition, bool& updat
 
 
 bool
-GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
+GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPosition) {
     // show warning dialogbox and stop if input parameters are invalid
-    if (myShapeAttributes->areValuesValid() == false) {
-        myShapeAttributes->showWarningMessage();
+    if (!myShapeAttributesEditor->checkAttributes(true)) {
         return false;
     }
     // create baseShape object
     createBaseShapeObject(POITag);
     // obtain shape attributes and values
-    myShapeAttributes->getAttributesAndValues(myBaseShape, true);
-    // obtain netedit attributes and values
-    myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, viewObjects.getLaneFront());
-    // Check if ID has to be generated
-    if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-        myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(POITag));
-    }
+    myShapeAttributesEditor->fillSumoBaseObject(myBaseShape);
     // add X-Y
     myBaseShape->addDoubleAttribute(SUMO_ATTR_X, clickedPosition.x());
     myBaseShape->addDoubleAttribute(SUMO_ATTR_Y, clickedPosition.y());
     // set GEO Position as false (because we have created POI clicking over View
     myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, false);
-    // add shape
-    addShape();
+    // declare additional handler
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
+                                           myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+    // build shape
+    additionalHandler.parseSumoBaseObject(myBaseShape);
     // refresh shape attributes
-    myShapeAttributes->refreshAttributesCreator();
+    myShapeAttributesEditor->refreshAttributesEditor();
     // shape added, then return true
     return true;
 }
 
 
 bool
-GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
+GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition) {
     // show warning dialogbox and stop if input parameters are invalid
-    if (myShapeAttributes->areValuesValid() == false) {
-        myShapeAttributes->showWarningMessage();
+    if (!myShapeAttributesEditor->checkAttributes(true)) {
         return false;
     }
     // create baseShape object
     createBaseShapeObject(SUMO_TAG_POI);
     // obtain shape attributes and values
-    myShapeAttributes->getAttributesAndValues(myBaseShape, true);
-    // obtain netedit attributes and values
-    myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, viewObjects.getLaneFront());
-    // Check if ID has to be generated
-    if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-        myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));
-    }
+    myShapeAttributesEditor->fillSumoBaseObject(myBaseShape);
     // convert position to cartesian
     Position GEOPos = clickedPosition;
     GeoConvHelper::getFinal().cartesian2geo(GEOPos);
@@ -482,45 +450,46 @@ GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition, const GNEView
     myBaseShape->addDoubleAttribute(SUMO_ATTR_LAT, GEOPos.y());
     // set GEO Position as false (because we have created POI clicking over View
     myBaseShape->addBoolAttribute(SUMO_ATTR_GEO, true);
-    // add shape
-    addShape();
+    // declare additional handler
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
+                                           myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+    // build shape
+    additionalHandler.parseSumoBaseObject(myBaseShape);
     // refresh shape attributes
-    myShapeAttributes->refreshAttributesCreator();
+    myShapeAttributesEditor->refreshAttributesEditor();
     // shape added, then return true
     return true;
 }
 
 
 bool
-GNEShapeFrame::processClickPOILanes(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
+GNEShapeFrame::processClickPOILanes(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // abort if lane is nullptr
     if (viewObjects.getLaneFront() == nullptr) {
         WRITE_WARNING(TL("POILane can be only placed over lanes"));
         return false;
     }
     // show warning dialogbox and stop if input parameters are invalid
-    if (myShapeAttributes->areValuesValid() == false) {
-        myShapeAttributes->showWarningMessage();
+    if (!myShapeAttributesEditor->checkAttributes(true)) {
         return false;
     }
     // create baseShape object
     createBaseShapeObject(SUMO_TAG_POI);
     // obtain shape attributes and values
-    myShapeAttributes->getAttributesAndValues(myBaseShape, true);
-    // obtain netedit attributes and values
-    myNeteditAttributes->getNeteditAttributesAndValues(myBaseShape, viewObjects.getLaneFront());
-    // Check if ID has to be generated
-    if (!myBaseShape->hasStringAttribute(SUMO_ATTR_ID)) {
-        myBaseShape->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(SUMO_TAG_POI));
-    }
+    myShapeAttributesEditor->fillSumoBaseObject(myBaseShape);
     // obtain Lane
     myBaseShape->addStringAttribute(SUMO_ATTR_LANE, viewObjects.getLaneFront()->getID());
     // obtain position over lane
-    myBaseShape->addDoubleAttribute(SUMO_ATTR_POSITION, viewObjects.getLaneFront()->getLaneShape().nearest_offset_to_point2D(clickedPosition));
-    // add shape
-    addShape();
+    myBaseShape->addDoubleAttribute(SUMO_ATTR_POSITION, viewObjects.getLaneFront()->getLaneShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / viewObjects.getLaneFront()->getLengthGeometryFactor());
+    // declare additional handler
+    GNEAdditionalHandler additionalHandler(myViewNet->getNet(), myBaseShape->hasStringAttribute(GNE_ATTR_ADDITIONAL_FILE) ?
+                                           myBaseShape->getStringAttribute(GNE_ATTR_ADDITIONAL_FILE) : "",
+                                           myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
+    // build shape
+    additionalHandler.parseSumoBaseObject(myBaseShape);
     // refresh shape attributes
-    myShapeAttributes->refreshAttributesCreator();
+    myShapeAttributesEditor->refreshAttributesEditor();
     // shape added, then return true
     return true;
 }

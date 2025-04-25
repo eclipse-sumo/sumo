@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,7 +66,7 @@ public:
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialization
      */
-    void init(NLDetectorBuilder& nb);
+    void init(NLDetectorBuilder& nb) override;
 
 
     /// @brief Destructor
@@ -81,7 +81,7 @@ public:
      * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch();
+    SUMOTime trySwitch() override;
     /// @}
 
     bool showDetectors() const {
@@ -89,6 +89,15 @@ public:
     }
 
     void setShowDetectors(bool show);
+
+    /// @brief retrieve all detectors used by this program
+    std::map<std::string, double> getDetectorStates() const override;
+
+    /// @brief retrieve a specific detector used by this program
+    double getDetectorState(const std::string laneID) const override;
+
+    /// @brief return the estimated queue length at the upcoming traffic light
+    double getTLQueueLength(const std::string laneID) const override;
 
 
 protected:

@@ -1,3 +1,6 @@
+# load trips specified with coordinates
+geo
+
 # test attributes fromJunction toJunction and viaJunctions
 junctionTaz
 
@@ -40,6 +43,12 @@ car_walk_departPos
 # public transport and walk possible
 public_walk
 
+# public transport and walk possible
+public_any_walk
+
+# public transport and walk possible
+public_line_walk
+
 # public transport  cannot be used due to speedfactor
 public_walk_speedfactor
 
@@ -55,10 +64,12 @@ busstop
 # public transport via bustops, person arrives very early
 busstop_early
 
-# public transport via bustops but the person departs to late to use a bus
+# public transport via bus stops but the person departs to late to use a bus
+# 
 busstop_too_late
 
-# public transport via bustops but the person misses barely misses the last bus
+# public transport via bus stops but the person barely misses the last bus
+# 
 busstop_too_late2
 
 # public transport via bustops, two busses at the same time
@@ -183,4 +194,9 @@ toJunction_twice
 
 # trip between identical stops
 sameStops
+carNoRoute
+
+# person must transfer between trains of the same line
+pt_looped_need_transfer
+car_between_stops
 errors

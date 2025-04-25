@@ -1,0 +1,5 @@
+-v --osm osm.xml -o pois.poi.xml --osm.keep-full-type --all-attributes
+--osm.merge-relations 0
+
+
+

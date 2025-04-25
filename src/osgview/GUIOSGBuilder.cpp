@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -450,7 +450,7 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                 refPos += (*it)->getWidth();
             }
             // interaction
-            appBase->setNodeMask(1 << GUIOSGView::NODESET_TLSMODELS);
+            appBase->setNodeMask(GUIOSGView::NODESET_TLSMODELS);
             appBase->setName("tlLogic:" + tlLogic->getID());
             addTo.addChild(appBase);
         }
@@ -552,7 +552,7 @@ GUIOSGBuilder::createTrafficLightState(const GUISUMOAbstractView::Decal& d, osg:
         ret->addChild(tl);
     }
     if (size > 0.) {
-        unsigned int nodeMask = (withPole) ? 1 << GUIOSGView::NodeSetGroup::NODESET_TLSDOMES : 1 << GUIOSGView::NodeSetGroup::NODESET_TLSLINKMARKERS;
+        unsigned int nodeMask = (withPole) ? GUIOSGView::NodeSetGroup::NODESET_TLSDOMES : GUIOSGView::NodeSetGroup::NODESET_TLSLINKMARKERS;
         osg::Geode* geode = new osg::Geode();
         osg::Vec3d center = osg::Vec3d(0., 0., (withPole) ? -1.8 : 0.);
         osg::ShapeDrawable* shape = new osg::ShapeDrawable(new osg::Sphere(center, (float)size));

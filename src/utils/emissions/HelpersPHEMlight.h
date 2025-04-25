@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -121,7 +121,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return the modified acceleration
      */
-    virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const;
+    virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const;
 
     /** @brief Returns the maximum deceleration value (as a negative number), which can still be considered as non-braking.
      * @param[in] c the emission class

@@ -1,0 +1,11 @@
+<add>
+    <parkingArea id="parkingArea1" lane="2fi_0" startPos="40" endPos="50" roadsideCapacity="2"/>
+    <chargingStation id="chargingStation1" lane="2fi_0" startPos="40" endPos="50" parkingArea="parkingArea1"/>
+
+    <vType id="electric">
+        <param key="has.battery.device" value="true"/>
+        <param key="has.stationfinder.device" value="true"/>
+        <param key="device.stationfinder.rescueAction" value="none"/>
+        <param key="device.battery.capacity" value="50000"/>
+    </vType>
+</add>

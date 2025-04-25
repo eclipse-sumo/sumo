@@ -105,7 +105,7 @@ Please note that the capacity is computed by multiplying an edge's lane
 number with the capacity norm:
 
 ```
-MAXIMUM_FLOW = LANE_NUMBER * CAPACITY_NORM
+MAXIMUM_FLOW = LANE_NUMBER * CAPACITY_NORM
 ```
 
 The value of CAPACITY_NORM is controlled via the option **--capacity-norm** {{DT_FLOAT}} (default: 1800).
@@ -113,7 +113,7 @@ The value of CAPACITY_NORM is controlled via the option **--capacity-norm** {{DT
 
 ## DlrNavteq
 
-The **--dlr-navteq-output** {{DT_FILE}} generates a links, a nodes and a traffic lights file matching extraction version 6.5 by default. The version can be set using the option **--dlr-navteq.version** {{DT_STR}}. A version of 7 or larger will trigger the output of additional attributes auch as maximum height and width.
+The **--dlr-navteq-output** {{DT_FILE}} generates a links, a nodes and a traffic lights file matching extraction version 6.5 by default. The version can be set using the option **--dlr-navteq.version** {{DT_STR}}. A version of 7 or larger will trigger the output of additional attributes such as maximum height and width.
 
 
 ## Amitran
@@ -126,11 +126,11 @@ writes the data to a file with the following format
 <?xml version="1.0" encoding="utf-8"?>
 
 <network xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/network.xsd">
-   <node id="0" type="rightBeforeLeft"/>
-   <node id="1" type="priority"/>
-   ...
-   <link id="0" from="1" to="0" roadClass="4" length="136448" speedLimitKmh="20" laneNr="1"/>
-   ...
+   <node id="0" type="rightBeforeLeft"/>
+   <node id="1" type="priority"/>
+   ...
+   <link id="0" from="1" to="0" roadClass="4" length="136448" speedLimitKmh="20" laneNr="1"/>
+   ...
 </network>
 ```
 
@@ -149,7 +149,7 @@ Conversion of .net.xml file with [python tool net2kml](../Tools/Net.md#net2kmlpy
 
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
-<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
-<a href="https://amitran.eu/"><img src="../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
+<span style="float: right; margin-top: -5px;"><a href="https://web.archive.org/web/20191005024529/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<a href="https://web.archive.org/web/20180309093847/https://amitran.eu/"><img src="../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project
-<a href="https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+<a href="https://web.archive.org/web/20180309093847/https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://web.archive.org/web/20191005024529/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>

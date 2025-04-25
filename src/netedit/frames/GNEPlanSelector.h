@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,7 @@ public:
     void hidePlanSelector();
 
     /// @brief get current plan tag properties
-    const GNETagProperties& getCurrentPlanTagProperties() const;
+    const GNETagProperties* getCurrentPlanTagProperties() const;
 
     /// @brief get current plan template
     GNEDemandElement* getCurrentPlanTemplate() const;
@@ -67,17 +67,23 @@ public:
     /// @brief check if mark junctions with dotted contours
     bool markJunctions() const;
 
-    /// @brief check if mark busStops with dotted contours
-    bool markBusStops() const;
-
-    /// @brief check if mark trainStops with dotted contours
-    bool markTrainStops() const;
-
-    /// @brief check if mark containerStops with dotted contours
-    bool markContainerStops() const;
+    /// @brief check if mark stoppingPlaces with dotted contours
+    bool markStoppingPlaces() const;
 
     /// @brief check if mark TAZs with dotted contours
     bool markTAZs() const;
+
+    /// @brief update junction colors
+    void updateJunctionColors();
+
+    /// @brief update edge colors
+    void updateEdgeColors();
+
+    /// @brief clear junction colors
+    void clearJunctionColors();
+
+    /// @brief clear edge colors
+    void clearEdgeColors();
 
     /// @name FOX-callbacks
     /// @{
@@ -108,8 +114,8 @@ private:
     MFXComboBoxIcon* myPlansComboBox;
 
     /// @brief current plan template;
-    std::pair<GNETagProperties, GNEDemandElement*> myCurrentPlanTemplate;
+    std::pair<GNETagProperties*, GNEDemandElement*> myCurrentPlanTemplate;
 
     /// @brief list with demand templates
-    std::vector<std::pair<GNETagProperties, GNEDemandElement*> > myPlanTemplates;
+    std::vector<std::pair<GNETagProperties*, GNEDemandElement*> > myPlanTemplates;
 };

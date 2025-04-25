@@ -1,0 +1,135 @@
+# Japanese translations for sumo package.
+# Copyright (C) 2025 THE sumo'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the sumo package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sumo\n"
+"Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
+"POT-Creation-Date: 2025-01-02 15:02+0100\n"
+"PO-Revision-Date: 2025-02-05 12:40+0000\n"
+"Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/python-tools/ja/>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.10-dev\n"
+
+#: tools/game/runner.py:66
+msgid "Interactive Traffic Light"
+msgstr "相互の信号機"
+
+#: tools/game/runner.py:67
+msgid "Research intersection Ingolstadt"
+msgstr "インゴルシュタット（Ingolstadt）の研究交差点"
+
+#: tools/game/runner.py:68
+msgid "Simple Junction"
+msgstr "シンプルな交差点"
+
+#: tools/game/runner.py:69
+msgid "Simple Junction (Demo)"
+msgstr "シンプルな交差点（Demo）"
+
+#: tools/game/runner.py:70
+msgid "Four Junctions"
+msgstr "4つの交差点"
+
+#: tools/game/runner.py:71
+msgid "Six Junctions"
+msgstr "6つの交差点"
+
+#: tools/game/runner.py:72
+msgid "Prof. Kühne"
+msgstr "キューネ教授"
+
+#: tools/game/runner.py:73
+msgid "3D Junction Virtual World"
+msgstr "3Dの交差点のバーチャルワールド"
+
+#: tools/game/runner.py:74
+msgid "3D Junction OpenStreetMap"
+msgstr "3Dの交差点のOpenStreetMap"
+
+#: tools/game/runner.py:75
+msgid "Highway Ramp"
+msgstr "ハイウェイランプ"
+
+#: tools/game/runner.py:76
+msgid "Combined Highway On and Off Ramp"
+msgstr "高速道路の入口ランプと出口ランプを合体する"
+
+#: tools/game/runner.py:77
+msgid "Corridor"
+msgstr "廊下、回廊"
+
+#: tools/game/runner.py:78
+msgid "Highway Ramp A10"
+msgstr "ハイウェイランプA10"
+
+#: tools/game/runner.py:79
+msgid "Demand Responsive Transport (new)"
+msgstr "デマンド型交通（DRT） (new)"
+
+#: tools/game/runner.py:80
+msgid "DRT - Advanced (new)"
+msgstr "デマンド型交通（DRT） - Advanced (new)"
+
+#: tools/game/runner.py:81
+msgid "DRT - Demo"
+msgstr "デマンド型交通（DRT） - Demo"
+
+#: tools/game/runner.py:82 /tools/game/runner.py:92
+msgid "Highscore"
+msgstr "ハイスコア"
+
+#: tools/game/runner.py:83
+msgid "Reset Highscore"
+msgstr "ハイスコアをリセット"
+
+#: tools/game/runner.py:84
+msgid "German"
+msgstr "ドイツ語"
+
+#: tools/game/runner.py:85
+msgid "English"
+msgstr "英語"
+
+#: tools/game/runner.py:86
+msgid "Italian"
+msgstr "イタリア語"
+
+#: tools/game/runner.py:87
+msgid "Spanish"
+msgstr "スペイン語"
+
+#: tools/game/runner.py:88
+msgid "French"
+msgstr "フランス語"
+
+#: tools/game/runner.py:89
+msgid "Chinese (simplified)"
+msgstr "中国語（簡体字）"
+
+#: tools/game/runner.py:90
+msgid "Chinese (traditional)"
+msgstr "中国語（繁体字）"
+
+#: tools/game/runner.py:91
+msgid "Quit"
+msgstr "終了"
+
+#: tools/game/runner.py:93
+msgid "Congratulations!"
+msgstr "おめでとう！"
+
+#: tools/game/runner.py:94
+msgid "Your Score"
+msgstr "あなたのスコア"
+
+#: tools/game/runner.py:95
+msgid "Continue"
+msgstr "進む"

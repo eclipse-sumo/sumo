@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-12 17:20:14 by Eclipse SUMO sumo Version v1_10_0+1679-b93cd5866ee
+<!-- generated on 2025-04-04 21:54:38 by Eclipse SUMO sumo Version v1_22_0+1289-ef3b4f11f20
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="elechybrid_1.net.xml"/>
@@ -30,12 +35,11 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <overhead-wire-solver value="true"/>
+        <overhead-wire.solver value="true"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -44,113 +48,109 @@ SPDX-License-Identifier: EPL-2.0
         <device.elechybrid.explicit value="test1,test3"/>
     </elechybrid_device>
 
-    <gui_only>
-        <tracker-interval value="0.5"/>
-    </gui_only>
-
-</configuration>
+</sumoConfiguration>
 -->
 
 <substations-export>
-    <tractionSubstation id="substation" totalEnergyCharged="-2162.87" length="459.24" numVoltageSources="1" numClamps="4" chargingSteps="99">
-        <step time="1.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-7.72" current="92.60" currents="92.6021" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="1.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-8.87" current="106.39" currents="106.3911" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="2.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-10.02" current="120.23" currents="120.2293" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="2.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-11.18" current="134.12" currents="134.1179" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="3.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-12.34" current="148.06" currents="148.0582" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="3.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-13.50" current="162.05" currents="162.0511" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="4.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-14.67" current="176.10" currents="176.0974" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="4.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-15.85" current="190.20" currents="190.1977" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="5.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-17.03" current="204.35" currents="204.3526" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="5.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-18.21" current="218.56" currents="218.5621" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="6.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-19.40" current="232.83" currents="232.8263" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="6.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-20.60" current="247.14" currents="247.1450" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="7.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-21.79" current="261.52" currents="261.5177" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="7.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.00" current="275.94" currents="275.9437" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="8.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-24.20" current="290.42" currents="290.4222" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="8.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-25.41" current="304.95" currents="304.9519" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="9.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-26.63" current="319.53" currents="319.5314" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="9.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-28.03" current="336.39" currents="336.3868" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="10.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-29.07" current="348.79" currents="348.7873" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="10.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-30.29" current="363.50" currents="363.5012" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="11.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-31.52" current="378.26" currents="378.2565" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="11.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-32.75" current="393.05" currents="393.0504" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="12.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.99" current="407.88" currents="407.8798" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="12.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.84" current="418.02" currents="418.0212" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="13.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.80" current="417.65" currents="417.6525" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="13.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.77" current="417.27" currents="417.2730" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="14.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.74" current="416.88" currents="416.8835" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="14.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.71" current="416.48" currents="416.4849" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="15.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.67" current="416.08" currents="416.0778" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="15.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.64" current="415.66" currents="415.6628" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="16.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.60" current="415.24" currents="415.2405" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="16.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.57" current="414.81" currents="414.8114" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="17.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.53" current="414.38" currents="414.3761" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="17.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.49" current="413.93" currents="413.9348" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="18.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.46" current="413.49" currents="413.4882" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="18.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.42" current="413.04" currents="413.0364" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="19.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.38" current="412.58" currents="412.5800" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="19.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.34" current="412.12" currents="412.1192" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="20.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-24.30" current="291.55" currents="291.5523" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="20.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="2.56" current="-30.71" currents="-30.7125" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="21.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="2.32" current="-27.81" currents="-27.8069" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="21.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="2.07" current="-24.82" currents="-24.8238" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="22.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="1.81" current="-21.77" currents="-21.7663" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="22.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="1.55" current="-18.64" currents="-18.6375" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="23.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="1.29" current="-15.44" currents="-15.4404" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="23.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="1.01" current="-12.18" currents="-12.1781" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="24.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="0.74" current="-8.85" currents="-8.8536" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="24.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="0.46" current="-5.47" currents="-5.4701" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="25.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="0.17" current="-2.03" currents="-2.0307" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="25.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-0.12" current="1.46" currents="1.4617" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="26.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-0.42" current="5.00" currents="5.0039" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="26.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-0.72" current="8.59" currents="8.5929" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="27.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-1.02" current="12.23" currents="12.2256" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="27.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-1.32" current="15.90" currents="15.8989" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="28.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-1.63" current="19.61" currents="19.6098" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="28.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-1.95" current="23.36" currents="23.3554" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="29.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-2.26" current="27.13" currents="27.1325" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="29.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-2.58" current="30.94" currents="30.9381" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="30.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-2.90" current="34.77" currents="34.7693" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="30.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-3.22" current="38.62" currents="38.6231" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="31.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-15.49" current="185.91" currents="185.9065" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="31.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-16.63" current="199.56" currents="199.5561" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="33.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-20.04" current="240.47" currents="240.4706" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="33.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-55.42" current="665.03" currents="665.0334" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="34.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-22.32" current="267.88" currents="267.8786" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="34.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.47" current="281.60" currents="281.6015" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="35.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-24.61" current="295.34" currents="295.3356" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="35.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-25.76" current="309.08" currents="309.0794" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="36.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-26.90" current="322.83" currents="322.8314" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="36.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-28.05" current="336.59" currents="336.5899" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="37.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-29.20" current="350.35" currents="350.3530" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="37.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-30.34" current="364.12" currents="364.1187" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="38.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-31.49" current="377.88" currents="377.8847" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="38.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-32.64" current="391.65" currents="391.6487" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="39.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.51" current="402.12" currents="402.1181" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="39.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.49" current="401.90" currents="401.9001" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="40.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.52" current="402.23" currents="402.2254" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="40.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.55" current="402.56" currents="402.5616" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="41.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.58" current="402.91" currents="402.9083" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="41.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.61" current="403.27" currents="403.2651" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="42.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.64" current="403.63" currents="403.6317" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="42.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.67" current="404.01" currents="404.0076" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="43.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.70" current="404.39" currents="404.3927" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="43.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.73" current="404.79" currents="404.7866" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="44.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.77" current="405.25" currents="405.2474" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="44.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.80" current="405.66" currents="405.6587" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="45.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.84" current="406.08" currents="406.0781" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="45.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.88" current="406.51" currents="406.5057" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="46.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.91" current="406.94" currents="406.9411" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="46.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.95" current="407.38" currents="407.3844" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="47.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-27.37" current="328.50" currents="328.4975" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="47.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.74" current="284.90" currents="284.9032" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="48.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.77" current="285.22" currents="285.2179" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="48.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.79" current="285.44" currents="285.4364" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="49.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.80" current="285.66" currents="285.6554" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="49.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.82" current="285.88" currents="285.8752" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="50.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.84" current="286.10" currents="286.0957" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="50.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.86" current="286.32" currents="286.3168" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
-        <step time="51.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.88" current="286.54" currents="286.5386" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+    <tractionSubstation id="substation" totalEnergyCharged="-2240.64" length="459.24" numVoltageSources="1" numClamps="4" chargingSteps="99">
+        <step time="1.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-7.71" current="92.50" currents="92.5036" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="1.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-8.86" current="106.35" currents="106.3531" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="2.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-10.02" current="120.25" currents="120.2522" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="2.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-11.18" current="134.20" currents="134.2020" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="3.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-12.35" current="148.20" currents="148.2039" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="3.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-13.52" current="162.26" currents="162.2588" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="4.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-14.70" current="176.37" currents="176.3675" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="4.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-15.88" current="190.53" currents="190.5306" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="5.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-17.06" current="204.75" currents="204.7486" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="5.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-18.25" current="219.02" currents="219.0217" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="6.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-19.45" current="233.35" currents="233.3497" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="6.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-20.64" current="247.73" currents="247.7326" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="7.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-21.85" current="262.17" currents="262.1698" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="7.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.06" current="276.66" currents="276.6606" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="8.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-24.27" current="291.20" currents="291.2041" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="8.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-25.48" current="305.80" currents="305.7991" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="9.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-26.70" current="320.44" currents="320.4442" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="9.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-28.11" current="337.38" currents="337.3790" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="10.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-29.15" current="349.83" currents="349.8314" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="10.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-30.38" current="364.61" currents="364.6112" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="11.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-31.62" current="379.43" currents="379.4325" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="11.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-32.86" current="394.29" currents="394.2925" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="12.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.10" current="409.19" currents="409.1880" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="12.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.82" current="417.82" currents="417.8206" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="13.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.79" current="417.45" currents="417.4524" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="13.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.76" current="417.07" currents="417.0735" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="14.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.72" current="416.68" currents="416.6848" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="14.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.69" current="416.29" currents="416.2870" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="15.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.66" current="415.88" currents="415.8807" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="15.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-43.35" current="520.14" currents="520.1411" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="16.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-69.83" current="837.94" currents="837.9355" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="16.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-42.24" current="506.92" currents="506.9171" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="17.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-72.41" current="868.94" currents="868.9368" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="17.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.48" current="413.74" currents="413.7426" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="18.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.44" current="413.30" currents="413.2970" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="18.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.40" current="412.85" currents="412.8464" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="19.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.37" current="412.39" currents="412.3911" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="19.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-34.33" current="411.93" currents="411.9314" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="20.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-25.93" current="311.19" currents="311.1871" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="20.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="2.72" current="-32.60" currents="-32.5962" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="21.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="2.47" current="-29.62" currents="-29.6179" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="21.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="2.21" current="-26.56" currents="-26.5620" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="22.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="1.95" current="-23.43" currents="-23.4314" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="22.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="1.69" current="-20.23" currents="-20.2294" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="23.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="1.41" current="-16.96" currents="-16.9590" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="23.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="1.14" current="-13.62" currents="-13.6232" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="24.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="0.85" current="-10.23" currents="-10.2252" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="24.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="0.56" current="-6.77" currents="-6.7680" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="25.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="0.27" current="-3.25" currents="-3.2547" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="25.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-0.03" current="0.31" currents="0.3116" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="26.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-0.33" current="3.93" currents="3.9278" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="26.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-0.63" current="7.59" currents="7.5909" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="27.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-0.94" current="11.30" currents="11.2978" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="27.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-1.25" current="15.05" currents="15.0454" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="28.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-1.57" current="18.83" currents="18.8307" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="28.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-1.89" current="22.65" currents="22.6507" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="29.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-2.21" current="26.50" currents="26.5024" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="29.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-2.53" current="30.38" currents="30.3826" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="30.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-2.86" current="34.29" currents="34.2885" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="30.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-3.18" current="38.22" currents="38.2171" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="31.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-15.54" current="186.48" currents="186.4812" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="31.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-16.68" current="200.19" currents="200.1912" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="33.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-26.58" current="319.00" currents="318.9974" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="33.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-21.66" current="259.93" currents="259.9300" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="34.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-35.53" current="426.37" currents="426.3684" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="34.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.55" current="282.60" currents="282.5972" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="35.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-24.70" current="296.39" currents="296.3912" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="35.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-25.85" current="310.19" currents="310.1947" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="36.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-27.00" current="324.01" currents="324.0062" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="36.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-28.15" current="337.82" currents="337.8241" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="37.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-29.30" current="351.65" currents="351.6463" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="37.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-30.46" current="365.47" currents="365.4707" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="38.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-31.61" current="379.30" currents="379.2952" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="38.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-32.76" current="393.12" currents="393.1173" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="39.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.49" current="401.93" currents="401.9303" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="39.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.48" current="401.72" currents="401.7173" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="40.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.50" current="402.04" currents="402.0423" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="40.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.53" current="402.38" currents="402.3781" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="41.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.56" current="402.72" currents="402.7243" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="41.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.59" current="403.08" currents="403.0806" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="42.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.62" current="403.45" currents="403.4465" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="42.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.65" current="403.82" currents="403.8217" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="43.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.68" current="404.21" currents="404.2061" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="43.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.72" current="404.60" currents="404.5992" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="44.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.75" current="405.06" currents="405.0592" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="44.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.79" current="405.47" currents="405.4696" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="45.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.82" current="405.89" currents="405.8881" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="45.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.86" current="406.31" currents="406.3147" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="46.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.90" current="406.75" currents="406.7492" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="46.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-33.93" current="407.19" currents="407.1914" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="47.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-28.44" current="341.26" currents="341.2633" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="47.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.73" current="284.71" currents="284.7126" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="48.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.75" current="285.03" currents="285.0269" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="48.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.77" current="285.25" currents="285.2450" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="49.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.79" current="285.46" currents="285.4638" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="49.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.81" current="285.68" currents="285.6833" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="50.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.83" current="285.90" currents="285.9034" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="50.50" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.84" current="286.12" currents="286.1242" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
+        <step time="51.00" vehicleIDs="elecHybrid_test3" numVehicles="1" energyCharged="-23.86" current="286.35" currents="286.3458" voltage="600.00" alphaCircuitSolver="1.00" alphaFlag="0"/>
     </tractionSubstation>
 </substations-export>

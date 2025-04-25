@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,6 +58,8 @@ public:
     static std::string getRoadID(const std::string& vehID);
     static std::string getLaneID(const std::string& vehID);
     static int getLaneIndex(const std::string& vehID);
+    static std::string getSegmentID(const std::string& vehID);
+    static int getSegmentIndex(const std::string& vehID);
     static std::string getTypeID(const std::string& vehID);
     static std::string getRouteID(const std::string& vehID);
     static double getDeparture(const std::string& vehID);
@@ -207,7 +209,7 @@ public:
     static void rerouteTraveltime(const std::string& vehID, const bool currentTravelTimes = true);
     static void rerouteEffort(const std::string& vehID);
     static void setSignals(const std::string& vehID, int signals);
-    static void moveTo(const std::string& vehID, const std::string& laneID, double position, int reason = libsumo::MOVE_AUTOMATIC);
+    static void moveTo(const std::string& vehID, const std::string& laneID, double pos, int reason = libsumo::MOVE_AUTOMATIC);
     static void moveToXY(const std::string& vehID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle = libsumo::INVALID_DOUBLE_VALUE, const int keepRoute = 1, double matchThreshold = 100);
     static void remove(const std::string& vehID, char reason = libsumo::REMOVE_VAPORIZED);
     static void setLine(const std::string& vehID, const std::string& line);

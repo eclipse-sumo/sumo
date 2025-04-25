@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -34,23 +34,27 @@ netedit.rebuildNetwork()
 # go to select mode
 netedit.selectMode()
 
+# lock edges
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.junctions)
+
+# lock edges
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.edges)
+
+# lock edges
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.crossings)
+
 # show connections
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
+# Rebuild network
+netedit.rebuildNetwork()
 
-# clear selection
-netedit.selectionClear()
+# use a rectangle to select central elements
+netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleSmallA,
+                           netedit.positions.selection.rectangleSmallB)
 
-# hidde connections
-netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
-
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
-
-# clear selection
-netedit.selectionClear()
+# remove elements
+netedit.deleteSelectedItems()
 
 # check undo and redo
 netedit.checkUndoRedo(referencePosition)

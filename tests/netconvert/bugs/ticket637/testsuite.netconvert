@@ -1,6 +1,0 @@
-# test in dlr navteq/ elmar format
-elmar_format
-#edges with different street names should not be joined
-simple_remove
-#merging edges with same street name
-same_streetnames

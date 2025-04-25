@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-02 14:17:54 by Eclipse SUMO netconvert Version v1_21_0+1103-4c639cd733b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <crossings.guess value="true"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="CE"/>
+
+    <connection from="CN"/>
+
+    <connection from="CS"/>
+
+    <connection from="CW"/>
+
+    <connection from="E0" to="CN" fromLane="2" toLane="2"/>
+    <connection from="E0" to="CN" fromLane="2" toLane="3"/>
+    <connection from="E0" to="E3" fromLane="2" toLane="2"/>
+    <connection from="E0" to="E3" fromLane="3" toLane="3"/>
+
+    <connection from="E1" to="CE" fromLane="2" toLane="2"/>
+    <connection from="E1" to="CE" fromLane="2" toLane="3"/>
+    <connection from="E1" to="E0" fromLane="2" toLane="2"/>
+    <connection from="E1" to="E0" fromLane="3" toLane="3"/>
+
+    <connection from="E2" to="CS" fromLane="2" toLane="2"/>
+    <connection from="E2" to="CS" fromLane="2" toLane="3"/>
+    <connection from="E2" to="E1" fromLane="2" toLane="2"/>
+    <connection from="E2" to="E1" fromLane="3" toLane="3"/>
+
+    <connection from="E3" to="CW" fromLane="2" toLane="2"/>
+    <connection from="E3" to="CW" fromLane="2" toLane="3"/>
+    <connection from="E3" to="E2" fromLane="2" toLane="2"/>
+    <connection from="E3" to="E2" fromLane="3" toLane="3"/>
+
+    <connection from="EC" to="E0" fromLane="2" toLane="2"/>
+    <connection from="EC" to="E0" fromLane="3" toLane="3"/>
+
+    <connection from="NC" to="E3" fromLane="2" toLane="2"/>
+    <connection from="NC" to="E3" fromLane="3" toLane="3"/>
+
+    <connection from="SC" to="E1" fromLane="2" toLane="2"/>
+    <connection from="SC" to="E1" fromLane="3" toLane="3"/>
+
+    <connection from="WC" to="E2" fromLane="2" toLane="2"/>
+    <connection from="WC" to="E2" fromLane="3" toLane="3"/>
+
+    <crossing node="J0" edges="CN NC" priority="1" outlineShape="106.50,140.78 93.50,140.78 93.44,139.73 92.96,138.77 92.16,137.89 91.04,137.10 90.40,136.78 109.60,136.78 108.96,137.10 107.84,137.89 107.04,138.77 106.56,139.73"/>
+    <crossing node="J1" edges="CE EC" priority="1" outlineShape="140.78,93.50 140.78,106.50 139.73,106.56 138.77,107.04 137.89,107.84 137.10,108.96 136.78,109.60 136.78,90.40 137.10,91.04 137.89,92.16 138.77,92.96 139.73,93.44"/>
+    <crossing node="J2" edges="CS SC" priority="1" outlineShape="93.50,59.22 106.50,59.22 106.56,60.27 107.04,61.23 107.84,62.11 108.96,62.90 109.60,63.22 90.40,63.22 91.04,62.90 92.16,62.11 92.96,61.23 93.44,60.27"/>
+    <crossing node="J3" edges="CW WC" priority="1" outlineShape="59.22,106.50 59.22,93.50 60.27,93.44 61.23,92.96 62.11,92.16 62.90,91.04 63.22,90.40 63.22,109.60 62.90,108.96 62.11,107.84 61.23,107.04 60.27,106.56"/>
+</connections>

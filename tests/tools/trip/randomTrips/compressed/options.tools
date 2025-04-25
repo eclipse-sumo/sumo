@@ -1,0 +1,4 @@
+-n net.net.xml
+-r out.rou.xml.gz
+-o out.trips.xml.gz
+-e 10

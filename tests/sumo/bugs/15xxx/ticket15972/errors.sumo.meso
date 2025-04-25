@@ -1,0 +1,3 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Teleporting vehicle 'ego'; waited too long, from edge 'E0':0, time=328.67.
+Warning: Vehicle 'ego' teleports beyond arrival edge 'E0', time=343.07.

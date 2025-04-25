@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-02 09:17:55.960281 by generateParkingAreaRerouters.py v1_21_0+1602-18d03791634
+<configuration>
+    <parking-areas value="input_additional.add.xml"/>
+    <sumo-net value="net.net.xml"/>
+    <output value="input_additional2.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <rerouter id="pa_0" edges="A0A1">
+        <interval begin="0.0" end="86400.0">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="pa_0" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="pa_1" visible="true"/> <!-- dist: 13.9 -->
+            <parkingAreaReroute id="pa_2" visible="true"/> <!-- dist: 36.8 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="pa_1" edges="A0A1">
+        <interval begin="0.0" end="86400.0">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="pa_1" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="pa_2" visible="true"/> <!-- dist: 12.8 -->
+        </interval>
+    </rerouter>
+</additional>

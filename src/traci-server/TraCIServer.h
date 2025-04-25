@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -160,15 +160,6 @@ public:
     /// @name Helpers for reading and checking values
     /// @{
 
-    /** @brief Reads the value type and an int, verifying the type
-     *
-     * @param[in, changed] inputStorage The storage to read from
-     * @param[out] into Holder of the read value
-     * @return Whether an integer value was given (by data type)
-     */
-    bool readTypeCheckingInt(tcpip::Storage& inputStorage, int& into);
-
-
     /** @brief Reads the value type and a double, verifying the type
      *
      * @param[in, changed] inputStorage The storage to read from
@@ -262,6 +253,7 @@ public:
     /// @name VariableWrapper interface
     /// @{
     void initWrapper(const int domainID, const int variable, const std::string& objID);
+    bool wrapConnectionVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIConnection>& value);
     bool wrapDouble(const std::string& objID, const int variable, const double value);
     bool wrapInt(const std::string& objID, const int variable, const int value);
     bool wrapString(const std::string& objID, const int variable, const std::string& value);
@@ -271,7 +263,19 @@ public:
     bool wrapPositionVector(const std::string& objID, const int variable, const libsumo::TraCIPositionVector& value);
     bool wrapColor(const std::string& objID, const int variable, const libsumo::TraCIColor& value);
     bool wrapStringDoublePair(const std::string& objID, const int variable, const std::pair<std::string, double>& value);
+    bool wrapStringDoublePairList(const std::string& objID, const int variable, const std::vector<std::pair<std::string, double> >& value);
     bool wrapStringPair(const std::string& objID, const int variable, const std::pair<std::string, std::string>& value);
+    bool wrapIntPair(const std::string& objID, const int variable, const std::pair<int, int>& value);
+    bool wrapStage(const std::string& objID, const int variable, const libsumo::TraCIStage& value);
+    bool wrapReservationVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIReservation>& value);
+    bool wrapLogicVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCILogic>& value);
+    bool wrapLinkVectorVector(const std::string& objID, const int variable, const std::vector<std::vector<libsumo::TraCILink> >& value);
+    bool wrapSignalConstraintVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCISignalConstraint>& value);
+    bool wrapJunctionFoeVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIJunctionFoe>& value);
+    bool wrapNextStopDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCINextStopData>& value);
+    bool wrapVehicleDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIVehicleData>& value);
+    bool wrapBestLanesDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCIBestLanesData>& value);
+    bool wrapNextTLSDataVector(const std::string& objID, const int variable, const std::vector<libsumo::TraCINextTLSData>& value);
     tcpip::Storage& getWrapperStorage();
     /// @}
 

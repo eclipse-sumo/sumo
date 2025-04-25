@@ -1,0 +1,4 @@
+Error: Attribute 'id' is missing in definition of a parkingArea.
+Error: Could not build parkingArea with ID 'ID with spaces' in netedit; ID contains invalid characters.
+Error: Could not build parkingArea with ID 'parkingArea_0' in netedit; Found another parkingArea with the same ID.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/additionals/parkingarea/load/id/additionals.add.xml failed.

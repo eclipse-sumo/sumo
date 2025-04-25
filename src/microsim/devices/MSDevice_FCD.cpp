@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,13 +34,6 @@
 #include <microsim/MSVehicle.h>
 #include "MSDevice_FCD.h"
 
-// some attributes are not written by default and must be enabled via option fcd-output.attributes
-const long long int MSDevice_FCD::myDefaultMask(~(
-            ((long long int)1 << SUMO_ATTR_VEHICLE) |
-            ((long long int)1 << SUMO_ATTR_ODOMETER) |
-            ((long long int)1 << SUMO_ATTR_SPEED_LAT) |
-            ((long long int)1 << SUMO_ATTR_POSITION_LAT)
-        ));
 
 // ===========================================================================
 // static members
@@ -50,7 +43,7 @@ std::vector<PositionVector> MSDevice_FCD::myShape4Filters;
 bool MSDevice_FCD::myEdgeFilterInitialized(false);
 bool MSDevice_FCD::myShapeFilterInitialized(false);
 bool MSDevice_FCD::myShapeFilterDesired(false);
-long long int MSDevice_FCD::myWrittenAttributes(myDefaultMask);
+SumoXMLAttrMask MSDevice_FCD::myWrittenAttributes(getDefaultMask());
 
 // ===========================================================================
 // method definitions
@@ -95,6 +88,28 @@ MSDevice_FCD::MSDevice_FCD(SUMOVehicle& holder, const std::string& id) :
 
 MSDevice_FCD::~MSDevice_FCD() {
 }
+
+
+SumoXMLAttrMask
+MSDevice_FCD::getDefaultMask() {
+    SumoXMLAttrMask mask;
+    // set all bits to 1
+    mask.set();
+    // some attributes are not written by default and must be enabled via option fcd-output.attributes
+    // (or with an explicit attribute list)
+    mask.reset(SUMO_ATTR_VEHICLE);
+    mask.reset(SUMO_ATTR_ODOMETER);
+    mask.reset(SUMO_ATTR_SPEED_LAT);
+    mask.reset(SUMO_ATTR_POSITION_LAT);
+    mask.reset(SUMO_ATTR_ARRIVALDELAY);
+    mask.reset(SUMO_ATTR_SEGMENT);
+    mask.reset(SUMO_ATTR_QUEUE);
+    mask.reset(SUMO_ATTR_ENTRYTIME);
+    mask.reset(SUMO_ATTR_EVENTTIME);
+    mask.reset(SUMO_ATTR_BLOCKTIME);
+    return mask;
+}
+
 
 bool
 MSDevice_FCD::shapeFilter(const SUMOTrafficObject* veh) {
@@ -158,19 +173,18 @@ MSDevice_FCD::initOnce() {
         }
     }
     if (oc.isSet("fcd-output.attributes")) {
-        myWrittenAttributes = 0;
+        myWrittenAttributes.reset();
         for (std::string attrName : oc.getStringVector("fcd-output.attributes")) {
             if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
                 if (attrName == "all") {
-                    myWrittenAttributes = ~0;
+                    myWrittenAttributes.set();
                 } else {
                     WRITE_ERRORF(TL("Unknown attribute '%' to write in fcd output."), attrName);
                 }
                 continue;
             }
             int attr = SUMOXMLDefinitions::Attrs.get(attrName);
-            assert(attr <= 63);
-            myWrittenAttributes |= ((long long int)1 << attr);
+            myWrittenAttributes.set(attr);
         }
     }
 
@@ -190,7 +204,7 @@ MSDevice_FCD::cleanup() {
     myEdgeFilterInitialized = false;
     myShapeFilterInitialized = false;
     myShapeFilterDesired = false;
-    myWrittenAttributes = myDefaultMask;
+    myWrittenAttributes = getDefaultMask();
 }
 
 

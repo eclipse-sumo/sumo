@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-17 14:50:02 by Eclipse SUMO netconvert Version v1_19_0+1871-d7b1e486cbd
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="1092.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="882.72,1528.66" convBoundary="609.30,1824.48,768.14,2092.38" origBoundary="-882.72,-1528.66,912.78,899.36" projParameter="!"/>
+
+    <node id="1004" x="740.60" y="1827.30" type="dead_end"/>
+    <node id="1010" x="768.14" y="2092.38" type="dead_end"/>
+    <node id="1092" x="643.97" y="1969.36" type="dead_end"/>
+    <node id="1198" x="609.30" y="1824.48" type="dead_end"/>
+</nodes>

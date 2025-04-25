@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -53,6 +53,7 @@ public:
     static std::string getPhaseName(const std::string& tlsID);
     static double getPhaseDuration(const std::string& tlsID);
     static double getNextSwitch(const std::string& tlsID);
+    static double getSpentDuration(const std::string& tlsID);
     static int getServedPersonCount(const std::string& tlsID, int index);
     static std::vector<std::string> getBlockingVehicles(const std::string& tlsID, int linkIndex);
     static std::vector<std::string> getRivalVehicles(const std::string& tlsID, int linkIndex);
@@ -77,10 +78,10 @@ public:
     static void updateConstraints(const std::string& vehID, std::string tripId = "");
 
     // aliases for backward compatibility
-    inline static std::vector<libsumo::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
+    static inline std::vector<libsumo::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
         return getAllProgramLogics(tlsID);
     }
-    inline static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) {
+    static inline void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) {
         setProgramLogic(tlsID, logic);
     }
 

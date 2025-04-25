@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,8 +44,6 @@
 // static member variables
 // ===========================================================================
 MsgHandler::Factory MsgHandler::myFactory = nullptr;
-MsgHandler* MsgHandler::myDebugInstance = nullptr;
-MsgHandler* MsgHandler::myGLDebugInstance = nullptr;
 MsgHandler* MsgHandler::myErrorInstance = nullptr;
 MsgHandler* MsgHandler::myWarningInstance = nullptr;
 MsgHandler* MsgHandler::myMessageInstance = nullptr;
@@ -94,24 +92,6 @@ MsgHandler::getErrorInstance() {
         myErrorInstance = new MsgHandler(MsgType::MT_ERROR);
     }
     return myErrorInstance;
-}
-
-
-MsgHandler*
-MsgHandler::getDebugInstance() {
-    if (myDebugInstance == nullptr) {
-        myDebugInstance = new MsgHandler(MsgType::MT_DEBUG);
-    }
-    return myDebugInstance;
-}
-
-
-MsgHandler*
-MsgHandler::getGLDebugInstance() {
-    if (myGLDebugInstance == nullptr) {
-        myGLDebugInstance = new MsgHandler(MsgType::MT_GLDEBUG);
-    }
-    return myGLDebugInstance;
 }
 
 
@@ -175,7 +155,7 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
     msg = build(msg, addType);
     // inform all other receivers
     for (auto i : myRetrievers) {
-        i->inform(msg, ' ');
+        i->inform(msg, true);
         myAmProcessingProcess = true;
     }
     // set the information that something occurred
@@ -187,12 +167,12 @@ void
 MsgHandler::endProcessMsg2(bool success, long duration) {
     if (success) {
         if (duration > -1) {
-            endProcessMsg(TLF("done (%ms).", toString(duration)));
+            endProcessMsg(TLF(" done (%ms).", toString(duration)));
         } else {
-            endProcessMsg(TL("done."));
+            endProcessMsg(TL(" done."));
         }
     } else {
-        endProcessMsg(TL("failed."));
+        endProcessMsg(TL(" failed."));
     }
 }
 
@@ -258,12 +238,6 @@ MsgHandler::isRetriever(OutputDevice* retriever) const {
 
 void
 MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
-    if (myDebugInstance != nullptr) {
-        myDebugInstance->removeRetriever(out);
-    }
-    if (myGLDebugInstance != nullptr) {
-        myGLDebugInstance->removeRetriever(out);
-    }
     if (myErrorInstance != nullptr) {
         myErrorInstance->removeRetriever(out);
     }
@@ -363,10 +337,6 @@ MsgHandler::cleanupOnEnd() {
     myWarningInstance = nullptr;
     delete myErrorInstance;
     myErrorInstance = nullptr;
-    delete myDebugInstance;
-    myDebugInstance = nullptr;
-    delete myGLDebugInstance;
-    myGLDebugInstance = nullptr;
 }
 
 

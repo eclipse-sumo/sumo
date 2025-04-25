@@ -77,13 +77,14 @@ The complete list of attributes is:
 | **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceding / consecutive lanes.   |
 | **file**       | filename                | The path to the output file. The path may be relative.   |
 | period (alias freq) | int                | The aggregation period for aggregation collected data. If neither *period* nor *tl* are set, data will be aggregated over the whole simulation      |
-| tl             | id                      | The [traffic light that triggers aggregation when switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). Either *period* or *tl* must be specified   |
-| to             | id                      | The id of an outgoing lane that [triggers aggregation in conjunction with traffic light switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). This is only used together with *tl*.   |
+| tl             | id                      | The [traffic light that triggers aggregation when switching](../../Simulation/Output/Traffic_Lights.md#coupled_lane_area_detectors). Either *period* or *tl* must be specified   |
+| to             | id                      | The id of an outgoing lane that [triggers aggregation in conjunction with traffic light switching](../../Simulation/Output/Traffic_Lights.md#coupled_lane_area_detectors). This is only used together with *tl*.   |
 | timeThreshold  | float                   | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.      |
 | speedThreshold | float                   | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.   |
 | jamThreshold   | float                   | The maximum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam; *in m, default: 10m*.     |
 | friendlyPos    | bool                    | If set, no error will be reported if the detector is placed behind the lane. Instead, the detector will be placed 0.1 meters from the lane's end or at position 0.1, if the position was negative and larger than the lane's length after multiplication with -1; *default: false*. |
 | vTypes         | string                  | space separated list of vehicle type ids to consider, "" means all; default "".  |
+| nextEdges      | stringList              | list of edge ids that must all be part of the future route of the vehicle to qualify for detection (default *empty*)  |
 | detectPersons   | string            | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)       |
 
 # Generated Output
@@ -113,7 +114,7 @@ As a lane area detector covers a lane and vehicles are sorted on these,
 it is possible to recognize jams along the detector's area and measure
 them. Because more than one jam may take place at the area at one time,
 the values cover as well averaged measures of all jams
-("jamLengthIn...Sum") as explicite measures of the longest (maximum)
+("jamLengthIn...Sum") as explicit measures of the longest (maximum)
 jam. For the longest jam, both averaged ("meanMaxJamLengthIn...") and
 maximum ("maxJamLengthIn...") values are written. \[Note\] Note
 
@@ -123,7 +124,7 @@ because the place between vehicle is also taken into account.
 Besides jam computation, the durations vehicles are halting are
 collected. They are both collected over the whole time span a vehicle is
 on the detector area ("...HaltingDuration" and "haltingDurationSum"),
-and explicite for each interval ("...IntervalHaltingDuration" and
+and explicit for each interval ("...IntervalHaltingDuration" and
 "intervalHaltingDurationSum").
 
 The values are described in the following table.
@@ -133,7 +134,7 @@ The values are described in the following table.
 | begin                       | (simulation) seconds | The first time step the values were collected in                                                                                                                                                            |
 | end                         | (simulation) seconds | The last time step + DELTA_T the values were collected in (may be equal to begin)                                                                                                                          |
 | id                          | id                   | The id of the detector (needed if several detectors share an output file)                                                                                                                                   |
-| sampledSeconds              | s                    | The total time all vehicles which contributed data were on the detector. this may be fractional even if the time step is one second, because the times when the vehicle enters and leaves are interpolated. |
+| sampledSeconds              | s                    | The total time all vehicles which contributed data were on the detector. This may be fractional even if the time step is one second, because the times when the vehicle enters and leaves are interpolated. |
 | nVehEntered                 | \#                   | The number of vehicles that entered the detector in the corresponding interval. (vehicle front has passed 'pos')                                                                                                                            |
 | nVehLeft                    | \#                   | The number of vehicles that left the detector in the corresponding interval. (vehicle back has passed 'endPos' / has changed lane / has been teleported / has parked)  |
 | nVehSeen                    | \#                   | The number of vehicles that were on the detector in the corresponding interval (were "seen" by the detector).                                                                                               |

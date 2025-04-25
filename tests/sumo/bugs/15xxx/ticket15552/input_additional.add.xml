@@ -1,0 +1,19 @@
+<additional>
+    <parkingArea id="pa_beg" lane="beg_0" startPos="0" roadsideCapacity="1"/>
+    <parkingArea id="pa_middle" lane="middle_0" startPos="0" roadsideCapacity="5"/>
+    <parkingArea id="pa_end" lane="end_0" startPos="0" roadsideCapacity="5"/>
+
+    <rerouter id="pa_beg" edges="beg">
+        <interval begin="0.0" end="3600.0">
+            <parkingAreaReroute id="pa_beg" visible="true"/>
+            <parkingAreaReroute id="pa_middle" visible="true"/>
+        </interval>
+    </rerouter>
+
+    <rerouter id="pa_middle" edges="middle">
+        <interval begin="0.0" end="3600.0">
+            <parkingAreaReroute id="pa_middle" visible="true"/>
+            <parkingAreaReroute id="pa_end" visible="false"/>
+        </interval>
+    </rerouter>
+</additional>

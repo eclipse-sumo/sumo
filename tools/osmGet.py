@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -48,7 +48,7 @@ THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 TYPEMAP_DIR = os.path.join(THIS_DIR, "..", "data", "typemap")
 
 
-def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
+def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, filename):
     # generate query string for each road-type category
     queryStringNode = []
 
@@ -64,7 +64,7 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
             regvQueryString = '<has-kv k="%s" modv="" regv="%s"/>' % (category, typeList)
             queryStringNode.append(commonQueryStringNode % (regvQueryString, query))
 
-    if getShapes:
+    if getShapes and roadTypesJSON:
         keyValueDict = collections.defaultdict(set)
         for typemap in ["osmPolyconvert.typ.xml", "osmPolyconvertRail.typ.xml"]:
             with open(os.path.join(TYPEMAP_DIR, typemap), 'r') as osmPolyconvert:
@@ -83,6 +83,47 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
             queryStringNode.append(commonQueryStringNode % (regvQueryString, query))
 
     if queryStringNode:
+        # include all nodes that are relevant for public transport
+        regvQueryString = '<has-kv k="public_transport" modv="" regv="."/>'
+        queryStringNode.append(commonQueryStringNode % (regvQueryString, query))
+
+    if queryStringNode and getShapes:
+        unionQueryString = """
+    <union into="nodesBB">
+      %s
+    </union>
+    <union into="waysBB">
+       %s
+    </union>
+    <union into="waysBB2">
+       <item from="waysBB"/>
+       <recurse type="way-node"/>
+       <recurse type="node-relation"/>
+       <recurse type="way-relation"/>
+     </union>
+     <union into="waysBB3">
+       <item from="waysBB2"/>
+       <recurse type="relation-way"/>
+       <recurse type="way-node"/>
+    </union>
+    <query type="node">
+       <item from="nodesBB"/>
+       <item from="waysBB3"/>
+    </query>
+    <query type="way" into="waysBB4">
+       <item from="waysBB3"/>
+    </query>
+    <query type="relation" into="relsBB4">
+       <item from="waysBB3"/>
+    </query>
+   <union>
+     <item/>
+     <item from="waysBB4"/>
+     <item from="relsBB4"/>
+   </union>
+    """ % (query, "\n".join(queryStringNode))
+
+    elif queryStringNode:
         unionQueryString = """
     <union>
        %s
@@ -93,6 +134,7 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
        <recurse type="node-relation"/>
        <recurse type="way-relation"/>
     </union>""" % "\n".join(queryStringNode)
+
     else:
         unionQueryString = """
     <union>
@@ -106,45 +148,65 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
         <recurse type="way-node"/>
      </union>""" % query
 
-    conn.request("POST", "/" + urlpath, """
+    finalQuery = """
     <osm-script timeout="240" element-limit="1073741824">
        %s
     <print mode="body"/>
-    </osm-script>""" % unionQueryString, headers={'Accept-Encoding': 'gzip'})
+    </osm-script>""" % unionQueryString
+
+    if options.query_output:
+        with open(options.query_output, "w") as outf:
+            outf.write(finalQuery)
+
+    conn.request("POST", "/" + urlpath, finalQuery, headers={'Accept-Encoding': 'gzip'})
 
     response = conn.getresponse()
-    print(response.status, response.reason)
+    if options.verbose:
+        print(response.status, response.reason)
     if response.status == 200:
         with open(filename, "wb") as out:
-            if filename.endswith(".gz"):
-                out.write(response.read())
+            if response.getheader('Content-Encoding') == 'gzip':
+                lines = gzip.decompress(response.read())
             else:
-                out.write(gzip.decompress(response.read()))
+                lines = response.read()
+            declClose = lines.find(b'>') + 1
+            lines = (lines[:declClose]
+                     + b"\n"
+                     + sumolib.xml.buildHeader(options=options).encode()
+                     + lines[declClose:])
+            if filename.endswith(".gz"):
+                out.write(gzip.compress(lines))
+            else:
+                out.write(lines)
 
 
 def get_options(args):
     optParser = sumolib.options.ArgumentParser(description="Get network from OpenStreetMap")
-    optParser.add_argument("-p", "--prefix", category="processing", default="osm", help="for output file")
+    optParser.add_argument("-p", "--prefix", category="output", default="osm", help="for output file")
     optParser.add_argument("-b", "--bbox", category="input",
                            help="bounding box to retrieve in geo coordinates west,south,east,north")
-    optParser.add_argument("-t", "--tiles", category="processing", type=int,
+    optParser.add_argument("-t", "--tiles", type=int,
                            default=1, help="number of tiles the output gets split into")
     optParser.add_argument("-d", "--output-dir", category="output",
                            help="optional output directory (must already exist)")
-    optParser.add_argument("-a", "--area", category="processing", type=int, help="area id to retrieve")
+    optParser.add_argument("-a", "--area", type=int, help="area id to retrieve")
     optParser.add_argument("-x", "--polygon", category="processing",
                            help="calculate bounding box from polygon data in file")
-    optParser.add_argument("-u", "--url", category="processing", default="www.overpass-api.de/api/interpreter",
+    optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpreter",
                            help="Download from the given OpenStreetMap server")
     # alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
-    optParser.add_argument("-w", "--wikidata", category="processing", action="store_true",
+    optParser.add_argument("-w", "--wikidata", action="store_true",
                            default=False, help="get the corresponding wikidata")
-    optParser.add_argument("-r", "--road-types", category="processing", dest="roadTypes",
+    optParser.add_argument("-r", "--road-types", dest="roadTypes",
                            help="only delivers osm data to the specified road-types")
-    optParser.add_argument("-s", "--shapes", category="processing", action="store_true", default=False,
+    optParser.add_argument("-s", "--shapes", action="store_true", default=False,
                            help="determines if polygon data (buildings, areas , etc.) is downloaded")
-    optParser.add_argument("-z", "--gzip", category="processing", action="store_true",
+    optParser.add_argument("-z", "--gzip", category="output", action="store_true",
                            default=False, help="save gzipped output")
+    optParser.add_argument("-q", "--query-output", category="output",
+                           help="write query to the given FILE")
+    optParser.add_argument("-v", "--verbose", action="store_true",
+                           default=False, help="tell me what you are doing")
     options = optParser.parse_args(args=args)
     if not options.bbox and not options.area and not options.polygon:
         optParser.error("At least one of 'bbox' and 'area' and 'polygon' has to be set.")
@@ -189,11 +251,9 @@ def get(args=None):
         conn.set_tunnel(url.hostname, 443, headers)
     else:
         if url.scheme == "https":
-            if HAVE_CERTIFI:
-                context = ssl.create_default_context(cafile=certifi.where())
-                conn = httplib.HTTPSConnection(url.hostname, url.port, context=context)
-            else:
-                conn = httplib.HTTPSConnection(url.hostname, url.port)
+            context = ssl.create_default_context(cafile=certifi.where() if HAVE_CERTIFI else None)
+            context.minimum_version = ssl.TLSVersion.TLSv1_2
+            conn = httplib.HTTPSConnection(url.hostname, url.port, context=context)
         else:
             conn = httplib.HTTPConnection(url.hostname, url.port)
 
@@ -203,11 +263,11 @@ def get(args=None):
     if options.area:
         if options.area < 3600000000:
             options.area += 3600000000
-        readCompressed(conn, url.path, '<area-query ref="%s"/>' %
+        readCompressed(options, conn, url.path, '<area-query ref="%s"/>' %
                        options.area, roadTypesJSON, options.shapes, options.prefix + "_city" + suffix)
     if options.bbox or options.polygon:
         if options.tiles == 1:
-            readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' %
+            readCompressed(options, conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' %
                            (north, south, west, east), roadTypesJSON,
                            options.shapes,
                            options.prefix + "_bbox" + suffix)
@@ -215,8 +275,10 @@ def get(args=None):
             num = options.tiles
             b = west
             for i in range(num):
+                if options.verbose:
+                    print("Getting tile %d of %d." % (i + 1, num))
                 e = b + (east - west) / float(num)
-                readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (
+                readCompressed(options, conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (
                     north, south, b, e), roadTypesJSON, options.shapes,
                     "%s%s_%s%s" % (options.prefix, i, num, suffix))
                 b = e
@@ -229,7 +291,7 @@ def get(args=None):
         codeSet = set()
         # deal with invalid characters
         bad_chars = [';', ':', '!', "*", ')', '(', '-', '_', '%', '&', '/', '=', '?', '$', '//', '\\', '#', '<', '>']
-        for line in sumolib.xml._open(osmFile, encoding='utf8'):
+        for line in sumolib.openz(osmFile):
             subSet = set()
             if 'wikidata' in line and line.split('"')[3][0] == 'Q':
                 basicData = line.split('"')[3]
@@ -252,7 +314,8 @@ def get(args=None):
             subList = codeList[i:j]
             content = urlopen("https://www.wikidata.org/w/api.php?action=wbgetentities&ids=%s&format=json" %
                               ("|".join(subList))).read()
-            print(type(content))
+            if options.verbose:
+                print(type(content))
             outf.write(content + b"\n")
         outf.close()
 

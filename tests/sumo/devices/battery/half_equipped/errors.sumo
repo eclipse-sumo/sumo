@@ -1,0 +1,4 @@
+Warning: The battery device is active for vehicle 'flow.2' but no emission class is set. Please consider setting an explicit emission class or battery outputs might be inconsistent with emission outputs!
+Warning: The battery device is active for vehicle 'flow.3' but no emission class is set. Please consider setting an explicit emission class or battery outputs might be inconsistent with emission outputs!
+Warning: The battery device is active for vehicle 'flow.5' but no emission class is set. Please consider setting an explicit emission class or battery outputs might be inconsistent with emission outputs!
+Warning: The battery device is active for vehicle 'flow.7' but no emission class is set. Please consider setting an explicit emission class or battery outputs might be inconsistent with emission outputs!

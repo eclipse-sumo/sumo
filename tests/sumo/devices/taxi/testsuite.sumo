@@ -1,5 +1,8 @@
 # Copy of basic
 basic
+
+# conainer-specific behavior
+containers
 idling
 personTrip
 
@@ -12,4 +15,10 @@ lines
 # test ride sharing
 shared
 2taxis_10persons
+
+# Tests for prebookung using ride params "earliestPickupTime" and "reservationTime".
+prebooking
+
+# taxi should not disappear on teleport (before service end)
+teleport
 bugs

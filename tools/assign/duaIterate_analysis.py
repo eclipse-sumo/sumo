@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,15 @@
 # @author  Michael Behrisch
 # @author  Mirko Barthauer
 # @date    2012-09-06
+
+"""
+Parses the log outputs from duaIterate.py.
+By default, the concatenaded log of sumo outputs (named dua.log by default) is
+parsed to obtain statistics on the following quantities:
+inserted, teleports, waiting, loaded and running.
+Optionally, the stdout.log is parsed as well to obtain statistics on
+routingMinutes, simMinutes and absAvgError
+"""
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -39,7 +48,7 @@ def parse_args():
                         help="output prefix for plotting with gnuplot")
     parser.add_argument("-l", "--label-size", default=40, dest="label_size", type=int,
                         help="limit length of the plot label to this size")
-    parser.add_argument("--limit", type=int, default=uMax,
+    parser.add_argument("--limit", type=int,
                         help="only parse the first INT number of iterations")
     parser.add_argument("--teleports", category="output", default="teleplot",
                         help="output prefix for plotting teleport-prone edges")
@@ -48,6 +57,9 @@ def parse_args():
     parser.add_argument("dualog", category="output", nargs=1, type=parser.file, help="file path to dua log file")
     options = parser.parse_args()
     options.dualog = options.dualog[0]
+
+    if options.limit is None:
+        options.limit = uMax
     return options
 
 

@@ -1,0 +1,10 @@
+<data>
+    <record edges_version="1.1" edge_from="C" edge_id="CE" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="E"/>
+    <record edges_version="1.1" edge_from="C" edge_id="CN" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="N"/>
+    <record edges_version="1.1" edge_from="C" edge_id="CS" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="S"/>
+    <record edges_version="1.1" edge_from="C" edge_id="CW" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="W"/>
+    <record edges_version="1.1" edge_from="E" edge_id="EC" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="C"/>
+    <record edges_version="1.1" edge_from="N" edge_id="NC" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="C"/>
+    <record edges_version="1.1" edge_from="S" edge_id="SC" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="C"/>
+    <record edges_version="1.1" edge_from="W" edge_id="WC" edge_numLanes="2" edge_priority="2" edge_speed="13.89" edge_to="C"/>
+</data>

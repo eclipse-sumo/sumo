@@ -19,7 +19,7 @@ This is a special case of the above method. Vehicles with incomplete
 routes automatically receive a *rerouting device* and are rerouted once
 when entering the network. In some scenarios this is a practical
 [*one-shot*-approach to route assignment](../Demand/Dynamic_User_Assignment.md#oneshot-assignment)
-that avoids time-consuming [iterative assignment](../Demand/Dynamic_User_Assignment.md#general_behavior).
+that avoids time-consuming [iterative assignment](../Demand/Dynamic_User_Assignment.md).
 
 ## Alternative Route Signage
 
@@ -32,20 +32,31 @@ Using the methods [*traci.vehicle.changeTarget* or *traci.vehicle.rerouteTravelt
 rerouting is triggered for the specified vehicle.
 
 Alternatively, routes can be computed using
-[''traci.simulation.findRoute](../TraCI/Simulation_Value_Retrieval.md)
+[*traci.simulation.findRoute*](../TraCI/Simulation_Value_Retrieval.md)
 and applied using
 [*traci.vehicle.setRoute*](../TraCI/Change_Vehicle_State.md).
 
 For persons, the function
-[''traci.simulation.findIntermodalRoute](../TraCI/Simulation_Value_Retrieval.md)
+[*traci.simulation.findIntermodalRoute*](../TraCI/Simulation_Value_Retrieval.md)
 can be used to compute simple walks as well as [itineraries for public transport](../IntermodalRouting.md).
 
 # Alternative Destinations
 
 By using [`<rerouter>`-definitions](../Simulation/Rerouter.md), vehicles can be routed
-to alternative destinations. A different method is to use [traffic assignment zones (TAZ)](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz).
+to alternative destinations. A different method is to use [traffic assignment zones (TAZ)](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignment_zones_taz).
 This allows vehicles to change their destination to the best alternative
 from a list of potential destinations.
+
+# Handling of temporary obstructions
+
+By using [`<rerouter>`-definitions](../Simulation/Rerouter.md) of type `<closingReroute allow="..."/>` (or `<closingLaneReroute allow="..."/>` if all lanes are closed) it is possible change road permissions temporarily (i.e. to model construction sites). By default, the simulation will raise an error when loading a route that passes a closed edge or if routing to the destination fails because of an obstruction.
+By setting a vehicle routing mode that includes bit-flag *traci.constants.ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS*, this behavior can be changed. Instead vehicles will ignore obstructions until reaching the closed edge and then wait there (potentially [teleporting](Why_Vehicles_are_teleporting.md) after **--time-to-teleport* is reached).
+
+Setting the routing mode (to ignore blockage) can be accomplished in the following ways:
+
+- `traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS)`
+- sumo option **--device.rerouting.mode 8**
+- defining `<param key="device.rerouting.mode value="8">` in the `vType` or a single `<vehicle>, <trip>` or `<flow>`.
 
 # Travel-time values for routing
 
@@ -58,7 +69,7 @@ argument to *traci.simulation.findRoute*.
 
 The following order of steps is taken to retrieve the travel time for each edge. If a step provides data, this is used, otherwise the next step is attempted:
 
-1.  The vehicle retrieves it's individual data storage. This can be set
+1.  The vehicle retrieves its individual data storage. This can be set
     and retrieved using the TraCI vehicle methods [*change edge travel time information*](../TraCI/Change_Vehicle_State.md#change_edge_travel_time_information_0x58)
     and [*edge travel time information*](../TraCI/Vehicle_Value_Retrieval.md#edge_travel_time_information_0x58).
 2.  The [global edge weights](../Demand/Shortest_or_Optimal_Path_Routing.md#custom_edge_weights)
@@ -144,8 +155,7 @@ also be set using *traci.edge.setEffort*.
 !!! caution
     The default effort value is 0 which causes detour routes to be preferred when not loading sensible effort values.
 
-The applications [duarouter](../duarouter.md) and [marouter](../marouter.md) also support the options **--weight-file** and **--weight-attribute** but they can only be used with one of the weight attributes "CO", "CO2", "PMx", "HC", "NOx", "fuel", "electricity", "noise". However, they will still work as expected when the user loads custom effort values for these attributes.
-
+The applications [duarouter](../duarouter.md) and [marouter](../marouter.md) also support the options **--weight-file** and **--weight-attribute** and this may be used to ready any edge attribute value in the given file.
 
 # Routing by *distance*
 
@@ -164,8 +174,8 @@ same speed on all edges:
 and then using that type to find the fastest route:
 
 ```
-stageResult = traci.simulation.findRoute(fromEdge, toEdge, "routeByDistance")
-shortestDistance = stage.length
+stageResult = traci.simulation.findRoute(fromEdge, toEdge, "routeByDistance")
+shortestDistance = stage.length
 ```
 
 !!! note
@@ -196,26 +206,30 @@ search and is often faster than dijkstra. Here, the metric *euclidean distance /
 
 ## ALT
 
-By using *astar* together with the option **--astar.landmark-distance** {{DT_FILE}} the ALT-Algorithm is activated.
+By using *astar* together with the option **--astar.landmark-distances** {{DT_FILE}} the ALT-Algorithm is activated.
 The name ALT stands for: **A**\*, **L**andmarks, **t**riangle inequality.
 It uses a precomputed distance table to selected network edges (so-called landmarks) to speed up the search, often by a significant factor.
 
 - A lookup table can be generated by creating a file with one landmark edge id per line (e.g. landmarks.txt)
-and then setting the options **-astar.landmark-distances landmarks.txt --astar.save-landmark-distances lookuptable.txt**.
+and then setting the options **--astar.landmark-distances landmarks.txt --astar.save-landmark-distances lookuptable.txt**.
+  - an alternative input for generating a distance table is one geo-coordinate in the form `LON LAT` per line
+  - the tool [generateLandmarks.py](../Tools/Misc.md#generatelandmarkspy) can be used to generate a landmark input file by distributing edges around the rim of the network in all directions
 - As a rule of thumb using 8-16 edges distributed around the main roads that border the network achieve good ALT-performance. Using more edges is not recommended because each landmark adds a fixed overhead).
 - by using *astar* together with the option **--astar.all-distances** {{DT_FILE}} the A\* algorithm is
   used together with a complete (and often huge) distance table to allow for blazing fast search. This is only recommended for medium sized networks with a high number of routing queries
 
+!!! caution
+    pre-computed distance tables are not useful when planning to perform routing with either one of the options **--weights.priority-factor** or **--weights.random-factor** as these change the actual distances.
 
 ## CH (Contraction Hierarchies)
 
 [Contraction Hierarchies](https://en.wikipedia.org/wiki/Contraction_hierarchies)
-is preprocessing-based routing algorithm. This is very efficient
+is a preprocessing-based routing algorithm. This is very efficient
 when a large number of queries is expected. The algorithm does not
 consider time-dependent weights. Instead, new preprocessing can be
 performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}.
 
-- When used with [duarouter](../duarouter.md), edge permissions are ignored so this should only be used in unimodal networks
+- When used with [duarouter](../duarouter.md), edge permissions are ignored so this should only be used in unimodal networks.
 - When used with [sumo](../sumo.md), the computed routes are only valid for the default 'passenger' class.
 
 ## CHWrapper
@@ -226,4 +240,4 @@ enabling routing in multi modal scenarios
 # Further Options that affect routing
 
 - **--weights.minor-penalty FLOAT** : set a fixed time penalty for passing junctions without having right-of-way (default 1.5s)
-- **--persontrip.walk-opposite-factor FLOAT** : set penality speed factor for walking against the flow of vehicular traffic (see [pedestrian routing](Pedestrians.md#pedestrian_routing)) (default 1)
+- **--persontrip.walk-opposite-factor FLOAT** : set penalty speed factor for walking against the flow of vehicular traffic (see [pedestrian routing](Pedestrians.md#pedestrian_routing)) (default 1)

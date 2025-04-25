@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -83,14 +83,15 @@ public:
     /** @brief Computes the emitted pollutant amount using the given speed and acceleration
      *
      * As the functions are defining emissions in g/hour, the function's result is normed
-     *  by 3.6 (seconds in an hour/1000) yielding mg/s. For fuel ml/s is returned.
-     *  Negative acceleration results directly in zero emission.
+     *  by 3.6 (seconds in an hour/1000) yielding mg/s. For fuel ml/s is returned if volumetric fuel has been requested.
+     *  Coasting and an engine which is off by the given param result directly in zero emission.
      *
      * @param[in] c emission class for the function parameters to use
      * @param[in] e the type of emission (CO, CO2, ...)
      * @param[in] v The vehicle's current velocity
      * @param[in] a The vehicle's current acceleration
      * @param[in] slope The road's slope at vehicle's position [deg]
+     * @param[in] param parameter of the emission model (only used for the coasting deceleration and to determine whether the engine is off)
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
     inline double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const {
@@ -109,8 +110,9 @@ public:
                 scale *= 742.;
             }
         }
+        const double a2 = a + GRAVITY * sin(DEG2RAD(slope));
         const double* f = myFunctionParameter[index][e];
-        return MAX2((f[0] + f[1] * a * v + f[2] * a * a * v + f[3] * v + f[4] * v * v + f[5] * v * v * v) / scale, 0.);
+        return MAX2((f[0] + f[1] * a2 * v + f[2] * a2 * a2 * v + f[3] * v + f[4] * v * v + f[5] * v * v * v) / scale, 0.);
     }
 
 

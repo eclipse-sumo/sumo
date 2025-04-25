@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-20 22:31:17 by Eclipse SUMO netedit Version v1_22_0+0406-390c9c555bf
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-100.00,-900.00" convBoundary="1600.00,100.00,1900.00,200.00" origBoundary="100.00,900.00,4800.00,1000.00" projParameter="!"/>
+
+    <type id="railway.rail" priority="15" numLanes="1" speed="44.44" allow="rail rail_electric" oneway="1"/>
+
+    <edge id=":J1_0" function="internal">
+        <lane id=":J1_0_0" index="0" allow="passenger tram" speed="13.89" length="0.10" shape="1700.00,98.40 1700.00,98.40"/>
+    </edge>
+    <edge id=":J2_0" function="internal">
+        <lane id=":J2_0_0" index="0" allow="passenger tram" speed="13.89" length="7.84" shape="1793.82,98.40 1801.66,98.40"/>
+    </edge>
+    <edge id=":J2_1" function="internal">
+        <lane id=":J2_1_0" index="0" allow="passenger tram" speed="9.11" length="2.52" shape="1795.43,102.30 1797.29,100.60"/>
+    </edge>
+    <edge id=":J2_2" function="internal">
+        <lane id=":J2_2_0" index="0" allow="passenger tram" speed="9.11" length="4.97" shape="1797.29,100.60 1798.94,99.38 1800.40,98.64 1801.66,98.40"/>
+    </edge>
+    <edge id=":J5_0" function="internal">
+        <lane id=":J5_0_0" index="0" allow="passenger tram" speed="4.20" length="1.26" shape="1698.67,198.40 1698.99,198.37 1699.29,198.28 1699.56,198.14 1699.81,197.93"/>
+    </edge>
+
+    <edge id="1a" from="J0" to="J1" priority="-1">
+        <lane id="1a_0" index="0" allow="passenger tram" speed="13.89" length="100.00" shape="1600.00,98.40 1700.00,98.40"/>
+    </edge>
+    <edge id="1b" from="J4" to="J5" priority="-1">
+        <lane id="1b_0" index="0" allow="passenger tram" speed="13.89" length="98.67" shape="1600.00,198.40 1698.67,198.40"/>
+    </edge>
+    <edge id="2a" from="J1" to="J2" priority="-1">
+        <lane id="2a_0" index="0" allow="passenger tram" speed="13.89" length="93.82" shape="1700.00,98.40 1793.82,98.40"/>
+    </edge>
+    <edge id="2b" from="J5" to="J2" priority="-1">
+        <lane id="2b_0" index="0" allow="passenger tram" speed="13.89" length="135.24" shape="1699.81,197.93 1795.43,102.30"/>
+    </edge>
+    <edge id="3a" from="J2" to="J3" priority="-1">
+        <lane id="3a_0" index="0" allow="passenger tram" speed="13.89" length="98.34" shape="1801.66,98.40 1900.00,98.40"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="1600.00" y="100.00" incLanes="" intLanes="" shape="1600.00,100.00 1600.00,96.80"/>
+    <junction id="J1" type="rail_signal" x="1700.00" y="100.00" incLanes="1a_0" intLanes=":J1_0_0" shape="1700.00,100.00 1700.00,96.80 1700.00,100.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="J2" type="priority" x="1800.00" y="100.00" incLanes="2a_0 2b_0" intLanes=":J2_0_0 :J2_2_0" shape="1801.66,100.00 1801.66,96.80 1793.82,96.80 1793.82,100.00 1794.61,100.13 1794.77,100.29 1794.77,100.52 1794.61,100.81 1794.30,101.17 1796.57,103.43 1798.66,101.53 1799.56,100.86 1800.35,100.38 1801.06,100.10">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="1"/>
+    </junction>
+    <junction id="J3" type="dead_end" x="1900.00" y="100.00" incLanes="3a_0" intLanes="" shape="1900.00,96.80 1900.00,100.00"/>
+    <junction id="J4" type="dead_end" x="1600.00" y="200.00" incLanes="" intLanes="" shape="1600.00,200.00 1600.00,196.80"/>
+    <junction id="J5" type="rail_signal" x="1700.00" y="200.00" incLanes="1b_0" intLanes=":J5_0_0" shape="1700.94,199.06 1698.67,196.80 1698.67,200.00 1699.52,199.90 1699.90,199.77 1700.27,199.58 1700.61,199.35">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <junction id=":J2_2_0" type="internal" x="1797.29" y="100.60" incLanes=":J2_1_0 2a_0" intLanes=":J2_0_0"/>
+
+    <connection from="1a" to="2a" fromLane="0" toLane="0" via=":J1_0_0" tl="J1" linkIndex="0" dir="s" state="O"/>
+    <connection from="1b" to="2b" fromLane="0" toLane="0" via=":J5_0_0" tl="J5" linkIndex="0" dir="r" state="O"/>
+    <connection from="2a" to="3a" fromLane="0" toLane="0" via=":J2_0_0" dir="s" state="M"/>
+    <connection from="2b" to="3a" fromLane="0" toLane="0" via=":J2_1_0" dir="l" state="m"/>
+
+    <connection from=":J1_0" to="2a" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J2_0" to="3a" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":J2_1" to="3a" fromLane="0" toLane="0" via=":J2_2_0" dir="l" state="m"/>
+    <connection from=":J2_2" to="3a" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":J5_0" to="2b" fromLane="0" toLane="0" dir="r" state="M"/>
+
+</net>

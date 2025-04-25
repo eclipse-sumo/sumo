@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,22 +21,18 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEAttributesCreator.h>
-
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
 class GNEEdgeType;
+class GNEAttributesEditor;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNECreateEdgeFrame
- * The Widget for create edges
- */
+
 class GNECreateEdgeFrame : public GNEFrame {
 
 public:
@@ -278,13 +274,13 @@ public:
     EdgeTypeSelector* getEdgeTypeSelector() const;
 
     /// @brief get edgeType attributes
-    GNEAttributesCreator* getEdgeTypeAttributes() const;
+    GNEAttributesEditor* getEdgeTypeAttributes() const;
 
     /// @brief get lane type selector
     LaneTypeSelector* getLaneTypeSelector();
 
     /// @brief get laneType attributes
-    GNEAttributesCreator* getLaneTypeAttributes() const;
+    GNEAttributesEditor* getLaneTypeAttributes() const;
 
     /// @brief set default to using edge template
     void setUseEdgeTemplate();
@@ -294,13 +290,13 @@ protected:
     EdgeTypeSelector* myEdgeTypeSelector = nullptr;
 
     /// @brief internal edgeType attributes
-    GNEAttributesCreator* myEdgeTypeAttributes = nullptr;
+    GNEAttributesEditor* myEdgeTypeAttributesEditor = nullptr;
 
     /// @brief lane type selector
     GNECreateEdgeFrame::LaneTypeSelector* myLaneTypeSelector = nullptr;
 
     /// @brief internal laneType attributes
-    GNEAttributesCreator* myLaneTypeAttributes = nullptr;
+    GNEAttributesEditor* myLaneTypeAttributesEditor = nullptr;
 
     /// @brief Legend
     GNECreateEdgeFrame::Legend* myLegend = nullptr;

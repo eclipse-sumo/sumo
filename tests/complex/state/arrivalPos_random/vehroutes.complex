@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-02 14:50:48 by Eclipse SUMO sumo Version v1_21_0+1626-a687a18afd4
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="20"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="f.2" depart="5.00" arrivalPos="random" arrival="6.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.5" depart="11.00" arrivalPos="random" arrival="12.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.3" depart="6.00" arrivalPos="random" arrival="15.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.0" depart="0.00" arrivalPos="random" arrival="16.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.1" depart="2.00" arrivalPos="random" arrival="16.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.7" depart="14.00" arrivalPos="random" arrival="19.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.4" depart="8.00" arrivalPos="random" arrival="20.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.6" depart="12.00" arrivalPos="random" arrival="26.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.8" depart="17.00" arrivalPos="random" arrival="27.00">
+        <route edges="SC"/>
+    </vehicle>
+
+    <vehicle id="f.9" depart="20.00" arrivalPos="random" arrival="34.00">
+        <route edges="SC"/>
+    </vehicle>
+
+</routes>

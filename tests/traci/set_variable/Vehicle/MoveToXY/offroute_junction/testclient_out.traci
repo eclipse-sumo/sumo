@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sun Aug 11 18:29:03 2019
+TraCITestClient output file. Date: Sun Sep  8 08:53:28 2024
 
 
 -> Command sent: <SimulationStep>:
@@ -11,8 +11,7 @@ TraCITestClient output file. Date: Sun Aug 11 18:29:03 2019
 -> Command sent: <GetVariable>:
   domID=164 varID=84 objID=VTD_EGO
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=84  ObjectID=VTD_EGO valueDataType=14 string list value: [ 
-"SC", "CN" ]
+  CommandID=180  VariableID=84  ObjectID=VTD_EGO valueDataType=14 string list value: [ "SC", "CN" ]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
@@ -20,8 +19,7 @@ TraCITestClient output file. Date: Sun Aug 11 18:29:03 2019
 -> Command sent: <GetVariable>:
   domID=164 varID=84 objID=VTD_EGO
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=84  ObjectID=VTD_EGO valueDataType=14 string list value: [ 
-"WC", "CS" ]
+  CommandID=180  VariableID=84  ObjectID=VTD_EGO valueDataType=14 string list value: [ "WC", "CS" ]
 
 -> Command sent: <SetValue>:
   domID=196 varID=180 objID=VTD_EGO
@@ -30,8 +28,7 @@ TraCITestClient output file. Date: Sun Aug 11 18:29:03 2019
 -> Command sent: <GetVariable>:
   domID=164 varID=84 objID=VTD_EGO
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=84  ObjectID=VTD_EGO valueDataType=14 string list value: [ 
-"WC", "CS" ]
+  CommandID=180  VariableID=84  ObjectID=VTD_EGO valueDataType=14 string list value: [ "WC", "CS" ]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
@@ -39,8 +36,7 @@ TraCITestClient output file. Date: Sun Aug 11 18:29:03 2019
 -> Command sent: <GetVariable>:
   domID=164 varID=84 objID=VTD_EGO
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=84  ObjectID=VTD_EGO valueDataType=14 string list value: [ 
-"EC", "CW" ]
+  CommandID=180  VariableID=84  ObjectID=VTD_EGO valueDataType=14 string list value: [ "EC", "CW" ]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

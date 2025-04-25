@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -142,6 +142,8 @@ public:
         EdgeVector edges;
         /// @brief The crossing's shape
         PositionVector shape;
+        /// @brief The outline shape for this crossing
+        PositionVector outlineShape;
         /// @brief This crossing's width
         double customWidth;
         /// @brief This crossing's width
@@ -330,13 +332,17 @@ public:
         return myTrafficLights.size() != 0;
     }
 
+
+    /// @brief whether this node was marked as having a signal in the (OSM) input
+    bool hadSignal() const;
+
     /// @brief Returns the traffic lights that were assigned to this node (The set of tls that control this node)
     const std::set<NBTrafficLightDefinition*>& getControllingTLS() const {
         return myTrafficLights;
     }
 
     /// @brief causes the traffic light to be computed anew
-    void invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, bool addedConnections);
+    void invalidateTLS(NBTrafficLightLogicCont& tlCont, bool addedConnections, bool removedConnections);
 
     /// @brief patches loaded signal plans by modifying lane indices above threshold by the given offset
     void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold = -1);
@@ -476,7 +482,7 @@ public:
     bool mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, const Crossing& crossing) const;
 
     /// @brief whether a connection to the given edge must brake for a crossing when leaving the intersection
-    bool brakeForCrossingOnExit(const NBEdge* to) const;
+    bool brakeForCrossingOnExit(const NBEdge* to, LinkDirection dir, bool indirect) const;
 
     /// @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
     static bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
@@ -681,6 +687,9 @@ public:
      */
     void buildWalkingAreas(int cornerDetail, double joinMinDist);
 
+    /// @brief build crossing outlines after walkingareas are finished
+    void buildCrossingOutlines();
+
     /// @brief build crossings, and walkingareas. Also removes invalid loaded crossings if wished
     void buildCrossingsAndWalkingAreas();
 
@@ -703,7 +712,7 @@ public:
 
     /// @brief whether this is structurally similar to a geometry node
     bool geometryLike() const;
-    bool geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) const;
+    static bool geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing);
 
     /// @brief update the type of this node as a roundabout
     void setRoundabout();
@@ -713,7 +722,7 @@ public:
 
     /// @brief add a pedestrian crossing to this node
     NBNode::Crossing* addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1, int tlIndex2 = -1,
-                                  const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
+                                  const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false, const Parameterised* params = nullptr);
 
     /// @brief add custom shape for walkingArea
     void addWalkingAreaShape(EdgeVector edges, const PositionVector& shape, double width);
@@ -768,7 +777,7 @@ public:
     void avoidOverlap();
 
     /// @brief whether the given index must yield to the foeIndex while turing right on a red light
-    bool rightOnRedConflict(int index, int foeIndex) const;
+    bool extraConflict(int index, int foeIndex) const;
 
     /// @brief sort all edge containers for this node
     void sortEdges(bool useNodeShape);
@@ -814,6 +823,10 @@ public:
     /// @brief return whether the given type is a traffic light
     static bool isTrafficLight(SumoXMLNodeType type);
 
+    inline bool isTrafficLight() const {
+        return isTrafficLight(myType);
+    }
+
     /// @brief check if node is a simple continuation
     bool isSimpleContinuation(bool checkLaneNumbers = true, bool checkWidth = false) const;
 
@@ -837,6 +850,12 @@ public:
 
     /// @brief return list of unique endpoint coordinates of all edges at this node
     std::vector<std::pair<Position, std::string> > getEndPoints() const;
+
+    /// @brief ensure connectivity for all vClasses
+    void recheckVClassConnections(NBEdge* currentOutgoing);
+
+    /// @brief initialize signalized rail classes
+    static void initRailSignalClasses(const NBNodeCont& nc);
 
 private:
     /// @brief sets the priorites in case of a priority junction
@@ -872,11 +891,11 @@ private:
 
     NBEdge* getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm, EdgeVector::const_iterator start, bool clockwise) const;
 
-    /// @brief ensure connectivity for all vClasses
-    void recheckVClassConnections(NBEdge* currentOutgoing);
-
     /// @brief get the reduction in driving lanes at this junction
-    void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& outOffset, int& reduction) const;
+    void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& inEnd, int& outOffset, int& outEnd, int& reduction) const;
+
+    /// @brief helper function to add connections for unsatisfied modes
+    SVCPermissions findToLaneForPermissions(NBEdge* currentOutgoing, int fromLane, NBEdge* incoming, SVCPermissions unsatisfied);
 
     /// @brief check whether this edge has extra lanes on the right side
     int addedLanesRight(NBEdge* out, int addedLanes) const;
@@ -889,6 +908,21 @@ private:
 
     /// @brief detect explict rail turns with potential geometry problem
     static bool isExplicitRailNoBidi(const NBEdge* incoming, const NBEdge* outgoing);
+
+    /// @brief geometry helper that cuts the first shape where bordered by the other two
+    PositionVector cutAtShapes(const PositionVector& cut, const PositionVector& border1, const PositionVector& border2, const PositionVector& def);
+
+    /// @brief compute offset for centering path-across-street crossings
+    void patchOffset_pathAcrossStreet(double& offset);
+
+    /// @brief whether the given rail connections at this node may run in unsignalized (right-of-way) mode
+    bool unsignalizedOperation() const;
+
+    /// @brief ensure connectivity for all special vClass
+    void recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial);
+
+    /// @brief helper function for recheckSpecialConnections
+    bool avoidConfict(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial, LinkDirection dir, int i);
 
 private:
     /// @brief The position the node lies at
@@ -964,6 +998,12 @@ private:
 
     /// @brief whether the node type was guessed rather than loaded
     bool myTypeWasGuessed;
+
+    /// @brief all vehicle classes for which rail signals exist
+    static SVCPermissions myHaveRailSignalClasses;
+
+    /// @brief all rail classes for which operation without rail signals is permitted
+    static SVCPermissions myPermitUnsignalizedClasses;
 
 private:
     /// @brief invalidated copy constructor

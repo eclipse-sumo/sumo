@@ -5,14 +5,14 @@ New reservations: ['0']
 Pending reservations: []
 Solve DARP with simple_rerouting
 Solve ILP
-Dispatch: taxiB_0y_0z
+Dispatch: taxiA_0y_0z
 
 Run dispatcher
 New reservations: ['1', '2', '3']
 Pending reservations: []
 Solve DARP with simple_rerouting
 Solve ILP
-Dispatch: taxiA_3y_1y_3z_1z
+Dispatch: taxiB_3y_1y_3z_1z
 
 Run dispatcher
 New reservations: ['4', '5', '6']

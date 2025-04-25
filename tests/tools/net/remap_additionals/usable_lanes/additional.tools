@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-14 17:22:50.313557 by remap_additionals.py v1_22_0+0848-41f80c900e7
+<configuration>
+    <orig-net value="net.net.xml"/>
+    <target-net value="net2.net.xml"/>
+    <additional-file value="input_additional.add.xml"/>
+    <output-file value="out.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="bs_0" lane="E0_1" startPos="14.54" endPos="24.54" friendlyPos="True"/>
+</additional>

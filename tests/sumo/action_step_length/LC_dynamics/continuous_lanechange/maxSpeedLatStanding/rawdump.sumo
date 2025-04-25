@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb  5 11:40:09 2021 by Eclipse SUMO sumo Version v1_8_0+0976-499cc34
+<!-- generated on 2024-06-20 11:20:38 by Eclipse SUMO sumo Version v1_20_0+0677-f584fda3caa
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -25,22 +30,17 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <step-method.ballistic value="true"/>
         <lanechange.duration value="3"/>
-        <default.action-step-length value="1"/>
+        <default.action-step-length value="1.0"/>
         <default.speeddev value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
-    <gui_only>
-        <tracker-interval value="0.1"/>
-    </gui_only>
-
-</configuration>
+</sumoConfiguration>
 -->
 
 <netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
@@ -264,7 +264,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.82" speed="0.90" posLat="-0.78" speedLat="1.07"/>
+                <vehicle id="v0" pos="249.82" speed="0.90" posLat="-0.80" speedLat="0.90"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -273,7 +273,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.88" speed="0.40" posLat="-0.68" speedLat="1.07"/>
+                <vehicle id="v0" pos="249.88" speed="0.40" posLat="-0.75" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -282,7 +282,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.57" speedLat="1.07"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.70" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -291,7 +291,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.46" speedLat="1.07"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.65" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -300,7 +300,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.36" speedLat="1.07"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.60" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -309,7 +309,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.25" speedLat="1.07"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.55" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -318,7 +318,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.14" speedLat="1.07"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.50" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -327,7 +327,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.04" speedLat="1.07"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.45" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -336,7 +336,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="0.00" speedLat="1.07"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.40" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -345,7 +345,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="0.00" speedLat="0.00"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.35" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -354,7 +354,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="0.00" speedLat="0.00"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.30" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -363,7 +363,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="0.00" speedLat="0.00"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.25" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -372,7 +372,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="0.00" speedLat="0.00"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.20" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -381,7 +381,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="0.00" speedLat="0.00"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.15" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -390,7 +390,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="0.00" speedLat="0.00"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.10" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -399,7 +399,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="0.00" speedLat="0.00"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="-0.05" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>
@@ -408,7 +408,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1si">
             <lane id="1si_0"/>
             <lane id="1si_1">
-                <vehicle id="v0" pos="249.90" speed="0.00" posLat="0.00" speedLat="0.00"/>
+                <vehicle id="v0" pos="249.90" speed="0.00" posLat="0.00" speedLat="0.50"/>
             </lane>
             <lane id="1si_2"/>
         </edge>

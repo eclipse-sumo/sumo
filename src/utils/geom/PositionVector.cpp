@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -293,7 +293,7 @@ PositionVector::sidePositionAtAngle(double pos, double lateralOffset, double ang
 
 
 Position
-PositionVector::positionAtOffset2D(double pos, double lateralOffset) const {
+PositionVector::positionAtOffset2D(double pos, double lateralOffset, bool extrapolateBeyond) const {
     if (size() == 0) {
         return Position::INVALID;
     }
@@ -305,10 +305,13 @@ PositionVector::positionAtOffset2D(double pos, double lateralOffset) const {
     do {
         const double nextLength = (*i).distanceTo2D(*(i + 1));
         if (seenLength + nextLength > pos) {
-            return positionAtOffset2D(*i, *(i + 1), pos - seenLength, lateralOffset);
+            return positionAtOffset2D(*i, *(i + 1), pos - seenLength, lateralOffset, extrapolateBeyond);
         }
         seenLength += nextLength;
     } while (++i != end() - 1);
+    if (extrapolateBeyond) {
+        return positionAtOffset2D(*(i - 1), *i, pos - seenLength + (*i).distanceTo2D(*(i - 1)), lateralOffset, extrapolateBeyond);
+    }
     return back();
 }
 
@@ -402,9 +405,9 @@ PositionVector::sidePositionAtAngle(const Position& p1, const Position& p2, doub
 
 
 Position
-PositionVector::positionAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset) {
+PositionVector::positionAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset, bool extrapolateBeyond) {
     const double dist = p1.distanceTo2D(p2);
-    if (pos < 0 || dist < pos) {
+    if ((pos < 0 || dist < pos) && !extrapolateBeyond) {
         return Position::INVALID;
     }
     if (lateralOffset != 0) {
@@ -1115,7 +1118,7 @@ PositionVector::intersectsAtLengths2D(const Position& lp1, const Position& lp2) 
 
 void
 PositionVector::extrapolate(const double val, const bool onlyFirst, const bool onlyLast) {
-    if (size() > 0) {
+    if (size() > 1) {
         Position& p1 = (*this)[0];
         Position& p2 = (*this)[1];
         const Position offset = (p2 - p1) * (val / p1.distanceTo(p2));
@@ -1137,7 +1140,7 @@ PositionVector::extrapolate(const double val, const bool onlyFirst, const bool o
 
 void
 PositionVector::extrapolate2D(const double val, const bool onlyFirst) {
-    if (size() > 0) {
+    if (size() > 1) {
         Position& p1 = (*this)[0];
         Position& p2 = (*this)[1];
         if (p1.distanceTo2D(p2) > 0) {
@@ -1355,6 +1358,14 @@ PositionVector::angleAt2D(int pos) const {
 
 
 void
+PositionVector::openPolygon() {
+    if ((size() > 1) && (front() == back())) {
+        pop_back();
+    }
+}
+
+
+void
 PositionVector::closePolygon() {
     if ((size() != 0) && ((*this)[0] != back())) {
         push_back((*this)[0]);
@@ -1387,7 +1398,7 @@ PositionVector::distance2D(const Position& p, bool perpendicular) const {
     if (size() == 0) {
         return std::numeric_limits<double>::max();
     } else if (size() == 1) {
-        return front().distanceTo(p);
+        return front().distanceTo2D(p);
     }
     const double nearestOffset = nearest_offset_to_point2D(p, perpendicular);
     if (nearestOffset == GeomHelper::INVALID_OFFSET) {
@@ -1539,7 +1550,7 @@ PositionVector::operator-(const PositionVector& v2) const {
 PositionVector
 PositionVector::operator+(const PositionVector& v2) const {
     if (length() != v2.length()) {
-        WRITE_ERROR(TL("Trying to subtract PositionVectors of different lengths."));
+        WRITE_ERROR(TL("Trying to add PositionVectors of different lengths."));
     }
     PositionVector pv;
     auto i1 = begin();
@@ -1678,6 +1689,18 @@ PositionVector::rotate2D(double angle) {
 }
 
 
+void
+PositionVector::rotateAroundFirstElement2D(double angle) {
+    if (size() > 1) {
+        // translate position vector to (0,0), rotate, and traslate back again
+        const Position offset = front();
+        sub(offset);
+        rotate2D(angle);
+        add(offset);
+    }
+}
+
+
 PositionVector
 PositionVector::simplified() const {
     PositionVector result = *this;
@@ -1696,6 +1719,76 @@ PositionVector::simplified() const {
                 changed = true;
                 result.erase(result.begin() + middleIndex);
                 break;
+            }
+        }
+    }
+    return result;
+}
+
+
+const PositionVector
+PositionVector::simplified2(const bool closed, const double eps) const {
+    // this is a variation of the https://en.wikipedia.org/wiki/Visvalingam%E2%80%93Whyatt_algorithm
+    // which uses the distance instead of the area
+    // the benefits over the initial implementation are:
+    // 3D support, no degenerate results for a sequence of small distances, keeping the longest part of a line
+    // drawbacks: complexity of the code, speed
+    if (size() < 3) {
+        return *this;
+    }
+    auto calcScore = [&](const PositionVector & pv, int index) {
+        if (!closed && (index == 0 || index == (int)pv.size() - 1)) {
+            return eps + 1.;
+        }
+        const Position& p = pv[index];
+        const Position& a = pv[(index + (int)pv.size() - 1) % pv.size()];
+        const Position& b = pv[(index + 1) % pv.size()];
+        const double distAB = a.distanceTo(b);
+        if (distAB < MIN2(eps, NUMERICAL_EPS)) {
+            // avoid division by 0 and degenerate cases due to very small baseline
+            return (a.distanceTo(p) + b.distanceTo(p)) / 2.;
+        }
+        // https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Vector_formulation
+        // calculating the distance of p to the line defined by a and b
+        const Position dir = (b - a) / distAB;
+        const double projectedLength = (a - p).dotProduct(dir);
+        if (projectedLength <= -distAB) {
+            return b.distanceTo(p);
+        }
+        if (projectedLength >= 0.) {
+            return a.distanceTo(p);
+        }
+        const Position distVector = (a - p) - dir * projectedLength;
+        return distVector.length();
+    };
+    std::vector<double> scores;
+    double minScore = eps + 1.;
+    int minIndex = -1;
+    for (int i = 0; i < (int)size(); i++) {
+        scores.push_back(calcScore(*this, i));
+        if (scores.back() < minScore) {
+            minScore = scores.back();
+            minIndex = i;
+        }
+    }
+    if (minScore >= eps) {
+        return *this;
+    }
+    PositionVector result(*this);
+    while (minScore < eps) {
+        result.erase(result.begin() + minIndex);
+        if (result.size() < 3) {
+            break;
+        }
+        scores.erase(scores.begin() + minIndex);
+        const int prevIndex = (minIndex + (int)result.size() - 1) % result.size();
+        scores[prevIndex] = calcScore(result, prevIndex);
+        scores[minIndex % result.size()] = calcScore(result, minIndex % result.size());
+        minScore = eps + 1.;
+        for (int i = 0; i < (int)result.size(); i++) {
+            if (scores[i] < minScore) {
+                minScore = scores[i];
+                minIndex = i;
             }
         }
     }
@@ -1850,6 +1943,16 @@ PositionVector::getMaxGrade(double& maxJump) const {
         }
     }
     return result;
+}
+
+
+double
+PositionVector::getMinZ() const {
+    double minZ = std::numeric_limits<double>::max();
+    for (const Position& i : *this) {
+        minZ = MIN2(minZ, i.z());
+    }
+    return minZ;
 }
 
 

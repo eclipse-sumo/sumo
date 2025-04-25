@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-10-23 20:43:20 by Eclipse SUMO netconvert Version v1_18_0+2224-9463baa5d5c
+<!-- generated on 2025-02-21 14:16:49 by Eclipse SUMO netconvert Version v1_22_0+0440-9af1eda2b59
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <configuration>
         <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
@@ -31,7 +31,7 @@
         <visum-file value="" synonymes="visum" type="FILE" help="Read VISUM-net from FILE"/>
         <vissim-file value="" synonymes="vissim" type="FILE" help="Read VISSIM-net from FILE"/>
         <robocup-dir value="" synonymes="robocup robocup-net" type="FILE" help="Read RoboCup-net from DIR"/>
-        <matsim-files value="" synonymes="matsim" type="FILE" help="Read MATsim-net from FILE"/>
+        <matsim-files value="" synonymes="matsim" type="FILE" help="Read MATSim-net from FILE"/>
         <itsumo-files value="" synonymes="itsumo" type="FILE" help="Read ITSUMO-net from FILE"/>
         <heightmap.shapefiles value="" type="FILE" help="Read heightmap from ArcGIS shapefile"/>
         <heightmap.geotiff value="" type="FILE" help="Read heightmap from GeoTIFF"/>
@@ -49,7 +49,7 @@
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
         <prefix value="" type="STR" help="Defines a prefix for edge and junction names"/>
         <amitran-output value="" type="FILE" help="The generated net will be written to FILE using Amitran format"/>
-        <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format"/>
+        <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATSim format"/>
         <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using OpenDRIVE format"/>
         <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX"/>
         <dlr-navteq.version value="6.5" type="STR" help="The dlr-navteq output format version to write"/>
@@ -63,7 +63,7 @@
         <parking-output value="" type="FILE" help="Writes parking areas to FILE"/>
         <railway.topology.output value="" type="FILE" help="Analyze topology of the railway network"/>
         <polygon-output value="" synonymes="taz-output" type="FILE" help="Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE)"/>
-        <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
+        <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees"/>
         <opendrive-output.lefthand-left value="false" type="BOOL" help="Write lanes in lefthand networks on the left side (positive indices)"/>
         <opendrive-output.shape-match-dist value="-1" type="FLOAT" help="Match loaded shapes to the closest edge within FLOAT and export as road objects"/>
     </output>
@@ -101,6 +101,7 @@
         <geometry.max-segment-length value="0" type="FLOAT" help="splits geometry to restrict segment length"/>
         <geometry.min-dist value="-1" type="FLOAT" help="reduces too similar geometry points"/>
         <geometry.max-angle value="99" type="FLOAT" help="Warn about edge geometries with an angle above DEGREES in successive segments"/>
+        <geometry.max-angle.fix value="false" type="BOOL" help="Straighten edge geometries with an angle above max-angle successive segments"/>
         <geometry.min-radius value="9" type="FLOAT" help="Warn about edge geometries with a turning radius less than METERS at the start or end"/>
         <geometry.min-radius.fix value="false" type="BOOL" help="Straighten edge geometries to avoid turning radii less than geometry.min-radius"/>
         <geometry.min-radius.fix.railways value="true" type="BOOL" help="Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways)"/>
@@ -119,6 +120,7 @@
         <offset.z value="0" type="FLOAT" help="Adds FLOAT to net z-positions"/>
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL" help="Flips the y-coordinate along zero"/>
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
+        <roundabouts.guess.max-length value="3500" type="FLOAT" help="Structures with a circumference above FLOAT threshold are not classified as roundabout"/>
         <roundabouts.visibility-distance value="9" type="FLOAT" help="Default visibility when approaching a roundabout"/>
         <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
         <opposites.guess.fix-lengths value="true" type="BOOL" help="Ensure that opposite edges have the same length"/>
@@ -150,6 +152,7 @@
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
         <default.junctions.radius value="4" type="FLOAT" help="The default turning radius of intersections"/>
         <default.connection-length value="-1" type="FLOAT" help="The default length when overriding connection lengths"/>
+        <default.connection.cont-pos value="-1" type="FLOAT" help="Whether/where connections should have an internal junction"/>
         <default.right-of-way value="default" type="STR" help="The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;)"/>
     </building_defaults>
 
@@ -215,7 +218,7 @@
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR[]" help="Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options"/>
         <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options"/>
         <remove-edges.input-file value="" type="FILE" help="Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported)"/>
-        <keep-edges.postload value="false" type="BOOL" help="Remove edges after joining"/>
+        <keep-edges.postload value="false" type="BOOL" help="Remove edges after loading, patching and joining"/>
         <keep-edges.in-boundary value="" type="STR[]" help="Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;)"/>
         <keep-edges.in-geo-boundary value="" type="STR[]" help="Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;)"/>
         <keep-edges.by-vclass value="" type="STR[]" help="Only keep edges which allow one of the vclasses in STR[]"/>
@@ -224,6 +227,7 @@
         <keep-edges.components value="0" type="INT" help="Only keep the INT largest weakly connected components"/>
         <remove-edges.by-type value="" type="STR[]" help="Remove edges where type is in STR[]"/>
         <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL" help="Removes isolated edges"/>
+        <keep-lanes.min-width value="0.01" type="FLOAT" help="Only keep lanes with width in meters &gt; FLOAT"/>
     </edge_removal>
 
     <unregulated_nodes>
@@ -245,6 +249,7 @@
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
         <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
+        <junctions.join.parallel-threshold value="30" type="FLOAT" help="The angular threshold in degress for rejection of parallel edges when joining junctions"/>
         <junctions.join-exclude value="" type="STR[]" help="Interprets STR[] as list of junctions to exclude from joining"/>
         <junctions.join-same value="false" type="BOOL" help="Joins junctions that have the same coordinates even if not connected"/>
         <max-join-ids value="4" type="INT" help="Abbreviate junction or TLS id if it joins more than INT junctions"/>
@@ -260,6 +265,7 @@
         <junctions.small-radius value="1.5" type="FLOAT" help="Default radius for junctions that do not require wide vehicle turns"/>
         <junctions.higher-speed value="false" type="BOOL" help="Use maximum value of incoming and outgoing edge speed on junction instead of average"/>
         <junctions.minimal-shape value="false" type="BOOL" help="Build junctions with minimal shapes (ignoring edge overlap)"/>
+        <junctions.endpoint-shape value="false" type="BOOL" help="Build junction shapes based on edge endpoints (ignoring edge overlap)"/>
         <internal-junctions.vehicle-width value="1.8" type="FLOAT" help="Assumed vehicle width for computing internal junction positions"/>
         <rectangular-lane-cut value="false" type="BOOL" help="Forces rectangular cuts between lanes and intersections"/>
         <check-lane-foes.roundabout value="true" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"/>
@@ -274,6 +280,7 @@
         <sidewalks.guess.exclude value="" type="STR[]" help="Do not guess sidewalks for the given list of edges"/>
         <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
         <crossings.guess.speed-threshold value="13.89" type="FLOAT" help="At uncontrolled nodes, do not build crossings across edges with a speed above the threshold"/>
+        <crossings.guess.roundabout-priority value="true" type="BOOL" help="Give priority to guessed crossings at roundabouts"/>
         <walkingareas value="false" type="BOOL" help="Always build walking areas even if there are no crossings"/>
         <walkingareas.join-dist value="15" type="FLOAT" help="Do not create a walkingarea between sidewalks that are connected by a pedestrian junction within FLOAT"/>
     </pedestrian>
@@ -297,7 +304,9 @@
         <railway.topology.all-bidi.input-file value="" type="FILE" help="Make all rails edge ids from FILE usable in both direction"/>
         <railway.topology.direction-priority value="false" type="BOOL" help="Set edge priority values based on estimated main direction"/>
         <railway.topology.extend-priority value="false" type="BOOL" help="Extend loaded edge priority values based on estimated main direction"/>
+        <railway.geometry.straighten value="false" type="BOOL" help="Move junctions to straighten a sequence of rail edges"/>
         <railway.signal.guess.by-stops value="false" type="BOOL" help="Guess signals that guard public transport stops"/>
+        <railway.signal.permit-unsignalized value="tram,cable_car" type="STR[]" help="List rail classes that may run without rail signals"/>
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
         <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT" help="The maximum road accesses registered per rail stops"/>
         <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" type="FLOAT" help="The walking length of the access is computed as air-line distance multiplied by FLOAT"/>
@@ -306,6 +315,7 @@
     <formats>
         <discard-params value="" type="STR[]" help="Remove the list of keys from all params"/>
         <ignore-change-restrictions value="authority" type="STR[]" help="List vehicle classes that may ignore lane changing restrictions (&apos;all&apos; discards all restrictions)"/>
+        <ignore-widths value="false" synonymes="opendrive.ignore-widths" type="BOOL" help="Whether lane widths shall be ignored."/>
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges"/>
         <osm.elevation value="false" type="BOOL" help="Imports elevation data"/>
         <osm.layer-elevation value="0" type="FLOAT" help="Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m"/>
@@ -314,16 +324,19 @@
         <osm.lane-access value="false" type="BOOL" help="Import lane-specific access restrictions"/>
         <osm.bike-access value="false" synonymes="osm.bike-lanes" type="BOOL" help="Import bike lanes and fix directions and permissions on bike paths"/>
         <osm.sidewalks value="false" type="BOOL" help="Import sidewalks"/>
+        <osm.oneway-reverse-sidewalk value="false" type="BOOL" help="Default to building two sidewalks on oneway streets (may affect divided roads)"/>
         <osm.crossings value="false" type="BOOL" help="Import crossings"/>
         <osm.turn-lanes value="false" type="BOOL" help="Import turning arrows from OSM to help with connection building"/>
         <osm.stop-output.length value="25" type="FLOAT" help="The default length of a public transport stop in FLOAT m"/>
         <osm.stop-output.length.bus value="15" type="FLOAT" help="The default length of a bus stop in FLOAT m"/>
         <osm.stop-output.length.tram value="25" type="FLOAT" help="The default length of a tram stop in FLOAT m"/>
         <osm.stop-output.length.train value="200" type="FLOAT" help="The default length of a train stop in FLOAT m"/>
+        <osm.railsignals value="DEFAULT" type="STR[]" help="Specify custom rules for importing railway signals"/>
         <osm.all-attributes value="false" synonymes="osm.all-tags" type="BOOL" help="Whether additional attributes shall be imported"/>
         <osm.extra-attributes value="all" synonymes="osm.extra-tags" type="STR[]" help="List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all)"/>
         <osm.speedlimit-none value="39.4444" type="FLOAT" help="The speed limit to be set when there is no actual speed limit in reality"/>
-        <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSIM-file will be kept"/>
+        <osm.annotate-defaults value="false" type="BOOL" help="Whether edges shoulds carry information on the usage of typemap defaults"/>
+        <matsim.keep-length value="false" type="BOOL" help="The edge lengths given in the MATSim-file will be kept"/>
         <matsim.lanes-from-capacity value="false" type="BOOL" help="The lane number will be computed from the capacity"/>
         <shapefile.street-id value="" synonymes="arcview.street-id" type="STR" help="Read edge ids from column STR"/>
         <shapefile.from-id value="" synonymes="arcview.from-id" type="STR" help="Read from-node ids from column STR"/>
@@ -357,7 +370,6 @@
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
         <visum.lanes-from-capacity.norm value="1800" synonymes="capacity-norm lanes-from-capacity.norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types"/>
-        <opendrive.ignore-widths value="false" type="BOOL" help="Whether lane widths shall be ignored."/>
         <opendrive.curve-resolution value="2" type="FLOAT" help="The geometry resolution in m when importing curved geometries as line segments."/>
         <opendrive.advance-stopline value="0" type="FLOAT" help="Allow stop lines to be built beyond the start of the junction if the geometries allow so"/>
         <opendrive.min-width value="1.8" type="FLOAT" help="The minimum lane width for determining start or end of variable-width lanes"/>
@@ -394,4 +406,4 @@
         <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>
     </random_number>
 
-</configuration>
+</netconvertConfiguration>

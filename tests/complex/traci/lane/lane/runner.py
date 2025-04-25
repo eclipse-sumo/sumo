@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -79,6 +79,8 @@ traci.lane.setChangePermissions(centerLaneID, ['passenger'], traci.constants.LAN
 print("allowed to change to the right after setChangePermissions",
       traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_RIGHT))
 
+print("loaded permissions", traci.lane.getAllowed(
+    "1fi_0"), traci.lane.getDisallowed("1fi_0"))
 traci.lane.setAllowed(laneID, ["taxi"])
 print("after setAllowed", traci.lane.getAllowed(
     laneID), traci.lane.getDisallowed(laneID))
@@ -93,6 +95,8 @@ print("after setLength", traci.lane.getLength(laneID))
 print("foes", traci.lane.getFoes("1si_0", "3o_0"))
 
 traci.lane.subscribe(laneID)
+param = {traci.constants.VAR_ANGLE: 10.0}
+traci.lane.subscribe(laneID, [traci.constants.VAR_ANGLE], parameters=param)
 print(traci.lane.getSubscriptionResults(laneID))
 for step in range(3, 6):
     print("step", step)

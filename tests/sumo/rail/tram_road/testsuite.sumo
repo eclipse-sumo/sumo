@@ -1,0 +1,7 @@
+merge
+
+# do not perform insertion checks when there are no tram signals in the network
+no_signals
+
+# perform insertion checks even when there are no tram signals in the network
+no_signals_forceCheck

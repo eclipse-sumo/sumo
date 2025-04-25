@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -10108,6 +10108,12 @@ HelpersHBEFA4::getFuel(const SUMOEmissionClass c) const {
     std::string fuel = "Gasoline";
     if (name.find("_diesel_") != std::string::npos) {
         fuel = "Diesel";
+    }
+    if (name.find("_BEV") != std::string::npos) {
+        fuel = "Electricity";
+    }
+    if (name.find("_PHEV") != std::string::npos) {
+        fuel = "Hybrid" + fuel;
     }
     return fuel;
 }

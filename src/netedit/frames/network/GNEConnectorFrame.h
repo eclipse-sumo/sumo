@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,10 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <config.h>
 #include <netbuild/NBEdge.h>
 #include <netedit/frames/GNEFrame.h>
-
 
 // ===========================================================================
 // class definitions
@@ -206,7 +204,7 @@ public:
      */
     void handleLaneClick(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
-    /// @brief get pointer to ConnectionModifications modul
+    /// @brief get pointer to ConnectionModifications module
     ConnectionModifications* getConnectionModifications() const;
 
 private:
@@ -238,19 +236,19 @@ private:
     /// @brief return the status of toLane
     LaneStatus getLaneStatus(const std::vector<NBEdge::Connection>& connections, const GNELane* targetLane) const;
 
-    /// @brief CurrentLane modul
+    /// @brief CurrentLane module
     CurrentLane* myCurrentLane;
 
-    /// @brief ConnectionModifications modul
+    /// @brief ConnectionModifications module
     GNEConnectorFrame::ConnectionModifications* myConnectionModifications = nullptr;
 
-    /// @brief ConnectionOperations modul
+    /// @brief ConnectionOperations module
     GNEConnectorFrame::ConnectionOperations* myConnectionOperations = nullptr;
 
-    /// @brief ConnectionSelection modul
+    /// @brief ConnectionSelection module
     GNEConnectorFrame::ConnectionSelection* myConnectionSelection = nullptr;
 
-    /// @brief Legend modul
+    /// @brief Legend module
     GNEConnectorFrame::Legend* myLegend = nullptr;
 
     /// @brief the lane of which connections are to be modified
@@ -262,7 +260,7 @@ private:
     /// @brief number of changes
     int myNumChanges;
 
-    /// @brief the internal lanes belonging the the current junction indexed by their tl-index
+    /// @brief the internal lanes belonging the current junction indexed by their tl-index
     std::map<int, GNEInternalLane*> myInternalLanes;
 
     /// @brief vector of connections deleted in the current editing step

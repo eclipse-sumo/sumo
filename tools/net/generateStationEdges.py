@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -57,7 +57,7 @@ def main(options):
             sumolib.writeXMLHeader(out_n, "$Id$")  # noqa
             out_e.write('<edges>\n')
             out_n.write('<nodes>\n')
-            for stop in sumolib.xml.parse(options.stopfile, 'busStop', heterogeneous=True):
+            for stop in sumolib.xml.parse(options.stopfile, ['busStop', 'trainStop'], heterogeneous=True):
                 edge_id = stop.id + "_access"
                 x, y = sumolib.geomhelper.positionAtShapeOffset(
                     net.getLane(stop.lane).getShape(),

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 25 18:32:44 2020 by Eclipse SUMO sumo Version v1_7_0+1296-45fee5e4a0
+<!-- generated on 2025-02-23 11:18:00 by Eclipse SUMO sumo Version v1_22_0+0450-79d9398e093
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -21,12 +26,10 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -35,28 +38,28 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="bus1.0" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="0.00" ended="54.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus1.0" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="67.99" ended="104.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus1.1" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="100.00" ended="154.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus1.1" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="167.99" ended="204.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus1.2" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="200.00" ended="254.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus1.2" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="267.99" ended="304.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus2.0" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="500.00" ended="554.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus2.0" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="567.99" ended="604.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus2.1" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="600.00" ended="654.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus2.1" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="667.99" ended="704.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus3.0" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="1000.00" ended="1054.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus3.0" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="1067.99" ended="1104.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus3.1" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="1100.00" ended="1154.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus3.1" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="1167.99" ended="1204.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus3.2" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="1200.00" ended="1254.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus3.2" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="1267.99" ended="1304.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus4.0" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="1500.00" ended="1554.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus4.0" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="1567.99" ended="1604.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus4.1" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="1600.00" ended="1654.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus4.1" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="1667.99" ended="1704.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus1.0" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="0.00" ended="54.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus1.0" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="67.99" ended="104.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus1.1" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="100.00" ended="154.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus1.1" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="167.99" ended="204.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus1.2" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="200.00" ended="254.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus1.2" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="267.99" ended="304.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus2.0" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="500.00" ended="554.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus2.0" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="567.99" ended="604.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus2.1" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="600.00" ended="654.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus2.1" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="667.99" ended="704.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus3.0" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="1000.00" ended="1054.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus3.0" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="1067.99" ended="1104.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus3.1" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="1100.00" ended="1154.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus3.1" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="1167.99" ended="1204.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus3.2" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="1200.00" ended="1254.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus3.2" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="1267.99" ended="1304.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus4.0" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="1500.00" ended="1554.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus4.0" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="1567.99" ended="1604.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus4.1" type="DEFAULT_VEHTYPE" edge="beg" pos="0.00" parking="0" started="1600.00" ended="1654.00" delay="4.00" arrivalDelay="-20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="bus4.1" type="DEFAULT_VEHTYPE" edge="end" pos="0.00" parking="0" started="1667.99" ended="1704.00" delay="4.00" arrivalDelay="-2.02" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>

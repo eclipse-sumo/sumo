@@ -8,6 +8,11 @@ Building a scenario is a lot of work. If you have built a SUMO scenario
 you can share (under a sufficiently open license), please
 [contact us](../Contact.md).
 
+# Alicante-Murcia highway scenario
+Large-scale and high-accuracy traffic simulation scenario that models 9 full days of traffic over a 97 km freeway section, with mixed traffic (light and heavy vehicles). The simulation scenario has been calibrated using a unique dataset provided by the Spanish road authority and a novel learning-based and iterative traffic demand calibration technique for SUMO.
+
+More info at: https://github.com/msepulcre/Alicante-Murcia-SUMO-Scenario
+
 # Berlin
 
 - [Mosaic Berlin Sumo Traffic (BeST) Scenario on GitHub](https://github.com/mosaic-addons/best-scenario)
@@ -34,7 +39,7 @@ of Bologna", SUMO2014, p 19-26
 # Dublin - Irish Motorway, National road and city centre
 
 - [Main Page](https://github.com/maxime-gueriau/ITSC2020_CAV_impact)
-- Publication: Quantifying the impact of connected and autonomous vehicles on traffic efficiency and safety in mixed traffic" by Maxime Gueriau and Ivana Dusparic, presented at the The 23rd IEEE International Conference on Intelligent Transportation Systems (ITSC 2020)
+- Publication: Quantifying the impact of connected and autonomous vehicles on traffic efficiency and safety in mixed traffic" by Maxime Gueriau and Ivana Dusparic, presented at the 23rd IEEE International Conference on Intelligent Transportation Systems (ITSC 2020)
 
 # Geneva - Digital Twin - Geneva Motorway (DT-GM)
 
@@ -75,6 +80,20 @@ Italy.
 
 - [Main Page](https://github.com/boschresearch/stuttgart-sumo-traffic-scenario)
 - Publication: David Förster, Hans Löhr, Anne Grätz, Jonathan Petit, and Frank Kargl, "An Evaluation of Pseudonym Changes for Vehicular Networks in Large-scale, Realistic Traffic Scenarios", IEEE Transactions on Intelligent Transportation Systems 19.10 (2017): 3400-3405, doi: [10.1109/TITS.2017.2775519](https://doi.org/10.1109/TITS.2017.2775519).
+
+# Toronto
+
+- [**TorontoSUMONetworks on GitHub**](https://github.com/Jahandad-Baloch/TorontoSUMONetworks)
+
+TorontoSUMONetworks is an open-source platform designed for creating, manipulating, and simulating traffic networks in Toronto using SUMO. This tool provides a realistic simulation environment for transportation research, urban planning, and traffic management. Its flexibility makes it valuable for diverse research areas, including Intelligent Transportation Systems (ITS), Reinforcement Learning for Adaptive Traffic Signal Control (ATSC), and more.
+
+Key Features:
+- Realistic traffic simulations based on the Toronto network, including major arterials and local streets.
+- Multi-modal transportation support, simulating private vehicles, buses, bicycles, and pedestrians.
+- Utilizes real-world data from the City of Toronto Open Data Portal for accurate simulations.
+- Highly configurable, supporting detectors like inductionloop, lanearea, and multi-entry/exit for traffic management.
+
+This project offers a comprehensive platform for researchers, urban planners, and engineers aiming to improve urban mobility and optimize traffic systems through advanced simulation and analysis.
 
 # Turin SUMO Traffic (TuST)
 A large-scale mesoscopic traffic simulation of a 600-sqkm area around the Municipality of Turin.

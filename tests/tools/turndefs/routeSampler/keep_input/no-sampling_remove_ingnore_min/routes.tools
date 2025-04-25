@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-10 22:49:58.128612 by routeSampler.py v1_21_0+1809-8fd426d9f12
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <edgedata-attribute value="count"/>
+    <init-input.remove-overflow value="True"/>
+    <no-sampling value="True"/>
+    <min-count value="2"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="99.0" -->
+    <vehicle id="0" depart="94.12">
+        <route edges="a b"/>
+    </vehicle>
+</routes>

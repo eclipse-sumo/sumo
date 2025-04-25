@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,34 +41,9 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
     server.initWrapper(libsumo::RESPONSE_GET_INDUCTIONLOOP_VARIABLE, variable, id);
     try {
         if (!libsumo::InductionLoop::handleVariable(id, variable, &server, &inputStorage)) {
-            switch (variable) {
-                case libsumo::LAST_STEP_VEHICLE_DATA: {
-                    std::vector<libsumo::TraCIVehicleData> vd = libsumo::InductionLoop::getVehicleData(id);
-                    tcpip::Storage tempContent;
-                    int cnt = 0;
-                    StoHelp::writeTypedInt(tempContent, (int)vd.size());
-                    ++cnt;
-                    for (const libsumo::TraCIVehicleData& svd : vd) {
-                        StoHelp::writeTypedString(tempContent, svd.id);
-                        ++cnt;
-                        StoHelp::writeTypedDouble(tempContent, svd.length);
-                        ++cnt;
-                        StoHelp::writeTypedDouble(tempContent, svd.entryTime);
-                        ++cnt;
-                        StoHelp::writeTypedDouble(tempContent, svd.leaveTime);
-                        ++cnt;
-                        StoHelp::writeTypedString(tempContent, svd.typeID);
-                        ++cnt;
-                    }
-                    StoHelp::writeCompound(server.getWrapperStorage(), cnt);
-                    server.getWrapperStorage().writeStorage(tempContent);
-                    break;
-                }
-                default:
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE,
-                                                      "Get Induction Loop Variable: unsupported variable " + toHex(variable, 2)
-                                                      + " specified", outputStorage);
-            }
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE,
+                                                "Get Induction Loop Variable: unsupported variable " + toHex(variable, 2)
+                                                + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, e.what(), outputStorage);

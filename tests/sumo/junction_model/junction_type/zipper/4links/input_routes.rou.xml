@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-04 08:37:13 by Eclipse SUMO netedit Version v1_22_0+1261-45c241feb42
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="a" begin="0.00" departLane="free" departSpeed="avg" end="1000.00" period="exp(0.3)">
+        <route edges="E0 E1"/>
+    </flow>
+    <flow id="b" begin="0.00" departLane="free" departSpeed="avg" end="1000.00" period="exp(0.2)">
+        <route edges="E2 E1"/>
+    </flow>
+</routes>

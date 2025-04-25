@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-11 16:46:52 by Eclipse SUMO sumo Version v1_22_0+1450-ff3555ebd51
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <step-length value="0.25"/>
+    </time>
+
+    <processing>
+        <extrapolate-departpos value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <ssm_device>
+        <device.ssm.probability value="1"/>
+        <device.ssm.measures value="TTC"/>
+        <device.ssm.range value="200"/>
+        <device.ssm.file value="ssm.xml"/>
+    </ssm_device>
+
+</sumoConfiguration>
+-->
+
+<SSMLog>
+    <conflict begin="0.00" end="52.25" ego="t_0" foe="t_1">
+        <minTTC time="47.00" position="108.01,91.71" type="10" value="1.97" speed="1.38"/>
+    </conflict>
+    <conflict begin="0.00" end="52.25" ego="t_1" foe="t_0">
+        <minTTC time="47.00" position="108.01,91.71" type="11" value="1.97" speed="2.17"/>
+    </conflict>
+</SSMLog>

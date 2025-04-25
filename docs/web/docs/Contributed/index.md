@@ -31,7 +31,7 @@ supported.
 
 - [LiSuM](../Tools/LiSuM.md)
 
-    a middleware that couples [LISA+](https://www.schlothauer.de/en/software-systems/lisa/) and SUMO to simulate real-world
+    a middleware that couples [LISA+](https://www.schlothauer.de/software-lisa) and SUMO to simulate real-world
     traffic light controllers and execute real-world traffic control software within SUMO.
 
 - [SAGA](https://github.com/lcodeca/SUMOActivityGen/blob/master/docs/SUMOActivityGen.md)
@@ -87,7 +87,15 @@ The following extensions are managed and supported by other parties.
 
 ## Other
 
-- [TraCI4Matlab](https://de.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab)
+- [PERMIT](https://github.com/susomena/PERMIT)
+
+    A SUMO Simulator for Platooning Maneuvers in Mixed Traffic Scenarios (extends PLEXE)
+
+- [PLEXE](https://plexe.car2x.org/)
+
+  Cooperative driving framework extending SUMO and Veins permitting the realistic simulation of platooning (i.e., automated car-following) systems. It features realistic vehicle dynamics and several cruise control models, permitting the analysis of control systems, large-scale and mixed scenario, as well as networking protocols and cooperative maneuvers.
+
+- [TraCI4Matlab](https://mathworks.com/matlabcentral/fileexchange/44805-traci4matlab)
 
     A Matlab interface for connecting and extending information via [TraCI](../TraCI.md)
 
@@ -119,6 +127,10 @@ The following extensions are managed and supported by other parties.
 - [SESAM](https://sesam.co4e.com)
 
     SUMO as a cloud service to build, run and analyze simulation scenarios, developed by the DLR spin-off company co4e GmbH
+
+- [TrafficFluid-Sim](https://www.trafficfluid.tuc.gr/en/trafficfluid-sim)
+
+  TrafficFluid-Sim is an open source, microscopic traffic simulation tool for automated vehicles driving in lane-free traffic environments in the era of Connected and Automated Vehicles. The simulator is an extension of SUMO that explicitly targets the lane-free traffic paradigm. 
 
 # Purgatory
 

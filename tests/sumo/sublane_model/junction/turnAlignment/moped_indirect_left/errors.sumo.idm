@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'flow_2.57'; junction collision with vehicle 'flow_0.101', lane=':C_10_0', gap=-1.00', latGap=0.00, time=1051.00 stage=move.
+Warning: Vehicle 'flow_2.57' ends teleporting on edge 'CW', time=1051.00.
+Warning: Teleporting vehicle 'flow_2.76'; junction collision with vehicle 'flow_0.129', lane=':C_10_0', gap=-1.00', latGap=0.00, time=1216.00 stage=move.
+Warning: Vehicle 'flow_2.76' ends teleporting on edge 'CW', time=1216.00.

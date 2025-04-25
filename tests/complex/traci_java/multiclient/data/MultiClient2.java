@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2013-2017 Dresden University of Technology
 // This program and the accompanying materials are made available under the
@@ -15,34 +15,38 @@
 /****************************************************************************/
 /// @file    MultiClient2.java
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    2019
 ///
 //
 /****************************************************************************/
-import it.polito.appeal.traci.SumoTraciConnection;
-import de.tudresden.sumo.cmd.Simulation;
-import de.tudresden.sumo.cmd.Vehicle;
-import de.tudresden.sumo.cmd.Inductionloop;
-import de.tudresden.sumo.cmd.Trafficlight;
-import de.tudresden.sumo.objects.SumoVehicleData;
+
+import org.eclipse.sumo.libtraci.*;
 
 public class MultiClient2 {
 
     public static void main(String[] args) {
 
-
+        if (System.getProperty("os.name").startsWith("Windows") && Simulation.class.toString().contains("libsumo")) {
+            System.loadLibrary("iconv-2");
+            System.loadLibrary("intl-8");
+            System.loadLibrary("libcrypto-3-x64");
+            System.loadLibrary("libssl-3-x64");
+            System.loadLibrary("proj_9");
+        }
+        System.loadLibrary("libtracijni");
         try {
+            Simulation.init(9999);
+            Simulation.setOrder(2);
 
-            SumoTraciConnection conn = new SumoTraciConnection(9999);
-            conn.setOrder(2);
 
             for (int i = 0; i < 3600; i++) {
-                conn.do_timestep();
-                double timeSeconds = (double)conn.do_job_get(Simulation.getTime());
+                Simulation.step();
+                double timeSeconds = Simulation.getTime();
                 System.out.println(String.format("Step %s", timeSeconds));
             }
 
-            conn.close();
+            Simulation.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();

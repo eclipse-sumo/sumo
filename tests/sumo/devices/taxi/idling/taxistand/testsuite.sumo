@@ -12,3 +12,6 @@ rerouting
 
 # taxis idle at the taxi stand and are dispatched again
 10persons
+
+# on idling pick the closest taxi stand
+closest_stand

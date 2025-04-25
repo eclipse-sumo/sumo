@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-08 10:38:36.227065 by routeSampler.py v1_17_0+0832-e57b270
+<!-- generated on 2025-01-10 09:59:59.189050 by routeSampler.py v1_21_0+1795-43a3ca5d6da
 <configuration>
     <route-files value="input_routes.rou.xml,input_routes2.rou.xml"/>
     <turn-ratio-files value="input_turns.xml"/>
@@ -8,8 +8,8 @@
     <edgedata-attribute value="count"/>
     <turn-ratio-attribute value="ratio"/>
     <mismatch-output value="edgedata.xml"/>
-    <write-flows value="number"/>
     <verbose value="True"/>
+    <write-flows value="number"/>
 </configuration>
 -->
 
@@ -22,6 +22,6 @@
         <edgeRelation from="-11.80.00" to="5" measuredProbability="0.6" deficit="-0.03" totalAssignedFromCount="67"/>
         <edgeRelation from="-11.80.00" to="15" measuredProbability="0.2" deficit="0.01" totalAssignedFromCount="67"/>
         <edgeRelation from="-11.80.00" to="11" measuredProbability="0.0" deficit="0.00" totalAssignedFromCount="67"/>
-        <edge id="3" measuredCount="100" deficit="0"/>
+        <edge id="3" measuredCount="100" deficit="0" GEH="0.00"/>
     </interval>
 </data>

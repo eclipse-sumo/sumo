@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -36,7 +36,13 @@ class Test_Init(unittest.TestCase):
         del os.environ['SUMO_BINARY']
         self.assertIn('sumo', sumolib.checkBinary('sumo'))
         del os.environ['SUMO_HOME']
-        self.assertEqual('sumo', sumolib.checkBinary('sumo', ''))
+        try:
+            # try whether the eclipse-sumo wheel is installed
+            import sumo  # noqa
+            self.assertIn('sumo', sumolib.checkBinary('sumo'))
+            self.assertIn('python', sumolib.checkBinary('sumo'))
+        except ImportError:
+            self.assertEqual('sumo', sumolib.checkBinary('sumo', ''))
 
     def test_intTime(self):
         self.assertEqual(1, sumolib._intTime('1.0'))

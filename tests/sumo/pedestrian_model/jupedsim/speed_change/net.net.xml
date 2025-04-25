@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-01-26 15:08:31 by Eclipse SUMO netedit Version v1_19_0+0701-cce4e253116
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2024-04-15 16:02:13 by Eclipse SUMO netconvert Version v1_19_0+1835-bfe95c01591
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\coue_be\Dev\sumo\tests\sumo\pedestrian_model\jupedsim\speed_change\net.net.xml"/>
+        <sumo-net-file value="C:/Users/coue_be/Dev/sumo/tests/sumo/pedestrian_model/jupedsim/speed_change/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\coue_be\Dev\sumo\tests\sumo\pedestrian_model\jupedsim\speed_change\net.net.xml"/>
+        <output-file value="C:/Users/coue_be/Dev/sumo/tests/sumo/pedestrian_model/jupedsim/speed_change/net.net.xml"/>
     </output>
 
     <processing>
@@ -33,7 +33,7 @@
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

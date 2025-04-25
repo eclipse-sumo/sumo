@@ -42,53 +42,53 @@ The entire list of shortcuts can be found [here](shortcuts.md):
 
 | File shortcuts              | Key              | Description                         |
 | --------------------------- | ---------------- | ----------------------------------- |
-| New Window                  | Ctrl + Shift + N | Open a new netedit window           |
-| New Network                 | Ctrl + N         | Create a new network                |
-| Open Network                | Ctrl + O         | Open an existing network            |
-| Open configuration          | Ctrl + T         | Open an existing SUMO configuration |
-| Import foreign network      | Ctrl + F         | Import a foreign network            |
-| Reload                      | Ctrl + R         | Reload network                      |
-| Save network                | Ctrl + S         | Save network                        |
-| Save network as             | Ctrl + Shift + S | Save network in another file        |
-| Save plain XML              | Ctrl + L         | Save network as plain XML           |
-| Save joined junctions       | Ctrl + J         | Save joined junctions of network    |
-| Load additionals and shapes | Ctrl + A         | Load a file with additionals        |
-| Save additionals and shapes | Ctrl + Shift + A | Save additionals in a file          |
-| Load demand elements        | Ctrl + D         | Load a file with shapes             |
-| Save demand elements        | Ctrl + Shift + D | Save demand elements in a file      |
-| Load TLS Programs           | Ctrl + K         | Load a file with shapes             |
-| Save TLS Programs           | Ctrl + Shift + K | Save Point Of Interest in a file    |
-| Close                       | Ctrl + W         | Close network                       |
+| New Window                  | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open a new netedit window           |
+| New Network                 | <kbd>Ctrl</kbd> + <kbd>N</kbd>         | Create a new network                |
+| Open Network                | <kbd>Ctrl</kbd> + <kbd>O</kbd>         | Open an existing network            |
+| Open configuration          | <kbd>Ctrl</kbd> + <kbd>T</kbd>         | Open an existing SUMO configuration |
+| Import foreign network      | <kbd>Ctrl</kbd> + <kbd>F</kbd>         | Import a foreign network            |
+| Reload                      | <kbd>Ctrl</kbd> + <kbd>R</kbd>         | Reload network                      |
+| Save network                | <kbd>Ctrl</kbd> + <kbd>S</kbd>         | Save network                        |
+| Save network as             | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> | Save network in another file        |
+| Save plain XML              | <kbd>Ctrl</kbd> + <kbd>L</kbd>         | Save network as plain XML           |
+| Save joined junctions       | <kbd>Ctrl</kbd> + <kbd>J</kbd>         | Save joined junctions of network    |
+| Load additionals and shapes | <kbd>Ctrl</kbd> + <kbd>A</kbd>         | Load a file with additionals        |
+| Save additionals and shapes | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd> | Save additionals in a file          |
+| Load demand elements        | <kbd>Ctrl</kbd> + <kbd>D</kbd>         | Load a file with shapes             |
+| Save demand elements        | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | Save demand elements in a file      |
+| Load TLS Programs           | <kbd>Ctrl</kbd> + <kbd>K</kbd>         | Load a file with shapes             |
+| Save TLS Programs           | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | Save Point Of Interest in a file    |
+| Close                       | <kbd>Ctrl</kbd> + <kbd>W</kbd>         | Close network                       |
 
 | Edit shortcuts | Key      | Description          |
 | -------------- | -------- | -------------------- |
-| Undo           | Ctrl + Z | Undo the last change |
-| Redo           | Ctrl + Y | Redo the last change |
+| Undo           | <kbd>Ctrl</kbd> + <kbd>Z</kbd> | Undo the last change |
+| Redo           | <kbd>Ctrl</kbd> + <kbd>Y</kbd> | Redo the last change |
 
 
 | Processing shortcuts    | Key | Description                            |
 | ----------------------- | --- | -------------------------------------- |
-| Compute Junction        | F5  | Compute junctions of the network       |
-| Clean Junction          | F6  | Clean junctions of the network         |
-| Join selected Junctions | F7  | Join selected junctions of the network |
-| Options                 | F10 | Open options dialog                    |
+| Compute Junction        | <kbd>F5</kbd>  | Compute junctions of the network       |
+| Clean Junction          | <kbd>F6</kbd>  | Clean junctions of the network         |
+| Join selected Junctions | <kbd>F7</kbd>  | Join selected junctions of the network |
+| Options                 | <kbd>F10</kbd> | Open options dialog                    |
 
 | Text editing shortcuts | Key      | Description                                      |
 | ---------------------- | -------- | ------------------------------------------------ |
-| Cut                    | Ctrl + X | Cut selected text of a text field                |
-| Copy                   | Ctrl + C | Copy selected text of a text field               |
-| Paste                  | Ctrl + V | Paste previously cut/copied text in a text field |
-| Select all text        | Ctrl + A | Select all text in a text field                  |
+| Cut                    | <kbd>Ctrl</kbd> + <kbd>X</kbd> | Cut selected text of a text field                |
+| Copy                   | <kbd>Ctrl</kbd> + <kbd>C</kbd> | Copy selected text of a text field               |
+| Paste                  | <kbd>Ctrl</kbd> + <kbd>V</kbd> | Paste previously cut/copied text in a text field |
+| Select all text        | <kbd>Ctrl</kbd> + <kbd>A</kbd> | Select all text in a text field                  |
 
 | Miscellaneous shortcuts | Key      | Description                                      |
 | ----------------------- | -------- | ------------------------------------------------ |
-| Grid  | Ctrl + G        | Toggle background grid
-| Grid+ | Ctrl + PageUp   | Increase grid spacing               |
-| Grid- | Ctrl + PageDown | Reduce grid spacing               |
+| Grid  | <kbd>Ctrl</kbd> + <kbd>G</kbd>        | Toggle background grid
+| Grid+ | <kbd>Ctrl</kbd> + <kbd>PageUp</kbd>   | Increase grid spacing               |
+| Grid- | <kbd>Ctrl</kbd> + <kbd>PageDown</kbd> | Reduce grid spacing               |
 
 
 **Toolbar shortcuts**
-The mode-depended option checkboxes (such as *Toggle grid* and others) located in the toolbar, can easily be checked an unchecked using the `Alt + NUMBER` shortcut, where NUMBER corresponds to its position within the options (e.g. *Toggle grid* is 1, and so on).
+The mode-depended option checkboxes (such as *Toggle grid* and others) located in the toolbar, can easily be checked an unchecked using the <kbd>Alt</kbd> + <kbd>NUMBER</kbd> shortcut, where NUMBER corresponds to its position within the options (e.g. *Toggle grid* is 1, and so on).
 
 ---
 
@@ -96,29 +96,34 @@ In addition to these hotkeys, [all hotkeys for moving and zooming in
 sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
 
 - <Button-Left\>: Execute mode specific action
+  - in 'Inspect'-mode repeated clicks on the same location cycle through objects at that location
 - <Button-Right\>: Open context-menu
 - <Button-Right-Drag\>: Change zoom
 - <Button-Left-Drag\>: Move the view around (*panning*)
   - in 'Move'-mode pointing at an edge: move or create geometry points
   - in 'Move'-mode pointing at a junction: move the junction
   - in 'Move'-mode pointing at a selected object: move all selected junctions and edges including geometry. If both junctions of an edge are selected, move the whole geometry. Otherwise, move only the geometry near the cursor
-- <ESC\>
+- <kbd>ESC</kbd>
   - in 'Create Edge'-mode: clear the currently selected source junction
   - in 'Select'-mode: clear the current selection; cancel rectangle selection
   - in 'Connect'-mode: deselect current lane and cancel all changes
   - in 'Traffic Light'-mode: revert changes to current traffic light
   - when editing a junction shape: abort editing the current junction shape
-- <DELETE\>: delete all currently selected items
-- <SHIFT\>:
-  - in 'Select'-mode: hold <SHIFT\> and drag the mouse for rectangle selection
-  - in 'Select'-mode: <SHIFT\>-left-click selects lanes instead of edges
-  - in 'Inspect'-mode: <SHIFT\>-left-click inspects lanes instead of edges
-  - in 'Delete'-mode: <SHIFT\>-left-click deletes lanes instead of edges
-- <CTRL\>:
+- <kbd>ESC</kbd> + <kbd>SHIFT</kbd>: clear the current selection
+- <kbd>DELETE</kbd>: delete all currently selected items
+- <kbd>SHIFT</kbd>:
+  - in 'Select'-mode: hold <kbd>SHIFT</kbd> and drag the mouse for rectangle selection
+  - in 'Select'-mode: <kbd>SHIFT</kbd>-left-click selects lanes instead of edges
+  - in 'Inspect'-mode: <kbd>SHIFT</kbd>-left-click inspects lanes instead of edges
+  - in 'Delete'-mode: <kbd>SHIFT</kbd>-left-click deletes lanes instead of edges
+- <kbd>CTRL</kbd>:
   - in 'Create Edge'-mode, allow moving the view without defining junctions
   - in 'Create Additional'-mode, allow moving the view without adding additionals
   - in 'POI-Poly'-mode, allow moving the view without adding POIs
-- <Enter\>
+- <kbd>ALT</kbd>:
+  - in 'Inspect'-mode: <Button-Left\> inspects individual object instead of selection (when object is selected)
+  - in 'Inspect'-mode: <Button-Right\> opens a menu for selecting among all objects at the same location
+- <kbd>Enter</kbd>:
   - in 'Inspect'-mode: confirm attribute changes
   - in 'Connect'-mode: deselect current lane and save all changes
   - in 'Traffic Light'-mode: save changes to current traffic light
@@ -127,10 +132,11 @@ sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
 
 ## Processing Menu Options
 
-- **Compute Junctions** (F5): recomputes the geometry and logic of all junctions. This is triggered automatically when entering modes which require this information (Connect, Traffic Lights).
-- **Clean Junctions** (F6): removes all junctions that do not have any adjacent edges (These junctions are not included when saving the network. They are kept in the editor until cleaned for potential reuse).
-- **Join Selected Junctions** (F7): joins the selected junctions into a single junction (See [joining junctions](../Networks/PlainXML.md#joining_nodes)).
-- **Options** (F10): inspect and set all options. These are the same options that [netconvert](../netconvert.md) accepts on the commandline or in a configuration.
+- **Compute Junctions** (<kbd>F5</kbd>): recomputes the geometry and logic of all junctions. This is triggered automatically when entering modes which require this information (Connect, Traffic Lights).
+- **Compute Junctions with volatile options** (<kbd>Shift</kbd> + <kbd>F5</kbd>): recomputes everything and processes options that can modify the network if set (i.e. **crossings.guess**). This processing step does not support *undo/redo*.
+- **Clean Junctions** (<kbd>F6</kbd>): removes all junctions that do not have any adjacent edges (These junctions are not included when saving the network. They are kept in the editor until cleaned for potential reuse).
+- **Join Selected Junctions** (<kbd>F7</kbd>): joins the selected junctions into a single junction (See [joining junctions](../Networks/PlainXML.md#joining_nodes)).
+- **Options** (<kbd>F10</kbd>): inspect and set all options. These are the same options that [netconvert](../netconvert.md) accepts on the commandline or in a configuration.
 
 ## Customizing Visualization
 
@@ -140,7 +146,7 @@ background images](../sumo-gui.md#showing_background_images). It is also possibl
 ### Background Grid
 
 When activating the background grid via the visualization settings dialog ![](../images/icon_colorwheel.png) or via the *show grid* option in [Create Edge Mode](editModesNetwork.md#create_edges), all clicks that create or move objects will snap to the nearest grid point. The resolution of the grid can be
-customized in the *Background*-Tab of the visualization settings dialog. By using hotkey **Ctrl-PageUp** the grid spacing is doubled and with **Ctrl-PageDown** the grid size is reduce by a factor of 2.
+customized in the *Background*-Tab of the visualization settings dialog. By using hotkey <kbd>Ctrl</kbd> + <kbd>PageUp</kbd> the grid spacing is doubled and with <kbd>Ctrl</kbd> + <kbd>PageDown</kbd> the grid size is reduce by a factor of 2.
 
 ## Terminology
 
@@ -183,7 +189,7 @@ Modes available in the *Demand Supermode*:
 - [Routes](editModesDemand.md#route_mode)
 - [Vehicles](editModesDemand.md#vehicle_mode)
 - [Vehicle Types](editModesDemand.md#vehicle_type_mode)
-- [Stops](editModesDemand.md#stop_mode)
+- [Stops](editModesDemand.md#stops_mode)
 - [Person Types](editModesDemand.md#person_type_mode)
 - [Persons](editModesDemand.md#person_mode)
 - [Person Plans](editModesDemand.md#person_plan_mode)
@@ -193,7 +199,7 @@ Modes available in the *Demand Supermode*:
 Modes available in the *Data Supermode*:
 
 - [Edge Data](editModesData.md#edge_data_mode)
-- [Edge Relation](editModesData.md#edge_rel_data_mode)
+- [Edge Relation](editModesData.md#edge_relation_mode)
 - [TAZ Relation](editModesData.md#taz_relation_mode)
 
 # [Elements](elements.md)
@@ -227,6 +233,7 @@ Right clicking over an element will open a popup-menu with functions and operati
 - [Converting an intersection into a roundabout](neteditUsageExamples.md#converting_an_intersection_into_a_roundabout)
 - [Correcting road access permissions](neteditUsageExamples.md#correcting_road_access_permissions)
 - [Creating bidirectional railway tracks](neteditUsageExamples.md#creating_bidirectional_railway_tracks)
+- [Creating pedestrian infrastructure](neteditUsageExamples.md#building_pedestrian_infrastructure)
 - [**+ many others**](neteditUsageExamples.md).
 
 # Planned Features
@@ -236,7 +243,7 @@ Right clicking over an element will open a popup-menu with functions and operati
 
 
 !!! note
-        Currently, you may either switching on **--opposites.guess** via the [F10-menu](#processing_menu_options) or set lane attribute 'oppositeID'.
+    Currently, you may either switching on **--opposites.guess** via the [F10-menu](#processing_menu_options) or set lane attribute 'oppositeID'.
 
 - Editing [walkingarea shapes](../Networks/PlainXML.md#walking_areas)
 - Integration of [netgenerate](../netgenerate.md)

@@ -1,4 +1,5 @@
-traci.start(['/home/kobo/dlr/sumo/bin/sumo', '-c', 'sumo.sumocfg'], port=None, label='default')
+import traci
+traci.start(['/scr1/sumo/bin/sumo', '-c', 'sumo.sumocfg'], port=None, label='default')
 traci.simulationStep()
 traci.vehicle.setParameter('veh0', 'foo', '42')
 traci.person.setParameter('ped0', 'foo', '42')

@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 26Jul15:15:19]
+search_string:shape="58.03,93.93 60.15,94.14 62.77,98.51 65.91,107.01 69.55,119.66"
+search_file:net
+full_description:bad geometry of internal lane
+brief_description:see #2094

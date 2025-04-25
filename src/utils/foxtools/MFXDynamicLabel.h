@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,6 +17,8 @@
 ///
 // Text label with dynamic multi-line text (inserts line breaks on the fly)
 /****************************************************************************/
+#pragma once
+#include <config.h>
 
 #include <string>
 
@@ -55,11 +57,27 @@ protected:
     MFXDynamicLabel();
 
 private:
+    /// @brief compute indentation
     void computeIndentation();
+
+    /// @brief reformat line breaks
     void reformatLineBreaks(const int curWidth);
 
+    /// @brief original string
     std::string myOriginalString;
+
+    /// @brief indent string
     std::string myIndentString;
+
+    /// @brief indent
     int myIndent;
+
+    /// @brief previous width
     int myPreviousWidth;
+
+    /// @brief Invalidated copy constructor.
+    MFXDynamicLabel(const MFXDynamicLabel&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    MFXDynamicLabel& operator=(const MFXDynamicLabel&) = delete;
 };

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 // PHEMlight module
 // Copyright (C) 2016-2023 Technische Universitaet Graz, https://www.tugraz.at/
 // This program and the accompanying materials are made available under the
@@ -49,10 +49,7 @@ namespace PHEMlightdllV5 {
         bool privateHeavyVehicle;
         std::string privateFuelType;
         std::string privateCalcType;
-        eNormalizingType privateNormalizingType;
         double privateRatedPower;
-        double privateNormalizingPower;
-        double privateDrivingPower;
 
     public:
         CEP(VEHPHEMLightJSON::VEH* Vehicle, std::vector<std::string>& headerLineFCvalues, std::vector<std::vector<double> >& matrixFCvalues, std::vector<std::string>& headerLinePollutants, std::vector<std::vector<double> >& matrixPollutants, std::vector<double>& idlingFCvalues, std::vector<double>& idlingPollutants);
@@ -65,18 +62,36 @@ namespace PHEMlightdllV5 {
         void setCalcType(const std::string& value);
 
     public:
-        const eNormalizingType&  getNormalizingType() const;
-        void setNormalizingType(const eNormalizingType&  value);
-
         const double&  getRatedPower() const;
         void setRatedPower(const double&  value);
-        const double&  getNormalizingPower() const;
-        void setNormalizingPower(const double&  value);
-        const double&  getDrivingPower() const;
-        void setDrivingPower(const double&  value);
         double getAuxPower() const {
             return _auxPower * getRatedPower();
         }
+        double getVehicleMass() const {
+            return _massVehicle;
+        }
+        double getVehicleLoading() const {
+            return _vehicleLoading;
+        }
+        double getVehicleMassRot() const {
+            return _vehicleMassRot;
+        }
+        double getCrossSectionalArea() const {
+            return _crossSectionalArea;
+        }
+        double getCWValue() const {
+            return _cWValue;
+        }
+        double getWheelRadius() const {
+            return _effectiveWheelDiameter / 2.;
+        }
+        double getResistanceF0() const {
+            return _resistanceF0;
+        }
+        double getResistance(const double speed, const double f0) const {
+            return f0 + _resistanceF1 * speed + _resistanceF2 * std::pow(speed, 2) + _resistanceF3 * std::pow(speed, 3) + _resistanceF4 * std::pow(speed, 4);
+        }
+        double getFMot(const double speed, const double ratedPower, const double wheelRadius);
 
     protected:
         double _massVehicle;
@@ -101,16 +116,12 @@ namespace PHEMlightdllV5 {
         double _effectiveWheelDiameter;
 
         std::vector<double> _speedPatternRotational;
-        std::vector<double> _powerPatternFCvalues;
         std::vector<double> _normalizedPowerPatternFCvalues;
-        std::vector<double> _normailzedPowerPatternPollutants;
-        std::vector<double> _powerPatternPollutants;
+        std::vector<double> _normalizedPowerPatternPollutants;
 
-        std::map<std::string, std::vector<double> > _cepCurveFCvalues;
         std::map<std::string, std::vector<double> > _normedCepCurveFCvalues;
         std::vector<double> _gearTransmissionCurve;
         std::vector<double> _speedCurveRotational;
-        std::map<std::string, std::vector<double> > _cepCurvePollutants;
         std::map<std::string, std::vector<double> > _cepNormalizedCurvePollutants;
         std::map<std::string, double> _FleetMix;
         std::map<std::string, double> _idlingValueFCvalues;
@@ -120,13 +131,9 @@ namespace PHEMlightdllV5 {
         std::vector<double> _dragNormTable;
 
     public:
-        double CalcPower(double speed, double acc, double gradient, bool HBEV);
+        double CalcEngPower(double power, const double ratedPower);
 
-        double CalcWheelPower(double speed, double acc, double gradient);
-
-        double CalcEngPower(double power);
-
-        double GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass);
+        double GetEmission(const std::string& pollutant, double power, double speed, Helpers* VehicleClass, const double drivingPower, const double ratedPower);
 
         double GetCO2Emission(double _FC, double _CO, double _HC, Helpers* VehicleClass);
 
@@ -138,20 +145,15 @@ namespace PHEMlightdllV5 {
         bool GetfcVals(const std::string& _fuelTypex, double& _fCBr, double& _fCHC, double& _fCCO, double& _fCCO2, Helpers* VehicleClass);
 
     public:
-        double GetDecelCoast(double speed, double acc, double gradient);
-
         double GetRotationalCoeffecient(double speed);
 
 
     private:
-        void FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, std::vector<double>& pattern, double value);
+        void FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, const std::vector<double>& pattern, double value, double scale=1.);
 
         double Interpolate(double px, double p1, double p2, double e1, double e2);
 
     public:
-        double GetMaxAccel(double speed, double gradient, bool HBEV);
-
-    private:
         double GetPMaxNorm(double speed);
 
         //--------------------------------------------------------------------------------------------------

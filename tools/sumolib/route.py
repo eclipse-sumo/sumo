@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -86,7 +86,8 @@ def _getMinPath(paths):
 
 
 def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1,
-             debug=False, direction=False, vClass=None, vias=None, reversalPenalty=0.):
+             debug=False, direction=False, vClass=None, vias=None, reversalPenalty=0.,
+             fastest=False):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
@@ -94,28 +95,38 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
     result = ()
     paths = {}  # maps a path stub to a pair of current cost and the last mapping position on the last edge
     lastPos = None
+    nPathCalls = 0
+    nNoCandidates = 0
     if verbose:
-        print("mapping trace with %s points" % len(trace))
+        print("mapping trace with %s points ... " % len(trace), end="", flush=True)
     for idx, pos in enumerate(trace):
+        x, y = pos
         newPaths = {}
         if vias and idx in vias:
-            if net.hasEdge(vias[idx]):
-                candidates = [(net.getEdge(vias[idx]), 0.)]
-            else:
-                print("Unknown via edge %s for %s,%s" % (vias[idx], pos[0], pos[1]))
-                candidates = []
+            candidates = []
+            for edgeID in vias[idx]:
+                if net.hasEdge(edgeID):
+                    candidates.append((net.getEdge(edgeID), 0.))
+                else:
+                    print("Unknown via edge %s for %s,%s" % (edgeID, x, y))
+            # print("idx %s: vias=%s, candidates=%s (%s)" % (idx, len(vias[idx]),
+            #    len(candidates), [ed[0].getID() for ed in candidates]))
         else:
-            candidates = net.getNeighboringEdges(pos[0], pos[1], delta, not net.hasInternal)
+            candidates = net.getNeighboringEdges(x, y, delta, False)
         if debug:
-            print("\n\npos:%s, %s" % (pos[0], pos[1]))
+            print("\n\npos:%s, %s" % (x, y))
             print("candidates:%s\n" % [(e.getID(), c) for e, c in candidates])
         if verbose and not candidates:
-            print("Found no candidate edges for %s,%s" % pos)
+            if nNoCandidates == 0:
+                print()
+            print("   Found no candidate edges for %s,%s (index %s) " % (x, y, idx))
+            nNoCandidates += 1
 
         for edge, d in candidates:
             if vClass is not None and not edge.allows(vClass):
                 continue
             base = polygonOffsetWithMinimumDistanceToPoint(pos, edge.getShape())
+            base *= edge.getLengthGeometryFactor()
             if paths:
                 advance = euclidean(lastPos, pos)  # should become a vector
                 minDist = 1e400
@@ -136,8 +147,10 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                             penalty = airDistFactor * advance if gapPenalty < 0 else gapPenalty
                             maxGap = min(penalty + edge.getLength() + path[-1].getLength(), fillGaps)
                             extension, cost = net.getOptimalPath(path[-1], edge, maxCost=maxGap,
+                                                                 fastest=fastest,
                                                                  reversalPenalty=reversalPenalty,
-                                                                 fromPos=lastBase, toPos=base)
+                                                                 fromPos=lastBase, toPos=base, vClass=vClass)
+                            nPathCalls += 1
                             if extension is None:
                                 airLineDist = euclidean(
                                     path[-1].getToNode().getCoord(),
@@ -152,7 +165,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                                 extension = extension[1:]
                             if debug:
                                 print("---------- extension path: %s, cost: %.2f, pathLength: %.2f" %
-                                      (extension, cost, pathLength))
+                                      (" ".join([e.getID() for e in extension]), cost, pathLength))
                         dist += d * d + pathLength
                         if direction:
                             dist += baseDiff * baseDiff
@@ -164,7 +177,12 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                 if minPath:
                     newPaths[minPath] = (minDist, base)
             else:
-                newPaths[(edge,)] = (d * d, base)
+                #  the penality for picking a departure edge that is further away from pos
+                #  must outweigh the distance that is saved by picking an edge
+                #  that is closer to the subsequent pos
+                if debug:
+                    print("*** origin %s d=%s base=%s" % (edge.getID(), d, base))
+                newPaths[(edge,)] = (d * 2, base)
         if not newPaths:
             # no mapping for the current pos, the route may be disconnected or the radius is too small
             if paths:
@@ -175,8 +193,15 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                 result += minPath
         paths = newPaths
         lastPos = pos
+    if verbose:
+        if nNoCandidates > 0:
+            print("%s Points had no candidates. " % nNoCandidates, end="")
+        print("(%s router calls)" % nPathCalls)
     if paths:
         if debug:
+            print("**************** paths:")
+            for edges, (cost, base) in paths.items():
+                print(cost, base, " ".join([e.getID() for e in edges]))
             print("**************** result:")
             for i in result + _getMinPath(paths):
                 print("path:%s" % i.getID())

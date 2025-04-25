@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 /// @file    GUIParkingArea.cpp
 /// @author  Mirco Sturari
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Tue, 19.01.2016
 ///
 // A area where vehicles can park next to the road (gui version)
@@ -26,6 +27,7 @@
 #include <gui/GUIGlobals.h>
 #include <guisim/GUIParkingArea.h>
 #include <guisim/GUIVehicle.h>
+#include <mesogui/GUIMEVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
@@ -51,15 +53,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                               double frompos, double topos, unsigned int capacity,
-                               double width, double length, double angle, const std::string& name,
+GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::string>& lines,
+                               const std::vector<std::string>& badges, MSLane& lane, double frompos, double topos,
+                               unsigned int capacity, double width, double length, double angle, const std::string& name,
                                bool onRoad,
                                const std::string& departPos,
                                bool lefthand) :
-    MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos, lefthand),
+    MSParkingArea(id, lines, badges, lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos, lefthand),
     GUIGlObject_AbstractAdd(GLO_PARKING_AREA, id, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA)) {
-    const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
+    const double offsetSign = (MSGlobals::gLefthand || lefthand) ? -1 : 1;
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);
     int e = (int) myShape.size() - 1;
@@ -75,7 +77,8 @@ GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::str
     mySignRot = 0;
     if (tmp.length() != 0) {
         mySignRot = myShape.rotationDegreeAtOffset(double((myShape.length() / 2.)));
-        mySignRot -= 90;
+        const double rotSign = MSGlobals::gLefthand ? -1 : 1;
+        mySignRot -= 90 * rotSign;
     }
     myBoundary = myShape.getBoxBoundary();
     myBoundary.grow(20);
@@ -87,7 +90,7 @@ GUIParkingArea::~GUIParkingArea() {}
 GUIGLObjectPopupMenu*
 GUIParkingArea::getPopUpMenu(GUIMainWindow& app,
                              GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
@@ -110,6 +113,7 @@ GUIParkingArea::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("occupancy [#]"), true, getOccupancy());
     ret->mkItem(TL("capacity [#]"), false, getCapacity());
     ret->mkItem(TL("alternatives [#]"), false, getNumAlternatives());
+    ret->mkItem(TL("access badges"), false, joinToString(myAcceptedBadges, " "));
     // close building
     ret->closeBuilding();
     return ret;
@@ -189,7 +193,11 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
         myLane.getVehiclesSecure();
         for (const MSBaseVehicle* const v : myLane.getParkingVehicles()) {
-            static_cast<const GUIVehicle*>(v)->drawGL(s);
+            if (MSGlobals::gUseMesoSim) {
+                static_cast<const GUIMEVehicle*>(v)->drawGL(s);
+            } else {
+                static_cast<const GUIVehicle*>(v)->drawGL(s);
+            }
         }
         myLane.releaseVehicles();
     }

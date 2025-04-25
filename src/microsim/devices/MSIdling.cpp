@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    MSIdling.cpp
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    17.08.2020
 ///
 // An algorithm that performs Idling for the taxi device
@@ -77,7 +78,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             stopPos = std::make_pair(stopEdge.getLanes()[0], stopOffset);
         } else {
             MSVehicle& veh = dynamic_cast<MSVehicle&>(taxi->getHolder());
-            brakeGap = veh.getCarFollowModel().brakeGap(veh.getSpeed());
+            brakeGap = veh.getCarFollowModel().brakeGap(veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), 0.0);
             stopPos = veh.getLanePosAfterDist(brakeGap);
         }
         if (stopPos.first != nullptr) {
@@ -87,8 +88,13 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             } else {
                 stop.lane = stopPos.first->getID();
             }
-            stop.startPos = stopPos.second;
-            stop.endPos = stopPos.second + POSITION_EPS;
+            stop.startPos = MAX2(0.0, stopPos.second - POSITION_EPS);
+            stop.endPos = stopPos.second;
+            if (MSGlobals::gUseMesoSim) {
+                // meso needs the stop to be on the next segment
+                stop.startPos += POSITION_EPS;
+                stop.endPos += POSITION_EPS;
+            }
             if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
                 stop.containerTriggered = true;
             } else {
@@ -190,7 +196,7 @@ MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
         lastStop = &veh.getStop((int)veh.getStops().size() - 1);
     }
     if (lastStop == nullptr || lastStop->parkingarea == nullptr) {
-        const MSParkingArea* pa = rerouteDef->parkProbs.getVals().front().first;
+        const MSParkingArea* pa = dynamic_cast<MSParkingArea*>(rerouteDef->parkProbs.getVals().front().first);
         SUMOVehicleParameter::Stop stop;
         stop.lane = pa->getLane().getID();
         stop.startPos = pa->getBeginLanePosition();
@@ -208,9 +214,10 @@ MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
         std::string error;
         if (!veh.insertStop(nextStopIndex, stop, "taxi:taxistand", false, error)) {
             WRITE_WARNING("Stop insertion failed for idling taxi '" + veh.getID() + "' (" + error + ").");
+        } else {
+            //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  driving to parkingArea " << pa->getID() << "\n";
+            myRerouter->triggerRouting(veh, MSMoveReminder::NOTIFICATION_PARKING_REROUTE);
         }
-        //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  driving to parkingArea " << pa->getID() << "\n";
-        veh.activateReminders(MSMoveReminder::NOTIFICATION_PARKING_REROUTE, &pa->getLane());
     } else {
         //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  already driving to parkingArea\n";
     }

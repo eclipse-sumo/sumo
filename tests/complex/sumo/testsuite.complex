@@ -52,12 +52,21 @@ parallel
 # test insertion capacity for different options and departure attributes
 insertionCapacity
 
+# test insertion capacity for different options and departure attributes on a 2-lane road
+insertionCapacity_2lane
+
+# test insertion capacity for different options and departure attributes on a 3-lane road
+insertionCapacity_3lane
+
 # run a simulation with rerouting and write vehroute-output.
 # Then re-run the simulation with the saved vehroutes as input
 vehroute-roundtrip
 
 # testing option parsing
 options
+max_depart
+overtake
 
-# testing replay of fcd data
-fcdReplay
+# test emissions for different tls configurations (old and some config files
+# missing)
+#tls_emissions

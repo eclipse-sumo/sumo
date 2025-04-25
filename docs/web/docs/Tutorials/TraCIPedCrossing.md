@@ -30,7 +30,7 @@ To run the example you need to execute the script *runner.py* with
 python
 
 ```
-python runner.py
+python runner.py
 ```
 
 !!! caution
@@ -57,10 +57,10 @@ The definition below is taken from
 
 ```xml
 <tlLogic id="C" type="static" programID="custom" offset="0">
-  <phase duration="100000" state="GGGGr"/>
-  <phase duration="4" state="yyyyr"/>
-  <phase duration="10" state="rrrrG"/>
-  <phase duration="10" state="rrrrr"/>
+  <phase duration="100000" state="GGGGr"/>
+  <phase duration="4" state="yyyyr"/>
+  <phase duration="10" state="rrrrG"/>
+  <phase duration="10" state="rrrrr"/>
 </tlLogic>
 ```
 
@@ -90,8 +90,8 @@ specific to pedestrian simulation. In the script *runner.py* these are
 defined as
 
 ```
-WALKINGAREAS = [':C_w0', ':C_w1']
-CROSSINGS = [':C_c0']
+WALKINGAREAS = [':C_w0', ':C_w1']
+CROSSINGS = [':C_c0']
 ```
 
 For a description of pedestrian network elements see

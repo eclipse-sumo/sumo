@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -82,6 +82,11 @@ public:
      */
     static std::string escapeXML(const std::string& orig, const bool maskDoubleHyphen = false);
 
+    /**
+     * @brief Escape special characters with backslash
+     */
+    static std::string escapeShell(const std::string& orig);
+
     /// @brief An empty string
     static std::string emptyString;
 
@@ -103,6 +108,9 @@ public:
      */
     static int toInt(const std::string& sData);
 
+    /// @brief check if the given sData can be converted to int
+    static bool isInt(const std::string& sData);
+
     /// @brief converts a string into the integer value described by it
     /// @return the default value if the data is empty
     static int toIntSecure(const std::string& sData, int def);
@@ -113,11 +121,17 @@ public:
      */
     static long long int toLong(const std::string& sData);
 
+    /// @brief Check if the given sData can be converted to long
+    static bool isLong(const std::string& sData);
+
     /**@brief converts a string with a hex value into the integer value described by it by calling the char-type converter
      * @throw an EmptyData - exception if the given string is empty
      * @throw a NumberFormatException - exception when the string does not contain an integer
      */
     static int hexToInt(const std::string& sData);
+
+    /// @brief check if the given string can be converted to hex
+    static bool isHex(std::string sData);
 
     /**@brief converts a string into the double value described by it by calling the char-type converter
      * @throw an EmptyData - exception if the given string is empty
@@ -125,20 +139,32 @@ public:
      */
     static double toDouble(const std::string& sData);
 
+    /// @brief check if the given sData can be conveted to double
+    static bool isDouble(const std::string& sData);
+
     /// @brief converts a string into the integer value described by it
     /// @return the default value if the data is empty
     static double toDoubleSecure(const std::string& sData, const double def);
 
     /**@brief converts a string into the bool value described by it by calling the char-type converter
-     * @return true if the data* is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on', 't'
-     * @return false if the data* is one of the following (case insensitive): '0', '-', 'false', 'no', 'off', 'f'
-     * @throw EmptyData - exception if the given string is empty or 0 pointer
+     * @return true if the sData is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on', 't'
+     * @return false if the sData is one of the following (case insensitive): '0', '-', 'false', 'no', 'off', 'f'
+     * @throw EmptyData - exception if the given string is empty
      * @throw BoolFormatException in any other case
      */
     static bool toBool(const std::string& sData);
 
-    /// @brief to version
+    /// @brief check if the given value can be converted to bool
+    static bool isBool(const std::string& sData);
+
+    /// @brief parse a (network) version string
     static MMVersion toVersion(const std::string& sData);
+
+    /// @brief parse a distance, length or width value with a unit
+    static double parseDist(const std::string& sData);
+
+    /// @brief parse a speed value with a unit
+    static double parseSpeed(const std::string& sData, const bool defaultKmph = true);
 
     /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8
      * @throw an EmptyData - exception if the given pointer is 0
@@ -166,6 +192,9 @@ public:
 
     /// @brief remove leading and trailing whitespace
     static std::string trim(const std::string s, const std::string& t = " \t\n");
+
+    /// @brief remove leading and trailing whitespace
+    static std::string wrapText(const std::string s, int width);
 
     /// @brief must be called when shutting down the xml subsystem
     static void resetTranscoder();

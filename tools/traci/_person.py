@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -60,28 +60,36 @@ class Reservation(object):
         ] if v != ""])
 
 
-def _readReservation(result):
-    # compound size and type
-    assert result.read("!i")[0] == 10
-    id = result.readTypedString()
-    persons = result.readTypedStringList()
-    group = result.readTypedString()
-    fromEdge = result.readTypedString()
-    toEdge = result.readTypedString()
-    departPos = result.readTypedDouble()
-    arrivalPos = result.readTypedDouble()
-    depart = result.readTypedDouble()
-    reservationTime = result.readTypedDouble()
-    state = result.readTypedInt()
-    return Reservation(id, persons, group, fromEdge, toEdge, departPos,
-                       arrivalPos, depart, reservationTime, state)
+def _readReservations(result):
+    reservations = []
+    for _ in range(result.readInt()):
+        result.read("!B")                   # Type
+        # compound size and type
+        assert result.read("!i")[0] == 10
+        id = result.readTypedString()
+        persons = result.readTypedStringList()
+        group = result.readTypedString()
+        fromEdge = result.readTypedString()
+        toEdge = result.readTypedString()
+        departPos = result.readTypedDouble()
+        arrivalPos = result.readTypedDouble()
+        depart = result.readTypedDouble()
+        reservationTime = result.readTypedDouble()
+        state = result.readTypedInt()
+        reservations.append(Reservation(id, persons, group, fromEdge, toEdge, departPos,
+                            arrivalPos, depart, reservationTime, state))
+    return tuple(reservations)
 
 
 _RETURN_VALUE_FUNC = {tc.VAR_STAGE: simulation._readStage,
+                      tc.VAR_TAXI_RESERVATIONS: _readReservations
                       }
 
 
 class PersonDomain(VTypeDomain):
+
+    Reservation = Reservation
+
     def __init__(self):
         VTypeDomain.__init__(self, "person", tc.CMD_GET_PERSON_VARIABLE, tc.CMD_SET_PERSON_VARIABLE,
                              tc.CMD_SUBSCRIBE_PERSON_VARIABLE, tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE,
@@ -152,6 +160,24 @@ class PersonDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, personID)
 
+    def getWalkingDistance(self, personID, edgeID, pos, laneIndex=0):
+        """getWalkingDistance(string, string, double, integer) -> double
+
+        For a person in walking stage and an edge along the remaining route of
+        personID, return the distance from the current position
+        to the given edge and position along the walk.
+        Otherwise, raise a TraCIException
+        """
+        return self._getUniversal(tc.DISTANCE_REQUEST, personID, "tru", 2,
+                                  (edgeID, pos, laneIndex), tc.REQUEST_DRIVINGDIST)
+
+    def getWalkingDistance2D(self, personID, x, y):
+        """getWalkingDistance2D(string, double, double) -> integer
+
+        Return the distance to the given network position along the walk (see getWalkingDistance)
+        """
+        return self._getUniversal(tc.DISTANCE_REQUEST, personID, "tou", 2, (x, y), tc.REQUEST_DRIVINGDIST)
+
     def getWaitingTime(self, personID):
         """getWaitingTime(string) -> double
         The waiting time of a person is defined as the time (in seconds) spent with a
@@ -169,9 +195,9 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_NEXT_EDGE, personID)
 
     def getEdges(self, personID, nextStageIndex=0):
-        """getEdges(string, int) -> list(string)
+        """getEdges(string, int) -> tuple(string)
 
-        Returns a list of all edges in the nth next stage.
+        Returns a tuple of all edges in the nth next stage.
         For waiting stages this is a single edge
         For walking stages this is the complete route
         For driving stages this is [origin, destination]
@@ -182,8 +208,8 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_EDGES, personID, "i", nextStageIndex)
 
     def getStage(self, personID, nextStageIndex=0):
-        """getStage(string, int) -> int
-        Returns the the nth stage object (type simulation.Stage)
+        """getStage(string, int) -> stage
+        Returns the nth stage object (type simulation.Stage)
         Attribute type of this object has the following meaning:
           0 for not-yet-departed
           1 for waiting
@@ -211,23 +237,17 @@ class PersonDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_VEHICLE, personID)
 
     def getTaxiReservations(self, onlyNew=0):
-        """getTaxiReservations(int) -> list(Stage)
+        """getTaxiReservations(int) -> tuple(Reservation)
         Returns all reservations. If onlyNew is 1, each reservation is returned
         only once
         """
-        answer = self._getCmd(tc.VAR_TAXI_RESERVATIONS, "", "i", onlyNew)
-        answer.read("!B")                   # Type
-        result = []
-        for _ in range(answer.readInt()):
-            answer.read("!B")                   # Type
-            result.append(_readReservation(answer))
-        return tuple(result)
+        return self._getUniversal(tc.VAR_TAXI_RESERVATIONS, "", "i", onlyNew)
 
     def splitTaxiReservation(self, reservationID, personIDs):
         """splitTaxiReservation(string, list(string)) -> string
         Splits given list of person ids from the reservation with the given id
         and creates a new reservation for these persons. Returns the new
-        reservation id
+        reservation id.
         """
         return self._getUniversal(tc.SPLIT_TAXI_RESERVATIONS, reservationID, "l", personIDs)
 
@@ -319,18 +339,18 @@ class PersonDomain(VTypeDomain):
     def moveTo(self, personID, laneID, pos, posLat=tc.INVALID_DOUBLE_VALUE):
         """moveTo(string, string, double, double) -> None
 
-        Move a person to a new position along it's current route.
+        Move a person to a new position along its current route.
         """
         self._setCmd(tc.VAR_MOVE_TO, personID, "tsdd", 3, laneID, pos, posLat)
 
     def moveToXY(self, personID, edgeID, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
-        '''Place person at the given x,y coordinates and force it's angle to
+        '''Place person at the given x,y coordinates and force its angle to
         the given value (for drawing).
         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
         natural angle of the edge on which it is driving.
         If keepRoute is set to 1, the closest position
         within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
-        any edge in the network but it's route then only consists of that edge.
+        any edge in the network but its route then only consists of that edge.
         If keepRoute is set to 2 the person has all the freedom of keepRoute=0
         but in addition to that may even move outside the road network.
         edgeID is an optional placement hint to resolve ambiguities.

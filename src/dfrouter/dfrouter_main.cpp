@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -118,38 +118,35 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
         flows.printAbsolute();
     }
 
-    // if a network was loaded... (mode1)
-    if (optNet != nullptr) {
-        if (oc.getBool("remove-empty-detectors")) {
-            PROGRESS_BEGIN_MESSAGE(TL("Removing empty detectors"));
-            optNet->removeEmptyDetectors(detectors, flows);
-            PROGRESS_DONE_MESSAGE();
-        } else  if (oc.getBool("report-empty-detectors")) {
-            PROGRESS_BEGIN_MESSAGE(TL("Scanning for empty detectors"));
-            optNet->reportEmptyDetectors(detectors, flows);
-            PROGRESS_DONE_MESSAGE();
+    if (oc.getBool("remove-empty-detectors")) {
+        PROGRESS_BEGIN_MESSAGE(TL("Removing empty detectors"));
+        optNet->removeEmptyDetectors(detectors, flows);
+        PROGRESS_DONE_MESSAGE();
+    } else  if (oc.getBool("report-empty-detectors")) {
+        PROGRESS_BEGIN_MESSAGE(TL("Scanning for empty detectors"));
+        optNet->reportEmptyDetectors(detectors, flows);
+        PROGRESS_DONE_MESSAGE();
+    }
+    // compute the detector types (optionally)
+    if (!detectors.detectorsHaveCompleteTypes() || oc.getBool("revalidate-detectors")) {
+        optNet->computeTypes(detectors, oc.getBool("strict-sources"));
+    }
+    std::vector<RODFDetector*>::const_iterator i = detectors.getDetectors().begin();
+    for (; i != detectors.getDetectors().end(); ++i) {
+        if ((*i)->getType() == SOURCE_DETECTOR) {
+            break;
         }
-        // compute the detector types (optionally)
-        if (!detectors.detectorsHaveCompleteTypes() || oc.getBool("revalidate-detectors")) {
-            optNet->computeTypes(detectors, oc.getBool("strict-sources"));
-        }
-        std::vector<RODFDetector*>::const_iterator i = detectors.getDetectors().begin();
-        for (; i != detectors.getDetectors().end(); ++i) {
-            if ((*i)->getType() == SOURCE_DETECTOR) {
-                break;
-            }
-        }
-        if (i == detectors.getDetectors().end() && !oc.getBool("routes-for-all")) {
-            throw ProcessError(TL("No source detectors found."));
-        }
-        // compute routes between the detectors (optionally)
-        if (!detectors.detectorsHaveRoutes() || oc.getBool("revalidate-routes") || oc.getBool("guess-empty-flows")) {
-            PROGRESS_BEGIN_MESSAGE(TL("Computing routes"));
-            optNet->buildRoutes(detectors,
-                                oc.getBool("keep-unfinished-routes"), oc.getBool("routes-for-all"),
-                                !oc.getBool("keep-longer-routes"), oc.getInt("max-search-depth"));
-            PROGRESS_DONE_MESSAGE();
-        }
+    }
+    if (i == detectors.getDetectors().end() && !oc.getBool("routes-for-all")) {
+        throw ProcessError(TL("No source detectors found."));
+    }
+    // compute routes between the detectors (optionally)
+    if (!detectors.detectorsHaveRoutes() || oc.getBool("revalidate-routes") || oc.getBool("guess-empty-flows")) {
+        PROGRESS_BEGIN_MESSAGE(TL("Computing routes"));
+        optNet->buildRoutes(detectors,
+                            oc.getBool("keep-unfinished-routes"), oc.getBool("routes-for-all"),
+                            !oc.getBool("keep-longer-routes"), oc.getInt("max-search-depth"));
+        PROGRESS_DONE_MESSAGE();
     }
 
     // check

@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -55,6 +55,7 @@ class Edge:
         self._params = {}
         self._bidi = None
         self._selected = False
+        self._lengthGeometryFactor = 1
 
     def getName(self):
         return self._name
@@ -225,9 +226,15 @@ class Edge:
         self._shape = [(x, y) for x, y, z in self._shape3D]  # noqa
         self._shapeWithJunctions = [(x, y) for x, y, z in self._shapeWithJunctions3D]  # noqa
         self._rawShape = [(x, y) for x, y, z in self._rawShape3D]  # noqa
+        shapeLength = sumolib.geomhelper.polyLength(self.getShape())
+        if shapeLength > 0:
+            self._lengthGeometryFactor = self.getLength() / shapeLength
 
     def getLength(self):
         return self._lanes[0].getLength()
+
+    def getLengthGeometryFactor(self):
+        return self._lengthGeometryFactor
 
     def setTLS(self, tls):
         self._tls = tls
@@ -255,7 +262,15 @@ class Edge:
                 elif connections == self._outgoing:
                     return self.getToNode().getFringe() is not None
             cons = sum([c for c in connections.values()], [])
-            return len([c for c in cons if c._direction != Connection.LINKDIR_TURN]) == 0
+            return len([c for c in cons if c._direction not in (
+                Connection.LINKDIR_TURN, Connection.LINKDIR_TURN_LEFTHAND)]) == 0
+
+    def getPermissions(self):
+        """return the allowed vehicle classes for all lanes"""
+        allowed = set()
+        for lane in self._lanes:
+            allowed.update(lane.getPermissions())
+        return list(allowed)
 
     def allows(self, vClass):
         """true if this edge has a lane which allows the given vehicle class"""

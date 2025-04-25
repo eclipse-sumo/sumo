@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -224,7 +224,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         }
         if (attrs.hasAttribute(SUMO_ATTR_TYPE) && myCurrentType != myCurrentEdge->getTypeID()) {
             if (!myHaveReportedAboutTypeOverride) {
-                WRITE_MESSAGEF(TL("Edge '%' changed it's type; assuming type override is wished."), myCurrentID);
+                WRITE_MESSAGEF(TL("Edge '%' changed its type; assuming type override is wished."), myCurrentID);
                 myHaveReportedAboutTypeOverride = true;
             }
         }
@@ -531,7 +531,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             myNodeCont.insert(e.node);
         }
         NIXMLNodesHandler::processNodeType(attrs, e.node, e.node->getID(), e.node->getPosition(), false,
-                                           myNodeCont, myEdgeCont, myTLLogicCont);
+                                           myNodeCont, myEdgeCont, myTLLogicCont, myLocation);
         mySplits.push_back(e);
     }
 }

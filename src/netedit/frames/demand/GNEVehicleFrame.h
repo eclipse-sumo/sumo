@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,24 +21,22 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEAttributesCreator.h>
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/GNEDemandSelector.h>
-#include <netedit/frames/GNEPathLegendModule.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
 class MFXDynamicLabel;
+class GNEAttributesEditor;
+class GNEDemandElementSelector;
+class GNETagSelector;
+class GNEPathLegendModule;
+class GNEPathCreator;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEVehicleFrame
- */
+
 class GNEVehicleFrame : public GNEFrame {
 
 public:
@@ -105,7 +103,7 @@ public:
     GNEPathCreator* getPathCreator() const;
 
     /// @brief get attributes creator
-    GNEAttributesCreator* getVehicleAttributes() const;
+    GNEAttributesEditor* getVehicleAttributesEditor() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -120,28 +118,28 @@ protected:
     /// @brief build vehicle over route
     bool buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* route);
 
-private:
-    /// @brief route handler
-    GNERouteHandler myRouteHandler;
+    /// @brief update flow attributes
+    void updateFlowAttributes();
 
+private:
     /// @brief vehicle base object
-    CommonXMLStructure::SumoBaseObject* myVehicleBaseObject;
+    CommonXMLStructure::SumoBaseObject* myVehicleBaseObject = nullptr;
 
     /// @brief vehicle tag selector (used to select diffent kind of vehicles)
-    GNETagSelector* myVehicleTagSelector;
+    GNETagSelector* myVehicleTagSelector = nullptr;
 
     /// @brief Vehicle Type selectors
-    GNEDemandElementSelector* myTypeSelector;
+    GNEDemandElementSelector* myTypeSelector = nullptr;
 
-    /// @brief internal vehicle attributes
-    GNEAttributesCreator* myVehicleAttributes;
+    /// @brief attributes editor
+    GNEAttributesEditor* myVehicleAttributesEditor = nullptr;
 
     /// @brief edge path creator (used for trips and flows)
-    GNEPathCreator* myPathCreator;
+    GNEPathCreator* myPathCreator = nullptr;
 
     /// @brief Help creation
-    HelpCreation* myHelpCreation;
+    HelpCreation* myHelpCreation = nullptr;
 
     /// @brief path legend modul
-    GNEPathLegendModule* myPathLegend;
+    GNEPathLegendModule* myPathLegend = nullptr;
 };

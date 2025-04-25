@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@ class Connection:
     # constants as defined in sumo/src/utils/xml/SUMOXMLDefinitions.cpp
     LINKDIR_STRAIGHT = "s"
     LINKDIR_TURN = "t"
+    LINKDIR_TURN_LEFTHAND = "T"
     LINKDIR_LEFT = "l"
     LINKDIR_RIGHT = "r"
     LINKDIR_PARTLEFT = "L"

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-23 09:18:03 by Eclipse SUMO polyconvert Version v1_21_0+1964-f37231df5c8
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<polyconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <geojson-files value="input.geojson"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="1.00000"/>
+        <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <processing>
+        <all-attributes value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</polyconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="0#0" type="unknown" color="51,128,255" fill="0" layer="-1.000000" geo="1" shape="12.394738,51.376435 12.395657,51.374042 12.395713,51.373935">
+        <param key="GN_Kfz_Jahr" value="1991"/>
+        <param key="GN_Kfz_Rund" value="2500"/>
+        <param key="GN_Rad_Jahr" value="1991"/>
+        <param key="GN_Rad_Rund" value="0"/>
+        <param key="GN_SV_Rund" value="400"/>
+        <param key="N_CODE_23" value=""/>
+        <param key="Sid" value="1"/>
+        <param key="objectid" value="234545"/>
+    </poly>
+    <poly id="1#0" type="unknown" color="51,128,255" fill="0" layer="-1.00" geo="1" shape="12.397550,51.346724 12.398848,51.346655">
+        <param key="GN_Kfz_Jahr" value=""/>
+        <param key="GN_Kfz_Rund" value=""/>
+        <param key="GN_Rad_Jahr" value=""/>
+        <param key="GN_Rad_Rund" value=""/>
+        <param key="GN_SV_Rund" value=""/>
+        <param key="N_CODE_23" value=""/>
+        <param key="Sid" value="1001"/>
+        <param key="objectid" value="235542"/>
+    </poly>
+</additional>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -384,7 +384,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     // 2) distinguish several cases
     //   a) vehicle moves completely within the same lane
     //   b) vehicle intersects another lane
-    //      - vehicle must be moved to the lane where it's midpoint is (either old or new)
+    //      - vehicle must be moved to the lane where its midpoint is (either old or new)
     //      - shadow vehicle must be created/moved to the other lane if the vehicle intersects it
     // 3) updated dens of all lanes that hold the vehicle or its shadow
 
@@ -737,6 +737,7 @@ MSLaneChangerSublane::checkChangeSublane(
         std::cout << SIMTIME << " veh=" << vehicle->getID() << " stateAfterTraCI=" << toString((LaneChangeAction)state) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
     }
 #endif
+    vehicle->getLaneChangeModel().getCanceledState(laneOffset) |= blocked;
     vehicle->getLaneChangeModel().saveLCState(laneOffset, oldstate, state);
     if (laneOffset != 0) {
         vehicle->getLaneChangeModel().saveNeighbors(laneOffset, neighFollowers, neighLeaders);

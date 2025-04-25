@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,9 +27,19 @@
 // class declaration
 // ===========================================================================
 
-class GNEFrame;
-class GNEDataSet;
+class GNEAdditional;
+class GNEConnection;
+class GNECrossing;
 class GNEDataInterval;
+class GNEDataSet;
+class GNEDataSet;
+class GNEDemandElement;
+class GNEEdge;
+class GNEFrame;
+class GNEGenericData;
+class GNEJunction;
+class GNELane;
+class GNETAZSourceSink;
 
 // ===========================================================================
 // class definitions
@@ -89,7 +99,7 @@ protected:
     FXTreeItem* showAttributeCarrierParents();
 
     /// @brief show children of given hierarchical element
-    void showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTreeItem* itemParent);
+    void showHierarchicalElementChildren(GNEAttributeCarrier* hierarchicalElement, FXTreeItem* itemParent);
 
     /// @brief add item into list
     FXTreeItem* addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent = nullptr, std::string prefix = "", std::string sufix = "");
@@ -97,45 +107,51 @@ protected:
     /// @brief add item into list
     FXTreeItem* addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded);
 
+    /// @brief check if current supermode is valid for select/remove the given AC
+    bool isSupermodeValid(const GNEAttributeCarrier* AC) const;
+
 private:
     /// @brief frame Parent
     GNEFrame* myFrameParent;
 
     /// @brief hierarchical element
-    GNEHierarchicalElement* myHE;
+    GNEAttributeCarrier* myHierarchicalElement = nullptr;
 
     /// @brief pointer to current clicked Attribute Carrier
-    GNEAttributeCarrier* myClickedAC;
+    GNEAttributeCarrier* myClickedAC = nullptr;
 
     /// @brief junction (casted from myClickedAC)
-    GNEJunction* myClickedJunction;
+    GNEJunction* myClickedJunction = nullptr;
 
     /// @brief edge (casted from myClickedAC)
-    GNEEdge* myClickedEdge;
+    GNEEdge* myClickedEdge = nullptr;
 
     /// @brief lane (casted from myClickedAC)
-    GNELane* myClickedLane;
+    GNELane* myClickedLane = nullptr;
 
     /// @brief crossing (casted from myClickedAC)
-    GNECrossing* myClickedCrossing;
+    GNECrossing* myClickedCrossing = nullptr;
 
     /// @brief junction (casted from myClickedAC)
-    GNEConnection* myClickedConnection;
+    GNEConnection* myClickedConnection = nullptr;
 
     /// @brief additional (casted from myClickedAC)
-    GNEAdditional* myClickedAdditional;
+    GNEAdditional* myClickedAdditional = nullptr;
+
+    /// @brief sourceSink (casted from myClickedAC)
+    GNETAZSourceSink* myClickedTAZSourceSink = nullptr;
 
     /// @brief demand element (casted from myClickedAC)
-    GNEDemandElement* myClickedDemandElement;
+    GNEDemandElement* myClickedDemandElement = nullptr;
 
     /// @brief data set element (casted from myClickedAC)
-    GNEDataSet* myClickedDataSet;
+    GNEDataSet* myClickedDataSet = nullptr;
 
     /// @brief data interval element (casted from myClickedAC)
-    GNEDataInterval* myClickedDataInterval;
+    GNEDataInterval* myClickedDataInterval = nullptr;
 
     /// @brief generic data element (casted from myClickedAC)
-    GNEGenericData* myClickedGenericData;
+    GNEGenericData* myClickedGenericData = nullptr;
 
     /// @brief tree list dynamic to show the children of the element to erase
     MFXTreeListDynamic* myTreeListDynamic = nullptr;

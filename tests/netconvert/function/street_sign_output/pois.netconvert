@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 21 14:20:03 2018 by Eclipse SUMO netconvert Version 1e1904d
+<!-- generated on 2024-11-05 10:44:23 by Eclipse SUMO netconvert Version v1_21_0+0606-74ae21e091a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="input_net.net.xml"/>
@@ -19,30 +24,39 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
-    </processing>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
 
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="gneE1.34.83" type="priority" color="yellow" x="0.20" y="52.76" angle="0"/>
-    <poi id="gneE10.29.66" type="priority" color="yellow" x="-20.34" y="43.61" angle="0"/>
-    <poi id="gneE11.29.66" type="right before left" color="255,153,0" x="-46.96" y="52.94" angle="0"/>
-    <poi id="gneE12.23.12" type="yield" color="red" x="-14.16" y="58.82" angle="0"/>
-    <poi id="gneE15.19.90" type="yield" color="red" x="-5.39" y="37.99" angle="0"/>
-    <poi id="gneE16.31.24" type="right before left" color="255,153,0" x="-67.41" y="43.79" angle="0"/>
-    <poi id="gneE19.24.16" type="right before left" color="255,153,0" x="-61.93" y="58.57" angle="0"/>
-    <poi id="gneE21.24.38" type="right before left" color="255,153,0" x="-52.67" y="38.10" angle="0"/>
+    <poi id="gneE1.34.83" type="priority" color="yellow" x="0.20" y="52.76" angle="270.00"/>
+    <poi id="gneE10.29.66" type="priority" color="yellow" x="-20.34" y="43.61" angle="90.28"/>
+    <poi id="gneE11.29.66" type="right before left" color="255,153,0" x="-46.96" y="52.94" angle="270.28"/>
+    <poi id="gneE12.23.12" type="yield" color="red" x="-14.16" y="58.82" angle="183.47"/>
+    <poi id="gneE15.19.90" type="yield" color="red" x="-5.39" y="37.99" angle="358.80"/>
+    <poi id="gneE16.31.24" type="right before left" color="255,153,0" x="-67.41" y="43.79" angle="90.00"/>
+    <poi id="gneE19.24.16" type="right before left" color="255,153,0" x="-61.93" y="58.57" angle="179.07"/>
+    <poi id="gneE21.24.38" type="right before left" color="255,153,0" x="-52.67" y="38.10" angle="0.63"/>
 </additional>

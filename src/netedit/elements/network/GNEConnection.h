@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -76,6 +76,9 @@ public:
 
     /// @brief check if draw delete contour (pink/white)
     bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw delete contour small (pink/white)
+    bool checkDrawDeleteContourSmall() const;
 
     /// @brief check if draw select contour (blue)
     bool checkDrawSelectContour() const;
@@ -181,6 +184,12 @@ public:
      */
     std::string getAttribute(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in PositionVector format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -210,12 +219,6 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    /// @brief incoming lane of this connection
-    GNELane* myFromLane;
-
-    /// @brief outgoing lane of this connection
-    GNELane* myToLane;
-
     /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
     LinkState myLinkState;
 
@@ -225,11 +228,11 @@ protected:
     /// @brief connection geometry
     GUIGeometry myConnectionGeometry;
 
+    /// @brief junction maker geometry
+    GUIGeometry myInternalJunctionMarkerGeometry;
+
     /// @brief flag to indicate that connection's shape has to be updated
     bool myShapeDeprecated;
-
-    /// @brief waiting position for internal junction
-    PositionVector myInternalJunctionMarker;
 
 private:
     /// @brief set attribute after validation

@@ -1,0 +1,11 @@
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    
+    <tlLogic id="C" type="actuated" programID="custom" offset="0">
+        <phase duration="28" state="rrrrrrgGgGGgrrrrrrgGgGGgGrGr" minDur="10" next="0 1"/>
+        <phase duration="5"  state="rrrrrrgGgGGgrrrrrrgGgGGgrrrr"/>
+        <phase duration="3"  state="rrrrrryyyyyyrrrrrryyyyyyrrrr"/>
+        <phase duration="28" state="gGgGGgrrrrrrgGgGGgrrrrrrrGrG" minDur="10" next="3 4"/>
+        <phase duration="5"  state="gGgGGgrrrrrrgGgGGgrrrrrrrrrr"/>
+        <phase duration="3"  state="yyyyyyrrrrrryyyyyyrrrrrrrrrr"/>
+    </tlLogic>
+</tlLogics>

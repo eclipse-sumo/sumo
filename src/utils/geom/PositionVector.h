@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -150,6 +150,9 @@ public:
     /// @brief Returns the position of the intersection
     Position intersectionPosition2D(const PositionVector& v1) const;
 
+    /// @brief open polygon
+    void openPolygon();
+
     /// @brief ensures that the last position equals the first
     void closePolygon();
 
@@ -165,7 +168,7 @@ public:
     Position positionAtOffset(double pos, double lateralOffset = 0) const;
 
     /// @brief Returns the position at the given length
-    Position positionAtOffset2D(double pos, double lateralOffset = 0) const;
+    Position positionAtOffset2D(double pos, double lateralOffset = 0, bool extrapolateBeyond = false) const;
 
     /* @brief Returns position similar to positionAtOffset but instead of applying the
      * lateral offset orthogonal to the shape, apply it orthogonal to the given angle */
@@ -184,7 +187,7 @@ public:
     static Position positionAtOffset(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
 
     /// Returns the position between the two given point at the specified position
-    static Position positionAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
+    static Position positionAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset = 0, bool extrapolateBeyond = false);
 
     /* @brief Returns position similar to positionAtOffset but instead of applying the
      * lateral offset orthogonal to the shape, apply it orthogonal to the given angle */
@@ -247,6 +250,9 @@ public:
 
     //// @brief rotate all points around (0,0) in the plane by the given angle
     void rotate2D(double angle);
+
+    //// @brief rotate all points around the first element
+    void rotateAroundFirstElement2D(double angle);
 
     //// @brief append the given vector to this one
     void append(const PositionVector& v, double sameThreshold = 2.0);
@@ -404,6 +410,8 @@ public:
 
     /// @brief return the same shape with intermediate colinear points removed
     PositionVector simplified() const;
+    // test implementation of an alternative check
+    const PositionVector simplified2(const bool closed, const double eps = NUMERICAL_EPS) const;
 
     /** @brief return orthogonal through p (extending this vector if necessary)
      * @param[in] p The point through which to draw the orthogonal
@@ -433,6 +441,9 @@ public:
      * @param[out] maxJump The maximum vertical jump (with grade infinity)
      */
     double getMaxGrade(double& maxJump) const;
+
+    /// @brief return minimum z-coordinate
+    double getMinZ() const;
 
     /// @brief check if the two vectors have the same length and pairwise similar positions
     bool almostSame(const PositionVector& v2, double maxDiv = POSITION_EPS) const;

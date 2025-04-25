@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 21Feb11:46:46]
+search_string:polito
+search_file:errors
+ignore_other_errors:1
+full_description:test must be ported from traas to libsumo
+brief_description:see #14380

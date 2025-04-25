@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,6 +66,15 @@ NBPTLineCont::insert(NBPTLine* ptLine) {
 }
 
 
+NBPTLine*
+NBPTLineCont::retrieve(const std::string& lineID) {
+    if (myPTLines.count(lineID) == 0) {
+        return nullptr;
+    } else {
+        return myPTLines[lineID];
+    }
+}
+
 void
 NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
     for (auto& item : myPTLines) {
@@ -97,9 +106,6 @@ NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
         }
         line->deleteInvalidStops(ec, sc);
         //line->deleteDuplicateStops();
-        for (std::shared_ptr<NBPTStop> stop : line->getStops()) {
-            myServedPTStops.insert(stop->getID());
-        }
     }
 }
 
@@ -303,8 +309,6 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
     NBNode* last = nullptr;
     std::vector<NBEdge*> prevWayEdges;
     std::vector<NBEdge*> prevWayMinusEdges;
-    prevWayEdges.clear();
-    prevWayMinusEdges.clear();
     std::vector<NBEdge*> currentWayEdges;
     std::vector<NBEdge*> currentWayMinusEdges;
     for (auto it3 = pTLine->getWays().begin(); it3 != pTLine->getWays().end(); it3++) {
@@ -332,7 +336,7 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
             int i = 0;
             while (cont.retrieve("-" + *it3 + "#" + std::to_string(i), true) != nullptr) {
                 if (cont.retrieve("-" + *it3 + "#" + std::to_string(i), false)) {
-                    currentWayMinusEdges.insert(currentWayMinusEdges.begin(),
+                    currentWayMinusEdges.insert(currentWayMinusEdges.end() - foundReverse,
                                                 cont.retrieve("-" + *it3 + "#" + std::to_string(i), false));
                     foundReverse++;
                 }
@@ -352,8 +356,10 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
                       << " done=" << toString(edges)
                       << " first=" << Named::getIDSecure(first)
                       << " last=" << Named::getIDSecure(last)
-                      << " +=" << toString(currentWayEdges)
-                      << " -=" << toString(currentWayMinusEdges)
+                      << "\n    +=" << toString(currentWayEdges)
+                      << "\n    -=" << toString(currentWayMinusEdges)
+                      << "\n   p+=" << toString(prevWayEdges)
+                      << "\n   p-=" << toString(prevWayMinusEdges)
                       << "\n";
         }
 #endif
@@ -460,9 +466,16 @@ NBPTLineCont::replaceEdge(const std::string& edgeID, const EdgeVector& replaceme
 }
 
 
-std::set<std::string>&
+std::set<std::string>
 NBPTLineCont::getServedPTStops() {
-    return myServedPTStops;
+    std::set<std::string> result;
+    for (auto& item : myPTLines) {
+        NBPTLine* line = item.second;
+        for (std::shared_ptr<NBPTStop> stop : line->getStops()) {
+            result.insert(stop->getID());
+        }
+    }
+    return result;
 }
 
 
@@ -470,6 +483,8 @@ void
 NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
     std::map<std::string, SUMOVehicleClass> types;
     types["bus"] = SVC_BUS;
+    types["minibus"] = SVC_BUS;
+    types["trolleybus"] = SVC_BUS;
     types["tram"] = SVC_TRAM;
     types["train"] = SVC_RAIL;
     types["subway"] = SVC_RAIL_URBAN;

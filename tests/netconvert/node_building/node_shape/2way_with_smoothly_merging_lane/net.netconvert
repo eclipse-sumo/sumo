@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:08 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2024-02-29 13:55:50 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -24,13 +29,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-596212.17,-5782161.13" convBoundary="0.00,0.00,286.51,110.26" origBoundary="1036887.000000,5215434.000000,1076426.000000,5239923.000000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -66,7 +70,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="E" type="dead_end" x="286.51" y="0.00" incLanes="CE_0 CE_1" intLanes="" shape="286.51,0.00 284.52,-6.08 286.51,0.00"/>
     <junction id="N" type="dead_end" x="235.12" y="110.26" incLanes="" intLanes="" shape="236.72,110.15 233.52,110.37"/>
-    <junction id="W" type="dead_end" x="0.00" y="32.26" incLanes="CW_0 CW_1 CW_2" intLanes="" shape="0.00,32.26 -1.35,41.77 0.00,32.26"/>
+    <junction id="W" type="dead_end" x="0.00" y="32.26" incLanes="CW_0 CW_1 CW_2" intLanes="" shape="0.00,32.26 -1.35,41.77 -0.00,32.26"/>
 
     <connection from="EC" to="CW" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="EC" to="CW" fromLane="1" toLane="2" dir="s" state="M"/>

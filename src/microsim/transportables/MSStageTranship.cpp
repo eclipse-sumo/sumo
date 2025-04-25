@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,7 +46,7 @@ MSStageTranship::MSStageTranship(const std::vector<const MSEdge*>& route,
                                  MSStoppingPlace* toStop,
                                  double speed,
                                  double departPos, double arrivalPos) :
-    MSStageMoving(route, "", toStop, speed, departPos, arrivalPos, 0., -1, MSStageType::TRANSHIP) {
+    MSStageMoving(MSStageType::TRANSHIP, route, "", toStop, speed, departPos, arrivalPos, 0., -1) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS,
                       "container getting transhipped from " + myRoute.front()->getID());
@@ -104,7 +104,7 @@ MSStageTranship::tripInfoOutput(OutputDevice& os, const MSTransportable* const) 
     os.writeAttr("departPos", myDepartPos);
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", myArrivalPos);
-    os.writeAttr("duration", myArrived >= 0 ? time2string(myArrived - myDeparted) : "-1");
+    os.writeAttr("duration", myArrived >= 0 ? time2string(getDuration()) : "-1");
     os.writeAttr("routeLength", getDistance());
     os.writeAttr("maxSpeed", mySpeed);
     os.closeTag();
@@ -129,12 +129,15 @@ MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bo
         os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");
         os.writeAttr(SUMO_ATTR_ENDED, myArrived >= 0 ? time2string(myArrived) : "-1");
     }
+    if (OptionsCont::getOptions().getBool("vehroute-output.cost")) {
+        os.writeAttr(SUMO_ATTR_COST, getCosts());
+    }
     os.closeTag(comment);
 }
 
 
 bool
-MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int /*prevDir*/, MSEdge* /* nextInternal */) {
+MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int /*prevDir*/, MSEdge* /* nextInternal */, const bool /* isReplay */) {
     getEdge()->removeTransportable(transportable);
     // transship does a direct move so we are already at our destination
     if (myDestinationStop != nullptr) {

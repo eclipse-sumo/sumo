@@ -1,0 +1,1 @@
+input_trips.trips.xml -o pois.add.xml tools/route/geoTrip2POI.py

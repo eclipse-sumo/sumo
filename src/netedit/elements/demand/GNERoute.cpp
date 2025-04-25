@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,6 +19,8 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNESegment.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -36,6 +38,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GNERoute::GNERoutePopupMenu) GNERoutePopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_ROUTE_APPLY_DISTANCE,     GNERoute::GNERoutePopupMenu::onCmdApplyDistance),
 };
@@ -47,7 +50,7 @@ FXIMPLEMENT(GNERoute::GNERoutePopupMenu, GUIGLObjectPopupMenu, GNERoutePopupMenu
 // GNERoute::GNERoutePopupMenu - methods
 // ===========================================================================
 
-GNERoute::GNERoutePopupMenu::GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o) :
+GNERoute::GNERoutePopupMenu::GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o) :
     GUIGLObjectPopupMenu(app, parent, o) {
 }
 
@@ -74,81 +77,70 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 // ===========================================================================
 
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_ROUTE, tag, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-{}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(RGBColor::YELLOW),
-myRepeat(0),
-myCycleTime(0),
-myVClass(SVC_PASSENGER) {
-    // reset default values
-    resetDefaultValues();
+    GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
 }
 
 
 GNERoute::GNERoute(GNENet* net) :
-    GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
-                     GUIIconSubSys::getIcon(GUIIcon::ROUTE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-{}, {}, {}, {}, {}, {}),
-Parameterised(),
-myColor(RGBColor::YELLOW),
-myRepeat(0),
-myCycleTime(0),
-myVClass(SVC_PASSENGER) {
-    // reset default values
-    resetDefaultValues();
+    GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, "", SUMO_TAG_ROUTE,
+                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE) {
 }
 
-
-GNERoute::GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-{}, originalRoute->getParentEdges(), {}, {}, {}, {}),
-Parameterised(originalRoute->getACParametersMap()),
-myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-myVClass(originalRoute->getVClass()) {
+// copy
+GNERoute::GNERoute(const std::string& id, const GNEDemandElement* originalRoute) :
+    GNEDemandElement(id, originalRoute->getNet(), originalRoute->getFilename(), originalRoute->getTagProperty()->getTag(),
+                     originalRoute->getPathElementOptions()),
+    Parameterised(originalRoute->getACParametersMap()),
+    myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myVClass(originalRoute->getVClass()) {
+    // set parents
+    setParents<GNEEdge*>(originalRoute->getParentEdges());
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
-
-GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
-    GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-{}, originalRoute->getParentEdges(), {}, {}, {vehicleParent}, {}),
-Parameterised(originalRoute->getACParametersMap()),
-myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-myVClass(originalRoute->getVClass()) {
+// copy (embedded)
+GNERoute::GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
+    GNEDemandElement(vehicleParent, originalRoute->getTagProperty()->getTag(), originalRoute->getPathElementOptions()),
+    Parameterised(originalRoute->getACParametersMap()),
+    myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+    myVClass(originalRoute->getVClass()) {
+    // set parents
+    setParents<GNEEdge*>(originalRoute->getParentEdges());
+    setParent<GNEDemandElement*>(vehicleParent);
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
-
-GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
-                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
-    GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-{}, edges, {}, {}, {}, {}),
-Parameterised(parameters),
-myColor(color),
-myRepeat(repeat),
-myCycleTime(cycleTime),
-myVClass(vClass) {
+// basic
+GNERoute::GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass,
+                   const std::vector<GNEEdge*>& edges, const RGBColor& color, const int repeat,
+                   const SUMOTime cycleTime, const Parameterised::Map& parameters) :
+    GNEDemandElement(id, net, filename, SUMO_TAG_ROUTE,
+                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
+    Parameterised(parameters),
+    myColor(color),
+    myRepeat(repeat),
+    myCycleTime(cycleTime),
+    myVClass(vClass) {
+    // set parents
+    setParents<GNEEdge*>(edges);
 }
 
 
-GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges,
-                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
-    GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-{}, edges, {}, {}, {vehicleParent}, {}),
-Parameterised(parameters),
-myColor(color),
-myRepeat(repeat),
-myCycleTime(cycleTime),
-myVClass(vehicleParent->getVClass()) {
+// embedded route
+GNERoute::GNERoute(GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
+                   const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
+    GNEDemandElement(vehicleParent, GNE_TAG_ROUTE_EMBEDDED,
+                     GNEPathElement::Options::DEMAND_ELEMENT | GNEPathElement::Options::ROUTE),
+    Parameterised(parameters),
+    myColor(color),
+    myRepeat(repeat),
+    myCycleTime(cycleTime),
+    myVClass(vehicleParent->getVClass()) {
+    // set parents
+    setParents<GNEEdge*>(edges);
+    setParent<GNEDemandElement*>(vehicleParent);
 }
 
 
@@ -163,21 +155,12 @@ GNERoute::getMoveOperation() {
 
 GUIGLObjectPopupMenu*
 GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GNERoutePopupMenu(app, parent, *this);
-    // build header
-    buildPopupHeader(ret, app);
-    // build menu command for center button and copy cursor position to clipboard
-    buildCenterPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
+    // create popup
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
+    // build common options
+    buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
     // show option to open demand element dialog
-    if (myTagProperty.hasDialog()) {
+    if (myTagProperty->hasDialog()) {
         GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
@@ -198,25 +181,35 @@ void
 GNERoute::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE);
     // write id only for non-embedded routes
-    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+    if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
         device.writeAttr(SUMO_ATTR_ID, getID());
     }
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
-    if (myColor != RGBColor::INVISIBLE) {
+    if (myColor != myTagProperty->getDefaultColorValue(SUMO_ATTR_COLOR)) {
         device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
     }
-    if (myRepeat != 0) {
+    if (myRepeat != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_REPEAT)) {
         device.writeAttr(SUMO_ATTR_REPEAT, toString(myRepeat));
     }
-    if (myCycleTime != 0) {
+    if (myCycleTime != myTagProperty->getDefaultTimeValue(SUMO_ATTR_CYCLETIME)) {
         device.writeAttr(SUMO_ATTR_CYCLETIME, time2string(myCycleTime));
     }
+    // write probability if we have exactly one routeRef
+    std::vector<GNEDemandElement*> refs;
+    for (const auto& routeChild : getChildDemandElements()) {
+        if (routeChild->getTagProperty()->getTag() == GNE_TAG_ROUTEREF) {
+            refs.push_back(routeChild);
+        }
+    }
+    if (refs.size() == 1) {
+        device.writeAttr(SUMO_ATTR_PROB, refs.front()->getAttribute(SUMO_ATTR_PROB));
+    }
     // write sorted stops
-    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+    if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
         // write stops
-        for (const auto& demandElement : getChildDemandElements()) {
-            if (demandElement->getTagProperty().isVehicleStop()) {
-                demandElement->writeDemandElement(device);
+        for (const auto& routeChild : getChildDemandElements()) {
+            if (routeChild->getTagProperty()->isVehicleStop()) {
+                routeChild->writeDemandElement(device);
             }
         }
     }
@@ -232,7 +225,7 @@ GNERoute::isDemandElementValid() const {
     // get sorted stops and check number
     std::vector<GNEDemandElement*> stops;
     for (const auto& routeChild : getChildDemandElements()) {
-        if (routeChild->getTagProperty().isVehicleStop()) {
+        if (routeChild->getTagProperty()->isVehicleStop()) {
             stops.push_back(routeChild);
         }
     }
@@ -266,7 +259,7 @@ GNERoute::getDemandElementProblem() const {
     // get sorted stops and check number
     std::vector<GNEDemandElement*> stops;
     for (const auto& routeChild : getChildDemandElements()) {
-        if (routeChild->getTagProperty().isVehicleStop()) {
+        if (routeChild->getTagProperty()->isVehicleStop()) {
             stops.push_back(routeChild);
         }
     }
@@ -298,7 +291,11 @@ GNERoute::fixDemandElementProblem() {
 
 SUMOVehicleClass
 GNERoute::getVClass() const {
-    return myVClass;
+    if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+        return getParentDemandElements().at(0)->getVClass();
+    } else {
+        return myVClass;
+    }
 }
 
 
@@ -322,7 +319,7 @@ GNERoute::updateGeometry() {
     computePathElement();
     // update child demand elements
     for (const auto& demandElement : getChildDemandElements()) {
-        if (!demandElement->getTagProperty().isVehicleStop()) {
+        if (!demandElement->getTagProperty()->isVehicleStop()) {
             demandElement->updateGeometry();
         }
     }
@@ -382,51 +379,33 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNERoute::computePathElement() {
-    if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-        // get parent vehicle
-        const GNEDemandElement* parentVehicle = getParentDemandElements().at(0);
-        // declare lane vector
-        std::vector<GNELane*> lanes;
-        // get first and last path lane
-        GNELane* firstLane = parentVehicle->getFirstPathLane();
-        GNELane* lastLane = parentVehicle->getLastPathLane();
-        // insert first vehicle lane
-        if (firstLane) {
-            lanes.push_back(firstLane);
-        }
-        // add middle lanes
-        for (int i = 1; i < ((int)getParentEdges().size() - 1); i++) {
-            lanes.push_back(getParentEdges().at(i)->getLaneByAllowedVClass(getVClass()));
-        }
-        // insert last vehicle lane
-        if (lastLane) {
-            lanes.push_back(lastLane);
-        }
-        // calculate consecutive path using vClass of vehicle parent
-        myNet->getPathManager()->calculateConsecutivePathLanes(this, lanes);
+    // calculate path depending if is embedded
+    if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+        myNet->getDemandPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentEdges(),
+                (int)getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_DEPARTLANE),
+                (int)getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_ARRIVALLANE));
     } else {
-        // calculate path using SVC_PASSENGER
-        myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_PASSENGER, getParentEdges());
-        // if path is empty, then calculate path again using SVC_IGNORING
-        if (!myNet->getPathManager()->isPathValid(this)) {
-            myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
-        }
+        myNet->getDemandPathManager()->calculateConsecutivePathEdges(this, SVC_PASSENGER, getParentEdges());
+    }
+    // if path is empty, then calculate path again using SVC_IGNORING
+    if (!myNet->getDemandPathManager()->isPathValid(this)) {
+        myNet->getDemandPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
     }
 }
 
 
 void
-GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // check conditions
     if (segment->getLane() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty.getTag())) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty->getTag(), false)) {
         // get exaggeration
         const double exaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(exaggeration);
         // get embedded route flag
-        const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
+        const bool embedded = (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
         const double routeWidth = embedded ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
         // calculate startPos
@@ -458,7 +437,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
             routeGeometry = segment->getLane()->getLaneGeometry();
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawVehicle(d, isAttributeCarrierSelected())) {
             // draw route partial lane
             drawRoutePartialLane(s, d, segment, offsetFront, routeGeometry, exaggeration);
             // draw name
@@ -467,45 +446,54 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
             segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), routeWidth, exaggeration,
-                segment->isFirstSegment(), segment->isLastSegment(), 0);
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), getType(), routeWidth, exaggeration,
+                segment->isFirstSegment(), segment->isLastSegment(), 0, segment, segment->getLane()->getParentEdge());
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
+        }
     }
 }
 
 
 void
-GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
+            myNet->getDemandPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty->getTag(), false)) {
         // Obtain exaggeration of the draw
         const double routeExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(routeExaggeration);
         // get route width
-        const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
+        const double routeWidth = (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
         // check if connection to next lane exist
         const bool connectionExist = segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane());
         // get geometry
         const GUIGeometry& routeGeometry = connectionExist ? segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()) :
                                            GUIGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawVehicle(d, isAttributeCarrierSelected())) {
             // draw route partial
             drawRoutePartialJunction(s, d, offsetFront, routeGeometry, routeExaggeration);
             // draw dotted contour
             segment->getContour()->drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), routeWidth, routeExaggeration, false, false, 0);
+        segment->getContour()->calculateContourExtrudedShape(s, d, this, routeGeometry.getShape(), getType(), routeWidth, routeExaggeration,
+                false, false, 0, segment, segment->getJunction());
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
+        }
     }
 }
 
 
 GNELane*
 GNERoute::getFirstPathLane() const {
-    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+    if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
         return getParentEdges().front()->getLaneByAllowedVClass(SVC_PASSENGER);
     } else {
         return getParentDemandElements().at(0)->getFirstPathLane();
@@ -515,7 +503,7 @@ GNERoute::getFirstPathLane() const {
 
 GNELane*
 GNERoute::getLastPathLane() const {
-    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+    if (myTagProperty->getTag() == SUMO_TAG_ROUTE) {
         return getParentEdges().back()->getLaneByAllowedVClass(SVC_PASSENGER);
     } else {
         return getParentDemandElements().at(0)->getLastPathLane();
@@ -540,15 +528,8 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return toString(myRepeat);
         case SUMO_ATTR_CYCLETIME:
             return time2string(myCycleTime);
-
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
-        case GNE_ATTR_ROUTE_DISTRIBUTION:
-            return getDistributionParents();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -559,7 +540,7 @@ GNERoute::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_DEPARTPOS:
             return 0;
         case SUMO_ATTR_ARRIVALPOS:
-            return getParentEdges().back()->getLanes().front()->getLaneShape().length2D();
+            return getParentEdges().back()->getChildLanes().front()->getLaneShape().length2D();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -570,9 +551,9 @@ Position
 GNERoute::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPARTPOS:
-            return getParentEdges().front()->getLanes().front()->getLaneShape().front();
+            return getParentEdges().front()->getChildLanes().front()->getLaneShape().front();
         case SUMO_ATTR_ARRIVALPOS:
-            return getParentEdges().back()->getLanes().front()->getLaneShape().back();
+            return getParentEdges().back()->getChildLanes().front()->getLaneShape().back();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -580,13 +561,8 @@ GNERoute::getAttributePosition(SumoXMLAttr key) const {
 
 
 bool
-GNERoute::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case GNE_ATTR_ROUTE_DISTRIBUTION:
-            return false;
-        default:
-            return true;
-    }
+GNERoute::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    return true;
 }
 
 
@@ -600,8 +576,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_REPEAT:
         case SUMO_ATTR_CYCLETIME:
-        case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         // special case due depart and arrival edge vehicles
@@ -609,7 +583,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
             // extract all vehicle childrens
             std::vector<GNEDemandElement*> vehicles;
             for (const auto& childDemandElement : getChildDemandElements()) {
-                if (childDemandElement->getTagProperty().isVehicle()) {
+                if (childDemandElement->getTagProperty()->isVehicle()) {
                     vehicles.push_back(childDemandElement);
                 }
             }
@@ -622,7 +596,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
                 }
                 GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
-            } else if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+            } else if (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
                 undoList->begin(this, "reset start and end edges");
                 GNEChange_Attribute::changeAttribute(getParentDemandElements().front(), SUMO_ATTR_DEPARTEDGE, "", undoList);
                 GNEChange_Attribute::changeAttribute(getParentDemandElements().front(), SUMO_ATTR_ARRIVALEDGE, "", undoList);
@@ -635,7 +609,8 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
             break;
         }
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -646,11 +621,10 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(value);
         case SUMO_ATTR_EDGES:
-            if (canParse<std::vector<GNEEdge*> >(myNet, value, false)) {
-                // all edges exist, then check if compounds a valid route
-                return isRouteValid(parse<std::vector<GNEEdge*> >(myNet, value)).empty();
-            } else {
+            if (value.empty()) {
                 return false;
+            } else {
+                return canParse<std::vector<GNEEdge*> >(myNet, value, true);
             }
         case SUMO_ATTR_COLOR:
             if (value.empty()) {
@@ -666,12 +640,8 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isCommonValid(key, value);
     }
 }
 
@@ -733,7 +703,7 @@ GNERoute::copyRoute(const GNERoute* originalRoute) {
     // generate new route ID
     const std::string newRouteID = net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE);
     // create new route
-    GNERoute* newRoute = new GNERoute(net, newRouteID, originalRoute);
+    GNERoute* newRoute = new GNERoute(newRouteID, originalRoute);
     // add new route using undo-list
     undoList->begin(originalRoute, TLF("copy % '%'", originalRoute->getTagStr(), newRouteID));
     net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(newRoute, true), true);
@@ -748,10 +718,10 @@ GNERoute::copyRoute(const GNERoute* originalRoute) {
 
 void
 GNERoute::drawRoutePartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                               const GNEPathManager::Segment* segment, const double offsetFront,
+                               const GNESegment* segment, const double offsetFront,
                                const GUIGeometry& geometry, const double exaggeration) const {
     // get route width
-    const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
+    const double routeWidth = (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
     // push layer matrix
     GLHelper::pushMatrix();
     // Start with the drawing of the area traslating matrix to origin
@@ -791,7 +761,7 @@ GNERoute::drawRoutePartialJunction(const GUIVisualizationSettings& s, const GUIV
                                    const double offsetFront, const GUIGeometry& geometry, const double exaggeration) const {
     const bool invalid = geometry.getShape().length() == 2;
     // get route width
-    const double routeWidth = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
+    const double routeWidth = (myTagProperty->getTag() == GNE_TAG_ROUTE_EMBEDDED) ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth;
     // Add a draw matrix
     GLHelper::pushMatrix();
     // Start with the drawing of the area traslating matrix to origin
@@ -819,7 +789,8 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setDemandElementID(value);
             break;
         case SUMO_ATTR_EDGES:
-            replaceDemandParentEdges(value);
+            // replace parents
+            replaceParentEdges(value);
             // compute route
             computePathElement();
             // update all parent and child demand elements
@@ -838,23 +809,22 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_REPEAT:
-            myRepeat = parse<int>(value);
-            break;
-        case SUMO_ATTR_CYCLETIME:
-            myCycleTime = string2time(value);
-            break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
+            if (value.empty()) {
+                myRepeat = myTagProperty->getDefaultIntValue(key);
             } else {
-                unselectAttributeCarrier();
+                myRepeat = parse<int>(value);
             }
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+        case SUMO_ATTR_CYCLETIME:
+            if (value.empty()) {
+                myCycleTime = myTagProperty->getDefaultTimeValue(key);
+            } else {
+                myCycleTime = string2time(value);
+            }
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(this, key, value);
+            break;
     }
 }
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,7 @@
 
 #include <string>
 #include <utils/foxtools/fxheader.h>
+#include <utils/common/StdDefs.h>
 
 // ===========================================================================
 // Class declaration
@@ -33,28 +34,22 @@ class MFXMenuCheckIcon;
 // Definitions
 // ===========================================================================
 
-/// @brief define a standard height for all elements (Change it carefully)
-#define GUIDesignHeight 23
-
 /// @brief define the default frames area width
 #define GUIDesignFramesAreaDefaultWidth 220
 
 /// @brief right margin for frame area
-#define GUIDesignFrameAreaMarging 2
+#define GUIDesignFrameAreaMargin 2
 
 /// @brief elements with big images
 #define GUIDesignBigSizeElement 138
 
 /// @name ComboBox sizes
 /// @{
-/// @brief combo box size small
-#define GUIDesignComboBoxVisibleItemsSmall  5
+/// @brief combo box size
+#define GUIDesignComboBoxVisibleItems  ((int)getApp()->reg().readIntEntry("SETTINGS", "comboRows", 32))
 
-/// @brief combo box medium small
-#define GUIDesignComboBoxVisibleItemsMedium 10
-
-/// @brief combo box large small
-#define GUIDesignComboBoxVisibleItemsLarge  15
+/// @brief combo box size fixed
+#define GUIDesignComboBoxVisibleItemsFixed 15
 
 /// @}
 
@@ -173,7 +168,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignButtonAdvanced             (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 110, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief overwrite Button
-#define GUIDesignButtonOverwrite            (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignButtonKeepElements         (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 120, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Focus Button
 #define GUIDesignButtonFocus                (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_NONE), 0, 0, 0, 0, 0, 0, 0, 0
@@ -263,7 +258,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignLabelAboutInfo             (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
 
 /// @brief label extended over frame without thick and with text justify to left
-#define GUIDesignLabelOverwrite             (JUSTIFY_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+#define GUIDesignLabelKeepElements          (JUSTIFY_CENTER_X | LAYOUT_FILL_X | LAYOUT_FILL_Y | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label extended over frame with thick and with text justify to center
 #define GUIDesignLabelAboutInfoCenter       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
@@ -371,55 +366,58 @@ class MFXMenuCheckIcon;
 /// @name General design for netedit frames
 /// @{
 /// @brief design for frames area
-#define GUIDesignFrameArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, DEFAULT_SPACING, GUIDesignFrameAreaMarging, DEFAULT_SPACING, DEFAULT_SPACING
+#define GUIDesignFrameArea                                  (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, DEFAULT_SPACING, GUIDesignFrameAreaMargin, DEFAULT_SPACING, DEFAULT_SPACING
 
 /// @brief design for view area
-#define GUIDesignViewnArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignViewnArea                                  (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for scroll windows extended over Y and y
-#define GUIDesignScrollWindow                   (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
+#define GUIDesignScrollWindow                               (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
 
 /// @brief design for scroll windows extended over Y and fix width
-#define GUIDesignScrollWindowFixed              (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
+#define GUIDesignScrollWindowFixed                          (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
 
 /// @brief design for the content scroll of UndoList
-#define GUIDesignContentsScrollUndoList         (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
+#define GUIDesignContentsScrollUndoList                     (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
 
 /// @brief design for the main content frame of every frame/dialog
-#define GUIDesignChildWindowContentFrame        (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y)
+#define GUIDesignChildWindowContentFrame                    (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
 /// @brief design for the main content frame of every frame/dialog with padding and spacing
-#define GUIDesignContentsFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y)
+#define GUIDesignContentsFrame                              (LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
 /// @brief design for auxiliar (Without borders) frame extended in all directions
-#define GUIDesignAuxiliarFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignAuxiliarFrame                              (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) fixed
-#define GUIDesignAuxiliarFrameFixed             (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignAuxiliarFrameFixed                         (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) frame with fixed width and extended height
-#define GUIDesignAuxiliarFrameFixedWidth(width) (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, width, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignAuxiliarFrameFixedWidth(width)             (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, width, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
-#define GUIDesignAuxiliarHorizontalFrame        (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignAuxiliarHorizontalFrame                    (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+/// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames, centered in Y
+#define GUIDesignAuxiliarHorizontalFrameCenteredVertically  (LAYOUT_FILL_X | LAYOUT_CENTER_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames uniform
-#define GUIDesignAuxiliarHorizontalFrameUniform (LAYOUT_FILL_X | PACK_UNIFORM_WIDTH), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignAuxiliarHorizontalFrameUniform             (LAYOUT_FILL_X | PACK_UNIFORM_WIDTH), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
-#define GUIDesignAuxiliarVerticalFrame          (LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignAuxiliarVerticalFrame                      (LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for horizontal frame used to pack another frames with a uniform width
-#define GUIDesignUniformHorizontalFrame         (LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH)
+#define GUIDesignUniformHorizontalFrame                     (LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH)
 
 /// @brief design for CollapsableFrame (Used in MFXGroupBoxModule)
-#define GUIDesignCollapsableFrame               (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
+#define GUIDesignCollapsableFrame                           (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
 /// @brief design for auxiliar vertical frames with fixed width (used in TLSTable and DecalsTable)
-#define GUIDesignAuxiliarFrameFixWidth          (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignAuxiliarFrameFixWidth                      (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar vertical frames with fixed height (DecalsTable)
-#define GUIDesignAuxiliarFrameFixHeight         (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignAuxiliarFrameFixHeight                     (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @}
 
@@ -687,11 +685,8 @@ class MFXMenuCheckIcon;
 /// @brief design for FXLists
 #define GUIDesignList                           (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X)
 
-/// @brief design for FXLists with height fixed
-#define GUIDesignListFixedHeight                (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
-
 /// @brief design for FXLists that only allow a single selected elements selected and height fixed
-#define GUIDesignListSingleElementFixedHeight   (LIST_SINGLESELECT | FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 100
+#define GUIDesignListFixedHeight                (LIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 100
 
 /// @brief design for FXLists
 #define GUIDesignListExtended                   (LIST_NORMAL | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)

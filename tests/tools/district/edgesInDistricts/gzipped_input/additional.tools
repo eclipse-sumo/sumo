@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-23 12:57:20.851370 by edgesInDistricts.py v1_21_0+1971-030203e2b9c
+  options: -n input_net.net.xml.gz -t input_districts.xml.gz -o out.add.xml -s
+-->
+
+<tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
+    <taz id="b" shape="-5.0,-5.0 5.0,-5.0 5.0,5.0 -5.0,5.0 -5.0,-5.0" color="red" edges="absBeg"/>
+    <taz id="e" shape="1995.0,-5.0 2005.0,-5.0 2005.0,5.0 1995.0,5.0 -1995.0,-5.0" color="blue" edges="absBeg absEnd end middle"/>
+</tazs>

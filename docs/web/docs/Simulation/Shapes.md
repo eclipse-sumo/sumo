@@ -73,7 +73,7 @@ position on this lane. So, the attributes have the following meanings:
 | type                  | string      | A typename for the poi.                                                                                                                                                                                |
 | layer                 | float       | the layer of the poi for drawing and selecting.                                                                                                                                                        |
 | imgFile               | string      | A bitmap to use for rendering this poi. If none is given, circle is drawn instead. The bitmap is tinted by the given color unless for white (*"1,1,1"*).                                               |
-| width                 | float       | width of rendered image in meters                                                                                                                                                                      |
+| width                 | float       | width of rendered image in meters, diameter of the POI when not loading an image |
 | height                | float       | height of rendered image in meters                                                                                                                                                                     |
 | angle                 | float       | angle of rendered image in degree                                                                                                                                                                      |
 

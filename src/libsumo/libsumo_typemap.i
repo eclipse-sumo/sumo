@@ -89,6 +89,88 @@
     $1 = &vars;
 }
 
+%{
+#if PY_MAJOR_VERSION < 3
+#define PyUnicodeCheck PyStringCheck
+#define PyUnicode_AsUTF8 PyString_AsString
+#endif
+%}
+
+%typemap(in) const libsumo::TraCIResults& (libsumo::TraCIResults parameters) {
+    if (!PyDict_Check($input)) {
+        PyErr_SetString(PyExc_TypeError, "Expecting a dict");
+        SWIG_fail;
+    }
+    PyObject *key, *value;
+    Py_ssize_t pos = 0;
+
+    while (PyDict_Next($input, &pos, &key, &value)) {
+        const int key_int = PyLong_AsLong(key);
+        if (PyInt_Check(value)) {
+            parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(value));
+        } else if (PyFloat_Check(value)) {
+            parameters[key_int] = std::make_shared<libsumo::TraCIDouble>(PyFloat_AsDouble(value));
+        } else if (PyUnicode_Check(value)) {
+            parameters[key_int] = std::make_shared<libsumo::TraCIString>(PyUnicode_AsUTF8(value));
+        } else if (PySequence_Check(value)) {
+            const Py_ssize_t size = PySequence_Size(value);
+            if (size < 2 || !PyUnicode_Check(PySequence_GetItem(value, 0))) {
+                PyErr_SetString(PyExc_TypeError, "Wrong parameter format");
+                SWIG_fail;
+            }
+            const std::string format = PyUnicode_AsUTF8(PySequence_GetItem(value, 0));
+            if (format == "b") {
+                parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_BYTE);
+            } else if (format == "B") {
+                parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_UBYTE);
+            } else if (format == "tru") {
+                PyObject* pyRoadPos = PySequence_GetItem(value, 2);
+                const std::string edge = PyUnicode_AsUTF8(PySequence_GetItem(pyRoadPos, 0));
+                const double pos = PyFloat_AsDouble(PySequence_GetItem(pyRoadPos, 1));
+                const int laneIndex = PyInt_AsLong(PySequence_GetItem(pyRoadPos, 2));
+                parameters[key_int] = std::make_shared<libsumo::TraCIRoadPosition>(edge, pos, laneIndex);
+            } else if (format == "tou") {
+                PyObject* pyPos = PySequence_GetItem(value, 2);
+                libsumo::TraCIPosition pos;
+                pos.x = PyFloat_AsDouble(PySequence_GetItem(pyPos, 0));
+                pos.y = PyFloat_AsDouble(PySequence_GetItem(pyPos, 1));
+                parameters[key_int] = std::make_shared<libsumo::TraCIPosition>(pos);
+            } else if (format == "tisb") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 3)), (double)PyInt_AsLong(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", (double)PyInt_AsLong(PySequence_GetItem(value, 4))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tds") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 3)), PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tdddds") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 3))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 4))));
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 6)), PyFloat_AsDouble(PySequence_GetItem(value, 5))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tddds") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 3))));
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 5)), PyFloat_AsDouble(PySequence_GetItem(value, 4))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            } else if (format == "tdd") {
+                libsumo::TraCIStringDoublePairList wrap;
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", PyFloat_AsDouble(PySequence_GetItem(value, 3))));
+                parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
+            }
+        } else {
+            PyErr_SetString(PyExc_TypeError, "Unknown parameter format");
+            SWIG_fail;
+        }
+    }
+    $1 = &parameters;
+}
+
 %typemap(typecheck, precedence=SWIG_TYPECHECK_INTEGER) const std::vector<int>& {
     $1 = PySequence_Check($input) ? 1 : 0;
 }
@@ -101,6 +183,23 @@
 
 %{
 #include <libsumo/TraCIDefs.h>
+
+static PyObject* parseConnectionList(const std::vector<libsumo::TraCIConnection>& connList) {
+    PyObject* result = PyTuple_New(connList.size());
+    int index = 0;
+    for (auto iter = connList.begin(); iter != connList.end(); ++iter) {
+        PyTuple_SetItem(result, index++, Py_BuildValue("(sNNNsssd)",
+                                                        iter->approachedLane.c_str(),
+                                                        PyBool_FromLong(iter->hasPrio),
+                                                        PyBool_FromLong(iter->isOpen),
+                                                        PyBool_FromLong(iter->hasFoe),
+                                                        iter->approachedInternal.c_str(),
+                                                        iter->state.c_str(),
+                                                        iter->direction.c_str(),
+                                                        iter->length));
+    }
+    return result;
+}
 
 static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsumo::TraCIResult> >& subMap) {
     PyObject* result = PyDict_New();
@@ -161,6 +260,12 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
                 } else {
                     pyVal = Py_BuildValue("(sd)", theRoadPosition->edgeID.c_str(), theRoadPosition->pos);
                 }
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCIConnectionVectorWrapped* const theConnectionList = dynamic_cast<const libsumo::TraCIConnectionVectorWrapped*>(traciVal);
+            if (theConnectionList != nullptr) {
+                pyVal = parseConnectionList(theConnectionList->value);
             }
         }
         if (pyVal == nullptr) {
@@ -233,31 +338,19 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 };
 
 %typemap(out) std::vector<libsumo::TraCIConnection> {
-    $result = PyList_New($1.size());
-    int index = 0;
-    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyList_SetItem($result, index++, Py_BuildValue("(sNNNsssd)",
-                                                       iter->approachedLane.c_str(),
-                                                       PyBool_FromLong(iter->hasPrio),
-                                                       PyBool_FromLong(iter->isOpen),
-                                                       PyBool_FromLong(iter->hasFoe),
-                                                       iter->approachedInternal.c_str(),
-                                                       iter->state.c_str(),
-                                                       iter->direction.c_str(),
-                                                       iter->length));
-    }
+    $result = parseConnectionList($1);
 };
 
 %typemap(out) std::vector<libsumo::TraCIVehicleData> {
-    $result = PyList_New($1.size());
+    $result = PyTuple_New($1.size());
     int index = 0;
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyList_SetItem($result, index++, Py_BuildValue("(sddds)",
-                                                       iter->id.c_str(),
-                                                       iter->length,
-                                                       iter->entryTime,
-                                                       iter->leaveTime,
-                                                       iter->typeID.c_str()));
+        PyTuple_SetItem($result, index++, Py_BuildValue("(sddds)",
+                                                        iter->id.c_str(),
+                                                        iter->length,
+                                                        iter->entryTime,
+                                                        iter->leaveTime,
+                                                        iter->typeID.c_str()));
     }
 };
 
@@ -293,18 +386,18 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 };
 
 %typemap(out) std::vector<std::vector<libsumo::TraCILink> > {
-    $result = PyList_New($1.size());
+    $result = PyTuple_New($1.size());
     int index = 0;
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyObject* innerList = PyList_New(iter->size());
+        PyObject* innerList = PyTuple_New(iter->size());
         int innerIndex = 0;
         for (auto inner = iter->begin(); inner != iter->end(); ++inner) {
-            PyList_SetItem(innerList, innerIndex++, Py_BuildValue("(sss)",
-                                                                  inner->fromLane.c_str(),
-                                                                  inner->toLane.c_str(),
-                                                                  inner->viaLane.c_str()));
+            PyTuple_SetItem(innerList, innerIndex++, Py_BuildValue("(sss)",
+                                                                   inner->fromLane.c_str(),
+                                                                   inner->toLane.c_str(),
+                                                                   inner->viaLane.c_str()));
         }
-        PyList_SetItem($result, index++, innerList);
+        PyTuple_SetItem($result, index++, innerList);
     }
 };
 
@@ -350,6 +443,78 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         return None
 %}
 
+%define SUBSCRIBE_HELPER(domain)
+%pythonprepend SWIG_MODULE::domain::subscribe(const std::string&, const std::vector<int>&, double, double, const libsumo::TraCIResults&) %{
+    if len(args) > 1 and args[1] is None:
+        args = (args[0], [-1]) + args[2:]
+    if len(args) > 4 and args[4] is None:
+        args = args[:4] + ({},)
+    if "varIDs" in kwargs and kwargs["varIDs"] is None:
+        kwargs["varIDs"] = [-1]
+    if "parameters" in kwargs and kwargs["parameters"] is None:
+        kwargs["parameters"] = {}
+%}
+
+%pythonprepend SWIG_MODULE::domain::subscribeContext(const std::string&, int, double, const std::vector<int>&, double, double, const libsumo::TraCIResults&) %{
+    if len(args) > 3 and args[3] is None:
+        args = (args[0], args[1], args[2], [-1]) + args[4:]
+    if len(args) > 6 and args[6] is None:
+        args = args[:6] + ({},)
+    if "varIDs" in kwargs and kwargs["varIDs"] is None:
+        kwargs["varIDs"] = [-1]
+    if "parameters" in kwargs and kwargs["parameters"] is None:
+        kwargs["parameters"] = {}
+%}
+%enddef
+
+SUBSCRIBE_HELPER(Edge)
+SUBSCRIBE_HELPER(GUI)
+SUBSCRIBE_HELPER(InductionLoop)
+SUBSCRIBE_HELPER(Junction)
+SUBSCRIBE_HELPER(Lane)
+SUBSCRIBE_HELPER(LaneArea)
+SUBSCRIBE_HELPER(MultiEntryExit)
+SUBSCRIBE_HELPER(Person)
+SUBSCRIBE_HELPER(POI)
+SUBSCRIBE_HELPER(Polygon)
+SUBSCRIBE_HELPER(Route)
+SUBSCRIBE_HELPER(TrafficLight)
+SUBSCRIBE_HELPER(Vehicle)
+SUBSCRIBE_HELPER(VehicleType)
+SUBSCRIBE_HELPER(Calibrator)
+SUBSCRIBE_HELPER(BusStop)
+SUBSCRIBE_HELPER(ParkingArea)
+SUBSCRIBE_HELPER(ChargingStation)
+SUBSCRIBE_HELPER(OverheadWire)
+SUBSCRIBE_HELPER(Rerouter)
+SUBSCRIBE_HELPER(MeanData)
+SUBSCRIBE_HELPER(VariableSpeedSign)
+SUBSCRIBE_HELPER(RouteProbe)
+
+%pythonprepend SWIG_MODULE::Simulation::subscribe(const std::vector<int>&, double, double, const libsumo::TraCIResults&) %{
+    if len(args) > 0 and args[0] is None:
+        args = ([-1],) + args[1:]
+    if len(args) > 3 and args[3] is None:
+        args = args[:3] + ({},)
+    if "varIDs" in kwargs and kwargs["varIDs"] is None:
+        kwargs["varIDs"] = [-1]
+    if "parameters" in kwargs and kwargs["parameters"] is None:
+        kwargs["parameters"] = {}
+%}
+
+%pythonprepend SWIG_MODULE::Simulation::subscribeContext(const std::string&, int, double, const std::vector<int>&, double, double, const libsumo::TraCIResults&) %{
+    if len(args) > 3 and args[3] is None:
+        args = (args[0], args[1], args[2], [-1]) + args[4:]
+    if len(args) > 6 and args[6] is None:
+        args = args[:6] + ({},)
+    if "varIDs" in kwargs and kwargs["varIDs"] is None:
+        kwargs["varIDs"] = [-1]
+    if "parameters" in kwargs and kwargs["parameters"] is None:
+        kwargs["parameters"] = {}
+%}
+
+%ignore SWIG_MODULE::Simulation::subscribe(const std::string&, const std::vector<int>&, double begin, double, const libsumo::TraCIResults&);
+
 #endif // SWIGPYTHON
 
 %begin %{
@@ -383,8 +548,32 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %shared_ptr(libsumo::TraCIString)
 %shared_ptr(libsumo::TraCIStringList)
 %shared_ptr(libsumo::TraCIDoubleList)
+%shared_ptr(libsumo::TraCIIntList)
+%shared_ptr(libsumo::TraCIStringDoublePairList)
+%shared_ptr(libsumo::TraCIPhase)
+%shared_ptr(libsumo::TraCILogic)
+%shared_ptr(libsumo::TraCILogicVectorWrapped)
+%shared_ptr(libsumo::TraCILink)
+%shared_ptr(libsumo::TraCILinkVectorVectorWrapped)
+%shared_ptr(libsumo::TraCIConnection)
+%shared_ptr(libsumo::TraCIConnectionVectorWrapped)
+%shared_ptr(libsumo::TraCIVehicleData)
+%shared_ptr(libsumo::TraCIVehicleDataVectorWrapped)
+%shared_ptr(libsumo::TraCINextTLSData)
+%shared_ptr(libsumo::TraCINextTLSDataVectorWrapped)
 %shared_ptr(libsumo::TraCINextStopData)
-%shared_ptr(libsumo::TraCINextStopDataVector)
+%shared_ptr(libsumo::TraCINextStopDataVectorWrapped)
+%shared_ptr(libsumo::TraCIBestLanesData)
+%shared_ptr(libsumo::TraCIBestLanesDataVectorWrapped)
+%shared_ptr(libsumo::TraCIStage)
+%shared_ptr(libsumo::TraCIReservation)
+%shared_ptr(libsumo::TraCIReservationVectorWrapped)
+%shared_ptr(libsumo::TraCICollision)
+%shared_ptr(libsumo::TraCICollisionVectorWrapped)
+%shared_ptr(libsumo::TraCISignalConstraint)
+%shared_ptr(libsumo::TraCISignalConstraintVectorWrapped)
+%shared_ptr(libsumo::TraCIJunctionFoe)
+%shared_ptr(libsumo::TraCIJunctionFoeVectorWrapped)
 #endif
 
 // replacing vector instances of standard types, see https://stackoverflow.com/questions/8469138
@@ -468,5 +657,53 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 #endif
 %}
 #endif // SWIGJAVA
+
+// this checking happens just to make static code analysis happy, see https://github.com/swig/swig/issues/2865
+#ifdef SWIGJAVA
+%define SELF_NULL_CHECKER(traci_class)
+%typemap(check) libsumo::traci_class *self %{
+  if (!$1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "NULL self");
+    return $null;
+  }
+%}
+%enddef
+#endif
+#ifdef SWIGPYTHON
+%define SELF_NULL_CHECKER(traci_class)
+%typemap(check) libsumo::traci_class *self %{
+  if (!$1) {
+    PyErr_SetString(PyExc_ValueError, "NULL self");
+    SWIG_fail;
+  }
+%}
+%enddef
+#endif
+#if defined(SWIGJAVA) || defined(SWIGPYTHON)
+SELF_NULL_CHECKER(TraCIResult)
+SELF_NULL_CHECKER(TraCIPosition)
+SELF_NULL_CHECKER(TraCIPositionVector)
+SELF_NULL_CHECKER(TraCIRoadPosition)
+SELF_NULL_CHECKER(TraCIColor)
+SELF_NULL_CHECKER(TraCIInt)
+SELF_NULL_CHECKER(TraCIDouble)
+SELF_NULL_CHECKER(TraCIDoubleList)
+SELF_NULL_CHECKER(TraCIString)
+SELF_NULL_CHECKER(TraCIStringList)
+SELF_NULL_CHECKER(TraCIPhase)
+SELF_NULL_CHECKER(TraCILogic)
+SELF_NULL_CHECKER(TraCILink)
+SELF_NULL_CHECKER(TraCIConnection)
+SELF_NULL_CHECKER(TraCIVehicleData)
+SELF_NULL_CHECKER(TraCINextTLSData)
+SELF_NULL_CHECKER(TraCINextStopData)
+SELF_NULL_CHECKER(TraCINextStopDataVectorWrapped)
+SELF_NULL_CHECKER(TraCIBestLanesData)
+SELF_NULL_CHECKER(TraCIStage)
+SELF_NULL_CHECKER(TraCIReservation)
+SELF_NULL_CHECKER(TraCICollision)
+SELF_NULL_CHECKER(TraCISignalConstraint)
+SELF_NULL_CHECKER(TraCIJunctionFoe)
+#endif
 
 // %feature("compactdefaultargs") libsumo::Simulation::findRoute;

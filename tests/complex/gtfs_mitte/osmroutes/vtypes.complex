@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-19 15:49:38.347100 by gtfs2pt.py v1_15_0+1116-ca26694bbf8
+<!-- generated on 2024-09-30 07:11:54.752622 by gtfs2pt.py UNKNOWN
   options: -n test/osm.net.xml.gz <doubleminus>gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2019.zip <doubleminus>date 20190713 <doubleminus>osm-routes test/osm_ptlines.xml
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="aerialway" vClass="cable_car"/>
     <vType id="bus" vClass="bus"/>
     <vType id="ferry" vClass="ship"/>
     <vType id="light_rail" vClass="rail_urban"/>
-    <vType id="subway" vClass="rail_urban"/>
+    <vType id="monorail" vClass="rail_urban"/>
+    <vType id="subway" vClass="subway"/>
     <vType id="train" vClass="rail"/>
     <vType id="tram" vClass="tram"/>
 </additional>

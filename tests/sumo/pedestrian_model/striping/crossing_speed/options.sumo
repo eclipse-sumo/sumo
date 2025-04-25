@@ -1,0 +1,3 @@
+--net-file net.net.xml --additional-files input_routes.rou.xml --no-step-log 
+--pedestrian.striping.dawdling 0
+--fcd-output fcd.xml

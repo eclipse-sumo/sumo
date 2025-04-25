@@ -1,8 +1,18 @@
-Loading net-file from 'net2.net.xml' ... done (3ms).
+Loading net-file from 'net2.net.xml' ... done (0ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_14_1+0331-153d228 started with time: 0.00.
-Simulation ended at time: 35.00
+Simulation version v1_22_0+0616-1aa5bb76f2f started with time: 0.00.
+Simulation ended at time: 35.00.
 Reason: All vehicles have left the simulation.
+Performance:
+ Duration: 0.00s
+Vehicles:
+ Inserted: 0
+ Running: 0
+ Waiting: 0
+Persons:
+ Inserted: 6
+ Running: 0
 Statistics (avg of 0):
  RouteLength: 0.00
  Speed: 0.00
@@ -14,4 +24,3 @@ Pedestrian Statistics (avg of 6 walks):
  RouteLength: 137.92
  Duration: 29.00
  TimeLoss: 1.42
-

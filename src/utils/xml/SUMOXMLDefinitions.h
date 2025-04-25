@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,8 +24,10 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <bitset>
 
 #include <utils/common/StringBijection.h>
+#include <utils/common/SequentialStringBijection.h>
 
 // ===========================================================================
 // definitions
@@ -37,8 +39,6 @@
  * @see SUMOSAXHandler
  */
 enum SumoXMLTag {
-    /// @brief invalid tag
-    SUMO_TAG_NOTHING,
     /// @brief root file
     SUMO_TAG_ROOTFILE,
     /// @brief root element of a network file
@@ -71,6 +71,8 @@ enum SumoXMLTag {
     SUMO_TAG_CONTAINER_STOP,
     /// @brief A Charging Station
     SUMO_TAG_CHARGING_STATION,
+    /// @brief A charging event (charging a vehicle at a charging station)
+    SUMO_TAG_CHARGING_EVENT,
     /// @brief A parking area
     SUMO_TAG_PARKING_AREA,
     /// @brief A parking space for a single vehicle within a parking area
@@ -125,8 +127,10 @@ enum SumoXMLTag {
     SUMO_TAG_ROUTE_PROB_REROUTE,
     /// @brief entry for an alternative parking zone
     SUMO_TAG_PARKING_AREA_REROUTE,
-    /// @brief probability of a via fora reroute
+    /// @brief probability of a via reroute
     SUMO_TAG_VIA_PROB_REROUTE,
+    /// @brief decision point for rerouting to be overtaken
+    SUMO_TAG_OVERTAKING_REROUTE,
     /// @brief A variable speed sign
     SUMO_TAG_VSS,
     /// @brief VSS Symbol
@@ -167,8 +171,12 @@ enum SumoXMLTag {
     SUMO_TAG_FLOWSTATE,
     /// @brief description of a vehicle/person/container type
     SUMO_TAG_VTYPE,
-    /// @brief begin/end of the description of a route
+    /// @brief reference to a vType (used in VType distributions)
+    GNE_TAG_VTYPEREF,
+    /// @brief description of a route
     SUMO_TAG_ROUTE,
+    /// @brief virtual element used to reference routes with distributions
+    GNE_TAG_ROUTEREF,
     /// @brief embedded route
     GNE_TAG_ROUTE_EMBEDDED,
     /// @brief description of a logic request within the junction
@@ -216,6 +224,8 @@ enum SumoXMLTag {
     SUMO_TAG_SEGMENT,
     /// @brief delete certain element (note: DELETE is a macro)
     SUMO_TAG_DEL,
+    /// @brief root element of connections file
+    SUMO_TAG_CONNECTIONS,
     /// @brief stop for vehicles
     SUMO_TAG_STOP,
     /// @brief stop placed over a lane
@@ -278,6 +288,11 @@ enum SumoXMLTag {
     SUMO_TAG_BIDI_PREDECESSOR,
     /// @brief Saved state for constraint tracker
     SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER,
+    /// @brief Saved deadlock information, also for loading as an extra check
+    SUMO_TAG_DEADLOCK,
+    /// @brief Saved driveway information
+    SUMO_TAG_DRIVEWAY,
+    SUMO_TAG_SUBDRIVEWAY,
     /// @brief Link information for state-saving
     SUMO_TAG_LINK,
     /// @brief Link-approaching vehicle information for state-saving
@@ -435,19 +450,13 @@ enum SumoXMLTag {
     GNE_TAG_FLOW_ROUTE,
     /// @brief description of a vehicle with an embedded route
     GNE_TAG_FLOW_WITHROUTE,
-    /// @brief waypoint for vehicles
+    /// @brief waypoints
     GNE_TAG_WAYPOINT,
-    /// @brief waypoint placed over a lane
     GNE_TAG_WAYPOINT_LANE,
-    /// @brief waypoint placed over a busStop
     GNE_TAG_WAYPOINT_BUSSTOP,
-    /// @brief waypoint placed over a busStop
     GNE_TAG_WAYPOINT_TRAINSTOP,
-    /// @brief waypoint placed over a containerStop
     GNE_TAG_WAYPOINT_CONTAINERSTOP,
-    /// @brief waypoint placed over a charging station
     GNE_TAG_WAYPOINT_CHARGINGSTATION,
-    /// @brief waypoint placed over a parking area
     GNE_TAG_WAYPOINT_PARKINGAREA,
     // @brief person trips
     GNE_TAG_PERSONTRIP_EDGE_EDGE,
@@ -455,85 +464,377 @@ enum SumoXMLTag {
     GNE_TAG_PERSONTRIP_EDGE_JUNCTION,
     GNE_TAG_PERSONTRIP_EDGE_BUSSTOP,
     GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_EDGE_CONTAINERSTOP,
+    GNE_TAG_PERSONTRIP_EDGE_CHARGINGSTATION,
+    GNE_TAG_PERSONTRIP_EDGE_PARKINGAREA,
     GNE_TAG_PERSONTRIP_TAZ_EDGE,
     GNE_TAG_PERSONTRIP_TAZ_TAZ,
     GNE_TAG_PERSONTRIP_TAZ_JUNCTION,
     GNE_TAG_PERSONTRIP_TAZ_BUSSTOP,
     GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_TAZ_CONTAINERSTOP,
+    GNE_TAG_PERSONTRIP_TAZ_CHARGINGSTATION,
+    GNE_TAG_PERSONTRIP_TAZ_PARKINGAREA,
     GNE_TAG_PERSONTRIP_JUNCTION_EDGE,
     GNE_TAG_PERSONTRIP_JUNCTION_TAZ,
     GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION,
     GNE_TAG_PERSONTRIP_JUNCTION_BUSSTOP,
     GNE_TAG_PERSONTRIP_JUNCTION_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_JUNCTION_CONTAINERSTOP,
+    GNE_TAG_PERSONTRIP_JUNCTION_CHARGINGSTATION,
+    GNE_TAG_PERSONTRIP_JUNCTION_PARKINGAREA,
     GNE_TAG_PERSONTRIP_BUSSTOP_EDGE,
     GNE_TAG_PERSONTRIP_BUSSTOP_TAZ,
     GNE_TAG_PERSONTRIP_BUSSTOP_JUNCTION,
     GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP,
     GNE_TAG_PERSONTRIP_BUSSTOP_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_BUSSTOP_CONTAINERSTOP,
+    GNE_TAG_PERSONTRIP_BUSSTOP_CHARGINGSTATION,
+    GNE_TAG_PERSONTRIP_BUSSTOP_PARKINGAREA,
     GNE_TAG_PERSONTRIP_TRAINSTOP_EDGE,
     GNE_TAG_PERSONTRIP_TRAINSTOP_TAZ,
     GNE_TAG_PERSONTRIP_TRAINSTOP_JUNCTION,
     GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP,
     GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_TRAINSTOP_CONTAINERSTOP,
+    GNE_TAG_PERSONTRIP_TRAINSTOP_CHARGINGSTATION,
+    GNE_TAG_PERSONTRIP_TRAINSTOP_PARKINGAREA,
+    GNE_TAG_PERSONTRIP_CONTAINERSTOP_EDGE,
+    GNE_TAG_PERSONTRIP_CONTAINERSTOP_TAZ,
+    GNE_TAG_PERSONTRIP_CONTAINERSTOP_JUNCTION,
+    GNE_TAG_PERSONTRIP_CONTAINERSTOP_BUSSTOP,
+    GNE_TAG_PERSONTRIP_CONTAINERSTOP_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_CONTAINERSTOP_CONTAINERSTOP,
+    GNE_TAG_PERSONTRIP_CONTAINERSTOP_CHARGINGSTATION,
+    GNE_TAG_PERSONTRIP_CONTAINERSTOP_PARKINGAREA,
+    GNE_TAG_PERSONTRIP_CHARGINGSTATION_EDGE,
+    GNE_TAG_PERSONTRIP_CHARGINGSTATION_TAZ,
+    GNE_TAG_PERSONTRIP_CHARGINGSTATION_JUNCTION,
+    GNE_TAG_PERSONTRIP_CHARGINGSTATION_BUSSTOP,
+    GNE_TAG_PERSONTRIP_CHARGINGSTATION_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_CHARGINGSTATION_CONTAINERSTOP,
+    GNE_TAG_PERSONTRIP_CHARGINGSTATION_CHARGINGSTATION,
+    GNE_TAG_PERSONTRIP_CHARGINGSTATION_PARKINGAREA,
+    GNE_TAG_PERSONTRIP_PARKINGAREA_EDGE,
+    GNE_TAG_PERSONTRIP_PARKINGAREA_TAZ,
+    GNE_TAG_PERSONTRIP_PARKINGAREA_JUNCTION,
+    GNE_TAG_PERSONTRIP_PARKINGAREA_BUSSTOP,
+    GNE_TAG_PERSONTRIP_PARKINGAREA_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_PARKINGAREA_CONTAINERSTOP,
+    GNE_TAG_PERSONTRIP_PARKINGAREA_CHARGINGSTATION,
+    GNE_TAG_PERSONTRIP_PARKINGAREA_PARKINGAREA,
     // @brief walks
     GNE_TAG_WALK_EDGE_EDGE,
     GNE_TAG_WALK_EDGE_TAZ,
     GNE_TAG_WALK_EDGE_JUNCTION,
     GNE_TAG_WALK_EDGE_BUSSTOP,
     GNE_TAG_WALK_EDGE_TRAINSTOP,
+    GNE_TAG_WALK_EDGE_CONTAINERSTOP,
+    GNE_TAG_WALK_EDGE_CHARGINGSTATION,
+    GNE_TAG_WALK_EDGE_PARKINGAREA,
     GNE_TAG_WALK_TAZ_EDGE,
     GNE_TAG_WALK_TAZ_TAZ,
     GNE_TAG_WALK_TAZ_JUNCTION,
     GNE_TAG_WALK_TAZ_BUSSTOP,
     GNE_TAG_WALK_TAZ_TRAINSTOP,
+    GNE_TAG_WALK_TAZ_CONTAINERSTOP,
+    GNE_TAG_WALK_TAZ_CHARGINGSTATION,
+    GNE_TAG_WALK_TAZ_PARKINGAREA,
     GNE_TAG_WALK_JUNCTION_EDGE,
     GNE_TAG_WALK_JUNCTION_TAZ,
     GNE_TAG_WALK_JUNCTION_JUNCTION,
     GNE_TAG_WALK_JUNCTION_BUSSTOP,
     GNE_TAG_WALK_JUNCTION_TRAINSTOP,
+    GNE_TAG_WALK_JUNCTION_CONTAINERSTOP,
+    GNE_TAG_WALK_JUNCTION_CHARGINGSTATION,
+    GNE_TAG_WALK_JUNCTION_PARKINGAREA,
     GNE_TAG_WALK_BUSSTOP_EDGE,
     GNE_TAG_WALK_BUSSTOP_TAZ,
     GNE_TAG_WALK_BUSSTOP_JUNCTION,
     GNE_TAG_WALK_BUSSTOP_BUSSTOP,
     GNE_TAG_WALK_BUSSTOP_TRAINSTOP,
+    GNE_TAG_WALK_BUSSTOP_CONTAINERSTOP,
+    GNE_TAG_WALK_BUSSTOP_CHARGINGSTATION,
+    GNE_TAG_WALK_BUSSTOP_PARKINGAREA,
     GNE_TAG_WALK_TRAINSTOP_EDGE,
     GNE_TAG_WALK_TRAINSTOP_TAZ,
     GNE_TAG_WALK_TRAINSTOP_JUNCTION,
     GNE_TAG_WALK_TRAINSTOP_BUSSTOP,
     GNE_TAG_WALK_TRAINSTOP_TRAINSTOP,
+    GNE_TAG_WALK_TRAINSTOP_CONTAINERSTOP,
+    GNE_TAG_WALK_TRAINSTOP_CHARGINGSTATION,
+    GNE_TAG_WALK_TRAINSTOP_PARKINGAREA,
+    GNE_TAG_WALK_CONTAINERSTOP_EDGE,
+    GNE_TAG_WALK_CONTAINERSTOP_TAZ,
+    GNE_TAG_WALK_CONTAINERSTOP_JUNCTION,
+    GNE_TAG_WALK_CONTAINERSTOP_BUSSTOP,
+    GNE_TAG_WALK_CONTAINERSTOP_TRAINSTOP,
+    GNE_TAG_WALK_CONTAINERSTOP_CONTAINERSTOP,
+    GNE_TAG_WALK_CONTAINERSTOP_CHARGINGSTATION,
+    GNE_TAG_WALK_CONTAINERSTOP_PARKINGAREA,
+    GNE_TAG_WALK_CHARGINGSTATION_EDGE,
+    GNE_TAG_WALK_CHARGINGSTATION_TAZ,
+    GNE_TAG_WALK_CHARGINGSTATION_JUNCTION,
+    GNE_TAG_WALK_CHARGINGSTATION_BUSSTOP,
+    GNE_TAG_WALK_CHARGINGSTATION_TRAINSTOP,
+    GNE_TAG_WALK_CHARGINGSTATION_CONTAINERSTOP,
+    GNE_TAG_WALK_CHARGINGSTATION_CHARGINGSTATION,
+    GNE_TAG_WALK_CHARGINGSTATION_PARKINGAREA,
+    GNE_TAG_WALK_PARKINGAREA_EDGE,
+    GNE_TAG_WALK_PARKINGAREA_TAZ,
+    GNE_TAG_WALK_PARKINGAREA_JUNCTION,
+    GNE_TAG_WALK_PARKINGAREA_BUSSTOP,
+    GNE_TAG_WALK_PARKINGAREA_TRAINSTOP,
+    GNE_TAG_WALK_PARKINGAREA_CONTAINERSTOP,
+    GNE_TAG_WALK_PARKINGAREA_CHARGINGSTATION,
+    GNE_TAG_WALK_PARKINGAREA_PARKINGAREA,
     GNE_TAG_WALK_EDGES,
     GNE_TAG_WALK_ROUTE,
     // @brief rides
     GNE_TAG_RIDE_EDGE_EDGE,
+    GNE_TAG_RIDE_EDGE_TAZ,
+    GNE_TAG_RIDE_EDGE_JUNCTION,
     GNE_TAG_RIDE_EDGE_BUSSTOP,
     GNE_TAG_RIDE_EDGE_TRAINSTOP,
+    GNE_TAG_RIDE_EDGE_CONTAINERSTOP,
+    GNE_TAG_RIDE_EDGE_CHARGINGSTATION,
+    GNE_TAG_RIDE_EDGE_PARKINGAREA,
+    GNE_TAG_RIDE_TAZ_EDGE,
+    GNE_TAG_RIDE_TAZ_TAZ,
+    GNE_TAG_RIDE_TAZ_JUNCTION,
+    GNE_TAG_RIDE_TAZ_BUSSTOP,
+    GNE_TAG_RIDE_TAZ_TRAINSTOP,
+    GNE_TAG_RIDE_TAZ_CONTAINERSTOP,
+    GNE_TAG_RIDE_TAZ_CHARGINGSTATION,
+    GNE_TAG_RIDE_TAZ_PARKINGAREA,
+    GNE_TAG_RIDE_JUNCTION_EDGE,
+    GNE_TAG_RIDE_JUNCTION_TAZ,
+    GNE_TAG_RIDE_JUNCTION_JUNCTION,
+    GNE_TAG_RIDE_JUNCTION_BUSSTOP,
+    GNE_TAG_RIDE_JUNCTION_TRAINSTOP,
+    GNE_TAG_RIDE_JUNCTION_CONTAINERSTOP,
+    GNE_TAG_RIDE_JUNCTION_CHARGINGSTATION,
+    GNE_TAG_RIDE_JUNCTION_PARKINGAREA,
     GNE_TAG_RIDE_BUSSTOP_EDGE,
+    GNE_TAG_RIDE_BUSSTOP_TAZ,
+    GNE_TAG_RIDE_BUSSTOP_JUNCTION,
     GNE_TAG_RIDE_BUSSTOP_BUSSTOP,
     GNE_TAG_RIDE_BUSSTOP_TRAINSTOP,
+    GNE_TAG_RIDE_BUSSTOP_CONTAINERSTOP,
+    GNE_TAG_RIDE_BUSSTOP_CHARGINGSTATION,
+    GNE_TAG_RIDE_BUSSTOP_PARKINGAREA,
     GNE_TAG_RIDE_TRAINSTOP_EDGE,
+    GNE_TAG_RIDE_TRAINSTOP_TAZ,
+    GNE_TAG_RIDE_TRAINSTOP_JUNCTION,
     GNE_TAG_RIDE_TRAINSTOP_BUSSTOP,
     GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP,
+    GNE_TAG_RIDE_TRAINSTOP_CONTAINERSTOP,
+    GNE_TAG_RIDE_TRAINSTOP_CHARGINGSTATION,
+    GNE_TAG_RIDE_TRAINSTOP_PARKINGAREA,
+    GNE_TAG_RIDE_CONTAINERSTOP_EDGE,
+    GNE_TAG_RIDE_CONTAINERSTOP_TAZ,
+    GNE_TAG_RIDE_CONTAINERSTOP_JUNCTION,
+    GNE_TAG_RIDE_CONTAINERSTOP_BUSSTOP,
+    GNE_TAG_RIDE_CONTAINERSTOP_TRAINSTOP,
+    GNE_TAG_RIDE_CONTAINERSTOP_CONTAINERSTOP,
+    GNE_TAG_RIDE_CONTAINERSTOP_CHARGINGSTATION,
+    GNE_TAG_RIDE_CONTAINERSTOP_PARKINGAREA,
+    GNE_TAG_RIDE_CHARGINGSTATION_EDGE,
+    GNE_TAG_RIDE_CHARGINGSTATION_TAZ,
+    GNE_TAG_RIDE_CHARGINGSTATION_JUNCTION,
+    GNE_TAG_RIDE_CHARGINGSTATION_BUSSTOP,
+    GNE_TAG_RIDE_CHARGINGSTATION_TRAINSTOP,
+    GNE_TAG_RIDE_CHARGINGSTATION_CONTAINERSTOP,
+    GNE_TAG_RIDE_CHARGINGSTATION_CHARGINGSTATION,
+    GNE_TAG_RIDE_CHARGINGSTATION_PARKINGAREA,
+    GNE_TAG_RIDE_PARKINGAREA_EDGE,
+    GNE_TAG_RIDE_PARKINGAREA_TAZ,
+    GNE_TAG_RIDE_PARKINGAREA_JUNCTION,
+    GNE_TAG_RIDE_PARKINGAREA_BUSSTOP,
+    GNE_TAG_RIDE_PARKINGAREA_TRAINSTOP,
+    GNE_TAG_RIDE_PARKINGAREA_CONTAINERSTOP,
+    GNE_TAG_RIDE_PARKINGAREA_CHARGINGSTATION,
+    GNE_TAG_RIDE_PARKINGAREA_PARKINGAREA,
     // @brief person stops
+    GNE_TAG_STOPPERSON,
+    GNE_TAG_STOPPERSON_EDGE,
     GNE_TAG_STOPPERSON_BUSSTOP,
     GNE_TAG_STOPPERSON_TRAINSTOP,
-    GNE_TAG_STOPPERSON_EDGE,
+    GNE_TAG_STOPPERSON_CONTAINERSTOP,
+    GNE_TAG_STOPPERSON_CHARGINGSTATION,
+    GNE_TAG_STOPPERSON_PARKINGAREA,
     // @brief transports
     GNE_TAG_TRANSPORT_EDGE_EDGE,
+    GNE_TAG_TRANSPORT_EDGE_TAZ,
+    GNE_TAG_TRANSPORT_EDGE_JUNCTION,
+    GNE_TAG_TRANSPORT_EDGE_BUSSTOP,
+    GNE_TAG_TRANSPORT_EDGE_TRAINSTOP,
     GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP,
+    GNE_TAG_TRANSPORT_EDGE_CHARGINGSTATION,
+    GNE_TAG_TRANSPORT_EDGE_PARKINGAREA,
+    GNE_TAG_TRANSPORT_TAZ_EDGE,
+    GNE_TAG_TRANSPORT_TAZ_TAZ,
+    GNE_TAG_TRANSPORT_TAZ_JUNCTION,
+    GNE_TAG_TRANSPORT_TAZ_BUSSTOP,
+    GNE_TAG_TRANSPORT_TAZ_TRAINSTOP,
+    GNE_TAG_TRANSPORT_TAZ_CONTAINERSTOP,
+    GNE_TAG_TRANSPORT_TAZ_CHARGINGSTATION,
+    GNE_TAG_TRANSPORT_TAZ_PARKINGAREA,
+    GNE_TAG_TRANSPORT_JUNCTION_EDGE,
+    GNE_TAG_TRANSPORT_JUNCTION_TAZ,
+    GNE_TAG_TRANSPORT_JUNCTION_JUNCTION,
+    GNE_TAG_TRANSPORT_JUNCTION_BUSSTOP,
+    GNE_TAG_TRANSPORT_JUNCTION_TRAINSTOP,
+    GNE_TAG_TRANSPORT_JUNCTION_CONTAINERSTOP,
+    GNE_TAG_TRANSPORT_JUNCTION_CHARGINGSTATION,
+    GNE_TAG_TRANSPORT_JUNCTION_PARKINGAREA,
+    GNE_TAG_TRANSPORT_BUSSTOP_EDGE,
+    GNE_TAG_TRANSPORT_BUSSTOP_TAZ,
+    GNE_TAG_TRANSPORT_BUSSTOP_JUNCTION,
+    GNE_TAG_TRANSPORT_BUSSTOP_BUSSTOP,
+    GNE_TAG_TRANSPORT_BUSSTOP_TRAINSTOP,
+    GNE_TAG_TRANSPORT_BUSSTOP_CONTAINERSTOP,
+    GNE_TAG_TRANSPORT_BUSSTOP_CHARGINGSTATION,
+    GNE_TAG_TRANSPORT_BUSSTOP_PARKINGAREA,
+    GNE_TAG_TRANSPORT_TRAINSTOP_EDGE,
+    GNE_TAG_TRANSPORT_TRAINSTOP_TAZ,
+    GNE_TAG_TRANSPORT_TRAINSTOP_JUNCTION,
+    GNE_TAG_TRANSPORT_TRAINSTOP_BUSSTOP,
+    GNE_TAG_TRANSPORT_TRAINSTOP_TRAINSTOP,
+    GNE_TAG_TRANSPORT_TRAINSTOP_CONTAINERSTOP,
+    GNE_TAG_TRANSPORT_TRAINSTOP_CHARGINGSTATION,
+    GNE_TAG_TRANSPORT_TRAINSTOP_PARKINGAREA,
     GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE,
+    GNE_TAG_TRANSPORT_CONTAINERSTOP_TAZ,
+    GNE_TAG_TRANSPORT_CONTAINERSTOP_JUNCTION,
+    GNE_TAG_TRANSPORT_CONTAINERSTOP_BUSSTOP,
+    GNE_TAG_TRANSPORT_CONTAINERSTOP_TRAINSTOP,
     GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP,
+    GNE_TAG_TRANSPORT_CONTAINERSTOP_CHARGINGSTATION,
+    GNE_TAG_TRANSPORT_CONTAINERSTOP_PARKINGAREA,
+    GNE_TAG_TRANSPORT_CHARGINGSTATION_EDGE,
+    GNE_TAG_TRANSPORT_CHARGINGSTATION_TAZ,
+    GNE_TAG_TRANSPORT_CHARGINGSTATION_JUNCTION,
+    GNE_TAG_TRANSPORT_CHARGINGSTATION_BUSSTOP,
+    GNE_TAG_TRANSPORT_CHARGINGSTATION_TRAINSTOP,
+    GNE_TAG_TRANSPORT_CHARGINGSTATION_CONTAINERSTOP,
+    GNE_TAG_TRANSPORT_CHARGINGSTATION_CHARGINGSTATION,
+    GNE_TAG_TRANSPORT_CHARGINGSTATION_PARKINGAREA,
+    GNE_TAG_TRANSPORT_PARKINGAREA_EDGE,
+    GNE_TAG_TRANSPORT_PARKINGAREA_TAZ,
+    GNE_TAG_TRANSPORT_PARKINGAREA_JUNCTION,
+    GNE_TAG_TRANSPORT_PARKINGAREA_BUSSTOP,
+    GNE_TAG_TRANSPORT_PARKINGAREA_TRAINSTOP,
+    GNE_TAG_TRANSPORT_PARKINGAREA_CONTAINERSTOP,
+    GNE_TAG_TRANSPORT_PARKINGAREA_CHARGINGSTATION,
+    GNE_TAG_TRANSPORT_PARKINGAREA_PARKINGAREA,
     // @brief tranships
     GNE_TAG_TRANSHIP_EDGE_EDGE,
+    GNE_TAG_TRANSHIP_EDGE_TAZ,
+    GNE_TAG_TRANSHIP_EDGE_JUNCTION,
+    GNE_TAG_TRANSHIP_EDGE_BUSSTOP,
+    GNE_TAG_TRANSHIP_EDGE_TRAINSTOP,
     GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_EDGE_CHARGINGSTATION,
+    GNE_TAG_TRANSHIP_EDGE_PARKINGAREA,
+    GNE_TAG_TRANSHIP_TAZ_EDGE,
+    GNE_TAG_TRANSHIP_TAZ_TAZ,
+    GNE_TAG_TRANSHIP_TAZ_JUNCTION,
+    GNE_TAG_TRANSHIP_TAZ_BUSSTOP,
+    GNE_TAG_TRANSHIP_TAZ_TRAINSTOP,
+    GNE_TAG_TRANSHIP_TAZ_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_TAZ_CHARGINGSTATION,
+    GNE_TAG_TRANSHIP_TAZ_PARKINGAREA,
+    GNE_TAG_TRANSHIP_JUNCTION_EDGE,
+    GNE_TAG_TRANSHIP_JUNCTION_TAZ,
+    GNE_TAG_TRANSHIP_JUNCTION_JUNCTION,
+    GNE_TAG_TRANSHIP_JUNCTION_BUSSTOP,
+    GNE_TAG_TRANSHIP_JUNCTION_TRAINSTOP,
+    GNE_TAG_TRANSHIP_JUNCTION_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_JUNCTION_CHARGINGSTATION,
+    GNE_TAG_TRANSHIP_JUNCTION_PARKINGAREA,
+    GNE_TAG_TRANSHIP_BUSSTOP_EDGE,
+    GNE_TAG_TRANSHIP_BUSSTOP_TAZ,
+    GNE_TAG_TRANSHIP_BUSSTOP_JUNCTION,
+    GNE_TAG_TRANSHIP_BUSSTOP_BUSSTOP,
+    GNE_TAG_TRANSHIP_BUSSTOP_TRAINSTOP,
+    GNE_TAG_TRANSHIP_BUSSTOP_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_BUSSTOP_CHARGINGSTATION,
+    GNE_TAG_TRANSHIP_BUSSTOP_PARKINGAREA,
+    GNE_TAG_TRANSHIP_TRAINSTOP_EDGE,
+    GNE_TAG_TRANSHIP_TRAINSTOP_TAZ,
+    GNE_TAG_TRANSHIP_TRAINSTOP_JUNCTION,
+    GNE_TAG_TRANSHIP_TRAINSTOP_BUSSTOP,
+    GNE_TAG_TRANSHIP_TRAINSTOP_TRAINSTOP,
+    GNE_TAG_TRANSHIP_TRAINSTOP_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_TRAINSTOP_CHARGINGSTATION,
+    GNE_TAG_TRANSHIP_TRAINSTOP_PARKINGAREA,
     GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE,
+    GNE_TAG_TRANSHIP_CONTAINERSTOP_TAZ,
+    GNE_TAG_TRANSHIP_CONTAINERSTOP_JUNCTION,
+    GNE_TAG_TRANSHIP_CONTAINERSTOP_BUSSTOP,
+    GNE_TAG_TRANSHIP_CONTAINERSTOP_TRAINSTOP,
     GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_CONTAINERSTOP_CHARGINGSTATION,
+    GNE_TAG_TRANSHIP_CONTAINERSTOP_PARKINGAREA,
+    GNE_TAG_TRANSHIP_CHARGINGSTATION_EDGE,
+    GNE_TAG_TRANSHIP_CHARGINGSTATION_TAZ,
+    GNE_TAG_TRANSHIP_CHARGINGSTATION_JUNCTION,
+    GNE_TAG_TRANSHIP_CHARGINGSTATION_BUSSTOP,
+    GNE_TAG_TRANSHIP_CHARGINGSTATION_TRAINSTOP,
+    GNE_TAG_TRANSHIP_CHARGINGSTATION_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_CHARGINGSTATION_CHARGINGSTATION,
+    GNE_TAG_TRANSHIP_CHARGINGSTATION_PARKINGAREA,
+    GNE_TAG_TRANSHIP_PARKINGAREA_EDGE,
+    GNE_TAG_TRANSHIP_PARKINGAREA_TAZ,
+    GNE_TAG_TRANSHIP_PARKINGAREA_JUNCTION,
+    GNE_TAG_TRANSHIP_PARKINGAREA_BUSSTOP,
+    GNE_TAG_TRANSHIP_PARKINGAREA_TRAINSTOP,
+    GNE_TAG_TRANSHIP_PARKINGAREA_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_PARKINGAREA_CHARGINGSTATION,
+    GNE_TAG_TRANSHIP_PARKINGAREA_PARKINGAREA,
     GNE_TAG_TRANSHIP_EDGES,
     // @brief container stops
-    GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
+    GNE_TAG_STOPCONTAINER,
     GNE_TAG_STOPCONTAINER_EDGE,
+    GNE_TAG_STOPCONTAINER_BUSSTOP,
+    GNE_TAG_STOPCONTAINER_TRAINSTOP,
+    GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
+    GNE_TAG_STOPCONTAINER_CHARGINGSTATION,
+    GNE_TAG_STOPCONTAINER_PARKINGAREA,
+    // @brief netedit sets
+    GNE_TAG_SUPERMODE_NETWORK,
+    GNE_TAG_SUPERMODE_DEMAND,
+    GNE_TAG_SUPERMODE_DATA,
+    GNE_TAG_STOPPINGPLACES,
+    GNE_TAG_DETECTORS,
+    GNE_TAG_SHAPES,
+    GNE_TAG_TAZS,
+    GNE_TAG_WIRES,
+    GNE_TAG_JUPEDSIM,
+    GNE_TAG_FLOWS,
+    GNE_TAG_STOPS,
+    GNE_TAG_PERSONPLANS,
+    GNE_TAG_PERSONTRIPS,
+    GNE_TAG_RIDES,
+    GNE_TAG_WALKS,
+    GNE_TAG_PERSONSTOPS,
+    GNE_TAG_CONTAINERPLANS,
+    GNE_TAG_TRANSPORTS,
+    GNE_TAG_TRANSHIPS,
+    GNE_TAG_CONTAINERSTOPS,
+    GNE_TAG_DATAS,
+    // @brief attributes
+    GNE_TAG_ATTRIBUTES_ALL,
     /// @}
+
+    /// @brief tag used for indicate that there is an error (usually loading elements in handlers)
+    SUMO_TAG_ERROR,
+    /// @brief invalid tag, must be the last one
+    SUMO_TAG_NOTHING,
 };
 
+typedef std::bitset<96> SumoXMLAttrMask;
 
 /**
  * @enum SumoXMLAttr
@@ -542,9 +843,6 @@ enum SumoXMLTag {
  * @see SUMOSAXHandler
  */
 enum SumoXMLAttr {
-    /// @brief invalid attribute
-    SUMO_ATTR_NOTHING = 0,
-
     /// @name meanData output attributes
     /// @note: sorted first to simplify filtering written attributes with bit operations
     /// @{
@@ -616,6 +914,29 @@ enum SumoXMLAttr {
     SUMO_ATTR_ODOMETER           = 61,
     SUMO_ATTR_POSITION_LAT       = 62,
     SUMO_ATTR_SPEED_LAT          = 63,
+
+    // only usable with SumoXMLAttrMask
+    SUMO_ATTR_ARRIVALDELAY       = 64,
+
+    // emission-output
+    SUMO_ATTR_CO                 = 65,
+    SUMO_ATTR_CO2                = 66,
+    SUMO_ATTR_HC                 = 67,
+    SUMO_ATTR_PMX                = 68,
+    SUMO_ATTR_NOX                = 69,
+    SUMO_ATTR_FUEL               = 70,
+    SUMO_ATTR_ELECTRICITY        = 71,
+    SUMO_ATTR_ROUTE              = 72,
+    SUMO_ATTR_ECLASS             = 73,
+    SUMO_ATTR_WAITING            = 74,
+
+    // meso-attributes
+    SUMO_ATTR_SEGMENT            = 75,
+    SUMO_ATTR_QUEUE              = 76,
+    SUMO_ATTR_ENTRYTIME          = 77,
+    SUMO_ATTR_EVENTTIME          = 78,
+    SUMO_ATTR_BLOCKTIME          = 79,
+
     /// @}
 
     /// @name common attributes
@@ -678,10 +999,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_DEPARTEDGE,
     SUMO_ATTR_ARRIVALLANE,
     SUMO_ATTR_ARRIVALPOS,
+    SUMO_ATTR_ARRIVALPOS_RANDOMIZED,
     SUMO_ATTR_ARRIVALPOS_LAT,
     SUMO_ATTR_ARRIVALSPEED,
     SUMO_ATTR_ARRIVALEDGE,
-    SUMO_ATTR_ROUTE,
     SUMO_ATTR_MAXSPEED,
     SUMO_ATTR_DESIRED_MAXSPEED,
     SUMO_ATTR_MAXSPEED_LAT,
@@ -706,6 +1027,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_COLLISION_MINGAP_FACTOR,
     SUMO_ATTR_BOARDING_DURATION,
     SUMO_ATTR_LOADING_DURATION,
+    SUMO_ATTR_BOARDING_FACTOR,
     SUMO_ATTR_SCALE,
     SUMO_ATTR_INSERTIONCHECKS,
     SUMO_ATTR_TIME_TO_TELEPORT,
@@ -713,6 +1035,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_SPEEDFACTOR_PREMATURE,
     /// @brief Class specific timing values for vehicle maneuvering through angle ranges
     SUMO_ATTR_MANEUVER_ANGLE_TIMES,
+    SUMO_ATTR_PARKING_BADGES,
     /// @}
 
     /// @name elecHybrid output attributes
@@ -770,13 +1093,22 @@ enum SumoXMLAttr {
     /// @name battery device parameters
     /// @{
     /// @brief Actual battery capacity
-    SUMO_ATTR_ACTUALBATTERYCAPACITY,
+    SUMO_ATTR_ACTUALBATTERYCAPACITY, // deprecated
+    SUMO_ATTR_CHARGELEVEL,
     /// @brief Maxium battery capacity
-    SUMO_ATTR_MAXIMUMBATTERYCAPACITY,
+    SUMO_ATTR_MAXIMUMBATTERYCAPACITY, // deprecated
+    /// @brief Maximum Power
+    SUMO_ATTR_MAXIMUMCHARGERATE,
+    /// @brief Charge curve axis values
+    SUMO_ATTR_CHARGELEVELTABLE,
+    /// @brief Charge curve
+    SUMO_ATTR_CHARGECURVETABLE,
     /// @brief Maximum Power
     SUMO_ATTR_MAXIMUMPOWER,
     /// @brief Vehicle mass
     SUMO_ATTR_VEHICLEMASS,
+    /// @brief Mass equivalent of rotating elements
+    SUMO_ATTR_ROTATINGMASS,
     /// @brief Front surface area
     SUMO_ATTR_FRONTSURFACEAREA,
     /// @brief Air drag coefficient
@@ -881,8 +1213,18 @@ enum SumoXMLAttr {
     SUMO_ATTR_CHARGINGBEGIN,
     /// @brief timesteps in which charging ends
     SUMO_ATTR_CHARGINGEND,
-    /// @brief energy provied by charging station at certain timestep
+    /// @brief energy provided by charging station at certain timestep
     SUMO_ATTR_PARTIALCHARGE,
+    /// @brief minimum charging power encountered during the charging event
+    SUMO_ATTR_MINPOWER,
+    /// @brief minimum energy charged during one time step of the charging event
+    SUMO_ATTR_MINCHARGE,
+    /// @brief maximum energy charged during one time step of the charging event
+    SUMO_ATTR_MAXCHARGE,
+    /// @brief minimum charging efficiency encountered during the charging event
+    SUMO_ATTR_MINEFFICIENCY,
+    /// @brief maximum charging efficiency encountered during the charging event
+    SUMO_ATTR_MAXEFFICIENCY,
     /// @}
 
     /// @name general emission / consumption parameters
@@ -891,6 +1233,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_SHUT_OFF_STOP,
     /// @brief engine gets switched off if stopping duration exceeds value
     SUMO_ATTR_SHUT_OFF_AUTO,
+    /// @brief additional mass loaded on the vehicle
+    SUMO_ATTR_LOADING,
     /// @}
 
     /// @name Car following model attributes
@@ -952,10 +1296,16 @@ enum SumoXMLAttr {
     /// @name Train model attributes
     /// @{
     SUMO_ATTR_TRAIN_TYPE, //used by: Rail
-    /// @}
+    SUMO_ATTR_SPEED_TABLE, // list of speeds for traction and resistance value tables
+    SUMO_ATTR_TRACTION_TABLE, // list of traction values for the speeds table
+    SUMO_ATTR_RESISTANCE_TABLE, // list of resistance values for the speeds table
+    SUMO_ATTR_MASSFACTOR,
+    SUMO_ATTR_MAXPOWER,
+    SUMO_ATTR_MAXTRACTION,
+    SUMO_ATTR_RESISTANCE_COEFFICIENT_CONSTANT,
+    SUMO_ATTR_RESISTANCE_COEFFICIENT_LINEAR,
+    SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC,
 
-    /// @name Lane changing model attributes
-    /// @{
     SUMO_ATTR_LCA_STRATEGIC_PARAM,
     SUMO_ATTR_LCA_COOPERATIVE_PARAM,
     SUMO_ATTR_LCA_SPEEDGAIN_PARAM,
@@ -964,6 +1314,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCA_OPPOSITE_PARAM,
     SUMO_ATTR_LCA_PUSHY,
     SUMO_ATTR_LCA_PUSHYGAP,
+    SUMO_ATTR_LCA_STRATEGIC_LOOKAHEAD,
     SUMO_ATTR_LCA_ASSERTIVE,
     SUMO_ATTR_LCA_IMPATIENCE,
     SUMO_ATTR_LCA_TIME_TO_IMPATIENCE,
@@ -971,6 +1322,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCA_LOOKAHEADLEFT,
     SUMO_ATTR_LCA_SPEEDGAINRIGHT,
     SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD,
+    SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME,
+    SUMO_ATTR_LCA_SPEEDGAIN_URGENCY,
     SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT,
     SUMO_ATTR_LCA_COOPERATIVE_SPEED,
     SUMO_ATTR_LCA_MAXSPEEDLATSTANDING,
@@ -982,6 +1335,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCA_SIGMA,
     SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME,
     SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR,
+    SUMO_ATTR_LCA_CONTRIGHT,
     SUMO_ATTR_LCA_EXPERIMENTAL1,
     /// @}
 
@@ -997,12 +1351,19 @@ enum SumoXMLAttr {
     SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB,
     SUMO_ATTR_JM_SIGMA_MINOR,
     SUMO_ATTR_JM_STOPLINE_GAP,
+    SUMO_ATTR_JM_STOPLINE_GAP_MINOR,
+    SUMO_ATTR_JM_STOPLINE_CROSSING_GAP,
     SUMO_ATTR_JM_TIMEGAP_MINOR,
+    SUMO_ATTR_JM_EXTRA_GAP,
+    SUMO_ATTR_JM_ADVANCE,
+    SUMO_ATTR_JM_STOPSIGN_WAIT,
+    SUMO_ATTR_JM_ALLWAYSTOP_WAIT,
     SUMO_ATTR_JM_IGNORE_IDS,
     SUMO_ATTR_JM_IGNORE_TYPES,
     SUMO_ATTR_CF_IGNORE_IDS,
     SUMO_ATTR_CF_IGNORE_TYPES,
     /// @}
+    SUMO_ATTR_FLEX_ARRIVAL,
 
     /// @name route alternatives / distribution attributes
     /// @{
@@ -1054,7 +1415,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_FREQUENCY,
     SUMO_ATTR_STYLE,
     SUMO_ATTR_FILE,
-    SUMO_ATTR_JUNCTION,
+    SUMO_ATTR_LOCAL,
     SUMO_ATTR_NUMBER,
     SUMO_ATTR_DURATION,
     SUMO_ATTR_UNTIL,
@@ -1085,6 +1446,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_TLLINKINDEX2,
     /// @brief edge: the shape in xml-definition
     SUMO_ATTR_SHAPE,
+    /// @brief edge: the outline shape in xml-definition
+    SUMO_ATTR_OUTLINESHAPE,
     /// @brief The information about how to spread the lanes from the given position
     SUMO_ATTR_SPREADTYPE,
     /// @brief The turning radius at an intersection in m
@@ -1164,6 +1527,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_FOES,
     /// @}
     SUMO_ATTR_CONSTRAINTS,
+    SUMO_ATTR_RAIL,
 
     SUMO_ATTR_DETECTORS,
     SUMO_ATTR_CONDITIONS,
@@ -1199,10 +1563,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_TRAIN_STOP,
     SUMO_ATTR_CONTAINER_STOP,
     SUMO_ATTR_PARKING_AREA,
-    SUMO_ATTR_FROM_BUSSTOP,
-    SUMO_ATTR_FROM_TRAINSTOP,
-    SUMO_ATTR_FROM_CONTAINERSTOP,
     SUMO_ATTR_ROADSIDE_CAPACITY,
+    SUMO_ATTR_ACCEPTED_BADGES,
     SUMO_ATTR_ONROAD,
     SUMO_ATTR_CHARGING_STATION,
     SUMO_ATTR_GROUP,
@@ -1214,6 +1576,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_INTENDED,
     SUMO_ATTR_ONDEMAND,
     SUMO_ATTR_JUMP,
+    SUMO_ATTR_JUMP_UNTIL,
     SUMO_ATTR_USED_ENDED,
     SUMO_ATTR_COLLISION,
     SUMO_ATTR_VALUE,
@@ -1235,7 +1598,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_GUISHAPE,
     SUMO_ATTR_OSGFILE,
     SUMO_ATTR_IMGFILE,
-    SUMO_ATTR_RELATIVEPATH,
     SUMO_ATTR_EMISSIONCLASS,
     SUMO_ATTR_MASS,
     SUMO_ATTR_IMPATIENCE,
@@ -1334,21 +1696,26 @@ enum SumoXMLAttr {
     SUMO_ATTR_AVOID_OVERLAP,
     SUMO_ATTR_HIGHER_SPEED,
     SUMO_ATTR_INTERNAL_JUNCTIONS_VEHICLE_WIDTH,
+    SUMO_ATTR_JUNCTIONS_MINIMAL_SHAPE,
+    SUMO_ATTR_JUNCTIONS_ENDPOINT_SHAPE,
     SUMO_ATTR_COMMAND,
 
     SUMO_ATTR_ACTORCONFIG,
     SUMO_ATTR_STARTTIME,
     SUMO_ATTR_VEHICLECLASS,
-    SUMO_ATTR_FUEL,
     SUMO_ATTR_ORIGIN,
     SUMO_ATTR_DESTINATION,
     SUMO_ATTR_VISIBLE,
+    SUMO_ATTR_MAIN,
+    SUMO_ATTR_SIDING,
+    SUMO_ATTR_MINSAVING,
     SUMO_ATTR_LIMIT,
     SUMO_ATTR_ACTIVE,
     SUMO_ATTR_ARRIVALTIME,
     SUMO_ATTR_ARRIVALTIMEBRAKING,
     SUMO_ATTR_ARRIVALSPEEDBRAKING,
     SUMO_ATTR_OPTIONAL,
+    SUMO_ATTR_VEHICLES,
 
     /// @name ActivityGen Tags
     /// @{
@@ -1494,8 +1861,6 @@ enum SumoXMLAttr {
     GNE_ATTR_STOPINDEX,
     /// @brief stop index (position in the parent's path)
     GNE_ATTR_PATHSTOPINDEX,
-    /// @brief check number of additional children (used in vTypeDistribution)
-    GNE_ATTR_ADDITIONALCHILDREN,
     /// @brief person/container geometry start position
     GNE_ATTR_PLAN_GEOMETRY_STARTPOS,
     /// @brief person/container geometry end position
@@ -1504,6 +1869,41 @@ enum SumoXMLAttr {
     GNE_ATTR_FROM_LANEID,
     /// @brief to lane ID (used in GNEConnection)
     GNE_ATTR_TO_LANEID,
+    /// @brief TAZ Center (uses to return the TAZ centroid if center is not defined)
+    GNE_ATTR_TAZ_CENTROID,
+    /// @brief flow terminating
+    GNE_ATTR_FLOW_TERMINATE,
+    /// @brief flow spacing
+    GNE_ATTR_FLOW_SPACING,
+    /// @brief reference position (used creating stoppingPlaces)
+    GNE_ATTR_REFERENCE,
+    /// @brief size (used in stopping places)
+    GNE_ATTR_SIZE,
+    /// @brief size (used in stopping places)
+    GNE_ATTR_FORCESIZE,
+    /// @brief size (used in stopping places)
+    GNE_ATTR_LANELENGTH,
+    /// @brief additional save file
+    GNE_ATTR_ADDITIONAL_FILE,
+    /// @brief demand demand file
+    GNE_ATTR_DEMAND_FILE,
+    /// @brief data data file
+    GNE_ATTR_DATA_FILE,
+    /// @brief meanData data file
+    GNE_ATTR_MEANDATA_FILE,
+    // @brief virtual attributes for easier UI
+    GNE_ATTR_FROM_BUSSTOP,
+    GNE_ATTR_FROM_TRAINSTOP,
+    GNE_ATTR_FROM_CONTAINERSTOP,
+    GNE_ATTR_FROM_CHARGINGSTATION,
+    GNE_ATTR_FROM_PARKINGAREA,
+    GNE_ATTR_FROM_ROUTE,
+    GNE_ATTR_IS_ROUNDABOUT,
+    GNE_ATTR_FRONTELEMENT,
+    /// @brief virtual attribute used for use edges within during TAZ creation
+    GNE_ATTR_EDGES_WITHIN,
+    /// @brief no common attributes
+    GNE_ATTR_NOCOMMON,
     // @}
 
     /// @name train parameters
@@ -1539,8 +1939,11 @@ enum SumoXMLAttr {
     SUMO_ATTR_MESO_TLS_PENALTY,
     SUMO_ATTR_MESO_TLS_FLOW_PENALTY,
     SUMO_ATTR_MESO_MINOR_PENALTY,
-    SUMO_ATTR_MESO_OVERTAKING
+    SUMO_ATTR_MESO_OVERTAKING,
     // @}
+
+    /// @brief invalid attribute, must be the last one
+    SUMO_ATTR_NOTHING,
 };
 
 /*
@@ -1619,6 +2022,16 @@ enum class ParkingType {
     ONROAD = 0,
     OFFROAD = 1,
     OPPORTUNISTIC = 2
+};
+
+/**
+ * @enum ChargeType
+ * @brief Charging types of charging stations
+ */
+enum class ChargeType {
+    NORMAL = 0,
+    BATTERY_ECHANGE = 1,
+    FUEL = 2,
 };
 
 /// @brief algorithms for computing right of way
@@ -1859,12 +2272,14 @@ enum LaneChangeAction {
 enum class LaneChangeModel {
     DK2008,
     LC2013,
+    LC2013_CC,
     SL2015,
     DEFAULT
 };
 
 /// @enum train types
 enum class TrainType {
+    CUSTOM,
     NGT400,
     NGT400_16,
     RB425,
@@ -1888,6 +2303,203 @@ enum class POIIcon {
     NONE = 0,
 };
 
+/// @brief Exclude empty
+enum class ExcludeEmpty {
+    TRUES,
+    FALSES,
+    DEFAULTS,
+};
+
+/// @brief Reference position
+enum class ReferencePosition {
+    LEFT,
+    RIGHT,
+    CENTER,
+};
+
+/// @brief XML extension
+enum class XMLFileExtension {
+    XML,
+    ALL,
+};
+
+/// @brief TXT extension
+enum class TXTFileExtension {
+    TXT,
+    ALL,
+};
+
+/// @brief CSV extension
+enum class CSVFileExtension {
+    CSV,
+    ALL,
+};
+
+/// @brief OSG extension
+enum class OSGFileExtension {
+    OSG,
+    ALL,
+};
+
+/// @brief image extension
+enum class ImageFileExtension {
+    IMG,
+    GIF,
+    BMP,
+    XPM,
+    PCX,
+    ICO,
+    RGB,
+    XBM,
+    TGA,
+    PNG,
+    JPG,
+    TIF,
+    PS,
+    EPS,
+    PDF,
+    SVG,
+    TEX,
+    PGF,
+    ALL,
+};
+
+/// @brief image and video extension
+enum class ImageVideoFileExtension {
+    IMG,
+    VIDEO,
+    H264,
+    HEVC,
+    MP4,
+    GIF,
+    BMP,
+    XPM,
+    PCX,
+    ICO,
+    RGB,
+    XBM,
+    TGA,
+    PNG,
+    JPG,
+    TIF,
+    PS,
+    EPS,
+    PDF,
+    SVG,
+    TEX,
+    PGF,
+    ALL,
+};
+
+/// @brief output file extension
+enum class OutputFileExtension {
+    XML,
+    TXT,
+    ALL,
+};
+
+/// @brief view settings file extension
+enum class ViewSettingsFileExtension {
+    XML,
+    ALL,
+};
+
+/// @brief State file extension
+enum class StateFileExtension {
+    XML_GZ,
+    XML,
+    ALL,
+};
+
+/// @brief sumo file extension
+enum class SumoConfigFileExtension {
+    SUMOCONF,
+    XML,
+    ALL,
+};
+
+/// @brief netedit file extension
+enum class NeteditConfigFileExtension {
+    NETECFG,
+    XML,
+    ALL,
+};
+
+/// @brief netconvert file extension
+enum class NetconvertConfigFileExtension {
+    NETCCFG,
+    XML,
+    ALL,
+};
+
+/// @brief OSM file extension
+enum class OSMFileExtension {
+    OSM,
+    XML,
+    ALL,
+};
+
+/// @brief net file extension
+enum class NetFileExtension {
+    NET_XML,
+    XML,
+    ALL,
+};
+
+/// @brief TLS file extension
+enum class TLSFileExtension {
+    TTL_XML,
+    XML,
+    ALL,
+};
+
+/// @brief Junction file extension
+enum class JunctionFileExtension {
+    NOD_XML,
+    XML,
+    ALL,
+};
+
+/// @brief Edge type file extension
+enum class EdgeTypeFileExtension {
+    TYP_XML,
+    XML,
+    ALL,
+};
+
+/// @brief additional file extension
+enum class AdditionalFileExtension {
+    ADD_XML,
+    XML,
+    ALL,
+};
+
+/// @brief additional file extension
+enum class ShapesFileExtension {
+    XML,
+    ALL,
+};
+
+/// @brief route file extension
+enum class RouteFileExtension {
+    ROU_XML,
+    XML,
+    ALL,
+};
+
+/// @brief edge data file extension
+enum class EdgeDataFileExtension {
+    XML,
+    ALL,
+};
+
+/// @brief mean data file extension
+enum class MeanDataFileExtension {
+    ADD,
+    XML,
+    ALL,
+};
+
 // @}
 
 /**
@@ -1898,16 +2510,16 @@ class SUMOXMLDefinitions {
 
 public:
     /// @brief The names of SUMO-XML elements (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry tags[];
+    static SequentialStringBijection::Entry tags[];
 
     /// @brief The names of SUMO-XML attributes (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry attrs[];
+    static SequentialStringBijection::Entry attrs[];
 
     /// @brief The names of SUMO-XML elements for use in netbuild
-    static StringBijection<int> Tags;
+    static SequentialStringBijection Tags;
 
     /// @brief The names of SUMO-XML attributes for use in netbuild
-    static StringBijection<int> Attrs;
+    static SequentialStringBijection Attrs;
 
     /// @name Special values of SUMO-XML attributes
     /// @{
@@ -1923,6 +2535,9 @@ public:
 
     /// @brief parking types
     static StringBijection<ParkingType> ParkingTypes;
+
+    /// @brief charge type
+    static StringBijection<ChargeType> ChargeTypes;
 
     /// @brief righ of way algorithms
     static StringBijection<RightOfWay> RightOfWayValues;
@@ -1962,6 +2577,79 @@ public:
 
     /// @brief POI icon values
     static StringBijection<POIIcon> POIIcons;
+
+    /// @brief exclude empty values
+    static StringBijection<ExcludeEmpty> ExcludeEmptys;
+
+    /// @brief reference positions (used creating certain elements in netedit)
+    static StringBijection<ReferencePosition> ReferencePositions;
+
+    /// @brief XML file Extensions
+    static StringBijection<XMLFileExtension> XMLFileExtensions;
+
+    /// @brief TXT file Extensions
+    static StringBijection<TXTFileExtension> TXTFileExtensions;
+
+    /// @brief CSV file Extensions
+    static StringBijection<CSVFileExtension> CSVFileExtensions;
+
+    /// @brief OSG file Extensions
+    static StringBijection<OSGFileExtension> OSGFileExtensions;
+
+    /// @brief image file extensions
+    static StringBijection<ImageFileExtension> ImageFileExtensions;
+
+    /// @brief image and videofile extensions
+    static StringBijection<ImageVideoFileExtension> ImageVideoFileExtensions;
+
+    /// @brief output file extensions
+    static StringBijection<OutputFileExtension> OutputFileExtensions;
+
+    /// @brief view settings file extensions
+    static StringBijection<ViewSettingsFileExtension> ViewSettingsFileExtensions;
+
+    /// @brief state file extensions
+    static StringBijection<StateFileExtension> StateFileExtensions;
+
+    /// @brief sumo config file extensions
+    static StringBijection<SumoConfigFileExtension> SumoConfigFileExtensions;
+
+    /// @brief netedit config file extensions
+    static StringBijection<NeteditConfigFileExtension> NeteditConfigFileExtensions;
+
+    /// @brief netconvert config file extensions
+    static StringBijection<NetconvertConfigFileExtension> NetconvertConfigFileExtensions;
+
+    /// @brief OSM file extensions
+    static StringBijection<OSMFileExtension> OSMFileExtensions;
+
+    /// @brief net file extensions
+    static StringBijection<NetFileExtension> NetFileExtensions;
+
+    /// @brief TLS file extensions
+    static StringBijection<TLSFileExtension> TLSFileExtensions;
+
+    /// @brief juntion file extensions
+    static StringBijection<JunctionFileExtension> JunctionFileExtensions;
+
+    /// @brief edge file extensions
+    static StringBijection<EdgeTypeFileExtension> EdgeTypeFileExtensions;
+
+    /// @brief additional file extensions
+    static StringBijection<AdditionalFileExtension> AdditionalFileExtensions;
+
+    /// @brief additional file extensions
+    static StringBijection<ShapesFileExtension> ShapesFileExtensions;
+
+    /// @brief route file extensions
+    static StringBijection<RouteFileExtension> RouteFileExtensions;
+
+    /// @brief edgedata file extensions
+    static StringBijection<EdgeDataFileExtension> EdgeDataFileExtensions;
+
+    /// @brief mean data file extensions
+    static StringBijection<MeanDataFileExtension> MeanDataFileExtensions;
+
     /// @}
 
     /// @name Helper functions for ID-string manipulations
@@ -2000,6 +2688,11 @@ public:
     /// @brief whether the given string is a valid key for a parameter
     static bool isValidParameterKey(const std::string& value);
 
+    /// @brief transform the given string into a valid id for a network element (or any other id)
+    // Replaces all invalid characters for a netID by an underscore, this may violate uniqueness!
+    // Since the netID has the most restrictions, the resulting ID should be valid for the other use cases too
+    static std::string makeValidID(const std::string& value);
+
     /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea
     static std::string getJunctionIDFromInternalEdge(const std::string internalEdge);
 
@@ -2008,6 +2701,7 @@ public:
 
     /// @brief return lane index when given the lane ID
     static int getIndexFromLane(const std::string laneID);
+
     /// @}
 
     /// @brief all allowed characters for phase state
@@ -2028,6 +2722,9 @@ private:
 
     /// @brief lane spread function values
     static StringBijection<ParkingType>::Entry parkingTypeValues[];
+
+    /// @brief charge type values
+    static StringBijection<ChargeType>::Entry chargeTypeValues[];
 
     /// @brief lane spread function values
     static StringBijection<RightOfWay>::Entry rightOfWayValuesInitializer[];
@@ -2067,6 +2764,78 @@ private:
 
     /// @brief POI icon values
     static StringBijection<POIIcon>::Entry POIIconValues[];
+
+    /// @brief Exclude empty values
+    static StringBijection<ExcludeEmpty>::Entry excludeEmptyValues[];
+
+    /// @brief Reference position values
+    static StringBijection<ReferencePosition>::Entry referencePositionValues[];
+
+    /// @brief XML file extension values
+    static StringBijection<XMLFileExtension>::Entry XMLFileExtensionValues[];
+
+    /// @brief TXT file extension values
+    static StringBijection<TXTFileExtension>::Entry TXTFileExtensionValues[];
+
+    /// @brief CSV file extension values
+    static StringBijection<CSVFileExtension>::Entry CSVFileExtensionValues[];
+
+    /// @brief OSG file extension values
+    static StringBijection<OSGFileExtension>::Entry OSGFileExtensionValues[];
+
+    /// @brief image file extension values
+    static StringBijection<ImageFileExtension>::Entry imageFileExtensionValues[];
+
+    /// @brief image and video file extension values
+    static StringBijection<ImageVideoFileExtension>::Entry imageVideoFileExtensionValues[];
+
+    /// @brief output file extension values
+    static StringBijection<OutputFileExtension>::Entry outputFileExtensionValues[];
+
+    /// @brief view settings file extension values
+    static StringBijection<ViewSettingsFileExtension>::Entry viewSettingsFileExtensionValues[];
+
+    /// @brief state file extension values
+    static StringBijection<StateFileExtension>::Entry stateFileExtensionValues[];
+
+    /// @brief sumo config file extension values
+    static StringBijection<SumoConfigFileExtension>::Entry sumoConfigFileExtensionValues[];
+
+    /// @brief netedit config file extension values
+    static StringBijection<NeteditConfigFileExtension>::Entry neteditConfigFileExtensionValues[];
+
+    /// @brief netconvert config file extension values
+    static StringBijection<NetconvertConfigFileExtension>::Entry netconvertConfigFileExtensionValues[];
+
+    /// @brief OSM file extension values
+    static StringBijection<OSMFileExtension>::Entry osmFileExtensionValues[];
+
+    /// @brief net file extension values
+    static StringBijection<NetFileExtension>::Entry netFileExtensionValues[];
+
+    /// @brief TLS file extension values
+    static StringBijection<TLSFileExtension>::Entry TLSFileExtensionValues[];
+
+    /// @brief junction file extension values
+    static StringBijection<JunctionFileExtension>::Entry junctionFileExtensionValues[];
+
+    /// @brief edge file extension values
+    static StringBijection<EdgeTypeFileExtension>::Entry edgeTypeFileExtensionValues[];
+
+    /// @brief additional file extension values
+    static StringBijection<AdditionalFileExtension>::Entry additionalFileExtensionValues[];
+
+    /// @brief additional file extension values
+    static StringBijection<ShapesFileExtension>::Entry shapesFileExtensionValues[];
+
+    /// @brief route file extension values
+    static StringBijection<RouteFileExtension>::Entry routeFileExtensionsValues[];
+
+    /// @brief edge data file extension values
+    static StringBijection<EdgeDataFileExtension>::Entry edgeDataFileExtensionsValues[];
+
+    /// @brief mean data file extension values
+    static StringBijection<MeanDataFileExtension>::Entry meanDataFileExtensionsValues[];
 
     /// @}
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -18,7 +18,6 @@
 # import common functions for netedit tests
 import os
 import sys
-import time
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
@@ -36,30 +35,14 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # use a rectangle to select central elements
-netedit.selectionRectangle(referencePosition, 30, 0, 370, 350)
+netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleMediumA,
+                           netedit.positions.selection.rectangleMediumB)
 
-# invert selection to select only extern nodes and delete it
+# invert selected elements
 netedit.selectionInvert()
+
+# delete selected elements
 netedit.deleteSelectedItems()
-
-# extra wait for debug
-time.sleep(3)
-
-# check undo and redo
-netedit.undo(referencePosition, 1)
-
-# extra wait for debug
-time.sleep(3)
-
-netedit.redo(referencePosition, 1)
-
-# extra wait for debug
-time.sleep(3)
-
-netedit.redo(referencePosition, 1)
-
-# extra wait for debug
-time.sleep(3)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -16,8 +16,12 @@ network stored in "my_shape_files.shp", "my_shape_files.shx",
 "my_shape_files.proj", and "my_shape_files.dbf":
 
 ```
-netconvert --shapefile-prefix my_shape_files
+netconvert --shapefile-prefix my_shape_files
 ```
+
+**netconvert** supports [virtual file systems](https://gdal.org/en/latest/user/virtual_file_systems.html) when
+importing shape files. So if you have your shapes in myshapes.zip and the main file has the name arcview.shp
+you can import them via `netconvert --shapefile /vsizip/myshapes.zip/arcview` (**--shapefile** is an alias to **--shapefile-prefix**).
 
 Unfortunately, shape files describe how information is stored
 physically, but neither which is stored nor how the entries of the
@@ -62,17 +66,17 @@ are the ones that are used by NavTeq.
 
 Some shape file databases do not contain explicit information about the
 edges' attributes (number of lanes, priority, allowed speed) at all. It
-is possible use [SUMO edge type file](../../SUMO_edge_type_file.md)
-for describing the edges' attributes. In this case, the column to
+is possible to use [SUMO edge type file](../../SUMO_edge_type_file.md)
+to describe the edges' attributes. In this case, the column to
 retrieve an according street's type name from must be named using **--shapefile.type-id** {{DT_IDList}} and a
 [SUMO edge type file](../../SUMO_edge_type_file.md) must be given to
 [netconvert](../../netconvert.md) using **--type-files** {{DT_FILE}}. If something fails with the
-types or the explicit values, it can be catched using **--shapefile.use-defaults-on-failure**. In these cases,
+types or the explicit values, it can be caught using **--shapefile.use-defaults-on-failure**. In these cases,
 the default [netconvert](../../netconvert.md) values are used. Besides
 this, it is possible to load own [connection
 descriptions](../../Networks/PlainXML.md#connection_descriptions).
 
-If edge length is not specified, the length is computed based on the provided geometry.
+If the edge length is not specified, the length is computed based on the provided geometry.
 
 !!! note
     One can insert own attributes into the database using a GIS. This means, one can also insert own fields for the number of lanes, priority, or allowed speed, naming them as described above.
@@ -123,9 +127,9 @@ As a begin, we try to import the road graph. We use the information we
 have found and apply a projection:
 
 ```
-netconvert -v --shapefile-prefix tl_2008_36061_edges -o net.net.xml \
-   --shapefile.from-id TNIDF --shapefile.to-id TNIDT --arcview.street-id tlid \
-   --shapefile.use-defaults-on-failure
+netconvert -v --shapefile-prefix tl_2008_36061_edges -o net.net.xml \
+   --shapefile.from-id TNIDF --shapefile.to-id TNIDT --arcview.street-id tlid \
+   --shapefile.use-defaults-on-failure
 ```
 
 As a result, we obtain the network shown below.
@@ -221,9 +225,9 @@ looked quite messy. After having played with geocoordinate projections,
 this was fixed. So the call (so far) looks like this:
 
 ```
-netconvert --arcview strassen -o frida.net.xml \
-  --arcview.street-id strShapeID -t frida.typ.xml \
-  --arcview.type-id strTypID --use-projection
+netconvert --arcview strassen -o frida.net.xml \
+  --arcview.street-id strShapeID -t frida.typ.xml \
+  --arcview.type-id strTypID --use-projection
 ```
 
 ### Data Quality
@@ -240,7 +244,7 @@ reality, as the next picture shows:
 on-/off-ramps**
 
 Furthermore, all streets are unidirectional - even highways. This makes
-the network not usable for traffic simulations when left in the orignal
+the network not usable for traffic simulations when left in the original
 state. Trying to convert the network with **--arcview.all-bidi**, that means trying to insert
 edges bidirectional, makes the city usable, but the highways are even
 worse, now, because also the on-/off-ramps are bidirectional, then...

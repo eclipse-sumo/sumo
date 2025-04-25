@@ -1,0 +1,3 @@
+Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1.
+Warning: Vehicle 'horizontal.0'; junction collision with vehicle 'vertical.0', lane=':0_13_0', gap=-1.00, time=2.50, stage=move.
+Warning: Vehicle 'horizontal.2'; junction collision with vehicle 'vertical.2', lane=':0_13_0', gap=-1.00, time=12.50, stage=move.

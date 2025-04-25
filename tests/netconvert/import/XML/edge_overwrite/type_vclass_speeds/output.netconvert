@@ -1,10 +1,10 @@
 Parsing types from 'input_types.typ.xml' ... done.
 Parsing nodes from 'input_nodes.nod.xml' ... done.
 Parsing edges from 'input_edges.edg.xml' ... done.
-Parsing edges from 'input_edges2.edg.xml' ... 
+Parsing edges from 'input_edges2.edg.xml' ...
 Duplicate edge id occurred ('1fi'); assuming overwriting is wished.
-Edge '1fi' changed it's type; assuming type override is wished.
-done.
+Edge '1fi' changed its type; assuming type override is wished.
+ done.
  Import done:
    5 nodes loaded.
    4 types loaded.
@@ -30,7 +30,7 @@ Computing traffic light control information ... done (0ms).
 Computing node logics ... done (0ms).
 Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
-Building inner edges ... done (0ms).
+Building inner edges ... done (1ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -42,5 +42,5 @@ Summary:
   Applied offset     : 500.00,500.00
   Converted boundary : 0.00,0.00,1000.00,1000.00
 -----------------------------------------------------
-Writing network ... done (3ms).
+Writing network ... done (2ms).
 Success.

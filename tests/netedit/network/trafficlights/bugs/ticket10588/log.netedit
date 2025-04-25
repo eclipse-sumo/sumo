@@ -1,0 +1,14 @@
+Warning: Found sharp turn with radius 7.48 at the end of edge '194895343#0'.
+Warning: Shape for junction '206191829' has distance 35.88 to its given position.
+Warning: Speed of straight connection '194895343#0_0->192530508#0_0' reduced by 5.49 due to turning radius of 12.84 (length=3.87, angle=33.42).
+Warning: Found sharp turn with radius 7.48 at the end of edge '194895343#0'.
+Warning: Shape for junction '206191829' has distance 35.88 to its given position.
+Warning: Lane '22917233#0_1' is not connected from any incoming edge at junction 'cluster_665725993_cluster_206191823_206191824'.
+Warning: Speed of straight connection '194895343#0_0->192530508#0_0' reduced by 5.49 due to turning radius of 12.84 (length=3.87, angle=33.42).
+Warning: Found sharp turn with radius 7.48 at the end of edge '194895343#0'.
+Warning: Shape for junction '206191829' has distance 35.88 to its given position.
+Warning: Speed of straight connection '194895343#0_0->192530508#0_0' reduced by 5.49 due to turning radius of 12.84 (length=3.87, angle=33.42).
+Warning: Found sharp turn with radius 7.48 at the end of edge '194895343#0'.
+Warning: Shape for junction '206191829' has distance 35.88 to its given position.
+Warning: Speed of straight connection '194895343#0_0->192530508#0_0' reduced by 5.49 due to turning radius of 12.84 (length=3.87, angle=33.42).
+Warning: Unused state in tlLogic 'cluster_31358103_567607181_cluster_1867580179_2255293396', program '0' at tl-index 15

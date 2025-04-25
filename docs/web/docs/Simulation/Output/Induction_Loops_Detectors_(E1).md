@@ -28,9 +28,9 @@ level of tags like so:
 
 ```xml
 <additional>
-  <inductionLoop id="myLoop1" lane="foo_0" pos="42" period="900" file="out.xml"/>
-  <inductionLoop id="myLoop2" lane="foo_2" pos="42" period="900" file="out.xml"/>
-  ....
+  <inductionLoop id="myLoop1" lane="foo_0" pos="42" period="900" file="out.xml"/>
+  <inductionLoop id="myLoop2" lane="foo_2" pos="42" period="900" file="out.xml"/>
+  ....
 </additional>
 ```
 
@@ -45,8 +45,10 @@ The attributes:
 | **file**       | filename           | The path to the output file. See [Writing Files](../../Basics/Using_the_Command_Line_Applications.md#writing_files) for further information.                                                                                                                                         |
 | friendlyPos    | bool     | If set, no error will be reported if the detector is placed behind the lane. Instead, the detector will be placed 0.1 meters from the lane's end or at position 0.1, if the position was negative and larger than the lane's length after multiplication with -1; *default: false*.    |
 | vTypes         | string   | space separated list of vehicle type ids to consider, "" means all; default "".                       |
+| nextEdges      | stringList | list of edge ids that must all be part of the future route of the vehicle to qualify for detection (default *empty*)  |
 | detectPersons  | string   | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)  |
 | length         | float    | length of the detection zone downstream of **pos** (default *0*)                       |
+
 
 ## Generated Output
 
@@ -69,7 +71,7 @@ The values are described in the following table.
 | id                | id                   | The id of the detector                                                  |
 | nVehContrib       | \#vehicles           | The number of vehicles that have completely passed the detector within the interval               |
 | flow              | \#vehicles/hour      | The number of contributing vehicles extrapolated to an hour                    |
-| occupancy         | %                    | The percentage (0-100%) of the time a vehicle was at the detector. If multiple vehicles are on the detector simulataneously (due to its length or in sublane simulation), values above 100 are possible)    |
+| occupancy         | %                    | The percentage (0-100%) of the time a vehicle was at the detector. If multiple vehicles are on the detector simultaneously (due to its length or in sublane simulation), values above 100 are possible)    |
 | speed             | m/s                  | The arithmetic mean of the velocities of all completely collected vehicles (-1 indicates that no vehicles were collected). This gives the time mean speed.      |
 | harmonicMeanSpeed | m/s                  | The harmonic mean of the velocities of all completely collected vehicles (-1 indicates that no vehicles were collected). This gives the space mean speed.       |
 | length            | m                    | The mean length of all completely collected vehicles (-1 indicates that no vehicles were collected).          |

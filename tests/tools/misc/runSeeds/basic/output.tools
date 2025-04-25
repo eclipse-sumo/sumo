@@ -1,13 +1,14 @@
-Loading net-file from 'net.net.xml' ... done (13ms).
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_14_1+1669-6cb392621b9 started with time: 0.00.
-Simulation ended at time: 18.00
+Simulation version v1_21_0+1570-8eaf427e473 started with time: 0.00.
+Simulation ended at time: 18.00.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.07s
- Real time factor: 246.575
- UPS: 232.876712
-Vehicles: 
+Performance:
+ Duration: 0.00s
+ Real time factor: 6000
+ UPS: 5666.666667
+Vehicles:
  Inserted: 1
  Running: 0
  Waiting: 0
@@ -18,17 +19,17 @@ Statistics (avg of 1):
  WaitingTime: 0.00
  TimeLoss: 1.57
  DepartDelay: 0.00
-
-Loading net-file from 'net.net.xml' ... done (29ms).
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_14_1+1669-6cb392621b9 started with time: 0.00.
-Simulation ended at time: 74.00
+Simulation version v1_21_0+1570-8eaf427e473 started with time: 0.00.
+Simulation ended at time: 74.00.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.06s
- Real time factor: 1298.25
- UPS: 1280.701754
-Vehicles: 
+Performance:
+ Duration: 0.00s
+ Real time factor: 18500
+ UPS: 18250.000000
+Vehicles:
  Inserted: 1
  Running: 0
  Waiting: 0
@@ -39,17 +40,17 @@ Statistics (avg of 1):
  WaitingTime: 0.00
  TimeLoss: 10.27
  DepartDelay: 0.00
-
-Loading net-file from 'net.net.xml' ... done (42ms).
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_14_1+1669-6cb392621b9 started with time: 0.00.
-Simulation ended at time: 40.00
+Simulation version v1_21_0+1570-8eaf427e473 started with time: 0.00.
+Simulation ended at time: 40.00.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.06s
- Real time factor: 701.754
- UPS: 684.210526
-Vehicles: 
+Performance:
+ Duration: 0.00s
+ Real time factor: 10000
+ UPS: 9750.000000
+Vehicles:
  Inserted: 1
  Running: 0
  Waiting: 0
@@ -60,7 +61,6 @@ Statistics (avg of 1):
  WaitingTime: 0.00
  TimeLoss: 6.67
  DepartDelay: 0.00
-
 running seed 1
 running seed 2
 running seed 3

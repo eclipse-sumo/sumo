@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-02-05 12:31:08 by Eclipse SUMO netconvert Version v1_22_0+0027-a8e364b3506
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="86.96,35.51" convBoundary="0.00,0.00,172.29,26.09" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="E0" from="J0" to="J1" priority="-1">
+        <lane id="E0_0" index="0" speed="27.78" length="49.71" shape="1.21,21.29 45.15,20.77"/>
+        <lane id="E0_1" index="1" speed="27.78" length="49.71" shape="1.25,24.49 45.19,23.97"/>
+    </edge>
+    <edge id="E1" from="J1" to="J2" priority="-1">
+        <lane id="E1_0" index="0" speed="27.78" length="81.99" acceleration="1" shape="48.28,17.25 120.52,17.88"/>
+        <lane id="E1_1" index="1" speed="27.78" length="81.99" shape="48.25,20.45 120.49,21.08" changeRight="authority"/>
+        <lane id="E1_2" index="2" speed="27.78" length="81.99" shape="48.22,23.65 120.46,24.28"/>
+    </edge>
+    <edge id="E2" from="J2" to="J3" priority="-1">
+        <lane id="E2_0" index="0" speed="27.78" length="47.83" shape="128.48,21.11 172.29,21.11"/>
+        <lane id="E2_1" index="1" speed="27.78" length="47.83" shape="128.48,24.31 172.29,24.31"/>
+    </edge>
+    <edge id="E3" from="J4" to="J1" priority="-1">
+        <lane id="E3_0" index="0" speed="27.78" length="50.40" shape="0.61,-1.48 44.51,16.55"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="1.27" y="26.09" incLanes="" intLanes="" shape="1.27,26.09 1.19,19.69"/>
+    <junction id="J1" type="priority" x="61.78" y="25.37" incLanes="E3_0 E0_0 E0_1" intLanes="" shape="48.21,25.25 48.29,15.65 47.08,15.63 46.66,15.59 46.25,15.49 45.76,15.32 45.12,15.07 43.90,18.03 45.25,18.65 45.58,18.87 45.66,19.03 45.52,19.13 45.13,19.17 45.21,25.57 46.32,25.47 46.71,25.40 47.10,25.32 47.57,25.27">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
+    </junction>
+    <junction id="J2" type="priority" x="124.46" y="25.91" incLanes="E1_0 E1_1 E1_2" intLanes="" shape="128.48,25.91 128.48,19.51 125.46,18.68 124.50,17.91 123.54,17.13 122.31,16.53 120.53,16.28 120.45,25.88">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="J3" type="dead_end" x="172.29" y="25.91" incLanes="E2_0 E2_1" intLanes="" shape="172.29,19.51 172.29,25.91"/>
+    <junction id="J4" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.00 1.22,-2.96"/>
+
+    <connection from="E0" to="E1" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="E0" to="E1" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from="E1" to="E2" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="E1" to="E2" fromLane="2" toLane="1" dir="s" state="M"/>
+    <connection from="E3" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

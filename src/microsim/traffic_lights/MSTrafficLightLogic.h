@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,6 +42,7 @@ class MSLink;
 class MSTLLogicControl;
 class MSDetectorFileOutput;
 class NLDetectorBuilder;
+class MSDriveWay;
 
 
 // ===========================================================================
@@ -378,6 +379,16 @@ public:
         return std::map<std::string, double>();
     }
 
+    /// @brief return activation state of a specific detector that affect this traffic light
+    virtual double getDetectorState(const std::string) const {
+        return 0.0;
+    }
+
+    /// @brief return the estimated queue length at the upcoming traffic light
+    virtual double getTLQueueLength(const std::string) const {
+        return 0.0;
+    }
+
     /// @brief return all named conditions defined for this traffic light
     virtual std::map<std::string, double> getConditions() const {
         return std::map<std::string, double>();
@@ -399,6 +410,18 @@ public:
     virtual VehicleVector getPriorityVehicles(int linkIndex) {
         UNUSED_PARAMETER(linkIndex);
         return VehicleVector();
+    }
+
+    /// @brief return vehicles that approach the intersection/rail signal and have priority over vehicles that wish to pass the given linkIndex
+    virtual std::vector<const MSDriveWay*> getBlockingDriveWays(int linkIndex) {
+        UNUSED_PARAMETER(linkIndex);
+        return std::vector<const MSDriveWay*>();
+    }
+
+    /// @brief return vehicles that approach the intersection/rail signal and have priority over vehicles that wish to pass the given linkIndex
+    virtual std::string getRequestedDriveWay(int linkIndex) {
+        UNUSED_PARAMETER(linkIndex);
+        return "";
     }
 
     /** @brief Saves the current tls states into the given stream

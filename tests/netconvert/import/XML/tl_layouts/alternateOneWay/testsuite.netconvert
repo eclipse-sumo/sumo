@@ -2,7 +2,19 @@
 simple
 
 # two tls along a road
+simple_actuated
+
+# two tls along a road
 option
 
 # three tls along a road
 three_arms
+
+# three tls along a road
+crossings
+
+# there is an uncontrolled node within the joined tls
+corridor
+
+# there is an in-between node which is controlled
+corridor_controlled

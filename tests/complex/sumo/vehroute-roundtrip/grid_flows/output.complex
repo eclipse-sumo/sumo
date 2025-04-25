@@ -1,48 +1,48 @@
-Loading net-file from 'input_net.net.xml' ... done (50ms).
+Loading net-file from 'input_net.net.xml' ... done (20ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_17_0+0804-da7df96 started with time: 0.00.
-Simulation ended at time: 1470.00
+Simulation version v1_22_0+1261-45c241feb42 started with time: 0.00.
+Simulation ended at time: 1475.00.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 3.15s
- Real time factor: 467.409
- UPS: 77916.693164
-Vehicles: 
+Performance:
+ Duration: 0.55s
+ Real time factor: 2681.82
+ UPS: 448430.909091
+Vehicles:
  Inserted: 832
  Running: 0
  Waiting: 0
 Statistics (avg of 832):
- RouteLength: 1180.18
+ RouteLength: 1178.07
  Speed: 4.32
- Duration: 294.53
- WaitingTime: 138.12
- TimeLoss: 206.51
- DepartDelay: 8.34
-
-DijkstraRouter answered 4565 queries and explored 61.16 edges on average.
-DijkstraRouter spent 0.34s answering queries (0.07ms on average).
-Loading net-file from 'input_net.net.xml' ... done (37ms).
+ Duration: 296.44
+ WaitingTime: 137.99
+ TimeLoss: 208.55
+ DepartDelay: 5.64
+DijkstraRouter answered 4562 queries and explored 60.32 edges on average.
+DijkstraRouter spent 0.04s answering queries (0.01ms on average).
+Loading net-file from 'input_net.net.xml' ... done (10ms).
+Loading route-files incrementally from 'vr.xml'
 Loading done.
-Simulation version v1_17_0+0804-da7df96 started with time: 0.00.
-Simulation ended at time: 1470.00
+Simulation version v1_22_0+1261-45c241feb42 started with time: 0.00.
+Simulation ended at time: 1475.00.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 2.28s
- Real time factor: 643.89
- UPS: 107335.961454
-Vehicles: 
+Performance:
+ Duration: 0.44s
+ Real time factor: 3367.58
+ UPS: 563098.173516
+Vehicles:
  Inserted: 832
  Running: 0
  Waiting: 0
 Statistics (avg of 832):
- RouteLength: 1180.18
+ RouteLength: 1178.07
  Speed: 4.32
- Duration: 294.53
- WaitingTime: 138.12
- TimeLoss: 206.51
+ Duration: 296.44
+ WaitingTime: 137.99
+ TimeLoss: 208.55
  DepartDelay: 0.00
-
-<     <performance clockBegin="1686145470.82" clockEnd="1686145473.97" clockDuration="3.15" traciDuration="0.00" realTimeFactor="467.41" vehicleUpdatesPerSecond="77916.69" personUpdatesPerSecond="0.00" begin="0.00" end="1470.00" duration="1470.00"/>
->     <performance clockBegin="1686145474.05" clockEnd="1686145476.34" clockDuration="2.28" traciDuration="0.79" realTimeFactor="643.89" vehicleUpdatesPerSecond="107335.96" personUpdatesPerSecond="0.00" begin="0.00" end="1470.00" duration="1470.00"/>
-<     <vehicleTripStatistics count="832" routeLength="1180.18" speed="4.32" duration="294.53" waitingTime="138.12" timeLoss="206.51" departDelay="8.34" departDelayWaiting="-1.00" totalTravelTime="245048.00" totalDepartDelay="6941.00"/>
->     <vehicleTripStatistics count="832" routeLength="1180.18" speed="4.32" duration="294.53" waitingTime="138.12" timeLoss="206.51" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="245048.00" totalDepartDelay="0.00"/>
+<     <performance clockBegin="1743745597.51" clockEnd="1743745598.06" clockDuration="0.55" traciDuration="0.00" realTimeFactor="2681.82" vehicleUpdatesPerSecond="448430.91" personUpdatesPerSecond="0.00" begin="0.00" end="1475.00" duration="1475.00"/>
+>     <performance clockBegin="1743745598.09" clockEnd="1743745598.53" clockDuration="0.44" traciDuration="0.00" realTimeFactor="3367.58" vehicleUpdatesPerSecond="563098.17" personUpdatesPerSecond="0.00" begin="0.00" end="1475.00" duration="1475.00"/>
+<     <vehicleTripStatistics count="832" routeLength="1178.07" speed="4.32" duration="296.44" waitingTime="137.99" timeLoss="208.55" departDelay="5.64" departDelayWaiting="-1.00" totalTravelTime="246637.00" totalDepartDelay="4692.00"/>
+>     <vehicleTripStatistics count="832" routeLength="1178.07" speed="4.32" duration="296.44" waitingTime="137.99" timeLoss="208.55" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="246637.00" totalDepartDelay="0.00"/>

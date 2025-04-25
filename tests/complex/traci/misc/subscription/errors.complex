@@ -1,0 +1,68 @@
+Error: Answered with error to command 0xaf: Get BusStop Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xdf: Could not add subscription. Get BusStop Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x27: Get Calibrator Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x57: Could not add subscription. Get Calibrator Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x25: Get ChargingStation Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x55: Could not add subscription. Get ChargingStation Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xaa: Get Edge Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xda: Could not add subscription. Get Edge Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xa0: Get Induction Loop Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xd0: Could not add subscription. Get Induction Loop Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xa9: Get Junction Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xd9: Could not add subscription. Get Junction Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xa3: Get Lane Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xd3: Could not add subscription. Get Lane Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xad: Get Lane Area Detector Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xdd: Could not add subscription. Get Lane Area Detector Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x2a: Get MeanData Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x5a: Could not add subscription. Get MeanData Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xa1: Get Multi Entry Exit Detector Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xd1: Could not add subscription. Get Multi Entry Exit Detector Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x2b: Get OverheadWire Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x5b: Could not add subscription. Get OverheadWire Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x24: Get ParkingArea Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x54: Could not add subscription. Get ParkingArea Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xde: Missing parameter for subscription 0xde
+Error: Answered with error to command 0xae: Get Person Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xde: Could not add subscription. Get Person Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xa7: Get PoI Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xd7: Could not add subscription. Get PoI Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xa8: Get Polygon Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xd8: Could not add subscription. Get Polygon Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x28: Get Rerouter Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x58: Could not add subscription. Get Rerouter Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xa6: Get Route Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xd6: Could not add subscription. Get Route Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x26: Get RouteProbe Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x56: Could not add subscription. Get RouteProbe Variable: unsupported variable 0x80 specified
+Error: Requested command not implemented (0xdb): Unsupported command specified
+Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
+Error: Requested command not implemented (0xdb): Unsupported command specified
+Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
+Error: Requested command not implemented (0xdb): Unsupported command specified
+Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
+Error: Requested command not implemented (0xdb): Unsupported command specified
+Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
+Error: Answered with error to command 0xab: Unknown bus stop ''.
+Error: Answered with error to command 0xdb: Could not add subscription. Unknown bus stop ''.
+Error: Answered with error to command 0xab: Unknown bus stop ''.
+Error: Answered with error to command 0xdb: Could not add subscription. Unknown bus stop ''.
+Error: Requested command not implemented (0xdb): Unsupported command specified
+Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
+Error: Requested command not implemented (0xdb): Unsupported command specified
+Error: Answered with error to command 0xdb: Could not add subscription. Unsupported command specified
+Error: Answered with error to command 0xab: Get Simulation Variable: unsupported variable 0x01 specified
+Error: Answered with error to command 0xdb: Could not add subscription. Get Simulation Variable: unsupported variable 0x01 specified
+Error: Answered with error to command 0xab: Get Simulation Variable: unsupported variable 0x00 specified
+Error: Answered with error to command 0xdb: Could not add subscription. Get Simulation Variable: unsupported variable 0x00 specified
+Error: Requested command not implemented (0xd2): Unsupported command specified
+Error: Answered with error to command 0xd2: Could not add subscription. Unsupported command specified
+Error: Answered with error to command 0xa2: Get TLS Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xd2: Could not add subscription. Get TLS Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x29: Get VariableSpeedSign Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0x59: Could not add subscription. Get VariableSpeedSign Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xd4: Missing parameter for subscription 0xd4
+Error: Answered with error to command 0xa4: Get Vehicle Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xd4: Could not add subscription. Get Vehicle Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xa5: Get Vehicle Type Variable: unsupported variable 0x80 specified
+Error: Answered with error to command 0xd5: Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80 specified

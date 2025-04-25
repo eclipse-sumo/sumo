@@ -1,0 +1,2 @@
+-e input_plain.edg.xml -n input_plain.nod.xml -x input_plain.con.xml
+--ignore-errors.edge-type

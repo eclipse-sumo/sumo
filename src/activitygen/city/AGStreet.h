@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials are made available under the
@@ -59,12 +59,12 @@ public:
          * @param[in] priority The edge priority (road class)
          * @return A proper instance of the named edge
          */
-        ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to, const int priority) {
-            return new AGStreet(name, from, to, getNextIndex(), priority);
+        ROEdge* buildEdge(const std::string& name, RONode* from, RONode* to, const int priority, const std::string& type) {
+            return new AGStreet(name, from, to, getNextIndex(), priority, type);
         }
     };
 
-    AGStreet(const std::string& id, RONode* from, RONode* to, int index, const int priority);
+    AGStreet(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type);
 
     /** @brief Provides the number of persons living in this street.
      *

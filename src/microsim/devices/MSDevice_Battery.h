@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 /// @file    MSDevice_Battery.h
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
+/// @author  Mirko Barthauer
 /// @date    20-12-13
 ///
 // The Battery parameters for the vehicle
@@ -24,6 +25,7 @@
 #include <microsim/devices/MSVehicleDevice.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include <utils/common/LinearApproxHelpers.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -44,6 +46,7 @@ class MSDevice_StationFinder;
  */
 class MSDevice_Battery : public MSVehicleDevice {
 public:
+
     /** @brief Inserts MSDevice_Example-options
     * @param[filled] oc The options container to add the options to
     */
@@ -76,33 +79,52 @@ public:
     *
     * @return True (always).
     */
-    bool notifyMove(SUMOTrafficObject& veh, double oldPos,  double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos,  double newPos, double newSpeed) override;
     /// @}
 
     /// @brief return the name for this type of device
-    const std::string deviceName() const {
+    const std::string deviceName() const override {
         return "battery";
     }
 
+    /** @brief Saves the state of the device
+     *
+     * @param[in] out The OutputDevice to write the information into
+     */
+    void saveState(OutputDevice& out) const override;
+
+    /** @brief Loads the state of the device from the given description
+     *
+     * @param[in] attrs XML attributes describing the current state
+     */
+    void loadState(const SUMOSAXAttributes& attrs) override;
+
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
-    std::string getParameter(const std::string& key) const;
+    std::string getParameter(const std::string& key) const override;
 
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
-    void setParameter(const std::string& key, const std::string& value);
+    void setParameter(const std::string& key, const std::string& value) override;
 
     /// @brief called to update state for parking vehicles
-    void notifyParking();
+    void notifyParking() override;
+
+    /// @brief Called on vehicle deletion to extend tripinfo
+    void generateOutput(OutputDevice* tripinfoOut) const override;
 
 private:
     /** @brief Constructor
     *
     * @param[in] holder The vehicle that holds this device
     * @param[in] id The ID of the device
-    * @param[in] period The period with which a new route shall be searched
-    * @param[in] preInsertionPeriod The route search period before insertion
+    * @param[in] actualBatteryCapacity The current battery capacity
+    * @param[in] maximumBatteryCapacity The maximum battery capacity
+    * @param[in] stoppingThreshold The speed below which charging may happen
+    * @param[in] maximumChargeRate The maximum charging rate allowed by the battery control
+    * @param[in] chargeLevelTable The axis values of the charge curve
+    * @param[in] chargeCurveTable The charge curve state of charge values
     */
     MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
-                     const double stoppingThreshold);
+                     const double stoppingThreshold, const double maximumChargeRate, const std::string& chargeLevelTable, const std::string& chargeCurveTable);
 
 public:
     /// @brief Get the actual vehicle's Battery Capacity in Wh
@@ -122,6 +144,9 @@ public:
 
     /// @brief Get charging start time.
     SUMOTime getChargingStartTime() const;
+
+    /// @brief Estimate the charging duration given the current battery state
+    SUMOTime estimateChargingDuration(const double toCharge, const double csPower) const;
 
     /// @brief Get consum
     double getConsum() const;
@@ -144,6 +169,15 @@ public:
     /// @brief Get stopping threshold
     double getStoppingThreshold() const;
 
+    /// @brief Get current charge rate in W depending on the state of charge
+    double getMaximumChargeRate() const;
+
+    /// @brief Whether the battery device is actually used as a tank of a combustion vehicle
+    bool tracksFuel() const;
+
+    /// @brief Get the charge type
+    MSChargingStation::ChargeType getChargeType() const;
+
     /// @brief Set actual vehicle's Battery Capacity in kWh
     void setActualBatteryCapacity(const double actualBatteryCapacity);
 
@@ -152,6 +186,12 @@ public:
 
     /// @brief Set vehicle's stopping threshold
     void setStoppingThreshold(const double stoppingThreshold);
+
+    /// @brief Set vehicle's stopping threshold
+    void setMaximumChargeRate(const double chargeRate);
+
+    /// @brief Set (temporary) charge limit
+    void setChargeLimit(const double limit);
 
     /// @brief Reset charging start time
     void resetChargingStartTime();
@@ -178,6 +218,12 @@ protected:
     /// @brief Parameter, stopping vehicle threshold [myStoppingThreshold >= 0]
     double myStoppingThreshold;
 
+    /// @brief Parameter, maximum charge rate in W
+    double myMaximumChargeRate;
+
+    /// @brief (Temporary) limitation in W of the maximum charge rate = charging strategy result
+    double myChargeLimit;
+
     /// @brief Parameter, Vehicle's last angle
     double myLastAngle;
 
@@ -187,7 +233,7 @@ protected:
     /// @brief Parameter, Flag: Vehicles it's charging in transit (by default is false)
     bool myChargingInTransit;
 
-    /// @brief Parameter, Moment, wich the vehicle has beging to charging
+    /// @brief Parameter, Moment, which the vehicle has beging to charging
     SUMOTime myChargingStartTime;
 
     /// @brief Parameter, Vehicle consum during a time step (by default is 0.)
@@ -198,6 +244,9 @@ protected:
 
     /// @brief Parameter, total vehicle energy regeneration
     double myTotalRegenerated;
+
+    /// @brief Charge curve data points storage
+    LinearApproxHelpers::LinearApproxMap myChargeCurve;
 
     /// @brief Parameter, Pointer to current charging station in which vehicle is placed (by default is NULL)
     MSChargingStation* myActChargingStation;
@@ -211,8 +260,15 @@ protected:
     /// @brief Parameter, How many timestep the vehicle is stopped
     int myVehicleStopped;
 
+    /// @brief Count how many times the vehicle experienced a depleted battery
+    int myDepletedCount;
+
     /// @brief whether to track fuel consumption instead of electricity
     bool myTrackFuel;
+
+    /// @brief the accepted charge type
+    MSChargingStation::ChargeType myChargeType;
+
 
 private:
     /// @brief Invalidated copy constructor.

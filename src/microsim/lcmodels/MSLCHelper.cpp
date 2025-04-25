@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -62,6 +62,10 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
                   << "\n";
     }
 #endif
+    if (neigh.lane == inner.lane && curr.bestContinuations.size() < neigh.bestContinuations.size()) {
+        // the current lane does not continue to the roundabout and we need a strategic change first.
+        return 0;
+    }
 
     int roundaboutJunctionsAhead = 0;
     bool enteredRoundabout = false;
@@ -202,7 +206,12 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
     const double bonus = roundaboutJunctionsAhead * 7.5;
     const double relativeJam = (occupancyOuter - occupancyInner + bonus) / (maxOccupancy + bonus);
     // no bonus if the inner lane or the left lane entering the roundabout is jammed
-    const double jamFactor = MAX2(0.0, relativeJam);
+    double jamFactor = MAX2(0.0, relativeJam);
+    if (veh.getLane()->getEdge().isRoundabout() && curr.lane->getIndex() > neigh.lane->getIndex()) {
+        // only use jamFactor when deciding to move to the inside lane but prefer
+        // staying inside if the distance allows it
+        jamFactor = 1;
+    }
     const double result = distanceInRoundabout * jamFactor * bonusParam * 9; // the 9 is abitrary and only there for backward compatibility
 #ifdef DEBUG_WANTS_CHANGE
     if (debugVehicle) {

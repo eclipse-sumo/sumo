@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,20 +15,17 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 ///
-//
+// multi entry-exit (E3) detector
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEAdditional.h"
 
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEMultiEntryExitDetector
- * Class for multy Entry/multy Exits detectors
- */
+
 class GNEMultiEntryExitDetector : public GNEAdditional, public Parameterised {
 
 public:
@@ -36,21 +33,26 @@ public:
     GNEMultiEntryExitDetector(GNENet* net);
 
     /**@brief GNEMultiEntryExitDetector Constructor
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] id The name of the multi entry exit detector
+     * @param[in] net net in which this polygon is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] pos position (center) of the detector in the map
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
-     * @param[in] filename The path to the output file
+     * @param[in] outputFilename The path to the output file
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
+     * @param[in] nextEdges list of edge ids that must all be part of the future route of the vehicle to qualify for detection
+     * @param[in] detectPersons detect persons instead of vehicles (pedestrians or passengers)
      * @param[in] name E3 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+     * @param[in] openEntry enable or disable open Entry
      * @param[in] expectedArrival Whether no warning should be issued when a vehicle arrives within the detector area
      * @param[in] parameters generic parameters
      */
-    GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
-                              const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
-                              double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters);
+    GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const std::string& filename, const Position pos, const SUMOTime freq, const std::string& outputFilename,
+                              const std::vector<std::string>& vehicleTypes, const std::vector<std::string>& nextEdges, const std::string& detectPersons,
+                              const std::string& name, const SUMOTime timeThreshold, const double speedThreshold, const bool openEntry,
+                              const bool expectedArrival, const Parameterised::Map& parameters);
 
     /// @brief GNEMultiEntryExitDetector Destructor
     ~GNEMultiEntryExitDetector();
@@ -167,16 +169,25 @@ protected:
     SUMOTime myPeriod = 0;
 
     /// @brief fielname of E3 detector
-    std::string myFilename;
+    std::string myOutputFilename;
 
     /// @brief attribute vehicle types
     std::vector<std::string> myVehicleTypes;
+
+    /// @brief next edges
+    std::vector<std::string> myNextEdges;
+
+    /// @brief detect persons
+    std::string myDetectPersons;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     SUMOTime myTimeThreshold = 0;
 
     /// @brief The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
     double mySpeedThreshold = 0;
+
+    /// @brie open entry
+    bool myOpenEntry = false;
 
     /// @brief flag for enable/disable expected arrival
     bool myExpectedArrival = false;

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-05 18:18:16 by Eclipse SUMO polyconvert Version v1_18_0+2421-58d8177730f
+<!-- generated on 2025-02-03 20:56:08 by Eclipse SUMO polyconvert Version v1_21_0+1830-1621789eca8
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="polyconvertConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>
@@ -88,6 +88,7 @@
             <xsd:element name="all-attributes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="poi-layer-offset" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="flatten" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

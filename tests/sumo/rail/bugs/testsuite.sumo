@@ -76,3 +76,18 @@ ticket12873
 
 # unsafe insertion
 ticket13262
+
+# crash with junction-taz
+ticket14973
+
+# collision involving rail_crossing
+ticket15658
+
+# collision without rail signals
+ticket15797
+
+# collision without rail signals (involves rail crossing)
+ticket15797b
+
+# crash
+ticket15807

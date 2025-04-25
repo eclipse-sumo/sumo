@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,7 +30,10 @@
 // ---------------------------------------------------------------------------
 // TraCIAPI-methods
 // ---------------------------------------------------------------------------
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 TraCIAPI::TraCIAPI() :
     edge(*this), gui(*this), inductionloop(*this),
     junction(*this), lane(*this), lanearea(*this), multientryexit(*this),
@@ -57,7 +60,9 @@ TraCIAPI::TraCIAPI() :
     myDomains[libsumo::RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE] = &vehicle;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE] = &vehicletype;
 }
-
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 TraCIAPI::~TraCIAPI() {
     delete mySocket;
@@ -724,6 +729,11 @@ TraCIAPI::GUIScope::trackVehicle(const std::string& viewID, const std::string& v
 // ---------------------------------------------------------------------------
 // TraCIAPI::InductionLoopScope-methods
 // ---------------------------------------------------------------------------
+
+int TraCIAPI::InductionLoopScope::getIntervalVehicleNumber(const std::string& loopID) const {
+    return getInt(libsumo::VAR_LAST_INTERVAL_NUMBER, loopID);
+}
+
 double
 TraCIAPI::InductionLoopScope::getPosition(const std::string& loopID) const {
     return getDouble(libsumo::VAR_POSITION, loopID);

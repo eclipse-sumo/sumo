@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,6 +20,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/xml/CommonXMLStructure.h>
 
@@ -28,18 +29,13 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNELane;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEPOI
- *
- * In the case the represented junction's shape is empty, the boundary
- *  is computed using the junction's position to which an offset of 1m to each
- *  side is added.
- */
+
 class GNEPOI : public PointOfInterest, public GNEAdditional {
 
 public:
@@ -50,8 +46,9 @@ public:
     GNEPOI(SumoXMLTag tag, GNENet* net);
 
     /**@brief Constructor
-     * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the POI
+     * @param[in] net net in which this polygon is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
      * @param[in] lon The position X or Lon of the POI
@@ -61,27 +58,25 @@ public:
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
-     * @param[in] relativePath set image file as relative path
      * @param[in] width The width of the POI image
      * @param[in] height The height of the POI image
      * @param[in] name POI's name
      * @param[in] parameters generic parameters
      */
-    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
-           const double yLat, const bool geo, const std::string& icon, const double layer, const double angle,
-           const std::string& imgFile, const bool relativePath, const double width, const double height,
-           const std::string& name, const Parameterised::Map& parameters);
+    GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, const double xLon,
+           const double yLat, const bool geo, const std::string& icon, const double layer, const double angle, const std::string& imgFile,
+           const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Constructor
-     * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the POI
+     * @param[in] net net in which this polygon is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
      * @param[in] icon the POI icon
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
-     * @param[in] relativePath set image file as relative path
      * @param[in] lane lane in which this POILane is placed
      * @param[in] posOverLane Position over lane in which this POILane is placed
      * @param[in] posLat Lateral position over lane
@@ -90,10 +85,9 @@ public:
      * @param[in] name POI's name
      * @param[in] parameters generic parameters
      */
-    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane,
-           const double posOverLane, const bool friendlyPos, const double posLat, const std::string& icon,
-           const double layer, const double angle, const std::string& imgFile, const bool relativePath,
-           const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
+    GNEPOI(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const RGBColor& color, GNELane* lane,
+           const double posOverLane, const bool friendlyPos, const double posLat, const std::string& icon, const double layer, const double angle,
+           const std::string& imgFile, const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPOI();
@@ -234,13 +228,26 @@ protected:
     /// @brief shape height of POI
     PositionVector myShapeHeight;
 
+    /// @brief variable used for moving contour up
+    GNEContour myMovingContourUp;
+
+    /// @brief variable used for moving contour down
+    GNEContour myMovingContourDown;
+
+    /// @brief variable used for moving contour left
+    GNEContour myMovingContourLeft;
+
+    /// @brief variable used for moving contour right
+    GNEContour myMovingContourRight;
+
 private:
     /// @brief draw POI
-    void drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawPOI(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                 const bool movingGeometryPoints) const;
 
     /// @brief calculate contour
     void calculatePOIContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                             const double exaggeration) const;
+                             const double exaggeration, const bool movingGeometryPoints) const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value) override;

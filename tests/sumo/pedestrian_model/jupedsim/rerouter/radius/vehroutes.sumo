@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-15 08:24:37 by Eclipse SUMO sumo Version v1_21_0+1830-1621789eca8
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <end value="2000"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="jupedsim"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p_0.0" depart="0.00" departPos="random" color="blue" arrival="180.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_0.5" depart="22.35" departPos="random" color="blue" arrival="181.00">
+        <walk edges="E0 E4 E5"/>
+    </person>
+
+    <person id="p_0.1" depart="4.47" departPos="random" color="blue" arrival="185.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_1.1" depart="4.87" departPos="random" color="red" arrival="206.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_1.3" depart="14.61" departPos="random" color="red" arrival="214.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_0.2" depart="8.94" departPos="random" color="blue" arrival="222.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.3" depart="13.41" departPos="random" color="blue" arrival="225.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.0" depart="0.00" departPos="random" color="red" arrival="226.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.4" depart="17.88" departPos="random" color="blue" arrival="229.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.7" depart="34.09" departPos="random" color="red" arrival="232.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_1.2" depart="9.74" departPos="random" color="red" arrival="236.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.6" depart="26.82" departPos="random" color="blue" arrival="238.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.7" depart="31.29" departPos="random" color="blue" arrival="244.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.8" depart="35.76" departPos="random" color="blue" arrival="247.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.4" depart="19.48" departPos="random" color="red" arrival="248.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.10" depart="48.70" departPos="random" color="red" arrival="249.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_0.20" depart="89.40" departPos="random" color="blue" arrival="249.00">
+        <walk edges="E0 E4 E5"/>
+    </person>
+
+    <person id="p_0.15" depart="67.05" departPos="random" color="blue" arrival="250.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_0.9" depart="40.23" departPos="random" color="blue" arrival="252.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.11" depart="53.57" departPos="random" color="red" arrival="252.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_1.5" depart="24.35" departPos="random" color="red" arrival="253.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.6" depart="29.22" departPos="random" color="red" arrival="257.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.10" depart="44.70" departPos="random" color="blue" arrival="258.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.11" depart="49.17" departPos="random" color="blue" arrival="261.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.12" depart="53.64" departPos="random" color="blue" arrival="265.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.19" depart="84.93" departPos="random" color="blue" arrival="265.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_1.8" depart="38.96" departPos="random" color="red" arrival="267.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.13" depart="58.11" departPos="random" color="blue" arrival="270.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.9" depart="43.83" departPos="random" color="red" arrival="272.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.15" depart="73.05" departPos="random" color="red" arrival="273.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_0.14" depart="62.58" departPos="random" color="blue" arrival="274.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.16" depart="71.52" departPos="random" color="blue" arrival="285.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.17" depart="75.99" departPos="random" color="blue" arrival="286.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.24" depart="107.28" departPos="random" color="blue" arrival="287.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_1.12" depart="58.44" departPos="random" color="red" arrival="288.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.13" depart="63.31" departPos="random" color="red" arrival="290.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.18" depart="80.46" departPos="random" color="blue" arrival="293.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.14" depart="68.18" departPos="random" color="red" arrival="297.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.27" depart="120.69" departPos="random" color="blue" arrival="302.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_1.16" depart="77.92" departPos="random" color="red" arrival="304.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.21" depart="93.87" departPos="random" color="blue" arrival="305.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.17" depart="82.79" departPos="random" color="red" arrival="310.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.22" depart="98.34" departPos="random" color="blue" arrival="311.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.23" depart="112.01" departPos="random" color="red" arrival="311.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_1.18" depart="87.66" departPos="random" color="red" arrival="314.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.23" depart="102.81" departPos="random" color="blue" arrival="314.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.30" depart="134.10" departPos="random" color="blue" arrival="317.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_1.19" depart="92.53" departPos="random" color="red" arrival="318.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.25" depart="121.75" departPos="random" color="red" arrival="319.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_0.25" depart="111.75" departPos="random" color="blue" arrival="322.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.20" depart="97.40" departPos="random" color="red" arrival="323.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.26" depart="116.22" departPos="random" color="blue" arrival="327.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.33" depart="147.51" departPos="random" color="blue" arrival="330.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E5 E6"/>
+    </person>
+
+    <person id="p_1.21" depart="102.27" departPos="random" color="red" arrival="331.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.22" depart="107.14" departPos="random" color="red" arrival="335.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.28" depart="125.16" departPos="random" color="blue" arrival="337.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.29" depart="129.63" departPos="random" color="blue" arrival="342.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.24" depart="116.88" departPos="random" color="red" arrival="345.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.31" depart="138.57" departPos="random" color="blue" arrival="351.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_0.32" depart="143.04" departPos="random" color="blue" arrival="354.00">
+        <walk edges="E0 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.26" depart="126.62" departPos="random" color="red" arrival="355.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.27" depart="131.49" departPos="random" color="red" arrival="358.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.28" depart="136.36" departPos="random" color="red" arrival="365.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.29" depart="141.23" departPos="random" color="red" arrival="371.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.30" depart="146.10" departPos="random" color="red" arrival="375.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.31" depart="150.97" departPos="random" color="red" arrival="378.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.32" depart="155.84" departPos="random" color="red" arrival="381.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+    <person id="p_1.33" depart="160.71" departPos="random" color="red" arrival="390.00">
+        <walk edges="E1 E4 E5"/>
+        <walk edges="E2 E3"/>
+    </person>
+
+</routes>

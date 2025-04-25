@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -198,6 +198,22 @@ Edge::getAngle(const std::string& edgeID, double relativePosition) {
     return Dom::getDouble(libsumo::VAR_ANGLE, edgeID, &content);
 }
 
+
+std::string
+Edge::getFromJunction(const std::string& edgeID) {
+    return Dom::getString(libsumo::FROM_JUNCTION, edgeID);
+}
+
+
+std::string
+Edge::getToJunction(const std::string& edgeID) {
+    return Dom::getString(libsumo::TO_JUNCTION, edgeID);
+}
+
+std::string
+Edge::getBidiEdge(const std::string& edgeID) {
+    return Dom::getString(libsumo::VAR_BIDI, edgeID);
+}
 
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 LIBTRACI_PARAMETER_IMPLEMENTATION(Edge, EDGE)

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -183,6 +183,8 @@ TEST_F(PositionVectorTest, test_method_getPolygonCenter) {
     EXPECT_DOUBLE_EQ(2, pos.x());
     EXPECT_DOUBLE_EQ(1.6, pos.y());
     Position pos2 = vectorLine->getPolygonCenter();
+    EXPECT_DOUBLE_EQ(1, pos2.x());
+    EXPECT_DOUBLE_EQ(1, pos2.y());
 }
 
 
@@ -652,4 +654,51 @@ TEST_F(PositionVectorTest, test_method_isClockwiseOriented) {
     EXPECT_FALSE(vectorTrianglePositiveCoords->isClockwiseOriented());
     EXPECT_FALSE(vectorTriangleNegativeCoords->isClockwiseOriented());
     EXPECT_FALSE(vectorRectangleOriginAlignedCorners->isClockwiseOriented());
+}
+
+
+/* Test the method 'simplified'*/
+TEST_F(PositionVectorTest, test_method_simplified) {
+    const PositionVector vec1(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result = vec1.simplified();
+    EXPECT_EQ(3, (int)result.size());
+    const PositionVector vec2(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result2 = vec2.simplified();
+    EXPECT_EQ(4, (int)result2.size());
+    const PositionVector vec3(std::vector<Position> {Position(1, 2), Position(1, 3), Position(1, 4), Position(1, 5)});
+    const PositionVector result3 = vec3.simplified();
+    // std::cout << result3 << std::endl;
+    EXPECT_EQ(3, (int)result3.size());
+
+    const PositionVector vec4(std::vector<Position> {Position(0, 0), Position(0, 8), Position(NUMERICAL_EPS / 2., 7), Position(NUMERICAL_EPS, 6), Position(3. * NUMERICAL_EPS / 2., 5),
+                              Position(2. * NUMERICAL_EPS, 4), Position(3. * NUMERICAL_EPS / 2., 3), Position(NUMERICAL_EPS, 2), Position(NUMERICAL_EPS / 2., 1)
+                                                    });
+    const PositionVector result4 = vec4.simplified();
+    EXPECT_EQ(3, (int)result4.size());
+}
+
+
+/* Test the method 'simplified2'*/
+TEST_F(PositionVectorTest, test_method_simplified2) {
+    const PositionVector vec1(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result = vec1.simplified2(true);
+    EXPECT_EQ(2, (int)result.size());
+    const PositionVector vec2(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result2 = vec2.simplified2(true);
+    EXPECT_EQ(2, (int)result2.size());
+    const PositionVector vec3(std::vector<Position> {Position(1, 2), Position(1, 3), Position(1, 4), Position(1, 5)});
+    const PositionVector result3 = vec3.simplified2(true);
+    // std::cout << result3 << std::endl;
+    EXPECT_EQ(2, (int)result3.size());
+    EXPECT_DOUBLE_EQ(2., result3.front().y());
+    EXPECT_DOUBLE_EQ(5., result3.back().y());
+
+    const PositionVector vec4(std::vector<Position> {Position(0, 0), Position(0, 8), Position(NUMERICAL_EPS / 2., 7), Position(NUMERICAL_EPS, 6), Position(3. * NUMERICAL_EPS / 2., 5),
+                              Position(2. * NUMERICAL_EPS, 4), Position(3. * NUMERICAL_EPS / 2., 3), Position(NUMERICAL_EPS, 2), Position(NUMERICAL_EPS / 2., 1)
+                                                    });
+    const PositionVector result4 = vec4.simplified2(true);
+    EXPECT_EQ(3, (int)result4.size());
+    EXPECT_DOUBLE_EQ(0., result4.front().y());
+    EXPECT_DOUBLE_EQ(8., result4[1].y());
+    EXPECT_DOUBLE_EQ(4., result4.back().y());
 }

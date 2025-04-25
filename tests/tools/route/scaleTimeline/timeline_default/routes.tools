@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-07 14:45:11.609538 by scaleTimeLine.py v1_22_0+1324-0f33694a6a9
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0" from="D0E0" to="A1A0"/>
+    <trip id="3" depart="3610" from="A3A2" to="B1A1"/>
+    <trip id="5" depart="7210" from="C0D0" to="A4A3"/>
+    <trip id="4" depart="10800" from="E0E1" to="C2C3"/>
+    <trip id="5" depart="18010" from="C0D0" to="A4A3"/>
+</routes>

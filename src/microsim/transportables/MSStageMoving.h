@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,9 +34,9 @@
 class MSStageMoving : public MSStage {
 public:
     /// constructor
-    MSStageMoving(const std::vector<const MSEdge*>& route, const std::string& routeID, MSStoppingPlace* toStop, const double speed,
-                  const double departPos, const double arrivalPos, const double departPosLat, const int departLane, MSStageType type) :
-        MSStage(route.back(), toStop, arrivalPos, type),
+    MSStageMoving(const MSStageType type, const std::vector<const MSEdge*>& route, const std::string& routeID, MSStoppingPlace* toStop, const double speed,
+                  const double departPos, const double arrivalPos, const double departPosLat, const int departLane) :
+        MSStage(type, route.back(), toStop, arrivalPos),
         myPState(nullptr), myRoute(route), myRouteID(routeID), myRouteStep(myRoute.begin()),
         mySpeed(speed), myDepartPos(departPos),
         myDepartPosLat(departPosLat), myDepartLane(departLane) {}
@@ -79,7 +79,7 @@ public:
     double getAngle(SUMOTime now) const;
 
     /// Returns the time the container spent waiting
-    SUMOTime getWaitingTime(SUMOTime now) const;
+    SUMOTime getWaitingTime() const;
 
     /// Returns the speed of the container
     double getSpeed() const;
@@ -93,7 +93,7 @@ public:
     virtual double getMaxSpeed(const MSTransportable* const transportable = nullptr) const = 0;
 
     /// @brief move forward and return whether the transportable arrived
-    virtual bool moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = 0) = 0;
+    virtual bool moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = nullptr, const bool isReplay = false) = 0;
 
     /// @brief add the move reminders for the current lane on entry
     virtual void activateEntryReminders(MSTransportable* person, const bool isDepart = false) {
@@ -132,6 +132,20 @@ public:
 
     /// @brief interpret custom depart lane
     static const MSLane* checkDepartLane(const MSEdge* edge, SUMOVehicleClass svc, int laneIndex, const std::string& id);
+
+    bool equals(const MSStage& s) const {
+        if (!MSStage::equals(s)) {
+            return false;
+        }
+        // this is safe because MSStage already checked that the type fits
+        const MSStageMoving& sm = static_cast<const MSStageMoving&>(s);
+        return myRoute == sm.myRoute &&
+               myRouteID == sm.myRouteID &&
+               mySpeed == sm.mySpeed &&
+               myDepartPos == sm.myDepartPos &&
+               myDepartPosLat == sm.myDepartPosLat &&
+               myDepartLane == sm.myDepartLane;
+    }
 
 protected:
     /// @brief state that is to be manipulated by MSPModel

@@ -29,7 +29,7 @@ step 9
   veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
   veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
 step 10
-  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=-0.21555647713479423
+  veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
   veh=leader minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None
 step 11
   veh=ego minTTC=2.62 maxDRAC=2.59 minPET= minPPET= curTTC=None

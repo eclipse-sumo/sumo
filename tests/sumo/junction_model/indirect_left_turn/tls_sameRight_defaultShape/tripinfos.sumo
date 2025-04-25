@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-11 14:54:00 by Eclipse SUMO sumo Version v1_22_0+1441-4589f21ecde
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <collision.check-junctions value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="SE" depart="0.00" departLane="SC_1" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="110.00" arrivalLane="CE_1" arrivalPos="92.80" arrivalSpeed="13.89" duration="110.00" routeLength="189.53" waitingTime="91.00" waitingCount="2" stopTime="0.00" timeLoss="95.78" rerouteNo="0" devices="tripinfo_SE routing_SE" vType="car" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SW.0" depart="0.00" departLane="SC_0" departPos="1.70" departSpeed="5.56" departDelay="0.00" arrival="110.00" arrivalLane="CW_0" arrivalPos="92.80" arrivalSpeed="5.56" duration="110.00" routeLength="210.41" waitingTime="66.00" waitingCount="2" stopTime="0.00" timeLoss="71.38" rerouteNo="0" devices="tripinfo_SW.0 routing_SW.0" vType="bike" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SW.1" depart="1.00" departLane="SC_0" departPos="1.70" departSpeed="4.26" departDelay="0.86" arrival="111.00" arrivalLane="CW_0" arrivalPos="92.80" arrivalSpeed="5.56" duration="110.00" routeLength="210.41" waitingTime="66.00" waitingCount="2" stopTime="0.00" timeLoss="71.85" rerouteNo="0" devices="tripinfo_SW.1 routing_SW.1" vType="bike" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SW.2" depart="2.00" departLane="SC_0" departPos="1.70" departSpeed="2.91" departDelay="1.72" arrival="113.00" arrivalLane="CW_0" arrivalPos="92.80" arrivalSpeed="5.56" duration="111.00" routeLength="210.41" waitingTime="66.00" waitingCount="2" stopTime="0.00" timeLoss="72.32" rerouteNo="0" devices="tripinfo_SW.2 routing_SW.2" vType="bike" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SW.3" depart="3.00" departLane="SC_0" departPos="1.70" departSpeed="0.31" departDelay="2.57" arrival="114.00" arrivalLane="CW_0" arrivalPos="92.80" arrivalSpeed="5.56" duration="111.00" routeLength="210.41" waitingTime="65.00" waitingCount="2" stopTime="0.00" timeLoss="72.79" rerouteNo="0" devices="tripinfo_SW.3 routing_SW.3" vType="bike" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SW.4" depart="6.00" departLane="SC_0" departPos="1.70" departSpeed="1.92" departDelay="5.43" arrival="116.00" arrivalLane="CW_0" arrivalPos="92.80" arrivalSpeed="5.56" duration="110.00" routeLength="210.41" waitingTime="64.00" waitingCount="2" stopTime="0.00" timeLoss="71.26" rerouteNo="0" devices="tripinfo_SW.4 routing_SW.4" vType="bike" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SW.5" depart="8.00" departLane="SC_0" departPos="1.70" departSpeed="2.57" departDelay="7.29" arrival="117.00" arrivalLane="CW_0" arrivalPos="92.80" arrivalSpeed="5.56" duration="109.00" routeLength="210.41" waitingTime="64.00" waitingCount="2" stopTime="0.00" timeLoss="70.72" rerouteNo="0" devices="tripinfo_SW.5 routing_SW.5" vType="bike" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SW.6" depart="10.00" departLane="SC_0" departPos="1.70" departSpeed="3.75" departDelay="9.15" arrival="119.00" arrivalLane="CW_0" arrivalPos="92.80" arrivalSpeed="5.56" duration="109.00" routeLength="210.41" waitingTime="64.00" waitingCount="2" stopTime="0.00" timeLoss="70.19" rerouteNo="0" devices="tripinfo_SW.6 routing_SW.6" vType="bike" speedFactor="1.00" vaporized=""/>
+</tripinfos>

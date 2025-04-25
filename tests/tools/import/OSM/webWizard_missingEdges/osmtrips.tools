@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-22 13:59:44.849705 by osmWebWizard.py v1_19_0+0966-52f6d06790e
+<configuration>
+    <net-file value="/home/kobo/.texttest/tmp/tools.22Feb135941.107290/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz"/>
+    <additional-files value="/home/kobo/.texttest/tmp/tools.22Feb135941.107290/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml,/home/kobo/.texttest/tmp/tools.22Feb135941.107290/tools/import/OSM/webWizard_missingEdges/test/osm_pt.rou.xml"/>
+    <output-trip-file value="/home/kobo/.texttest/tmp/tools.22Feb135941.107290/tools/import/OSM/webWizard_missingEdges/test/osm.pedestrian.trips.xml"/>
+    <route-file value="/home/kobo/.texttest/tmp/tools.22Feb135941.107290/tools/import/OSM/webWizard_missingEdges/test/osm.pedestrian.rou.xml"/>
+    <persontrips value="True"/>
+    <persontrip.walk-opposite-factor value="0.8"/>
+    <prefix value="ped"/>
+    <trip-attributes value="modes=&quot;public&quot;"/>
+    <vehicle-class value="pedestrian"/>
+    <fringe-factor value="1"/>
+    <end value="900.0"/>
+    <insertion-density value="4.0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ped_pedestrian" vClass="pedestrian"/>
+    <person id="ped0" depart="0.00" type="ped_pedestrian">
+        <personTrip from="24279256" to="-1104403394" modes="public"/>
+    </person>
+    <person id="ped1" depart="137.47" type="ped_pedestrian">
+        <personTrip from="-33911623" to="-277345333#3" modes="public"/>
+    </person>
+    <person id="ped2" depart="274.94" type="ped_pedestrian">
+        <personTrip from="277345346" to="277345333#1" modes="public"/>
+    </person>
+    <person id="ped3" depart="412.41" type="ped_pedestrian">
+        <personTrip from="62450095" to="-1104406388" modes="public"/>
+    </person>
+    <person id="ped4" depart="549.88" type="ped_pedestrian">
+        <personTrip from="1032017021" to="-1104403394" modes="public"/>
+    </person>
+    <person id="ped5" depart="687.35" type="ped_pedestrian">
+        <personTrip from="-277345333#3" to="1104406387" modes="public"/>
+    </person>
+    <person id="ped6" depart="824.82" type="ped_pedestrian">
+        <personTrip from="-1104403394" to="-277345333#1" modes="public"/>
+    </person>
+</routes>

@@ -4,10 +4,12 @@ add_subdirectory(demand)
 add_subdirectory(data)
 
 set(netedit_frames_SRCS
-   GNEFrame.h
-   GNEFrame.cpp
-   GNEFrameAttributeModules.h
-   GNEFrameAttributeModules.cpp
+   GNEAttributesEditor.cpp
+   GNEAttributesEditor.h
+   GNEAttributesEditorRow.cpp
+   GNEAttributesEditorRow.h
+   GNEAttributesEditorType.cpp
+   GNEAttributesEditorType.h
    GNEConsecutiveSelector.cpp
    GNEConsecutiveSelector.h
    GNEDemandSelector.cpp
@@ -16,35 +18,31 @@ set(netedit_frames_SRCS
    GNEDrawingShape.h
    GNEElementTree.cpp
    GNEElementTree.h
-   GNENetworkSelector.cpp
-   GNENetworkSelector.h
+   GNEFrame.cpp
+   GNEFrame.h
+   GNEMatchAttribute.cpp
+   GNEMatchAttribute.h
    GNEOverlappedInspection.cpp
    GNEOverlappedInspection.h
    GNEPathCreator.cpp
    GNEPathCreator.h
    GNEPathLegendModule.cpp
    GNEPathLegendModule.h
+   GNEPlanCreator.cpp
+   GNEPlanCreator.h
+   GNEPlanCreatorLegend.cpp
+   GNEPlanCreatorLegend.h
+   GNEPlanSelector.cpp
+   GNEPlanSelector.h
    GNESelectorParent.cpp
    GNESelectorParent.h
+   GNETLSTable.cpp
+   GNETLSTable.h
    GNETagSelector.cpp
    GNETagSelector.h
-   GNEAttributesCreator.h
-   GNEAttributesCreator.cpp
-   GNEAttributesCreatorRow.h
-   GNEAttributesCreatorRow.cpp
-   GNEFlowEditor.h
-   GNEFlowEditor.cpp
-   GNENeteditAttributes.h
-   GNENeteditAttributes.cpp
-   GNETLSTable.h
-   GNETLSTable.cpp
-   GNEPlanSelector.h
-   GNEPlanSelector.cpp
-   GNEPlanCreator.h
-   GNEPlanCreator.cpp
-   GNEPlanCreatorLegend.h
-   GNEPlanCreatorLegend.cpp
-   )
+   GNEViewObjectSelector.cpp
+   GNEViewObjectSelector.h
+)
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})
 set_property(TARGET netedit_frames PROPERTY PROJECT_LABEL "z_netedit_frames")

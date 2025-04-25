@@ -1,6 +1,6 @@
-Parsing sumo-net from 'input_net.net.xml' ... done.
-Parsing sumo-net from 'input_net2.net.xml' ... 
-done.
+Parsing sumo-net from 'input_net.net.xml' ... done (10ms).
+Parsing sumo-net from 'input_net2.net.xml' ...
+ done (2ms).
  Import done:
    5 nodes loaded.
    33 types loaded.
@@ -12,7 +12,7 @@ Removing empty nodes ... done (0ms).
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (1ms).
+Computing node shapes ... done (0ms).
 Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
@@ -39,5 +39,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 1723.51,772.39,1953.77,1059.88
 -----------------------------------------------------
-Writing network ... done (3ms).
+Writing network ... done (0ms).
 Success.

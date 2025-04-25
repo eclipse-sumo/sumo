@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-03-18 16:05:23 by Eclipse SUMO netconvert Version v1_19_0+1376-c024bb058aa
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair.minimal value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-1117011616" name="Wuhletal" lane="-550965669_0" startPos="0.00" endPos="175.03" friendlyPos="true"/>
+    <busStop id="-1117011642" name="Strausberg Nord" lane="-550961652_0" startPos="0.00" endPos="100.99" friendlyPos="true" lines="S5"/>
+    <busStop id="-1117011644" name="Petershagen Nord" lane="-217562762_0" startPos="2263.19" endPos="2463.19" friendlyPos="true" lines="S5"/>
+    <busStop id="-1117011661" name="Hegermühle" lane="-23256161#0_0" startPos="59.49" endPos="259.49" friendlyPos="true" lines="S5"/>
+    <busStop id="-1117011687" name="Strausberg Stadt" lane="-23635777_0" startPos="1142.54" endPos="1342.54" friendlyPos="true" lines="S5"/>
+    <busStop id="-1117011739" name="Strausberg" lane="-550337516_0" startPos="0.00" endPos="200.00" friendlyPos="true" lines="S5"/>
+    <busStop id="-1117011753" name="Nöldnerplatz" lane="-30691617#2_0" startPos="0.00" endPos="164.17" friendlyPos="true"/>
+    <busStop id="-1117011763" name="Neuenhagen" lane="-140643608_0" startPos="746.71" endPos="946.71" friendlyPos="true"/>
+    <busStop id="-1117011896" name="Nöldnerplatz" lane="-136651800#3_0" startPos="0.00" endPos="160.01" friendlyPos="true"/>
+    <busStop id="-1117011926" name="Neuenhagen" lane="-140643608_0" startPos="903.62" endPos="1103.62" friendlyPos="true" lines="S5"/>
+    <busStop id="-1745157972" name="Jannowitzbrücke" lane="-377474960#1_0" startPos="0.00" endPos="157.38" friendlyPos="true"/>
+    <busStop id="-1745174995" name="Bellevue" lane="-24988543#2_0" startPos="0.00" endPos="120.90" friendlyPos="true"/>
+    <busStop id="-1745221448" name="Zoologischer Garten" lane="-273275700_0" startPos="0.00" endPos="156.74" friendlyPos="true"/>
+    <busStop id="-27411231" name="Alexanderplatz" lane="-72984377#1_0" startPos="0.00" endPos="155.42" friendlyPos="true"/>
+    <busStop id="-27411240" name="Hackescher Markt" lane="-4471817#2_0" startPos="0.00" endPos="158.67" friendlyPos="true"/>
+    <busStop id="-27412648" name="Hauptbahnhof" lane="-114919150#3_0" startPos="0.00" endPos="174.06" friendlyPos="true"/>
+    <busStop id="-4439191866" name="Ostkreuz" lane="-446682260#2_0" startPos="0.00" endPos="36.24" friendlyPos="true"/>
+    <busStop id="-4946539224" name="Jannowitzbrücke" lane="-32590419#2_0" startPos="0.00" endPos="158.92" friendlyPos="true"/>
+    <busStop id="-5316085166" name="Ostkreuz" lane="-520764261#2_0" startPos="0.00" endPos="19.92" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011604" name="Kaulsdorf" lane="396007085_0" startPos="401.78" endPos="601.78" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011616" name="Wuhletal" lane="550965669_0" startPos="0.00" endPos="175.03" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011619" name="Biesdorf" lane="4699426_0" startPos="1241.28" endPos="1441.28" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011628" name="Mahlsdorf" lane="550340843_0" startPos="0.00" endPos="164.75" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011631" name="Birkenstein" lane="36789617_0" startPos="1635.68" endPos="1835.68" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011642" name="Strausberg Nord" lane="550961652_0" startPos="0.00" endPos="100.99" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011644" name="Petershagen Nord" lane="217562762_0" startPos="1578.44" endPos="1778.44" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011659" name="Fredersdorf (bei Berlin)" lane="217562763_0" startPos="213.14" endPos="413.14" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011661" name="Hegermühle" lane="23256161#0_0" startPos="122.60" endPos="322.60" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011687" name="Strausberg Stadt" lane="23635777_0" startPos="1210.69" endPos="1410.69" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011702" name="Kaulsdorf" lane="36785394_0" startPos="1059.28" endPos="1259.28" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011722" name="Hoppegarten (Mark)" lane="36789616#0_0" startPos="3.00" endPos="203.00" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011725" name="Biesdorf" lane="36784503_0" startPos="1080.29" endPos="1280.29" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011739" name="Strausberg" lane="550337516_0" startPos="2.35" endPos="202.35" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011753" name="Nöldnerplatz" lane="30691617#2_0" startPos="0.00" endPos="164.17" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011763" name="Neuenhagen" lane="140643608_0" startPos="1512.39" endPos="1712.39" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011767" name="Fredersdorf (bei Berlin)" lane="217562764_0" startPos="196.04" endPos="396.04" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011811" name="Hoppegarten (Mark)" lane="47973407_0" startPos="223.06" endPos="423.06" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011829" name="Friedrichsfelde Ost" lane="385393643_0" startPos="0.00" endPos="186.00" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011882" name="Mahlsdorf" lane="550340846_0" startPos="0.00" endPos="167.38" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011896" name="Nöldnerplatz" lane="136651800#3_0" startPos="0.00" endPos="160.01" friendlyPos="true" lines="S5"/>
+    <busStop id="1117011926" name="Neuenhagen" lane="140643608_0" startPos="1355.47" endPos="1555.47" friendlyPos="true"/>
+    <busStop id="1117011942" name="Lichtenberg" lane="136651804#1_0" startPos="15.08" endPos="215.08" friendlyPos="true" lines="S5"/>
+    <busStop id="1745157971" name="Hackescher Markt" lane="32590640#1_0" startPos="0.00" endPos="180.87" friendlyPos="true" lines="S5"/>
+    <busStop id="1745157972" name="Jannowitzbrücke" lane="377474960#1_0" startPos="0.00" endPos="157.38" friendlyPos="true" lines="S5"/>
+    <busStop id="1745157973" name="Ostbahnhof" lane="136697960#0_0" startPos="0.00" endPos="79.43" friendlyPos="true" lines="S5"/>
+    <busStop id="1745174995" name="Bellevue" lane="24988543#2_0" startPos="0.00" endPos="120.90" friendlyPos="true" lines="S5"/>
+    <busStop id="1745174999" name="Tiergarten" lane="24654690_0" startPos="0.00" endPos="91.70" friendlyPos="true" lines="S5"/>
+    <busStop id="1745221431" name="Savignyplatz" lane="377124041#0_0" startPos="0.00" endPos="189.85" friendlyPos="true" lines="S5"/>
+    <busStop id="1745221443" name="Westkreuz" lane="28861240_0" startPos="135.06" endPos="335.06" friendlyPos="true" lines="S5"/>
+    <busStop id="1745221448" name="Zoologischer Garten" lane="273275700_0" startPos="0.00" endPos="156.74" friendlyPos="true" lines="S5"/>
+    <busStop id="1855744014" name="Birkenstein" lane="25375344_0" startPos="1971.82" endPos="2171.82" friendlyPos="true" lines="S5"/>
+    <busStop id="1920671945" name="Charlottenburg" lane="37427032#1_0" startPos="10.00" endPos="210.00" friendlyPos="true" lines="S5"/>
+    <busStop id="1920671950" name="Charlottenburg" lane="4475818_0" startPos="0.00" endPos="200.00" friendlyPos="true" lines="S5"/>
+    <busStop id="2603331695" name="Friedrichstraße" lane="25946663_0" startPos="0.00" endPos="132.47" friendlyPos="true" lines="S5"/>
+    <busStop id="27411231" name="Alexanderplatz" lane="72984377#1_0" startPos="0.00" endPos="155.42" friendlyPos="true" lines="S5"/>
+    <busStop id="27411240" name="Hackescher Markt" lane="4471817#2_0" startPos="0.00" endPos="158.67" friendlyPos="true" lines="S5"/>
+    <busStop id="27412232" name="Friedrichstraße" lane="4471821_0" startPos="0.00" endPos="139.04" friendlyPos="true" lines="S5"/>
+    <busStop id="27412648" name="Hauptbahnhof" lane="114919150#3_0" startPos="0.00" endPos="174.06" friendlyPos="true" lines="S5"/>
+    <busStop id="2781518430" name="Zoologischer Garten" lane="4490254_0" startPos="0.00" endPos="85.78" friendlyPos="true" lines="S5"/>
+    <busStop id="2813070486" name="Hauptbahnhof" lane="85258728#0_0" startPos="0.00" endPos="166.12" friendlyPos="true" lines="S5"/>
+    <busStop id="2837556545" name="Ostbahnhof" lane="136697964_0" startPos="0.00" endPos="94.29" friendlyPos="true" lines="S5"/>
+    <busStop id="29881347" name="Wuhletal" lane="550965673_0" startPos="0.00" endPos="166.81" friendlyPos="true" lines="S5"/>
+    <busStop id="320929401" name="Lichtenberg" lane="136651807_0" startPos="75.65" endPos="275.65" friendlyPos="true" lines="S5"/>
+    <busStop id="3714150030" name="Warschauer Straße" lane="654481299_0" startPos="0.00" endPos="139.89" friendlyPos="true" lines="S5"/>
+    <busStop id="3998225896" name="Savignyplatz" lane="57728648_0" startPos="0.00" endPos="136.14" friendlyPos="true" lines="S5"/>
+    <busStop id="4439191866" name="Ostkreuz" lane="446682260#2_0" startPos="0.00" endPos="36.24" friendlyPos="true" lines="S5"/>
+    <busStop id="47786602" name="Westkreuz" lane="141175716#0_0" startPos="0.00" endPos="87.83" friendlyPos="true" lines="S5"/>
+    <busStop id="4946539224" name="Jannowitzbrücke" lane="32590419#2_0" startPos="0.00" endPos="158.92" friendlyPos="true" lines="S5"/>
+    <busStop id="4946539227" name="Tiergarten" lane="4381161_0" startPos="0.00" endPos="88.58" friendlyPos="true" lines="S5"/>
+    <busStop id="4946539242" name="Bellevue" lane="24757444#0_0" startPos="0.00" endPos="118.97" friendlyPos="true" lines="S5"/>
+    <busStop id="5316085166" name="Ostkreuz" lane="520764261#2_0" startPos="0.00" endPos="19.92" friendlyPos="true"/>
+    <busStop id="574265352" name="Alexanderplatz" lane="25946659#0_0" startPos="0.00" endPos="163.07" friendlyPos="true" lines="S5"/>
+    <busStop id="6127606967" name="Warschauer Straße" lane="222917861#0_0" startPos="0.00" endPos="16.34" friendlyPos="true" lines="S5"/>
+    <busStop id="7896839337" name="Friedrichsfelde Ost" lane="385393639_0" startPos="0.00" endPos="169.49" friendlyPos="true" lines="S5"/>
+</additional>

@@ -32,7 +32,7 @@ road network stored in "berlin.osm.xml" and stores the SUMO-network
 generated from this data into "berlin.net.xml":
 
 ```
-netconvert --osm-files berlin.osm.xml -o berlin.net.xml
+netconvert --osm-files berlin.osm.xml -o berlin.net.xml
 ```
 
 OSM-data always uses WGS84 geo coordinates, which are automatically
@@ -49,7 +49,7 @@ The number of tiles given in both calls must match.
 ### Recommended [netconvert](../../netconvert.md) Options
 
 ```
- --geometry.remove --ramps.guess --junctions.join --tls.guess-signals --tls.discard-simple --tls.join --tls.default-type actuated
+ --geometry.remove --ramps.guess --junctions.join --tls.guess-signals --tls.discard-simple --tls.join --tls.default-type actuated
 ```
 
 Rationale:
@@ -183,7 +183,7 @@ Using the typemap file *typemap.xml* the following call to
 produces a Sumo-polygon file.
 
 ```
-polyconvert --net-file berlin.net.xml --osm-files berlin.osm --type-file typemap.xml -o berlin.poly.xml
+polyconvert --net-file berlin.net.xml --osm-files berlin.osm --type-file typemap.xml -o berlin.poly.xml
 ```
 
 The created polygon file *berlin.poly.xml* can then be added to a
@@ -219,8 +219,8 @@ script *osmBuild.Py*. Both scripts are located in {{SUMO}}/tools.
 The call is:
 
 ```
-osmGet.py --bbox <BOUNDING_BOX> --prefix <NAME>
-osmBuild.py --osm-file <NAME>.osm.xml  [--vehicle-classes (all|road|passenger)] [--type-file <TYPEMAP_FILE>] [--netconvert-options <OPT1,OPT2,OPT3>] [--polyconvert-options <OPT1,OPT2,OPT3>]
+osmGet.py --bbox <BOUNDING_BOX> --prefix <NAME>
+osmBuild.py --osm-file <NAME>.osm.xml  [--vehicle-classes (all|road|passenger)] [--type-file <TYPEMAP_FILE>] [--netconvert-options <OPT1,OPT2,OPT3>] [--polyconvert-options <OPT1,OPT2,OPT3>]
 ```
 
 If "road" is given as parameter, only roads usable by road vehicles are
@@ -244,8 +244,8 @@ large areas by splitting them into multiple tiles and download requests.
 In this case the calls look like this:
 
 ```
-osmGet.py --bbox <BOUNDING_BOX> --prefix <NAME> --oldapi --tiles <INT>
-osmBuild.py --oldapi-prefix <NAME --tiles <INT> [--vehicle-classes (all|road|passenger),ramps,tls] [--type-file <TYEPMAP_FILE>]
+osmGet.py --bbox <BOUNDING_BOX> --prefix <NAME> --oldapi --tiles <INT>
+osmBuild.py --oldapi-prefix <NAME --tiles <INT> [--vehicle-classes (all|road|passenger),ramps,tls] [--type-file <TYEPMAP_FILE>]
 ```
 
 # Elevation Data
@@ -260,7 +260,7 @@ When using option **--osm.elevation**, z-data is imported from [tags with `key="
 tag is not yet in wide use, tools exist to overlay OSM data with
 elevation data sources
 (https://wiki.openstreetmap.org/wiki/Srtm_to_Nodes). When using the
-osmosis-srtm pluging the option **tagName=ele** must be used since only the ['ele'
+osmosis-srtm plugin the option **tagName=ele** must be used since only the ['ele'
 tag](https://wiki.openstreetmap.org/wiki/Key:ele) is evaluated and the
 plugin would use the ['height'
 tag](https://wiki.openstreetmap.org/wiki/Key:height) by default.
@@ -333,7 +333,7 @@ junction](#junctions). However, if the junctions should stay
 separate, it is possible to at least generate a joint controller by
 setting the option **--tls.join**. For fine-tuning of joint traffic lights, the
 attribute `tl` can be [customized for individual
-nodes](#node_descriptions). The joined traffic lights get the id
+nodes](#junctions). The joined traffic lights get the id
 *joinedS_id0_id1* where *id0* and *id1* are the junction ids. If there are
 more nodes in the join than given by **--max-join-ids** (default 4)
 the id will be abbreviated to something like *joinedS_id0_id1_id2_id3_#5more*
@@ -369,13 +369,13 @@ in a separate
 file in a second run of [netconvert](../../netconvert.md):
 
 ```
-# 1. Import the OSM file to SUMO, discarding TLS information.
-netconvert --osm-files berlin.osm.xml --output-file berlin-without-tls.net.xml \
-   --osm.discard-tls
+# 1. Import the OSM file to SUMO, discarding TLS information.
+netconvert --osm-files berlin.osm.xml --output-file berlin-without-tls.net.xml \
+   --osm.discard-tls
 
-# 2. Set traffic light information.
-netconvert --sumo-net-file berlin-without-tls.net.xml --node-files tls-controlled-nodes.nod.xml \
-   --output-file berlin-with-tls.net.xml
+# 2. Set traffic light information.
+netconvert --sumo-net-file berlin-without-tls.net.xml --node-files tls-controlled-nodes.nod.xml \
+   --output-file berlin-with-tls.net.xml
 ```
 
 where **tls-controlled-nodes.nod.xml** overwrites the type of node to
@@ -415,6 +415,16 @@ When setting option **--output.street-names**, the 'name' attribute of every edg
 When setting option **--osm.all-attributes**, all OSM tags of a way are exported as [generic params](../../Simulation/GenericParameters.md) of the edge.
 If only a specific selection of tags should be imported, this can be set with option **--osm.extra-attributes**.
 
+## Railway signals
+
+By default, rail signals of category "main" and "combined" are imported. In case the region of interest doesn't provide the necessary level of detail it is possible to customize the import rules using option **--osm.railsignals**. The following values are supported
+
+- *ALL*: imports all signals (key="railway" and value="signal")
+- KEY=VALUE: imports all nodes with a tag where key is "railway:signal:KEY" and value is VALUE
+- KEY=VALUE,KEY2=VALUE2,...: as above with multiple combinations
+- KEY=: imports all nodes with a tag where key is "railway:signal:KEY" (also supports giving a list)
+- *DEFAULT*: equivalent to option value "main=,combined="
+
 # Editing OSM networks
 
 ## JOSM
@@ -428,7 +438,7 @@ deletes the nodes.
 xmlstarlet can be used like this:
 
 ```
-xmlstarlet ed -d "/osm/*[@action='delete']" < input.osm > output.osm
+xmlstarlet ed -d "/osm/*[@action='delete']" < input.osm > output.osm
 ```
 
 !!! caution
@@ -444,9 +454,9 @@ following command keeps motorways and motorway links while filtering out
 everything else:
 
 ```
-java -jar osmosis.jar --read-xml file="orginal.osm.xml" --way-key-value \
-    keyValueList="highway.motorway,highway.motorway_link" \
-    --used-node --write-xml file="filtered.osm.xml"
+java -jar osmosis.jar --read-xml file="orginal.osm.xml" --way-key-value \
+    keyValueList="highway.motorway,highway.motorway_link" \
+    --used-node --write-xml file="filtered.osm.xml"
 ```
 ## osmfilter / osmconvert
 
@@ -483,7 +493,7 @@ additional type maps from
 !!! caution
     The values in those type maps were set-up ad-hoc and are not yet verified. It would be a great help if someone would revisit and improve them. Please let us know.
 
-## Explicite Road Attributes
+## Explicit Road Attributes
 
 In case an edge contains the definition about the number of lanes
 (key="*lanes*") or the allowed speed (key="*maxspeed*"), this
@@ -504,15 +514,15 @@ For removing all edges which can not be used by passenger vehicles the
 call must be extended by:
 
 ```
---remove-edges.by-vclass hov,taxi,bus,delivery,transport,lightrail,cityrail, \
-  rail_slow,rail_fast,motorcycle,bicycle,pedestrian
+--remove-edges.by-vclass hov,taxi,bus,delivery,transport,lightrail,cityrail, \
+  rail_slow,rail_fast,motorcycle,bicycle,pedestrian
 ```
 
 For removing all edges which can not be used by road vehicles the call
 must be extended by:
 
 ```
---remove-edges.by-vclass rail_slow,rail_fast,bicycle,pedestrian
+--remove-edges.by-vclass rail_slow,rail_fast,bicycle,pedestrian
 ```
 
 ## Relationship between OSM ids and SUMO-ids
@@ -566,15 +576,15 @@ whole of Scotland) but some precautions should be taken:
 - reduce the network size with the following options
 
 ```
---no-internal-links, --keep-edges.by-vclass passenger, 
-  --remove-edges.by-type highway.track,highway.services,highway.unsurfaced
+--no-internal-links, --keep-edges.by-vclass passenger,
+  --remove-edges.by-type highway.track,highway.services,highway.unsurfaced
 ```
 
 - if you only need major roads you can reduce the network further by
   setting the option
 
 ```
---keep-edges.by-type 
+--keep-edges.by-type
   highway.motorway,highway.motorway_link,highway.trunk,highway.trunk_link,highway.primary,highway.primary_link
 ```
 
@@ -630,31 +640,31 @@ python.
 Python Example (Get OSM River Data from OSM in BBox)
 
 ```
-   import requests
-   import json
+   import requests
+   import json
 ```
-   
+
 ```
-   def getData(lsouthern-most latitude, western-most longitude, northern-most latitude, eastern-most longitude):
-     query = 'way["waterway"="river"]["ship"="yes"](bbox:%s, %s, %s, %s)' %(southern-most latitude, western-most longitude, northern-most latitude, eastern-most longitude)
-     overpass_url = "https://overpass-api.de/api/interpreter"
-     overpass_query = """
-     [out:json][timeout:25];
-     (
-       """+query+""";
-     );
-     out body;
-     >;
-     out skel qt;
-     """
-     response = requests.get(overpass_url, params={'data': overpass_query})
-     data = response.json()
-     return data, query
+   def getData(lsouthern-most latitude, western-most longitude, northern-most latitude, eastern-most longitude):
+     query = 'way["waterway"="river"]["ship"="yes"](bbox:%s, %s, %s, %s)' %(southern-most latitude, western-most longitude, northern-most latitude, eastern-most longitude)
+     overpass_url = "https://overpass-api.de/api/interpreter"
+     overpass_query = """
+     [out:json][timeout:25];
+     (
+       """+query+""";
+     );
+     out body;
+     >;
+     out skel qt;
+     """
+     response = requests.get(overpass_url, params={'data': overpass_query})
+     data = response.json()
+     return data, query
 ```
 
 Caution: If the data volume is too large, the overpass API aborts.
 
-More information about the query syntax and a GUI for testing the querys
+More information about the query syntax and a GUI for testing the queries
 can be found on the website <https://overpass-turbo.eu/>.
 
 # Importing other formats (pbf, o5m)

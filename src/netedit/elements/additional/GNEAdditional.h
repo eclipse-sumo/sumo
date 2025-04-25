@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,13 +20,11 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEHierarchicalElement.h>
-#include <utils/gui/div/GUIGeometry.h>
-#include <netedit/GNEPathManager.h>
-#include <netedit/GNEMoveElement.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEContour.h>
-#include <utils/common/Parameterised.h>
-#include <utils/geom/PositionVector.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
+#include <netedit/elements/GNEMoveElement.h>
+#include <netedit/elements/GNEPathElement.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 
@@ -34,7 +32,6 @@
 // class declarations
 // ===========================================================================
 
-class GNEViewNet;
 class GNENetworkElement;
 class GUIGLObjectPopupMenu;
 
@@ -42,58 +39,31 @@ class GUIGLObjectPopupMenu;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEAdditional
- * @brief An Element which don't belong to GNENet but has influence in the simulation
- */
-class GNEAdditional : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement {
+class GNEAdditional : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement, public GNEMoveElement {
 
 public:
     /**@brief Constructor
      * @param[in] id Gl-id of the additional element (Must be unique)
      * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] type GUIGlObjectType of additional
+     * @param[in] filename file in which this AttributeCarrier is stored
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-     * @param[in] name Additional name
-     * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
-     * @param[in] parameters generic parameters
+     * @param[in] additionalName Additional name
      */
-    GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName,
-                  const std::vector<GNEJunction*>& junctionParents,
-                  const std::vector<GNEEdge*>& edgeParents,
-                  const std::vector<GNELane*>& laneParents,
-                  const std::vector<GNEAdditional*>& additionalParents,
-                  const std::vector<GNEDemandElement*>& demandElementParents,
-                  const std::vector<GNEGenericData*>& genericDataParents);
+    GNEAdditional(const std::string& id, GNENet* net, const std::string& filename,
+                  SumoXMLTag tag, const std::string& additionalName);
 
     /**@brief Constructor for additional with parents
-     * @param[in] net pointer to GNENet of this additional element belongs
-     * @param[in] type GUIGlObjectType of additional
+     * @param[in] additionalParent pointer to additional parent
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-     * @param[in] name Additional name
-     * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
-     * @param[in] parameters generic parameters
+     * @param[in] additionalName Additional name
      */
-    GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName,
-                  const std::vector<GNEJunction*>& junctionParents,
-                  const std::vector<GNEEdge*>& edgeParents,
-                  const std::vector<GNELane*>& laneParents,
-                  const std::vector<GNEAdditional*>& additionalParents,
-                  const std::vector<GNEDemandElement*>& demandElementParents,
-                  const std::vector<GNEGenericData*>& genericDataParents);
+    GNEAdditional(GNEAdditional* additionalParent, SumoXMLTag tag, const std::string& additionalName);
 
     /// @brief Destructor
     ~GNEAdditional();
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
@@ -117,6 +87,9 @@ public:
 
     /// @brief set special color
     void setSpecialColor(const RGBColor* color);
+
+    /// @brief reset additional contour
+    void resetAdditionalContour();
 
     /// @name members and functions relative to write additionals into XML
     /// @{
@@ -184,6 +157,9 @@ public:
     /// @brief check if draw delete contour (pink/white)
     bool checkDrawDeleteContour() const;
 
+    /// @brief check if draw delete contour small (pink/white)
+    bool checkDrawDeleteContourSmall() const;
+
     /// @brief check if draw select contour (blue)
     bool checkDrawSelectContour() const;
 
@@ -239,7 +215,7 @@ public:
 
     /// @}
 
-    /// @name inherited from GNEPathManager::PathElement
+    /// @name inherited from GNEPathElement
     /// @{
 
     /// @brief compute pathElement
@@ -253,14 +229,14 @@ public:
      * @param[in] segment lane segment
      * @param[in] offsetFront front offset
      */
-    virtual void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    virtual void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment junction segment
      * @param[in] offsetFront front offset
      */
-    virtual void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    virtual void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -411,11 +387,13 @@ protected:
     void calculatePerpendicularLine(const double endLaneposition);
 
     /// @brief draw squared additional
-    void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const;
+    void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size,
+                               GUITexture texture, GUITexture selectedTexture) const;
 
     /// @brief draw listed additional
-    void drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
-                              const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const;
+    void drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX,
+                              const double extraOffsetY, const RGBColor baseCol, const RGBColor textCol, GUITexture texture,
+                              const std::string text) const;
 
     /// @brief check if draw additional extrem geometry points
     bool drawMovingGeometryPoints(const bool ignoreShift) const;
@@ -444,12 +422,6 @@ protected:
     /// @brief get JuPedSim color
     static double getJuPedSimLayer(SumoXMLTag tag);
 
-    /// @brief get GLO color
-    static GUIGlObjectType getJuPedSimGLO(SumoXMLTag tag);
-
-    /// @brief get JuPedSim icon
-    static FXIcon* getJuPedSimIcon(SumoXMLTag tag);
-
     /// @}
 
     /// @name calculate contours
@@ -457,7 +429,7 @@ protected:
 
     /// @brief calculate contour for polygons
     void calculateContourPolygons(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                  const double exaggeration, const bool contouredShape) const;
+                                  const double layer, const double exaggeration, const bool filledShape) const;
 
     /// @}
 

@@ -1,6 +1,9 @@
 # define an explicit jump (disconnect) in the route
 trip_jump
 
+# define jump as a waypoint
+trip_jump_waypoint
+
 # define an explicit jump (disconnect) in the route
 trip_jump_end
 
@@ -13,6 +16,9 @@ trip_jump_connected
 # define an explicit jump (disconnect) in the route
 jump
 
+# define an earliest end for the jump time
+jump_until
+
 # define an explicit jump (disconnect) in the route
 jump_end
 
@@ -22,8 +28,23 @@ jump2
 # define an explicit jump despite there being a possible route
 jump_connected
 
+# define an explicit jump together with a fully connected route
+jump_route_connected
+
 # define a jump where to next stop is on the same edge
 jump_same
 
 # define a jump where to next stop is on the same edge and this is the final edge
 jump_same_end
+
+# insertion must be delayed when insertion fails (rather than shifted along the route as for teleporting)
+target_occupied
+
+# stop twice on the same edge before the jump
+jump_after_double_stop
+
+# combine jumps with vias
+vias
+
+# jumping should not skip stops (#16583)
+stop_after_jump

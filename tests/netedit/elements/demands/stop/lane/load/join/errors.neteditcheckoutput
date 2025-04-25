@@ -1,0 +1,34 @@
+Error: Attribute 'join' in definition of a stop is empty.
+Warning: Teleporting vehicle 'routeFlow_2.0'; waited too long (blocked), lane='Edge2_1', time=325.00.
+Warning: Vehicle 'routeFlow_2.0' teleports beyond arrival edge 'Edge2', time=325.00.
+Warning: Vehicle 'routeFlow_2.0' skips stop on lane 'Edge2_1' time=325.00.
+Warning: Teleporting vehicle 'routeFlow_0.1'; waited too long (blocked), lane='Edge2_1', time=629.00.
+Warning: Vehicle 'routeFlow_0.1' teleports beyond arrival edge 'Edge2', time=629.00.
+Warning: Vehicle 'routeFlow_0.1' skips stop on lane 'Edge2_1' time=629.00.
+Warning: Teleporting vehicle 'routeFlow_1.1'; waited too long (blocked), lane='Edge2_1', time=935.00.
+Warning: Vehicle 'routeFlow_1.1' teleports beyond arrival edge 'Edge2', time=935.00.
+Warning: Vehicle 'routeFlow_1.1' skips stop on lane 'Edge2_1' time=935.00.
+Warning: Teleporting vehicle 'routeFlow_2.1'; waited too long (blocked), lane='Edge2_1', time=1240.00.
+Warning: Vehicle 'routeFlow_2.1' teleports beyond arrival edge 'Edge2', time=1240.00.
+Warning: Vehicle 'routeFlow_2.1' skips stop on lane 'Edge2_1' time=1240.00.
+Warning: Teleporting vehicle 'routeFlow_0.2'; waited too long (blocked), lane='Edge2_1', time=1544.00.
+Warning: Vehicle 'routeFlow_0.2' teleports beyond arrival edge 'Edge2', time=1544.00.
+Warning: Vehicle 'routeFlow_0.2' skips stop on lane 'Edge2_1' time=1544.00.
+Warning: Teleporting vehicle 'routeFlow_1.2'; waited too long (blocked), lane='Edge2_1', time=1849.00.
+Warning: Vehicle 'routeFlow_1.2' teleports beyond arrival edge 'Edge2', time=1849.00.
+Warning: Vehicle 'routeFlow_1.2' skips stop on lane 'Edge2_1' time=1849.00.
+Warning: Teleporting vehicle 'routeFlow_2.2'; waited too long (blocked), lane='Edge2_1', time=2154.00.
+Warning: Vehicle 'routeFlow_2.2' teleports beyond arrival edge 'Edge2', time=2154.00.
+Warning: Vehicle 'routeFlow_2.2' skips stop on lane 'Edge2_1' time=2154.00.
+Warning: Teleporting vehicle 'routeFlow_0.3'; waited too long (blocked), lane='Edge2_1', time=2458.00.
+Warning: Vehicle 'routeFlow_0.3' teleports beyond arrival edge 'Edge2', time=2458.00.
+Warning: Vehicle 'routeFlow_0.3' skips stop on lane 'Edge2_1' time=2458.00.
+Warning: Teleporting vehicle 'routeFlow_1.3'; waited too long (blocked), lane='Edge2_1', time=2763.00.
+Warning: Vehicle 'routeFlow_1.3' teleports beyond arrival edge 'Edge2', time=2763.00.
+Warning: Vehicle 'routeFlow_1.3' skips stop on lane 'Edge2_1' time=2763.00.
+Warning: Teleporting vehicle 'routeFlow_2.3'; waited too long (blocked), lane='Edge2_1', time=3068.00.
+Warning: Vehicle 'routeFlow_2.3' teleports beyond arrival edge 'Edge2', time=3068.00.
+Warning: Vehicle 'routeFlow_2.3' skips stop on lane 'Edge2_1' time=3068.00.
+Warning: Teleporting vehicle 'routeFlow_0.4'; waited too long (blocked), lane='Edge2_1', time=3373.00.
+Warning: Vehicle 'routeFlow_0.4' teleports beyond arrival edge 'Edge2', time=3373.00.
+Warning: Vehicle 'routeFlow_0.4' skips stop on lane 'Edge2_1' time=3373.00.

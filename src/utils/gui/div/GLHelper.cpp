@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/div/GUIGeometry.h>
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
 #ifdef _MSC_VER
 #pragma warning(disable: 4505 5219) // do not warn about unused functions and implicit float conversions
@@ -401,7 +402,6 @@ GLHelper::drawBoxLines(const PositionVector& geom,
             setColor(cols[i]);
             glTranslated(geom[i].x(), geom[i].y(), 0);
             drawFilledCircle(width, cornerDetail);
-            glEnd();
             GLHelper::popMatrix();
         }
     }
@@ -423,15 +423,9 @@ GLHelper::drawBoxLines(const PositionVector& geom1,
 
 void
 GLHelper::drawBoxLines(const PositionVector& geom, double width) {
-    int e = (int) geom.size() - 1;
-    for (int i = 0; i < e; i++) {
-        const Position& f = geom[i];
-        const Position& s = geom[i + 1];
-        drawBoxLine(f,
-                    RAD2DEG(atan2((s.x() - f.x()), (f.y() - s.y()))),
-                    f.distanceTo(s),
-                    width);
-    }
+    // first convert to GUIGeometry to avoid graphical errors with Z value (see #13992)
+    const auto geometry = GUIGeometry(geom);
+    drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width);
 }
 
 
@@ -952,11 +946,10 @@ GLHelper::drawInverseMarkings(const PositionVector& geom,
 
 void
 GLHelper::debugVertices(const PositionVector& shape, const GUIVisualizationTextSettings& settings, double scale, double layer) {
-    RGBColor color = RGBColor::randomHue();
     for (int i = 0; i < (int)shape.size(); ++i) {
         drawTextBox(toString(i), shape[i], layer,
                     settings.scaledSize(scale),
-                    color,
+                    settings.color,
                     settings.bgColor,
                     RGBColor::INVISIBLE,
                     0, 0, 0.2);

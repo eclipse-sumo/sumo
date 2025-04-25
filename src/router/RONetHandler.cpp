@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,13 +45,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty) :
+RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty, double tlsPenalty, double turnaroundPenalty) :
     SUMOSAXHandler("sumo-network"),
     myNet(net),
     myNetworkVersion(0, 0),
     myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
     myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr),
-    myMinorPenalty(minorPenalty)
+    myMinorPenalty(minorPenalty),
+    myTLSPenalty(tlsPenalty),
+    myTurnaroundPenalty(turnaroundPenalty)
 {}
 
 
@@ -199,10 +201,9 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
         toNode = new RONode(to);
         myNet.addNode(toNode);
     }
+    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentName.c_str(), ok, "");
     // build the edge
-    myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority);
-    // set the type
-    myCurrentEdge->setRestrictions(myNet.getRestrictions(attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentName.c_str(), ok, "")));
+    myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName, fromNode, toNode, priority, type);
     myCurrentEdge->setFunction(func);
 
     if (myNet.addEdge(myCurrentEdge)) {
@@ -293,6 +294,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     const int toLane = attrs.get<int>(SUMO_ATTR_TO_LANE, nullptr, ok);
     std::string dir = attrs.get<std::string>(SUMO_ATTR_DIR, nullptr, ok);
     std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, nullptr, ok, "");
+    std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, nullptr, ok, "");
     ROEdge* from = myNet.getEdge(fromID);
     ROEdge* to = myNet.getEdge(toID);
     if (from == nullptr) {
@@ -308,9 +310,22 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         throw ProcessError("invalid toLane '" + toString(toLane) + "' in connection to '" + toID + "'.");
     }
     if (myIgnoreInternal || viaID == "") {
-        from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
+        std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, nullptr, ok, "");
+        std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, nullptr, ok, "");
+        ROEdge* dummyVia = nullptr;
+        SVCPermissions permissions;
+        if (allow == "" && disallow == "") {
+            permissions = SVC_UNSPECIFIED;
+        } else {
+            myNet.setPermissionsFound();
+            // dummyVia is only needed to hold permissions
+            permissions = parseVehicleClasses(allow, disallow);
+            dummyVia = new ROEdge("dummyVia_" + from->getLanes()[fromLane]->getID() + "->" + to->getLanes()[toLane]->getID(),
+                    from->getToJunction(), from->getToJunction(), permissions);
+        }
+        from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane], dummyVia);
         from->addSuccessor(to, nullptr, dir);
-    }  else {
+    } else {
         ROEdge* const via = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(viaID));
         if (via == nullptr) {
             throw ProcessError(TLF("unknown via-edge '%' in connection", viaID));
@@ -322,6 +337,15 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         if (state == LINKSTATE_MINOR || state == LINKSTATE_EQUAL || state == LINKSTATE_STOP || state == LINKSTATE_ALLWAY_STOP) {
             via->setTimePenalty(myMinorPenalty);
         }
+        if (dir == toString(LinkDirection::TURN) || dir == toString(LinkDirection::TURN_LEFTHAND)) {
+            via->setTimePenalty(myTurnaroundPenalty);
+        }
+        if (tlID != "") {
+            via->setTimePenalty(myTLSPenalty);
+        }
+    }
+    if (to->isCrossing()) {
+        to->setTimePenalty(myTLSPenalty);
     }
 }
 
@@ -396,8 +420,8 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    ROEdge* const sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", nullptr, nullptr, 0);
-    ROEdge* const source = myEdgeBuilder.buildEdge(myCurrentName + "-source", nullptr, nullptr, 0);
+    ROEdge* const sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", nullptr, nullptr, 0, "");
+    ROEdge* const source = myEdgeBuilder.buildEdge(myCurrentName + "-source", nullptr, nullptr, 0, "");
     myNet.addDistrict(myCurrentName, source, sink);
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         const std::vector<std::string>& desc = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, myCurrentName.c_str(), ok);

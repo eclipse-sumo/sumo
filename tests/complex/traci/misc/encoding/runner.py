@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -29,8 +29,8 @@ import sumolib  # noqa
 
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
-with open("log.txt", "w", encoding="utf8") as log:
-    print("param", traci.person.getParameter("ped0", "ü"), file=log)
+with sumolib.openz("log.txt", "w") as log:
+    print(u"param", traci.person.getParameter("ped0", "ü"), file=log)
     traci.person.setParameter("ped0", "ü", "ß")
-    print("param2", traci.person.getParameter("ped0", "ü"), file=log)
+    print(u"param2", traci.person.getParameter("ped0", "ü"), file=log)
 traci.close()

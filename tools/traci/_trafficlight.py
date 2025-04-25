@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,18 @@ from .exceptions import TraCIException, deprecated, alias_param
 class Logic:
 
     def __init__(self, programID, type, currentPhaseIndex, phases=None, subParameter=None):
+        """
+        Constructs a new Logic object with the following arguments:
+          programID (string) - arbitrary
+          type (integer) - one of
+             tc.TRAFFICLIGHT_TYPE_STATIC
+             tc.TRAFFICLIGHT_TYPE_ACTUATED
+             tc.TRAFFICLIGHT_TYPE_NEMA
+             tc.TRAFFICLIGHT_TYPE_DELAYBASED
+          currentPhaseIndex (integer) - must be in range [0, len(phases) - 1]
+          phases (list of Phase objects)
+          subParameter (dictl) - corresponds to generic <param> objects
+        """
         self.programID = programID
         self.type = type
         self.currentPhaseIndex = currentPhaseIndex
@@ -122,8 +134,8 @@ def _readLinks(result):
             result.read("!B")                       # Type of Link j
             link = result.readStringList()          # Link j
             controlledLinks.append(link)
-        signals.append(controlledLinks)
-    return signals
+        signals.append(tuple(controlledLinks))
+    return tuple(signals)
 
 
 def _readConstraints(result):
@@ -144,7 +156,7 @@ def _readConstraints(result):
         for i in range(0, len(paramItems), 2):
             param[paramItems[i]] = paramItems[i + 1]
         constraints.append(Constraint(signalId, tripId, foeId, foeSignal, limit, type, mustWait, active, param))
-    return constraints
+    return tuple(constraints)
 
 
 _RETURN_VALUE_FUNC = {tc.TL_COMPLETE_DEFINITION_RYG: _readLogics,
@@ -176,9 +188,9 @@ class TrafficLightDomain(Domain):
         return self._getUniversal(tc.TL_RED_YELLOW_GREEN_STATE, tlsID)
 
     def getAllProgramLogics(self, tlsID):
-        """getAllProgramLogics(string) -> list(Logic)
+        """getAllProgramLogics(string) -> tuple(Logic)
 
-        Returns a list of Logic objects.
+        Returns a tuple of Logic objects.
         Each Logic encodes a traffic light program for the given tlsID.
         """
         return self._getUniversal(tc.TL_COMPLETE_DEFINITION_RYG, tlsID)
@@ -186,14 +198,14 @@ class TrafficLightDomain(Domain):
     getCompleteRedYellowGreenDefinition = deprecated("getCompleteRedYellowGreenDefinition")(getAllProgramLogics)
 
     def getControlledLanes(self, tlsID):
-        """getControlledLanes(string) -> c
+        """getControlledLanes(string) -> tuple(string)
 
-        Returns the list of lanes which are controlled by the named traffic light.
+        Returns the tuple of lanes which are controlled by the named traffic light.
         """
         return self._getUniversal(tc.TL_CONTROLLED_LANES, tlsID)
 
     def getControlledLinks(self, tlsID):
-        """getControlledLinks(string) -> list(list(list(string)))
+        """getControlledLinks(string) -> tuple(tuple(tuple(string)))
 
         Returns the links controlled by the traffic light, sorted by the signal index and described by giving
         the incoming, outgoing, and via lane.
@@ -229,6 +241,13 @@ class TrafficLightDomain(Domain):
         """
         return self._getUniversal(tc.TL_NEXT_SWITCH, tlsID)
 
+    def getSpentDuration(self, tlsID):
+        """getSpentDuration(string) -> double
+
+        Returns the time in seconds for which the current phase has been active
+        """
+        return self._getUniversal(tc.TL_SPENT_DURATION, tlsID)
+
     def getPhaseDuration(self, tlsID):
         """getPhaseDuration(string) -> double
 
@@ -244,37 +263,37 @@ class TrafficLightDomain(Domain):
         return self._getUniversal(tc.VAR_PERSON_NUMBER, tlsID, "i", index)
 
     def getBlockingVehicles(self, tlsID, linkIndex):
-        """getBlockingVehicles(string, int) -> int
-        Returns the list of vehicles that are blocking the subsequent block for
+        """getBlockingVehicles(string, int) -> tuple(string)
+        Returns the tuple of vehicles that are blocking the subsequent block for
         the given tls-linkIndex
         """
         return self._getUniversal(tc.TL_BLOCKING_VEHICLES, tlsID, "i", linkIndex)
 
     def getRivalVehicles(self, tlsID, linkIndex):
-        """getRivalVehicles(string, int) -> int
-        Returns the list of vehicles that also wish to enter the subsequent block for
+        """getRivalVehicles(string, int) -> tuple(string)
+        Returns the tuple of vehicles that also wish to enter the subsequent block for
         the given tls-linkIndex (regardless of priority)
         """
         return self._getUniversal(tc.TL_RIVAL_VEHICLES, tlsID, "i", linkIndex)
 
     def getPriorityVehicles(self, tlsID, linkIndex):
-        """getPriorityVehicles(string, int) -> int
-        Returns the list of vehicles that also wish to enter the subsequent block for
+        """getPriorityVehicles(string, int) -> tuple(string)
+        Returns the tuple of vehicles that also wish to enter the subsequent block for
         the given tls-linkIndex (only those with higher priority)
         """
         return self._getUniversal(tc.TL_PRIORITY_VEHICLES, tlsID, "i", linkIndex)
 
     def getConstraints(self, tlsID, tripId=""):
-        """getConstraints(string, string) -> list(Constraint)
-        Returns the list of rail signal constraints for the given rail signal.
+        """getConstraints(string, string) -> tuple(Constraint)
+        Returns the tuple of rail signal constraints for the given rail signal.
         If tripId is not "", only constraints with the given tripId are
         returned. Otherwise, all constraints are returned
         """
         return self._getUniversal(tc.TL_CONSTRAINT, tlsID, "s", tripId)
 
     def getConstraintsByFoe(self, foeSignal, foeId=""):
-        """getConstraintsByFoe(string, string) -> list(Constraint)
-        Returns the list of rail signal constraints that have the given rail
+        """getConstraintsByFoe(string, string) -> tuple(Constraint)
+        Returns the tuple of rail signal constraints that have the given rail
         signal id as their foeSignal.
         If foeId is not "", only constraints with the given foeId are
         returned. Otherwise, all constraints are returned
@@ -331,12 +350,12 @@ class TrafficLightDomain(Domain):
         self._setCmd(tc.TL_PROGRAM, tlsID, "s", programID)
 
     def getNemaPhaseCalls(self, tlsID):
-        """getNemaPhaseCalls(string) -> list(string)
+        """getNemaPhaseCalls(string) -> tuple(string)
         Get the vehicle calls for the phases.
         The output is vehicle calls (coming from the detectors) for the phases.
         """
         vehCallStr = self.getParameter(tlsID, "NEMA.phaseCall")
-        return vehCallStr.split(",")
+        return tuple(vehCallStr.split(","))
 
     def setNemaSplits(self, tlsID, splits):
         """setNemaSplits(string, list(string)) -> None
@@ -348,7 +367,7 @@ class TrafficLightDomain(Domain):
         Time 0 must be used of the phase does not exists.
         Example: “11.0 34.0 15.0 20.0 11.0 34.0 15.0 20.0" (gives total cycle length of 80s)
         """
-        if type(splits) == list:
+        if isinstance(splits, list):
             splits = ' '.join(map(str, splits))
         self.setParameter(tlsID, "NEMA.splits", splits)
 
@@ -362,7 +381,7 @@ class TrafficLightDomain(Domain):
         Time 0 must be used of the phase does not exists.
         Example: “11.0 34.0 15.0 20.0 11.0 34.0 15.0 20.0"
         """
-        if type(maxGreens) == list:
+        if isinstance(maxGreens, list):
             maxGreens = ' '.join(map(str, maxGreens))
         self.setParameter(tlsID, "NEMA.maxGreens", maxGreens)
 
@@ -400,7 +419,7 @@ class TrafficLightDomain(Domain):
         """setProgramLogic(string, Logic) -> None
 
         Sets a new program for the given tlsID from a Logic object.
-        See getCompleteRedYellowGreenDefinition.
+        See getAllProgramLogics which returns a tuple of Logic objects.
         """
         format = "tsiit"
         values = [5, logic.programID, logic.type, logic.currentPhaseIndex, len(logic.phases)]
@@ -429,8 +448,8 @@ class TrafficLightDomain(Domain):
         self._setCmd(tc.TL_CONSTRAINT_ADD, tlsID, "tsssii", 5, tripId, foeSignal, foeId, type, limit)
 
     def swapConstraints(self, tlsID, tripId, foeSignal, foeId):
-        """swapConstraints(string, string, string, string) -> list(Constraint)
-        Reverse the given constraint and return list of new constraints that
+        """swapConstraints(string, string, string, string) -> tuple(Constraint)
+        Reverse the given constraint and return a tuple of new constraints that
         were created (by swapping) to avoid deadlock.
         """
         return self._getUniversal(tc.TL_CONSTRAINT_SWAP, tlsID, "tsss", 3, tripId, foeSignal, foeId)

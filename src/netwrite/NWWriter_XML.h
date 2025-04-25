@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,6 +74,12 @@ public:
     static void writeStreetSigns(const OptionsCont& oc, NBEdgeCont& ec);
 
 private:
+    /** @brief Writes the configuration file for assempling the network from plain-xml files
+     * @param[in] oc The options to use
+     * @param[in] prefix The file name prefix
+     */
+    static void writeConfig(const OptionsCont& oc, const std::string& prefix, bool haveTypes);
+
     /** @brief Writes the nodes file
      * @param[in] oc The options to use
      * @param[in] nc The node-container from which to read data

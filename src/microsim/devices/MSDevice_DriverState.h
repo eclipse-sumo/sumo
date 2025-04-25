@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -77,22 +77,6 @@ public:
         return myDriverState;
     }
 
-private:
-    /// @name Helpers for parameter parsing
-    /// @{
-    static double getMinAwareness(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getErrorTimeScaleCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getErrorNoiseIntensityCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getSpeedDifferenceErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getSpeedDifferenceChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getHeadwayChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getHeadwayErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getFreeSpeedErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
-    static double getMaximalReactionTime(const SUMOVehicle& v, const OptionsCont& oc);
-    /// @}
-
-
 public:
     /// @brief Destructor.
     ~MSDevice_DriverState() {};
@@ -127,7 +111,7 @@ private:
                          double freeSpeedErrorCoefficient,
                          double maximalReactionTime);
 
-    /// @brief Initializeses the driver state parameters
+    /// @brief Initialises the driver state parameters
     void initDriverState();
 
 private:

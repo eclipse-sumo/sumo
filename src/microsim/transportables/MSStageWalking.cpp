@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -64,7 +64,7 @@ MSStageWalking::MSStageWalking(const std::string& personID,
                                SUMOTime walkingTime, double speed,
                                double departPos, double arrivalPos, double departPosLat, int departLane,
                                const std::string& routeID) :
-    MSStageMoving(route, routeID, toStop, speed, departPos, arrivalPos, departPosLat, departLane, MSStageType::WALKING),
+    MSStageMoving(MSStageType::WALKING, route, routeID, toStop, speed, departPos, arrivalPos, departPosLat, departLane),
     myWalkingTime(walkingTime),
     myExitTimes(nullptr),
     myInternalDistance(0) {
@@ -121,20 +121,12 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
         }
         return;
     }
+    const OptionsCont& oc = OptionsCont::getOptions();
     if (previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
         // we need to adapt to the arrival position of the vehicle unless we have an explicit access
         myDepartPos = previous->getEdgePos(now);
-        if (previous->getStageType() == MSStageType::ACCESS) {
-            const Position& lastPos = previous->getPosition(now);
-            // making a wild guess on where we actually want to depart laterally
-            const double possibleDepartPosLat = lastPos.distanceTo(previous->getEdgePosition(previous->getEdge(), myDepartPos, 0.));
-            const Position& newPos = previous->getEdgePosition(previous->getEdge(), myDepartPos, -possibleDepartPosLat); // Minus sign is here for legacy reasons.
-            if (lastPos.almostSame(newPos)) {
-                myDepartPosLat = possibleDepartPosLat;
-            } else if (lastPos.almostSame(previous->getEdgePosition(previous->getEdge(), myDepartPos, possibleDepartPosLat))) {
-                // maybe the other side of the street
-                myDepartPosLat = -possibleDepartPosLat;
-            }
+        if (oc.getString("pedestrian.model") == "jupedsim") {
+            myDepartPosLat = previous->getEdgePosLat(now);
         }
         if (myWalkingTime > 0) {
             mySpeed = computeAverageSpeed();
@@ -150,7 +142,7 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
         // we only need new move reminders if we are walking a different edge (else it is probably a rerouting)
         activateEntryReminders(person, true);
     }
-    if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
+    if (oc.getBool("vehroute-output.exit-times")) {
         myExitTimes = new std::vector<SUMOTime>();
     }
     (*myRouteStep)->addTransportable(person);
@@ -225,8 +217,9 @@ MSStageWalking::walkDistance(bool partial) const {
         }
     }
     // determine walking direction for depart and arrival
-    const int departFwdArrivalDir = MSPModel::canTraverse(MSPModel::FORWARD, myRoute);
-    const int departBwdArrivalDir = MSPModel::canTraverse(MSPModel::BACKWARD, myRoute);
+    int dummy = 0;
+    const int departFwdArrivalDir = MSPModel::canTraverse(MSPModel::FORWARD, myRoute, dummy);
+    const int departBwdArrivalDir = MSPModel::canTraverse(MSPModel::BACKWARD, myRoute, dummy);
     const bool mayStartForward = departFwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
     const bool mayStartBackward = departBwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
     const double arrivalPos = partial && myArrived < 0 ? getEdgePos(SIMSTEP) : myArrivalPos;
@@ -269,6 +262,17 @@ MSStageWalking::walkDistance(bool partial) const {
 }
 
 
+SUMOTime
+MSStageWalking::getTimeLoss(const MSTransportable* transportable) const {
+    SUMOTime timeLoss = myArrived == -1 ? 0 : getDuration() - TIME2STEPS(walkDistance(true) / getMaxSpeed(transportable));
+    if (timeLoss < 0 && timeLoss > TIME2STEPS(-0.1)) {
+        // avoid negative timeLoss due to rounding errors
+        timeLoss = 0;
+    }
+    return timeLoss;
+}
+
+
 void
 MSStageWalking::tripInfoOutput(OutputDevice& os, const MSTransportable* const person) const {
     if (!myWarnedInvalidTripinfo && MSNet::getInstance()->getPersonControl().getMovementModel()->usingShortcuts()) {
@@ -278,11 +282,7 @@ MSStageWalking::tripInfoOutput(OutputDevice& os, const MSTransportable* const pe
     const double distance = walkDistance(true);
     const double maxSpeed = getMaxSpeed(person);
     const SUMOTime duration = myArrived - myDeparted;
-    SUMOTime timeLoss = myArrived == -1 ? 0 : duration - TIME2STEPS(distance / maxSpeed);
-    if (timeLoss < 0 && timeLoss > TIME2STEPS(-0.1)) {
-        // avoid negative timeLoss due to rounding errors
-        timeLoss = 0;
-    }
+    const SUMOTime timeLoss = getTimeLoss(person);
     MSDevice_Tripinfo::addPedestrianData(distance, duration, timeLoss);
     os.openTag("walk");
     os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");
@@ -333,12 +333,15 @@ MSStageWalking::routeOutput(const bool /* isPerson */, OutputDevice& os, const b
         os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");
         os.writeAttr(SUMO_ATTR_ENDED, myArrived >= 0 ? time2string(myArrived) : "-1");
     }
+    if (OptionsCont::getOptions().getBool("vehroute-output.cost")) {
+        os.writeAttr(SUMO_ATTR_COST, getCosts());
+    }
     os.closeTag(comment);
 }
 
 
 bool
-MSStageWalking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal) {
+MSStageWalking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal, const bool isReplay) {
     ((MSEdge*)getEdge())->removeTransportable(person);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(getEdge());
     const bool arrived = myRouteStep == myRoute.end() - 1;
@@ -362,13 +365,17 @@ MSStageWalking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, in
     }
     if (arrived) {
         MSPerson* p = dynamic_cast<MSPerson*>(person);
-        if (p->hasInfluencer() && p->getInfluencer().isRemoteControlled()) {
+        if (!isReplay && p->hasInfluencer() && p->getInfluencer().isRemoteControlled()) {
             myCurrentInternalEdge = nextInternal;
             ((MSEdge*) getEdge())->addTransportable(person);
             return false;
         }
         if (myDestinationStop != nullptr) {
             myDestinationStop->addTransportable(person);
+        }
+        if (isReplay) {
+            // cannot do this in the replay device because the person might get deleted below
+            MSNet::getInstance()->getPersonControl().getMovementModel()->remove(myPState);
         }
         if (!person->proceed(MSNet::getInstance(), currentTime)) {
             MSNet::getInstance()->getPersonControl().erase(person);
@@ -382,16 +389,6 @@ MSStageWalking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, in
         myCurrentInternalEdge = nextInternal;
         ((MSEdge*) getEdge())->addTransportable(person);
         return false;
-    }
-}
-
-
-void
-MSStageWalking::activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived) {
-    MSMoveReminder::Notification notification = arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION;
-    for (MSMoveReminder* const rem : myMoveReminders) {
-        rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, t, t, true);
-        rem->notifyLeave(*person, lastPos, notification);
     }
 }
 
@@ -423,6 +420,28 @@ MSStageWalking::activateEntryReminders(MSTransportable* person, const bool isDep
             nearest->triggerRouting(*person, MSMoveReminder::NOTIFICATION_JUNCTION);
         }
         // TODO maybe removal of the reminders? Or can we rely on movetonextedge to clean everything up?
+    }
+}
+
+
+void
+MSStageWalking::activateMoveReminders(MSTransportable* person, double oldPos, double newPos, double newSpeed) {
+    for (std::vector<MSMoveReminder*>::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
+        if ((*rem)->notifyMove(*person, oldPos, newPos, newSpeed)) {
+            ++rem;
+        } else {
+            rem = myMoveReminders.erase(rem);
+        }
+    }
+}
+
+
+void
+MSStageWalking::activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived) {
+    MSMoveReminder::Notification notification = arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION;
+    for (MSMoveReminder* const rem : myMoveReminders) {
+        rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, t, t, true);
+        rem->notifyLeave(*person, lastPos, notification);
     }
 }
 

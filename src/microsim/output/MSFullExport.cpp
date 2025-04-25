@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,6 +32,8 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "MSFullExport.h"
@@ -43,11 +45,11 @@
 void
 MSFullExport::write(OutputDevice& of, SUMOTime timestep) {
     of.openTag("data") << " timestep=\"" << time2string(timestep) << "\"";
-    //Vehicles
     writeVehicles(of);
-    //Edges
+    if (MSNet::getInstance()->hasPersons()) {
+        writePersons(of);
+    }
     writeEdge(of);
-    //TrafficLights
     writeTLS(of, timestep);
     of.closeTag();
 }
@@ -57,6 +59,7 @@ void
 MSFullExport::writeVehicles(OutputDevice& of) {
     of.openTag("vehicles");
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    const bool hasEle = MSNet::getInstance()->hasElevation();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
@@ -67,17 +70,65 @@ MSFullExport::writeVehicles(OutputDevice& of) {
                     veh->getVehicleType().getEmissionClass(), veh->getSpeed(),
                     veh->getAcceleration(), veh->getSlope(),
                     veh->getEmissionParameters());
-            of.openTag("vehicle").writeAttr("id", veh->getID()).writeAttr("eclass", PollutantsInterface::getName(veh->getVehicleType().getEmissionClass()));
-            of.writeAttr("CO2", emiss.CO2).writeAttr("CO", emiss.CO).writeAttr("HC", emiss.HC).writeAttr("NOx", emiss.NOx);
-            of.writeAttr("PMx", emiss.PMx).writeAttr("fuel", emiss.fuel).writeAttr("electricity", emiss.electricity);
-            of.writeAttr("noise", HelpersHarmonoise::computeNoise(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getAcceleration()));
-            of.writeAttr("route", veh->getRoute().getID()).writeAttr("type", fclass);
+            of.openTag(SUMO_TAG_VEHICLE);
+            of.writeAttr(SUMO_ATTR_ID, veh->getID());
+            of.writeAttr(SUMO_ATTR_ECLASS, PollutantsInterface::getName(veh->getVehicleType().getEmissionClass()));
+            of.writeAttr(SUMO_ATTR_CO2, emiss.CO2);
+            of.writeAttr(SUMO_ATTR_CO, emiss.CO);
+            of.writeAttr(SUMO_ATTR_HC, emiss.HC);
+            of.writeAttr(SUMO_ATTR_NOX, emiss.NOx);
+            of.writeAttr(SUMO_ATTR_PMX, emiss.PMx);
+            of.writeAttr(SUMO_ATTR_FUEL, emiss.fuel);
+            of.writeAttr(SUMO_ATTR_ELECTRICITY, emiss.electricity);
+            of.writeAttr(SUMO_ATTR_NOISE, HelpersHarmonoise::computeNoise(veh->getVehicleType().getEmissionClass(), veh->getSpeed(), veh->getAcceleration()));
+            of.writeAttr(SUMO_ATTR_ROUTE, veh->getRoute().getID());
+            of.writeAttr(SUMO_ATTR_TYPE, fclass);
             if (microVeh != nullptr) {
-                of.writeAttr("waiting", microVeh->getWaitingSeconds());
-                of.writeAttr("lane", microVeh->getLane()->getID());
+                of.writeAttr(SUMO_ATTR_WAITING, microVeh->getWaitingSeconds());
+                of.writeAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID());
             }
-            of.writeAttr("pos", veh->getPositionOnLane()).writeAttr("speed", veh->getSpeed());
-            of.writeAttr("angle", GeomHelper::naviDegree(veh->getAngle())).writeAttr("x", veh->getPosition().x()).writeAttr("y", veh->getPosition().y());
+            of.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
+            of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
+            of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(veh->getAngle()));
+            const Position pos = veh->getPosition();
+            of.writeAttr(SUMO_ATTR_X, pos.x());
+            of.writeAttr(SUMO_ATTR_Y, pos.y());
+            if (hasEle) {
+                of.writeAttr(SUMO_ATTR_Z, pos.z());
+                of.writeAttr(SUMO_ATTR_SLOPE, veh->getSlope());
+            }
+            of.closeTag();
+        }
+    }
+    of.closeTag();
+}
+
+void
+MSFullExport::writePersons(OutputDevice& of) {
+    MSTransportableControl& tc = MSNet::getInstance()->getPersonControl();
+    const bool hasEle = MSNet::getInstance()->hasElevation();
+    of.openTag("persons");
+    for (auto it = tc.loadedBegin(); it != tc.loadedEnd(); ++it) {
+        const MSTransportable* p = it->second;
+        if (p->getCurrentStageType() != MSStageType::WAITING_FOR_DEPART) {
+            const MSEdge* e = p->getEdge();
+            const SUMOVehicle* v = p->getVehicle();
+            Position pos = p->getPosition();
+            of.openTag(SUMO_TAG_PERSON);
+            of.writeAttr(SUMO_ATTR_ID, p->getID());
+            of.writeAttr(SUMO_ATTR_X, pos.x());
+            of.writeAttr(SUMO_ATTR_Y, pos.y());
+            if (hasEle) {
+                of.writeAttr("z", pos.z());
+            }
+            of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()));
+            of.writeAttr(SUMO_ATTR_SPEED, p->getSpeed());
+            of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
+            of.writeAttr(SUMO_ATTR_EDGE, e->getID());
+            of.writeAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()));
+            of.writeAttr(SUMO_ATTR_VEHICLE, v == nullptr ? "" : v->getID());
+            of.writeAttr(SUMO_ATTR_TYPE, p->getVehicleType().getID());
+            of.writeAttr("stage", (int)p->getCurrentStageType());
             of.closeTag();
         }
     }

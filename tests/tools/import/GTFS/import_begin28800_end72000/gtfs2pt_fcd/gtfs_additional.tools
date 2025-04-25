@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-08 13:57:28.543873 by gtfs2pt.py v1_17_0+0150-25dcd21ac22
+<!-- generated on 2025-03-04 10:46:02.518378 by gtfs2pt.py v1_22_0+0624-f1872fc0220
 <configuration>
     <gtfs value="gtfs.zip"/>
     <date value="20201111"/>
     <modes value="bus"/>
     <vtype-output value="vehtypes.xml"/>
-    <begin value="28800"/>
-    <end value="72000"/>
+    <begin value="28800.0"/>
+    <end value="72000.0"/>
     <network value="net.net.xml"/>
 </configuration>
 -->
@@ -15,10 +15,10 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="132189814.0" lane="-171756596_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Staatstheater"/>
     <busStop id="132189814.1" lane="-5148300_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Rathaus"/>
-    <busStop id="132189814.2" lane="37983000_0" startPos="28.48" endPos="41.48" friendlyPos="true" name="Braunschweig Packhof"/>
+    <busStop id="132189814.2" lane="37983000_0" startPos="28.47" endPos="41.47" friendlyPos="true" name="Braunschweig Packhof"/>
     <busStop id="132189814.3" lane="30425275#0_0" startPos="29.12" endPos="42.12" friendlyPos="true" name="Braunschweig Hintern Brüdern"/>
     <busStop id="132189814.4" lane="8108069_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Altstadtmarkt"/>
-    <busStop id="132189814.5" lane="8618349#0_0" startPos="31.99" endPos="44.99" friendlyPos="true" name="Braunschweig Güldenstraße"/>
-    <busStop id="132189814.6" lane="319389908#0_0" startPos="79.29" endPos="92.29" friendlyPos="true" name="Braunschweig Südstraße"/>
+    <busStop id="132189814.5" lane="8618349#0_0" startPos="31.81" endPos="44.81" friendlyPos="true" name="Braunschweig Güldenstraße"/>
+    <busStop id="132189814.6" lane="319389908#0_0" startPos="79.21" endPos="92.21" friendlyPos="true" name="Braunschweig Südstraße"/>
     <busStop id="132189814.7" lane="127240643#2_0" startPos="0.56" endPos="13.56" friendlyPos="true" name="Braunschweig Holzhof"/>
 </additional>

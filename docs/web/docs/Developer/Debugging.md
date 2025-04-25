@@ -28,8 +28,8 @@ below any other `#include` or `#define` macros). The debugging code
 (e.g. some output to `std::cout`) should then be surrounded by
 
 ```
-#ifdef DEBUG_THIS_CODE
-    ...
+#ifdef DEBUG_THIS_CODE
+    ...
 #endif
 ```
 
@@ -49,10 +49,10 @@ you should insert a corresponding debug condition
 the debug code further as
 
 ```
-#ifdef DEBUG_THIS_CODE
-    if DEBUG_COND {
-        ...
-    }
+#ifdef DEBUG_THIS_CODE
+    if DEBUG_COND {
+        ...
+    }
 #endif
 ```
 
@@ -62,12 +62,12 @@ also define debug conditions with arguments to become a bit more
 flexible. For example:
 
 ```
-#define DEBUG_COND(x) (x != 0 && x->getID() == "my_new_ferrari")
-    ...
-#ifdef DEBUG_THIS_CODE
-    if DEBUG_COND(veh_pointer) {
-        ...
-    }
+#define DEBUG_COND(x) (x != 0 && x->getID() == "my_new_ferrari")
+    ...
+#ifdef DEBUG_THIS_CODE
+    if DEBUG_COND(veh_pointer) {
+        ...
+    }
 #endif
 ```
 
@@ -88,3 +88,14 @@ The header `utils/common/StdDefs.h` provides the String
 which was selected in the GUI, and can be used in the debugging
 conditions to obtain a dynamic debugging selection (provided the
 corresponding macro is activated).
+
+## Debugging external libraries
+
+Debugging symbols (`.pdb` files) are available **for some** of the external libraries included in [SUMOLibraries](https://github.com/DLR-TS/SUMOLibraries). To use them in Visual Studio, simply add the path of the desired symbol to the "Symbol file locations" in the Options menu. Do so by going to *Tools* > *Options...* > *Debugging* > *Symbols* and adding the path to the `.pdb` file of the desired external library as a new location (see the example image below). The `.pdb` files are usually located in the **lib** or **bin** directory, for each library.
+
+![](../images/ExternalDebuggingSymbols.png)<br>
+*Example: Adding the FOX debugging symbol*
+
+### FOX Toolkit message logging
+
+The FOX Toolkit library uses a macro to output debugging messages of varying importance. Every message gets a numeric level assigned and will get printed only in debug mode. In order to receive the messages, it is necessary to provide the command line parameter `-tracelevel <INT>` to sumo-guiD. Only messages with an assigned level below the given level will be printed to the console.

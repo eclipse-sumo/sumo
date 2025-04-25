@@ -1,0 +1,6 @@
+[run_dependent_text]
+errors:(file:)?/.*/tests/sumo/{REPLACE sumo/tests/sumo/}
+errors::ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element
+errors:Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 27{REPLACE Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 26}
+errors:File .* lxml.etree.
+errors:column ([0-9]+) \(sumo/tests/.*/([a-z\.]+){REPLACE column \1 (\2}

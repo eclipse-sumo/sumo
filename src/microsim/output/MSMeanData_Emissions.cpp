@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -54,6 +54,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::reset(bool) {
     sampleSeconds = 0.;
     travelledDistance = 0.;
     myEmissions = PollutantsInterface::Emissions();
+    resetTime = SIMSTEP;
 }
 
 
@@ -95,7 +96,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::notifyIdle(SUMOTrafficObject& veh) {
 
 void
 MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-        const double /*numLanes*/, const double /*speedLimit*/, const double defaultTravelTime, const int /*numVehicles*/) const {
+        const int /*numLanes*/, const double /*speedLimit*/, const double defaultTravelTime, const int /*numVehicles*/) const {
     const double normFactor = double(3600. / STEPS2TIME(period) / myLaneLength);
     dev.writeOptionalAttr(SUMO_ATTR_CO_ABS,          OutputDevice::realString(myEmissions.CO, 6), attributeMask);
     dev.writeOptionalAttr(SUMO_ATTR_CO2_ABS,         OutputDevice::realString(myEmissions.CO2, 6), attributeMask);

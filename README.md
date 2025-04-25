@@ -2,10 +2,10 @@
 
 Eclipse SUMO - Simulation of Urban MObility
 ===========================================
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10077626.svg )](https://doi.org/10.5281/zenodo.10077626  )
-[![Windows](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml)
-[![Linux](https://github.com/eclipse-sumo/sumo/actions/workflows/build-linux.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-linux.yml)
-[![macOS](https://github.com/eclipse-sumo/sumo/actions/workflows/build-macos.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-macos.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14796685.svg )](https://doi.org/10.5281/zenodo.14796685)
+[![Windows](https://github.com/eclipse-sumo/sumo/actions/workflows/windows.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/windows.yml)
+[![Linux](https://github.com/eclipse-sumo/sumo/actions/workflows/linux.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/linux.yml)
+[![macOS](https://github.com/eclipse-sumo/sumo/actions/workflows/macos.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/macos.yml)
 [![sonarcloud security](https://sonarcloud.io/api/project_badges/measure?project=org.eclipse.sumo&metric=security_rating)](https://sonarcloud.io/summary/overall?id=org.eclipse.sumo)
 [![Translation status](https://hosted.weblate.org/widgets/eclipse-sumo/-/svg-badge.svg)](https://hosted.weblate.org/engage/eclipse-sumo/)
 ![Repo Size](https://img.shields.io/github/repo-size/eclipse/sumo.svg)
@@ -63,9 +63,9 @@ There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and an
 If you want to build SUMO yourself, the steps for ubuntu are:
 
 ```
-sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
 cd <SUMO_DIR> # please insert the correct directory name here
 export SUMO_HOME="$PWD"
+sudo apt-get install $(cat build_config/build_req_deb.txt build_config/tools_req_deb.txt)
 cmake -B build .
 cmake --build build -j$(nproc)
 ```

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -18,16 +18,17 @@
 """
 This script converts a sumo network to GeoJSON and optionally includes edgeData
 """
-from __future__ import absolute_import
-from __future__ import print_function
+from __future__ import absolute_import, print_function
+
+import json
 import os
 import sys
-import json
 from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
+import sumolib.geomhelper as gh
 
 
 def parse_args():
@@ -54,15 +55,15 @@ def parse_args():
                     help="Append junction coordinates to edge shapes")
     op.add_argument("-b", "--boundary", dest="boundary", action="store_true", default=False,
                     help="Export boundary shapes instead of center-lines")
+    op.add_argument("-t", "--traffic-lights", action="store_true", default=False, dest="tls",
+                    help="Export traffic light geometries")
     op.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
-                    help="exports all time intervals (by default only the first is exported)")
+                    help="Exports all time intervals (by default only the first is exported)")
+    op.add_argument("-x", "--extra-attributes", action="store_true", default=False, dest="extraAttributes",
+                    help="Exports extra attributes from edge and lane "
+                         "(such as max speed, number of lanes and allowed vehicles)")
 
-    try:
-        options = op.parse_args()
-    except (NotImplementedError, ValueError) as e:
-        print(e, file=sys.stderr)
-        sys.exit(1)
-    return options
+    return op.parse_args()
 
 
 def shape2json(net, geometry, isBoundary):
@@ -123,8 +124,20 @@ if __name__ == "__main__":
                 feature["properties"][ptType] = " ".join(sorted(lines))
 
         feature["properties"]["name"] = net.getEdge(edgeID).getName()
+        if options.extraAttributes:
+            feature["properties"]["maxSpeed"] = net.getEdge(edgeID).getSpeed()
+            if geomType == 'lane':
+                feature["properties"]["allow"] = ','.join(sorted(net.getLane(id).getPermissions()))
+                feature["properties"]["index"] = net.getLane(id).getIndex()
+            else:
+                feature["properties"]["numLanes"] = net.getEdge(edgeID).getLaneNumber()
+                permissions_union = set()
+                for lane in net.getEdge(edgeID).getLanes():
+                    permissions_union.update(lane.getPermissions())
+                feature["properties"]["allow"] = ",".join(sorted(permissions_union))
+
         if options.boundary:
-            geometry = sumolib.geomhelper.line2boundary(geometry, width)
+            geometry = gh.line2boundary(geometry, width)
         feature["geometry"] = shape2json(net, geometry, options.boundary)
         features.append(feature)
 
@@ -138,8 +151,32 @@ if __name__ == "__main__":
             feature["geometry"] = shape2json(net, junction.getShape(), options.boundary)
             features.append(feature)
 
+    if options.tls:
+        for edge in net.getEdges():
+            for lane in edge.getLanes():
+                nCons = len(lane.getOutgoing())
+                for i, con in enumerate(lane.getOutgoing()):
+                    if con.getTLSID() != "":
+                        feature = {"type": "Feature"}
+                        feature["properties"] = {
+                            "element": 'tls_connection',
+                            "id": "%s_%s" % (con.getJunction().getID(), con.getJunctionIndex()),
+                            "tls": con.getTLSID(),
+                            "tlIndex": con.getTLLinkIndex(),
+                        }
+                        barLength = lane.getWidth() / nCons
+                        offset = i * barLength - lane.getWidth() * 0.5
+                        prev, end = lane.getShape()[-2:]
+                        geometry = [gh.add(end, gh.sideOffset(prev, end, offset)),
+                                    gh.add(end, gh.sideOffset(prev, end, offset + barLength))]
+                        if options.boundary:
+                            geometry = gh.line2boundary(geometry, 0.2)
+                        feature["geometry"] = shape2json(net, geometry, options.boundary)
+                        features.append(feature)
+
     geojson = {}
     geojson["type"] = "FeatureCollection"
     geojson["features"] = features
-    with open(options.outFile, 'w') as outf:
-        outf.write(json.dumps(geojson, sort_keys=True, indent=4, separators=(',', ': ')))
+    with sumolib.openz(options.outFile, 'w') as outf:
+        json.dump(geojson, outf, sort_keys=True, indent=4, separators=(',', ': '))
+        print(file=outf)

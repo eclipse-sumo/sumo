@@ -1,0 +1,5 @@
+Error: Attribute 'timeThreshold' in definition of entryExitDetector 'entryExitDetector_1' is not a valid time value.
+Error: Could not build entryExitDetector with ID 'entryExitDetector_2' in netedit; Attribute timeThreshold cannot be negative (-5.00).
+Error: Could not build detEntry with ID '' in netedit; entryExitDetector parent with ID 'entryExitDetector_2' doesn't exist.
+Error: Could not build detExit with ID '' in netedit; entryExitDetector parent with ID 'entryExitDetector_2' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.elements.additionals.detectors.19Dec113136.2381/netedit.daily.elements.additionals.detectors/elements/additionals/e3detector/load/timethreshold/additionals.add.xml failed.

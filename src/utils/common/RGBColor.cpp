@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -322,6 +322,38 @@ RGBColor::parseColor(std::string coldef) {
         }
     }
     return RGBColor(r, g, b, a);
+}
+
+
+bool
+RGBColor::isColor(std::string coldef) {
+    // check if is defined using a previous defined color
+    coldef = StringUtils::to_lower_case(coldef);
+    if ((coldef == "red") || (coldef == "green") || (coldef == "blue") ||
+            (coldef == "yellow") || (coldef == "cyan") || (coldef == "magenta") ||
+            (coldef == "orange") || (coldef == "white") || (coldef == "black") ||
+            (coldef == "grey") || (coldef == "gray") || (coldef == "invisible") ||
+            (coldef == "random")) {
+        return true;
+    }
+    // check if is defined using an hexadecimal value
+    if (coldef[0] == '#') {
+        if (StringUtils::isHex(coldef)) {
+            return ((coldef.length() == 7) || (coldef.length() == 9));
+        } else {
+            return false;
+        }
+    }
+    // Check definition by tuple of rgb or rgba
+    std::vector<std::string> st = StringTokenizer(coldef, ",").getVector();
+    if (st.size() == 3) {
+        return StringUtils::isDouble(st[0]) && StringUtils::isDouble(st[1]) && StringUtils::isDouble(st[2]);
+    } else if (st.size() == 4) {
+        return StringUtils::isDouble(st[0]) && StringUtils::isDouble(st[1]) &&
+               StringUtils::isDouble(st[2]) && StringUtils::isDouble(st[3]);
+    } else {
+        return false;
+    }
 }
 
 

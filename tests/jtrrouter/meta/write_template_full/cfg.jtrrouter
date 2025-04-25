@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 10:47:11 by Eclipse SUMO jtrrouter Version v1_17_0+2470-b55cba8942c
+<!-- generated on 2024-11-21 13:03:58 by Eclipse SUMO jtrrouter Version v1_21_0+0881-109d9298130
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
+<jtrrouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
 
     <configuration>
         <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
@@ -52,10 +52,13 @@
         <repair.to value="false" type="BOOL" help="Tries to correct an invalid destination edge by using the last usable edge instead"/>
         <mapmatch.distance value="100" type="FLOAT" help="Maximum distance when mapping input coordinates (fromXY etc.) to the road network"/>
         <mapmatch.junctions value="false" type="BOOL" help="Match positions to junctions instead of edges"/>
+        <mapmatch.taz value="false" type="BOOL" help="Match positions to taz instead of edges"/>
         <bulk-routing value="false" type="BOOL" help="Aggregate routing queries with the same origin"/>
         <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
         <restriction-params value="" type="STR[]" help="Comma separated list of param keys to compare for additional restrictions"/>
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing routing costs for minor-link internal lanes"/>
+        <weights.tls-penalty value="0" type="FLOAT" help="Apply the given time penalty when computing routing costs across a traffic light"/>
+        <weights.turnaround-penalty value="5" type="FLOAT" help="Apply the given time penalty when computing routing costs for turnaround internal lanes"/>
         <max-edges-factor value="2" type="FLOAT" help="Routes are cut off when the route edges to net edges ratio is larger than FLOAT"/>
         <turn-defaults value="30,50,20" synonymes="T" type="STR[]" help="Use STR[] as default turn definition"/>
         <sink-edges value="" synonymes="sinks" type="STR[]" help="Use STR[] as list of sink edges"/>
@@ -107,4 +110,4 @@
         <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>
     </random_number>
 
-</configuration>
+</jtrrouterConfiguration>

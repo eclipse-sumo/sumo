@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -104,9 +104,10 @@ public:
     * @param[in] vehicle the vehicle which is taking on containers
     * @param[in,out] timeToLoadNext earliest time for the next loading process (gets updated)
     * @param[in,out] stopDuration the duration of the stop where the loading takes place (might be extended)
+    * @param[in] force load the specified transportable even if the vehicle is not on a stop (needed for replay)
     * @return Whether any transportables have been loaded
     */
-    bool loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNext, SUMOTime& stopDuration);
+    bool loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNext, SUMOTime& stopDuration, MSTransportable* const force = nullptr);
 
     /// checks whether any transportable waits to finish her plan
     bool hasTransportables() const;
@@ -357,6 +358,9 @@ protected:
 
     /// @brief whether a new transportable waiting for a vehicle has been added in the last step
     bool myHaveNewWaiting;
+
+    /// @brief maximum transportable count
+    int myMaxTransportableNumber;
 
 private:
     MSPModel* myMovementModel;

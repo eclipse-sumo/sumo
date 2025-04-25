@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2016-2017 Dresden University of Technology
 // This program and the accompanying materials are made available under the
@@ -102,17 +102,6 @@ public class Trafficlight {
 
     public static SumoCommand getControlledJunctions(String tlsID) {
         return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_CONTROLLED_JUNCTIONS, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_STRINGLIST);
-    }
-
-    /**
-     * Returns the external state.
-     *
-     * @param tlsID a string identifying the traffic light
-     * @return compound of the external state
-     */
-
-    public static SumoCommand getExternalState(String tlsID) {
-        return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_EXTERNAL_STATE, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_COMPOUND);
     }
 
     /**

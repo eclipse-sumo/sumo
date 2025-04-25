@@ -7,33 +7,39 @@ add_subdirectory(tools)
 
 # create set with all main netedit source code files
 set(netedit_SRCS
-   netedit_main.cpp
-   GNEApplicationWindowHelper.h
-   GNEApplicationWindowHelper.cpp
-   GNEApplicationWindow.h
    GNEApplicationWindow.cpp
-   GNELoadThread.h
-   GNELoadThread.cpp
-   GNENet.h
-   GNENet.cpp
-   GNENetHelper.h
-   GNENetHelper.cpp
-   GNEViewNet.h
-   GNEViewNet.cpp
-   GNEViewNetHelper.h
-   GNEViewNetHelper.cpp
-   GNEViewParent.h
-   GNEViewParent.cpp
-   GNEUndoList.h
-   GNEUndoList.cpp
-   GNEMoveElement.h
-   GNEMoveElement.cpp
-   GNEPathManager.h
-   GNEPathManager.cpp
-   GNEReferenceCounter.h
+   GNEApplicationWindow.h
+   GNEApplicationWindowHelper.cpp
+   GNEApplicationWindowHelper.h
+   GNEAttributeProperties.cpp
+   GNEAttributeProperties.h
    GNEEvent_NetworkLoaded.h
-   GNELane2laneConnection.h
    GNELane2laneConnection.cpp
+   GNELane2laneConnection.h
+   GNELoadThread.cpp
+   GNELoadThread.h
+   GNENet.cpp
+   GNENet.h
+   GNENetHelper.cpp
+   GNENetHelper.h
+   GNEPathManager.cpp
+   GNEPathManager.h
+   GNEReferenceCounter.h
+   GNESegment.cpp
+   GNESegment.h
+   GNETagProperties.cpp
+   GNETagProperties.h
+   GNETagPropertiesDatabase.cpp
+   GNETagPropertiesDatabase.h
+   GNEUndoList.cpp
+   GNEUndoList.h
+   GNEViewNet.cpp
+   GNEViewNet.h
+   GNEViewNetHelper.cpp
+   GNEViewNetHelper.h
+   GNEViewParent.cpp
+   GNEViewParent.h
+   netedit_main.cpp
    templates.h
 )
 
@@ -93,9 +99,8 @@ add_dependencies(generate-templates-h sumo netgenerate)
 
 # create CMake custom command that generates templates.h file (OUTPUT) giving as argument python executable (PYTHON_EXECUTABLE),
 # the python script <SUMO>/tools/build_config/templates.py (<SUMO/src/netedit>/../../tools/build_config/templates.py) and the sumo binary
-# the LSAN_OPTIONS are only relevant for the clang build but should not hurt others
 add_custom_command(OUTPUT templates.h
-                   COMMAND ${CMAKE_COMMAND} -E env LSAN_OPTIONS=suppressions=${CMAKE_CURRENT_SOURCE_DIR}/../../build_config/clang_memleak_suppressions.txt ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build_config/templates.py $<TARGET_FILE:sumo> $<TARGET_FILE:netgenerate>
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build_config/templates.py $<TARGET_FILE:sumo> $<TARGET_FILE:netgenerate>
                    DEPENDS sumo netgenerate
                    )
 

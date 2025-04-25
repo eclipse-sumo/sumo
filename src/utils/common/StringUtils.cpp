@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,6 +40,8 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include "StringUtils.h"
+
+#define KM_PER_MILE 1.609344
 
 
 // ===========================================================================
@@ -245,6 +247,13 @@ StringUtils::escapeXML(const std::string& orig, const bool maskDoubleHyphen) {
 
 
 std::string
+StringUtils::escapeShell(const std::string& orig) {
+    std::string result = replace(orig, "\"", "\\\"");
+    return result;
+}
+
+
+std::string
 StringUtils::urlEncode(const std::string& toEncode, const std::string encodeWhich) {
     std::ostringstream out;
 
@@ -322,6 +331,18 @@ StringUtils::toInt(const std::string& sData) {
 }
 
 
+bool
+StringUtils::isInt(const std::string& sData) {
+    // first check if can be converted to long int
+    if (isLong(sData)) {
+        const long long int result = toLong(sData);
+        // now check if the result is in the range of an int
+        return ((result <= std::numeric_limits<int>::max()) && (result >= std::numeric_limits<int>::min()));
+    }
+    return false;
+}
+
+
 int
 StringUtils::toIntSecure(const std::string& sData, int def) {
     if (sData.length() == 0) {
@@ -339,7 +360,7 @@ StringUtils::toLong(const std::string& sData) {
     }
     char* end;
     errno = 0;
-#ifdef WIN32
+#ifdef _MSC_VER
     long long int ret = _strtoi64(data, &end, 10);
 #else
     long long int ret = strtoll(data, &end, 10);
@@ -352,6 +373,33 @@ StringUtils::toLong(const std::string& sData) {
         throw NumberFormatException("(long long integer format) " + sData);
     }
     return ret;
+}
+
+
+bool
+StringUtils::isLong(const std::string& sData) {
+    const char* const data = sData.c_str();
+    if (data == 0 || data[0] == 0) {
+        return false;
+    }
+    char* end;
+    // reset errno before parsing, to keep errors
+    errno = 0;
+    // continue depending of current plattform
+#ifdef _MSC_VER
+    _strtoi64(data, &end, 10);
+#else
+    strtoll(data, &end, 10);
+#endif
+    // check out of range
+    if (errno == ERANGE) {
+        return false;
+    }
+    // check lenght of converted data
+    if ((int)(end - data) != (int)strlen(data)) {
+        return false;
+    }
+    return true;
 }
 
 
@@ -379,6 +427,37 @@ StringUtils::hexToInt(const std::string& sData) {
 }
 
 
+bool
+StringUtils::isHex(std::string sData) {
+    if (sData.length() == 0) {
+        return false;
+    }
+    // remove the first character (for HTML color codes)
+    if (sData[0] == '#') {
+        sData = sData.substr(1);
+    }
+    const char* sDataPtr = sData.c_str();
+    char* returnPtr;
+    // reset errno
+    errno = 0;
+    // call string to long (size 16) from standard library
+    strtol(sDataPtr, &returnPtr, 16);
+    // check out of range
+    if (errno == ERANGE) {
+        return false;
+    }
+    // check if there was an error converting sDataPtr to double,
+    if (sDataPtr == returnPtr) {
+        return false;
+    }
+    // compare size of start and end points
+    if (static_cast<size_t>(returnPtr - sDataPtr) != sData.size()) {
+        return false;
+    }
+    return true;
+}
+
+
 double
 StringUtils::toDouble(const std::string& sData) {
     if (sData.size() == 0) {
@@ -396,6 +475,33 @@ StringUtils::toDouble(const std::string& sData) {
         // invalid_argument or out_of_range
         throw NumberFormatException("(double) " + sData);
     }
+}
+
+
+bool
+StringUtils::isDouble(const std::string& sData) {
+    if (sData.size() == 0) {
+        return false;
+    }
+    const char* sDataPtr = sData.c_str();
+    char* returnPtr;
+    // reset errno
+    errno = 0;
+    // call string to double from standard library
+    strtod(sDataPtr, &returnPtr);
+    // check out of range
+    if (errno == ERANGE) {
+        return false;
+    }
+    // check if there was an error converting sDataPtr to double,
+    if (sDataPtr == returnPtr) {
+        return false;
+    }
+    // compare size of start and end points
+    if (static_cast<size_t>(returnPtr - sDataPtr) != sData.size()) {
+        return false;
+    }
+    return true;
 }
 
 
@@ -423,11 +529,113 @@ StringUtils::toBool(const std::string& sData) {
     throw BoolFormatException(s);
 }
 
+
+bool
+StringUtils::isBool(const std::string& sData) {
+    if (sData.length() == 0) {
+        return false;
+    }
+    const std::string s = to_lower_case(sData);
+    // check true values
+    if (s == "1" || s == "yes" || s == "true" || s == "on" || s == "x" || s == "t") {
+        return true;
+    }
+    // check false values
+    if (s == "0" || s == "no" || s == "false" || s == "off" || s == "-" || s == "f") {
+        return true;
+    }
+    // no valid true or false values
+    return false;
+}
+
+
 MMVersion
 StringUtils::toVersion(const std::string& sData) {
     std::vector<std::string> parts = StringTokenizer(sData, ".").getVector();
     return MMVersion(toInt(parts.front()), toDouble(parts.back()));
 }
+
+
+double
+StringUtils::parseDist(const std::string& sData) {
+    if (sData.size() == 0) {
+        throw EmptyData();
+    }
+    try {
+        size_t idx = 0;
+        const double result = std::stod(sData, &idx);
+        if (idx != sData.size()) {
+            const std::string unit = prune(sData.substr(idx));
+            if (unit == "m" || unit == "metre" || unit == "meter" || unit == "metres" || unit == "meters") {
+                return result;
+            }
+            if (unit == "km" || unit == "kilometre" || unit == "kilometer" || unit == "kilometres" || unit == "kilometers") {
+                return result * 1000.;
+            }
+            if (unit == "mi" || unit == "mile" || unit == "miles") {
+                return result * 1000. * KM_PER_MILE;
+            }
+            if (unit == "nmi") {
+                return result * 1852.;
+            }
+            if (unit == "ft" || unit == "foot" || unit == "feet") {
+                return result * 12. * 0.0254;
+            }
+            if (unit == "\"" || unit == "in" || unit == "inch" || unit == "inches") {
+                return result * 0.0254;
+            }
+            if (unit[0] == '\'') {
+                double inches = 12 * result;
+                if (unit.length() > 1) {
+                    inches += std::stod(unit.substr(1), &idx);
+                    if (unit.substr(idx) == "\"") {
+                        return inches * 0.0254;
+                    }
+                }
+            }
+            throw NumberFormatException("(distance format) " + sData);
+        } else {
+            return result;
+        }
+    } catch (...) {
+        // invalid_argument or out_of_range
+        throw NumberFormatException("(double) " + sData);
+    }
+}
+
+
+double
+StringUtils::parseSpeed(const std::string& sData, const bool defaultKmph) {
+    if (sData.size() == 0) {
+        throw EmptyData();
+    }
+    try {
+        size_t idx = 0;
+        const double result = std::stod(sData, &idx);
+        if (idx != sData.size()) {
+            const std::string unit = prune(sData.substr(idx));
+            if (unit == "km/h" || unit == "kph" || unit == "kmh" || unit == "kmph") {
+                return result / 3.6;
+            }
+            if (unit == "m/s") {
+                return result;
+            }
+            if (unit == "mph") {
+                return result * KM_PER_MILE / 3.6;
+            }
+            if (unit == "knots") {
+                return result * 1.852 / 3.6;
+            }
+            throw NumberFormatException("(speed format) " + sData);
+        } else {
+            return defaultKmph ? result / 3.6 : result;
+        }
+    } catch (...) {
+        // invalid_argument or out_of_range
+        throw NumberFormatException("(double) " + sData);
+    }
+}
+
 
 std::string
 StringUtils::transcode(const XMLCh* const data, int length) {
@@ -504,6 +712,45 @@ std::string
 StringUtils::trim(const std::string s, const std::string& t) {
     return trim_right(trim_left(s, t), t);
 }
+
+
+std::string
+StringUtils::wrapText(const std::string s, int width) {
+    std::vector<std::string> parts = StringTokenizer(s).getVector();
+    std::string result;
+    std::string line;
+    bool firstLine = true;
+    bool firstWord = true;
+    for (std::string p : parts) {
+        if ((int)(line.size() + p.size()) < width || firstWord) {
+            if (firstWord) {
+                firstWord = false;
+            } else {
+                line += " ";
+            }
+            line = line + p;
+        } else {
+            if (firstLine) {
+                firstLine = false;
+            } else {
+                result += "\n";
+            }
+            result = result + line;
+            line.clear();
+            firstWord = true;
+        }
+    }
+    if (line.size() > 0) {
+        if (firstLine) {
+            firstLine = false;
+        } else {
+            result += "\n";
+        }
+        result = result + line;
+    }
+    return result;
+}
+
 
 void
 StringUtils::resetTranscoder() {

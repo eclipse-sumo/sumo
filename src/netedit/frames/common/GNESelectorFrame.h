@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 #pragma once
 #include <config.h>
 
+#include <unordered_map>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
 #include <utils/foxtools/MFXComboBoxIcon.h>
@@ -29,9 +30,10 @@
 // class declaration
 // ===========================================================================
 
-class GNEElementSet;
+class GNEAttributeProperties;
 class GNEMatchAttribute;
 class GNEMatchGenericDataAttribute;
+class GNETagProperties;
 
 // ===========================================================================
 // class definitions
@@ -240,14 +242,40 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectionOperation)
 
-        /// @brief process network element selection
-        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+        /// @brief struct used for massive selections
+        struct MassiveSelection {
 
-        /// @brief process demand element selection
-        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+            /// @brief constructor with bucket size (normally the max number of elements)
+            MassiveSelection(const int bucketSize);
 
-        /// @brief process data element selection
-        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+            /// @brief destructor
+            ~MassiveSelection();
+
+            /// @brief check if there are element to process
+            bool isElementToProcess() const;
+
+            /// @brief ACs to select (the bool flag shows if element is locked)
+            std::unordered_map<GNEAttributeCarrier*, bool> ACsToSelect;
+
+            /// @brief ACs to select (the bool flag shows if element is locked)
+            std::unordered_map<GNEAttributeCarrier*, bool> ACsToUnselect;
+
+            /// @brief locked types
+            std::map<GUIGlObjectType, bool> lockedTypes;
+
+        private:
+            /// @brief constructor (invalidated)
+            MassiveSelection();
+        };
+
+        /// @brief process massive network element selection
+        MassiveSelection processMassiveNetworkElementSelection(const bool filterLanes) const;
+
+        /// @brief process massive demand element selection
+        MassiveSelection processMassiveDemandElementSelection() const;
+
+        /// @brief process massive dataelement selection
+        MassiveSelection processMassiveDataElementSelection() const;
 
         /// @brief ask if continue due locking
         bool askContinueIfLock() const;
@@ -407,20 +435,6 @@ public:
      */
     void handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const ModificationMode::Operation setop = ModificationMode::Operation::DEFAULT);
 
-    /**@brief return ACs of the given type with matching attrs
-     * @param[in] ACTag XML Tag of AttributeCarrier
-     * @param[in] ACAttr XML Attribute of AttributeCarrier
-     * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
-     */
-    std::vector<GNEAttributeCarrier*> getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, const char compOp, const double val, const std::string& expr);
-
-    /**@brief return GenericDatas of the given type with matching attrs
-     * @param[in] genericDatas list of filter generic datas
-     * @param[in] attr XML Attribute used to filter
-     * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
-     */
-    std::vector<GNEAttributeCarrier*> getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr);
-
     /// @brief get vertical frame that holds all widgets of frame
     FXVerticalFrame* getContentFrame() const;
 
@@ -440,14 +454,8 @@ private:
     /// @brief modul for change modification mode
     GNESelectorFrame::ModificationMode* myModificationMode = nullptr;
 
-    /// @brief moduls for select network element set
-    GNEElementSet* myNetworkElementSet = nullptr;
-
-    /// @brief moduls for select demand element set
-    GNEElementSet* myDemandElementSet = nullptr;
-
-    /// @brief moduls for select data element set
-    GNEElementSet* myDataElementSet = nullptr;
+    /// @brief modul for match attribute
+    GNEMatchAttribute* myMatchAttribute = nullptr;
 
     /// @brief modul for visual scaling
     GNESelectorFrame::VisualScaling* myVisualScaling = nullptr;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2015-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2015-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    MSParkingArea.h
 /// @author  Mirco Sturari
+/// @author  Mirko Barthauer
 /// @date    Tue, 19.01.2016
 ///
 // A area where vehicles can park next to the road
@@ -36,6 +37,7 @@
 class MSLane;
 class SUMOVehicle;
 class MSTransportable;
+class MSBaseVehicle;
 class Position;
 class Command;
 
@@ -63,6 +65,7 @@ public:
      * @param[in] id The id of the stop
      * @param[in] net The net the stop belongs to
      * @param[in] lines Names of the lines that halt on this stop
+     * @param[in] badges Names which grant access to this parking area
      * @param[in] lane The lane the stop is placed on
      * @param[in] begPos Begin position of the stop on the lane
      * @param[in] endPos End position of the stop on the lane
@@ -72,7 +75,8 @@ public:
      * @param[in] angle Angle of the default lot rectangle
      */
     MSParkingArea(const std::string& id,
-                  const std::vector<std::string>& lines, MSLane& lane,
+                  const std::vector<std::string>& lines,
+                  const std::vector<std::string>& badges, MSLane& lane,
                   double begPos, double endPos, int capacity,
                   double width, double length, double angle, const std::string& name,
                   bool onRoad,
@@ -81,6 +85,9 @@ public:
 
     /// @brief Destructor
     virtual ~MSParkingArea();
+
+    /// @brief needed for patching its capacity
+    friend class NLTriggerBuilder;
 
     /// @brief Returns the area capacity
     int getCapacity() const;
@@ -102,8 +109,22 @@ public:
     /// @brief Returns the area occupancy
     int getOccupancyIncludingBlocked() const;
 
+    int getOccupancyIncludingReservations(const SUMOVehicle* forVehicle) const;
+
     /// @brief Returns the area occupancy at the end of the last simulation step
     int getLastStepOccupancy() const;
+
+    /// @brief Add a badge to the accepted set
+    void accept(std::string badge);
+
+    /// @brief Add badges to the accepted set
+    void accept(std::vector<std::string> badges);
+
+    /// @brief Remove the access right for the given badge
+    void refuse(std::string badge);
+
+    /// @brief Return the parking accepts the vehicle (due to its given badges)
+    bool accepts(MSBaseVehicle* veh) const;
 
     /** @brief Called if a vehicle enters this stop
      *
@@ -140,7 +161,7 @@ public:
     double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
 
     /** @brief Returns the last free position on this stop including
-     * reservatiosn from the current lane and time step
+     * reservations from the current lane and time step
      *
      * @return The last free position of this bus stop
      */
@@ -210,6 +231,17 @@ public:
 
     /// @brief set number alternatives
     void setNumAlternatives(int alternatives);
+
+    /// @brief get the accepted badges
+    std::vector<std::string> getAcceptedBadges() const;
+
+    /// @brief set the accepted badges
+    void setAcceptedBadges(const std::vector<std::string>& badges);
+
+
+protected:
+    /// @brief overwrite the capacity (caution: will delete ANY previous parking space definitions)
+    void setRoadsideCapacity(int capactity);
 
 protected:
     /** @struct LotSpaceDefinition
@@ -288,17 +320,29 @@ protected:
     /// @brief The roadside shape of this parkingArea
     PositionVector myShape;
 
+    /// @brief The parking badges to grant access
+    std::set<std::string> myAcceptedBadges;
+
     /// @brief whether a vehicle wants to exit but is blocked
     bool myEgressBlocked;
 
     /// @brief track parking reservations from the lane for the current time step
     SUMOTime myReservationTime;
+    SUMOTime myLastReservationTime;
 
     /// @brief number of reservations
     int myReservations;
+    int myLastReservations;
 
     /// @brief reservation max length
     double myReservationMaxLength;
+    double myLastReservationMaxLength;
+
+    /// @brief the set of vehicles that performed a reservation in this step
+    std::set<const SUMOVehicle*> myReservedVehicles;
+
+    /// @brief maximum length of all parked vehicles
+    double myMaxVehLength;
 
     /// @brief the number of alternative parkingAreas that are assigned to parkingAreaRerouter
     int myNumAlternatives;

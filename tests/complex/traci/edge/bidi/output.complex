@@ -1,0 +1,19 @@
+ Retrying in 1 seconds
+edge=-branch bidi=branch
+edge=-h bidi=h
+edge=:10_0 bidi=
+edge=:10_1 bidi=
+edge=:11_0 bidi=
+edge=:11_1 bidi=
+edge=:12_0 bidi=
+edge=:1_0 bidi=
+edge=:1_1 bidi=
+edge=:2_0 bidi=
+edge=:2_1 bidi=
+edge=b bidi=
+edge=beg bidi=
+edge=branch bidi=-branch
+edge=end bidi=
+edge=f bidi=
+edge=g bidi=
+edge=h bidi=-h

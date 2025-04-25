@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,6 +42,8 @@
 // ===========================================================================
 const MSTrafficLightLogic::LaneVector MSTrafficLightLogic::myEmptyLaneVector;
 
+
+#define SHORT_EDGE ((SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap) * 2)
 
 // ===========================================================================
 // member method definitions
@@ -98,6 +100,7 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic* tlLogic) {
     }
 }
 
+
 SUMOTime
 MSTrafficLightLogic::SwitchCommand::shiftTime(SUMOTime currentTime, SUMOTime execTime, SUMOTime newTime) {
     if (myTLLogic->getDefaultCycleTime() == DELTA_T) {
@@ -152,6 +155,9 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                     throw ProcessError("Invalid nextPhase " + toString(iNext) + " in tlLogic '" + getID()
                                        + "', program '" + getProgramID() + "' with " + toString(phases.size()) + " phases");
                 }
+                if (iNext == i && (int)nextPhases.size() == 1 && (int)phases.size() > 1) {
+                    WRITE_WARNINGF("Phase % only loops backs to itself in tlLogic '%', program '%'.", i, getID(), getProgramID());
+                }
                 const std::string optionalFrom = iNextDefault ? "" : " from phase " + toString(i);
                 const std::string& state1 = phases[i]->getState();
                 const std::string& state2 = phases[iNext]->getState();
@@ -200,9 +206,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         }
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
-                if (getLogicType() != TrafficLightType::NEMA) {
-                    WRITE_WARNINGF(TL("Missing green phase in tlLogic '%', program '%' for tl-index %."), getID(), getProgramID(), j);
-                }
+                WRITE_WARNINGF(TL("Missing green phase in tlLogic '%', program '%' for tl-index %."), getID(), getProgramID(), j);
                 break;
             }
         }
@@ -451,6 +455,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
     double tlsPenalty = MSGlobals::gTLSPenalty;
     const double durationSeconds = STEPS2TIME(duration);
     std::set<const MSJunction*> controlledJunctions;
+    std::set<const MSEdge*> shortEdges;;
     for (int j = 0; j < numLinks; ++j) {
         for (int k = 0; k < (int)myLinks[j].size(); ++k) {
             MSLink* link = myLinks[j][k];
@@ -468,6 +473,10 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
                     WRITE_WARNINGF(TL("Green fraction is only 1% for link % in tlLogic '%', program '%'."), "%", j, getID(), getProgramID());
                 }
                 link->setGreenFraction(greenFraction);
+                if (tlsPenalty > 0 && edge.getLength() < SHORT_EDGE && shortEdges.count(&edge) == 0) {
+                    shortEdges.insert(&edge);
+                    WRITE_WARNINGF(TL("Edge '%' is shorter than %m (%m) and will cause incorrect flow reduction with option --meso-tls-penalty"), edge.getID(), SHORT_EDGE, edge.getLength());
+                }
             }
             link->setMesoTLSPenalty(TIME2STEPS(tlsPenalty * penalty[j] / durationSeconds));
             controlledJunctions.insert(link->getLane()->getEdge().getFromJunction()); // MSLink::myJunction is not yet initialized
@@ -512,6 +521,12 @@ MSTrafficLightLogic::isSelected() const {
 void
 MSTrafficLightLogic::activateProgram() {
     myAmActive = true;
+    // updated the traffic light logic stored in the link
+    for (const LinkVector& currGroup : myLinks) {
+        for (MSLink* link : currGroup) {
+            link->setTLLogic(this);
+        }
+    }
 }
 
 

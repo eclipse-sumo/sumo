@@ -1,0 +1,14 @@
+Warning: The referenced geometry information (ref='3144381718') is not known
+Warning: The referenced geometry information (ref='3144381716') is not known
+Warning: The referenced geometry information (ref='3144381697') is not known
+Warning: The referenced geometry information (ref='3144381714') is not known
+Warning: The referenced geometry information (ref='3144381713') is not known
+Warning: Discarding way '316682910' because it has only 1 node(s)
+Warning: PT line in relation 18306 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 66869 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 349308 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2277611 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2277612 with no stops ignored. Probably OSM file is incomplete.
+Warning: Speed of straight connection '23209055#1_1->23209055#2_1' reduced by 5.12 due to turning radius of 13.99 (length=4.01, angle=32.41).
+Warning: 15 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 281 total messages of type: The referenced geometry information (ref='%') is not known

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,16 +23,18 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netbuild/NBTrafficLightLogic.h>
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class NBTrafficLightDefinition;
+
+class GNEInternalLane;
+class GNEOverlappedInspection;
+class GNETLSTable;
+class MFXTextFieldTooltip;
+class MFXToggleButtonTooltip;
 class NBLoadedSUMOTLDef;
 class NBOwnTLDef;
-class GNEInternalLane;
-class GNETLSTable;
-class GNEOverlappedInspection;
+class NBTrafficLightDefinition;
 
 // ===========================================================================
 // class definitions
@@ -406,6 +408,9 @@ public:
          */
         void initPhaseTable();
 
+        /// @brief clear phase thable
+        void clearPhaseTable();
+
         /// @brief change phase value (state, name, next, etc.)
         bool changePhaseValue(const int col, const int row, const std::string& value);
 
@@ -585,7 +590,7 @@ public:
      * @param[in] clickedPosition clicked position
      * @param[in] viewObjects The clicked objects under cursor
      */
-    void editTLS(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
+    void editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition, const bool shiftKeyPressed);
 
     /// @brief check if modifications in TLS was saved
     bool isTLSSaved();
@@ -645,7 +650,7 @@ private:
     /// @brief module for load/Save TLS Programs
     GNETLSEditorFrame::TLSFile* myTLSFile = nullptr;
 
-    /// @brief the internal lanes belonging the the current junction indexed by their tl-index
+    /// @brief the internal lanes belonging to the current junction indexed by their tl-index
     std::map<int, std::vector<GNEInternalLane*> > myInternalLanes;
 
     /// @brief the traffic light definition being edited

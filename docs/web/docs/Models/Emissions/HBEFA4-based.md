@@ -3,7 +3,8 @@ title: HBEFA4-based
 ---
 
 Since version 1.14.0, SUMO is able to simulate vehicular pollutant
-emissions based on the database application HBEFA in version 4.2. Though
+emissions based on the database application HBEFA in version 4.2.
+It is the default model since SUMO 1.23.0. Though
 HBEFA contains information about other pollutants, we decided to
 implement only the following, major ones:
 
@@ -19,7 +20,7 @@ implement only the following, major ones:
 
 The vehicle classes below map directly to vehicle subsegments supplied by
 [HBEFA](https://www.hbefa.net/), the SUMO names just remove special characters.
-The original name and the numeric HBEFA id are also given in the table below
+The original name and the numeric HBEFA id are also given in the table below.
 To use the emission classes below prepend the class name with the HBEFA4
 prefix, e.g. `emissionClass="HBEFA4/PC_petrol_Euro-4"`.
 

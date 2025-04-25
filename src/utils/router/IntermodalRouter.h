@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,8 +58,9 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
     typedef SUMOAbstractRouter<_IntermodalEdge, _IntermodalTrip> _InternalRouter;
+    typedef MapMatcher<E, L, N> _MapMatcher;
     typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip> _InternalDijkstra;
-    typedef AStarRouter<_IntermodalEdge, _IntermodalTrip> _InternalAStar;
+    typedef AStarRouter<_IntermodalEdge, _IntermodalTrip, _MapMatcher> _InternalAStar;
 
 public:
     struct TripItem {
@@ -123,6 +124,8 @@ public:
         const bool success = myInternalRouter->compute(iFrom, iTo, &trip, msTime, intoEdges, true);
         if (success) {
             std::string lastLine = "";
+            const _IntermodalEdge* lastLineEdge = nullptr;
+            double lastLineTime = STEPS2TIME(msTime);
             double time = STEPS2TIME(msTime);
             double effort = 0.;
             double length = 0.;
@@ -147,8 +150,10 @@ public:
                             into.back().destStop = iEdge->getID();
                         }
                     } else {
-                        if (iEdge->getLine() != lastLine) {
+                        if (iEdge->getLine() != lastLine || loopedLineTransfer(lastLineEdge, iEdge, lastLineTime, time)) {
                             lastLine = iEdge->getLine();
+                            lastLineEdge = iEdge;
+                            lastLineTime = time;
                             if (lastLine == "!car") {
                                 into.push_back(TripItem(vehicle->getID()));
                                 into.back().vType = vehicle->getParameter().vtypeid;
@@ -167,7 +172,9 @@ public:
                         }
                     }
                 }
-                const double prevTime = time, prevEffort = effort, prevLength = length;
+                const double prevTime = time;
+                const double prevEffort = effort;
+                const double prevLength = length;
                 myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort, length);
                 // correct intermodal length:
                 length += iEdge->getPartialLength(&trip) - iEdge->getLength();
@@ -189,7 +196,7 @@ public:
             const std::string oID = originStopID != "" ? originStopID : from->getID();
             const std::string dType = stopID != "" ? "stop" : "edge";
             const std::string dID = stopID != "" ? stopID : to->getID();
-            this->myErrorMsgHandler->informf("No connection between % '%' and % '%' found.", oType, oID, dType, dID);
+            this->myErrorMsgHandler->informf(TL("No connection between % '%' and % '%' found."), oType, oID, dType, dID);
         }
         if (into.size() > 0) {
             into.back().arrivalPos = arrivalPos;
@@ -320,6 +327,20 @@ private:
                     break;
             }
         }
+    }
+
+
+    bool loopedLineTransfer(const _IntermodalEdge* prev, const _IntermodalEdge* cur, double prevTime, double time) {
+        assert(prev != nullptr);
+        if (myIntermodalNet->isLooped(cur->getLine())) {
+            // check if the last two edges are served by different vehicles
+            std::string intended1;
+            std::string intended2;
+            prev->getIntended(prevTime, intended1);
+            cur->getIntended(time, intended2);
+            return intended1 != intended2;
+        }
+        return false;
     }
 
 private:

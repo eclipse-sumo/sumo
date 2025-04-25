@@ -1,0 +1,8 @@
+# a single road being crossed
+basic
+
+# actuated crossing at a road intersection
+intersection
+
+# actuated crossing at a road intersection, the target phase for the crossing is "hidden" behind an intermediate green phase (left turns)
+intersection_hidden_target

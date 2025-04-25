@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,16 +31,15 @@
 // ===========================================================================
 
 GNERerouterSymbol::GNERerouterSymbol(GNENet* net) :
-    GNEAdditional("", net, GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::REROUTER), "",
-{}, {}, {}, {}, {}, {}) {
-    // reset default values
-    resetDefaultValues();
+    GNEAdditional("", net, "", GNE_TAG_REROUTER_SYMBOL, "") {
 }
 
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
-    GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::REROUTER), "",
-{}, {edge}, {}, {rerouterParent}, {}, {}) {
+    GNEAdditional(rerouterParent, GNE_TAG_REROUTER_SYMBOL, "") {
+    // set parents
+    setParent<GNEEdge*>(edge);
+    setParent<GNEAdditional*>(rerouterParent);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -86,7 +85,8 @@ GNERerouterSymbol::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -102,7 +102,7 @@ GNERerouterSymbol::updateGeometry() {
     mySymbolGeometries.clear();
     // iterate over all lanes
     NBEdge* nbe = getParentEdges().front()->getNBEdge();
-    for (const auto& lane : getParentEdges().front()->getLanes()) {
+    for (const auto& lane : getParentEdges().front()->getChildLanes()) {
         if ((nbe->getPermissions(lane->getIndex()) & ~SVC_PEDESTRIAN) == 0) {
             continue;
         }
@@ -154,7 +154,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(rerouteExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw rerouter symbol
             drawRerouterSymbol(s, d, rerouteExaggeration);
             // draw parent and child lines
@@ -164,8 +164,8 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         }
         // calculate contour rectangle shape
         for (const auto& symbolGeometry : mySymbolGeometries) {
-            myAdditionalContour.calculateContourRectangleShape(s, d, this, symbolGeometry.getShape().front(), 1, 3, 0, 3,
-                    symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+            myAdditionalContour.calculateContourRectangleShape(s, d, this, symbolGeometry.getShape().front(), 1, 3, getType(), 0, 3,
+                    symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration, getParentEdges().front());
         }
     }
 }
@@ -178,32 +178,32 @@ GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGE:
             return getParentEdges().front()->getID();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(nullptr, key);
     }
 }
 
 
 double
 GNERerouterSymbol::getAttributeDouble(SumoXMLAttr /*key*/) const {
-    throw InvalidArgument("Symbols cannot be edited");
+    return 0;
 }
 
 
 const Parameterised::Map&
 GNERerouterSymbol::getACParametersMap() const {
-    return PARAMETERS_EMPTY;
+    return getParametersMap();
 }
 
 
 void
-GNERerouterSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
-    throw InvalidArgument("Symbols cannot be edited");
+GNERerouterSymbol::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    setCommonAttribute(key, value, undoList);
 }
 
 
 bool
-GNERerouterSymbol::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
-    throw InvalidArgument("Symbols cannot be edited");
+GNERerouterSymbol::isValid(SumoXMLAttr key, const std::string& value) {
+    return isCommonValid(key, value);
 }
 
 
@@ -228,7 +228,7 @@ GNERerouterSymbol::drawRerouterSymbol(const GUIVisualizationSettings& s, const G
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front
-    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_REROUTER);
+    getParentAdditionals().front()->drawInLayer(GLO_REROUTER);
     // set color
     RGBColor color;
     if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
@@ -284,8 +284,8 @@ GNERerouterSymbol::drawRerouterSymbol(const GUIVisualizationSettings& s, const G
 
 
 void
-GNERerouterSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/) {
-    throw InvalidArgument("Symbols cannot be edited");
+GNERerouterSymbol::setAttribute(SumoXMLAttr key, const std::string& value) {
+    setCommonAttribute(this, key, value);
 }
 
 

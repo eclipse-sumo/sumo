@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-23 17:24:54 by Eclipse SUMO marouter Version v1_21_0+1996-d77561bb29a
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <route-files value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</marouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="f0" depart="0.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.1" depart="10.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.2" depart="20.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.3" depart="30.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.4" depart="40.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.5" depart="50.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1" depart="50.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.6" depart="60.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.1" depart="69.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.7" depart="70.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.8" depart="80.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.2" depart="88.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.9" depart="90.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.10" depart="100.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.3" depart="107.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.11" depart="110.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.12" depart="120.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.4" depart="126.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.13" depart="130.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.14" depart="140.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.5" depart="145.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.15" depart="150.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.16" depart="160.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.6" depart="164.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.17" depart="170.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.18" depart="180.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.7" depart="183.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.19" depart="190.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.20" depart="200.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.8" depart="202.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.21" depart="210.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.22" depart="220.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.9" depart="221.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.23" depart="230.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.24" depart="240.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.10" depart="240.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.25" depart="250.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.11" depart="259.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.26" depart="260.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.27" depart="270.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.12" depart="278.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.28" depart="280.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.29" depart="290.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.13" depart="297.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.30" depart="300.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.31" depart="310.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.14" depart="316.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.32" depart="320.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.33" depart="330.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.15" depart="335.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.34" depart="340.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.35" depart="350.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.16" depart="354.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.36" depart="360.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.37" depart="370.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.17" depart="373.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.38" depart="380.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.39" depart="390.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.18" depart="392.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.40" depart="400.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.41" depart="410.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.19" depart="411.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.42" depart="420.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.43" depart="430.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.20" depart="430.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.44" depart="440.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.21" depart="449.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.45" depart="450.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.46" depart="460.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.22" depart="468.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.47" depart="470.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.48" depart="480.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.23" depart="487.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f0.49" depart="490.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.24" depart="506.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.25" depart="525.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.26" depart="544.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.27" depart="563.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.28" depart="582.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.29" depart="601.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.30" depart="620.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.31" depart="639.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.32" depart="658.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.33" depart="677.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.34" depart="696.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.35" depart="715.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.36" depart="734.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.37" depart="753.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.38" depart="772.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.39" depart="791.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.40" depart="810.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.41" depart="829.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.42" depart="848.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.43" depart="867.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.44" depart="886.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.45" depart="905.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.46" depart="924.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.47" depart="943.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.48" depart="962.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="f1.49" depart="981.00" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
+        <routeDistribution>
+            <route cost="93.57" probability="45.00000000" edges="beg2left left left2end end"/>
+            <route cost="93.66" probability="55.00000000" edges="middle end"/>
+        </routeDistribution>
+    </vehicle>
+</routes>

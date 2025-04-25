@@ -1,0 +1,3 @@
+Error: Attribute 'lane' is missing in definition of chargingStation 'chargingStation_0'.
+Error: Could not build chargingStation with ID 'chargingStation_1' in netedit; lane parent with ID 'dummyLane' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/additionals/chargingstation/load/lane/additionals.add.xml failed.

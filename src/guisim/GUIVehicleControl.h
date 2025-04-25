@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2003-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -62,13 +62,13 @@ public:
      * @param[in] route The route of this vehicle
      * @param[in] type The type of this vehicle
      * @param[in] ignoreStopErrors whether invalid stops trigger a warning only
-     * @param[in] fromRouteFile whether we are just reading the route file or creating via trigger, traci, ...
+     * @param[in] source whether we are just reading the route file or creating via trigger, traci, ...
      * @return The built vehicle (GUIVehicle instance)
      * @see MSVehicleControl::buildVehicle
      */
     SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs,
                               ConstMSRoutePtr route, MSVehicleType* type,
-                              const bool ignoreStopErrors, const bool fromRouteFile = true,
+                              const bool ignoreStopErrors, const VehicleDefinitionSource source = VehicleDefinitionSource::ROUTEFILE,
                               bool addRouteStops = true) override;
     /// @}
 
@@ -91,7 +91,7 @@ public:
      * @param[in] v The vehicle to delete
      * @param[discard] Whether the vehicle is discard during loading (scale < 1)
      */
-    void deleteVehicle(SUMOVehicle* v, bool discard = false) override;
+    void deleteVehicle(SUMOVehicle* v, bool discard = false, bool wasKept = false) override;
 
 
     /** @brief Returns the list of all known vehicles by gl-id

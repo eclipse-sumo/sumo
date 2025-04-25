@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,38 +28,40 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# inspecte edge
-netedit.leftClick(referencePosition, 210, 210)
+# go to inspect mode
+netedit.inspectMode()
 
 # select edge using control
-netedit.leftClickControl(referencePosition, 210, 210)
+netedit.leftClickControl(referencePosition, netedit.positions.selection.edge)
 
 # unselect edge using control
-netedit.leftClickControl(referencePosition, 210, 210)
+netedit.leftClickControl(referencePosition, netedit.positions.selection.edge)
+
+# this should not delete anything
+netedit.deleteSelectedItems()
 
 # go to select mode
 netedit.selectMode()
 
-# select edge using a simple click
-netedit.leftClickControl(referencePosition, 210, 210)
+# select lane using shift + click
+netedit.leftClickShift(referencePosition, netedit.positions.selection.edge)
+
+# unselect lane using shift + click
+netedit.leftClickShift(referencePosition, netedit.positions.selection.edge)
+
+# this should not delete anything
+netedit.deleteSelectedItems()
 
 # toggle edges selection
 netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 
 # select lane using a simple click
-netedit.leftClickControl(referencePosition, 210, 240)
-
+netedit.leftClick(referencePosition, netedit.positions.selection.edge)
 # unselect lane using a simple click
-netedit.leftClickControl(referencePosition, 210, 240)
+netedit.leftClick(referencePosition, netedit.positions.selection.edge)
 
-# go to inspect mode
-netedit.inspectMode()
-
-# select lane using control + click
-netedit.leftClickControl(referencePosition, 210, 240)
-
-# select lane using control + click in an edge previously selected
-netedit.leftClickControl(referencePosition, 210, 210)
+# this should not delete anything
+netedit.deleteSelectedItems()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

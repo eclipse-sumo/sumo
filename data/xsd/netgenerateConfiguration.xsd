@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-05 18:18:16 by Eclipse SUMO netgenerate Version v1_18_0+2421-58d8177730f
+<!-- generated on 2025-02-03 20:56:08 by Eclipse SUMO netgenerate Version v1_21_0+1830-1621789eca8
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="netgenerateConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>
@@ -136,6 +136,7 @@
             <xsd:element name="offset.z" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="flip-y-axis" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="roundabouts.guess" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="roundabouts.guess.max-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="roundabouts.visibility-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="opposites.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opposites.guess.fix-lengths" type="boolOptionType" minOccurs="0"/>
@@ -165,6 +166,7 @@
             <xsd:element name="default.junctions.keep-clear" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.connection-length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.connection.cont-pos" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.right-of-way" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default-junction-type" type="strOptionType" minOccurs="0"/>
         </xsd:all>
@@ -220,6 +222,7 @@
             <xsd:element name="remove-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.in-boundary" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="keep-edges.in-geo-boundary" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="keep-lanes.min-width" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -259,6 +262,7 @@
             <xsd:element name="junctions.small-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.higher-speed" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.minimal-shape" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.endpoint-shape" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="internal-junctions.vehicle-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rectangular-lane-cut" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>
@@ -275,6 +279,7 @@
             <xsd:element name="sidewalks.guess.exclude" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="crossings.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="crossings.guess.speed-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="crossings.guess.roundabout-priority" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="walkingareas" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="walkingareas.join-dist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>

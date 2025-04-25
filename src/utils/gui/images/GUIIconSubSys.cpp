@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -184,7 +184,7 @@
 #include "icons/computepathmanager.xpm"
 
 #include "icons/checkboxes/checkbox_applytoallphases.xpm"
-#include "icons/checkboxes/checkbox_askformerge.xpm"
+#include "icons/checkboxes/checkbox_mergeautomatically.xpm"
 #include "icons/checkboxes/checkbox_autoselectjunctions.xpm"
 #include "icons/checkboxes/checkbox_bubbles.xpm"
 #include "icons/checkboxes/checkbox_chain.xpm"
@@ -348,50 +348,75 @@
 #include "icons/taz.xpm"
 #include "icons/tazedge.xpm"
 
-#include "icons/route.xpm"
-#include "icons/routedistribution.xpm"
-#include "icons/vtype.xpm"
-#include "icons/vtype_default.xpm"
-#include "icons/vtype_bike.xpm"
-#include "icons/vtype_taxi.xpm"
-#include "icons/vtype_rail.xpm"
-#include "icons/vtype_pedestrian.xpm"
-#include "icons/vtype_container.xpm"
-#include "icons/vtypedistribution.xpm"
-#include "icons/vehicle.xpm"
-#include "icons/trip.xpm"
-#include "icons/tripjunctions.xpm"
-#include "icons/triptazs.xpm"
+#include "icons/container.xpm"
+#include "icons/containerflow.xpm"
 #include "icons/flow.xpm"
 #include "icons/flowjunctions.xpm"
 #include "icons/flowtazs.xpm"
-#include "icons/routeflow.xpm"
-#include "icons/stopelement.xpm"
-#include "icons/waypoint.xpm"
 #include "icons/person.xpm"
 #include "icons/personflow.xpm"
-#include "icons/persontripedge.xpm"
 #include "icons/persontripbusstop.xpm"
-#include "icons/persontriptrainstop.xpm"
+#include "icons/persontripchargingstation.xpm"
+#include "icons/persontripcontainerstop.xpm"
+#include "icons/persontripedge.xpm"
 #include "icons/persontripjunction.xpm"
+#include "icons/persontripparkingarea.xpm"
 #include "icons/persontriptaz.xpm"
-#include "icons/walkedges.xpm"
-#include "icons/walkedge.xpm"
-#include "icons/walkbusstop.xpm"
-#include "icons/walktrainstop.xpm"
-#include "icons/walkroute.xpm"
-#include "icons/walkjunction.xpm"
-#include "icons/walktaz.xpm"
-#include "icons/rideedge.xpm"
+#include "icons/persontriptrainstop.xpm"
 #include "icons/ridebusstop.xpm"
+#include "icons/ridechargingstation.xpm"
+#include "icons/ridecontainerstop.xpm"
+#include "icons/rideedge.xpm"
+#include "icons/ridejunction.xpm"
+#include "icons/rideparkingarea.xpm"
+#include "icons/ridetaz.xpm"
 #include "icons/ridetrainstop.xpm"
-#include "icons/container.xpm"
-#include "icons/containerflow.xpm"
+#include "icons/route.xpm"
+#include "icons/routeref.xpm"
+#include "icons/routedistribution.xpm"
+#include "icons/routeflow.xpm"
+#include "icons/stopelement.xpm"
+#include "icons/transhipbusstop.xpm"
+#include "icons/transhipchargingstation.xpm"
 #include "icons/transhipcontainerstop.xpm"
-#include "icons/transhipedges.xpm"
 #include "icons/transhipedge.xpm"
+#include "icons/transhipedges.xpm"
+#include "icons/transhipjunction.xpm"
+#include "icons/transhipparkingarea.xpm"
+#include "icons/transhiptaz.xpm"
+#include "icons/transhiptrainstop.xpm"
+#include "icons/transportbusstop.xpm"
+#include "icons/transportchargingstation.xpm"
 #include "icons/transportcontainerstop.xpm"
 #include "icons/transportedge.xpm"
+#include "icons/transportjunction.xpm"
+#include "icons/transportparkingarea.xpm"
+#include "icons/transporttaz.xpm"
+#include "icons/transporttrainstop.xpm"
+#include "icons/trip.xpm"
+#include "icons/tripjunctions.xpm"
+#include "icons/triptazs.xpm"
+#include "icons/vehicle.xpm"
+#include "icons/vtype.xpm"
+#include "icons/vtyperef.xpm"
+#include "icons/vtype_bike.xpm"
+#include "icons/vtype_container.xpm"
+#include "icons/vtype_default.xpm"
+#include "icons/vtype_pedestrian.xpm"
+#include "icons/vtype_rail.xpm"
+#include "icons/vtype_taxi.xpm"
+#include "icons/vtypedistribution.xpm"
+#include "icons/walkbusstop.xpm"
+#include "icons/walkchargingstation.xpm"
+#include "icons/walkcontainerstop.xpm"
+#include "icons/walkedge.xpm"
+#include "icons/walkedges.xpm"
+#include "icons/walkjunction.xpm"
+#include "icons/walkparkingarea.xpm"
+#include "icons/walkroute.xpm"
+#include "icons/walktaz.xpm"
+#include "icons/walktrainstop.xpm"
+#include "icons/waypoint.xpm"
 
 #include "icons/dataset.xpm"
 #include "icons/datainterval.xpm"
@@ -424,6 +449,13 @@
 #include "icons/vclasses/vclass_pedestrian.xpm"
 #include "icons/vclasses/vclass_evehicle.xpm"
 #include "icons/vclasses/vclass_ship.xpm"
+#include "icons/vclasses/vclass_container.xpm"
+#include "icons/vclasses/vclass_cable_car.xpm"
+#include "icons/vclasses/vclass_subway.xpm"
+#include "icons/vclasses/vclass_aircraft.xpm"
+#include "icons/vclasses/vclass_wheelchair.xpm"
+#include "icons/vclasses/vclass_scooter.xpm"
+#include "icons/vclasses/vclass_drone.xpm"
 #include "icons/vclasses/vclass_custom1.xpm"
 #include "icons/vclasses/vclass_custom2.xpm"
 
@@ -452,6 +484,13 @@
 #include "icons/vclasses/vclass_small_pedestrian.xpm"
 #include "icons/vclasses/vclass_small_evehicle.xpm"
 #include "icons/vclasses/vclass_small_ship.xpm"
+#include "icons/vclasses/vclass_small_container.xpm"
+#include "icons/vclasses/vclass_small_cable_car.xpm"
+#include "icons/vclasses/vclass_small_subway.xpm"
+#include "icons/vclasses/vclass_small_aircraft.xpm"
+#include "icons/vclasses/vclass_small_wheelchair.xpm"
+#include "icons/vclasses/vclass_small_scooter.xpm"
+#include "icons/vclasses/vclass_small_drone.xpm"
 #include "icons/vclasses/vclass_small_custom1.xpm"
 #include "icons/vclasses/vclass_small_custom2.xpm"
 
@@ -515,6 +554,7 @@
 #include "icons/languages/tr.xpm"
 #include "icons/languages/zh.xpm"
 #include "icons/languages/zht.xpm"
+#include "icons/languages/ja.xpm"
 
 // ===========================================================================
 // static member variable definitions
@@ -703,7 +743,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_SELECTEDGES] = new FXXPMIcon(a, checkbox_selectededges_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_SHOWCONNECTIONS] = new FXXPMIcon(a, checkbox_showconnections_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_AUTOSELECTJUNCTIONS] = new FXXPMIcon(a, checkbox_autoselectjunctions_xpm);
-    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_ASKFORMERGE] = new FXXPMIcon(a, checkbox_askformerge_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_MERGEAUTOMATICALLY] = new FXXPMIcon(a, checkbox_mergeautomatically_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES] = new FXXPMIcon(a, checkbox_bubbles_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_ELEVATION] = new FXXPMIcon(a, checkbox_elevation_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_CHAIN] = new FXXPMIcon(a, checkbox_chain_xpm);
@@ -849,8 +889,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
 
     myIcons[GUIIcon::ROUTE] = new FXXPMIcon(a, route_xpm);
+    myIcons[GUIIcon::ROUTEREF] = new FXXPMIcon(a, routeref_xpm);
     myIcons[GUIIcon::ROUTEDISTRIBUTION] = new FXXPMIcon(a, routedistribution_xpm);
     myIcons[GUIIcon::VTYPE] = new FXXPMIcon(a, vtype_xpm);
+    myIcons[GUIIcon::VTYPEREF] = new FXXPMIcon(a, vtyperef_xpm);
     myIcons[GUIIcon::VTYPE_DEFAULT] = new FXXPMIcon(a, vtype_default_xpm);
     myIcons[GUIIcon::VTYPE_BIKE] = new FXXPMIcon(a, vtype_bike_xpm);
     myIcons[GUIIcon::VTYPE_TAXI] = new FXXPMIcon(a, vtype_taxi_xpm);
@@ -873,26 +915,49 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::PERSONTRIP_EDGE] = new FXXPMIcon(a, persontripedge_xpm);
     myIcons[GUIIcon::PERSONTRIP_BUSSTOP] = new FXXPMIcon(a, persontripbusstop_xpm);
     myIcons[GUIIcon::PERSONTRIP_TRAINSTOP] = new FXXPMIcon(a, persontriptrainstop_xpm);
+    myIcons[GUIIcon::PERSONTRIP_CONTAINERSTOP] = new FXXPMIcon(a, persontripcontainerstop_xpm);
+    myIcons[GUIIcon::PERSONTRIP_CHARGINGSTATION] = new FXXPMIcon(a, persontripchargingstation_xpm);
+    myIcons[GUIIcon::PERSONTRIP_PARKINGAREA] = new FXXPMIcon(a, persontripparkingarea_xpm);
     myIcons[GUIIcon::PERSONTRIP_JUNCTION] = new FXXPMIcon(a, persontripjunction_xpm);
     myIcons[GUIIcon::PERSONTRIP_TAZ] = new FXXPMIcon(a, persontriptaz_xpm);
     myIcons[GUIIcon::WALK_EDGES] = new FXXPMIcon(a, walkedges_xpm);
     myIcons[GUIIcon::WALK_EDGE] = new FXXPMIcon(a, walkedge_xpm);
     myIcons[GUIIcon::WALK_BUSSTOP] = new FXXPMIcon(a, walkbusstop_xpm);
     myIcons[GUIIcon::WALK_TRAINSTOP] = new FXXPMIcon(a, walktrainstop_xpm);
+    myIcons[GUIIcon::WALK_CONTAINERSTOP] = new FXXPMIcon(a, walkcontainerstop_xpm);
+    myIcons[GUIIcon::WALK_CHARGINGSTATION] = new FXXPMIcon(a, walkchargingstation_xpm);
+    myIcons[GUIIcon::WALK_PARKINGAREA] = new FXXPMIcon(a, walkparkingarea_xpm);
     myIcons[GUIIcon::WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);
     myIcons[GUIIcon::WALK_JUNCTION] = new FXXPMIcon(a, walkjunction_xpm);
     myIcons[GUIIcon::WALK_TAZ] = new FXXPMIcon(a, walktaz_xpm);
     myIcons[GUIIcon::RIDE_EDGE] = new FXXPMIcon(a, rideedge_xpm);
     myIcons[GUIIcon::RIDE_BUSSTOP] = new FXXPMIcon(a, ridebusstop_xpm);
     myIcons[GUIIcon::RIDE_TRAINSTOP] = new FXXPMIcon(a, ridetrainstop_xpm);
+    myIcons[GUIIcon::RIDE_CONTAINERSTOP] = new FXXPMIcon(a, ridecontainerstop_xpm);
+    myIcons[GUIIcon::RIDE_CHARGINGSTATION] = new FXXPMIcon(a, ridechargingstation_xpm);
+    myIcons[GUIIcon::RIDE_PARKINGAREA] = new FXXPMIcon(a, rideparkingarea_xpm);
+    myIcons[GUIIcon::RIDE_JUNCTION] = new FXXPMIcon(a, ridejunction_xpm);
+    myIcons[GUIIcon::RIDE_TAZ] = new FXXPMIcon(a, ridetaz_xpm);
 
     myIcons[GUIIcon::CONTAINER] = new FXXPMIcon(a, container_xpm);
     myIcons[GUIIcon::CONTAINERFLOW] = new FXXPMIcon(a, containerflow_xpm);
     myIcons[GUIIcon::TRANSPORT_EDGE] = new FXXPMIcon(a, transportedge_xpm);
+    myIcons[GUIIcon::TRANSPORT_BUSSTOP] = new FXXPMIcon(a, transportbusstop_xpm);
+    myIcons[GUIIcon::TRANSPORT_TRAINSTOP] = new FXXPMIcon(a, transporttrainstop_xpm);
     myIcons[GUIIcon::TRANSPORT_CONTAINERSTOP] = new FXXPMIcon(a, transportcontainerstop_xpm);
+    myIcons[GUIIcon::TRANSPORT_CHARGINGSTATION] = new FXXPMIcon(a, transportchargingstation_xpm);
+    myIcons[GUIIcon::TRANSPORT_PARKINGAREA] = new FXXPMIcon(a, transportparkingarea_xpm);
+    myIcons[GUIIcon::TRANSPORT_JUNCTION] = new FXXPMIcon(a, transportjunction_xpm);
+    myIcons[GUIIcon::TRANSPORT_TAZ] = new FXXPMIcon(a, transporttaz_xpm);
     myIcons[GUIIcon::TRANSHIP_EDGES] = new FXXPMIcon(a, transhipedges_xpm);
     myIcons[GUIIcon::TRANSHIP_EDGE] = new FXXPMIcon(a, transhipedge_xpm);
+    myIcons[GUIIcon::TRANSHIP_BUSSTOP] = new FXXPMIcon(a, transhipbusstop_xpm);
+    myIcons[GUIIcon::TRANSHIP_TRAINSTOP] = new FXXPMIcon(a, transhiptrainstop_xpm);
     myIcons[GUIIcon::TRANSHIP_CONTAINERSTOP] = new FXXPMIcon(a, transhipcontainerstop_xpm);
+    myIcons[GUIIcon::TRANSHIP_CHARGINGSTATION] = new FXXPMIcon(a, transhipchargingstation_xpm);
+    myIcons[GUIIcon::TRANSHIP_PARKINGAREA] = new FXXPMIcon(a, transhipparkingarea_xpm);
+    myIcons[GUIIcon::TRANSHIP_JUNCTION] = new FXXPMIcon(a, transhipjunction_xpm);
+    myIcons[GUIIcon::TRANSHIP_TAZ] = new FXXPMIcon(a, transhiptaz_xpm);
 
     myIcons[GUIIcon::DATASET] = new FXXPMIcon(a, dataset_xpm);
     myIcons[GUIIcon::DATAINTERVAL] = new FXXPMIcon(a, datainterval_xpm);
@@ -932,6 +997,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::VCLASS_PEDESTRIAN] = new FXXPMIcon(a, vclass_pedestrian_xpm);
     myIcons[GUIIcon::VCLASS_EVEHICLE] = new FXXPMIcon(a, vclass_evehicle_xpm);
     myIcons[GUIIcon::VCLASS_SHIP] = new FXXPMIcon(a, vclass_ship_xpm);
+    myIcons[GUIIcon::VCLASS_CONTAINER] = new FXXPMIcon(a, vclass_container_xpm);
+    myIcons[GUIIcon::VCLASS_CABLE_CAR] = new FXXPMIcon(a, vclass_cable_car_xpm);
+    myIcons[GUIIcon::VCLASS_SUBWAY] = new FXXPMIcon(a, vclass_subway_xpm);
+    myIcons[GUIIcon::VCLASS_AIRCRAFT] = new FXXPMIcon(a, vclass_aircraft_xpm);
+    myIcons[GUIIcon::VCLASS_WHEELCHAIR] = new FXXPMIcon(a, vclass_wheelchair_xpm);
+    myIcons[GUIIcon::VCLASS_SCOOTER] = new FXXPMIcon(a, vclass_scooter_xpm);
+    myIcons[GUIIcon::VCLASS_DRONE] = new FXXPMIcon(a, vclass_drone_xpm);
     myIcons[GUIIcon::VCLASS_CUSTOM1] = new FXXPMIcon(a, vclass_custom1_xpm);
     myIcons[GUIIcon::VCLASS_CUSTOM2] = new FXXPMIcon(a, vclass_custom2_xpm);
 
@@ -960,6 +1032,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::VCLASS_SMALL_PEDESTRIAN] = new FXXPMIcon(a, vclass_small_pedestrian_xpm);
     myIcons[GUIIcon::VCLASS_SMALL_EVEHICLE] = new FXXPMIcon(a, vclass_small_evehicle_xpm);
     myIcons[GUIIcon::VCLASS_SMALL_SHIP] = new FXXPMIcon(a, vclass_small_ship_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_CONTAINER] = new FXXPMIcon(a, vclass_small_container_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_CABLE_CAR] = new FXXPMIcon(a, vclass_small_cable_car_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_SUBWAY] = new FXXPMIcon(a, vclass_small_subway_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_AIRCRAFT] = new FXXPMIcon(a, vclass_small_aircraft_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_WHEELCHAIR] = new FXXPMIcon(a, vclass_small_wheelchair_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_SCOOTER] = new FXXPMIcon(a, vclass_small_scooter_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_DRONE] = new FXXPMIcon(a, vclass_small_drone_xpm);
     myIcons[GUIIcon::VCLASS_SMALL_CUSTOM1] = new FXXPMIcon(a, vclass_small_custom1_xpm);
     myIcons[GUIIcon::VCLASS_SMALL_CUSTOM2] = new FXXPMIcon(a, vclass_small_custom2_xpm);
 
@@ -1024,9 +1103,15 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::LANGUAGE_TR] = new FXXPMIcon(a, language_tr_xpm);
     myIcons[GUIIcon::LANGUAGE_ZH] = new FXXPMIcon(a, language_zh_xpm);
     myIcons[GUIIcon::LANGUAGE_ZHT] = new FXXPMIcon(a, language_zht_xpm);
+    myIcons[GUIIcon::LANGUAGE_JA] = new FXXPMIcon(a, language_ja_xpm);
 
     // ... and create them
     for (const auto& icon : myIcons) {
+        if (GUIDesignHeight != 23) {
+            int w = (int)(icon.second->getWidth() * GUIDesignHeight / 23.0);
+            int h = (int)(icon.second->getHeight() * GUIDesignHeight / 23.0);
+            icon.second->scale(w, h);
+        }
         icon.second->create();
     }
 }

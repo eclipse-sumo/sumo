@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -160,13 +160,18 @@ SUMOSAXReader::parseNext() {
 
 
 bool
-SUMOSAXReader::parseSection(int element) {
+SUMOSAXReader::parseSection(SumoXMLTag element) {
     if (myXMLReader == nullptr) {
         throw ProcessError(TL("The XML-parser was not initialized."));
     }
     bool started = false;
     if (myNextSection.first != -1) {
         started = myNextSection.first == element;
+        if (!started) {
+            // This enforces that the next parsed section starts right after the last one.
+            // If we want to skip sections we need to change this.
+            WRITE_WARNINGF("Expected different XML section '%', some content may be missing.", toString(element));
+        }
         myHandler->myStartElement(myNextSection.first, *myNextSection.second);
         delete myNextSection.second;
         myNextSection.first = -1;
@@ -230,5 +235,6 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
     }
     return new XERCES_CPP_NAMESPACE::MemBufInputSource((const XMLByte*)"", 0, "");
 }
+
 
 /****************************************************************************/

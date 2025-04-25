@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,13 +18,9 @@
 // class for edge relation data
 /****************************************************************************/
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNESegment.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -36,19 +32,20 @@
 #include "GNEEdgeRelData.h"
 #include "GNEDataInterval.h"
 
-
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNEEdgeRelData - methods
-// ---------------------------------------------------------------------------
+GNEEdgeRelData::GNEEdgeRelData(GNENet* net) :
+    GNEGenericData(SUMO_TAG_EDGEREL, net) {
+}
+
 
 GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                                const Parameterised::Map& parameters) :
-    GNEGenericData(SUMO_TAG_EDGEREL, GUIIconSubSys::getIcon(GUIIcon::EDGERELDATA), GLO_EDGERELDATA,
-                   dataIntervalParent, parameters, {}, {fromEdge, toEdge}, {}, {}, {}, {}) {
+    GNEGenericData(SUMO_TAG_EDGEREL, dataIntervalParent, parameters) {
+    // set parents
+    setParents<GNEEdge*>({fromEdge, toEdge});
 }
 
 
@@ -72,8 +69,8 @@ GNEEdgeRelData::setColor(const GUIVisualizationSettings& s) const {
         // continue if there is a selected data interval and filtered attribute
         if (dataInterval && (filteredAttribute.size() > 0)) {
             // obtain minimum and maximum value
-            const double minValue = dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).getMinValue(filteredAttribute);
-            const double maxValue = dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).getMaxValue(filteredAttribute);
+            const double minValue = dataInterval->getSpecificAttributeColors().at(myTagProperty->getTag()).getMinValue(filteredAttribute);
+            const double maxValue = dataInterval->getSpecificAttributeColors().at(myTagProperty->getTag()).getMaxValue(filteredAttribute);
             // get value
             const double value = parse<double>(getParameter(filteredAttribute, "0"));
             col = GNEViewNetHelper::getRainbowScaledColor(minValue, maxValue, value);
@@ -155,26 +152,26 @@ GNEEdgeRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void
 GNEEdgeRelData::computePathElement() {
     // calculate path
-    myNet->getPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
+    myNet->getDataPathManager()->calculateConsecutivePathEdges(this, SVC_IGNORING, getParentEdges());
 }
 
 
 void
-GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     // get color
     const auto color = setColor(s);
     if (segment->getLane() && (color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get detail level
         const auto d = s.getDetailLevel(1);
         // draw over all edge's lanes
-        for (const auto& laneEdge : segment->getLane()->getParentEdge()->getLanes()) {
+        for (const auto& laneEdge : segment->getLane()->getParentEdge()->getChildLanes()) {
             // get lane width
             const double laneWidth = s.addSize.getExaggeration(s, laneEdge) * s.edgeRelWidthExaggeration *
                                      (laneEdge->getParentEdge()->getNBEdge()->getLaneWidth(laneEdge->getIndex()) * 0.5);
             // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area translating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGERELDATA, offsetFront);
+            drawInLayer(GLO_EDGERELDATA, offsetFront);
             GLHelper::setColor(RGBColor::BLACK);
             // draw box lines
 
@@ -192,7 +189,7 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
             // draw filtered attribute
-            if (getParentEdges().front()->getLanes().front() == laneEdge) {
+            if (getParentEdges().front()->getChildLanes().front() == laneEdge) {
                 drawFilteredAttribute(s, laneEdge->getLaneShape(),
                                       myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute(),
                                       myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval());
@@ -202,17 +199,22 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
         }
         // draw dotted contour
         if (getParentEdges().front() == segment->getLane()->getParentEdge()) {
-            segment->getContour()->calculateContourEdge(s, d, getParentEdges().front(), true, false);
+            segment->getContour()->calculateContourEdge(s, d, getParentEdges().front(), this, getType(), true, false);
         }
         if (getParentEdges().back() == segment->getLane()->getParentEdge()) {
-            segment->getContour()->calculateContourEdge(s, d, getParentEdges().back(), false, true);
+            segment->getContour()->calculateContourEdge(s, d, getParentEdges().back(), this, getType(), false, true);
         }
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
+        }
+
     }
 }
 
 
 void
-GNEEdgeRelData::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double /*offsetFront*/) const {
+GNEEdgeRelData::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double /*offsetFront*/) const {
     // get color
     const auto color = setColor(s);
     if ((color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
@@ -225,6 +227,10 @@ GNEEdgeRelData::drawJunctionPartialGL(const GUIVisualizationSettings& s, const G
         // draw dotted contour
         if (segment->getPreviousLane() && segment->getNextLane()) {
             segment->getContour()->calculateContourEdges(s, d, segment->getPreviousLane()->getParentEdge(), segment->getNextLane()->getParentEdge());
+        }
+        // check if add this path element to redraw buffer
+        if (!gViewObjectsHandler.isPathElementMarkForRedraw(this) && segment->getContour()->checkDrawPathContour(s, d, this)) {
+            gViewObjectsHandler.addToRedrawPathElements(this);
         }
     }
 }
@@ -307,12 +313,8 @@ GNEEdgeRelData::getAttribute(SumoXMLAttr key) const {
             return myDataIntervalParent->getAttribute(SUMO_ATTR_BEGIN);
         case SUMO_ATTR_END:
             return myDataIntervalParent->getAttribute(SUMO_ATTR_END);
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -331,12 +333,11 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
     switch (key) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-        case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -350,12 +351,8 @@ GNEEdgeRelData::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TO:
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) &&
                    (value != getParentEdges().front()->getID());
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areAttributesValid(value, true);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isCommonValid(key, value);
     }
 }
 
@@ -395,20 +392,12 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceLastParentEdge(value);
             break;
         }
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
+        default:
+            setCommonAttribute(this, key, value);
+            if (!isTemplate()) {
+                myDataIntervalParent->getDataSetParent()->updateAttributeColors();
             }
             break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            // update attribute colors
-            myDataIntervalParent->getDataSetParent()->updateAttributeColors();
-            break;
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();

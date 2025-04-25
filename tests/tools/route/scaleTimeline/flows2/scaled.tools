@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-07 14:54:39.495595 by scaleTimeLine.py v1_22_0+1327-c54ec965a11
+<configuration>
+    <route-files value="input_flows.flows.xml"/>
+    <output-file value="scaled.rou.xml"/>
+    <timeline-list value="3600,400"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="a" begin="0.00" end="3600.00" period="2.5" from="A" to="B"/>
+</routes>

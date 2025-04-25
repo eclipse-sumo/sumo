@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-27 10:08:55 by Eclipse SUMO netedit Version v1_20_0+0872-7754263f908
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="tSubway" vClass="subway" maxSpeed="5" length="10"/>
+    <vType id="tShip"   vClass="ship"   maxSpeed="5"/>
+    <vType id="tCar"                    maxSpeed="5"/>
+    <flow id="v0" type="tSubway" begin="0.00" number="3" period="2" from="E2" departSpeed="max"/>
+    <flow id="v1" type="tShip"   begin="0.00" number="3" period="2" from="E0" departSpeed="max"/>
+    <flow id="v2" type="tCar"    begin="0.00" number="3" period="2" from="E1" departSpeed="max"/>
+    <flow id="v2r" type="tCar"    begin="0.00" number="3" period="2" from="-E1" departSpeed="max"/>
+</routes>

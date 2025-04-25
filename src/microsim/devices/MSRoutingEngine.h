@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,6 +34,12 @@
 #ifdef HAVE_FOX
 #include <utils/foxtools/MFXWorkerThread.h>
 #endif
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MSTransportable;
 
 
 // ===========================================================================
@@ -82,6 +88,10 @@ public:
 
     /// @brief initiate the rerouting, create router / thread pool on first use
     static void reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
+                        const bool onInit = false, const bool silent = false, const MSEdgeVector& prohibited = MSEdgeVector());
+
+    /// @brief initiate the person rerouting, create router / thread pool on first use
+    static void reroute(MSTransportable& t, const SUMOTime currentTime, const std::string& info,
                         const bool onInit = false, const bool silent = false, const MSEdgeVector& prohibited = MSEdgeVector());
 
     /// @brief adapt the known travel time for an edge
@@ -162,6 +172,19 @@ private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&) = delete;
     };
+
+    /**
+     * @class InitTask
+     * @brief setup RNGs for each thread (with proper locking so we don't need
+     * locking later */
+    class InitTask : public MFXWorkerThread::Task {
+    public:
+        InitTask() {}
+        void run(MFXWorkerThread* context);
+    private:
+        /// @brief Invalidated assignment operator.
+        RoutingTask& operator=(const RoutingTask&) = delete;
+    };
 #endif
 
     /// @name Network state adaptation
@@ -231,6 +254,7 @@ private:
     static MSRouterProvider* myRouterProvider;
 
     static std::map<std::thread::id, SumoRNG*> myThreadRNGs;
+    static bool myHaveRoutingThreads;
 
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> myCachedRoutes;

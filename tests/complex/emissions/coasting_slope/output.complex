@@ -1,0 +1,22 @@
+Running 'PHEMlight5/PC_EU4_G'
+sums
+length:52.7722
+CO:70.8715
+CO2:31702.1
+HC:0.977429
+NOx:6.25037
+PMx:0.15629
+fuel:10041.5
+electricity:0
+Success.
+Running 'HBEFA4/default'
+sums
+length:52.7722
+CO:8.70781
+CO2:41538.1
+HC:0.0579436
+NOx:15.3177
+PMx:1.12741
+fuel:13466.3
+electricity:0
+Success.

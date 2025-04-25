@@ -1,0 +1,66 @@
+# access uses wrong lateral pos
+ticket15030
+
+# not using the empty parking area
+ticket15072
+
+# spurious warning
+ticket15077
+
+# negative emissions in HBEFA4
+ticket15079
+
+# deadlock with lanechange prohibition and rerouting
+ticket15098
+
+# collision
+ticket15100
+
+# onDemand stop
+ticket15263
+
+# crash on rerouting with lane change prohibitions
+ticket15390
+
+# freeze on invalid interval end
+ticket15416
+
+# exceeding the speedLimit
+ticket15435
+
+# collision most likely due to driving imprecision
+ticket15440
+
+# rerouting on the last edge to the stop on the same edge
+ticket15552
+
+# crash 
+ticket15667
+
+# crash 
+ticket15667b
+
+# parking outflow is blocked
+ticket15757
+
+# parking outflow is blocked (with trucks and longer busStops)
+ticket15757b
+
+# use parkingAreas instead of busStops
+ticket15757_parkingArea
+
+# use short parkingAreas and very long vehicles
+ticket15757_parkingArea2
+
+# collision
+ticket15770
+
+# vehicle inserted on pedestrian crossing
+ticket15843
+
+# unsafe approach speed to pedestrian crossing
+ticket15848
+
+# teleport beyond busStop
+ticket15972
+ticket15976

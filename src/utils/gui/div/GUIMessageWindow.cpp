@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2003-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,6 +38,8 @@
 bool GUIMessageWindow::myLocateLinks = true;
 SUMOTime GUIMessageWindow::myBreakPointOffset = TIME2STEPS(-5);
 FXHiliteStyle* GUIMessageWindow::myStyles = new FXHiliteStyle[8];
+std::string GUIMessageWindow::myTimeText;
+std::map<std::string, std::string> GUIMessageWindow::myTypeStrings;
 
 // ===========================================================================
 // FOX callback mapping
@@ -64,6 +66,20 @@ GUIMessageWindow::GUIMessageWindow(FXComposite* parent, GUIMainWindow* mainWindo
     fillStyles();
     // set styles
     setHiliteStyles(myStyles);
+    myTimeText = TL(" time");
+    // see GUIGlObject.cpp
+    myTypeStrings[StringUtils::to_lower_case(TL("edge"))] = "edge";
+    myTypeStrings[StringUtils::to_lower_case(TL("lane"))] = "lane";
+    myTypeStrings[StringUtils::to_lower_case(TL("junction"))] = "junction";
+    myTypeStrings[StringUtils::to_lower_case(TL("vehicle"))] = "vehicle";
+    myTypeStrings[StringUtils::to_lower_case(TL("person"))] = "person";
+    myTypeStrings[StringUtils::to_lower_case(TL("tlLogic"))] = "tlLogic";
+    myTypeStrings[StringUtils::to_lower_case(TL("busStop"))] = "busStop";
+    myTypeStrings[StringUtils::to_lower_case(TL("trainStop"))] = "busStop";
+    myTypeStrings[StringUtils::to_lower_case(TL("containerStop"))] = "containerStop";
+    myTypeStrings[StringUtils::to_lower_case(TL("chargingStation"))] = "chargingStation";
+    myTypeStrings[StringUtils::to_lower_case(TL("overheadWireSegment"))] = "overheadWireSegment";
+    myTypeStrings[StringUtils::to_lower_case(TL("parkingArea"))] = "parkingArea";
 }
 
 
@@ -86,18 +102,9 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
                 typeS++;
             }
             std::string type(text.mid(typeS + 1, idS - typeS - 1).lower().text());
-            if (type == "tllogic") {
-                type = "tlLogic"; // see GUIGlObject.cpp
-            } else if (type == "busstop" || type == "trainstop") {
-                type = "busStop";
-            } else if (type == "containerstop") {
-                type = "containerStop";
-            } else if (type == "chargingstation") {
-                type = "chargingStation";
-            } else if (type == "overheadwiresegment") {
-                type = "overheadWireSegment";
-            } else if (type == "parkingarea") {
-                type = "parkingArea";
+            const auto& tsIt = myTypeStrings.find(type);
+            if (tsIt != myTypeStrings.end()) {
+                type = tsIt->second;
             }
             const std::string id(text.mid(idS + 2, idE - idS - 2).text());
             const std::string typedID = type + ":" + id;
@@ -110,8 +117,8 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
 }
 
 SUMOTime
-GUIMessageWindow::getTimeString(const FXString& text, const FXint pos, const FXint /*lineS*/, const FXint /*lineE*/) const {
-    const FXint end = text.find(" ", pos + 1);
+GUIMessageWindow::getTimeString(const FXString& text, const FXint pos) const {
+    const FXint end = text.find_first_of(" ,", pos + 1);
     std::string time;
     if (end >= 0) {
         time = text.mid(pos, end - pos).text();
@@ -150,12 +157,11 @@ void
 GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
     FXText::setCursorPos(pos, notify);
     if (myLocateLinks) {
-        GUIMainWindow* const main = GUIMainWindow::getInstance();
-        std::vector<std::string> viewIDs = main->getViewIDs();
+        std::vector<std::string> viewIDs = myMainWindow->getViewIDs();
         if (viewIDs.empty()) {
             return;
         }
-        GUIGlChildWindow* const child = main->getViewByID(viewIDs[0]);
+        GUIGlChildWindow* const child = myMainWindow->getViewByID(viewIDs[0]);
         const FXString text = getText();
         const GUIGlObject* const glObj = getActiveStringObject(text, pos, lineStart(pos), lineEnd(pos));
         if (glObj != nullptr) {
@@ -164,25 +170,17 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
             if (getApp()->getKeyState(KEY_Control_L)) {
                 gSelected.toggleSelection(glObj->getGlID());
             }
-        } else {
+        } else if (gSimulation) {
             const int lookback = MIN2(pos, 20);
             const int start = MAX2(lineStart(pos), pos - lookback);
             const FXString candidate = text.mid(start, lineEnd(pos) - start);
-            FXint timePos = candidate.find(TL(" time"));
+            FXint timePos = candidate.find(myTimeText.c_str());
             if (timePos > -1) {
-                timePos += (int)std::string(TL(" time")).size() + 1;
-                SUMOTime t = -1;
+                timePos += (int)myTimeText.size() + 1;
                 if (pos >= 0 && pos > start + timePos) {
-                    t = getTimeString(candidate, timePos, 0, (int)candidate.length());
+                    const SUMOTime t = getTimeString(candidate, timePos);
                     if (t >= 0) {
-                        t += myBreakPointOffset;
-                        std::vector<SUMOTime> breakpoints = myMainWindow->retrieveBreakpoints();
-                        if (std::find(breakpoints.begin(), breakpoints.end(), t) == breakpoints.end()) {
-                            breakpoints.push_back(t);
-                            std::sort(breakpoints.begin(), breakpoints.end());
-                            myMainWindow->setBreakpoints(breakpoints);
-                            myMainWindow->setStatusBarText(TLF("Set breakpoint at %", time2string(t)));
-                        }
+                        myMainWindow->addBreakpoint(t + myBreakPointOffset);
                     }
                 }
             }
@@ -240,11 +238,11 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
             pos = text.find("'", pos + 1);
         }
         // find time links
-        pos = text.find(TL(" time"));
-        const int timeTerm = (int)std::string(TL(" time")).size() + 1;
+        pos = text.find(myTimeText.c_str());
+        const int timeTerm = (int)myTimeText.size() + 1;
         SUMOTime t = -1;
         if (pos >= 0) {
-            t = getTimeString(text, pos + timeTerm, 0, text.length());
+            t = getTimeString(text, pos + timeTerm);
         }
         if (t >= 0) {
             FXString insText = text.left(pos + timeTerm);
@@ -272,7 +270,7 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
 
 void
 GUIMessageWindow::addSeparator() {
-    std::string msg = "----------------------------------------------------------------------------------------\n";
+    std::string msg = std::string(100, '-') + "\n";
     FXText::appendStyledText(msg.c_str(), (FXint) msg.length(), 1, true);
     FXText::setCursorPos(getLength() - 1);
     FXText::setBottomLine(getLength() - 1);
@@ -302,13 +300,9 @@ GUIMessageWindow::registerMsgHandlers() {
         // initialize only if registration is requested
         myMessageRetriever = new MsgOutputDevice(this, GUIEventType::MESSAGE_OCCURRED);
         myErrorRetriever = new MsgOutputDevice(this, GUIEventType::ERROR_OCCURRED);
-        myDebugRetriever = new MsgOutputDevice(this, GUIEventType::DEBUG_OCCURRED);
-        myGLDebugRetriever = new MsgOutputDevice(this, GUIEventType::GLDEBUG_OCCURRED);
         myWarningRetriever = new MsgOutputDevice(this, GUIEventType::WARNING_OCCURRED);
     }
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
-    MsgHandler::getDebugInstance()->addRetriever(myDebugRetriever);
-    MsgHandler::getGLDebugInstance()->addRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
 }
@@ -317,8 +311,6 @@ GUIMessageWindow::registerMsgHandlers() {
 void
 GUIMessageWindow::unregisterMsgHandlers() {
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
-    MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
-    MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
 }

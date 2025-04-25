@@ -4,13 +4,6 @@ title: Links
 
 ## Open Source Development
 
-### Hosts
-
-- [sourceforge.net](https://sourceforge.net/) Host of open-source
-  projects (about 100.000).
-
-### How To Contribute
-
 - [5 Ways to Contribute to Open Source Projects Without
   Coding](https://nongeeksight.blogspot.com/2006/09/5-ways-to-contribute-to-open-source.html)
 
@@ -27,13 +20,12 @@ title: Links
 
 ### Software Engineering
 
-- [SourceMonitor](https://www.campwoodsw.com/sourcemonitor.html) A
+- [SourceMonitor](https://www.derpaul.net/SourceMonitor/) A
   great source code metrics tool.
 
 ### Configuration Tools
 
-- [Autoconf](ftp://ftp.gnu.org/pub/gnu/autoconf/) Autoconf ftp-site.
-- [Automake](ftp://ftp.gnu.org/pub/gnu/automake/) Automake ftp-site.
+- [CMake](https://cmake.org/)
 
 ## Open Source Traffic Simulation Packages
 

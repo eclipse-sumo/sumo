@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,10 @@ NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::st
     myColor(color),
     myInterval(interval),
     myNightService(nightService),
-    myVClass(vClass)
+    myVClass(vClass),
+    myNumOfStops(0),
+    myMissingStopsBefore(0),
+    myMissingStopsAfter(0)
 { }
 
 
@@ -89,7 +92,13 @@ NBPTLine::write(OutputDevice& device) {
     if (myColor.isValid()) {
         device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }
-    device.writeAttr("completeness", toString((double)myPTStops.size() / (double)myNumOfStops));
+    device.writeAttr("completeness", (double)myPTStops.size() / myNumOfStops);
+    if (myMissingStopsBefore != 0) {
+        device.writeAttr("missingBefore", myMissingStopsBefore);
+    }
+    if (myMissingStopsAfter != 0) {
+        device.writeAttr("missingAfter", myMissingStopsAfter);
+    }
 
     if (!myRoute.empty()) {
         device.openTag(SUMO_TAG_ROUTE);
@@ -154,8 +163,10 @@ NBPTLine::setEdges(const std::vector<NBEdge*>& edges) {
 
 
 void
-NBPTLine::setMyNumOfStops(int numStops) {
+NBPTLine::setNumOfStops(int numStops, int missingBefore, int missingAfter) {
     myNumOfStops = numStops;
+    myMissingStopsBefore = missingBefore;
+    myMissingStopsAfter = missingAfter;
 }
 
 

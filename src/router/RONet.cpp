@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -226,8 +226,8 @@ RONet::addJunctionTaz(ROAbstractEdgeBuilder& eb) {
         const std::string sourceID = tazID + "-source";
         const std::string sinkID = tazID + "-sink";
         // sink must be added before source
-        ROEdge* sink = eb.buildEdge(sinkID, nullptr, nullptr, 0);
-        ROEdge* source = eb.buildEdge(sourceID, nullptr, nullptr, 0);
+        ROEdge* sink = eb.buildEdge(sinkID, nullptr, nullptr, 0, "");
+        ROEdge* source = eb.buildEdge(sourceID, nullptr, nullptr, 0, "");
         sink->setOtherTazConnector(source);
         source->setOtherTazConnector(sink);
         if (!addDistrict(tazID, source, sink)) {
@@ -726,6 +726,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
         myThreadPool.waitAll();
 #endif
     }
+    const double scale = options.exists("scale-suffix") ? options.getFloat("scale") : 1;
     // write all vehicles (and additional structures)
     while (myRoutables.size() != 0 || myContainers.size() != 0) {
         // get the next vehicle, person or container
@@ -752,7 +753,8 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                 // ok, check whether it has been routed
                 if (r->getRoutingSuccess()) {
                     // write the route
-                    r->write(myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options);
+                    int quota = getScalingQuota(scale, myWrittenRouteNo);
+                    r->write(myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options, quota);
                     myWrittenRouteNo++;
                 } else {
                     myDiscardedRouteNo++;
@@ -762,7 +764,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                     // delete routes and the vehicle
                     const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
                     if (veh != nullptr && veh->getRouteDefinition()->getID()[0] == '!') {
-                        if (!myRoutes.remove(veh->getRouteDefinition()->getID())) {
+                        if (r->isPartOfFlow() || !myRoutes.remove(veh->getRouteDefinition()->getID())) {
                             delete veh->getRouteDefinition();
                         }
                     }
@@ -849,7 +851,7 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
         router.getNetwork()->addSchedule(veh->getParameter());
     }
     // add access to transfer from walking to taxi-use
-    if ((router.getCarWalkTransfer() & ROIntermodalRouter::Network::TAXI_PICKUP_ANYWHERE) != 0) {
+    if ((router.getCarWalkTransfer() & ModeChangeOptions::TAXI_PICKUP_ANYWHERE) != 0) {
         for (const ROEdge* edge : ROEdge::getAllEdges()) {
             if ((edge->getPermissions() & SVC_PEDESTRIAN) != 0 && (edge->getPermissions() & SVC_TAXI) != 0) {
                 router.getNetwork()->addCarAccess(edge, SVC_TAXI, taxiWait);

@@ -1,0 +1,38 @@
+# import public transport using shorter path between stops
+gtfs2pt_fcd
+
+# patch a single stop so that it maps to a different edge
+patch_stop
+
+# use candiate stop locations to restrict mapping
+stops
+
+# use the closest loaded stop in range even if it's not on the closest edge to the given coordinate.
+stops_otherEdge
+
+# ensure that stops on the same edge are in the correct sequence
+stops_sameEdgeOrder
+
+# load stops with invalid sequence numbers
+bad_sequence
+
+# load stops with invalid timing
+invalid_timing
+
+# test routes if the vehicle class is disallowed on some lanes
+vclass_disallowed
+
+# ensure correct stop placement if some lanes are forbidden
+lane_disallowed
+
+# set stops to parking
+parking
+
+# import public transport using a network that doesn't cover all stops
+subnet
+
+# test case from the berlin sbahn network
+sbahn
+
+# test case from the berlin sbahn network (#16544)
+sbahn2

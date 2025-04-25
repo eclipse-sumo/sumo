@@ -17,12 +17,14 @@ the definition. The declaration values are:
 | Attribute Name | Value Type  | Description                                                                                            |
 | -------------- | ----------- | ------------------------------------------------------------------------------------------------------ |
 | **id**         | id (string) | The id of of the rerouter                                                                              |
-| **edges**      | float       | An edge id or a list of edge ids where vehicles shall be rerouted                                      |
-| file           | float       | The path to the definition file (alternatively, the intervals may defined as children of the rerouter) |
+| **edges**      | stringList  | A list of edge ids where vehicles shall be rerouted                                                    |
 | probability    | float       | The probability for vehicle rerouting (0-1), default 1                                                 |
 | timeThreshold  | time (s)    | minimum accumulated waiting time before the rerouter takes effect (default 0 applies always)           |
 | vTypes         | stringList  | Space-separated list of vType IDs for which this rerouter should apply (default "" applies to all)     |
 | off            | bool        | Whether the router should be inactive initially (and switched on in the gui), *default:false*          |
+| optional       | bool        | Whether the vehicle / person needs to request rerouting actively, *default:false*                      |
+| pos            | float       | The position on the edge, *default:undefined*                                                          |
+| radius         | float       | At which distance the rerouter will trigger, *default:infinity*                                        |
 
 A rerouter may work in several different ways. Within a time period you
 may close an edge, or assign new destinations or predefined routes to
@@ -252,7 +254,7 @@ The attributes used within such definitions are:
 | Attribute Name | Value Type  | Description            |
 | -------------- | ----------- | ---------------------------------------------------------------------------------------------- |
 | **id**         | id (string) | The id of a new route to assign; the id must be the id of a previously loaded route                                                                          |
-| probability    | float       | The the probability with which a vehicle will use the given edge as destination; (default 1). The probabilities are automatically normalized for all entries |
+| probability    | float       | The probability with which a vehicle will use the given edge as destination; (default 1). The probabilities are automatically normalized for all entries |
 
 ### Repeated public transport routes
 
@@ -276,9 +278,9 @@ cases:
    lack of capacity
 - when a vehicle enters one of the rerouter-edges and the following
    conditions are all met:
-   - it's current destination parkingArea is among the set of
+   - its current destination parkingArea is among the set of
       parkingAreaReroute definitions and has attribute `visible="true"`
-   - it's current destination parkingArea is full
+   - its current destination parkingArea is full
 
 The definition looks like this:
 
@@ -313,7 +315,7 @@ Parking search refers to the situation where a vehicle encounters an occupied pa
 ```
 
 !!! caution
-    Up to version 1.10.0 parking memory was 0 which could cause vehicles to only visited a small set of areas repeatedly
+    Up to version 1.10.0 parking memory was 0 which could cause vehicles to visit only a small set of areas repeatedly.
 
 ### Determining the alternative parking area
 
@@ -323,6 +325,7 @@ weighted sum over a number of attributes. For invisible parkingAreas
 (attribute `visible="false"`, the occupancy value is a taken as a random number from
 \[0,capacity\[ which means they are always among the set of alternatives
 even when full. Each attribute (i.e. occupancy, time, distance) is normalized to [0-1] with the maximum value of all candidate parkingAreas with positive remaining capacity) and inverted as necessary.
+Inversion means taking the remainder to 1 instead of the normalized value itself.
 
 By default only the distance from the current vehicle
 position to the new parking area is considered. The following table
@@ -339,16 +342,17 @@ vType](../Simulation/GenericParameters.md):
 | parking.relfreespace.weight | 0             | The relative number of free spaces                                       | yes                        |
 | parking.distanceto.weight   | 1             | The road distance to the parking area                                    | no                         |
 | parking.timeto.weight       | 0             | The assumed travel time to the parking area                              | no                         |
-| parking.distancefrom.weight | 0             | The road distance from the parking area to the vehicles destination      | no                         |
+| parking.distancefrom.weight | 0             | The road distance from the parking area to the vehicle destination      | no                         |
 | parking.timefrom.weight     | 0             | The assumed travel time from the parking area to the vehicle destination | no                         |
 
-When 'parking.probability.weight' is set to a positive value, a random number between 0 and attribute 'probability' is drawn for each candidate parkingArea. This value is then normalized to then range [0,1] by dividing with the maximum probability value of all parkingAreaReroute elements. The negative normalized value is then multiplied with parking.probability.weight to enter into the candidate score.
+When 'parking.probability.weight' is set to a positive value, a random number between 0 and attribute 'probability' is drawn for each candidate parkingArea. This value is then normalized to the range [0,1] by dividing with the maximum probability value of all parkingAreaReroute elements. The inverted normalized value is then multiplied with parking.probability.weight to enter into the candidate score.
 
 ### Further parameters to affect parking behavior
 
 Parameter Name         | Default value | Description                                                              |
 | -------------------- | ------------- | ------------------------------------------------------------------------ |
 | parking.anywhere     | -1            | permit using any free parkingArea along the way after doing unsuccessful parkingAreaReroute x times (-1 disables this behavior) |
+| parking.ignoreDest   | 0             | When rerouting is triggered, any alternative may be used regardless of visibility and occupancy of the current destination |
 | parking.frustration  | 100           | increases the preference for visibly free parkingAreas over time (after x unsuccessful parkingAreaReroutes, targets with unknown occupancy will assumed to be *almost* full)                                 |
 | parking.knowledge    | 0             | Let driver "guess" the exact occupancy of invisible parkingAreas with probability x                   |
 
@@ -368,6 +372,10 @@ of the new parkingArea will be set as new arrivalPos.
 ### TraCI access to parkingSearch
 
 The current state of the parkingSearch can be accessed via calls to `traci.vehicle.getParameter` with the list permitted parameters given at [TraCI/Vehicle_Value_Retrieval](../TraCI/Vehicle_Value_Retrieval.md#supported_further_parameters).
+
+### Example scenarios for parkingSearch
+
+Test cases can be downloaded [here](https://sumo.dlr.de/extractTest.php?path=sumo/extended/rerouter/parking/parkingSearch)
 
 # Vehicle Behavior when closing a street
 The interaction of vehicles with reroutes is complex and depends on many
@@ -391,6 +399,9 @@ along their route (other vehicles are not affected directly).
 5. closing time versus departure time
    - a) vehicle departs after closing becomes active
    - b) vehicle departs before closing becomes active (closing occurs while en-route)
+6. routing mode of the vehicle (set via **--device.rerouting.mode** or vehicle/vtype `<param key="device.rerouting.mode" value="8"/>`)
+   - a) routing mode 0 (or generally, not setting the 4th bit): all hard closings are visible during routing
+   - b) routing mode 8 (or generally setting the 4th bit): all hard-closings are ignored during routing and will never cause a route error
 
 The following vehicle behaviors are possible:
 
@@ -415,12 +426,12 @@ To following effects occur:
 - 1a-2a-3b-4b-5a: **W**
 - 1a-2a-3b-4b-5b: **W**
 
-- 1a-2b-3a-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
+- 1a-2b-3a-4a-5a: **E** (becomes **W** with **--ignore-route-errors** or **--device.rerouting.mode 8**)
 - 1a-2b-3a-4a-5b: **W**
 - 1a-2b-3a-4b-5a: **W**
 - 1a-2b-3a-4b-5b: **W**
 
-- 1a-2b-3b-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
+- 1a-2b-3b-4a-5a: **E** (becomes **W** with **--ignore-route-errors** or **--device.rerouting.mode 8**)
 - 1a-2b-3b-4a-5b: **W**
 - 1a-2b-3b-4b-5a: **W**
 - 1a-2b-3b-4b-5b: **W**

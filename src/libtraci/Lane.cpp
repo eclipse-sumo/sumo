@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -90,42 +90,11 @@ Lane::getLinks(const std::string& laneID) {
     sto.readUnsignedByte();
     sto.readInt();
 
-    int linkNo = sto.readInt();
+    const int linkNo = sto.readInt();
     for (int i = 0; i < linkNo; ++i) {
-
-        sto.readUnsignedByte();
-        std::string approachedLane = sto.readString();
-
-        sto.readUnsignedByte();
-        std::string approachedLaneInternal = sto.readString();
-
-        sto.readUnsignedByte();
-        bool hasPrio = sto.readUnsignedByte() != 0;
-
-        sto.readUnsignedByte();
-        bool isOpen = sto.readUnsignedByte() != 0;
-
-        sto.readUnsignedByte();
-        bool hasFoe = sto.readUnsignedByte() != 0;
-
-        sto.readUnsignedByte();
-        std::string state = sto.readString();
-
-        sto.readUnsignedByte();
-        std::string direction = sto.readString();
-
-        sto.readUnsignedByte();
-        double length = sto.readDouble();
-
-        ret.push_back(libsumo::TraCIConnection(approachedLane,
-                                               hasPrio,
-                                               isOpen,
-                                               hasFoe,
-                                               approachedLaneInternal,
-                                               state,
-                                               direction,
-                                               length));
-
+        libsumo::TraCIConnection conn;
+        StoHelp::readConnection(sto, conn);
+        ret.emplace_back(conn);
     }
     return ret;
 }
@@ -268,15 +237,9 @@ Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
 }
 
 
-// XXX: there seems to be no "Dom::getFoes"
 std::vector<std::string>
 Lane::getInternalFoes(const std::string& laneID) {
-    //tcpip::Storage content;
-    //content.writeUnsignedByte(libsumo::TYPE_STRING);
-    //content.writeString("");
-    //return Dom::getStringVector(libsumo::VAR_FOES, laneID, &content);
     return getFoes(laneID, "");
-    //return Dom::getFoes(laneID, "");
 }
 
 
@@ -294,6 +257,10 @@ Lane::getAngle(const std::string& laneID, double relativePosition) {
     return Dom::getDouble(libsumo::VAR_ANGLE, laneID, &content);
 }
 
+std::string
+Lane::getBidiLane(const std::string& laneID) {
+    return Dom::getString(libsumo::VAR_BIDI, laneID);
+}
 
 void
 Lane::setAllowed(const std::string& laneID, std::string allowedClass) {

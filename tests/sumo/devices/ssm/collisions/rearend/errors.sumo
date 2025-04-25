@@ -1,0 +1,10 @@
+Warning: Vehicle 'horizontal.0' performs emergency stop at the end of lane '1si_1' because of a red traffic light (decel=-12.28, offset=2.15), time=28.00.
+Warning: Vehicle 'vertical.2' performs emergency stop at the end of lane '3si_1' because of a red traffic light (decel=-13.07, offset=3.12), time=39.50.
+Warning: Vehicle 'vertical.5'; collision with vehicle 'vertical.4', lane='3si_1', gap=-0.55, time=56.00, stage=move.
+Warning: Vehicle 'horizontal.8' performs emergency stop at the end of lane '1si_1' because of a red traffic light (decel=-9.03, offset=1.13), time=87.00.
+Warning: Vehicle 'horizontal.9'; collision with vehicle 'horizontal.8', lane='1si_1', gap=-0.37, time=94.50, stage=move.
+Warning: Vehicle 'horizontal.20' performs emergency stop at the end of lane '1si_1' because of a red traffic light (decel=-12.08, offset=0.28), time=174.00.
+Warning: Vehicle 'vertical.34'; collision with vehicle 'vertical.33', lane='3si_1', gap=-1.51, time=222.00, stage=move.
+Warning: Vehicle 'vertical.60'; collision with vehicle 'vertical.59', lane='3si_1', gap=-0.51, time=366.50, stage=move.
+Warning: Vehicle 'horizontal.50'; collision with vehicle 'horizontal.49', lane='1si_1', gap=-0.28, time=391.50, stage=move.
+Warning: Vehicle 'vertical.65' performs emergency stop at the end of lane '3si_1' because of a red traffic light (decel=-9.26, offset=1.04), time=399.00.

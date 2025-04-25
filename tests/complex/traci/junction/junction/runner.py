@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,8 +38,11 @@ junctionID = "0"
 print("examining", junctionID)
 print("pos", traci.junction.getPosition(junctionID))
 print("pos3D", traci.junction.getPosition(junctionID, True))
+print("shape", traci.junction.getShape(junctionID))
 traci.junction.setParameter(junctionID, "foo", "42")
 print("parameter", traci.junction.getParameter(junctionID, "foo"))
+print("incomingEdges", traci.junction.getIncomingEdges(junctionID))
+print("outgoingEdges", traci.junction.getOutgoingEdges(junctionID))
 
 traci.junction.subscribe(junctionID)
 print(traci.junction.getSubscriptionResults(junctionID))

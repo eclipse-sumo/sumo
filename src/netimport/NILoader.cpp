@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -96,8 +96,7 @@ NILoader::load(OptionsCont& oc) {
     NIImporter_MATSim::loadNetwork(oc, myNetBuilder);
     NIImporter_ITSUMO::loadNetwork(oc, myNetBuilder);
     if (oc.getBool("tls.discard-loaded") || oc.getBool("tls.discard-simple")) {
-        myNetBuilder.getNodeCont().discardTrafficLights(myNetBuilder.getTLLogicCont(), oc.getBool("tls.discard-simple"),
-                oc.getBool("tls.guess-signals"));
+        myNetBuilder.getNodeCont().discardTrafficLights(myNetBuilder.getTLLogicCont(), oc.getBool("tls.discard-simple"));
         int removed = myNetBuilder.getTLLogicCont().getNumExtracted();
         if (removed > 0) {
             WRITE_MESSAGEF(TL(" Removed % traffic lights before loading plain-XML"), toString(removed));

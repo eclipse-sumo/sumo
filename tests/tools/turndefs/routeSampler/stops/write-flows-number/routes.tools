@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-29 15:03:57.252387 by routeSampler.py v1_17_0+1318-85f891f765f
+<!-- generated on 2025-03-05 10:16:52.600341 by routeSampler.py v1_22_0+0650-d108669826e
 <configuration>
     <route-files value="input_routes.rou.xml"/>
     <turn-files value="input_turns.xml"/>
@@ -43,7 +43,7 @@
     </flow>
     <flow id="17" begin="19.68" end="99.00" number="2">
         <route edges="-152.80.00 -131 -131.180.00 131">
-            <stop duration="10" edge="75"/>
+            <stop edge="75" duration="10"/>
         </route>
     </flow>
     <flow id="23" begin="20.70" end="99.00" number="1">

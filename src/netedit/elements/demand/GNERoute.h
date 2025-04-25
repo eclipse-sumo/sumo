@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,15 +22,12 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
-#include "GNERouteHandler.h"
-
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNEEdge;
-class GNEConnection;
 class GNEVehicle;
 
 // ===========================================================================
@@ -52,7 +49,7 @@ public:
          * @param[in] o The object of interest
          * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
          */
-        GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
+        GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o);
 
         /// @brief Destructor
         ~GNERoutePopupMenu();
@@ -72,14 +69,15 @@ public:
     GNERoute(GNENet* net);
 
     /// @brief default constructor (used in copy vehicles)
-    GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute);
+    GNERoute(const std::string& id, const GNEDemandElement* originalRoute);
 
     /// @brief default  constructor (used in copy embedded vehicles)
-    GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute);
+    GNERoute(GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute);
 
-    /**@brief parameter constructor
-     * @param[in] viewNet view in which this Route is placed
+    /**@brief parameter constructor for routes
      * @param[in] id route ID
+     * @param[in] net net in which this Route is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] vClass vehicle class
      * @param[in] edges route edges
      * @param[in] color route color
@@ -87,11 +85,10 @@ public:
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
      * @param[in] parameters generic parameters
      */
-    GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges, const RGBColor& color,
-             const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
+    GNERoute(const std::string& id, GNENet* net, const std::string& filename, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
+             const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
 
     /**@brief parameter constructor for embedded routes
-     * @param[in] viewNet view in which this Route is placed
      * @param[in] vehicleParent vehicle parent of this embedded route
      * @param[in] edges route edges
      * @param[in] color route color
@@ -99,7 +96,7 @@ public:
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
      * @param[in] parameters generic parameters
      */
-    GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
+    GNERoute(GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
              const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
 
     /// @brief destructor
@@ -179,7 +176,7 @@ public:
 
     /// @}
 
-    /// @name inherited from GNEPathManager::PathElement
+    /// @name inherited from GNEPathElement
     /// @{
 
     /// @brief compute pathElement
@@ -190,14 +187,14 @@ public:
      * @param[in] segment lane segment
      * @param[in] offsetFront front offset
      */
-    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment junction segment
      * @param[in] offsetFront front offset
      */
-    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -267,21 +264,21 @@ public:
 
 protected:
     /// @brief route color
-    RGBColor myColor;
+    RGBColor myColor = RGBColor::INVISIBLE;
 
     /// @brief repeat
-    int myRepeat;
+    int myRepeat = 0;
 
     /// @brief cycleTime
-    SUMOTime myCycleTime;
+    SUMOTime myCycleTime = 0;
 
     /// @brief SUMOVehicleClass (Only used for drawing)
-    SUMOVehicleClass myVClass;
+    SUMOVehicleClass myVClass = SVC_PASSENGER;
 
 private:
     /// @brief draw route partial lane
     void drawRoutePartialLane(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                              const GNEPathManager::Segment* segment, const double offsetFront,
+                              const GNESegment* segment, const double offsetFront,
                               const GUIGeometry& geometry, const double exaggeration) const;
 
     /// @brief draw route partial junction

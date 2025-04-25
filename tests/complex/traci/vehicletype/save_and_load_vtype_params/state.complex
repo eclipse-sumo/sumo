@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-29 15:42:36 by Eclipse SUMO sumo Version v1_12_0+1743-2adbd7c
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-09-29 18:01:52 by Eclipse SUMO sumo Version v1_20_0+2188-0471f363612
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -28,17 +28,13 @@
     </report>
 
     <traci_server>
-        <remote-port value="42526"/>
+        <remote-port value="40473"/>
     </traci_server>
 
-    <gui_only>
-        <tracker-interval value="0.5"/>
-    </gui_only>
-
-</configuration>
+</sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1743-2adbd7c" time="50.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+2188-0471f363612" time="50.00" type="micro">
     <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="3" begin="3" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" accel="0.8" decel="4.5" sigma="0"/>

@@ -23,6 +23,7 @@ copy_test_path:osm.xml.gz
 copy_test_path:matsim.xml
 copy_test_path:vissim.inpx
 copy_test_path:opendrive.xodr
+copy_test_path:opendrive.xodr.gz
 copy_test_path:included.xodr
 copy_test_path:input_plain.nod.xml
 copy_test_path:input_plain.edg.xml
@@ -52,6 +53,7 @@ plain_edges:plain.edg.xml
 plain_connections:plain.con.xml
 plain_tllogic:plain.tll.xml
 plain_types:plain.typ.xml
+plain_cfg:plain.netccfg
 foreign:foreign.net
 cfg:config.cfg
 log:log.txt
@@ -75,6 +77,7 @@ plain_edges:<!--{[->]}-->
 plain_connections:<!--{[->]}-->
 plain_tllogic:<!--{[->]}-->
 plain_types:<!--{[->]}-->
+plain_cfg:<!--{[->]}-->
 joined_nodes:<!--{[->]}-->
 topology:<!--{[->]}-->
 net:<!--{[->]}-->
@@ -108,5 +111,6 @@ ptlines:0.0101
 cfg:0.000000001
 plain_nodes:0.00000101
 plain_edges:0.00000101
+plain_connections:0.0101
 elmar_nodes:0.0101
 additional:0.0101

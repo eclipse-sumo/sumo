@@ -1,5 +1,41 @@
+# A vehicle limits the charging rate to fulfil a charging strategy
+chargingStrategy
+
+# Vehicle heading to different charging stations depending on their charge type (fuel, normal)
+chargeType
+
+# Vehicles break down due to low battery and gets teleported backwards on the same edge.
+breakdown_teleport_backwards
+
+# Vehicles break down due to low battery and get handled in a few ways (teleport, removal, nothing)
+breakdown
+
+# A vehicle has to reroute to another charging station after waiting for the first one to get available
+occupied
+
+# A vehicle searches for charging stations where there are none nearby
+notFound
+
 # Vehicles take the most suitable chargingStations where chargingStastions have different configurations with charging station output
 searching
 
+# Vehicles take the most suitable chargingStations where chargingStastions have different configurations with charging station output
+start_low
+
+# Vehicles take the most suitable charging station without checking whether the battery charge is sufficient to complete the route
+searchingNoEnergyCheck
+
 # Vehicle taking different chargingStations and busstops, every with a different configuration with charging station output
 charging
+
+# Two vehicles with different target function weights
+targetFunction
+
+# Two vehicles which replace parts of a regular stop with a charging stop
+replaceStop
+
+# All charging stations are deactivated (power set to zero)
+zeroPower
+
+# Vehicles charge if there is a charging station on the same lane as their original stop
+opportunistic

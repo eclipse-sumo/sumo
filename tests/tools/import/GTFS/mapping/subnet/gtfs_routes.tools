@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-10 08:05:27.596269 by gtfs2pt.py v1_22_0+1393-91f242def53
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <write-terminals value="True"/>
+    <human-readable-time value="True"/>
+    <network value="net.net.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="132189814" edges="-198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000">
+        <stop busStop="132189814.1" duration="00:00:10" until="00:00:00"/> <!-- Braunschweig Rathaus -->
+        <stop busStop="132189814.2" duration="00:00:10" until="00:01:00"/> <!-- Braunschweig Packhof -->
+    </route>
+    <vehicle id="132189814.0" route="132189814" type="bus" depart="10:16:50" line="132189814">
+        <param key="gtfs.route_name" value="413"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
+        <param key="gtfs.origin_stop" value="Braunschweig Staatstheater"/>
+        <param key="gtfs.origin_depart" value="10:15:00"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Holzhof"/>
+        <param key="gtfs.destination_arrrival" value="10:24:00"/>
+    </vehicle>
+</routes>

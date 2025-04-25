@@ -10,8 +10,12 @@ title: Traffic Lights Value Retrieval
 
 Asks for the value of a certain variable of the named traffic light. The
 value returned is the state of the asked variable/value within the last
-simulation step. The following variable values can be retrieved, the
-type of the return value is also shown in the table.
+simulation step. The following variable values can be retrieved and subscribed to.
+The type of the return
+value is also shown in the table. It is not possible to subscribe to
+swap constraints (0x32) which is technically more of a change function
+and just implemented as a retrieval function because it needs a return value.
+
 
 **Overview Retrievable Traffic Lights Variables**
 
@@ -24,13 +28,14 @@ type of the return value is also shown in the table.
 | controlled lanes (0x26)                           | stringList      | Returns the list of lanes which are controlled by the named traffic light. Returns at least one entry for every element of the phase state (signal index)<sup>(1)(2)</sup>.                                                                                                                                                                                                                                                                               | [getControlledLanes](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getControlledLanes)                                   |
 | controlled links (0x27)                           | compound object | Returns the links controlled by the traffic light, the index in the returned list corresponds to the tls link index of the connection. Each index maps to a list of link objects that share the same link index. Each link object is described by giving the incoming, outgoing, and via lane.                                                                                                                                                            | [getControlledLinks](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getControlledLinks)                                   |
 | current phase (0x28)                              | int             | Returns the index of the current phase in the current program                                                                                                                                                                                                                                                                                                                                                                                             | [getPhase](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getPhase)                                                       |
-| current program (0x29)                            | string          | Returns the id of the current program                                                                                                                                                                                                                                                                                                                                                                                                                     | [getProgram](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getProgram)                                                   |
-| complete definition (light/priority tuple) (0x2b) | compound object | Returns the complete traffic light program, structure described under data types                                                                                                                                                                                                                                                                                                                                                                          | [getCompleteRedYellowGreenDefinition](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getCompleteRedYellowGreenDefinition) |
+| current program (0x29)                            | string          | Returns the id of the current program    | [getProgram](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getProgram)         |
+| complete definition (light/priority tuple) (0x2b) | compound object | Returns the complete traffic light program, structure described under data types   | [getCompleteRedYellowGreenDefinition](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getCompleteRedYellowGreenDefinition) |
 | assumed time of next switch (0x2d)                | double          | Returns the assumed time (in seconds) at which the tls changes the phase. Please note that the time to switch is not relative to current simulation step (the result returned by the query will be absolute time, counting from simulation start); to obtain relative time, one needs to subtract current simulation time from the result returned by this query. Please also note that the time may vary in the case of actuated/adaptive traffic lights | [getNextSwitch](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getNextSwitch)          |
-| blocking vehicles (0x25)                            | stringList         | Returns the ids of vehicles that occupy the subsequent rail signal block                                                                                                                                                                                                                                                                                                                                                                                                                    | [getBlockingVehicles](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getBlockingVehicles)                   |
-| rival vehicles (0x30)                            | stringList         | Returns the ids of vehicles that are approaching the same rail signal block                                                                                                                                                                                                                                                                                                                                                                                                                    | [getRivalVehicles](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getRivalVehicles)   |
-| priority vehicles (0x31)                            | stringList         | Returns the ids of vehicles that are approaching the same rail signal block with higher priority                                                                                                                                                                                                                                                                                                                                                                                                                   | [getPriorityVehicles](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getPriorityVehicles)      |
-
+| spent duration (0x38)                             | double          | Returns the time spent in the current phase (in seconds) | [getSpentDuration](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getSpentDuration)            |
+| blocking vehicles (0x25)                          | stringList      | Returns the ids of vehicles that occupy the subsequent rail signal block   | [getBlockingVehicles](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getBlockingVehicles)          |
+| rival vehicles (0x30)                            | stringList       | Returns the ids of vehicles that are approaching the same rail signal block   | [getRivalVehicles](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getRivalVehicles)               |
+| priority vehicles (0x31)                          | stringList      | Returns the ids of vehicles that are approaching the same rail signal block with higher priority      | [getPriorityVehicles](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-getPriorityVehicles)      |
+| swap constraints (0x32)                            | list(Constraint)  | Reverse the given constraint and return list of new constraints that were created (by swapping) to avoid deadlock. | [swapConstraints](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-swapConstraints)      |
 
 Please note:
 
@@ -103,6 +108,29 @@ Each inner list (at position i of the outer list) describes the connections that
 
 By default, each index of the state controls exactly one connection so the inner lists all have length 1. However, the inner lists may be longer if [signal-groups](../Simulation/Traffic_Lights.md#defining_signal_groups) are used to simplify the 'state' attribute.
 
+### Structure of result compound object swap constraints (0x32)
+
+If you request a constraint swap, the result list of constraints indicates all the new contraints that were created a a result of the swap. Each part is preceded by a byte which represents
+its data type, except "length".
+
+|          integer               |       constraint                 | ... |
+| :----------------------------: | :------------------------------: | :-: |
+| Length (number of constraints) | constraint components, see below | ... |
+
+**constraint:**
+
+|  string      |  string      |  string      |  string      |  int     | int      |  byte     |  byte      |  stringList   |
+| :----------: | :----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |:----------: |
+| signalId     | tripId    |  foeId    |  foeSignalId     |  limit     |  constraint type  | mustWait    |  active     |  params of the form: key,value,...,key,value    |
+
+## Extended retrieval messages
+
+### swap constraints (0x32)
+
+|         byte          |              int              |        byte         |        string         |        byte         | string        |        byte         | string        |
+| :-------------------: | :---------------------------: | :-----------------: | :-------------------: | :-----------------: | :-----------: | :-----------------: | :-----------: |
+| value type *compound* | number of elements (always=3) | value type *string* | tripId of constraint  | value type *string* | foe signal id | value type *string* | foe trip id   |
+
 # Getting Traffic light parameters (0x7e)
 
 Traffic lights support retrieval of additional parameters using the [generic
@@ -118,3 +146,4 @@ parameter retrieval call](../TraCI/GenericParameters.md#get_parameter).
 | show-detectors     | bool        | actuated                      | show/hide detectors in view
 | inactive-threshold | double (s)  | actuated                      | time-out for switching to an unserved phase when running with the default phase-skipping logic
 | condition.CONDITION_ID | double  | actuated                      | retrieve current value of [custom switching condition](../Simulation/Traffic_Lights.md#named_expressions) with id = *CONDITION_ID*.
+| typeName | string  | all                      | retrieve the type as a string (i.e. "static")

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -92,7 +92,7 @@ private:
      *  all edges within the value-vector which direction at the node differs
      *  less than 1 from the key-edge's direction.
      */
-    void joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same);
+    void joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same, bool useEndpoints);
 
     /** @brief Joins edges
      *
@@ -150,8 +150,13 @@ private:
 
     void computeSameEnd(PositionVector& l1, PositionVector& l2);
 
+    bool isDivided(const NBEdge* e, std::set<NBEdge*> same, const PositionVector& ccw, const PositionVector& cw) const;
+
     /// @brief compute with of rightmost lanes that exlude the given permissions
     static double getExtraWidth(const NBEdge* e, SVCPermissions exclude);
+
+    /// @brief compute the width of the divider space for divided roads
+    static double divisionWidth(const NBEdge* e, std::set<NBEdge*> same, const Position& p, const Position& p2);
 
 private:
     /// The node to compute the geometry for

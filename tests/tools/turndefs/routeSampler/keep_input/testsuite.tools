@@ -1,0 +1,14 @@
+# using edgedata as input and sample on top of that
+init-input
+
+# using edgedata as input and use it directly as output
+no-sampling
+
+# using edgedata as input and only remove overflow
+no-sampling_remove
+
+# using edgedata as input and only remove overflow
+no-sampling_remove2
+
+# route removal should not be subject to the min-count option
+no-sampling_remove_ingnore_min

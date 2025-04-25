@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,9 +51,6 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
             continue;
         }
 
-        std::string fclass = veh->getVehicleType().getID();
-        fclass = fclass.substr(0, fclass.find_first_of("@"));
-
         if (static_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery))) != nullptr) {
             MSDevice_Battery* batteryToExport = dynamic_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery)));
             if (batteryToExport->getMaximumBatteryCapacity() > 0) {
@@ -93,8 +90,8 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
                 of.writeAttr(SUMO_ATTR_ACCELERATION, veh->getAcceleration());
 
                 Position pos = veh->getPosition();
-                of.writeAttr(SUMO_ATTR_X, veh->getPosition().x());
-                of.writeAttr(SUMO_ATTR_Y, veh->getPosition().y());
+                of.writeAttr(SUMO_ATTR_X, pos.x());
+                of.writeAttr(SUMO_ATTR_Y, pos.y());
 
                 // Write Lane ID / edge ID
                 if (MSGlobals::gUseMesoSim) {

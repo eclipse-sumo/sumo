@@ -1,40 +1,42 @@
-Parsing nodes from 'nodes.nod.xml'... done.
-Parsing edges from 'edges.edg.xml'... done.
-Parsing connections from 'connections.con.xml'... done.
+Parsing nodes from '/tmp/tmpyeeglhxx' ... done.
+Parsing edges from '/tmp/tmpgn_6zqyw' ... done.
+Parsing connections from '/tmp/tmpgm7pmr9v' ... done.
  Import done:
    80 nodes loaded.
    230 edges loaded.
-Removing self-loops... done.
-Removing empty nodes... done.
+Removing self-loops ... done (0ms).
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin... done.
-Joining similar edges... done.
-Computing turning directions... done.
-Sorting nodes' edges... done.
-Computing node types... done.
-Computing priorities... done.
-Computing approached edges... done.
-Computing approaching lanes... done.
-Dividing of lanes on approached lanes... done.
-Processing turnarounds... done.
-Rechecking of lane endings... done.
-Computing node shapes... done.
-Computing edge shapes... done.
-Assigning nodes to traffic lights... done.
-Computing traffic light control information... done.
-Computing node logics... done.
-Computing traffic light logics... done.
+Moving network to origin ... done (1ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (2ms).
+Computing edge shapes ... done (1ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (0ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (1ms).
+Dividing of lanes on approached lanes ... done (0ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (1ms).
+Computing node logics ... done (4ms).
+Computing traffic light logics ... done (3ms).
  50 traffic light(s) computed.
-Building inner edges... done.
+Building inner edges ... done (15ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 80
+  Priority junctions          : 30
   Right-before-left junctions : 0
+  Traffic light junctions      : 50
  Network boundaries:
   Original boundary  : 0.00,0.00,5500.00,3000.00
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,5500.00,3000.00
 -----------------------------------------------------
+Writing network ... done (36ms).
 Success.

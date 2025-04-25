@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,7 @@
 // ===========================================================================
 // static variables
 // ===========================================================================
-StringBijection<int>::Entry NIImporter_ITSUMO::itsumoTags[] = {
+SequentialStringBijection::Entry NIImporter_ITSUMO::itsumoTags[] = {
     { "simulation",             NIImporter_ITSUMO::ITSUMO_TAG_SIMULATION },
     { "network_id",             NIImporter_ITSUMO::ITSUMO_TAG_NETWORK_ID },
     { "network_name",           NIImporter_ITSUMO::ITSUMO_TAG_NETWORK_NAME },
@@ -88,7 +88,7 @@ StringBijection<int>::Entry NIImporter_ITSUMO::itsumoTags[] = {
 };
 
 
-StringBijection<int>::Entry NIImporter_ITSUMO::itsumoAttrs[] = {
+SequentialStringBijection::Entry NIImporter_ITSUMO::itsumoAttrs[] = {
     { "",               NIImporter_ITSUMO::ITSUMO_ATTR_NOTHING }
 };
 
@@ -260,7 +260,7 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                     WRITE_ERRORF(TL("Missing node in laneset '%'."), myParameter["lanesetID"]);
                 } else {
                     if (myLaneSets.find(id) != myLaneSets.end()) {
-                        WRITE_ERRORF(TL("Fond laneset-id '%' twice."), id);
+                        WRITE_ERRORF(TL("Found laneset-id '%' twice."), id);
                     } else {
                         double vSum = 0;
                         for (std::vector<Lane>::iterator j = myCurrentLanes.begin(); j != myCurrentLanes.end(); ++j) {

@@ -15,13 +15,26 @@ chrouter
 # landmark routing
 astar_landmark
 astar_landmark_save
+
+# input landmarks are given as geo-coordinates
+astar_landmark_save_geo
 astar_landmark_save_parallel
+
+# input landmarks are given as geo-coordinates
+astar_landmark_save_geo_parallel
 
 # landmark routing with taz
 astar_landmark_taz
 
+# landmark routing with taz but the taz were not included when building the table
+astar_landmark_taz_missing
+astar_landmark_table_incomplete
+
 # missing landmark edge
 astar_landmark_missing
+
+# landmark routing
+astar_landmark_random_wights
 
 # testing lane weight files
 lane_weight_files

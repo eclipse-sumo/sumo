@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -94,7 +94,7 @@ public:
     void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
     /// @brief move forward and return whether the container arrived
-    bool moveToNextEdge(MSTransportable* container, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = 0);
+    bool moveToNextEdge(MSTransportable* container, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = nullptr, const bool isReplay = false);
 
 
     /// @brief the maximum speed of the transportable

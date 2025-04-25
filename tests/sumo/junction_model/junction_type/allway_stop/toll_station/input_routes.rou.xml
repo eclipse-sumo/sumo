@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-09-26 23:29:30 by Eclipse SUMO netedit Version v1_20_0+0602-6a9d97ef19c
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="t0" jmAllwayStopWait="10"/>
+    <flow id="f_0" type="t0" begin="0.00" departLane="random" departSpeed="avg" end="3600.00" vehsPerHour="1800">
+        <route edges="E0 E1 E2 E3"/>
+    </flow>
+</routes>

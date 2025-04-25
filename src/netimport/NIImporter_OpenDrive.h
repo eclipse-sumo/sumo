@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -143,6 +143,7 @@ protected:
         OPENDRIVE_ATTR_T,
         OPENDRIVE_ATTR_X,
         OPENDRIVE_ATTR_Y,
+        OPENDRIVE_ATTR_Z,
         OPENDRIVE_ATTR_HDG,
         OPENDRIVE_ATTR_CURVSTART,
         OPENDRIVE_ATTR_CURVEND,
@@ -673,7 +674,7 @@ private:
                                         std::vector<Connection>& into, std::set<Connection>& seen);
     static bool laneSectionsConnected(OpenDriveEdge* edge, int in, int out);
     friend bool operator<(const Connection& c1, const Connection& c2);
-    static std::string revertID(const std::string& id);
+    static std::string reversedEdgeID(const std::string& id);
     const NBTypeCont& myTypeContainer;
     OpenDriveEdge myCurrentEdge;
     OpenDriveController myCurrentController;
@@ -733,7 +734,7 @@ protected:
      */
     static void computeShapes(std::map<std::string, OpenDriveEdge*>& edges);
 
-    static bool hasNonLinearElevation(OpenDriveEdge& e);
+    static bool hasNonLinearElevation(const OpenDriveEdge& e);
 
     /// transform Poly3 into a list of offsets, adding intermediate points to geom if needed
     static std::vector<double> discretizeOffsets(PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id);
@@ -753,7 +754,7 @@ protected:
     static NBTrafficLightDefinition* getTLSSecure(NBEdge* inEdge, /*const NBEdge::Connection& conn,*/ NBNetBuilder& nb);
 
 
-    static std::pair<NBEdge*, NBEdge*> retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, const std::string& junction);
+    static std::pair<NBEdge*, NBEdge*> retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, int signalMinLane);
 
     static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist);
 
@@ -771,10 +772,10 @@ protected:
     static void writeRoadObjects(const OpenDriveEdge* e);
 
     /// The names of openDrive-XML elements (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry openDriveTags[];
+    static SequentialStringBijection::Entry openDriveTags[];
 
     /// The names of openDrive-XML attributes (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry openDriveAttrs[];
+    static SequentialStringBijection::Entry openDriveAttrs[];
 
     class LaneSorter {
     public:

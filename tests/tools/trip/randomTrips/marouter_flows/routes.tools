@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-23 17:27:10.284420 by randomTrips.py v1_21_0+1998-8c1b6d1bcd5
+<configuration>
+    <net-file value="net2.net.xml"/>
+    <route-file value="out.rou.xml"/>
+    <fringe-factor value="1000"/>
+    <marouter value="True"/>
+    <end value="10.0"/>
+    <flows value="2"/>
+</configuration>
+-->
+
+<!-- generated on 2025-01-23 17:27:10 by Eclipse SUMO marouter Version v1_21_0+1996-d77561bb29a
+<marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="out.rou.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="10.0"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</marouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="126.60" probability="9.00000000" edges="beg middle end rend"/>
+            <route cost="126.61" probability="1.00000000" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="1" depart="0.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="126.60" probability="9.00000000" edges="beg middle end rend"/>
+            <route cost="126.61" probability="1.00000000" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.1" depart="2.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="126.60" probability="9.00000000" edges="beg middle end rend"/>
+            <route cost="126.61" probability="1.00000000" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="1.1" depart="2.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="126.60" probability="9.00000000" edges="beg middle end rend"/>
+            <route cost="126.61" probability="1.00000000" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.2" depart="4.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="126.60" probability="9.00000000" edges="beg middle end rend"/>
+            <route cost="126.61" probability="1.00000000" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="1.2" depart="4.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="126.60" probability="9.00000000" edges="beg middle end rend"/>
+            <route cost="126.61" probability="1.00000000" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.3" depart="6.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="126.60" probability="9.00000000" edges="beg middle end rend"/>
+            <route cost="126.61" probability="1.00000000" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="1.3" depart="6.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="126.60" probability="9.00000000" edges="beg middle end rend"/>
+            <route cost="126.61" probability="1.00000000" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="0.4" depart="8.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="126.60" probability="9.00000000" edges="beg middle end rend"/>
+            <route cost="126.61" probability="1.00000000" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="1.4" depart="8.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="126.60" probability="9.00000000" edges="beg middle end rend"/>
+            <route cost="126.61" probability="1.00000000" edges="beg beg2left left left2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+</routes>

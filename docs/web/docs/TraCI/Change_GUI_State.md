@@ -55,7 +55,7 @@ The message contents are as following:
 
 |        ubyte         | ubyte |         double          |         double          |          double          |          double          |
 | :------------------: | :---: | :---------------------: | :---------------------: | :----------------------: | :----------------------: |
-| value type *polygon* |   2   | x-coordinate lower left | y-ccordinate lower left | x-coordinate upper right | y-coordinate upper right |
+| value type *polygon* |   2   | x-coordinate lower left | y-coordinate lower left | x-coordinate upper right | y-coordinate upper right |
 
 ### screenshot (0xa5)
 

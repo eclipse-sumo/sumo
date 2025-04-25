@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,8 @@
 #include <config.h>
 
 #include <vector>
+#include <unordered_map>
+#include <utils/geom/Triangle.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 
@@ -28,9 +30,12 @@
 // class declaration
 // ===========================================================================
 
+class GNEJunction;
 class GNEEdge;
 class GNELane;
 class GNERoute;
+class GNEPathElement;
+class GNESegment;
 
 // ===========================================================================
 // class definitions
@@ -59,69 +64,133 @@ public:
         double offset = 0;
     };
 
-    /// @brief typedef
-    typedef std::map<double, std::vector<ObjectContainer> > GLObjectsSortedContainer;
+    /// @brief object container layer
+    struct ObjectContainerLayer : public std::vector<ObjectContainer> {
+
+        /// @brief parameter constructor
+        ObjectContainerLayer() {}
+
+        // @brief append object container and resize if neccesary
+        void append(const ObjectContainer& objectContainer);
+    };
+
+    /// @brief typedef for pack elements sorted by layer
+    typedef std::map<double, ObjectContainerLayer > GLObjectsSortedContainer;
 
     /// @brief constructor
     GUIViewObjectsHandler();
 
-    /// @brief clear selected elements
-    void clearSelectedElements();
+    /// @brief reset view objects handler
+    void reset();
 
-    /// @brief get selection position (usually the mouse position)
+    /// @name position and boundary functions. used for defining the posion that will be check (usually the mouse position)
+    /// @{
+    /// @brief get selection position
     const Position& getSelectionPosition() const;
 
-    /// @brief get selection boundary (usually the mouse position)
-    const Boundary& getSelectionBoundary() const;
+    /// @brief get selection triangle
+    const Triangle& getSelectionTriangle() const;
 
-    /// @brief set selection position (usually the mouse position)
+    /// @brief set selection position
     void setSelectionPosition(const Position& pos);
 
-    /// @brief set selection boundary (usually the mouse position)
-    void setSelectionBoundary(const Boundary& boundary);
+    /// @brief set selection triangle
+    void setSelectionTriangle(const Triangle& triangle);
 
-    /// @brief check if element was already selected
-    bool isElementSelected(const GUIGlObject* GLObject) const;
+    /// @brief return true if we're selecting using a triangle
+    bool selectingUsingRectangle() const;
 
+    /// @}
+
+    /// @name check functions. If the result is positive, the given GLObject will be added to elementUnderCursor
+    /// @{
     /// @brief check boundary parent element
-    bool checkBoundaryParentElement(const GUIGlObject* GLObject, const GUIGlObject* parent);
+    bool checkBoundaryParentObject(const GUIGlObject* GLObject, const double layer, const GUIGlObject* parent);
 
     /// @brief check if mouse is within elements geometry (for circles)
-    bool checkCircleElement(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                            const Position& center, const double radius, const Boundary& circleBoundary);
+    bool checkCircleObject(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+                           const Position& center, const double radius, const double layer);
 
     /// @brief check if mouse is within geometry point
     bool checkGeometryPoint(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                            const PositionVector& shape, const int index, const double radius);
+                            const PositionVector& shape, const int index, const double layer, const double radius);
 
     /// @brief check if mouse is within geometry point
     bool checkPositionOverShape(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
-                                const PositionVector& shape, const double distance);
+                                const PositionVector& shape, const double layer, const double distance);
 
     /// @brief check (closed) shape element
-    bool checkShapeElement(const GUIGlObject* GLObject, const PositionVector& shape,
-                           const Boundary& shapeBoundary);
+    bool checkShapeObject(const GUIGlObject* GLObject, const PositionVector& shape, const Boundary& shapeBoundary,
+                          const double layer, const GNESegment* segment);
+    /// @}
 
+    /// @name functions used for mark (select) elements
+    /// @{
     /// @brief add element into list of elements under cursor
-    bool addElementUnderCursor(const GUIGlObject* GLObject, const bool checkDuplicated, const bool fullBoundary);
+    bool selectObject(const GUIGlObject* GLObject, const double layer, const bool checkDuplicated,
+                      const bool fullBoundary, const GNESegment* segment);
 
     /// @brief add geometryPoint into list of elements under cursor
-    bool addGeometryPointUnderCursor(const GUIGlObject* GLObject, const int newIndex);
+    bool selectGeometryPoint(const GUIGlObject* GLObject, const int newIndex, const double layer);
 
-    /// @brief add position over shape
-    bool addPositionOverShape(const GUIGlObject* GLObject, const Position& pos, const double offset);
+    /// @brief select position over shape (for example, the position over a lane shape)
+    bool selectPositionOverShape(const GUIGlObject* GLObject, const Position& pos, const double layer, const double offset);
+
+    /// @brief check if element was already selected
+    bool isObjectSelected(const GUIGlObject* GLObject) const;
+
+    /// @brief check rectangle selection
+    bool checkRectangleSelection(const GUIVisualizationSettings& s, const GUIGlObject* GLObject,
+                                 const double layer, const GUIGlObject* parent);
 
     /// @brief get all elements under cursor sorted by layer
     const GLObjectsSortedContainer& getSelectedObjects() const;
 
+    /// @brief get segment associated with the given GLObject (if exist)
+    const GNESegment* getSelectedSegment(const GUIGlObject* GLObject) const;
+
     /// @brief get geometry points for the given glObject
-    const std::vector<int>& getGeometryPoints(const GUIGlObject* GLObject) const;
+    const std::vector<int>& getSelectedGeometryPoints(const GUIGlObject* GLObject) const;
 
     /// @brief get position over shape
-    const Position& getPositionOverShape(const GUIGlObject* GLObject) const;
+    const Position& getSelectedPositionOverShape(const GUIGlObject* GLObject) const;
 
-    /// @brief move front element in elements under cursor (currently used only in netedit)
-    void updateFrontElement(const GUIGlObject* GLObject);
+    /// @brief get number of selected objects
+    int getNumberOfSelectedObjects() const;
+
+    /// @brief reverse selected objects
+    void reverseSelectedObjects();
+
+    /// @}
+
+    /// @name functions related with redrawing path elements
+    /// @{
+    /// @brief get redrawing objects
+    const std::set<const GNEPathElement*>& getRedrawPathElements() const;
+
+    /// @brief check if the given path element has to be redraw again
+    bool isPathElementMarkForRedraw(const GNEPathElement* pathElement) const;
+
+    /// @brief add path element to redrawing set
+    void addToRedrawPathElements(const GNEPathElement* pathElement);
+
+    /// @}
+
+    /// @name functions related with merging junctions
+    /// @{
+    /// @brief get merging junctions
+    const std::vector<const GNEJunction*>& getMergingJunctions() const;
+
+    /// @brief add to merging junctions (used for marking junctions to merge)
+    bool addMergingJunctions(const GNEJunction* junction);
+
+    /// @}
+
+    /// @brief move the given object to the front (currently used only in netedit)
+    void updateFrontObject(const GUIGlObject* GLObject);
+
+    /// @brief isolate edge geometry points (used for moving)
+    void isolateEdgeGeometryPoints();
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
@@ -148,20 +217,26 @@ protected:
     /// @brief selected element sorted by layer
     GLObjectsSortedContainer mySortedSelectedObjects;
 
-    /// @brief map with selected elements and if was selected with full boundary (used only to avoid double seletions)
-    std::map<const GUIGlObject*, bool> mySelectedObjects;
+    /// @brief map with selected elements and if was selected with full boundary (used only to avoid double selections)
+    std::unordered_map<const GUIGlObject*, std::pair<bool, const GNESegment*> > mySelectedObjects;
 
-    /// @brief selection boundary
-    Boundary mySelectionBoundary;
+    /// @brief number of selected objects
+    int myNumberOfSelectedObjects = 0;
 
-    /// @brief selection boundary (shape)
-    PositionVector mySelectionBoundaryShape;
+    /// @brief set with path elements marked for redrawing
+    std::set<const GNEPathElement*> myRedrawPathElements;
+
+    /// @brief selection triangle
+    Triangle mySelectionTriangle;
 
     /// @brief position
     Position mySelectionPosition;
 
     /// @brief empty geometry points
     std::vector<int> myEmptyGeometryPoints;
+
+    /// @brief merging junctions
+    std::vector<const GNEJunction*> myMergingJunctions;
 
 private:
     /// @brief set copy constructor private

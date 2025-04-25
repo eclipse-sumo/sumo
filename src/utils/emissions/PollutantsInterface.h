@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -197,7 +197,7 @@ public:
          * @param[in] slope The road's slope at vehicle's position [deg]
          * @return the modified acceleration
          */
-        virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const;
+        virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const;
 
         /** @brief Returns the maximum deceleration value (as a negative number), which can still be considered as non-braking.
          * Default implementation returns always zero.
@@ -298,7 +298,7 @@ public:
 
     /** @brief Returns the fuel type of the given emission class
      * @param[in] c The vehicle emission class
-     * @return "Diesel", "Gasoline", "HybridDiesel", or "HybridGasoline"
+     * @return "Diesel", "Gasoline", "HybridDiesel", "HybridGasoline", or "Electricity"
      */
     static std::string getFuel(const SUMOEmissionClass c);
 
@@ -311,7 +311,7 @@ public:
     /** @brief Returns a representative weight for the given emission class
      * see http://colombo-fp7.eu/deliverables/COLOMBO_D4.2_ExtendedPHEMSUMO_v1.7.pdf
      * @param[in] c The vehicle emission class
-     * @return the weight in kg if it matters, 0 otherwise
+     * @return the weight in kg if it matters, -1 otherwise
      */
     static double getWeight(const SUMOEmissionClass c);
 
@@ -353,7 +353,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return the modified acceleration
      */
-    static double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope);
+    static double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param);
 
     /** @brief Returns the coasting deceleration value, useful for comparing with external PHEMlight references.
      * @param[in] c the emission class

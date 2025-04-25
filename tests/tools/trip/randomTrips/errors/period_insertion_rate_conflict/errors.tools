@@ -1,6 +1,7 @@
 usage: randomTrips.py [-h] [-c FILE] [-C FILE] [--save-template FILE] -n
                       NETFILE [-a ADDITIONAL] [--weights-prefix WEIGHTSPREFIX]
-                      [-o TRIPFILE] [-r ROUTEFILE] [--vtype-output VTYPEOUT]
+                      [--edge-type-file TYPEFACTORFILE] [-o TRIPFILE]
+                      [-r ROUTEFILE] [--vtype-output VTYPEOUT]
                       [--weights-output-prefix WEIGHTS_OUTPREFIX]
                       [--pedestrians] [--personrides PERSONRIDES]
                       [--persontrips]
@@ -26,7 +27,7 @@ usage: randomTrips.py [-h] [-c FILE] [-C FILE] [--save-template FILE] -n
                       [-i INTERMEDIATE] [--jtrrouter] [--maxtries MAXTRIES]
                       [--remove-loops]
                       [--random-routing-factor RANDOMROUTINGFACTOR]
-                      [--validate] [-v] [-b BEGIN] [-e END]
+                      [--marouter] [--validate] [-v] [-b BEGIN] [-e END]
                       [-p FLOAT [FLOAT ...] | --insertion-rate FLOAT
                       [FLOAT ...] | --insertion-density FLOAT [FLOAT ...]]
                       [--flows FLOWS] [--random-depart] [--binomial N]

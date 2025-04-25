@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,6 +34,7 @@ class NBEdgeCont;
 class NBNodeCont;
 class NBTrafficLightLogicCont;
 class MsgHandler;
+class GeoConvHelper;
 
 
 // ===========================================================================
@@ -71,6 +72,14 @@ protected:
      */
     void myStartElement(int element,
                         const SUMOSAXAttributes& attrs);
+
+    /** @brief Called when a closing tag occurs
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
+    void myEndElement(int element);
     //@}
 
 private:
@@ -82,7 +91,7 @@ private:
      * @param[in] def The definition of the connection
      * @return The parsed connection
      */
-    NBConnection parseConnection(const std::string& defRole, const std::string& def);
+    NBConnection parseConnectionDef(const std::string& defRole, const std::string& def);
 
 
     /** @brief Parses a connection when it describes a lane-2-lane relationship
@@ -122,6 +131,15 @@ private:
      */
     inline bool parseLaneDefinition(const SUMOSAXAttributes& attributes, int* fromLane, int* toLane);
 
+    /** @brief Parses a delete element that specifies a connection to delete
+     * @param[in] attrs The attributes to get the deleted connections values from
+     */
+    void delConnection(const SUMOSAXAttributes& attrs);
+
+    /** @brief Parses a connection and adds it to the referenced edge
+     * @param[in] attrs The attributes to get the connections's values from
+     */
+    void parseConnection(const SUMOSAXAttributes& attrs);
 
     /** @brief Parses a crossing and updates the referenced node
      * @param[in] attrs The attributes to get the crossings's values from
@@ -133,6 +151,10 @@ private:
      */
     void addWalkingArea(const SUMOSAXAttributes& attrs);
 
+    /** @brief Parses a prohibition and updates the referenced node
+     * @param[in] attrs The attributes to get the prohibition's values from
+     */
+    void addProhibition(const SUMOSAXAttributes& attrs);
 private:
     /// @brief The edge container to fill
     NBEdgeCont& myEdgeCont;
@@ -149,6 +171,12 @@ private:
 
     /// @brief the handler for loading errors
     MsgHandler* const myErrorMsgHandler;
+
+    /// @brief The coordinate transformation which was used compute the custom shape coordinates for connections and crossings
+    GeoConvHelper* myLocation;
+
+    /// @brief last item the could receive parameters
+    Parameterised* myLastParameterised;
 
 private:
     /// @brief invalidated copy constructor

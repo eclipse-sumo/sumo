@@ -1,12 +1,12 @@
-Eclipse SUMO netgenerate Version v1_18_0+2224-9463baa5d5c
- Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO netgenerate Version v1_22_0+0456-7818e10d3bc
+ Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
 
 Usage: netgenerate [OPTION]*
  Either "--grid", "--spider" or "--rand" must be supplied.
   In dependence to these switches other options are used.
- 
+
 Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
   -C, --save-configuration FILE        Saves current configuration into FILE
@@ -64,17 +64,17 @@ Random Network Options:
                                         node
   --rand.connectivity FLOAT            Probability for roads to continue at
                                         each node
-  --rand.neighbor-dist1 FLOAT          Probability for a node having exactly 1
+  --rand.neighbor-dist1 FLOAT          Probability for a node having at most 1
                                         neighbor
-  --rand.neighbor-dist2 FLOAT          Probability for a node having exactly 2
+  --rand.neighbor-dist2 FLOAT          Probability for a node having at most 2
                                         neighbors
-  --rand.neighbor-dist3 FLOAT          Probability for a node having exactly 3
+  --rand.neighbor-dist3 FLOAT          Probability for a node having at most 3
                                         neighbors
-  --rand.neighbor-dist4 FLOAT          Probability for a node having exactly 4
+  --rand.neighbor-dist4 FLOAT          Probability for a node having at most 4
                                         neighbors
-  --rand.neighbor-dist5 FLOAT          Probability for a node having exactly 5
+  --rand.neighbor-dist5 FLOAT          Probability for a node having at most 5
                                         neighbors
-  --rand.neighbor-dist6 FLOAT          Probability for a node having exactly 6
+  --rand.neighbor-dist6 FLOAT          Probability for a node having at most 6
                                         neighbors
   --rand.grid                          Place nodes on a regular grid with
                                         spacing rand.min-distance
@@ -112,7 +112,7 @@ Output Options:
   --amitran-output FILE                The generated net will be written to
                                         FILE using Amitran format
   --matsim-output FILE                 The generated net will be written to
-                                        FILE using MATsim format
+                                        FILE using MATSim format
   --opendrive-output FILE              The generated net will be written to
                                         FILE using OpenDRIVE format
   --dlr-navteq-output FILE             The generated net will be written to
@@ -127,7 +127,7 @@ Output Options:
                                         parameter
   --street-sign-output FILE            Writes street signs as POIs to FILE
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
-                                        whenever the angular change  between
+                                        whenever the angular change between
                                         straight segments exceeds FLOAT degrees
 
 Processing Options:
@@ -135,13 +135,13 @@ Processing Options:
   --turn-lanes.length FLOAT            Set the length of generated turning
                                         lanes to FLOAT
   --perturb-x STR                      Apply random spatial perturbation in x
-                                        direction according the the given
+                                        direction according to the given
                                         distribution
   --perturb-y STR                      Apply random spatial perturbation in y
-                                        direction according the the given
+                                        direction according to the given
                                         distribution
   --perturb-z STR                      Apply random spatial perturbation in z
-                                        direction according the the given
+                                        direction according to the given
                                         distribution
   --bidi-probability FLOAT             Defines the probability to build a
                                         reverse edge
@@ -192,6 +192,9 @@ Processing Options:
   --offset.z FLOAT                     Adds FLOAT to net z-positions
   --flip-y-axis                        Flips the y-coordinate along zero
   --roundabouts.guess                  Enable roundabout-guessing
+  --roundabouts.guess.max-length FLOAT  Structures with a circumference above
+                                        FLOAT threshold are not classified as
+                                        roundabout
   --roundabouts.visibility-distance FLOAT  Default visibility when approaching
                                         a roundabout
   --opposites.guess                    Enable guessing of opposite direction
@@ -232,6 +235,8 @@ Building Defaults Options:
                                         intersections
   --default.connection-length FLOAT    The default length when overriding
                                         connection lengths
+  --default.connection.cont-pos FLOAT  Whether/where connections should have an
+                                        internal junction
   --default.right-of-way STR           The default algorithm for computing
                                         right of way rules ('default',
                                         'edgePriority')
@@ -317,6 +322,8 @@ TLS Building Options:
                                         network
   --tls.discard-simple                 Does not instantiate traffic lights at
                                         geometry-like nodes
+  --railway.signal.permit-unsignalized STR[]  List rail classes that may run
+                                        without rail signals
 
 Edge Removal Options:
   --keep-edges.min-speed FLOAT         Only keep edges with speed in
@@ -343,6 +350,8 @@ Edge Removal Options:
                                         GEODETIC corner coordinates
                                         <lon-min,lat-min,lon-max,lat-max> or as
                                         polygon <lon0,lat0,lon1,lat1,...>)
+  --keep-lanes.min-width FLOAT         Only keep lanes with width in meters >
+                                        FLOAT
 
 Unregulated Nodes Options:
   --keep-nodes-unregulated             All nodes will be unregulated
@@ -374,6 +383,9 @@ Junctions Options:
                                         other (recommended for OSM import)
   --junctions.join-dist FLOAT          Determines the maximal distance for
                                         joining junctions (defaults to 10)
+  --junctions.join.parallel-threshold FLOAT  The angular threshold in degress
+                                        for rejection of parallel edges when
+                                        joining junctions
   --junctions.join-same                Joins junctions that have the same
                                         coordinates even if not connected
   --max-join-ids INT                   Abbreviate junction or TLS id if it
@@ -418,6 +430,8 @@ Junctions Options:
                                         of average
   --junctions.minimal-shape            Build junctions with minimal shapes
                                         (ignoring edge overlap)
+  --junctions.endpoint-shape           Build junction shapes based on edge
+                                        endpoints (ignoring edge overlap)
   --internal-junctions.vehicle-width FLOAT  Assumed vehicle width for computing
                                         internal junction positions
   --rectangular-lane-cut               Forces rectangular cuts between lanes
@@ -446,6 +460,8 @@ Pedestrian Options:
   --crossings.guess.speed-threshold FLOAT  At uncontrolled nodes, do not build
                                         crossings across edges with a speed
                                         above the threshold
+  --crossings.guess.roundabout-priority  Give priority to guessed crossings at
+                                        roundabouts
   --walkingareas                       Always build walking areas even if there
                                         are no crossings
   --walkingareas.join-dist FLOAT       Do not create a walkingarea between
@@ -503,5 +519,5 @@ Examples:
   netgenerate --rand [random-network options] -o <OUTPUTFILE>
     create random net
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

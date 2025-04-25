@@ -49,6 +49,7 @@
         <xsd:attribute name="apparentDecel" type="positiveFloatType"/>
         <xsd:attribute name="maxAccelProfile" type="xsd:string"/>
         <xsd:attribute name="desAccelProfile" type="xsd:string"/>
+        <xsd:attribute name="parkingBadges" type="xsd:string"/>
         <xsd:attribute name="personCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="boardingDuration" type="nonNegativeFloatType"/>
@@ -62,12 +63,15 @@
         <xsd:attribute name="lcOpposite" type="floatType"/>
         <xsd:attribute name="lcPushy" type="floatType"/>
         <xsd:attribute name="lcPushyGap" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcStrategicLookahead" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcAssertive" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcLookaheadLeft" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcSpeedGainRight" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcSpeedGainLookahead" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcSpeedGainRemainTime" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcSpeedGainUrgency" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcCooperativeRoundabout" type="nonNegativeFloatType"/>
-        <xsd:attribute name="lcCooperativeSpeed" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcCooperativeSpeed" type="nonNegativeFloatTypeWithErrorValue"/>
         <xsd:attribute name="lcTurnAlignmentDistance" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcImpatience" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcTimeToImpatience" type="nonNegativeFloatType"/>
@@ -80,6 +84,7 @@
         <xsd:attribute name="lcSigma" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcKeepRightAcceptanceTime" type="floatType"/>
         <xsd:attribute name="lcOvertakeDeltaSpeedFactor" type="floatType"/>
+        <xsd:attribute name="lcContRight" type="floatType"/>
         <xsd:attribute name="maxSpeedLat" type="positiveFloatType"/>
         <xsd:attribute name="latAlignment" type="latAlignmentType"/>
         <xsd:attribute name="actionStepLength" type="positiveFloatType"/>
@@ -102,7 +107,12 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="jmStoplineGap" type="nonNegativeFloatType"/>
-        <xsd:attribute name="jmTimegapMinor" type="nonNegativeFloatType"/>
+        <xsd:attribute name="jmStoplineGapMinor" type="nonNegativeFloatType"/>
+        <xsd:attribute name="jmTimegapMinor" type="xsd:float"/>
+        <xsd:attribute name="jmExtraGap" type="xsd:float"/>
+        <xsd:attribute name="jmAdvance" type="nonNegativeFloatType"/>
+        <xsd:attribute name="jmStopSignWait" type="xsd:float"/>
+        <xsd:attribute name="jmAllwayStopWait" type="xsd:float"/>
         <xsd:attribute name="sigma">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:float">
@@ -164,6 +174,7 @@
                     <xsd:enumeration value="Freight" />
                     <xsd:enumeration value="MireoPlusB" />
                     <xsd:enumeration value="MireoPlusH" />
+                    <xsd:enumeration value="custom" />
                 </xsd:restriction>
             </xsd:simpleType>
 
@@ -174,6 +185,7 @@
                     <xsd:enumeration value="default"/>
                     <xsd:enumeration value="DK2008"/>
                     <xsd:enumeration value="LC2013"/>
+                    <xsd:enumeration value="LC2013_CC"/>
                     <xsd:enumeration value="SL2015"/>
                 </xsd:restriction>
             </xsd:simpleType>
@@ -240,7 +252,17 @@
         <xsd:attribute name="startupDelay" type="nonNegativeFloatType"/>
         <xsd:attribute name="timeToTeleport" type="floatType"/>
         <xsd:attribute name="timeToTeleportBidi" type="floatType"/>
-        <xsd:attribute name="speedFactorPremature" type="floatType"/>
+        <xsd:attribute name="speedFactorPremature" type="nonNegativeFloatType"/>
+        <xsd:attribute name="boardingFactor" type="floatType"/>
+        <xsd:attribute name="speedTable" type="xsd:string"/>
+        <xsd:attribute name="tractionTable" type="xsd:string"/>
+        <xsd:attribute name="resistanceTable" type="xsd:string"/>
+        <xsd:attribute name="massFactor" type="positiveFloatType"/>
+        <xsd:attribute name="maxPower" type="positiveFloatType"/>
+        <xsd:attribute name="maxTraction" type="positiveFloatType"/>
+        <xsd:attribute name="resCoef_constant" type="floatType"/>
+        <xsd:attribute name="resCoef_linear" type="floatType"/>
+        <xsd:attribute name="resCoef_quadratic" type="floatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfIDMType">
@@ -477,6 +499,7 @@
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
         <xsd:attribute name="insertionChecks" type="xsd:string"/>
+        <xsd:attribute name="parkingBadges" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowWithoutIDType">
@@ -516,6 +539,7 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="parkingBadges" type="xsd:string"/>
         <xsd:attribute name="insertionChecks" type="xsd:string"/>
     </xsd:complexType>
 
@@ -585,6 +609,7 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="parkingBadges" type="xsd:string"/>
         <xsd:attribute name="insertionChecks" type="xsd:string"/>
     </xsd:complexType>
 
@@ -628,6 +653,7 @@
                     <xsd:enumeration value="allowed"/>
                     <xsd:enumeration value="first"/>
                     <xsd:enumeration value="best"/>
+                    <xsd:enumeration value="best_prob"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:union>
@@ -644,6 +670,7 @@
                     <xsd:enumeration value="base"/>
                     <xsd:enumeration value="last"/>
                     <xsd:enumeration value="stop"/>
+                    <xsd:enumeration value="splitFront"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:union>
@@ -793,6 +820,8 @@
         </xsd:sequence>
         <xsd:attribute name="lane" type="xsd:string"/>
         <xsd:attribute name="edge" type="xsd:string"/>
+        <xsd:attribute name="lon" type="floatType"/>
+        <xsd:attribute name="lat" type="floatType"/>
         <xsd:attribute name="busStop" type="xsd:string"/>
         <xsd:attribute name="trainStop" type="xsd:string"/>
         <xsd:attribute name="containerStop" type="xsd:string"/>
@@ -835,6 +864,7 @@
         <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
         <xsd:attribute name="onDemand" type="boolType"/>
         <xsd:attribute name="jump" type="timeTypeWithErrorValue"/>
+        <xsd:attribute name="jumpUntil" type="timeTypeWithErrorValue"/>
         <!-- save-state backward compatibility -->
         <xsd:attribute name="actualArrival" type="timeType"/>
         <xsd:attribute name="depart" type="timeType"/>
@@ -919,6 +949,7 @@
                     <xsd:attribute name="modes" type="xsd:string"/>
                     <xsd:attribute name="vTypes" type="xsd:string"/>
                     <xsd:attribute name="departPos" type="departPosType"/>
+                    <xsd:attribute name="departPosLat" type="departPosLatType"/>
                     <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
                     <xsd:attribute name="walkFactor" type="positiveFloatType"/>
                     <xsd:attribute name="costs" type="xsd:string"/>
@@ -933,6 +964,10 @@
                     </xsd:sequence>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="fromLonLat" type="positionType"/>
+                    <xsd:attribute name="toLonLat" type="positionType"/>
+                    <xsd:attribute name="fromXY" type="positionType"/>
+                    <xsd:attribute name="toXY" type="positionType"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="trainStop" type="xsd:string"/>
                     <xsd:attribute name="parkingArea" type="xsd:string"/>
@@ -961,6 +996,10 @@
                     <xsd:attribute name="to" type="xsd:string"/>
                     <xsd:attribute name="fromTaz" type="xsd:string"/>
                     <xsd:attribute name="toTaz" type="xsd:string"/>
+                    <xsd:attribute name="fromXY" type="positionType"/>
+                    <xsd:attribute name="toXY" type="positionType"/>
+                    <xsd:attribute name="fromLonLat" type="positionType"/>
+                    <xsd:attribute name="toLonLat" type="positionType"/>
                     <xsd:attribute name="fromJunction" type="xsd:string"/>
                     <xsd:attribute name="toJunction" type="xsd:string"/>
                     <xsd:attribute name="viaJunctions" type="xsd:string"/>
@@ -1024,6 +1063,10 @@
                 <xsd:complexType>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="fromTaz" type="xsd:string"/>
+                    <xsd:attribute name="toTaz" type="xsd:string"/>
+                    <xsd:attribute name="fromJunction" type="xsd:string"/>
+                    <xsd:attribute name="toJunction" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="trainStop" type="xsd:string"/>
                     <xsd:attribute name="parkingArea" type="xsd:string"/>
@@ -1046,6 +1089,10 @@
                     <xsd:attribute name="edges" type="xsd:string"/>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="fromTaz" type="xsd:string"/>
+                    <xsd:attribute name="toTaz" type="xsd:string"/>
+                    <xsd:attribute name="fromJunction" type="xsd:string"/>
+                    <xsd:attribute name="toJunction" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="trainStop" type="xsd:string"/>
                     <xsd:attribute name="parkingArea" type="xsd:string"/>

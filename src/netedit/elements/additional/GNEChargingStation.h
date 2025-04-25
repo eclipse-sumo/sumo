@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,8 +19,8 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEStoppingPlace.h"
 
+#include "GNEStoppingPlace.h"
 
 // ===========================================================================
 // class definitions
@@ -33,9 +33,10 @@ public:
     GNEChargingStation(GNENet* net);
 
     /**@brief Constructor of charging station
-     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] lane Lane of this StoppingPlace belongs
+     * @param[in] id charging station ID
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
+     * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of busStop
@@ -48,7 +49,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+    GNEChargingStation(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
                        const std::string& chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters);
 
@@ -88,6 +89,12 @@ public:
      */
     std::string getAttribute(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
+     * @param[in] key The attribute key
+     * @return double with the value associated to key
+     */
+    double getAttributeDouble(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -122,6 +129,9 @@ protected:
 
     /// @brief waiting time before start charging
     SUMOTime myWaitingTime = 0;
+
+    /// @brief parking area ID
+    std::string myParkingAreaID;
 
 private:
     /// @brief set attribute after validation

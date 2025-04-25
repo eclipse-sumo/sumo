@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -91,6 +91,7 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentHaltingsNumber(0),
     myPreviousMeanOccupancy(0),
     myPreviousMeanSpeed(0),
+    myPreviousMeanTimeLoss(0),
     myPreviousMaxJamLengthInMeters(0),
     myPreviousNumberOfSeenVehicles(0),
     myOverrideVehNumber(-1) {
@@ -195,6 +196,11 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentJamLengthInMeters(0),
     myCurrentJamLengthInVehicles(0),
     myCurrentHaltingsNumber(0),
+    myPreviousMeanOccupancy(0),
+    myPreviousMeanSpeed(0),
+    myPreviousMeanTimeLoss(0),
+    myPreviousMaxJamLengthInMeters(0),
+    myPreviousNumberOfSeenVehicles(0),
     myOverrideVehNumber(-1) {
     reset();
 
@@ -261,9 +267,9 @@ MSE2Collector::checkPositioning(bool posGiven, double desiredLength) {
     myStartPos = snap(myStartPos, 0., POSITION_EPS);
     myStartPos = snap(myStartPos, myFirstLane->getLength() - POSITION_EPS, POSITION_EPS);
     myStartPos = snap(myStartPos, 0., POSITION_EPS);
-    myEndPos = snap(myEndPos, myFirstLane->getLength(), POSITION_EPS);
+    myEndPos = snap(myEndPos, myLastLane->getLength(), POSITION_EPS);
     myEndPos = snap(myEndPos, POSITION_EPS, POSITION_EPS);
-    myEndPos = snap(myEndPos, myFirstLane->getLength(), POSITION_EPS);
+    myEndPos = snap(myEndPos, myLastLane->getLength(), POSITION_EPS);
     recalculateDetectorLength();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
@@ -775,7 +781,7 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification 
 #endif
     // notifyEnter() should only be called for lanes of the detector
     assert(std::find(myLanes.begin(), myLanes.end(), enteredLane->getID()) != myLanes.end());
-    assert(veh.getLane() == enteredLane);
+    assert(veh.getLane() == enteredLane || !veh.isVehicle());
 
     // vehicles must be kept if the "inductionloop" wants to detect passeengers
     if (!vehicleApplies(veh) && (veh.isPerson() || myDetectPersons <= (int)PersonMode::WALK)) {
@@ -1358,10 +1364,12 @@ void
 MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
     const double meanSpeed = getIntervalMeanSpeed();
     const double meanOccupancy = getIntervalOccupancy();
+    const double meanTimeLoss = getIntervalMeanTimeLoss();
     myPreviousMeanOccupancy = meanOccupancy;
     myPreviousMeanSpeed = meanSpeed;
     myPreviousMaxJamLengthInMeters = myMaxJamInMeters;
     myPreviousNumberOfSeenVehicles = myNumberOfSeenVehicles;
+    myPreviousMeanTimeLoss = meanTimeLoss;
 
     if (dev.isNull()) {
         reset();
@@ -1373,7 +1381,6 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     const double meanJamLengthInMeters = myTimeSamples != 0 ? myMeanMaxJamInMeters / (double) myTimeSamples : 0;
     const double meanJamLengthInVehicles = myTimeSamples != 0 ? myMeanMaxJamInVehicles / (double) myTimeSamples : 0;
     const double meanVehicleNumber = myTimeSamples != 0 ? (double) myMeanVehicleNumber / (double) myTimeSamples : 0;
-    const double meanTimeLoss = myNumberOfSeenVehicles != 0 ? myTotalTimeLoss / myNumberOfSeenVehicles : -1;
 
     SUMOTime haltingDurationSum = 0;
     SUMOTime maxHaltingDuration = 0;
@@ -1553,19 +1560,19 @@ double
 MSE2Collector::getEstimateQueueLength() const {
 
     if (myVehicleInfos.empty()) {
-        return -1;
+        return 0;
     }
 
-    double distance = std::numeric_limits<double>::max();
+    double distance = 0;
     double realDistance = 0;
     bool flowing =  true;
     for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin();
             it != myVehicleInfos.end(); it++) {
-        if (it->second->onDetector) {
-            distance = MIN2(it->second->lastPos, distance);
+        if (it->second->onDetector && it->second->totalTimeOnDetector > 0) {
             //  double distanceTemp = myLane->getLength() - distance;
-            if (it->second->lastSpeed <= 0.5) {
-                realDistance = distance - it->second->length + it->second->minGap;
+            if (it->second->lastSpeed <= myJamHaltingSpeedThreshold) {
+                distance = MAX2(it->second->distToDetectorEnd, distance);
+                realDistance = distance + it->second->length;
                 flowing = false;
             }
             //            DBG(
@@ -1584,7 +1591,7 @@ MSE2Collector::getEstimateQueueLength() const {
     if (flowing) {
         return 0;
     } else {
-        return myLane->getLength() - realDistance;
+        return realDistance;
     }
 }
 

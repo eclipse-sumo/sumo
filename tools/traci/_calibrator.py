@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -82,9 +82,9 @@ class CalibratorDomain(Domain):
         return self._getUniversal(tc.VAR_ROUTE_PROBE, calibratorID)
 
     def getVTypes(self, calibratorID):
-        """getVTypes(string) -> list(string)
+        """getVTypes(string) -> tuple(string)
 
-        Returns a list of all types to which the calibrator applies (in a type filter is active)
+        Returns a tuple of all types to which the calibrator applies (in a type filter is active)
         """
         return self._getUniversal(tc.VAR_VTYPES, calibratorID)
 

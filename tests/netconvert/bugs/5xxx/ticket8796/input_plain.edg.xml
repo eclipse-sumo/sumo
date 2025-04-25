@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-06-28 16:30:27 by Eclipse SUMO netedit Version v1_9_2+0625-4a9c25012a
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <output>
+        <plain-output-prefix value="D:\dev\svn\Simulation\scenarios\test"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="gneE0" from="gneJ1" to="gneJ2" priority="-1" numLanes="2" speed="13.89" shape="100.00,100.00 116.61,101.15" spreadType="center"/>
+    <edge id="gneE2" from="gneJ2" to="gneJ3" priority="-1" numLanes="1" speed="13.89" shape="143.08,101.50 201.82,95.69"/>
+    <edge id="gneE3" from="gneJ3" to="gneJ2" priority="-1" numLanes="1" speed="13.89" shape="201.82,95.69 143.29,101.40"/>
+    <edge id="gneE4" from="gneJ4" to="gneJ5" priority="-1" numLanes="1" speed="13.89" shape="201.01,111.96 161.60,114.06"/>
+    <edge id="gneE5" from="gneJ5" to="gneJ6" priority="-1" numLanes="2" speed="13.89" shape="151.33,116.62 98.99,117.10" spreadType="center"/>
+    <edge id="gneE6" from="gneJ5" to="gneJ4" priority="-1" numLanes="1" speed="13.89" shape="161.61,113.97 201.01,111.96"/>
+    <edge id="gneE7" from="gneJ2" to="gneJ5" priority="-1" numLanes="2" speed="13.89" shape="141.83,106.92 152.44,109.80" spreadType="center"/>
+</edges>

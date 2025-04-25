@@ -1,0 +1,108 @@
+name: macos
+
+on:
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder
+      - 'docs/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder
+      - 'docs/**'
+  schedule:
+    - cron:  '5 2 * * *'
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-13, macos-14, macos-15]
+        jps_version: ['v1.2.1']
+    runs-on: ${{ matrix.os }}
+    env:
+      CCACHE_COMPILERTYPE: clang
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v4
+      with:
+        path: sumo
+        fetch-depth: 0
+        filter: tree:0
+        # to work around actions/checkout#1467
+        ref: ${{ github.ref }}
+
+    - name: Preparing Build System
+      run: |
+        brew update
+        brew upgrade || brew link --overwrite python@3.12
+        brew install --cask xquartz
+        brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
+
+    - name: Cloning jupedsim
+      if: matrix.os != 'macos-13'
+      uses: actions/checkout@v4
+      with:
+        repository: PedestrianDynamics/jupedsim
+        ref: ${{ matrix.jps_version }}
+        path: jupedsim
+
+    - name: ccache
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ matrix.os }}
+
+    - name: Building libjupedsim
+      if: matrix.os != 'macos-13'
+      run: |
+        cmake -B jupedsim-build -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache jupedsim
+        cmake --build jupedsim-build -j4 --config Release
+        sudo cmake --install jupedsim-build --config Release
+
+    - name: Building SUMO
+      run: |
+        cmake -B sumo/cmake-build sumo
+        cmake --build sumo/cmake-build -j4
+
+    - name: Building Traas
+      run: cmake --build sumo/cmake-build --target traas
+
+    - name: Installing SUMO
+      run: sudo cmake --install sumo/cmake-build
+
+    - name: Building Examples and Tests
+      run: |
+        export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
+        cd sumo/cmake-build
+        make CTEST_OUTPUT_ON_FAILURE=1 examples test
+
+    - name: Running texttest
+      run: |
+        export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
+        brew install texttest
+        sumo/tests/runTests.sh -b ci -v ci -ts meta
+
+    - name: Uploading artifacts (SUMO binaries and FMU)
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.os }}-binaries
+        path: sumo/bin
+
+    - name: Creating macOS installer pkg
+      if: matrix.os != 'macos-13'
+      run: |
+        python3 -m venv dmgenv
+        dmgenv/bin/python3 -m pip install dmgbuild delocate
+        dmgenv/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-dir --build-dir sumo/cmake-build
+        dmgenv/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-pkg
+
+    - name: Uploading macOS installer pkg
+      if: matrix.os != 'macos-13'
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.os }}-installer-unsigned
+        path: framework-pkg/*.pkg

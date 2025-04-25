@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -118,6 +118,11 @@ LaneArea::getIntervalMeanSpeed(const std::string& detID) {
 }
 
 double
+LaneArea::getIntervalMeanTimeLoss(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_INTERVAL_TIMELOSS, detID);
+}
+
+double
 LaneArea::getIntervalMaxJamLengthInMeters(const std::string& detID) {
     return Dom::getDouble(libsumo::VAR_INTERVAL_MAX_JAM_LENGTH_METERS, detID);
 }
@@ -135,6 +140,11 @@ LaneArea::getLastIntervalOccupancy(const std::string& detID) {
 double
 LaneArea::getLastIntervalMeanSpeed(const std::string& detID) {
     return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_SPEED, detID);
+}
+
+double
+LaneArea::getLastIntervalMeanTimeLoss(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_TIMELOSS, detID);
 }
 
 double

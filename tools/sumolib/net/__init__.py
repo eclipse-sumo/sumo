@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -37,6 +37,13 @@ from xml.sax import handler, parse
 from copy import copy
 from collections import defaultdict
 from itertools import chain
+
+try:
+    import lxml.etree
+    import pathlib
+    HAVE_LXML = True
+except ImportError:
+    HAVE_LXML = False
 
 import sumolib
 from . import lane, edge, netshiftadaptor, node, connection, roundabout  # noqa
@@ -96,11 +103,21 @@ class TLS:
 
 class Phase:
 
-    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=tuple(), name=""):
+    def __init__(self, duration, state, minDur=None, maxDur=None, next=tuple(), name=""):
+        """
+        Constructs a traffic light phase
+        duration (float): the duration of the phase in seconds
+        state (string): the state codes for each controlled link
+        minDur (float): the minimum duration (ignored by static tls)
+        maxDur (float): the maximum duration (ignored by static tls)
+        next (intList): possible succesor phase (optional)
+        name (string): the name of the phase
+        """
         self.duration = duration
         self.state = state
-        self.minDur = minDur  # minimum duration (only for actuated tls)
-        self.maxDur = maxDur  # maximum duration (only for actuated tls)
+        # minimum and maximum duration (only for actuated tls)
+        self.minDur = minDur if minDur is not None else duration
+        self.maxDur = maxDur if maxDur is not None else duration
         self.next = next
         self.name = name
 
@@ -154,6 +171,13 @@ class TLSProgram:
         return self._params
 
 
+class EdgeType:
+    def __init__(self, id, allow, disallow):
+        self.id = id
+        self.allow = allow
+        self.disallow = disallow
+
+
 class Net:
 
     """The whole sumo network."""
@@ -176,8 +200,17 @@ class Net:
         self._origIdx = None
         self._proj = None
         self.hasInternal = False
+        self.hasWalkingArea = False
         # store dijsktra heap for reuse if the same origin is used repeatedly
         self._shortestPathCache = None
+        self._version = None
+        self._edgeTypes = defaultdict(lambda: EdgeType("DEFAULT_EDGETYPE", "", ""))
+
+    def getVersion(self):
+        return self._version
+
+    def getEdgeType(self, typeID):
+        return self._edgeTypes[typeID]
 
     def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
         self._location["netOffset"] = netOffset
@@ -239,10 +272,12 @@ class Net:
             self._id2edge[id] = e
             if function:
                 self.hasInternal = True
+                if function == "walkingarea":
+                    self.hasWalkingArea = True
         return self._id2edge[id]
 
-    def addLane(self, edge, speed, length, width, allow=None, disallow=None):
-        return lane.Lane(edge, speed, length, width, allow, disallow)
+    def addLane(self, edge, speed, length, width, allow=None, disallow=None, acceleration=False):
+        return lane.Lane(edge, speed, length, width, allow, disallow, acceleration)
 
     def addRoundabout(self, nodes, edges=None):
         r = roundabout.Roundabout(nodes, edges)
@@ -550,6 +585,12 @@ class Net:
                 return min(-pos, edge.getLength())
             return max(0., edge.getLength() - pos)
 
+        def getToNormalIncoming(edge):
+            if edge.getFunction() == '':
+                return [(e, None) for e in edge.getToNode().getIncoming() if e.getFunction() == '']
+            else:
+                return []
+
         if self.hasInternal:
             appendix = ()
             appendixCost = 0.
@@ -585,20 +626,24 @@ class Net:
                     removeTo = toEdge.getLength() if len(path) > 1 else 0.
                 cost -= removeTo / speedFunc(fromEdge)
                 if self.hasInternal:
-                    return path + appendix, cost + appendixCost
+                    if appendix:
+                        return path + appendix, cost + appendixCost
+                    elif ignoreDirection and self.hasWalkingArea and not withInternal:
+                        return [e for e in path if e.getFunction() == ''], cost
                 return path, cost
             if cost > maxCost:
                 return None, cost
 
             for e2, conn in chain(e1.getAllowedOutgoing(vClass).items(),
-                                  e1.getIncoming().items() if ignoreDirection else []):
+                                  e1.getIncoming().items() if ignoreDirection else [],
+                                  getToNormalIncoming(e1) if ignoreDirection and not self.hasWalkingArea else []):
                 # print(cost, e1.getID(), e2.getID(), e2 in seen)
                 if e2 not in seen:
                     newCost = cost + e2.getLength() / speedFunc(e2)
                     if e2 == e1.getBidi():
                         newCost += reversalPenalty
                     minPath = (e2,)
-                    if self.hasInternal:
+                    if self.hasInternal and conn is not None:
                         viaPath, minInternalCost = self.getInternalPath(conn, fastest=fastest)
                         if viaPath is not None:
                             newCost += minInternalCost
@@ -694,10 +739,15 @@ class NetReader(handler.ContentHandler):
         self._bidiEdgeIDs = {}
 
     def startElement(self, name, attrs):
-        if name == 'location':
+        if name == 'net':
+            parts = attrs["version"].split('.', 1)
+            self._net._version = (int(parts[0]), float(parts[1]))
+        elif name == 'location':
             self._net.setLocation(attrs["netOffset"], attrs["convBoundary"], attrs[
                                   "origBoundary"], attrs["projParameter"])
-        if name == 'edge':
+        elif name == 'type':
+            self._net._edgeTypes[attrs['id']] = EdgeType(attrs['id'], attrs.get('allow'), attrs.get('disallow'))
+        elif name == 'edge':
             function = attrs.get('function', '')
             if (function == ''
                     or (self._withInternal and function in ['internal', 'crossing', 'walkingarea'])
@@ -733,18 +783,19 @@ class NetReader(handler.ContentHandler):
                 elif function == 'connector':
                     self._net._macroConnectors.add(attrs['id'])
                 self._currentEdge = None
-        if name == 'lane' and self._currentEdge is not None:
+        elif name == 'lane' and self._currentEdge is not None:
             self._currentLane = self._net.addLane(
                 self._currentEdge,
                 float(attrs['speed']),
                 float(attrs['length']),
                 float(attrs.get('width', 3.2)),
                 attrs.get('allow'),
-                attrs.get('disallow'))
+                attrs.get('disallow'),
+                attrs.get('acceleration') == "1")
             self._currentLane.setShape(convertShape(attrs.get('shape', '')))
-        if name == 'neigh' and self._currentLane is not None:
+        elif name == 'neigh' and self._currentLane is not None:
             self._currentLane.setNeigh(attrs['lane'])
-        if name == 'junction':
+        elif name == 'junction':
             if attrs['id'][0] != ':':
                 intLanes = None
                 if self._withInternal:
@@ -759,7 +810,7 @@ class NetReader(handler.ContentHandler):
                 if 'fringe' in attrs:
                     self._currentNode._fringe = attrs['fringe']
 
-        if name == 'succ' and self._withConnections:  # deprecated
+        elif name == 'succ' and self._withConnections:  # deprecated
             if attrs['edge'][0] != ':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])
                 self._currentLane = attrs['lane']
@@ -767,7 +818,7 @@ class NetReader(handler.ContentHandler):
                     self._currentLane[self._currentLane.rfind('_') + 1:])
             else:
                 self._currentEdge = None
-        if name == 'succlane' and self._withConnections:  # deprecated
+        elif name == 'succlane' and self._withConnections:  # deprecated
             lid = attrs['lane']
             if lid[0] != ':' and lid != "SUMO_NO_DESTINATION" and self._currentEdge:
                 connected = self._net.getEdge(lid[:lid.rfind('_')])
@@ -790,7 +841,7 @@ class NetReader(handler.ContentHandler):
                 self._net.addConnection(self._currentEdge, connected, self._currentEdge._lanes[
                                         self._currentLane], tolane,
                                         attrs['dir'], tl, tllink, attrs['state'], viaLaneID)
-        if name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
+        elif name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
             fromEdgeID = attrs['from']
             toEdgeID = attrs['to']
             if ((self._withPedestrianConnections or not (fromEdgeID in self._net._crossings_and_walkingAreas or
@@ -819,20 +870,20 @@ class NetReader(handler.ContentHandler):
                     tllink, attrs['state'], viaLaneID)
 
         # 'row-logic' is deprecated!!!
-        if self._withFoes and name == 'ROWLogic':
+        elif self._withFoes and name == 'ROWLogic':
             self._currentNode = attrs['id']
-        if name == 'logicitem' and self._withFoes:  # deprecated
+        elif name == 'logicitem' and self._withFoes:  # deprecated
             self._net.setFoes(
                 self._currentNode, int(attrs['request']), attrs["foes"], attrs["response"])
-        if name == 'request' and self._withFoes:
+        elif name == 'request' and self._withFoes:
             self._currentNode.setFoes(
                 int(attrs['index']), attrs["foes"], attrs["response"])
         # tl-logic is deprecated!!! NOTE: nevertheless, this is still used by
         # netconvert... (Leo)
-        if self._withPhases and name == 'tlLogic':
+        elif self._withPhases and name == 'tlLogic':
             self._currentProgram = self._net.addTLSProgram(
                 attrs['id'], attrs['programID'], float(attrs['offset']), attrs['type'], self._latestProgram)
-        if self._withPhases and name == 'phase':
+        elif self._withPhases and name == 'phase':
             self._currentProgram.addPhase(
                 attrs['state'], int(attrs['duration']),
                 int(attrs['minDur']) if 'minDur' in attrs else -1,
@@ -840,10 +891,10 @@ class NetReader(handler.ContentHandler):
                 list(map(int, attrs['next'].split())) if 'next' in attrs else [],
                 attrs['name'] if 'name' in attrs else ""
             )
-        if name == 'roundabout':
+        elif name == 'roundabout':
             self._net.addRoundabout(
                 attrs['nodes'].split(), attrs['edges'].split())
-        if name == 'param':
+        elif name == 'param':
             if self._currentLane is not None:
                 self._currentLane.setParam(attrs['key'], attrs['value'])
             elif self._currentEdge is not None:
@@ -858,19 +909,19 @@ class NetReader(handler.ContentHandler):
     def endElement(self, name):
         if name == 'lane':
             self._currentLane = None
-        if name == 'edge':
+        elif name == 'edge':
             self._currentEdge = None
-        if name == 'junction':
+        elif name == 'junction':
             self._currentNode = None
-        if name == 'connection':
+        elif name == 'connection':
             self._currentConnection = None
         # 'row-logic' is deprecated!!!
-        if name == 'ROWLogic' or name == 'row-logic':
+        elif name == 'ROWLogic' or name == 'row-logic':
             self._haveROWLogic = False
         # tl-logic is deprecated!!!
-        if self._withPhases and (name == 'tlLogic' or name == 'tl-logic'):
+        elif self._withPhases and (name == 'tlLogic' or name == 'tl-logic'):
             self._currentProgram = None
-        if name == 'net':
+        elif name == 'net':
             for edgeID, bidiID in self._bidiEdgeIDs.items():
                 self._net.getEdge(edgeID)._bidi = self._net.getEdge(bidiID)
 
@@ -906,6 +957,14 @@ def convertShape(shapeString):
     return cshape
 
 
+def lane2edge(laneID):
+    return laneID[:laneID.rfind("_")]
+
+
+def lane2index(laneID):
+    return int(laneID[laneID.rfind("_") + 1:])
+
+
 def readNet(filename, **others):
     """ load a .net.xml file
     The following named options are supported:
@@ -919,10 +978,24 @@ def readNet(filename, **others):
         'withFoes' : import right-of-way information (default True)
         'withInternal' : import internal edges and lanes (default False)
         'withPedestrianConnections' : import connections between sidewalks, crossings (default False)
+        'lxml' : set to False to use the xml.sax parser instead of the lxml parser
     """
     netreader = NetReader(**others)
     try:
-        parse(gzip.open(filename), netreader)
+        source = gzip.open(filename)
+        source.read(10)
+        source.seek(0)
     except IOError:
-        parse(filename, netreader)
+        source = filename
+    if HAVE_LXML and others.get("lxml", True):
+        if isinstance(source, pathlib.Path):
+            source = str(source)
+        for event, v in lxml.etree.iterparse(source, events=("start", "end")):
+            if event == "start":
+                netreader.startElement(v.tag, v.attrib)
+            elif event == "end":
+                netreader.endElement(v.tag)
+            v.clear()  # reduce memory footprint
+    else:
+        parse(source, netreader)
     return netreader.getNet()

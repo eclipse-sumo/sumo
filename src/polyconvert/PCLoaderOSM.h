@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -135,6 +135,8 @@ private:
     /// @brief retrieve cartesian coordinate for given node
     static Position convertNodePosition(PCOSMNode* n);
 
+    static double mergeClosest(const std::map<long long int, PCOSMNode*>& nodes, std::vector<std::vector<long long int> >& snippets);
+
 protected:
     /**
      * @class NodesHandler
@@ -219,6 +221,7 @@ protected:
          */
         RelationsHandler(RelationsMap& additionalWays,
                          Relations& relations,
+                         std::set<long long int>& innerEdges,
                          bool withAttributes,
                          MsgHandler& errorHandler);
 
@@ -257,6 +260,9 @@ protected:
 
         /// @brief the loaded relations
         Relations& myRelations;
+
+        /// @brief the loaded edges
+        std::set<long long int>& myInnerEdges;
 
         /// @brief Whether all attributes shall be stored
         bool myWithAttributes;

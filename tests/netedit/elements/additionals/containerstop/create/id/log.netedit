@@ -1,0 +1,2 @@
+Warning: Invalid value ';;;;;;;;;;;;;;;;' in attribute id
+Error: Could not build containerStop with ID 'ct_0' in netedit; Found another containerStop with the same ID.

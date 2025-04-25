@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -398,36 +398,139 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                         sl->value.push_back(inMsg.readString());
                     }
                     into[objectID][variableID] = sl;
+                    break;
                 }
-                break;
+                case libsumo::TYPE_POLYGON: {
+                    auto po = std::make_shared<libsumo::TraCIPositionVector>();
+                    StoHelp::readPolygon(inMsg, *po);
+                    into[objectID][variableID] = po;
+                    break;
+                }
+                case libsumo::TYPE_DOUBLELIST: {
+                    auto po = std::make_shared<libsumo::TraCIDoubleList>();
+                    po->value = inMsg.readDoubleList();
+                    into[objectID][variableID] = po;
+                    break;
+                }
                 case libsumo::TYPE_COMPOUND: {
-                    int n = inMsg.readInt();
+                    const int n = inMsg.readInt();
+                    if (variableID == libsumo::LAST_STEP_VEHICLE_DATA) {
+                        auto r = std::make_shared<libsumo::TraCIVehicleDataVectorWrapped>();
+                        StoHelp::readVehicleDataVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_NEXT_LINKS) {
+                        const int count = StoHelp::readTypedInt(inMsg);
+                        auto r = std::make_shared<libsumo::TraCIConnectionVectorWrapped>();
+                        for (int i = 0; i < count; ++i) {
+                            libsumo::TraCIConnection con;
+                            StoHelp::readConnection(inMsg, con);
+                            r->value.emplace_back(con);
+                        }
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_STAGE) {
+                        auto r = std::make_shared<libsumo::TraCIStage>();
+                        StoHelp::readStage(inMsg, *r);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_TAXI_RESERVATIONS) {
+                        auto r = std::make_shared<libsumo::TraCIReservationVectorWrapped>();
+                        for (int i = 0; i < n; ++i) {
+                            libsumo::TraCIReservation res;
+                            StoHelp::readReservation(inMsg, res);
+                            r->value.emplace_back(res);
+                        }
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::TL_COMPLETE_DEFINITION_RYG) {
+                        auto r = std::make_shared<libsumo::TraCILogicVectorWrapped>();
+                        for (int i = 0; i < n; ++i) {
+                            libsumo::TraCILogic logic;
+                            StoHelp::readLogic(inMsg, logic);
+                            r->value.emplace_back(logic);
+                        }
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::TL_CONSTRAINT || variableID == libsumo::TL_CONSTRAINT_BYFOE) {
+                        auto r = std::make_shared<libsumo::TraCISignalConstraintVectorWrapped>();
+                        StoHelp::readConstraintVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::TL_CONTROLLED_LINKS) {
+                        auto r = std::make_shared<libsumo::TraCILinkVectorVectorWrapped>();
+                        StoHelp::readLinkVectorVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_BEST_LANES) {
+                        auto r = std::make_shared<libsumo::TraCIBestLanesDataVectorWrapped>();
+                        StoHelp::readBestLanesVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_COLLISIONS) {
+                        auto r = std::make_shared<libsumo::TraCICollisionVectorWrapped>();
+                        StoHelp::readCollisionVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_FOES) {
+                        auto r = std::make_shared<libsumo::TraCIJunctionFoeVectorWrapped>();
+                        StoHelp::readJunctionFoeVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::CMD_CHANGELANE) {
+                        auto r = std::make_shared<libsumo::TraCIIntList>();
+                        r->value.push_back(StoHelp::readTypedInt(inMsg));
+                        r->value.push_back(StoHelp::readTypedInt(inMsg));
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_NEIGHBORS) {
+                        auto r = std::make_shared<libsumo::TraCIStringDoublePairList>();
+                        for (int i = 0; i < n; i++) {
+                            const std::string neighID = inMsg.readString();
+                            r->value.emplace_back(neighID, inMsg.readDouble());
+                        }
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_NEXT_STOPS2) {
+                        auto r = std::make_shared<libsumo::TraCINextStopDataVectorWrapped>();
+                        StoHelp::readStopVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    } else if (variableID == libsumo::VAR_NEXT_TLS) {
+                        auto r = std::make_shared<libsumo::TraCINextTLSDataVectorWrapped>();
+                        StoHelp::readTLSDataVector(inMsg, r->value);
+                        into[objectID][variableID] = r;
+                        break;
+                    }
                     if (n == 2) {
-                        inMsg.readUnsignedByte();
-                        const std::string s = inMsg.readString();
-                        const int secondType = inMsg.readUnsignedByte();
-                        if (secondType == libsumo::TYPE_DOUBLE) {
-                            auto r = std::make_shared<libsumo::TraCIRoadPosition>();
-                            r->edgeID = s;
-                            r->pos = inMsg.readDouble();
-                            into[objectID][variableID] = r;
-                        } else if (secondType == libsumo::TYPE_STRING) {
-                            auto sl = std::make_shared<libsumo::TraCIStringList>();
-                            sl->value.push_back(s);
-                            sl->value.push_back(inMsg.readString());
-                            into[objectID][variableID] = sl;
+                        const int firstType = inMsg.readUnsignedByte();
+                        if (firstType == libsumo::TYPE_STRING) {
+                            const std::string s = inMsg.readString();
+                            const int secondType = inMsg.readUnsignedByte();
+                            if (secondType == libsumo::TYPE_DOUBLE) {
+                                auto r = std::make_shared<libsumo::TraCIRoadPosition>();
+                                r->edgeID = s;
+                                r->pos = inMsg.readDouble();
+                                into[objectID][variableID] = r;
+                                break;
+                            } else if (secondType == libsumo::TYPE_STRING) {
+                                auto sl = std::make_shared<libsumo::TraCIStringList>();
+                                sl->value.push_back(s);
+                                sl->value.push_back(inMsg.readString());
+                                into[objectID][variableID] = sl;
+                                break;
+                            }
                         }
                     }
                 }
-                break;
-
+                FALLTHROUGH;
                 // TODO Other data types
 
                 default:
-                    throw libsumo::TraCIException("Unimplemented subscription type: " + toString(type));
+                    throw libsumo::TraCIException("Unimplemented subscription: variableID=" + toHex(variableID) + " type=" + toHex(type));
             }
         } else {
-            throw libsumo::TraCIException("Subscription response error: variableID=" + toString(variableID) + " status=" + toString(status));
+            throw libsumo::TraCIException("Subscription response error: variableID=" + toHex(variableID) + " status=" + toHex(status));
         }
 
         variableCount--;

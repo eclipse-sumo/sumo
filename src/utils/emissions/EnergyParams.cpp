@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    EnergyParams.cpp
 /// @author  Jakob Erdmann
+/// @author  Michael Behrisch
 /// @date    Sept 2021
 ///
 // A class for parameters used by the emission models
@@ -22,6 +23,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 
 #include "PollutantsInterface.h"
@@ -33,52 +35,34 @@
 // static definitions
 // ===========================================================================
 const EnergyParams* EnergyParams::myDefault = nullptr;
+const std::vector<SumoXMLAttr> EnergyParams::myParamAttrs = {
+    SUMO_ATTR_SHUT_OFF_STOP, SUMO_ATTR_SHUT_OFF_AUTO,
+    SUMO_ATTR_LOADING, SUMO_ATTR_FRONTSURFACEAREA, SUMO_ATTR_AIRDRAGCOEFFICIENT,
+    SUMO_ATTR_CONSTANTPOWERINTAKE, SUMO_ATTR_WHEELRADIUS, SUMO_ATTR_ROLLDRAGCOEFFICIENT, SUMO_ATTR_ROTATINGMASS,
+    SUMO_ATTR_RADIALDRAGCOEFFICIENT, SUMO_ATTR_PROPULSIONEFFICIENCY, SUMO_ATTR_RECUPERATIONEFFICIENCY,
+    SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION,
+    SUMO_ATTR_MAXIMUMTORQUE, SUMO_ATTR_MAXIMUMPOWER, SUMO_ATTR_GEAREFFICIENCY, SUMO_ATTR_GEARRATIO,
+    SUMO_ATTR_MAXIMUMRECUPERATIONTORQUE, SUMO_ATTR_MAXIMUMRECUPERATIONPOWER,
+    SUMO_ATTR_INTERNALBATTERYRESISTANCE, SUMO_ATTR_NOMINALBATTERYVOLTAGE, SUMO_ATTR_INTERNALMOMENTOFINERTIA
+};
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
-    myMap[SUMO_ATTR_SHUT_OFF_STOP] = 300.;
-    myMap[SUMO_ATTR_SHUT_OFF_AUTO] = std::numeric_limits<double>::max();
-    myMap[SUMO_ATTR_DURATION] = -1.;
-    myMap[SUMO_ATTR_PARKING] = 0.;
-    myMap[SUMO_ATTR_WAITINGTIME] = -1.;
-
-    // default values from
-    // https://sumo.dlr.de/docs/Models/Electric.html#kia_soul_ev_2020
-    myMap[SUMO_ATTR_VEHICLEMASS] = 1830.;
-    myMap[SUMO_ATTR_FRONTSURFACEAREA] = 2.6;
-    myMap[SUMO_ATTR_AIRDRAGCOEFFICIENT] = 0.35;
-    myMap[SUMO_ATTR_INTERNALMOMENTOFINERTIA] = 0.01;
-    myMap[SUMO_ATTR_RADIALDRAGCOEFFICIENT] = 0.1;
-    myMap[SUMO_ATTR_ROLLDRAGCOEFFICIENT] = 0.01;
-    myMap[SUMO_ATTR_CONSTANTPOWERINTAKE] = 100.;
-    myMap[SUMO_ATTR_PROPULSIONEFFICIENCY] = 0.98;
-    myMap[SUMO_ATTR_RECUPERATIONEFFICIENCY] = 0.96;
-    myMap[SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION] = 0.0;
-    myMap[SUMO_ATTR_ANGLE] = 0.;  // actually angleDiff in the last step
-    // @todo set myVecMap defaults as needed
-
-    // Default values for the MMPEVEM
-    myMap[SUMO_ATTR_WHEELRADIUS] = 0.3588;                // [m]
-    myMap[SUMO_ATTR_MAXIMUMTORQUE] = 310.0;               // [Nm]
-    // @todo SUMO_ATTR_MAXIMUMPOWER predates the MMPEVEM emission model. Do you want to set this somewhere else or to another value?
-    myMap[SUMO_ATTR_MAXIMUMPOWER] = 107000.0;             // [W]
-    myMap[SUMO_ATTR_GEAREFFICIENCY] = 0.96;               // [1]
-    myMap[SUMO_ATTR_GEARRATIO] = 10.0;                    // [1]
-    myMap[SUMO_ATTR_MAXIMUMRECUPERATIONTORQUE] = 95.5;    // [Nm]
-    myMap[SUMO_ATTR_MAXIMUMRECUPERATIONPOWER] = 42800.0;  // [W]
-    myMap[SUMO_ATTR_INTERNALBATTERYRESISTANCE] = 0.1142;  // [Ohm]
-    myMap[SUMO_ATTR_NOMINALBATTERYVOLTAGE] = 396.0;       // [V]
     myCharacteristicMapMap.insert(std::pair<SumoXMLAttr, CharacteristicMap>(SUMO_ATTR_POWERLOSSMAP, CharacteristicMap("2,1|-1e9,1e9;-1e9,1e9|0,0,0,0")));  // P_loss_EM = 0 W for all operating points in the default EV power loss map
 
-    if (typeParams != nullptr) {
-        for (auto item : myMap) {
-            myMap[item.first] = typeParams->getDouble(toString(item.first), item.second);
-        }
-        for (auto item : myVecMap) {
-            myVecMap[item.first] = typeParams->getDoubles(toString(item.first), item.second);
+    if (typeParams == nullptr) {
+        myMap[SUMO_ATTR_MASS] = DEFAULT_VEH_MASS;
+        myHaveDefaultMass = true;
+        myMap[SUMO_ATTR_FRONTSURFACEAREA] = DEFAULT_VEH_WIDTH * DEFAULT_VEH_HEIGHT * M_PI / 4.;
+        myHaveDefaultFrontSurfaceArea = true;
+    } else {
+        for (SumoXMLAttr attr : myParamAttrs) {
+            if (typeParams->hasParameter(toString(attr))) {
+                myMap[attr] = typeParams->getDouble(toString(attr), INVALID_DOUBLE);
+            }
         }
         for (auto item : myCharacteristicMapMap) {
             std::string characteristicMapString = typeParams->getParameter(toString(item.first), "");
@@ -87,13 +71,35 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
             }
         }
         myMap[SUMO_ATTR_MASS] = typeParams->mass;
-        myMap[SUMO_ATTR_WIDTH] = typeParams->width;
-        myMap[SUMO_ATTR_HEIGHT] = typeParams->height;
-    } else {
-        const SUMOVTypeParameter::VClassDefaultValues defaultValues(SVC_PASSENGER);
-        myMap[SUMO_ATTR_MASS] = defaultValues.mass;
-        myMap[SUMO_ATTR_WIDTH] = defaultValues.width;
-        myMap[SUMO_ATTR_HEIGHT] = defaultValues.height;
+        myHaveDefaultMass = !typeParams->wasSet(VTYPEPARS_MASS_SET);
+        if (myHaveDefaultMass) {
+            const double ecMass = PollutantsInterface::getWeight(typeParams->emissionClass);
+            if (ecMass != -1.) {
+                myMap[SUMO_ATTR_MASS] = ecMass;
+            }
+        }
+        if (myMap.count(SUMO_ATTR_FRONTSURFACEAREA) == 0) {
+            myHaveDefaultFrontSurfaceArea = true;
+            myMap[SUMO_ATTR_FRONTSURFACEAREA] = typeParams->width * typeParams->height * M_PI / 4.;
+        }
+        const std::string& ecName = PollutantsInterface::getName(typeParams->emissionClass);
+        if (typeParams->vehicleClass != SVC_IGNORING && (typeParams->vehicleClass & (SVC_PRIVATE | SVC_VIP | SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_E_VEHICLE | SVC_CUSTOM1 | SVC_CUSTOM2)) == 0 && myHaveDefaultFrontSurfaceArea) {
+            if (StringUtils::startsWith(ecName, "MMPEVEM") || StringUtils::startsWith(ecName, "Energy")) {
+                WRITE_WARNINGF(TL("Vehicle type '%' uses the emission class '%' which does not have proper defaults for its vehicle class. "
+                                  "Please use a different emission model or complete the vType definition with further parameters."), typeParams->id, ecName);
+                if (!typeParams->wasSet(VTYPEPARS_MASS_SET)) {
+                    WRITE_WARNING(TL(" And also set a vehicle mass!"));
+                }
+            }
+        }
+        if (!StringUtils::startsWith(ecName, "MMPEVEM")) {
+            if (myMap.count(SUMO_ATTR_INTERNALMOMENTOFINERTIA) > 0) {
+                WRITE_WARNINGF(TL("Vehicle type '%' uses the Energy model parameter 'internalMomentOfInertia' which is deprecated. Use 'rotatingMass' instead."), typeParams->id);
+                if (!typeParams->hasParameter(toString(SUMO_ATTR_ROTATINGMASS))) {
+                    myMap[SUMO_ATTR_ROTATINGMASS] = myMap[SUMO_ATTR_INTERNALMOMENTOFINERTIA];
+                }
+            }
+        }
     }
 }
 
@@ -102,8 +108,39 @@ EnergyParams::~EnergyParams() {}
 
 
 void
-EnergyParams::setDouble(SumoXMLAttr attr, double value) {
-    myMap[attr] = value;
+EnergyParams::setDynamicValues(const SUMOTime stopDuration, const bool parking, const SUMOTime waitingTime, const double angle) {
+    if ((stopDuration >= 0 && myStopDurationSeconds < 0.) || (stopDuration < 0 && myStopDurationSeconds >= 0.)) {
+        myStopDurationSeconds = STEPS2TIME(stopDuration);
+        myAmParking = parking;
+    }
+    myWaitingTimeSeconds = STEPS2TIME(waitingTime);
+    myLastAngle = myAngle;
+    myAngle = angle;
+}
+
+
+void
+EnergyParams::setMass(const double mass) {
+    myMap[SUMO_ATTR_MASS] = mass;
+    myHaveDefaultMass = false;
+}
+
+
+void
+EnergyParams::setTransportableMass(const double mass) {
+    myTransportableMass = mass;
+}
+
+
+double
+EnergyParams::getTotalMass(const double defaultEmptyMass, const double defaultLoading) const {
+    return getDoubleOptional(SUMO_ATTR_MASS, defaultEmptyMass) + getDoubleOptional(SUMO_ATTR_LOADING, defaultLoading) + getTransportableMass();
+}
+
+
+double
+EnergyParams::getAngleDiff() const {
+    return myLastAngle == INVALID_DOUBLE ? 0. : GeomHelper::angleDiff(myLastAngle, myAngle);
 }
 
 
@@ -116,58 +153,56 @@ EnergyParams::getDouble(SumoXMLAttr attr) const {
     if (mySecondaryParams != nullptr) {
         return mySecondaryParams->getDouble(attr);
     }
-    throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
+    throw UnknownElement("Unknown emission model parameter: " + toString(attr));
 }
 
 
-const std::vector<double>&
-EnergyParams::getDoubles(SumoXMLAttr attr) const {
+double
+EnergyParams::getDoubleOptional(SumoXMLAttr attr, const double def) const {
+    auto it = myMap.find(attr);
+    if (it != myMap.end() && it->second != INVALID_DOUBLE) {
+        if (attr == SUMO_ATTR_MASS) {
+            if (!myHaveDefaultMass) {
+                return it->second;
+            }
+        } else if (attr == SUMO_ATTR_FRONTSURFACEAREA) {
+            if (!myHaveDefaultFrontSurfaceArea) {
+                return it->second;
+            }
+        } else {
+            return it->second;
+        }
+    }
     if (mySecondaryParams != nullptr) {
-        return mySecondaryParams->getDoubles(attr);
+        return mySecondaryParams->getDoubleOptional(attr, def);
     }
-    auto it = myVecMap.find(attr);
-    if (it != myVecMap.end()) {
-        return it->second;
-    }
-    throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
+    return def;
 }
 
 
 const CharacteristicMap&
 EnergyParams::getCharacteristicMap(SumoXMLAttr attr) const {
-    if (mySecondaryParams != nullptr) {
-        return mySecondaryParams->getCharacteristicMap(attr);
-    }
     auto it = myCharacteristicMapMap.find(attr);
     if (it != myCharacteristicMapMap.end()) {
         return it->second;
     }
-    throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
-}
-
-
-void
-EnergyParams::checkParam(const SumoXMLAttr paramKey, const std::string& id, const double lower, const double upper) {
-    const auto& p = myMap.find(paramKey);
-    if (p != myMap.end() && (p->second < lower || p->second > upper)) {
-        WRITE_WARNINGF(TL("Vehicle device '%' doesn't have a valid value for parameter % (%)."), id, toString(paramKey), p->second);
-        setDouble(paramKey, EnergyParams::getDefault()->getDouble(paramKey));
+    if (mySecondaryParams != nullptr) {
+        return mySecondaryParams->getCharacteristicMap(attr);
     }
+    throw UnknownElement("Unknown emission model parameter: " + toString(attr));
 }
 
 
 bool
 EnergyParams::isEngineOff() const {
-    // they all got a default in the constructor so getDouble is safe here
-    return getDouble(SUMO_ATTR_DURATION) > getDouble(SUMO_ATTR_SHUT_OFF_STOP) ||
-           getDouble(SUMO_ATTR_WAITINGTIME) > getDouble(SUMO_ATTR_SHUT_OFF_AUTO);
+    return myStopDurationSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP) ||
+           myWaitingTimeSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_AUTO, std::numeric_limits<double>::max());
 }
 
 
 bool
 EnergyParams::isOff() const {
-    // they all got a default in the constructor so getDouble is safe here
-    return getDouble(SUMO_ATTR_DURATION) > getDouble(SUMO_ATTR_SHUT_OFF_STOP) && getDouble(SUMO_ATTR_PARKING) > 0.;
+    return myStopDurationSeconds > getDoubleOptional(SUMO_ATTR_SHUT_OFF_STOP, DEFAULT_VEH_SHUT_OFF_STOP);
 }
 
 

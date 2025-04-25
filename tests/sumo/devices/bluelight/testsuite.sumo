@@ -43,11 +43,23 @@ opposite_multiple_oncoming2
 # emergency vehicle may overtake queue before red light (if it wants to turn right)
 opposite_redlight_right
 
+# emergency vehicle may overtake queue before red light (if it wants to turn right)
+# even if the next edge doesn't have an opposite edge
+opposite_redlight_right_noCont
+
 # emergency vehicle may overtake queue before red light (if it wants to go straight)
 opposite_redlight_straight
 
+# emergency vehicle may overtake queue before red light (if it wants to go straight)
+# even if the next edge doesn't have an opposite edge
+opposite_redlight_straight_noCont
+
 # emergency vehicle may overtake queue before red light (if it wants to turn left)
 opposite_redlight_left
+
+# emergency vehicle may overtake queue before red light (if it wants to turn left)
+# even if the next edge doesn't have an opposite edge
+opposite_redlight_left_noCont
 motorway
 
 # setting a mingap factor

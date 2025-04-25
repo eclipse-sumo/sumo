@@ -1,0 +1,1 @@
+--no-step-log -b 0 -e 0 --no-duration-log --net-file=motorway.net.xml -a input_additional.add.xml  --netstate-dump=rawdump.xml 

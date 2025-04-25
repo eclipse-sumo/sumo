@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,6 +61,25 @@ Parameterised::updateParameters(const Parameterised::Map& mapArg) {
 }
 
 
+void
+Parameterised::mergeParameters(const Parameterised::Map& mapArg, const std::string separator, bool uniqueValues) {
+    for (const auto& keyValue : mapArg) {
+        if (hasParameter(keyValue.first)) {
+            bool append = true;
+            if (uniqueValues) {
+                if (getParameter(keyValue.first) == keyValue.second) {
+                    append = false;
+                }
+            }
+            if (append) {
+                setParameter(keyValue.first, getParameter(keyValue.first) + separator + keyValue.second);
+            }
+        } else {
+            setParameter(keyValue.first, keyValue.second);
+        }
+    }
+}
+
 bool
 Parameterised::hasParameter(const std::string& key) const {
     return myMap.find(key) != myMap.end();
@@ -94,27 +113,6 @@ Parameterised::getDouble(const std::string& key, const double defaultValue) cons
     return defaultValue;
 }
 
-
-std::vector<double>
-Parameterised::getDoubles(const std::string& key, std::vector<double> defaultValue) const {
-    const auto i = myMap.find(key);
-    if (i != myMap.end()) {
-        try {
-            std::vector<double> result;
-            for (const std::string& s : StringTokenizer(i->second).getVector()) {
-                result.push_back(StringUtils::toDouble(s));
-            }
-            return result;
-        } catch (NumberFormatException&) {
-            WRITE_WARNINGF(TL("Invalid conversion from string to doubles (%)"), i->second);
-            return defaultValue;
-        } catch (EmptyData&) {
-            WRITE_WARNING(TL("Invalid conversion from string to doubles (empty value)"));
-            return defaultValue;
-        }
-    }
-    return defaultValue;
-}
 
 void
 Parameterised::clearParameter() {

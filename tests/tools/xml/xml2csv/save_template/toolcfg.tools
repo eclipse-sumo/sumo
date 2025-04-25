@@ -5,5 +5,6 @@
     <quotechar value="" type="string" help="quoting character for fields" category="processing"/>
     <xsd value="None" type="string" help="xsd schema to use" category="processing"/>
     <validation value="False" type="bool" help="enable schema validation" category="processing"/>
+    <keep-attributes value="None" type="string" help="Only keep the given attributes" category="processing"/>
     <split value="False" type="bool" help="split in different files for the first hierarchy level" category="processing"/>
 </configuration>

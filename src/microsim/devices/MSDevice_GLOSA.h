@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -106,6 +106,28 @@ public:
         return "glosa";
     }
 
+    /** @brief Returns the precomputed, original factor by which the driver
+               wants to be faster than the speed limit
+     * @return Speed limit factor
+     */
+    inline double getOriginalSpeedFactor() const {
+        return myOriginalSpeedFactor;
+    }
+
+    /** @brief Returns if the traffic light stop calculation of the CF model shall be ignored
+     * @return Override stop calculation before traffic light
+     */
+    inline bool getOverrideSafety() const {
+        return myOverrideSafety;
+    }
+
+    /** @brief Returns if the GLOSA device is currently changing the speedFactor
+     * @return If speedFactor has been changed by GLOSA
+     */
+    inline bool isSpeedAdviceActive() const {
+        return mySpeedAdviceActive;
+    }
+
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;
 
@@ -125,7 +147,12 @@ public:
 private:
 
     /// @brief compute time to next (relevant) switch
-    static double getTimeToSwitch(const MSLink* tlsLink);
+    static double getTimeToSwitch(const MSLink* tlsLink, int& countOld);
+
+    /// @brief compute time to next (relevant) switch the vehicle can reach
+    static double getTimeToNextSwitch(const MSLink* tlsLink, bool& currentPhaseGreen, bool& currentPhaseStop, int& countOld);
+
+    static double timeGreen(const MSLink* tlsLink);
 
     /// @brief return minimum number of seconds to reach the junction
     double earliest_arrival(double speed, double distance);
@@ -138,14 +165,15 @@ private:
     double time_to_junction_at_continuous_accel(double d, double v);
 
     /// @brief adapt speed to reach junction at green
-    void adaptSpeed(double distance, double timeToJunction, double timeToSwitch);
+    void adaptSpeed(double distance, double timeToJunction, double timeToSwitch, bool& solved);
 
     /** @brief Constructor
      *
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_GLOSA(SUMOVehicle& holder, const std::string& id, double minSpeed, double range, double maxSpeedFactor);
+    MSDevice_GLOSA(SUMOVehicle& holder, const std::string& id, double minSpeed, double range, double maxSpeedFactor,
+                   double addSwitchTime, bool useQueue,  bool overrideSafety, bool ignoreCFModel);
 
 
 
@@ -164,9 +192,20 @@ private:
     double myRange;
     /// @brief maximum speed factor when trying to reach green light
     double myMaxSpeedFactor;
+    /// @brief Additional time the vehicle shall need to reach the intersection after the signal turns green
+    double myAddSwitchTime;
+    /// @brief if true ignore the current light state, always follow GLOSA's predicted state
+    bool myOverrideSafety;
+    /// @brief if true ignore non-critical speed calculations from the CF model, follow GLOSA's perfect speed calculation
+    bool myIgnoreCFModel;
 
     /// @brief original speed factor
     double myOriginalSpeedFactor;
+
+    /// @brief If speedFactor is currently beeing changed by the GLOSA device
+    bool mySpeedAdviceActive;
+    /// @brief if true the queue in front of the TLS is used for calculation
+    bool  myUseQueue;
 
 
 private:

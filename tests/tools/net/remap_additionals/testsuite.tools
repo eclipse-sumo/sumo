@@ -1,0 +1,14 @@
+# remap infrastructure between similar networks
+basic
+
+# ensure objects are mapped to the correct lane
+usable_lanes
+
+# not all access elements can be mapped to the target network
+access_unmappable
+
+# prevent multiple access on the same lane
+access_duplicate
+
+# when edges overlap, use vclass to resolve ambiguity in mapping
+edge_overlap_vclass

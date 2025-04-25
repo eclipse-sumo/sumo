@@ -1,0 +1,13 @@
+Warning: No flow intervals in calibrator 'ca_0'.
+Warning: No flow intervals in calibrator 'ca_1'.
+Warning: No flow intervals in calibrator 'ca_2'.
+Warning: No flow intervals in calibrator 'ca_3'.
+Warning: No flow intervals in calibrator 'ca_5'.
+Warning: No flow intervals in calibrator 'ca_6'.
+Warning: Vaporizers are deprecated. Use rerouters instead.
+Warning: Vaporizers are deprecated. Use rerouters instead.
+Warning: Vaporizers are deprecated. Use rerouters instead.
+Warning: Vaporizers are deprecated. Use rerouters instead.
+Warning: No connection between edge '-E1' and edge 'E0' found.
+Error: No connection found between edge '-E1' and edge 'E0' for person 'p_0'.
+Quitting (on error).

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,6 +18,7 @@
 // An auxiliar, asbtract class for flow elements (vehicles, person and containers)
 /****************************************************************************/
 
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_ToggleAttribute.h>
@@ -29,13 +30,13 @@
 // member method definitions
 // ===========================================================================
 
-GNEDemandElementFlow::GNEDemandElementFlow(const GNEDemandElement* flowElement) {
+GNEDemandElementFlow::GNEDemandElementFlow(GNEDemandElement* flowElement) {
     // set default flow attributes
     setDefaultFlowAttributes(flowElement);
 }
 
 
-GNEDemandElementFlow::GNEDemandElementFlow(const GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters) :
+GNEDemandElementFlow::GNEDemandElementFlow(GNEDemandElement* flowElement, const SUMOVehicleParameter& vehicleParameters) :
     SUMOVehicleParameter(vehicleParameters) {
     // set default flow attributes
     setDefaultFlowAttributes(flowElement);
@@ -46,16 +47,17 @@ GNEDemandElementFlow::~GNEDemandElementFlow() {}
 
 
 void
-GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const {
+GNEDemandElementFlow::drawFlowLabel(const Position& position, const double rotation, const double width,
+                                    const double length, const double exaggeration) const {
     // declare contour width
     const double contourWidth = (0.05 * exaggeration);
     // Push matrix
     GLHelper::pushMatrix();
     // Traslate to  bot
-    glTranslated(position.x(), position.y(), GLO_PERSONFLOW + 0.1);
+    glTranslated(position.x(), position.y(), GLO_VEHICLELABELS);
     // glTranslated(position.x(), position.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW + 0.1);
     glRotated(rotation, 0, 0, -1);
-    glTranslated(-1 * ((width * 0.5 * exaggeration) + (0.35 * exaggeration)), 0, 0);
+    glTranslated(-1 * ((width * 0.5 * exaggeration) + (0.35 * exaggeration)) - 0.05, 0, 0);
     // draw external box
     GLHelper::setColor(RGBColor::GREY);
     GLHelper::drawBoxLine(Position(), Position(), 0, (length * exaggeration), 0.3 * exaggeration);
@@ -74,38 +76,38 @@ void
 GNEDemandElementFlow::writeFlowAttributes(const GNEDemandElement* flowElement, OutputDevice& device) const {
     // get xph attribute
     SumoXMLAttr xph = SUMO_ATTR_VEHSPERHOUR;
-    if (flowElement->getTagProperty().isPerson()) {
+    if (flowElement->getTagProperty()->isPerson()) {
         xph = SUMO_ATTR_PERSONSPERHOUR;
-    } else if (flowElement->getTagProperty().isContainer()) {
+    } else if (flowElement->getTagProperty()->isContainer()) {
         xph = SUMO_ATTR_CONTAINERSPERHOUR;
     }
     // first check that we're writting a flow
-    if (flowElement->getTagProperty().isFlow()) {
+    if (flowElement->getTagProperty()->isFlow()) {
         // write routeFlow values depending if it was set
         if (isFlowAttributeEnabled(SUMO_ATTR_END)) {
-            device.writeAttr(SUMO_ATTR_END, getFlowAttribute(SUMO_ATTR_END));
+            device.writeAttr(SUMO_ATTR_END, getFlowAttribute(flowElement, SUMO_ATTR_END));
         }
         if (isFlowAttributeEnabled(SUMO_ATTR_NUMBER)) {
-            device.writeAttr(SUMO_ATTR_NUMBER, getFlowAttribute(SUMO_ATTR_NUMBER));
+            device.writeAttr(SUMO_ATTR_NUMBER, getFlowAttribute(flowElement, SUMO_ATTR_NUMBER));
         }
         if (isFlowAttributeEnabled(xph)) {
-            device.writeAttr(xph, getFlowAttribute(xph));
+            device.writeAttr(xph, getFlowAttribute(flowElement, xph));
         }
         if (isFlowAttributeEnabled(SUMO_ATTR_PERIOD)) {
-            device.writeAttr(SUMO_ATTR_PERIOD, getFlowAttribute(SUMO_ATTR_PERIOD));
+            device.writeAttr(SUMO_ATTR_PERIOD, getFlowAttribute(flowElement, SUMO_ATTR_PERIOD));
         }
         if (isFlowAttributeEnabled(GNE_ATTR_POISSON)) {
-            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + getFlowAttribute(GNE_ATTR_POISSON) + ")");
+            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + getFlowAttribute(flowElement, GNE_ATTR_POISSON) + ")");
         }
         if (isFlowAttributeEnabled(SUMO_ATTR_PROB)) {
-            device.writeAttr(SUMO_ATTR_PROB, getFlowAttribute(SUMO_ATTR_PROB));
+            device.writeAttr(SUMO_ATTR_PROB, getFlowAttribute(flowElement, SUMO_ATTR_PROB));
         }
     }
 }
 
 
 std::string
-GNEDemandElementFlow::getFlowAttribute(SumoXMLAttr key) const {
+GNEDemandElementFlow::getFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
@@ -127,17 +129,45 @@ GNEDemandElementFlow::getFlowAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_CONTAINERSPERHOUR:
-            return adjustDecimalValue(3600 / STEPS2TIME(repetitionOffset));
+            return adjustDecimalValue(3600 / STEPS2TIME(repetitionOffset), 2);
         case SUMO_ATTR_PERIOD:
             return time2string(repetitionOffset);
         case GNE_ATTR_POISSON:
-            return adjustDecimalValue(1 / STEPS2TIME(repetitionOffset));
+            return adjustDecimalValue(poissonRate, 10);
         case SUMO_ATTR_PROB:
-            return adjustDecimalValue(repetitionProbability);
+            return adjustDecimalValue(repetitionProbability, 20);
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
+        case GNE_ATTR_FLOW_TERMINATE:
+            if (isFlowAttributeEnabled(SUMO_ATTR_END)) {
+                if (isFlowAttributeEnabled(SUMO_ATTR_NUMBER)) {
+                    return toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER);
+                } else {
+                    return toString(SUMO_ATTR_END);
+                }
+            } else if (isFlowAttributeEnabled(SUMO_ATTR_NUMBER)) {
+                return toString(SUMO_ATTR_NUMBER);
+            } else {
+                return "invalid terminate";
+            }
+        case GNE_ATTR_FLOW_SPACING:
+            if (flowElement->getTagProperty()->hasAttribute(SUMO_ATTR_VEHSPERHOUR) && isFlowAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
+                return toString(SUMO_ATTR_VEHSPERHOUR);
+            } else if (flowElement->getTagProperty()->hasAttribute(SUMO_ATTR_PERSONSPERHOUR) && isFlowAttributeEnabled(SUMO_ATTR_PERSONSPERHOUR)) {
+                return toString(SUMO_ATTR_PERSONSPERHOUR);
+            } else if (flowElement->getTagProperty()->hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR) && isFlowAttributeEnabled(SUMO_ATTR_CONTAINERSPERHOUR)) {
+                return toString(SUMO_ATTR_CONTAINERSPERHOUR);
+            } else if (isFlowAttributeEnabled(SUMO_ATTR_PERIOD)) {
+                return toString(SUMO_ATTR_PERIOD);
+            } else if (isFlowAttributeEnabled(SUMO_ATTR_PROB)) {
+                return toString(SUMO_ATTR_PROB);
+            } else if (isFlowAttributeEnabled(GNE_ATTR_POISSON)) {
+                return toString(GNE_ATTR_POISSON);
+            } else {
+                return "invalid flow spacing";
+            }
         default:
-            throw InvalidArgument("Flow doesn't have an attribute of type '" + toString(key) + "'");
+            return flowElement->getCommonAttribute(this, key);
     }
 }
 
@@ -167,10 +197,13 @@ GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAtt
         case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
+        case GNE_ATTR_FLOW_TERMINATE:
+        case GNE_ATTR_FLOW_SPACING:
             GNEChange_Attribute::changeAttribute(flowElement, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return flowElement->setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -184,7 +217,7 @@ GNEDemandElementFlow::isValidFlowAttribute(GNEDemandElement* flowElement, SumoXM
         case SUMO_ATTR_BEGIN: {
             SUMOTime dummyDepart;
             DepartDefinition dummyDepartProcedure;
-            parseDepart(value, flowElement->getTagProperty().getTagStr(), id, dummyDepart, dummyDepartProcedure, error);
+            parseDepart(value, flowElement->getTagProperty()->getTagStr(), id, dummyDepart, dummyDepartProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
@@ -217,8 +250,17 @@ GNEDemandElementFlow::isValidFlowAttribute(GNEDemandElement* flowElement, SumoXM
             } else {
                 return false;
             }
+        case GNE_ATTR_FLOW_TERMINATE:
+        case GNE_ATTR_FLOW_SPACING: {
+            const auto& flowValues = flowElement->getTagProperty()->getAttributeProperties(key)->getDiscreteValues();
+            if (std::find(flowValues.begin(), flowValues.end(), value) != flowValues.end()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         default:
-            throw InvalidArgument("Flow doesn't have an attribute of type '" + toString(key) + "'");
+            return flowElement->isCommonValid(key, value);
     }
 }
 
@@ -234,7 +276,7 @@ GNEDemandElementFlow::enableFlowAttribute(GNEDemandElement* flowElement, SumoXML
         case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
-            undoList->add(new GNEChange_ToggleAttribute(flowElement, key, true, parametersSet), true);
+            undoList->add(new GNEChange_ToggleAttribute(flowElement, key, true), true);
             return;
         default:
             throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -253,7 +295,7 @@ GNEDemandElementFlow::disableFlowAttribute(GNEDemandElement* flowElement, SumoXM
         case SUMO_ATTR_PERIOD:
         case GNE_ATTR_POISSON:
         case SUMO_ATTR_PROB:
-            undoList->add(new GNEChange_ToggleAttribute(flowElement, key, false, parametersSet), true);
+            undoList->add(new GNEChange_ToggleAttribute(flowElement, key, false), true);
             return;
         default:
             throw InvalidArgument(flowElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -278,6 +320,8 @@ GNEDemandElementFlow::isFlowAttributeEnabled(SumoXMLAttr key) const {
             return (parametersSet & VEHPARS_POISSON_SET) != 0;
         case SUMO_ATTR_PROB:
             return (parametersSet & VEHPARS_PROB_SET) != 0;
+        case GNE_ATTR_FLOW_SPACING:
+            return !isFlowAttributeEnabled(SUMO_ATTR_END) || !isFlowAttributeEnabled(SUMO_ATTR_NUMBER);
         default:
             return true;
     }
@@ -285,13 +329,13 @@ GNEDemandElementFlow::isFlowAttributeEnabled(SumoXMLAttr key) const {
 
 
 void
-GNEDemandElementFlow::setFlowAttribute(const GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value) {
+GNEDemandElementFlow::setFlowAttribute(GNEDemandElement* flowElement, SumoXMLAttr key, const std::string& value) {
     // declare string error
     std::string error;
     switch (key) {
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN: {
-            parseDepart(value, flowElement->getTagProperty().getTagStr(), id, depart, departProcedure, error);
+            parseDepart(value, flowElement->getTagProperty()->getTagStr(), id, depart, departProcedure, error);
             break;
         }
         case SUMO_ATTR_END:
@@ -301,12 +345,15 @@ GNEDemandElementFlow::setFlowAttribute(const GNEDemandElement* flowElement, Sumo
         case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_CONTAINERSPERHOUR:
             repetitionOffset = TIME2STEPS(3600 / GNEAttributeCarrier::parse<double>(value));
+            poissonRate = GNEAttributeCarrier::parse<double>(value) / 3600;
             break;
         case SUMO_ATTR_PERIOD:
             repetitionOffset = string2time(value);
+            poissonRate = 1 / STEPS2TIME(repetitionOffset);
             break;
         case GNE_ATTR_POISSON:
-            repetitionOffset = TIME2STEPS(1 / GNEAttributeCarrier::parse<double>(value));
+            poissonRate = GNEAttributeCarrier::parse<double>(value);
+            repetitionOffset = TIME2STEPS(1 / poissonRate);
             break;
         case SUMO_ATTR_PROB:
             repetitionProbability = GNEAttributeCarrier::parse<double>(value);
@@ -314,8 +361,57 @@ GNEDemandElementFlow::setFlowAttribute(const GNEDemandElement* flowElement, Sumo
         case SUMO_ATTR_NUMBER:
             repetitionNumber = GNEAttributeCarrier::parse<int>(value);
             break;
+        case GNE_ATTR_FLOW_TERMINATE:
+            if (value == (toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER))) {
+                toggleFlowAttribute(SUMO_ATTR_END, true);
+                toggleFlowAttribute(SUMO_ATTR_NUMBER, true);
+                // in this special case, disable other spacing
+                toggleFlowAttribute(SUMO_ATTR_VEHSPERHOUR, false);
+                toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
+                toggleFlowAttribute(GNE_ATTR_POISSON, false);
+                toggleFlowAttribute(SUMO_ATTR_PROB, false);
+            } else {
+                // if previously end-number was enabled, enable perHour
+                if (isFlowAttributeEnabled(SUMO_ATTR_END) && isFlowAttributeEnabled(SUMO_ATTR_NUMBER)) {
+                    toggleFlowAttribute(SUMO_ATTR_VEHSPERHOUR, true);
+                }
+                if (value == toString(SUMO_ATTR_END)) {
+                    toggleFlowAttribute(SUMO_ATTR_END, true);
+                    toggleFlowAttribute(SUMO_ATTR_NUMBER, false);
+                } else if (value == toString(SUMO_ATTR_NUMBER)) {
+                    toggleFlowAttribute(SUMO_ATTR_END, false);
+                    toggleFlowAttribute(SUMO_ATTR_NUMBER, true);
+                }
+            }
+            break;
+        case GNE_ATTR_FLOW_SPACING:
+            if ((value == toString(SUMO_ATTR_VEHSPERHOUR)) ||
+                    (value == toString(SUMO_ATTR_PERSONSPERHOUR)) ||
+                    (value == toString(SUMO_ATTR_CONTAINERSPERHOUR))) {
+                toggleFlowAttribute(SUMO_ATTR_VEHSPERHOUR, true);
+                toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
+                toggleFlowAttribute(GNE_ATTR_POISSON, false);
+                toggleFlowAttribute(SUMO_ATTR_PROB, false);
+            } else if (value == toString(SUMO_ATTR_PERIOD)) {
+                toggleFlowAttribute(SUMO_ATTR_VEHSPERHOUR, false);
+                toggleFlowAttribute(SUMO_ATTR_PERIOD, true);
+                toggleFlowAttribute(GNE_ATTR_POISSON, false);
+                toggleFlowAttribute(SUMO_ATTR_PROB, false);
+            } else if (value == toString(GNE_ATTR_POISSON)) {
+                toggleFlowAttribute(SUMO_ATTR_VEHSPERHOUR, false);
+                toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
+                toggleFlowAttribute(GNE_ATTR_POISSON, true);
+                toggleFlowAttribute(SUMO_ATTR_PROB, false);
+            } else if (value == toString(SUMO_ATTR_PROB)) {
+                toggleFlowAttribute(SUMO_ATTR_VEHSPERHOUR, false);
+                toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
+                toggleFlowAttribute(GNE_ATTR_POISSON, false);
+                toggleFlowAttribute(SUMO_ATTR_PROB, true);
+            }
+            break;
         default:
-            throw InvalidArgument("Flow doesn't have an attribute of type '" + toString(key) + "'");
+            flowElement->setCommonAttribute(this, key, value);
+            break;
     }
 }
 
@@ -378,40 +474,42 @@ GNEDemandElementFlow::toggleFlowAttribute(const SumoXMLAttr attribute, const boo
 
 
 void
-GNEDemandElementFlow::setDefaultFlowAttributes(const GNEDemandElement* flowElement) {
+GNEDemandElementFlow::setDefaultFlowAttributes(GNEDemandElement* flowElement) {
     // first check that this demand element is a flow
-    if (flowElement->getTagProperty().isFlow()) {
+    if (flowElement->getTagProperty()->isFlow()) {
         // end
         if ((parametersSet & VEHPARS_END_SET) == 0) {
-            setFlowAttribute(flowElement, SUMO_ATTR_END, flowElement->getTagProperty().getDefaultValue(SUMO_ATTR_END));
+            setFlowAttribute(flowElement, SUMO_ATTR_END, flowElement->getTagProperty()->getDefaultStringValue(SUMO_ATTR_END));
         }
         // number
         if ((parametersSet & VEHPARS_NUMBER_SET) == 0) {
-            setFlowAttribute(flowElement, SUMO_ATTR_NUMBER, flowElement->getTagProperty().getDefaultValue(SUMO_ATTR_NUMBER));
+            setFlowAttribute(flowElement, SUMO_ATTR_NUMBER, flowElement->getTagProperty()->getDefaultStringValue(SUMO_ATTR_NUMBER));
         }
         // vehicles/person/container per hour
         if (((parametersSet & VEHPARS_PERIOD_SET) == 0) &&
                 ((parametersSet & VEHPARS_POISSON_SET) == 0) &&
                 ((parametersSet & VEHPARS_VPH_SET) == 0)) {
-            setFlowAttribute(flowElement, SUMO_ATTR_PERIOD, flowElement->getTagProperty().getDefaultValue(SUMO_ATTR_PERIOD));
+            setFlowAttribute(flowElement, SUMO_ATTR_PERIOD, flowElement->getTagProperty()->getDefaultStringValue(SUMO_ATTR_PERIOD));
         }
         // probability
         if ((parametersSet & VEHPARS_PROB_SET) == 0) {
-            setFlowAttribute(flowElement, SUMO_ATTR_PROB, flowElement->getTagProperty().getDefaultValue(SUMO_ATTR_PROB));
+            setFlowAttribute(flowElement, SUMO_ATTR_PROB, flowElement->getTagProperty()->getDefaultStringValue(SUMO_ATTR_PROB));
         }
         // poisson
         if (repetitionOffset < 0) {
             toggleFlowAttribute(SUMO_ATTR_PERIOD, false);
             toggleFlowAttribute(GNE_ATTR_POISSON, true);
-            setFlowAttribute(flowElement, GNE_ATTR_POISSON, time2string(repetitionOffset * -1, false));
+            setFlowAttribute(flowElement, GNE_ATTR_POISSON, toString(poissonRate));
+        } else {
+            setFlowAttribute(flowElement, SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
     }
 }
 
 std::string
-GNEDemandElementFlow::adjustDecimalValue(const double value) const {
+GNEDemandElementFlow::adjustDecimalValue(const double value, const int precission) const {
     // obtain value in string format with 20 decimals precision
-    auto valueStr = toString(value, 20);
+    auto valueStr = toString(value, precission);
     // now clear all zeros
     while (valueStr.size() > 1) {
         if (valueStr.back() == '0') {

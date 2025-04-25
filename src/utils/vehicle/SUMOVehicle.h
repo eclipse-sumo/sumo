@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,10 +42,12 @@ class MSPerson;
 class MSStop;
 class MSTransportable;
 class MSParkingArea;
+class MSChargingStation;
 class MSStoppingPlace;
 class MSVehicleDevice;
 class SUMOSAXAttributes;
 class EnergyParams;
+class PositionVector;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
@@ -120,9 +122,10 @@ public:
      *
      * @param[in] t The time for which the route is computed
      * @param[in] router The router to use
+     * @return whether a valid route was found
      * @see replaceRoute
      */
-    virtual void reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false, const bool silent = false) = 0;
+    virtual bool reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false, const bool silent = false, const MSEdge* sink = nullptr) = 0;
 
     /** @brief Validates the current or given route
      * @param[out] msg Description why the route is not valid (if it is the case)
@@ -214,6 +217,10 @@ public:
      */
     virtual bool hasDeparted() const = 0;
 
+    /** @brief Returns the edge on which this vehicle shall depart
+     */
+    virtual int getDepartEdge() const = 0;
+
     /** @brief Returns the distance that was already driven by this vehicle
      * @return the distance driven [m]
      */
@@ -295,6 +302,9 @@ public:
 
     /** @brief Returns whether the vehicle is at a stop and waiting for a person or container to continue
      */
+    virtual bool isStopped() const = 0;
+    /** @brief Returns whether the vehicle is at a stop and waiting for a person or container to continue
+     */
     virtual bool isStoppedTriggered() const = 0;
 
     /** @brief Returns whether the vehicle is at a stop and parking
@@ -327,6 +337,9 @@ public:
     */
     virtual MSStop& getNextStop() = 0;
 
+    /// @brief mark vehicle as active
+    virtual void unregisterWaiting() = 0;
+
     /** @brief Returns parameters of the next stop or nullptr **/
     virtual const SUMOVehicleParameter::Stop* getNextStopParameter() const = 0;
 
@@ -358,14 +371,28 @@ public:
     /// @brief Returns the vehicles's length
     virtual double getLength() const = 0;
 
+    /* @brief Return whether this vehicle must be treated like a railway vehicle
+     * either due to its vClass or the vClass of it's edge */
+    virtual bool isRail() const = 0;
+
+    virtual SUMOTime getLastActionTime() const = 0;
+
+    /// @brief get bounding rectangle
+    virtual PositionVector getBoundingBox(double offset = 0) const = 0;
+
     /// @name parking memory io
     //@{
-    virtual void rememberBlockedParkingArea(const MSParkingArea* pa, bool local) = 0;
-    virtual SUMOTime sawBlockedParkingArea(const MSParkingArea* pa, bool local) const = 0;
-    virtual void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score) = 0;
+    virtual void rememberBlockedParkingArea(const MSStoppingPlace* pa, bool local) = 0;
+    virtual SUMOTime sawBlockedParkingArea(const MSStoppingPlace* pa, bool local) const = 0;
+    virtual void rememberParkingAreaScore(const MSStoppingPlace* pa, const std::string& score) = 0;
     virtual void resetParkingAreaScores() = 0;
     virtual int getNumberParkingReroutes() const = 0;
     virtual void setNumberParkingReroutes(int value) = 0;
+
+    virtual void rememberBlockedChargingStation(const MSStoppingPlace* cs, bool local) = 0;
+    virtual SUMOTime sawBlockedChargingStation(const MSStoppingPlace* cs, bool local) const = 0;
+    virtual void rememberChargingStationScore(const MSStoppingPlace* cs, const std::string& score) = 0;
+    virtual void resetChargingStationScores() = 0;
     //@}
 
     /// @name state io

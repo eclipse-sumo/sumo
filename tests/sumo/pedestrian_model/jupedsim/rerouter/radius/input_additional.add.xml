@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-12-01 10:47:18 by Eclipse SUMO netedit Version v1_19_0+0260-f25044b3d77
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- JuPedSim elements -->
+    <poly id="jps.walkable_area_0" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="-71.720000,144.260000 -90.300000,-20.850000 55.720000,-136.830000 118.340000,-131.020000 197.900000,-99.490000 116.630000,58.250000 82.600000,80.080000 48.090000,80.460000 -71.720000,244.260000"/>
+    <poly id="jps.walkable_area_1" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="-163.342255,32.620788 -17.596513,20.276203 -18.791151,31.426150 -176.881477,47.354647 -163.342255,32.620788"/>
+    <!--
+    <poly id="jps.obstacle_0" type="jupedsim.obstacle" color="255,204,204" fill="1" layer="2.00" shape="-21.180425,80.804489 11.871205,-52.994880 50.896021,-100.780369 63.638818,-98.789307 22.622940,-45.030632 -7.641203,83.193764 -21.180425,80.804489"/>
+    <poly id="jps.obstacle_1" type="jupedsim.obstacle" color="255,204,204" fill="1" layer="2.00" shape="-20.782213,91.954437 6.694443,84.786613 23.021152,97.927623 3.110532,109.475783 -27.551824,101.511534 -20.782213,91.954437"/>
+    -->
+    <route id="route3" edges="E2 E3"/>
+    <route id="route5" edges="E2 E5 E6"/>
+
+    <rerouter id="rerouterE4" edges="E4" radius="1.5">
+        <!--<rerouter id="rerouterE4" edges="E4">-->
+        <interval begin="0" end="86400">
+            <routeProbReroute  id="route3" probability="0.7"/>
+            <routeProbReroute  id="route5" probability="0.3"/>
+        </interval>
+    </rerouter>
+
+</additional>

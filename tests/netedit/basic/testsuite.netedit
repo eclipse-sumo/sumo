@@ -1,17 +1,11 @@
-open
-
-save
-
-reload
-
-quit
-
 configs
 
 modes
 
+quit
+
+overlapping
+
 about_dialog
 
 pyautogui_error
-
-missing_inputs

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,6 +47,7 @@
 #include <microsim/devices/MSDevice_Bluelight.h>
 #include "MSLCM_DK2008.h"
 #include "MSLCM_LC2013.h"
+#include "MSLCM_LC2013_CC.h"
 #include "MSLCM_SL2015.h"
 #include "MSAbstractLaneChangeModel.h"
 
@@ -59,6 +60,7 @@ bool MSAbstractLaneChangeModel::myLCStartedOutput(false);
 bool MSAbstractLaneChangeModel::myLCEndedOutput(false);
 bool MSAbstractLaneChangeModel::myLCXYOutput(false);
 const double MSAbstractLaneChangeModel::NO_NEIGHBOR(std::numeric_limits<double>::max());
+const double MSAbstractLaneChangeModel::UNDEFINED_LOOKAHEAD(-1);
 
 #define LC_ASSUMED_DECEL 1.0 // the minimal constant deceleration assumed to estimate the duration of a continuous lane-change at its initiation.
 
@@ -86,6 +88,8 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
             return new MSLCM_DK2008(v);
         case LaneChangeModel::LC2013:
             return new MSLCM_LC2013(v);
+        case LaneChangeModel::LC2013_CC:
+            return new MSLCM_LC2013_CC(v);
         case LaneChangeModel::SL2015:
             return new MSLCM_SL2015(v);
         case LaneChangeModel::DEFAULT:
@@ -131,6 +135,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myLastFollowerSpeed(0),
     myLastOrigLeaderSpeed(0),
     myDontResetLCGaps(false),
+    myStrategicLookahead(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_STRATEGIC_LOOKAHEAD, UNDEFINED_LOOKAHEAD)),
     myMaxSpeedLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING, v.getVehicleType().getMaxSpeedLat())),
     myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
     myMaxDistLatStanding(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXDISTLATSTANDING,
@@ -304,7 +309,7 @@ MSAbstractLaneChangeModel::startLaneChangeManeuver(MSLane* source, MSLane* targe
         myLaneChangeDirection = direction;
         setManeuverDist((target->getWidth() + source->getWidth()) * 0.5 * direction);
         myVehicle.switchOffSignal(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
-        myVehicle.switchOnSignal(direction == 1 ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
+        myVehicle.switchOnSignal(((direction == 1) != MSGlobals::gLefthand) ? MSVehicle::VEH_SIGNAL_BLINKER_LEFT : MSVehicle::VEH_SIGNAL_BLINKER_RIGHT);
         if (myLCOutput) {
             memorizeGapsAtLCInit();
         }
@@ -845,9 +850,11 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
         // LC won't be completed if vehicle stands
         double maneuverDist = remainingManeuverDist;
         const double vModel = computeSpeedLat(maneuverDist, maneuverDist, urgent);
-        if (vModel > 0) {
+        double result = D / vModel;
+        // make sure that the vehicle isn't braking to a stop during the manuever
+        if (vModel > SUMO_const_haltingSpeed && (vModel + myVehicle.getAcceleration() * result) > SUMO_const_haltingSpeed) {
             // unless the model tells us something different
-            return D / vModel;
+            return result;
         } else {
             return -1;
         }

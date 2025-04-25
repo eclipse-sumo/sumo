@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,11 @@ if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
 import traci
-import libsumo
+if sys.version_info[0] > 2:
+    import libsumo
+else:
+    def libsumo(): return None
+    libsumo.DOMAINS = []
 
 VERBOSE = False
 
@@ -38,20 +42,25 @@ for dt in traci.DOMAINS:
                         if fl[0] == ft[0]:
                             sigt = inspect.signature(ft[1])
                             sigl = inspect.signature(fl[1])
+                            if VERBOSE:
+                                print("checking", sigt, sigl)
                             if sigt != sigl:
                                 params = list(sigl.parameters.values())
                                 if not params or params[0].kind != inspect.Parameter.VAR_POSITIONAL:
                                     print(".".join([dt._name, ft[0]]), "traci:", sigt, "libsumo:", sigl)
 if not traci.isLibsumo():
-    traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg"])
-    traci.simulationStep()
-    traci.vehicle.setLaneChangeMode("horiz", lcm=0)
-    traci.vehicle.setParameter(objectID="horiz", key="blub", value="blubber")
-    traci.vehicle.setParameter(objID="horiz", key="blub", value="blubber")
-    traci.vehicle.setParameter(objectID="horiz", param="blub", value="blubber")
-    traci.vehicle.setParameter(objID="horiz", param="blub", value="blubber")
     try:
-        traci.vehicle.setParameter(oID="horiz", param="blub", value="blubber")
-    except TypeError as e:
-        print(e)
-    traci.close()
+        traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg"])
+        traci.simulationStep()
+        if not traci.isLibtraci():
+            traci.vehicle.setLaneChangeMode("horiz", lcm=0)
+            traci.vehicle.setParameter(objectID="horiz", key="blub", value="blubber")
+            traci.vehicle.setParameter(objID="horiz", key="blub", value="blubber")
+            traci.vehicle.setParameter(objectID="horiz", param="blub", value="blubber")
+            traci.vehicle.setParameter(objID="horiz", param="blub", value="blubber")
+        try:
+            traci.vehicle.setParameter(oID="horiz", param="blub", value="blubber")
+        except TypeError as e:
+            print(e)
+    finally:
+        traci.close()

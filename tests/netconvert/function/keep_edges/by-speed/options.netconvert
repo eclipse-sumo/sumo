@@ -1,0 +1,2 @@
+--verbose --sumo-net-file input_net.net.xml --output net.net.xml 
+--keep-edges.min-speed 20

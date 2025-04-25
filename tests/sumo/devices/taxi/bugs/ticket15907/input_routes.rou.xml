@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-12-18 08:53:33 by Eclipse SUMO netedit Version v1_21_0+1414-ecd7e15422b
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="t_0" type="DEFAULT_TAXITYPE" depart="0.00" from="E0" to="E0">
+        <param key="has.taxi.device" value="true"/>
+    </trip>
+    <person id="p_0" depart="0.00">
+        <stop trainStop="ts_0" duration="0"/>
+        <personTrip trainStop="ts_1" modes="taxi"/>
+    </person>
+</routes>

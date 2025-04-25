@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,6 +43,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/Vehicle.h>
 #include <libsumo/VehicleType.h>
@@ -62,399 +63,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
     server.initWrapper(libsumo::RESPONSE_GET_VEHICLE_VARIABLE, variable, id);
     try {
         if (!libsumo::Vehicle::handleVariable(id, variable, &server, &inputStorage)) {
-            switch (variable) {
-                case libsumo::VAR_EDGE_TRAVELTIME: {
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires a compound object.", outputStorage);
-                    }
-                    if (inputStorage.readInt() != 2) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires time and edge as parameter.", outputStorage);
-                    }
-                    double time = 0.;
-                    if (!server.readTypeCheckingDouble(inputStorage, time)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires the referenced time as first parameter.", outputStorage);
-                    }
-                    // edge
-                    std::string edgeID;
-                    if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of travel time requires the referenced edge as second parameter.", outputStorage);
-                    }
-                    // retrieve
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                    server.getWrapperStorage().writeDouble(libsumo::Vehicle::getAdaptedTraveltime(id, time, edgeID));
-                    break;
-                }
-                case libsumo::VAR_EDGE_EFFORT: {
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires a compound object.", outputStorage);
-                    }
-                    if (inputStorage.readInt() != 2) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires time and edge as parameter.", outputStorage);
-                    }
-                    double time = 0.;
-                    if (!server.readTypeCheckingDouble(inputStorage, time)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires the referenced time as first parameter.", outputStorage);
-                    }
-                    // edge
-                    std::string edgeID;
-                    if (!server.readTypeCheckingString(inputStorage, edgeID)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of effort requires the referenced edge as second parameter.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                    server.getWrapperStorage().writeDouble(libsumo::Vehicle::getEffort(id, time, edgeID));
-                    break;
-                }
-                case libsumo::VAR_BEST_LANES: {
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    tcpip::Storage tempContent;
-                    int cnt = 0;
-                    tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    std::vector<libsumo::TraCIBestLanesData> bestLanes = libsumo::Vehicle::getBestLanes(id);
-                    tempContent.writeInt((int)bestLanes.size());
-                    ++cnt;
-                    for (std::vector<libsumo::TraCIBestLanesData>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
-                        const libsumo::TraCIBestLanesData& bld = *i;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(bld.laneID);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        tempContent.writeDouble(bld.length);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        tempContent.writeDouble(bld.occupation);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_BYTE);
-                        tempContent.writeByte(bld.bestLaneOffset);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        bld.allowsContinuation ? tempContent.writeUnsignedByte(1) : tempContent.writeUnsignedByte(0);
-                        ++cnt;
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                        tempContent.writeStringList(bld.continuationLanes);
-                        ++cnt;
-                    }
-                    server.getWrapperStorage().writeInt((int)cnt);
-                    server.getWrapperStorage().writeStorage(tempContent);
-                    break;
-                }
-                case libsumo::VAR_NEXT_TLS: {
-                    std::vector<libsumo::TraCINextTLSData> nextTLS = libsumo::Vehicle::getNextTLS(id);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    const int cnt = 1 + (int)nextTLS.size() * 4;
-                    server.getWrapperStorage().writeInt(cnt);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt((int)nextTLS.size());
-                    for (std::vector<libsumo::TraCINextTLSData>::iterator it = nextTLS.begin(); it != nextTLS.end(); ++it) {
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(it->id);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        server.getWrapperStorage().writeInt(it->tlIndex);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->dist);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_BYTE);
-                        server.getWrapperStorage().writeByte(it->state);
-                    }
-                    break;
-                }
-                case libsumo::VAR_NEXT_STOPS2: {
-                    // deliberate fallThrough!
-                    int limit = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, limit)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Stop retrieval uses an optional integer.", outputStorage);
-                    }
-                    writeNextStops(server, id, limit, true);
-                    break;
-                }
-                case libsumo::VAR_NEXT_STOPS: {
-                    writeNextStops(server, id, 0, false);
-                    break;
-                }
-                case libsumo::VAR_NEXT_LINKS: {
-                    std::vector<libsumo::TraCIConnection> links = libsumo::Vehicle::getNextLinks(id);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    tcpip::Storage tempContent;
-                    int cnt = 0;
-                    tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    tempContent.writeInt((int)links.size());
-                    ++cnt;
-                    for (std::vector<libsumo::TraCIConnection>::const_iterator i = links.begin(); i != links.end(); ++i) {
-                        // approached non-internal lane (if any)
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->approachedLane);
-                        ++cnt;
-                        // approached "via", internal lane (if any)
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->approachedInternal);
-                        ++cnt;
-                        // priority
-                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->hasPrio);
-                        ++cnt;
-                        // opened
-                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->isOpen);
-                        ++cnt;
-                        // approaching foe
-                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        tempContent.writeUnsignedByte(i->hasFoe);
-                        ++cnt;
-                        // state (not implemented yet)
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->state);
-                        ++cnt;
-                        // direction
-                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
-                        tempContent.writeString(i->direction);
-                        ++cnt;
-                        // length
-                        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        tempContent.writeDouble(i->length);
-                        ++cnt;
-                    }
-                    server.getWrapperStorage().writeInt(cnt);
-                    server.getWrapperStorage().writeStorage(tempContent);
-                    break;
-                }
-                case libsumo::VAR_STOP_PARAMETER: {
-                    // read variables
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "getting stop parameter needs a compound object description.", outputStorage);
-                    }
-                    int compoundSize = inputStorage.readInt();
-                    if (compoundSize != 2 && compoundSize != 3) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "getting a stop parameter needs a compound object description of 2 or 3 items.", outputStorage);
-                    }
-                    int nextStopIndex;
-                    if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first setStopParameter parameter must be the nextStopIndex given as an integer.", outputStorage);
-                    }
-                    std::string param;
-                    if (!server.readTypeCheckingString(inputStorage, param)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second setStopParameter parameter must be the param given as a string.", outputStorage);
-                    }
-                    int customParam = 0;
-                    if (compoundSize == 3) {
-                        if (!server.readTypeCheckingByte(inputStorage, customParam)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third setStopParameter parameter must be the customParam flag given as a byte.", outputStorage);
-                        }
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(libsumo::Vehicle::getStopParameter(id, nextStopIndex, param, customParam != 0));
-                }
-                break;
-                case libsumo::DISTANCE_REQUEST: {
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires a compound object.", outputStorage);
-                    }
-                    if (inputStorage.readInt() != 2) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of distance requires position and distance type as parameter.", outputStorage);
-                    }
-
-                    // read position
-                    int posType = inputStorage.readUnsignedByte();
-                    switch (posType) {
-                        case libsumo::POSITION_ROADMAP:
-                            try {
-                                const std::string roadID = inputStorage.readString();
-                                const double edgePos = inputStorage.readDouble();
-                                const int laneIndex = inputStorage.readUnsignedByte();
-                                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                                server.getWrapperStorage().writeDouble(libsumo::Vehicle::getDrivingDistance(id, roadID, edgePos, laneIndex));
-                                break;
-                            } catch (libsumo::TraCIException& e) {
-                                return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, e.what(), outputStorage);
-                            }
-                        case libsumo::POSITION_2D:
-                        case libsumo::POSITION_3D: {
-                            const double p1x = inputStorage.readDouble();
-                            const double p1y = inputStorage.readDouble();
-                            if (posType == libsumo::POSITION_3D) {
-                                inputStorage.readDouble();        // z value is ignored
-                            }
-                            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                            server.getWrapperStorage().writeDouble(libsumo::Vehicle::getDrivingDistance2D(id, p1x, p1y));
-                            break;
-                        }
-                        default:
-                            return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Unknown position format used for distance request", outputStorage);
-                    }
-                    // read distance type
-                    int distType = inputStorage.readUnsignedByte();
-                    if (distType != libsumo::REQUEST_DRIVINGDIST) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Only driving distance is supported for vehicles.", outputStorage);
-                    }
-                    break;
-                }
-                case libsumo::CMD_CHANGELANE: {
-                    int direction = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, direction)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of lane change state requires a direction as int.", outputStorage);
-                    }
-                    const std::pair<int, int> state = libsumo::Vehicle::getLaneChangeState(id, direction);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeInt(2);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt(state.first);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt(state.second);
-                    break;
-                }
-                case libsumo::VAR_TAXI_FLEET: {
-                    int flag = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, flag)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of taxi fleet requires an integer flag.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                    server.getWrapperStorage().writeStringList(libsumo::Vehicle::getTaxiFleet(flag));
-                    break;
-                }
-                case libsumo::VAR_NEIGHBORS: {
-                    int mode;
-                    if (!server.readTypeCheckingUnsignedByte(inputStorage, mode)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of neighboring vehicles needs bitset to specify mode.", outputStorage);
-                    }
-                    const std::vector<std::pair<std::string, double> >& neighVehicles = libsumo::Vehicle::getNeighbors(id, mode);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeInt((int)neighVehicles.size());
-                    for (auto& p : neighVehicles) {
-                        server.getWrapperStorage().writeString(p.first);
-                        server.getWrapperStorage().writeDouble(p.second);
-                    }
-                    break;
-                }
-                case libsumo::VAR_FOLLOW_SPEED: {
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires requires a compound object.", outputStorage);
-                    }
-                    int parameterCount = inputStorage.readInt();
-                    double speed;
-                    double gap;
-                    double leaderSpeed;
-                    double leaderMaxDecel;
-                    std::string leaderID;
-                    if (parameterCount == 5) {
-                        // speed
-                        if (!server.readTypeCheckingDouble(inputStorage, speed)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires the speed as first parameter.", outputStorage);
-                        }
-                        // gap
-                        if (!server.readTypeCheckingDouble(inputStorage, gap)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires the gap as second parameter.", outputStorage);
-                        }
-                        // leaderSpeed
-                        if (!server.readTypeCheckingDouble(inputStorage, leaderSpeed)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires the leaderSpeed as third parameter.", outputStorage);
-                        }
-                        // leaderMaxDecel
-                        if (!server.readTypeCheckingDouble(inputStorage, leaderMaxDecel)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires the leaderMaxDecel as fourth parameter.", outputStorage);
-                        }
-                        // leaderID
-                        if (!server.readTypeCheckingString(inputStorage, leaderID)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires the leaderID as fifth parameter.", outputStorage);
-                        }
-                    } else {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of followSpeed requires 5 parameters.", outputStorage);
-                    }
-                    // retrieve
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                    server.getWrapperStorage().writeDouble(libsumo::Vehicle::getFollowSpeed(id, speed, gap, leaderSpeed, leaderMaxDecel, leaderID));
-                }
-                break;
-                case libsumo::VAR_SECURE_GAP: {
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of secureGap requires requires a compound object.", outputStorage);
-                    }
-                    int parameterCount = inputStorage.readInt();
-                    double speed;
-                    double leaderSpeed;
-                    double leaderMaxDecel;
-                    std::string leaderID;
-                    if (parameterCount == 4) {
-                        // speed
-                        if (!server.readTypeCheckingDouble(inputStorage, speed)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of secureGap requires the speed as first parameter.", outputStorage);
-                        }
-                        // leaderSpeed
-                        if (!server.readTypeCheckingDouble(inputStorage, leaderSpeed)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of secureGap requires the leaderSpeed as second parameter.", outputStorage);
-                        }
-                        // leaderMaxDecel
-                        if (!server.readTypeCheckingDouble(inputStorage, leaderMaxDecel)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of secureGap requires the leaderMaxDecel as third parameter.", outputStorage);
-                        }
-                        // leaderID
-                        if (!server.readTypeCheckingString(inputStorage, leaderID)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of secureGap requires the leaderID as fourth parameter.", outputStorage);
-                        }
-                    } else {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of secureGap requires 4 parameters.", outputStorage);
-                    }
-                    // retrieve
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                    server.getWrapperStorage().writeDouble(libsumo::Vehicle::getSecureGap(id, speed, leaderSpeed, leaderMaxDecel, leaderID));
-                }
-                break;
-                case libsumo::VAR_STOP_SPEED: {
-                    if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of stopSpeed requires requires a compound object.", outputStorage);
-                    }
-                    int parameterCount = inputStorage.readInt();
-                    double speed;
-                    double gap;
-                    if (parameterCount == 2) {
-                        // speed
-                        if (!server.readTypeCheckingDouble(inputStorage, speed)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of stopSpeed requires the speed as first parameter.", outputStorage);
-                        }
-                        // gap
-                        if (!server.readTypeCheckingDouble(inputStorage, gap)) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Retrieval of stopSpeed requires the gap as second parameter.", outputStorage);
-                        }
-                    } else {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of stopSpeed requires 2 parameters.", outputStorage);
-                    }
-                    // retrieve
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                    server.getWrapperStorage().writeDouble(libsumo::Vehicle::getStopSpeed(id, speed, gap));
-                }
-                break;
-                case libsumo::VAR_FOES: {
-                    double distance;
-                    if (!server.readTypeCheckingDouble(inputStorage, distance)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of junction foes requires the distance as first parameter.", outputStorage);
-                    }
-                    std::vector<libsumo::TraCIJunctionFoe> junctionFoes = libsumo::Vehicle::getJunctionFoes(id, distance);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    const int cnt = 1 + (int)junctionFoes.size() * 9;
-                    server.getWrapperStorage().writeInt(cnt);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt((int)junctionFoes.size());
-                    for (std::vector<libsumo::TraCIJunctionFoe>::iterator it = junctionFoes.begin(); it != junctionFoes.end(); ++it) {
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(it->foeId);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->egoDist);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->foeDist);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->egoExitDist);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->foeExitDist);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(it->egoLane);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(it->foeLane);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        server.getWrapperStorage().writeChar(it->egoResponse);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_UBYTE);
-                        server.getWrapperStorage().writeChar(it->foeResponse);
-                    }
-                    break;
-                }
-                default:
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-            }
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Get Vehicle Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, e.what(), outputStorage);
@@ -494,6 +103,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != libsumo::VAR_SPEED && variable != libsumo::VAR_ACCELERATION && variable != libsumo::VAR_PREV_SPEED && variable != libsumo::VAR_SPEEDSETMODE && variable != libsumo::VAR_COLOR
             && variable != libsumo::ADD && variable != libsumo::ADD_FULL && variable != libsumo::REMOVE
             && variable != libsumo::VAR_HEIGHT
+            && variable != libsumo::VAR_MASS
             && variable != libsumo::VAR_ROUTING_MODE
             && variable != libsumo::VAR_LATALIGNMENT
             && variable != libsumo::VAR_MAXSPEED_LAT
@@ -592,10 +202,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (compoundSize != 3 && compoundSize != 4) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting a stop parameter needs a compound object description of 3 or 4 items.", outputStorage);
                 }
-                int nextStopIndex;
-                if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first setStopParameter parameter must be the nextStopIndex given as an integer.", outputStorage);
-                }
+                const int nextStopIndex = StoHelp::readTypedInt(inputStorage, "The first setStopParameter parameter must be the nextStopIndex given as an integer.");
                 std::string param;
                 if (!server.readTypeCheckingString(inputStorage, param)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second setStopParameter parameter must be the param given as a string.", outputStorage);
@@ -913,14 +520,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 libsumo::Vehicle::rerouteEffort(id);
             }
             break;
-            case libsumo::VAR_SIGNALS: {
-                int signals = 0;
-                if (!server.readTypeCheckingInt(inputStorage, signals)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting signals requires an integer.", outputStorage);
-                }
-                libsumo::Vehicle::setSignals(id, signals);
-            }
-            break;
+            case libsumo::VAR_SIGNALS:
+                libsumo::Vehicle::setSignals(id, StoHelp::readTypedInt(inputStorage, "Setting signals requires an integer."));
+                break;
             case libsumo::VAR_MOVE_TO: {
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting position requires a compound object.", outputStorage);
@@ -941,9 +543,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 int reason = libsumo::MOVE_AUTOMATIC;
                 if (numArgs == 3) {
-                    if (!server.readTypeCheckingInt(inputStorage, reason)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third parameter for setting a position must be the reason given as an int.", outputStorage);
-                    }
+                    reason = StoHelp::readTypedInt(inputStorage, "The third parameter for setting a position must be the reason given as an int.");
                 }
                 // process
                 libsumo::Vehicle::moveTo(id, laneID, position, reason);
@@ -1023,30 +623,15 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 libsumo::Vehicle::setPreviousSpeed(id, prevSpeed, prevAcceleration);
             }
             break;
-            case libsumo::VAR_SPEEDSETMODE: {
-                int speedMode = 0;
-                if (!server.readTypeCheckingInt(inputStorage, speedMode)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting speed mode requires an integer.", outputStorage);
-                }
-                libsumo::Vehicle::setSpeedMode(id, speedMode);
-            }
-            break;
-            case libsumo::VAR_LANECHANGE_MODE: {
-                int laneChangeMode = 0;
-                if (!server.readTypeCheckingInt(inputStorage, laneChangeMode)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting lane change mode requires an integer.", outputStorage);
-                }
-                libsumo::Vehicle::setLaneChangeMode(id, laneChangeMode);
-            }
-            break;
-            case libsumo::VAR_ROUTING_MODE: {
-                int routingMode = 0;
-                if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting routing mode requires an integer.", outputStorage);
-                }
-                libsumo::Vehicle::setRoutingMode(id, routingMode);
-            }
-            break;
+            case libsumo::VAR_SPEEDSETMODE:
+                libsumo::Vehicle::setSpeedMode(id, StoHelp::readTypedInt(inputStorage, "Setting speed mode requires an integer."));
+                break;
+            case libsumo::VAR_LANECHANGE_MODE:
+                libsumo::Vehicle::setLaneChangeMode(id, StoHelp::readTypedInt(inputStorage, "Setting lane change mode requires an integer."));
+                break;
+            case libsumo::VAR_ROUTING_MODE:
+                libsumo::Vehicle::setRoutingMode(id, StoHelp::readTypedInt(inputStorage, "Setting routing mode requires an integer."));
+                break;
             case libsumo::VAR_COLOR: {
                 libsumo::TraCIColor col;
                 if (!server.readTypeCheckingColor(inputStorage, col)) {
@@ -1070,10 +655,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, routeID)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Second parameter (route) requires a string.", outputStorage);
                 }
-                int departCode;
-                if (!server.readTypeCheckingInt(inputStorage, departCode)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Third parameter (depart) requires an integer.", outputStorage);
-                }
+                const int departCode = StoHelp::readTypedInt(inputStorage, "Third parameter (depart) requires an integer.");
                 std::string depart = toString(STEPS2TIME(departCode));
                 if (-departCode == static_cast<int>(DepartDefinition::TRIGGERED)) {
                     depart = "triggered";
@@ -1199,14 +781,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingString(inputStorage, line)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Twelth parameter (line) requires a string.", outputStorage);
                 }
-                int personCapacity;
-                if (!server.readTypeCheckingInt(inputStorage, personCapacity)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "13th parameter (person capacity) requires an int.", outputStorage);
-                }
-                int personNumber;
-                if (!server.readTypeCheckingInt(inputStorage, personNumber)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "14th parameter (person number) requires an int.", outputStorage);
-                }
+                const int personCapacity = StoHelp::readTypedInt(inputStorage, "13th parameter (person capacity) requires an int.");
+                const int personNumber = StoHelp::readTypedInt(inputStorage, "14th parameter (person number) requires an int.");
                 libsumo::Vehicle::add(id, routeID, vTypeID, depart, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
                                       fromTaz, toTaz, line, personCapacity, personNumber);
             }
@@ -1227,27 +803,19 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (numArgs < 5 || numArgs > 7) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "MoveToXY vehicle should obtain: edgeID, lane, x, y, angle and optionally keepRouteFlag and matchThreshold.", outputStorage);
                 }
-                // edge ID
                 std::string edgeID;
                 if (!server.readTypeCheckingString(inputStorage, edgeID)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for moveToXY must be the edge ID given as a string.", outputStorage);
                 }
-                // lane index
-                int laneNum = 0;
-                if (!server.readTypeCheckingInt(inputStorage, laneNum)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second parameter for moveToXY must be lane given as an int.", outputStorage);
-                }
-                // x
+                const int laneIndex = StoHelp::readTypedInt(inputStorage, "The second parameter for moveToXY must be lane given as an int.");
                 double x = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, x)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third parameter for moveToXY must be the x-position given as a double.", outputStorage);
                 }
-                // y
                 double y = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, y)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fourth parameter for moveToXY must be the y-position given as a double.", outputStorage);
                 }
-                // angle
                 double angle = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, angle)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fifth parameter for moveToXY must be the angle given as a double.", outputStorage);
@@ -1265,7 +833,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The seventh parameter for moveToXY must be the matchThreshold given as a double.", outputStorage);
                     }
                 }
-                libsumo::Vehicle::moveToXY(id, edgeID, laneNum, x, y, angle, keepRouteFlag, matchThreshold);
+                libsumo::Vehicle::moveToXY(id, edgeID, laneIndex, x, y, angle, keepRouteFlag, matchThreshold);
             }
             break;
             case libsumo::VAR_SPEED_FACTOR: {
@@ -1388,6 +956,17 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 libsumo::Vehicle::updateBestLanes(id);
             }
             break;
+            case libsumo::VAR_MINGAP: {
+                double value = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting minimum gap requires a double.", outputStorage);
+                }
+                if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Invalid minimum gap.", outputStorage);
+                }
+                libsumo::Vehicle::setMinGap(id, value);
+            }
+            break;
             case libsumo::VAR_MINGAP_LAT: {
                 double value = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, value)) {
@@ -1420,53 +999,6 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 }
 
 
-void
-TraCIServerAPI_Vehicle::writeNextStops(TraCIServer& server, const std::string& id, int limit, bool full) {
-    std::vector<libsumo::TraCINextStopData> nextStops = libsumo::Vehicle::getStops(id, limit);
-    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    const int cnt = 1 + (int)nextStops.size() * 4;
-    server.getWrapperStorage().writeInt(cnt);
-    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-    server.getWrapperStorage().writeInt((int)nextStops.size());
-    for (std::vector<libsumo::TraCINextStopData>::iterator it = nextStops.begin(); it != nextStops.end(); ++it) {
-        int legacyStopFlags = (it->stopFlags << 1) + (it->arrival >= 0 ? 1 : 0);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-        server.getWrapperStorage().writeString(it->lane);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        server.getWrapperStorage().writeDouble(it->endPos);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-        server.getWrapperStorage().writeString(it->stoppingPlaceID);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-        server.getWrapperStorage().writeInt(full ? it->stopFlags : legacyStopFlags);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        server.getWrapperStorage().writeDouble(it->duration);
-        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        server.getWrapperStorage().writeDouble(it->until);
-        if (full) {
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-            server.getWrapperStorage().writeDouble(it->startPos);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-            server.getWrapperStorage().writeDouble(it->intendedArrival);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-            server.getWrapperStorage().writeDouble(it->arrival);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-            server.getWrapperStorage().writeDouble(it->depart);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-            server.getWrapperStorage().writeString(it->split);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-            server.getWrapperStorage().writeString(it->join);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-            server.getWrapperStorage().writeString(it->actType);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-            server.getWrapperStorage().writeString(it->tripId);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-            server.getWrapperStorage().writeString(it->line);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-            server.getWrapperStorage().writeDouble(it->speed);
-        }
-    }
-}
-
 bool
 TraCIServerAPI_Vehicle::insertReplaceStop(TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage, const std::string& id, bool replace) {
     const std::string m1 = replace ? "Replacing" : "Inserting";
@@ -1497,10 +1029,7 @@ TraCIServerAPI_Vehicle::insertReplaceStop(TraCIServer& server, tcpip::Storage& i
     if (!server.readTypeCheckingDouble(inputStorage, duration)) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "The fourth stop " + m2 + " parameter must be the stopping duration given as a double.", outputStorage);
     }
-    int stopFlags = 0;
-    if (!server.readTypeCheckingInt(inputStorage, stopFlags)) {
-        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fifth stop " + m2 + " parameter must be a int indicating its parking/triggered status.", outputStorage);
-    }
+    const int stopFlags = StoHelp::readTypedInt(inputStorage, "The fifth stop " + m2 + " parameter must be a int indicating its parking/triggered status.");
     double startPos = libsumo::INVALID_DOUBLE_VALUE;
     if (!server.readTypeCheckingDouble(inputStorage, startPos)) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The sixth stop " + m2 + " parameter must be the start position along the edge given as a double.", outputStorage);
@@ -1509,10 +1038,7 @@ TraCIServerAPI_Vehicle::insertReplaceStop(TraCIServer& server, tcpip::Storage& i
     if (!server.readTypeCheckingDouble(inputStorage, until)) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The seventh stop " + m2 + " parameter must be the minimum departure time given as a double.", outputStorage);
     }
-    int nextStopIndex = 0;
-    if (!server.readTypeCheckingInt(inputStorage, nextStopIndex)) {
-        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The eigth stop " + m2 + " parameter must be the replacement index given as a int.", outputStorage);
-    }
+    const int nextStopIndex = StoHelp::readTypedInt(inputStorage, "The eigth stop " + m2 + " parameter must be the replacement index given as a int.");
     int teleport = 0;
     if (compoundSize == 9) {
         if (!server.readTypeCheckingByte(inputStorage, teleport)) {

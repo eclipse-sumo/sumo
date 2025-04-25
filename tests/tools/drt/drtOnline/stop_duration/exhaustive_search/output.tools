@@ -5,15 +5,15 @@ New reservations: ['0']
 Pending reservations: []
 Solve DARP with exhaustive_search
 Solve ILP
-Dispatch: taxiB_0y_0z
+Dispatch: taxiA_0y_0z
 
 Run dispatcher
 New reservations: ['1', '2', '3']
 Pending reservations: []
 Solve DARP with exhaustive_search
 Solve ILP
-Dispatch: taxiB_0y_2y_0z_2z
-Dispatch: taxiA_3y_1y_3z_1z
+Dispatch: taxiA_0y_2y_0z_2z
+Dispatch: taxiB_3y_1y_3z_1z
 
 Run dispatcher
 New reservations: ['4', '5', '6']
@@ -26,7 +26,7 @@ New reservations: ['7', '8', '9']
 Pending reservations: ['4', '5', '6']
 Solve DARP with exhaustive_search
 Solve ILP
-Dispatch: taxiB_2y_9y_0z_2z_9z
+Dispatch: taxiA_2y_9y_0z_2z_9z
 
 Run dispatcher
 Pending reservations: ['4', '5', '6', '7', '8']

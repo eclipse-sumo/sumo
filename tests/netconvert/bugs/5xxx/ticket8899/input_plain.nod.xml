@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-03 12:24:37 by Eclipse SUMO netedit Version v1_9_2+0956-00ed1c6
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/localdata2/debug/_bugs_ticket8899/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-393420.76,-5819746.43" convBoundary="0.00,0.00,486.92,127.26" origBoundary="12.629591,51.877564,14.475032,53.389797" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="2757332329" x="486.92" y="1.72" type="dead_end"/>
+    <node id="2782577071" x="240.70" y="10.84" type="priority"/>
+    <node id="3069560068" x="179.90" y="61.73" type="dead_end"/>
+    <node id="3230525600" x="345.18" y="45.47" type="dead_end"/>
+    <node id="3230525602" x="257.59" y="120.51" type="priority"/>
+    <node id="6711622876" x="0.00" y="125.88" type="dead_end"/>
+    <node id="C" x="248.67" y="55.47" type="traffic_light" tl="GS_cluster_29271377_29271394"/>
+</nodes>

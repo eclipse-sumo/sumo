@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,6 +44,9 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, bool idmm) :
     myTwoSqrtAccelDecel(double(2 * sqrt(myAccel * myDecel))) {
     // IDM does not drive very precise and may violate minGap on occasion
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
+    if (TS / myIterations > 0.25) {
+        WRITE_WARNINGF("Stepping duration of % for % model in vType % is unsafe", (TS / myIterations), myIDMM ? "IDMM" : "IDM", vtype->getID());
+    }
 }
 
 MSCFModel_IDM::~MSCFModel_IDM() {}
@@ -136,12 +139,26 @@ MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
 
 
 double
+MSCFModel_IDM::insertionStopSpeed(const MSVehicle* const veh, double speed, double gap) const {
+    // we want to insert the vehicle in an equilibrium state
+    double result = MSCFModel::insertionStopSpeed(veh, speed, gap);
+    int i = 0;
+    while (result - speed < -ACCEL2SPEED(myDecel) && ++i < 10) {
+        speed = result;
+        result = MSCFModel::insertionStopSpeed(veh, speed, gap);
+    }
+    return result;
+}
+
+
+double
 MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     applyHeadwayPerceptionError(veh, speed, gap);
     if (gap < 0.01) {
         return 0;
     }
     double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
+    //std::cout << SIMTIME << " stopSpeed speed=" << speed << " gap=" << gap << " decel=" << decel << " result=" << result << "\n";
     if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
         // ensure that stops can be reached:
         //std::cout << " switching to krauss: " << veh->getID() << " gap=" << gap << " speed=" << speed << " res1=" << result << " res2=" << maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs())<< "\n";

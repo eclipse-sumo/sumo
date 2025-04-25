@@ -25,7 +25,7 @@ the OSM Web wizard by invoking the following command in the *tools*
 directory:
 
 ```
-python osmWebWizard.py
+python osmWebWizard.py
 ```
 
 Windows users may also invoke the command by clicking *All Programs -\>
@@ -135,17 +135,17 @@ directory *\~/SUMO/yyyy-mm-dd-hh-mm-ss* will be created to host the
 data. The contents of the directory look like this:
 
 ```
-   ➜  2016-10-17-14-54-30 ls
-   build.bat                  osm.net.xml                osm.rail.rou.alt.xml       osm.tram.rou.alt.xml
-   osm.bicycle.rou.alt.xml    osm.netccfg                osm.rail.rou.xml           osm.tram.rou.xml
-   osm.bicycle.rou.xml        osm.passenger.rou.alt.xml  osm.rail.trips.xml         osm.tram.trips.xml
-   osm.bicycle.trips.xml      osm.passenger.rou.xml      osm.rail_urban.rou.alt.xml osm.truck.rou.alt.xml
-   osm.bus.rou.alt.xml        osm.passenger.trips.xml    osm.rail_urban.rou.xml     osm.truck.rou.xml
-   osm.bus.rou.xml            osm.pedestrian.rou.alt.xml osm.rail_urban.trips.xml   osm.truck.trips.xml
-   osm.bus.trips.xml          osm.pedestrian.rou.xml     osm.ship.rou.alt.xml       osm.view.xml
-   osm.motorcycle.rou.alt.xml osm.pedestrian.trips.xml   osm.ship.rou.xml           osm_bbox.osm.xml
-   osm.motorcycle.rou.xml     osm.poly.xml               osm.ship.trips.xml         run.bat
-   osm.motorcycle.trips.xml   osm.polycfg                osm.sumocfg
+   ➜  2016-10-17-14-54-30 ls
+   build.bat                  osm.net.xml                osm.rail.rou.alt.xml       osm.tram.rou.alt.xml
+   osm.bicycle.rou.alt.xml    osm.netccfg                osm.rail.rou.xml           osm.tram.rou.xml
+   osm.bicycle.rou.xml        osm.passenger.rou.alt.xml  osm.rail.trips.xml         osm.tram.trips.xml
+   osm.bicycle.trips.xml      osm.passenger.rou.xml      osm.rail_urban.rou.alt.xml osm.truck.rou.alt.xml
+   osm.bus.rou.alt.xml        osm.passenger.trips.xml    osm.rail_urban.rou.xml     osm.truck.rou.xml
+   osm.bus.rou.xml            osm.pedestrian.rou.alt.xml osm.rail_urban.trips.xml   osm.truck.trips.xml
+   osm.bus.trips.xml          osm.pedestrian.rou.xml     osm.ship.rou.alt.xml       osm.view.xml
+   osm.motorcycle.rou.alt.xml osm.pedestrian.trips.xml   osm.ship.rou.xml           osm_bbox.osm.xml
+   osm.motorcycle.rou.xml     osm.poly.xml               osm.ship.trips.xml         run.bat
+   osm.motorcycle.trips.xml   osm.polycfg                osm.sumocfg
 ```
 
 You may now edit those files and re-run the simulation. To learn more

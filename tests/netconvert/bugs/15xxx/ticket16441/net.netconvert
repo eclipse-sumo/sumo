@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-02 08:16:53 by Eclipse SUMO netconvert Version v1_22_0+1213-a2546470c13
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="1334334.68,-3552195.33" convBoundary="0.00,0.00,22.13,52.88" origBoundary="103.996797,30.618486,104.072080,30.693572" projParameter="+proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_def"/>
+
+    <edge id=":101_0" function="internal">
+        <lane id=":101_0_0" index="0" speed="8.33" length="0.10" width="3.20" shape="14.47,40.39 14.47,40.39"/>
+    </edge>
+    <edge id=":104_0" function="internal">
+        <lane id=":104_0_0" index="0" speed="8.33" length="0.10" width="3.20" shape="18.36,38.74 18.36,38.74"/>
+    </edge>
+
+    <edge id="0" from="104" to="103" priority="7" length="13.45">
+        <lane id="0_0" index="0" speed="8.33" length="13.45" width="3.20" customShape="1" shape="18.36,38.74 23.65,51.72"/>
+    </edge>
+    <edge id="1" from="105" to="104" priority="7" length="40.70">
+        <lane id="1_0" index="0" speed="8.33" length="40.70" width="3.20" customShape="1" shape="2.38,-0.51 18.36,38.74"/>
+    </edge>
+    <edge id="2" from="100" to="101" priority="7" length="13.46">
+        <lane id="2_0" index="0" speed="8.33" length="13.46" width="3.20" customShape="1" shape="19.76,53.38 14.47,40.39"/>
+    </edge>
+    <edge id="3" from="101" to="102" priority="7" length="40.69">
+        <lane id="3_0" index="0" speed="8.33" length="40.69" width="3.20" customShape="1" shape="14.47,40.39 -1.52,1.15"/>
+    </edge>
+
+    <junction id="100" type="dead_end" x="21.38" y="52.88" incLanes="" intLanes="" shape="18.57,54.30 21.17,53.03 21.06,52.74 18.46,54.02" customShape="1"/>
+    <junction id="101" type="priority" x="16.04" y="39.75" incLanes="2_0" intLanes=":101_0_0" shape="13.17,41.03 15.77,39.76 13.17,41.03" customShape="1">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="102" type="dead_end" x="0.00" y="0.37" incLanes="3_0" intLanes="" shape="-2.82,1.79 -0.22,0.52 -0.33,0.22 -2.93,1.51" customShape="1"/>
+    <junction id="103" type="dead_end" x="22.13" y="52.51" incLanes="0_0" intLanes="" shape="22.46,52.64 25.06,51.37 24.95,51.08 22.35,52.35" customShape="1"/>
+    <junction id="104" type="priority" x="16.78" y="39.38" incLanes="1_0" intLanes=":104_0_0" shape="19.66,38.10 17.06,39.38 19.66,38.10" customShape="1">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="105" type="dead_end" x="0.75" y="0.00" incLanes="" intLanes="" shape="1.08,0.13 3.69,-1.15 3.57,-1.44 0.97,-0.16" customShape="1"/>
+
+    <connection from="1" to="0" fromLane="0" toLane="0" keepClear="0" length="0.10" shape="18.36,38.74 18.36,38.74" via=":104_0_0" dir="s" state="M"/>
+    <connection from="2" to="3" fromLane="0" toLane="0" keepClear="0" length="0.10" shape="14.47,40.39 14.47,40.39" via=":101_0_0" dir="s" state="M"/>
+
+    <connection from=":101_0" to="3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":104_0" to="0" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

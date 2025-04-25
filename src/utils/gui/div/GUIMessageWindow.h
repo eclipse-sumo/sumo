@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2003-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2003-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -155,7 +155,7 @@ private:
     const GUIGlObject* getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
 
     /// @brief get time string object
-    SUMOTime getTimeString(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
+    SUMOTime getTimeString(const FXString& text, const FXint pos) const;
 
     /// @brief fill styles
     void fillStyles();
@@ -172,6 +172,12 @@ private:
     /// @brief The text colors used
     static FXHiliteStyle* myStyles;
 
+    /// @brief The time text to look for
+    static std::string myTimeText;
+
+    /// @brief The translated type strings text to look for
+    static std::map<std::string, std::string> myTypeStrings;
+
     /// @brief The instances of message retriever encapsulations
-    OutputDevice* myErrorRetriever, *myDebugRetriever, *myGLDebugRetriever, *myMessageRetriever, *myWarningRetriever;
+    OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever;
 };

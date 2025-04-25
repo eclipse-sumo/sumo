@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,7 +58,6 @@ public:
      * @param[in] geo specify if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth The line with for drawing an unfilled polygon
-     * @param[in] relativePath set image file as relative path
      * @param[in] name Polygon name
      * @param[in] parameters generic parameters
      */
@@ -67,7 +66,6 @@ public:
                 double layer = DEFAULT_LAYER,
                 double angle = DEFAULT_ANGLE,
                 const std::string& imgFile = DEFAULT_IMG_FILE,
-                bool relativePath = DEFAULT_RELATIVEPATH,
                 const std::string& name = DEFAULT_NAME,
                 const Parameterised::Map& parameters = DEFAULT_PARAMETERS);
 

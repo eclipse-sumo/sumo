@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="16.00"> <vehicle id="0" x="1335.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="260.00" lane="4/1to3/1_0" slope="0.00"/> </timestep> <timestep time="17.00"> <vehicle id="0" x="1325.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="270.00" lane="4/1to3/1_0" slope="0.00"/> </timestep> <timestep time="18.00"> <vehicle id="0" x="1315.25" y="401.65" angle="270.00" type="t1" speed="10.00" pos="280.00" lane="4/1to3/1_0" slope="0.00"/> </timestep>
+</fcd-export>

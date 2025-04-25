@@ -1,0 +1,1264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-01-02 14:27:34 by Eclipse SUMO sumo Version v1_21_0+1623-640c91a7eff
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <routing-algorithm value="astar"/>
+        <device.rerouting.probability value="1"/>
+        <device.rerouting.period value="240"/>
+        <device.rerouting.adaptation-interval value="1"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="type1.0" type="car" depart="0.00" color="yellow" arrival="115.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.1" type="car" depart="3.00" color="yellow" arrival="185.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.2" type="car" depart="5.00" color="yellow" arrival="187.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.3" type="car" depart="7.00" color="yellow" arrival="188.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.4" type="car" depart="9.00" color="yellow" arrival="189.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.5" type="car" depart="11.00" color="yellow" arrival="191.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.6" type="car" depart="13.00" color="yellow" arrival="192.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.7" type="car" depart="15.00" color="yellow" arrival="194.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.8" type="car" depart="17.00" color="yellow" arrival="195.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.9" type="car" depart="18.00" color="yellow" arrival="197.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.10" type="car" depart="20.00" color="yellow" arrival="198.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.11" type="car" depart="23.00" color="yellow" arrival="199.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.12" type="car" depart="25.00" color="yellow" arrival="201.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.13" type="car" depart="28.00" color="yellow" arrival="202.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.14" type="car" depart="31.00" color="yellow" arrival="204.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.15" type="car" depart="34.00" color="yellow" arrival="205.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.16" type="car" depart="37.00" color="yellow" arrival="207.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.17" type="car" depart="40.00" color="yellow" arrival="255.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.18" type="car" depart="43.00" color="yellow" arrival="257.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.19" type="car" depart="46.00" color="yellow" arrival="258.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.20" type="car" depart="49.00" color="yellow" arrival="259.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.21" type="car" depart="52.00" color="yellow" arrival="261.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.22" type="car" depart="55.00" color="yellow" arrival="262.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.23" type="car" depart="58.00" color="yellow" arrival="264.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.24" type="car" depart="61.00" color="yellow" arrival="265.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.31" type="car" depart="102.00" color="yellow" arrival="265.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="102.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.32" type="car" depart="105.00" color="yellow" arrival="266.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="105.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.33" type="car" depart="108.00" color="yellow" arrival="267.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="108.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.34" type="car" depart="111.00" color="yellow" arrival="269.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="111.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.35" type="car" depart="114.00" color="yellow" arrival="270.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="114.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.36" type="car" depart="117.00" color="yellow" arrival="272.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="117.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.37" type="car" depart="120.00" color="yellow" arrival="273.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="120.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.38" type="car" depart="123.00" color="yellow" arrival="275.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="123.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.39" type="car" depart="126.00" color="yellow" arrival="276.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="126.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.40" type="car" depart="129.00" color="yellow" arrival="277.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="129.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.41" type="car" depart="132.00" color="yellow" arrival="279.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="132.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.42" type="car" depart="135.00" color="yellow" arrival="293.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="135.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.29" type="car" depart="96.00" color="yellow" arrival="310.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="96.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.30" type="car" depart="99.00" color="yellow" arrival="311.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="99.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.54" type="car" depart="197.00" color="yellow" arrival="312.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="197.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.55" type="car" depart="200.00" color="yellow" arrival="314.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="200.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.56" type="car" depart="202.00" color="yellow" arrival="315.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="202.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.57" type="car" depart="204.00" color="yellow" arrival="317.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="204.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.58" type="car" depart="206.00" color="yellow" arrival="318.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="206.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.25" type="car" depart="64.00" color="yellow" arrival="325.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.59" type="car" depart="208.00" color="yellow" arrival="325.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="208.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.70" type="car" depart="232.00" color="yellow" arrival="326.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="232.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.26" type="car" depart="67.00" color="yellow" arrival="327.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.60" type="car" depart="210.00" color="yellow" arrival="327.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="210.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.27" type="car" depart="70.00" color="yellow" arrival="328.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.28" type="car" depart="73.00" color="yellow" arrival="329.00">
+        <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.43" type="car" depart="138.00" color="yellow" arrival="345.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="138.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.44" type="car" depart="141.00" color="yellow" arrival="346.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="141.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.45" type="car" depart="144.00" color="yellow" arrival="347.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="144.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.46" type="car" depart="147.00" color="yellow" arrival="349.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="147.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.47" type="car" depart="176.00" color="yellow" arrival="350.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="176.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.48" type="car" depart="179.00" color="yellow" arrival="352.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="179.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.49" type="car" depart="182.00" color="yellow" arrival="353.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="182.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.50" type="car" depart="185.00" color="yellow" arrival="360.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="185.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.51" type="car" depart="188.00" color="yellow" arrival="361.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="188.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.52" type="car" depart="191.00" color="yellow" arrival="363.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="191.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.53" type="car" depart="194.00" color="yellow" arrival="364.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="194.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.71" type="car" depart="242.00" color="yellow" arrival="399.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="242.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.61" type="car" depart="212.00" color="yellow" arrival="400.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="212.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.72" type="car" depart="245.00" color="yellow" arrival="402.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="245.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.62" type="car" depart="214.00" color="yellow" arrival="403.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="214.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.73" type="car" depart="248.00" color="yellow" arrival="405.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="248.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.63" type="car" depart="215.00" color="yellow" arrival="406.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="215.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.74" type="car" depart="251.00" color="yellow" arrival="408.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="251.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.64" type="car" depart="217.00" color="yellow" arrival="409.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="217.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.65" type="car" depart="220.00" color="yellow" arrival="410.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="220.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.66" type="car" depart="222.00" color="yellow" arrival="412.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="222.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.67" type="car" depart="225.00" color="yellow" arrival="413.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="225.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.68" type="car" depart="227.00" color="yellow" arrival="415.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="227.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.69" type="car" depart="230.00" color="yellow" arrival="416.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="230.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.76" type="car" depart="257.00" color="yellow" arrival="418.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="257.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.77" type="car" depart="260.00" color="yellow" arrival="470.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="260.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.75" type="car" depart="254.00" color="yellow" arrival="471.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="254.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.91" type="car" depart="303.00" color="yellow" arrival="472.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="303.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.78" type="car" depart="263.00" color="yellow" arrival="474.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="263.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.92" type="car" depart="313.00" color="yellow" arrival="475.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="313.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.93" type="car" depart="316.00" color="yellow" arrival="477.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="316.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.80" type="car" depart="268.00" color="yellow" arrival="478.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="268.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.81" type="car" depart="278.00" color="yellow" arrival="489.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="278.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.94" type="car" depart="319.00" color="yellow" arrival="490.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="319.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.79" type="car" depart="266.00" color="yellow" arrival="492.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="266.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.95" type="car" depart="322.00" color="yellow" arrival="493.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="322.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.82" type="car" depart="281.00" color="yellow" arrival="499.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="281.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.96" type="car" depart="325.00" color="yellow" arrival="501.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="325.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.83" type="car" depart="283.00" color="yellow" arrival="502.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="283.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.111" type="car" depart="382.00" color="yellow" arrival="535.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="382.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to0-2 0-2to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.112" type="car" depart="392.00" color="yellow" arrival="537.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="392.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to0-2 0-2to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.113" type="car" depart="395.00" color="yellow" arrival="538.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="395.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to0-2 0-2to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.105" type="car" depart="351.00" color="yellow" arrival="539.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="351.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to0-2 0-2to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.97" type="car" depart="328.00" color="yellow" arrival="550.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="328.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.123" type="car" depart="425.00" color="yellow" arrival="550.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="425.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.98" type="car" depart="331.00" color="yellow" arrival="551.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="331.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.99" type="car" depart="334.00" color="yellow" arrival="552.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="334.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.124" type="car" depart="428.00" color="yellow" arrival="552.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="428.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.84" type="car" depart="286.00" color="yellow" arrival="554.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="286.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.125" type="car" depart="431.00" color="yellow" arrival="554.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="431.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.85" type="car" depart="288.00" color="yellow" arrival="555.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="288.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.126" type="car" depart="434.00" color="yellow" arrival="556.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="434.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.86" type="car" depart="291.00" color="yellow" arrival="557.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="291.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.101" type="car" depart="339.00" color="yellow" arrival="558.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="339.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.127" type="car" depart="437.00" color="yellow" arrival="558.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="437.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.87" type="car" depart="293.00" color="yellow" arrival="560.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="293.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.128" type="car" depart="440.00" color="yellow" arrival="560.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="440.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.102" type="car" depart="342.00" color="yellow" arrival="561.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="342.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.88" type="car" depart="296.00" color="yellow" arrival="562.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="296.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.129" type="car" depart="443.00" color="yellow" arrival="562.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="443.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.103" type="car" depart="345.00" color="yellow" arrival="564.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="345.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.89" type="car" depart="298.00" color="yellow" arrival="569.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="298.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.104" type="car" depart="348.00" color="yellow" arrival="570.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="348.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.90" type="car" depart="301.00" color="yellow" arrival="571.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="301.00" probability="0" edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.114" type="car" depart="398.00" color="yellow" arrival="573.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="398.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.115" type="car" depart="401.00" color="yellow" arrival="574.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="401.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.116" type="car" depart="404.00" color="yellow" arrival="576.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="404.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.117" type="car" depart="407.00" color="yellow" arrival="577.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="407.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.118" type="car" depart="410.00" color="yellow" arrival="579.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="410.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.119" type="car" depart="413.00" color="yellow" arrival="580.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="413.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.120" type="car" depart="416.00" color="yellow" arrival="581.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="416.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.106" type="car" depart="354.00" color="yellow" arrival="605.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="354.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to0-2 0-2to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.107" type="car" depart="372.00" color="yellow" arrival="607.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="372.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to0-2 0-2to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.108" type="car" depart="375.00" color="yellow" arrival="608.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="375.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to0-2 0-2to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.109" type="car" depart="377.00" color="yellow" arrival="609.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="377.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to0-2 0-2to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.110" type="car" depart="380.00" color="yellow" arrival="611.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="380.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to0-2 0-2to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.122" type="car" depart="420.00" color="yellow" arrival="612.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="420.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to0-2 0-2to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.121" type="car" depart="419.00" color="yellow" arrival="614.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="419.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to0-2 0-2to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.130" type="car" depart="446.00" color="yellow" arrival="629.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="446.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.100" type="car" depart="337.00" color="yellow" arrival="630.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="337.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.131" type="car" depart="449.00" color="yellow" arrival="631.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="449.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.132" type="car" depart="452.00" color="yellow" arrival="632.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="452.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.133" type="car" depart="455.00" color="yellow" arrival="633.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="455.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.139" type="car" depart="496.00" color="yellow" arrival="665.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.140" type="car" depart="499.00" color="yellow" arrival="666.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.141" type="car" depart="502.00" color="yellow" arrival="667.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.142" type="car" depart="505.00" color="yellow" arrival="669.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.143" type="car" depart="508.00" color="yellow" arrival="674.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.134" type="car" depart="458.00" color="yellow" arrival="675.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="458.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.144" type="car" depart="511.00" color="yellow" arrival="675.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.145" type="car" depart="514.00" color="yellow" arrival="676.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.135" type="car" depart="461.00" color="yellow" arrival="677.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="461.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.136" type="car" depart="464.00" color="yellow" arrival="678.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="464.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.146" type="car" depart="517.00" color="yellow" arrival="678.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.137" type="car" depart="467.00" color="yellow" arrival="679.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="467.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.147" type="car" depart="520.00" color="yellow" arrival="679.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.138" type="car" depart="470.00" color="yellow" arrival="681.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="470.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to1-0 1-0to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.148" type="car" depart="523.00" color="yellow" arrival="681.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.149" type="car" depart="526.00" color="yellow" arrival="682.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.150" type="car" depart="529.00" color="yellow" arrival="684.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.151" type="car" depart="532.00" color="yellow" arrival="685.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.152" type="car" depart="535.00" color="yellow" arrival="693.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.153" type="car" depart="538.00" color="yellow" arrival="745.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.168" type="car" depart="609.00" color="yellow" arrival="745.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="609.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.154" type="car" depart="541.00" color="yellow" arrival="746.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.155" type="car" depart="544.00" color="yellow" arrival="747.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.156" type="car" depart="547.00" color="yellow" arrival="749.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.157" type="car" depart="576.00" color="yellow" arrival="750.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.158" type="car" depart="579.00" color="yellow" arrival="752.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.159" type="car" depart="582.00" color="yellow" arrival="753.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.160" type="car" depart="585.00" color="yellow" arrival="755.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.161" type="car" depart="588.00" color="yellow" arrival="756.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.162" type="car" depart="591.00" color="yellow" arrival="757.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.163" type="car" depart="594.00" color="yellow" arrival="759.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.164" type="car" depart="597.00" color="yellow" arrival="760.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.165" type="car" depart="600.00" color="yellow" arrival="762.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.166" type="car" depart="603.00" color="yellow" arrival="763.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.167" type="car" depart="606.00" color="yellow" arrival="765.00">
+        <route edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.169" type="car" depart="610.00" color="yellow" arrival="815.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="610.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.170" type="car" depart="612.00" color="yellow" arrival="817.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="612.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.171" type="car" depart="615.00" color="yellow" arrival="818.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="615.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.172" type="car" depart="617.00" color="yellow" arrival="819.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="617.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.173" type="car" depart="620.00" color="yellow" arrival="821.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="620.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.174" type="car" depart="622.00" color="yellow" arrival="822.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="622.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.175" type="car" depart="625.00" color="yellow" arrival="824.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="625.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.176" type="car" depart="627.00" color="yellow" arrival="825.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="627.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.177" type="car" depart="630.00" color="yellow" arrival="827.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="630.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.178" type="car" depart="632.00" color="yellow" arrival="828.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="632.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.179" type="car" depart="635.00" color="yellow" arrival="829.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="635.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.180" type="car" depart="637.00" color="yellow" arrival="831.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="637.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.181" type="car" depart="640.00" color="yellow" arrival="832.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="640.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.182" type="car" depart="642.00" color="yellow" arrival="834.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="642.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.183" type="car" depart="645.00" color="yellow" arrival="835.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="645.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.184" type="car" depart="647.00" color="yellow" arrival="837.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="647.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.185" type="car" depart="656.00" color="yellow" arrival="838.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="656.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.186" type="car" depart="659.00" color="yellow" arrival="839.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="659.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.187" type="car" depart="661.00" color="yellow" arrival="841.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="661.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.188" type="car" depart="664.00" color="yellow" arrival="842.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="664.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.189" type="car" depart="666.00" color="yellow" arrival="844.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="666.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.192" type="car" depart="674.00" color="yellow" arrival="870.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="674.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.193" type="car" depart="676.00" color="yellow" arrival="871.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="676.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.194" type="car" depart="679.00" color="yellow" arrival="872.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="679.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.195" type="car" depart="681.00" color="yellow" arrival="874.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="681.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.196" type="car" depart="684.00" color="yellow" arrival="875.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="684.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.197" type="car" depart="686.00" color="yellow" arrival="877.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.198" type="car" depart="689.00" color="yellow" arrival="878.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.190" type="car" depart="669.00" color="yellow" arrival="885.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="669.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="type1.199" type="car" depart="691.00" color="yellow" arrival="885.00">
+        <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to2-1 2-1to2-2 gneE1"/>
+    </vehicle>
+
+    <vehicle id="type1.191" type="car" depart="671.00" color="yellow" arrival="887.00">
+        <routeDistribution>
+            <route replacedOnEdge="gneE0" reason="device.rerouting" replacedAtTime="671.00" probability="0" edges="gneE0 0-0to1-0 1-0to2-0 2-0to2-1 2-1to2-2 gneE1"/>
+            <route edges="gneE0 0-0to0-1 0-1to1-1 1-1to1-2 1-2to2-2 gneE1"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>

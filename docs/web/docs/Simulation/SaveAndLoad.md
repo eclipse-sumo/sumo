@@ -12,7 +12,7 @@ To save the state at specified times during the simulation add the
 option **--save-state.times**
 
 ```
-sumo --save-state.times TIME1,TIME2,TIME3
+sumo --save-state.times TIME1,TIME2,TIME3
 ```
 
 By default the state will be written to files named *<PREFIX\>_<TIME\><SUFFIX\>* where *<PREFIX\>* can be set via option **--save-state.prefix** (default *state*), *<TIME\>* is the simulation time and *<SUFFIX\>* is either one of *.xml.gz* or *.xml* as controlled by the option **--save-state.suffix** (default *.xml.gz*).
@@ -24,7 +24,7 @@ When using the option **--save-state.times**, output files can also be specified
 option **--save-state.files**
 
 ```
-sumo --save-state.files FILE1,FILE2,FILE3
+sumo --save-state.files FILE1,FILE2,FILE3
 ```
 
 to set the file names explicitly. In particular if a plain text xml-file
@@ -95,8 +95,9 @@ When setting option **--save-state.rng**, the state of all random number generat
 # Know Issues
 
 - flows cannot be loaded from a state file alone (the original route file must be loaded as well)
-- The internal state of the laneChangeModel is not saved
+- the internal state of the laneChangeModel is not saved
 - the internal state of the carFollowModel is not saved (not all models have this).
+- the exact position within a parkingArea is [not saved](https://github.com/eclipse-sumo/sumo/issues/16144)
 
 # Older Versions of SUMO
 

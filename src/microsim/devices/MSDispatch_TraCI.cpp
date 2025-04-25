@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,13 +39,16 @@ Reservation*
 MSDispatch_TraCI::addReservation(MSTransportable* person,
                                  SUMOTime reservationTime,
                                  SUMOTime pickupTime,
+                                 SUMOTime earliestPickupTime,
                                  const MSEdge* from, double fromPos,
+                                 const MSStoppingPlace* fromStop,
                                  const MSEdge* to, double toPos,
+                                 const MSStoppingPlace* toStop,
                                  std::string group,
                                  const std::string& line,
                                  int maxCapacity,
                                  int maxContainerCapacity) {
-    Reservation* res = MSDispatch::addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, line, maxCapacity, maxContainerCapacity);
+    Reservation* res = MSDispatch::addReservation(person, reservationTime, pickupTime, earliestPickupTime, from, fromPos, fromStop, to, toPos, toStop, group, line, maxCapacity, maxContainerCapacity);
     if (!myReservationLookup.has(res)) {
         myReservationLookup.insert(res->id, res);
     }
@@ -71,6 +74,7 @@ void
 MSDispatch_TraCI::fulfilledReservation(const Reservation* res) {
     myReservationLookup.remove(res->id, res);
     MSDispatch::fulfilledReservation(res);
+    myHasServableReservations = myReservationLookup.size() > 0;
 }
 
 void
@@ -95,7 +99,7 @@ MSDispatch_TraCI::interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::
     // in case of ride sharing the same reservation may occur multiple times
     std::set<const Reservation*> unique(reservations.begin(), reservations.end());
     for (const Reservation* res : unique) {
-        servedReservation(res);
+        servedReservation(res, taxi);
     }
 }
 
@@ -104,11 +108,11 @@ std::string
 MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> personIDs) {
     if (myReservationLookup.hasString(resID)) {
         Reservation* res = const_cast<Reservation*>(myReservationLookup.get(resID));
-        if (myRunningReservations.count(res) != 0) {
+        if (myRunningReservations.count(res->group) != 0 && myRunningReservations[res->group].count(res) != 0) {
             throw InvalidArgument("Cannot split reservation '" + resID + "' after dispatch");
         }
         std::set<std::string> allPersons;
-        for (MSTransportable* t : res->persons) {
+        for (const MSTransportable* t : res->persons) {
             allPersons.insert(t->getID());
         }
         for (std::string p : personIDs) {
@@ -119,9 +123,9 @@ MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> p
         if (personIDs.size() == allPersons.size()) {
             throw InvalidArgument("Cannot remove all person from reservation '" + resID + "'");
         }
-        std::vector<MSTransportable*> split;
+        std::vector<const MSTransportable*> split;
         for (const std::string& p : personIDs) {
-            for (MSTransportable* const t : res->persons) {
+            for (const MSTransportable* const t : res->persons) {
                 if (t->getID() == p) {
                     res->persons.erase(t);
                     split.push_back(t);
@@ -131,8 +135,10 @@ MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> p
         }
         Reservation* newRes = new Reservation(toString(myReservationCount++), split,
                                               res->reservationTime, res->pickupTime,
-                                              res->from, res->fromPos,
-                                              res->to, res->toPos, res->group, res->line);
+                                              res->earliestPickupTime,
+                                              res->from, res->fromPos, res->fromStop,
+                                              res->to, res->toPos, res->toStop,
+                                              res->group, res->line);
         myGroupReservations[res->group].push_back(newRes);
         myReservationLookup.insert(newRes->id, newRes);
         return newRes->id;

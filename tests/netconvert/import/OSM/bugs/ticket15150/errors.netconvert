@@ -1,0 +1,34 @@
+Warning: The referenced geometry information (ref='365383734') is not known
+Warning: The referenced geometry information (ref='11359800343') is not known
+Warning: The referenced geometry information (ref='27012144') is not known
+Warning: The referenced geometry information (ref='11637984029') is not known
+Warning: The referenced geometry information (ref='26703853') is not known
+Warning: Discarding way '4377122' because it has only 0 node(s)
+Warning: Discarding way '4380644' because it has only 0 node(s)
+Warning: Discarding way '4381554' because it has only 0 node(s)
+Warning: Discarding way '4389606' because it has only 0 node(s)
+Warning: Discarding way '4409446' because it has only 0 node(s)
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '4544068').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '4637761').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '175508418').
+Warning: PT line in relation 1990677 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2004162 with no stops ignored. Probably OSM file is incomplete.
+Warning: No way found for reference '8003999' in relation '2432497'
+Warning: No way found for reference '8003998' in relation '2432497'
+Warning: No node found for reference '51354576' in relation '2432497'.
+Warning: Ignoring restriction relation '2432497' with unknown from-way.
+Warning: Ignoring restriction relation '2432497' with unknown to-way.
+Warning: Ignoring restriction relation '2432497' with unknown via.
+Warning: PT line in relation 3951482 with no stops ignored. Probably OSM file is incomplete.
+Warning: Referenced platform: '389400702' in relation: '5824726' is corrupt. Probably OSM file is incomplete.
+Warning: Referenced platform: '389400702' in relation: '5824726' is corrupt. Probably OSM file is incomplete.
+Warning: Referenced platform: '389400702' in relation: '5824726' is corrupt. Probably OSM file is incomplete.
+Warning: No way found for reference '4254135033' in relation '6749958'
+Warning: No way found for reference '1860841058' in relation '6749958'
+Warning: PT line in relation 7026678 with no stops ignored. Probably OSM file is incomplete.
+Warning: No way found for reference '4254135033' in relation '11882449'
+Warning: The traffic light 'joinedS_cluster_11737663837_2822414390_28300252_28300261_#15more_cluster_1860841058_3822937545_cluster_1860841069_1860841070_1860841073_277870595_#7more' cannot be adapted to a cycle time of 90.00.
+Warning: The traffic light 'joinedS_cluster_11737663837_2822414390_28300252_28300261_#15more_cluster_1860841058_3822937545_cluster_1860841069_1860841070_1860841073_277870595_#7more' has a high cycle time of 318.00.
+Warning: 132 total messages of type: Discarding way '%' because it has only % node(s)
+Warning: 6 total messages of type: No way found for reference '%' in relation '%'
+Warning: 7139 total messages of type: The referenced geometry information (ref='%') is not known

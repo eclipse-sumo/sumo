@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,8 @@
 // ===========================================================================
 
 class GNEFrame;
+class GNETagProperties;
+class GNEPathManager;
 
 // ===========================================================================
 // class definitions
@@ -45,10 +47,10 @@ public:
         Path(const SUMOVehicleClass vClass, GNEEdge* edge);
 
         /// @brief constructor for two edges
-        Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
+        Path(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
 
         /// @brief constructor for two junctions
-        Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo);
+        Path(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo);
 
         /// @brief get sub path
         const std::vector<GNEEdge*>& getSubPath() const;
@@ -81,13 +83,13 @@ public:
     };
 
     /// @brief default constructor
-    GNEPathCreator(GNEFrame* frameParent);
+    GNEPathCreator(GNEFrame* frameParent, GNEPathManager* pathManager);
 
     /// @brief destructor
     ~GNEPathCreator();
 
     /// @brief show GNEPathCreator for the given tag
-    void showPathCreatorModule(const GNETagProperties& tagProperty, const bool consecutives);
+    void showPathCreatorModule(const GNETagProperties* tagProperty, const bool consecutives);
 
     /// @brief show GNEPathCreator
     void hidePathCreatorModule();
@@ -209,6 +211,9 @@ protected:
 
     /// @brief current frame parent
     GNEFrame* myFrameParent;
+
+    /// @brief path manager
+    GNEPathManager* myPathManager;
 
     /// @brief current vClass
     SUMOVehicleClass myVClass;

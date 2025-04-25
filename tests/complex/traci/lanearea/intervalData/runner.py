@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -33,14 +33,16 @@ traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 detID = traci.lanearea.getIDList()[0]
 
 for step in range(120):
-    print("%s iO=%.2f iS=%.2f iN=%s iI=%s lO=%.2f lS=%.2f lN=%s lI=%s" % (
+    print("%s iO=%.2f iS=%.2f iT=%.2f iN=%s iI=%s lO=%.2f lS=%.2f lT=%.2f lN=%s lI=%s" % (
         step,
         traci.lanearea.getIntervalOccupancy(detID),
         traci.lanearea.getIntervalMeanSpeed(detID),
+        traci.lanearea.getIntervalMeanTimeLoss(detID),
         traci.lanearea.getIntervalVehicleNumber(detID),
         traci.lanearea.getIntervalMaxJamLengthInMeters(detID),
         traci.lanearea.getLastIntervalOccupancy(detID),
         traci.lanearea.getLastIntervalMeanSpeed(detID),
+        traci.lanearea.getLastIntervalMeanTimeLoss(detID),
         traci.lanearea.getLastIntervalVehicleNumber(detID),
         traci.lanearea.getLastIntervalMaxJamLengthInMeters(detID)))
     traci.simulationStep()

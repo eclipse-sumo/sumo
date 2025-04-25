@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -29,8 +29,8 @@ class VariableSpeedSignDomain(Domain):
                         tc.CMD_SUBSCRIBE_VARIABLESPEEDSIGN_CONTEXT, tc.RESPONSE_SUBSCRIBE_VARIABLESPEEDSIGN_CONTEXT)
 
     def getLanes(self, vssID):
-        """getLanes(string) -> list(string)
+        """getLanes(string) -> tuple(string)
 
-        Returns a list of all lanes controlled by the variablespeedsign.
+        Returns a tuple of all lanes controlled by the variablespeedsign.
         """
         return self._getUniversal(tc.VAR_LANES, vssID)

@@ -31,6 +31,7 @@ emissions
 
 # emission tools, especially emissionDrivingCycleemissions
 emissionsMap
+routes
 
 # scenario generation
 scenario_generation
@@ -44,3 +45,6 @@ traci_java
 
 # FMI related tests
 fmi
+
+# tests involving sumo-gui
+sumo-gui

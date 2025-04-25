@@ -1,0 +1,90 @@
+Loading configuration ... done.
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (11ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading done.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation ended at time: 10000.00.
+Reason: The final simulation step has been reached.
+Performance:
+ Duration: 0.99s
+ Real time factor: 10101
+ UPS: 529678.787879
+Vehicles:
+ Inserted: 4411 (Loaded: 6000)
+ Running: 61
+ Waiting: 1589
+Loading configuration ... done.
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading additional-files from 'input_additional.add.xml' ... done (6ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading done.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation ended at time: 10000.00.
+Reason: The final simulation step has been reached.
+Performance:
+ Duration: 0.88s
+ Real time factor: 11389.5
+ UPS: 910301.822323
+Vehicles:
+ Inserted: 4941 (Loaded: 6000)
+ Running: 97
+ Waiting: 1059
+Loading configuration ... done.
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (5ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading done.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation ended at time: 10000.00.
+Reason: The final simulation step has been reached.
+Performance:
+ Duration: 0.93s
+ Real time factor: 10799.1
+ UPS: 929908.207343
+Vehicles:
+ Inserted: 4971 (Loaded: 6000)
+ Running: 101
+ Waiting: 1029
+Loading configuration ... done.
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (5ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading done.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation ended at time: 10000.00.
+Reason: The final simulation step has been reached.
+Performance:
+ Duration: 0.85s
+ Real time factor: 11820.3
+ UPS: 679777.777778
+Vehicles:
+ Inserted: 4481 (Loaded: 6000)
+ Running: 62
+ Waiting: 1519
+Loading configuration ... done.
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (9ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading done.
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation ended at time: 10000.00.
+Reason: The final simulation step has been reached.
+Performance:
+ Duration: 0.67s
+ Real time factor: 15037.6
+ UPS: 926248.120301
+Vehicles:
+ Inserted: 4764 (Loaded: 6000)
+ Running: 70
+ Waiting: 1236
+>>> Building the routes (for departPos random)
+>>> Simulating ((for departPos random)
+>>> Building the routes (for departPos free)
+>>> Simulating ((for departPos free)
+>>> Building the routes (for departPos random_free)
+>>> Simulating ((for departPos random_free)
+>>> Building the routes (for departPos base)
+>>> Simulating ((for departPos base)
+>>> Building the routes (for departPos last)
+>>> Simulating ((for departPos last)

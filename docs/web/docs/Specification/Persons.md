@@ -16,15 +16,15 @@ below. Each person must have at least one stage in its plan.
 
 ```xml
 <person id="foo" depart="0">
-    <walk edges="a b c"/>
-    <ride from="c" to="d" lines="busline1"/>
-    <ride .../>
-    <walk .../>
-    <stop .../>
+    <walk edges="a b c"/>
+    <ride from="c" to="d" lines="busline1"/>
+    <ride .../>
+    <walk .../>
+    <stop .../>
 </person>
 ```
 
-## Availabe Person Attributes
+## Available Person Attributes
 
 | Attribute           | Type      | Range              | Default         | Remark      |
 |---------------------|-----------|--------------------|-----------------|---------------------------|
@@ -87,19 +87,19 @@ known:
 ## Examples
 
 ```xml
-   <personFlow id="p" begin="0" end="10" period="2">
-       <walk from="beg" to="end"/>
-   </personFlow>
+   <personFlow id="p" begin="0" end="10" period="2">
+       <walk from="beg" to="end"/>
+   </personFlow>
 ```
 
 ```xml
-   <personFlow id="person" begin="0" end="1" number="4" departPos="80">
-       <walk from="2/3to1/3" to="1/3to0/3" arrivalPos="55"/>
-       <ride from="1/3to0/3" to="0/4to1/4" lines="train0"/>
-       <walk from="0/4to1/4" to="1/4to2/4" arrivalPos="45"/>
-       <stop lane="1/4to2/4_0" duration="20" startPos="40" actType="singing"/>
-       <ride from="1/4to2/4" to="3/4to4/4" lines="car0"/>
-   </personFlow>
+   <personFlow id="person" begin="0" end="1" number="4" departPos="80">
+       <walk from="2/3to1/3" to="1/3to0/3" arrivalPos="55"/>
+       <ride from="1/3to0/3" to="0/4to1/4" lines="train0"/>
+       <walk from="0/4to1/4" to="1/4to2/4" arrivalPos="45"/>
+       <stop lane="1/4to2/4_0" duration="20" startPos="40" actType="singing"/>
+       <ride from="1/4to2/4" to="3/4to4/4" lines="car0"/>
+   </personFlow>
 ```
 
 # Simulation input
@@ -118,16 +118,17 @@ definitions.
 
 | Attribute  | Type     | Range                              | Default | Remark                                            |
 | ---------- | -------- | ---------------------------------- | ------- | ------------------------------------------------- |
-| lines  | list     | valid line or vehicle ids or *ANY* | ANY      | list of vehicle alternatives to take for the ride |
+| lines  | list     | valid line or vehicle ids or *ANY* | ANY      | list of vehicle alternatives to take for the ride    |
 | from       | string   | valid edge ids                     | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](Persons.md#starting_the_simulation_in_a_vehicle)) |
 | to         | string   | valid edge ids                     | \-      | id of the destination edge (optional, if a busStop or other stopping place is given)  |
-| arrivalPos | float(m) |                                    | end of edge  | arrival position on the destination edge          |
-| busStop    | string   | valid bus stop ids                 | \-      | id of the destination stop                        |
-| parkingArea| string   | valid parkingArea ids              | \-      | id of the destination stop                        |
-| trainStop  | string   | valid trainStop ids              | \-      | id of the destination stop                        |
-| chargingStation| string   | valid chargingStation ids              | \-      | id of the destination stop                        |
-| containerStop| string   | valid containerStop ids              | \-      | id of the destination stop                        |
-| group| string           |               | ""      | id of the travel group. Persons with the same group may share a taxi ride     |
+| fromPos    | float(m) |                                    | middle of edge  | depart position on the start edge          |
+| arrivalPos | float(m) |                                    | end of edge  | arrival position on the destination edge      |
+| busStop    | string   | valid bus stop ids                 | \-      | id of the destination stop                         |
+| parkingArea| string   | valid parkingArea ids              | \-      | id of the destination stop                         |
+| trainStop  | string   | valid trainStop ids                | \-      | id of the destination stop                         |
+| chargingStation| string | valid chargingStation ids        | \-      | id of the destination stop                         |
+| containerStop| string   | valid containerStop ids          | \-      | id of the destination stop                         |
+| group      | string   |                                    | ""      | id of the travel group. Persons with the same group may share a taxi ride |
 
 The vehicle to use has to exist already (either public transport or some
 existing passenger car) and the route to take is defined by the vehicle.
@@ -135,22 +136,25 @@ The person enters the vehicle if it stops on the 'from' edge and any of
 the following conditions are met
 
 - the 'line' attribute of the vehicle or the 'id' of the vehicle is
-  given in the list defined by the 'lines' attribute of the ride OR
+  given in the list defined by the `lines` attribute of the ride OR
   the lines attribute contains 'ANY' and the vehicle stops at the
   destination 'busStop' of the ride (or at the destination edge if no destination busStop is defined).
+- the `lines` attribute can be used to apply taxis, see [taxi](../Simulation/Taxi.md) for more information
 - the vehicle has a triggered stop and the person position is within
   the range of `startpos,endPos` of the stop.
 - the vehicle has a timed stop and the person is waiting within 10m of
   the vehicle position
 
-The position of the person is either it's `departPos` or the arrival position of
+The position of the person is either its `departPos` or the arrival position of
 the preceding plan element
 
 A given bus stop (or any other stopping place) may serve as a replacement for a destination edge and
 arrival position. If an arrival position is given nevertheless it has to
 be inside the range of the stop.
 
-The positions of persons in a vehicle depend on the 'guiShape' parameter of the vehicle as well as it's dimensions. The offset between the front of the vehicle and the first passenger placement can be configured by adding `<param key="frontSeatPos" value="3.14"/>`to the vType definition of the vehicle.
+The positions of persons in a vehicle depend on the 'guiShape' parameter of the vehicle as well as its dimensions. The offset between the front of the vehicle and the first passenger placement can be configured by adding `<param key="frontSeatPos" value="3.14"/>` to the vType definition of the vehicle.
+
+The number of persons sitting side-by-side depends on the vehicle width but can be overruled by setting `<param key="seatingWidth" value="1.3"/>` in the vType definition.
 
 !!! note
     up to version 1.15.0 attribute 'lines' was mandatory.
@@ -196,11 +200,16 @@ to be inside the range of the stop.
 Stops define a delay until the next element of a plan is started. They
 can be used to model activities such as working or shopping. Stops for
 persons follow the specification at
-[Specification\#Stops](index.md#stops). However, only
-the attributes `lane`, `duration` and `until` are evaluated. Using these attributes it is
-possible to model activities with a fixed duration as well as those with
+[Specification\#Stops](index.md#stops). However, the attributes `index`, `triggered`, `containerTriggered` and `parking` are not evaluated. 
+With a `<stop>` it is possible to model activities with a fixed duration as well as those with
 a fixed end time. If a person needs to be transferred between two
-positions without delay, it is possible to use two stops in conjunction.
+positions without delay, it is possible to use two stops at different locations in sequence and set attribute `jump` for the first stop.
+
+## Parameters
+
+All stages can hold user defined parameters in the usual `<param key="k" value="v"/>` form.
+If a stage is generated using a [personTrip](#persontrips) the stages inherited the parameters
+of the trip.
 
 # Simulation behavior
 
@@ -243,7 +252,7 @@ The person stops for the maximum of `currentTime` + `duration` and `until`.
 
 ## Access
 
-Whenever a person starts or ends a walk at a busStop or trainStop (collectively called *stoppingPlace*), an access stage inserted into the person plan under the following conditions:
+Whenever a person starts or ends a walk at a busStop or trainStop (collectively called *stoppingPlace*), an access stage is inserted into the person plan under the following conditions:
 
 - the walk ends on an edge that is different from the stoppingPlace edge and the stoppingPlace has an `<access>` definition that connects it with the final edge of the walk
 - the walk starts on an edge that is different from the stoppingPlace edge and the stoppingPlace has an `<access>` definition that connects it with the first edge of the walk
@@ -260,12 +269,14 @@ It is possible to start the person simulation simultaneously with the start of a
 ## Starting a person in a vehicle
 To start the simulation of a person while riding in a vehicle, the `depart` attribute of the person must be set to `triggered`.
 Additionally the first stage of the plan must be a `ride`. The `from` attribute is not necessary, since the vehicle start position is already defined and used.
-The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride.
+The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride. Alternatively, the lines attribute may hold the id of a flow. In this case, most recent vehicle belonging to that flow will receive the person.
 
 ## Starting multiple persons in a vehicle
-To start the simulation of multiple persons with the same plan while riding in a vehicle, `personFlow` can be used. This only works for the distribution attribute `number`, which defines the number of persons inserted into the vehicle, and the attribute `begin="triggered"`. The `end` attribute is ignored or can be left.
+To start the simulation of multiple persons with the same plan while riding in a vehicle, `personFlow` can be used. This works by setting the attribute `begin="triggered"`.
 Additionally the first stage of the plan must be a `ride`. The `from` attribute is not necessary, since the vehicle start position is already defined and used.
-The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride.
+The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride. Alternatively, the lines attribute may hold the id of a flow. In this case, most recent vehicle belonging to that flow will receive the person.
+If the personFlow is defined with attribute `number`, then all persons will be inserted into the same vehicle.
+If the personFlow is defined with attribute `period`, then the persons will be created with the indicated period and be put in the vehicle at a later time (and possibly different vehicles if a flow id was used in `lines`).
 
 ## Examples
 Person `p0` starts within the vehicle defined by trip `v0` at edge `gneE0`. The ride ends at edge `gneE1`.
@@ -316,6 +327,7 @@ If the computed plan starts with a car or bicycle, a vehicle for use by the pers
 | vTypes     | list     | valid vType ids                               | \-      | list of possible vehicle types to take                        |
 | modes      | list     | any combination of "public", "car", "bicycle", ["taxi"](../Simulation/Taxi.md) | \-      | list of possible traffic modes (separated by ' '). Walking is always possible regardless of this value.     |
 | departPos  | float(m) |                                               | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
+| departPosLat  | float(m) |            | 0       | initial lateral position on the starting edge when walking |
 | arrivalPos | float(m) |                                               | middle of edge | arrival position on the destination edge                      |
 | group| string           |               | ""      | id of the travel group. Persons with the same group may share a taxi ride     |
 
@@ -326,7 +338,7 @@ If the computed plan starts with a car or bicycle, a vehicle for use by the pers
     If no itinerary for performing the trip is found and the option **--ignore-route-errors** is set, the trip will be transformed into a walk which consists of the start and arrival edge. The person will teleport to complete the walk.
 
 !!! note
-    when attribute vTypes is used, the person may start with any of the given vehicle types at the from-edge. Including 'car' in modes is equivalent to vTypes="DEFAULT_VEHTYPE". Including 'bicycle' in modes is equivalent to vTypes="DEFAULT_BIKETYPE". The vehicles will be automatically generated when used.
+    When attribute vTypes is used, the person may start with any of the given vehicle types at the from-edge. Including 'car' in modes is equivalent to vTypes="DEFAULT_VEHTYPE". Including 'bicycle' in modes is equivalent to vTypes="DEFAULT_BIKETYPE". The vehicles will be automatically generated when used.
 
 # Example
 
@@ -392,6 +404,11 @@ persons:
 - [fcd-output](../Simulation/Output/FCDOutput.md)
 - [netstate-dump](../Simulation/Output/RawDump.md)
 - [aggregated simulation statistics](../Simulation/Output/index.md#aggregated_traffic_measures)
+- [statistic output](../Simulation/Output/StatisticOutput.md)
+- [meanData](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) (with attribute `detectPersons`)
+- [E1, E2 and E3 detectors](../Simulation/Pedestrians.md#detectors_for_pedestrians)
+- [collision-output](../Simulation/Output/Collisions.md) (collision types "crossing", "walkingarea" and "junctionPedestrian")
+- [stop-output](../Simulation/Output/StopOutput.md) (in attributes "initialPersons", "loadedPersons", "unloadedPersons")
 
 # Devices
 

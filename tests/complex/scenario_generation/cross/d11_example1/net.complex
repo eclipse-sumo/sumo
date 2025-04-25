@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:25:45 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2024-02-29 13:55:19 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="/tmp/tmpLGSbXd"/>
-        <edge-files value="/tmp/tmpVI59Ke"/>
-        <connection-files value="/tmp/tmpoVkGIH"/>
+        <node-files value="/tmp/tmpdajuyqci"/>
+        <edge-files value="/tmp/tmpl5_lw86a"/>
+        <connection-files value="/tmp/tmp6za113xf"/>
     </input>
 
     <output>
@@ -15,13 +15,12 @@
 
     <report>
         <verbose value="true"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="0.00,0.00,1000.00,1000.00" projParameter="!"/>
 

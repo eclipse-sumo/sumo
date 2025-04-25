@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/div/GUIPersistentWindowPos.h>
 
@@ -38,7 +39,7 @@
  *  time steps where the simulation halts.
  * @todo Use a LineReader instead of >> while reading
  */
-class GUIDialog_Breakpoints : public FXMainWindow, public GUIPersistentWindowPos {
+class GUIDialog_Breakpoints : public FXMainWindow {
     // FOX-declarations
     FXDECLARE(GUIDialog_Breakpoints)
 
@@ -53,6 +54,7 @@ public:
 
     /// @brief sets the focus after the window is created
     void show();
+    using FXMainWindow::show; // to silence the warning C4266 about a hidden function
 
     /// @name FOX-callbacks
     /// @{
@@ -106,4 +108,7 @@ private:
 
     /// @brief simulation begin
     SUMOTime mySimBegin;
+
+    /// @brief persisting the position on close
+    std::unique_ptr<GUIPersistentWindowPos> myPersistentPos;
 };

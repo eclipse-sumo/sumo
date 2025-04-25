@@ -59,3 +59,22 @@ ticket9008
 
 # invalid ride in output (should reject input)
 ticket13506
+
+# invalid pedestrian route
+ticket15177
+
+# invalid route via prohibited connection
+# 
+ticket15883
+
+# invalid route via prohibited connection
+# 
+ticket15922
+
+# invalid route via prohibited connection
+# 
+ticket15925
+
+# crash when re-using flow ids
+# 
+ticket16091

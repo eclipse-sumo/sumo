@@ -3,14 +3,22 @@ Error: Answered with error to command 0xcb: Setting simulation parameter 'foo.bl
 Error: Answered with error to command 0xab: Simulation parameter 'foo.bla' is not supported for object id 'foo'. Use empty id for generic network parameters
 Error: Answered with error to command 0xab: Invalid chargingStation parameter 'bla'
 Error: Answered with error to command 0xab: Invalid chargingStation 'foo'
+C:\Users\behr_mi\Projekte\sumo\sumo\tests\..\tests/complex/traci/simulation/simulation/runner.py:173: UserWarning: Call to deprecated function getBusStopWaiting, use busstop.getPersonCount instead.
+  print("getBusStopWaiting", traci.simulation.getBusStopWaiting("foo"))
 Error: Answered with error to command 0xab: Unknown bus stop 'foo'.
+C:\Users\behr_mi\Projekte\sumo\sumo\tests\..\tests/complex/traci/simulation/simulation/runner.py:177: UserWarning: Call to deprecated function getBusStopIDList, use busstop.getIDList instead.
+  print("getBusStopIDList", traci.simulation.getBusStopIDList())
+C:\Users\behr_mi\Projekte\sumo\sumo\tests\..\tests/complex/traci/simulation/simulation/runner.py:178: UserWarning: Call to deprecated function getBusStopWaiting, use busstop.getPersonCount instead.
+  print("getBusStopWaiting", traci.simulation.getBusStopWaiting("bs"))
+C:\Users\behr_mi\Projekte\sumo\sumo\tests\..\tests/complex/traci/simulation/simulation/runner.py:179: UserWarning: Call to deprecated function getBusStopWaitingIDList, use busstop.getPersonIDs instead.
+  print("getBusStopWaitingIDList", traci.simulation.getBusStopWaitingIDList("bs"))
 Error: Answered with error to command 0xab: Unknown from edge 'foo'.
 Error: Answered with error to command 0xab: Invalid departure edge for vehicle type 'DEFAULT_VEHTYPE' (Vehicle 'simulation.findRoute' is not allowed to depart on any lane of edge 'footpath'.)
 Error: Answered with error to command 0xab: Unknown from edge 'foo'.
 Warning: Ignoring vehicle type 'DEFAULT_BIKETYPE' when performing intermodal routing because it is not allowed on the start edge 'footpath'.
 Warning: Ignoring vehicle type 'DEFAULT_BIKETYPE' when performing intermodal routing because it is not allowed on the start edge 'footpath'.
 Error: Answered with error to command 0xab: Invalid depart position 100000.00 for edge 'o'.
-Warning: Teleporting vehicle 'collider'; collision with vehicle 'suddenStop', lane='o_0', gap=-1.36, time=13.00 stage=move.
+Warning: Teleporting vehicle 'collider'; collision with vehicle 'suddenStop', lane='o_0', gap=-1.36, time=13.00, stage=move.
 Warning: Vehicle 'collider' teleports beyond arrival edge 'o', time=13.00.
 Warning: Vehicle 'emergencyStopper' performs emergency stop at the end of lane 'o_0' because there is no connection to the next edge (decel=-100.00, offset=68.12), time=16.00.
 Warning: Vehicle 'emergencyStopper' performs emergency stop at the end of lane 'o_0' because there is no connection to the next edge (decel=0.00, offset=100.00), time=17.00.

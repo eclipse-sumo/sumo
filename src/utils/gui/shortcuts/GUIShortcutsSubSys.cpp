@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,6 +34,9 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
 
     accelTable->addAccel(parseKey(KEY_a), target, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS));
     accelTable->addAccel(parseKey(KEY_A), target, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS));
+
+    accelTable->addAccel(parseKey(KEY_b), target, FXSEL(SEL_COMMAND, MID_HOTKEY_B_BREAKPOINT));
+    accelTable->addAccel(parseKey(KEY_B), target, FXSEL(SEL_COMMAND, MID_HOTKEY_B_BREAKPOINT));
 
     accelTable->addAccel(parseKey(KEY_c), target, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER));
     accelTable->addAccel(parseKey(KEY_C), target, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER));
@@ -104,8 +107,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
 
     // control hotkeys
 
-    accelTable->addAccel(parseKey(KEY_a, KEYMODIFIER_CONTROL), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS));
-    accelTable->addAccel(parseKey(KEY_A, KEYMODIFIER_CONTROL), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS));
+    accelTable->addAccel(parseKey(KEY_a, KEYMODIFIER_CONTROL), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS));
+    accelTable->addAccel(parseKey(KEY_A, KEYMODIFIER_CONTROL), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALELEMENTS));
 
     accelTable->addAccel(parseKey(KEY_b, KEYMODIFIER_CONTROL), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS));
     accelTable->addAccel(parseKey(KEY_B, KEYMODIFIER_CONTROL), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS));
@@ -187,8 +190,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
 
     // control + shift hotkeys
 
-    accelTable->addAccel(parseKey(KEY_a, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS));
-    accelTable->addAccel(parseKey(KEY_A, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS));
+    accelTable->addAccel(parseKey(KEY_a, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS));
+    accelTable->addAccel(parseKey(KEY_A, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS));
 
     accelTable->addAccel(parseKey(KEY_b, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS));
     accelTable->addAccel(parseKey(KEY_B, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS));
@@ -208,8 +211,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_k, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_K_SAVETLS));
     accelTable->addAccel(parseKey(KEY_K, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_K_SAVETLS));
 
-    accelTable->addAccel(parseKey(KEY_m, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS));
-    accelTable->addAccel(parseKey(KEY_M, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS));
+    accelTable->addAccel(parseKey(KEY_m, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS));
+    accelTable->addAccel(parseKey(KEY_M, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS));
 
     accelTable->addAccel(parseKey(KEY_n, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW));
     accelTable->addAccel(parseKey(KEY_N, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW));
@@ -258,6 +261,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_F11, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F11_HALLOFFAME));
     accelTable->addAccel(parseKey(KEY_F12, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT));
 
+    accelTable->addAccel(parseKey(KEY_ESC, KEYMODIFIER_SHIFT),  target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_ESC_CLEARSELECTION));
+
     // alt hotkeys
 
     accelTable->addAccel(parseKey(KEY_0, KEYMODIFIER_ALT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_0_TOGGLEEDITOPTION));
@@ -272,6 +277,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_9, KEYMODIFIER_ALT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_9_TOGGLEEDITOPTION));
 
     accelTable->addAccel(parseKey(KEY_F4, KEYMODIFIER_ALT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_F4_CLOSE));
+    accelTable->addAccel(parseKey(KEY_b, KEYMODIFIER_ALT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_B_BREAKPOINT_EARLY));
+    accelTable->addAccel(parseKey(KEY_B, KEYMODIFIER_ALT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_B_BREAKPOINT_EARLY));
 }
 
 

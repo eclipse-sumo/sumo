@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2021-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2021-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,36 +17,32 @@
 ///
 //
 /****************************************************************************/
+#include <config.h>
+
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 
 #include "GNETractionSubstation.h"
 
-
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
-    GNEAdditional("", net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION,
-                  GUIIconSubSys::getIcon(GUIIcon::TRACTION_SUBSTATION), "", {}, {}, {}, {}, {}, {}),
-                            myVoltage(0),
-myCurrentLimit(0) {
-    // reset default values
-    resetDefaultValues();
+    GNEAdditional("", net, "", SUMO_TAG_TRACTION_SUBSTATION, "") {
 }
 
 
-GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage,
-        const double currentLimit, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION,
-                  GUIIconSubSys::getIcon(GUIIcon::TRACTION_SUBSTATION), "", {}, {}, {}, {}, {}, {}),
-Parameterised(parameters),
-myPosition(pos),
-myVoltage(voltage),
-myCurrentLimit(currentLimit) {
+GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const std::string& filename, const Position& pos,
+        const double voltage, const double currentLimit, const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, filename, SUMO_TAG_TRACTION_SUBSTATION, ""),
+    Parameterised(parameters),
+    myPosition(pos),
+    myVoltage(voltage),
+    myCurrentLimit(currentLimit) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -61,10 +57,10 @@ GNETractionSubstation::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_TRACTION_SUBSTATION);
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_POSITION, myPosition);
-    if (getAttribute(SUMO_ATTR_VOLTAGE) != myTagProperty.getDefaultValue(SUMO_ATTR_VOLTAGE)) {
+    if (myVoltage != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_VOLTAGE)) {
         device.writeAttr(SUMO_ATTR_VOLTAGE, myVoltage);
     }
-    if (getAttribute(SUMO_ATTR_CURRENTLIMIT) != myTagProperty.getDefaultValue(SUMO_ATTR_CURRENTLIMIT)) {
+    if (myCurrentLimit != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_CURRENTLIMIT)) {
         device.writeAttr(SUMO_ATTR_CURRENTLIMIT, myCurrentLimit);
     }
     // write parameters
@@ -96,7 +92,8 @@ GNETractionSubstation::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
+            !myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -174,7 +171,7 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edges;
             for (const auto& tractionSubstationSymbol : getChildAdditionals()) {
-                if (tractionSubstationSymbol->getTagProperty().isSymbol()) {
+                if (tractionSubstationSymbol->getTagProperty()->isSymbol()) {
                     edges.push_back(tractionSubstationSymbol->getAttribute(SUMO_ATTR_EDGE));
                 }
             }
@@ -186,12 +183,8 @@ GNETractionSubstation::getAttribute(SumoXMLAttr key) const {
             return toString(myVoltage);
         case SUMO_ATTR_CURRENTLIMIT:
             return toString(myCurrentLimit);
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -204,7 +197,7 @@ GNETractionSubstation::getAttributeDouble(SumoXMLAttr key) const {
 
 const
 Parameterised::Map& GNETractionSubstation::getACParametersMap() const {
-    return PARAMETERS_EMPTY;
+    return getParametersMap();
 }
 
 
@@ -220,12 +213,11 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_VOLTAGE:
         case SUMO_ATTR_CURRENTLIMIT:
-        case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -246,12 +238,8 @@ GNETractionSubstation::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isCommonValid(key, value);
     }
 }
 
@@ -293,18 +281,9 @@ GNETractionSubstation::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CURRENTLIMIT:
             myCurrentLimit = parse<double>(value);
             break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(this, key, value);
+            break;
     }
 }
 

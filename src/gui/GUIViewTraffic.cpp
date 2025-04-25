@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,6 +39,7 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIVehicleControl.h>
+#include <mesogui/GUIMEVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSJunctionControl.h>
@@ -170,7 +171,7 @@ GUIViewTraffic::setColorScheme(const std::string& name) {
 
 void
 GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-                                  bool hide, double hideThreshold, bool hide2, double hideThreshold2) {
+                                  const GUIVisualizationRainbowSettings& rs) {
     assert(!scheme.isFixed());
     double minValue = std::numeric_limits<double>::infinity();
     double maxValue = -std::numeric_limits<double>::infinity();
@@ -206,6 +207,23 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
                 }
             }
         }
+    } else if (objectType == GLO_VEHICLE) {
+        MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+        for (MSVehicleControl::constVehIt it_v = c.loadedVehBegin(); it_v != c.loadedVehEnd(); ++it_v) {
+            const GUIGlObject* veh;
+            if (MSGlobals::gUseMesoSim) {
+                veh = static_cast<const GUIMEVehicle*>(it_v->second);
+            } else {
+                veh = static_cast<const GUIVehicle*>(it_v->second);
+            }
+            const double val = veh->getColorValue(s, active);
+            if (val == s.MISSING_DATA) {
+                hasMissingData = true;
+                continue;
+            }
+            minValue = MIN2(minValue, val);
+            maxValue = MAX2(maxValue, val);
+        }
     } else if (objectType == GLO_JUNCTION) {
         if (active == 3) {
             std::set<const MSJunction*> junctions;
@@ -231,46 +249,12 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
         int step = MAX2(1, 360 / (int)codes.size());
         int hue = 0;
         for (SVCPermissions p : codes) {
-            scheme.addColor(RGBColor::fromHSV(hue, 1, 1), p);
+            scheme.addColor(RGBColor::fromHSV(hue, 1, 1), (double)p);
             hue = (hue + step) % 360;
         }
         return;
     }
-
-    if (hide && hide2 && minValue == std::numeric_limits<double>::infinity()) {
-        minValue = hideThreshold;
-        maxValue = hideThreshold2;
-    }
-    if (minValue != std::numeric_limits<double>::infinity()) {
-        scheme.clear();
-        // add new thresholds
-        if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL
-                || hasMissingData)  {
-            scheme.addColor(s.COL_MISSING_DATA, s.MISSING_DATA, "missing data");
-        }
-        if (hide) {
-            const double rawRange = maxValue - minValue;
-            minValue = MAX2(hideThreshold + MIN2(1.0, rawRange / 100.0), minValue);
-            scheme.addColor(RGBColor(204, 204, 204), hideThreshold);
-        }
-        if (hide2) {
-            const double rawRange = maxValue - minValue;
-            maxValue = MIN2(hideThreshold2 - MIN2(1.0, rawRange / 100.0), maxValue);
-            scheme.addColor(RGBColor(204, 204, 204), hideThreshold2);
-        }
-        double range = maxValue - minValue;
-        scheme.addColor(RGBColor::RED, (minValue));
-        scheme.addColor(RGBColor::ORANGE, (minValue + range * 1 / 6.0));
-        scheme.addColor(RGBColor::YELLOW, (minValue + range * 2 / 6.0));
-        scheme.addColor(RGBColor::GREEN, (minValue + range * 3 / 6.0));
-        scheme.addColor(RGBColor::CYAN, (minValue + range * 4 / 6.0));
-        scheme.addColor(RGBColor::BLUE, (minValue + range * 5 / 6.0));
-        scheme.addColor(RGBColor::MAGENTA, (maxValue));
-    }
+    buildMinMaxRainbow(s, scheme, rs, minValue, maxValue, hasMissingData);
 }
 
 
@@ -504,7 +488,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
         if (MSGlobals::gUseMesoSim) {
             return;
         }
-        const std::set<GUIGlID>& sel = gSelected.getSelected(GLO_VEHICLE);
+        const auto& sel = gSelected.getSelected(GLO_VEHICLE);
         if (sel.size() == 0) {
             // find closest pt vehicle
             double minDist = std::numeric_limits<double>::infinity();
@@ -557,7 +541,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
 
 void
 GUIViewTraffic::onGamingRightClick(Position /*pos*/) {
-    const std::set<GUIGlID>& sel = gSelected.getSelected(GLO_VEHICLE);
+    const auto& sel = gSelected.getSelected(GLO_VEHICLE);
     if (sel.size() > 0) {
         GUIGlID id = *sel.begin();
         GUIVehicle* veh = dynamic_cast<GUIVehicle*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
@@ -627,7 +611,7 @@ GUIViewTraffic::showLaneReachability(GUILane* lane, FXObject* menu, FXSelector) 
         // prepare
         FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
         const SUMOVehicleClass svc = SumoVehicleClassStrings.get(mc->getText().text());
-        const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).maxSpeed;
+        const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(svc).desiredMaxSpeed;
         // find reachable
         std::map<MSEdge*, double> reachableEdges;
         reachableEdges[&lane->getEdge()] = 0;
@@ -664,6 +648,19 @@ GUIViewTraffic::showLaneReachability(GUILane* lane, FXObject* menu, FXSelector) 
                              reachableEdges[prevEdge] > traveltime)) {
                         reachableEdges[prevEdge] = traveltime;
                         check.push_back(prevEdge);
+                    }
+                }
+                // and connect to arbitrary incoming if there are no walkingareas
+                if (!MSNet::getInstance()->hasPedestrianNetwork()) {
+                    for (const MSEdge* const in_const : e->getToJunction()->getIncoming()) {
+                        MSEdge* in = const_cast<MSEdge*>(in_const);
+                        if ((in->getPermissions() & svc) == svc &&
+                                (reachableEdges.count(in) == 0 ||
+                                 // revisit edge via faster path
+                                 reachableEdges[in] > traveltime)) {
+                            reachableEdges[in] = traveltime;
+                            check.push_back(in);
+                        }
                     }
                 }
             }

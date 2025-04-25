@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -86,7 +86,7 @@ void
 NBHelpers::loadEdgesFromFile(const std::string& file, std::set<std::string>& into) {
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        throw ProcessError(TLF("Could not load names of edges too keep from '%'.", file));
+        throw ProcessError(TLF("Could not load names of edges to keep from '%'.", file));
     }
     while (strm.good()) {
         std::string name;

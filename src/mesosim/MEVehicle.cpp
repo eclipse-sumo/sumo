@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
@@ -58,15 +59,6 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     myLastEntryTime(SUMOTime_MIN),
     myBlockTime(SUMOTime_MAX),
     myInfluencer(nullptr) {
-    if (!(*myCurrEdge)->isTazConnector()) {
-        if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == nullptr) {
-            throw ProcessError("Vehicle '" + pars->id + "' is not allowed to depart on any lane of edge '" + (*myCurrEdge)->getID() + "'.");
-        }
-        if (pars->departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars->departSpeed > type->getMaxSpeed() + SPEED_EPS) {
-            throw ProcessError("Departure speed for vehicle '" + pars->id +
-                               "' is too high for the vehicle type '" + type->getID() + "'.");
-        }
-    }
 }
 
 
@@ -104,6 +96,24 @@ MEVehicle::getPosition(const double offset) const {
     return lane->geometryPositionAtOffset(getPositionOnLane() + offset);
 }
 
+PositionVector
+MEVehicle::getBoundingBox(double offset) const {
+    double a = getAngle() + M_PI; // angle pointing backwards
+    double l = getLength();
+    Position pos = getPosition();
+    Position backPos = pos + Position(l * cos(a), l * sin(a));
+    PositionVector centerLine;
+    centerLine.push_back(pos);
+    centerLine.push_back(backPos);
+    if (offset != 0) {
+        centerLine.extrapolate2D(offset);
+    }
+    PositionVector result = centerLine;
+    result.move2side(MAX2(0.0, 0.5 * myType->getWidth() + offset));
+    centerLine.move2side(MIN2(0.0, -0.5 * myType->getWidth() - offset));
+    result.append(centerLine.reverse(), POSITION_EPS);
+    return result;
+}
 
 double
 MEVehicle::getSpeed() const {
@@ -117,7 +127,12 @@ MEVehicle::getSpeed() const {
 
 double
 MEVehicle::getAverageSpeed() const {
-    return mySegment != nullptr ? MIN2(mySegment->getLength() / STEPS2TIME(myEventTime - myLastEntryTime), getEdge()->getVehicleMaxSpeed(this)) : 0;
+    if (mySegment == nullptr || myQueIndex == MESegment::PARKING_QUEUE) {
+        return 0;
+    } else {
+        return MIN2(mySegment->getLength() / STEPS2TIME(myEventTime - myLastEntryTime),
+                    getEdge()->getLanes()[myQueIndex]->getVehicleMaxSpeed(this));
+    }
 }
 
 
@@ -279,6 +294,7 @@ MEVehicle::resumeFromStopping() {
             MSStopOut::getInstance()->stopEnded(this, stop.pars, mySegment->getEdge().getID());
         }
         myPastStops.push_back(stop.pars);
+        myPastStops.back().routeIndex = (int)(stop.edge - myRoute->begin());
         if (myAmRegisteredAsWaiting && (stop.triggered || stop.containerTriggered || stop.joinTriggered)) {
             MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
             myAmRegisteredAsWaiting = false;
@@ -329,14 +345,15 @@ MEVehicle::processStop() {
         lastPos = stop.pars.endPos;
         MSNet* const net = MSNet::getInstance();
         SUMOTime dummy = -1; // boarding- and loading-time are not considered
+        if (hadStop && MSStopOut::active()) {
+            stop.reached = true;
+            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
+        }
         if (net->hasPersons()) {
             net->getPersonControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
         }
         if (net->hasContainers()) {
             net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
-        }
-        if (hadStop && MSStopOut::active()) {
-            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
         }
         resumeFromStopping();
         hadStop = true;
@@ -357,8 +374,14 @@ MEVehicle::mayProceed() {
             break;
         }
         if (net->getCurrentTimeStep() > stop.endBoarding) {
-            stop.triggered = false;
-            stop.containerTriggered = false;
+            if (stop.triggered || stop.containerTriggered) {
+                MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
+                if (taxiDevice != nullptr) {
+                    taxiDevice->cancelCurrentCustomers();
+                }
+                stop.triggered = false;
+                stop.containerTriggered = false;
+            }
             if (myAmRegisteredAsWaiting) {
                 net->getVehicleControl().unregisterOneWaiting();
                 myAmRegisteredAsWaiting = false;
@@ -456,6 +479,15 @@ MEVehicle::updateDetectors(SUMOTime currentTime, const bool isLeave, const MSMov
                 traceMoveReminder("notifyLeave", rem->first, rem->second, true);
             }
 #endif
+
+            if (isLeave) {
+                rem->second += getEdge()->getLength();
+#ifdef _DEBUG
+                if (myTraceMoveReminders) {
+                    traceMoveReminder("adaptedPos", rem->first, rem->second, true);
+                }
+#endif
+            }
             ++rem;
         } else {
 #ifdef _DEBUG
@@ -492,6 +524,13 @@ MEVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
     MSGlobals::gMesoNet->removeLeaderCar(this);
     MSGlobals::gMesoNet->changeSegment(this, MSNet::getInstance()->getCurrentTimeStep(), nullptr, reason);
 }
+
+
+int
+MEVehicle::getSegmentIndex() const {
+    return getSegment() != nullptr ? getSegment()->getIndex() : -1;
+}
+
 
 double
 MEVehicle::getRightSideOnEdge(const MSLane* /*lane*/) const {
@@ -567,6 +606,16 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> myLastEntryTime;
     bis >> myBlockTime;
     myDepartPos /= 1000.; // was stored as mm
+
+    if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
+        bool ok;
+        myArrivalPos = attrs.get<double>(SUMO_ATTR_ARRIVALPOS_RANDOMIZED, getID().c_str(), ok);
+    }
+
+    // load stops
+    myStops.clear();
+    addStops(!MSGlobals::gCheckRoutes, &myCurrEdge, false);
+
     if (hasDeparted()) {
         myDeparture -= offset;
         myEventTime -= offset;

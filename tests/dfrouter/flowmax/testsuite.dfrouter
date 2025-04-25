@@ -12,3 +12,5 @@ zero_split
 
 # Tests flows on simple split network
 only_source
+long_route
+wrong_split

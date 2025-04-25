@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,7 +22,9 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/trigger/MSChargingStation.h>
 #include <libsumo/TraCIConstants.h>
+#include <utils/common/SUMOTime.h>
 #include "Helper.h"
 #include "ChargingStation.h"
 
@@ -31,13 +33,14 @@ namespace libsumo {
 // ===========================================================================
 // static member initializations
 // ===========================================================================
+
 SubscriptionResults ChargingStation::mySubscriptionResults;
 ContextSubscriptionResults ChargingStation::myContextSubscriptionResults;
-
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+
 std::vector<std::string>
 ChargingStation::getIDList() {
     std::vector<std::string> ids;
@@ -47,6 +50,7 @@ ChargingStation::getIDList() {
     std::sort(ids.begin(), ids.end());
     return ids;
 }
+
 
 int
 ChargingStation::getIDCount() {
@@ -63,6 +67,7 @@ double
 ChargingStation::getStartPos(const std::string& stopID) {
     return getChargingStation(stopID)->getBeginLanePosition();
 }
+
 
 double
 ChargingStation::getEndPos(const std::string& stopID) {
@@ -89,6 +94,54 @@ ChargingStation::getVehicleIDs(const std::string& stopID) {
         result.push_back(veh->getID());
     }
     return result;
+}
+
+
+double
+ChargingStation::getChargingPower(const std::string& stopID) {
+    return dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->getChargingPower(true);
+}
+
+
+double
+ChargingStation::getEfficiency(const std::string& stopID) {
+    return dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->getEfficency();
+}
+
+
+double
+ChargingStation::getChargeDelay(const std::string& stopID) {
+    return STEPS2TIME(dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->getChargeDelay());
+}
+
+
+int
+ChargingStation::getChargeInTransit(const std::string& stopID) {
+    return dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->getChargeInTransit();
+}
+
+
+void
+ChargingStation::setChargingPower(const std::string& stopID, double power) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargingPower(power);
+}
+
+
+void
+ChargingStation::setEfficiency(const std::string& stopID, double efficiency) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setEfficiency(efficiency);
+}
+
+
+void
+ChargingStation::setChargeDelay(const std::string& stopID, double delay) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargeDelay(TIME2STEPS(delay));
+}
+
+
+void
+ChargingStation::setChargeInTransit(const std::string& stopID, bool inTransit) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargeInTransit(inTransit);
 }
 
 
@@ -140,6 +193,14 @@ ChargingStation::handleVariable(const std::string& objID, const int variable, Va
             return wrapper->wrapInt(objID, variable, getVehicleCount(objID));
         case VAR_STOP_STARTING_VEHICLES_IDS:
             return wrapper->wrapStringList(objID, variable, getVehicleIDs(objID));
+        case VAR_CS_POWER:
+            return wrapper->wrapDouble(objID, variable, getChargingPower(objID));
+        case VAR_CS_EFFICIENCY:
+            return wrapper->wrapDouble(objID, variable, getEfficiency(objID));
+        case VAR_CS_CHARGE_DELAY:
+            return wrapper->wrapDouble(objID, variable, STEPS2TIME(getChargeDelay(objID)));
+        case VAR_CS_CHARGE_IN_TRANSIT:
+            return wrapper->wrapInt(objID, variable, getChargeInTransit(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
@@ -152,6 +213,5 @@ ChargingStation::handleVariable(const std::string& objID, const int variable, Va
 }
 
 }
-
 
 /****************************************************************************/

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2004-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -91,6 +91,35 @@ public:
             myMutex.unlock();
         }
 #endif
+    }
+
+    void erase(T what) {
+#ifdef HAVE_FOX
+        if (myCondition) {
+            myMutex.lock();
+        }
+#endif
+        myItems.erase(what);
+#ifdef HAVE_FOX
+        if (myCondition) {
+            myMutex.unlock();
+        }
+#endif
+    }
+
+    size_t count(T what) {
+#ifdef HAVE_FOX
+        if (myCondition) {
+            myMutex.lock();
+        }
+#endif
+        size_t result = myItems.count(what);
+#ifdef HAVE_FOX
+        if (myCondition) {
+            myMutex.unlock();
+        }
+#endif
+        return result;
     }
 
     bool empty() {

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -159,7 +159,7 @@ GUIEdge::getBoundary() const {
 
 GUIGLObjectPopupMenu*
 GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
@@ -330,8 +330,8 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                     const RGBColor color = (MSGlobals::gUseMesoSim ? s.edgeColorer : s.laneColorer).getScheme().getColor(doubleValue);
                     if (doubleValue != s.MISSING_DATA
                             && color.alpha() != 0
-                            && (!s.edgeValueHideCheck || doubleValue > s.edgeValueHideThreshold)
-                            && (!s.edgeValueHideCheck2 || doubleValue < s.edgeValueHideThreshold2)
+                            && (!s.edgeValueRainBow.hideMin || doubleValue > s.edgeValueRainBow.minThreshold)
+                            && (!s.edgeValueRainBow.hideMax || doubleValue < s.edgeValueRainBow.maxThreshold)
                        ) {
                         value = toString(doubleValue);
                     }
@@ -629,7 +629,7 @@ GUIEdge::addRerouter() {
     MSEdgeVector edges;
     edges.push_back(this);
     GUITriggeredRerouter* rr = new GUITriggeredRerouter(getID() + "_dynamic_rerouter", edges, 1, false, false, 0, "", Position::INVALID,
-            GUINet::getGUIInstance()->getVisualisationSpeedUp());
+            std::numeric_limits<double>::max(), GUINet::getGUIInstance()->getVisualisationSpeedUp());
 
     MSTriggeredRerouter::RerouteInterval ri;
     ri.begin = MSNet::getInstance()->getCurrentTimeStep();
@@ -661,4 +661,12 @@ GUIEdge::getPendingEmits() const {
     return MSNet::getInstance()->getInsertionControl().getPendingEmits(getLanes()[0]);
 }
 
+double
+GUIEdge::getClickPriority() const {
+    if (!MSGlobals::gUseMesoSim) {
+        // do not select edgse in meso mode
+        return INVALID_PRIORITY;
+    }
+    return GLO_EDGE;
+}
 /****************************************************************************/

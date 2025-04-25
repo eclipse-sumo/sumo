@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -67,7 +67,7 @@ public:
     virtual double getLength() const = 0;
     virtual const NBRouterEdge* getBidiEdge() const = 0;
     virtual int getNumericalID() const = 0;
-    virtual const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const = 0;
+    virtual const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const = 0;
     virtual bool isInternal() const {
         return false;
     }
@@ -292,12 +292,16 @@ public:
 
         /// @brief The lane index of this internal lane within the internal edge
         int internalLaneIndex = UNSPECIFIED_INTERNAL_LANE_INDEX;
+        int internalViaLaneIndex = 0;
 
         /// @brief check if Connection is uncontrolled
         bool uncontrolled = false;
 
         /// @brief get ID of internal lane
         std::string getInternalLaneID() const;
+
+        /// @brief get ID of internal lane (second part)
+        std::string getInternalViaLaneID() const;
 
         /// @brief get string describing this connection
         std::string getDescription(const NBEdge* parent) const;
@@ -327,8 +331,9 @@ public:
         bool isInternal() const {
             return true;
         }
-        const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
+        const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const {
             UNUSED_PARAMETER(vClass);
+            UNUSED_PARAMETER(ignoreTransientPermissions);
             return myViaSuccessors;
         }
         /// }@
@@ -369,6 +374,11 @@ public:
 
     /// @brief TLS-controlled despite its node controlled not specified.
     static const bool UNSPECIFIED_CONNECTION_UNCONTROLLED;
+
+    /// @brief shift values for decoding turn signs
+    static const int TURN_SIGN_SHIFT_BUS = 8;
+    static const int TURN_SIGN_SHIFT_TAXI = 16;
+    static const int TURN_SIGN_SHIFT_BICYCLE = 24;
 
     /// @brief junction priority values set by setJunctionPriority
     enum JunctionPriority {
@@ -748,8 +758,10 @@ public:
     /// @brief return all permission variants within the specified lane range [iStart, iEnd[
     std::set<SVCPermissions> getPermissionVariants(int iStart, int iEnd) const;
 
-    /// @brief get lane indices that allow the given permissions
-    int getNumLanesThatAllow(SVCPermissions permissions) const;
+    /* @brief get lane indices that allow the given permissions
+     * @param[in] allPermissions: whether all the given permissions must be allowed (or just some of them)
+     */
+    int getNumLanesThatAllow(SVCPermissions permissions, bool allPermissions = true) const;
 
     /** @brief Returns whether the given vehicle class may change left from this lane */
     bool allowsChangingLeft(int lane, SUMOVehicleClass vclass) const;
@@ -793,6 +805,8 @@ public:
     bool hasDefaultGeometryEndpointAtNode(const NBNode* node) const;
 
     Position getEndpointAtNode(const NBNode* node) const;
+
+    void resetEndpointAtNode(const NBNode* node);
 
     /** @brief (Re)sets the edge's geometry
      *
@@ -867,7 +881,7 @@ public:
      * @param[in] minRadius The minimum turning radius allowed at the start and end
      * @param[in] fix Whether to prune geometry points to avoid sharp turns at start and end
      */
-    void checkGeometry(const double maxAngle, const double minRadius, bool fix, bool silent);
+    void checkGeometry(const double maxAngle, bool fixAngle, const double minRadius, bool fix, bool silent);
     //@}
 
     /// @name Setting and getting connections
@@ -1216,6 +1230,9 @@ public:
     /// @brief recheck whether all lanes within the edge are all right and optimises the connections once again
     bool recheckLanes();
 
+    /// @brief recheck whether all opposite and bidi settings are consistent
+    void recheckOpposite(const NBEdgeCont& ec, bool fixOppositeLengths); 
+
     /** @brief Add a connection to the previously computed turnaround, if wished
      * and a turning direction exists (myTurnDestination!=0)
      * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
@@ -1508,7 +1525,7 @@ public:
 
     /** @brief Returns the following edges for the given vClass
      */
-    const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
+    const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const;
 
     //@}
     const std::string& getID() const {
@@ -1703,10 +1720,15 @@ private:
     double assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum, bool averageLength);
 
     /// @brief decode bitset
-    std::vector<LinkDirection> decodeTurnSigns(int turnSigns);
+    static std::vector<LinkDirection> decodeTurnSigns(int turnSigns, int shift = 0);
+    static void updateTurnPermissions(SVCPermissions& perm, LinkDirection dir, SVCPermissions spec, std::vector<LinkDirection> dirs);
 
     /// @brief apply loaded turn sign information
     bool applyTurnSigns();
+
+    /* @brief remove connections with incompatible permissions (should only be
+     * called for guessed connections) */
+    void removeInvalidConnections();
 
 private:
     /** @brief The building step

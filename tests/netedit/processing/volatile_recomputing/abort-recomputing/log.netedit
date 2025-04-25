@@ -1,0 +1,6 @@
+Warning: Found sharp turn with radius 5.00 at the start of edge '-E0'.
+Warning: Found sharp turn with radius 5.00 at the end of edge '-E0'.
+Warning: Found sharp turn with radius 5.00 at the start of edge 'E0'.
+Warning: Found sharp turn with radius 5.00 at the end of edge 'E0'.
+Warning: Found sharp turn with radius 5.00 at the start of edge '-E0'.
+Warning: 8 total messages of type: Found sharp turn with radius % at the % of edge '%'.

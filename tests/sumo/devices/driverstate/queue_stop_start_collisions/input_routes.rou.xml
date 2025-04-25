@@ -1,0 +1,13 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="tFirst" speedDev="0.0" sigma="0"/>
+    <vType id="tFlow" speedDev="0.0" speedFactor="1.2" emergencyDecel="8"/>
+    <route id="r0" edges="0"/>
+    <vehicle id="first" type="tFirst" depart="0" route="r0" departSpeed="max">
+        <stop lane="0_0" endPos="2000" duration="60"/>
+        <stop lane="0_0" endPos="4000" duration="60"/>
+        <stop lane="0_0" endPos="6000" duration="60"/>
+        <stop lane="0_0" endPos="8000" duration="60"/>
+        <stop lane="0_0" endPos="9000" duration="60"/>
+    </vehicle>
+    <flow id="flow" type="tFlow" begin="2" number="30" period="2" route="r0" departSpeed="max"/>
+</routes>

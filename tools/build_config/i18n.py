@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -71,18 +71,25 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, py_pot_file,
             arguments.append("--language=Python")
         subprocess.check_call(arguments)
         os.remove(sources.name)
+        with io.open(pot + ".new", encoding="utf-8") as new, io.open(pot + ".fixed", "w", encoding="utf-8") as fixed:
+            for s in new.readlines():
+                if s.startswith("#") and sumo_home in s:
+                    fixed.write(s.replace(sumo_home, "").replace("\\", "/").replace("#: /", "#: "))
+                else:
+                    fixed.write(s)
+        os.remove(new.name)
         has_diff = True
         if os.path.exists(pot):
-            with io.open(pot, encoding="utf-8") as old, io.open(pot + ".new", encoding="utf-8") as new:
+            with io.open(pot, encoding="utf-8") as old, io.open(pot + ".fixed", encoding="utf-8") as fixed:
                 a = [s for s in old.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
-                b = [s for s in new.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
+                b = [s for s in fixed.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
                 has_diff = list(difflib.unified_diff(a, b))
             if has_diff:
                 os.remove(pot)
         if has_diff:
-            os.rename(pot + ".new", pot)
+            os.rename(fixed.name, pot)
         else:
-            os.remove(pot + ".new")
+            os.remove(fixed.name)
         for lang in languages:
             po_file = "%s/data/po/%s_%s" % (sumo_home, lang, os.path.basename(pot)[:-1])
             if os.path.exists(po_file):

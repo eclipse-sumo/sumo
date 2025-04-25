@@ -1,0 +1,5 @@
+Error: Could not build trip with ID 'trip_0' in netedit; edge parent with ID '' doesn't exist.
+Error: Could not build trip with ID 'trip_0' in netedit; edge parent with ID '' doesn't exist.
+Error: Attribute 'fromJunction' in definition of trip 'trip_1' is empty.
+Error: Could not build tripJunctions with ID 'trip_2' in netedit; junction parent with ID 'dummyFrom' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Dec174643.2935/netedit.gui/elements/demands/trip_junctions/load/from/routes.rou.xml failed.

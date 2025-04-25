@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,35 +28,29 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# first rebuild network
-netedit.rebuildNetwork()
-
 # go to select mode
 netedit.selectMode()
 
-# show connections
-netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
+# select lane using shift + click
+netedit.leftClick(referencePosition, netedit.positions.selection.edge)
 
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
+# this should not delete anything
+netedit.deleteSelectedItems()
 
-# clear selection
-netedit.selectionClear()
-
-# disable select edges
+# toggle edges selection
 netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
+# select lane using a simple click
+netedit.leftClick(referencePosition, netedit.positions.selection.lane)
 
-# clear selection
-netedit.selectionClear()
-
-# check undo and redo
-netedit.checkUndoRedo(referencePosition)
+# this should not delete anything
+netedit.deleteSelectedItems()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
+
+# clear invalid crossings
+netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)

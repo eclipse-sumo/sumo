@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -20,19 +20,14 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-import os
 import gc
-import sys
 import matplotlib
-if 'matplotlib.backends' not in sys.modules:
-    if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
-        matplotlib.use('Agg')
 from ..options import ArgumentParser
-from pylab import arange, close, cm, figure, legend, log, plt, savefig, show, title  # noqa
-from pylab import xlabel, xlim, xticks, ylabel, ylim, yticks  # noqa
-from matplotlib.ticker import FuncFormatter as ff  # noqa
-from matplotlib.collections import LineCollection  # noqa
-mpl_version = tuple(map(int, matplotlib.__version__.split(".")))
+from pylab import arange, close, cm, figure, legend, log, plt, savefig, show, title
+from pylab import xlabel, xlim, xticks, ylabel, ylim, yticks
+from matplotlib.ticker import FuncFormatter as ff
+from matplotlib.collections import LineCollection
+mpl_version = tuple(map(int, matplotlib.__version__.split(".")[:3]))
 
 # http://datadebrief.blogspot.de/2010/10/plotting-sunrise-sunset-times-in-python.html
 
@@ -253,7 +248,7 @@ def plotNet(net, colors, widths, options):
 
 
 def getColorMap(options):
-    if mpl_version < (3, 7, 0):
+    if mpl_version < (3, 6, 0):
         return matplotlib.cm.get_cmap(options.colormap)
     return matplotlib.colormaps[options.colormap]
 
@@ -266,7 +261,7 @@ def getColor(options, i, a):
         return v[i]
     if options.colormap[0] == '#':
         colormap = parseColorMap(options.colormap[1:])
-        if mpl_version < (3, 7, 0):
+        if mpl_version < (3, 6, 0):
             cm.register_cmap(name="CUSTOM", cmap=colormap)
         else:
             matplotlib.colormaps.register(name="CUSTOM", cmap=colormap)

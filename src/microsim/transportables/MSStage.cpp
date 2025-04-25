@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,8 +35,8 @@
 /* -------------------------------------------------------------------------
 * static member definitions
 * ----------------------------------------------------------------------- */
+const double MSStage::ARRIVALPOS_UNSPECIFIED(std::numeric_limits<double>::infinity());
 const double MSStage::ROADSIDE_OFFSET(3);
-
 
 // ===========================================================================
 // method definitions
@@ -44,18 +44,22 @@ const double MSStage::ROADSIDE_OFFSET(3);
 /* -------------------------------------------------------------------------
  * MSStage - methods
  * ----------------------------------------------------------------------- */
-MSStage::MSStage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, MSStageType type, const std::string& group) :
+MSStage::MSStage(MSStageType type, const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos,
+                 const double arrivalPosLat, const std::string& group) :
     myDestination(destination),
     myDestinationStop(toStop),
     myArrivalPos(arrivalPos),
+    myArrivalPosLat(arrivalPosLat),
     myDeparted(-1),
     myArrived(-1),
     myType(type),
     myGroup(group),
+    myCosts(-1),
     myParametersSet(0)
 {}
 
 MSStage::~MSStage() {}
+
 
 const MSEdge*
 MSStage::getDestination() const {
@@ -80,15 +84,16 @@ MSStage::getEdgePos(SUMOTime /* now */) const {
     return myArrivalPos;
 }
 
-int
-MSStage::getDirection() const {
-    return MSPModel::UNDEFINED_DIRECTION;
+
+double
+MSStage::getEdgePosLat(SUMOTime /* now */) const {
+    return myArrivalPosLat;
 }
 
 
-SUMOTime
-MSStage::getWaitingTime(SUMOTime /* now */) const {
-    return 0;
+int
+MSStage::getDirection() const {
+    return MSPModel::UNDEFINED_DIRECTION;
 }
 
 
@@ -122,6 +127,29 @@ SUMOTime
 MSStage::getArrived() const {
     return myArrived;
 }
+
+
+SUMOTime
+MSStage::getDuration() const {
+    return myArrived >= 0 ? myArrived - myDeparted : SUMOTime_MAX;
+}
+
+
+SUMOTime
+MSStage::getTravelTime() const {
+    return getDuration();
+}
+
+SUMOTime
+MSStage::getWaitingTime() const {
+    return 0;
+}
+
+SUMOTime
+MSStage::getTimeLoss(const MSTransportable* /*transportable*/) const {
+    return 0;
+}
+
 
 const std::string
 MSStage::setArrived(MSNet* /* net */, MSTransportable* /* transportable */, SUMOTime now, const bool /* vehicleArrived */) {
@@ -159,6 +187,12 @@ MSStage::setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestSt
         myArrivalPos = (newDestStop->getBeginLanePosition() + newDestStop->getEndLanePosition()) / 2;
     }
 }
+
+bool
+MSStage::unspecifiedArrivalPos() const {
+    return myArrivalPos == ARRIVALPOS_UNSPECIFIED;
+}
+
 
 
 /****************************************************************************/

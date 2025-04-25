@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+
+    <tlLogic id="aow" type="actuated" programID="P1" offset="0">
+        <phase duration="29" state="OGrO" minDur="5" maxDur="3600"/>
+        <phase duration="3"  state="OyrO"/>
+        <phase duration="13" state="OrrO"/>
+        <phase duration="29" state="OrGO" minDur="5" maxDur="3600"/>
+        <phase duration="3"  state="OryO"/>
+        <phase duration="13" state="OrrO"/>
+
+        <param key="show-detectors" value="true"/>
+
+    </tlLogic>
+</additional>

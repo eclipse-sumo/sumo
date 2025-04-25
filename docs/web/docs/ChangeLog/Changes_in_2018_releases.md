@@ -267,9 +267,9 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
   - All car-following models now respect the vType-attribute
     *emergencyDecel* as an absolute bound on deceleration. Issue #3556
   - Fixed some issues when using [continous lane
-    change](../Simulation/SublaneModel.md#simple_continous_lane-change_model). Issue #3767, Issue #3769, Issue #3770, Issue #3771, Issue #4364
+    change](../Simulation/SublaneModel.md#simple_continuous_lane-change_model). Issue #3767, Issue #3769, Issue #3770, Issue #3771, Issue #4364
   - Fixed back-and-forth changing when using [continous lane
-    change](../Simulation/SublaneModel.md#simple_continous_lane-change_model). Issue #4010
+    change](../Simulation/SublaneModel.md#simple_continuous_lane-change_model). Issue #4010
   - Fixed loading of teleporting vehicles from simulation state in
     *.sbx* format. Issue #3787
   - Fixed invalid vehicle counts by E2-detector related to
@@ -427,7 +427,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     vType attributes from option **--trip-attributes** when generating persons.
   - Removed singularities at the distribution boundaries generated
     by
-    [createVehTypeDistributions.py](../Tools/Misc.md#createvehtypedistributionspy) Issue #4193
+    [createVehTypeDistribution.py](../Tools/Misc.md#createvehtypedistributionpy) Issue #4193
 
 
 ### Enhancements
@@ -465,7 +465,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     Models](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#lane-changing_models), Issue #4025
   - Implemented [SSM
     Device](../Simulation/Output/SSM_Device.md), which allows
-    output of saftey related quantities. Issue #2669, Issue #4119
+    output of safety related quantities. Issue #2669, Issue #4119
   - 'Smoothed' emergency braking Issue #4116
   - Added an initial version of a [driver state
     device](../Driver_State.md) for modelling imperfect
@@ -538,7 +538,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     the functionality of *cleanup states*. Issue #3846
   - netedit now flags connection targets with incompatible
     permissions as *conflict* and only creates them with
-    *<ctrl\>+<click\>*. Issue #3823
+    <kbd>Ctrl</kbd> + <kbd>click</kbd>. Issue #3823
   - Traffic light indices are now drawn for pedestrian crossings
     when enabled via gui settings. Issue #3814
   - Now ParkingAreas and ParkingSpaces can be created in netedit. Issue #3104
@@ -553,7 +553,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     the same *linkIndex* value). Issue #4094
 
     !!! caution
-        The the signal states for the edited junction must be checked by the user
+        The signal states for the edited junction must be checked by the user
 
   - Width, height and diagonal size of a rectangle selection are now
     shown in the status bar. This can be used to measure distances.
@@ -660,7 +660,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     which allows plotting various combinations of time, distance,
     speed and acceleration for all trajectories in a given **--fcd-output** file.
   - added script
-    [averageRuns.py](../Tools/Misc.md#averagerunspy) for
+    [averageRuns.py](../Tools/Misc.md#averagetripstatisticspy) for
     running a scenario multiple times with different random seeds
     and computing trip statistics
   - webWizard now correctly builds regions with left-hand traffic Issue #3928
@@ -668,7 +668,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     [generateTLSE3Detectors.py](../Tools/Output.md#generatetlse3detectorspy)
     that make it suitable for generating various kind of junction
     related output. Issue #1622
-  - [createVehTypeDistributions.py](../Tools/Misc.md#createvehtypedistributionspy)
+  - [createVehTypeDistribution.py](../Tools/Misc.md#createvehtypedistributionpy)
     now also allows to generate vehicle parameter distributions. Issue #4171
   - Added function simpla.createGap() Issue #4172
   - sumolib now supports lane.getWidth(). Issue #3842
@@ -683,8 +683,8 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
 - Documentation
   - Added [documentation on joined traffic lights and defining
     signal groups](../Simulation/Traffic_Lights.md).
-  - Added [documentation on the simple continous lane-change
-    model](../Simulation/SublaneModel.md#simple_continous_lane-change_model).
+  - Added [documentation on the simple continuous lane-change
+    model](../Simulation/SublaneModel.md#simple_continuous_lane-change_model).
   - Documented all supported [routing
     algorithms](../Simulation/Routing.md#routing_algorithms).
 
@@ -692,7 +692,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
   - `<vTypeProbe>` is now deprecated in favour of FCD-output filtering
   - `<vaporizer>` is now deprecated in favour of calibrators.
   - The default arrival position for person walks is now the middle
-    of the destination edge. This reduces the assymetry from
+    of the destination edge. This reduces the asymmetry from
     arriving in forward or backward direction. Issue #3843
   - tripinfo-output attribute *waitSteps* which counts the number of
     simulation steps in which the vehicle was below a threshold

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -79,6 +79,23 @@ public:
                        bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
                        SUMOTime waitingTime);
 
+    /** @brief Constructor
+     * @param[in] id The id of the Charging Station
+     * @param[in] parkingArea The parking area the charging station is placed on
+     * @param[in] frompos Begin position of the charging station on the lane
+     * @param[in] topos End position of the charging station on the lane
+     * @param[in] chargingPower energy charged in every timeStep
+     * @param[in] efficiency efficiency of the charge
+     * @param[in] chargeInTransit enable or disable charge in transit
+     * @param[in] chargeDelay delay in the charge
+     * @param[in] chargeType charge type (normal, electric or fuel)
+     * @param[in] waitingTime waiting time until start charging
+     */
+    GUIChargingStation(const std::string& id, MSParkingArea* parkingArea,
+                       const std::string& name, double chargingPower, double efficiency,
+                       bool chargeInTransit, SUMOTime chargeDelay, const std::string& chargeType,
+                       SUMOTime waitingTime);
+
     /// @brief Destructor
     ~GUIChargingStation();
 
@@ -124,6 +141,14 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
+
+    const Position& getSignPos() const {
+        return myFGSignPos;
+    }
+
+private:
+    /// @brief Returns the stopping place name
+    void initAppearance(MSLane& lane, double frompos, double topos);
 
 private:
     /// @brief The rotations of the shape parts

@@ -4,9 +4,17 @@ no_vehicles
 # one vehicle is moving
 one_vehicle
 
+# one vehicle is moving
+one_vehicle_ele
+
 # one vehicle is moving, timestep is subseconds
 one_vehicle_subsecond
 
+# Copy of person_attributes
+person
+
+# output not from every person
+persons_riding
+
 # Testing error cases
 errors
-

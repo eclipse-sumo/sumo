@@ -21,5 +21,10 @@ split_at_stops
 
 # test creation of abstract (schematic) rail networks from geodetic networks
 abstractRail
-
 createRoundaboutConnections
+generator
+remap_additionals
+remap_renamed
+
+# map ids between networks
+remap_network

@@ -1,0 +1,9 @@
+Loading net ... done.
+Skipped until: 0.00
+Calculating new lookup table.
+Saving new matrix to 'landmarks.csv'.
+DijkstraRouter answered 493 queries and explored 52.12 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+AStarRouter answered 1 queries and explored 102.00 edges on average.
+AStarRouter spent 0.00s answering queries (0.00ms on average).
+Success.

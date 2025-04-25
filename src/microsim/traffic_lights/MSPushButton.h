@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,7 +36,7 @@ public:
     virtual ~MSPushButton();
 
     /**
-     * @brief Checks if the the pushbutton has been pressed
+     * @brief Checks if the pushbutton has been pressed
      * @return true if pressed, false otherwise
      */
     virtual bool isActivated() const = 0;
@@ -78,7 +78,7 @@ public:
 
     /**
      * @brief Static method with the same behavior of isActivated
-     * @brief Checks if the the pushbutton has been pressed for a particular crossing from a edge.
+     * @brief Checks if the pushbutton has been pressed for a particular crossing from a edge.
      * @return true if pressed, false otherwise
      */
     static bool isActiveForEdge(const MSEdge* walkingEdge, const MSEdge* crossing);

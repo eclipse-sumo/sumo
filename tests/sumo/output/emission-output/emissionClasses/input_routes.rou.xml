@@ -49,6 +49,7 @@
     <vType sigma="0" vClass="truck" id="HDV_D_EU6" emissionClass="HBEFA3/HDV_D_EU6"/>
     <vType sigma="0" vClass="truck" id="HDV_D_East" emissionClass="HBEFA3/HDV_D_East"/>
     <vType sigma="0" vClass="passenger" id="Energy" emissionClass="Energy/unknown"/>
+    <vType sigma="0" vClass="passenger" id="Zero" emissionClass="HBEFA3/zero"/>
 
     <route id="route0" edges="e"/>
 
@@ -102,5 +103,6 @@
     <vehicle id="Energy" type="Energy" route="route0" depart="4700"/>
     <vehicle id="PHEMlight5_PC_D_EU4" type="PHEMlight5_PC_D_EU4" route="route0" depart="4800"/>
     <vehicle id="PHEMlight5_PC_G_EU4" type="PHEMlight5_PC_G_EU4" route="route0" depart="4900"/>
+    <vehicle id="Zero" type="Zero" route="route0" depart="5000"/>
 
 </routes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -151,7 +151,8 @@ private:
                           const Parameterised* params, double length, int index,
                           const std::string& oppositeID, const std::string& type,
                           bool accelRamp = false,
-                          bool customShape = false);
+                          bool customShape = false,
+                          const PositionVector& outlineShape = PositionVector());
 
 
     /** @brief Writes a junction (<junction ...)
@@ -192,7 +193,6 @@ private:
 
     /// @brief writes a SUMOTime as int if possible, otherwise as a float
     static std::string writeSUMOTime(SUMOTime time);
-
 
     /// @brief the attribute value for a prohibition
     static std::string prohibitionConnection(const NBConnection& c);

@@ -4,6 +4,9 @@ noconflict
 # stopping on the opposite side without other traffic
 noconflict_parking
 
+# stopping on the opposite side without other traffic
+noconflict_parkingArea
+
 # stopping on the opposite side without other traffic,
 # forward edge has 2 lanes
 2lanes_forward

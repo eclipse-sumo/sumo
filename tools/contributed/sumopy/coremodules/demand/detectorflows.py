@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
@@ -714,7 +714,7 @@ class DetectorMatcher(Process):
                                                          groupnames=['options'],
                                                          name='One detector per edge',
                                                          info="""If True, it is assumed that there is only one detector per edge
-                            and detected edge flows will be distributed accross accessible lanes according to some heuristics.
+                            and detected edge flows will be distributed across accessible lanes according to some heuristics.
                             If False then each detector is matched to one lane. This is somewhat risky and requires a good 
                             geometrical coincidence between detector position and lane. 
                             """,

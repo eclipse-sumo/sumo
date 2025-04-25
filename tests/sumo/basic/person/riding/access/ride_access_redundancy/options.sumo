@@ -1,0 +1,5 @@
+--net-file net.net.xml --route-files input_routes.rou.xml
+-a input_additional.add.xml
+--tripinfo-output tripinfos.xml
+--vehroute-output vehroutes.xml
+--no-step-log

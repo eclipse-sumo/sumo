@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2010-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -46,6 +46,8 @@ def get_options(args=None):
                   help="Define duration of vehicle stop (setting 'X-Y' picks randomly from [X,Y[)")
     op.add_option("-u", "--until",
                   help="Define end time of vehicle stop")
+    op.add_option("--speed",
+                  help="Define a waypoint with the given maximum speed")
     op.add_option("-p", "--parking", dest="parking", action="store_true",
                   default=False, help="Let the vehicle stop beside the road")
     op.add_option("--relpos",
@@ -103,9 +105,9 @@ def get_options(args=None):
     else:
         options.typesfile = options.typesfile.split(",")
 
-    if not options.duration and not options.until:
+    if not options.duration and not options.until and not options.speed:
         op.print_help()
-        sys.exit("stop duration or until missing")
+        sys.exit("stop duration, speed or until missing")
 
     if options.relpos is not None:
         try:
@@ -239,8 +241,10 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                 stopAttrs["parking"] = "true"
             if options.duration:
                 stopAttrs["duration"] = interpretDuration(options.duration)
+            if options.speed:
+                stopAttrs["speed"] = interpretDuration(options.speed)
             if options.until:
-                stopAttrs["until"] = options.until
+                stopAttrs["until"] = interpretDuration(options.until)
             if not skip:
                 obj.addChild("stop", attrs=stopAttrs)
                 if options.startAtStop:

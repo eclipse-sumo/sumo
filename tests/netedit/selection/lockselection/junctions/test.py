@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -37,29 +37,22 @@ netedit.selectMode()
 # show connections
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
+# lock all
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.lockAll)
 
-# clear selection
-netedit.selectionClear()
-
-# lock junctions
+# unlock junctions
 netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.junctions)
 
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
+# use a rectangle to select central elements
+netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleMediumA,
+                           netedit.positions.selection.rectangleMediumB)
 
-# clear selection
-netedit.selectionClear()
+# remove elements
+netedit.deleteSelectedItems()
 
-# select no
-netedit.typeTwoKeys('alt', 'o')
-
-# lock junctions
-netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.junctions)
-
-# check undo and redo
-netedit.checkUndoRedo(referencePosition)
+# check undo redo
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

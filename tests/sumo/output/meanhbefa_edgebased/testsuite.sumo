@@ -51,3 +51,6 @@ models
 
 # four vehicles with different emission classes
 emissionClasses
+
+# test impact of slope on emissions
+slope

@@ -1,19 +1,20 @@
-Loading net-file from 'net.net.xml' ... done (1ms).
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_17_0+0006-b59a006 started with time: 0.00.
-Simulation ended at time: 138.00
+Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation ended at time: 138.00.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.03s
- Real time factor: 4058.82
- UPS: 16205.882353
- UPS-Persons: 46176.470588
-Vehicles: 
+Performance:
+ Duration: 0.01s
+ Real time factor: 12545.5
+ UPS: 50090.909091
+ UPS-Persons: 142727.272727
+Vehicles:
  Inserted: 34
  Running: 0
  Waiting: 0
  Teleports: 0 (Collisions: 3)
-Persons: 
+Persons:
  Inserted: 40
  Running: 0
 Statistics (avg of 34):
@@ -27,10 +28,9 @@ Pedestrian Statistics (avg of 40 walks):
  RouteLength: 53.20
  Duration: 39.25
  TimeLoss: 0.95
-
 DijkstraRouter answered 40 queries and explored 5.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 DijkstraRouter answered 40 queries and explored 9.00 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+DijkstraRouter spent 0.00s answering queries (0.03ms on average).
 DijkstraRouter answered 34 queries and explored 2.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

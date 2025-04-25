@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,17 +17,12 @@
 ///
 // A class for visualizing chargingStation geometry (adapted from GUILaneWrapper)
 /****************************************************************************/
-#include <config.h>
 
-#include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/vehicle/SUMORouteHandler.h>
-#include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
 
 #include "GNEChargingStation.h"
 
@@ -36,18 +31,14 @@
 // ===========================================================================
 
 GNEChargingStation::GNEChargingStation(GNENet* net) :
-    GNEStoppingPlace("", net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION),
-                     nullptr, 0, 0, "", false, Parameterised::Map()) {
-    // reset default values
-    resetDefaultValues();
+    GNEStoppingPlace(net, SUMO_TAG_CHARGING_STATION) {
 }
 
 
-GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
+GNEChargingStation::GNEChargingStation(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
                                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
                                        const std::string& chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION),
-                     lane, startPos, endPos, name, friendlyPosition, parameters),
+    GNEStoppingPlace(id, net, filename, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, name, friendlyPosition, RGBColor::INVISIBLE, parameters),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),
@@ -64,38 +55,30 @@ GNEChargingStation::~GNEChargingStation() {}
 
 void
 GNEChargingStation::writeAdditional(OutputDevice& device) const {
-    device.openTag(getTagProperty().getTag());
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
-    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-    if (myStartPosition != INVALID_DOUBLE) {
-        device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
-    }
-    if (myEndPosition != INVALID_DOUBLE) {
-        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
-    }
-    if (myFriendlyPosition) {
-        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
-    }
-    if (getAttribute(SUMO_ATTR_CHARGINGPOWER) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGINGPOWER)) {
+    device.openTag(getTagProperty()->getTag());
+    // write common attributes
+    writeStoppingPlaceAttributes(device);
+    // write specific attributes
+    if (myChargingPower != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_CHARGINGPOWER)) {
         device.writeAttr(SUMO_ATTR_CHARGINGPOWER, toString(myChargingPower));
     }
-    if (getAttribute(SUMO_ATTR_EFFICIENCY) != myTagProperty.getDefaultValue(SUMO_ATTR_EFFICIENCY)) {
+    if (myEfficiency != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_EFFICIENCY)) {
         device.writeAttr(SUMO_ATTR_EFFICIENCY, myEfficiency);
     }
-    if (getAttribute(SUMO_ATTR_CHARGEINTRANSIT) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGEINTRANSIT)) {
+    if (myChargeInTransit != myTagProperty->getDefaultBoolValue(SUMO_ATTR_CHARGEINTRANSIT)) {
         device.writeAttr(SUMO_ATTR_CHARGEINTRANSIT, myChargeInTransit);
     }
-    if (getAttribute(SUMO_ATTR_CHARGEDELAY) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGEDELAY)) {
-        device.writeAttr(SUMO_ATTR_CHARGEDELAY, myChargeDelay);
+    if (myChargeDelay != myTagProperty->getDefaultTimeValue(SUMO_ATTR_CHARGEDELAY)) {
+        device.writeAttr(SUMO_ATTR_CHARGEDELAY, time2string(myChargeDelay));
     }
-    if (getAttribute(SUMO_ATTR_CHARGETYPE) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGETYPE)) {
+    if (myChargeType != myTagProperty->getDefaultStringValue(SUMO_ATTR_CHARGETYPE)) {
         device.writeAttr(SUMO_ATTR_CHARGETYPE, myChargeType);
     }
-    if (string2time(myTagProperty.getDefaultValue(SUMO_ATTR_WAITINGTIME)) != myWaitingTime) {
+    if (myWaitingTime != myTagProperty->getDefaultTimeValue(SUMO_ATTR_WAITINGTIME)) {
         device.writeAttr(SUMO_ATTR_WAITINGTIME, time2string(myWaitingTime));
+    }
+    if (myParkingAreaID != myTagProperty->getDefaultStringValue(SUMO_ATTR_PARKING_AREA)) {
+        device.writeAttr(SUMO_ATTR_PARKING_AREA, myParkingAreaID);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
@@ -118,7 +101,7 @@ GNEChargingStation::updateGeometry() {
     tmpShape.move2side(myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
 
     // Get position of the sign
-    mySignPos = tmpShape.getLineCenter();
+    mySymbolPosition = tmpShape.getLineCenter();
 }
 
 
@@ -133,7 +116,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(chargingStationExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // declare colors
             RGBColor baseColor, signColor;
             // set colors
@@ -152,7 +135,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // Add a layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CHARGING_STATION);
+            drawInLayer(GLO_CHARGING_STATION);
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
@@ -160,7 +143,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // draw charging power and efficiency
             drawLines(d, {toString(myChargingPower)}, baseColor);
             // draw sign
-            drawSign(d, chargingStationExaggeration, baseColor, signColor, "C");
+            drawSign(s, d, chargingStationExaggeration, baseColor, signColor, "C");
             // draw geometry points
             if (movingGeometryPoints && (myStartPosition != INVALID_DOUBLE)) {
                 drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
@@ -176,16 +159,19 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalID(s);
             // draw additional name
             drawAdditionalName(s);
-            // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-            // draw dotted contours for geometry points
-            myAdditionalContour.drawDottedContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.additionalGeometryPointRadius,
-                    1, s.dottedContourSettings.segmentWidthSmall);
+            // draw dotted contours
+            if (movingGeometryPoints) {
+                myAdditionalContour.drawDottedContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.additionalGeometryPointRadius,
+                        1, s.dottedContourSettings.segmentWidthSmall);
+            } else {
+                myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                mySymbolContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+            }
         }
-        // draw stoppingPlace children
+        // draw demand element children
         drawDemandElementChildren(s);
-        // calculate contour
-        calculateStoppingPlaceContour(s, d, s.stoppingPlaceSettings.chargingStationWidth, movingGeometryPoints);
+        // calculate contours
+        calculateStoppingPlaceContour(s, d, s.stoppingPlaceSettings.chargingStationWidth, chargingStationExaggeration, movingGeometryPoints);
     }
 }
 
@@ -193,26 +179,6 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 std::string
 GNEChargingStation::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return getMicrosimID();
-        case SUMO_ATTR_LANE:
-            return getParentLanes().front()->getID();
-        case SUMO_ATTR_STARTPOS:
-            if (myStartPosition != INVALID_DOUBLE) {
-                return toString(myStartPosition);
-            } else {
-                return "";
-            }
-        case SUMO_ATTR_ENDPOS:
-            if (myEndPosition != INVALID_DOUBLE) {
-                return toString(myEndPosition);
-            } else {
-                return "";
-            }
-        case SUMO_ATTR_NAME:
-            return myAdditionalName;
-        case SUMO_ATTR_FRIENDLY_POS:
-            return toString(myFriendlyPosition);
         case SUMO_ATTR_CHARGINGPOWER:
             return toString(myChargingPower);
         case SUMO_ATTR_EFFICIENCY:
@@ -225,14 +191,23 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
             return myChargeType;
         case SUMO_ATTR_WAITINGTIME:
             return time2string(myWaitingTime);
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
-        case GNE_ATTR_SHIFTLANEINDEX:
-            return "";
+        case SUMO_ATTR_PARKING_AREA:
+            return myParkingAreaID;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getStoppingPlaceAttribute(this, key);
+    }
+}
+
+
+double
+GNEChargingStation::getAttributeDouble(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_CHARGINGPOWER:
+            return myChargingPower;
+        case SUMO_ATTR_EFFICIENCY:
+            return myEfficiency;
+        default:
+            return getStoppingPlaceAttributeDouble(key);
     }
 }
 
@@ -240,25 +215,18 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
 void
 GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case SUMO_ATTR_ID:
-        case SUMO_ATTR_LANE:
-        case SUMO_ATTR_STARTPOS:
-        case SUMO_ATTR_ENDPOS:
-        case SUMO_ATTR_NAME:
-        case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_CHARGINGPOWER:
         case SUMO_ATTR_EFFICIENCY:
         case SUMO_ATTR_CHARGEINTRANSIT:
         case SUMO_ATTR_CHARGEDELAY:
         case SUMO_ATTR_CHARGETYPE:
         case SUMO_ATTR_WAITINGTIME:
-        case GNE_ATTR_SELECTED:
-        case GNE_ATTR_PARAMETERS:
-        case GNE_ATTR_SHIFTLANEINDEX:
+        case SUMO_ATTR_PARKING_AREA:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setStoppingPlaceAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -266,34 +234,6 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
 bool
 GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
-        case SUMO_ATTR_LANE:
-            if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
-                return true;
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_STARTPOS:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(parse<double>(value), getAttributeDouble(SUMO_ATTR_ENDPOS), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_ENDPOS:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                return SUMORouteHandler::isStopPosValid(getAttributeDouble(SUMO_ATTR_STARTPOS), parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_NAME:
-            return SUMOXMLDefinitions::isValidAttribute(value);
-        case SUMO_ATTR_FRIENDLY_POS:
-            return canParse<bool>(value);
         case SUMO_ATTR_CHARGINGPOWER:
             return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_EFFICIENCY:
@@ -308,17 +248,14 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CHARGEDELAY:
             return canParse<SUMOTime>(value) && parse<SUMOTime>(value) >= 0;
         case SUMO_ATTR_CHARGETYPE: {
-            const auto validValues = myTagProperty.getAttributeProperties(key).getDiscreteValues();
-            return std::find(validValues.begin(), validValues.end(), value) != validValues.end();
+            return SUMOXMLDefinitions::ChargeTypes.hasString(value);
         }
         case SUMO_ATTR_WAITINGTIME:
             return canParse<SUMOTime>(value) && parse<SUMOTime>(value) >= 0;
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return areParametersValid(value);
+        case SUMO_ATTR_PARKING_AREA:
+            return isValidAdditionalID(value);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isStoppingPlaceValid(key, value);
     }
 }
 
@@ -329,33 +266,6 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            // update microsimID
-            setAdditionalID(value);
-            break;
-        case SUMO_ATTR_LANE:
-            replaceAdditionalParentLanes(value);
-            break;
-        case SUMO_ATTR_STARTPOS:
-            if (value == "") {
-                myStartPosition = INVALID_DOUBLE;
-            } else {
-                myStartPosition = parse<double>(value);
-            }
-            break;
-        case SUMO_ATTR_ENDPOS:
-            if (value == "") {
-                myEndPosition = INVALID_DOUBLE;
-            } else {
-                myEndPosition = parse<double>(value);
-            }
-            break;
-        case SUMO_ATTR_NAME:
-            myAdditionalName = value;
-            break;
-        case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);
-            break;
         case SUMO_ATTR_CHARGINGPOWER:
             myChargingPower = parse<double>(value);
             break;
@@ -374,21 +284,12 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WAITINGTIME:
             myWaitingTime = parse<SUMOTime>(value);
             break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
-        case GNE_ATTR_SHIFTLANEINDEX:
-            shiftLaneIndex();
+        case SUMO_ATTR_PARKING_AREA:
+            myParkingAreaID = value;
             break;
         default:
-            throw InvalidArgument(getTagStr() + "attribute '" + toString(key) + "' not allowed");
+            setStoppingPlaceAttribute(this, key, value);
+            break;
     }
 }
 

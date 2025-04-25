@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,8 +70,8 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
             WRITE_WARNINGF(TL("bluelight device is not compatible with mesosim (ignored for vehicle '%')"), v.getID());
         } else {
             MSDevice_Bluelight* device = new MSDevice_Bluelight(v, "bluelight_" + v.getID(),
-                    getFloatParam(v, oc, "bluelight.reactiondist", oc.getFloat("device.bluelight.reactiondist")),
-                    getFloatParam(v, oc, "bluelight.mingapfactor", oc.getFloat("device.bluelight.mingapfactor")));
+                    v.getFloatParam("device.bluelight.reactiondist"),
+                    v.getFloatParam("device.bluelight.mingapfactor"));
             into.push_back(device);
         }
     }
@@ -113,6 +113,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         // advance as far as possible (assume vehicles will keep moving out of the way)
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM), "-1");
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD), "0");
+        ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME), "0");
         try {
             ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_MINGAP_LAT), "0");
         } catch (InvalidArgument&) {
@@ -124,6 +125,8 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                                               ego.getVehicleType().getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD),
                                               ego.getVehicleType().getParameter().getLCParamString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, "5"));
+        ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME),
+                                              ego.getVehicleType().getParameter().getLCParamString(SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME, "20"));
         try {
             ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_MINGAP_LAT),
                                                   toString(ego.getVehicleType().getMinGapLat()));
@@ -219,9 +222,9 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 lanechange.setLaneChangeMode(1605);//todo change lane back
                 // the vehicles should react according to the distance to the emergency vehicle taken from real world data
                 double reactionProb = (
-                                          distanceDelta < getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.near-dist", 12.5, false)
-                                          ? getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.reaction-prob-near", 0.577, false)
-                                          : getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.reaction-prob-far", 0.189, false));
+                                          distanceDelta < myHolder.getFloatParam("device.bluelight.near-dist", false, 12.5)
+                                          ? myHolder.getFloatParam("device.bluelight.reaction-prob-near", false, 0.577)
+                                          : myHolder.getFloatParam("device.bluelight.reaction-prob-far", false, 0.189));
                 // todo works only for one second steps
                 //std::cout << SIMTIME << " veh2=" << veh2->getID() << " distanceDelta=" << distanceDelta << " reaction=" << reaction << " reactionProb=" << reactionProb << "\n";
                 if (veh2->isActionStep(SIMSTEP) && reaction < reactionProb * veh2->getActionStepLengthSecs()) {
@@ -278,22 +281,26 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         link->opened(avi.arrivalTime, avi.arrivalSpeed, avi.arrivalSpeed, ego.getLength(),
                      0, ego.getCarFollowModel().getMaxDecel(), ego.getWaitingTime(), ego.getLateralPositionOnLane(), &blockingFoes, true, &ego);
         const SUMOTime timeToArrival = avi.arrivalTime - SIMSTEP;
-        for (const SUMOVehicle* foe : blockingFoes) {
+        for (const SUMOTrafficObject* foe : blockingFoes) {
+            if (!foe->isVehicle()) {
+                continue;
+            }
             const double dist = ego.getPosition().distanceTo2D(foe->getPosition());
             if (dist < myReactionDist) {
-                MSVehicle* microFoe = dynamic_cast<MSVehicle*>(const_cast<SUMOVehicle*>(foe));
+                MSVehicle* microFoe = dynamic_cast<MSVehicle*>(const_cast<SUMOTrafficObject*>(foe));
                 if (microFoe->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
                     // emergency vehicles should not react
                     continue;
                 }
-                const double timeToBrake = foe->getSpeed() / 4.5;
+                const double timeToBrake = foe->getSpeed() / SUMOVTypeParameter::getDefaultDecel();
                 if (timeToArrival < TIME2STEPS(timeToBrake + 1)) {
-                    ;
+                    // trigger emergency braking
+                    const double decel = 0.5 * foe->getSpeed() * foe->getSpeed() / avi.dist;
                     std::vector<std::pair<SUMOTime, double> > speedTimeLine;
                     speedTimeLine.push_back(std::make_pair(SIMSTEP, foe->getSpeed()));
-                    speedTimeLine.push_back(std::make_pair(avi.arrivalTime, 0));
+                    speedTimeLine.push_back(std::make_pair(SIMSTEP + TIME2STEPS(foe->getSpeed() / decel), 0));
                     microFoe->getInfluencer().setSpeedTimeLine(speedTimeLine);
-                    //std::cout << SIMTIME << " foe=" << foe->getID() << " dist=" << dist << " timeToBrake= " << timeToBrake << " ttA=" << STEPS2TIME(timeToArrival) << "\n";
+                    //std::cout << SIMTIME << " foe=" << foe->getID() << " timeToBrake=" << timeToBrake << " timeToArrival=" << STEPS2TIME(timeToArrival) << " decel=" << decel << "\n";
                 }
             }
         }

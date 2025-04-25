@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 23:21:39.782335 by netdiff.py v1_15_0+1985-a4f015c
-  options: source.net.xml dest.net.xml diff
+<!-- generated on 2024-04-17 10:52:33.996976 by netdiff.py v1_19_0+1865-d2066eb953a
+<configuration>
+    <source value="source.net.xml"/>
+    <dest value="dest.net.xml"/>
+    <outprefix value="diff"/>
+</configuration>
 -->
 
-<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
     <!-- Deleted Elements -->
     <!-- Created Elements -->
     <!-- Changed Elements -->
+    <edge id="E0" />  <!-- missingAttributes: disallow,length,name,shape -->
     <edge id="gneE0" spreadType="right"/>
 </edges>

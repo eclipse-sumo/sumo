@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,6 @@
 #include <netedit/GNEUndoList.h>
 
 #include "GNERouteDialog.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -74,7 +73,7 @@ GNERouteDialog::GNERouteDialog(GNEDemandElement* editedCalibratorRoute, bool upd
     initChanges();
 
     // add element if we aren't updating an existent element
-    if (myUpdatingElement == false) {
+    if (!myUpdatingElement) {
         myEditedDemandElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myEditedDemandElement, true), true);
         // Routes are created without edges
         myCalibratorRouteValid = false;
@@ -91,9 +90,7 @@ GNERouteDialog::~GNERouteDialog() {}
 
 long
 GNERouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    if (myCalibratorRouteValid == false) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+    if (!myCalibratorRouteValid) {
         std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
         std::string operation2 = myUpdatingElement ? ("updated") : ("created");
         std::string tagString = myEditedDemandElement->getTagStr();
@@ -101,8 +98,6 @@ GNERouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         FXMessageBox::warning(getApp(), MBOX_OK,
                               ("Error " + operation1 + " " + tagString).c_str(), "%s",
                               (tagString + " cannot be " + operation2 + " because parameter " + toString(myInvalidAttr) + " is invalid.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else {
         // accept changes before closing dialog

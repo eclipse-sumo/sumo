@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,16 +17,20 @@
 ///
 // The Widget for add additional elements
 /****************************************************************************/
-#include <config.h>
 
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFrame.h"
 
+// ===========================================================================
+// defines
+// ===========================================================================
 
 #define PADDINGFRAME 10 // (5+5)
 #define VERTICALSCROLLBARWIDTH 15
@@ -66,14 +70,14 @@ GNEFrame::GNEFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, const std::st
     myHeaderFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // Create frame for left elements of header (By default unused)
-    myHeaderLeftFrame = new FXHorizontalFrame(myHeaderFrame, GUIDesignAuxiliarHorizontalFrame);
+    myHeaderLeftFrame = new FXHorizontalFrame(myHeaderFrame, GUIDesignAuxiliarHorizontalFrameCenteredVertically);
     myHeaderLeftFrame->hide();
 
-    // Create titel frame
+    // Create title frame
     myFrameHeaderLabel = new FXLabel(myHeaderFrame, frameLabel.c_str(), nullptr, GUIDesignLabelFrameInformation);
 
     // Create frame for right elements of header (By default unused)
-    myHeaderRightFrame = new FXHorizontalFrame(myHeaderFrame, GUIDesignAuxiliarHorizontalFrame);
+    myHeaderRightFrame = new FXHorizontalFrame(myHeaderFrame, GUIDesignAuxiliarHorizontalFrameCenteredVertically);
     myHeaderRightFrame->hide();
 
     // Add separator
@@ -131,10 +135,10 @@ GNEFrame::hide() {
 
 void
 GNEFrame::setFrameWidth(const int newWidth) {
-    // set scroll windows size (minus MARGING)
-    myScrollWindowsContents->setWidth(newWidth - GUIDesignFrameAreaMarging - DEFAULT_SPACING - 1);
+    // set scroll windows size (minus MARGIN)
+    myScrollWindowsContents->setWidth(newWidth - GUIDesignFrameAreaMargin - DEFAULT_SPACING - 1);
     // calculate new contentWidth
-    int contentWidth = (newWidth - GUIDesignFrameAreaMarging - DEFAULT_SPACING - 1 - 15);
+    int contentWidth = (newWidth - GUIDesignFrameAreaMargin - DEFAULT_SPACING - 1 - 15);
     // adjust contents frame
     myContentFrame->setWidth(contentWidth);
     // set size of all contents frame children
@@ -188,32 +192,39 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT));
     int sizeColumnDescription = 0;
     int sizeColumnDefinitions = 0;
-    myTable->setVisibleRows((FXint)(AC->getTagProperty().getNumberOfAttributes()));
-    myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(AC->getTagProperty().getNumberOfAttributes()), 3);
+    myTable->setVisibleRows((FXint)(AC->getTagProperty()->getNumberOfAttributes()));
+    myTable->setVisibleColumns(4);
+    myTable->setTableSize((FXint)(AC->getTagProperty()->getNumberOfAttributes()), 4);
     myTable->setBackColor(FXRGB(255, 255, 255));
     myTable->setColumnText(0, TL("Attribute"));
-    myTable->setColumnText(1, TL("Description"));
-    myTable->setColumnText(2, TL("Definition"));
+    myTable->setColumnText(1, TL("Category"));
+    myTable->setColumnText(2, TL("Description"));
+    myTable->setColumnText(3, TL("Definition"));
     myTable->getRowHeader()->setWidth(0);
+    myTable->setColumnHeaderHeight(GUIDesignHeight);
     // Iterate over vector of additional parameters
     int itemIndex = 0;
-    for (const auto& tagProperty : AC->getTagProperty()) {
+    for (const auto& attrProperty : AC->getTagProperty()->getAttributeProperties()) {
         // Set attribute
-        FXTableItem* attribute = new FXTableItem(tagProperty.getAttrStr().c_str());
-        attribute->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(itemIndex, 0, attribute);
+        FXTableItem* attributeItem = new FXTableItem(attrProperty->getAttrStr().c_str());
+        attributeItem->setJustify(FXTableItem::CENTER_X);
+        myTable->setItem(itemIndex, 0, attributeItem);
         // Set description of element
-        FXTableItem* type = new FXTableItem("");
-        type->setText(tagProperty.getDescription().c_str());
-        sizeColumnDescription = MAX2(sizeColumnDescription, (int)tagProperty.getDescription().size());
-        type->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(itemIndex, 1, type);
+        FXTableItem* categoryItem = new FXTableItem("");
+        categoryItem->setText(attrProperty->getCategory().c_str());
+        categoryItem->setJustify(FXTableItem::CENTER_X);
+        myTable->setItem(itemIndex, 1, categoryItem);
+        // Set description of element
+        FXTableItem* descriptionItem = new FXTableItem("");
+        descriptionItem->setText(attrProperty->getDescription().c_str());
+        sizeColumnDescription = MAX2(sizeColumnDescription, (int)attrProperty->getDescription().size());
+        descriptionItem->setJustify(FXTableItem::CENTER_X);
+        myTable->setItem(itemIndex, 2, descriptionItem);
         // Set definition
-        FXTableItem* definition = new FXTableItem(tagProperty.getDefinition().c_str());
-        definition->setJustify(FXTableItem::LEFT);
-        myTable->setItem(itemIndex, 2, definition);
-        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)tagProperty.getDefinition().size());
+        FXTableItem* definitionItem = new FXTableItem(attrProperty->getDefinition().c_str());
+        definitionItem->setJustify(FXTableItem::LEFT);
+        myTable->setItem(itemIndex, 3, definitionItem);
+        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)attrProperty->getDefinition().size());
         itemIndex++;
     }
     myTable->fitRowsToContents(0, itemIndex);
@@ -221,10 +232,12 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     FXHeader* header = myTable->getColumnHeader();
     header->setItemJustify(0, JUSTIFY_CENTER_X);
     header->setItemSize(0, 120);
+    header->setItemJustify(0, JUSTIFY_CENTER_X);
+    header->setItemSize(1, 100);
     header->setItemJustify(1, JUSTIFY_CENTER_X);
-    header->setItemSize(1, sizeColumnDescription * 7);
+    header->setItemSize(2, sizeColumnDescription * 8);
     header->setItemJustify(2, JUSTIFY_CENTER_X);
-    header->setItemSize(2, sizeColumnDefinitions * 6);
+    header->setItemSize(3, sizeColumnDefinitions * 6);
     // Create horizontal separator
     new FXHorizontalSeparator(attributesHelpDialog, GUIDesignHorizontalSeparator);
     // Create frame for OK Button
@@ -233,8 +246,6 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG(TL("Opening HelpAttributes dialog for tag '") + AC->getTagProperty().getTagStr() + TL("' showing ") + toString(AC->getTagProperty().getNumberOfAttributes()) + TL(" attributes"));
     // create Dialog
     attributesHelpDialog->create();
     // show in the given position
@@ -243,20 +254,18 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     getApp()->refresh();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(attributesHelpDialog);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG(TL("Closing HelpAttributes dialog for tag '") + AC->getTagProperty().getTagStr() + "'");
 }
 
 
 void
 GNEFrame::updateFrameAfterUndoRedo() {
-    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
+    // this function has to be reimplemented in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
 }
 
 
 void
 GNEFrame::frameWidthUpdated() {
-    // this function can be reimplemente in all child frames
+    // this function can be reimplemented in all child frames
 }
 
 // ---------------------------------------------------------------------------
@@ -265,44 +274,38 @@ GNEFrame::frameWidthUpdated() {
 
 void
 GNEFrame::tagSelected() {
-    // this function has to be reimplemente in all child frames that uses a GNETagSelector modul
+    // this function has to be reimplemented in all child frames that uses a GNETagSelector module
 }
 
 
 void
 GNEFrame::demandElementSelected() {
-    // this function has to be reimplemente in all child frames that uses a DemandElementSelector
+    // this function has to be reimplemented in all child frames that uses a DemandElementSelector
 }
 
 
 bool
 GNEFrame::shapeDrawed() {
-    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
+    // this function has to be reimplemented in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
     return false;
 }
 
 
 void
 GNEFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
-    // this function has to be reimplemente in all child frames that uses a AttributeEditor modul
-}
-
-
-void
-GNEFrame::attributesEditorExtendedDialogOpened()  {
-    // this function has to be reimplemente in all child frames that uses a GNEAttributesCreator editor with extended attributes
+    // this function has to be reimplemented in all child frames that uses a AttributeEditor module
 }
 
 
 void
 GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
-    // this function has to be reimplemente in all child frames that uses a GNEOverlappedInspection
+    // this function has to be reimplemented in all child frames that uses a GNEOverlappedInspection
 }
 
 
 bool
 GNEFrame::createPath(const bool /*useLastRoute*/) {
-    // this function has to be reimplemente in all child frames that uses a path or consecutiveLanePath
+    // this function has to be reimplemented in all child frames that uses a path or consecutiveLanePath
     return false;
 }
 

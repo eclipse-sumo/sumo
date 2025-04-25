@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -158,7 +158,10 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& op
     } else if (arrPos != 0 && arrPos != std::numeric_limits<double>::infinity()) {
         os.writeAttr(SUMO_ATTR_ARRIVALPOS, arrPos);
     }
-    os.writeAttr(SUMO_ATTR_LINES, lines);
+    if (lines != LINE_ANY) {
+        // no need to write the default
+        os.writeAttr(SUMO_ATTR_LINES, lines);
+    }
     if (group != "") {
         os.writeAttr(SUMO_ATTR_GROUP, group);
     }
@@ -178,6 +181,23 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& op
     os.closeTag(comment);
 }
 
+
+void
+ROPerson::Stop::saveAsXML(OutputDevice& os, const bool /*extended*/, const bool /*asTrip*/, OptionsCont& /*options*/) const {
+    stopDesc.write(os, false);
+    std::string comment = "";
+    for (std::string sID : stopDesc.getStoppingPlaceIDs()) {
+        const std::string name = RONet::getInstance()->getStoppingPlaceName(sID);
+        if (name != "") {
+            comment += name + " ";
+        }
+    }
+    if (comment != "") {
+        comment =  " <!-- " + comment + " -->";
+    }
+    stopDesc.writeParams(os);
+    os.closeTag(comment);
+}
 
 void
 ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const {
@@ -379,7 +399,8 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
             } else {
                 // write origin for first element of the plan
                 const ROEdge* origin = trip == myPlan.front() && resultItems.empty() ? trip->getOrigin() : nullptr;
-                resultItems.push_back(new Ride(start, origin, nullptr, item.line, trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop, item.intended, TIME2STEPS(item.depart)));
+                const std::string line = OptionsCont::getOptions().getBool("persontrip.ride-public-line") ? item.line : LINE_ANY;
+                resultItems.push_back(new Ride(start, origin, nullptr, line, trip->getGroup(), item.cost, item.arrivalPos, item.length, item.destStop, item.intended, TIME2STEPS(item.depart)));
             }
         }
         start += TIME2STEPS(item.cost);
@@ -433,7 +454,7 @@ ROPerson::computeRoute(const RORouterProvider& provider,
 
 
 void
-ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
+ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options, int cloneIndex) const {
     // write the person's vehicles
     const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
     if (!writeTrip) {
@@ -452,7 +473,14 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
     }
 
     // write the person
-    getParameter().write(os, options, SUMO_TAG_PERSON);
+    if (cloneIndex == 0) {
+        getParameter().write(os, options, SUMO_TAG_PERSON);
+    } else {
+        SUMOVehicleParameter p = getParameter();
+        // @note id collisions may occur if scale-suffic occurs in other vehicle ids
+        p.id += options.getString("scale-suffix") + toString(cloneIndex);
+        p.write(os, options, SUMO_TAG_PERSON);
+    }
 
     for (const PlanItem* const it : myPlan) {
         it->saveAsXML(os, asAlternatives, writeTrip, options);

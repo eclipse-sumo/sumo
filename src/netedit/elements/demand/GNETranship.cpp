@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,47 +28,37 @@
 #include "GNETranship.h"
 #include "GNERoute.h"
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-GNETranship*
-GNETranship::buildTranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge,
-                           GNEAdditional* fromContainerStop, GNEEdge* toEdge, GNEAdditional* toContainerStop,
-                           std::vector<GNEEdge*> edgeList, const double departPosition, const double arrivalPosition, const double speed) {
-    // declare icon an tag
-    const auto iconTag = getTranshipTagIcon(edgeList, fromEdge, toEdge, fromContainerStop, toContainerStop);
-    // declare containers
-    std::vector<GNEEdge*> edges;
-    std::vector<GNEAdditional*> additionals;
-    // continue depending of input parameters
-    if (edgeList.size() > 0) {
-        edges = edgeList;
-    } else {
-        if (fromEdge) {
-            edges.push_back(fromEdge);
-        } else if (fromContainerStop) {
-            additionals.push_back(fromContainerStop);
-        }
-        if (toEdge) {
-            edges.push_back(toEdge);
-        } else if (toContainerStop) {
-            additionals.push_back(toContainerStop);
-        }
-    }
-    return new GNETranship(net, iconTag.first, iconTag.second, containerParent, edges, additionals, departPosition, arrivalPosition, speed);
-}
-
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-                                GNEDemandElementPlan(this, -1, -1),
-mySpeed(0) {
-    // reset default values
-    resetDefaultValues();
+    GNEDemandElement("", net, "", tag, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, -1, -1) {
 }
 
+
+GNETranship::GNETranship(SumoXMLTag tag, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
+                         const double departPosition, const double arrivalPosition, const double speed, const SUMOTime duration) :
+    GNEDemandElement(containerParent, tag, GNEPathElement::Options::DEMAND_ELEMENT),
+    GNEDemandElementPlan(this, departPosition, arrivalPosition),
+    mySpeed(speed),
+    myDuration(duration) {
+    // set parents
+    setParents<GNEJunction*>(planParameters.getJunctions());
+    setParents<GNEEdge*>(planParameters.getEdges());
+    setParents<GNEAdditional*>(planParameters.getAdditionalElements());
+    setParents<GNEDemandElement*>(planParameters.getDemandElements(containerParent));
+    // update centering boundary without updating grid
+    updatePlanCenteringBoundary(false);
+}
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 GNETranship::~GNETranship() {}
 
@@ -87,11 +77,19 @@ GNETranship::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNETranship::writeDemandElement(OutputDevice& device) const {
-    // open tag
+    // first write origin stop (if this element starts in a stoppingPlace)
+    writeOriginStop(device);
+    // write rest of attributes
     device.openTag(SUMO_TAG_TRANSHIP);
-    // write plan attributes
-    writePlanAttributes(device);
-    // close tag
+    writeLocationAttributes(device);
+    // speed
+    if (mySpeed != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_SPEED)) {
+        device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    }
+    // duration
+    if (myDuration != myTagProperty->getDefaultTimeValue(SUMO_ATTR_DURATION)) {
+        device.writeAttr(SUMO_ATTR_DURATION, time2string(myDuration));
+    }
     device.closeTag();
 }
 
@@ -153,7 +151,7 @@ GNETranship::getCenteringBoundary() const {
 void
 GNETranship::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of TranshipEdges
-    if (myTagProperty.getTag() == GNE_TAG_TRANSHIP_EDGES) {
+    if (myTagProperty->getTag() == GNE_TAG_TRANSHIP_EDGES) {
         // obtain new list of tranship edges
         std::string newTranshipEdges = getNewListOfParents(originalElement, newElement);
         // update tranship edges
@@ -166,7 +164,7 @@ GNETranship::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkE
 
 void
 GNETranship::drawGL(const GUIVisualizationSettings& s) const {
-    drawPlanGL(checkDrawPersonPlan(), s, s.colorSettings.walkColor, s.colorSettings.selectedPersonPlanColor);
+    drawPlanGL(checkDrawContainerPlan(), s, s.colorSettings.transhipColor, s.colorSettings.selectedContainerPlanColor);
 }
 
 
@@ -177,13 +175,13 @@ GNETranship::computePathElement() {
 
 
 void
-GNETranship::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNETranship::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     drawPlanLanePartial(checkDrawContainerPlan(), s, segment, offsetFront, s.widthSettings.transhipWidth, s.colorSettings.transhipColor, s.colorSettings.selectedContainerPlanColor);
 }
 
 
 void
-GNETranship::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNETranship::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const {
     drawPlanJunctionPartial(checkDrawContainerPlan(), s, segment, offsetFront, s.widthSettings.transhipWidth, s.colorSettings.transhipColor, s.colorSettings.selectedContainerPlanColor);
 }
 
@@ -203,9 +201,18 @@ GNETranship::getLastPathLane() const {
 std::string
 GNETranship::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        // Common attributes
         case SUMO_ATTR_SPEED:
-            return toString(mySpeed);
+            if (mySpeed == myTagProperty->getDefaultDoubleValue(key)) {
+                return "";
+            } else {
+                return toString(mySpeed);
+            }
+        case SUMO_ATTR_DURATION:
+            if (myDuration == myTagProperty->getDefaultTimeValue(key)) {
+                return "";
+            } else {
+                return time2string(myDuration);
+            }
         default:
             return getPlanAttribute(key);
     }
@@ -214,7 +221,12 @@ GNETranship::getAttribute(SumoXMLAttr key) const {
 
 double
 GNETranship::getAttributeDouble(SumoXMLAttr key) const {
-    return getPlanAttributeDouble(key);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            return mySpeed;
+        default:
+            return getPlanAttributeDouble(key);
+    }
 }
 
 
@@ -227,8 +239,8 @@ GNETranship::getAttributePosition(SumoXMLAttr key) const {
 void
 GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        // Common attributes
         case SUMO_ATTR_SPEED:
+        case SUMO_ATTR_DURATION:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -240,7 +252,14 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
 
 bool
 GNETranship::isValid(SumoXMLAttr key, const std::string& value) {
-    return isPlanValid(key, value);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_DURATION:
+            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) >= 0);
+        default:
+            return isPlanValid(key, value);
+    }
 }
 
 
@@ -274,8 +293,19 @@ GNETranship::getACParametersMap() const {
 void
 GNETranship::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        // Common attributes
         case SUMO_ATTR_SPEED:
+            if (value.empty()) {
+                mySpeed = myTagProperty->getDefaultDoubleValue(key);
+            } else {
+                mySpeed = GNEAttributeCarrier::parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_DURATION:
+            if (value.empty()) {
+                myDuration = myTagProperty->getDefaultTimeValue(key);
+            } else {
+                myDuration = GNEAttributeCarrier::parse<SUMOTime>(value);
+            }
             break;
         default:
             setPlanAttribute(key, value);
@@ -299,16 +329,6 @@ GNETranship::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
-}
-
-
-GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-                         const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals,
-                         const double departPosition, const double arrivalPosition, const double speed) :
-    GNEDemandElement(containerParent, net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {containerParent}, {}),
-GNEDemandElementPlan(this, departPosition, arrivalPosition),
-mySpeed(speed) {
 }
 
 /****************************************************************************/

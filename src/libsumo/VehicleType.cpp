@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2017-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -156,6 +156,12 @@ VehicleType::getHeight(const std::string& typeID) {
 }
 
 
+double
+VehicleType::getMass(const std::string& typeID) {
+    return getVType(typeID)->getMass();
+}
+
+
 TraCIColor
 VehicleType::getColor(const std::string& typeID) {
     return Helper::makeTraCIColor(getVType(typeID)->getColor());
@@ -247,6 +253,11 @@ VehicleType::setActionStepLength(const std::string& typeID, double actionStepLen
 
 void
 VehicleType::setBoardingDuration(const std::string& typeID, double boardingDuration)  {
+    try {
+        checkTimeBounds(boardingDuration);
+    } catch (ProcessError&) {
+        throw TraCIException("BoardingDuration parameter exceeds the time value range.");
+    }
     getVType(typeID)->setBoardingDuration(TIME2STEPS(boardingDuration), true);
 }
 
@@ -296,6 +307,12 @@ VehicleType::setWidth(const std::string& typeID, double width)  {
 void
 VehicleType::setHeight(const std::string& typeID, double height)  {
     getVType(typeID)->setHeight(height);
+}
+
+
+void
+VehicleType::setMass(const std::string& typeID, double mass)  {
+    getVType(typeID)->setMass(mass);
 }
 
 
@@ -453,6 +470,8 @@ VehicleType::handleVariableWithID(const std::string& objID, const std::string& t
             return wrapper->wrapDouble(objID, variable, getLength(typeID));
         case VAR_HEIGHT:
             return wrapper->wrapDouble(objID, variable, getHeight(typeID));
+        case VAR_MASS:
+            return wrapper->wrapDouble(objID, variable, getMass(typeID));
         case VAR_MINGAP:
             return wrapper->wrapDouble(objID, variable, getMinGap(typeID));
         case VAR_MAXSPEED:

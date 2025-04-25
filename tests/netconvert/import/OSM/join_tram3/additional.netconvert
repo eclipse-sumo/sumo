@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-20 16:21:40 by Eclipse SUMO netconvert Version v1_14_1+1158-b2c06f8f8ab
+<!-- generated on 2024-02-22 13:27:18 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,13 +49,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="1861845636" name="Bahnhofstraße/Lindenstraße" lane="175772156_1" startPos="26.65" endPos="51.65" friendlyPos="true" lines="27 61 62 68 67 63"/>
     <busStop id="1863260107" name="Freiheit" lane="107509085#0_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="27 61 62 68 67 63">
-        <access lane="180892741#0_0" pos="33.90" length="8.91" friendlyPos="1"/>
+        <access lane="180892741#0_0" pos="33.91" length="8.91" friendlyPos="1"/>
         <access lane="180892741#1_0" pos="6.99" length="0.36" friendlyPos="1"/>
         <access lane="180892741#2_0" pos="0.00" length="6.35" friendlyPos="1"/>
         <access lane="181020318#0_0" pos="22.63" length="90.85" friendlyPos="1"/>
-        <access lane="181020318#1_0" pos="0.80" length="90.62" friendlyPos="1"/>
+        <access lane="181020318#1_0" pos="0.81" length="90.62" friendlyPos="1"/>
     </busStop>
-    <busStop id="1907551292" name="Freiheit" lane="180892741#0_0" startPos="7.48" endPos="22.48" friendlyPos="true" lines="164 N90"/>
+    <busStop id="1907551292" name="Freiheit" lane="180892741#0_0" startPos="12.10" endPos="27.10" friendlyPos="true" lines="164 N90"/>
     <busStop id="370884692" name="Bahnhofstraße/Lindenstraße" lane="175925602_1" startPos="41.23" endPos="66.23" friendlyPos="true" lines="60 61 62 68 63"/>
     <busStop id="3923335405" name="Bahnhofstraße/Lindenstraße" lane="175772156_1" startPos="50.51" endPos="65.51" friendlyPos="true" lines="164 N90"/>
     <busStop id="3923335406" name="Bahnhofstraße/Lindenstraße" lane="175925602_1" startPos="60.42" endPos="75.42" friendlyPos="true" lines="164 N90"/>

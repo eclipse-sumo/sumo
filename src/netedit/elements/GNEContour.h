@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@
 
 class GNENet;
 class GNEEdge;
+class GNESegment;
 class GNEAttributeCarrier;
 
 // ===========================================================================
@@ -47,33 +48,39 @@ public:
     Boundary getContourBoundary() const;
 
     /// @brief void clear contour
-    void clearContour();
+    void clearContour() const;
 
     /// @brief calculate contours
     /// @{
 
     /// @brief calculate contour (for closed shapes)
     void calculateContourClosedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                     const GUIGlObject* glObject, const PositionVector& shape, const double scale) const;
+                                     const GUIGlObject* glObject, const PositionVector& shape, const double layer,
+                                     const double scale, const GUIGlObject* boundaryParent,
+                                     const bool addToSelectedObjects = true) const;
 
     /// @brief calculate contour extruded (used in elements formed by a central shape)
     void calculateContourExtrudedShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                       const GUIGlObject* glObject, const PositionVector& shape, const double extrusionWidth,
-                                       const double scale, const bool closeFirstExtrem, const bool closeLastExtrem,
-                                       const double offset) const;
+                                       const GUIGlObject* glObject, const PositionVector& shape, const double layer,
+                                       const double extrusionWidth, const double scale, const bool closeFirstExtrem,
+                                       const bool closeLastExtrem, const double offset, const GNESegment* segment,
+                                       const GUIGlObject* boundaryParent, const bool addToSelectedObjects = true) const;
 
     /// @brief calculate contour (for rectangled elements)
     void calculateContourRectangleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                         const GUIGlObject* glObject, const Position& pos, const double width, const double height,
-                                        const double offsetX, const double offsetY, const double rot, const double scale) const;
+                                        const double layer, const double offsetX, const double offsetY, const double rot,
+                                        const double scale, const GUIGlObject* boundaryParent) const;
 
     /// @brief calculate contour (circle elements)
     void calculateContourCircleShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                     const GUIGlObject* glObject, const Position& pos, double radius, const double scale) const;
+                                     const GUIGlObject* glObject, const Position& pos, double radius, const double layer,
+                                     const double scale, const GUIGlObject* boundaryParent) const;
 
     /// @brief calculate contour edge
     void calculateContourEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                              const GNEEdge* edge, const bool closeFirstExtrem, const bool closeLastExtrem) const;
+                              const GNEEdge* edge, const GUIGlObject* elementToRegister, const double layer,
+                              const bool closeFirstExtrem, const bool closeLastExtrem) const;
 
     /// @brief calculate contour between two consecutive edges
     void calculateContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
@@ -81,23 +88,23 @@ public:
 
     /// @brief calculate contour for first geometry point
     void calculateContourFirstGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                            const GUIGlObject* glObject, const PositionVector& shape, const double radius,
-                                            const double scale) const;
+                                            const GUIGlObject* glObject, const PositionVector& shape, const double layer,
+                                            const double radius, const double scale) const;
 
     /// @brief calculate contour for last geometry point
     void calculateContourLastGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                           const GUIGlObject* glObject, const PositionVector& shape, const double radius,
-                                           const double scale) const;
+                                           const GUIGlObject* glObject, const PositionVector& shape, const double layer,
+                                           const double radius, const double scale) const;
 
     /// @brief calculate contour for middle geometry point
     void calculateContourMiddleGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-            const GUIGlObject* glObject, const PositionVector& shape, const double radius,
-            const double scale) const;
+            const GUIGlObject* glObject, const PositionVector& shape, const double layer,
+            const double radius, const double scale) const;
 
     /// @brief calculate contour for all geometry points
     void calculateContourAllGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                           const GUIGlObject* glObject, const PositionVector& shape, const double radius,
-                                           const double scale, const bool calculatePosOverShape) const;
+                                           const GUIGlObject* glObject, const PositionVector& shape, const double layer,
+                                           const double radius, const double scale, const bool calculatePosOverShape) const;
 
     /// @brief calculate contour for edge geometry points
     void calculateContourEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
@@ -108,8 +115,12 @@ public:
     /// @brief drawing contour functions
     /// @{
 
+    /// @brief check if draw path contours (if we're inspecting/selecting/deleting a path, we need to draw all path elements)
+    bool checkDrawPathContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              const GNEAttributeCarrier* AC) const;
+
     /// @brief draw dotted contours (basics, select, delete, inspect...)
-    void drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+    bool drawDottedContours(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                             const GNEAttributeCarrier* AC, const double lineWidth, const bool addOffset) const;
 
     /// @brief draw dotted contour for geometry points
@@ -120,6 +131,10 @@ public:
     /// @brief draw innen contour (currently used only in walkingAreas)
     void drawInnenContourClosed(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                                 const PositionVector& shape, const double scale, const double lineWidth) const;
+
+    /// @brief draw dotted contour (call out of this class only in special cases, for example in WalkingAreas)
+    bool drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                           const double lineWidth, const bool addOffset) const;
     /// @}
 
 private:
@@ -164,10 +179,6 @@ private:
     void buildContourEdges(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                            const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
     /// @}
-
-    /// @brief draw dotted contour
-    void drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                           const double lineWidth, const bool addOffset) const;
 
     /// @brief Invalidated copy constructor.
     GNEContour(const GNEContour&) = delete;

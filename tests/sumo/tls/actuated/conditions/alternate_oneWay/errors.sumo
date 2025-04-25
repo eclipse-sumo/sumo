@@ -1,0 +1,2 @@
+Warning: Missing yellow phase in tlLogic 'aow', program 'P1' for tl-index 1 when switching from phase 0 to phase 3.
+Warning: Missing yellow phase in tlLogic 'aow', program 'P1' for tl-index 2 when switching from phase 3 to phase 0.

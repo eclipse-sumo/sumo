@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,15 +17,17 @@
 ///
 // The Widget for add EdgeRelationData elements
 /****************************************************************************/
-#include <config.h>
 
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/network/GNEEdge.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/GNEPathCreator.h>
 
 #include "GNEEdgeRelDataFrame.h"
-
 
 // ===========================================================================
 // method definitions
@@ -54,19 +56,22 @@ GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ViewObjectsSele
 bool
 GNEEdgeRelDataFrame::createPath(const bool /*useLastRoute*/) {
     // first check that we have at least two edges and parameters are valid
-    if ((myPathCreator->getSelectedEdges().size() > 1) && (myGenericDataAttributes->areAttributesValid())) {
-        GNEDataHandler dataHandler(myViewNet->getNet(), "", true, false);
+    if ((myPathCreator->getSelectedEdges().size() > 1) && (myGenericDataAttributesEditor->checkAttributes(true))) {
+        GNEDataHandler dataHandler(myViewNet->getNet(), "", myViewNet->getViewParent()->getGNEAppWindows()->isUndoRedoAllowed(), false);
         // create data interval object and fill it
         CommonXMLStructure::SumoBaseObject* dataIntervalObject = new CommonXMLStructure::SumoBaseObject(nullptr);
         dataIntervalObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());
         dataIntervalObject->addDoubleAttribute(SUMO_ATTR_BEGIN, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_BEGIN));
         dataIntervalObject->addDoubleAttribute(SUMO_ATTR_END, myIntervalSelector->getDataInterval()->getAttributeDouble(SUMO_ATTR_END));
         CommonXMLStructure::SumoBaseObject* edgeRelationData = new CommonXMLStructure::SumoBaseObject(dataIntervalObject);
+        // obtain parameters
+        myGenericDataAttributesEditor->fillSumoBaseObject(edgeRelationData);
         // create EdgeRelationData
         dataHandler.buildEdgeRelationData(edgeRelationData, myPathCreator->getSelectedEdges().front()->getID(),
-                                          myPathCreator->getSelectedEdges().back()->getID(), myGenericDataAttributes->getParametersMap());
+                                          myPathCreator->getSelectedEdges().back()->getID(), edgeRelationData->getParameters());
         // abort path creation
         myPathCreator->abortPathCreation();
+        // delete data interval object (and child)
         delete dataIntervalObject;
         return true;
     } else {

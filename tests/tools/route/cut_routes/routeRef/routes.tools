@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:06:17.475816 by cutRoutes.py v1_13_0+1343-240e5d48340
-  options: input_net.net.xml input_routes.rou.xml -a input_additional.add.xml <doubleminus>routes-output out.rou.xml <doubleminus>stops-output out.add.xml <doubleminus>orig-net three_split.net.xml-->
+<!-- generated on 2025-03-05 10:16:30.465533 by cutRoutes.py v1_22_0+0650-d108669826e
+<configuration>
+    <routes-output value="out.rou.xml"/>
+    <stops-output value="out.add.xml"/>
+    <additional-input value="input_additional.add.xml"/>
+    <orig-net value="three_split.net.xml"/>
+    <network value="input_net.net.xml"/>
+    <routeFiles value="input_routes.rou.xml"/>
+</configuration>
+-->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="middle end" id="r0"/>
-    <route edges="middle end" id="r1">
+    <route id="r0" edges="middle end"/>
+    <route id="r1" edges="middle end">
         <stop busStop="busstop1" duration="10" until="100.0"/>
     </route>
-    <vehicle depart="27.81" id="v1" route="r0">
+    <vehicle id="v1" depart="27.81" route="r0">
         <stop busStop="busstop1" duration="10"/>
     </vehicle>
-    <vehicle depart="37.81" id="v2" route="r0"/>
-    <vehicle depart="130.00" id="v3" route="r1"/>
-    <vehicle depart="140.00" id="v4" route="r1"/>
+    <vehicle id="v2" depart="37.81" route="r0"/>
+    <vehicle id="v3" depart="130.00" route="r1"/>
+    <vehicle id="v4" depart="140.00" route="r1"/>
 </routes>

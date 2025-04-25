@@ -24,14 +24,14 @@ lengths for x and y directions).
 An example usage for building could be:
 
 ```
-netgenerate --grid --grid.number=10 --grid.length=400 --output-file=MySUMOFile.net.xml
+netgenerate --grid --grid.number=10 --grid.length=400 --output-file=MySUMOFile.net.xml
 ```
 
 or:
 
 ```
-netgenerate --grid --grid.x-number=20 --grid.y-number=5 \
- --grid.y-length=40 --grid.x-length=200 --output-file=MySUMOFile.net.xml
+netgenerate --grid --grid.x-number=20 --grid.y-number=5 \
+ --grid.y-length=40 --grid.x-length=200 --output-file=MySUMOFile.net.xml
 ```
 
 These calls will generate the following networks, respectively:
@@ -54,7 +54,7 @@ specifying **--spider.omit-center** or **--nocenter**. This also gives an easy w
 network. Using for instance
 
 ```
-netgenerate --spider --spider-omit-center --output-file=MySUMOFile.net.xml
+netgenerate --spider --spider-omit-center --output-file=MySUMOFile.net.xml
 ```
 
 will create a circle consisting of 13 elements with a radius of 100m.
@@ -62,15 +62,15 @@ will create a circle consisting of 13 elements with a radius of 100m.
 Two examples of usage:
 
 ```
-netgenerate --spider --spider.arm-number=10 --spider.circle-number=10 \
- --spider.space-radius=100 --output-file=MySUMOFile.net.xml
+netgenerate --spider --spider.arm-number=10 --spider.circle-number=10 \
+ --spider.space-radius=100 --output-file=MySUMOFile.net.xml
 ```
 
 and:
 
 ```
-netgenerate --spider --spider.arm-number=4 --spider.circle-number=3 \
- --spider.space-radius=100 --output-file=MySUMOFile.net.xml
+netgenerate --spider --spider.arm-number=4 --spider.circle-number=3 \
+ --spider.space-radius=100 --output-file=MySUMOFile.net.xml
 ```
 
 These calls will generate the following networks, respectively:
@@ -100,7 +100,7 @@ random networks. Several settings may be changed:
 An example:
 
 ```
-netgenerate --rand -o MySUMOFile.net.xml --rand.iterations=200
+netgenerate --rand -o MySUMOFile.net.xml --rand.iterations=200
 ```
 
 This call will generate the following network:

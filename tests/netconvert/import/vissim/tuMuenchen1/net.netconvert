@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:29 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2024-02-29 13:56:03 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -27,13 +32,12 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,442.24,1182.40" origBoundary="0.00,0.00,442.24,1182.40" projParameter="!"/>
 
@@ -81,7 +85,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="10" from="10-begin" to="6" priority="-1" spreadType="center" shape="442.24,1182.40 408.32,1088.30">
         <lane id="10_0" index="0" speed="13.89" length="96.66" shape="442.24,1182.40 409.46,1091.46"/>
     </edge>
-    <edge id="2" from="1" to="2" name="-70#1" priority="-1" spreadType="center" shape="241.66,748.59 232.87,726.83 218.02,690.55 188.46,601.69 149.19,465.04 98.07,281.18">
+    <edge id="2" from="1" to="2" name="-70#1" priority="-1" spreadType="center" shape="241.66,748.58 232.87,726.83 218.02,690.55 188.46,601.69 149.19,465.04 98.07,281.18">
         <lane id="2_0" index="0" speed="13.89" length="486.34" shape="240.18,749.18 231.39,727.43 216.52,691.11 186.93,602.16 147.65,465.48 97.33,284.49"/>
         <lane id="2_1" index="1" speed="13.89" length="486.34" shape="243.14,747.99 234.35,726.22 219.52,690.00 189.99,601.22 150.73,464.60 100.41,283.63"/>
     </edge>
@@ -90,12 +94,12 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="3_1" index="1" speed="13.89" length="215.00" shape="279.78,771.89 277.15,765.31 258.32,724.66 219.91,633.89 196.70,573.65"/>
         <lane id="3_2" index="2" speed="13.89" length="215.00" shape="282.75,770.70 280.09,764.04 261.25,723.36 222.88,632.69 199.68,572.50"/>
     </edge>
-    <edge id="4" from="1" to="4" name="-74" priority="-1" spreadType="center" shape="247.93,749.48 224.59,693.12 207.44,623.57 189.22,574.97">
+    <edge id="4" from="1" to="4" name="-74" priority="-1" spreadType="center" shape="247.93,749.48 224.59,693.12 207.44,623.57 189.22,574.96">
         <lane id="4_0" index="0" speed="13.89" length="179.90" shape="246.72,746.54 224.59,693.12 207.44,623.57 189.74,576.34"/>
     </edge>
     <edge id="5" from="5" to="5-end" name="-76" priority="-1" spreadType="center" shape="152.36,424.43 113.40,270.74 97.94,215.33 87.41,179.62 68.37,130.99 54.00,98.62 0.00,0.00">
         <lane id="5_0" index="0" speed="13.89" length="450.40" shape="148.53,422.33 110.31,271.56 94.86,216.21 84.38,180.66 65.42,132.22 51.13,100.04 -2.81,1.54"/>
-        <lane id="5_1" index="1" speed="13.89" length="450.40" shape="151.63,421.54 113.40,270.74 97.94,215.33 87.41,179.62 68.37,130.99 54.00,98.62 -0.00,-0.00"/>
+        <lane id="5_1" index="1" speed="13.89" length="450.40" shape="151.63,421.54 113.40,270.74 97.94,215.33 87.41,179.62 68.37,130.99 54.00,98.62 0.00,-0.00"/>
         <lane id="5_2" index="2" speed="13.89" length="450.40" shape="154.73,420.75 116.49,269.92 101.02,214.45 90.44,178.58 71.32,129.76 56.87,97.20 2.81,-1.54"/>
     </edge>
     <edge id="6" from="4" to="5" name="-78" priority="-1" spreadType="center" shape="193.55,570.90 151.24,426.75">
@@ -114,7 +118,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="8_1" index="1" speed="13.89" length="231.46" shape="95.00,276.96 51.12,141.32 31.83,91.11 17.50,59.06"/>
         <lane id="8_2" index="2" speed="13.89" length="231.46" shape="98.04,275.98 54.14,140.25 34.79,89.88 20.42,57.75"/>
     </edge>
-    <edge id="9" from="9-begin" to="0" name="Linz Red Input" priority="-1" spreadType="center" shape="418.94,1165.16 393.74,1094.52">
+    <edge id="9" from="9-begin" to="0" name="Linz Red Input" priority="-1" spreadType="center" shape="418.94,1165.16 393.73,1094.52">
         <lane id="9_0" index="0" speed="13.89" length="71.26" shape="418.94,1165.16 394.99,1098.04"/>
     </edge>
 

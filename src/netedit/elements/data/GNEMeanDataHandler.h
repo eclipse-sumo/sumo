@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,15 +37,18 @@ class GNEMeanDataHandler : public MeanDataHandler {
 
 public:
     /// @brief Constructor
-    GNEMeanDataHandler(GNENet* net, const bool allowUndoRedo, const bool overwrite);
+    GNEMeanDataHandler(GNENet* net, const std::string& filename, const bool allowUndoRedo, const bool overwrite);
 
     /// @brief Destructor
     virtual ~GNEMeanDataHandler();
 
+    /// @brief run post parser tasks
+    bool postParserTasks();
+
     /// @name build functions
     /// @{
     /// @brief Builds edgeMeanData
-    void buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+    bool buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                            const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                            const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
                            const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
@@ -53,7 +56,7 @@ public:
                            const std::vector<std::string>& vTypes, const double speedThreshold);
 
     /// @brief Builds laneMeanData
-    void buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+    bool buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                            const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
                            const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
                            const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
@@ -78,7 +81,16 @@ protected:
     /// @brief parse attributes
     std::vector<SumoXMLAttr> parseAttributes(const SumoXMLTag tag, const std::vector<std::string>& attrStrs);
 
+    /// @brief check if given ID correspond to a duplicated mean data element
+    bool checkDuplicatedMeanDataElement(const SumoXMLTag tag, const std::string& id);
+
+    /// @brief check if given excludeEmpty is valid
+    bool checkExcludeEmpty(const SumoXMLTag tag, const std::string& id, const std::string& excludeEmpty);
+
 private:
+    /// @brief invalidate default onstructor
+    GNEMeanDataHandler() = delete;
+
     /// @brief invalidate copy constructor
     GNEMeanDataHandler(const GNEMeanDataHandler& s) = delete;
 

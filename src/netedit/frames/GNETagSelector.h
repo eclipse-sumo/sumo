@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/GNETagProperties.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
@@ -38,7 +39,7 @@ class GNETagSelector : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor
-    GNETagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables = true);
+    GNETagSelector(GNEFrame* frameParent, const GNETagProperties::Type type, const SumoXMLTag tag);
 
     /// @brief destructor
     ~GNETagSelector();
@@ -49,17 +50,14 @@ public:
     /// @brief hide item selector
     void hideTagSelector();
 
-    /// @brief get templateAC
-    GNEAttributeCarrier* getTemplateAC(SumoXMLTag ACTag) const;
-
     /// @brief get current templateAC
     GNEAttributeCarrier* getCurrentTemplateAC() const;
 
-    /// @brief set current type manually
-    void setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent = true);
+    /// @brief update tag types to select
+    void updateTagTypes(const GNETagProperties::Type type, const SumoXMLTag tag, const bool informParent);
 
     /// @brief set current type manually
-    void setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent = true);
+    void setCurrentTag(SumoXMLTag newTag, const bool informParent = true);
 
     /// @brief refresh tagSelector (used when frameParent is show)
     void refreshTagSelector();
@@ -75,41 +73,12 @@ protected:
     FOX_CONSTRUCTOR(GNETagSelector)
 
 private:
-    class ACTemplate {
-
-    public:
-        /// @brief constructor
-        ACTemplate(GNENet* net, const GNETagProperties tagProperty);
-
-        /// @brief destructor
-        ~ACTemplate();
-
-        /// @brief get template AC
-        GNEAttributeCarrier* getAC() const;
-
-    private:
-        /// @brief editedAC
-        GNEAttributeCarrier* myAC;
-
-        /// @brief Invalidated copy constructor.
-        ACTemplate(const ACTemplate&) = delete;
-
-        /// @brief Invalidated assignment operator
-        ACTemplate& operator=(const ACTemplate& src) = delete;
-    };
-
     /// @brief pointer to Frame Parent
     GNEFrame* myFrameParent;
-
-    /// @brief current tagType
-    GNETagProperties::TagType myTagType;
 
     /// @brief comboBox with the tags
     MFXComboBoxIcon* myTagsMatchBox;
 
     /// @brief current templateAC;
     GNEAttributeCarrier* myCurrentTemplateAC;
-
-    /// @brief list with ACTemplates
-    std::vector<ACTemplate*> myACTemplates;
 };

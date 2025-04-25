@@ -1,0 +1,155 @@
+chargingstations ('stop1', 'stop2')
+chargingstation count 2
+stop attributes:
+  stop=stop1 lane=WC_0 startPos=25.0 endPos=45.0 name=Downtown
+  stop=stop2 lane=CE_0 startPos=35.0 endPos=65.0 name=Main Station
+time: 0.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 1.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 2.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 3.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 4.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 5.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 6.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 7.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 8.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 9.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 10.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 11.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 12.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 13.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 14.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 15.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 16.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 17.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 18.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 19.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 20.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 21.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 22.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 23.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 24.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 25.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 26.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 27.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 28.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 29.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 30.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 31.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 32.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 33.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 34.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 35.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 36.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 37.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 38.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 39.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 40.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 41.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 42.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 43.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 44.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 45.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 46.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 47.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6
+time: 48.0
+  stop=stop1 efficiency=0.3
+  stop=stop2 efficiency=0.3
+time: 49.0
+  stop=stop1 efficiency=0.6
+  stop=stop2 efficiency=0.6

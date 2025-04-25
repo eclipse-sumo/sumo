@@ -1,0 +1,14 @@
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading done.
+Simulation version v1_21_0+1570-8eaf427e473 started with time: 0.00.
+Simulation ended at time: 16.00.
+Reason: All vehicles have left the simulation.
+DijkstraRouter answered 1 queries and explored 2.00 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading state from 'state.xml' ... done (13ms).
+Loading done.
+Simulation version v1_21_0+1570-8eaf427e473 started with time: 6.00.
+Simulation ended at time: 16.00.
+Reason: All vehicles have left the simulation.

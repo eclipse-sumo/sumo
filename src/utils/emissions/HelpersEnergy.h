@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,6 +47,22 @@ public:
      */
     HelpersEnergy();
 
+    /** @brief Returns the fuel type described by this emission class as described in the Amitran interface (Gasoline, Diesel, ...)
+     * @param[in] c the emission class
+     * @return always "Electricity"
+     */
+    std::string getFuel(const SUMOEmissionClass /* c */) const {
+        return "Electricity";
+    }
+
+    /** @brief Returns a reference weight in kg described by this emission class
+     * This implementation returns the default mass for this model.
+     * @param[in] c the emission class
+     * @return a reference weight
+     */
+    double getWeight(const SUMOEmissionClass /* c */) const {
+        return myDefaultMass;
+    }
 
     /** @brief Computes the emitted pollutant amount using the given speed and acceleration
      *
@@ -71,4 +87,18 @@ public:
      * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
     double acceleration(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double P, const double slope, const EnergyParams* param) const;
+
+private:
+    // default values from https://sumo.dlr.de/docs/Models/Electric.html#kia_soul_ev_2020
+    static constexpr double myDefaultMass = 1830.;
+    static constexpr double myDefaultFrontSurfaceArea = 2.6;
+    static constexpr double myDefaultAirDragCoefficient = 0.35;
+    static constexpr double myDefaultRotatingMass = 40.;
+    static constexpr double myDefaultRadialDragCoefficient = 0.1;
+    static constexpr double myDefaultRollDragCoefficient = 0.01;
+    static constexpr double myDefaultConstantPowerIntake = 100.;
+    static constexpr double myDefaultPropulsionEfficiency = 0.98;
+    static constexpr double myDefaultRecuperationEfficiency = 0.96;
+    static constexpr double myDefaultRecuperationEfficiencyByDeceleration = 0.0;
+
 };

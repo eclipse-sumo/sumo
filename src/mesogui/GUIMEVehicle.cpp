@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,8 @@
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <microsim/MSStop.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/devices/MSVehicleDevice.h>
@@ -39,12 +41,18 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GUIMEVehicle::GUIMEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                            MSVehicleType* type, const double speedFactor) :
     MEVehicle(pars, route, type, speedFactor),
     GUIBaseVehicle((MSBaseVehicle&) * this) {
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GUIMEVehicle::~GUIMEVehicle() { }
@@ -84,6 +92,9 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     }
     if (getParameter().repetitionProbability > 0) {
         ret->mkItem("insertion probability", false, getParameter().repetitionProbability);
+    }
+    if (getParameter().poissonRate > 0) {
+        ret->mkItem(TL("poisson rate"), false, getParameter().poissonRate);
     }
     //ret->mkItem("stop info", false, getStopInfo());
     ret->mkItem("line", false, myParameter->line);
@@ -139,8 +150,8 @@ GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 
 void
-GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s */, bool /* asImage */) const {
-    GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), getVType().getLength());
+GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s */, double scaledLength, bool /* asImage */) const {
+    GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), scaledLength);
 }
 
 
@@ -226,7 +237,7 @@ GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr
         repeatLane[lane]++;
     }
     drawStopLabels(s, noLoop, col);
-    drawParkingInfo(s, col);
+    drawParkingInfo(s);
 }
 
 
@@ -253,11 +264,6 @@ GUIMEVehicle::getStopInfo() const {
 std::string
 GUIMEVehicle::getEdgeID() const {
     return getEdge()->getID();
-}
-
-int
-GUIMEVehicle::getSegmentIndex() const {
-    return getSegment() != nullptr ? getSegment()->getIndex() : -1;
 }
 
 
@@ -306,5 +312,24 @@ GUIMEVehicle::getCenteringBoundary() const {
     return b;
 }
 
+Position
+GUIMEVehicle::getVisualPosition(bool s2, const double offset) const {
+    if (isParking()) {
+        // meso vehicles do not enter/leave parkingAreas so we cannot call
+        // myStops.begin()->parkingarea->getVehiclePosition(*this);
+
+        // position beside the road
+        const MSLane* first = getEdge()->getLanes()[0];
+        PositionVector shp = first->getShape(s2);
+        shp.move2side(SUMO_const_laneWidth * (MSGlobals::gLefthand ? -1 : 1));
+        return shp.positionAtOffset((getPositionOnLane() + offset) * first->getLengthGeometryFactor(s2));
+    }
+    return MEVehicle::getPosition(offset);
+}
+
+bool
+GUIMEVehicle::isSelected() const {
+    return gSelected.isSelected(GLO_VEHICLE, getGlID());
+}
 
 /****************************************************************************/

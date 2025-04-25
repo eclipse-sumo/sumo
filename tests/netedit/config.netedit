@@ -5,71 +5,179 @@ virtual_display_wm_executable:fluxbox
 virtual_display_extra_args:-dpi 100 -shmem
 
 copy_test_path:test.py
+
+copy_test_path:gui-settings.xml
+
 copy_test_path:netedit.netecfg
-copy_test_path:net.net.xml
-copy_test_path:net.netccfg
-copy_test_path:net.net.xml
+copy_test_path:sumo.sumocfg
+copy_test_path:netccfg.netecfg
+
+copy_test_path:netedit_open.netecfg
+copy_test_path:sumo_open.sumocfg
+copy_test_path:netccfg_open.netecfg
+
 copy_test_path:net.con.xml
 copy_test_path:net.edg.xml
 copy_test_path:net.nod.xml
 copy_test_path:net.tll.xml
 copy_test_path:net.net.xml
-copy_test_path:net_loadedmanually.net.xml
-copy_test_path:netedit_loadedmanually.netecfg
-copy_test_path:sumo_loadedmanually.sumocfg
+
+copy_test_path:sumo.con.xml
+copy_test_path:sumo.edg.xml
+copy_test_path:sumo.nod.xml
+copy_test_path:sumo.tll.xml
+copy_test_path:sumo.net.xml
+
+copy_test_path:netccfg.con.xml
+copy_test_path:netccfg.edg.xml
+copy_test_path:netccfg.nod.xml
+copy_test_path:netccfg.tll.xml
+copy_test_path:netccfg.net.xml
+
 copy_test_path:additionals.add.xml
 copy_test_path:routes.rou.xml
 copy_test_path:vtypes.rou.xml
 copy_test_path:datas.dat.xml
-copy_test_path:gui-settings.xml
+copy_test_path:datas.med.add.xml
+
 copy_test_path:berlin_icon.ico
 copy_test_path:fileA.txt
 copy_test_path:fileB.txt
 copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
-copy_test_path:sumo.sumocfg
-copy_test_path:errorScreenshot.png
+copy_test_path:loadViewport.xml
 
 [collate_file]
-net:net.net.xml
-net:netedit.net.xml
-net:net_loadedmanually.net.xml
-configmanually:netedit_savedmanually.netecfg
-configmanually:sumo_savedmanually.sumocfg
+
+neteconfigas:configAs.netecfg
+sumoconfigas:configAs.sumo
+
 netcon:net.con.xml
 netedg:net.edg.xml
 netnod:net.nod.xml
 nettll:net.tll.xml
+
+sumonet:sumo.net.xml
+sumocon:sumo.con.xml
+sumoedg:sumo.edg.xml
+sumonod:sumo.nod.xml
+sumotll:sumo.tll.xml
+
+netccfgnet:netccfg.net.xml
+netccfgcon:netccfg.con.xml
+netccfgedg:netccfg.edg.xml
+netccfgnod:netccfg.nod.xml
+netccfgtll:netccfg.tll.xml
+
+net:net.net.xml
+netas:netAs.net.xml
+
 additionals:additionals.add.xml
-additionals:netedit.add.xml
+additionalsas:additionalsAs.add.xml
+additionalssecondfile:additional.secondFile.add.xml
+additionalsthirdFilefile:additional.thirdFile.add.xml
+
 routes:routes.rou.xml
-routes:netedit.rou.xml
+routesas:routesAs.rou.xml
+routesssecondfile:routes.secondFile.add.xml
+routessthirdFilefile:routes.thirdFile.add.xml
+
 datas:datas.dat.xml
-datas:netedit.dat.xml
-meandatas:meandatas.dat.xml
-meandatas:netedit.med.dat.xml
+datasas:datasAs.dat.xml
+datasssecondfile:datas.secondFile.add.xml
+datassthirdFilefile:datas.thirdFile.add.xml
+
+meandatas:datas.med.add.xml
+meandatasas:datasAs.med.add.xml
+meandatasssecondfile:datas.secondFile.med.add.xml
+meandatassthirdFilefile:datasAs.thirdFile.med.add.xml
+
 guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg
 log:log.txt
 selection:selection.txt
 errorScreenshot:errorScreenshot.png
+viewport:viewport.xml
 
 [run_dependent_text]
 net:<!--{[->]}-->
+netas:<!--{[->]}-->
+
 additionals:<!-- generated{[->]}-->
 additionals:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 additionals:\\{REPLACE /}
+
+additionalsas:<!-- generated{[->]}-->
+additionalsas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+additionalsas:\\{REPLACE /}
+
+additionalssecondfile:<!-- generated{[->]}-->
+additionalssecondfile:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+additionalssecondfile:\\{REPLACE /}
+
+additionalsthirdFilefile:<!-- generated{[->]}-->
+additionalsthirdFilefile:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+additionalsthirdFilefile:\\{REPLACE /}
+
 routes:<!-- generated{[->]}-->
 routes:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 routes:\\{REPLACE /}
-configmanually:<!-- generated{[->]}-->
+
+routesas:<!-- generated{[->]}-->
+routesas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+routesas:\\{REPLACE /}
+
+routesssecondfile:<!-- generated{[->]}-->
+routesssecondfile:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+routesssecondfile:\\{REPLACE /}
+
+routessthirdFilefile:<!-- generated{[->]}-->
+routessthirdFilefile:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+routessthirdFilefile:\\{REPLACE /}
+
 datas:<!-- generated{[->]}-->
 datas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 datas:\\{REPLACE /}
+
+datasas:<!-- generated{[->]}-->
+datasas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+datasas:\\{REPLACE /}
+
+datasssecondfile:<!-- generated{[->]}-->
+datasssecondfile:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+datasssecondfile:\\{REPLACE /}
+
+datassthirdFilefile:<!-- generated{[->]}-->
+datassthirdFilefile:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+datassthirdFilefile:\\{REPLACE /}
+
+meandatas:<!-- generated{[->]}-->
+meandatas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+meandatas:\\{REPLACE /}
+
+meandatasas:<!-- generated{[->]}-->
+meandatasas:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+meandatasas:\\{REPLACE /}
+
+meandatasssecondfile:<!-- generated{[->]}-->
+meandatasssecondfile:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+meandatasssecondfile:\\{REPLACE /}
+
+meandatassthirdFilefile:<!-- generated{[->]}-->
+meandatassthirdFilefile:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+meandatassthirdFilefile:\\{REPLACE /}
+
 netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->
 nettll:<!--{[->]}-->
+
+neteconfig:<!--{[->]}-->
+neteconfigas:<!--{[->]}-->
+
+sumoconfig:<!--{[->]}-->
+sumoconfigas:<!--{[->]}-->
+
 output:\[log\]
 output:\[info\]
 output:+++
@@ -77,8 +185,10 @@ output:\\{REPLACE /}
 output:script{LINES 1}
 output:  File{LINES 1}
 output:{INTERNAL writedir}
+
 guisettingsoutput:<scheme{[->]}</scheme>
-errors:Leaked object at 
+
+errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 errors:java{LINES 1}
@@ -87,7 +197,12 @@ errors:X connection to
 errors:Could not load{LINES 1}
 errors:Debug: Modules:
 errors:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
+errors:error: XDG_RUNTIME_DIR is invalid or not set in the environment.
+errors:MESA: error: ZINK: {LINES 2}
 errors:\\{REPLACE /}
+errors:avx512er{LINES 1}
+errors:avx512pf{LINES 1}
+
 log:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 log:\\{REPLACE /}
 log:Discarding invalid crossing{LINES 1}

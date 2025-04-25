@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -211,7 +211,7 @@ GNEPythonToolDialogElements::FileNameArgument::reset() {
 long
 GNEPythonToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
     // get file
-    const auto file = GNEApplicationWindowHelper::openFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
+    const auto file = GNEApplicationWindowHelper::openXMLFileDialog(this, (myOption->getSubTopic() == "output"), myOption->getListSeparator() != "");
     // check that file is valid
     if (file.size() > 0) {
         myFilenameTextField->setText(file.c_str(), TRUE);

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,9 @@
 // class declarations
 // ===========================================================================
 class MSRailSignal;
+class MSRailSignalConstraint;
 class MSEdge;
+class MSDriveWay;
 
 // ===========================================================================
 // class definitions
@@ -50,6 +52,24 @@ public:
     /** @brief Perform resets events when quick-loading state */
     static void clearState();
 
+    /// @brief reset all waiting-for relationships at the start of the simulation step
+    void resetWaitRelations() {
+        myWaitRelations.clear();
+        myWrittenDeadlocks.clear();
+    }
+
+    void addWaitRelation(const SUMOVehicle* waits, const MSRailSignal* rs, const SUMOVehicle* reason, MSRailSignalConstraint* constraint = nullptr);
+
+    void addDrivewayFollower(const MSDriveWay* dw, const MSDriveWay* dw2);
+
+    /// @brief check whether the given signal and driveway are part of a deadlock circle
+    void addDWDeadlockChecks(const MSRailSignal* rs, MSDriveWay* dw);
+
+    /// @brief whether there is a circle in the waiting-for relationships that contains the given vehicle
+    bool haveDeadlock(const SUMOVehicle* veh) const;
+
+    void addDeadlockCheck(std::vector<const MSRailSignal*> signals);
+
     /** @brief Called if a vehicle changes its state
      * @param[in] vehicle The vehicle which changed its state
      * @param[in] to The state the vehicle has changed to
@@ -57,25 +77,35 @@ public:
      */
     void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
 
-    /// @brief mark driveway that must receive additional checks if protectedBidi is ever used by a train route
-    void registerProtectedDriveway(MSRailSignal* rs, int driveWayID, const MSEdge* protectedBidi);
-
-    const std::set<const MSEdge*>& getUsedEdges() const {
-        return myUsedEdges;
-    }
-
     void addSignal(MSRailSignal* signal);
 
     const std::vector<MSRailSignal*>& getSignals() const {
         return mySignals;
     }
 
-    void addGreenFlankSwitch(MSLink* link, int dwID) {
-        mySwitchedGreenFlanks.emplace_back(link, dwID);
+    const std::map<const MSRailSignal*, std::vector<const MSRailSignal*> >& getDeadlockChecks() const {
+        return myDeadlockChecks;
     }
 
-    /// @brief final check for driveway compatibility of signals that switched green in this step
-    void recheckGreen();
+    /// switch rail signal to active
+    void notifyApproach(const MSLink* link);
+
+    /// @brief update active rail signals
+    void updateSignals(SUMOTime t);
+
+
+    static bool isSignalized(SUMOVehicleClass svc) {
+        return (mySignalizedClasses & svc) == svc;
+    }
+
+    static void initSignalized(SVCPermissions svc) {
+        mySignalizedClasses = svc;
+    }
+
+protected:
+
+    void findDeadlockFoes(const MSDriveWay* dw, const std::vector<const MSRailSignal*>& others, std::vector<const MSDriveWay*> deadlockFoes);
+
 
 private:
     /** @brief Constructor */
@@ -87,8 +117,21 @@ private:
     /// @brief all rail edges that are part of a known route
     std::set<const MSEdge*> myUsedEdges;
 
-    /// @brief map of driveways that must perform additional checks if the key edge is used by a train route
-    std::map<const MSEdge*, std::vector<std::pair<MSRailSignal*, int> > > myProtectedDriveways;
+    struct WaitRelation {
+        WaitRelation(const MSRailSignal* _railSignal = nullptr, const SUMOVehicle* _foe = nullptr, MSRailSignalConstraint* _constraint = nullptr) :
+            railSignal(_railSignal), foe(_foe), constraint(_constraint) {}
+        // indices along route
+        const MSRailSignal* railSignal;
+        const SUMOVehicle* foe;
+        MSRailSignalConstraint* constraint;
+    };
+    std::map<const SUMOVehicle*, WaitRelation> myWaitRelations;
+
+    mutable std::set<std::set<const SUMOVehicle*> > myWrittenDeadlocks;
+
+    std::map<const MSRailSignal*, std::vector<const MSRailSignal*> > myDeadlockChecks;
+    std::map<const MSDriveWay*, std::set<const MSDriveWay*>> myDriveWaySucc;
+    std::map<const MSDriveWay*, std::set<const MSDriveWay*>> myDriveWayPred;
 
     /// @brief list of all rail signals
     std::vector<MSRailSignal*> mySignals;
@@ -96,6 +139,10 @@ private:
     /// @brief list of signals that switched green along with driveway index
     std::vector<std::pair<MSLink*, int> > mySwitchedGreenFlanks;
     std::map<std::pair<int, int>, bool> myDriveWayCompatibility;
+    std::set<MSRailSignal*, ComparatorNumericalIdLess> myActiveSignals;
+
+    /// @brief signalized classes
+    static SVCPermissions mySignalizedClasses;
 
     static MSRailSignalControl* myInstance;
 

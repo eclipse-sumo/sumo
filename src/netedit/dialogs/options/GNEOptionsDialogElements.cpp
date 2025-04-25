@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,8 +33,11 @@
 #include "GNEOptionsDialogElements.h"
 #include "GNEOptionsDialog.h"
 
+// ===========================================================================
+// Defines
+// ===========================================================================
 
-#define MARGING 4
+#define MARGIN 4
 #define MINNAMEWIDTH 200
 
 // ===========================================================================
@@ -84,7 +87,7 @@ GNEOptionsDialogElements::InputOption::InputOption(GNEOptionsDialog* GUIDialogOp
 
 void
 GNEOptionsDialogElements::InputOption::adjustNameSize() {
-    const int nameWidth = myNameLabel->getFont()->getTextWidth(myNameLabel->getText().text(), myNameLabel->getText().length() + MARGING);
+    const int nameWidth = myNameLabel->getFont()->getTextWidth(myNameLabel->getText().text(), myNameLabel->getText().length() + MARGIN);
     if (nameWidth > MINNAMEWIDTH) {
         myNameLabel->setWidth(nameWidth);
     }
@@ -421,6 +424,7 @@ GNEOptionsDialogElements::InputFloat::onCmdSetOption(FXObject*, FXSelector, void
     } else {
         myGUIDialogOptions->myOptionsContainer.resetWritable();
         myGUIDialogOptions->myOptionsContainer.set(myName, myFloatTextField->getText().text());
+        myGUIDialogOptions->myOptionsModified = true;
     }
     return 1;
 }
@@ -443,6 +447,67 @@ std::string
 GNEOptionsDialogElements::InputFloat::parseFloat(const std::string& value) const {
     try {
         return toString(StringUtils::toDouble(value));
+    } catch (...) {
+        return value;
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEOptionsDialogElements::InputTime - methods
+// ---------------------------------------------------------------------------
+
+GNEOptionsDialogElements::InputTime::InputTime(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+        const std::string& name, const std::string& description, const std::string& defaultValue) :
+    InputOption(GUIDialogOptions, parent, topic, name, description, parseTime(defaultValue)) {
+    myTimeTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myTimeTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getString(name)).c_str());
+    updateOption();
+}
+
+
+void
+GNEOptionsDialogElements::InputTime::updateOption() {
+    myTimeTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getString(myName)).c_str());
+}
+
+
+void
+GNEOptionsDialogElements::InputTime::restoreOption() {
+    myTimeTextField->setText(toString(myGUIDialogOptions->myOriginalOptionsContainer.getString(myName)).c_str());
+}
+
+
+long
+GNEOptionsDialogElements::InputTime::onCmdSetOption(FXObject*, FXSelector, void*) {
+    // avoid empty values
+    if (myTimeTextField->getText().empty()) {
+        myTimeTextField->setText(myDefaultValue.c_str());
+    } else {
+        myGUIDialogOptions->myOptionsContainer.resetWritable();
+        myGUIDialogOptions->myOptionsContainer.set(myName, myTimeTextField->getText().text());
+        myGUIDialogOptions->myOptionsModified = true;
+    }
+    return 1;
+}
+
+
+long
+GNEOptionsDialogElements::InputTime::onCmdResetOption(FXObject*, FXSelector, void*) {
+    myTimeTextField->setText(myDefaultValue.c_str());
+    return 1;
+}
+
+
+std::string
+GNEOptionsDialogElements::InputTime::getValue() const {
+    return myTimeTextField->getText().text();
+}
+
+
+std::string
+GNEOptionsDialogElements::InputTime::parseTime(const std::string& value) const {
+    try {
+        return time2string(string2time(value));
     } catch (...) {
         return value;
     }
@@ -477,7 +542,7 @@ GNEOptionsDialogElements::InputFilename::restoreOption() {
 long
 GNEOptionsDialogElements::InputFilename::onCmdOpenDialog(FXObject*, FXSelector, void*) {
     // get file
-    const auto file = GNEApplicationWindowHelper::openFileDialog(this, (myName.find("output") != std::string::npos), false);
+    const auto file = GNEApplicationWindowHelper::openXMLFileDialog(this, (myName.find("output") != std::string::npos), false);
     // check that file is valid
     if (file.size() > 0) {
         myFilenameTextField->setText(file.c_str(), TRUE);

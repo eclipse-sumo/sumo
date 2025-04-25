@@ -8,4 +8,14 @@ internal
 lane_intermodal
 
 # Tests the lane API with sublane model enabled
+# sublane
+
+# see #14552
+setMaxSpeed
+
+# close one lane of a two-lane edge, see #14589
+setMaxSpeed2
 sublane
+
+# retrieve bidi lane
+bidi

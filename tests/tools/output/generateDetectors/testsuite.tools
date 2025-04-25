@@ -1,0 +1,16 @@
+noOptions
+
+# minimal options
+default
+
+# Test with cross3ltl
+instant
+
+# Test with cross1lt1
+pos_random
+
+# Test with cross1lt1
+pos_custom
+probability
+E2
+E2_length

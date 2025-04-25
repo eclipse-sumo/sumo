@@ -13,6 +13,9 @@ bike_edges
 # programs for tls that span multiple junctions
 joined
 
+# functions for discarding traffic lights
+discard
+
 # warn about traffic light with a high cycle time
 high_cycle_time
 
@@ -27,6 +30,15 @@ allred.time_extension
 
 # insert all red phase on a large junction
 allred.time_large
+
+# customize yellow time
+yellow.time
+
+# customize yellow time
+yellow.time0
+
+# customize green time
+green.time0
 
 # main direction (specified via edge priorities) takes a right turn at a 4-way intersection
 main_road_turns_right

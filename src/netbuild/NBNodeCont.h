@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -174,7 +174,7 @@ public:
     bool maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outAngle) const;
 
     /// @brief try to find a joinable subset (recursively)
-    bool reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes, std::vector<NBNode*> cands = std::vector<NBNode*>()) const;
+    bool reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes, double maxDist, std::vector<NBNode*> cands = std::vector<NBNode*>()) const;
 
     /// @brief find closest neighbor for building circle
     NBEdge* shortestEdge(const NodeSet& cluster, const NodeSet& startNodes, const std::vector<NBNode*>& exclude) const;
@@ -187,8 +187,9 @@ public:
      * @param[in, opt. changed] ec The edge container to remove the edges from
      * @param[in, opt. changed] tc The traffic lights container to update
      * @post Each edge is a uni-directional connection between two different nodes
+     * @return The number of removed edges
      */
-    void removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
+    int removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
 
     /** @brief Joins edges connecting the same nodes
      * @param[in, opt. changed] dc The districts container to update
@@ -207,8 +208,9 @@ public:
      *
      * @param[in, opt. changed] dc The district container needed if edges shall be removed
      * @param[in, opt. changed] ec The container with the edge to be tested
+     * @return The number of removed edges
      */
-    void removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec);
+    int removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec);
 
     /** @brief Checks the network for weak connectivity and removes all but the largest components.
      * The connectivity check is done regardless of edge direction and vclass.
@@ -216,11 +218,14 @@ public:
      * @param[in, opt. changed] dc The district container needed if edges shall be removed
      * @param[in, opt. changed] ec The container with the edge to be tested
      * @param[in] numKeep The number of components to keep
+     * @return The number of removed edges
      */
-    void removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKeep, bool hasPTStops);
+    int removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKeep, bool hasPTStops);
 
-    /// @brief remove rail components after ptstops are built
-    void removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCont& sc);
+    /* @brief remove rail components after ptstops are built
+     * @return The number of removed edges
+     */
+    int removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCont& sc);
 
     /** @brief Removes "unwished" nodes
      *
@@ -336,6 +341,10 @@ public:
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     void registerJoinedCluster(const NodeSet& cluster);
+    void registerJoinedCluster(const std::set<std::string>& cluster);
+
+    /// @brief remove cluster from list (on netedit-undo)
+    void unregisterJoinedCluster(const std::set<std::string>& cluster);
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     const std::vector<std::set<std::string> >& getJoinedClusters() const {
@@ -345,7 +354,7 @@ public:
     /* @brief discards traffic lights
      * @param[in] geometryLike Whether only tls at geometry-like nodes shall be discarded
      */
-    void discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals);
+    void discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike);
 
     /// @brief discards rail signals
     void discardRailSignals();
@@ -386,17 +395,23 @@ private:
     void generateNodeClusters(double maxDist, NodeClusters& into) const;
 
     /// @brief remove geometry-like fringe nodes from cluster
-    void pruneClusterFringe(NodeSet& cluster) const;
+    void pruneClusterFringe(NodeSet& cluster, double maxDist, bool remove2TLS = false) const;
 
     /// @brief avoid removal of long edges when joining junction clusters
     static int pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun = false);
 
+    /// @brief compute the maximum distance between any two cluster nodes
+    static double getDiameter(const NodeSet& cluster);
+
+    /// @brief check whether the node is geometryLike when only considering edges that support the given permissions
+    static bool geometryLikeForClass(const NBNode* n, SVCPermissions permissions);
+
     /// @brief remove nodes that form a slip lane from cluster
-    void pruneSlipLaneNodes(NodeSet& cluster) const;
+    void pruneSlipLaneNodes(NodeSet& cluster, double maxDist) const;
 
     /// @brief determine wether the cluster is not too complex for joining
     bool feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds,
-                         double maxDist, std::string& reason) const;
+                         double maxDist, std::string& reason, NBNode*& tryRemove) const;
 
     /// @brief joins the given node clusters
     void joinNodeClusters(NodeClusters clusters, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, bool resetConnections = false);

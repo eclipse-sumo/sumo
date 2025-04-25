@@ -1,0 +1,6 @@
+--no-step-log --net-file=net.net.xml
+-r input_routes.rou.xml 
+--device.rerouting.period 100
+--device.rerouting.probability 1
+--time-to-teleport 20
+-t

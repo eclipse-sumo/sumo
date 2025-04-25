@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional>
+
+    <tlLogic id="C" type="static" programID="extra" offset="0">
+        <phase duration="31" state="GGGggrrrrGGGggrrrr"/>
+        <phase duration="4"  state="yyyyyrrrryyyyyrrrr"/>
+        <phase duration="31" state="rrrrrGGggrrrrrGGgg"/>
+        <phase duration="4"  state="rrrrryyyyrrrrryyyy"/>
+        <param key="tk3" value="tv3"/>
+    </tlLogic>
+
+
+</additional>

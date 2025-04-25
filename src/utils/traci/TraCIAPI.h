@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -228,6 +228,11 @@ public:
         InductionLoopScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, -1, libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE, libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT) {}
         virtual ~InductionLoopScope() {}
 
+        /**
+         * @param loopID The ID of the Induction Loop
+         * @return the number of vehicles that passed the detector during the current interval
+         */
+        int getIntervalVehicleNumber(const std::string& loopID) const;
         double  getPosition(const std::string& loopID) const;
         std::string getLaneID(const std::string& loopID) const;
         int getLastStepVehicleNumber(const std::string& loopID) const;

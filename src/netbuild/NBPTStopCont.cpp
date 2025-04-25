@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -121,7 +121,6 @@ NBPTStopCont::assignLanes(NBEdgeCont& cont) {
 
 int
 NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
-    //scnd pass set correct lane
     int existingBidiStops = 0;
     std::vector<std::shared_ptr<NBPTStop> > toAdd;
     for (auto i = myPTStops.begin(); i != myPTStops.end(); i++) {
@@ -170,6 +169,27 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
         WRITE_MESSAGEF(TL("Added % stops for superposed rail edges."), toString(toAdd.size()));
     }
     return (int)toAdd.size() + existingBidiStops;
+}
+
+
+int
+NBPTStopCont::countBidiStops(NBEdgeCont& ec) const {
+    int existingBidiStops = 0;
+    for (auto item : myPTStops) {
+        auto stop = item.second;
+        NBEdge* edge = ec.getByID(stop->getEdgeId());
+        if (edge != nullptr && edge->isBidiRail()) {
+            NBEdge* bidiEdge = edge->getTurnDestination(true);
+            assert(bidiEdge != 0);
+            const std::string id = getReverseID(stop->getID());
+            // @note loaded pairs of bidi-stops might have arbitrary ids and we should rather search through all stops on bidiEdge
+            auto it = myPTStops.find(id);
+            if (it != myPTStops.end() && it->second->getEdgeId() == bidiEdge->getID()) {
+                existingBidiStops++;
+            }
+        }
+    }
+    return existingBidiStops;
 }
 
 
@@ -385,7 +405,7 @@ NBPTStopCont::alignIdSigns() {
     for (auto& i : stops) {
         std::shared_ptr<NBPTStop> s = i.second;
         const std::string& stopId = s->getID();
-        if (s->getEdgeId() == "") {
+        if (s->getEdgeId() == "" || s->wasLoaded()) {
             continue;
         }
         const char edgeSign = s->getEdgeId().at(0);
@@ -393,6 +413,9 @@ NBPTStopCont::alignIdSigns() {
         if (edgeSign != stopSign && (edgeSign == '-' || stopSign == '-')) {
             const std::string reverseID = getReverseID(stopId);
             std::shared_ptr<NBPTStop> rs = get(reverseID);
+            if (rs != nullptr && rs->wasLoaded()) {
+                continue;
+            }
             s->setPTStopId(reverseID);
             myPTStops.erase(stopId);
             myPTStops[reverseID] = s;

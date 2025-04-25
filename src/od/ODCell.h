@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@
 #include <vector>
 #include <map>
 #include <utils/common/SUMOTime.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 
 // ===========================================================================
@@ -68,7 +69,8 @@ struct ODCell {
     std::vector<RORoute*> pathsVector;  // path_id, string of edges?
 
     /// @brief mapping of departure times to departing vehicles, if already fixed
-    std::map<SUMOTime, std::vector<std::string> > departures;
+    typedef std::map<SUMOTime, std::vector<SUMOVehicleParameter> > Departures;
+    Departures departures;
 
     /// @brief the origin "district" is an edge id
     bool originIsEdge = false;

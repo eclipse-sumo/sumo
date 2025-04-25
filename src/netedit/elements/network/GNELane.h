@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -175,6 +175,9 @@ public:
     /// @brief check if draw delete contour (pink/white)
     bool checkDrawDeleteContour() const;
 
+    /// @brief check if draw delete contour small (pink/white)
+    bool checkDrawDeleteContourSmall() const;
+
     /// @brief check if draw select contour (blue)
     bool checkDrawSelectContour() const;
 
@@ -278,6 +281,12 @@ public:
     std::string getAttribute(SumoXMLAttr key) const;
     std::string getAttributeForSelection(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in Position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -325,9 +334,6 @@ protected:
     GNELane();
 
 private:
-    /// @brief parent edge (GNELanes cannot use hierarchical structures)
-    GNEEdge* myParentEdge;
-
     /// @brief The index of this lane
     int myIndex;
 
@@ -369,7 +375,7 @@ private:
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief draw lane
-    void drawLane(const GUIVisualizationSettings& s) const;
+    void drawLane(const GUIVisualizationSettings& s, const double layer) const;
 
     /// @brief draw selected lane
     void drawSelectedLane(const GUIVisualizationSettings& s) const;
@@ -396,7 +402,7 @@ private:
     void drawLane2LaneConnections() const;
 
     /// @brief calculate contour
-    void calculateLaneContour(const GUIVisualizationSettings& s) const;
+    void calculateLaneContour(const GUIVisualizationSettings& s, const double layer) const;
 
     /// @brief sets the color according to the current scheme index and some lane function
     bool setFunctionalColor(int activeScheme, RGBColor& col) const;

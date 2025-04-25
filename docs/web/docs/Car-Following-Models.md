@@ -9,7 +9,7 @@ in [sumo](sumo.md). It is still a stub and needs be expanded.
 
 ## Links
 
-- [Publications on car-following models](Publications.md#car-following_models)
+- [Publications on car-following models](Publications.md#publications_using_sumo)
 - [How to implement a new car-following model](Developer/How_To/Car-Following_Model.md)
 - [More implementation notes on car-following models](Developer/Implementation_Notes/Vehicle_Models.md)
 
@@ -40,7 +40,7 @@ model reaction times and also in order to reduce computational demand
 and thus speed up the simulation.
 
 !!! note
-    The action step length works similar to a reaction time (vehicle will not react immediately to changes in their environment) but it also differs from a "true" reaction time because whenever a vehicle has it's action step it reacts to the state in the previous simulation step rather than to the state that was seen in their previous action step. Thus the Perception-Reaction loop is less frequent but still as fast as the simulation step length.
+    The action step length works similar to a reaction time (vehicle will not react immediately to changes in their environment) but it also differs from a "true" reaction time because whenever a vehicle has its action step it reacts to the state in the previous simulation step rather than to the state that was seen in their previous action step. Thus the Perception-Reaction loop is less frequent but still as fast as the simulation step length.
 
 ### tau
 
@@ -62,6 +62,6 @@ By default, carFollowModels will adapt their driving speed to limit necessary br
 
 The "safe" velocity for every simulation step is computed by the configured carFollowModel based on the leading vehicle as well as the right-of-way-rules. To ensure safe driving under various circumstances, the maximum braking capability of the leader vehicle is also taken into account. This value is taken from the **apparentDecel** attribute of the leader vehicle (which defaults to the same value as it's **decel** attribute).
 
-If for some reasons, reaching the safe velocity requires braking beyond the desired deceleration, the vehicle may do so up to a hart limit configured by the attribute **emergencyDecel**. The default emergency deceleration is 9 for passenger cars and takes a different [default for other vehicle classes](Vehicle_Type_Parameter_Defaults.md). The global default can be changed with option **--default.emergencydecel**.
+If for some reasons, reaching the safe velocity requires braking beyond the desired deceleration, the vehicle may do so up to a hard limit configured by the attribute **emergencyDecel**. The default emergency deceleration is 9 for passenger cars and takes a different [default for other vehicle classes](Vehicle_Type_Parameter_Defaults.md). The global default can be changed with option **--default.emergencydecel**.
 
 An emergency braking warning is triggered if the braking strength exceeds a threshold value configured by **----emergencydecel.warning-threshold**. By default this threshold is set to *1* which triggers a warning when braking with 100% of **emergencyDecel**. The warnings can be disabled by setting the threshold to a value > 1.

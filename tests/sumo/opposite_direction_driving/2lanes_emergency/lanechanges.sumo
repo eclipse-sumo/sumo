@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-14 11:36:43 by Eclipse SUMO sumo Version v1_10_0+2265-a31469b
+<!-- generated on 2025-02-24 16:03:13 by Eclipse SUMO sumo Version v1_22_0+0472-a53706b287a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -24,15 +29,18 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <lanechanges>
     <change id="overtaking1" type="emergency" time="68.00" from="WE_1" to="EW_1" dir="1" speed="13.89" pos="900.18" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="94.82" origLeaderSecureGap="28.56" origLeaderSpeed="0.00"/>
+    <change id="overtaking" type="emergency" time="69.00" from="WE_0" to="WE_1" dir="1" speed="13.89" pos="914.07" reason="strategic|urgent" leaderGap="80.93" leaderSecureGap="28.56" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="80.93" origLeaderSecureGap="28.56" origLeaderSpeed="0.00"/>
+    <change id="overtaking" type="emergency" time="73.00" from="WE_1" to="EW_1" dir="1" speed="7.69" pos="957.22" reason="strategic|urgent" leaderGap="3.41" leaderSecureGap="0.00" leaderSpeed="13.89" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="37.78" origLeaderSecureGap="10.87" origLeaderSpeed="0.00"/>
     <change id="overtaking1" type="emergency" time="76.00" from="EW_1" to="WE_1" dir="-1" speed="13.89" pos="988.70" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="4.80" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="overtaking" type="emergency" time="79.00" from="EW_1" to="WE_1" dir="-1" speed="9.39" pos="971.15" reason="strategic|urgent" leaderGap="17.62" leaderSecureGap="0.00" leaderSpeed="13.89" followerGap="22.35" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
     <change id="overtaking1" type="emergency" time="82.00" from="WE_1" to="WE_0" dir="-1" speed="13.89" pos="1094.64" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="88.14" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="overtaking" type="emergency" time="85.00" from="WE_1" to="WE_0" dir="-1" speed="13.89" pos="1110.29" reason="keepRight" leaderGap="19.52" leaderSecureGap="13.89" leaderSpeed="13.89" followerGap="103.79" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>

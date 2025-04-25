@@ -1,0 +1,11 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 168
+trainStop
+TestFunctions: Clicked over position 649 - 389
+TestFunctions: Clicked over position 647 - 372
+/home/palcraft/.texttest/tmp/netedit.gui.12Mar135321.8386/netedit.gui/elements/additionals/trainstop/inspect/additionalfile/dialog
+additional.secondFile.add.xml
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Netedit closed successfully

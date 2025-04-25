@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,65 +17,48 @@
 ///
 // Class for representing MeanData
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/data/GNEMeanData.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
-#include <netedit/frames/data/GNEMeanDataFrame.h>
-#include <netedit/frames/data/GNEEdgeDataFrame.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEMeanData.h"
-
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEMeanData::GNEMeanData(GNENet* net, SumoXMLTag tag, const std::string& id) :
-    GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
-myID(id) {
+GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename) :
+    GNEAttributeCarrier(tag, net, filename, true),
+    myID(ID) {
     // reset default values
-    resetDefaultValues();
-    // set file
-    if (myFile.empty()) {
-        myFile = (myID + ".xml");
-    }
+    resetDefaultValues(false);
 }
 
 
-GNEMeanData::GNEMeanData(GNENet* net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
-                         SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
-                         const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile,
-                         std::string excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
-                         const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold) :
-    GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
-myID(ID),
-myFile(file),
-myPeriod(period),
-myBegin(begin),
-myEnd(end),
-myTrackVehicles(trackVehicles),
-myWrittenAttributes(writtenAttributes),
-myAggregate(aggregate),
-myEdges(edges),
-myEdgeFile(edgeFile),
-myExcludeEmpty(excludeEmpty),
-myWithInternal(withInternal),
-myDetectPersons(detectPersons),
-myMinSamples(minSamples),
-myMaxTravelTime(maxTravelTime),
-myVTypes(vTypes),
-mySpeedThreshold(speedThreshold) {
+GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, const std::string& filename, const std::string& file, const SUMOTime period,
+                         const SUMOTime begin, const SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
+                         const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile, const std::string& excludeEmpty,
+                         const bool withInternal, const std::vector<std::string>& detectPersons, const double minSamples, const double maxTravelTime,
+                         const std::vector<std::string>& vTypes, const double speedThreshold) :
+    GNEAttributeCarrier(tag, net, filename, false),
+    myID(ID),
+    myFile(file),
+    myPeriod(period),
+    myBegin(begin),
+    myEnd(end),
+    myTrackVehicles(trackVehicles),
+    myWrittenAttributes(writtenAttributes),
+    myAggregate(aggregate),
+    myEdges(edges),
+    myEdgeFile(edgeFile),
+    myExcludeEmpty(excludeEmpty),
+    myWithInternal(withInternal),
+    myDetectPersons(detectPersons),
+    myMinSamples(minSamples),
+    myMaxTravelTime(maxTravelTime),
+    myVTypes(vTypes),
+    mySpeedThreshold(speedThreshold) {
     // set file
     if (myFile.empty()) {
         myFile = (myID + ".xml");
@@ -86,35 +69,46 @@ mySpeedThreshold(speedThreshold) {
 GNEMeanData::~GNEMeanData() {}
 
 
+GNEHierarchicalElement*
+GNEMeanData::getHierarchicalElement() {
+    return this;
+}
+
+
 void
 GNEMeanData::writeMeanData(OutputDevice& device) const {
-    device.openTag(getTagProperty().getTag());
+    device.openTag(getTagProperty()->getTag());
     // write needed attributes
     device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_FILE, myFile);
+    if (myFile.empty()) {
+        device.writeAttr(SUMO_ATTR_FILE, myID + ".xml");
+    } else {
+        device.writeAttr(SUMO_ATTR_FILE, myFile);
+    }
     // write optional attributes
-    if (myPeriod != -1) {
-        device.writeAttr(SUMO_ATTR_PERIOD, STEPS2TIME(myPeriod));
+    if (myPeriod != myTagProperty->getDefaultTimeValue(SUMO_ATTR_PERIOD)) {
+        std::cout << myPeriod << std::endl;
+        device.writeAttr(SUMO_ATTR_PERIOD, time2string(myPeriod));
     }
-    if (myBegin != -1) {
-        device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
+    if (myBegin != myTagProperty->getDefaultTimeValue(SUMO_ATTR_BEGIN)) {
+        device.writeAttr(SUMO_ATTR_BEGIN, time2string(myBegin));
     }
-    if (myEnd != -1) {
-        device.writeAttr(SUMO_ATTR_END, myEnd);
+    if (myEnd != myTagProperty->getDefaultTimeValue(SUMO_ATTR_END)) {
+        device.writeAttr(SUMO_ATTR_END, time2string(myEnd));
     }
-    if (myExcludeEmpty != "default") {
+    if (myExcludeEmpty != myTagProperty->getDefaultStringValue(SUMO_ATTR_EXCLUDE_EMPTY)) {
         device.writeAttr(SUMO_ATTR_EXCLUDE_EMPTY, myExcludeEmpty);
     }
     if (myWithInternal) {
         device.writeAttr(SUMO_ATTR_WITH_INTERNAL, true);
     }
-    if (myMaxTravelTime != 100000) {
+    if (myMaxTravelTime != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_MAX_TRAVELTIME)) {
         device.writeAttr(SUMO_ATTR_MAX_TRAVELTIME, myMaxTravelTime);
     }
-    if (myMinSamples != 0) {
+    if (myMinSamples != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_MIN_SAMPLES)) {
         device.writeAttr(SUMO_ATTR_MIN_SAMPLES, myMinSamples);
     }
-    if (mySpeedThreshold != 0.1) {
+    if (mySpeedThreshold != myTagProperty->getDefaultDoubleValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
     }
     if (myVTypes.size() > 0) {
@@ -123,7 +117,7 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     if (myTrackVehicles) {
         device.writeAttr(SUMO_ATTR_TRACK_VEHICLES, true);
     }
-    if (myDetectPersons.size() > 0) {
+    if (myDetectPersons.size() > 0 && (myDetectPersons.at(0) != SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE))) {
         device.writeAttr(SUMO_ATTR_DETECT_PERSONS, myDetectPersons);
     }
     if (myWrittenAttributes.size() > 0) {
@@ -197,6 +191,12 @@ GNEMeanData::checkDrawDeleteContour() const {
 
 
 bool
+GNEMeanData::checkDrawDeleteContourSmall() const {
+    return false;
+}
+
+
+bool
 GNEMeanData::checkDrawSelectContour() const {
     return false;
 }
@@ -216,19 +216,19 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFile;
         case SUMO_ATTR_PERIOD:
-            if (myPeriod == -1) {
+            if (myPeriod == myTagProperty->getDefaultTimeValue(key)) {
                 return "";
             } else {
                 return time2string(myPeriod);
             }
         case SUMO_ATTR_BEGIN:
-            if (myBegin == -1) {
+            if (myBegin == myTagProperty->getDefaultTimeValue(key)) {
                 return "";
             } else {
                 return time2string(myBegin);
             }
         case SUMO_ATTR_END:
-            if (myEnd == -1) {
+            if (myEnd == myTagProperty->getDefaultTimeValue(key)) {
                 return "";
             } else {
                 return time2string(myEnd);
@@ -250,7 +250,7 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DETECT_PERSONS:
             return toString(myDetectPersons);
         case SUMO_ATTR_WRITE_ATTRIBUTES:
-            return toString(myWrittenAttributes);
+            return joinToString(myWrittenAttributes, " ");
         case SUMO_ATTR_EDGES:
             return toString(myEdges);
         case SUMO_ATTR_EDGESFILE:
@@ -258,7 +258,7 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_AGGREGATE:
             return toString(myAggregate);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -295,7 +295,8 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -304,7 +305,7 @@ bool
 GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return (myNet->getAttributeCarriers()->retrieveMeanData(myTagProperty.getTag(), value, false) == nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveMeanData(myTagProperty->getTag(), value, false) == nullptr);
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_PERIOD:
@@ -313,13 +314,13 @@ GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else {
-                return (canParse<double>(value) && (parse<double>(value) >= 0));
+                return (canParse<SUMOTime>(value) && (parse<SUMOTime>(value) >= 0));
             }
         case SUMO_ATTR_EXCLUDE_EMPTY:
             if (canParse<bool>(value)) {
                 return true;
             } else {
-                return (value == "default");
+                return (value == SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::DEFAULTS));
             }
         case SUMO_ATTR_WITH_INTERNAL:
             return (canParse<bool>(value));
@@ -341,7 +342,7 @@ GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else {
-                return (value == "walk");
+                return SUMOXMLDefinitions::PersonModeValues.hasString(value);
             }
         case SUMO_ATTR_WRITE_ATTRIBUTES:
             return canParse<std::vector<SumoXMLAttr> >(value);
@@ -352,7 +353,7 @@ GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_AGGREGATE:
             return (canParse<bool>(value));
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isCommonValid(key, value);
     }
 }
 
@@ -371,7 +372,7 @@ GNEMeanData::getHierarchyName() const {
 
 const Parameterised::Map&
 GNEMeanData::getACParametersMap() const {
-    return GNEAttributeCarrier::PARAMETERS_EMPTY;
+    return getParametersMap();
 }
 
 
@@ -379,50 +380,69 @@ void
 GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+            myNet->getAttributeCarriers()->updateMeanDataID(this, value);
             myID = value;
             break;
         case SUMO_ATTR_FILE:
-            myFile = value;
+            if (value.empty()) {
+                myFile = (myID + ".xml");
+            } else {
+                myFile = value;
+            }
             break;
         case SUMO_ATTR_PERIOD:
             if (value.empty()) {
-                myPeriod = -1;
+                myPeriod = myTagProperty->getDefaultTimeValue(key);
             } else {
                 myPeriod = string2time(value);
             }
             break;
         case SUMO_ATTR_BEGIN:
             if (value.empty()) {
-                myBegin = -1;
+                myBegin = myTagProperty->getDefaultTimeValue(key);
             } else {
                 myBegin = string2time(value);
             }
             break;
         case SUMO_ATTR_END:
             if (value.empty()) {
-                myEnd = -1;
+                myEnd = myTagProperty->getDefaultTimeValue(key);
             } else {
                 myEnd = string2time(value);
             }
             break;
         case SUMO_ATTR_EXCLUDE_EMPTY:
-            myExcludeEmpty = value;
+            if (value == SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::DEFAULTS)) {
+                myExcludeEmpty = value;
+            } else if (parse<bool>(value)) {
+                myExcludeEmpty = SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::TRUES);
+            } else {
+                myExcludeEmpty = SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::FALSES);
+            }
             break;
         case SUMO_ATTR_WITH_INTERNAL:
             myWithInternal = parse<bool>(value);
             break;
         case SUMO_ATTR_MAX_TRAVELTIME:
             if (value.empty()) {
-                myMaxTravelTime = 100000;
+                myMaxTravelTime = myTagProperty->getDefaultDoubleValue(key);
             } else {
                 myMaxTravelTime = parse<double>(value);
             }
             break;
         case SUMO_ATTR_MIN_SAMPLES:
-            myMinSamples = parse<double>(value);
+            if (value.empty()) {
+                myMinSamples = myTagProperty->getDefaultDoubleValue(key);
+            } else {
+                myMinSamples = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
-            mySpeedThreshold = parse<double>(value);
+            if (value.empty()) {
+                mySpeedThreshold = myTagProperty->getDefaultDoubleValue(key);
+            } else {
+                mySpeedThreshold = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_VTYPES:
             myVTypes = parse<std::vector<std::string> >(value);
@@ -431,7 +451,12 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             myTrackVehicles = parse<bool>(value);
             break;
         case SUMO_ATTR_DETECT_PERSONS:
-            myDetectPersons = parse<std::vector<std::string> >(value);
+            myDetectPersons.clear();
+            if (value.empty()) {
+                myDetectPersons.push_back(SUMOXMLDefinitions::PersonModeValues.getString(PersonMode::NONE));
+            } else {
+                myDetectPersons = parse<std::vector<std::string> >(value);
+            }
             break;
         case SUMO_ATTR_WRITE_ATTRIBUTES:
             myWrittenAttributes = parse<std::vector<SumoXMLAttr> >(value);
@@ -446,7 +471,8 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             myAggregate = parse<bool>(value);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(this, key, value);
+            break;
     }
 }
 

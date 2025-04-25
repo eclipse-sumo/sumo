@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -86,7 +86,7 @@ MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index) {
         flow.pars->repetitionsDone--;
     }
     myFlows.emplace_back(flow);
-    myFlowIDs.insert(pars->id);
+    myFlowIDs.insert(std::make_pair(pars->id, flow.index));
     return true;
 }
 
@@ -161,7 +161,7 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
         return 1;
     }
     if ((myMaxVehicleNumber < 0 || (int)MSNet::getInstance()->getVehicleControl().getRunningVehicleNo() < myMaxVehicleNumber)
-            && edge.insertVehicle(*veh, time, false, myEagerInsertionCheck)) {
+            && edge.insertVehicle(*veh, time, false, myEagerInsertionCheck || veh->getParameter().departProcedure == DepartDefinition::SPLIT)) {
         // Successful insertion
         return 1;
     }
@@ -242,6 +242,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             newPars->id = pars->id + "." + toString(i->index);
             newPars->depart = pars->repetitionProbability > 0 ? time : pars->depart + pars->repetitionTotalOffset + computeRandomDepartOffset();
             pars->incrementFlow(scale, &myFlowRNG);
+            myFlowIDs[pars->id] = i->index;
             //std::cout << SIMTIME << " flow=" << pars->id << " done=" << pars->repetitionsDone << " totalOffset=" << STEPS2TIME(pars->repetitionTotalOffset) << "\n";
             // try to build the vehicle
             if (vehControl.getVehicle(newPars->id) == nullptr) {
@@ -389,6 +390,9 @@ MSInsertionControl::saveState(OutputDevice& out) {
         }
         if (flow.pars->repetitionProbability > 0) {
             out.writeAttr(SUMO_ATTR_PROB, flow.pars->repetitionProbability);
+        } else if (flow.pars->poissonRate > 0) {
+            out.writeAttr(SUMO_ATTR_PERIOD, "exp(" + toString(flow.pars->poissonRate) + ")");
+            out.writeAttr(SUMO_ATTR_NEXT, STEPS2TIME(flow.pars->repetitionTotalOffset));
         } else {
             out.writeAttr(SUMO_ATTR_PERIOD, STEPS2TIME(flow.pars->repetitionOffset));
             out.writeAttr(SUMO_ATTR_NEXT, STEPS2TIME(flow.pars->repetitionTotalOffset));
@@ -401,6 +405,9 @@ MSInsertionControl::saveState(OutputDevice& out) {
         out.writeAttr(SUMO_ATTR_INDEX, flow.index);
         if (flow.pars->wasSet(VEHPARS_FORCE_REROUTE)) {
             out.writeAttr(SUMO_ATTR_REROUTE, true);
+        }
+        for (const SUMOVehicleParameter::Stop& stop : flow.pars->stops) {
+            stop.write(out);
         }
         out.closeTag();
     }
@@ -431,5 +438,26 @@ MSInsertionControl::computeRandomDepartOffset() const {
     return 0;
 }
 
+const SUMOVehicleParameter*
+MSInsertionControl::getFlowPars(const std::string& id) const {
+    if (hasFlow(id)) {
+        for (const Flow& f : myFlows) {
+            if (f.pars->id == id) {
+                return f.pars;
+            }
+        }
+    }
+    return nullptr;
+}
+
+SUMOVehicle*
+MSInsertionControl::getLastFlowVehicle(const std::string& id) const {
+    const auto it = myFlowIDs.find(id);
+    if (it != myFlowIDs.end()) {
+        const std::string vehID = id + "." + toString(it->second);
+        return MSNet::getInstance()->getVehicleControl().getVehicle(vehID);
+    }
+    return nullptr;
+}
 
 /****************************************************************************/

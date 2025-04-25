@@ -1,0 +1,8 @@
+# remap infrastructure between similar networks
+basic
+
+# each target edge should only occur once per original edge
+no_duplicates
+
+# success metric in mapping should not exceed 1
+bounded_success

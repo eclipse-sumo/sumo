@@ -42,3 +42,5 @@ opposite2
 
 # the current target parkingArea should always be visible while the ego vehicle is on the parkingArea edge regardless of inclusion in the parkingAreaReroute alternatives.
 implicit_visibility
+frustration_100
+knowledge_1

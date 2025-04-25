@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -138,7 +138,7 @@ GUIOSGView::GUIOSGView(
     GUINet& net, FXGLVisual* glVis,
     FXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTracked(0), myCameraManipulator(new GUIOSGManipulator(this)), myLastUpdate(-1),
+    myTracked(0), myLastUpdate(-1),
     myOSGNormalizedCursorX(0.), myOSGNormalizedCursorY(0.) {
     if (myChanger != nullptr) {
         delete (myChanger);
@@ -147,6 +147,7 @@ GUIOSGView::GUIOSGView(
     int h = getHeight();
     myAdapter = new FXOSGAdapter(this, new FXCursor(parent->getApp(), CURSOR_CROSS));
     myViewer = new osgViewer::Viewer();
+    myCameraManipulator = new GUIOSGManipulator(this);
     myChanger = new GUIOSGPerspectiveChanger(*this, *myGrid);
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != 0) {
@@ -270,9 +271,15 @@ GUIOSGView::adoptViewSettings() {
 
     // show/hide OSG nodes
     unsigned int cullMask = 0xFFFFFFFF;
-    cullMask ^= (-int(myVisualizationSettings->show3DTLSDomes) ^ cullMask) & (1UL << NODESET_TLSDOMES);
-    cullMask ^= (-int(myVisualizationSettings->show3DTLSLinkMarkers) ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
-    cullMask ^= (-int(myVisualizationSettings->generate3DTLSModels) ^ cullMask) & (1UL << NODESET_TLSMODELS);
+    if (!myVisualizationSettings->show3DTLSDomes) {
+        cullMask &= ~(unsigned int)NODESET_TLSDOMES;
+    }
+    if (!myVisualizationSettings->show3DTLSLinkMarkers) {
+        cullMask &= ~(unsigned int)NODESET_TLSLINKMARKERS;
+    }
+    if (!myVisualizationSettings->generate3DTLSModels) {
+        cullMask &= ~(unsigned int)NODESET_TLSMODELS;
+    }
     myViewer->getCamera()->setCullMask(cullMask);
     unsigned int hudCullMask = (myVisualizationSettings->show3DHeadUpDisplay) ? 0xFFFFFFFF : 0;
     myHUD->setCullMask(hudCullMask);
@@ -851,7 +858,7 @@ long GUIOSGView::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr) 
 long
 GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
     // if popup exist but isn't shown, destroy it first
-    if (myPopup && (myPopup->shown() == false)) {
+    if (myPopup && !myPopup->shown()) {
         destroyPopup();
     }
 

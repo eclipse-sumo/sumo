@@ -1,0 +1,28 @@
+# order taxi before the ride stage, using ride params "reservationTime" and "earliestPickupTime"
+simple
+
+# order taxi before the ride stage, without initial walk, using ride params "reservationTime" and "earliestPickupTime"
+no_walk
+
+# order taxi before the ride stage, without initial walk, with individual departPos, using ride params "reservationTime" and "earliestPickupTime"
+no_walk_departPos
+
+# order taxi before the depart, using ride params "reservationTime" and "earliestPickupTime"
+reservation_before_depart
+
+# order taxi too early
+abort_pickup
+
+# order taxi before the depart, using ride param "earliestPickupTime"
+default_reservationTime
+
+# 5 persons that do not want to share a taxi but use a sharing dispatcher
+5persons_abort_sameTrip
+
+# 4 persons that do not want to share a taxi but use a sharing dispatcher
+4persons_abort
+
+# replicating crash #15385
+2persons_abort
+greedy
+greedyShared

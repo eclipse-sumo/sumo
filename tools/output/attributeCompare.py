@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -16,7 +16,7 @@
 # @date    2023-04-13
 
 """
-compute statistics on attributes over multiple files files
+compute statistics on attributes over multiple files
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -65,39 +65,40 @@ def main():
     def elements(fname):
         stack = []
         idStack = []
-        for event, node in ET.iterparse(sumolib.xml._open(fname, None), events=('start', 'end')):
-            if options.element is not None and node.tag not in options.element:
-                continue
-            if event == 'start':
-                stack.append(node.tag)
+        with sumolib.openz(fname, 'rb') as f:
+            for event, node in ET.iterparse(f, events=('start', 'end')):
+                if options.element is not None and node.tag not in options.element:
+                    continue
+                if event == 'start':
+                    stack.append(node.tag)
+                    if options.idAttribute:
+                        idStack.append([])
+                        for attr in options.idAttribute:
+                            if node.get(attr) is not None:
+                                idStack[-1].append(node.get(attr))
+
+                else:
+                    stack.pop()
+                    if options.idAttribute:
+                        idStack.pop()
+                    continue
+
+                tags = tuple(stack[1:]) if options.element is None else tuple(stack)  # exclude root
+                elementDescription = '.'.join(tags)
+                jointID = None
                 if options.idAttribute:
-                    idStack.append([])
-                    for attr in options.idAttribute:
-                        if node.get(attr) is not None:
-                            idStack[-1].append(node.get(attr))
+                    for ids in idStack:
+                        if ids:
+                            jointID = '|'.join(ids)
+                            elementDescription += '|' + jointID
 
-            else:
-                stack.pop()
-                if options.idAttribute:
-                    idStack.pop()
-                continue
-
-            tags = tuple(stack[1:]) if options.element is None else tuple(stack)  # exclude root
-            elementDescription = '.'.join(tags)
-            jointID = None
-            if options.idAttribute:
-                for ids in idStack:
-                    if ids:
-                        jointID = '|'.join(ids)
-                        elementDescription += '|' + jointID
-
-            if options.attribute is None:
-                for k, v in node.items():
-                    yield elementDescription, k, v, jointID
-            else:
-                for attr in options.attribute:
-                    if node.get(attr) is not None or options.element is not None:
-                        yield elementDescription, attr, node.get(attr), jointID
+                if options.attribute is None:
+                    for k, v in node.items():
+                        yield elementDescription, k, v, jointID
+                else:
+                    for attr in options.attribute:
+                        if node.get(attr) is not None or options.element is not None:
+                            yield elementDescription, attr, node.get(attr), jointID
 
     values = defaultdict(lambda: defaultdict(lambda: Statistics(printDev=True)))  # elem->attr->values
     invalidType = defaultdict(set)

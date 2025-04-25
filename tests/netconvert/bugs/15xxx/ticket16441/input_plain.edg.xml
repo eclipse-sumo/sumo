@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="1336247.57,-3545175.66" convBoundary="1912.89,7019.67,1935.02,7072.55" origBoundary="103.996797,30.618486,104.072080,30.693572" projParameter="+proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_def"/>
+
+    <edge id="0" from="104" to="103" priority="7" numLanes="1" speed="8.33" length="13.45" width="3.20">
+        <lane index="0" shape="1931.25,7058.41 1936.54,7071.39"/>
+    </edge>
+    <edge id="1" from="105" to="104" priority="7" numLanes="1" speed="8.33" length="40.70" width="3.20">
+        <lane index="0" shape="1915.27,7019.16 1931.25,7058.41"/>
+    </edge>
+    <edge id="2" from="100" to="101" priority="7" numLanes="1" speed="8.33" length="13.46" width="3.20">
+        <lane index="0" shape="1932.65,7073.05 1927.36,7060.06"/>
+    </edge>
+    <edge id="3" from="101" to="102" priority="7" numLanes="1" speed="8.33" length="40.69" width="3.20">
+        <lane index="0" shape="1927.36,7060.06 1911.37,7020.82"/>
+    </edge>
+</edges>

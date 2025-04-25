@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -84,7 +84,7 @@ public:
     /// @brief Callback: The dialog shall be closed
     long onCmdClose(FXObject*, FXSelector, void*);
 
-    /// @brief Callback: Something has been typed into the the field
+    /// @brief Callback: Something has been typed into the field
     long onChgText(FXObject*, FXSelector, void*);
 
     /// @brief Callback: Selects to current item if enter is pressed
@@ -119,6 +119,7 @@ public:
 
     /// @brief sets the focus after the window is created to work-around bug in libfox
     void show();
+    using FXMainWindow::show; // to silence the warning C4266 about a hidden function
 
     int getMessageId() const {
         return myMessageId;
@@ -143,7 +144,7 @@ protected:
     /// update the list with the given ids
     void refreshList(const std::vector<GUIGlID>& ids);
 
-    /// @bbrief retrieve name for the given object
+    /// @brief retrieve name for the given object
     virtual std::string getObjectName(GUIGlObject* o) const;
 
 private:

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 
 # @file    _chargingstation.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2020-06-02
 
 from __future__ import absolute_import
@@ -30,6 +31,7 @@ class ChargingStationDomain(Domain):
 
     def getLaneID(self, stopID):
         """getLaneID(string) -> string
+
         Returns the lane of this calibrator (if it applies to a single lane)
         """
         return self._getUniversal(tc.VAR_LANE_ID, stopID)
@@ -57,12 +59,70 @@ class ChargingStationDomain(Domain):
 
     def getVehicleCount(self, stopID):
         """getVehicleCount(string) -> integer
+
         Get the total number of vehicles stopped at the named charging station.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_NUMBER, stopID)
 
     def getVehicleIDs(self, stopID):
-        """getVehicleIDs(string) -> list(string)
+        """getVehicleIDs(string) -> tuple(string)
+
         Get the IDs of vehicles stopped at the named charging station.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_IDS, stopID)
+
+    def getChargingPower(self, stopID):
+        """getChargingPower(string) -> double
+
+        The charging power.
+        """
+        return self._getUniversal(tc.VAR_CS_POWER, stopID)
+
+    def getEfficiency(self, stopID):
+        """getEfficiency(string) -> double
+
+        The efficiency [0,1].
+        """
+        return self._getUniversal(tc.VAR_CS_EFFICIENCY, stopID)
+
+    def getChargeDelay(self, stopID):
+        """getChargeDelay(string) -> double
+
+        Get the charge delay in seconds.
+        """
+        return self._getUniversal(tc.VAR_CS_CHARGE_DELAY, stopID)
+
+    def getChargeInTransit(self, stopID):
+        """getChargeInTransit(string) -> integer
+
+        Get whether charging when driving across the charging station works (0=no, 1=yes).
+        """
+        return self._getUniversal(tc.VAR_CS_CHARGE_IN_TRANSIT, stopID)
+
+    def setChargingPower(self, stopID, power):
+        """setChargingPower(string, double) -> None
+
+        Sets the charging power in this charging station.
+        """
+        self._setCmd(tc.VAR_CS_POWER, stopID, "d", power)
+
+    def setEfficiency(self, stopID, efficiency):
+        """setEfficiency(string, double) -> None
+
+        Sets the efficiency in this charging station.
+        """
+        self._setCmd(tc.VAR_CS_EFFICIENCY, stopID, "d", efficiency)
+
+    def setChargeDelay(self, stopID, delay):
+        """setChargeDelay(string, double) -> None
+
+        Sets the charge delay in this charging station.
+        """
+        self._setCmd(tc.VAR_CS_CHARGE_DELAY, stopID, "d", delay)
+
+    def setChargeInTransit(self, stopID, inTransit):
+        """setEfficiency(string, integer) -> None
+
+        Sets whether this charging station allows charging while still driving (0=no, 1=yes).
+        """
+        self._setCmd(tc.VAR_CS_CHARGE_IN_TRANSIT, stopID, "i", inTransit)

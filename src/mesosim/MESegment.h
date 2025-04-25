@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,6 +31,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class SUMOVehicle;
 class MSEdge;
 class MSLink;
 class MSDetectorFileOutput;
@@ -365,7 +366,7 @@ public:
      * all vehicles in it. Also set/recompute myJamThreshold
      * @param[in] jamThresh follows the semantic of option meso-jam-threshold
      */
-    void setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh = DO_NOT_PATCH_JAM_THRESHOLD);
+    void setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh = DO_NOT_PATCH_JAM_THRESHOLD, int qIdx = -1);
 
     /** @brief Returns the (planned) time at which the next vehicle leaves this segment
      * @return The time the vehicle thinks it leaves
@@ -419,14 +420,13 @@ public:
      *  edge are filled the same way. Then, the departure of last vehicles onto the next
      *  edge are restored.
      *
-     * @param[in] vehIDs The vehicle ids for the current que
-     * @param[in] vc The vehicle control to retrieve references vehicles from
+     * @param[in] vehs The vehicles for the current que
      * @param[in] blockTime The time the last vehicle left the que
      * @param[in] queIdx The index of the current que
      * @todo What about throwing an IOError?
      * @todo What about throwing an error if something else fails (a vehicle can not be referenced)?
      */
-    void loadState(const std::vector<std::string>& vehIDs, MSVehicleControl& vc, const SUMOTime blockTime, const int queIdx);
+    void loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime blockTime, const int queIdx);
     /// @}
 
 

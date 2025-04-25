@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -34,6 +34,7 @@ def printSorted(d):
 
 
 net = sumolib.net.readNet(sys.argv[1], withInternal=True, withLatestPrograms=True)
+print("version:", net.getVersion())
 lane = net.getLane("SC_0")
 lane2 = net.getLane("CN_0")
 print("lanes to %s: %s" % (lane2.getID(), ' '.join(sorted([li.getID() for li in lane2.getIncoming()]))))

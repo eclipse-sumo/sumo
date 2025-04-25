@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,7 +24,6 @@ from __future__ import print_function
 
 import os
 import sys
-from argparse import ArgumentParser
 from collections import defaultdict
 import subprocess
 
@@ -36,6 +35,7 @@ else:
     sys.path.append(os.path.join(THIS_DIR, 'turn-defs'))
 
 import sumolib  # noqa
+from sumolib.options import ArgumentParser
 from turnCount2EdgeCount import parseEdgeCounts  # noqa
 
 
@@ -43,6 +43,7 @@ def get_options(args=None):
     parser = ArgumentParser(description="Route by turn counts")
     parser.add_argument("-n", "--net-file", dest="net", help="Input net file")
     parser.add_argument("-t", "--turn-file", dest="turnFile", help="Input turn-count file")
+    parser.add_argument("--additional-files", dest="addFiles", help="Input additional files to pass to jtrrouter")
     parser.add_argument("-o", "--output-file", dest="out", default="out.rou.xml",
                         help="Output route file")
     parser.add_argument("--turn-output", dest="turnOutput", default="turns.tmp.xml",
@@ -149,6 +150,9 @@ def main(options):
             '--route-files', options.flowOutput,
             '--accept-all-destinations',
             '-o', options.out]
+    if options.addFiles:
+        args += ['--additional-files', options.addFiles,
+                 '--vtype-output', 'NUL']
     if not options.fringe_flows:
         args += ['-S']
         if options.discountSources:

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,13 +14,22 @@
 # Bash script for the test run.
 # Sets environment variables respecting SUMO_HOME and starts texttest.
 
-if test `uname` = "Darwin"; then #macOS specific exports
+if test `uname` = "Darwin"; then  # macOS specific exports
   export LC_ALL=C
   export LANG=C
 fi
 
 pushd `dirname $0` > /dev/null
 export TEXTTEST_HOME="$PWD"
+shopt -s nullglob  # expand the pattern to an empty list if no env exists
+for i in *env/bin/activate; do
+  if test x"$VIRTUAL_ENV" = x; then
+    echo "Activating virtual environment $(dirname $(dirname $i))."
+    source $i
+  else
+    echo "Virtual environment $VIRTUAL_ENV already active, ignoring $(dirname $(dirname $i))."
+  fi
+done
 if test x"$SUMO_HOME" = x; then
   cd ..
   export SUMO_HOME="$PWD"

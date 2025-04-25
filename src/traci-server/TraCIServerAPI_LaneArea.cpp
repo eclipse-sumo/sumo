@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -69,10 +69,7 @@ TraCIServerAPI_LaneArea::processSet(TraCIServer& server, tcpip::Storage& inputSt
     try {
         switch (variable) {
             case libsumo::VAR_VIRTUAL_DETECTION: {
-                int vehNum = -1;
-                if (!server.readTypeCheckingInt(inputStorage, vehNum)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_LANEAREA_VARIABLE, "Overriding the number of detected vehicles requires an integer", outputStorage);
-                }
+                const int vehNum = StoHelp::readTypedInt(inputStorage, "Overriding the number of detected vehicles requires an integer");
                 libsumo::LaneArea::overrideVehicleNumber(id, vehNum);
                 break;
             }

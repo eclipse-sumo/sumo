@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,7 +70,8 @@ MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
     myPosition(positionInMeters),
     myEndPosition(myPosition + length),
     myNeedLock(needLocking || MSGlobals::gNumSimThreads > 1),
-    myLastLeaveTime(SIMTIME),
+    // initialize in a way which doesn't impact actualted traffic lights at simulation start (yet doesn't look ugly in the outputs)
+    myLastLeaveTime(-3600),
     myOverrideTime(-1),
     myOverrideEntryTime(-1),
     myVehicleDataCont(),
@@ -474,7 +475,7 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool includeEarly, bool leaveTi
     }
     for (const auto& i : myVehiclesOnDet) {
         if ((!lastInterval && (i.second >= t || leaveTime || forOccupancy))
-                || (lastInterval && i.second < t)) { // no need to check leave time, they are still on the detector
+                || (lastInterval && i.second < t && t - i.second < STEPS2TIME(DELTA_T))) { // no need to check leave time, they are still on the detector
             SUMOTrafficObject* const v = i.first;
             VehicleData d(*v, i.second, HAS_NOT_LEFT_DETECTOR, false);
             d.speedM = v->getSpeed();

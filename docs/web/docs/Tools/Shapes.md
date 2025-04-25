@@ -7,7 +7,7 @@ title: Shapes
 Generate circular polygons with custom radius, and number of vertices.
 
 ```
-<SUMO\>/tools/shape/ciclePolygon.py X,Y,RADIUS,NUMVERTICES [x2,y2,radius2,points2] ....
+<SUMO\>/tools/shape/circlePolygon.py X,Y,RADIUS,NUMVERTICES [x2,y2,radius2,points2] ....
 ```
 
 - <X\>: Polygon center X
@@ -33,7 +33,7 @@ induction loop detectors. Each PoI is replicated to cover all lanes of
 the road. The detectors are named "<POINAME\>__l<LANE_INDEX\>".
 
 ```
-pois2inductionLoops.py <NET> <POIS> <OUTPUT>
+<SUMO\>/tools/shape/pois2inductionLoops.py <NET> <POIS> <OUTPUT>
 ```
 
 - <NET\>: The net to use for retrieving lane numbers
@@ -53,7 +53,7 @@ chains of connected edges are not allowed -\> this needs two different
 runs of this script. Output is written in file 'pois.add.xml'
 
 ```
-poi_alongRoads.py <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>
+<SUMO\>/tools/shape/poi_alongRoads.py <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>
 ```
 
 - <NET\>: The net to use for retrieving the geometry
@@ -73,7 +73,7 @@ Spatial distribute of POIs along given edges on a given network.
 Generates a PoI-file containing a PoI for each Stop from the given net.
 
 ```
-poi_at_stops.py <NET> <STOPS>
+<SUMO\>/tools/shape/poi_at_stops.py <NET> <STOPS>
 ```
 
 - <NET\>: The network
@@ -91,7 +91,7 @@ Generates a PoI-file containing a PoI for each tls controlled
 intersection from the given net.
 
 ```
-poi_atTLS.py <NET> [nojoin]
+<SUMO\>/tools/shape/poi_atTLS.py <NET> [nojoin]
 ```
 
 - <NET\>: The net to read traffic light (tls) positions from
@@ -104,3 +104,44 @@ poi_atTLS.py <NET> [nojoin]
 PoIs are stored with type="default", color="1,0,0", and layer="0".
 
 The tool uses the <SUMO\>/tools/lib/sumonet.py library.
+
+# poly2edgedata.py
+
+Transform polygons with params into edgedata with attributes.
+For each polygon a unique edge is selected that gives the best geometrical match.
+
+```
+<SUMO\>/tools/shape/poly2edgedata.py <POLYGONS> -n NETFILE -o OUTPUT_EDGEDATA
+```
+
+Further options:
+
+- **--split-attributes** and **--nosplit-attributes** support the use case where a single polygon applies to both directions of a road and related data must be split for the forward and reverse edge (i.e. traffic counts).
+- **--filter ATTR,MIN,MAX** supports filtering out polygons where ATTR is not in range [MIN,MAX]
+- **--radius**: maximum matching radius (default 20)
+- **--min-length**: avoid matching to short edges (default 10)
+- **--angle-tolerance**: avoid matching if edge and shape angle are too different (default 20 degrees)
+
+!!! note
+    polygons can be obtained from OSM, shapefiles or geojson with the help of [../polyconvert.md]
+
+## patches
+Option **--patchfile** loads instructions to modify the matching in special cases.
+The following syntax is supported in the patch file (one patch per line):
+
+```
+# lines starting with '#' are ignored as comments
+# rev overrides the reverse edge of EDGEID to be REVEDGEID
+rev EDGEID REVEDGEID
+# edg overrides the edge to assign for POLYID to be EDGEID
+edg POLYID EDGEID
+# dat overrrides the data attribute ATTR for POLYID to take on value VALUE
+dat POLYID ATTR VALUE
+```
+
+any ID or VALUE may bet set to 'None' to signify that
+
+- a reverse edge should not be assigned
+- a polygon should not be mapped
+- data should be ignored
+

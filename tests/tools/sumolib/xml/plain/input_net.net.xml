@@ -128,6 +128,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="CN" from="C" to="N" priority="2">
         <lane id="CN_0" index="0" speed="13.89" length="91.95" shape="104.95,108.05 104.95,200.00"/>
         <lane id="CN_1" index="1" speed="13.89" length="91.95" shape="101.65,108.05 101.65,200.00"/>
+        <param key="testParam with &amp;" value="more problematic values: &lt; and &gt;"/>
     </edge>
     <edge id="CS" from="C" to="S" priority="2">
         <lane id="CS_0" index="0" speed="13.89" length="91.95" shape="95.05,91.95 95.05,0.00"/>

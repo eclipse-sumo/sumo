@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,13 +61,12 @@ FXDEFMAP(GUIDialog_Breakpoints) GUIDialog_BreakpointsMap[] = {
 
 FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAYNUMBER(GUIDialog_BreakpointsMap))
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
 GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock, const SUMOTime simBegin) :
     FXMainWindow(parent->getApp(), TL("Breakpoints Editor"), GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), nullptr, GUIDesignChooserDialog),
-    GUIPersistentWindowPos(this, "DIALOG_BREAKPOINTS", true, 20, 40, 300, 350),
     myParent(parent),
     myBreakpoints(&breakpoints),
     myBreakpointLock(&breakpointLock),
@@ -100,7 +99,8 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::
     GUIDesigns::buildFXButton(layoutRight, TL("&Close"), "", "", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     // add this dialog as child of GUIMainWindow parent
     myParent->addChild(this);
-    loadWindowPos();
+    myPersistentPos = std::unique_ptr<GUIPersistentWindowPos>(new GUIPersistentWindowPos(this, "DIALOG_BREAKPOINTS", true, 20, 40, 300, 350));
+    myPersistentPos->loadWindowPos();
     create();
     show();
 }
@@ -144,7 +144,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Load Breakpoints"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.txt");
+    opendialog.setPatternList(SUMOXMLDefinitions::TXTFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -162,7 +162,9 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, TL("Save Breakpoints"), ".txt", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, TL("Save Breakpoints"),
+                    SUMOXMLDefinitions::TXTFileExtensions.getMultilineString().c_str(),
+                    GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }

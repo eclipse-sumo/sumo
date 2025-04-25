@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,16 +20,18 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEAttributesCreator.h>
-#include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNENeteditAttributes.h>
-#include <netedit/frames/GNEPlanCreator.h>
-#include <netedit/frames/GNEPlanCreatorLegend.h>
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/GNEPlanSelector.h>
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEAttributesEditor;
+class GNEDemandElementSelector;
+class GNEPlanCreator;
+class GNEPlanCreatorLegend;
+class GNEPlanSelector;
+class GNETagSelector;
 
 // ===========================================================================
 // class definitions
@@ -70,8 +72,8 @@ public:
     /// @brief get containerPlan selector
     GNEPlanSelector* getPlanSelector() const;
 
-    /// @brief get attributes creator
-    GNEAttributesCreator* getContainerAttributes() const;
+    /// @brief get attributes editor
+    GNEAttributesEditor* getContainerAttributesEditor() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -84,35 +86,29 @@ protected:
     bool createPath(const bool useLastRoute);
 
 private:
-    /// @brief route handler
-    GNERouteHandler myRouteHandler;
-
     /// @brief container base object
-    CommonXMLStructure::SumoBaseObject* myContainerBaseObject;
+    CommonXMLStructure::SumoBaseObject* myContainerBaseObject = nullptr;
 
     /// @brief container tag selector (used to select diffent kind of containers)
-    GNETagSelector* myContainerTagSelector;
+    GNETagSelector* myContainerTagSelector = nullptr;
 
     /// @brief Container Type selectors
-    GNEDemandElementSelector* myTypeSelector;
+    GNEDemandElementSelector* myTypeSelector = nullptr;
 
     /// @brief containerPlan selector
-    GNEPlanSelector* myPlanSelector;
+    GNEPlanSelector* myPlanSelector = nullptr;
 
-    /// @brief internal vehicle attributes
-    GNEAttributesCreator* myContainerAttributes;
+    /// @brief attributes editor
+    GNEAttributesEditor* myContainerAttributesEditor = nullptr;
 
-    /// @brief internal container plan attributes
-    GNEAttributesCreator* myContainerPlanAttributes;
-
-    /// @brief Netedit parameter
-    GNENeteditAttributes* myNeteditAttributes;
+    /// @brief plan attributes editor
+    GNEAttributesEditor* myContainerPlanAttributesEditor = nullptr;
 
     /// @brief plan creator
-    GNEPlanCreator* myPlanCreator;
+    GNEPlanCreator* myPlanCreator = nullptr;
 
     /// @brief plan creator legend
-    GNEPlanCreatorLegend* myPlanCreatorLegend;
+    GNEPlanCreatorLegend* myPlanCreatorLegend = nullptr;
 
     /// @brief build container and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildContainer();

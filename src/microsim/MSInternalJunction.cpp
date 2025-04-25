@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -79,7 +79,7 @@ MSInternalJunction::postloadInit() {
                     // initializing myLinkFoeInternalLanes in MSRightOfWayJunction
                     // Indirect left turns for bicycles are a special case
                     // because they both intersect on their second part with the first part of the other one
-                    // and only one of the has priority
+                    // and only one of them has priority
                     myInternalLaneFoes.push_back(lane);
                 }
                 if (std::find(myInternalLaneFoes.begin(), myInternalLaneFoes.end(), link->getViaLane()) == myInternalLaneFoes.end()) {
@@ -88,6 +88,11 @@ MSInternalJunction::postloadInit() {
             } else {
                 if (std::find(myInternalLaneFoes.begin(), myInternalLaneFoes.end(), lane) == myInternalLaneFoes.end()) {
                     myInternalLaneFoes.push_back(lane);
+                    if (lane->isCrossing()) {
+                        // also add to myInternalLinkFoes (the origin
+                        // walkingArea is not part of myIncomingLanes)
+                        myInternalLinkFoes.push_back(lane->getIncomingLanes()[0].viaLink);
+                    }
                 }
             }
         }
@@ -120,10 +125,6 @@ MSInternalJunction::postloadInit() {
             exitLink->addWalkingAreaFoeExit(ili.lane);
             break;
         }
-    }
-    for (MSLink* const link : myInternalLinkFoes) {
-        thisLink->addBlockedLink(link);
-        link->addBlockedLink(thisLink);
     }
 }
 

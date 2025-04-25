@@ -1,4 +1,5 @@
-Loading net-file from 'net.net.xml' ... done (4ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.measures'. Using default of ''.
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.thresholds'. Using default of ''.
@@ -8,17 +9,16 @@ Vehicle 'ego' does not supply vehicle parameter 'device.ssm.extratime'. Using de
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.file'. Using default of 'ssm_ego.xml'.
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.geo'. Using default of '0'.
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'.
-Vehicle 'ego' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'.
+Vehicle 'ego' does not supply vehicle parameter 'device.ssm.write-lane-positions'. Using default of '0'.
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.exclude-conflict-types'. Using default of ''.
-Simulation version v1_14_1+7429-9c2360ceab0 started with time: 0.00.
-Simulation ended at time: 16.10
+Simulation version v1_22_0+1420-049abd191e3 started with time: 0.00.
+Simulation ended at time: 16.10.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.05s
- Real time factor: 303.774
- UPS: 5471.698113
-Vehicles: 
+Performance:
+ Duration: 0.00s
+ Real time factor: 8050
+ UPS: 145000.000000
+Vehicles:
  Inserted: 2
  Running: 0
  Waiting: 0
-

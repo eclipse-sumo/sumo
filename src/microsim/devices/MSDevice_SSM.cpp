@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -235,7 +235,7 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
 
     // custom options
     oc.doRegister("device.ssm.measures", new Option_String(""));
-    oc.addDescription("device.ssm.measures", "SSM Device", TL("Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"));
+    oc.addDescription("device.ssm.measures", "SSM Device", TL("Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET', 'MDRAC'))"));
     oc.doRegister("device.ssm.thresholds", new Option_String(""));
     oc.addDescription("device.ssm.thresholds", "SSM Device", TL("Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."));
     oc.doRegister("device.ssm.trajectories",  new Option_Bool(false));
@@ -254,6 +254,8 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.ssm.write-positions", "SSM Device", TL("Whether to write positions (coordinates) for each timestep"));
     oc.doRegister("device.ssm.write-lane-positions", new Option_Bool(false));
     oc.addDescription("device.ssm.write-lane-positions", "SSM Device", TL("Whether to write lanes and their positions for each timestep"));
+    oc.doRegister("device.ssm.write-na", new Option_Bool(true));
+    oc.addDescription("device.ssm.write-na", "SSM Device", TL("Whether to write conflict outputs with no data as NA values or skip it"));
     oc.doRegister("device.ssm.exclude-conflict-types", new Option_String(""));
     oc.addDescription("device.ssm.exclude-conflict-types", "SSM Device", TL("Which conflicts will be excluded from the log according to the conflict type they have been classified (combination of values in 'ego', 'foe' , '', any numerical valid conflict type code). An empty value will log all and 'ego'/'foe' refer to a certain conflict type subset."));
 }
@@ -958,6 +960,11 @@ MSDevice_SSM::determineConflictPoint(EncounterApproachInfo& eInfo) {
             || type == ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA
             || type == ENCOUNTER_TYPE_COLLISION) {
         // Both vehicles have already past the conflict entry.
+        if (e->size() == 0) {
+            eInfo.conflictPoint = e->ego->getPosition();
+            WRITE_WARNINGF(TL("SSM device of vehicle '%' encountered an unexpected conflict with foe % at time=%. Please review your vehicle behavior settings."), e->egoID, e->foeID, time2string(SIMSTEP));
+            return;
+        }
         assert(e->size() > 0); // A new encounter should not be created if both vehicles already entered the conflict area
         eInfo.conflictPoint = e->conflictPointSpan.back();
     } else if (type == ENCOUNTER_TYPE_CROSSING_FOLLOWER
@@ -2657,7 +2664,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 foeConflictLane = foeConflictLane->getFirstInternalInConnection(offset);
                 foeDistToConflictLane -= offset;
                 // find the distances to the conflict from the junction entry for both vehicles
-                // Here we also determine the real crossing lanes (before the conflict lane is the first lane of the connection)
+                // Here we also determine the real crossing lanes (before, the conflict lane is the first lane of the connection)
                 // for the ego
                 double egoDistToConflictFromJunctionEntry = INVALID_DOUBLE;
                 while (foeConflictLane != nullptr && foeConflictLane->isInternal()) {
@@ -2907,6 +2914,10 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
         }
         MSLane* const nextNonInternalLane = *laneIter;
         const MSLink* const link = foeLane->getLinkTo(nextNonInternalLane);
+        if (link == nullptr) {
+            // encountered incomplete route
+            return nullptr;
+        }
         // Set foeLane to first internal lane on the next junction
         foeLane = link->getViaLane();
         assert(foeLane == 0 || foeLane->isInternal());
@@ -3086,7 +3097,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             myOutputFile->openTag("TTCSpan").writeAttr("values", makeStringWithNAs(e->TTCspan, INVALID_DOUBLE)).closeTag();
         }
         if (e->minTTC.time == INVALID_DOUBLE) {
-            myOutputFile->openTag("minTTC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            if (myWriteNA) {
+                myOutputFile->openTag("minTTC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            }
         } else {
             std::string time = ::toString(e->minTTC.time);
             std::string type = ::toString(int(e->minTTC.type));
@@ -3104,7 +3117,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             myOutputFile->openTag("DRACSpan").writeAttr("values", makeStringWithNAs(e->DRACspan, {0.0, INVALID_DOUBLE})).closeTag();
         }
         if (e->maxDRAC.time == INVALID_DOUBLE) {
-            myOutputFile->openTag("maxDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            if (myWriteNA) {
+                myOutputFile->openTag("maxDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            }
         } else {
             std::string time = ::toString(e->maxDRAC.time);
             std::string type = ::toString(int(e->maxDRAC.type));
@@ -3119,7 +3134,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
     }
     if (myComputePET) {
         if (e->PET.time == INVALID_DOUBLE) {
-            myOutputFile->openTag("PET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            if (myWriteNA) {
+                myOutputFile->openTag("PET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            }
         } else {
             std::string time = ::toString(e->PET.time);
             std::string type = ::toString(int(e->PET.type));
@@ -3137,7 +3154,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             myOutputFile->openTag("PPETSpan").writeAttr("values", makeStringWithNAs(e->PPETspan, INVALID_DOUBLE)).closeTag();
         }
         if (e->minPPET.time == INVALID_DOUBLE) {
-            myOutputFile->openTag("minPPET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            if (myWriteNA) {
+                myOutputFile->openTag("minPPET").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            }
         } else {
             std::string time = ::toString(e->minPPET.time);
             std::string type = ::toString(int(e->minPPET.type));
@@ -3155,7 +3174,9 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             myOutputFile->openTag("MDRACSpan").writeAttr("values", makeStringWithNAs(e->MDRACspan, {0.0, INVALID_DOUBLE})).closeTag();
         }
         if (e->maxMDRAC.time == INVALID_DOUBLE) {
-            myOutputFile->openTag("maxMDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            if (myWriteNA) {
+                myOutputFile->openTag("maxMDRAC").writeAttr("time", "NA").writeAttr("position", "NA").writeAttr("type", "NA").writeAttr("value", "NA").writeAttr("speed", "NA").closeTag();
+            }
         } else {
             std::string time = ::toString(e->maxMDRAC.time);
             std::string type = ::toString(int(e->maxMDRAC.type));
@@ -3226,6 +3247,7 @@ MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::stri
     myUseGeoCoords(useGeoCoords),
     myWritePositions(writePositions),
     myWriteLanesPositions(writeLanesPositions),
+    myWriteNA(holder.getBoolParam("device.ssm.write-na", true, true)),
     myOldestActiveEncounterBegin(INVALID_DOUBLE),
     myMaxBR(std::make_pair(-1, Position(0., 0.)), 0.0),
     myMinSGAP(std::make_pair(std::make_pair(-1, Position(0., 0.)), std::numeric_limits<double>::max()), ""),
@@ -3965,7 +3987,7 @@ MSDevice_SSM::writeLanesPositions(const SUMOVehicle& v) {
     } else {
         writeLanesPos = oc.getBool("device.ssm.write-lane-positions");
         if (oc.isDefault("device.ssm.write-lane-positions") && (myIssuedParameterWarnFlags & SSM_WARN_LANEPOS) == 0) {
-            WRITE_MESSAGEF(TL("Vehicle '%' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '%'."), v.getID(), toString(writeLanesPos));
+            WRITE_MESSAGEF(TL("Vehicle '%' does not supply vehicle parameter 'device.ssm.write-lane-positions'. Using default of '%'."), v.getID(), toString(writeLanesPos));
             myIssuedParameterWarnFlags |= SSM_WARN_LANEPOS;
         }
     }
@@ -4006,11 +4028,13 @@ MSDevice_SSM::filterByConflictType(const SUMOVehicle& v, std::string deviceID, s
             confirmed.insert(FOE_ENCOUNTERTYPES.begin(), FOE_ENCOUNTERTYPES.end());
         } else if (*i == "ego") {
             confirmed.insert(EGO_ENCOUNTERTYPES.begin(), EGO_ENCOUNTERTYPES.end());
-        } else if (encounterToString(static_cast<EncounterType>(std::stoi(*i))) != "UNKNOWN") {
+        } else if (*i == "none") {
+            return true;
+        } else if (StringUtils::isInt(*i) && encounterToString(static_cast<EncounterType>(StringUtils::toInt(*i))) != "UNKNOWN") {
             confirmed.insert(std::stoi(*i));
         } else {
             // Given identifier is unknown
-            WRITE_ERRORF(TL("SSM order filter '%' is not supported. Aborting construction of SSM device '%'."), *i, deviceID);
+            WRITE_ERRORF(TL("SSM exclude-conflict-type '%' is not supported. Aborting construction of SSM device '%'."), *i, deviceID);
             return false;
         }
     }

@@ -6,7 +6,7 @@ title: Calibrator
 
 These trigger-type objects may be specified within an {{AdditionalFile}} and allow the
 dynamic adaption of traffic flows, speeds and vehicle parameters (vTypes). The syntax for such an
-object is: `<calibrator id="<ID>" lane="<LANE_ID>" output="<OUTPUT_FILE>"/\>`. They can be used to modify simulation
+object is: `<calibrator id="<ID>" lane="<LANE_ID>" output="<OUTPUT_FILE>"/>`. They can be used to modify simulation
 scenario based on induction loop measurements. They can also be used to model location-base changes in driving behavior.
 
 A calibrator will remove vehicles in excess of the specified flow and it will insert new vehicles (of the specified type)
@@ -142,6 +142,9 @@ The normal behavior is to replace the type of the passing vehicles with the type
 !!! caution
     The type modification happens when the vehicle enters the calibrator edge regardless of the configured calibrator position.
 
+!!! caution
+    Type calibration does currently not work with the mesoscopic model.
+
 ### Type-dependent mapping
 
 If the traffic consists of multiple vehicle types (i.e. passenger cars and trucks) it may be desirable to either
@@ -155,10 +158,10 @@ For a dependent mapping, multiple calibrators (each with a different `vTypes` at
 ```xml
 <additional>
   ...
-  <calibrator id="forCars" edge="E1" pos="0" type="myCarType">
+  <calibrator id="forCars" edge="E1" pos="0" vTypes="myCarType">
     <flow begin="0" end="1800" type="myCarType2"/>
   </calibrator>
-  <calibrator id="forTrucks" edge="E1" pos="0" type="myTruckType">
+  <calibrator id="forTrucks" edge="E1" pos="0" vTypes="myTruckType">
     <flow begin="0" end="1800" type="myTruckType2"/>
   </calibrator>
 </additional>
@@ -198,6 +201,27 @@ Example additional-file input:
 ```
 In this example, all cars will be mapped to slower cars (type 'car' to 'car2') and all trucks will be mapped to trucks that keep larger distances.
 
+### Calibrating on junctions
+
+You can define a type calibration for a whole junction in the following way:
+
+```xml
+<additional>
+  <calibrator id="cars" node="J1" pos="0">
+    <flow begin="0" end="1800" type="myNewCarType"/>
+  </calibrator>
+  <calibrator id="carsUndone" node="J2" pos="0" local="true">
+    <flow begin="0" end="1800" type="myNewCarType2"/>
+  </calibrator>
+</additional>
+```
+
+This will change the vehicle type once the vehicle enters one of the edges which approach the junction.
+The second variant above with the `local` attribute will also undo the changes (revert to the original type)
+once the vehicle has left any edge outgoing from the junction.
+As with the general type calibration the `pos` attribute is being ignored.
+
+
 # Building a scenario without knowledge of routes, based on flow measurements
 
 !!! note
@@ -222,13 +246,13 @@ Example {{AdditionalFile}}:
 
 ```xml
 <additional>
-   <vType id="t0" speedDev="0.1"/>
-   <routeProbe id="cali_edge1_probe" edge="edge1" period="60" file="output.xml"/>
+   <vType id="t0" speedDev="0.1"/>
+   <routeProbe id="cali_edge1_probe" edge="edge1" period="60" file="output.xml"/>
    <route id="cali1_fallback" edges="edge1"/>
-   <calibrator id="cali_edge1" lane="edge1_0" pos="0" output="detector.xml" period="60" routeProbe="cali_edge1_probe">      
-      <flow begin="0"    end="1800" route="cal1_fallback" vehsPerHour="2500" speed="27.8" type="t0" departPos="free" departSpeed="max"/>
-      <flow begin="1800" end="3600" route="cal1_fallback" vehsPerHour="2500" speed="15.0" type="t0" departPos="free" departSpeed="max"/>
-   </calibrator>
+   <calibrator id="cali_edge1" lane="edge1_0" pos="0" output="detector.xml" period="60" routeProbe="cali_edge1_probe">
+      <flow begin="0"    end="1800" route="cal1_fallback" vehsPerHour="2500" speed="27.8" type="t0" departPos="free" departSpeed="max"/>
+      <flow begin="1800" end="3600" route="cal1_fallback" vehsPerHour="2500" speed="15.0" type="t0" departPos="free" departSpeed="max"/>
+   </calibrator>
 </additional>
 ```
 

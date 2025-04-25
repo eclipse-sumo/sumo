@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -79,7 +79,8 @@ public:
             SVCPermissions permissions,
             SVCPermissions changeLeft, SVCPermissions changeRight,
             int index, bool isRampAccel,
-            const std::string& type);
+            const std::string& type,
+            const PositionVector& outlineShape);
 
 
     /// @brief Destructor
@@ -133,7 +134,7 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void setJunctionApproaches(const SUMOTime t) const override;
+    void setJunctionApproaches() const override;
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */

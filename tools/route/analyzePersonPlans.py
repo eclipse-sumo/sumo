@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,8 @@ def get_options(args=None):
 
 def stageName(options, person, stage):
     if stage.name == 'ride':
-        if stage.lines.startswith(person.id):
+        #  see MSStageTrip::getVehicles for customary prefix of automatically spawned vehicles
+        if stage.lines.startswith(person.id + "_"):
             return 'car'
         elif stage.lines == 'taxi':
             return 'taxi'

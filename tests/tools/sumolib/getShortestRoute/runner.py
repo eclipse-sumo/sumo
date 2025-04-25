@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -30,6 +30,7 @@ import sumolib  # noqa
 net = sumolib.net.readNet(sys.argv[1], withInternal=True, withLatestPrograms=True)
 SC = net.getEdge("SC")
 CE = net.getEdge("CE")
+EC = net.getEdge("EC")
 print("%s %.2f" % net.getShortestPath(SC, CE))
 route = net.getShortestPath(SC, CE, vClass="passenger")
 print("%s %.2f" % route)
@@ -45,3 +46,6 @@ print("%s %.2f" % net.getShortestPath(SC, net.getEdge(":C_15")))
 print("%s %.2f" % net.getShortestPath(net.getEdge(":C_12"), net.getEdge(":C_15")))
 print("%s %.2f" % net.getShortestPath(CE, SC))
 print("%s %.2f" % net.getShortestPath(CE, SC, ignoreDirection=True))
+
+print("%s %.2f" % net.getShortestPath(SC, EC))
+print("%s %.2f" % net.getShortestPath(SC, EC, ignoreDirection=True))

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-16 14:22:38 by Eclipse SUMO netconvert Version v1_19_0+0199-174aad6ec8d
+<!-- generated on 2024-02-22 13:27:18 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -97,10 +97,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <busStop id="296942988" name="Pablo-Neruda-Straße" lane="26708288#1_1" startPos="6.26" endPos="25.50" friendlyPos="true" lines="N65 N67 N69"/>
     <busStop id="3239724394" name="Anemonenstraße" lane="37850032#0_1" startPos="47.66" endPos="62.66" friendlyPos="true" lines="169 165 269 N67"/>
     <busStop id="3239724399" name="Krankenhaus Köpenick/Südseite" lane="31343609#1_0" startPos="12.15" endPos="38.08" friendlyPos="true" lines="169 N69">
-        <access lane="151260831#1_0" pos="15.17" length="46.00" friendlyPos="1"/>
+        <access lane="151260831#1_0" pos="15.75" length="46.00" friendlyPos="1"/>
         <access lane="317683533#3_0" pos="0.20" length="49.46" friendlyPos="1"/>
         <access lane="317683533#4_0" pos="0.00" length="42.30" friendlyPos="1"/>
-        <access lane="512137881#1_0" pos="286.08" length="45.23" friendlyPos="1"/>
+        <access lane="512137881#1_0" pos="286.30" length="45.23" friendlyPos="1"/>
     </busStop>
     <busStop id="3239724408" name="Müggelheimer Straße/Wendenschloßstraße" lane="32204601#3_1" startPos="44.60" endPos="56.29" friendlyPos="true" lines="N65 N67 N69"/>
     <busStop id="3257062964" name="Dregerhoffstraße" lane="319292807_0" startPos="1147.84" endPos="1172.84" friendlyPos="true" lines="62">
@@ -110,9 +110,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="93704176#0_0" pos="646.51" length="3.08" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062965" name="Lienhardweg" lane="319292807_0" startPos="473.93" endPos="498.93" friendlyPos="true" lines="62">
-        <access lane="-214614381#1_0" pos="0.00" length="345.39" friendlyPos="1"/>
+        <access lane="-214614381#1_0" pos="0.00" length="345.10" friendlyPos="1"/>
         <access lane="-93704176#0_0" pos="1706.13" length="41.97" friendlyPos="1"/>
-        <access lane="214614381#1_0" pos="1754.55" length="333.05" friendlyPos="1"/>
+        <access lane="214614381#1_0" pos="1754.60" length="333.35" friendlyPos="1"/>
         <access lane="93704176#0_0" pos="0.00" length="41.64" friendlyPos="1"/>
     </busStop>
     <busStop id="3257062966" name="Mayschweg" lane="176023646#0_0" startPos="0.00" endPos="29.17" friendlyPos="true" lines="62">

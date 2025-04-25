@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -69,6 +69,18 @@ public:
     static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
 protected:
+
+    /** @enum CycleWayType
+     * @brief details on the kind of cycleway along this road
+     */
+    enum WayType {
+        WAY_NONE = 0,
+        WAY_FORWARD = 1,
+        WAY_BACKWARD = 2,
+        WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
+        WAY_UNKNOWN = 4
+    };
+
     /** @brief An internal representation of an OSM-node
      */
     struct NIOSMNode : public Parameterised {
@@ -83,6 +95,7 @@ protected:
             ptStopPosition(false), ptStopLength(0), name(""),
             permissions(SVC_IGNORING),
             positionMeters(std::numeric_limits<double>::max()),
+            myRailDirection(WAY_UNKNOWN),
             node(nullptr) { }
 
         /// @brief The node's id
@@ -115,6 +128,8 @@ protected:
         std::string position;
         /// @brief position converted to m (using highest precision available)
         double positionMeters;
+        /// @brief Information about the direction(s) of railway usage
+        WayType myRailDirection;
         /// @brief the NBNode that was instantiated
         NBNode* node;
 
@@ -131,17 +146,6 @@ public:
 
 protected:
 
-
-    /** @enum CycleWayType
-     * @brief details on the kind of cycleway along this road
-     */
-    enum WayType {
-        WAY_NONE = 0,
-        WAY_FORWARD = 1,
-        WAY_BACKWARD = 2,
-        WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
-        WAY_UNKNOWN = 4
-    };
 
     enum ParkingType {
         PARKING_NONE = 0,
@@ -180,7 +184,8 @@ protected:
             myChangeBackward(CHANGE_YES),
             myLayer(0), // layer is non-zero only in conflict areas
             myCurrentIsRoad(false),
-            myAmInRoundabout(false)
+            myAmInRoundabout(false),
+            myWidth(-1)
         { }
 
         virtual ~Edge() {}
@@ -249,6 +254,7 @@ protected:
         /// @brief Information on lane width
         std::vector<double> myWidthLanesForward;
         std::vector<double> myWidthLanesBackward;
+        double myWidth;
 
     private:
         /// invalidated assignment operator
@@ -306,6 +312,9 @@ private:
     /// @brief import sidewalks
     bool myImportSidewalks;
 
+    /// @brief import sidewalks
+    bool myOnewayDualSidewalk;
+
     /// @brief import bike path specific permissions and directions
     bool myImportBikeAccess;
 
@@ -314,6 +323,9 @@ private:
 
     /// @brief import turning signals (turn:lanes) to guide connection building
     bool myImportTurnSigns;
+
+    /// @brief whether edges should carry information on the use of typemap defaults
+    bool myAnnotateDefaults;
 
     /// @brief whether additional way and node attributes shall be imported
     static bool myAllAttributes;
@@ -389,6 +401,7 @@ protected:
     /// @param nie Ths Edge that the information comes from.
     void applyLaneUse(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie, const bool forward);
 
+    static void mergeTurnSigns(std::vector<int>& signs, std::vector<int> signs2);
     void applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns);
 
     /**
@@ -460,6 +473,9 @@ protected:
 
         /// @brief whether elevation data should be imported
         const bool myImportElevation;
+
+        /// @brief custom requirements for rail signal tagging
+        StringVector myRailSignalRules;
 
         /// @brief number of diplicate nodes
         int myDuplicateNodes;

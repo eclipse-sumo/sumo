@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,50 +20,31 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEHierarchicalElement.h>
-#include <utils/gui/div/GUIGeometry.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/geom/PositionVector.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEContour.h>
-#include <netedit/GNEMoveElement.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEAdditional;
-class GNEDemandElement;
-
+#include <netedit/elements/GNEHierarchicalElement.h>
+#include <netedit/elements/GNEMoveElement.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNENetworkElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement {
+class GNENetworkElement : public GNEAttributeCarrier, public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement {
 
 public:
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
      * @param[in] id of the element
-     * @param[in] type type of GL object
      * @param[in] tag sumo xml tag of the element
-     * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
      */
-    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
-                      const std::vector<GNEJunction*>& junctionParents,
-                      const std::vector<GNEEdge*>& edgeParents,
-                      const std::vector<GNELane*>& laneParents,
-                      const std::vector<GNEAdditional*>& additionalParents,
-                      const std::vector<GNEDemandElement*>& demandElementParents,
-                      const std::vector<GNEGenericData*>& genericDataParents);
+    GNENetworkElement(GNENet* net, const std::string& id, SumoXMLTag tag);
 
     /// @brief Destructor
     virtual ~GNENetworkElement();
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
@@ -75,12 +56,6 @@ public:
 
     /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
     const GUIGlObject* getGUIGlObject() const;
-
-    /// @brief set shape edited
-    void setShapeEdited(const bool value);
-
-    /// @brief check if shape is being edited
-    bool isShapeEdited() const;
 
     /// @brief check if current network element is valid to be written into XML (by default true, can be reimplemented in children)
     virtual bool isNetworkElementValid() const;
@@ -116,6 +91,9 @@ public:
 
     /// @brief check if draw delete contour (pink/white)
     virtual bool checkDrawDeleteContour() const = 0;
+
+    /// @brief check if draw delete contour small (pink/white)
+    virtual bool checkDrawDeleteContourSmall() const = 0;
 
     /// @brief check if draw select contour (blue)
     virtual bool checkDrawSelectContour() const = 0;
@@ -172,6 +150,7 @@ public:
 
     /// @brief Returns the name of the object (default "")
     virtual const std::string getOptionalName() const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -181,6 +160,12 @@ public:
      * @return string with the value associated to key
      */
     virtual std::string getAttribute(SumoXMLAttr key) const = 0;
+
+    /* @brief method for getting the Attribute of an XML key in Position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    virtual PositionVector getAttributePositionVector(SumoXMLAttr key) const = 0;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
@@ -203,6 +188,41 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+    /// @name functions related with shape editing
+    /// @{
+
+    /// @brief set shape edited
+    void setShapeEdited(const bool value);
+
+    /// @brief check if shape is being edited
+    bool isShapeEdited() const;
+
+    /// @brief get index geometry point under cursor of shape edited
+    int getGeometryPointUnderCursorShapeEdited() const;
+
+    /// @brief simplify shape edited
+    void simplifyShapeEdited(GNEUndoList* undoList);
+
+    /// @brief straigthen shape edited
+    void straigthenShapeEdited(GNEUndoList* undoList);
+
+    /// @brief close shape edited
+    void closeShapeEdited(GNEUndoList* undoList);
+
+    /// @brief open shape edited
+    void openShapeEdited(GNEUndoList* undoList);
+
+    /// @brief set first geometry point shape edited
+    void setFirstGeometryPointShapeEdited(const int index, GNEUndoList* undoList);
+
+    /// @brief delete geometry point shape edited
+    void deleteGeometryPointShapeEdited(const int index, GNEUndoList* undoList);
+
+    /// @brief reset shape edited
+    void resetShapeEdited(GNEUndoList* undoList);
+
+    /// @}
+
     /// @brief set network element id
     void setNetworkElementID(const std::string& newID);
 
@@ -218,6 +238,15 @@ protected:
 
     // @brief check if we're drawing using a boundary but element was already selected
     bool checkDrawingBoundarySelection() const;
+
+    /// @brief get shape edited popup menu
+    GUIGLObjectPopupMenu* getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, const PositionVector& shape);
+
+    /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
+     * @param pos position of new/existent vertex
+     * @return index of position vector
+     */
+    int getVertexIndex(const PositionVector& shape, const Position& pos);
 
 private:
     /// @brief set attribute after validation

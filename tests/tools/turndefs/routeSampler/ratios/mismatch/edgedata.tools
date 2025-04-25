@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-07 23:46:24.716418 by routeSampler.py v1_17_0+0819-f933523
+<!-- generated on 2025-01-10 09:59:59.234574 by routeSampler.py v1_21_0+1795-43a3ca5d6da
 <configuration>
     <route-files value="input_routes.rou.xml"/>
     <turn-ratio-files value="input_turns.xml"/>
@@ -18,6 +18,6 @@
         <edgeRelation from="3.180.00" to="27" measuredProbability="0.5" deficit="0.000" totalAssignedFromCount="100"/>
         <edgeRelation from="3.180.00" to="-71" measuredProbability="0.4" deficit="-0.010" totalAssignedFromCount="100"/>
         <edgeRelation from="3.180.00" to="-3" measuredProbability="0.1" deficit="0.010" totalAssignedFromCount="100"/>
-        <edge id="3" measuredCount="100" deficit="0"/>
+        <edge id="3" measuredCount="100" deficit="0" GEH="0.00"/>
     </interval>
 </data>

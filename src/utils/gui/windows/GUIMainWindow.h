@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -174,6 +174,9 @@ public:
     void addOnlineMap(const std::string& name, const std::string& url) {
         myOnlineMaps[name] = url;
     }
+
+    /// @brief add breakpoint to the application
+    virtual void addBreakpoint(SUMOTime /* time */) {}
 
     /// @brief retrieve breakpoints if provided by the application
     virtual const std::vector<SUMOTime> retrieveBreakpoints() const {

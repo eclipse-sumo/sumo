@@ -1,15 +1,20 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-20 07:41:06.490018 by createVehTypeDistribution.py v1_20_0+0670-88aca8e654b
+  options: config_file.txt <doubleminus>o out.add.xml <doubleminus>size 10 <doubleminus>name exampleDist
+-->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-   <vTypeDistribution id="exampleDist">
-      <vType id="exampleDist0" minGap="1.061"/>
-      <vType id="exampleDist1" minGap="0.876"/>
-      <vType id="exampleDist2" minGap="1.314"/>
-      <vType id="exampleDist3" minGap="0.965"/>
-      <vType id="exampleDist4" minGap="0.756"/>
-      <vType id="exampleDist5" minGap="1.141"/>
-      <vType id="exampleDist6" minGap="0.708"/>
-      <vType id="exampleDist7" minGap="1.435"/>
-      <vType id="exampleDist8" minGap="0.919"/>
-      <vType id="exampleDist9" minGap="1.296"/>
-   </vTypeDistribution>
+    <vTypeDistribution id="exampleDist">
+        <vType id="exampleDist0" minGap="1.061"/>
+        <vType id="exampleDist1" minGap="0.876"/>
+        <vType id="exampleDist2" minGap="1.314"/>
+        <vType id="exampleDist3" minGap="0.965"/>
+        <vType id="exampleDist4" minGap="0.756"/>
+        <vType id="exampleDist5" minGap="1.141"/>
+        <vType id="exampleDist6" minGap="0.708"/>
+        <vType id="exampleDist7" minGap="1.435"/>
+        <vType id="exampleDist8" minGap="0.919"/>
+        <vType id="exampleDist9" minGap="1.296"/>
+    </vTypeDistribution>
 </additional>

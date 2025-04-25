@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -33,14 +33,17 @@ SUMO_LIBRARIES = os.environ.get("SUMO_LIBRARIES", os.path.join(os.path.dirname(S
 
 def getOptions(args=None):
     ap = ArgumentParser()
-    ap.add_argument("-l", "--lang", nargs='*', help="languages to process (using the short codes like en, fr, de)")
+    ap.add_argument("-l", "--lang", nargs='*', help="languages to process (using the short codes like fr, de)")
     ap.add_argument("--sumo-home", default=SUMO_HOME, help="SUMO root directory to use")
     ap.add_argument("-o", "--output", type=str, help="path to output file (protocol of obsolete translations)")
     ap.add_argument("--clear", default=False, action="store_true", help="remove obsolete entries from .po files")
     ap.add_argument("--patch", nargs="*", type=str,
                     help="restore obsolete (but still present) translations with sequence of the original \
                     (odd position) and then the new string (even position) from the source code (= gettext msgid)")
-    return ap.parse_args(args)
+    options = ap.parse_args(args)
+    if options.lang is not None and "en" in options.lang:
+        options.lang.remove("en")
+    return options
 
 
 def main(args=None):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
@@ -11405,7 +11405,7 @@ class Shortestrouter(Process):
                             groupnames = ['options'], 
                             perm='rw', 
                             name = 'Mode constant', 
-                            info = 'The Mode constant is multiplied with the the distance of each edge if vehicle has exclusive access.',
+                            info = 'The Mode constant is multiplied with the distance of each edge if vehicle has exclusive access.',
                             ))
                             
         self.dist_modespecific = attrsman.add(cm.AttrConf( 'dist_modespecific',kwargs.get('dist_modespecific',5.0),
@@ -11478,7 +11478,7 @@ class Fastestrouter(Process):
                             groupnames = ['options'], 
                             perm='rw', 
                             name = 'Mode constant', 
-                            info = 'The Mode constant is multiplied with the the distance of each edge if vehicle has exclusive access.',
+                            info = 'The Mode constant is multiplied with the distance of each edge if vehicle has exclusive access.',
                             ))
                             
         self.time_modespecific = attrsman.add(cm.AttrConf( 'time_modespecific',kwargs.get('time_modespecific',0.0),

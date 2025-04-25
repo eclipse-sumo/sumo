@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-07 14:45:11.597320 by scaleTimeLine.py v1_22_0+1324-0f33694a6a9
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <timeline-list value="3600,50,200,100"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0.00" from="D0E0" to="A1A0"/>
+    <trip id="1992" depart="7171.20" from="C1C2" to="C4C3"/>
+    <trip id="1992#1" depart="7171.20" from="C1C2" to="C4C3"/>
+    <trip id="1992#2" depart="7171.20" from="C1C2" to="C4C3"/>
+    <trip id="1993" depart="7174.80" from="B1B2" to="B4C4"/>
+    <trip id="1993#1" depart="7174.80" from="B1B2" to="B4C4"/>
+    <trip id="1994" depart="7178.40" from="A3A2" to="B1A1"/>
+    <trip id="1994#1" depart="7178.40" from="A3A2" to="B1A1"/>
+    <trip id="1995" depart="7182.00" from="E0E1" to="C2C3"/>
+    <trip id="1996" depart="7185.60" from="C0D0" to="A4A3"/>
+    <trip id="1997" depart="7189.20" from="A2B2" to="C2B2"/>
+    <trip id="1997#1" depart="7189.20" from="A2B2" to="C2B2"/>
+    <trip id="1997#2" depart="7189.20" from="A2B2" to="C2B2"/>
+    <trip id="1997#3" depart="7189.20" from="A2B2" to="C2B2"/>
+    <trip id="1998" depart="7192.80" from="D0C0" to="A1A2"/>
+    <trip id="1999" depart="7196.40" from="D3D4" to="C2C3"/>
+    <trip id="1999#1" depart="7196.40" from="D3D4" to="C2C3"/>
+    <trip id="2000" depart="7200.00" from="A3A4" to="C2B2"/>
+    <trip id="2001" depart="7203.60" from="A3B3" to="C4D4"/>
+    <trip id="2002" depart="7207.20" from="D4E4" to="E1E2"/>
+    <trip id="2003" depart="7210.80" from="D3D2" to="D0E0"/>
+    <trip id="2004" depart="7214.40" from="C2D2" to="B4B3"/>
+    <trip id="2018" depart="7264.80" from="B3B2" to="B4A4"/>
+    <trip id="2019" depart="7268.40" from="A4B4" to="D1C1"/>
+    <trip id="2020" depart="7272.00" from="B2A2" to="E0E1"/>
+    <trip id="2021" depart="7275.60" from="C0D0" to="B4B3"/>
+    <trip id="2022" depart="7279.20" from="B2B3" to="D1D2"/>
+    <trip id="2023" depart="7282.80" from="D3C3" to="C0D0"/>
+    <trip id="2024" depart="7286.40" from="D3D4" to="C2B2"/>
+    <trip id="2025" depart="7290.00" from="B4B3" to="C3C4"/>
+    <trip id="2026" depart="7293.60" from="B2A2" to="B3A3"/>
+</routes>

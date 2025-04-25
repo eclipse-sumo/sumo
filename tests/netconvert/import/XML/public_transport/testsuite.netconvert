@@ -12,3 +12,13 @@ filter_access
 
 # load ptstops and ptlines and reduce the network
 filter_ptline
+
+# load ptstops and ptlines and then patch a ptline period
+patch_ptline
+negative_stop_pos
+
+# see #16220
+preserve_stopIDs
+
+# see #16220
+preserve_stopIDs2

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -66,9 +66,13 @@ def validate(root, f):
                 # remove everything before (and including) the filename
                 s = s[s.find(f.replace('\\', '/')) + len(f):]
                 print(normalized + s, file=sys.stderr)
-    except Exception:
+    except Exception as e:
         print("Error on parsing '%s'!" % normalized, file=sys.stderr)
-        traceback.print_exc()
+        if haveLxml and type(e) is etree.XMLSyntaxError:
+            # we expect to encounter such errors and don't need a full strack trace
+            print(e, file=sys.stderr)
+        else:
+            traceback.print_exc()
 
 
 def main(srcRoot, toCheck, err):
@@ -110,12 +114,6 @@ def main(srcRoot, toCheck, err):
         print("cannot open", srcRoot, file=err)
         return 1
     print("%s files checked" % fileNo)
-
-    if haveLxml:
-        for scheme in schemes.values():
-            if scheme.error_log:
-                print(scheme.error_log, file=err)
-                return 1
     return 0
 
 

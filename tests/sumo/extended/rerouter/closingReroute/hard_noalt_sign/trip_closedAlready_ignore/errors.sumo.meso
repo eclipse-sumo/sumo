@@ -1,2 +1,3 @@
 Warning: No connection between edge 'beg' and edge 'end2' found.
 Warning: No route for vehicle 'tripClosedAlready' found.
+Warning: Teleporting vehicle 'tripClosedAlready'; waited too long, from edge 'beg':2 to edge 'end2':1, time=1311.80.

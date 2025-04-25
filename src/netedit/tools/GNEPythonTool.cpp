@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -95,7 +95,7 @@ GNEPythonTool::postProcessing() {
 
 
 std::string
-GNEPythonTool::getCommand() const {
+GNEPythonTool::getCommandPath() const {
     // add python script
     const char* pythonEnv = getenv("PYTHON");
     const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
@@ -105,20 +105,25 @@ GNEPythonTool::getCommand() const {
         sumoHome = std::string(sumoHomeEnv);
         // harmonise slash
         if (sumoHome.back() == '\\') {
-            sumoHome = sumoHome.substr(0, sumoHome.size() - 1);
+            sumoHome.pop_back();
+        }
+        if (sumoHome.back() != '/') {
+            sumoHome += "/";
         }
         // quote string to handle spaces but prevent double quotes
         if (sumoHome.front() != '"') {
             sumoHome = "\"" + sumoHome;
         }
-        if (sumoHome.back() != '"') {
-            sumoHome += "\"";
+        if (sumoHome.back() == '"') {
+            sumoHome.pop_back();
         }
-        sumoHome += "/";
     }
-    // get command
-    std::string command = python + " " + sumoHome + myToolPath;
-    // declare arguments
+    return python + " " + sumoHome + myToolPath + "\"";
+}
+
+
+std::string
+GNEPythonTool::getCommand() const {
     std::string arguments;
     // add arguments
     for (const auto& option : myPythonToolsOptions) {
@@ -145,12 +150,12 @@ GNEPythonTool::getCommand() const {
                     }
                     arguments += " ";
                 } else {
-                    arguments += ("\"" + option.second->getValueString() + "\" ");
+                    arguments += ("\"" + StringUtils::escapeShell(option.second->getValueString()) + "\" ");
                 }
             }
         }
     }
-    return command + " " + arguments;
+    return getCommandPath() + " " + arguments;
 }
 
 
@@ -196,20 +201,7 @@ GNEPythonTool::loadConfiguration(const std::string& file) {
 
 void
 GNEPythonTool::saveConfiguration(const std::string& file) const {
-    // add python script
-    const char* pythonEnv = getenv("PYTHON");
-    const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
-    const char* sumoHomeEnv = getenv("SUMO_HOME");
-    const std::string sumoHome = (sumoHomeEnv == nullptr) ? "" : sumoHomeEnv + std::string("/");
-    // get command
-    std::string command = python + " " + sumoHome + myToolPath + " -C " + file + " ";
-    // add arguments
-    for (const auto& option : myPythonToolsOptions) {
-        // only write modified values
-        if (!option.second->isDefault()) {
-            command += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
-        }
-    }
+    std::string command = getCommand() + " -C \"" + file + "\" ";
     // start in background
 #ifndef WIN32
     command = command + " &";

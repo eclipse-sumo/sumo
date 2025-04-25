@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,6 +45,8 @@ const std::string NBTrafficLightDefinition::DefaultProgramID = "0";
 const std::string NBTrafficLightDefinition::DummyID = "dummy";
 const SUMOTime NBTrafficLightDefinition::UNSPECIFIED_DURATION(-1);
 const int NBTrafficLightDefinition::MIN_YELLOW_SECONDS(3);
+const std::string NBTrafficLightDefinition::OSM_DIRECTION("osm:direction");
+const std::string NBTrafficLightDefinition::OSM_SIGNAL_DIRECTION("railway:signal:direction");
 
 
 // ===========================================================================
@@ -58,7 +60,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     mySubID(programID), myOffset(offset),
     myType(type),
     myNeedsContRelationReady(false),
-    myRightOnRedConflictsReady(false) {
+    myExtraConflictsReady(false) {
     std::vector<NBNode*>::iterator i = myControlledNodes.begin();
     while (i != myControlledNodes.end()) {
         for (std::vector<NBNode*>::iterator j = i + 1; j != myControlledNodes.end();) {
@@ -84,7 +86,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id,
     myOffset(offset),
     myType(type),
     myNeedsContRelationReady(false),
-    myRightOnRedConflictsReady(false) {
+    myExtraConflictsReady(false) {
     addNode(junction);
 }
 
@@ -96,7 +98,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string& id, const 
     myOffset(offset),
     myType(type),
     myNeedsContRelationReady(false),
-    myRightOnRedConflictsReady(false) {
+    myExtraConflictsReady(false) {
 }
 
 
@@ -478,6 +480,8 @@ NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
                                && (incoming->getBidiEdge() == el.toEdge)
                               ) {
                         // turnarounds stay uncontrolled at rail signal
+                    } else if (incoming->getToNode()->getType() == SumoXMLNodeType::RAIL_SIGNAL && railSignalUncontrolled(incoming, el.toEdge)) {
+                        // rail signals may stay uncontrolled in a particular direction
                     } else {
                         into.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex++));
                         if (el.indirectLeft) {
@@ -510,6 +514,23 @@ NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
     }
 }
 
+bool
+NBTrafficLightDefinition::railSignalUncontrolled(const NBEdge* in, const NBEdge* out) {
+    const NBNode* n = in->getToNode();
+    if (n->hasParameter(OSM_SIGNAL_DIRECTION) && in->hasParameter(OSM_DIRECTION) && out->hasParameter(OSM_DIRECTION)) {
+        if (in->getParameter(OSM_DIRECTION) == out->getParameter(OSM_DIRECTION)) {
+            if (n->getParameter(OSM_SIGNAL_DIRECTION) != in->getParameter(OSM_DIRECTION)) {
+                return true;
+            }
+        } else {
+            WRITE_WARNINGF(TL("Could not interpret rail signal direction at junction '%' due to inconsistent directions of edge '%' (%) and edge '%' (%)"),
+                           n->getID(),
+                           in->getID(), in->getParameter(OSM_DIRECTION),
+                           out->getID(), out->getParameter(OSM_DIRECTION));
+        }
+    }
+    return false;
+}
 
 bool
 NBTrafficLightDefinition::needsCont(const NBEdge* fromE, const NBEdge* toE, const NBEdge* otherFromE, const NBEdge* otherToE) const {
@@ -536,24 +557,30 @@ NBTrafficLightDefinition::initNeedsContRelation() const {
 }
 
 
-bool
-NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
-    if (!myRightOnRedConflictsReady) {
+void
+NBTrafficLightDefinition::initExtraConflicts() const {
+    if (!myExtraConflictsReady) {
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TrafficLightType::STATIC);
         dummy.setParticipantsInformation();
         NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
         delete tllDummy;
-        myRightOnRedConflicts = dummy.myRightOnRedConflicts;
+        myExtraConflicts = dummy.myExtraConflicts;
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
             (*i)->removeTrafficLight(&dummy);
         }
-        myRightOnRedConflictsReady = true;
-        //std::cout << " rightOnRedConflicts tls=" << getID() << " pro=" << getProgramID() << "\n";
-        //for (RightOnRedConflicts::const_iterator it = myRightOnRedConflicts.begin(); it != myRightOnRedConflicts.end(); ++it) {
-        //    std::cout << "   " << it->first << ", " << it->second << "\n";
+        myExtraConflictsReady = true;
+        //std::cout << " extraConflicts tls=" << getID() << " pro=" << getProgramID() << "\n";
+        //for (auto item : myExtraConflicts) {
+        //    std::cout << "   " << item.first << ", " << item.second << "\n";
         //}
     }
-    return std::find(myRightOnRedConflicts.begin(), myRightOnRedConflicts.end(), std::make_pair(index, foeIndex)) != myRightOnRedConflicts.end();
+}
+
+
+bool
+NBTrafficLightDefinition::extraConflict(int index, int foeIndex) const {
+    initExtraConflicts();
+    return std::find(myExtraConflicts.begin(), myExtraConflicts.end(), std::make_pair(index, foeIndex)) != myExtraConflicts.end();
 }
 
 std::string

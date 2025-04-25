@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-14 08:28:29.212865 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_14_1+1719-6559bfb
-  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>bus.parking
+<!-- generated on 2024-04-03 00:58:52.438604 by ptlines2flows.py v1_19_0+1649-d62985f5c41
+<configuration>
+    <net-file value="net.net.xml"/>
+    <ptlines-file value="ptlines.xml"/>
+    <ptstops-file value="input_additional.add.xml"/>
+    <output-file value="out.flows.xml"/>
+    <bus.parking value="True"/>
+</configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="bus" vClass="bus"/>
     <vType id="tram" vClass="tram"/>
     <vType id="train" vClass="rail"/>
-    <vType id="subway" vClass="rail_urban"/>
+    <vType id="subway" vClass="subway"/>
     <vType id="light_rail" vClass="rail_urban"/>
     <vType id="monorail" vClass="rail_urban"/>
     <vType id="trolleybus" vClass="bus"/>
     <vType id="minibus" vClass="bus"/>
     <vType id="share_taxi" vClass="taxi"/>
-    <vType id="aerialway" vClass="rail_urban" length="2.5" width="2" personCapacity="4"/>
+    <vType id="aerialway" vClass="cable_car" length="2.5" width="2" personCapacity="4"/>
     <vType id="ferry" vClass="ship"/>
     <route id="bus_104:0" color="red" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >
         <stop busStop="3959807221" duration="20" until="35.0" parking="true"/> <!-- Kolonnenbrücke -->

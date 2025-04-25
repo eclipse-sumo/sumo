@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-19 13:34:39.541273 by filterDistricts.py v1_16_0+2184-17938098bd4
+<!-- generated on 2025-03-05 10:17:00.750566 by filterDistricts.py v1_22_0+0650-d108669826e
 <configuration>
     <net-file value="net.net.xml"/>
     <taz-file value="input_districts.xml"/>
@@ -10,8 +10,8 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <taz edges="a b c" id="1"/>
-    <taz edges="c d e" id="2"/>
+    <taz id="1" edges="a b c"/>
+    <taz id="2" edges="c d e"/>
     <taz id="3">
         <tazSource id="e" weight="2.5"/>
         <tazSource id="f" weight="1.5"/>
@@ -24,7 +24,7 @@
         <tazSource id="e" weight="2.5"/>
         <tazSource id="f" weight="1.5"/>
     </taz>
-    <taz edges="a b" id="6">
+    <taz id="6" edges="a b">
         <tazSink id="g" weight="1"/>
         <tazSource id="e" weight="2.5"/>
         <tazSource id="f" weight="1.5"/>

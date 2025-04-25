@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-01-15 10:11:11.417125 by $Id$ via randomTrips.py
+  options:
+                  ===< TO2_1
+                  /==> TO1_0
+                / /
+  TL2_1 <=    === +==< TR2_1
+  TL1_0 >=     +/==  > TR1_0
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="REDosto7" vClass="rail" carFollowModel="Rail" trainType="REDosto7" color="red"/>
+    <vType id="Freight" vClass="rail" carFollowModel="Rail" trainType="Freight"  maxSpeed="22.222" color="blue"/>
+
+    <trip id="rail1" depart="01" departLane="best" departSpeed="max" from="TL1_0" to="TO1_0" type="Freight"/>
+    <trip id="rail2" depart="40" departLane="best" departSpeed="max" from="TR2_1" to="TL2_1" type="REDosto7"/>
+    <trip id="rail3" depart="240" departLane="best" departSpeed="max" from="TR2_1" to="TL2_1" type="REDosto7" departPos="20"/>
+    <trip id="rail4" depart="401" departLane="best" departSpeed="max" from="TL1_0" to="TO1_0" type="Freight"/>
+    <trip id="rail5" depart="440" departLane="best" departSpeed="max" from="TR2_1" to="TL2_1" type="REDosto7" departPos="227"/>
+</routes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,15 +18,15 @@
 // Dialog for edit rerouter intervals
 /****************************************************************************/
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Additional.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNERerouterIntervalDialog.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -83,31 +83,31 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     myRouteProbReroutesValid(true) {
     // fill closing Reroutes
     for (auto i : myEditedAdditional->getChildAdditionals()) {
-        if (i->getTagProperty().getTag() == SUMO_TAG_CLOSING_REROUTE) {
+        if (i->getTagProperty()->getTag() == SUMO_TAG_CLOSING_REROUTE) {
             myClosingReroutesEdited.push_back(i);
         }
     }
     // fill closing Lane Reroutes
     for (auto i : myEditedAdditional->getChildAdditionals()) {
-        if (i->getTagProperty().getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) {
+        if (i->getTagProperty()->getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) {
             myClosingLaneReroutesEdited.push_back(i);
         }
     }
     // fill Dest Prob Reroutes
     for (auto i : myEditedAdditional->getChildAdditionals()) {
-        if (i->getTagProperty().getTag() == SUMO_TAG_DEST_PROB_REROUTE) {
+        if (i->getTagProperty()->getTag() == SUMO_TAG_DEST_PROB_REROUTE) {
             myDestProbReroutesEdited.push_back(i);
         }
     }
     // fill Route Prob Reroutes
     for (auto i : myEditedAdditional->getChildAdditionals()) {
-        if (i->getTagProperty().getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) {
+        if (i->getTagProperty()->getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) {
             myRouteProbReroutesEdited.push_back(i);
         }
     }
     // fill Parking Area reroutes
     for (auto i : myEditedAdditional->getChildAdditionals()) {
-        if (i->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
+        if (i->getTagProperty()->getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
             myParkingAreaRerouteEdited.push_back(i);
         }
     }
@@ -194,7 +194,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     initChanges();
 
     // add element if we aren't updating an existent element
-    if (myUpdatingElement == false) {
+    if (!myUpdatingElement) {
         myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
     }
 
@@ -211,65 +211,37 @@ GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // set strings for dialogs
     std::string errorTitle = "Error" + toString(myUpdatingElement ? "updating" : "creating") + " " + myEditedAdditional->getTagStr() + " of " + myEditedAdditional->getParentAdditionals().at(0)->getTagStr();
     std::string operationType = myEditedAdditional->getParentAdditionals().at(0)->getTagStr() + "'s " + myEditedAdditional->getTagStr() + " cannot be " + (myUpdatingElement ? "updated" : "created") + " because ";
-    if (myBeginEndValid == false) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+    if (!myBeginEndValid) {
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + myEditedAdditional->getTagStr() + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if (myClosingLaneReroutesEdited.empty() &&
                myClosingReroutesEdited.empty() &&
                myDestProbReroutesEdited.empty() &&
                myParkingAreaRerouteEdited.empty() &&
                myRouteProbReroutesEdited.empty()) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "at least one " + myEditedAdditional->getTagStr() + "'s element must be defined.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if ((myClosingLaneReroutesEdited.size() > 0) && (myClosingLaneReroutesValid == false)) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if ((myClosingLaneReroutesEdited.size() > 0) && (myClosingReroutesValid == false)) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_CLOSING_REROUTE) + "s.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if ((myDestProbReroutesEdited.size() > 0) && (myDestProbReroutesValid == false)) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_PARKING_AREA_REROUTE) + "s.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if ((myParkingAreaRerouteEdited.size() > 0) && (myParkingAreaReroutesValid == false)) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else if ((myRouteProbReroutesEdited.size() > 0) && (myRouteProbReroutesValid == false)) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else {
         // accept changes before closing dialog
@@ -309,7 +281,7 @@ GNERerouterIntervalDialog::onCmdAddClosingLaneReroute(FXObject*, FXSelector, voi
     // first check if there is lanes in the network
     if (myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().size() > 0) {
         // get lane
-        GNELane* lane = myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().begin()->second.second->getLanes().front();
+        GNELane* lane = myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().begin()->second->getChildLanes().front();
         // create closing lane reroute
         GNEClosingLaneReroute* closingLaneReroute = new GNEClosingLaneReroute(myEditedAdditional, lane, SVCAll);
         // add it using undoList
@@ -329,7 +301,7 @@ GNERerouterIntervalDialog::onCmdAddClosingReroute(FXObject*, FXSelector, void*) 
     // first check if there is lanes in the network
     if (myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().size() > 0) {
         // get edge
-        GNEEdge* edge = myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().begin()->second.second;
+        GNEEdge* edge = myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().begin()->second;
         // create closing reroute
         GNEClosingReroute* closingReroute = new GNEClosingReroute(myEditedAdditional, edge, SVCAll);
         // add it using undoList
@@ -349,7 +321,7 @@ GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*)
     // first check if there is lanes in the network
     if (myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().size() > 0) {
         // get edge
-        GNEEdge* edge = myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().begin()->second.second;
+        GNEEdge* edge = myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().begin()->second;
         // create closing reroute and add it to table
         GNEDestProbReroute* destProbReroute = new GNEDestProbReroute(myEditedAdditional, edge, 1);
         // add it using undoList

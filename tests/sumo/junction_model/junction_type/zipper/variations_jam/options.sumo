@@ -1,0 +1,8 @@
+--no-step-log 
+-n net.net.xml -r input_routes.rou.xml
+--duration-log.statistics
+--fcd-output fcd.xml
+--device.fcd.explicit left.73
+--fcd-output.attributes acceleration
+--device.fcd.begin 240
+-e 300

@@ -1,0 +1,7 @@
+ Retrying in 1 seconds
+taxiFleet ('taxi_0',)
+reservations (Reservation(id=0, persons=('a',), group=a, fromEdge=D2D3, toEdge=C1D1, departPos=0.0, arrivalPos=90.6, depart=0.0, reservationTime=0.0, state=1),)
+3.0 reservations ()
+4.0 reservations ()
+5.0 reservations ()
+6.0 reservations ()

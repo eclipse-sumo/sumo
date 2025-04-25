@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -19,32 +19,27 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "GNEClosingReroute.h"
 #include <netedit/changes/GNEChange_Attribute.h>
-
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 
+#include "GNEClosingReroute.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEClosingReroute::GNEClosingReroute(GNENet* net) :
-    GNEAdditional("", net, GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE,
-                  GUIIconSubSys::getIcon(GUIIcon::CLOSINGREROUTE), "", {}, {}, {}, {}, {}, {}),
-                            myClosedEdge(nullptr),
-myPermissions(0) {
-    // reset default values
-    resetDefaultValues();
+    GNEAdditional("", net, "", SUMO_TAG_CLOSING_REROUTE, "") {
 }
 
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE,
-                  GUIIconSubSys::getIcon(GUIIcon::CLOSINGREROUTE), "", {}, {}, {}, {rerouterIntervalParent}, {}, {}),
-myClosedEdge(closedEdge),
-myPermissions(permissions) {
+    GNEAdditional(rerouterIntervalParent, SUMO_TAG_CLOSING_REROUTE, ""),
+    myClosedEdge(closedEdge),
+    myPermissions(permissions) {
+    // set parents
+    setParent<GNEAdditional*>(rerouterIntervalParent);
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
@@ -158,10 +153,8 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
             return getVehicleClassNames(invertPermissions(myPermissions));
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return getCommonAttribute(this, key);
     }
 }
 
@@ -174,7 +167,7 @@ GNEClosingReroute::getAttributeDouble(SumoXMLAttr key) const {
 
 const Parameterised::Map&
 GNEClosingReroute::getACParametersMap() const {
-    return PARAMETERS_EMPTY;
+    return getParametersMap();
 }
 
 
@@ -188,11 +181,11 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_EDGE:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
-        case GNE_ATTR_SELECTED:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(key, value, undoList);
+            break;
     }
 }
 
@@ -209,7 +202,7 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            return isCommonValid(key, value);
     }
 }
 
@@ -245,15 +238,9 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             myPermissions = invertPermissions(parseVehicleClasses(value));
             break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setCommonAttribute(this, key, value);
+            break;
     }
 }
 

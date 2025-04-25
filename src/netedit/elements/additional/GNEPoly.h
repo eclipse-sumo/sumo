@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,25 +21,21 @@
 #pragma once
 #include <config.h>
 #include <utils/gui/globjects/GUIPolygon.h>
+#include <utils/xml/CommonXMLStructure.h>
 
 #include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GeoConvHelper;
 class GNENetworkElement;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEPoly
- *
- * In the case the represented junction's shape is empty, the boundary
- *  is computed using the junction's position to which an offset of 1m to each
- *  side is added.
- */
+
 class GNEPoly : public TesselatedPolygon, public GNEAdditional {
 
 public:
@@ -50,8 +46,9 @@ public:
     GNEPoly(SumoXMLTag tag, GNENet* net);
 
     /** @brief Constructor for polygons
-     * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the polygon
+     * @param[in] net net in which this polygon is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] type The (abstract) type of the polygon
      * @param[in] shape The shape of the polygon
      * @param[in] geo specify if shape was loaded as GEO
@@ -59,26 +56,26 @@ public:
      * @param[in] layer The layer of the polygon
      * @param[in] angle The rotation of the polygon
      * @param[in] imgFile The raster image of the polygon
-     * @param[in] relativePath set image file as relative path
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
      * @param[in] name Poly's name
      * @param[in] parameters generic parameters
      */
-    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill,
-            double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath,
+    GNEPoly(const std::string& id, GNENet* net, const std::string& filename, const std::string& type, const PositionVector& shape,
+            bool geo, bool fill, double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile,
             const std::string& name, const Parameterised::Map& parameters);
 
     /** @brief Constructor for JuPedSim elements
-     * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the polygon
+     * @param[in] net net in which this polygon is placed
+     * @param[in] filename file in which this element is stored
      * @param[in] shape The shape of the polygon
      * @param[in] geo specify if shape was loaded as GEO
      * @param[in] name Poly's name
      * @param[in] parameters generic parameters
      */
-    GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, bool geo, const std::string& name,
-            const Parameterised::Map& parameters);
+    GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, const std::string& filename, const PositionVector& shape,
+            bool geo, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPoly();
@@ -231,12 +228,18 @@ public:
     /// @brief replace the current shape with a rectangle
     void simplifyShape(bool allowUndo = true);
 
+    /// @brief get SUMOBaseObject with all polygon attributes
+    CommonXMLStructure::SumoBaseObject* getSumoBaseObject() const;
+
 protected:
     /// @brief Latitude of Polygon
     PositionVector myGeoShape;
 
+    /// @brief flag to indicate if polygon is closed
+    bool myClosedShape = false;
+
     /// @brief flag to indicate if polygon is simplified
-    bool mySimplifiedShape;
+    bool mySimplifiedShape = false;
 
 private:
     /// @brief set attribute after validation

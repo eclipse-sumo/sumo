@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-28 08:42:52 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2025-01-02 15:48:04 by Eclipse SUMO sumo Version v1_21_0+1635-bee1c8eab2a
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -23,10 +23,10 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_17_0+1317-06f42fb" time="50.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_21_0+1635-bee1c8eab2a" time="50.00" type="meso">
     <route id="!0" state="0" edges="0/1to1/1 3/1to4/1"/>
     <route id="!0.0!var#1" state="0" edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
     <route id="!0.1!var#1" state="0" edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
@@ -35,23 +35,23 @@
     <route id="!0.4!var#1" state="0" edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
     <delay number="5" begin="5" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="0.0" depart="0.00" route="!0.0!var#1" distance="400 1" speedFactor="1.0600" reroute="1" state="262304 0 1 0 1 0 56604 47170 9223372036854775807">
+    <vehicle id="0.0" depart="0.00" route="!0.0!var#1" distance="400 1" speedFactor="1.0600" reroute="1" state="262304 0 1 0 1 0 56604 47170 9223372036854774807">
         <device id="vehroute_0.0" state="10.60 0.00 1 !NULL 0 !0 device.rerouting -1 0"/>
         <device id="routing_0.0" state="0"/>
     </vehicle>
-    <vehicle id="0.1" depart="10.00" route="!0.1!var#1" distance="0 1" speedFactor="0.9383" reroute="1" state="262304 10000 0 0 3 0 52632 41974 9223372036854775807">
+    <vehicle id="0.1" depart="10.00" route="!0.1!var#1" distance="0 1" speedFactor="0.9383" reroute="1" state="262304 10000 0 0 3 0 52632 41974 9223372036854774807">
         <device id="vehroute_0.1" state="9.38 0.00 1 !NULL 10000 !0 device.rerouting -1 0"/>
         <device id="routing_0.1" state="0"/>
     </vehicle>
-    <vehicle id="0.2" depart="20.00" route="!0.2!var#1" distance="0 1" speedFactor="1.0104" reroute="1" state="262304 20000 0 0 2 0 49691 39794 9223372036854775807">
+    <vehicle id="0.2" depart="20.00" route="!0.2!var#1" distance="0 1" speedFactor="1.0104" reroute="1" state="262304 20000 0 0 2 0 49691 39794 9223372036854774807">
         <device id="vehroute_0.2" state="10.10 0.00 1 !NULL 20000 !0 device.rerouting -1 0"/>
         <device id="routing_0.2" state="0"/>
     </vehicle>
-    <vehicle id="0.3" depart="30.00" route="!0.3!var#1" distance="0 1" speedFactor="1.0827" reroute="1" state="262304 30000 0 0 2 0 57708 48472 9223372036854775807">
+    <vehicle id="0.3" depart="30.00" route="!0.3!var#1" distance="0 1" speedFactor="1.0827" reroute="1" state="262304 30000 0 0 2 0 57708 48472 9223372036854774807">
         <device id="vehroute_0.3" state="10.83 0.00 1 !NULL 30000 !0 device.rerouting -1 0"/>
         <device id="routing_0.3" state="0"/>
     </vehicle>
-    <vehicle id="0.4" depart="40.00" route="!0.4!var#1" distance="0 1" speedFactor="1.0303" reroute="1" state="262304 40000 0 0 0 0 49706 40000 9223372036854775807">
+    <vehicle id="0.4" depart="40.00" route="!0.4!var#1" distance="0 1" speedFactor="1.0303" reroute="1" state="262304 40000 0 0 0 0 49706 40000 9223372036854774807">
         <device id="vehroute_0.4" state="10.30 0.00 1 !NULL 40000 !0 device.rerouting -1 0"/>
         <device id="routing_0.4" state="0"/>
     </vehicle>

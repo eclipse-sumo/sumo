@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-22 15:49:47 by Eclipse SUMO sumo Version v1_18_0+1749-26d8ef39b84
+<!-- generated on 2025-04-23 23:15:27 by Eclipse SUMO sumo Version v1_22_0+1676-989a5715aeb
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <configuration>
         <!-- Loads the named config on startup -->
@@ -93,6 +93,9 @@
         <!-- Write emission values scaled to the step length rather than as per-second values -->
         <emission-output.step-scaled value="false" type="BOOL"/>
 
+        <!-- List attributes that should be included in the emission output -->
+        <emission-output.attributes value="" type="STR[]"/>
+
         <!-- Save the battery values of each vehicle -->
         <battery-output value="" type="FILE"/>
 
@@ -110,6 +113,12 @@
 
         <!-- Write data of charging stations -->
         <chargingstations-output value="" type="FILE"/>
+
+        <!-- Write aggregated charging event data instead of single time steps -->
+        <chargingstations-output.aggregated value="false" type="BOOL"/>
+
+        <!-- Write aggregated charging event data for vehicles which have not arrived at simulation end -->
+        <chargingstations-output.aggregated.write-unfinished value="false" type="BOOL"/>
 
         <!-- Write data of overhead wire segments -->
         <overheadwiresegments-output value="" type="FILE"/>
@@ -240,6 +249,9 @@
         <!-- Save railsignal-blocks into FILE -->
         <railsignal-block-output value="" type="FILE"/>
 
+        <!-- Record entry and exit times of vehicles for railsignal blocks into FILE -->
+        <railsignal-vehicle-output value="" type="FILE"/>
+
         <!-- Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender) -->
         <bt-output value="" type="FILE"/>
 
@@ -273,6 +285,9 @@
         <!-- Write overall statistics into FILE -->
         <statistic-output value="" synonymes="statistics-output" type="FILE"/>
 
+        <!-- Write reports on deadlocks FILE -->
+        <deadlock-output value="" type="FILE"/>
+
         <!-- Use TIME[] as times at which a network state written -->
         <save-state.times value="" type="STR[]"/>
 
@@ -302,6 +317,15 @@
 
         <!-- Write internal state values with the given precision (default 2) -->
         <save-state.precision value="2" type="INT"/>
+
+        <!-- The filename to output the JuPedSim network as WKT -->
+        <pedestrian.jupedsim.wkt value="" type="FILE"/>
+
+        <!-- Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat) -->
+        <pedestrian.jupedsim.wkt.geo value="false" type="BOOL"/>
+
+        <!-- The filename to output the JuPedSim setup as Python script -->
+        <pedestrian.jupedsim.py value="" type="FILE"/>
 
     </output>
 
@@ -366,8 +390,14 @@
         <!-- Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used -->
         <collision.mingap-factor value="-1" type="FLOAT"/>
 
+        <!-- After a vehicle arrives, keep it in memory for the given TIME (for TraCI access) -->
+        <keep-after-arrival value="0" type="TIME"/>
+
         <!-- Delay vehicle insertion to stay within the given maximum number -->
         <max-num-vehicles value="-1" type="INT"/>
+
+        <!-- Delay person insertion to stay within the given maximum number -->
+        <max-num-persons value="-1" type="INT"/>
 
         <!-- Abort the simulation if the given maximum number of teleports is exceeded -->
         <max-num-teleports value="-1" type="INT"/>
@@ -393,11 +423,17 @@
         <!-- Whether vehicles shall be removed after waiting too long instead of being teleported -->
         <time-to-teleport.remove value="false" type="BOOL"/>
 
+        <!-- Whether rail-signal-constraint based deadlocks shall be cleared by removing a constraint -->
+        <time-to-teleport.remove-constraint value="false" type="BOOL"/>
+
         <!-- The waiting time after which persons / containers waiting for a pickup are teleported. Negative values disable teleporting -->
         <time-to-teleport.ride value="-1" type="TIME"/>
 
         <!-- The waiting time after which vehicles on bidirectional edges are teleported -->
         <time-to-teleport.bidi value="-1" type="TIME"/>
+
+        <!-- The waiting time after which vehicles in a rail-signal based deadlock are teleported -->
+        <time-to-teleport.railsignal-deadlock value="-1" type="TIME"/>
 
         <!-- Length of time interval, over which accumulated waiting time is taken into account (default is 100s.) -->
         <waiting-time-memory value="100" type="TIME"/>
@@ -416,6 +452,9 @@
 
         <!-- Allow inserting a vehicle in a situation which requires emergency braking -->
         <emergency-insert value="false" type="BOOL"/>
+
+        <!-- Override default value for vehicle attribute insertionChecks -->
+        <insertion-checks value="all" type="STR"/>
 
         <!-- Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME] -->
         <random-depart-offset value="0" type="TIME"/>
@@ -446,6 +485,12 @@
 
         <!-- Let railsignals operate in moving-block mode by default -->
         <railsignal-moving-block value="false" type="BOOL"/>
+
+        <!-- Do not build blocks longer than FLOAT and issue a warning instead -->
+        <railsignal.max-block-length value="20000" type="FLOAT"/>
+
+        <!-- List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them -->
+        <railsignal.default-classes value="rail,rail_fast,rail_electric,rail_urban" type="STR[]"/>
 
         <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
         <time-to-impatience value="180" type="TIME"/>
@@ -486,6 +531,9 @@
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
 
+        <!-- Minimal acceptable gap (in seconds) between two vehicles before starting to cross -->
+        <pedestrian.timegap-crossing value="2" type="FLOAT"/>
+
         <!-- Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos; -->
         <pedestrian.striping.stripe-width value="0.64" type="FLOAT"/>
 
@@ -503,6 +551,9 @@
 
         <!-- Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model &apos;striping&apos; -->
         <pedestrian.striping.jamtime.narrow value="1" type="TIME"/>
+
+        <!-- Factor for reducing speed of pedestrian in jammed state -->
+        <pedestrian.striping.jamfactor value="0.25" type="FLOAT"/>
 
         <!-- Fraction of stripes to reserve for oncoming pedestrians -->
         <pedestrian.striping.reserve-oncoming value="0" type="FLOAT"/>
@@ -522,11 +573,38 @@
         <!-- The update interval of the JuPedSim simulation (in seconds) -->
         <pedestrian.jupedsim.step-length value="0.01" type="TIME"/>
 
-        <!-- The distance to the destination point considered as arrival (in meters) -->
+        <!-- The distance to accept the JuPedSim arrival point (in meters) -->
         <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT"/>
+
+        <!-- The submodel to use in JuPedSim (&apos;CollisionFreeSpeed&apos;, &apos;CollisionFreeSpeedV2&apos;, &apos;GeneralizedCentrifugalForce&apos;, &apos;SocialForce&apos;) -->
+        <pedestrian.jupedsim.model value="CollisionFreeSpeed" type="STR"/>
+
+        <!-- The neighbor repulsion strength of the JuPedSim model -->
+        <pedestrian.jupedsim.strength-neighbor-repulsion value="8" type="FLOAT"/>
+
+        <!-- The neighbor repulsion range of the JuPedSim model (in meters) -->
+        <pedestrian.jupedsim.range-neighbor-repulsion value="0.1" type="FLOAT"/>
+
+        <!-- The geometry repulsion strength of the JuPedSim model -->
+        <pedestrian.jupedsim.strength-geometry-repulsion value="5" type="FLOAT"/>
+
+        <!-- The geometry repulsion range of the JuPedSim model (in meters) -->
+        <pedestrian.jupedsim.range-geometry-repulsion value="0.02" type="FLOAT"/>
 
         <!-- Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops -->
         <ride.stop-tolerance value="10" type="FLOAT"/>
+
+        <!-- Maximum distance when mapping input coordinates (fromXY etc.) to the road network -->
+        <mapmatch.distance value="100" type="FLOAT"/>
+
+        <!-- Match positions to junctions instead of edges -->
+        <mapmatch.junctions value="false" type="BOOL"/>
+
+        <!-- Match positions to taz instead of edges -->
+        <mapmatch.taz value="false" type="BOOL"/>
+
+        <!-- Apply the given time penalty when computing routing costs for turnaround internal lanes -->
+        <weights.turnaround-penalty value="5" type="FLOAT"/>
 
         <!-- Use FLOAT as a factor on walking speed against vehicle traffic direction -->
         <persontrip.walk-opposite-factor value="1" type="FLOAT"/>
@@ -576,6 +654,9 @@
         <!-- Estimated time for taxi pickup -->
         <persontrip.taxi.waiting-time value="300" type="TIME"/>
 
+        <!-- Only use the intended public transport line rather than any alternative line that stops at the destination -->
+        <persontrip.ride-public-line value="false" type="BOOL"/>
+
         <!-- Use FLOAT as a maximum train length when initializing the railway router -->
         <railway.max-train-length value="1000" type="FLOAT"/>
 
@@ -609,6 +690,9 @@
         <!-- Use zones (districts) as routing start- and endpoints -->
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL"/>
 
+        <!-- Set routing flags (8 ignores temporary blockages) -->
+        <device.rerouting.mode value="0" type="STR"/>
+
         <!-- Use weight files given with option --weight-files for initializing edge weights -->
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL"/>
 
@@ -619,7 +703,7 @@
         <device.rerouting.synchronize value="false" type="BOOL"/>
 
         <!-- Allow rerouting triggered by rail signals. -->
-        <device.rerouting.railsignal value="true" type="BOOL"/>
+        <device.rerouting.railsignal value="false" type="BOOL"/>
 
         <!-- Compute separate average speeds for bicycles -->
         <device.rerouting.bike-speeds value="false" type="BOOL"/>
@@ -638,6 +722,12 @@
 
         <!-- The period with which the person shall be rerouted -->
         <person-device.rerouting.period value="0" synonymes="person-device.routing.period" type="TIME"/>
+
+        <!-- Set routing flags (8 ignores temporary blockages) -->
+        <person-device.rerouting.mode value="0" type="STR"/>
+
+        <!-- Which part of the person plan is to be replaced (stage, sequence, or trip) -->
+        <person-device.rerouting.scope value="stage" type="STR"/>
 
     </routing>
 
@@ -792,26 +882,56 @@
         <!-- Time to wait for a rescue vehicle on the road side when the battery is empty -->
         <device.stationfinder.rescueTime value="1800" type="TIME"/>
 
-        <!-- Additional battery buffer for unexpected traffic situation when estimating the battery need -->
+        <!-- How to deal with a vehicle which has to stop due to low battery: [none, remove, tow] -->
+        <device.stationfinder.rescueAction value="remove" type="STR"/>
+
+        <!-- Scale battery need with this factor to account for unexpected traffic situations -->
         <device.stationfinder.reserveFactor value="1.1" type="FLOAT"/>
 
         <!-- Battery percentage to go into rescue mode -->
-        <device.stationfinder.emptyThreshold value="5" type="FLOAT"/>
+        <device.stationfinder.emptyThreshold value="0.05" type="FLOAT"/>
 
         <!-- Search radius in travel time seconds -->
         <device.stationfinder.radius value="180" type="TIME"/>
+
+        <!-- Euclidean search distance in meters (a negative value disables the restriction) -->
+        <device.stationfinder.maxEuclideanDistance value="-1" type="FLOAT"/>
 
         <!-- When to trigger a new search if no station has been found -->
         <device.stationfinder.repeat value="60" type="TIME"/>
 
         <!-- The maximum charging speed of the vehicle battery -->
-        <device.stationfinder.maxChargePower value="1000" type="FLOAT"/>
+        <device.stationfinder.maxChargePower value="100000" type="FLOAT"/>
 
         <!-- Type of energy transfer -->
         <device.stationfinder.chargeType value="charging" type="STR"/>
 
         <!-- After this waiting time vehicle searches for a new station when the initial one is blocked -->
         <device.stationfinder.waitForCharge value="600" type="TIME"/>
+
+        <!-- Only stops with a predicted duration of at least the given threshold are considered for opportunistic charging. -->
+        <device.stationfinder.minOpportunityDuration value="3600" type="TIME"/>
+
+        <!-- Target state of charge after which the vehicle stops charging -->
+        <device.stationfinder.saturatedChargeLevel value="0.8" type="FLOAT"/>
+
+        <!-- State of charge the vehicle begins searching for charging stations -->
+        <device.stationfinder.needToChargeLevel value="0.4" type="FLOAT"/>
+
+        <!-- State of charge below which the vehicle may look for charging opportunities along its planned stops -->
+        <device.stationfinder.opportunisticChargeLevel value="0" type="FLOAT"/>
+
+        <!-- Share of stopping time of the next independently planned stop to use for charging instead -->
+        <device.stationfinder.replacePlannedStop value="0" type="FLOAT"/>
+
+        <!-- Maximum distance in meters from the original stop to be replaced by the charging stop -->
+        <device.stationfinder.maxDistanceToReplacedStop value="300" type="FLOAT"/>
+
+        <!-- Set a charging strategy to alter time and charging load from the set: [none, balanced, latest] -->
+        <device.stationfinder.chargingStrategy value="none" type="STR"/>
+
+        <!-- Only search for charging stations if the battery charge is not estimated sufficient to complete the current route -->
+        <device.stationfinder.checkEnergyForRoute value="true" type="BOOL"/>
 
         <!-- The probability for a vehicle to have a &apos;battery&apos; device -->
         <device.battery.probability value="-1" type="FLOAT"/>
@@ -852,7 +972,7 @@
         <!-- The &apos;ssm&apos; devices are set deterministic using a fraction of 1000 -->
         <device.ssm.deterministic value="false" type="BOOL"/>
 
-        <!-- Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;,&apos;MDRAC&apos;)) -->
+        <!-- Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;, &apos;MDRAC&apos;)) -->
         <device.ssm.measures value="" type="STR"/>
 
         <!-- Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. -->
@@ -881,6 +1001,9 @@
 
         <!-- Whether to write lanes and their positions for each timestep -->
         <device.ssm.write-lane-positions value="false" type="BOOL"/>
+
+        <!-- Whether to write conflict outputs with no data as NA values or skip it -->
+        <device.ssm.write-na value="true" type="BOOL"/>
 
         <!-- Which conflicts will be excluded from the log according to the conflict type they have been classified (combination of values in &apos;ego&apos;, &apos;foe&apos; , &apos;&apos;, any numerical valid conflict type code). An empty value will log all and &apos;ego&apos;/&apos;foe&apos; refer to a certain conflict type subset. -->
         <device.ssm.exclude-conflict-types value="" type="STR"/>
@@ -1083,7 +1206,7 @@
         <!-- The period between successive calls to the dispatcher -->
         <device.taxi.dispatch-period value="60" type="TIME"/>
 
-        <!-- The behavior of idle taxis [stop|randomCircling] -->
+        <!-- The behavior of idle taxis [stop|randomCircling|taxistand] -->
         <device.taxi.idle-algorithm value="stop" type="STR"/>
 
         <!-- Write information from the idling algorithm to FILE -->
@@ -1109,6 +1232,18 @@
 
         <!-- Minimum speed when coasting towards a red light -->
         <device.glosa.min-speed value="5" type="FLOAT"/>
+
+        <!-- Additional time the vehicle shall need to reach the intersection after the signal turns green -->
+        <device.glosa.add-switchtime value="0" type="FLOAT"/>
+
+        <!-- Use queue in front of the tls for GLOSA calculation -->
+        <device.glosa.use-queue value="false" type="BOOL"/>
+
+        <!-- Override safety features - ignore the current light state, always follow GLOSA&apos;s predicted state -->
+        <device.glosa.override-safety value="false" type="BOOL"/>
+
+        <!-- Vehicles follow a perfect speed calculation - ignore speed calculations from the CF model if not safety critical -->
+        <device.glosa.ignore-cfmodel value="false" type="BOOL"/>
 
     </glosa_device>
 
@@ -1153,6 +1288,21 @@
         <device.friction.offset value="0" type="FLOAT"/>
 
     </friction_device>
+
+    <fcd_replay_device>
+        <!-- The probability for a vehicle to have a &apos;fcd-replay&apos; device -->
+        <device.fcd-replay.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;fcd-replay&apos; device to named vehicles -->
+        <device.fcd-replay.explicit value="" synonymes="device.fcd-replay.knownveh" type="STR[]"/>
+
+        <!-- The &apos;fcd-replay&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.fcd-replay.deterministic value="false" type="BOOL"/>
+
+        <!-- FCD file to read -->
+        <device.fcd-replay.file value="" type="FILE"/>
+
+    </fcd_replay_device>
 
     <traci_server>
         <!-- Enables TraCI Server if set -->
@@ -1257,6 +1407,9 @@
         <!-- Load a secondary road network for abstract visualization from FILE -->
         <alternative-net-file value="" synonymes="N" type="FILE"/>
 
+        <!-- Load pre-selected elements from FILE -->
+        <selection-file value="" type="FILE"/>
+
         <!-- Restart the simulation after ending (demo mode) -->
         <demo value="false" synonymes="D" type="BOOL"/>
 
@@ -1289,4 +1442,4 @@
 
     </gui_only>
 
-</configuration>
+</sumoConfiguration>

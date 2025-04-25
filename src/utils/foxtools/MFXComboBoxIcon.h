@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2006-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -16,17 +16,18 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    2018-12-19
 ///
-//
+// ComboBox with search field and icons
 /****************************************************************************/
-
 #pragma once
 #include <config.h>
 
 #include "MFXListIcon.h"
 #include "MFXTextFieldSearch.h"
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
 
-/// @brief ComboBox with icon
 class MFXComboBoxIcon : public FXPacker {
     /// @brief FOX declaration
     FXDECLARE(MFXComboBoxIcon)
@@ -110,7 +111,7 @@ public:
     void removeItem(FXint index);
 
     /// @brief Remove all items from the list
-    void clearItems();
+    virtual void clearItems();
 
     /// @brief find item
     FXint findItem(const FXString& text) const;
@@ -174,7 +175,7 @@ protected:
 
 private:
     /// @brief invalidate copy constructor
-    MFXComboBoxIcon(const MFXComboBoxIcon&);
+    MFXComboBoxIcon(const MFXComboBoxIcon&) = delete;
 
     /// @brief invalidate assignment operator
     MFXComboBoxIcon& operator=(const MFXComboBoxIcon&) = delete;

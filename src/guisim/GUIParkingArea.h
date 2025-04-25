@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -62,6 +62,7 @@ public:
      * @param[in] idStorage The gl-id storage for giving this object an gl-id
      * @param[in] id The id of the parking area
      * @param[in] lines Names of the parking lines that halt on this parking area
+     * @param[in] badges Names which grant access to this parking area
      * @param[in] lane The lane the parking area is placed on
      * @param[in] begPos Begin position of the parking area on the lane
      * @param[in] endPos End position of the parking area on the lane
@@ -71,7 +72,7 @@ public:
      * @param[in] angle Default angle of the lot rectangle relative to lane direction (if = 0 is computed ... TODO)
      */
     GUIParkingArea(const std::string& id,
-                   const std::vector<std::string>& lines, MSLane& lane,
+                   const std::vector<std::string>& lines, const std::vector<std::string>& badges, MSLane& lane,
                    double frompos, double topos, unsigned int capacity,
                    double width, double length, double angle, const std::string& name,
                    bool onRoad,

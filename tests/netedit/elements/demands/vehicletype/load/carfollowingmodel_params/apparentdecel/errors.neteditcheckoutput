@@ -1,0 +1,1 @@
+Warning: Value of 'emergencyDecel' (9.00) is lower than 'apparentDecel' (12.00) for vType 'vType3' may cause collisions.

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-22 07:05:05 by Eclipse SUMO polyconvert Version v1_18_0+1732-f768a4560e8
+<!-- generated on 2025-01-22 09:53:00 by Eclipse SUMO polyconvert Version v1_21_0+1946-5cf10712f6d
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+<polyconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
 
     <configuration>
         <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
@@ -25,6 +25,7 @@
         <osm.keep-full-type value="false" type="BOOL" help="The type will be made of the key-value - pair"/>
         <osm.use-name value="false" type="BOOL" help="The id will be set from the given &apos;name&apos; attribute"/>
         <osm.merge-relations value="-1" type="FLOAT" help="If FLOAT &gt;= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT"/>
+        <geojson-files value="" type="FILE" help="Reads shapes from geojson FILE"/>
         <shapefile-prefixes value="" synonymes="shape-files shapefile shapefile-prefix" type="FILE" help="Reads shapes from shapefiles FILE"/>
         <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL" help="Guesses the shapefile&apos;s projection"/>
         <shapefile.traditional-axis-mapping value="false" type="BOOL" help="Use traditional axis order (lon, lat)"/>
@@ -73,6 +74,7 @@
         <all-attributes value="false" type="BOOL" help="Imports all attributes as key/value pairs"/>
         <ignore-errors value="false" type="BOOL" help="Continue on broken input"/>
         <poi-layer-offset value="0" type="FLOAT" help="Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"/>
+        <flatten value="false" type="BOOL" help="Remove all z-data"/>
     </processing>
 
     <building_defaults>
@@ -102,4 +104,4 @@
         <language value="C" type="STR" help="Language to use in messages"/>
     </report>
 
-</configuration>
+</polyconvertConfiguration>

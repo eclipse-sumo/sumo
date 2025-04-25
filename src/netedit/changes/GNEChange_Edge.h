@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,6 +45,7 @@ public:
 
     /// @name inherited from GNEChange
     /// @{
+
     /// @brief get undo Name
     std::string undoName() const;
 
@@ -56,32 +57,8 @@ public:
 
     /// @brief redo action
     void redo();
+
     /// @}
-
-protected:
-    /// @brief add given lane into parents and children
-    void addEdgeLanes();
-
-    /// @brief remove given lane from parents and children
-    void removeEdgeLanes();
-
-    /// @brief vector of references to vector of parent additionals (used by edge lanes)
-    std::vector<std::vector<GNEAdditional*> > myLaneParentAdditionals;
-
-    /// @brief vector of references to vector of parent demand elements (used by edge lanes)
-    std::vector<std::vector<GNEDemandElement*> > myLaneParentDemandElements;
-
-    /// @brief vector of references to vector of parent generic datas (used by edge lanes)
-    std::vector<std::vector<GNEGenericData*> > myLaneParentGenericData;
-
-    /// @brief vector of references to vector of child additional (used by edge lanes)
-    std::vector<std::vector<GNEAdditional*> > myChildLaneAdditionals;
-
-    /// @brief vector of references to vector of child demand elements (used by edge lanes)
-    std::vector<std::vector<GNEDemandElement*> > myChildLaneDemandElements;
-
-    /// @brief vector of references to vector of child generic datas (used by edge lanes)
-    std::vector<std::vector<GNEGenericData*> > myChildLaneGenericData;
 
 private:
     /**@brief full information regarding the edge that is to be created/deleted

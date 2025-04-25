@@ -20,6 +20,13 @@
                         </xsd:sequence>
                     </xsd:complexType>
                 </xsd:element>
+                <xsd:element name="persons" minOccurs="0" maxOccurs="1">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element minOccurs="0" maxOccurs="unbounded" ref="person"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
                 <xsd:element name="edges">
                     <xsd:complexType>
                         <xsd:sequence>
@@ -86,9 +93,26 @@
             <xsd:attribute name="pos" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="speed" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="angle" type="floatType" use="required"/>
+            <xsd:attribute name="slope" type="floatType" use="optional"/>
             <xsd:attribute name="x" type="floatType" use="required"/>
             <xsd:attribute name="y" type="floatType" use="required"/>
             <xsd:attribute name="z" type="floatType" use="optional"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="person">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:string" use="required"/>
+            <xsd:attribute name="x" type="floatType" use="optional"/>
+            <xsd:attribute name="y" type="floatType" use="optional"/>
+            <xsd:attribute name="z" type="floatType" use="optional"/>
+            <xsd:attribute name="angle" type="floatType" use="optional"/>
+            <xsd:attribute name="type" use="optional" type="xsd:string"/>
+            <xsd:attribute name="speed" type="nonNegativeFloatType" use="optional"/>
+            <xsd:attribute name="pos" type="nonNegativeFloatType" use="optional"/>
+            <xsd:attribute name="edge" type="xsd:string" use="optional"/>
+            <xsd:attribute name="slope" type="floatType" use="optional"/>
+            <xsd:attribute name="vehicle" type="xsd:string" use="optional"/>
+            <xsd:attribute name="stage" type="xsd:string" use="optional"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="trafficlight">

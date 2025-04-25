@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,8 +43,8 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     myActiveRouteColor(nullptr),
     myCurrentCosts(0.),
     myCurrentVType(nullptr),
-    myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
-    myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
+    myBeginDefault(OptionsCont::getOptions().exists("begin") ? string2time(OptionsCont::getOptions().getString("begin")) : 0),
+    myEndDefault(OptionsCont::getOptions().exists("end") ? string2time(OptionsCont::getOptions().getString("end")) : -1),
     myFirstDepart(-1),
     myInsertStopEdgesAt(-1),
     myAllowInternalRoutes(false) {
@@ -457,6 +457,9 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (attrs.hasAttribute(SUMO_ATTR_JUMP)) {
         stop.parametersSet |= STOP_JUMP_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_JUMP_UNTIL)) {
+        stop.parametersSet |= STOP_JUMP_UNTIL_SET;
+    }
     bool ok = true;
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, nullptr, ok, stop.busstop);
@@ -562,6 +565,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     stop.actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "");
     stop.onDemand = attrs.getOpt<bool>(SUMO_ATTR_ONDEMAND, nullptr, ok, false);
     stop.jump = attrs.getOptSUMOTimeReporting(SUMO_ATTR_JUMP, nullptr, ok, -1);
+    stop.jumpUntil = attrs.getOptSUMOTimeReporting(SUMO_ATTR_JUMP_UNTIL, nullptr, ok, -1);
     stop.collision = attrs.getOpt<bool>(SUMO_ATTR_COLLISION, nullptr, ok, false);
     return true;
 }

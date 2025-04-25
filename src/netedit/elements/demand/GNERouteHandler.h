@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,172 +20,165 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrameAttributeModules.h>
-#include <netedit/frames/GNEPathCreator.h>
-#include <netedit/frames/GNEPlanCreator.h>
-#include <netedit/frames/GNEAttributesCreator.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/vehicle/SUMORouteHandler.h>
-#include <utils/xml/SUMOSAXAttributes.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/handlers/RouteHandler.h>
-
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEViewNet;
-class GNEEdge;
-class GNETAZ;
-class GNEDemandElement;
-class GNEVehicle;
-class GNEPerson;
+class GNEAttributesEditor;
 class GNEContainer;
+class GNEDemandElement;
+class GNEEdge;
+class GNEJunction;
+class GNEPerson;
+class GNEPlanCreator;
+class GNETAZ;
 class GNEUndoList;
+class GNEVehicle;
+class GNEViewNet;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/// @class GNERouteHandler
-/// @brief Builds trigger objects for GNENet (busStops, chargingStations, detectors, etc..)
 class GNERouteHandler : public RouteHandler {
 
 public:
     /// @brief Constructor
-    GNERouteHandler(const std::string& file, GNENet* net, const bool allowUndoRedo, const bool overwrite);
+    GNERouteHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite);
 
     /// @brief Destructor
     virtual ~GNERouteHandler();
+
+    /// @brief run post parser tasks
+    bool postParserTasks();
 
     /// @name build functions
     /// @{
 
     /// @brief build vType
-    void buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter);
+    bool buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter);
+
+    /// @brief build vType ref
+    bool buildVTypeRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& vTypeID, const double probability);
 
     /// @brief build vType distribution
-    void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
-                                const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities);
+    bool buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic);
 
     /// @brief build route
-    void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
+    bool buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                     const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                     const double probability, const Parameterised::Map& routeParameters);
 
-    /// @brief build embedded route
-    void buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string>& edgeIDs,
-                            const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                            const Parameterised::Map& routeParameters);
+    /// @brief build route ref
+    bool buildRouteRef(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& routeID, const double probability);
 
     /// @brief build route distribution
-    void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                                const std::vector<std::string>& routeIDs, const std::vector<double>& probabilities);
+    bool buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id);
 
     /// @brief build a vehicle over an existent route
-    void buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
+    bool buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
+
+    /// @brief build a vehicle with an embedded route
+    bool buildVehicleEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                   const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
+                                   const Parameterised::Map& routeParameters);
 
     /// @brief build a flow over an existent route
-    void buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
+    bool buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters);
+
+    /// @brief build a flow with an embedded route
+    bool buildFlowEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
+                                const Parameterised::Map& routeParameters);
 
     /// @brief build trip
-    void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+    bool buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                    const std::string& fromEdgeID, const std::string& toEdgeID);
 
     /// @brief build trip over junctions
-    void buildTripJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+    bool buildTripJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                             const std::string& fromJunctionID, const std::string& toJunctionID);
 
     /// @brief build trip over TAZs
-    void buildTripTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+    bool buildTripTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                        const std::string& fromTAZID, const std::string& toTAZID);
 
     /// @brief build flow
-    void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+    bool buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                    const std::string& fromEdgeID, const std::string& toEdgeIDs);
 
     /// @brief build flow over junctions
-    void buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+    bool buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                             const std::string& fromJunctionID, const std::string& toJunctionID);
 
     /// @brief build flow over junctions
-    void buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+    bool buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                        const std::string& fromTAZID, const std::string& toTAZID);
 
     /// @brief build person
-    void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters);
+    bool buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters);
 
     /// @brief build person flow
-    void buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters);
+    bool buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters);
 
     /// @brief build person trip
-    void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                         const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                         const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
-                         double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines);
+    bool buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                         const double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                         const std::vector<std::string>& lines, const double walkFactor, const std::string& group);
 
     /// @brief build walk
-    void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                   const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                   const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
-                   const std::vector<std::string>& edgeIDs, const std::string& routeID, double arrivalPos);
+    bool buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                   const double arrivalPos, const double speed, const SUMOTime duration);
 
     /// @brief build ride
-    void buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                   const std::string& fromEdgeID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                   const std::string& toEdgeID, const std::string& toBusStopID, const std::string& toTrainStopID,
-                   double arrivalPos, const std::vector<std::string>& lines);
+    bool buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                   const double arrivalPos, const std::vector<std::string>& lines, const std::string& group);
 
     /// @brief build container
-    void buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters);
+    bool buildContainer(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerParameters);
 
     /// @brief build container flow
-    void buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters);
+    bool buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters);
 
     /// @brief build transport
-    void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
-                        const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& lines, const double arrivalPos);
+    bool buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                        const double arrivalPos, const std::vector<std::string>& lines, const std::string& group);
 
     /// @brief build tranship
-    void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
-                       const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed,
-                       const double departPosition, const double arrivalPosition);
+    bool buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                       const double arrivalPosition, const double departPosition, const double speed, const SUMOTime duration);
 
     /// @brief build person stop
-    void buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& busStopID,
-                         const std::string& trainStopID, const double endPos, const SUMOTime duration, const SUMOTime until,
+    bool buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                         const double endPos, const SUMOTime duration, const SUMOTime until,
                          const std::string& actType, const bool friendlyPos, const int parameterSet);
 
     /// @brief build container stop
-    void buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& containerStopID,
+    bool buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
                             const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType, const bool friendlyPos,
                             const int parameterSet);
-    /// @}
 
     /// @brief build stop
-    void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters);
+    bool buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                   const SUMOVehicleParameter::Stop& stopParameters);
 
     /// @brief build person plan
-    bool buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemandElement* personParent, GNEAttributesCreator* personPlanAttributes,
+    bool buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemandElement* personParent, GNEAttributesEditor* personPlanAttributesEditor,
                          GNEPlanCreator* planCreator, const bool centerAfterCreation);
 
     /// @brief build container plan
-    bool buildContainerPlan(const GNEDemandElement* planTemplate, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes,
+    bool buildContainerPlan(const GNEDemandElement* planTemplate, GNEDemandElement* containerParent, GNEAttributesEditor* containerPlanAttributesEditor,
                             GNEPlanCreator* planCreator, const bool centerAfterCreation);
 
-    /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
-    bool isVehicleIdDuplicated(const std::string& id);
+    /// @}
+
+    /// @brief duplicate given plan in new parent
+    void duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandElement* newParent);
 
     /// @brief check if via attribute is valid
-    bool isViaAttributeValid(const std::vector<std::string>& via);
-
-    /// @brief check if there is already a person (Person or PersonFlow) with the given ID
-    bool isPersonIdDuplicated(const std::string& id);
-
-    /// @brief check if there is already a container (Container or ContainerFlow) with the given ID
-    bool isContainerIdDuplicated(const std::string& id);
+    bool checkViaAttribute(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& via);
 
     /// @brief transform vehicle functions
     /// @{
@@ -257,16 +250,24 @@ public:
 
 protected:
     /// @brief parse junction
-    GNEJunction* parseJunction(const SumoXMLTag tag, const std::string& junctionID);
+    GNEJunction* parseJunction(const SumoXMLTag tag, const std::string& id, const std::string& junctionID);
 
     /// @brief parse TAZ
-    GNEAdditional* parseTAZ(const SumoXMLTag tag, const std::string& TAZID);
+    GNEAdditional* parseTAZ(const SumoXMLTag tag, const std::string& id, const std::string& TAZID);
 
     /// @brief parse edge
-    GNEEdge* parseEdge(const SumoXMLTag tag, const std::string& edgeID);
+    GNEEdge* parseEdge(const SumoXMLTag tag, const std::string& id, const std::string& edgeID,
+                       const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+                       const bool firstEdge);
+
+    /// @brief parse stop edge
+    GNEEdge* parseStopEdge(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
+    /// @brief parse edge from lane ID
+    GNEEdge* parseEdgeFromLaneID(const std::string& laneID) const;
 
     /// @brief parse edges
-    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs);
+    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& edgeIDs);
 
     /// @brief get type (Either type o typeDistribution)
     GNEDemandElement* getType(const std::string& id) const;
@@ -277,37 +278,22 @@ protected:
     /// @brief get container parent
     GNEDemandElement* getContainerParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
-    /// @brief get previous plan obj
-    const CommonXMLStructure::SumoBaseObject* getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* obj) const;
+    /// @brief get route distribution parent
+    GNEDemandElement* getRouteDistributionParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
-    /// @brief get previous plan edge
-    GNEEdge* getPreviousPlanEdge(const CommonXMLStructure::SumoBaseObject* obj) const;
-
-    /// @brief get previous plan TAZ
-    GNEAdditional* getPreviousPlanTAZ(const CommonXMLStructure::SumoBaseObject* obj) const;
-
-    /// @brief get previous plan junction
-    GNEJunction* getPreviousPlanJunction(const CommonXMLStructure::SumoBaseObject* obj) const;
-
-    /// @brief get previous plan busStop
-    GNEAdditional* getPreviousPlanBusStop(const CommonXMLStructure::SumoBaseObject* obj) const;
-
-    /// @brief get previous plan trainStop
-    GNEAdditional* getPreviousPlanTrainStop(const CommonXMLStructure::SumoBaseObject* obj) const;
-
-    /// @brief get previous plan containerStop
-    GNEAdditional* getPreviousPlanContainerStop(const CommonXMLStructure::SumoBaseObject* obj) const;
+    /// @brief get vType distribution parent
+    GNEDemandElement* getVTypeDistributionParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
     /// @brief get distribution elements
     bool getDistributionElements(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag distributionElementTag,
                                  const std::vector<std::string>& distributionElementIDs, const std::vector<double>& probabilities,
                                  std::vector<const GNEDemandElement*>& elements);
 
-    /// @brief check if given ID correspond to a duplicated demand element
-    bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string& id);
+    /// @brief get element by ID
+    GNEDemandElement* retrieveDemandElement(const std::vector<SumoXMLTag> tags, const std::string& id);
 
-    /// @brief remove overwritten demand element
-    void overwriteDemandElement();
+    /// @brief check if element exist, and if overwritte
+    bool checkElement(const SumoXMLTag tag, GNEDemandElement* demandElement);
 
 private:
     /// @brief pointer to GNENet
@@ -316,12 +302,21 @@ private:
     /// @brief pointer for person and container plans
     CommonXMLStructure::SumoBaseObject* myPlanObject;
 
+    /// @brief demand element parentplans (person and containers, used in postParserTasks)
+    std::set<GNEDemandElement*> myParentPlanElements;
+
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
 
-    /// @brief check if overwrite
+    /// @brief flag to check if overwrite elements
     const bool myOverwrite;
 
-    /// @brief demand to overwrite (using undo-redo
-    GNEDemandElement* myDemandToOverwrite = nullptr;
+    /// @brief invalidate default onstructor
+    GNERouteHandler() = delete;
+
+    /// @brief invalidate copy constructor
+    GNERouteHandler(const GNERouteHandler& s) = delete;
+
+    /// @brief invalidate assignment operator
+    GNERouteHandler& operator=(const GNERouteHandler& s) = delete;
 };

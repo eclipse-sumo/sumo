@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 /// @file    RONode.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Ruediger Ebendt
 /// @date    Sept 2002
 ///
 // A single router's node
@@ -30,8 +31,10 @@
 RONode::RONode(const std::string& id)
     : Named(id) {}
 
-
-RONode::~RONode() {}
+/// @brief Destructor
+RONode::~RONode() {
+    delete myFlippedRoutingNode;
+}
 
 
 void

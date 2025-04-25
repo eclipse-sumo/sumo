@@ -1,2 +1,8 @@
 keep_all
 passenger
+
+# set edge ids to remove from all  taz
+remove_explicit
+
+# set edge ids to remove from all  taz
+remove_explicit_file

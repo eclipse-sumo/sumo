@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -46,12 +46,17 @@ while not vehHasLeft:
         route = traci.vehicle.getRoute(vehID)
 
     if vehHasArrived:
-        remainingDist = traci.vehicle.getDrivingDistance(vehID, route[-1], 0.0)
+        target = route[-1]
+        remainingDist = traci.vehicle.getDrivingDistance(vehID, target, 0.0)
         currentEdge = traci.vehicle.getRoadID(vehID)
         vehHasLeft = currentEdge == route[-1]
-
-        if not vehHasLeft:
-            resultList.append((str(step), currentEdge, route[-1], str(remainingDist)))
+        resultList.append((str(step), currentEdge, target, str(remainingDist)))
+        target = ":gneJ1_2"
+        remainingDist = traci.vehicle.getDrivingDistance(vehID, target, 0.0)
+        resultList.append((str(step), currentEdge, target, str(remainingDist)))
+        target = ":gneJ1_3"
+        remainingDist = traci.vehicle.getDrivingDistance(vehID, target, 0.0)
+        resultList.append((str(step), currentEdge, target, str(remainingDist)))
     step += 1
     traci.simulationStep()
 traci.close()

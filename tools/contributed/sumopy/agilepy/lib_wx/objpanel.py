@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2016-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2025 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
@@ -2457,7 +2457,7 @@ class TabPanel(AttrBase, gridlib.Grid):
         # print '  end init TableGrid'
         # The second parameter means that the grid is to take ownership of the
         # table and will destroy it when done.  Otherwise you would need to keep
-        # a reference to it and call it's Destroy method later.
+        # a reference to it and call its Destroy method later.
         self.SetTable(table, True)
         # print '  done SetTable'
         # self.SetRowLabelSize(16)
@@ -2671,7 +2671,7 @@ class TabPanel(AttrBase, gridlib.Grid):
         del table
         # The second parameter means that the grid is to take ownership of the
         # table and will destroy it when done.  Otherwise you would need to keep
-        # a reference to it and call it's Destroy method later.
+        # a reference to it and call its Destroy method later.
         self.SetTable(newtable, True)
 
         return None
@@ -4658,7 +4658,7 @@ class TableBrowserApp(wx.App):
 
 
 def objbrowser(obj, _id=None):
-    app = ObjBrowserApp(obj, _id=_id, output=False)  # put in True if you want output to go to it's own window.
+    app = ObjBrowserApp(obj, _id=_id, output=False)  # put in True if you want output to go to its own window.
     # print 'call MainLoop'
     app.MainLoop()
 

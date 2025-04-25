@@ -182,7 +182,7 @@ assumed to be in the form <HOURS\>.<MINUTES\>. Please note that the end is
 exclusive; for example, if
 
 ```
-0.00 1.00
+0.00 1.00
 ```
 
 is given, the generated vehicles' depart times will be second 0 to
@@ -198,27 +198,27 @@ list. An example may look like this:
 
 ```
 $VMR
-* vehicle type
+* vehicle type
 4
-* From-Time  To-Time
-7.00 8.00
-* Factor
+* From-Time  To-Time
+7.00 8.00
+* Factor
 1.00
 *
-* some
-* additional
-* comments
-* District number
+* some
+* additional
+* comments
+* District number
 3
-* names:
-         1          2          3
+* names:
+         1          2          3
 *
-* District 1 Sum = 6
-         1          2          3
-* District 2 Sum = 15
-         4          5          6
-* District 2 Sum = 24
-         7          8          9 
+* District 1 Sum = 6
+         1          2          3
+* District 2 Sum = 15
+         4          5          6
+* District 2 Sum = 24
+         7          8          9
 ```
 
 The 'M' in the type name indicates that a vehicle type is used, the "R"
@@ -240,22 +240,22 @@ ignore the string after the ';' that occurs after the type identifier
 
 ```
 $OR;D2
-* From-Time  To-Time
-7.00 8.00
-* Factor
+* From-Time  To-Time
+7.00 8.00
+* Factor
 1.00
-* some
-* additional
-* comments
-         1          1       1.00
-         1          2       2.00
-         1          3       3.00
-         2          1       4.00
-         2          2       5.00
-         2          3       6.00
-         3          1       7.00
-         3          2       8.00
-         3          3       9.00
+* some
+* additional
+* comments
+         1          1       1.00
+         1          2       2.00
+         1          3       3.00
+         2          1       4.00
+         2          2       5.00
+         2          3       6.00
+         3          1       7.00
+         3          2       8.00
+         3          3       9.00
 ```
 
 - The first line is a format specifier that must be included verbatim.
@@ -274,11 +274,11 @@ every vehicle type as follows:
 
 ```xml
 <demand xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/amitran/od.xsd">
-   <actorConfig id="0">
-       <timeSlice duration="86400000" startTime="0">
-           <odPair amount="100" destination="2" origin="1"/>
-       </timeSlice>
-   </actorConfig>
+   <actorConfig id="0">
+       <timeSlice duration="86400000" startTime="0">
+           <odPair amount="100" destination="2" origin="1"/>
+       </timeSlice>
+   </actorConfig>
 </demand>
 ```
 
@@ -325,7 +325,7 @@ The second case is rather common in transportation science. It allows to
 split the matrix into 24 subparts - this means the number of fields is
 fixed to 24 - allowing to spread an O/D-matrix over a day describing it
 by hours. To use this, give additionally the option
---timeline.day-in-hours to [od2trips](../../od2trips.md). It the
+**--timeline.day-in-hours** to [od2trips](../../od2trips.md). It the
 assumes the values from the **--timeline** - option being a list of 24
 floats, divided by ',', each describing the probability of inserting a
 vehicle within the according hour.
@@ -366,10 +366,10 @@ the command line
 
 | Name        | Time Line                                                                                        |
 | ----------- | ------------------------------------------------------------------------------------------------ |
-| TGw_LKW    | 0.3,0.4,0.4,0.6,0.8,2.0,4.8,7.5,9.0,8.7,9.0,9.0,7.5,8.4,7.8,6.9,5.4,4.0,2.7,1.8,1.2,0.9,0.6,0.3  |
 | TGw3_PKW   | 0.9,0.5,0.2,0.2,0.5,1.3,7.0,9.3,6.7,4.2,4.0,3.8,4.1,4.6,5.0,6.7,9.6,9.2,7.1,4.8,3.5,2.7,2.2,1.9  |
 | TGw2_PKW   | 0.8,0.5,0.4,0.3,0.4,1.2,4.5,7.4,6.6,5.2,5.0,5.0,5.2,5.3,5.6,6.7,8.4,8.6,7.4,5.0,3.9,3.0,2.1,1.6  |
-| TGs(1)_PKW | 3.3,2.8,2.0,1.5,1.2,1.3,1.2,1.5,2.5,3.7,4.8,5.5,6.0,6.7,7.0,7.1,6.9,7.4,7.0,6.0,4.7,4.1,3.5,2.3  |
+| TGs1_PKW   | 3.3,2.8,2.0,1.5,1.2,1.3,1.2,1.5,2.5,3.7,4.8,5.5,6.0,6.7,7.0,7.1,6.9,7.4,7.0,6.0,4.7,4.1,3.5,2.3  |
+| TGw_LKW    | 0.3,0.4,0.4,0.6,0.8,2.0,4.8,7.5,9.0,8.7,9.0,9.0,7.5,8.4,7.8,6.9,5.4,4.0,2.7,1.8,1.2,0.9,0.6,0.3  |
 | TGs_LKW    | 1.3,1.1,0.6,0.8,0.9,1.5,2.6,3.1,3.5,3.8,4.5,4.9,5.0,5.3,5.6,5.7,5.9,6.0,5.7,5.3,4.8,4.6,10.0,7.6 |
 
 Remarks:
@@ -404,8 +404,8 @@ defined within the O/D-matrix may be scaled via **--scale <SCALE\>**.
 Example call to [od2trips](../../od2trips.md):
 
 ```
-od2trips -n <NET> -d <MATRIX> -o <OUTPUT> --scale <SKALIERUNG> \
-   --timeline.day-in-hours --timeline <TIME_LINE>
+od2trips -n <NET> -d <MATRIX> -o <OUTPUT> --scale <SKALIERUNG> \
+   --timeline.day-in-hours --timeline <TIME_LINE>
 ```
 
 # Generated traffic modes
@@ -444,7 +444,7 @@ trip ids.
 - missing connection to an origin AND a destination district: error
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
-<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
-<a href="https://trimis.ec.europa.eu/project/assessment-methodologies-ict-multimodal-transport-user-behaviour-co2-reduction"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
+<span style="float: right; margin-top: -5px;"><a href="https://web.archive.org/web/20191005024529/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<a href="https://web.archive.org/web/20180309093847/https://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project
-<a href="https://trimis.ec.europa.eu/project/assessment-methodologies-ict-multimodal-transport-user-behaviour-co2-reduction">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://cordis.europa.eu/about/archives">Seventh Framework Programme</a>.</span></div>
+<a href="https://web.archive.org/web/20180309093847/https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://cordis.europa.eu/about/archives">Seventh Framework Programme</a>.</span></div>

@@ -181,7 +181,7 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
-        <xsd:attribute name="offset" type="floatType" use="optional"/>
+        <xsd:attribute name="offset" type="offsetType" use="optional"/>
     </xsd:complexType>
 
     <xsd:simpleType name="tlTypeType">
@@ -331,6 +331,8 @@
             <xsd:enumeration value="zipper"/>
             <xsd:enumeration value="rail_crossing"/>
             <xsd:enumeration value="traffic_light_right_on_red"/>
+            <xsd:enumeration value="district"/>
+            <xsd:enumeration value="unknown"/>
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -464,5 +466,15 @@
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="help" type="xsd:string" use="optional"/>
     </xsd:complexType>
+
+    <xsd:simpleType name="offsetType">
+        <xsd:union memberTypes="floatType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="begin"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
 
 </xsd:schema>

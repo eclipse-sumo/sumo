@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-05 18:18:16 by Eclipse SUMO duarouter Version v1_18_0+2421-58d8177730f
+<!-- generated on 2025-02-03 20:56:08 by Eclipse SUMO duarouter Version v1_21_0+1830-1621789eca8
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="duarouterConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>
@@ -73,6 +73,7 @@
             <xsd:element name="repair.to" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="mapmatch.taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="bulk-routing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
@@ -80,12 +81,16 @@
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.tls-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.turnaround-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.random-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weight-period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="weights.priority-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="astar.all-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="astar.landmark-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="astar.save-landmark-distances" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="scale-suffix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="gawron.beta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="gawron.a" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="keep-all-routes" type="boolOptionType" minOccurs="0"/>

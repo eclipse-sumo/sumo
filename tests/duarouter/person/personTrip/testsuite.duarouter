@@ -1,3 +1,6 @@
+# test routing taxi trips
+taxi
+
 # test attributes fromJunction toJunction and viaJunctions
 junctionTaz
 
@@ -48,6 +51,12 @@ unusable_bus
 
 # public transport via bustops
 busstop
+
+# public transport via bustops
+busstop_any
+
+# public transport via bustops
+busstop_line
 
 # public transport via bustops, person arrives very early
 busstop_early
@@ -146,6 +155,7 @@ bike_public_walk
 
 # back and forth using walkingarea
 walk_walkingareas
+walk_crossings_tl
 
 # back and forth using normal vehicle connections
 walk_normal_connections
@@ -191,6 +201,26 @@ geoTrips
 # test reading trips with geo-coordinates
 geoTrips_lonLat
 
-# test routing taxi trips
-taxi
+# test reading trips with geo-coordinates
+geoTrips_lonLat_stop_junctions
+
+# test reading walk with geo-coordinates
+geoWalk_lonLat
+
+# test reading ride with geo-coordinates
+geoRide_lonLat
+carNoRoute
+
+# test for #14343
+pt_looped_disconnected
+
+# test for #14343
+# 
+# the passenger must switch between two trains running on the same line
+pt_looped_need_transfer
+
+# test for #14343
+# 
+# the passenger must switch between two trains running on the same line
+pt_looped_need_transfer2
 errors

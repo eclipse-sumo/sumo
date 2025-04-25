@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-11-28 11:21:26 by Eclipse SUMO netedit Version 1.21.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" speedDev="0.1" vClass="rail"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <personFlow id="pf_0" begin="0.00" end="3600.00" period="exp(0.10)">
+        <personTrip from="SC" to="CN"/>
+    </personFlow>
+    <flow id="f_0" begin="0.00" departSpeed="random" end="3600.00" period="exp(0.01)" departPos="random" type="train">
+        <route edges="WC CE"/>
+    </flow>
+</routes>

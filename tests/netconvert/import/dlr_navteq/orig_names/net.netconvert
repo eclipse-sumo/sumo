@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:30 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2024-02-29 13:56:03 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -18,7 +23,6 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <projection>
-        <proj.scale value="1e-05"/>
         <proj.utm value="true"/>
     </projection>
 
@@ -32,19 +36,18 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-328248.16,-5789366.94" convBoundary="0.00,0.00,39850.14,20618.00" origBoundary="1248456.000000,5223889.000000,1306826.000000,5241834.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="1" from="1" to="0" priority="0" spreadType="center">
         <lane id="1_0" index="0" speed="55.56" length="22852.39" shape="39850.23,3.20 17012.14,664.95"/>
-        <lane id="1_1" index="1" speed="55.56" length="22852.39" shape="39850.14,-0.00 17012.05,661.75"/>
+        <lane id="1_1" index="1" speed="55.56" length="22852.39" shape="39850.14,0.00 17012.05,661.75"/>
         <lane id="1_2" index="2" speed="55.56" length="22852.39" shape="39850.05,-3.20 17011.96,658.55"/>
     </edge>
     <edge id="2" from="2" to="0" priority="0" spreadType="center">

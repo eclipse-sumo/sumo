@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,14 +22,10 @@
 
 #include "GNEAdditional.h"
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEVaporizer
- * @brief Representation of a vaporizer in netedit
- */
+
 class GNEVaporizer : public GNEAdditional, public Parameterised {
 
 public:
@@ -38,14 +34,15 @@ public:
 
     /**@brief Constructor
      * @param[in] net pointer to GNENet of this additional element belongs
+     * @param[in] filename file in which this element is stored
      * @param[in] edge edge in which this vaporizer is placed
      * @param[in] from start time of vaporizer
      * @param[in] end end time of vaporizer
      * @param[in] name Vaporizer name
      * @param[in] parameters generic parameters
      */
-    GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
-                 const Parameterised::Map& parameters);
+    GNEVaporizer(GNENet* net, const std::string& filename, GNEEdge* edge, SUMOTime from, SUMOTime end,
+                 const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEVaporizer();
@@ -156,10 +153,13 @@ public:
 
 protected:
     /// @brief begin time of vaporizer
-    SUMOTime myBegin;
+    SUMOTime myBegin = 0;
 
     /// @brief end time in which this vaporizer is placed
-    SUMOTime myEnd;
+    SUMOTime myEnd = 0;
+
+    /// @brief symbol base contour
+    GNEContour mySymbolBaseContour;
 
 private:
     /// @brief set attribute after validation

@@ -25,3 +25,12 @@ loaded_weights
 
 # scale probability by edge param
 edge_param
+
+# only permit fringe origins/destinations
+fringe_factor_max
+
+# detect fringe in lefthand network
+fringe_lefthand
+
+# load extra probability factors from file
+edge-types-file

@@ -28,7 +28,7 @@ import traci
 ```
 
 This assumes that the [environment variable
-**SUMO_HOME**](../Basics/Basic_Computer_Skills.md#additional_environment_variables)
+**SUMO_HOME**](../Basics/Basic_Computer_Skills.md#sumo_home)
 is set before running the script. Alternatively, you can declare the
 path to *sumo/tools* directly as in the line
 
@@ -371,14 +371,18 @@ gdb --args sumoD -c debug.sumocfg
 ```
 
 (where sumoD is sumo [compiled in debug
-mode](../Installing/Linux_Build.md#building_the_sumo_binaries_with_cmake_recommended))
+mode](../Installing/Linux_Build.md#building_the_sumo_binaries_with_cmake))
 
 ### Generating a log of all traci commands
 To share a traci scenario (i.e. in a bug report) it may be useful to separate the logic of the traci script from the actual commands.
 For this, the function `traci.start` accepts the optional arguments `traceFile` and `traceGetters`.
 When calling `traci.start([<commands>], traceFile=<LOG_FILE_PATH>)` all traci commands that were sent to sumo will be written to the given LOG_FILE_PATH.
 This allows re-running the scenario without the original runner script.
+
 When option `traceGetters=False` is set, only functions that change the simulation state are included in the log file. Functions that retrieve simulation data are technically not needed to reproduce a scenario but it may be useful to include them if the data retrieval functions are themselves the cause of a bug.
+
+When option `traceGetters="print"` is set, all getter functions will print themselves and their results to standard output when running the log as a python program.
+
 
 !!! caution
     Avoid running the simulation with option **--random** since this will most likely prevent your traceFile from being repeated
@@ -389,7 +393,7 @@ Possibly, the arguments given to `traci.start` generated an error when launching
 
 `traci.exceptions.FatalTraCIError: Could not connect.`
 
-To diagnose the problem, add options for writing a log file `traci.start` (i.e. `traci.start(['sumo', '-c', 'example.sumocfg', '--log', 'logfile.txt'])`
+To diagnose the problem, add options for writing a log file `traci.start` (i.e. `traci.start(['sumo', '-c', 'example.sumocfg', '--log', 'logfile.txt'])`)
 After the script fails to start, look into the written logfile and fix the error reported therein.
 
 
@@ -421,7 +425,7 @@ endEdge according to the estimated travel times in the network at the
 time of departure. For details of this mechanism see
 [Demand/Automatic_Routing](../Demand/Automatic_Routing.md).
 
-### coordinate transformations
+### Coordinate transformations
 
 ```python
 x, y = traci.vehicle.getPosition(vehID)

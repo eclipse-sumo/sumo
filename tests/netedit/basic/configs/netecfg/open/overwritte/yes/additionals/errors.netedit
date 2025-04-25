@@ -1,0 +1,3 @@
+terminate called after throwing an instance of 'ProcessError'
+  what():  Duplicated ID
+X connection to :12020.0 broken (explicit kill or server shutdown).

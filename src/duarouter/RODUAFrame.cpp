@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -105,6 +105,13 @@ RODUAFrame::addImportOptions() {
 
     oc.doRegister("astar.save-landmark-distances", new Option_FileName());
     oc.addDescription("astar.save-landmark-distances", "Processing", TL("Save lookup table for astar ALT-variant to the given file"));
+
+    oc.doRegister("scale", new Option_Float(1.));
+    oc.addDescription("scale", "Processing", TL("Scale demand by the given factor (by discarding or duplicating vehicles)"));
+
+    oc.doRegister("scale-suffix", new Option_String("."));
+    oc.addDescription("scale-suffix", "Processing", TL("Suffix to be added when creating ids for cloned vehicles"));
+
 }
 
 
@@ -112,11 +119,11 @@ void
 RODUAFrame::addDUAOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     // register Gawron's DUE-settings
-    oc.doRegister("gawron.beta", new Option_Float(double(0.3)));
+    oc.doRegister("gawron.beta", new Option_Float(double(0.9)));
     oc.addSynonyme("gawron.beta", "gBeta", true);
     oc.addDescription("gawron.beta", "Processing", TL("Use FLOAT as Gawron's beta"));
 
-    oc.doRegister("gawron.a", new Option_Float(double(0.05)));
+    oc.doRegister("gawron.a", new Option_Float(double(0.5)));
     oc.addSynonyme("gawron.a", "gA", true);
     oc.addDescription("gawron.a", "Processing", TL("Use FLOAT as Gawron's a"));
 
@@ -175,6 +182,9 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("persontrip.taxi.waiting-time", new Option_String("300", "TIME"));
     oc.addDescription("persontrip.taxi.waiting-time", "Processing", TL("Estimated time for taxi pickup"));
 
+    oc.doRegister("persontrip.ride-public-line", new Option_Bool(false));
+    oc.addDescription("persontrip.ride-public-line", "Processing", TL("Only use the intended public transport line rather than any alternative line that stops at the destination"));
+
     oc.doRegister("railway.max-train-length", new Option_Float(1000.0));
     oc.addDescription("railway.max-train-length", "Processing", TL("Use FLOAT as a maximum train length when initializing the railway router"));
 }
@@ -222,6 +232,9 @@ RODUAFrame::checkOptions() {
     }
     if (oc.isDefault("routing-algorithm") && (oc.isSet("astar.all-distances") || oc.isSet("astar.landmark-distances") || oc.isSet("astar.save-landmark-distances"))) {
         oc.setDefault("routing-algorithm", "astar");
+    }
+    if (!oc.isDefault("weights.random-factor") && (oc.isSet("astar.all-distances") || oc.isSet("astar.landmark-distances") || oc.isSet("astar.save-landmark-distances"))) {
+        WRITE_WARNING(TL("The option --weights.random-factor should not be used together with astar and precomputed distances."));
     }
 
     if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit") {

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -57,8 +57,8 @@ MSDevice_Friction::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevi
     if (equippedByDefaultAssignmentOptions(oc, "friction", v, false)) {
         // build the device
         MSDevice_Friction* device = new MSDevice_Friction(v, "friction_" + v.getID(),
-                getFloatParam(v, oc, "friction.stdDev", .1, false), // stdDev noise deviation
-                getFloatParam(v, oc, "friction.offset", 0., false)); // static offset
+                v.getFloatParam("device.friction.stdDev"), // stdDev noise deviation
+                v.getFloatParam("device.friction.offset")); // static offset
         into.push_back(device);
     }
 }

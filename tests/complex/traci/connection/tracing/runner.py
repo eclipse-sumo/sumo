@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -27,12 +27,8 @@ if "SUMO_HOME" in os.environ:
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:],
-            traceFile="log.txt")
-con = traci.getConnection()
 
-
-def step():
+def step(con):
     s = con.simulation.getTime()
     con.simulationStep()
     return s
@@ -44,20 +40,24 @@ def setGetParam(objectType, object, objectID):
     print(objectType, 'foo="%s"' % object.getParameter(objectID, "foo"))
 
 
-print("step", step())
+try:
+    traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:],
+                traceFile="log.txt")
+    con = traci.getConnection()
+    print("step", step(con))
 
-# XXX test PoI, Polygon
-objects = [
-    ("vehicle", con.vehicle, "veh0"),
-    ("person", con.person, "ped0"),
-    ("edge", con.edge, "1o"),
-    ("lane", con.lane, "1o_0"),
-    ("vType", con.vehicletype, "pType"),
-    ("route", con.route, "horizontal"),
-    ("trafficlight", con.trafficlight, "0"),
-]
+    # XXX test PoI, Polygon
+    objects = [
+        ("vehicle", con.vehicle, "veh0"),
+        ("person", con.person, "ped0"),
+        ("edge", con.edge, "1o"),
+        ("lane", con.lane, "1o_0"),
+        ("vType", con.vehicletype, "pType"),
+        ("route", con.route, "horizontal"),
+        ("trafficlight", con.trafficlight, "0"),
+    ]
 
-[setGetParam(*x) for x in objects]
-print("step", step())
-
-traci.close()
+    [setGetParam(*x) for x in objects]
+    print("step", step(con))
+finally:
+    traci.close()

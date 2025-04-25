@@ -1,0 +1,15 @@
+Warning: Found sharp turn with radius 5.00 at the start of edge '-E0'.
+Warning: Found sharp turn with radius 5.00 at the end of edge '-E0'.
+Warning: Found sharp turn with radius 5.00 at the start of edge 'E0'.
+Warning: Found sharp turn with radius 5.00 at the end of edge 'E0'.
+Warning: Found sharp turn with radius 5.00 at the start of edge '-E0'.
+Error: Could not build inductionLoop with ID 'e1_11' in netedit; Invalid position over lane.
+Error: Could not build inductionLoop with ID 'e1_13' in netedit; Invalid position over lane.
+Error: Could not build inductionLoop with ID 'e1_15' in netedit; Invalid position over lane.
+Error: Could not build inductionLoop with ID 'e1_17' in netedit; Invalid position over lane.
+Error: Could not build inductionLoop with ID 'e1_3' in netedit; Invalid position over lane.
+Error: Could not build inductionLoop with ID 'e1_4' in netedit; Invalid position over lane.
+Error: Could not build inductionLoop with ID 'e1_7' in netedit; Invalid position over lane.
+Error: Could not build inductionLoop with ID 'e1_8' in netedit; Invalid position over lane.
+Error: Loading of additional file failed: C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb143407.33936\netedit.gui\processing\volatile_recomputing\sidewalks-and-crossings.guess\additionals.add.xml
+Warning: 16 total messages of type: Found sharp turn with radius % at the % of edge '%'.

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 // structures than to write everything from scratch.
 /****************************************************************************/
 
+#include <netedit/GNETagProperties.h>
 #include <netedit/dialogs/GNEDialogACChooser.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
@@ -56,11 +57,11 @@
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEApplicationWindow.h"
-#include "GNEViewNet.h"
+#include "GNETagPropertiesDatabase.h"
 #include "GNENet.h"
-#include "GNEViewParent.h"
 #include "GNEUndoList.h"
-
+#include "GNEViewNet.h"
+#include "GNEViewParent.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -473,13 +474,7 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Save Snapshot"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::CAMERA));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("All Image Files (*.gif, *.bmp, *.xpm, *.pcx, *.ico, *.rgb, *.xbm, *.tga, *.png, *.jpg, *.jpeg, *.tif, *.tiff, *.ps, *.eps, *.pdf, *.svg, *.tex, *.pgf)\n"
-                              "GIF Image (*.gif)\nBMP Image (*.bmp)\nXPM Image (*.xpm)\nPCX Image (*.pcx)\nICO Image (*.ico)\n"
-                              "RGB Image (*.rgb)\nXBM Image (*.xbm)\nTARGA Image (*.tga)\nPNG Image  (*.png)\n"
-                              "JPEG Image (*.jpg, *.jpeg)\nTIFF Image (*.tif, *.tiff)\n"
-                              "Postscript (*.ps)\nEncapsulated Postscript (*.eps)\nPortable Document Format (*.pdf)\n"
-                              "Scalable Vector Graphics (*.svg)\nLATEX text strings (*.tex)\nPortable LaTeX Graphics (*.pgf)\n"
-                              "All Files (*)");
+    opendialog.setPatternList(SUMOXMLDefinitions::ImageFileExtensions.getMultilineString().c_str());
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -494,12 +489,8 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     }
     std::string error = myView->makeSnapshot(file);
     if (error != "") {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox 'error saving snapshot'");
         // open message box
         FXMessageBox::error(this, MBOX_OK, TL("Saving failed."), "%s", error.c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'error saving snapshot' with 'OK'");
     } else {
         WRITE_MESSAGE(TL("Snapshot successfully saved!"));
     }
@@ -529,14 +520,14 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserJunction;
                 locateTitle = TL("Junction Chooser");
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-                    ACsToLocate.push_back(junction.second.second);
+                    ACsToLocate.push_back(junction.second);
                 }
                 break;
             case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
                 chooserLoc = &myACChoosers.ACChooserEdges;
                 locateTitle = TL("Edge Chooser");
                 for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                    ACsToLocate.push_back(edge.second.second);
+                    ACsToLocate.push_back(edge.second);
                 }
                 break;
             case MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA:
@@ -600,8 +591,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 locateTitle = TL("TLS Chooser");
                 // fill ACsToLocate with junctions that haven TLS
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-                    if (junction.second.second->getNBNode()->getControllingTLS().size() > 0) {
-                        ACsToLocate.push_back(junction.second.second);
+                    if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
+                        ACsToLocate.push_back(junction.second);
                     }
                 }
                 break;
@@ -609,9 +600,9 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserAdditional;
                 locateTitle = TL("Additional Chooser");
                 for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
+                    const auto tagProperty = viewNet->getNet()->getTagPropertiesDatabase()->getTagProperty(additionalTag.first, true);
                     // avoid shapes and TAZs
-                    if (!GNEAttributeCarrier::getTagProperty(additionalTag.first).isShapeElement() &&
-                            !GNEAttributeCarrier::getTagProperty(additionalTag.first).isTAZElement()) {
+                    if (!tagProperty->isShapeElement() && !tagProperty->isTAZElement()) {
                         for (const auto& additional : additionalTag.second) {
                             ACsToLocate.push_back(additional.second);
                         }

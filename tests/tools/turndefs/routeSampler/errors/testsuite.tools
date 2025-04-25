@@ -7,7 +7,11 @@ no_intervals
 
 # Copy of no_intervals
 no_intervals_edgeData
+negative_counts
 no_data_in_interval
 
 # try to load candidate routes from walk elements (but with a from-to-walk)
 walk_input_fromTo
+
+# the same edge occurs multiple times in the same interval
+duplicate_locations

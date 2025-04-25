@@ -1,0 +1,14 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType sigma="0" id="DEFAULT_VEHTYPE"/>
+    <vType sigma="0" id="PHEMlight_PC_G_EU4" emissionClass="PHEMlight/PC_G_EU4"/>
+    <vType sigma="0" vClass="passenger" id="HBEFA3_PC_G_EU4" emissionClass="HBEFA3/PC_G_EU4"/>
+    <vType sigma="0" vClass="passenger" id="HBEFA4_PC_petrol_EU4" emissionClass="HBEFA4/PC_petrol_Euro-4"/>
+    <vType sigma="0" vClass="passenger" id="Energy" emissionClass="Energy/unknown"/>
+
+    <route id="r0" edges="E0 E1 E2"/>
+    <vehicle id="DEFAULT_VEHTYPE"                                  route="r0" depart="0000" departSpeed="max"/>
+    <vehicle id="PHEMlight_PC_G_EU4"   type="PHEMlight_PC_G_EU4"   route="r0" depart="0600" departSpeed="max"/>
+    <vehicle id="HBEFA3_PC_G_EU4"      type="HBEFA3_PC_G_EU4"      route="r0" depart="1200" departSpeed="max"/>
+    <vehicle id="HBEFA4_PC_petrol_EU4" type="HBEFA4_PC_petrol_EU4" route="r0" depart="1800" departSpeed="max"/>
+    <vehicle id="Energy"               type="Energy"               route="r0" depart="2400" departSpeed="max"/>
+</routes>

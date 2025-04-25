@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -112,7 +112,7 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     length = MIN2(length, myDetectionRange);
 
                     std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
-                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), length, 0, 0, 0, "", myVehicleTypes, "", (int)PersonMode::NONE, myShowDetectors);
+                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), length, TIME2STEPS(1.0), 5.0 / 3.6, 10.0, "", myVehicleTypes, "", (int)PersonMode::NONE, myShowDetectors);
                     MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, myFile, myFreq);
                 }
                 myLaneDetectors[lane] = det;
@@ -267,6 +267,37 @@ MSDelayBasedTrafficLightLogic::setShowDetectors(bool show) {
     }
 }
 
+std::map<std::string, double>
+MSDelayBasedTrafficLightLogic::getDetectorStates() const {
+    std::map<std::string, double> result;
+    for (auto item : myLaneDetectors) {
+        result[item.second->getID()] = item.second->getCurrentVehicleNumber();
+    }
+    return result;
+}
 
+double
+MSDelayBasedTrafficLightLogic::getDetectorState(std::string laneID) const {
+    double result = 0.0;
+    for (auto item : myLaneDetectors) {
+        if (item.first->getID() == laneID) {
+            result = item.second->getCurrentVehicleNumber();
+            break;
+        }
+    }
+    return result;
+}
+
+double
+MSDelayBasedTrafficLightLogic::getTLQueueLength(std::string laneID) const {
+    double result = 0.0;
+    for (auto item : myLaneDetectors) {
+        if (item.first->getID() == laneID) {
+            result = item.second->getEstimateQueueLength();
+            break;
+        }
+    }
+    return result;
+}
 
 /****************************************************************************/

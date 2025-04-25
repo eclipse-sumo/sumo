@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,15 +23,15 @@ import sys
 import subprocess
 from collections import namedtuple
 import re
-from xml.sax import parse, parseString, handler, saxutils
+from xml.sax import parse, parseString, handler
 import optparse
 import argparse
 import io
 from argparse import RawDescriptionHelpFormatter  # noqa
 from copy import deepcopy
 from functools import wraps
-from .miscutils import openz
-from .miscutils import parseTime
+from .miscutils import openz, parseTime
+from .xml import xmlescape
 
 
 class ConfigurationReader(handler.ContentHandler):
@@ -97,6 +97,7 @@ def assign_prefixed_options(args, allowed_programs):
     remaining = []
     consumed = False
     for arg_index, arg in enumerate(args):
+        used = False
         if consumed:
             consumed = False
             continue
@@ -106,14 +107,18 @@ def assign_prefixed_options(args, allowed_programs):
                 program = arg[2:separator_index]
                 if program in allowed_programs:
                     try:
-                        if '--' in args[arg_index+1]:
-                            raise ValueError()
-                        option = [arg[separator_index+1:], args[arg_index+1]]
+                        if '=' in arg:
+                            option = arg[separator_index+1:].split('=')
+                        else:
+                            if '--' in args[arg_index+1]:
+                                raise ValueError()
+                            option = [arg[separator_index+1:], args[arg_index+1]]
+                            consumed = True
                     except (IndexError, ValueError):
                         raise ValueError("Please amend prefixed argument %s with a value." % arg)
+                    used = True
                     prefixed_options.setdefault(program, []).append(option)
-                    consumed = True
-        if not consumed:
+        if not used:
             remaining.append(arg)
     return prefixed_options, remaining
 
@@ -141,10 +146,6 @@ def readOptions(filename):
     optionReader = OptionReader()
     parse(filename, optionReader)
     return optionReader.opts
-
-
-def xmlescape(value):
-    return saxutils.escape(str(value), {'"': '&quot;'})
 
 
 class ArgumentParser(argparse.ArgumentParser):
@@ -313,7 +314,7 @@ class ArgumentParser(argparse.ArgumentParser):
                                 v = a.default
                             # help
                             if a.help is not None:
-                                help = ' help="%s"' % a.help
+                                help = ' help="%s"' % xmlescape(a.help)
 
                             # note: missing time, filename, list of vehicles, edges and lanes
                             # category
@@ -404,7 +405,20 @@ class ArgumentParser(argparse.ArgumentParser):
                     if option.name in self._fix_path_args and not value.startswith("http"):
                         value = os.path.join(os.path.dirname(cfg_file), value)
                     if option.name in pos_map and option.name != 'remaining_args':
-                        pos_args[pos_map[option.name]] = value
+                        if ',' in value:
+                            value = value.split(',')
+                        else:
+                            value = value.split()
+                        for i, v in enumerate(value):
+                            pos_args[pos_map[option.name]] = v
+                            if i + 1 < len(value):
+                                # shift pos_map
+                                pos_args.append(None)
+                                curPos = pos_map[option.name]
+                                for o, pos in pos_map.items():
+                                    if pos >= curPos:
+                                        pos_map[o] += 1
+
                     elif not is_set:
                         if value == "True":
                             config_args += ["--" + option.name]
@@ -414,11 +428,9 @@ class ArgumentParser(argparse.ArgumentParser):
                                 config_args += value.split()
                             elif option.name in multi_value:
                                 config_args += ["--" + option.name] + value.split()
-                            elif value:
-                                # permit negative values in cfg files
-                                config_args += ["--" + option.name + "=" + value]
                             else:
-                                config_args += ["--" + option.name]
+                                # permit negative values and empty strings in cfg files
+                                config_args += ["--" + option.name + "=" + value]
         combined_args = args + config_args + [p for p in pos_args if p is not None]
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
             self, args=combined_args, namespace=namespace)

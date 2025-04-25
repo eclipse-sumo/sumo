@@ -13,6 +13,9 @@ first_later
 # replace first stop after the vehicle has departed
 first_teleport
 
+# set custom jump duration
+first_teleport_custom_duration
+
 # replace second stop after the vehicle has departed
 second
 
@@ -27,6 +30,18 @@ remove_reroute
 
 # replace all stops with "" after the vehicle has departed and teleport to destination
 remove_teleport
+
+# replace all stops with "" after the vehicle has departed and teleport to destination
+remove_teleport_once
+
+# replace all stops with "" after the vehicle has departed and teleport to destination
+remove_teleport_once_custom
+
+# replace all stops with "" after the vehicle has departed and teleport to destination
+remove_teleport_once_custom2
+
+# replace all stops with "" after the vehicle has departed and teleport to destination
+remove_teleport_once_stopDelay
 
 # replace second stop with "" after the vehicle has departed before the vehicle has departed
 second_remove_init

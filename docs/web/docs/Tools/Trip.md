@@ -8,16 +8,16 @@ title: Trip
 (option **-n**). It does so by choosing source and destination edge either
 uniformly at random or with a modified distribution as described below.
 The resulting trips are stored in an XML file (option **-o**, default
-trips.trips.xml) suitable for [duarouter](../duarouter.md) which is
-called automatically if the  option (with a filename for the resulting
-route file) is given. The trips are distributed evenly in an interval
+trips.trips.xml) suitable for [duarouter](../duarouter.md) (which is
+called automatically if option **--route-file** is given).
+The trips are distributed evenly in an interval
 defined by begin (option **-b**, default 0) and end time (option **-e**, default
 3600) in seconds. The number of trips is defined by the repetition rate
 (option **-p**, default 1) in seconds. Every trip has an id consisting of a
 prefix (option **--prefix**, default "") and a running number. Example call:
 
 ```
-python tools/randomTrips.py -n <net-file> -e 50
+python tools/randomTrips.py -n <net-file> -e 50
 ```
 
 The script does not check whether the chosen destination may be reached
@@ -56,7 +56,7 @@ The probabilities for selecting an edge may also be weighted by
 For additional ways to influence edge probabilities call
 
 ```
-python tools/randomTrips.py --help
+python tools/randomTrips.py --help
 ```
 
 ## Traffic Volume / Arrival rate
@@ -104,12 +104,9 @@ trips into routes and automatically discard disconnected trips. It may
 be necessary to increase the number of generated random trips to account
 for a fraction disconnected, discarded trips.
 
-!!! caution
-    When using the option **--vehicle-class** the same value should be set for option **--edge-permission**
-
 Sometimes it is desirable to obtain validated trips rather than routes
 (i.e. to make use of [one-shot route
-assignment](../Demand/Dynamic_User_Assignment.md#oneshot-assignment).
+assignment](../Demand/Dynamic_User_Assignment.md#oneshot-assignment)).
 In this case the additional option **--validate** may be used to generate validated
 trips (by first generating valid routes and then converting them back
 into trips).
@@ -120,8 +117,8 @@ With the option **--trip-attributes** {{DT_STR}}, additional parameters can be g
 vehicles (note, usage of the quoting characters).
 
 ```
-python tools/randomTrips.py -n <net-file> 
-  --trip-attributes="departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
+python tools/randomTrips.py -n <net-file>
+  --trip-attributes="departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
 ```
 
 This would make the random vehicles be distributed randomly on their
@@ -137,7 +134,7 @@ to be prepared:
 
 ```xml
 <additional>
-  <vType id="myType" maxSpeed="27" vClass="passenger"/>
+  <vType id="myType" maxSpeed="27" vClass="passenger"/>
 </additional>
 ```
 
@@ -145,8 +142,8 @@ Then load this file (assume it was saved as *type.add.xml*) with the
 option --additional-file
 
 ```
-python tools/randomTrips.py -n <net-file> --trip-attributes="type=\"myType\"" --additional-file <add-file>
-   --edge-permission passenger
+python tools/randomTrips.py -n <net-file> --trip-attributes="type=\"myType\"" --additional-file <add-file>
+   --edge-permission passenger
 ```
 
 Note the use of the option **--edge-permission** (deprecated alias: **--vclass**) which ensures that
@@ -162,13 +159,18 @@ Note that the option **--vehicle-class** should only be used as a quick shorthan
 generate trips for the standard type of the given vehicle class since it
 places a standard vType definition in the generated trips file.
 
+!!! note
+    Since SUMO 1.23.0 when using the option **--vehicle-class** the same value is used as a default for the option **--edge-permission**.
+    Furthermore using **--pedestrians** or **--persontrips** imply **--edge-permission pedestrian**.
+    Different permissions can still be requested by using **--edge-permission** explicitly.
+
 ### Automatically generating a vehicle type
 
 By setting the option **--vehicle-class** a vehicle type definition that specifies vehicle
 class will be added to the output files. I.e.
 
 ```
-python tools/randomTrips.py --vehicle-class bus ...
+python tools/randomTrips.py --vehicle-class bus ...
 ```
 
 will add
@@ -181,7 +183,7 @@ Any **--trip-attributes** that are applicable to a vehicle type rather than a ve
 placed in the generated `vType` definition automatically:
 
 ```
-python tools/randomTrips.py --vehicle-class bus --trip-attributes="maxSpeed=\"27.8\""
+python tools/randomTrips.py --vehicle-class bus --trip-attributes="maxSpeed=\"27.8\""
 ```
 
 will add
@@ -196,17 +198,19 @@ editing is that it must be repeated when running *randomTrips.py* again.
 
 ## Generating different modes of traffic
 
-- Using the option **--pedestrians** will generated pedestrians instead of vehicles.
-- Using the option **--persontrips** will generated persons with `<persontrip>` definitions. This
+- Using the option **--pedestrians** will generate pedestrians instead of vehicles.
+- Using the option **--persontrips** will generate persons with `<persontrip>` definitions. This
 allows to specify the available traffic modes and thus use
 [IntermodalRouting](../IntermodalRouting.md) to decided whether
 they use public transport, a personal car or walking.
   - walking or public transport: **--trip-attributes "modes=\"public\""**
   - walking, public transport or car **--trip-attributes "modes=\"public car\""**
-- Using the option **--personrides <LINE>** will generated persons with `<ride line="LINE">` definitions.
+- Using the option **--personrides <LINE>** will generate persons with `<ride line="LINE">` definitions.
 - using option **--from-stops busStop** will make persons start with an initial `<stop duration="0">` at a random busStop
 - using option **--to-stops busStop** will make persons end their journey at a random busStop
 
+!!! note
+    To combine trips from multiple calls to **randomTrips.py** in a single simulation, use option **--prefix** and set it to a different value for each call (to ensure distinct vehicle ids).
 
 !!! caution
     Quoting of trip attributes on Linux must use the style **--trip-attributes 'modes="public"'**
@@ -263,17 +267,17 @@ To obtain trips from two specific locations (edges *a*, and *b*) to
 random destinations, use
 
 ```
-python tools/randomTrips.py --weights-prefix example  ...<other options>...
+python tools/randomTrips.py --weights-prefix example  ...<other options>...
 ```
 
 and define only the file *example.src.xml* as follows:
 
 ```xml
 <edgedata>
-  <interval begin="0" end="10"/>
-    <edge id="a" value="0.5"/>
-    <edge id="b" value="0.5"/>
-  </interval>
+  <interval begin="0" end="10"/>
+    <edge id="a" value="0.5"/>
+    <edge id="b" value="0.5"/>
+  </interval>
 </edgedata>
 ```
 

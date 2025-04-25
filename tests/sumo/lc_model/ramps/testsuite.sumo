@@ -1,6 +1,9 @@
 # tests for merging behavior on acceleration lane (lots of vehicles and different network settings)
 onRamp_flows
 
+# tests for merging behavior on acceleration lane (lots of vehicles and different network settings), the acceleration in 200m long
+onRampLong_flows
+
 # tests for on-ramp behavior with only a few vehicles
 on_ramp
 

@@ -1,4 +1,5 @@
-Warning: Polygon for junction 'J1' has been dilated as it is just a segment.
-Warning: Error while adding person 'p_1' as JuPedSim agent: Model constraint violation: Agent (0, -1.6) too close to agent (0, -1.6): distance 0
-Warning: Error while adding person 'p_2' as JuPedSim agent: Model constraint violation: Agent (0, -1.6) too close to agent (0, -1.6): distance 0
-Warning: Error while adding person 'p_3' as JuPedSim agent: Model constraint violation: Agent (0, -1.6) too close to agent (0, -1.6): distance 0
+Warning: Polygon 'J1' at junction 'J1' has been dilated as it is just a segment.
+Warning: Error while adding person 'p_1' as JuPedSim agent: Model constraint violation: Agent (0.33899999999999997, -1.6) too close to agent (0.33899999999999997, -1.6): distance 0
+Warning: Error while adding person 'p_2' as JuPedSim agent: Model constraint violation: Agent (0.33899999999999997, -1.6) too close to agent (0.33899999999999997, -1.6): distance 0
+Warning: Error while adding person 'p_3' as JuPedSim agent: Model constraint violation: Agent (0.33899999999999997, -1.6) too close to agent (0.33899999999999997, -1.6): distance 0
+Warning: Error while adding person 'p_2' as JuPedSim agent: Agent (-0.1155205787289888, -1.6085547987837345) not inside walkable area

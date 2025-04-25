@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -106,6 +106,8 @@ traci.vehicletype.setWidth(typeID, 1.1)
 print("width", traci.vehicletype.getWidth(typeID))
 traci.vehicletype.setHeight(typeID, 1.9)
 print("height", traci.vehicletype.getHeight(typeID))
+traci.vehicletype.setMass(typeID, 1600)
+print("mass", traci.vehicletype.getMass(typeID))
 traci.vehicletype.setBoardingDuration(typeID, 42)
 print("boardingDuration", traci.vehicletype.getBoardingDuration(typeID))
 traci.vehicletype.setImpatience(typeID, 0.5)
@@ -122,11 +124,11 @@ print("accel (original)", traci.vehicletype.getAccel(typeID))
 print("accel (copied)", traci.vehicletype.getAccel(copyID))
 
 
-print("param", traci.vehicletype.getParameter(typeID, "foo"))
+print("param", "'%s'" % traci.vehicletype.getParameter(typeID, "foo"))
 traci.vehicletype.setParameter(typeID, "foo", "42")
 print("param2", traci.vehicletype.getParameter(typeID, "foo"))
 
-print("jmParam", traci.vehicletype.getParameter(typeID, "junctionModel.jmTimegapMinor"))
+print("jmParam", "'%s'" % traci.vehicletype.getParameter(typeID, "junctionModel.jmTimegapMinor"))
 traci.vehicletype.setParameter(typeID, "junctionModel.jmTimegapMinor", "2")
 print("jmParam", traci.vehicletype.getParameter(typeID, "junctionModel.jmTimegapMinor"))
 

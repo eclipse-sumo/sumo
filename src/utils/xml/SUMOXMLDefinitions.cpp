@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,8 +24,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
 #include <cassert>
-#include <utils/common/StringBijection.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 
@@ -35,7 +35,7 @@
 // definitions
 // ===========================================================================
 
-StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
+SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     // Simulation elements
     { "net",                                    SUMO_TAG_NET },
     { "edge",                                   SUMO_TAG_EDGE },
@@ -52,6 +52,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "access",                                 SUMO_TAG_ACCESS },
     { "containerStop",                          SUMO_TAG_CONTAINER_STOP },
     { "chargingStation",                        SUMO_TAG_CHARGING_STATION },
+    { "chargingEvent",                          SUMO_TAG_CHARGING_EVENT },
     { "parkingArea",                            SUMO_TAG_PARKING_AREA },
     { "space",                                  SUMO_TAG_PARKING_SPACE },
     { "e1Detector",                             SUMO_TAG_E1DETECTOR },
@@ -80,6 +81,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "routeProbReroute",                       SUMO_TAG_ROUTE_PROB_REROUTE },
     { "parkingAreaReroute",                     SUMO_TAG_PARKING_AREA_REROUTE },
     { "viaProbReroute",                         SUMO_TAG_VIA_PROB_REROUTE },
+    { "overtakingReroute",                      SUMO_TAG_OVERTAKING_REROUTE },
     { "step",                                   SUMO_TAG_STEP },
     { "variableSpeedSign",                      SUMO_TAG_VSS },
     { "variableSpeedSignSymbol",                GNE_TAG_VSS_SYMBOL },
@@ -100,7 +102,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "flowTAZs",                               GNE_TAG_FLOW_TAZS },
     { "flowState",                              SUMO_TAG_FLOWSTATE },
     { "vType",                                  SUMO_TAG_VTYPE },
+    { "vTypeRef",                               GNE_TAG_VTYPEREF },
     { "route",                                  SUMO_TAG_ROUTE },
+    { "routeRef",                               GNE_TAG_ROUTEREF },
     { "routeEmbedded",                          GNE_TAG_ROUTE_EMBEDDED },
     { "request",                                SUMO_TAG_REQUEST },
     { "source",                                 SUMO_TAG_SOURCE },
@@ -127,6 +131,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "wautJunction",                           SUMO_TAG_WAUT_JUNCTION },
     { "segment",                                SUMO_TAG_SEGMENT },
     { "delete",                                 SUMO_TAG_DEL },
+    { "connections",                            SUMO_TAG_CONNECTIONS },
     { "stop",                                   SUMO_TAG_STOP },
     { "stopBusStop",                            GNE_TAG_STOP_BUSSTOP },
     { "stopTrainStop",                          GNE_TAG_STOP_TRAINSTOP },
@@ -158,6 +163,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "insertionOrder",                         SUMO_TAG_INSERTION_ORDER },
     { "bidiPredecessor",                        SUMO_TAG_BIDI_PREDECESSOR },
     { "railSignalConstraintTracker",            SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER },
+    { "deadlock",                               SUMO_TAG_DEADLOCK },
+    { "driveWay",                               SUMO_TAG_DRIVEWAY },
+    { "subDriveWay",                            SUMO_TAG_SUBDRIVEWAY },
     { "link",                                   SUMO_TAG_LINK },
     { "approaching",                            SUMO_TAG_APPROACHING },
     // OSM
@@ -262,8 +270,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "internalLane",                           GNE_TAG_INTERNAL_LANE },
     { "poiLane",                                GNE_TAG_POILANE },
     { "poiGeo",                                 GNE_TAG_POIGEO },
-    { "jps.walkableArea",                       GNE_TAG_JPS_WALKABLEAREA },
-    { "jps.obstacle",                           GNE_TAG_JPS_OBSTACLE },
+    { "jupedsim.walkable_area",                 GNE_TAG_JPS_WALKABLEAREA },
+    { "jupedsim.obstacle",                      GNE_TAG_JPS_OBSTACLE },
     { "flowRoute",                              GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                          GNE_TAG_FLOW_WITHROUTE },
     // GNE waypoints
@@ -275,95 +283,383 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "waypointChargingStation",                GNE_TAG_WAYPOINT_CHARGINGSTATION },
     { "waypointParkingArea",                    GNE_TAG_WAYPOINT_PARKINGAREA },
     // GNE Person trips
-    { "personTrip: edge->edge",                 GNE_TAG_PERSONTRIP_EDGE_EDGE },
-    { "personTrip: edge->taz",                  GNE_TAG_PERSONTRIP_EDGE_TAZ },
-    { "personTrip: edge->junction",             GNE_TAG_PERSONTRIP_EDGE_JUNCTION },
-    { "personTrip: edge->busstop",              GNE_TAG_PERSONTRIP_EDGE_BUSSTOP },
-    { "personTrip: edge->trainstop",            GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP },
-    { "personTrip: taz->edge",                  GNE_TAG_PERSONTRIP_TAZ_EDGE },
-    { "personTrip: taz->taz",                   GNE_TAG_PERSONTRIP_TAZ_TAZ },
-    { "personTrip: taz->junction",              GNE_TAG_PERSONTRIP_TAZ_JUNCTION },
-    { "personTrip: taz->busstop",               GNE_TAG_PERSONTRIP_TAZ_BUSSTOP },
-    { "personTrip: taz->trainstop",             GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP },
-    { "personTrip: junction->edge",             GNE_TAG_PERSONTRIP_JUNCTION_EDGE },
-    { "personTrip: junction->taz",              GNE_TAG_PERSONTRIP_JUNCTION_TAZ },
-    { "personTrip: junction->junction",         GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION },
-    { "personTrip: junction->busstop",          GNE_TAG_PERSONTRIP_JUNCTION_BUSSTOP },
-    { "personTrip: junction->trainstop",        GNE_TAG_PERSONTRIP_JUNCTION_TRAINSTOP },
-    { "personTrip: busstop->edge",              GNE_TAG_PERSONTRIP_BUSSTOP_EDGE },
-    { "personTrip: busstop->taz",               GNE_TAG_PERSONTRIP_BUSSTOP_TAZ },
-    { "personTrip: busstop->junction",          GNE_TAG_PERSONTRIP_BUSSTOP_JUNCTION },
-    { "personTrip: busstop->busstop",           GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP },
-    { "personTrip: busstop->trainstop",         GNE_TAG_PERSONTRIP_BUSSTOP_TRAINSTOP },
-    { "personTrip: trainstop->edge",            GNE_TAG_PERSONTRIP_TRAINSTOP_EDGE },
-    { "personTrip: trainstop->taz",             GNE_TAG_PERSONTRIP_TRAINSTOP_TAZ },
-    { "personTrip: trainstop->junction",        GNE_TAG_PERSONTRIP_TRAINSTOP_JUNCTION },
-    { "personTrip: trainstop->busstop",         GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP },
-    { "personTrip: trainstop->trainstop",       GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP },
+    { "persontrip: edge->edge",                       GNE_TAG_PERSONTRIP_EDGE_EDGE },
+    { "persontrip: edge->taz",                        GNE_TAG_PERSONTRIP_EDGE_TAZ },
+    { "persontrip: edge->junction",                   GNE_TAG_PERSONTRIP_EDGE_JUNCTION },
+    { "persontrip: edge->busstop",                    GNE_TAG_PERSONTRIP_EDGE_BUSSTOP },
+    { "persontrip: edge->trainstop",                  GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP },
+    { "persontrip: edge->containerstop",              GNE_TAG_PERSONTRIP_EDGE_CONTAINERSTOP },
+    { "persontrip: edge->chargingstation",            GNE_TAG_PERSONTRIP_EDGE_CHARGINGSTATION },
+    { "persontrip: edge->parkingarea",                GNE_TAG_PERSONTRIP_EDGE_PARKINGAREA },
+    { "persontrip: taz->edge",                        GNE_TAG_PERSONTRIP_TAZ_EDGE },
+    { "persontrip: taz->taz",                         GNE_TAG_PERSONTRIP_TAZ_TAZ },
+    { "persontrip: taz->junction",                    GNE_TAG_PERSONTRIP_TAZ_JUNCTION },
+    { "persontrip: taz->busstop",                     GNE_TAG_PERSONTRIP_TAZ_BUSSTOP },
+    { "persontrip: taz->trainstop",                   GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP },
+    { "persontrip: taz->containerstop",               GNE_TAG_PERSONTRIP_TAZ_CONTAINERSTOP },
+    { "persontrip: taz->chargingstation",             GNE_TAG_PERSONTRIP_TAZ_CHARGINGSTATION },
+    { "persontrip: taz->parkingarea",                 GNE_TAG_PERSONTRIP_TAZ_PARKINGAREA },
+    { "persontrip: junction->edge",                   GNE_TAG_PERSONTRIP_JUNCTION_EDGE },
+    { "persontrip: junction->taz",                    GNE_TAG_PERSONTRIP_JUNCTION_TAZ },
+    { "persontrip: junction->junction",               GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION },
+    { "persontrip: junction->busstop",                GNE_TAG_PERSONTRIP_JUNCTION_BUSSTOP },
+    { "persontrip: junction->trainstop",              GNE_TAG_PERSONTRIP_JUNCTION_TRAINSTOP },
+    { "persontrip: junction->containerstop",          GNE_TAG_PERSONTRIP_JUNCTION_CONTAINERSTOP },
+    { "persontrip: junction->chargingstation",        GNE_TAG_PERSONTRIP_JUNCTION_CHARGINGSTATION },
+    { "persontrip: junction->parkingarea",            GNE_TAG_PERSONTRIP_JUNCTION_PARKINGAREA },
+    { "persontrip: busstop->edge",                    GNE_TAG_PERSONTRIP_BUSSTOP_EDGE },
+    { "persontrip: busstop->taz",                     GNE_TAG_PERSONTRIP_BUSSTOP_TAZ },
+    { "persontrip: busstop->junction",                GNE_TAG_PERSONTRIP_BUSSTOP_JUNCTION },
+    { "persontrip: busstop->busstop",                 GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP },
+    { "persontrip: busstop->trainstop",               GNE_TAG_PERSONTRIP_BUSSTOP_TRAINSTOP },
+    { "persontrip: busstop->containerstop",           GNE_TAG_PERSONTRIP_BUSSTOP_CONTAINERSTOP },
+    { "persontrip: busstop->chargingstation",         GNE_TAG_PERSONTRIP_BUSSTOP_CHARGINGSTATION },
+    { "persontrip: busstop->parkingarea",             GNE_TAG_PERSONTRIP_BUSSTOP_PARKINGAREA },
+    { "persontrip: trainstop->edge",                  GNE_TAG_PERSONTRIP_TRAINSTOP_EDGE },
+    { "persontrip: trainstop->taz",                   GNE_TAG_PERSONTRIP_TRAINSTOP_TAZ },
+    { "persontrip: trainstop->junction",              GNE_TAG_PERSONTRIP_TRAINSTOP_JUNCTION },
+    { "persontrip: trainstop->busstop",               GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP },
+    { "persontrip: trainstop->trainstop",             GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP },
+    { "persontrip: trainstop->containerstop",         GNE_TAG_PERSONTRIP_TRAINSTOP_CONTAINERSTOP },
+    { "persontrip: trainstop->chargingstation",       GNE_TAG_PERSONTRIP_TRAINSTOP_CHARGINGSTATION },
+    { "persontrip: trainstop->parkingarea",           GNE_TAG_PERSONTRIP_TRAINSTOP_PARKINGAREA },
+    { "persontrip: containerstop->edge",              GNE_TAG_PERSONTRIP_CONTAINERSTOP_EDGE },
+    { "persontrip: containerstop->taz",               GNE_TAG_PERSONTRIP_CONTAINERSTOP_TAZ },
+    { "persontrip: containerstop->junction",          GNE_TAG_PERSONTRIP_CONTAINERSTOP_JUNCTION },
+    { "persontrip: containerstop->busstop",           GNE_TAG_PERSONTRIP_CONTAINERSTOP_BUSSTOP },
+    { "persontrip: containerstop->trainstop",         GNE_TAG_PERSONTRIP_CONTAINERSTOP_TRAINSTOP },
+    { "persontrip: containerstop->containerstop",     GNE_TAG_PERSONTRIP_CONTAINERSTOP_CONTAINERSTOP },
+    { "persontrip: containerstop->chargingstation",   GNE_TAG_PERSONTRIP_CONTAINERSTOP_CHARGINGSTATION },
+    { "persontrip: containerstop->parkingarea",       GNE_TAG_PERSONTRIP_CONTAINERSTOP_PARKINGAREA },
+    { "persontrip: chargingstation->edge",            GNE_TAG_PERSONTRIP_CHARGINGSTATION_EDGE },
+    { "persontrip: chargingstation->taz",             GNE_TAG_PERSONTRIP_CHARGINGSTATION_TAZ },
+    { "persontrip: chargingstation->junction",        GNE_TAG_PERSONTRIP_CHARGINGSTATION_JUNCTION },
+    { "persontrip: chargingstation->busstop",         GNE_TAG_PERSONTRIP_CHARGINGSTATION_BUSSTOP },
+    { "persontrip: chargingstation->trainstop",       GNE_TAG_PERSONTRIP_CHARGINGSTATION_TRAINSTOP },
+    { "persontrip: chargingstation->containestop",    GNE_TAG_PERSONTRIP_CHARGINGSTATION_CONTAINERSTOP },
+    { "persontrip: chargingstation->chargingstation", GNE_TAG_PERSONTRIP_CHARGINGSTATION_CHARGINGSTATION },
+    { "persontrip: chargingstation->parkingarea",     GNE_TAG_PERSONTRIP_CHARGINGSTATION_PARKINGAREA },
+    { "persontrip: parkingarea->edge",                GNE_TAG_PERSONTRIP_PARKINGAREA_EDGE },
+    { "persontrip: parkingarea->taz",                 GNE_TAG_PERSONTRIP_PARKINGAREA_TAZ },
+    { "persontrip: parkingarea->junction",            GNE_TAG_PERSONTRIP_PARKINGAREA_JUNCTION },
+    { "persontrip: parkingarea->busstop",             GNE_TAG_PERSONTRIP_PARKINGAREA_BUSSTOP },
+    { "persontrip: parkingarea->trainstop",           GNE_TAG_PERSONTRIP_PARKINGAREA_TRAINSTOP },
+    { "persontrip: parkingarea->containerstop",       GNE_TAG_PERSONTRIP_PARKINGAREA_CONTAINERSTOP },
+    { "persontrip: parkingarea->chargingstation",     GNE_TAG_PERSONTRIP_PARKINGAREA_CHARGINGSTATION },
+    { "persontrip: parkingarea->parkingarea",         GNE_TAG_PERSONTRIP_PARKINGAREA_PARKINGAREA },
     // GNE Walks
     { "walk: edge->edge",                       GNE_TAG_WALK_EDGE_EDGE },
     { "walk: edge->taz",                        GNE_TAG_WALK_EDGE_TAZ },
     { "walk: edge->junction",                   GNE_TAG_WALK_EDGE_JUNCTION },
     { "walk: edge->busstop",                    GNE_TAG_WALK_EDGE_BUSSTOP },
     { "walk: edge->trainstop",                  GNE_TAG_WALK_EDGE_TRAINSTOP },
+    { "walk: edge->containerstop",              GNE_TAG_WALK_EDGE_CONTAINERSTOP },
+    { "walk: edge->chargingstation",            GNE_TAG_WALK_EDGE_CHARGINGSTATION },
+    { "walk: edge->parkingarea",                GNE_TAG_WALK_EDGE_PARKINGAREA },
     { "walk: taz->edge",                        GNE_TAG_WALK_TAZ_EDGE },
     { "walk: taz->taz",                         GNE_TAG_WALK_TAZ_TAZ },
     { "walk: taz->junction",                    GNE_TAG_WALK_TAZ_JUNCTION },
     { "walk: taz->busstop",                     GNE_TAG_WALK_TAZ_BUSSTOP },
     { "walk: taz->trainstop",                   GNE_TAG_WALK_TAZ_TRAINSTOP },
+    { "walk: taz->containerstop",               GNE_TAG_WALK_TAZ_CONTAINERSTOP },
+    { "walk: taz->chargingstation",             GNE_TAG_WALK_TAZ_CHARGINGSTATION },
+    { "walk: taz->parkingarea",                 GNE_TAG_WALK_TAZ_PARKINGAREA },
     { "walk: junction->edge",                   GNE_TAG_WALK_JUNCTION_EDGE },
     { "walk: junction->taz",                    GNE_TAG_WALK_JUNCTION_TAZ },
     { "walk: junction->junction",               GNE_TAG_WALK_JUNCTION_JUNCTION },
     { "walk: junction->busstop",                GNE_TAG_WALK_JUNCTION_BUSSTOP },
     { "walk: junction->trainstop",              GNE_TAG_WALK_JUNCTION_TRAINSTOP },
+    { "walk: junction->containerstop",          GNE_TAG_WALK_JUNCTION_CONTAINERSTOP },
+    { "walk: junction->chargingstation",        GNE_TAG_WALK_JUNCTION_CHARGINGSTATION },
+    { "walk: junction->parkingarea",            GNE_TAG_WALK_JUNCTION_PARKINGAREA },
     { "walk: busstop->edge",                    GNE_TAG_WALK_BUSSTOP_EDGE },
     { "walk: busstop->taz",                     GNE_TAG_WALK_BUSSTOP_TAZ },
     { "walk: busstop->junction",                GNE_TAG_WALK_BUSSTOP_JUNCTION },
     { "walk: busstop->busstop",                 GNE_TAG_WALK_BUSSTOP_BUSSTOP },
     { "walk: busstop->trainstop",               GNE_TAG_WALK_BUSSTOP_TRAINSTOP },
+    { "walk: busstop->containerstop",           GNE_TAG_WALK_BUSSTOP_CONTAINERSTOP },
+    { "walk: busstop->chargingstation",         GNE_TAG_WALK_BUSSTOP_CHARGINGSTATION },
+    { "walk: busstop->parkingarea",             GNE_TAG_WALK_BUSSTOP_PARKINGAREA },
     { "walk: trainstop->edge",                  GNE_TAG_WALK_TRAINSTOP_EDGE },
     { "walk: trainstop->taz",                   GNE_TAG_WALK_TRAINSTOP_TAZ },
     { "walk: trainstop->junction",              GNE_TAG_WALK_TRAINSTOP_JUNCTION },
     { "walk: trainstop->busstop",               GNE_TAG_WALK_TRAINSTOP_BUSSTOP },
     { "walk: trainstop->trainstop",             GNE_TAG_WALK_TRAINSTOP_TRAINSTOP },
+    { "walk: trainstop->containerstop",         GNE_TAG_WALK_TRAINSTOP_CONTAINERSTOP },
+    { "walk: trainstop->chargingstation",       GNE_TAG_WALK_TRAINSTOP_CHARGINGSTATION },
+    { "walk: trainstop->parkingarea",           GNE_TAG_WALK_TRAINSTOP_PARKINGAREA },
+    { "walk: containerstop->edge",              GNE_TAG_WALK_CONTAINERSTOP_EDGE },
+    { "walk: containerstop->taz",               GNE_TAG_WALK_CONTAINERSTOP_TAZ },
+    { "walk: containerstop->junction",          GNE_TAG_WALK_CONTAINERSTOP_JUNCTION },
+    { "walk: containerstop->busstop",           GNE_TAG_WALK_CONTAINERSTOP_BUSSTOP },
+    { "walk: containerstop->trainstop",         GNE_TAG_WALK_CONTAINERSTOP_TRAINSTOP },
+    { "walk: containerstop->containerstop",     GNE_TAG_WALK_CONTAINERSTOP_CONTAINERSTOP },
+    { "walk: containerstop->chargingstation",   GNE_TAG_WALK_CONTAINERSTOP_CHARGINGSTATION },
+    { "walk: containerstop->parkingarea",       GNE_TAG_WALK_CONTAINERSTOP_PARKINGAREA },
+    { "walk: chargingstation->edge",            GNE_TAG_WALK_CHARGINGSTATION_EDGE },
+    { "walk: chargingstation->taz",             GNE_TAG_WALK_CHARGINGSTATION_TAZ },
+    { "walk: chargingstation->junction",        GNE_TAG_WALK_CHARGINGSTATION_JUNCTION },
+    { "walk: chargingstation->busstop",         GNE_TAG_WALK_CHARGINGSTATION_BUSSTOP },
+    { "walk: chargingstation->trainstop",       GNE_TAG_WALK_CHARGINGSTATION_TRAINSTOP },
+    { "walk: chargingstation->containestop",    GNE_TAG_WALK_CHARGINGSTATION_CONTAINERSTOP },
+    { "walk: chargingstation->chargingstation", GNE_TAG_WALK_CHARGINGSTATION_CHARGINGSTATION },
+    { "walk: chargingstation->parkingarea",     GNE_TAG_WALK_CHARGINGSTATION_PARKINGAREA },
+    { "walk: parkingarea->edge",                GNE_TAG_WALK_PARKINGAREA_EDGE },
+    { "walk: parkingarea->taz",                 GNE_TAG_WALK_PARKINGAREA_TAZ },
+    { "walk: parkingarea->junction",            GNE_TAG_WALK_PARKINGAREA_JUNCTION },
+    { "walk: parkingarea->busstop",             GNE_TAG_WALK_PARKINGAREA_BUSSTOP },
+    { "walk: parkingarea->trainstop",           GNE_TAG_WALK_PARKINGAREA_TRAINSTOP },
+    { "walk: parkingarea->containerstop",       GNE_TAG_WALK_PARKINGAREA_CONTAINERSTOP },
+    { "walk: parkingarea->chargingstation",     GNE_TAG_WALK_PARKINGAREA_CHARGINGSTATION },
+    { "walk: parkingarea->parkingarea",         GNE_TAG_WALK_PARKINGAREA_PARKINGAREA },
     { "walk: edges",                            GNE_TAG_WALK_EDGES },
     { "walk: route",                            GNE_TAG_WALK_ROUTE },
     // GNE Rides
     { "ride: edge->edge",                       GNE_TAG_RIDE_EDGE_EDGE },
+    { "ride: edge->taz",                        GNE_TAG_RIDE_EDGE_TAZ },
+    { "ride: edge->junction",                   GNE_TAG_RIDE_EDGE_JUNCTION },
     { "ride: edge->busstop",                    GNE_TAG_RIDE_EDGE_BUSSTOP },
     { "ride: edge->trainstop",                  GNE_TAG_RIDE_EDGE_TRAINSTOP },
+    { "ride: edge->containerstop",              GNE_TAG_RIDE_EDGE_CONTAINERSTOP },
+    { "ride: edge->chargingstation",            GNE_TAG_RIDE_EDGE_CHARGINGSTATION },
+    { "ride: edge->parkingarea",                GNE_TAG_RIDE_EDGE_PARKINGAREA },
+    { "ride: taz->edge",                        GNE_TAG_RIDE_TAZ_EDGE },
+    { "ride: taz->taz",                         GNE_TAG_RIDE_TAZ_TAZ },
+    { "ride: taz->junction",                    GNE_TAG_RIDE_TAZ_JUNCTION },
+    { "ride: taz->busstop",                     GNE_TAG_RIDE_TAZ_BUSSTOP },
+    { "ride: taz->trainstop",                   GNE_TAG_RIDE_TAZ_TRAINSTOP },
+    { "ride: taz->containerstop",               GNE_TAG_RIDE_TAZ_CONTAINERSTOP },
+    { "ride: taz->chargingstation",             GNE_TAG_RIDE_TAZ_CHARGINGSTATION },
+    { "ride: taz->parkingarea",                 GNE_TAG_RIDE_TAZ_PARKINGAREA },
+    { "ride: junction->edge",                   GNE_TAG_RIDE_JUNCTION_EDGE },
+    { "ride: junction->taz",                    GNE_TAG_RIDE_JUNCTION_TAZ },
+    { "ride: junction->junction",               GNE_TAG_RIDE_JUNCTION_JUNCTION },
+    { "ride: junction->busstop",                GNE_TAG_RIDE_JUNCTION_BUSSTOP },
+    { "ride: junction->trainstop",              GNE_TAG_RIDE_JUNCTION_TRAINSTOP },
+    { "ride: junction->containerstop",          GNE_TAG_RIDE_JUNCTION_CONTAINERSTOP },
+    { "ride: junction->chargingstation",        GNE_TAG_RIDE_JUNCTION_CHARGINGSTATION },
+    { "ride: junction->parkingarea",            GNE_TAG_RIDE_JUNCTION_PARKINGAREA },
     { "ride: busstop->edge",                    GNE_TAG_RIDE_BUSSTOP_EDGE },
+    { "ride: busstop->taz",                     GNE_TAG_RIDE_BUSSTOP_TAZ },
+    { "ride: busstop->junction",                GNE_TAG_RIDE_BUSSTOP_JUNCTION },
     { "ride: busstop->busstop",                 GNE_TAG_RIDE_BUSSTOP_BUSSTOP },
     { "ride: busstop->trainstop",               GNE_TAG_RIDE_BUSSTOP_TRAINSTOP },
+    { "ride: busstop->containerstop",           GNE_TAG_RIDE_BUSSTOP_CONTAINERSTOP },
+    { "ride: busstop->chargingstation",         GNE_TAG_RIDE_BUSSTOP_CHARGINGSTATION },
+    { "ride: busstop->parkingarea",             GNE_TAG_RIDE_BUSSTOP_PARKINGAREA },
     { "ride: trainstop->edge",                  GNE_TAG_RIDE_TRAINSTOP_EDGE },
+    { "ride: trainstop->taz",                   GNE_TAG_RIDE_TRAINSTOP_TAZ },
+    { "ride: trainstop->junction",              GNE_TAG_RIDE_TRAINSTOP_JUNCTION },
     { "ride: trainstop->busstop",               GNE_TAG_RIDE_TRAINSTOP_BUSSTOP },
     { "ride: trainstop->trainstop",             GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP },
+    { "ride: trainstop->containerstop",         GNE_TAG_RIDE_TRAINSTOP_CONTAINERSTOP },
+    { "ride: trainstop->chargingstation",       GNE_TAG_RIDE_TRAINSTOP_CHARGINGSTATION },
+    { "ride: trainstop->parkingarea",           GNE_TAG_RIDE_TRAINSTOP_PARKINGAREA },
+    { "ride: containerstop->edge",              GNE_TAG_RIDE_CONTAINERSTOP_EDGE },
+    { "ride: containerstop->taz",               GNE_TAG_RIDE_CONTAINERSTOP_TAZ },
+    { "ride: containerstop->junction",          GNE_TAG_RIDE_CONTAINERSTOP_JUNCTION },
+    { "ride: containerstop->busstop",           GNE_TAG_RIDE_CONTAINERSTOP_BUSSTOP },
+    { "ride: containerstop->trainstop",         GNE_TAG_RIDE_CONTAINERSTOP_TRAINSTOP },
+    { "ride: containerstop->containerstop",     GNE_TAG_RIDE_CONTAINERSTOP_CONTAINERSTOP },
+    { "ride: containerstop->chargingstation",   GNE_TAG_RIDE_CONTAINERSTOP_CHARGINGSTATION },
+    { "ride: containerstop->parkingarea",       GNE_TAG_RIDE_CONTAINERSTOP_PARKINGAREA },
+    { "ride: chargingstation->edge",            GNE_TAG_RIDE_CHARGINGSTATION_EDGE },
+    { "ride: chargingstation->taz",             GNE_TAG_RIDE_CHARGINGSTATION_TAZ },
+    { "ride: chargingstation->junction",        GNE_TAG_RIDE_CHARGINGSTATION_JUNCTION },
+    { "ride: chargingstation->busstop",         GNE_TAG_RIDE_CHARGINGSTATION_BUSSTOP },
+    { "ride: chargingstation->trainstop",       GNE_TAG_RIDE_CHARGINGSTATION_TRAINSTOP },
+    { "ride: chargingstation->containestop",    GNE_TAG_RIDE_CHARGINGSTATION_CONTAINERSTOP },
+    { "ride: chargingstation->chargingstation", GNE_TAG_RIDE_CHARGINGSTATION_CHARGINGSTATION },
+    { "ride: chargingstation->parkingarea",     GNE_TAG_RIDE_CHARGINGSTATION_PARKINGAREA },
+    { "ride: parkingarea->edge",                GNE_TAG_RIDE_PARKINGAREA_EDGE },
+    { "ride: parkingarea->taz",                 GNE_TAG_RIDE_PARKINGAREA_TAZ },
+    { "ride: parkingarea->junction",            GNE_TAG_RIDE_PARKINGAREA_JUNCTION },
+    { "ride: parkingarea->busstop",             GNE_TAG_RIDE_PARKINGAREA_BUSSTOP },
+    { "ride: parkingarea->trainstop",           GNE_TAG_RIDE_PARKINGAREA_TRAINSTOP },
+    { "ride: parkingarea->containerstop",       GNE_TAG_RIDE_PARKINGAREA_CONTAINERSTOP },
+    { "ride: parkingarea->chargingstation",     GNE_TAG_RIDE_PARKINGAREA_CHARGINGSTATION },
+    { "ride: parkingarea->parkingarea",         GNE_TAG_RIDE_PARKINGAREA_PARKINGAREA },
     // GNE Person Stops
+    { "stopPerson",                             GNE_TAG_STOPPERSON },
+    { "stopPerson: edge",                       GNE_TAG_STOPPERSON_EDGE },
     { "stopPerson: busStop",                    GNE_TAG_STOPPERSON_BUSSTOP },
     { "stopPerson: trainStop",                  GNE_TAG_STOPPERSON_TRAINSTOP },
-    { "stopPerson: edge",                       GNE_TAG_STOPPERSON_EDGE },
+    { "stopPerson: containerStop",              GNE_TAG_STOPPERSON_CONTAINERSTOP },
+    { "stopPerson: chargingStation",            GNE_TAG_STOPPERSON_CHARGINGSTATION },
+    { "stopPerson: parkingArea",                GNE_TAG_STOPPERSON_PARKINGAREA },
     // GNE Transports
-    { "transport: edge->edge",                  GNE_TAG_TRANSPORT_EDGE_EDGE },
-    { "transport: edge->containerStop",         GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP },
-    { "transport: containerStop->edge",         GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE },
-    { "transport: containerStop->containerStop", GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP },
+    { "transport: edge->edge",                       GNE_TAG_TRANSPORT_EDGE_EDGE },
+    { "transport: edge->taz",                        GNE_TAG_TRANSPORT_EDGE_TAZ },
+    { "transport: edge->junction",                   GNE_TAG_TRANSPORT_EDGE_JUNCTION },
+    { "transport: edge->busstop",                    GNE_TAG_TRANSPORT_EDGE_BUSSTOP },
+    { "transport: edge->trainstop",                  GNE_TAG_TRANSPORT_EDGE_TRAINSTOP },
+    { "transport: edge->containerstop",              GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP },
+    { "transport: edge->chargingstation",            GNE_TAG_TRANSPORT_EDGE_CHARGINGSTATION },
+    { "transport: edge->parkingarea",                GNE_TAG_TRANSPORT_EDGE_PARKINGAREA },
+    { "transport: taz->edge",                        GNE_TAG_TRANSPORT_TAZ_EDGE },
+    { "transport: taz->taz",                         GNE_TAG_TRANSPORT_TAZ_TAZ },
+    { "transport: taz->junction",                    GNE_TAG_TRANSPORT_TAZ_JUNCTION },
+    { "transport: taz->busstop",                     GNE_TAG_TRANSPORT_TAZ_BUSSTOP },
+    { "transport: taz->trainstop",                   GNE_TAG_TRANSPORT_TAZ_TRAINSTOP },
+    { "transport: taz->containerstop",               GNE_TAG_TRANSPORT_TAZ_CONTAINERSTOP },
+    { "transport: taz->chargingstation",             GNE_TAG_TRANSPORT_TAZ_CHARGINGSTATION },
+    { "transport: taz->parkingarea",                 GNE_TAG_TRANSPORT_TAZ_PARKINGAREA },
+    { "transport: junction->edge",                   GNE_TAG_TRANSPORT_JUNCTION_EDGE },
+    { "transport: junction->taz",                    GNE_TAG_TRANSPORT_JUNCTION_TAZ },
+    { "transport: junction->junction",               GNE_TAG_TRANSPORT_JUNCTION_JUNCTION },
+    { "transport: junction->busstop",                GNE_TAG_TRANSPORT_JUNCTION_BUSSTOP },
+    { "transport: junction->trainstop",              GNE_TAG_TRANSPORT_JUNCTION_TRAINSTOP },
+    { "transport: junction->containerstop",          GNE_TAG_TRANSPORT_JUNCTION_CONTAINERSTOP },
+    { "transport: junction->chargingstation",        GNE_TAG_TRANSPORT_JUNCTION_CHARGINGSTATION },
+    { "transport: junction->parkingarea",            GNE_TAG_TRANSPORT_JUNCTION_PARKINGAREA },
+    { "transport: busstop->edge",                    GNE_TAG_TRANSPORT_BUSSTOP_EDGE },
+    { "transport: busstop->taz",                     GNE_TAG_TRANSPORT_BUSSTOP_TAZ },
+    { "transport: busstop->junction",                GNE_TAG_TRANSPORT_BUSSTOP_JUNCTION },
+    { "transport: busstop->busstop",                 GNE_TAG_TRANSPORT_BUSSTOP_BUSSTOP },
+    { "transport: busstop->trainstop",               GNE_TAG_TRANSPORT_BUSSTOP_TRAINSTOP },
+    { "transport: busstop->containerstop",           GNE_TAG_TRANSPORT_BUSSTOP_CONTAINERSTOP },
+    { "transport: busstop->chargingstation",         GNE_TAG_TRANSPORT_BUSSTOP_CHARGINGSTATION },
+    { "transport: busstop->parkingarea",             GNE_TAG_TRANSPORT_BUSSTOP_PARKINGAREA },
+    { "transport: trainstop->edge",                  GNE_TAG_TRANSPORT_TRAINSTOP_EDGE },
+    { "transport: trainstop->taz",                   GNE_TAG_TRANSPORT_TRAINSTOP_TAZ },
+    { "transport: trainstop->junction",              GNE_TAG_TRANSPORT_TRAINSTOP_JUNCTION },
+    { "transport: trainstop->busstop",               GNE_TAG_TRANSPORT_TRAINSTOP_BUSSTOP },
+    { "transport: trainstop->trainstop",             GNE_TAG_TRANSPORT_TRAINSTOP_TRAINSTOP },
+    { "transport: trainstop->containerstop",         GNE_TAG_TRANSPORT_TRAINSTOP_CONTAINERSTOP },
+    { "transport: trainstop->chargingstation",       GNE_TAG_TRANSPORT_TRAINSTOP_CHARGINGSTATION },
+    { "transport: trainstop->parkingarea",           GNE_TAG_TRANSPORT_TRAINSTOP_PARKINGAREA },
+    { "transport: containerstop->edge",              GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE },
+    { "transport: containerstop->taz",               GNE_TAG_TRANSPORT_CONTAINERSTOP_TAZ },
+    { "transport: containerstop->junction",          GNE_TAG_TRANSPORT_CONTAINERSTOP_JUNCTION },
+    { "transport: containerstop->busstop",           GNE_TAG_TRANSPORT_CONTAINERSTOP_BUSSTOP },
+    { "transport: containerstop->trainstop",         GNE_TAG_TRANSPORT_CONTAINERSTOP_TRAINSTOP },
+    { "transport: containerstop->containerstop",     GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP },
+    { "transport: containerstop->chargingstation",   GNE_TAG_TRANSPORT_CONTAINERSTOP_CHARGINGSTATION },
+    { "transport: containerstop->parkingarea",       GNE_TAG_TRANSPORT_CONTAINERSTOP_PARKINGAREA },
+    { "transport: chargingstation->edge",            GNE_TAG_TRANSPORT_CHARGINGSTATION_EDGE },
+    { "transport: chargingstation->taz",             GNE_TAG_TRANSPORT_CHARGINGSTATION_TAZ },
+    { "transport: chargingstation->junction",        GNE_TAG_TRANSPORT_CHARGINGSTATION_JUNCTION },
+    { "transport: chargingstation->busstop",         GNE_TAG_TRANSPORT_CHARGINGSTATION_BUSSTOP },
+    { "transport: chargingstation->trainstop",       GNE_TAG_TRANSPORT_CHARGINGSTATION_TRAINSTOP },
+    { "transport: chargingstation->containestop",    GNE_TAG_TRANSPORT_CHARGINGSTATION_CONTAINERSTOP },
+    { "transport: chargingstation->chargingstation", GNE_TAG_TRANSPORT_CHARGINGSTATION_CHARGINGSTATION },
+    { "transport: chargingstation->parkingarea",     GNE_TAG_TRANSPORT_CHARGINGSTATION_PARKINGAREA },
+    { "transport: parkingarea->edge",                GNE_TAG_TRANSPORT_PARKINGAREA_EDGE },
+    { "transport: parkingarea->taz",                 GNE_TAG_TRANSPORT_PARKINGAREA_TAZ },
+    { "transport: parkingarea->junction",            GNE_TAG_TRANSPORT_PARKINGAREA_JUNCTION },
+    { "transport: parkingarea->busstop",             GNE_TAG_TRANSPORT_PARKINGAREA_BUSSTOP },
+    { "transport: parkingarea->trainstop",           GNE_TAG_TRANSPORT_PARKINGAREA_TRAINSTOP },
+    { "transport: parkingarea->containerstop",       GNE_TAG_TRANSPORT_PARKINGAREA_CONTAINERSTOP },
+    { "transport: parkingarea->chargingstation",     GNE_TAG_TRANSPORT_PARKINGAREA_CHARGINGSTATION },
+    { "transport: parkingarea->parkingarea",         GNE_TAG_TRANSPORT_PARKINGAREA_PARKINGAREA },
     // GNE Tranships
-    { "tranship: edge->edge",                   GNE_TAG_TRANSHIP_EDGE_EDGE },
-    { "tranship: edge->containerStop",          GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP },
-    { "tranship: containerStop->edge",          GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE },
-    { "tranship: containerStop->containerStop", GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP },
-    { "tranship: edges",                        GNE_TAG_TRANSHIP_EDGES },
+    { "tranship: edge->edge",                       GNE_TAG_TRANSHIP_EDGE_EDGE },
+    { "tranship: edge->taz",                        GNE_TAG_TRANSHIP_EDGE_TAZ },
+    { "tranship: edge->junction",                   GNE_TAG_TRANSHIP_EDGE_JUNCTION },
+    { "tranship: edge->busstop",                    GNE_TAG_TRANSHIP_EDGE_BUSSTOP },
+    { "tranship: edge->trainstop",                  GNE_TAG_TRANSHIP_EDGE_TRAINSTOP },
+    { "tranship: edge->containerstop",              GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP },
+    { "tranship: edge->chargingstation",            GNE_TAG_TRANSHIP_EDGE_CHARGINGSTATION },
+    { "tranship: edge->parkingarea",                GNE_TAG_TRANSHIP_EDGE_PARKINGAREA },
+    { "tranship: taz->edge",                        GNE_TAG_TRANSHIP_TAZ_EDGE },
+    { "tranship: taz->taz",                         GNE_TAG_TRANSHIP_TAZ_TAZ },
+    { "tranship: taz->junction",                    GNE_TAG_TRANSHIP_TAZ_JUNCTION },
+    { "tranship: taz->busstop",                     GNE_TAG_TRANSHIP_TAZ_BUSSTOP },
+    { "tranship: taz->trainstop",                   GNE_TAG_TRANSHIP_TAZ_TRAINSTOP },
+    { "tranship: taz->containerstop",               GNE_TAG_TRANSHIP_TAZ_CONTAINERSTOP },
+    { "tranship: taz->chargingstation",             GNE_TAG_TRANSHIP_TAZ_CHARGINGSTATION },
+    { "tranship: taz->parkingarea",                 GNE_TAG_TRANSHIP_TAZ_PARKINGAREA },
+    { "tranship: junction->edge",                   GNE_TAG_TRANSHIP_JUNCTION_EDGE },
+    { "tranship: junction->taz",                    GNE_TAG_TRANSHIP_JUNCTION_TAZ },
+    { "tranship: junction->junction",               GNE_TAG_TRANSHIP_JUNCTION_JUNCTION },
+    { "tranship: junction->busstop",                GNE_TAG_TRANSHIP_JUNCTION_BUSSTOP },
+    { "tranship: junction->trainstop",              GNE_TAG_TRANSHIP_JUNCTION_TRAINSTOP },
+    { "tranship: junction->containerstop",          GNE_TAG_TRANSHIP_JUNCTION_CONTAINERSTOP },
+    { "tranship: junction->chargingstation",        GNE_TAG_TRANSHIP_JUNCTION_CHARGINGSTATION },
+    { "tranship: junction->parkingarea",            GNE_TAG_TRANSHIP_JUNCTION_PARKINGAREA },
+    { "tranship: busstop->edge",                    GNE_TAG_TRANSHIP_BUSSTOP_EDGE },
+    { "tranship: busstop->taz",                     GNE_TAG_TRANSHIP_BUSSTOP_TAZ },
+    { "tranship: busstop->junction",                GNE_TAG_TRANSHIP_BUSSTOP_JUNCTION },
+    { "tranship: busstop->busstop",                 GNE_TAG_TRANSHIP_BUSSTOP_BUSSTOP },
+    { "tranship: busstop->trainstop",               GNE_TAG_TRANSHIP_BUSSTOP_TRAINSTOP },
+    { "tranship: busstop->containerstop",           GNE_TAG_TRANSHIP_BUSSTOP_CONTAINERSTOP },
+    { "tranship: busstop->chargingstation",         GNE_TAG_TRANSHIP_BUSSTOP_CHARGINGSTATION },
+    { "tranship: busstop->parkingarea",             GNE_TAG_TRANSHIP_BUSSTOP_PARKINGAREA },
+    { "tranship: trainstop->edge",                  GNE_TAG_TRANSHIP_TRAINSTOP_EDGE },
+    { "tranship: trainstop->taz",                   GNE_TAG_TRANSHIP_TRAINSTOP_TAZ },
+    { "tranship: trainstop->junction",              GNE_TAG_TRANSHIP_TRAINSTOP_JUNCTION },
+    { "tranship: trainstop->busstop",               GNE_TAG_TRANSHIP_TRAINSTOP_BUSSTOP },
+    { "tranship: trainstop->trainstop",             GNE_TAG_TRANSHIP_TRAINSTOP_TRAINSTOP },
+    { "tranship: trainstop->containerstop",         GNE_TAG_TRANSHIP_TRAINSTOP_CONTAINERSTOP },
+    { "tranship: trainstop->chargingstation",       GNE_TAG_TRANSHIP_TRAINSTOP_CHARGINGSTATION },
+    { "tranship: trainstop->parkingarea",           GNE_TAG_TRANSHIP_TRAINSTOP_PARKINGAREA },
+    { "tranship: containerstop->edge",              GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE },
+    { "tranship: containerstop->taz",               GNE_TAG_TRANSHIP_CONTAINERSTOP_TAZ },
+    { "tranship: containerstop->junction",          GNE_TAG_TRANSHIP_CONTAINERSTOP_JUNCTION },
+    { "tranship: containerstop->busstop",           GNE_TAG_TRANSHIP_CONTAINERSTOP_BUSSTOP },
+    { "tranship: containerstop->trainstop",         GNE_TAG_TRANSHIP_CONTAINERSTOP_TRAINSTOP },
+    { "tranship: containerstop->containerstop",     GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP },
+    { "tranship: containerstop->chargingstation",   GNE_TAG_TRANSHIP_CONTAINERSTOP_CHARGINGSTATION },
+    { "tranship: containerstop->parkingarea",       GNE_TAG_TRANSHIP_CONTAINERSTOP_PARKINGAREA },
+    { "tranship: chargingstation->edge",            GNE_TAG_TRANSHIP_CHARGINGSTATION_EDGE },
+    { "tranship: chargingstation->taz",             GNE_TAG_TRANSHIP_CHARGINGSTATION_TAZ },
+    { "tranship: chargingstation->junction",        GNE_TAG_TRANSHIP_CHARGINGSTATION_JUNCTION },
+    { "tranship: chargingstation->busstop",         GNE_TAG_TRANSHIP_CHARGINGSTATION_BUSSTOP },
+    { "tranship: chargingstation->trainstop",       GNE_TAG_TRANSHIP_CHARGINGSTATION_TRAINSTOP },
+    { "tranship: chargingstation->containestop",    GNE_TAG_TRANSHIP_CHARGINGSTATION_CONTAINERSTOP },
+    { "tranship: chargingstation->chargingstation", GNE_TAG_TRANSHIP_CHARGINGSTATION_CHARGINGSTATION },
+    { "tranship: chargingstation->parkingarea",     GNE_TAG_TRANSHIP_CHARGINGSTATION_PARKINGAREA },
+    { "tranship: parkingarea->edge",                GNE_TAG_TRANSHIP_PARKINGAREA_EDGE },
+    { "tranship: parkingarea->taz",                 GNE_TAG_TRANSHIP_PARKINGAREA_TAZ },
+    { "tranship: parkingarea->junction",            GNE_TAG_TRANSHIP_PARKINGAREA_JUNCTION },
+    { "tranship: parkingarea->busstop",             GNE_TAG_TRANSHIP_PARKINGAREA_BUSSTOP },
+    { "tranship: parkingarea->trainstop",           GNE_TAG_TRANSHIP_PARKINGAREA_TRAINSTOP },
+    { "tranship: parkingarea->containerstop",       GNE_TAG_TRANSHIP_PARKINGAREA_CONTAINERSTOP },
+    { "tranship: parkingarea->chargingstation",     GNE_TAG_TRANSHIP_PARKINGAREA_CHARGINGSTATION },
+    { "tranship: parkingarea->parkingarea",         GNE_TAG_TRANSHIP_PARKINGAREA_PARKINGAREA },
+    { "tranship: edges",                            GNE_TAG_TRANSHIP_EDGES },
     // GNE Container Stops
-    { "stopContainer: containerStop",           GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
-    { "stopContainer: edge",                    GNE_TAG_STOPCONTAINER_EDGE },
+    { "stopContainer",                  GNE_TAG_STOPCONTAINER },
+    { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
+    { "stopContainer: busStop",         GNE_TAG_STOPCONTAINER_BUSSTOP },
+    { "stopContainer: trainStop",       GNE_TAG_STOPCONTAINER_TRAINSTOP },
+    { "stopContainer: containerStop",   GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
+    { "stopContainer: chargingStation", GNE_TAG_STOPCONTAINER_CHARGINGSTATION },
+    { "stopContainer: parkingArea",     GNE_TAG_STOPCONTAINER_PARKINGAREA },
     // root file
-    { "rootFile",                               SUMO_TAG_ROOTFILE },
+    { "rootFile",   SUMO_TAG_ROOTFILE },
+    // netedit sets
+    { "network",        GNE_TAG_SUPERMODE_NETWORK },
+    { "demand",         GNE_TAG_SUPERMODE_DEMAND },
+    { "data",           GNE_TAG_SUPERMODE_DATA },
+    { "stoppingPlaces", GNE_TAG_STOPPINGPLACES },
+    { "detectors",      GNE_TAG_DETECTORS },
+    { "shapes",         GNE_TAG_SHAPES },
+    { "TAZs",           GNE_TAG_TAZS },
+    { "wires",          GNE_TAG_WIRES },
+    { "jupedsim",       GNE_TAG_JUPEDSIM },
+    { "flows",          GNE_TAG_FLOWS },
+    { "stops",          GNE_TAG_STOPS },
+    { "personPlans",    GNE_TAG_PERSONPLANS },
+    { "personTrips",    GNE_TAG_PERSONTRIPS },
+    { "rides",          GNE_TAG_RIDES },
+    { "walks",          GNE_TAG_WALKS },
+    { "personStops",    GNE_TAG_PERSONSTOPS },
+    { "containerPlans", GNE_TAG_CONTAINERPLANS },
+    { "transports",     GNE_TAG_TRANSPORTS },
+    { "tranships",      GNE_TAG_TRANSHIPS },
+    { "containerStops", GNE_TAG_CONTAINERSTOPS },
+    { "datas",          GNE_TAG_DATAS },
+    // attributes
+    { "allAttributes",  GNE_TAG_ATTRIBUTES_ALL },
+    // other
+    { "error",          SUMO_TAG_ERROR },
     // Last element
-    { "",                                       SUMO_TAG_NOTHING }  // -> must be the last one
+    { "",   SUMO_TAG_NOTHING }  // -> must be the last one
 };
 
 
-StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
+SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     // meta value for attribute enum
     { "default",                SUMO_ATTR_DEFAULT },
     // meandata
@@ -430,7 +726,25 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "odometer",               SUMO_ATTR_ODOMETER },
     { "posLat",                 SUMO_ATTR_POSITION_LAT },
     { "speedLat",               SUMO_ATTR_SPEED_LAT },
-
+    // only usable with SumoXMLAttrMask
+    { "arrivalDelay",           SUMO_ATTR_ARRIVALDELAY },
+    // emission-output
+    { "CO",                     SUMO_ATTR_CO },
+    { "CO2",                    SUMO_ATTR_CO2 },
+    { "HC",                     SUMO_ATTR_HC },
+    { "PMx",                    SUMO_ATTR_PMX },
+    { "NOx",                    SUMO_ATTR_NOX },
+    { "fuel",                   SUMO_ATTR_FUEL },
+    { "electricity",            SUMO_ATTR_ELECTRICITY },
+    { "route",                  SUMO_ATTR_ROUTE },
+    { "eclass",                 SUMO_ATTR_ECLASS },
+    { "waiting",                SUMO_ATTR_WAITING },
+    // meso-attributes
+    { "segment",                SUMO_ATTR_SEGMENT },
+    { "queue",                  SUMO_ATTR_QUEUE },
+    { "entryTime",              SUMO_ATTR_ENTRYTIME },
+    { "eventTime",              SUMO_ATTR_EVENTTIME },
+    { "blockTime",              SUMO_ATTR_BLOCKTIME },
     // Edge
     { "id",                     SUMO_ATTR_ID },
     { "refId",                  SUMO_ATTR_REFID },
@@ -481,10 +795,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "departEdge",             SUMO_ATTR_DEPARTEDGE },
     { "arrivalLane",            SUMO_ATTR_ARRIVALLANE },
     { "arrivalPos",             SUMO_ATTR_ARRIVALPOS },
+    { "arrivalPosRandomized",   SUMO_ATTR_ARRIVALPOS_RANDOMIZED },
     { "arrivalPosLat",          SUMO_ATTR_ARRIVALPOS_LAT },
     { "arrivalSpeed",           SUMO_ATTR_ARRIVALSPEED },
     { "arrivalEdge",            SUMO_ATTR_ARRIVALEDGE },
-    { "route",                  SUMO_ATTR_ROUTE },
     { "maxSpeed",               SUMO_ATTR_MAXSPEED },
     { "desiredMaxSpeed",        SUMO_ATTR_DESIRED_MAXSPEED },
     { "maxSpeedLat",            SUMO_ATTR_MAXSPEED_LAT },
@@ -509,12 +823,14 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "collisionMinGapFactor",  SUMO_ATTR_COLLISION_MINGAP_FACTOR },
     { "boardingDuration",       SUMO_ATTR_BOARDING_DURATION },
     { "loadingDuration",        SUMO_ATTR_LOADING_DURATION },
+    { "boardingFactor",         SUMO_ATTR_BOARDING_FACTOR },
     { "scale",                  SUMO_ATTR_SCALE },
     { "insertionChecks",        SUMO_ATTR_INSERTIONCHECKS },
     { "timeToTeleport",         SUMO_ATTR_TIME_TO_TELEPORT },
     { "timeToTeleportBidi",     SUMO_ATTR_TIME_TO_TELEPORT_BIDI },
     { "speedFactorPremature",   SUMO_ATTR_SPEEDFACTOR_PREMATURE },
     { "maneuverAngleTimes",     SUMO_ATTR_MANEUVER_ANGLE_TIMES },
+    { "parkingBadges",          SUMO_ATTR_PARKING_BADGES },
     // MSDevice_ElecHybrid
     { "overheadWireChargingPower",      SUMO_ATTR_OVERHEADWIRECHARGINGPOWER },
     // OverheadWire
@@ -541,9 +857,14 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "chargeType",             SUMO_ATTR_CHARGETYPE},
     // MSDevice_Battery
     { "actualBatteryCapacity",          SUMO_ATTR_ACTUALBATTERYCAPACITY },
+    { "chargeLevel",                    SUMO_ATTR_CHARGELEVEL },
     { "maximumBatteryCapacity",         SUMO_ATTR_MAXIMUMBATTERYCAPACITY },
+    { "maximumChargeRate",              SUMO_ATTR_MAXIMUMCHARGERATE },
+    { "chargeLevelTable",               SUMO_ATTR_CHARGELEVELTABLE },
+    { "chargeCurveTable",               SUMO_ATTR_CHARGECURVETABLE },
     { "maximumPower",                   SUMO_ATTR_MAXIMUMPOWER },
     { "vehicleMass",                    SUMO_ATTR_VEHICLEMASS },
+    { "rotatingMass",                   SUMO_ATTR_ROTATINGMASS },
     { "frontSurfaceArea",               SUMO_ATTR_FRONTSURFACEAREA },
     { "airDragCoefficient",             SUMO_ATTR_AIRDRAGCOEFFICIENT },
     { "internalMomentOfInertia",        SUMO_ATTR_INTERNALMOMENTOFINERTIA },
@@ -594,11 +915,18 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "chargingBegin",                  SUMO_ATTR_CHARGINGBEGIN },
     { "chargingEnd",                    SUMO_ATTR_CHARGINGEND },
     { "partialCharge",                  SUMO_ATTR_PARTIALCHARGE },
+    { "minPower",                       SUMO_ATTR_MINPOWER },
+    { "minCharge",                      SUMO_ATTR_MINCHARGE },
+    { "maxCharge",                      SUMO_ATTR_MAXCHARGE },
+    { "minEfficiency",                  SUMO_ATTR_MINEFFICIENCY },
+    { "maxEfficiency",                  SUMO_ATTR_MAXEFFICIENCY },
 
     // general emission / consumption
     { "shutOffStopDuration",    SUMO_ATTR_SHUT_OFF_STOP },
     { "shutOffAutoDuration",    SUMO_ATTR_SHUT_OFF_AUTO },
+    { "loading",                SUMO_ATTR_LOADING },
 
+    /// @name carFollow model attributes
     { "sigma",                  SUMO_ATTR_SIGMA },
     { "sigmaStep",              SUMO_ATTR_SIGMA_STEP },
     { "startupDelay",           SUMO_ATTR_STARTUP_DELAY },
@@ -645,8 +973,20 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "speedControlMinGap",             SUMO_ATTR_SC_MIN_GAP },
     { "applyDriverState",               SUMO_ATTR_APPLYDRIVERSTATE },
 
-    { "trainType",              SUMO_ATTR_TRAIN_TYPE },
+    { "trainType",                      SUMO_ATTR_TRAIN_TYPE },
+    { "speedTable",                     SUMO_ATTR_SPEED_TABLE },
+    { "tractionTable",                  SUMO_ATTR_TRACTION_TABLE },
+    { "resistanceTable",                SUMO_ATTR_RESISTANCE_TABLE },
+    { "massFactor",                     SUMO_ATTR_MASSFACTOR },
+    { "maxPower",                       SUMO_ATTR_MAXPOWER },
+    { "maxTraction",                    SUMO_ATTR_MAXTRACTION },
+    { "resCoef_constant",               SUMO_ATTR_RESISTANCE_COEFFICIENT_CONSTANT },
+    { "resCoef_linear",                 SUMO_ATTR_RESISTANCE_COEFFICIENT_LINEAR },
+    { "resCoef_quadratic",              SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC },
+    /// @}
 
+    /// @name Lane changing model attributes
+    /// @{
     { "lcStrategic",                SUMO_ATTR_LCA_STRATEGIC_PARAM },
     { "lcCooperative",              SUMO_ATTR_LCA_COOPERATIVE_PARAM },
     { "lcSpeedGain",                SUMO_ATTR_LCA_SPEEDGAIN_PARAM },
@@ -655,6 +995,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcOpposite",                 SUMO_ATTR_LCA_OPPOSITE_PARAM },
     { "lcPushy",                    SUMO_ATTR_LCA_PUSHY },
     { "lcPushyGap",                 SUMO_ATTR_LCA_PUSHYGAP },
+    { "lcStrategicLookahead",       SUMO_ATTR_LCA_STRATEGIC_LOOKAHEAD },
     { "lcAssertive",                SUMO_ATTR_LCA_ASSERTIVE },
     { "lcImpatience",               SUMO_ATTR_LCA_IMPATIENCE },
     { "lcTimeToImpatience",         SUMO_ATTR_LCA_TIME_TO_IMPATIENCE },
@@ -664,6 +1005,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcLookaheadLeft",            SUMO_ATTR_LCA_LOOKAHEADLEFT },
     { "lcSpeedGainRight",           SUMO_ATTR_LCA_SPEEDGAINRIGHT },
     { "lcSpeedGainLookahead",       SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD },
+    { "lcSpeedGainRemainTime",      SUMO_ATTR_LCA_SPEEDGAIN_REMAIN_TIME },
+    { "lcSpeedGainUrgency",         SUMO_ATTR_LCA_SPEEDGAIN_URGENCY },
     { "lcCooperativeRoundabout",    SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT },
     { "lcCooperativeSpeed",         SUMO_ATTR_LCA_COOPERATIVE_SPEED },
     { "lcMaxSpeedLatStanding",      SUMO_ATTR_LCA_MAXSPEEDLATSTANDING },
@@ -673,8 +1016,12 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcSigma",                    SUMO_ATTR_LCA_SIGMA },
     { "lcKeepRightAcceptanceTime",  SUMO_ATTR_LCA_KEEPRIGHT_ACCEPTANCE_TIME },
     { "lcOvertakeDeltaSpeedFactor", SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR },
+    { "lcContRight",                SUMO_ATTR_LCA_CONTRIGHT },
     { "lcExperimental1",            SUMO_ATTR_LCA_EXPERIMENTAL1 },
+    /// @}
 
+    /// @name junction model attributes
+    /// @{
     { "jmCrossingGap",          SUMO_ATTR_JM_CROSSING_GAP },
     { "jmDriveAfterYellowTime", SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME },
     { "jmDriveAfterRedTime",    SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME },
@@ -685,11 +1032,19 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "jmIgnoreJunctionFoeProb", SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB },
     { "jmSigmaMinor",           SUMO_ATTR_JM_SIGMA_MINOR },
     { "jmStoplineGap",          SUMO_ATTR_JM_STOPLINE_GAP },
+    { "jmStoplineGapMinor",     SUMO_ATTR_JM_STOPLINE_GAP_MINOR },
+    { "jmStoplineCrossingGap",  SUMO_ATTR_JM_STOPLINE_CROSSING_GAP },
     { "jmTimegapMinor",         SUMO_ATTR_JM_TIMEGAP_MINOR },
+    { "jmExtraGap",             SUMO_ATTR_JM_EXTRA_GAP },
+    { "jmAdvance",              SUMO_ATTR_JM_ADVANCE },
+    { "jmStopSignWait",         SUMO_ATTR_JM_STOPSIGN_WAIT },
+    { "jmAllwayStopWait",       SUMO_ATTR_JM_ALLWAYSTOP_WAIT },
     { "junctionModel.ignoreIDs",    SUMO_ATTR_JM_IGNORE_IDS },
     { "junctionModel.ignoreTypes",  SUMO_ATTR_JM_IGNORE_TYPES },
     { "carFollowModel.ignoreIDs",   SUMO_ATTR_CF_IGNORE_IDS },
     { "carFollowModel.ignoreTypes", SUMO_ATTR_CF_IGNORE_TYPES },
+    /// @}
+    { "flexArrival", SUMO_ATTR_FLEX_ARRIVAL },
 
     { "last",                   SUMO_ATTR_LAST },
     { "cost",                   SUMO_ATTR_COST },
@@ -733,7 +1088,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "freq",                   SUMO_ATTR_FREQUENCY },
     { "style",                  SUMO_ATTR_STYLE },
     { "file",                   SUMO_ATTR_FILE },
-    { "junction",               SUMO_ATTR_JUNCTION },
+    { "local",                  SUMO_ATTR_LOCAL },
     { "number",                 SUMO_ATTR_NUMBER },
     { "duration",               SUMO_ATTR_DURATION },
     { "until",                  SUMO_ATTR_UNTIL },
@@ -753,6 +1108,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "linkIndex",              SUMO_ATTR_TLLINKINDEX },
     { "linkIndex2",             SUMO_ATTR_TLLINKINDEX2 },
     { "shape",                  SUMO_ATTR_SHAPE },
+    { "outlineShape",           SUMO_ATTR_OUTLINESHAPE },
     { "spreadType",             SUMO_ATTR_SPREADTYPE },
     { "radius",                 SUMO_ATTR_RADIUS },
     { "customShape",            SUMO_ATTR_CUSTOMSHAPE },
@@ -796,6 +1152,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "next",                   SUMO_ATTR_NEXT },
     { "foes",                   SUMO_ATTR_FOES },
     { "constraints",            SUMO_ATTR_CONSTRAINTS },
+    { "rail",                   SUMO_ATTR_RAIL },
     { "detectors",              SUMO_ATTR_DETECTORS },
     { "conditions",             SUMO_ATTR_CONDITIONS },
     { "saveDetectors",          SUMO_ATTR_SAVE_DETECTORS },
@@ -827,10 +1184,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "trainStop",              SUMO_ATTR_TRAIN_STOP },
     { "containerStop",          SUMO_ATTR_CONTAINER_STOP },
     { "parkingArea",            SUMO_ATTR_PARKING_AREA },
-    { "fromBusStop",            SUMO_ATTR_FROM_BUSSTOP },
-    { "fromTrainStop",          SUMO_ATTR_FROM_TRAINSTOP },
-    { "fromContainerStop",      SUMO_ATTR_FROM_CONTAINERSTOP },
     { "roadsideCapacity",       SUMO_ATTR_ROADSIDE_CAPACITY },
+    { "acceptedBadges",         SUMO_ATTR_ACCEPTED_BADGES },
     { "onRoad",                 SUMO_ATTR_ONROAD },
     { "chargingStation",        SUMO_ATTR_CHARGING_STATION },
     { "group",                  SUMO_ATTR_GROUP },
@@ -842,6 +1197,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "intended",               SUMO_ATTR_INTENDED },
     { "onDemand",               SUMO_ATTR_ONDEMAND },
     { "jump",                   SUMO_ATTR_JUMP },
+    { "jumpUntil",              SUMO_ATTR_JUMP_UNTIL },
     { "usedEnded",              SUMO_ATTR_USED_ENDED },
     { "collision",              SUMO_ATTR_COLLISION },
     { "value",                  SUMO_ATTR_VALUE },
@@ -863,7 +1219,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "guiShape",               SUMO_ATTR_GUISHAPE },
     { "osgFile",                SUMO_ATTR_OSGFILE },
     { "imgFile",                SUMO_ATTR_IMGFILE },
-    { "relativePath",           SUMO_ATTR_RELATIVEPATH },
     { "emissionClass",          SUMO_ATTR_EMISSIONCLASS },
     { "mass",                   SUMO_ATTR_MASS },
     { "impatience",             SUMO_ATTR_IMPATIENCE },
@@ -960,20 +1315,25 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "avoidOverlap",           SUMO_ATTR_AVOID_OVERLAP },
     { "junctionHigherSpeed",    SUMO_ATTR_HIGHER_SPEED },
     { "internalJunctionsVehicleWidth", SUMO_ATTR_INTERNAL_JUNCTIONS_VEHICLE_WIDTH },
+    { "junctionsMinimalShape",  SUMO_ATTR_JUNCTIONS_MINIMAL_SHAPE },
+    { "junctionsEndpointShape", SUMO_ATTR_JUNCTIONS_ENDPOINT_SHAPE },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
     { "startTime",              SUMO_ATTR_STARTTIME },
     { "vehicleClass",           SUMO_ATTR_VEHICLECLASS },
-    { "fuel",                   SUMO_ATTR_FUEL },
     { "origin",                 SUMO_ATTR_ORIGIN },
     { "destination",            SUMO_ATTR_DESTINATION },
     { "visible",                SUMO_ATTR_VISIBLE },
+    { "main",                   SUMO_ATTR_MAIN },
+    { "siding",                 SUMO_ATTR_SIDING },
+    { "minSaving",              SUMO_ATTR_MINSAVING },
     { "limit",                  SUMO_ATTR_LIMIT },
     { "active",                 SUMO_ATTR_ACTIVE },
     { "arrivalTime",            SUMO_ATTR_ARRIVALTIME },
     { "arrivalTimeBraking",     SUMO_ATTR_ARRIVALTIMEBRAKING },
     { "arrivalSpeedBraking",    SUMO_ATTR_ARRIVALSPEEDBRAKING },
     { "optional",               SUMO_ATTR_OPTIONAL },
+    { "vehicles",               SUMO_ATTR_VEHICLES },
 
 #ifndef WIN32
     { "commandPosix",   SUMO_ATTR_COMMAND },
@@ -1026,13 +1386,13 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "shapeStart",                         GNE_ATTR_SHAPE_START },
     { "shapeEnd",                           GNE_ATTR_SHAPE_END },
     { "isBidi",                             GNE_ATTR_BIDIR },
-    { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
-    { "parentItem",                         GNE_ATTR_PARENT },
+    { "close shape",                        GNE_ATTR_CLOSE_SHAPE },
+    { "parent",                             GNE_ATTR_PARENT },
     { "dataSet",                            GNE_ATTR_DATASET },
-    { "genericParameter",                   GNE_ATTR_PARAMETERS },
+    { "parameters",                         GNE_ATTR_PARAMETERS },
     { "flowParameter",                      GNE_ATTR_FLOWPARAMETERS },
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
-    { "centerAfterCreation",                GNE_ATTR_CENTER_AFTER_CREATION },
+    { "centerView",                         GNE_ATTR_CENTER_AFTER_CREATION },
     { "opposite",                           GNE_ATTR_OPPOSITE },
     { "shiftLaneIndex",                     GNE_ATTR_SHIFTLANEINDEX },
     { "stopOffset",                         GNE_ATTR_STOPOFFSET },
@@ -1042,11 +1402,33 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "poisson",                            GNE_ATTR_POISSON },
     { "stopIndex",                          GNE_ATTR_STOPINDEX },
     { "pathStopIndex",                      GNE_ATTR_PATHSTOPINDEX },
-    { "additionalChildren",                 GNE_ATTR_ADDITIONALCHILDREN },
     { "planGeometryStartPos",               GNE_ATTR_PLAN_GEOMETRY_STARTPOS },
     { "planGeometryEndPos",                 GNE_ATTR_PLAN_GEOMETRY_ENDPOS },
     { "fromLaneID",                         GNE_ATTR_FROM_LANEID },
     { "toLaneID",                           GNE_ATTR_TO_LANEID },
+    { "tazCentroid",                        GNE_ATTR_TAZ_CENTROID },
+    { "terminate",                          GNE_ATTR_FLOW_TERMINATE },
+    { "spacing",                            GNE_ATTR_FLOW_SPACING },
+    { "reference",                          GNE_ATTR_REFERENCE },
+    { "size",                               GNE_ATTR_SIZE },
+    { "forceSize",                          GNE_ATTR_FORCESIZE },
+    { "laneLength",                         GNE_ATTR_LANELENGTH },
+    { "additionalFile",                     GNE_ATTR_ADDITIONAL_FILE },
+    { "routeFile",                          GNE_ATTR_DEMAND_FILE },
+    { "dataFile",                           GNE_ATTR_DATA_FILE },
+    { "meanDataFile",                       GNE_ATTR_MEANDATA_FILE },
+    // mapped to additional elements on writing
+    { "fromBusStop",                        GNE_ATTR_FROM_BUSSTOP },
+    { "fromTrainStop",                      GNE_ATTR_FROM_TRAINSTOP },
+    { "fromContainerStop",                  GNE_ATTR_FROM_CONTAINERSTOP },
+    { "fromChargingStation",                GNE_ATTR_FROM_CHARGINGSTATION },
+    { "fromParkingArea",                    GNE_ATTR_FROM_PARKINGAREA },
+    { "fromRoute",                          GNE_ATTR_FROM_ROUTE },
+    { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
+    { "frontElement",                       GNE_ATTR_FRONTELEMENT },
+    { "edgesWithin",                        GNE_ATTR_EDGES_WITHIN },
+    // 'all' is a reserved keyword when configuring attribute filters and must not occur as an attribute name
+    { "noCommonAttributes",                GNE_ATTR_NOCOMMON },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
@@ -1059,7 +1441,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "xmlns:xsi",                      SUMO_ATTR_XMLNS },
     { "xsi:noNamespaceSchemaLocation",  SUMO_ATTR_SCHEMA_LOCATION },
 
-    //@name RNG state saving attributes
+    // @name RNG state saving attributes
     // @{
     { "routeHandler",      SUMO_ATTR_RNG_ROUTEHANDLER },
     { "insertionControl",  SUMO_ATTR_RNG_INSERTIONCONTROL },
@@ -1131,6 +1513,12 @@ StringBijection<ParkingType>::Entry SUMOXMLDefinitions::parkingTypeValues[] = {
     {"0",              ParkingType::ONROAD },   // default: park on the street
     {"1",              ParkingType::OFFROAD },    // parking off the street
     {"opportunistic",  ParkingType::OPPORTUNISTIC } // park of the street if there is an opportunity for it
+};
+
+StringBijection<ChargeType>::Entry SUMOXMLDefinitions::chargeTypeValues[] = {
+    {"normal",              ChargeType::NORMAL },           // default: either connected with a wire or charged by induction
+    {"battery-exchange",    ChargeType::BATTERY_ECHANGE},    // battery echange
+    {"fuel",                ChargeType::FUEL }              // use fuel for charging
 };
 
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
@@ -1245,6 +1633,7 @@ StringBijection<InsertionCheck>::Entry SUMOXMLDefinitions::insertionCheckValues[
 StringBijection<LaneChangeModel>::Entry SUMOXMLDefinitions::laneChangeModelValues[] = {
     { "DK2008",     LaneChangeModel::DK2008 },
     { "LC2013",     LaneChangeModel::LC2013 },
+    { "LC2013_CC",  LaneChangeModel::LC2013_CC },
     { "SL2015",     LaneChangeModel::SL2015 },
     { "default",    LaneChangeModel::DEFAULT } //< must be the last one
 };
@@ -1288,11 +1677,11 @@ StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionVal
     { "amBBS",       LCA_AMBACKBLOCKER_STANDING },
     { "MR",          LCA_MRIGHT },
     { "ML",          LCA_MLEFT },
-
     { "unknown",     LCA_UNKNOWN } //< must be the last one
 };
 
 StringBijection<TrainType>::Entry SUMOXMLDefinitions::trainTypeValues[] = {
+    { "custom",     TrainType::CUSTOM },
     { "NGT400",     TrainType::NGT400 },
     { "NGT400_16",  TrainType::NGT400_16 },
     { "RB425",      TrainType::RB425 },
@@ -1314,10 +1703,183 @@ StringBijection<POIIcon>::Entry SUMOXMLDefinitions::POIIconValues[] = {
     {"",                 POIIcon::NONE} //< must be the last one
 };
 
-StringBijection<int> SUMOXMLDefinitions::Tags(
+StringBijection<ExcludeEmpty>::Entry SUMOXMLDefinitions::excludeEmptyValues[] = {
+    {"true",        ExcludeEmpty::TRUES},
+    {"false",       ExcludeEmpty::FALSES},
+    {"defaults",    ExcludeEmpty::DEFAULTS} //< must be the last one
+};
+
+StringBijection<ReferencePosition>::Entry SUMOXMLDefinitions::referencePositionValues[] = {
+    {"left",    ReferencePosition::LEFT},
+    {"right",   ReferencePosition::RIGHT},
+    {"center",  ReferencePosition::CENTER} //< must be the last one
+};
+
+StringBijection<XMLFileExtension>::Entry SUMOXMLDefinitions::XMLFileExtensionValues[] = {
+    {TL("XML files (*.xml, *.xml.gz)"), XMLFileExtension::XML},
+    {TL("All files (*)"),               XMLFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<TXTFileExtension>::Entry SUMOXMLDefinitions::TXTFileExtensionValues[] = {
+    {TL("Plain text files (*.txt)"),    TXTFileExtension::TXT},
+    {TL("All files (*)"),               TXTFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<CSVFileExtension>::Entry SUMOXMLDefinitions::CSVFileExtensionValues[] = {
+    {TL("CSV files (*.txt)"),   CSVFileExtension::CSV},
+    {TL("All files (*)"),       CSVFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<OSGFileExtension>::Entry SUMOXMLDefinitions::OSGFileExtensionValues[] = {
+    {TL("Open scene graph  files (*.osg)"), OSGFileExtension::OSG},
+    {TL("All files (*)"),                   OSGFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<ImageFileExtension>::Entry SUMOXMLDefinitions::imageFileExtensionValues[] = {
+    {TL("All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"),    ImageFileExtension::IMG},
+    {TL("GIF Image (*.gif)"),                                                                                                                       ImageFileExtension::GIF},
+    {TL("BMP Image (*.bmp)"),                                                                                                                       ImageFileExtension::BMP},
+    {TL("XPM Image (*.xpm)"),                                                                                                                       ImageFileExtension::XPM},
+    {TL("PCX Image (*.pcx)"),                                                                                                                       ImageFileExtension::PCX},
+    {TL("ICO Image (*.ico)"),                                                                                                                       ImageFileExtension::ICO},
+    {TL("RGB Image (*.rgb)"),                                                                                                                       ImageFileExtension::RGB},
+    {TL("XBM Image (*.xbm)"),                                                                                                                       ImageFileExtension::XBM},
+    {TL("TARGA Image (*.tga)"),                                                                                                                     ImageFileExtension::TGA},
+    {TL("PNG Image (*.png)"),                                                                                                                       ImageFileExtension::PNG},
+    {TL("JPEG Image (*.jpg,*.jpeg)"),                                                                                                               ImageFileExtension::JPG},
+    {TL("TIFF Image (*.tif,*.tiff)"),                                                                                                               ImageFileExtension::TIF},
+    {TL("Postscript (*.ps)"),                                                                                                                       ImageFileExtension::PS},
+    {TL("Encapsulated Postscript (*.eps)"),                                                                                                         ImageFileExtension::EPS},
+    {TL("Portable Document Format (*.pdf)"),                                                                                                        ImageFileExtension::PDF},
+    {TL("Scalable Vector Graphics (*.svg)"),                                                                                                        ImageFileExtension::SVG},
+    {TL("LATEX text strings (*.tex)"),                                                                                                              ImageFileExtension::TEX},
+    {TL("Portable LaTeX Graphics (*.pgf)"),                                                                                                         ImageFileExtension::PGF},
+    {TL("All Files (*)"),                                                                                                                           ImageFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<ImageVideoFileExtension>::Entry SUMOXMLDefinitions::imageVideoFileExtensionValues[] = {
+    {TL("All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc,*.mp4)"),  ImageVideoFileExtension::IMG},
+    {TL("All Video Files (*.h264,*.hevc,*.mp4)"),                                                                                                                               ImageVideoFileExtension::VIDEO},
+    {TL("G264 Video (*.h264)"),                                                                                                                                                 ImageVideoFileExtension::H264},
+    {TL("HEVC Video (*.hevc)"),                                                                                                                                                 ImageVideoFileExtension::HEVC},
+    {TL("MP4 Video (*.mp4)"),                                                                                                                                                   ImageVideoFileExtension::MP4},
+    {TL("GIF Image (*.gif)"),                                                                                                                                                   ImageVideoFileExtension::GIF},
+    {TL("BMP Image (*.bmp)"),                                                                                                                                                   ImageVideoFileExtension::BMP},
+    {TL("XPM Image (*.xpm)"),                                                                                                                                                   ImageVideoFileExtension::XPM},
+    {TL("PCX Image (*.pcx)"),                                                                                                                                                   ImageVideoFileExtension::PCX},
+    {TL("ICO Image (*.ico)"),                                                                                                                                                   ImageVideoFileExtension::ICO},
+    {TL("RGB Image (*.rgb)"),                                                                                                                                                   ImageVideoFileExtension::RGB},
+    {TL("XBM Image (*.xbm)"),                                                                                                                                                   ImageVideoFileExtension::XBM},
+    {TL("TARGA Image (*.tga)"),                                                                                                                                                 ImageVideoFileExtension::TGA},
+    {TL("PNG Image (*.png)"),                                                                                                                                                   ImageVideoFileExtension::PNG},
+    {TL("JPEG Image (*.jpg,*.jpeg)"),                                                                                                                                           ImageVideoFileExtension::JPG},
+    {TL("TIFF Image (*.tif,*.tiff)"),                                                                                                                                           ImageVideoFileExtension::TIF},
+    {TL("Postscript (*.ps)"),                                                                                                                                                   ImageVideoFileExtension::PS},
+    {TL("Encapsulated Postscript (*.eps)"),                                                                                                                                     ImageVideoFileExtension::EPS},
+    {TL("Portable Document Format (*.pdf)"),                                                                                                                                    ImageVideoFileExtension::PDF},
+    {TL("Scalable Vector Graphics (*.svg)"),                                                                                                                                    ImageVideoFileExtension::SVG},
+    {TL("LATEX text strings (*.tex)"),                                                                                                                                          ImageVideoFileExtension::TEX},
+    {TL("Portable LaTeX Graphics (*.pgf)"),                                                                                                                                     ImageVideoFileExtension::PGF},
+    {TL("All Files (*)"),                                                                                                                                                       ImageVideoFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<OutputFileExtension>::Entry SUMOXMLDefinitions::outputFileExtensionValues[] = {
+    {TL("XML files (*.xml)"),           OutputFileExtension::XML},
+    {TL("Plain text files (*.txt)"),    OutputFileExtension::TXT},
+    {TL("All files (*)"),               OutputFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<ViewSettingsFileExtension>::Entry SUMOXMLDefinitions::viewSettingsFileExtensionValues[] = {
+    {TL("View settings files (*.xml, *.xml.gz)"),   ViewSettingsFileExtension::XML},
+    {TL("All files (*)"),                           ViewSettingsFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<StateFileExtension>::Entry SUMOXMLDefinitions::stateFileExtensionValues[] = {
+    {TL("State GZipped XML files (*.xml.gz)"),  StateFileExtension::XML_GZ},
+    {TL("XML files (*.xml)"),                   StateFileExtension::XML},
+    {TL("All files (*)"),                       StateFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<SumoConfigFileExtension>::Entry SUMOXMLDefinitions::sumoConfigFileExtensionValues[] = {
+    {TL("Sumo config files (*.sumocfg)"),   SumoConfigFileExtension::SUMOCONF},
+    {TL("XML files (*.xml)"),               SumoConfigFileExtension::XML},
+    {TL("All files (*)"),                   SumoConfigFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<NeteditConfigFileExtension>::Entry SUMOXMLDefinitions::neteditConfigFileExtensionValues[] = {
+    {TL("Netedit config files (*.netecfg)"),    NeteditConfigFileExtension::NETECFG},
+    {TL("XML files (*.xml)"),                   NeteditConfigFileExtension::XML},
+    {TL("All files (*)"),                       NeteditConfigFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<NetconvertConfigFileExtension>::Entry SUMOXMLDefinitions::netconvertConfigFileExtensionValues[] = {
+    {TL("Netconvert config files (*.netccfg)"), NetconvertConfigFileExtension::NETCCFG},
+    {TL("XML files (*.xml)"),                   NetconvertConfigFileExtension::XML},
+    {TL("All files (*)"),                       NetconvertConfigFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<OSMFileExtension>::Entry SUMOXMLDefinitions::osmFileExtensionValues[] = {
+    {TL("OSM network files (*.osm, *.osm.gz)"), OSMFileExtension::OSM},
+    {TL("XML files (*.xml, *.xml.gz)"),         OSMFileExtension::XML},
+    {TL("All files (*)"),                       OSMFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<NetFileExtension>::Entry SUMOXMLDefinitions::netFileExtensionValues[] = {
+    {TL("SUMO network files (*.net.xml, *.net.xml.gz)"),    NetFileExtension::NET_XML},
+    {TL("XML files (*.xml, *.xml.gz)"),                     NetFileExtension::XML},
+    {TL("All files (*)"),                                   NetFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<TLSFileExtension>::Entry SUMOXMLDefinitions::TLSFileExtensionValues[] = {
+    {TL("TLS files (*.ttl.xml, *.ttl.xml.gz)"), TLSFileExtension::TTL_XML},
+    {TL("XML files (*.xml, *.xml.gz)"),         TLSFileExtension::XML},
+    {TL("All files (*)"),                       TLSFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<JunctionFileExtension>::Entry SUMOXMLDefinitions::junctionFileExtensionValues[] = {
+    {TL("Junction files (*.nod.xml, *.nod.xml.gz)"),    JunctionFileExtension::NOD_XML},
+    {TL("XML files (*.xml, *.xml.gz)"),                 JunctionFileExtension::XML},
+    {TL("All files (*)"),                               JunctionFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<EdgeTypeFileExtension>::Entry SUMOXMLDefinitions::edgeTypeFileExtensionValues[] = {
+    {TL("Edge type files (*.ttl.xml, *.ttl.xml.gz)"),   EdgeTypeFileExtension::TYP_XML},
+    {TL("XML files (*.xml, *.xml.gz)"),                 EdgeTypeFileExtension::XML},
+    {TL("All files (*)"),                               EdgeTypeFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<AdditionalFileExtension>::Entry SUMOXMLDefinitions::additionalFileExtensionValues[] = {
+    {TL("Additional files (*.add.xml, *.add.xml.gz)"),  AdditionalFileExtension::ADD_XML},
+    {TL("XML files (*.xml, *.xml.gz)"),                 AdditionalFileExtension::XML},
+    {TL("All files (*)"),                               AdditionalFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<ShapesFileExtension>::Entry SUMOXMLDefinitions::shapesFileExtensionValues[] = {
+    {TL("XML files (*.xml, *.xml.gz)"),                 ShapesFileExtension::XML},
+    {TL("All files (*)"),                               ShapesFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<RouteFileExtension>::Entry SUMOXMLDefinitions::routeFileExtensionsValues[] = {
+    {TL("Route files (*.rou.xml, *.rou.xml.gz)"),   RouteFileExtension::ROU_XML},
+    {TL("XML files (*.xml, *.xml.gz)"),             RouteFileExtension::XML},
+    {TL("All files (*)"),                           RouteFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<EdgeDataFileExtension>::Entry SUMOXMLDefinitions::edgeDataFileExtensionsValues[] = {
+    {TL("Edge data files (*.xml, *.xml.gz)"),   EdgeDataFileExtension::XML},
+    {TL("All files (*)"),                       EdgeDataFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<MeanDataFileExtension>::Entry SUMOXMLDefinitions::meanDataFileExtensionsValues[] = {
+    {TL("Mean data files (*.add.xml, *.add.xml.gz)"),   MeanDataFileExtension::ADD},
+    {TL("XML files (*.xml, *.xml.gz)"),                 MeanDataFileExtension::XML},
+    {TL("All files (*)"),                               MeanDataFileExtension::ALL} //< must be the last one
+};
+
+SequentialStringBijection SUMOXMLDefinitions::Tags(
     SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
 
-StringBijection<int> SUMOXMLDefinitions::Attrs(
+SequentialStringBijection SUMOXMLDefinitions::Attrs(
     SUMOXMLDefinitions::attrs, SUMO_ATTR_NOTHING);
 
 StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeTypes(
@@ -1331,6 +1893,9 @@ StringBijection<LaneSpreadFunction> SUMOXMLDefinitions::LaneSpreadFunctions(
 
 StringBijection<ParkingType> SUMOXMLDefinitions::ParkingTypes(
     SUMOXMLDefinitions::parkingTypeValues, ParkingType::OPPORTUNISTIC);
+
+StringBijection<ChargeType> SUMOXMLDefinitions::ChargeTypes(
+    SUMOXMLDefinitions::chargeTypeValues, ChargeType::FUEL);
 
 StringBijection<RightOfWay> SUMOXMLDefinitions::RightOfWayValues(
     SUMOXMLDefinitions::rightOfWayValuesInitializer, RightOfWay::DEFAULT);
@@ -1371,6 +1936,77 @@ StringBijection<TrainType> SUMOXMLDefinitions::TrainTypes(
 StringBijection<POIIcon> SUMOXMLDefinitions::POIIcons(
     SUMOXMLDefinitions::POIIconValues, POIIcon::NONE, false);
 
+StringBijection<ExcludeEmpty> SUMOXMLDefinitions::ExcludeEmptys(
+    SUMOXMLDefinitions::excludeEmptyValues, ExcludeEmpty::DEFAULTS, false);
+
+StringBijection<ReferencePosition> SUMOXMLDefinitions::ReferencePositions(
+    SUMOXMLDefinitions::referencePositionValues, ReferencePosition::CENTER, false);
+
+StringBijection<XMLFileExtension> SUMOXMLDefinitions::XMLFileExtensions(
+    SUMOXMLDefinitions::XMLFileExtensionValues, XMLFileExtension::ALL, false);
+
+StringBijection<TXTFileExtension> SUMOXMLDefinitions::TXTFileExtensions(
+    SUMOXMLDefinitions::TXTFileExtensionValues, TXTFileExtension::ALL, false);
+
+StringBijection<CSVFileExtension> SUMOXMLDefinitions::CSVFileExtensions(
+    SUMOXMLDefinitions::CSVFileExtensionValues, CSVFileExtension::ALL, false);
+
+StringBijection<OSGFileExtension> SUMOXMLDefinitions::OSGFileExtensions(
+    SUMOXMLDefinitions::OSGFileExtensionValues, OSGFileExtension::ALL, false);
+
+StringBijection<ImageFileExtension> SUMOXMLDefinitions::ImageFileExtensions(
+    SUMOXMLDefinitions::imageFileExtensionValues, ImageFileExtension::ALL, false);
+
+StringBijection<ImageVideoFileExtension> SUMOXMLDefinitions::ImageVideoFileExtensions(
+    SUMOXMLDefinitions::imageVideoFileExtensionValues, ImageVideoFileExtension::ALL, false);
+
+StringBijection<OutputFileExtension> SUMOXMLDefinitions::OutputFileExtensions(
+    SUMOXMLDefinitions::outputFileExtensionValues, OutputFileExtension::ALL, false);
+
+StringBijection<ViewSettingsFileExtension> SUMOXMLDefinitions::ViewSettingsFileExtensions(
+    SUMOXMLDefinitions::viewSettingsFileExtensionValues, ViewSettingsFileExtension::ALL, false);
+
+StringBijection<StateFileExtension> SUMOXMLDefinitions::StateFileExtensions(
+    SUMOXMLDefinitions::stateFileExtensionValues, StateFileExtension::ALL, false);
+
+StringBijection<SumoConfigFileExtension> SUMOXMLDefinitions::SumoConfigFileExtensions(
+    SUMOXMLDefinitions::sumoConfigFileExtensionValues, SumoConfigFileExtension::ALL, false);
+
+StringBijection<NeteditConfigFileExtension> SUMOXMLDefinitions::NeteditConfigFileExtensions(
+    SUMOXMLDefinitions::neteditConfigFileExtensionValues, NeteditConfigFileExtension::ALL, false);
+
+StringBijection<NetconvertConfigFileExtension> SUMOXMLDefinitions::NetconvertConfigFileExtensions(
+    SUMOXMLDefinitions::netconvertConfigFileExtensionValues, NetconvertConfigFileExtension::ALL, false);
+
+StringBijection<OSMFileExtension> SUMOXMLDefinitions::OSMFileExtensions(
+    SUMOXMLDefinitions::osmFileExtensionValues, OSMFileExtension::ALL, false);
+
+StringBijection<NetFileExtension> SUMOXMLDefinitions::NetFileExtensions(
+    SUMOXMLDefinitions::netFileExtensionValues, NetFileExtension::ALL, false);
+
+StringBijection<TLSFileExtension> SUMOXMLDefinitions::TLSFileExtensions(
+    SUMOXMLDefinitions::TLSFileExtensionValues, TLSFileExtension::ALL, false);
+
+StringBijection<JunctionFileExtension> SUMOXMLDefinitions::JunctionFileExtensions(
+    SUMOXMLDefinitions::junctionFileExtensionValues, JunctionFileExtension::ALL, false);
+
+StringBijection<EdgeTypeFileExtension> SUMOXMLDefinitions::EdgeTypeFileExtensions(
+    SUMOXMLDefinitions::edgeTypeFileExtensionValues, EdgeTypeFileExtension::ALL, false);
+
+StringBijection<AdditionalFileExtension> SUMOXMLDefinitions::AdditionalFileExtensions(
+    SUMOXMLDefinitions::additionalFileExtensionValues, AdditionalFileExtension::ALL, false);
+
+StringBijection<ShapesFileExtension> SUMOXMLDefinitions::ShapesFileExtensions(
+    SUMOXMLDefinitions::shapesFileExtensionValues, ShapesFileExtension::ALL, false);
+
+StringBijection<RouteFileExtension> SUMOXMLDefinitions::RouteFileExtensions(
+    SUMOXMLDefinitions::routeFileExtensionsValues, RouteFileExtension::ALL, false);
+
+StringBijection<EdgeDataFileExtension> SUMOXMLDefinitions::EdgeDataFileExtensions(
+    SUMOXMLDefinitions::edgeDataFileExtensionsValues, EdgeDataFileExtension::ALL, false);
+
+StringBijection<MeanDataFileExtension> SUMOXMLDefinitions::MeanDataFileExtensions(
+    SUMOXMLDefinitions::meanDataFileExtensionsValues, MeanDataFileExtension::ALL, false);
 
 std::string
 SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge) {
@@ -1478,5 +2114,22 @@ SUMOXMLDefinitions::isValidParameterKey(const std::string& value) {
         return isValidAttribute(value);
     }
 }
+
+
+std::string
+SUMOXMLDefinitions::makeValidID(const std::string& value) {
+    if (value.empty()) {
+        return "_";
+    }
+    std::string result(value);
+    if (result[0] == ':') {
+        result[0] = '_';
+    }
+    for (const char c : " \t\n\r|\\'\";,<>&") {
+        std::replace(result.begin(), result.end(), c, '_');
+    }
+    return result;
+}
+
 
 /****************************************************************************/

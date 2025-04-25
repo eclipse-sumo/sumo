@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -132,6 +132,46 @@ public:
         GUIGlObjectType myType = GLO_NETWORK;
     };
 
+    /// @brief NamePanel
+    class RainbowPanel {
+
+    public:
+        /// @brief constructor
+        RainbowPanel(FXComposite* parent, GUIDialog_ViewSettings* target,
+                     const GUIVisualizationRainbowSettings& settings);
+
+        /// @brief get settings
+        GUIVisualizationRainbowSettings getSettings();
+
+        /// @brief update
+        void update(const GUIVisualizationRainbowSettings& settings);
+
+        FXButton* myColorRainbow = nullptr;
+
+        MFXComboBoxIcon* myRainbowStyle = nullptr;
+
+        /// @brief check button
+        FXCheckButton* myHideMinCheck = nullptr;
+
+        /// @brief threshold dial
+        FXRealSpinner* myMinThreshold = nullptr;
+
+        /// @brief check button
+        FXCheckButton* myHideMaxCheck = nullptr;
+
+        /// @brief threshold dial
+        FXRealSpinner* myMaxThreshold = nullptr;
+
+        /// @brief check button
+        FXCheckButton* mySetNeutral = nullptr;
+
+        /// @brief threshold dial
+        FXRealSpinner* myNeutralThreshold = nullptr;
+
+        /// @brief check button
+        FXCheckButton* myFixRange = nullptr;
+    };
+
     /** @brief Constructor
      * @param[in] parent The view to report changed settings to
      * @param[in, out] settings The current settings that can be changed
@@ -146,6 +186,7 @@ public:
 
     /// @brief show view settings dialog
     void show();
+    using FXDialogBox::show; // to silence the warning C4266 about a hidden function
 
     /// @brief get GUISUMOAbstractView parent
     GUISUMOAbstractView* getSUMOAbstractView();
@@ -216,6 +257,11 @@ public:
      * @param[in] The name of the scheme that shall be set as current
      */
     void setCurrentScheme(const std::string&);
+
+    void hide() {
+        saveWindowPos();
+        FXTopWindow::hide();
+    }
 
 protected:
     /// @brief The parent view (which settings are changed)
@@ -288,12 +334,6 @@ protected:
     std::vector<FXRealSpinner*> myLaneThresholds;
     std::vector<FXButton*> myLaneButtons;
     FXCheckButton* myLaneColorInterpolation = nullptr;
-    FXButton* myLaneColorRainbow = nullptr;
-    FXCheckButton* myLaneColorRainbowCheck = nullptr;
-    FXRealSpinner* myLaneColorRainbowThreshold = nullptr;
-    FXCheckButton* myLaneColorRainbowCheck2 = nullptr;
-    FXRealSpinner* myLaneColorRainbowThreshold2 = nullptr;
-    FXButton* myJunctionColorRainbow = nullptr;
     FXComboBox* myParamKey = nullptr;
     FXComboBox* myScalingParamKey = nullptr;
     MFXComboBoxIcon* myMeanDataID = nullptr;
@@ -317,6 +357,7 @@ protected:
     FXCheckButton* myShowLaneDirection = nullptr;
     FXCheckButton* myShowSublanes = nullptr;
     FXCheckButton* mySpreadSuperposed = nullptr;
+    FXCheckButton* myDisableHideByZoom = nullptr;
     FXRealSpinner* myLaneWidthUpscaleDialer = nullptr;
     FXRealSpinner* myLaneMinWidthDialer = nullptr;
 
@@ -344,6 +385,7 @@ protected:
     FXCheckButton* myScaleLength = nullptr;
     FXCheckButton* myDrawReversed = nullptr;
     FXCheckButton* myShowParkingInfo = nullptr;
+    FXCheckButton* myShowChargingInfo = nullptr;
     /*FXCheckButton* myShowLaneChangePreference = nullptr;*/
 
     FXComboBox* myVehicleParamKey = nullptr;
@@ -386,6 +428,8 @@ protected:
     FXCheckButton* myPOIColorInterpolation = nullptr;
     FXComboBox* myPOITextParamKey = nullptr;
     FXSpinner* myPoiDetail = nullptr;
+    FXCheckButton* myPOIUseCustomLayer = nullptr;
+    FXRealSpinner* myPOICustomLayer = nullptr;
 
     /// @brief Polygons
     MFXComboBoxIcon* myPolyColorMode, *myPolyShapeDetail = nullptr;
@@ -394,6 +438,8 @@ protected:
     std::vector<FXRealSpinner*> myPolyThresholds;
     std::vector<FXButton*> myPolyButtons;
     FXCheckButton* myPolyColorInterpolation = nullptr;
+    FXCheckButton* myPolyUseCustomLayer = nullptr;
+    FXRealSpinner* myPolyCustomLayer = nullptr;
 
     /// @brief Data
     MFXComboBoxIcon* myDataColorMode = nullptr;
@@ -405,9 +451,6 @@ protected:
     FXComboBox* myDataParamKey = nullptr;
     FXRealSpinner* myEdgeRelationUpscaleDialer = nullptr;
     FXRealSpinner* myTazRelationUpscaleDialer = nullptr;
-    FXButton* myDataColorRainbow = nullptr;
-    FXCheckButton* myDataColorRainbowCheck = nullptr;
-    FXRealSpinner* myDataColorRainbowThreshold = nullptr;
 
     /// @brief buttons
     FXCheckButton* myShowLane2Lane = nullptr;
@@ -430,10 +473,12 @@ protected:
     /// @brief openGL
     FXCheckButton* myDither = nullptr;
     FXCheckButton* myFPS = nullptr;
+    FXCheckButton* myTrueZ = nullptr;
     FXCheckButton* myDrawBoundaries = nullptr;
     FXCheckButton* myForceDrawForRectangleSelection = nullptr;
     FXCheckButton* myDisableDottedContours = nullptr;
     FXButton* myRecalculateBoundaries = nullptr;
+    FXRealSpinner* myComboRows = nullptr;
 
     /// @brief name panels
     NamePanel* myEdgeNamePanel = nullptr;
@@ -474,6 +519,12 @@ protected:
     SizePanel* myPolySizePanel = nullptr;
     SizePanel* myAddSizePanel = nullptr;
     SizePanel* myJunctionSizePanel = nullptr;
+
+    /// @brief rainbow panels
+    RainbowPanel* myEdgeRainbowPanel = nullptr;
+    RainbowPanel* myJunctionRainbowPanel = nullptr;
+    RainbowPanel* myDataRainbowPanel = nullptr;
+    RainbowPanel* myVehicleRainbowPanel = nullptr;
 
     /// @brief load/save-menu
     FXCheckButton* mySaveViewPort = nullptr;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -52,16 +52,20 @@ FXDEFMAP(GUIParameterTableWindow) GUIParameterTableWindowMap[] = {
 
 FXIMPLEMENT(GUIParameterTableWindow, FXMainWindow, GUIParameterTableWindowMap, ARRAYNUMBER(GUIParameterTableWindowMap))
 
-
 // ===========================================================================
 // static value definitions
 // ===========================================================================
+
 FXMutex GUIParameterTableWindow::myGlobalContainerLock;
 std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, const std::string& title) :
     FXMainWindow(app.getApp(), ((title == "" ? o.getFullName() : title) + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 40, 200, 500),
     GUIPersistentWindowPos(this, "DIALOG_PARAMETERS", false, 20, 40),
@@ -94,6 +98,9 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     myTable->setEditable(FALSE);
     loadWindowPos();
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 GUIParameterTableWindow::~GUIParameterTableWindow() {
     myApplication->removeChild(this);
@@ -184,7 +191,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* /*sender*/, FXSelector /*s
     ValueSource<double>* doubleSource = i->getdoubleSourceCopy();
     if (doubleSource != nullptr) {
         GUIParam_PopupMenuInterface* p = new GUIParam_PopupMenuInterface(*myApplication, *this, *myObject, i->getName(), doubleSource);
-        GUIDesigns::buildFXMenuCommand(p, "Open in new Tracker", nullptr, p, MID_OPENTRACKER);
+        GUIDesigns::buildFXMenuCommand(p, TL("Open in new Tracker"), nullptr, p, MID_OPENTRACKER);
         // set geometry
         p->setX(static_cast<FXEvent*>(eventData)->root_x);
         p->setY(static_cast<FXEvent*>(eventData)->root_y);
@@ -250,7 +257,7 @@ GUIParameterTableWindow::updateTable() {
 
 void
 GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
-    // add generic paramters if available
+    // add generic parameters if available
     if (p == nullptr) {
         p = dynamic_cast<const Parameterised*>(myObject);
     }

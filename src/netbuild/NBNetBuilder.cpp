@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -92,24 +92,48 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // MODIFYING THE SETS OF NODES AND EDGES
     // Removes edges that are connecting the same node
     long before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Removing self-loops"));
-    myNodeCont.removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
+    int numRemovedEdges = 0;
+    numRemovedEdges += myNodeCont.removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
     PROGRESS_TIME_MESSAGE(before);
     if (mayAddOrRemove && oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Finding isolated roads"));
-        myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont);
+        numRemovedEdges += myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont);
         PROGRESS_TIME_MESSAGE(before);
     }
     if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Finding largest components"));
         const bool hasStops = oc.exists("ptstop-output") && oc.isSet("ptstop-output") && !myPTStopCont.getStops().empty();
-        myNodeCont.removeComponents(myDistrictCont, myEdgeCont, oc.getInt("keep-edges.components"), hasStops);
+        numRemovedEdges += myNodeCont.removeComponents(myDistrictCont, myEdgeCont, oc.getInt("keep-edges.components"), hasStops);
         PROGRESS_TIME_MESSAGE(before);
     }
     if (mayAddOrRemove && oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
+        // pre-process lines to set permissions
+        if (!myPTLineCont.getLines().empty()) {
+            before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Revising public transport stops based on pt lines"));
+            myPTLineCont.process(myEdgeCont, myPTStopCont);
+            PROGRESS_TIME_MESSAGE(before);
+        }
         if (oc.isSet("keep-edges.explicit") || oc.isSet("keep-edges.input-file")) {
             before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Removing unwished edges"));
-            myEdgeCont.removeUnwishedEdges(myDistrictCont);
+            numRemovedEdges += myEdgeCont.removeUnwishedEdges(myDistrictCont);
             PROGRESS_TIME_MESSAGE(before);
+        }
+        const int removed = myEdgeCont.removeEdgesBySpeed(myDistrictCont);
+        if (removed > 0) {
+            numRemovedEdges += removed;
+            WRITE_MESSAGEF(TL(" Removed % edges because by minimum speed."), removed);
+        }
+        const int removed2 = myEdgeCont.removeEdgesByPermissions(myDistrictCont);
+        if (removed2 > 0) {
+            numRemovedEdges += removed2;
+            WRITE_MESSAGEF(TL(" Removed % edges based on vClass."), removed2);
+        }
+    }
+    if (mayAddOrRemove && oc.getFloat("keep-lanes.min-width") > 0.) {
+        const int removed = myEdgeCont.removeLanesByWidth(myDistrictCont, oc.getFloat("keep-lanes.min-width"));
+        if (removed > 0) {
+            numRemovedEdges += removed;
+            WRITE_MESSAGEF(TL(" Removed % edges because of lane width."), removed);
         }
     }
     // Processing pt stops and lines
@@ -125,24 +149,17 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
         // post process rail components unless they have stops
-        myNodeCont.removeRailComponents(myDistrictCont, myEdgeCont, myPTStopCont);
+        numRemovedEdges += myNodeCont.removeRailComponents(myDistrictCont, myEdgeCont, myPTStopCont);
+    }
+    // removal is done, clean up roundabouts
+    if (numRemovedEdges > 0) {
+        myEdgeCont.cleanupRoundabouts();
     }
 
     if (!myPTLineCont.getLines().empty()) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Revising public transport stops based on pt lines"));
         myPTLineCont.process(myEdgeCont, myPTStopCont);
         PROGRESS_TIME_MESSAGE(before);
-    }
-
-    if (oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up")) {
-        before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Cleaning up public transport stops that are not served by any line"));
-        myPTStopCont.postprocess(myPTLineCont.getServedPTStops());
-        PROGRESS_TIME_MESSAGE(before);
-    } else {
-        int numDeletedStops = myPTStopCont.cleanupDeleted(myEdgeCont);
-        if (numDeletedStops > 0) {
-            WRITE_WARNINGF(TL("Removed % pt stops because they could not be assigned to the network"), toString(numDeletedStops));
-        }
     }
 
     if (!myPTStopCont.getStops().empty() && !oc.getBool("ptstop-output.no-bidi")) {
@@ -157,7 +174,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         numAddedBidi = NBRailwayTopologyAnalyzer::makeAllBidi(myEdgeCont);
     } else if (oc.exists("railway.topology.repair") && oc.getBool("railway.topology.repair")) {
         // correct railway angles for angle-based connectivity heuristic
-        myEdgeCont.checkGeometries(0,
+        myEdgeCont.checkGeometries(0, false,
                                    oc.getFloat("geometry.min-radius"), false,
                                    oc.getBool("geometry.min-radius.fix.railways"), true);
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
@@ -178,6 +195,10 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (oc.exists("railway.topology.output") && oc.isSet("railway.topology.output")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
         NBRailwayTopologyAnalyzer::analyzeTopology(myEdgeCont);
+    }
+    if (oc.exists("railway.geometry.straighten") && oc.getBool("railway.geometry.straighten")) {
+        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
+        NBRailwayGeometryHelper::straigthenCorrdidor(myEdgeCont, oc.getFloat("geometry.max-angle"));
     }
 
 
@@ -216,8 +237,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             myNodeCont.addJoinExclusion(nodeIDs);
         }
         NBNodeTypeComputer::validateRailCrossings(myNodeCont, myTLLCont);
-    } else if (myEdgeCont.hasGuessedRoundabouts() && oc.getBool("roundabouts.guess")) {
+    } else if ((myEdgeCont.hasGuessedRoundabouts() || oc.getBool("crossings.guess")) && oc.getBool("roundabouts.guess")) {
         myEdgeCont.guessRoundabouts();
+        myEdgeCont.markRoundabouts();
     }
     // join junctions (may create new "geometry"-nodes so it needs to come before removing these
     if (mayAddOrRemove && oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
@@ -345,7 +367,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             PROGRESS_BEGIN_MESSAGE(TL("Guessing and setting on-/off-ramps"));
         }
         NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
-        NBRampsComputer::computeRamps(*this, oc, mayAddOrRemove);
+        NBRampsComputer rc;
+        rc.computeRamps(*this, oc, mayAddOrRemove);
+
         if (modifyRamps) {
             PROGRESS_TIME_MESSAGE(before);
         }
@@ -387,6 +411,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (oc.exists("geometry.max-angle")) {
         myEdgeCont.checkGeometries(
             DEG2RAD(oc.getFloat("geometry.max-angle")),
+            oc.getBool("geometry.max-angle.fix"),
             oc.getFloat("geometry.min-radius"),
             oc.getBool("geometry.min-radius.fix"),
             oc.getBool("geometry.min-radius.fix.railways"));
@@ -434,6 +459,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // CONNECTIONS COMPUTATION
     //
     before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Computing node types"));
+    NBNode::initRailSignalClasses(myNodeCont);
     NBNodeTypeComputer::computeNodeTypes(myNodeCont, myTLLCont);
     PROGRESS_TIME_MESSAGE(before);
     //
@@ -635,7 +661,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
 
     if (lefthand != oc.getBool("flip-y-axis")) {
         mirrorX();
-    };
+    }
 
     if (oc.exists("geometry.check-overlap")  && oc.getFloat("geometry.check-overlap") > 0) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Checking overlapping edges"));
@@ -657,6 +683,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         int numBidiStops = 0;
         if (!oc.getBool("ptstop-output.no-bidi")) {
             numBidiStops = myPTStopCont.generateBidiStops(myEdgeCont);
+        } else {
+            numBidiStops = myPTStopCont.countBidiStops(myEdgeCont);
         }
         PROGRESS_BEGIN_MESSAGE(TL("Find accesses for pt rail stops"));
         double maxRadius = oc.getFloat("railway.access-distance");
@@ -671,6 +699,17 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     myPTLineCont.removeInvalidEdges(myEdgeCont);
     // ensure that all turning lanes have sufficient permissions
     myPTLineCont.fixPermissions();
+    if (oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up")) {
+        before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Cleaning up public transport stops that are not served by any line"));
+        std::set<std::string> usedStops = myPTLineCont.getServedPTStops();
+        myPTStopCont.postprocess(usedStops);
+        PROGRESS_TIME_MESSAGE(before);
+    } else {
+        int numDeletedStops = myPTStopCont.cleanupDeleted(myEdgeCont);
+        if (numDeletedStops > 0) {
+            WRITE_WARNINGF(TL("Removed % pt stops because they could not be assigned to the network"), toString(numDeletedStops));
+        }
+    }
 
     if (oc.exists("ignore-change-restrictions") && !oc.isDefault("ignore-change-restrictions")) {
         SVCPermissions ignoring = parseVehicleClasses(oc.getStringVector("ignore-change-restrictions"));
@@ -682,6 +721,13 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (MAX2(geoConvHelper.getConvBoundary().xmax(), geoConvHelper.getConvBoundary().ymax()) > 1000000 ||
             MIN2(geoConvHelper.getConvBoundary().xmin(), geoConvHelper.getConvBoundary().ymin()) < -1000000) {
         WRITE_WARNING(TL("Network contains very large coordinates and will probably flicker in the GUI. Check for outlying nodes and make sure the network is shifted to the coordinate origin"));
+    }
+
+    // clean up OSM processing params
+    if (oc.exists("osm-files") && oc.isSet("osm-files")) {
+        for (auto item : myEdgeCont) {
+            item.second->unsetParameter(NBTrafficLightDefinition::OSM_DIRECTION);
+        }
     }
 }
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // A class for visualizing Inner Lanes (used when editing traffic lights)
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -60,14 +59,13 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 
 GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, GNEJunction* junctionParent,
                                  const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
-    GNENetworkElement(junctionParent->getNet(), id, GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-                      GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
-                                myJunctionParent(junctionParent),
-                                myState(state),
-                                myStateTarget(myState),
-                                myEditor(editor),
-                                myTlIndex(tlIndex),
-myPopup(nullptr) {
+    GNENetworkElement(junctionParent->getNet(), id, GNE_TAG_INTERNAL_LANE),
+    myJunctionParent(junctionParent),
+    myState(state),
+    myStateTarget(myState),
+    myEditor(editor),
+    myTlIndex(tlIndex),
+    myPopup(nullptr) {
     // calculate internal lane geometry
     myInternalLaneGeometry.updateGeometry(shape);
     // update centering boundary without updating grid
@@ -78,13 +76,12 @@ myPopup(nullptr) {
 
 
 GNEInternalLane::GNEInternalLane() :
-    GNENetworkElement(nullptr, "dummyInternalLane", GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-                      GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
-myJunctionParent(nullptr),
-myState(0),
-myEditor(0),
-myTlIndex(0),
-myPopup(nullptr) {
+    GNENetworkElement(nullptr, "dummyInternalLane", GNE_TAG_INTERNAL_LANE),
+    myJunctionParent(nullptr),
+    myState(0),
+    myEditor(0),
+    myTlIndex(0),
+    myPopup(nullptr) {
 }
 
 
@@ -120,6 +117,10 @@ GNEInternalLane::checkDrawToContour() const {
 
 bool
 GNEInternalLane::checkDrawRelatedContour() const {
+    // check opened popup
+    if (myNet->getViewNet()->getPopup()) {
+        return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    }
     return false;
 }
 
@@ -132,6 +133,12 @@ GNEInternalLane::checkDrawOverContour() const {
 
 bool
 GNEInternalLane::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEInternalLane::checkDrawDeleteContourSmall() const {
     return false;
 }
 
@@ -194,7 +201,7 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
+            myJunctionParent->drawInLayer(GLO_TLLOGIC);
             // move front again
             glTranslated(0, 0, 0.5);
             // set color
@@ -213,8 +220,8 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
             myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour
-        myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myInternalLaneGeometry.getShape(),
-                s.connectionSettings.connectionWidth, 1, true, true, 0);
+        myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myInternalLaneGeometry.getShape(), getType(),
+                s.connectionSettings.connectionWidth, 1, true, true, 0, nullptr, myJunctionParent);
     }
 }
 
@@ -252,7 +259,7 @@ GNEInternalLane::getTLIndex() const {
 
 GUIGLObjectPopupMenu*
 GNEInternalLane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    myPopup = new GUIGLObjectPopupMenu(app, parent, *this);
+    myPopup = new GUIGLObjectPopupMenu(app, parent, this);
     buildPopupHeader(myPopup, app);
     if ((myEditor != nullptr) && (myEditor->getViewNet()->getEditModes().isCurrentSupermodeNetwork())) {
         const std::vector<std::string> names = LinkStateNames.getStrings();
@@ -303,6 +310,12 @@ GNEInternalLane::colorForLinksState(FXuint state) {
 
 std::string
 GNEInternalLane::getAttribute(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+}
+
+
+PositionVector
+GNEInternalLane::getAttributePositionVector(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
 }
 

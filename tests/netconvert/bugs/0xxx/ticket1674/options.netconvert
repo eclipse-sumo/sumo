@@ -1,0 +1,1 @@
+-e input_plain.edg.xml -n input_plain.nod.xml --junctions.corner-detail 1 --ignore-errors.edge-type

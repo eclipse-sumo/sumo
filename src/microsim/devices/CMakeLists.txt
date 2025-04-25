@@ -31,6 +31,8 @@ set(microsim_devices_STAT_SRCS
    MSDevice_Bluelight.h
    MSDevice_FCD.cpp
    MSDevice_FCD.h
+   MSDevice_FCDReplay.cpp
+   MSDevice_FCDReplay.h
    MSDevice_ElecHybrid.cpp
    MSDevice_ElecHybrid.h
    MSDevice_Taxi.cpp
@@ -44,6 +46,8 @@ set(microsim_devices_STAT_SRCS
    MSTransportableDevice_Routing.h
    MSTransportableDevice_FCD.cpp
    MSTransportableDevice_FCD.h
+   MSTransportableDevice_FCDReplay.cpp
+   MSTransportableDevice_FCDReplay.h
    MSRoutingEngine.cpp
    MSRoutingEngine.h
    MSDispatch.cpp

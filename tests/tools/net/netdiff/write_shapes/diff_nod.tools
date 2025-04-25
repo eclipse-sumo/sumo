@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 23:21:39.948449 by netdiff.py v1_15_0+1985-a4f015c
-  options: source.net.xml dest.net.xml diff <doubleminus>write-shapes
+<!-- generated on 2024-02-29 13:55:29.738861 by netdiff.py v1_19_0+1092-a49a04372af
+<configuration>
+    <source value="source.net.xml"/>
+    <dest value="dest.net.xml"/>
+    <outprefix value="diff"/>
+    <write-shapes value="True"/>
+</configuration>
 -->
 
-<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <!-- Deleted Elements -->
     <delete id="301292612"/>
     <delete id="38919945"/>

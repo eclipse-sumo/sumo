@@ -26,7 +26,11 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<additional>
+<!-- generated on 2024-11-19 14:30:53.983391 by sort_routes.py v1_21_0+0863-27f9b3af3ac
+  options: <doubleminus>verbose input_routes.rou.xml -o out.rou.xml
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <routeDistribution id="1">
         <route refId="33_to_18" probability="0.02"/>
         <route refId="33_to_35" probability="0.75"/>

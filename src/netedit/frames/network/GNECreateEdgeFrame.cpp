@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,24 +17,20 @@
 ///
 // The Widget for create edges (and junctions)
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
-#include <netedit/dialogs/GNESingleParametersDialog.h>
-#include <netedit/elements/network/GNEEdgeType.h>
-#include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
+#include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneTemplate.h>
+#include <netedit/elements/network/GNELaneType.h>
+#include <netedit/frames/GNEAttributesEditor.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/options/OptionsCont.h>
-
 
 #include "GNECreateEdgeFrame.h"
 
@@ -92,7 +88,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     myCreateCustomEdgeType = new FXRadioButton(getCollapsableFrame(), TL("Use edgeType/template"),
             this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // edge types combo box
-    myEdgeTypesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
+    myEdgeTypesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_CREATEEDGEFRAME_SELECTTEMPLATE, GUIDesignComboBoxAttribute);
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -109,7 +105,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     myCreateDefaultEdgeType->setCheck(TRUE);
     // check if enable disable pedestrians
     for (const auto& junction : createEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
-        if (junction.second.second->getNBNode()->getCrossings().size() > 0) {
+        if (junction.second->getNBNode()->getCrossings().size() > 0) {
             enableCheckBoxDisablePedestrians();
         }
     }
@@ -143,7 +139,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
         myAddEdgeTypeButton->disable();
         myDeleteEdgeTypeButton->disable();
         // show default edgeType attributes
-        myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModule(myDefaultEdgeType, {SUMO_ATTR_ID});
+        myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(myDefaultEdgeType, true);
         // show lane attributes
         myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
     } else if (myCreateCustomEdgeType->getCheck()) {
@@ -160,8 +156,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
             myEdgeTypesComboBox->disable();
             myDeleteEdgeTypeButton->disable();
             // hide attributes creators
-            myCreateEdgeFrameParent->myEdgeTypeAttributes->hideAttributesCreatorModule();
-            myCreateEdgeFrameParent->myLaneTypeSelector->hideLaneTypeSelector();
+            myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->hideAttributesEditor();
+            myCreateEdgeFrameParent->myLaneTypeAttributesEditor->hideAttributesEditor();
         } else if (templateEditor->getEdgeTemplate() && (index == 0)) {
             // enable create from template
             myCreateFromTemplate->enable();
@@ -170,8 +166,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
             // disable delete edge type button (because templates cannot be deleted)
             myDeleteEdgeTypeButton->disable();
             // show edgeType attributes and disable
-            myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModule(templateEditor->getEdgeTemplate(), {SUMO_ATTR_ID});
-            myCreateEdgeFrameParent->myEdgeTypeAttributes->disableAttributesCreator();
+            myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(templateEditor->getEdgeTemplate(), true);
+            myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->disableAttributesEditor();
             // show lane attributes (will be automatic disabled)
             myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
         } else {
@@ -184,12 +180,12 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
             // check if exist
             if (myEdgeTypeSelected) {
                 // show edgeType attributes
-                myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModule(myEdgeTypeSelected, {});
+                myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(myEdgeTypeSelected, true);
                 // show lane attributes
                 myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
             } else {
                 // hide edgeType attributes
-                myCreateEdgeFrameParent->myEdgeTypeAttributes->hideAttributesCreatorModule();
+                myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->hideAttributesEditor();
                 // hide lane attributes
                 myCreateEdgeFrameParent->myLaneTypeSelector->hideLaneTypeSelector();
                 // set comboBox text
@@ -414,7 +410,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onUpdCheckButtons(FXObject*, FXSelector, v
         myNoPedestriansCheckButton->enable();
     }
     // show default edgeType attributes again (for refresh sidewalk and bike widths)
-    myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModule(myDefaultEdgeType, {SUMO_ATTR_ID});
+    myCreateEdgeFrameParent->myEdgeTypeAttributesEditor->showAttributesEditor(myDefaultEdgeType, true);
     return 1;
 }
 
@@ -458,7 +454,7 @@ GNECreateEdgeFrame::LaneTypeSelector::LaneTypeSelector(GNECreateEdgeFrame* creat
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myLaneIndex(0) {
     // lane types combo box
-    myLaneTypesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
+    myLaneTypesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_CREATEEDGEFRAME_SELECTLANE, GUIDesignComboBoxAttribute);
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -489,7 +485,7 @@ GNECreateEdgeFrame::LaneTypeSelector::showLaneTypeSelector() {
 void
 GNECreateEdgeFrame::LaneTypeSelector::hideLaneTypeSelector() {
     // hide attributes creator module
-    myCreateEdgeFrameParent->myLaneTypeAttributes->hideAttributesCreatorModule();
+    myCreateEdgeFrameParent->myLaneTypeAttributesEditor->hideAttributesEditor();
     // hide
     hide();
 }
@@ -509,9 +505,9 @@ GNECreateEdgeFrame::LaneTypeSelector::refreshLaneTypeSelector() {
         // update comboBox
         updateComboBox();
         // show laneTypeAttributes
-        myCreateEdgeFrameParent->myLaneTypeAttributes->showAttributesCreatorModule(edgeTemplate->getLaneTemplates().at(myLaneIndex), {SUMO_ATTR_ID});
+        myCreateEdgeFrameParent->myLaneTypeAttributesEditor->showAttributesEditor(edgeTemplate->getLaneTemplates().at(myLaneIndex), false);
         // disable laneAttributes (because is a template)
-        myCreateEdgeFrameParent->myLaneTypeAttributes->disableAttributesCreator();
+        myCreateEdgeFrameParent->myLaneTypeAttributesEditor->disableAttributesEditor();
         // disable add and remove buttons
         myAddLaneTypeButton->disable();
         myDeleteLaneTypeButton->disable();
@@ -525,7 +521,7 @@ GNECreateEdgeFrame::LaneTypeSelector::refreshLaneTypeSelector() {
         // update comboBox
         updateComboBox();
         // show laneTypeAttributes
-        myCreateEdgeFrameParent->myLaneTypeAttributes->showAttributesCreatorModule(edgeType->getLaneTypes().at(myLaneIndex), {});
+        myCreateEdgeFrameParent->myLaneTypeAttributesEditor->showAttributesEditor(edgeType->getLaneTypes().at(myLaneIndex), false);
         // enable add and remove buttons
         myAddLaneTypeButton->enable();
         // check if enable or disable remove lane button
@@ -670,11 +666,11 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* vi
     // create custom edge selector
     myEdgeTypeSelector = new EdgeTypeSelector(this);
     // Create edgeType parameters
-    myEdgeTypeAttributes = new GNEAttributesCreator(this);
+    myEdgeTypeAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
     // lane type selector
     myLaneTypeSelector = new LaneTypeSelector(this);
     // Create laneType parameters
-    myLaneTypeAttributes = new GNEAttributesCreator(this);
+    myLaneTypeAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
     // create edge selector legend
     myLegend = new Legend(this);
 }
@@ -690,11 +686,11 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
     if (!myEdgeTypeSelector->useDefaultEdgeType() && !myEdgeTypeSelector->useDefaultEdgeTypeShort() &&
             !myEdgeTypeSelector->useEdgeTemplate() && (myEdgeTypeSelector->getEdgeTypeSelected() == nullptr)) {
         WRITE_WARNING(TL("Select either default edgeType or short edge or a custom edgeType or template"));
-    } else if (!myEdgeTypeAttributes->areValuesValid()) {
-        WRITE_WARNING(TL("Invalid edge attributes"));
-    } else if (!myLaneTypeAttributes->areValuesValid()) {
-        WRITE_WARNING(TL("Invalid lane attributes"));
-    } else {
+    } else if (myEdgeTypeAttributesEditor->checkAttributes(true) && myLaneTypeAttributesEditor->checkAttributes(true)) {
+        // if grid is enabled and currently there isn't a junction under mouse, make a new search snapping position to grid
+        if ((viewObjects.getJunctionFront() == nullptr) && myViewNet->getVisualisationSettings().showGrid) {
+            myViewNet->updateObjectsInPosition(myViewNet->snapToActiveGrid(clickedPosition));
+        }
         // obtain junction depending of gridEnabled
         GNEJunction* junction = viewObjects.getJunctionFront();
         // begin undo list
@@ -857,9 +853,9 @@ GNECreateEdgeFrame::getEdgeTypeSelector() const {
 }
 
 
-GNEAttributesCreator*
+GNEAttributesEditor*
 GNECreateEdgeFrame::getEdgeTypeAttributes() const {
-    return myEdgeTypeAttributes;
+    return myEdgeTypeAttributesEditor;
 }
 
 
@@ -869,9 +865,9 @@ GNECreateEdgeFrame::getLaneTypeSelector() {
 }
 
 
-GNEAttributesCreator*
+GNEAttributesEditor*
 GNECreateEdgeFrame::getLaneTypeAttributes() const {
-    return myLaneTypeAttributes;
+    return myLaneTypeAttributesEditor;
 }
 
 
@@ -885,7 +881,7 @@ GNECreateEdgeFrame::setUseEdgeTemplate() {
 void
 GNECreateEdgeFrame::disablePedestrians(GNEEdge* edge) const {
     // iterate over lanes
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         // avoid sidewalks
         if (lane->getAttribute(SUMO_ATTR_ALLOW) != "pedestrian") {
             // extract disallow list
@@ -905,7 +901,7 @@ void
 GNECreateEdgeFrame::addBikelane(GNEEdge* edge, const std::string& bikelaneWidth) const {
     bool bikelaneFound = false;
     // iterate over lanes
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         // check if there is already a SideWalk
         if (lane->getAttribute(SUMO_ATTR_ALLOW) == "bicycle") {
             bikelaneFound = true;
@@ -913,10 +909,10 @@ GNECreateEdgeFrame::addBikelane(GNEEdge* edge, const std::string& bikelaneWidth)
     }
     // only add if previously there is no bikelanes
     if (!bikelaneFound) {
-        edge->getNet()->getViewNet()->addRestrictedLane(edge->getLanes().at(0), SVC_BICYCLE, false);
+        edge->getNet()->getViewNet()->addRestrictedLane(edge->getChildLanes().at(0), SVC_BICYCLE, false);
         // set width
         if (bikelaneWidth != "default") {
-            edge->getLanes().at(0)->setAttribute(SUMO_ATTR_WIDTH, bikelaneWidth, myViewNet->getUndoList());
+            edge->getChildLanes().at(0)->setAttribute(SUMO_ATTR_WIDTH, bikelaneWidth, myViewNet->getUndoList());
         }
     }
 }
@@ -926,7 +922,7 @@ void
 GNECreateEdgeFrame::addSidewalk(GNEEdge* edge, const std::string& sidewalkWidth) const {
     bool sidewalkFound = false;
     // iterate over lanes
-    for (const auto& lane : edge->getLanes()) {
+    for (const auto& lane : edge->getChildLanes()) {
         // check if there is already a SideWalk
         if (lane->getAttribute(SUMO_ATTR_ALLOW) == "pedestrian") {
             sidewalkFound = true;
@@ -934,10 +930,10 @@ GNECreateEdgeFrame::addSidewalk(GNEEdge* edge, const std::string& sidewalkWidth)
     }
     // only add if previously there is no Sidewalk
     if (!sidewalkFound) {
-        edge->getNet()->getViewNet()->addRestrictedLane(edge->getLanes().at(0), SVC_PEDESTRIAN, false);
+        edge->getNet()->getViewNet()->addRestrictedLane(edge->getChildLanes().at(0), SVC_PEDESTRIAN, false);
         // set width
         if (sidewalkWidth != "default") {
-            edge->getLanes().at(0)->setAttribute(SUMO_ATTR_WIDTH, sidewalkWidth, myViewNet->getUndoList());
+            edge->getChildLanes().at(0)->setAttribute(SUMO_ATTR_WIDTH, sidewalkWidth, myViewNet->getUndoList());
         }
     }
 }

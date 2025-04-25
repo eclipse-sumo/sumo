@@ -18,7 +18,6 @@ Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|hi
 Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.opposite_lane|highway.residential' (first occurrence for edge '519007143').
 Warning: Ignoring turn sign information for 4 lanes on edge -672153089 with 3 driving lanes
 Warning: Ignoring turn sign information for 2 lanes on edge 1121159178 with 1 driving lanes
-Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '1152997292').
 Warning: Removing pt stop '1811884593' on non existing edge '170032548#0'.
 Warning: Removing pt stop '1811884599' on non existing edge '170032540#1'.
 Warning: Removing pt stop '3897201585' on non existing edge '386400695#1'.

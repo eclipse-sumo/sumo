@@ -1,0 +1,21 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+
+    <laneAreaDetector id="WE_inner" lane="B0C0_0" pos="0" endPos="-0.1" file="NUL"/>
+    <laneAreaDetector id="EW_inner" lane="C0B0_0" pos="0" endPos="-0.1" file="NUL"/>
+
+    <tlLogic id="aow" type="actuated" programID="P1" offset="0">
+        <phase duration="29" state="OGrO" minDur="5" maxDur="3600" next="1 3" earlyTarget="EW_clear"/>
+        <phase duration="3"  state="OyrO" earlyTarget="WE_clear and a:WE_inner"/>
+        <phase duration="13" state="OrrO"/>
+        <phase duration="29" state="OrGO" minDur="5" maxDur="3600" next="4 0" earlyTarget="WE_clear"/>
+        <phase duration="3"  state="OryO" earlyTarget="EW_clear and a:EW_inner"/>
+        <phase duration="13" state="OrrO"/>
+
+        <param key="show-detectors" value="true"/>
+
+        <condition id="WE_clear" value="z:D0.0 > 3"/>
+        <condition id="EW_clear" value="z:D1.0 > 3"/>
+
+    </tlLogic>
+</additional>

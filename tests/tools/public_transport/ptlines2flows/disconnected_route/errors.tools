@@ -1,0 +1,8 @@
+Warning: No connection between edge '1030416096#0' and edge '175925602' found.
+Warning: Vehicle '0_tram_61:0' has no valid route from edge '1030416096#0' to stop edge '175925602'.
+Warning: No connection between edge '1309359433' and edge '175925602' found.
+Warning: Vehicle '1_tram_61:1' has no valid route from edge '1309359433' to stop edge '175925602'.
+Warning: Teleporting vehicle '1_tram_61:1'; waited too long (blocked, disconnected), lane='1309359433_1', time=19.00.
+Warning: Vehicle '1_tram_61:1' ends teleporting on edge '175925602', time=19.00.
+Warning: Teleporting vehicle '0_tram_61:0'; waited too long (wrong lane, disconnected), lane='1030416096#0_0', time=240.00.
+Warning: Vehicle '0_tram_61:0' ends teleporting on edge '175925602', time=240.00.

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,8 +38,8 @@
 GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos,
                                        bool geo, const std::string& lane, double posOverLane, bool friendlyPos, double posLat,
                                        const std::string& icon, double layer, double angle, const std::string& imgFile,
-                                       bool relativePath, double width, double height) :
-    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, relativePath, width, height),
+                                       double width, double height) :
+    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, width, height),
     GUIGlObject_AbstractAdd(GLO_POI, id,
                             (lane.size() > 0) ? GUIIconSubSys::getIcon(GUIIcon::POILANE) : geo ? GUIIconSubSys::getIcon(GUIIcon::POIGEO) : GUIIconSubSys::getIcon(GUIIcon::POI)) {
 }
@@ -50,7 +50,7 @@ GUIPointOfInterest::~GUIPointOfInterest() {}
 
 GUIGLObjectPopupMenu*
 GUIPointOfInterest::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
     // build shape header
     buildShapePopupOptions(app, ret, getShapeType());
     return ret;
@@ -96,7 +96,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         GLHelper::pushName(getGlID());
         // draw inner polygon
-        drawInnerPOI(s, this, this, false, s.altKeyPressed ? 0 : getShapeLayer(), getWidth(), getHeight());
+        drawInnerPOI(s, this, this, false, s.poiUseCustomLayer ? s.poiCustomLayer : getShapeLayer(), getWidth(), getHeight());
         // pop name
         GLHelper::popName();
     }
@@ -149,7 +149,7 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
         }
     } else {
         // fallback if no image is defined
-        GLHelper::drawFilledCircle((double) 1.3 * exaggeration, s.poiDetail);
+        GLHelper::drawFilledCircle(width * 0.5 * exaggeration, s.poiDetail);
         // check if draw polygon
         if (POI->getIcon() != POIIcon::NONE) {
             // translate

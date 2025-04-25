@@ -1,5 +1,6 @@
 [run_dependent_text]
 output:Starting optimization for interval{[->]}Optimization succeeded
+output:HiGHS run time
 
 [unordered_text]
 output:Wrote.*routes.*achieving total count

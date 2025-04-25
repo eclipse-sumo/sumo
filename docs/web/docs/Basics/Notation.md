@@ -11,7 +11,7 @@ described.
 If you encounter something like this:
 
 ```
-netconvert --visum=MyVisumNet.inp --output-file=MySUMONet.net.xml
+netconvert --visum=MyVisumNet.inp --output-file=MySUMONet.net.xml
 ```
 
 you should know that this is a call on the command line. There may be
@@ -21,8 +21,8 @@ following newline). The following example means exactly the same as the
 one above:
 
 ```
-netconvert --visum=MyVisumNet.inp \
-  --output-file=MySUMONet.net.xml
+netconvert --visum=MyVisumNet.inp \
+  --output-file=MySUMONet.net.xml
 ```
 
 ## Application Options

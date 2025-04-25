@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -64,7 +64,7 @@ public:
     void write(OutputDevice& device);
     void addWayNode(long long int way, long long int node);
 
-    void setMyNumOfStops(int numStops);
+    void setNumOfStops(int numStops, int missingBefore, int missingAfter);
 
     /// @brief get line reference (not unique)
     const std::string& getRef() const {
@@ -107,6 +107,14 @@ public:
         myName = name;
     }
 
+    void setRef(const std::string& line) {
+        myRef = line;
+    }
+
+    void setPeriod(int intervalS) {
+        myInterval = intervalS / 60;
+    }
+
     inline const std::vector<std::string>& getWays() const {
         return myWays;
     }
@@ -141,4 +149,6 @@ public:
 private:
 
     int myNumOfStops;
+    int myMissingStopsBefore;
+    int myMissingStopsAfter;
 };

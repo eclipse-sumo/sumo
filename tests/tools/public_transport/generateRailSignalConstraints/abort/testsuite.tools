@@ -4,6 +4,12 @@ repeat3
 # like 'basic' but repeat the same trains again after 1000s and 2000s
 repeat3_writeInactive
 
+# like 'basic' but repeat the same trains again after 1000s and 2000s
+repeat3_allInactive
+
+# like 'basic' but repeat the same trains again after 1000s and 2000s
+repeat3_writeInactive_allInactive
+
 # each train has multiple stops. Constraints should not be written for stops after the first inconsistence.
 # 
 multiStop

@@ -14,6 +14,8 @@ The generated traffic should obviously match the counting data but this requirem
 - [jtcrouter](../Tools/Turns.md#jtcrouterpy) uses turn-counts
 - [routeSampler](../Tools/Turns.md#routesamplerpy) uses turn-counts and edge counts (and also origin-destination counts)
 
+There is also a large suite of tools to import and transform different counting data formats. An overview of these can be found at [Counting data meta ticket](https://github.com/eclipse-sumo/sumo/issues/6609).
+
 
 ## Choosing the right tool
 The algorithms listed above where developed to solve different problems and may work badly when used on the wrong kind of problem.
@@ -126,10 +128,10 @@ follows:
 ```
 Detector;Time;qPKW;qLKW;vPKW;vLKW
 myDet1;0;10;2;100;80
-... further entries ...
+... further entries ...
 ```
 
-This means the first time has to name the entries (columns). Their order
+This means the first line contains the header with the column names. Their order
 is not of importance, but at least the following columns must be
 included:
 
@@ -147,6 +149,10 @@ The following columns may optionally be included:
   within this time period
 - vLKW: The average speed of transport vehicles that drove over the
   detector within this time period in km/h
+
+!!! caution
+    Using a different separator character or changing the name of an obligatory column will make dfrouter skip the data.
+
 
 !!! caution
     [dfrouter](../dfrouter.md) assumes that counts are given once per minute. To handle data with a different granularity, option **--time-step SECONDS** must be used.
@@ -172,8 +178,6 @@ determined by source detectors alone.
     there in proportion to the measured flow
   - If sink detectors measure no flow at all, all vehicles will
     drive to one (arbitrary) sink
-
-The number of will be determined by
 
 ## Generating Vehicles
 
@@ -242,13 +246,13 @@ vehicles in its emitters-output. Assuming that
 [dfrouter](../dfrouter.md) was called with the options
 
 ```
-dfrouter --net-file net.net.xml --routes-output routes.rou.xml --emitters-output vehicles.rou.xml --measure-files flows.txt
+dfrouter --net-file net.net.xml --routes-output routes.rou.xml --emitters-output vehicles.rou.xml --measure-files flows.txt
 ```
 
 sumo must be called in the following way:
 
 ```
-sumo --net-file net.net.xml --additional-files routes.rou.xml,vehicles.rou.xml
+sumo --net-file net.net.xml --additional-files routes.rou.xml,vehicles.rou.xml
 ```
 
 If you run the tool
@@ -256,8 +260,8 @@ If you run the tool
 to sort the vehicles, either of the following will work:
 
 ```
-sumo --net-file net.net.xml --route-files routes.rou.xml,sorted_vehicles.rou.xml
-sumo --net-file net.net.xml --route-files sorted_vehicles.rou.xml --additional-files routes.rou.xml
+sumo --net-file net.net.xml --route-files routes.rou.xml,sorted_vehicles.rou.xml
+sumo --net-file net.net.xml --route-files sorted_vehicles.rou.xml --additional-files routes.rou.xml
 ```
 
 # flowrouter.py

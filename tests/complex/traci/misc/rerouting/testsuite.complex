@@ -17,6 +17,9 @@ rerouteParkingArea_undeparted
 # tests for behavior when using setRoutingMode
 routingMode
 
+# interaction between transient permission changes (closingReroute) and routingMode
+rerouter_routingMode
+
 # rerouting person
 person
 findIntermodalRoute

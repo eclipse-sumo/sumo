@@ -1,0 +1,34 @@
+<routes>
+  <vType id="bike_bicycle" vClass="bicycle">
+      <param key="has.taxi.device" value="true"/>
+      <param key="device.taxi.stands-rerouter" value="rr0"/>
+      <param key="parking.memory" value="1000000"/>
+      <param key="parking.absfreespace.weight" value="1"/>
+      <param key="parking.distanceto.weight" value="0"/>
+      <param key="parking.knowledge" value="1"/>
+  </vType>
+
+  <person id="p1" depart="0.00">
+        <personTrip from="-1939" to="-1606" modes="taxi"/>
+  </person>
+
+   <!-- <person id="p1" depart="0.00">
+        <walk from="-1939" to="1940"/>
+        <personTrip from="1940" to="-474" modes="taxi"/>
+        <walk from="474" to="-1606"/>
+  </person> -->
+
+  <!-- <vehicle id="v1" type="bike_bicycle" depart="triggered" line="taxi">
+      <stop parkingArea="parkingLot" duration="5"/>
+      <route edges= "1940 1956 -196 184 1992 -462 474"/>
+      <stop parkingArea="parkingLot2" duration="20"/>
+  </vehicle> -->
+
+  <trip id="bike0" type="bike_bicycle" depart="0" departPos="stop" departLane="best">
+  <stop parkingArea="parkingLot" triggered="person"/>
+  </trip>
+
+  <trip id="bike1" type="bike_bicycle" depart="0" departPos="stop" departLane="best">
+  <stop parkingArea="parkingLot2" triggered="person"/>
+  </trip>
+</routes>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,73 +45,8 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_PERSON_VARIABLE, variable, id);
     try {
-        // in case of SPLIT_TAXI_RESERVATIONS id is a reservation id and handleVariable would throw an "unknown person" error
-        if (variable == libsumo::SPLIT_TAXI_RESERVATIONS || !libsumo::Person::handleVariable(id, variable, &server, &inputStorage)) {
-            switch (variable) {
-                case libsumo::VAR_EDGES: {
-                    int nextStageIndex = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
-                    }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                    server.getWrapperStorage().writeStringList(libsumo::Person::getEdges(id, nextStageIndex));
-                    break;
-                }
-                case libsumo::VAR_STAGE: {
-                    int nextStageIndex = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
-                    }
-                    libsumo::StorageHelper::writeStage(server.getWrapperStorage(), libsumo::Person::getStage(id, nextStageIndex));
-                    break;
-                }
-                case libsumo::VAR_TAXI_RESERVATIONS: {
-                    int onlyNew = 0;
-                    if (!server.readTypeCheckingInt(inputStorage, onlyNew)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Retrieval of reservations requires an integer flag.", outputStorage);
-                    }
-                    const std::vector<libsumo::TraCIReservation> result = libsumo::Person::getTaxiReservations(onlyNew);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeInt((int)result.size());
-                    for (const libsumo::TraCIReservation& r : result) {
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                        server.getWrapperStorage().writeInt(10);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(r.id);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                        server.getWrapperStorage().writeStringList(r.persons);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(r.group);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(r.fromEdge);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(r.toEdge);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(r.departPos);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(r.arrivalPos);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(r.depart);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(r.reservationTime);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        server.getWrapperStorage().writeInt(r.state);
-                    }
-                    break;
-                }
-                case libsumo::SPLIT_TAXI_RESERVATIONS: {
-                    std::vector<std::string> persons;
-                    if (!server.readTypeCheckingStringList(inputStorage, persons)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Splitting of reservations requires an string list.", outputStorage);
-                    }
-                    std::string splitID = libsumo::Person::splitTaxiReservation(id, persons);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                    server.getWrapperStorage().writeString(splitID);
-                    break;
-                }
-                default:
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-            }
+        if (!libsumo::Person::handleVariable(id, variable, &server, &inputStorage)) {
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Get Person Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, e.what(), outputStorage);
@@ -239,10 +174,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     libsumo::StorageHelper::readStage(inputStorage, stage);
                     libsumo::Person::appendStage(id, stage);
                 } else {
-                    int stageType;
-                    if (!server.readTypeCheckingInt(inputStorage, stageType)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for adding a stage must be the stage type given as int.", outputStorage);
-                    }
+                    const int stageType = StoHelp::readTypedInt(inputStorage, "The first parameter for adding a stage must be the stage type given as int.");
                     if (stageType == libsumo::STAGE_DRIVING) {
                         // append driving stage
                         if (numParameters != 4) {
@@ -320,10 +252,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (inputStorage.readInt() != 2) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Replacing a person stage requires a compound object of size 2.", outputStorage);
                 }
-                int nextStageIndex = 0;
-                if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "First parameter of replace stage should be an integer", outputStorage);
-                }
+                const int nextStageIndex = StoHelp::readTypedInt(inputStorage,  "First parameter of replace stage should be an integer");
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter of replace stage should be a compound object", outputStorage);
                 }
@@ -337,10 +266,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             break;
 
             case libsumo::REMOVE_STAGE: {
-                int nextStageIndex = 0;
-                if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
-                }
+                const int nextStageIndex = StoHelp::readTypedInt(inputStorage, "The message must contain the stage index.");
                 libsumo::Person::removeStage(id, nextStageIndex);
             }
             break;

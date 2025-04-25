@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,15 +26,15 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import argparse
 from collections import defaultdict
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 from sumolib.output import parse  # noqa
+from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import Statistics, parseTime  # noqa
 
 
 def get_options(args=None):
-    argParser = argparse.ArgumentParser()
+    argParser = ArgumentParser()
     argParser.add_argument("-t", "--tripinfo-file", dest="tripinfoFile",
                            help="tripinfo file written by the simulation")
     argParser.add_argument("-r", "--route-files", dest="routeFiles",

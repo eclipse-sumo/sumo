@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2014-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -63,19 +63,19 @@ def convert(vehRoutes, routeOut, odOut, interval):
         routes.write("</routes>\n")
     with open(odOut, 'w') as od:
         od.write("<demand>\n")
-        for ac, odList in actorConfig.iteritems():
+        for ac, odList in actorConfig.items():
             od.write('    <actorConfig id="%s">\n' % ac)
             for idx, odMap in enumerate(odList):
                 if odMap:
                     od.write('        <timeSlice startTime="%s" duration="%s">\n' % (
                         idx * interval * 1000, interval * 1000))
-                    for (orig, dest), routeMap in odMap.iteritems():
+                    for (orig, dest), routeMap in odMap.items():
                         total = 0
-                        for amount, _ in routeMap.itervalues():
+                        for amount, _ in routeMap.values():
                             total += amount
                         od.write('            <odPair origin="%s" destination="%s" amount="%s">\n' % (
                             orig, dest, total))
-                        for idx, (amount, ttSum) in routeMap.iteritems():
+                        for idx, (amount, ttSum) in routeMap.items():
                             od.write(('                <routeCost routeId="%s" amount="%s" ' +
                                       'averageTraveltime="%s"/>\n') % (idx, amount, int(1000. * ttSum / amount)))
                             total += amount

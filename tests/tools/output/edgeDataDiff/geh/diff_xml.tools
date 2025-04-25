@@ -1,0 +1,6 @@
+<meandata>
+    <interval begin="0" end="100" id="ABC@input_edgedata.xml - XYZ@input_data.xml">
+        <edge id="1" attr="4.00" std_attr="5.00"/>
+        <edge id="2" attr="12.65" std_attr="5.00"/>
+    </interval>
+</meandata>

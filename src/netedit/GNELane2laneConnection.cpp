@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,7 +24,6 @@
 
 #include "GNELane2laneConnection.h"
 
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -43,7 +42,7 @@ GNELane2laneConnection::updateLane2laneConnection() {
     myConnectionsMap.clear();
     // iterate over outgoingEdge's lanes
     for (const auto& outgoingEdge : myFromLane->getParentEdge()->getToJunction()->getGNEOutgoingEdges()) {
-        for (const auto& outgoingLane : outgoingEdge->getLanes()) {
+        for (const auto& outgoingLane : outgoingEdge->getChildLanes()) {
             // get NBEdges from and to
             const NBEdge* NBEdgeFrom = myFromLane->getParentEdge()->getNBEdge();
             const NBEdge* NBEdgeTo = outgoingLane->getParentEdge()->getNBEdge();

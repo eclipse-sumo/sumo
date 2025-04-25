@@ -1,1 +1,2 @@
 --step-length 0.1
+--fcd-output.params caccVehicleMode

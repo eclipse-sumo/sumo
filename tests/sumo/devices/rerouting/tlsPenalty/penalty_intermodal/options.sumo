@@ -1,0 +1,8 @@
+--no-step-log 
+--net-file=net3.net.xml 
+-r input_routes.rou.xml
+--device.rerouting.adaptation-steps 18
+--device.rerouting.adaptation-interval 10
+--weights.tls-penalty 1.0
+--vehroute-output vehroutes.xml
+--vehroute-output.cost

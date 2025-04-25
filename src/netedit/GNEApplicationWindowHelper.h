@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,11 +41,12 @@
 class GNEApplicationWindow;
 class GNELoadThread;
 class GNENet;
+class GNENetgenerateDialog;
 class GNEPythonTool;
 class GNEPythonToolDialog;
-class GNENetgenerateDialog;
-class GNERunPythonToolDialog;
 class GNERunNetgenerateDialog;
+class GNERunPythonToolDialog;
+class GNETagPropertiesDatabase;
 class GNEUndoList;
 class GNEUndoListDialog;
 class GNEViewNet;
@@ -178,6 +179,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief set JuPedSim view
         void setJuPedSimView();
+
+        /// @brief checkBox for allow undo-redo loading
+        MFXMenuCheckIcon* menuCheckAllowUndoRedoLoading = nullptr;
 
     private:
         /// @brief build netedit config section
@@ -513,7 +517,7 @@ struct GNEApplicationWindowHelper {
             MFXMenuCheckIcon* menuCheckChangeAllPhases = nullptr;
 
             /// @brief menu check to we should warn about merging junctions
-            MFXMenuCheckIcon* menuCheckWarnAboutMerge = nullptr;
+            MFXMenuCheckIcon* menuCheckMergeAutomatically = nullptr;
 
             /// @brief menu check to show connection as bubble in "Move" mode.
             MFXMenuCheckIcon* menuCheckShowJunctionBubble = nullptr;
@@ -528,7 +532,7 @@ struct GNEApplicationWindowHelper {
             MFXMenuCheckIcon* menuCheckAutoOppositeEdge = nullptr;
 
             /// @brief separator
-            FXMenuSeparator* separator;
+            FXMenuSeparator* separator = nullptr;
 
         private:
             /// @brief pointer to current GNEApplicationWindow
@@ -590,7 +594,7 @@ struct GNEApplicationWindowHelper {
             MFXMenuCheckIcon* menuCheckLockContainer = nullptr;
 
             /// @brief separator
-            FXMenuSeparator* separator;
+            FXMenuSeparator* separator = nullptr;
 
         private:
             /// @brief pointer to current GNEApplicationWindow
@@ -679,6 +683,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCommand for open undolist dialog
         FXMenuCommand* openUndolistDialog = nullptr;
+
+        /// @brief checkBox for allow undo-redo
+        FXMenuCheck* menuCheckAllowUndoRedo = nullptr;
 
         /// @brief network view options
         NetworkViewOptions networkViewOptions;
@@ -1130,6 +1137,12 @@ struct GNEApplicationWindowHelper {
 
         /// @brief SUMO config file
         const std::string myFile;
+
+        /// @brief Invalidated copy constructor.
+        GNESumoConfigHandler(const GNESumoConfigHandler&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        GNESumoConfigHandler& operator=(const GNESumoConfigHandler&) = delete;
     };
 
     /// @brief netedit config handler
@@ -1145,25 +1158,31 @@ struct GNEApplicationWindowHelper {
     private:
         /// @brief netedit config file
         const std::string myFile;
+
+        /// @brief Invalidated copy constructor.
+        GNENeteditConfigHandler(const GNENeteditConfigHandler&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        GNENeteditConfigHandler& operator=(const GNENeteditConfigHandler&) = delete;
     };
 
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
-                                         const int numericalKeyPressed, FXObject* obj, FXSelector sel);
+                                         FXObject* obj, FXSelector sel);
 
     /// @brief toggle edit options Demand menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsDemand(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
-                                        const int numericalKeyPressed, FXObject* obj, FXSelector sel);
+                                        FXObject* obj, FXSelector sel);
 
     /// @brief toggle edit options Data menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsData(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
-                                      const int numericalKeyPressed, FXObject* obj, FXSelector sel);
+                                      FXObject* obj, FXSelector sel);
 
     /// @brief check if a string ends with another string
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
-    /// @brief open general file dialog
-    static std::string openFileDialog(FXWindow* window, bool save, bool multi);
+    /// @brief open xml file dialog
+    static std::string openXMLFileDialog(FXWindow* window, bool save, bool multi);
 
     /// @brief open netconvert file dialog
     static std::string openNetworkFileDialog(FXWindow* window, bool save, bool multi = false);
@@ -1210,10 +1229,10 @@ struct GNEApplicationWindowHelper {
     /// @brief open option dialog
     static std::string openOptionFileDialog(FXWindow* window, bool save);
 
+    /// @brief open filename dialog (general)
+    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon,
+                                      const std::string& extensions, bool save, bool multi = false);
 private:
-    /// @brief open filename dialog
-    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon, const std::string patternList, bool save, bool multi = false);
-
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;
 

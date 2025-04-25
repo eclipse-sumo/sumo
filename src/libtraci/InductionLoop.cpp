@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -101,29 +101,7 @@ InductionLoop::getVehicleData(const std::string& loopID) {
     std::vector<libsumo::TraCIVehicleData> result;
     tcpip::Storage& ret = Dom::get(libsumo::LAST_STEP_VEHICLE_DATA, loopID);
     ret.readInt();  // components
-    // number of items
-    ret.readUnsignedByte();
-    const int n = ret.readInt();
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCIVehicleData vd;
-
-        ret.readUnsignedByte();
-        vd.id = ret.readString();
-
-        ret.readUnsignedByte();
-        vd.length = ret.readDouble();
-
-        ret.readUnsignedByte();
-        vd.entryTime = ret.readDouble();
-
-        ret.readUnsignedByte();
-        vd.leaveTime = ret.readDouble();
-
-        ret.readUnsignedByte();
-        vd.typeID = ret.readString();
-
-        result.push_back(vd);
-    }
+    StoHelp::readVehicleDataVector(ret, result);
     return result;
 }
 

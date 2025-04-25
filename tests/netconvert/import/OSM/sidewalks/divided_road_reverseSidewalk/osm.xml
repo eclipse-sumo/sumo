@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.0.1 (2981448 spike-07.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="51.0411560" minlon="2.3737600" maxlat="51.0413300" maxlon="2.3740800"/>
+ <node id="900614537" visible="true" version="1" changeset="5706430" timestamp="2010-09-07T10:15:47Z" user="cquest" uid="158826" lat="51.0408135" lon="2.3747760"/>
+ <node id="900615787" visible="true" version="1" changeset="5706430" timestamp="2010-09-07T10:16:42Z" user="cquest" uid="158826" lat="51.0410522" lon="2.3739015"/>
+ <node id="900621422" visible="true" version="1" changeset="5706430" timestamp="2010-09-07T10:21:02Z" user="cquest" uid="158826" lat="51.0408589" lon="2.3746401"/>
+ <node id="900621836" visible="true" version="1" changeset="5706430" timestamp="2010-09-07T10:21:15Z" user="cquest" uid="158826" lat="51.0408310" lon="2.3744637"/>
+ <node id="900621874" visible="true" version="1" changeset="5706430" timestamp="2010-09-07T10:21:17Z" user="cquest" uid="158826" lat="51.0409960" lon="2.3738967"/>
+ <node id="900633408" visible="true" version="1" changeset="5706430" timestamp="2010-09-07T10:30:07Z" user="cquest" uid="158826" lat="51.0410368" lon="2.3738534"/>
+ <node id="900646291" visible="true" version="1" changeset="5706430" timestamp="2010-09-07T10:40:47Z" user="cquest" uid="158826" lat="51.0409458" lon="2.3740797"/>
+ <node id="900653291" visible="true" version="1" changeset="5706430" timestamp="2010-09-07T10:46:02Z" user="cquest" uid="158826" lat="51.0410738" lon="2.3738487"/>
+ <node id="900655880" visible="true" version="1" changeset="5706430" timestamp="2010-09-07T10:48:52Z" user="cquest" uid="158826" lat="51.0410320" lon="2.3739114"/>
+ <node id="900660930" visible="true" version="1" changeset="5706430" timestamp="2010-09-07T10:51:48Z" user="cquest" uid="158826" lat="51.0407277" lon="2.3747054"/>
+ <node id="900690620" visible="true" version="1" changeset="5706939" timestamp="2010-09-07T11:14:35Z" user="cquest" uid="158826" lat="51.0410403" lon="2.3740908"/>
+ <node id="900691805" visible="true" version="1" changeset="5706939" timestamp="2010-09-07T11:15:20Z" user="cquest" uid="158826" lat="51.0412905" lon="2.3742284"/>
+ <node id="900701053" visible="true" version="1" changeset="5706939" timestamp="2010-09-07T11:24:32Z" user="cquest" uid="158826" lat="51.0409054" lon="2.3745014"/>
+ <node id="900703675" visible="true" version="1" changeset="5706939" timestamp="2010-09-07T11:27:18Z" user="cquest" uid="158826" lat="51.0411185" lon="2.3739959"/>
+ <node id="900725668" visible="true" version="1" changeset="5706939" timestamp="2010-09-07T11:46:51Z" user="cquest" uid="158826" lat="51.0407984" lon="2.3745636"/>
+ <node id="900751989" visible="true" version="1" changeset="5706939" timestamp="2010-09-07T12:03:46Z" user="cquest" uid="158826" lat="51.0409336" lon="2.3745245"/>
+ <node id="900754376" visible="true" version="1" changeset="5706939" timestamp="2010-09-07T12:05:12Z" user="cquest" uid="158826" lat="51.0410758" lon="2.3739053"/>
+ <node id="900756716" visible="true" version="1" changeset="5706939" timestamp="2010-09-07T12:06:15Z" user="cquest" uid="158826" lat="51.0410103" lon="2.3739421"/>
+ <node id="900769175" visible="true" version="1" changeset="5706939" timestamp="2010-09-07T12:20:02Z" user="cquest" uid="158826" lat="51.0411822" lon="2.3740420"/>
+ <node id="900787742" visible="true" version="1" changeset="5707562" timestamp="2010-09-07T12:36:15Z" user="cquest" uid="158826" lat="51.0409368" lon="2.3740715"/>
+ <node id="900789153" visible="true" version="1" changeset="5707562" timestamp="2010-09-07T12:37:00Z" user="cquest" uid="158826" lat="51.0407808" lon="2.3745445"/>
+ <node id="900851906" visible="true" version="1" changeset="5707562" timestamp="2010-09-07T13:01:21Z" user="cquest" uid="158826" lat="51.0410028" lon="2.3740126"/>
+ <node id="900884103" visible="true" version="1" changeset="5707562" timestamp="2010-09-07T13:14:18Z" user="cquest" uid="158826" lat="51.0410914" lon="2.3740846"/>
+ <node id="900893960" visible="true" version="1" changeset="5707562" timestamp="2010-09-07T13:18:12Z" user="cquest" uid="158826" lat="51.0410009" lon="2.3739795"/>
+ <node id="900902039" visible="true" version="1" changeset="5707562" timestamp="2010-09-07T13:21:55Z" user="cquest" uid="158826" lat="51.0411094" lon="2.3738731"/>
+ <node id="900927369" visible="true" version="1" changeset="5708013" timestamp="2010-09-07T13:37:50Z" user="cquest" uid="158826" lat="51.0411064" lon="2.3739408"/>
+ <node id="900927839" visible="true" version="1" changeset="5708013" timestamp="2010-09-07T13:38:37Z" user="cquest" uid="158826" lat="51.0408877" lon="2.3746632"/>
+ <node id="900930886" visible="true" version="1" changeset="5708013" timestamp="2010-09-07T13:42:19Z" user="cquest" uid="158826" lat="51.0412151" lon="2.3743260"/>
+ <node id="900932269" visible="true" version="1" changeset="5708013" timestamp="2010-09-07T13:44:12Z" user="cquest" uid="158826" lat="51.0410877" lon="2.3739148"/>
+ <node id="900932558" visible="true" version="1" changeset="5708013" timestamp="2010-09-07T13:44:34Z" user="cquest" uid="158826" lat="51.0410088" lon="2.3738758"/>
+ <node id="900933815" visible="true" version="1" changeset="5708013" timestamp="2010-09-07T13:45:45Z" user="cquest" uid="158826" lat="51.0408124" lon="2.3744488"/>
+ <node id="900939170" visible="true" version="1" changeset="5708013" timestamp="2010-09-07T13:54:05Z" user="cquest" uid="158826" lat="51.0411906" lon="2.3740322"/>
+ <node id="900943770" visible="true" version="1" changeset="5708013" timestamp="2010-09-07T14:00:32Z" user="cquest" uid="158826" lat="51.0411132" lon="2.3739573"/>
+ <node id="1877289102" visible="true" version="2" changeset="126281566" timestamp="2022-09-16T23:41:50Z" user="Alexb60" uid="7453584" lat="51.0411413" lon="2.3735938"/>
+ <node id="1877290306" visible="true" version="2" changeset="126281566" timestamp="2022-09-16T23:41:50Z" user="Alexb60" uid="7453584" lat="51.0410848" lon="2.3737406"/>
+ <node id="1877290307" visible="true" version="2" changeset="126281566" timestamp="2022-09-16T23:41:50Z" user="Alexb60" uid="7453584" lat="51.0411002" lon="2.3737557"/>
+ <node id="1877290308" visible="true" version="2" changeset="126281566" timestamp="2022-09-16T23:41:50Z" user="Alexb60" uid="7453584" lat="51.0411177" lon="2.3737783"/>
+ <node id="1877290311" visible="true" version="3" changeset="127582997" timestamp="2022-10-15T18:10:43Z" user="Popolon" uid="27454" lat="51.0411561" lon="2.3736825">
+  <tag k="direction" v="forward"/>
+  <tag k="highway" v="give_way"/>
+ </node>
+ <node id="1877290313" visible="true" version="2" changeset="126281566" timestamp="2022-09-16T23:41:51Z" user="Alexb60" uid="7453584" lat="51.0411685" lon="2.3737261"/>
+ <node id="1877290314" visible="true" version="2" changeset="126281566" timestamp="2022-09-16T23:41:51Z" user="Alexb60" uid="7453584" lat="51.0411797" lon="2.3737570">
+  <tag k="crossing" v="marked"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="1877290315" visible="true" version="2" changeset="126281566" timestamp="2022-09-16T23:41:51Z" user="Alexb60" uid="7453584" lat="51.0412901" lon="2.3739791"/>
+ <node id="1877290316" visible="true" version="2" changeset="126281566" timestamp="2022-09-16T23:41:51Z" user="Alexb60" uid="7453584" lat="51.0412396" lon="2.3740048"/>
+ <node id="1877290317" visible="true" version="2" changeset="126281566" timestamp="2022-09-16T23:41:51Z" user="Alexb60" uid="7453584" lat="51.0413341" lon="2.3741640"/>
+ <node id="1877290318" visible="true" version="2" changeset="126281566" timestamp="2022-09-16T23:41:51Z" user="Alexb60" uid="7453584" lat="51.0413131" lon="2.3740281"/>
+ <node id="1877290319" visible="true" version="2" changeset="126281566" timestamp="2022-09-16T23:41:51Z" user="Alexb60" uid="7453584" lat="51.0414274" lon="2.3743077"/>
+ <node id="10030618826" visible="true" version="1" changeset="126281566" timestamp="2022-09-16T23:41:49Z" user="Alexb60" uid="7453584" lat="51.0410544" lon="2.3737157"/>
+ <node id="10030618864" visible="true" version="1" changeset="126281566" timestamp="2022-09-16T23:41:49Z" user="Alexb60" uid="7453584" lat="51.0411320" lon="2.3738009">
+  <tag k="crossing" v="marked"/>
+  <tag k="highway" v="crossing"/>
+ </node>
+ <node id="10030618865" visible="true" version="1" changeset="126281566" timestamp="2022-09-16T23:41:49Z" user="Alexb60" uid="7453584" lat="51.0412689" lon="2.3740555"/>
+ <node id="10030618866" visible="true" version="1" changeset="126281566" timestamp="2022-09-16T23:41:49Z" user="Alexb60" uid="7453584" lat="51.0413007" lon="2.3741115"/>
+ <node id="10030618867" visible="true" version="1" changeset="126281566" timestamp="2022-09-16T23:41:49Z" user="Alexb60" uid="7453584" lat="51.0413341" lon="2.3740749"/>
+ <node id="10030618868" visible="true" version="1" changeset="126281566" timestamp="2022-09-16T23:41:49Z" user="Alexb60" uid="7453584" lat="51.0413579" lon="2.3741320"/>
+ <way id="177272023" visible="true" version="7" changeset="127938200" timestamp="2022-10-22T21:13:45Z" user="Alexb60" uid="7453584">
+  <nd ref="1877290319"/>
+  <nd ref="10030618868"/>
+  <nd ref="10030618867"/>
+  <nd ref="1877290318"/>
+  <nd ref="1877290315"/>
+  <nd ref="1877290314"/>
+  <nd ref="1877290313"/>
+  <nd ref="1877290311"/>
+  <nd ref="1877289102"/>
+  <tag k="access" v="yes"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="cycleway" v="no"/>
+  <tag k="foot" v="yes"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Rue de l'Amiral de Ruyter"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="source" v="Ortho littorale 2000"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+ <way id="177272024" visible="true" version="5" changeset="127938200" timestamp="2022-10-22T21:13:45Z" user="Alexb60" uid="7453584">
+  <nd ref="10030618826"/>
+  <nd ref="1877290306"/>
+  <nd ref="1877290307"/>
+  <nd ref="1877290308"/>
+  <nd ref="10030618864"/>
+  <nd ref="1877290316"/>
+  <nd ref="10030618865"/>
+  <nd ref="10030618866"/>
+  <nd ref="1877290317"/>
+  <nd ref="1877290319"/>
+  <tag k="access" v="yes"/>
+  <tag k="bicycle" v="yes"/>
+  <tag k="cycleway" v="no"/>
+  <tag k="foot" v="yes"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="maxspeed" v="50"/>
+  <tag k="name" v="Rue de l'Amiral de Ruyter"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="source" v="Ortho littorale 2000"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+</osm>

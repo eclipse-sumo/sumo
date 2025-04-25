@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,6 +66,7 @@ NIXMLNodesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_LOCATION:
+            delete myLocation;
             myLocation = NIImporter_SUMO::loadLocation(attrs);
             if (myLocation) {
                 GeoConvHelper::setLoadedPlain(getFileName(), *myLocation);
@@ -151,7 +152,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
         WRITE_ERRORF(TL("Missing position (at node ID='%')."), myID);
     }
     bool updateEdgeGeometries = node != nullptr && myPosition != node->getPosition();
-    node = processNodeType(attrs, node, myID, myPosition, updateEdgeGeometries, myNodeCont, myEdgeCont, myTLLogicCont);
+    node = processNodeType(attrs, node, myID, myPosition, updateEdgeGeometries, myNodeCont, myEdgeCont, myTLLogicCont, myLocation);
     myLastParameterised = node;
 }
 
@@ -159,7 +160,8 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
 NBNode*
 NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
                                    bool updateEdgeGeometries,
-                                   NBNodeCont& nc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
+                                   NBNodeCont& nc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc,
+                                   GeoConvHelper* from_srs) {
     bool ok = true;
     // get the type
     SumoXMLNodeType type = SumoXMLNodeType::UNKNOWN;
@@ -209,7 +211,7 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     PositionVector shape;
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nodeID.c_str(), ok, PositionVector());
-        if (!NBNetBuilder::transformCoordinates(shape)) {
+        if (!NBNetBuilder::transformCoordinates(shape, true, from_srs)) {
             WRITE_ERRORF(TL("Unable to project node shape at node '%'."), node->getID());
         }
         if (shape.size() > 2) {
@@ -273,7 +275,7 @@ NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes& attrs) {
         pos.setz(attrs.get<double>(SUMO_ATTR_Z, myID.c_str(), ok));
     }
 
-    NBNode* node = processNodeType(attrs, nullptr, myID, pos, false, myNodeCont, myEdgeCont, myTLLogicCont);
+    NBNode* node = processNodeType(attrs, nullptr, myID, pos, false, myNodeCont, myEdgeCont, myTLLogicCont, myLocation);
     if (ok) {
         myNodeCont.addCluster2Join(cluster, node);
     }

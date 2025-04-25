@@ -28,7 +28,7 @@ To delay output (i.e. until some warm-up time has passed), the option **--device
 ## Generated Output
 
 !!! caution
-    Please note the the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
+    Please note that the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
 	For the old behavior use the option **--emissions.volumetric-fuel**.
 
 The emission output is a xml-file containing the emission values for
@@ -75,11 +75,21 @@ The meanings of the written values are given in the following table.
 | pos         | meters               | The vehicle position measured from the start of the current lane                               |
 | speed       | m/s                  | The speed of the vehicle                                                                       |
 | angle       | degree               | The angle of the vehicle                                                                       |
-| pos_x      | \---                 | The absolut X coordinate of the vehicle. The value depends on the given geographic projection. |
-| pos_y      | \---                 | The absolut Y coordinate of the vehicle. The value depends on the given geographic projection. |
+| pos_x      | \---                 | The absolute X coordinate of the vehicle. The value depends on the given geographic projection. |
+| pos_y      | \---                 | The absolute Y coordinate of the vehicle. The value depends on the given geographic projection. |
 
 !!! caution
     When running with sub-second resolution, the emissions written during every simulation step are extrapolated to those that would be generated in 1 second. To avoid scaling (and thus simplify aggregation), set option **--emission-output.step-scaled**
+
+
+## Further Options
+
+- **--emission-output.geo** will toggle output coordinates to WGS84 (for
+  geo-referenced networks)
+- **--emission-output.attributes ATTR1,ATTR2,...** restricts written attributes to the given list (to reduce output). The following attributes are special:
+  - **all**: enables all attributes
+- **--emission-output.precision** will control the number of decimal digits in the output (default 2)
+- **--emission-output.step-scaled** will write per-step emissions rather than per-second emissions (only relevant when also using option **--step-length**)
 
 ## Visualization example
 The user-selected attributes can be plotted with use of [plotXMLAttributes.py](../../Tools/Visualization.md#plotxmlattributespy). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).

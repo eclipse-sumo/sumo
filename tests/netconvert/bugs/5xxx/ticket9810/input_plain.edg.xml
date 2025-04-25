@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-16 10:39:06.106216 by netdiff.py v1_11_0+0577-039c1c73205
+  options: ../../../osm/osm.net.xml BadHersfeld_loop.net.xml prt2 <doubleminus>plain-geo
+-->
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <edge id="-gneE107" from="gneJ65" numLanes="1" priority="-1" speed="13.89" to="gneJ93" type="highway.prt" width="1.50"/>
+    <edge id="-gneE138" from="gneJ63" numLanes="1" priority="-1" shape="9.709452,50.870019 9.709492,50.870029 9.709528,50.870035 9.709561,50.870042 9.709592,50.870049 9.709620,50.870056 9.709646,50.870064 9.709669,50.870073 9.709690,50.870082 9.709709,50.870092 9.709725,50.870103 9.709739,50.870113 9.709750,50.870125 9.709758,50.870137 9.709765,50.870149" speed="13.89" to="gneJ62" type="highway.prt" width="1.50"/>
+    <edge id="-gneE185" from="sz_7" numLanes="1" priority="-1" speed="13.89" to="gneJ6" type="highway.prt" width="1.50"/>
+    <edge id="-gneE198" from="gneJ138" numLanes="1" priority="-1" speed="13.89" to="gneJ63" type="highway.prt" width="1.50"/>
+    <edge id="-gneE34" allow="custom1" from="gneJ34" numLanes="1" priority="-1" speed="13.89" to="gneJ33" type="highway.prt" width="1.50"/>
+    <edge id="-gneE35" allow="custom1" from="gneJ35" numLanes="1" priority="-1" speed="13.89" to="gneJ34" type="highway.prt" width="1.50"/>
+    <edge id="-gneE36" allow="custom1" from="gneJ36" numLanes="1" priority="-1" speed="13.89" to="gneJ35" type="highway.prt" width="1.50"/>
+    <edge id="-gneE37" allow="custom1" from="gneJ37" numLanes="1" priority="-1" speed="13.89" to="gneJ36" type="highway.prt" width="1.50"/>
+    <edge id="-gneE38" allow="custom1" from="gneJ38" numLanes="1" priority="-1" speed="13.89" to="gneJ37" type="highway.prt" width="1.50"/>
+    <edge id="-gneE39" allow="custom1" from="gneJ39" numLanes="1" priority="-1" speed="13.89" to="gneJ38" type="highway.prt" width="1.50"/>
+    <edge id="-gneE4" allow="custom1" from="gneJ4" numLanes="1" priority="-1" speed="13.89" to="gneJ0" type="highway.prt" width="1.50"/>
+    <edge id="-gneE40" allow="custom1" from="gneJ40" numLanes="1" priority="-1" speed="13.89" to="gneJ39" type="highway.prt" width="1.50"/>
+    <edge id="-gneE41" allow="custom1" from="gneJ41" numLanes="1" priority="-1" speed="13.89" to="gneJ40" type="highway.prt" width="1.50"/>
+    <edge id="-gneE42" allow="custom1" from="gneJ42" numLanes="1" priority="-1" speed="13.89" to="gneJ41" type="highway.prt" width="1.50"/>
+    <edge id="-gneE43" allow="custom1" from="gneJ43" numLanes="1" priority="-1" speed="13.89" to="gneJ42" type="highway.prt" width="1.50"/>
+    <edge id="-gneE44" allow="custom1" from="gneJ44" numLanes="1" priority="-1" speed="13.89" to="gneJ43" type="highway.prt" width="1.50"/>
+    <edge id="-gneE45" allow="custom1" from="gneJ45" numLanes="1" priority="-1" speed="13.89" to="gneJ44" type="highway.prt" width="1.50"/>
+    <edge id="-gneE46" allow="custom1" from="gneJ46" numLanes="1" priority="-1" speed="13.89" to="gneJ45" type="highway.prt" width="1.50"/>
+    <edge id="-gneE47" allow="custom1" from="gneJ47" numLanes="1" priority="-1" speed="13.89" to="gneJ46" type="highway.prt" width="1.50"/>
+    <edge id="-gneE48" allow="custom1" from="gneJ48" numLanes="1" priority="-1" speed="13.89" to="gneJ47" type="highway.prt" width="1.50"/>
+    <edge id="-gneE49" allow="custom1" from="gneJ49" numLanes="1" priority="-1" speed="13.89" to="gneJ48" type="highway.prt" width="1.50"/>
+    <edge id="-gneE5" allow="custom1" from="gneJ5" numLanes="1" priority="-1" speed="13.89" to="gneJ4" type="highway.prt" width="1.50"/>
+    <edge id="-gneE50" allow="custom1" from="gneJ50" numLanes="1" priority="-1" speed="13.89" to="gneJ49" type="highway.prt" width="1.50"/>
+    <edge id="-gneE51" allow="custom1" from="gneJ51" numLanes="1" priority="-1" speed="13.89" to="gneJ50" type="highway.prt" width="1.50"/>
+    <edge id="-gneE52" allow="custom1" from="gneJ52" numLanes="1" priority="-1" speed="13.89" to="gneJ51" type="highway.prt" width="1.50"/>
+    <edge id="-gneE6" allow="custom1" from="gneJ6" numLanes="1" priority="-1" speed="13.89" to="gneJ5" type="highway.prt" width="1.50"/>
+    <edge id="-gneE62" allow="custom1" from="gneJ56" numLanes="1" priority="-1" speed="13.89" to="gneJ15" type="highway.prt" width="1.50"/>
+    <edge id="-gneE63" allow="custom1" from="gneJ57" numLanes="1" priority="-1" speed="13.89" to="gneJ56" type="highway.prt" width="1.50"/>
+    <edge id="-gneE64" allow="custom1" from="gneJ58" numLanes="1" priority="-1" speed="13.89" to="gneJ57" type="highway.prt" width="1.50"/>
+    <edge id="-gneE65" allow="custom1" from="gneJ59" numLanes="1" priority="-1" speed="13.89" to="gneJ58" type="highway.prt" width="1.50"/>
+    <edge id="-gneE66" allow="custom1" from="gneJ60" numLanes="1" priority="-1" speed="13.89" to="gneJ59" type="highway.prt" width="1.50"/>
+    <edge id="-gneE67" allow="custom1" from="gneJ61" numLanes="1" priority="-1" speed="13.89" to="gneJ60" type="highway.prt" width="1.50"/>
+    <edge id="-gneE68" allow="custom1" from="gneJ62" numLanes="1" priority="-1" speed="13.89" to="gneJ61" type="highway.prt" width="1.50"/>
+    <edge id="Hospital" from="gneJ54" numLanes="1" priority="-1" speed="13.89" to="gneJ87" type="highway.prt" width="1.50"/>
+    <edge id="Hotel" from="gneJ126" numLanes="1" priority="-1" speed="13.89" to="gneJ140"/>
+    <edge id="Station" from="gneJ85" numLanes="1" priority="-1" speed="13.89" to="gneJ86" type="highway.prt" width="1.50"/>
+    <edge id="gneE0" allow="custom1" from="gneJ0" numLanes="1" priority="-1" speed="13.89" to="gneJ1" type="highway.prt" width="1.50"/>
+    <edge id="gneE1" allow="custom1" from="gneJ1" numLanes="1" priority="-1" speed="13.89" to="gneJ2" type="highway.prt" width="1.50"/>
+    <edge id="gneE107" from="gneJ93" numLanes="1" priority="-1" speed="13.89" to="gneJ65" type="highway.prt" width="1.50"/>
+    <edge id="gneE109" from="gneJ94" numLanes="1" priority="-1" speed="13.89" to="sz_7" type="highway.prt" width="1.50"/>
+    <edge id="gneE11" allow="custom1" from="gneJ10" numLanes="1" priority="-1" speed="13.89" to="gneJ9" type="highway.prt" width="1.50"/>
+    <edge id="gneE114" from="gneJ96" numLanes="1" priority="-1" speed="13.89" to="gneJ94" type="highway.prt" width="1.50"/>
+    <edge id="gneE115" from="gneJ97" numLanes="1" priority="-1" speed="13.89" to="gneJ96" type="highway.prt" width="1.50"/>
+    <edge id="gneE116" from="gneJ9" numLanes="1" priority="-1" speed="13.89" to="gneJ97" type="highway.prt" width="1.50"/>
+    <edge id="gneE117" from="gneJ96" numLanes="1" priority="-1" speed="13.89" to="sz_1" type="highway.prt" width="1.50"/>
+    <edge id="gneE118" from="gneJ98" numLanes="1" priority="-1" speed="13.89" to="sz_1" type="highway.prt" width="1.50"/>
+    <edge id="gneE119" from="sz_7" numLanes="1" priority="-1" speed="13.89" to="gneJ98" type="highway.prt" width="1.50"/>
+    <edge id="gneE12" allow="custom1" from="gneJ12" numLanes="1" priority="-1" speed="13.89" to="gneJ10" type="highway.prt" width="1.50"/>
+    <edge id="gneE123" from="gneJ27" numLanes="1" priority="-1" speed="13.89" to="gneJ101" type="highway.prt" width="1.50"/>
+    <edge id="gneE127" from="gneJ31" numLanes="1" priority="-1" shape="9.713918,50.872014 9.713906,50.872032 9.713893,50.872049 9.713879,50.872064 9.713864,50.872077 9.713847,50.872089 9.713830,50.872099 9.713811,50.872108 9.713791,50.872115 9.713770,50.872120 9.713748,50.872124 9.713724,50.872126 9.713699,50.872127 9.713674,50.872126 9.713647,50.872124 9.713619,50.872120" speed="13.89" to="gneJ30" type="highway.prt" width="1.50"/>
+    <edge id="gneE129" from="gneJ23" numLanes="1" priority="-1" shape="9.711153,50.871215 9.711151,50.871192 9.711151,50.871171 9.711155,50.871151 9.711161,50.871131 9.711171,50.871113 9.711183,50.871095 9.711198,50.871079 9.711216,50.871063" speed="13.89" to="gneJ22" type="highway.prt" width="1.50"/>
+    <edge id="gneE13" allow="custom1" from="sz_14" numLanes="1" priority="-1" speed="13.89" to="gneJ12" type="highway.prt" width="1.50"/>
+    <edge id="gneE138" from="gneJ62" numLanes="1" priority="-1" shape="9.709765,50.870149 9.709758,50.870137 9.709750,50.870125 9.709739,50.870113 9.709725,50.870103 9.709709,50.870092 9.709690,50.870082 9.709669,50.870073 9.709646,50.870064 9.709620,50.870056 9.709592,50.870049 9.709561,50.870042 9.709528,50.870035 9.709492,50.870029 9.709452,50.870019" speed="13.89" to="gneJ63" type="highway.prt" width="1.50"/>
+    <edge id="gneE150" from="gneJ20" numLanes="1" priority="-1" speed="13.89" to="gneJ79" type="highway.prt" width="1.50"/>
+    <edge id="gneE152" from="gneJ65" numLanes="1" priority="-1" speed="13.89" to="gneJ117" type="highway.prt" width="1.50"/>
+    <edge id="gneE153" from="gneJ117" numLanes="1" priority="-1" speed="13.89" to="gneJ118" type="highway.prt" width="1.50"/>
+    <edge id="gneE154" from="gneJ118" numLanes="1" priority="-1" speed="13.89" to="gneJ119" type="highway.prt" width="1.50"/>
+    <edge id="gneE155" from="gneJ119" numLanes="1" priority="-1" speed="13.89" to="gneJ65" type="highway.prt" width="1.50"/>
+    <edge id="gneE158" from="gneJ121" numLanes="1" priority="-1" speed="13.89" to="gneJ92" type="highway.prt" width="1.50"/>
+    <edge id="gneE162" from="gneJ15" numLanes="1" priority="-1" speed="13.89" to="gneJ124" type="highway.prt" width="1.50"/>
+    <edge id="gneE163" from="gneJ124" numLanes="1" priority="-1" speed="13.89" to="sz_14" type="highway.prt" width="1.50"/>
+    <edge id="gneE166" from="gneJ92" numLanes="1" priority="-1" speed="13.89" to="gneJ116" type="highway.prt" width="1.50"/>
+    <edge id="gneE168" from="gneJ118" numLanes="1" priority="-1" speed="13.89" to="gneJ126" type="highway.prt" width="1.50"/>
+    <edge id="gneE170" from="gneJ127" numLanes="1" priority="-1" speed="13.89" to="gneJ119" type="highway.prt" width="1.50"/>
+    <edge id="gneE173" from="gneJ130" numLanes="1" priority="-1" speed="13.89" to="sz_14" type="highway.prt" width="1.50"/>
+    <edge id="gneE174" from="gneJ78" numLanes="1" priority="-1" speed="13.89" to="gneJ130" type="highway.prt" width="1.50"/>
+    <edge id="gneE177" from="gneJ78" numLanes="1" priority="-1" speed="13.89" to="gneJ132" type="highway.prt" width="1.50"/>
+    <edge id="gneE178" from="gneJ132" numLanes="1" priority="-1" speed="13.89" to="gneJ15" type="highway.prt" width="1.50"/>
+    <edge id="gneE179" from="gneJ93" numLanes="1" priority="-1" speed="13.89" to="gneJ121" type="highway.prt" width="1.50"/>
+    <edge id="gneE180" from="gneJ33" numLanes="1" priority="-1" speed="13.89" to="sz_25" type="highway.prt" width="1.50"/>
+    <edge id="gneE181" from="gneJ101" numLanes="1" priority="-1" speed="13.89" to="gneJ33" type="highway.prt" width="1.50"/>
+    <edge id="gneE182" from="gneJ101" numLanes="1" priority="-1" speed="13.89" to="sz_25" type="highway.prt" width="1.50"/>
+    <edge id="gneE183" from="sz_1" numLanes="1" priority="-1" speed="13.89" to="gneJ134" type="highway.prt" width="1.50"/>
+    <edge id="gneE184" from="gneJ134" numLanes="1" priority="-1" speed="13.89" to="gneJ31" type="highway.prt" width="1.50"/>
+    <edge id="gneE186" from="gneJ121" numLanes="1" priority="-1" speed="13.89" to="sz_135" type="highway.prt" width="1.50"/>
+    <edge id="gneE187" from="sz_135" numLanes="1" priority="-1" speed="13.89" to="gneJ123" type="highway.prt" width="1.50"/>
+    <edge id="gneE188" from="gneJ116" numLanes="1" priority="-1" speed="13.89" to="sz_135" type="highway.prt" width="1.50"/>
+    <edge id="gneE192" from="gneJ123" numLanes="1" priority="-1" speed="13.89" to="sz_5" type="highway.prt" width="1.50"/>
+    <edge id="gneE193" from="gneJ93" numLanes="1" priority="-1" speed="13.89" to="sz_5" type="highway.prt" width="1.50"/>
+    <edge id="gneE194" from="sz_5" numLanes="1" priority="-1" speed="13.89" to="gneJ138" type="highway.prt" width="1.50"/>
+    <edge id="gneE196" from="gneJ138" numLanes="1" priority="-1" speed="13.89" to="gneJ139" type="highway.prt" width="1.50"/>
+    <edge id="gneE197" from="gneJ139" numLanes="1" priority="-1" speed="13.89" to="gneJ93" type="highway.prt" width="1.50"/>
+    <edge id="gneE198" from="gneJ63" numLanes="1" priority="-1" speed="13.89" to="gneJ138" type="highway.prt" width="1.50"/>
+    <edge id="gneE2" allow="custom1" from="gneJ2" numLanes="1" priority="-1" speed="13.89" to="sz_3" type="highway.prt" width="1.50"/>
+    <edge id="gneE20" allow="custom1" from="gneJ21" numLanes="1" priority="-1" speed="13.89" to="gneJ20" type="highway.prt" width="1.50"/>
+    <edge id="gneE200" from="gneJ140" numLanes="1" priority="-1" speed="13.89" to="gneJ127"/>
+    <edge id="gneE21" allow="custom1" from="gneJ22" numLanes="1" priority="-1" speed="13.89" to="gneJ21" type="highway.prt" width="1.50"/>
+    <edge id="gneE23" allow="custom1" from="gneJ24" numLanes="1" priority="-1" speed="13.89" to="gneJ23" type="highway.prt" width="1.50"/>
+    <edge id="gneE24" allow="custom1" from="sz_25" numLanes="1" priority="-1" speed="13.89" to="gneJ24" type="highway.prt" width="1.50"/>
+    <edge id="gneE27" allow="custom1" from="gneJ28" numLanes="1" priority="-1" speed="13.89" to="gneJ27" type="highway.prt" width="1.50"/>
+    <edge id="gneE28" allow="custom1" from="gneJ29" numLanes="1" priority="-1" speed="13.89" to="gneJ28" type="highway.prt" width="1.50"/>
+    <edge id="gneE29" allow="custom1" from="gneJ30" numLanes="1" priority="-1" speed="13.89" to="gneJ29" type="highway.prt" width="1.50"/>
+    <edge id="gneE3" allow="custom1" from="sz_3" numLanes="1" priority="-1" speed="13.89" to="gneJ0" type="highway.prt" width="1.50"/>
+    <edge id="gneE34" allow="custom1" from="gneJ33" numLanes="1" priority="-1" speed="13.89" to="gneJ34" type="highway.prt" width="1.50"/>
+    <edge id="gneE35" allow="custom1" from="gneJ34" numLanes="1" priority="-1" speed="13.89" to="gneJ35" type="highway.prt" width="1.50"/>
+    <edge id="gneE36" allow="custom1" from="gneJ35" numLanes="1" priority="-1" speed="13.89" to="gneJ36" type="highway.prt" width="1.50"/>
+    <edge id="gneE37" allow="custom1" from="gneJ36" numLanes="1" priority="-1" speed="13.89" to="gneJ37" type="highway.prt" width="1.50"/>
+    <edge id="gneE38" allow="custom1" from="gneJ37" numLanes="1" priority="-1" speed="13.89" to="gneJ38" type="highway.prt" width="1.50"/>
+    <edge id="gneE39" allow="custom1" from="gneJ38" numLanes="1" priority="-1" speed="13.89" to="gneJ39" type="highway.prt" width="1.50"/>
+    <edge id="gneE4" allow="custom1" from="gneJ0" numLanes="1" priority="-1" speed="13.89" to="gneJ4" type="highway.prt" width="1.50"/>
+    <edge id="gneE40" allow="custom1" from="gneJ39" numLanes="1" priority="-1" speed="13.89" to="gneJ40" type="highway.prt" width="1.50"/>
+    <edge id="gneE41" allow="custom1" from="gneJ40" numLanes="1" priority="-1" speed="13.89" to="gneJ41" type="highway.prt" width="1.50"/>
+    <edge id="gneE42" allow="custom1" from="gneJ41" numLanes="1" priority="-1" speed="13.89" to="gneJ42" type="highway.prt" width="1.50"/>
+    <edge id="gneE43" allow="custom1" from="gneJ42" numLanes="1" priority="-1" speed="13.89" to="gneJ43" type="highway.prt" width="1.50"/>
+    <edge id="gneE44" allow="custom1" from="gneJ43" numLanes="1" priority="-1" speed="13.89" to="gneJ44" type="highway.prt" width="1.50"/>
+    <edge id="gneE45" allow="custom1" from="gneJ44" numLanes="1" priority="-1" speed="13.89" to="gneJ45" type="highway.prt" width="1.50"/>
+    <edge id="gneE46" allow="custom1" from="gneJ45" numLanes="1" priority="-1" speed="13.89" to="gneJ46" type="highway.prt" width="1.50"/>
+    <edge id="gneE47" allow="custom1" from="gneJ46" numLanes="1" priority="-1" speed="13.89" to="gneJ47" type="highway.prt" width="1.50"/>
+    <edge id="gneE48" allow="custom1" from="gneJ47" numLanes="1" priority="-1" speed="13.89" to="gneJ48" type="highway.prt" width="1.50"/>
+    <edge id="gneE49" allow="custom1" from="gneJ48" numLanes="1" priority="-1" speed="13.89" to="gneJ49" type="highway.prt" width="1.50"/>
+    <edge id="gneE5" allow="custom1" from="gneJ4" numLanes="1" priority="-1" speed="13.89" to="gneJ5" type="highway.prt" width="1.50"/>
+    <edge id="gneE50" allow="custom1" from="gneJ49" numLanes="1" priority="-1" speed="13.89" to="gneJ50" type="highway.prt" width="1.50"/>
+    <edge id="gneE51" allow="custom1" from="gneJ50" numLanes="1" priority="-1" speed="13.89" to="gneJ51" type="highway.prt" width="1.50"/>
+    <edge id="gneE52" allow="custom1" from="gneJ51" numLanes="1" priority="-1" speed="13.89" to="gneJ52" type="highway.prt" width="1.50"/>
+    <edge id="gneE53" allow="custom1" from="gneJ52" numLanes="1" priority="-1" speed="13.89" to="gneJ53" type="highway.prt" width="1.50"/>
+    <edge id="gneE54" allow="custom1" from="gneJ53" numLanes="1" priority="-1" speed="13.89" to="gneJ54" type="highway.prt" width="1.50"/>
+    <edge id="gneE56" allow="custom1" from="sz_55" numLanes="1" priority="-1" speed="13.89" to="gneJ52" type="highway.prt" width="1.50"/>
+    <edge id="gneE58" allow="custom1" from="gneJ4" numLanes="1" priority="-1" speed="13.89" to="gneJ0" type="highway.prt" width="1.50"/>
+    <edge id="gneE59" allow="custom1" from="gneJ5" numLanes="1" priority="-1" speed="13.89" to="gneJ4" type="highway.prt" width="1.50"/>
+    <edge id="gneE6" allow="custom1" from="gneJ5" numLanes="1" priority="-1" speed="13.89" to="gneJ6" type="highway.prt" width="1.50"/>
+    <edge id="gneE60" allow="custom1" from="gneJ6" numLanes="1" priority="-1" speed="13.89" to="gneJ5" type="highway.prt" width="1.50"/>
+    <edge id="gneE62" allow="custom1" from="gneJ15" numLanes="1" priority="-1" speed="13.89" to="gneJ56" type="highway.prt" width="1.50"/>
+    <edge id="gneE63" allow="custom1" from="gneJ56" numLanes="1" priority="-1" speed="13.89" to="gneJ57" type="highway.prt" width="1.50"/>
+    <edge id="gneE64" allow="custom1" from="gneJ57" numLanes="1" priority="-1" speed="13.89" to="gneJ58" type="highway.prt" width="1.50"/>
+    <edge id="gneE65" allow="custom1" from="gneJ58" numLanes="1" priority="-1" speed="13.89" to="gneJ59" type="highway.prt" width="1.50"/>
+    <edge id="gneE66" allow="custom1" from="gneJ59" numLanes="1" priority="-1" speed="13.89" to="gneJ60" type="highway.prt" width="1.50"/>
+    <edge id="gneE67" allow="custom1" from="gneJ60" numLanes="1" priority="-1" speed="13.89" to="gneJ61" type="highway.prt" width="1.50"/>
+    <edge id="gneE68" allow="custom1" from="gneJ61" numLanes="1" priority="-1" speed="13.89" to="gneJ62" type="highway.prt" width="1.50"/>
+    <edge id="gneE7" from="gneJ6" numLanes="1" priority="-1" speed="13.89" to="sz_7" type="highway.prt" width="1.50"/>
+    <edge id="gneE85" allow="custom1" from="gneJ79" numLanes="1" priority="-1" speed="13.89" to="gneJ78" type="highway.prt" width="1.50"/>
+    <edge id="gneE94" from="gneJ2" numLanes="1" priority="-1" speed="13.89" to="gneJ85" type="highway.prt" width="1.50"/>
+    <edge id="gneE96" from="gneJ86" numLanes="1" priority="-1" speed="13.89" to="sz_3" type="highway.prt" width="1.50"/>
+    <edge id="gneE97" from="gneJ53" numLanes="1" priority="-1" speed="13.89" to="sz_55" type="highway.prt" width="1.50"/>
+    <edge id="gneE99" from="gneJ87" numLanes="1" priority="-1" speed="13.89" to="sz_55" type="highway.prt" width="1.50"/>
+    <roundabout edges="gneE11 gneE115 gneE116 gneE117 gneE12 gneE123 gneE127 gneE129 gneE13 gneE150 gneE173 gneE174 gneE182 gneE183 gneE184 gneE20 gneE21 gneE23 gneE24 gneE27 gneE28 gneE29 gneE85" nodes="gneJ10 gneJ101 gneJ12 gneJ130 gneJ134 gneJ20 gneJ21 gneJ22 gneJ23 gneJ24 gneJ27 gneJ28 gneJ29 gneJ30 gneJ31 gneJ78 gneJ79 gneJ9 gneJ96 gneJ97 sz_1 sz_14 sz_25"/>
+</edges>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-11 14:29:12.069590 by remap_renamed.py v1_22_0+0755-29a0d9c6976
+<configuration>
+    <net-file value="net2.net.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="passenger" speedFactor="normc(1.00,0.00)" vClass="passenger" sigma="0"/>
+    <vehicle id="0" type="passenger" depart="0.00">
+        <route edges="15 11 7 0"/>        <!--  comment_1  -->
+    </vehicle>
+    <vehicle id="1" type="passenger" depart="1.00">
+        <!--  comment_2  -->
+        <route edges="6 16 23 19 12 14 5"/>
+    </vehicle>
+    <vehicle id="2" type="passenger" depart="2.00">
+        <route edges="17 8 12 16"/>        <!--  comment_3  -->
+    </vehicle>
+    <vehicle id="3" type="passenger" depart="3.00">
+        <route edges="21 22 14 5 2"/>
+    </vehicle>
+    <vehicle id="4" type="passenger" depart="4.00">
+        <route edges="10 3 6 15 11 7 0"/>
+    </vehicle>
+    <vehicle id="5" type="passenger" depart="5.00">
+        <route edges="5 4 12"/>
+    </vehicle>
+    <vehicle id="6" type="passenger" depart="6.00">
+        <route edges="0 4"/>
+    </vehicle>
+    <vehicle id="7" type="passenger" depart="7.00">
+        <route edges="15 13"/>
+    </vehicle>
+    <vehicle id="8" type="passenger" depart="8.00">
+        <route edges="5 4 12 14"/>
+    </vehicle>
+    <vehicle id="9" type="passenger" depart="9.00">
+        <route edges="19 11 7 0"/>
+    </vehicle>
+</routes>

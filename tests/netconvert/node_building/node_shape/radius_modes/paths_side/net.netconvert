@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-07 12:27:25 by Eclipse SUMO netconvert Version v1_10_0+0544-e2f47533c3f
+<!-- generated on 2024-02-29 13:55:50 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -20,13 +25,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -68,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="WC_1" index="1" speed="13.89" length="95.30" shape="0.00,98.40 95.30,98.40"/>
     </edge>
 
-    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="NC_0 EC_0 EC_1 WC_0 WC_1" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1" shape="96.80,107.90 100.00,107.90 100.17,107.07 100.38,106.77 100.67,106.57 101.04,106.44 101.50,106.40 101.50,93.60 100.67,93.43 100.38,93.23 100.17,92.93 100.04,92.56 100.00,92.10 96.80,92.10 96.63,92.93 96.43,93.23 96.13,93.43 95.76,93.56 95.30,93.60 95.30,106.40 96.13,106.57 96.43,106.77 96.63,107.07 96.76,107.44">
+    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="NC_0 EC_0 EC_1 WC_0 WC_1" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1" shape="96.80,107.90 100.00,107.90 100.17,107.07 100.38,106.77 100.67,106.57 101.04,106.44 101.50,106.40 101.50,93.60 100.67,93.43 100.38,93.22 100.17,92.93 100.04,92.56 100.00,92.10 96.80,92.10 96.63,92.93 96.43,93.23 96.13,93.43 95.76,93.56 95.30,93.60 95.30,106.40 96.13,106.57 96.43,106.78 96.63,107.07 96.76,107.44">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>

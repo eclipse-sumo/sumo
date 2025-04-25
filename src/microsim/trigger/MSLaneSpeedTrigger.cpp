@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -115,20 +115,9 @@ MSLaneSpeedTrigger::executeSpeedChange(SUMOTime currentTime) {
 SUMOTime
 MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
     const double speed = getCurrentSpeed();
-    if (MSGlobals::gUseMesoSim) {
-        if (myDestLanes.size() > 0 && myDestLanes.front()->getSpeedLimit() != speed) {
-            myDestLanes.front()->getEdge().setMaxSpeed(speed);
-            MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(myDestLanes.front()->getEdge());
-            while (first != nullptr) {
-                first->setSpeed(speed, currentTime, -1);
-                first = first->getNextSegment();
-            }
-        }
-    } else {
-        const bool isDefault = speed == myDefaultSpeed;
-        for (MSLane* const lane : myDestLanes) {
-            lane->setMaxSpeed(speed, isDefault);
-        }
+    const bool altered = speed != myDefaultSpeed;
+    for (MSLane* const lane : myDestLanes) {
+        lane->setMaxSpeed(speed, altered);
     }
     if (!move2next) {
         // changed from the gui

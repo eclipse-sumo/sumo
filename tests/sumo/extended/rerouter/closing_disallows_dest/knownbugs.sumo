@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 13Mar09:10:57]
+search_string:veh0
+trigger_on_absence:1
+search_file:errors
+full_description:rerouting only triggered on entering rerouter edge
+brief_description:see #14496

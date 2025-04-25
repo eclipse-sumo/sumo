@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -18,6 +18,7 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @author  Yun-Pang Floetteroed
+/// @author  Ruediger Ebendt
 /// @date    Sept 2002
 ///
 // A basic edge for routing applications
@@ -42,6 +43,7 @@
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include "RONode.h"
 #include "ROVehicle.h"
+#include <utils/router/FlippedEdge.h>
 
 
 // ===========================================================================
@@ -76,7 +78,10 @@ public:
      * @param[in] to The node the edge ends at
      * @param[in] index The numeric id of the edge
      */
-    ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority);
+    ROEdge(const std::string& id, RONode* from, RONode* to, int index, const int priority, const std::string& type);
+
+    /** @brief Constructor for dummy edge, only used when building the connectivity graph **/
+    ROEdge(const std::string& id, const RONode* from, const RONode* to, SVCPermissions p);
 
 
     /// Destructor
@@ -139,6 +144,10 @@ public:
 
     inline void setTimePenalty(double value) {
         myTimePenalty = value;
+    }
+
+    inline double getTimePenalty() const {
+        return myTimePenalty;
     }
 
     /// @brief return whether this edge is a normal edge
@@ -346,7 +355,7 @@ public:
     * @param[in] vClass The vClass for which to restrict the successors
     * @return The eligible following edges
     */
-    const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
+    const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const;
 
 
     /** @brief Returns the number of edges connected to this edge
@@ -452,7 +461,7 @@ public:
         if (isTazConnector()) {
             return 0;
         } else if (veh != 0) {
-            return myLength / MIN2(veh->getType()->maxSpeed, veh->getChosenSpeedFactor() * mySpeed);
+            return myLength / MIN2(veh->getType()->maxSpeed, veh->getChosenSpeedFactor() * getVClassMaxSpeed(veh->getVClass()));
         } else {
             return myLength / mySpeed;
         }
@@ -464,7 +473,7 @@ public:
         double ret = 0;
         if (!edge->getStoredEffort(time, ret)) {
             const SUMOVTypeParameter* const type = veh->getType();
-            const double vMax = MIN2(type->maxSpeed, edge->mySpeed);
+            const double vMax = MIN2(type->maxSpeed, edge->getVClassMaxSpeed(veh->getVClass()));
             const double accel = type->getCFParam(SUMO_ATTR_ACCEL, SUMOVTypeParameter::getDefaultAccel(type->vehicleClass)) * type->getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(type->vehicleClass)) / 2.;
             ret = PollutantsInterface::computeDefault(type->emissionClass, ET, vMax, accel, 0, edge->getTravelTime(veh, time), nullptr); // @todo: give correct slope
         }
@@ -505,6 +514,11 @@ public:
         return myPriority;
     }
 
+    /// @brief get edge type
+    const std::string& getType() const {
+        return myType;
+    }
+
     const RONode* getFromJunction() const {
         return myFromJunction;
     }
@@ -536,6 +550,15 @@ public:
             myReversedRoutingEdge = new ReversedEdge<ROEdge, ROVehicle>(this);
         }
         return myReversedRoutingEdge;
+    }
+
+    /// @brief Returns the flipped routing edge
+    // @note If not called before, the flipped routing edge is created
+    FlippedEdge<ROEdge, RONode, ROVehicle>* getFlippedRoutingEdge() const {
+        if (myFlippedRoutingEdge == nullptr) {
+            myFlippedRoutingEdge = new FlippedEdge<ROEdge, RONode, ROVehicle>(this);
+        }
+        return myFlippedRoutingEdge;
     }
 
     RailEdge<ROEdge, ROVehicle>* getRailwayRoutingEdge() const {
@@ -574,6 +597,9 @@ protected:
 
     /// @brief The edge priority (road class)
     const int myPriority;
+
+    /// @brief the type of this edge
+    const std::string myType;
 
     /// @brief The maximum speed allowed on this edge
     double mySpeed;
@@ -653,6 +679,8 @@ protected:
 
     /// @brief a reversed version for backward routing
     mutable ReversedEdge<ROEdge, ROVehicle>* myReversedRoutingEdge = nullptr;
+    /// @brief An extended version of the reversed edge for backward routing (used for the arc flag router)
+    mutable FlippedEdge<ROEdge, RONode, ROVehicle>* myFlippedRoutingEdge = nullptr;
     mutable RailEdge<ROEdge, ROVehicle>* myRailwayRoutingEdge = nullptr;
 
 #ifdef HAVE_FOX

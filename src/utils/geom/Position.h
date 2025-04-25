@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,9 +47,6 @@ public:
     /// @brief Parametrised constructor
     Position(double x, double y, double z) :
         myX(x), myY(y), myZ(z) { }
-
-    /// @brief Destructor
-    ~Position() { }
 
     /// @brief Returns the x-position
     inline double x() const {
@@ -169,6 +166,11 @@ public:
     }
 
     /// @brief Computes the length of the given vector
+    inline double length() const {
+        return sqrt(myX * myX + myY * myY + myZ * myZ);
+    }
+
+    /// @brief Computes the length of the given vector neglecting the z coordinate
     inline double length2D() const {
         return sqrt(myX * myX + myY * myY);
     }
@@ -236,28 +238,28 @@ public:
         return myX == p2.myX && myY == p2.myY && myZ == p2.myZ;
     }
 
-    /// @brief difference  operator
+    /// @brief difference operator
     bool operator!=(const Position& p2) const {
         return myX != p2.myX || myY != p2.myY || myZ != p2.myZ;
     }
 
     /// @brief lexicographical sorting for use in maps and sets
     bool operator<(const Position& p2) const {
-        if (myX < p2.myX) {
-            return true;
-        } else if (myY < p2.myY) {
-            return true;
-        } else {
-            return myZ < p2.myZ;
+        if (myX != p2.myX) {
+            return myX < p2.myX;
         }
+        if (myY != p2.myY) {
+            return myY < p2.myY;
+        }
+        return myZ < p2.myZ;
     }
 
-    /// @brief check if two position is almost the sme as other
+    /// @brief check whether the other position has a euclidean distance of less than maxDiv
     bool almostSame(const Position& p2, double maxDiv = POSITION_EPS) const {
         return distanceTo(p2) < maxDiv;
     }
 
-    /// @brief returns the euclidean distance in 3 dimension
+    /// @brief returns the euclidean distance in 3 dimensions
     inline double distanceTo(const Position& p2) const {
         return sqrt(distanceSquaredTo(p2));
     }

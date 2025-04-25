@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2012-2024 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,6 +15,11 @@
 # @file    duaIterate_reroutingAnalysis.py
 # @author  Jakob Erdmann
 # @date    2022-02-28
+
+"""
+Extract fraction of vehicles that changed their route in a duaIterate.py run by
+parsing the rou.alt.xml files
+"""
 
 from __future__ import absolute_import
 from __future__ import print_function

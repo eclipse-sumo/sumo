@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-08-31 10:48:24 by Eclipse SUMO duarouter Version v1_18_0+1121-ec4e1191913
+<!-- generated on 2024-04-29 13:52:19 by Eclipse SUMO duarouter Version v1_19_0+1975-c861cc8fbcc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,7 +54,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
     <vehicle id="2.5" type="v1.1" depart="40.00">
-        <route edges="beg middle end"/>
+        <route edges="beg end"/>
     </vehicle>
     <vehicle id="2.6" type="v1.2" depart="42.00">
         <route edges="beg end"/>
@@ -78,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
     <vehicle id="2.13" type="v1.1" depart="56.00">
-        <route edges="beg middle end"/>
+        <route edges="beg end"/>
     </vehicle>
     <vehicle id="2.14" type="v1.1" depart="58.00">
         <route edges="beg middle end"/>
@@ -103,7 +103,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
     <vehicle id="2.21" type="v1.2" depart="72.00">
-        <route edges="beg middle end"/>
+        <route edges="beg end"/>
     </vehicle>
     <vType id="v2.2" probability="0.50" sigma="0"/>
     <vehicle id="2.22" type="v2.2" depart="74.00">
@@ -143,7 +143,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
     <vehicle id="2.34" type="v1.2" depart="98.00">
-        <route edges="beg middle end"/>
+        <route edges="beg end"/>
     </vehicle>
     <vehicle id="2.35" type="v1.1" depart="100.00">
         <route edges="beg middle end"/>

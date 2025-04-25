@@ -9,42 +9,42 @@
 3.0 speed=16.0
 4.0 acceleration=-1.0
 4.0 speed=15.0
-  accelerate from 15.0 m/s to 17.0 m/s over 2 seconds
-5.0 acceleration=0.6666666666666661
-5.0 speed=15.666666666666666
-6.0 acceleration=0.6666666666666661
-6.0 speed=16.333333333333332
-7.0 acceleration=0.6666666666666679
-7.0 speed=17.0
+  accelerate from 15.0 m/s to 17.0 m/s over 2 seconds with accel 1.0
+5.0 acceleration=1.0
+5.0 speed=16.0
+6.0 acceleration=1.0
+6.0 speed=17.0
+7.0 acceleration=1.0
+7.0 speed=18.0
 8.0 acceleration=2.6000000000000014
-8.0 speed=19.6
-  accelerate from 19.6 m/s to 23.6 m/s over 3 seconds
-9.0 acceleration=1.0
-9.0 speed=20.6
-10.0 acceleration=1.0
-10.0 speed=21.6
-11.0 acceleration=1.0
-11.0 speed=22.6
-12.0 acceleration=1.0
-12.0 speed=23.6
-13.0 acceleration=1.3999999999999986
+8.0 speed=20.6
+  accelerate from 20.6 m/s to 24.6 m/s over 3 seconds with accel 1.3333333333333333
+9.0 acceleration=1.3333333333333321
+9.0 speed=21.933333333333334
+10.0 acceleration=1.3333333333333357
+10.0 speed=23.26666666666667
+11.0 acceleration=1.3333333333333321
+11.0 speed=24.6
+12.0 acceleration=0.3999999999999986
+12.0 speed=25.0
+13.0 acceleration=0.0
 13.0 speed=25.0
 14.0 acceleration=0.0
 14.0 speed=25.0
 15.0 acceleration=0.0
 15.0 speed=25.0
-  accelerate from 25.0 m/s to -1 m/s over 5 seconds
-16.0 acceleration=-4.166666666666664
-16.0 speed=20.833333333333336
-17.0 acceleration=-4.166666666666668
-17.0 speed=16.666666666666668
-18.0 acceleration=-4.166666666666668
-18.0 speed=12.5
-19.0 acceleration=-4.166666666666664
-19.0 speed=8.333333333333336
-20.0 acceleration=-4.166666666666671
-20.0 speed=4.166666666666664
-21.0 acceleration=-4.166666666666664
+  accelerate from 25.0 m/s to -1 m/s over 5 seconds with accel -5.2
+16.0 acceleration=-4.5
+16.0 speed=20.5
+17.0 acceleration=-4.5
+17.0 speed=16.0
+18.0 acceleration=-4.5
+18.0 speed=11.5
+19.0 acceleration=-4.5
+19.0 speed=7.0
+20.0 acceleration=-4.5
+20.0 speed=2.5
+21.0 acceleration=-2.5
 21.0 speed=0.0
 22.0 acceleration=2.6
 22.0 speed=2.6

@@ -7,7 +7,7 @@ generated SUMO road networks. Use the option **--sumo-net-file** {{DT_FILE}} for
 network, the shorter options **--sumo-net** {{DT_FILE}} and **--sumo** {{DT_FILE}} are synonymes. An example call:
 
 ```
-netconvert --sumo-net-file mySUMOnet.net.xml -o mySUMOnet2.net.xml
+netconvert --sumo-net-file mySUMOnet.net.xml -o mySUMOnet2.net.xml
 ```
 
 If your original network has been generated with the same SUMO version,
@@ -35,7 +35,7 @@ prepare a file like this: patch.nod.xml :
 and patch the network like this:
 
 ```
-netconvert --sumo-net-file your.net.xml --node-files patch.nod.xml -o yourpatched.net.xml
+netconvert --sumo-net-file your.net.xml --node-files patch.nod.xml -o yourpatched.net.xml
 ```
 
 ## Patching in stages
@@ -44,7 +44,7 @@ To do so you can of course edit the file directly with netedit and store the cha
 network. If you want to track your changes however and maybe reapply them when your
 input changes (for instance an update from OpenStreetMap) you should save them as patch files.
 
-Those patches can be genereated automatically with [netdiff.py](../../Tools/Net.md#netdiffpy).
+Those patches can be generated automatically with [netdiff.py](../../Tools/Net.md#netdiffpy).
 
 Since you might have enabled settings like junction joining or removal of geometry nodes,
 those patch files may not be applicable directly on the import of the raw data but will need

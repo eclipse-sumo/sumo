@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -68,7 +68,7 @@ public:
     public:
         /// constructor
         MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
-                             const double arrivalPos, const double dist, const bool isExit,
+                             const double arrivalPos, const double arrivalPosLat, const double dist, const bool isExit,
                              const Position& startPos, const Position& endPos);
 
         /// destructor
@@ -165,8 +165,11 @@ public:
     bool isJammed() const;
 
     /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
-    void reroute(const ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
+    void replaceWalk(const ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
 
+    inline double getTimegapCrossing() const {
+        return myTimegapCrossing;
+    }
 
     /** @class Influencer
      * @brief Changes the wished person speed and position
@@ -228,6 +231,9 @@ private:
     Influencer* myInfluencer;
 
     double myChosenSpeedFactor;
+
+    /// @brief value may be sampled from distribution and therefore must be cached
+    double myTimegapCrossing;
 
 private:
     /// @brief Invalidated copy constructor.

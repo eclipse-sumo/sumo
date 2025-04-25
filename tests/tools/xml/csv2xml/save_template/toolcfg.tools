@@ -6,4 +6,5 @@
     <skip-root value="False" type="bool" help="the root element is not contained" category="processing"/>
     <type value="None" type="string" help="convert the given csv-file into the specified format" category="processing"/>
     <xsd value="None" type="string" help="xsd schema to use" category="processing"/>
+    <flat value="False" type="bool" help="use csv header as flat structure instead of a schema" category="processing"/>
 </configuration>

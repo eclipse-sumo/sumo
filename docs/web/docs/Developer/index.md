@@ -55,9 +55,10 @@ title: Developer
 - [How To add more car-following models](Implementation_Notes/Vehicle_Models.md)
 - [Progress on implementing an XML validation](XML_Validation.md)
 - [HowToRelease](HowToRelease.md) - how to do a release
-- [Docker](Docker.md) - projects using Dockerised SUMO
+- [Docker](Docker.md) - how to use containerized SUMO
 - [How To create a CI Test with GitHub Actions](Github_Actions_CI_Test.md) - projects depending on SUMO
 - [Git](GitStuff.md)
+- [Profiling](Profiling.md)
 - [Visual Studio Code](VisualStudioCode.md) - how to use Visual Studio Code with the SUMO code base
 
 ## Continuous integration, code analysis and other external references

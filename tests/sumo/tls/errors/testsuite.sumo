@@ -7,6 +7,9 @@ invalid_state_length
 # empty tls program
 no_phases
 
+# phase loops back onto itself with no way out
+next_loop
+
 # Warn about missing yellow phases
 missing_yellow
 

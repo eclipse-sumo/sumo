@@ -1,0 +1,13 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bike" vClass="bicycle" jmIgnoreKeepClearTime="1" length="1.5" minGap="0.5"/>
+    <route id="r1" edges="SC CN"/>
+
+    <flow id="0" type="bike" begin="0" end="100" number="300" departLane="0" departPos="free" departPosLat="free" route="r1">
+        <stop lane="CN_0" duration="1000"/>
+    </flow>
+    
+    <flow id="1" type="bike" begin="0" end="100" number="300" departLane="1" departPos="free" departPosLat="free" route="r1">
+        <stop lane="CN_1" duration="1000"/>
+    </flow>
+
+</routes>

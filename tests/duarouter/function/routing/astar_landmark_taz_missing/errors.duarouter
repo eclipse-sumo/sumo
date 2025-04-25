@@ -1,0 +1,2 @@
+Error: Not all network edges were found in the lookup table 'lookuptable' for landmark edge '2/7to1/7'. Make sure that any used taz or junction-taz definitions are loaded when generating the table
+Quitting (on error).

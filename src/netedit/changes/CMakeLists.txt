@@ -19,8 +19,6 @@ set(netedit_changes_SRCS
    GNEChange_DataSet.h
    GNEChange_DemandElement.cpp
    GNEChange_DemandElement.h
-   GNEChange_Distribution.cpp
-   GNEChange_Distribution.h
    GNEChange_Edge.cpp
    GNEChange_Edge.h
    GNEChange_EdgeType.cpp
@@ -33,10 +31,14 @@ set(netedit_changes_SRCS
    GNEChange_Lane.h
    GNEChange_MeanData.cpp
    GNEChange_MeanData.h
+   GNEChange_TAZSourceSink.cpp
+   GNEChange_TAZSourceSink.h
    GNEChange_TLS.cpp
    GNEChange_TLS.h
    GNEChange_ToggleAttribute.cpp
    GNEChange_ToggleAttribute.h
+   GNEChange_RegisterJoin.h
+   GNEChange_RegisterJoin.cpp
    )
 
 add_library(netedit_changes STATIC ${netedit_changes_SRCS})

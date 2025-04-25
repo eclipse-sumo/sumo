@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -79,12 +79,19 @@ public:
 
     std::string getStageSummary(const bool isPerson) const;
 
+    std::vector<SUMOVehicle*> getVehicles(MSVehicleControl& vehControl, MSTransportable* transportable, const MSEdge* origin);
+
+    const std::string reroute(const SUMOTime time, MSTransportableRouter& router, MSTransportable* const transportable,
+                              MSStage* previous, const MSEdge* origin, const MSEdge* destination, std::vector<MSStage*>& stages);
+
     /// logs end of the step
     const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived);
 
     /// change origin for parking area rerouting
-    void setOrigin(const MSEdge* origin) {
+    void setOrigin(const MSEdge* origin, MSStoppingPlace* originStop, double departPos) {
         myOrigin = origin;
+        myOriginStop = originStop;
+        myDepartPos = departPos;
     }
 
     /// proceeds to the next step
@@ -98,6 +105,15 @@ public:
     void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const {
         UNUSED_PARAMETER(os);
         UNUSED_PARAMETER(transportable);
+    }
+
+    /// @brief trip doesn't participate in plan summary
+    SUMOTime getDuration() const {
+        return 0;
+    }
+
+    SUMOTime getTravelTime() const {
+        return 0;
     }
 
     /** @brief Called on writing vehroute output

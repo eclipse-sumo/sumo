@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,7 +31,7 @@
 // type definitions
 // ===========================================================================
 typedef long long int SUMOTime;
-#define SUMOTime_MAX std::numeric_limits<SUMOTime>::max()
+#define SUMOTime_MAX (std::numeric_limits<SUMOTime>::max() - 1000)
 #define SUMOTime_MIN std::numeric_limits<SUMOTime>::min()
 #define SUMOTime_MAX_PERIOD (SUMOTime_MAX - SUMOTime_MAX % DELTA_T)
 
@@ -68,6 +68,9 @@ extern SUMOTime DELTA_T;
 /// @brief convert string to SUMOTime
 SUMOTime string2time(const std::string& r);
 
+/// @brief check if the given string is a valid time
+bool isTime(const std::string& r);
+
 /// @brief convert SUMOTime to string (independently of global format setting)
 std::string time2string(SUMOTime t, bool humanReadable);
 
@@ -79,3 +82,6 @@ std::string elapsedMs2string(long long int t);
 
 /// @brief check if given SUMOTime is multiple of the step length
 bool checkStepLengthMultiple(const SUMOTime t, const std::string& error = "", SUMOTime deltaT = DELTA_T, SUMOTime begin = 0);
+
+/// @brief check the valid SUMOTime range of double input and throw an error if out of bounds
+void checkTimeBounds(const double time);

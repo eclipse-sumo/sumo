@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-11 11:28:56 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
+<!-- generated on 2024-05-06 00:00:45 by Eclipse SUMO sumo Version v1_19_0+2076-0cd5b1960a6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,12 +27,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -44,13 +42,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="103.00" waitingTime="0.00" timeLoss="0.50" traveltime="102.00">
         <stop duration="1.00" arrival="1.00" arrivalPos="800.00" actType="waiting"/>
         <access stop="stopA_S" depart="1.00" arrival="13.00" duration="12.00" routeLength="17.52"/>
         <walk depart="13.00" departPos="111.92" arrival="32.00" arrivalPos="86.23" duration="19.00" routeLength="25.69" timeLoss="0.50" maxSpeed="1.39"/>
         <access stop="stopA_W" depart="32.00" arrival="103.00" duration="71.00" routeLength="98.62"/>
     </personinfo>
-    <personinfo id="p1" depart="100.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="p1" depart="100.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="124.00" waitingTime="0.00" timeLoss="0.92" traveltime="123.00">
         <stop duration="1.00" arrival="101.00" arrivalPos="100.00" actType="waiting"/>
         <walk depart="101.00" departPos="100.00" arrival="110.00" arrivalPos="111.92" duration="9.00" routeLength="11.92" timeLoss="0.42" maxSpeed="1.39"/>
         <access stop="stopA_S" depart="110.00" arrival="122.00" duration="12.00" routeLength="17.52"/>

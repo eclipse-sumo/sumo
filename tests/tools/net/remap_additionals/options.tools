@@ -1,0 +1,5 @@
+--orig-net net.net.xml
+--target-net net2.net.xml
+--additional-file input_additional.add.xml
+-o out.add.xml
+tools/net/remap_additionals.py

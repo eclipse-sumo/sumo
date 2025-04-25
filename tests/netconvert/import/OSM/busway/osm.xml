@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="openstreetmap-cgimap 2.0.1 (2981436 spike-07.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="46.2096330" minlon="6.1380560" maxlat="46.2099900" maxlon="6.1385200"/>
+ <node id="1549433354" visible="true" version="3" changeset="140296498" timestamp="2023-08-23T23:22:22Z" user="Marc Mongenet" uid="74847" lat="46.2101102" lon="6.1376286"/>
+ <node id="1549433372" visible="true" version="4" changeset="140296498" timestamp="2023-08-23T23:22:22Z" user="Marc Mongenet" uid="74847" lat="46.2100810" lon="6.1375992"/>
+ <node id="1549433494" visible="true" version="9" changeset="141025999" timestamp="2023-09-09T14:13:15Z" user="Marc Mongenet" uid="74847" lat="46.2098639" lon="6.1381997">
+  <tag k="ele" v="393"/>
+  <tag k="name" v="Lyon"/>
+  <tag k="network" v="18"/>
+  <tag k="operator" v="TPG"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="railway" v="tram_stop"/>
+  <tag k="tram" v="yes"/>
+  <tag k="uic_name" v="Genève, Lyon"/>
+  <tag k="uic_ref" v="8592850"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="1550063100" visible="true" version="9" changeset="141025999" timestamp="2023-09-09T14:13:15Z" user="Marc Mongenet" uid="74847" lat="46.2098321" lon="6.1381758">
+  <tag k="ele" v="393"/>
+  <tag k="name" v="Lyon"/>
+  <tag k="network" v="18"/>
+  <tag k="operator" v="TPG"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="railway" v="tram_stop"/>
+  <tag k="tram" v="yes"/>
+  <tag k="uic_name" v="Genève, Lyon"/>
+  <tag k="uic_ref" v="8592850"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="1961602024" visible="true" version="1" changeset="13472664" timestamp="2012-10-12T21:36:27Z" user="x-pab" uid="120583" lat="46.2094892" lon="6.1382925"/>
+ <node id="1961602034" visible="true" version="1" changeset="13472664" timestamp="2012-10-12T21:36:27Z" user="x-pab" uid="120583" lat="46.2095464" lon="6.1381575"/>
+ <node id="1961602038" visible="true" version="1" changeset="13472664" timestamp="2012-10-12T21:36:27Z" user="x-pab" uid="120583" lat="46.2096093" lon="6.1384025"/>
+ <node id="1961602045" visible="true" version="1" changeset="13472664" timestamp="2012-10-12T21:36:28Z" user="x-pab" uid="120583" lat="46.2096657" lon="6.1378817"/>
+ <node id="1961602056" visible="true" version="1" changeset="13472664" timestamp="2012-10-12T21:36:28Z" user="x-pab" uid="120583" lat="46.2096687" lon="6.1382675"/>
+ <node id="1961602071" visible="true" version="1" changeset="13472664" timestamp="2012-10-12T21:36:28Z" user="x-pab" uid="120583" lat="46.2097875" lon="6.1379905"/>
+ <node id="2806764361" visible="true" version="3" changeset="62651532" timestamp="2018-09-17T04:30:44Z" user="Dharma-ae" uid="314664" lat="46.2096463" lon="6.1386041"/>
+ <node id="2806764363" visible="true" version="3" changeset="62651532" timestamp="2018-09-17T04:30:44Z" user="Dharma-ae" uid="314664" lat="46.2096766" lon="6.1386314"/>
+ <node id="2806764367" visible="true" version="4" changeset="139988743" timestamp="2023-08-17T00:01:33Z" user="Marc Mongenet" uid="74847" lat="46.2100165" lon="6.1377497"/>
+ <node id="2806764369" visible="true" version="3" changeset="139988743" timestamp="2023-08-17T00:01:33Z" user="Marc Mongenet" uid="74847" lat="46.2100468" lon="6.1377775"/>
+ <node id="3676381965" visible="true" version="1" changeset="33031494" timestamp="2015-08-01T14:31:16Z" user="floyd70" uid="3068030" lat="46.2099307" lon="6.1384140">
+  <tag k="addr:city" v="Genève"/>
+  <tag k="addr:housenumber" v="10"/>
+  <tag k="addr:street" v="Rue de la Servette"/>
+ </node>
+ <node id="3873457317" visible="true" version="3" changeset="158987016" timestamp="2024-11-10T22:00:02Z" user="dora_explorateuz" uid="22022529" lat="46.2098489" lon="6.1384977">
+  <tag k="emergency" v="fire_hydrant"/>
+  <tag k="fire_hydrant:position" v="sidewalk"/>
+  <tag k="fire_hydrant:type" v="pillar"/>
+  <tag k="ref:signed" v="no"/>
+ </node>
+ <node id="4054886294" visible="true" version="3" changeset="140296498" timestamp="2023-08-23T23:22:22Z" user="Marc Mongenet" uid="74847" lat="46.2096913" lon="6.1382871">
+  <tag k="amenity" v="waste_basket"/>
+  <tag k="check_date" v="2022-03-14"/>
+ </node>
+ <node id="4222276758" visible="true" version="3" changeset="161782752" timestamp="2025-01-26T14:40:32Z" user="WilliamHarrison" uid="16806535" lat="46.2096342" lon="6.1386322"/>
+ <node id="4281452293" visible="true" version="6" changeset="157368744" timestamp="2024-10-02T09:04:24Z" user="beubzboi" uid="15124588" lat="46.2096953" lon="6.1381256">
+  <tag k="addr:city" v="Genève"/>
+  <tag k="addr:street" v="Rue de la Servette"/>
+  <tag k="female" v="yes"/>
+  <tag k="name" v="Asyrah"/>
+  <tag k="opening_hours" v="Tu-Fr 10:00-19:00; Sa 10:00-18:00"/>
+  <tag k="shop" v="hairdresser"/>
+ </node>
+ <node id="5910849473" visible="true" version="1" changeset="62651532" timestamp="2018-09-17T04:30:37Z" user="Dharma-ae" uid="314664" lat="46.2096633" lon="6.1386621"/>
+ <node id="11120979904" visible="true" version="1" changeset="139989206" timestamp="2023-08-17T00:43:15Z" user="Marc Mongenet" uid="74847" lat="46.2096090" lon="6.1387877"/>
+ <node id="11140021793" visible="true" version="1" changeset="140296498" timestamp="2023-08-23T23:22:22Z" user="Marc Mongenet" uid="74847" lat="46.2100650" lon="6.1376385"/>
+ <node id="11140035911" visible="true" version="1" changeset="140296498" timestamp="2023-08-23T23:22:22Z" user="Marc Mongenet" uid="74847" lat="46.2098479" lon="6.1381882">
+  <tag k="bus" v="yes"/>
+  <tag k="ele" v="393"/>
+  <tag k="highway" v="bus_stop"/>
+  <tag k="name" v="Lyon"/>
+  <tag k="operator" v="TPG"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="trolleybus" v="yes"/>
+  <tag k="uic_name" v="Genève, Lyon"/>
+  <tag k="uic_ref" v="8592850"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="12139794964" visible="true" version="3" changeset="157381433" timestamp="2024-10-02T14:15:19Z" user="nu99et" uid="20905165" lat="46.2096610" lon="6.1382098">
+  <tag k="name" v="Mondo Voyages"/>
+  <tag k="opening_hours" v="Mo-Sa 09:00-12:30, Mo-Fr 14:00-18:00"/>
+  <tag k="shop" v="travel_agency"/>
+  <tag k="wheelchair" v="no"/>
+ </node>
+ <node id="12511404290" visible="true" version="1" changeset="161476028" timestamp="2025-01-18T01:39:05Z" user="WilliamHarrison" uid="16806535" lat="46.2100695" lon="6.1376276"/>
+ <node id="12511404291" visible="true" version="1" changeset="161476028" timestamp="2025-01-18T01:39:05Z" user="WilliamHarrison" uid="16806535" lat="46.2098208" lon="6.1382991">
+  <tag k="bus" v="yes"/>
+  <tag k="ele" v="393"/>
+  <tag k="name" v="Lyon"/>
+  <tag k="network" v="18"/>
+  <tag k="operator" v="TPG"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="uic_name" v="Genève, Lyon"/>
+  <tag k="uic_ref" v="8592850"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="12511404292" visible="true" version="1" changeset="161476028" timestamp="2025-01-18T01:39:05Z" user="WilliamHarrison" uid="16806535" lat="46.2097900" lon="6.1382728">
+  <tag k="bus" v="yes"/>
+  <tag k="ele" v="393"/>
+  <tag k="name" v="Lyon"/>
+  <tag k="network" v="18"/>
+  <tag k="operator" v="TPG"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="uic_name" v="Genève, Lyon"/>
+  <tag k="uic_ref" v="8592850"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <way id="185539524" visible="true" version="4" changeset="113838190" timestamp="2021-11-16T07:40:17Z" user="v0lv0x" uid="918957">
+  <nd ref="1961602071"/>
+  <nd ref="1961602056"/>
+  <nd ref="1961602034"/>
+  <nd ref="1961602045"/>
+  <nd ref="1961602071"/>
+  <tag k="addr:city" v="Genève"/>
+  <tag k="addr:housenumber" v="19"/>
+  <tag k="addr:street" v="Rue de la Servette"/>
+  <tag k="building" v="apartments"/>
+  <tag k="building:levels" v="8"/>
+  <tag k="roof:levels" v="1"/>
+ </way>
+ <way id="185539529" visible="true" version="4" changeset="119008978" timestamp="2022-03-28T08:13:08Z" user="v0lv0x" uid="918957">
+  <nd ref="1961602034"/>
+  <nd ref="1961602024"/>
+  <nd ref="1961602038"/>
+  <nd ref="1961602056"/>
+  <nd ref="1961602034"/>
+  <tag k="addr:city" v="Genève"/>
+  <tag k="addr:housenumber" v="15"/>
+  <tag k="addr:street" v="Rue de la Servette"/>
+  <tag k="building" v="apartments"/>
+  <tag k="building:levels" v="9"/>
+ </way>
+ <way id="1352236756" visible="true" version="2" changeset="161782752" timestamp="2025-01-26T14:40:32Z" user="WilliamHarrison" uid="16806535">
+  <nd ref="1549433372"/>
+  <nd ref="12511404290"/>
+  <nd ref="11140021793"/>
+  <nd ref="2806764367"/>
+  <nd ref="1550063100"/>
+  <nd ref="12511404292"/>
+  <nd ref="2806764361"/>
+  <nd ref="4222276758"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="frequency" v="0"/>
+  <tag k="gauge" v="1000"/>
+  <tag k="highway" v="busway"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="railway" v="tram"/>
+  <tag k="voltage" v="600"/>
+ </way>
+ <way id="1352236758" visible="true" version="1" changeset="161476028" timestamp="2025-01-18T01:39:05Z" user="WilliamHarrison" uid="16806535">
+  <nd ref="11120979904"/>
+  <nd ref="5910849473"/>
+  <nd ref="2806764363"/>
+  <nd ref="12511404291"/>
+  <nd ref="1549433494"/>
+  <nd ref="2806764369"/>
+  <nd ref="1549433354"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="frequency" v="0"/>
+  <tag k="gauge" v="1000"/>
+  <tag k="highway" v="busway"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="railway" v="tram"/>
+  <tag k="voltage" v="600"/>
+ </way>
+</osm>

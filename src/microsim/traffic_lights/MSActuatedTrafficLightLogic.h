@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -142,6 +142,9 @@ public:
     /// @brief retrieve all detectors used by this program
     std::map<std::string, double> getDetectorStates() const override;
 
+    /// @brief retrieve a specific detector used by this program
+    double getDetectorState(const std::string laneID) const override;
+
     /// @brief return all named conditions defined for this traffic light
     std::map<std::string, double> getConditions() const override;
 
@@ -188,7 +191,7 @@ protected:
     SUMOTime duration(const double detectionGap) const;
 
     /// @brief get the minimum min duration for all stretchable phases that affect the given lane
-    SUMOTime getMinimumMinDuration(MSLane* lane) const;
+    SUMOTime getMinimumMinDuration(MSLane* lane, const std::set<int>& multiNextTargets) const;
 
     /** @brief Return the minimum detection gap of all detectors if the current phase should be extended and double::max otherwise
      */
@@ -225,8 +228,8 @@ protected:
     /// @brief count the number of active detectors for the given step
     int getPhasePriority(int step) const;
 
-    /// @brief get the green phase following step
-    int getTarget(int step);
+    /// @brief get the green phase following step and the transition time
+    std::pair<int, SUMOTime> getTarget(int step) const;
 
     /// @brief whether the current phase cannot be continued due to linkMaxDur constraints
     bool maxLinkDurationReached();
@@ -236,6 +239,9 @@ protected:
 
     /// @brief the minimum duratin for keeping the current phase due to linkMinDur constraints
     SUMOTime getLinkMinDuration(int target) const;
+
+    /// @brief whether a given link has only weak mode foes that are green in the given state
+    bool weakConflict(int linkIndex, const std::string& state) const;
 
     template<typename T, SumoXMLTag Tag>
     const T* retrieveDetExpression(const std::string& arg, const std::string& expr, bool tryPrefix) const {
@@ -254,9 +260,16 @@ protected:
         }
     }
 
+    /// find green phases target by a next attribute
+    std::set<int> getMultiNextTargets() const;
+
+    void initTargets(int step);
+    void findTargets(int origStep, int n, SUMOTime priorTransition, std::map<int, SUMOTime>& found);
+
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
     InductLoopMap myInductLoopsForPhase;
+    std::vector<std::vector<const MSLink*> > myCrossingsForPhase;
 
     std::vector<InductLoopInfo> myInductLoops;
 
@@ -281,6 +294,9 @@ protected:
 
     /// Whether the detectors shall be shown in the GUI
     bool myShowDetectors;
+
+    /// Whether all detectors shall be built
+    bool myBuildAllDetectors;
 
     /// Whether any of the phases has multiple targets
     bool myHasMultiTarget;
@@ -330,6 +346,12 @@ protected:
     std::vector<SwitchingRules> mySwitchingRules;
 
     const std::string myDetectorPrefix;
+
+    /* @brief for every actuated phase,
+     * then for every target phase,
+     * provide the list of green phases that are reached quickest from the target phase
+     */
+    std::map<int, std::map<int, std::vector<int> > > myTargets;
 
     static const std::vector<std::string> OPERATOR_PRECEDENCE;
 };

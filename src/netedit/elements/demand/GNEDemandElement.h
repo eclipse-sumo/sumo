@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,35 +20,23 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEMoveElement.h>
-#include <netedit/GNEPathManager.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
-#include <utils/common/Parameterised.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/div/GUIGeometry.h>
+#include <netedit/elements/GNEMoveElement.h>
+#include <netedit/elements/GNEPathElement.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
-
-#include "GNEDemandElementDistribution.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNENet;
-class GNEAdditional;
-class GNEDemandElement;
-class GNENetworkElement;
-class GNEGenericData;
-class GNEEdge;
-class GNELane;
-class GNEJunction;
+class SUMOVehicleParameter;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
+class GNEDemandElement : public GNEAttributeCarrier, public GNEHierarchicalElement, public GUIGlObject, public GNEPathElement, public GNEMoveElement {
 
 public:
     /// @brief friend declaration (needed for vTypes)
@@ -71,47 +59,26 @@ public:
     /**@brief Constructor
      * @param[in] id Gl-id of the demand element element (Must be unique)
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
-     * @param[in] type GUIGlObjectType of demand element
+     * @param[in] filename file in which this AttributeCarrier is stored
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
      * @param[in] pathOptions path options
-     * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
      */
-    GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int pathOptions,
-                     const std::vector<GNEJunction*>& junctionParents,
-                     const std::vector<GNEEdge*>& edgeParents,
-                     const std::vector<GNELane*>& laneParents,
-                     const std::vector<GNEAdditional*>& additionalParents,
-                     const std::vector<GNEDemandElement*>& demandElementParents,
-                     const std::vector<GNEGenericData*>& genericDataParents);
+    GNEDemandElement(const std::string& id, GNENet* net, const std::string& filename,
+                     SumoXMLTag tag, const GNEPathElement::Options pathOptions);
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
-     * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
      * @param[in] pathOptions path options
-     * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
      */
-    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int pathOptions,
-                     const std::vector<GNEJunction*>& junctionParents,
-                     const std::vector<GNEEdge*>& edgeParents,
-                     const std::vector<GNELane*>& laneParents,
-                     const std::vector<GNEAdditional*>& additionalParents,
-                     const std::vector<GNEDemandElement*>& demandElementParents,
-                     const std::vector<GNEGenericData*>& genericDataParents);
+    GNEDemandElement(GNEDemandElement* demandElementParent, SumoXMLTag tag, const GNEPathElement::Options pathOptions);
 
     /// @brief Destructor
     virtual ~GNEDemandElement();
+
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
@@ -214,6 +181,9 @@ public:
     /// @brief check if draw delete contour (pink/white)
     bool checkDrawDeleteContour() const;
 
+    /// @brief check if draw delete contour small (pink/white)
+    bool checkDrawDeleteContourSmall() const;
+
     /// @brief check if draw select contour (blue)
     bool checkDrawSelectContour() const;
 
@@ -266,7 +236,7 @@ public:
 
     /// @}
 
-    /// @name inherited from GNEPathManager::PathElement
+    /// @name inherited from GNEPathElement
     /// @{
     /// @brief compute pathElement
     virtual void computePathElement() = 0;
@@ -279,14 +249,14 @@ public:
      * @param[in] segment lane segment
      * @param[in] offsetFront front offset
      */
-    virtual void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+    virtual void drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const = 0;
 
     /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] segment junction segment
      * @param[in] offsetFront front offset
      */
-    virtual void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+    virtual void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNESegment* segment, const double offsetFront) const = 0;
 
     /// @brief get first path lane
     virtual GNELane* getFirstPathLane() const = 0;
@@ -373,16 +343,17 @@ protected:
     void drawJunctionLine(const GNEDemandElement* element) const;
 
     /// @brief draw stack label
-    void drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
+    void drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation,
+                        const double width, const double length, const double exaggeration) const;
 
     /// @name replace parent elements
     /// @{
 
-    /// @brief replace demand parent edges
-    void replaceDemandParentEdges(const std::string& value);
+    /// @brief all edges
+    void replaceParentEdges(const std::string& value);
 
-    /// @brief replace demand parent lanes
-    void replaceDemandParentLanes(const std::string& value);
+    /// @brief replace the first parent lane
+    void replaceFirstParentLane(const std::string& value);
 
     /// @brief replace the first parent junction
     void replaceFirstParentJunction(const std::string& value);
@@ -404,9 +375,6 @@ protected:
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
-
-    /// @brief set VTypeDistribution parent
-    void setVTypeDistributionParent(const std::string& value);
 
     /// @}
 
@@ -435,8 +403,8 @@ protected:
     /// @brief get edgeStopIndex
     std::vector<EdgeStopIndex> getEdgeStopIndex() const;
 
-    /// @brief get distribution in which the given element is part
-    std::string getDistributionParents() const;
+    /// @brief get color by scheme (used by vehicles, persons and containers)
+    RGBColor getColorByScheme(const GUIColorer& c, const SUMOVehicleParameter* parameters) const;
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;

@@ -18,11 +18,11 @@ below. Each container must have at least one stage in its plan.
 
 ```xml
 <container id="foo" depart="0">
-    <tranship edges="a b"/>
-    <transport ../>
-    <transport ../>
-    <tranship ../>
-    <stop ../>
+    <tranship edges="a b"/>
+    <transport ../>
+    <transport ../>
+    <tranship ../>
+    <stop ../>
 </container>
 ```
 
@@ -61,7 +61,7 @@ The vehicle to use has to exist already and the route to take is defined by the 
 - the vehicle has a triggered stop and the container position is within the range of startpos,endPos of the stop.
 - the vehicle has a timed stop and the container is waiting within 10m of the vehicle position
 
-The position of the container is either it's departPos or the arrival position of the preceding plan element
+The position of the container is either its departPos or the arrival position of the preceding plan element
 
 A given container stop (or any other stopping place) may serve as a replacement for a destination edge and arrival position. If an arrival position is given nevertheless it has to be inside the range of the stop.
 
@@ -196,19 +196,19 @@ See also [personFlows](Persons.md#repeated_persons_personflows)
 ## Examples
 
 ```xml
-   <containerFlow id="c" begin="0" end="10" period="2">
-       <tranship from="beg" to="end"/>
-   </containerFlow>
+   <containerFlow id="c" begin="0" end="10" period="2">
+       <tranship from="beg" to="end"/>
+   </containerFlow>
 ```
 
 ```xml
-   <containerFlow id="container" begin="0" end="1" number="4" departPos="80">
-       <tranship from="2/3to1/3" to="1/3to0/3" arrivalPos="55"/>
-       <transport containerStop="cs_train0" lines="train0"/>
-       <tranship to="1/4to2/4" arrivalPos="45"/>
-       <stop lane="1/4to2/4_0" duration="20" startPos="40" actType="waiting"/>
-       <transport to="3/4to4/4" lines="truck0"/>
-   </containerFlow>
+   <containerFlow id="container" begin="0" end="1" number="4" departPos="80">
+       <tranship from="2/3to1/3" to="1/3to0/3" arrivalPos="55"/>
+       <transport containerStop="cs_train0" lines="train0"/>
+       <tranship to="1/4to2/4" arrivalPos="45"/>
+       <stop lane="1/4to2/4_0" duration="20" startPos="40" actType="waiting"/>
+       <transport to="3/4to4/4" lines="truck0"/>
+   </containerFlow>
 ```
 
 # Starting the simulation in a Vehicle

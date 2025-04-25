@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-02-28 11:01:09 by Eclipse SUMO sumo Version v1_12_0+0917-7eca278
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo2.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="vehicle_0" depart="0.00" departLane="gneE1_0" departPos="135.10" departSpeed="20.00" departDelay="0.00" arrival="15.00" arrivalLane="gneE2_0" arrivalPos="197.74" arrivalSpeed="21.00" duration="15.00" routeLength="287.78" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.78" rerouteNo="0" devices="tripinfo_vehicle_0 routing_vehicle_0" vType="train" speedFactor="1.00" vaporized=""/>
+</tripinfos>

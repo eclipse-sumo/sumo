@@ -1,0 +1,39 @@
+simple
+minSaving_lower
+minSaving_too_high
+
+# no overtaking needed
+leader_exit_early
+
+# no overtaking needed
+follower_exit_early
+
+# follower enters the main section from another edge
+follower_enter_within
+
+# train doesn't fit into the siding
+long_train
+
+# no detour needed
+follower_low_prio
+
+# arrival_delay is too high so overtaking is not considered
+follower_arrival_delay_high
+
+# arrival_delay is too high so overtaking is not considered
+follower_arrival_delay_low
+
+# delay is too high so overtaking is not considered
+follower_delay_high
+
+# delay is high but overtaking is considered anyway
+follower_delay_high_maxDelay_high
+
+# delay is high but overtaking is considered anyway
+follower_delay_high_maxDelay_default
+
+# delay is too high so overtaking is not considered
+follower_delay_low
+
+# no detour needed
+leader_high_prio

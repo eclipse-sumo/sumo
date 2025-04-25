@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2011-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -146,7 +146,7 @@ public:
     void setType(TrafficLightType type);
 
     /// @brief whether the given index must yield to the foeIndex while turing right on a red light
-    bool rightOnRedConflict(int index, int foeIndex) const;
+    bool extraConflict(int index, int foeIndex) const;
 
     /* @brief shortens phase states to remove states that are not referenced by
      * any controlled link and returns whether states were shortened
@@ -239,6 +239,9 @@ private:
 
     /// @brief return whether all tls link indices are valid
     bool hasValidIndices() const;
+
+    /// @brief return whether the given connection is still valid
+    bool isValid(const NBConnection& con) const;
 
 private:
     /// @brief class for identifying connections

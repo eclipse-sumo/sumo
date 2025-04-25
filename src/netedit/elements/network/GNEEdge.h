@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -57,9 +57,6 @@ class GNEEdge : public GNENetworkElement, public GNECandidateElement {
     friend class GNEChange_Connection;
 
 public:
-    /// @brief Definition of the lane's vector
-    typedef std::vector<GNELane*> LaneVector;
-
     /// @brief Definition of the connection's vector
     typedef std::vector<GNEConnection*> ConnectionVector;
 
@@ -117,6 +114,9 @@ public:
 
     /// @brief check if draw delete contour (pink/white)
     bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw delete contour small (pink/white)
+    bool checkDrawDeleteContourSmall() const;
 
     /// @brief check if draw select contour (blue)
     bool checkDrawSelectContour() const;
@@ -214,6 +214,12 @@ public:
     std::string getAttribute(SumoXMLAttr key) const;
     std::string getAttributeForSelection(SumoXMLAttr key) const;
 
+    /* @brief method for getting the Attribute of an XML key in Position format
+     * @param[in] key The attribute key
+     * @return position with the value associated to key
+     */
+    PositionVector getAttributePositionVector(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -275,9 +281,6 @@ public:
 
     /// @brief returns GLIDs of all lanes
     std::set<GUIGlID> getLaneGlIDs() const;
-
-    /// @brief returns a reference to the lane vector
-    const std::vector<GNELane*>& getLanes() const;
 
     /// @brief returns a reference to the GNEConnection vector
     const std::vector<GNEConnection*>& getGNEConnections() const;
@@ -358,9 +361,6 @@ public:
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;
-
-    /// @brief vector with the lanes of this edge
-    LaneVector myLanes;
 
     /// @brief vector with the connections of this edge
     ConnectionVector myGNEConnections;
@@ -469,30 +469,34 @@ private:
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > getContainersOverEdgeMap() const;
 
     /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
-    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                                const double layer) const;
 
     /// @brief draw start extreme geometry point
     void drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                const double geometryPointRadius, const double exaggeration) const;
+                                const double geometryPointRadius, const double layer, const double exaggeration) const;
 
     /// @brief draw end extreme geometry point
     void drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                              const double geometryPointRadius, const double exaggeration) const;
+                              const double geometryPointRadius, const double layer, const double exaggeration) const;
 
     /// @brief draw edge name
-    void drawEdgeName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawEdgeName(const GUIVisualizationSettings& s) const;
 
     /// @brief draw edgeStopOffset
-    void drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                            const double layer) const;
 
     /// @brief draw edge shape (only one line)
-    void drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                       const double layer) const;
 
     /// @brief draw children
-    void drawChildrens(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawChildrens(const GUIVisualizationSettings& s) const;
 
     /// @brief calculate contours
-    void calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
+                              const double layer) const;
 
     /// @brief draw TAZElements
     void drawTAZElements(const GUIVisualizationSettings& s) const;

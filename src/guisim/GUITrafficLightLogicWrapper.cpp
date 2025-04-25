@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -75,9 +75,8 @@ FXIMPLEMENT(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu, G
  * GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::GUITrafficLightLogicWrapperPopupMenu(
-    GUIMainWindow& app, GUISUMOAbstractView& parent,
-    GUIGlObject& o)
-    : GUIGLObjectPopupMenu(app, parent, o) {}
+    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject* o) :
+    GUIGLObjectPopupMenu(app, parent, o) {}
 
 
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::~GUITrafficLightLogicWrapperPopupMenu() {}
@@ -158,10 +157,9 @@ GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper() {}
 
 
 GUIGLObjectPopupMenu*
-GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
-        GUISUMOAbstractView& parent) {
+GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     myApp = &app;
-    GUIGLObjectPopupMenu* ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
+    GUIGLObjectPopupMenu* ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     const MSTLLogicControl::TLSLogicVariants& vars = myTLLogicControl.get(myTLLogic.getID());
@@ -252,7 +250,9 @@ GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("cycle time"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getDefaultCycleTimeSeconds));
     MSRailSignal* rs = dynamic_cast<MSRailSignal*>(&myTLLogic);
     if (rs != nullptr) {
+        ret->mkItem(TL("req driveway"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getRequestedDriveWay));
         ret->mkItem(TL("blocking"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getBlockingVehicleIDs));
+        ret->mkItem(TL("blocking driveways"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getBlockingDriveWayIDs));
         ret->mkItem(TL("rival"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getRivalVehicleIDs));
         ret->mkItem(TL("priority"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getPriorityVehicleIDs));
         ret->mkItem(TL("constraint"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getConstraintInfo));
@@ -402,7 +402,7 @@ GUITrafficLightLogicWrapper::getCurrentTimeInCycleSeconds() const {
 
 int
 GUITrafficLightLogicWrapper::getRunningDurationSeconds() const {
-    return (int)(SIMTIME - STEPS2TIME(getActiveTLLogic()->getCurrentPhaseDef().myLastSwitch));
+    return (int)STEPS2TIME(getActiveTLLogic()->getSpentDuration());
 }
 
 

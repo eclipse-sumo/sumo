@@ -1,0 +1,5 @@
+-r input_routes2.rou.xml
+-a input_additional2.add.xml
+--vehroute-output vehroutes.xml
+--tripinfo-output tripinfos.xml
+--stop-output stopinfos.xml

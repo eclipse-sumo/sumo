@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,11 +15,12 @@
 /// @author  Jakob Erdmann
 /// @date    Mon, 25 Mar 2019
 ///
-// Abstract base class for vehicle and person representations
+// Abstract base class for vehicle, person, and container representations
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
+#include <string>
 #include <vector>
 #include <typeinfo>
 #include <memory>
@@ -33,6 +34,7 @@
 // ===========================================================================
 class MSVehicleType;
 class SUMOVehicleParameter;
+class SUMOVTypeParameter;
 class MSEdge;
 class MSLane;
 class Position;
@@ -90,6 +92,11 @@ public:
      */
     virtual const MSVehicleType& getVehicleType() const = 0;
 
+    /** @brief Returns the object's "vehicle" type parameter
+     * @return The type parameter
+     */
+    virtual const SUMOVTypeParameter& getVTypeParameter() const = 0;
+
     /** @brief Replaces the current vehicle type by the one given
     *
     * If the currently used vehicle type is marked as being used by this object
@@ -138,6 +145,13 @@ public:
      */
     virtual const MSLane* getLane() const = 0;
 
+    /** @brief Returns the lane the where the rear of the object is currently at
+     *
+     * @return The current back lane or nullptr if the object is not on a lane
+     */
+    virtual const MSLane* getBackLane() const = 0;
+
+
     /// @brief return index of edge within route
     virtual int getRoutePosition() const = 0;
 
@@ -161,6 +175,15 @@ public:
      * @return The object's access class
      */
     virtual SUMOVehicleClass getVClass() const = 0;
+
+    /** @brief Returns whether this object is ignoring transient permission
+     * changes (during routing)
+     */
+    virtual bool ignoreTransientPermissions() const {
+        return false;
+    };
+
+    virtual int getRoutingMode() const = 0;
 
     /** @brief Returns the object's maximum speed (minimum of technical and desired maximum speed)
      * @return The object's maximum speed
@@ -223,5 +246,39 @@ public:
     /// @brief Returns a device of the given type if it exists or nullptr if not
     virtual MSDevice* getDevice(const std::type_info& type) const = 0;
 
+    /// @name Helper methods for parsing parameters from the object itself, it's type or the global OptionsCont
+    /// @{
+    /** @brief Retrieve a string parameter for the traffic object.
+     * @param paramName the parameter name
+     * @param required whether it is an error if the parameter is not set
+     * @param deflt the default value to take if the parameter is not set (the default in the OptionsCont takes precedence)
+     * @return the string value
+     */
+    std::string getStringParam(const std::string& paramName, const bool required = false, const std::string& deflt = "") const;
 
+    /** @brief Retrieve a floating point parameter for the traffic object.
+     * @param paramName the parameter name
+     * @param required whether it is an error if the parameter is not set
+     * @param deflt the default value to take if the parameter is not set (the default in the OptionsCont takes precedence)
+     * @param checkDist whether the given value may be a distribution definition
+     * @return the float value
+     */
+    double getFloatParam(const std::string& paramName, const bool required = false, const double deflt = INVALID_DOUBLE, bool checkDist = true) const;
+
+    /** @brief Retrieve a boolean parameter for the traffic object.
+     * @param paramName the parameter name
+     * @param required whether it is an error if the parameter is not set
+     * @param deflt the default value to take if the parameter is not set (the default in the OptionsCont takes precedence)
+     * @return the bool value
+     */
+    bool getBoolParam(const std::string& paramName, const bool required = false, const bool deflt = false) const;
+
+    /** @brief Retrieve a time parameter for the traffic object.
+     * @param paramName the parameter name
+     * @param required whether it is an error if the parameter is not set
+     * @param deflt the default value to take if the parameter is not set (the default in the OptionsCont takes precedence)
+     * @return the time value
+     */
+    SUMOTime getTimeParam(const std::string& paramName, const bool required = false, const SUMOTime deflt = SUMOTime_MIN) const;
+    /// @}
 };

@@ -10,6 +10,9 @@ POI
 # Tests for changing polygon values
 Polygon
 
+# Tests for changing stoppingPlace values
+StoppingPlaces
+
 # Tests for changing lane values
 Lane
 

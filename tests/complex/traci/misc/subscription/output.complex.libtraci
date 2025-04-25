@@ -1,0 +1,1154 @@
+Subscribing to busstop.VAR_LANEPOSITION.
+Subscribing to busstop.ID_COUNT.
+Subscribing to busstop.TRACI_ID_LIST.
+Subscribing to busstop.VAR_LANE_ID.
+Subscribing to busstop.VAR_NAME.
+Subscribing to busstop.VAR_PARAMETER.
+Subscribing to busstop.VAR_PARAMETER_WITH_KEY.
+Subscribing to busstop.VAR_BUS_STOP_WAITING.
+Subscribing to busstop.VAR_BUS_STOP_WAITING_IDS.
+Subscribing to busstop.VAR_POSITION.
+Subscribing to busstop.VAR_STOP_STARTING_VEHICLES_NUMBER.
+Subscribing to busstop.VAR_STOP_STARTING_VEHICLES_IDS.
+Expecting failure for busstop.ADD subscription.
+Could not add subscription. Get BusStop Variable: unsupported variable 0x80 specified
+Subscribing to calibrator.VAR_BEGIN.
+Subscribing to calibrator.VAR_ROAD_ID.
+Subscribing to calibrator.VAR_END.
+Subscribing to calibrator.ID_COUNT.
+Subscribing to calibrator.TRACI_ID_LIST.
+Subscribing to calibrator.VAR_INSERTED.
+Subscribing to calibrator.VAR_LANE_ID.
+Subscribing to calibrator.VAR_PARAMETER.
+Subscribing to calibrator.VAR_PARAMETER_WITH_KEY.
+Subscribing to calibrator.VAR_PASSED.
+Subscribing to calibrator.VAR_REMOVED.
+Subscribing to calibrator.VAR_ROUTE_ID.
+Subscribing to calibrator.VAR_ROUTE_PROBE.
+Subscribing to calibrator.VAR_SPEED.
+Subscribing to calibrator.VAR_TYPE.
+Subscribing to calibrator.VAR_VTYPES.
+Subscribing to calibrator.VAR_VEHSPERHOUR.
+Expecting failure for calibrator.ADD subscription.
+Could not add subscription. Get Calibrator Variable: unsupported variable 0x80 specified
+Subscribing to chargingstation.VAR_CS_CHARGE_DELAY.
+Subscribing to chargingstation.VAR_CS_CHARGE_IN_TRANSIT.
+Subscribing to chargingstation.VAR_CS_POWER.
+Subscribing to chargingstation.VAR_CS_EFFICIENCY.
+Subscribing to chargingstation.VAR_LANEPOSITION.
+Subscribing to chargingstation.ID_COUNT.
+Subscribing to chargingstation.TRACI_ID_LIST.
+Subscribing to chargingstation.VAR_LANE_ID.
+Subscribing to chargingstation.VAR_NAME.
+Subscribing to chargingstation.VAR_PARAMETER.
+Subscribing to chargingstation.VAR_PARAMETER_WITH_KEY.
+Subscribing to chargingstation.VAR_POSITION.
+Subscribing to chargingstation.VAR_STOP_STARTING_VEHICLES_NUMBER.
+Subscribing to chargingstation.VAR_STOP_STARTING_VEHICLES_IDS.
+Expecting failure for chargingstation.ADD subscription.
+Could not add subscription. Get ChargingStation Variable: unsupported variable 0x80 specified
+Subscribing to edge.VAR_EDGE_TRAVELTIME.
+Subscribing to edge.VAR_ANGLE.
+Subscribing to edge.VAR_BIDI.
+Subscribing to edge.VAR_CO2EMISSION.
+Subscribing to edge.VAR_COEMISSION.
+Subscribing to edge.VAR_EDGE_EFFORT.
+Subscribing to edge.VAR_ELECTRICITYCONSUMPTION.
+Subscribing to edge.FROM_JUNCTION.
+Subscribing to edge.VAR_FUELCONSUMPTION.
+Subscribing to edge.VAR_HCEMISSION.
+Subscribing to edge.ID_COUNT.
+Subscribing to edge.TRACI_ID_LIST.
+Subscribing to edge.VAR_LANE_INDEX.
+Subscribing to edge.LAST_STEP_VEHICLE_HALTING_NUMBER.
+Subscribing to edge.LAST_STEP_LENGTH.
+Subscribing to edge.LAST_STEP_MEAN_SPEED.
+Subscribing to edge.LAST_STEP_OCCUPANCY.
+Subscribing to edge.LAST_STEP_PERSON_ID_LIST.
+Subscribing to edge.LAST_STEP_VEHICLE_ID_LIST.
+Subscribing to edge.LAST_STEP_VEHICLE_NUMBER.
+Subscribing to edge.VAR_FRICTION.
+Subscribing to edge.VAR_NOXEMISSION.
+Subscribing to edge.VAR_NOISEEMISSION.
+Subscribing to edge.VAR_PMXEMISSION.
+Subscribing to edge.VAR_PARAMETER.
+Subscribing to edge.VAR_PARAMETER_WITH_KEY.
+Subscribing to edge.VAR_PENDING_VEHICLES.
+Subscribing to edge.VAR_NAME.
+Subscribing to edge.TO_JUNCTION.
+Subscribing to edge.VAR_CURRENT_TRAVELTIME.
+Subscribing to edge.VAR_WAITING_TIME.
+Expecting failure for edge.ADD subscription.
+Could not add subscription. Get Edge Variable: unsupported variable 0x80 specified
+Subscribing to inductionloop.ID_COUNT.
+Subscribing to inductionloop.TRACI_ID_LIST.
+Subscribing to inductionloop.VAR_INTERVAL_SPEED.
+Subscribing to inductionloop.VAR_INTERVAL_OCCUPANCY.
+Subscribing to inductionloop.VAR_INTERVAL_IDS.
+Subscribing to inductionloop.VAR_INTERVAL_NUMBER.
+Subscribing to inductionloop.VAR_LANE_ID.
+Subscribing to inductionloop.VAR_LAST_INTERVAL_SPEED.
+Subscribing to inductionloop.VAR_LAST_INTERVAL_OCCUPANCY.
+Subscribing to inductionloop.VAR_LAST_INTERVAL_IDS.
+Subscribing to inductionloop.VAR_LAST_INTERVAL_NUMBER.
+Subscribing to inductionloop.LAST_STEP_LENGTH.
+Subscribing to inductionloop.LAST_STEP_MEAN_SPEED.
+Subscribing to inductionloop.LAST_STEP_OCCUPANCY.
+Subscribing to inductionloop.LAST_STEP_VEHICLE_ID_LIST.
+Subscribing to inductionloop.LAST_STEP_VEHICLE_NUMBER.
+Subscribing to inductionloop.VAR_PARAMETER.
+Subscribing to inductionloop.VAR_PARAMETER_WITH_KEY.
+Subscribing to inductionloop.VAR_POSITION.
+Subscribing to inductionloop.LAST_STEP_TIME_SINCE_DETECTION.
+Subscribing to inductionloop.LAST_STEP_VEHICLE_DATA.
+Expecting failure for inductionloop.ADD subscription.
+Could not add subscription. Get Induction Loop Variable: unsupported variable 0x80 specified
+Subscribing to junction.ID_COUNT.
+Subscribing to junction.TRACI_ID_LIST.
+Subscribing to junction.INCOMING_EDGES.
+Subscribing to junction.OUTGOING_EDGES.
+Subscribing to junction.VAR_PARAMETER.
+Subscribing to junction.VAR_PARAMETER_WITH_KEY.
+Subscribing to junction.VAR_SHAPE.
+Expecting failure for junction.ADD subscription.
+Could not add subscription. Get Junction Variable: unsupported variable 0x80 specified
+Subscribing to lane.LANE_ALLOWED.
+Subscribing to lane.VAR_ANGLE.
+Subscribing to lane.VAR_BIDI.
+Subscribing to lane.VAR_CO2EMISSION.
+Subscribing to lane.VAR_COEMISSION.
+Subscribing to lane.LANE_CHANGES.
+Subscribing to lane.LANE_DISALLOWED.
+Subscribing to lane.LANE_EDGE_ID.
+Subscribing to lane.VAR_ELECTRICITYCONSUMPTION.
+Subscribing to lane.VAR_FOES.
+Subscribing to lane.VAR_FRICTION.
+Subscribing to lane.VAR_FUELCONSUMPTION.
+Subscribing to lane.VAR_HCEMISSION.
+Subscribing to lane.ID_COUNT.
+Subscribing to lane.TRACI_ID_LIST.
+Subscribing to lane.LAST_STEP_VEHICLE_HALTING_NUMBER.
+Subscribing to lane.LAST_STEP_LENGTH.
+Subscribing to lane.LAST_STEP_MEAN_SPEED.
+Subscribing to lane.LAST_STEP_OCCUPANCY.
+Subscribing to lane.LAST_STEP_VEHICLE_ID_LIST.
+Subscribing to lane.LAST_STEP_VEHICLE_NUMBER.
+Subscribing to lane.VAR_LENGTH.
+Subscribing to lane.LANE_LINK_NUMBER.
+Subscribing to lane.LANE_LINKS.
+Subscribing to lane.VAR_MAXSPEED.
+Subscribing to lane.VAR_NOXEMISSION.
+Subscribing to lane.VAR_NOISEEMISSION.
+Subscribing to lane.VAR_PMXEMISSION.
+Subscribing to lane.VAR_PARAMETER.
+Subscribing to lane.VAR_PARAMETER_WITH_KEY.
+Subscribing to lane.VAR_PENDING_VEHICLES.
+Subscribing to lane.VAR_SHAPE.
+Subscribing to lane.VAR_CURRENT_TRAVELTIME.
+Subscribing to lane.VAR_WAITING_TIME.
+Subscribing to lane.VAR_WIDTH.
+Expecting failure for lane.ADD subscription.
+Could not add subscription. Get Lane Variable: unsupported variable 0x80 specified
+Subscribing to lanearea.ID_COUNT.
+Subscribing to lanearea.TRACI_ID_LIST.
+Subscribing to lanearea.VAR_INTERVAL_MAX_JAM_LENGTH_METERS.
+Subscribing to lanearea.VAR_INTERVAL_SPEED.
+Subscribing to lanearea.VAR_INTERVAL_TIMELOSS.
+Subscribing to lanearea.VAR_INTERVAL_OCCUPANCY.
+Subscribing to lanearea.VAR_INTERVAL_NUMBER.
+Subscribing to lanearea.JAM_LENGTH_METERS.
+Subscribing to lanearea.JAM_LENGTH_VEHICLE.
+Subscribing to lanearea.VAR_LANE_ID.
+Subscribing to lanearea.VAR_LAST_INTERVAL_MAX_JAM_LENGTH_METERS.
+Subscribing to lanearea.VAR_LAST_INTERVAL_SPEED.
+Subscribing to lanearea.VAR_LAST_INTERVAL_TIMELOSS.
+Subscribing to lanearea.VAR_LAST_INTERVAL_OCCUPANCY.
+Subscribing to lanearea.VAR_LAST_INTERVAL_NUMBER.
+Subscribing to lanearea.LAST_STEP_VEHICLE_HALTING_NUMBER.
+Subscribing to lanearea.LAST_STEP_MEAN_SPEED.
+Subscribing to lanearea.LAST_STEP_OCCUPANCY.
+Subscribing to lanearea.LAST_STEP_VEHICLE_ID_LIST.
+Subscribing to lanearea.LAST_STEP_VEHICLE_NUMBER.
+Subscribing to lanearea.VAR_LENGTH.
+Subscribing to lanearea.VAR_PARAMETER.
+Subscribing to lanearea.VAR_PARAMETER_WITH_KEY.
+Subscribing to lanearea.VAR_POSITION.
+Expecting failure for lanearea.ADD subscription.
+Could not add subscription. Get Lane Area Detector Variable: unsupported variable 0x80 specified
+Subscribing to meandata.ID_COUNT.
+Subscribing to meandata.TRACI_ID_LIST.
+Subscribing to meandata.VAR_PARAMETER.
+Subscribing to meandata.VAR_PARAMETER_WITH_KEY.
+Expecting failure for meandata.ADD subscription.
+Could not add subscription. Get MeanData Variable: unsupported variable 0x80 specified
+Subscribing to multientryexit.VAR_LANES.
+Subscribing to multientryexit.VAR_POSITION.
+Subscribing to multientryexit.VAR_EXIT_LANES.
+Subscribing to multientryexit.VAR_EXIT_POSITIONS.
+Subscribing to multientryexit.ID_COUNT.
+Subscribing to multientryexit.TRACI_ID_LIST.
+Subscribing to multientryexit.VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER.
+Subscribing to multientryexit.VAR_TIMELOSS.
+Subscribing to multientryexit.VAR_LAST_INTERVAL_TRAVELTIME.
+Subscribing to multientryexit.VAR_LAST_INTERVAL_VEHICLE_NUMBER.
+Subscribing to multientryexit.LAST_STEP_VEHICLE_HALTING_NUMBER.
+Subscribing to multientryexit.LAST_STEP_MEAN_SPEED.
+Subscribing to multientryexit.LAST_STEP_VEHICLE_ID_LIST.
+Subscribing to multientryexit.LAST_STEP_VEHICLE_NUMBER.
+Subscribing to multientryexit.VAR_PARAMETER.
+Subscribing to multientryexit.VAR_PARAMETER_WITH_KEY.
+Expecting failure for multientryexit.ADD subscription.
+Could not add subscription. Get Multi Entry Exit Detector Variable: unsupported variable 0x80 specified
+Subscribing to overheadwire.VAR_LANEPOSITION.
+Subscribing to overheadwire.ID_COUNT.
+Subscribing to overheadwire.TRACI_ID_LIST.
+Subscribing to overheadwire.VAR_LANE_ID.
+Subscribing to overheadwire.VAR_NAME.
+Subscribing to overheadwire.VAR_PARAMETER.
+Subscribing to overheadwire.VAR_PARAMETER_WITH_KEY.
+Subscribing to overheadwire.VAR_POSITION.
+Subscribing to overheadwire.VAR_STOP_STARTING_VEHICLES_NUMBER.
+Subscribing to overheadwire.VAR_STOP_STARTING_VEHICLES_IDS.
+Expecting failure for overheadwire.ADD subscription.
+Could not add subscription. Get OverheadWire Variable: unsupported variable 0x80 specified
+Subscribing to parkingarea.VAR_ACCESS_BADGE.
+Subscribing to parkingarea.VAR_LANEPOSITION.
+Subscribing to parkingarea.ID_COUNT.
+Subscribing to parkingarea.TRACI_ID_LIST.
+Subscribing to parkingarea.VAR_LANE_ID.
+Subscribing to parkingarea.VAR_NAME.
+Subscribing to parkingarea.VAR_PARAMETER.
+Subscribing to parkingarea.VAR_PARAMETER_WITH_KEY.
+Subscribing to parkingarea.VAR_POSITION.
+Subscribing to parkingarea.VAR_STOP_STARTING_VEHICLES_NUMBER.
+Subscribing to parkingarea.VAR_STOP_STARTING_VEHICLES_IDS.
+Expecting failure for parkingarea.ADD subscription.
+Could not add subscription. Get ParkingArea Variable: unsupported variable 0x80 specified
+Subscribing to person.VAR_ACCEL.
+Subscribing to person.VAR_ACTIONSTEPLENGTH.
+Subscribing to person.VAR_ANGLE.
+Subscribing to person.VAR_APPARENT_DECEL.
+Subscribing to person.VAR_BOARDING_DURATION.
+Subscribing to person.VAR_COLOR.
+Subscribing to person.VAR_DECEL.
+Subscribing to person.VAR_EDGES.
+Subscribing to person.VAR_EMERGENCY_DECEL.
+Subscribing to person.VAR_EMISSIONCLASS.
+Subscribing to person.VAR_HEIGHT.
+Subscribing to person.ID_COUNT.
+Subscribing to person.TRACI_ID_LIST.
+Subscribing to person.VAR_IMPATIENCE.
+Subscribing to person.VAR_IMPERFECTION.
+Subscribing to person.VAR_LANE_ID.
+Subscribing to person.VAR_LANEPOSITION.
+Subscribing to person.VAR_LATALIGNMENT.
+Subscribing to person.VAR_LENGTH.
+Subscribing to person.VAR_MASS.
+Subscribing to person.VAR_MAXSPEED.
+Subscribing to person.VAR_MAXSPEED_LAT.
+Subscribing to person.VAR_MINGAP.
+Subscribing to person.VAR_MINGAP_LAT.
+Subscribing to person.VAR_NEXT_EDGE.
+Subscribing to person.VAR_PARAMETER.
+Subscribing to person.VAR_PARAMETER_WITH_KEY.
+Subscribing to person.VAR_PERSON_CAPACITY.
+Subscribing to person.VAR_POSITION.
+Subscribing to person.VAR_POSITION3D.
+Subscribing to person.VAR_STAGES_REMAINING.
+Subscribing to person.VAR_ROAD_ID.
+Subscribing to person.VAR_SHAPECLASS.
+Subscribing to person.VAR_SLOPE.
+Subscribing to person.VAR_SPEED.
+Subscribing to person.VAR_SPEED_DEVIATION.
+Subscribing to person.VAR_SPEED_FACTOR.
+Subscribing to person.VAR_STAGE.
+Subscribing to person.VAR_TAU.
+Subscribing to person.VAR_TAXI_RESERVATIONS.
+Subscribing to person.VAR_TYPE.
+Subscribing to person.VAR_VEHICLE.
+Subscribing to person.VAR_VEHICLECLASS.
+Subscribing to person.VAR_WAITING_TIME.
+Subscribing to person.DISTANCE_REQUEST.
+Subscribing to person.DISTANCE_REQUEST.
+Subscribing to person.VAR_WIDTH.
+Subscribing to person.SPLIT_TAXI_RESERVATIONS.
+Missing parameter for subscription 0xde
+Expecting failure for person.ADD subscription.
+Could not add subscription. Get Person Variable: unsupported variable 0x80 specified
+Subscribing to poi.VAR_ANGLE.
+Subscribing to poi.VAR_COLOR.
+Subscribing to poi.VAR_HEIGHT.
+Subscribing to poi.ID_COUNT.
+Subscribing to poi.TRACI_ID_LIST.
+Subscribing to poi.VAR_IMAGEFILE.
+Subscribing to poi.VAR_PARAMETER.
+Subscribing to poi.VAR_PARAMETER_WITH_KEY.
+Subscribing to poi.VAR_POSITION.
+Subscribing to poi.VAR_TYPE.
+Subscribing to poi.VAR_WIDTH.
+Expecting failure for poi.ADD subscription.
+Could not add subscription. Get PoI Variable: unsupported variable 0x80 specified
+Subscribing to polygon.VAR_COLOR.
+Subscribing to polygon.VAR_FILL.
+Subscribing to polygon.ID_COUNT.
+Subscribing to polygon.TRACI_ID_LIST.
+Subscribing to polygon.VAR_WIDTH.
+Subscribing to polygon.VAR_PARAMETER.
+Subscribing to polygon.VAR_PARAMETER_WITH_KEY.
+Subscribing to polygon.VAR_SHAPE.
+Subscribing to polygon.VAR_TYPE.
+Expecting failure for polygon.ADD subscription.
+Could not add subscription. Get Polygon Variable: unsupported variable 0x80 specified
+Subscribing to rerouter.ID_COUNT.
+Subscribing to rerouter.TRACI_ID_LIST.
+Subscribing to rerouter.VAR_PARAMETER.
+Subscribing to rerouter.VAR_PARAMETER_WITH_KEY.
+Expecting failure for rerouter.ADD subscription.
+Could not add subscription. Get Rerouter Variable: unsupported variable 0x80 specified
+Subscribing to route.VAR_EDGES.
+Subscribing to route.ID_COUNT.
+Subscribing to route.TRACI_ID_LIST.
+Subscribing to route.VAR_PARAMETER.
+Subscribing to route.VAR_PARAMETER_WITH_KEY.
+Expecting failure for route.ADD subscription.
+Could not add subscription. Get Route Variable: unsupported variable 0x80 specified
+Subscribing to routeprobe.VAR_ROAD_ID.
+Subscribing to routeprobe.ID_COUNT.
+Subscribing to routeprobe.TRACI_ID_LIST.
+Subscribing to routeprobe.VAR_PARAMETER.
+Subscribing to routeprobe.VAR_PARAMETER_WITH_KEY.
+Subscribing to routeprobe.VAR_SAMPLE_CURRENT.
+Subscribing to routeprobe.VAR_SAMPLE_LAST.
+Expecting failure for routeprobe.ADD subscription.
+Could not add subscription. Get RouteProbe Variable: unsupported variable 0x80 specified
+Subscribing to simulation.POSITION_CONVERSION.
+Could not add subscription. Unsupported command specified
+Subscribing to simulation.POSITION_CONVERSION.
+Could not add subscription. Unsupported command specified
+Subscribing to simulation.POSITION_CONVERSION.
+Could not add subscription. Unsupported command specified
+Subscribing to simulation.FIND_ROUTE.
+Could not add subscription. Unsupported command specified
+Subscribing to simulation.VAR_ARRIVED_VEHICLES_IDS.
+Subscribing to simulation.VAR_ARRIVED_VEHICLES_NUMBER.
+Subscribing to simulation.VAR_ARRIVED_PERSONS_IDS.
+Subscribing to simulation.VAR_ARRIVED_PERSONS_NUMBER.
+Subscribing to simulation.VAR_BUS_STOP_ID_LIST.
+Subscribing to simulation.VAR_BUS_STOP_WAITING.
+Could not add subscription. Unknown bus stop ''.
+Subscribing to simulation.VAR_BUS_STOP_WAITING_IDS.
+Could not add subscription. Unknown bus stop ''.
+Subscribing to simulation.VAR_COLLIDING_VEHICLES_IDS.
+Subscribing to simulation.VAR_COLLIDING_VEHICLES_NUMBER.
+Subscribing to simulation.VAR_COLLISIONS.
+Subscribing to simulation.VAR_TIME_STEP.
+Subscribing to simulation.VAR_DELTA_T.
+Subscribing to simulation.VAR_DEPARTED_VEHICLES_IDS.
+Subscribing to simulation.VAR_DEPARTED_VEHICLES_NUMBER.
+Subscribing to simulation.VAR_DEPARTED_PERSONS_IDS.
+Subscribing to simulation.VAR_DEPARTED_PERSONS_NUMBER.
+Subscribing to simulation.DISTANCE_REQUEST.
+Could not add subscription. Unsupported command specified
+Subscribing to simulation.DISTANCE_REQUEST.
+Could not add subscription. Unsupported command specified
+Subscribing to simulation.VAR_EMERGENCYSTOPPING_VEHICLES_IDS.
+Subscribing to simulation.VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER.
+Subscribing to simulation.VAR_END.
+Subscribing to simulation.VAR_TELEPORT_ENDING_VEHICLES_IDS.
+Subscribing to simulation.VAR_TELEPORT_ENDING_VEHICLES_NUMBER.
+Subscribing to simulation.ID_COUNT.
+Could not add subscription. Get Simulation Variable: unsupported variable 0x01 specified
+Subscribing to simulation.TRACI_ID_LIST.
+Could not add subscription. Get Simulation Variable: unsupported variable 0x00 specified
+Subscribing to simulation.VAR_LOADED_VEHICLES_IDS.
+Subscribing to simulation.VAR_LOADED_VEHICLES_NUMBER.
+Subscribing to simulation.VAR_MIN_EXPECTED_VEHICLES.
+Subscribing to simulation.VAR_NET_BOUNDING_BOX.
+Subscribing to simulation.VAR_OPTION.
+Subscribing to simulation.VAR_PARAMETER.
+Subscribing to simulation.VAR_PARAMETER_WITH_KEY.
+Subscribing to simulation.VAR_PARKING_ENDING_VEHICLES_IDS.
+Subscribing to simulation.VAR_PARKING_ENDING_VEHICLES_NUMBER.
+Subscribing to simulation.VAR_PARKING_STARTING_VEHICLES_IDS.
+Subscribing to simulation.VAR_PARKING_STARTING_VEHICLES_NUMBER.
+Subscribing to simulation.VAR_PENDING_VEHICLES.
+Subscribing to simulation.VAR_SCALE.
+Subscribing to simulation.VAR_TELEPORT_STARTING_VEHICLES_IDS.
+Subscribing to simulation.VAR_TELEPORT_STARTING_VEHICLES_NUMBER.
+Subscribing to simulation.VAR_STOP_ENDING_VEHICLES_IDS.
+Subscribing to simulation.VAR_STOP_ENDING_VEHICLES_NUMBER.
+Subscribing to simulation.VAR_STOP_STARTING_VEHICLES_IDS.
+Subscribing to simulation.VAR_STOP_STARTING_VEHICLES_NUMBER.
+Subscribing to simulation.VAR_TIME.
+Expecting failure for simulation.ADD subscription.
+Subscribing to trafficlight.TL_COMPLETE_DEFINITION_RYG.
+Subscribing to trafficlight.TL_BLOCKING_VEHICLES.
+Subscribing to trafficlight.TL_COMPLETE_DEFINITION_RYG.
+Subscribing to trafficlight.TL_CONSTRAINT.
+Subscribing to trafficlight.TL_CONSTRAINT_BYFOE.
+Subscribing to trafficlight.TL_CONTROLLED_LANES.
+Subscribing to trafficlight.TL_CONTROLLED_LINKS.
+Subscribing to trafficlight.ID_COUNT.
+Subscribing to trafficlight.TRACI_ID_LIST.
+Subscribing to trafficlight.TL_NEXT_SWITCH.
+Subscribing to trafficlight.VAR_PARAMETER.
+Subscribing to trafficlight.VAR_PARAMETER_WITH_KEY.
+Subscribing to trafficlight.TL_CURRENT_PHASE.
+Subscribing to trafficlight.TL_PHASE_DURATION.
+Subscribing to trafficlight.VAR_NAME.
+Subscribing to trafficlight.TL_PRIORITY_VEHICLES.
+Subscribing to trafficlight.TL_CURRENT_PROGRAM.
+Subscribing to trafficlight.TL_RED_YELLOW_GREEN_STATE.
+Subscribing to trafficlight.TL_RIVAL_VEHICLES.
+Subscribing to trafficlight.VAR_PERSON_NUMBER.
+Subscribing to trafficlight.TL_SPENT_DURATION.
+Subscribing to trafficlight.TL_CONSTRAINT_SWAP.
+Could not add subscription. Unsupported command specified
+Expecting failure for trafficlight.ADD subscription.
+Could not add subscription. Get TLS Variable: unsupported variable 0x80 specified
+Subscribing to variablespeedsign.ID_COUNT.
+Subscribing to variablespeedsign.TRACI_ID_LIST.
+Subscribing to variablespeedsign.VAR_LANES.
+Subscribing to variablespeedsign.VAR_PARAMETER.
+Subscribing to variablespeedsign.VAR_PARAMETER_WITH_KEY.
+Expecting failure for variablespeedsign.ADD subscription.
+Could not add subscription. Get VariableSpeedSign Variable: unsupported variable 0x80 specified
+Subscribing to vehicle.VAR_ACCEL.
+Subscribing to vehicle.VAR_ACCELERATION.
+Subscribing to vehicle.VAR_ACCUMULATED_WAITING_TIME.
+Subscribing to vehicle.VAR_ACTIONSTEPLENGTH.
+Subscribing to vehicle.VAR_EDGE_TRAVELTIME.
+Subscribing to vehicle.VAR_ALLOWED_SPEED.
+Subscribing to vehicle.VAR_ANGLE.
+Subscribing to vehicle.VAR_APPARENT_DECEL.
+Subscribing to vehicle.VAR_BEST_LANES.
+Subscribing to vehicle.VAR_BOARDING_DURATION.
+Subscribing to vehicle.VAR_CO2EMISSION.
+Subscribing to vehicle.VAR_COEMISSION.
+Subscribing to vehicle.VAR_COLOR.
+Subscribing to vehicle.VAR_DECEL.
+Subscribing to vehicle.VAR_DEPART_DELAY.
+Subscribing to vehicle.VAR_DEPARTURE.
+Subscribing to vehicle.VAR_DISTANCE.
+Subscribing to vehicle.DISTANCE_REQUEST.
+Subscribing to vehicle.DISTANCE_REQUEST.
+Subscribing to vehicle.VAR_EDGE_EFFORT.
+Subscribing to vehicle.VAR_ELECTRICITYCONSUMPTION.
+Subscribing to vehicle.VAR_EMERGENCY_DECEL.
+Subscribing to vehicle.VAR_EMISSIONCLASS.
+Subscribing to vehicle.VAR_FOLLOW_SPEED.
+Subscribing to vehicle.VAR_FOLLOWER.
+Subscribing to vehicle.VAR_FUELCONSUMPTION.
+Subscribing to vehicle.VAR_HCEMISSION.
+Subscribing to vehicle.VAR_HEIGHT.
+Subscribing to vehicle.ID_COUNT.
+Subscribing to vehicle.TRACI_ID_LIST.
+Subscribing to vehicle.VAR_IMPATIENCE.
+Subscribing to vehicle.VAR_IMPERFECTION.
+Subscribing to vehicle.VAR_FOES.
+Subscribing to vehicle.VAR_LANECHANGE_MODE.
+Subscribing to vehicle.CMD_CHANGELANE.
+Subscribing to vehicle.VAR_LANE_ID.
+Subscribing to vehicle.VAR_LANE_INDEX.
+Subscribing to vehicle.VAR_LANEPOSITION.
+Subscribing to vehicle.VAR_LASTACTIONTIME.
+Subscribing to vehicle.VAR_LATALIGNMENT.
+Subscribing to vehicle.VAR_LANEPOSITION_LAT.
+Subscribing to vehicle.VAR_SPEED_LAT.
+Subscribing to vehicle.VAR_LEADER.
+Subscribing to vehicle.VAR_LENGTH.
+Subscribing to vehicle.VAR_LINE.
+Subscribing to vehicle.VAR_LOADED_LIST.
+Subscribing to vehicle.VAR_MASS.
+Subscribing to vehicle.VAR_MAXSPEED.
+Subscribing to vehicle.VAR_MAXSPEED_LAT.
+Subscribing to vehicle.VAR_MINGAP.
+Subscribing to vehicle.VAR_MINGAP_LAT.
+Subscribing to vehicle.VAR_NOXEMISSION.
+Subscribing to vehicle.VAR_NEIGHBORS.
+Subscribing to vehicle.VAR_NEXT_LINKS.
+Subscribing to vehicle.VAR_NEXT_STOPS.
+Missing parameter for subscription 0xd4
+Subscribing to vehicle.VAR_NEXT_TLS.
+Subscribing to vehicle.VAR_NOISEEMISSION.
+Subscribing to vehicle.VAR_PMXEMISSION.
+Subscribing to vehicle.VAR_PARAMETER.
+Subscribing to vehicle.VAR_PARAMETER_WITH_KEY.
+Subscribing to vehicle.VAR_PERSON_CAPACITY.
+Subscribing to vehicle.LAST_STEP_PERSON_ID_LIST.
+Subscribing to vehicle.VAR_PERSON_NUMBER.
+Subscribing to vehicle.VAR_POSITION.
+Subscribing to vehicle.VAR_POSITION3D.
+Subscribing to vehicle.VAR_ROAD_ID.
+Subscribing to vehicle.VAR_EDGES.
+Subscribing to vehicle.VAR_ROUTE_ID.
+Subscribing to vehicle.VAR_ROUTE_INDEX.
+Subscribing to vehicle.VAR_ROUTING_MODE.
+Subscribing to vehicle.VAR_SECURE_GAP.
+Subscribing to vehicle.VAR_SEGMENT_ID.
+Subscribing to vehicle.VAR_SEGMENT_INDEX.
+Subscribing to vehicle.VAR_SHAPECLASS.
+Subscribing to vehicle.VAR_SIGNALS.
+Subscribing to vehicle.VAR_SLOPE.
+Subscribing to vehicle.VAR_SPEED.
+Subscribing to vehicle.VAR_SPEED_DEVIATION.
+Subscribing to vehicle.VAR_SPEED_FACTOR.
+Subscribing to vehicle.VAR_SPEEDSETMODE.
+Subscribing to vehicle.VAR_SPEED_WITHOUT_TRACI.
+Subscribing to vehicle.VAR_STOP_ARRIVALDELAY.
+Subscribing to vehicle.VAR_STOP_DELAY.
+Subscribing to vehicle.VAR_STOP_PARAMETER.
+Subscribing to vehicle.VAR_STOP_SPEED.
+Subscribing to vehicle.VAR_STOPSTATE.
+Subscribing to vehicle.VAR_NEXT_STOPS2.
+Subscribing to vehicle.VAR_TAU.
+Subscribing to vehicle.VAR_TAXI_FLEET.
+Subscribing to vehicle.VAR_TELEPORTING_LIST.
+Subscribing to vehicle.VAR_TIMELOSS.
+Subscribing to vehicle.VAR_TYPE.
+Subscribing to vehicle.VAR_VEHICLECLASS.
+Subscribing to vehicle.VAR_VIA.
+Subscribing to vehicle.VAR_WAITING_TIME.
+Subscribing to vehicle.VAR_WIDTH.
+Subscribing to vehicle.VAR_ROUTE_VALID.
+Expecting failure for vehicle.ADD subscription.
+Could not add subscription. Get Vehicle Variable: unsupported variable 0x80 specified
+Subscribing to vehicletype.VAR_ACCEL.
+Subscribing to vehicletype.VAR_ACTIONSTEPLENGTH.
+Subscribing to vehicletype.VAR_APPARENT_DECEL.
+Subscribing to vehicletype.VAR_BOARDING_DURATION.
+Subscribing to vehicletype.VAR_COLOR.
+Subscribing to vehicletype.VAR_DECEL.
+Subscribing to vehicletype.VAR_EMERGENCY_DECEL.
+Subscribing to vehicletype.VAR_EMISSIONCLASS.
+Subscribing to vehicletype.VAR_HEIGHT.
+Subscribing to vehicletype.ID_COUNT.
+Subscribing to vehicletype.TRACI_ID_LIST.
+Subscribing to vehicletype.VAR_IMPATIENCE.
+Subscribing to vehicletype.VAR_IMPERFECTION.
+Subscribing to vehicletype.VAR_LATALIGNMENT.
+Subscribing to vehicletype.VAR_LENGTH.
+Subscribing to vehicletype.VAR_MASS.
+Subscribing to vehicletype.VAR_MAXSPEED.
+Subscribing to vehicletype.VAR_MAXSPEED_LAT.
+Subscribing to vehicletype.VAR_MINGAP.
+Subscribing to vehicletype.VAR_MINGAP_LAT.
+Subscribing to vehicletype.VAR_PARAMETER.
+Subscribing to vehicletype.VAR_PARAMETER_WITH_KEY.
+Subscribing to vehicletype.VAR_PERSON_CAPACITY.
+Subscribing to vehicletype.VAR_SCALE.
+Subscribing to vehicletype.VAR_SHAPECLASS.
+Subscribing to vehicletype.VAR_SPEED_DEVIATION.
+Subscribing to vehicletype.VAR_SPEED_FACTOR.
+Subscribing to vehicletype.VAR_TAU.
+Subscribing to vehicletype.VAR_VEHICLECLASS.
+Subscribing to vehicletype.VAR_WIDTH.
+Expecting failure for vehicletype.ADD subscription.
+Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80 specified
+{'busstop_0': {0: ('busstop_0',),
+               1: 1,
+               27: '',
+               62: ('3o_0', ''),
+               66: 22.83,
+               81: '1si_0',
+               86: 32.83,
+               103: 0,
+               104: 0,
+               105: (),
+               126: '',
+               239: ()}}
+{'calibrator_0': {0: ('calibrator_0',),
+                  1: 1,
+                  19: 10.0,
+                  20: 1,
+                  21: 1,
+                  22: 0,
+                  23: '',
+                  28: 0.0,
+                  29: 3600.0,
+                  30: (),
+                  62: ('3o_0', ''),
+                  64: -1.0,
+                  79: 'DEFAULT_VEHTYPE',
+                  80: '1si',
+                  81: '1si_0',
+                  83: '',
+                  126: ''}}
+{'chargingstation_0': {0: ('chargingstation_0',),
+                       1: 1,
+                       27: '',
+                       62: ('3o_0', ''),
+                       66: 35.95,
+                       81: '1si_1',
+                       86: 45.95,
+                       104: 0,
+                       105: (),
+                       126: '',
+                       151: 22000.0,
+                       152: 0.95,
+                       153: 0,
+                       154: 0.0}}
+{'1si': {0: ('1fi',
+             '1o',
+             '1si',
+             '2fi',
+             '2o',
+             '2si',
+             '3fi',
+             '3o',
+             '3si',
+             '4fi',
+             '4o',
+             '4si',
+             'a',
+             'b',
+             'c',
+             'd',
+             'e',
+             'f',
+             'g',
+             'h',
+             'i',
+             'taz12-sink',
+             'taz12-source',
+             'taz34-sink',
+             'taz34-source'),
+         1: 25,
+         16: 1,
+         17: 9.843550943628264,
+         18: ('vehicle_0',),
+         19: 0.006666666666666667,
+         20: 0,
+         21: 5.0,
+         26: ('person_0',),
+         27: '',
+         61: 1.0,
+         62: ('3o_0', ''),
+         67: 90.0,
+         82: 3,
+         88: -1.0,
+         89: -1.0,
+         90: 25.397338971646725,
+         96: 3190.3235238186367,
+         97: 0.9993494047592153,
+         98: 0.006563570693657988,
+         99: 0.04767393380287432,
+         100: 0.7596013390613027,
+         101: 1034.2132748077415,
+         102: 64.31325380406753,
+         113: 0.0,
+         122: 0.0,
+         123: 'm1',
+         124: '0',
+         126: '',
+         127: '',
+         148: ()}}
+{}
+{'inductionloop_0': {0: ('inductionloop_0',),
+                     1: 1,
+                     16: 0,
+                     17: -1.0,
+                     18: (),
+                     19: 0.0,
+                     21: -1.0,
+                     22: 3602.0,
+                     23: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C726CA0> >,
+                     35: 0.0,
+                     36: -1.0,
+                     37: 0,
+                     38: (),
+                     39: 0.0,
+                     40: -1.0,
+                     41: 0,
+                     42: (),
+                     62: ('3o_0', ''),
+                     66: 11.15,
+                     81: '1si_2',
+                     126: ''}}
+{'0': {0: ('0',
+           '1',
+           '2',
+           '3',
+           '4',
+           'A',
+           'C',
+           'D',
+           'H',
+           'gneJ1',
+           'gneJ3',
+           'gneJ5',
+           'gneJ6',
+           'gneJ8',
+           'gneJ9',
+           'm1',
+           'm2',
+           'm3',
+           'm4'),
+       1: 19,
+       62: ('3o_0', ''),
+       78: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7A54A0> >,
+       123: ('1si', '2si', '3si', '4si'),
+       124: ('1o', '2o', '3o', '4o'),
+       126: ''}}
+{'1si_0': {0: ('1fi_0',
+               '1o_0',
+               '1si_0',
+               '1si_1',
+               '1si_2',
+               '2fi_0',
+               '2o_0',
+               '2si_0',
+               '2si_1',
+               '2si_2',
+               '3fi_0',
+               '3o_0',
+               '3si_0',
+               '3si_1',
+               '3si_2',
+               '4fi_0',
+               '4o_0',
+               '4si_0',
+               '4si_1',
+               '4si_2',
+               'a_0',
+               'b_0',
+               'c_0',
+               'd_0',
+               'e_0',
+               'f_0',
+               'g_0',
+               'h_0',
+               'i_0'),
+           1: 29,
+           16: 1,
+           17: 1.750652830884792,
+           18: ('vehicle_0',),
+           19: 0.02,
+           20: 0,
+           21: 5.0,
+           48: 1,
+           49: '1si',
+           51: (('3o_0',
+                 False,
+                 False,
+                 False,
+                 '',
+                 'r',
+                 'r',
+                 13.242356285797488),),
+           52: (),
+           53: (),
+           55: ('4si_1',),
+           60: ('private',
+                'emergency',
+                'authority',
+                'army',
+                'vip',
+                'pedestrian',
+                'passenger',
+                'hov',
+                'taxi',
+                'bus',
+                'coach',
+                'delivery',
+                'truck',
+                'trailer',
+                'motorcycle',
+                'moped',
+                'bicycle',
+                'evehicle',
+                'tram',
+                'rail_urban',
+                'rail',
+                'rail_electric',
+                'rail_fast',
+                'ship',
+                'container',
+                'cable_car',
+                'subway',
+                'aircraft',
+                'wheelchair',
+                'scooter',
+                'drone',
+                'custom1',
+                'custom2'),
+           61: 1.0,
+           62: ('3o_0', ''),
+           65: 13.89,
+           67: 90.0,
+           68: 250.0,
+           77: 3.2,
+           78: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7A6970> >,
+           90: 142.80387041310087,
+           96: 3190.3235238186367,
+           97: 0.9993494047592153,
+           98: 0.006563570693657988,
+           99: 0.04767393380287432,
+           100: 0.7596013390613027,
+           101: 1034.2132748077415,
+           102: 64.31325058678583,
+           113: 0.0,
+           122: 0.0,
+           126: '',
+           127: '',
+           148: ()}}
+{'lanearea_0': {0: ('lanearea_0',),
+                1: 1,
+                16: 0,
+                17: -1.0,
+                18: (),
+                19: 0.0,
+                20: 0,
+                24: 0,
+                25: 0.0,
+                35: 0.0,
+                36: -1.0,
+                37: 0,
+                39: 0.0,
+                40: 0.0,
+                41: 0,
+                50: 0.0,
+                51: 0.0,
+                52: -1.0,
+                53: 0.0,
+                62: ('3o_0', ''),
+                66: 226.15,
+                68: 10.0,
+                81: '2si_1',
+                126: ''}}
+{'meandata_0': {0: (), 1: 0, 62: ('3o_0', ''), 126: ''}}
+{'multientryexit_0': {0: ('multientryexit_0',),
+                      1: 1,
+                      16: 0,
+                      17: -1.0,
+                      18: (),
+                      20: 0,
+                      32: 0.0,
+                      33: 0,
+                      48: ('1si_1',),
+                      49: ('1si_1',),
+                      62: ('3o_0', ''),
+                      66: (28.57,),
+                      67: (37.08,),
+                      88: 0.0,
+                      126: '',
+                      140: 0.0}}
+{'overheadwire_0': {0: ('overheadwire_0',),
+                    1: 1,
+                    27: '',
+                    62: ('3o_0', ''),
+                    66: 0.0,
+                    81: '1si_0',
+                    86: 250.0,
+                    104: 0,
+                    105: (),
+                    126: ''}}
+{'parkingarea_0': {0: ('parkingarea_0',),
+                   1: 1,
+                   27: '',
+                   62: ('3o_0', ''),
+                   66: 218.68,
+                   81: '2si_0',
+                   86: 228.68,
+                   104: 0,
+                   105: (),
+                   126: '',
+                   155: ()}}
+{'person_0': {0: ('person_0',),
+              1: 1,
+              38: 0.0,
+              47: 0.5,
+              54: 0.0,
+              56: 4,
+              57: (255.27936731388513, 490.72, 0.0),
+              62: ('3o_0', ''),
+              64: 1.376255716313608,
+              65: 1.3888888888888888,
+              66: (255.27936731388513, 490.72),
+              67: 90.0,
+              68: 0.215,
+              69: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C726CA0> >,
+              70: 1.5,
+              71: 2.0,
+              72: 1.0,
+              73: 'pedestrian',
+              74: 'Zero/default',
+              75: 'pedestrian',
+              76: 0.25,
+              77: 0.478,
+              79: 'DEFAULT_PEDTYPE',
+              80: '1si',
+              81: '1si_0',
+              84: ('1si',),
+              86: 1.376255716313608,
+              93: 0.5,
+              94: 1.0,
+              95: 0.0,
+              122: 0.0,
+              123: 5.0,
+              124: 2.0,
+              125: 1.0,
+              126: '',
+              131: 155.6805429067501,
+              185: 'center',
+              186: 1.0,
+              187: 0.6,
+              188: 1.719,
+              192: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C725D70> >,
+              193: '',
+              194: 1,
+              195: '',
+              198: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C725860> >,
+              200: 70.0}}
+{'poi_0': {0: ('poi1', 'poi2', 'poi_0'),
+           1: 3,
+           62: ('3o_0', ''),
+           66: (274.48, 459.55),
+           67: 0.0,
+           69: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C725DA0> >,
+           77: 2.6,
+           79: '',
+           126: '',
+           147: '',
+           188: 1.0}}
+{'polygon_0': {0: ('polygon_0',),
+               1: 1,
+               62: ('3o_0', ''),
+               69: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7258F0> >,
+               77: 1.0,
+               78: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C725D70> >,
+               79: '',
+               85: 0,
+               126: ''}}
+{'rerouter_0': {0: (), 1: 0, 62: ('3o_0', ''), 126: ''}}
+{'route_0': {0: ('!t0!var#1',
+                 '!t1!var#1',
+                 '!t2!var#1',
+                 '!vehicle_0',
+                 'horizontal',
+                 'route_0',
+                 'vertical',
+                 'withTaz2',
+                 'routeprobe_0_0'),
+             1: 9,
+             62: ('3o_0', ''),
+             84: ('1si',),
+             126: ''}}
+{'routeprobe_0': {0: ('routeprobe_0',),
+                  1: 1,
+                  32: '!vehicle_0',
+                  33: '!vehicle_0',
+                  62: ('3o_0', ''),
+                  80: '1si',
+                  126: ''}}
+{'': {29: -1.0,
+      35: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C725D70> >,
+      36: 0,
+      37: (),
+      38: 0,
+      39: (),
+      50: '-1',
+      62: ('3o_0', ''),
+      102: 2.0,
+      104: 0,
+      105: (),
+      106: 0,
+      107: (),
+      108: 0,
+      109: (),
+      110: 0,
+      111: (),
+      112: 2000,
+      113: 0,
+      114: (),
+      115: 0,
+      116: (),
+      117: 0,
+      118: (),
+      119: 0,
+      120: (),
+      121: 0,
+      122: (),
+      123: 1.0,
+      124: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7A8EA0> >,
+      125: 6,
+      126: '',
+      128: 0,
+      129: (),
+      137: 0,
+      138: (),
+      142: 1.0,
+      148: (),
+      159: ('busstop_0',)}}
+{'0': {0: ('0', 'A', 'C', 'D', 'H'),
+       1: 5,
+       27: 'major 1',
+       32: 'GGggrrrrGGggrrrr',
+       36: 31.0,
+       37: (),
+       38: ('4si_0',
+            '4si_1',
+            '4si_2',
+            '4si_2',
+            '2si_0',
+            '2si_1',
+            '2si_2',
+            '2si_2',
+            '3si_0',
+            '3si_1',
+            '3si_2',
+            '3si_2',
+            '1si_0',
+            '1si_1',
+            '1si_2',
+            '1si_2'),
+       39: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7AB000> >,
+       40: 0,
+       41: '0',
+       43: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7AB030> >,
+       45: 31.0,
+       48: (),
+       49: (),
+       56: 2.0,
+       62: ('3o_0', ''),
+       103: 0,
+       126: ''},
+ 'A': {47: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7AB090> >,
+       52: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7AB0C0> >}}
+{'variablespeedsign_0': {0: ('variablespeedsign_0',),
+                         1: 1,
+                         48: ('1si_1',),
+                         62: ('3o_0', ''),
+                         126: ''}}
+{'vehicle_0': {0: ('horiz', 't0', 't1', 't2', 'vehicle_0'),
+               1: 5,
+               19: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7A46C0> >,
+               26: (),
+               28: 0.0,
+               29: 0.0,
+               30: 0.0,
+               31: -1.0,
+               32: (),
+               34: -1073741824.0,
+               36: ('horiz', 't0', 't1', 't2', 'vehicle_0'),
+               37: (),
+               38: 0.0,
+               47: 0.5,
+               50: 0.0,
+               51: (),
+               54: 0.0,
+               55: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7A4870> >,
+               56: 4,
+               57: (260.3683668715905, 492.0, 0.0),
+               58: 0.0,
+               59: 0.0,
+               62: ('3o_0', ''),
+               64: 1.750652830884792,
+               65: 55.55555555555556,
+               66: (260.3683668715905, 492.0),
+               67: 90.0,
+               68: 5.0,
+               69: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7A4F60> >,
+               70: 2.6,
+               71: 4.5,
+               72: 1.0,
+               73: 'passenger',
+               74: 'HBEFA4/PC_petrol_Euro-4',
+               75: 'passenger',
+               76: 2.5,
+               77: 1.8,
+               79: 'DEFAULT_VEHTYPE',
+               80: '1si',
+               81: '1si_0',
+               82: 0,
+               83: '!vehicle_0',
+               84: ('1si',),
+               85: '1si',
+               86: 6.850652830884791,
+               88: -1073741824.0,
+               89: -1073741824.0,
+               91: 0,
+               93: 0.5,
+               94: 1.0,
+               95: 0.0,
+               96: 3190.3235238186367,
+               97: 0.9993494047592153,
+               98: 0.006563570693657988,
+               99: 0.04767393380287432,
+               100: 0.7596013390613027,
+               101: 1034.2132748077415,
+               102: 64.31325058678583,
+               103: 0,
+               104: ('', -1.0),
+               105: 0,
+               112: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7A4E10> >,
+               113: 0.0,
+               114: 1.750652830884792,
+               116: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7A4E40> >,
+               120: ('', -1.0),
+               122: 0.0,
+               123: 9.0,
+               124: 4.5,
+               125: 1.0,
+               126: '',
+               127: 1.0,
+               131: 150.20614579217892,
+               132: 1.7506528308847917,
+               135: 0.0,
+               137: 0,
+               140: 0.8739630791299645,
+               146: 1,
+               161: '',
+               162: -1073741824,
+               177: 1.750652830884792,
+               178: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7A4D20> >,
+               179: 31,
+               181: 0,
+               182: 1621,
+               183: 13.89,
+               184: 0.0,
+               185: 'center',
+               186: 1.0,
+               187: 0.6,
+               188: 1.5,
+               189: '',
+               190: (),
+               191: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C7A4D80> >,
+               200: 1500.0}}
+{'vehicletype_0': {0: ('DEFAULT_BIKETYPE',
+                       'DEFAULT_CONTAINERTYPE',
+                       'DEFAULT_PEDTYPE',
+                       'DEFAULT_RAILTYPE',
+                       'DEFAULT_TAXITYPE',
+                       'DEFAULT_VEHTYPE',
+                       'train',
+                       'vehicletype_0'),
+                   1: 8,
+                   38: 0.0,
+                   47: 0.5,
+                   56: 4,
+                   62: ('3o_0', ''),
+                   65: 55.55555555555556,
+                   68: 5.0,
+                   69: <libtraci.libtraci.TraCIResult; proxy of <Swig Object of type 'libsumo::TraCIResult *' at 0x000001F37C726820> >,
+                   70: 2.6,
+                   71: 4.5,
+                   72: 1.0,
+                   73: 'passenger',
+                   74: 'HBEFA4/PC_petrol_Euro-4',
+                   75: 'passenger',
+                   76: 2.5,
+                   77: 1.8,
+                   93: 0.5,
+                   94: 1.0,
+                   95: 0.0,
+                   123: 9.0,
+                   124: 4.5,
+                   125: 1.0,
+                   126: '',
+                   142: 1.0,
+                   185: 'center',
+                   186: 1.0,
+                   187: 0.6,
+                   188: 1.5,
+                   200: 1500.0}}

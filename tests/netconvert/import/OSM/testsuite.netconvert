@@ -4,13 +4,12 @@ railway
 # export public transport stops or lines
 public_transport
 maxspeed
+turn_lanes
 
-# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
-adlershof_dlr
-adlershof_dlr_discard-tls
-
-# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
-adlershof_orig_names
+# creating opposite-direction edge due to sidewalk information
+sidewalks
+parking
+adlershof
 
 # In this scenario, two nodes with the same coordinates start the shape of an edge. The scenario also tests traffic signals and isolated roads.
 duplicate_nodes
@@ -40,12 +39,6 @@ recoverable_errors
 # import elevation data
 elevation
 
-# add sidewalks to appropriate edges
-adlershof_dlr_sidewalks
-
-# add sidewalks from raw data (rather than from typemap heuristic)
-adlershof_dlr_sidewalks_option
-
 # check for working around a xerces transcoding bug
 xerces_bug_1947
 
@@ -53,9 +46,6 @@ xerces_bug_1947
 bicycle_lanes
 bus_lanes
 intersection_with_crossings
-
-# Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
-numerical_ids
 max_segment_length
 
 # see #3412
@@ -88,9 +78,6 @@ all-attributes
 # importing selected extra OSM tags
 extra-attributes
 
-# creating opposite-direction edge due to sidewalk information
-sidewalks
-
 # test option edges.join-tram-dist
 join_tram
 
@@ -120,15 +107,6 @@ oneway_bike
 # complex intermodal junction in Brunswick
 tostmannplatz
 
-# import turn-lane information
-turn-lanes
-
-# import turn-lane information merge_to_right
-turn-lanes2
-
-# import turn-lane information
-turn-lanes_lefthand
-
 # import key junction=circular
 junction_circular
 
@@ -141,4 +119,12 @@ restrictionException_no
 
 # example network from Zuerich
 oerlikon
+width_lane
+crossings
+
+# see #14786
+crossings_no_barrier
+
+# read highway=busway
+busway
 bugs

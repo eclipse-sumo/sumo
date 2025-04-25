@@ -19,6 +19,9 @@ tracing_repeat
 # test client-side command tracing (including getters)
 tracing_noGetters
 
+# test client-side command tracing (including getters)
+tracing_printGetters
+
 # test client-side command tracing
 tracing_close_start
 
@@ -41,3 +44,9 @@ encoding
 
 # matching function signatures between traci and libsumo
 signature
+
+# testing all subscriptions
+subscription
+
+# test subscription with begin and end time
+subscription_time

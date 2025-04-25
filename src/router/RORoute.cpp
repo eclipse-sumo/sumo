@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2024 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -113,7 +113,7 @@ RORoute::getNormalEdges() const {
 OutputDevice&
 RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
                             const bool withCosts,
-                            const bool withProb,
+                            const bool asAlternatives,
                             const bool withExitTimes,
                             const bool withLength,
                             const std::string& id) const {
@@ -123,9 +123,9 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
     }
     if (withCosts) {
         dev.writeAttr(SUMO_ATTR_COST, myCosts);
-        dev.setPrecision(8);
     }
-    if (withProb) {
+    if (asAlternatives) {
+        dev.setPrecision(8);
         dev.writeAttr(SUMO_ATTR_PROB, myProbability);
         dev.setPrecision();
     }

@@ -37,9 +37,9 @@ attributes:
 | **id**         | id (string) | The name of the road type. This is the only mandatory attribute. For OpenStreetMap data, the name could, for example, be *highway.trunk* or *highway.residential*. For ArcView data, the name of the road type is a number. |
 | allow          | string      | List of allowed vehicle classes. The classes are space separated (e.g. "pedestrian bicycle").                                                                                                                               |
 | disallow       | string      | List of not allowed vehicle classes. The classes are space separated too.                                                                                                                                                   |
-| discard        | bool        | If "yes", edges of that type are not imported. This parameter is optional and defaults to false.                                                                                                                            |
+| discard        | bool        | If set to true, edges of that type are not imported. This parameter is optional and defaults to false.                                                                                                                            |
 | numLanes       | int         | The number of lanes on an edge. This is the default number of lanes per direction.                                                                                                                                          |
-| oneway         | bool        | If "yes", only the edge for one direction is created during the import. (This attribute makes no sense for SUMO XML descriptions but, for example, for OpenStreetMap files.)                                                |
+| oneway         | bool        | If set to true, only the edge for one direction is created during the import (defaults to true). (This attribute makes no sense for SUMO XML descriptions but, for example, for OpenStreetMap files.)                                                |
 | priority       | int         | A number, which determines the priority between different road types. netconvert derives the right-of-way rules at junctions from the priority. The number starts with one; higher numbers represent more important roads.  |
 | speed          | float       | The default (implicit) speed limit in m/s.                                                                                                                                                                                  |
 | sidewalkWidth  | float       | The default width for added sidewalks (defaults to -1 which disables extra sidewalks).                                                                                                                                      |
@@ -107,7 +107,7 @@ the following attributes:
   Wikipedia lists the [Speed limits by
   country](https://en.wikipedia.org/wiki/Speed_limits_by_country).
 
-The right values are hard to find. Because they depend at least partly
+The right values are hard to find, because they depend at least partly
 on the legislation (maxspeed, for example); the values vary from country
 to country. Further context information, like the fact whether a road is
 inside or outside a city border, may determine the defaults as well. In
@@ -141,7 +141,7 @@ when converting OpenStreetMap networks without an explicit typemap.
 |------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | highway.motorway       | Autobahn. No legislative speed limit: 44.4 is just a reasonable default. [\[2\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dmotorway) is a bit opposite to [\[3\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dmotorway) regarding oneway tagging.                                                |
 | highway.motorway_link  | Links are usually subordinate to the road that leads to the trunk (e.g. a secondary or tertiary road)                                                                          |
-| highway.trunk          | Similar to Autobahn [\[4\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dtrunk) [\[5\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dtrunk). Lanes, maxspeed and oneway should be tagged explicitely.                                                                                          |
+| highway.trunk          | Similar to Autobahn [\[4\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dtrunk) [\[5\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dtrunk). Lanes, maxspeed and oneway should be tagged explicitly.                                                                                          |
 | highway.trunk_link     | Links are usually subordinate to the road that leads to the trunk (e.g. a secondary or tertiary road)                                                                          |
 | highway.primary        | Bundesstraße [\[6\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dprimary) [\[7\]](https://wiki.openstreetmap.org/wiki/DE:Tag:highway%3Dprimary)                                                                                                                                                           |
 | highway.primary_link   | Links are usually subordinate to the road that leads to the trunk (e.g. a secondary or tertiary road)                                                                          |
