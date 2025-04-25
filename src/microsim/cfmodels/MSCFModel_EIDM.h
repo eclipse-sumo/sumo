@@ -220,17 +220,6 @@ public:
         return SUMO_TAG_CF_EIDM;
     }
 
-    /** @brief Get the vehicle type's maximum acceleration [m/s^2]
-     * @return The maximum acceleration (in m/s^2) of vehicles of this class
-     */
-    inline double getCurrentAccel(const double speed) const {
-        if (myDesAccelProfile.empty()) {
-            return myAccel;
-        } else{
-            return LinearApproxHelpers::getInterpolatedValue(myDesAccelProfile, speed);
-        }
-    }
-
     /** @brief Duplicates the car-following model
      * @param[in] vtype The vehicle type this model belongs to (1:1)
      * @return A duplicate of this car-following model

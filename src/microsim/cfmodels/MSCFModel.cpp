@@ -312,7 +312,7 @@ MSCFModel::interactionGap(const MSVehicle* const veh, double vL) const {
 
 double
 MSCFModel::maxNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
-    return MIN2(speed + (double) ACCEL2SPEED(getMaxAccel()), myType->getMaxSpeed());
+    return MIN2(speed + (double) ACCEL2SPEED(getCurrentAccel(speed)), myType->getMaxSpeed());
 }
 
 
@@ -1151,5 +1151,18 @@ MSCFModel::applyHeadwayPerceptionError(const MSVehicle* const veh, double speed,
     gap = perceivedGap;
 }
 
+
+double
+MSCFModel::getCurrentAccel(const double speed) const {
+    double result = myAccel;
+    if (!myDesAccelProfile.empty()) {
+        result = MIN2(result, LinearApproxHelpers::getInterpolatedValue(myDesAccelProfile, speed));
+    }
+    if (!myMaxAccelProfile.empty()) {
+        // @todo maxAccel should interact with slope
+        result = MIN2(result, LinearApproxHelpers::getInterpolatedValue(myMaxAccelProfile, speed));
+    }
+    return result;
+}
 
 /****************************************************************************/
