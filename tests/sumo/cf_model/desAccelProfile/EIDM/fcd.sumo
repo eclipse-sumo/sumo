@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-25 13:48:02 by Eclipse SUMO sumo Version v1_22_0+1740-14a490d9871
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="pos,speed,acceleration"/>
+    </output>
+
+    <processing>
+        <default.carfollowmodel value="EIDM"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="first" speed="0.00" pos="5.10" acceleration="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="first" speed="1.17" pos="6.27" acceleration="1.17"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="first" speed="3.64" pos="9.91" acceleration="2.48"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="first" speed="6.02" pos="15.93" acceleration="2.37"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="first" speed="8.09" pos="24.02" acceleration="2.07"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="first" speed="10.03" pos="34.05" acceleration="1.94"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="first" speed="11.96" pos="46.01" acceleration="1.93"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="first" speed="13.80" pos="59.81" acceleration="1.85"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="first" speed="15.51" pos="75.32" acceleration="1.71"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="first" speed="17.19" pos="92.51" acceleration="1.68"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="first" speed="18.67" pos="111.18" acceleration="1.49"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="first" speed="20.04" pos="131.22" acceleration="1.36"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="first" speed="21.31" pos="152.53" acceleration="1.28"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="first" speed="22.59" pos="175.13" acceleration="1.28"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="first" speed="23.87" pos="199.00" acceleration="1.27"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="first" speed="25.19" pos="224.19" acceleration="1.32"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="first" speed="26.39" pos="250.58" acceleration="1.20"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="first" speed="27.56" pos="278.14" acceleration="1.17"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="first" speed="28.57" pos="306.71" acceleration="1.01"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="first" speed="29.43" pos="336.14" acceleration="0.86"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="first" speed="30.36" pos="366.50" acceleration="0.93"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="first" speed="31.18" pos="397.67" acceleration="0.82"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="first" speed="31.95" pos="429.63" acceleration="0.78"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="first" speed="32.72" pos="462.35" acceleration="0.77"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="first" speed="33.39" pos="495.74" acceleration="0.67"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="first" speed="34.07" pos="529.81" acceleration="0.69"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="first" speed="34.72" pos="564.53" acceleration="0.65"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="first" speed="35.32" pos="599.85" acceleration="0.60"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="first" speed="35.89" pos="635.74" acceleration="0.58"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="first" speed="36.47" pos="672.21" acceleration="0.58"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="first" speed="37.00" pos="709.22" acceleration="0.53"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="first" speed="37.52" pos="746.73" acceleration="0.51"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="first" speed="38.02" pos="784.75" acceleration="0.50"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="first" speed="38.42" pos="823.17" acceleration="0.40"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="first" speed="38.85" pos="862.02" acceleration="0.43"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="first" speed="39.31" pos="901.33" acceleration="0.46"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="first" speed="39.72" pos="941.05" acceleration="0.41"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="first" speed="40.07" pos="981.13" acceleration="0.35"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="first" speed="40.43" pos="1021.56" acceleration="0.36"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="first" speed="40.75" pos="1062.30" acceleration="0.32"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="first" speed="41.06" pos="1103.36" acceleration="0.31"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="first" speed="41.42" pos="1144.79" acceleration="0.36"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="first" speed="41.78" pos="1186.57" acceleration="0.35"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="first" speed="42.11" pos="1228.68" acceleration="0.33"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="first" speed="42.45" pos="1271.13" acceleration="0.34"/>
+    </timestep>
+    <timestep time="45.00">
+        <vehicle id="first" speed="42.79" pos="1313.92" acceleration="0.34"/>
+    </timestep>
+    <timestep time="46.00">
+        <vehicle id="first" speed="43.10" pos="1357.03" acceleration="0.31"/>
+    </timestep>
+    <timestep time="47.00">
+        <vehicle id="first" speed="43.44" pos="1400.46" acceleration="0.33"/>
+    </timestep>
+    <timestep time="48.00">
+        <vehicle id="first" speed="43.73" pos="1444.19" acceleration="0.29"/>
+    </timestep>
+    <timestep time="49.00">
+        <vehicle id="first" speed="44.00" pos="1488.19" acceleration="0.28"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="first" speed="44.27" pos="1532.46" acceleration="0.27"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="first" speed="44.48" pos="1576.94" acceleration="0.21"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="first" speed="44.68" pos="1621.61" acceleration="0.20"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="first" speed="44.87" pos="1666.48" acceleration="0.19"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="first" speed="45.07" pos="1711.55" acceleration="0.20"/>
+    </timestep>
+    <timestep time="55.00">
+        <vehicle id="first" speed="45.23" pos="1756.78" acceleration="0.16"/>
+    </timestep>
+    <timestep time="56.00">
+        <vehicle id="first" speed="45.39" pos="1802.17" acceleration="0.16"/>
+    </timestep>
+    <timestep time="57.00">
+        <vehicle id="first" speed="45.55" pos="1847.71" acceleration="0.16"/>
+    </timestep>
+    <timestep time="58.00">
+        <vehicle id="first" speed="45.69" pos="1893.41" acceleration="0.15"/>
+    </timestep>
+    <timestep time="59.00">
+        <vehicle id="first" speed="45.84" pos="1939.25" acceleration="0.15"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="first" speed="46.00" pos="1985.25" acceleration="0.16"/>
+    </timestep>
+    <timestep time="61.00">
+        <vehicle id="first" speed="46.15" pos="2031.40" acceleration="0.15"/>
+    </timestep>
+    <timestep time="62.00">
+        <vehicle id="first" speed="46.29" pos="2077.69" acceleration="0.14"/>
+    </timestep>
+    <timestep time="63.00">
+        <vehicle id="first" speed="46.42" pos="2124.11" acceleration="0.13"/>
+    </timestep>
+    <timestep time="64.00">
+        <vehicle id="first" speed="46.52" pos="2170.63" acceleration="0.10"/>
+    </timestep>
+    <timestep time="65.00">
+        <vehicle id="first" speed="46.62" pos="2217.25" acceleration="0.09"/>
+    </timestep>
+    <timestep time="66.00">
+        <vehicle id="first" speed="46.70" pos="2263.95" acceleration="0.08"/>
+    </timestep>
+    <timestep time="67.00">
+        <vehicle id="first" speed="46.78" pos="2310.73" acceleration="0.08"/>
+    </timestep>
+    <timestep time="68.00">
+        <vehicle id="first" speed="46.84" pos="2357.57" acceleration="0.06"/>
+    </timestep>
+    <timestep time="69.00">
+        <vehicle id="first" speed="46.90" pos="2404.48" acceleration="0.06"/>
+    </timestep>
+    <timestep time="70.00">
+        <vehicle id="first" speed="46.98" pos="2451.46" acceleration="0.08"/>
+    </timestep>
+    <timestep time="71.00">
+        <vehicle id="first" speed="47.06" pos="2498.52" acceleration="0.08"/>
+    </timestep>
+    <timestep time="72.00">
+        <vehicle id="first" speed="47.13" pos="2545.64" acceleration="0.07"/>
+    </timestep>
+    <timestep time="73.00">
+        <vehicle id="first" speed="47.20" pos="2592.84" acceleration="0.07"/>
+    </timestep>
+    <timestep time="74.00">
+        <vehicle id="first" speed="47.28" pos="2640.12" acceleration="0.08"/>
+    </timestep>
+    <timestep time="75.00">
+        <vehicle id="first" speed="47.35" pos="2687.47" acceleration="0.08"/>
+    </timestep>
+    <timestep time="76.00">
+        <vehicle id="first" speed="47.44" pos="2734.91" acceleration="0.09"/>
+    </timestep>
+    <timestep time="77.00">
+        <vehicle id="first" speed="47.52" pos="2782.44" acceleration="0.08"/>
+    </timestep>
+    <timestep time="78.00">
+        <vehicle id="first" speed="47.60" pos="2830.04" acceleration="0.08"/>
+    </timestep>
+    <timestep time="79.00">
+        <vehicle id="first" speed="47.68" pos="2877.71" acceleration="0.08"/>
+    </timestep>
+    <timestep time="80.00">
+        <vehicle id="first" speed="47.76" pos="2925.47" acceleration="0.08"/>
+    </timestep>
+    <timestep time="81.00">
+        <vehicle id="first" speed="47.83" pos="2973.31" acceleration="0.07"/>
+    </timestep>
+    <timestep time="82.00"/>
+</fcd-export>

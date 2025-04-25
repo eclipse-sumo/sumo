@@ -1,0 +1,5 @@
+# the standard structure for model tests
+default
+
+# EIDM model test
+EIDM
