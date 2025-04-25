@@ -302,9 +302,9 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
 
     // add checkBox for quick load
     new FXMenuSeparator(fileMenu);
-    menuCheckAllowUndoRedoLoading = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                                    TL("Allow undoing element loading"), "", TL("Allow to undo loading of elements (Slow if a lot of elements are loaded)"),
-                                    GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), myGNEApp, MID_GNE_TOGGLE_UNDOREDO_LOADING);
+    menuCheckAllowUndoRedoLoading = GUIDesigns::buildFXMenuCheckbox(fileMenu,
+                                    TL("Allow undoing element loading"), TL("Allow to undo loading of elements (Slow if a lot of elements are loaded)"),
+                                    myGNEApp, MID_GNE_TOGGLE_UNDOREDO_LOADING);
     // set default value
     menuCheckAllowUndoRedoLoading->setCheck(myGNEApp->getApp()->reg().readBoolEntry("NETEDIT", "AllowUndoRedoLoading", true));
 
