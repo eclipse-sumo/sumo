@@ -613,7 +613,7 @@ def main(options):
             subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
     else:
         if not options.remote:
-            path = os.path.dirname(os.path.abspath(__file__))
+            path = os.path.dirname(os.path.realpath(__file__))
             # on Linux Firefox refuses to open files in /usr/ #16086
             if os.name != "nt" and not path.startswith(os.path.expanduser('~')):
                 new_path = os.path.expanduser('~/Sumo')
