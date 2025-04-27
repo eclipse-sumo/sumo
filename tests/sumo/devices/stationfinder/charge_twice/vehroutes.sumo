@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-27 21:55:25 by Eclipse SUMO sumo Version v1_22_0+1759-b1f4886e09b
+<!-- generated on 2025-04-27 21:58:23 by Eclipse SUMO sumo Version v1_22_0+1761-f93639492fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,12 +46,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="veh0" type="ElectricVehicle1" depart="0.00" arrival="1095.00">
+    <vehicle id="veh0" type="ElectricVehicle1" depart="0.00" arrival="1314.00">
         <routeDistribution>
             <route replacedOnEdge="E0" reason="stationfinder:search" replacedAtTime="90.00" probability="0" edges="E0 -E0"/>
+            <route replacedOnEdge="-E0" replacedOnIndex="1" reason="stationfinder:search" replacedAtTime="870.00" probability="0" edges="E0 -E0"/>
             <route edges="E0 -E0"/>
         </routeDistribution>
         <stop chargingStation="cs_0" duration="344.50"/>
+        <stop chargingStation="cs_1" duration="202.06"/>
         <param key="device.battery.chargeLevel" value="1500"/>
     </vehicle>
 

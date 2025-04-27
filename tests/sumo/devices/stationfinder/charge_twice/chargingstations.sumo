@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-27 21:55:25 by Eclipse SUMO sumo Version v1_22_0+1759-b1f4886e09b
+<!-- generated on 2025-04-27 21:58:23 by Eclipse SUMO sumo Version v1_22_0+1761-f93639492fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,4 +47,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <chargingstations-export>
     <chargingEvent chargingStationId="cs_0" vehicle="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="1809.59" chargingBegin="197.00" chargingEnd="541.00" actualBatteryCapacity="2500.00" maximumBatteryCapacity="2500.00" minPower="22000.00" maxPower="22000.00" minCharge="0.00" maxCharge="5.81" minEfficiency="0.95" maxEfficiency="0.95"/>
+    <chargingEvent chargingStationId="cs_1" vehicle="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="1178.53" chargingBegin="918.00" chargingEnd="1120.00" actualBatteryCapacity="2032.39" maximumBatteryCapacity="2500.00" minPower="22000.00" maxPower="22000.00" minCharge="5.81" maxCharge="5.81" minEfficiency="0.95" maxEfficiency="0.95"/>
 </chargingstations-export>
