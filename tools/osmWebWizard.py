@@ -613,8 +613,16 @@ def main(options):
             subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
     else:
         if not options.remote:
-            webbrowser.open("file://" +
-                            os.path.join(os.path.dirname(os.path.abspath(__file__)), "webWizard", "index.html"))
+            path = os.path.dirname(os.path.abspath(__file__))
+            # on Linux Firefox refuses to open files in /usr/ #16086
+            if os.name != "nt" and not path.startswith(os.path.expanduser('~')):
+                new_path = os.path.expanduser('~/Sumo')
+                wizard_path = os.path.join(new_path, 'webWizard')
+                if not os.path.exists(wizard_path):
+                    os.makedirs(new_path, exist_ok=True)
+                    shutil.copytree(os.path.join(path, "webWizard"), wizard_path)
+                path = new_path
+            webbrowser.open("file://" + os.path.join(path, "webWizard", "index.html"))
 
         server = SimpleWebSocketServer(options.address, options.port, OSMImporterWebSocket)
         server.serveforever()
