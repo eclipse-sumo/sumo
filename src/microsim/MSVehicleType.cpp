@@ -524,7 +524,7 @@ MSVehicleType::setApparentDecel(double apparentDecel) {
 }
 
 void
-MSVehicleType::setMaxAccelProfile(std::vector<std::pair<double, double> > accelProfile) {
+MSVehicleType::setMaxAccelProfile(std::vector<std::pair<double, double> > /* accelProfile */) {
     /*
     if (myOriginalType != nullptr) {
         accelProfile = myOriginalType->getCarFollowModel().getMaxAccelProfile();
@@ -567,7 +567,7 @@ MSVehicleType::setMaxAccelProfile(std::vector<std::pair<double, double> > accelP
 }
 
 void
-MSVehicleType::setDesAccelProfile(std::vector<std::pair<double, double> > accelProfile) {
+MSVehicleType::setDesAccelProfile(std::vector<std::pair<double, double> > /* accelProfile */) {
     /*
     if (myOriginalType != nullptr) {
         accelProfile = myOriginalType->getCarFollowModel().getDesAccelProfile();
