@@ -160,6 +160,10 @@ public:
     /// @brief Get current Charging Station ID
     std::string getChargingStationID() const;
 
+    MSChargingStation* getChargingStation() const {
+        return myActChargingStation;
+    }
+
     /// @brief Get charged energy
     double getEnergyCharged() const;
 

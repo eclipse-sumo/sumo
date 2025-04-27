@@ -193,7 +193,7 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
         mySearchState = SEARCHSTATE_CHARGING;
         return true;
     } else if (mySearchState == SEARCHSTATE_CHARGING) {
-        if (myBattery->getChargingStationID() == "") {
+        if (myBattery->getChargingStation() == nullptr) {
             mySearchState = SEARCHSTATE_NONE;
         } else {
             return true;
