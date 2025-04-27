@@ -41,6 +41,8 @@ title: ChangeLog
   - Fixed rare crash on loading rail simulation with internal links #16532
   - Fixed insufficient precision when using **--fcd-replay** with JuPedSim #16047
   - Fixed bug where stationfinder device fails to search for station after failed estimation at low charge #16562
+  - Free insertion now takes into account a stop on the insertion edge #16592
+  - Insertion after jump no longer skips stop on the insertion edge #16583
 
 - netedit
   - Restored functionality for setting custom geometry point by entering values #16179 (regression in 1.20.0)
@@ -49,12 +51,16 @@ title: ChangeLog
   - Fixed missing edge colors when defining person walk #16461 (regression in 1.21.0)
   - Fixed overly large endpoint markers in move mode #16266 (regression in 1.22.0)
   - Fixed crash when TL controlled junction overlaps with another uncontrolled one #16483 (regression in 1.22.0)
+  - Fixed bug where shift-click to inspect lane only works after moving mouse #16134 (regression in 1.22.0)
   - Fixed invalid connections after using *reset connections* #16127
   - Saving demand that was loaded from a sumocfg in multiple route files is now working #14805
   - Fixed handling of special vType params for visualizing rail carriages #16334
   - Fixed nvalid geometry of person plans that end in a stopLane #15355
   - Fixed invalid geometry of person plan from stoppingPlace to stoppingPlace  #15348
   - Fixed crash after deleting edges with opposite-lane information #16500
+  - Fixed superfluous default attributes when saving meanData #16427
+  - Selection coloring is isnstantly updated after selecting lanes with button functions (dead end, dead start, ...) in connection mode #16464
+
 
 - sumo-gui
   - Fixed rendering of rail carriages when scaled by length/geometry #16425
@@ -100,6 +106,7 @@ title: ChangeLog
   - Function `edge.subscribeContext` now correctly collects vehicles at low dist regardless of lane number #16422
   - Function `vehicle.getLeader` no longer contains traffic that crosses the path of the ego vehicle (without ever becoming a leader) #13842
   - libsumo subscriptions no longer ignore begin and end time #16411
+  - After `vehicle.setType`, saveState now saves the new type #16185
 
 - Tools
   - `sumolib.net.lane.getClosestLanePosAndDist` now gives correct results when lane length differs from shape length #16269
@@ -125,6 +132,7 @@ title: ChangeLog
   - ptlines2flows.py: Fixed invalid route with **--extend-to-fringe** when pt line is split #16573
   - ptlines2flows.py: No longer writing invalid (disconnected) routes when using a modified input network. Instead disconnected parts are bridged with jumps #16292
   - loading tool config with multiple positional input file arguments now works #16447
+  - generateTurnRatios.py: added option **--split-types** to create type-specific turn ration attributes #16579 
 
 ### Enhancements
 
@@ -148,12 +156,14 @@ title: ChangeLog
   - collision-output now writes network coordindates of the front and rear of the involved vehicles #16509
   - SSM device parameter "write-na" can be used to disable conflict information where all values are `n/a` #16513
   - public transport rides that are created for a personTrip now use any vehicle that stops at the destination by default. The previous behavior of restricting rides to a single line id can be restored with option **--persontrip.ride-public-line**. #12263
+  - All carFollowModels now support attributes `speedTable`, `maxAccelProfile` and `desAccelProfile` to model spee-dependant limits on acceleration #3920
 
 - netedit
   - Each object now tracks the file from which it was loaded to facilitate working with projects where multiple route- or additional-files are used #12430
   - Now drawing cyan dotted contour around object with open popup menu #16344
   - In delete mode, hovering over a junction will highlight all edges that would be deleted when deleting the junction #14114
   - Selection of rerouter edges now uses improved highlight and permits toggling of edges #16430
+  - Disabled superfluous attribute stopOffsetException when inspecting lanes where stopOffset is 0 #13985
 
 - netconvert
   - Added option **--junctions.join.parallel-threshold DEGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
