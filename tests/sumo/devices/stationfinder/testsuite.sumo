@@ -28,6 +28,9 @@ searchingNoEnergyCheck
 # Vehicle taking different chargingStations and busstops, every with a different configuration with charging station output
 charging
 
+# a single vehicle that needs to charge twice
+charge_twice
+
 # Two vehicles with different target function weights
 targetFunction
 
