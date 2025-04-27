@@ -6,6 +6,10 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.14.0)
     # pass module name to swig compiler
     cmake_policy(SET CMP0086 NEW)
 endif()
+if (${CMAKE_VERSION} VERSION_GREATER 3.21.0)
+    # use library name conventions for C#
+    cmake_policy(SET CMP0122 NEW)
+endif ()
 set(libtracistatic_STAT_SRCS
     Connection.cpp
     Connection.h
