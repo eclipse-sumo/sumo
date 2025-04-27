@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 09:42:37 by Eclipse SUMO netconvert Version v1_20_0+1266-51c9329b08e
+<!-- generated on 2025-04-27 13:35:35 by Eclipse SUMO netconvert Version v1_22_0+1753-a162d134454
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,8 +45,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <type id="driving" priority="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" width="3.65"/>
 
-    <edge id="-80" from="80.begin" to="80.end" priority="1" type="driving" shape="60.28,-1.43,-10.00 61.88,121.85 62.34,123.38 63.67,124.31 65.87,124.64 199.04,125.86,10.00">
-        <lane id="-80_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="260.16" width="3.20" shape="61.88,-1.45,-10.00 63.48,121.61 63.71,122.39 64.28,122.79 66.00,123.04 199.05,124.26,10.00" type="driving">
+    <edge id="-80" from="80.begin" to="80.end" priority="1" type="driving" shape="60.28,-1.43,-10.00 61.88,121.85 62.34,123.38 63.67,124.31 65.87,124.64 67.86,124.66,0.14 199.04,125.86,10.00">
+        <lane id="-80_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="260.16" width="3.20" shape="61.88,-1.45,-10.00 63.48,121.61 63.71,122.39 64.28,122.79 66.00,123.04 67.87,123.06,0.14 199.05,124.26,10.00" type="driving">
             <param key="origId" value="80_-1"/>
         </lane>
     </edge>

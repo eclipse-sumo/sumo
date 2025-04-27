@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-09 12:27:43 by Eclipse SUMO netconvert Version v1_20_0+1916-86b194ac482
+<!-- generated on 2025-04-27 13:35:35 by Eclipse SUMO netconvert Version v1_22_0+1753-a162d134454
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -281,14 +281,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="1_-1"/>
         </lane>
     </edge>
-    <edge id="-1#4" from="1#4" to="1000000" priority="1" type="driving" shape="-13.17,-107.86 -13.17,-105.92 -13.18,-103.98 -13.19,-102.04 -13.20,-100.10 -13.28,-90.40 -13.29,-88.46 -13.30,-86.52 -13.31,-84.58 -13.31,-82.64">
-        <lane id="-1#4_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.70" width="3.50" shape="-4.42,-106.35 -4.42,-105.90 -4.43,-103.94 -4.44,-101.99 -4.45,-100.03 -4.53,-90.33 -4.54,-88.41 -4.55,-86.64" type="driving">
+    <edge id="-1#4" from="1#4" to="1000000" priority="1" type="driving" shape="-13.17,-107.86 -13.17,-105.92 -13.18,-103.98 -13.19,-102.04 -13.20,-100.10 -13.26,-92.34 -13.29,-88.46 -13.30,-86.52 -13.31,-84.58 -13.31,-82.64">
+        <lane id="-1#4_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.70" width="3.50" shape="-4.42,-106.35 -4.42,-105.90 -4.43,-103.94 -4.44,-101.99 -4.45,-100.03 -4.51,-92.27 -4.54,-88.40 -4.55,-86.64" type="driving">
             <param key="origId" value="1_-3"/>
         </lane>
-        <lane id="-1#4_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.70" width="3.50" shape="-7.92,-106.35 -7.92,-105.91 -7.93,-103.96 -7.94,-102.01 -7.95,-100.06 -8.03,-90.36 -8.04,-88.43 -8.05,-86.65" type="driving">
+        <lane id="-1#4_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.70" width="3.50" shape="-7.92,-106.35 -7.92,-105.91 -7.93,-103.96 -7.94,-102.01 -7.95,-100.06 -8.01,-92.30 -8.04,-88.43 -8.05,-86.65" type="driving">
             <param key="origId" value="1_-2"/>
         </lane>
-        <lane id="-1#4_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.70" width="3.50" shape="-11.42,-106.36 -11.42,-105.92 -11.43,-103.97 -11.44,-102.03 -11.45,-100.09 -11.53,-90.39 -11.54,-88.45 -11.55,-86.67" type="driving">
+        <lane id="-1#4_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.70" width="3.50" shape="-11.42,-106.36 -11.42,-105.92 -11.43,-103.97 -11.44,-102.03 -11.45,-100.09 -11.51,-92.33 -11.54,-88.45 -11.55,-86.67" type="driving">
             <param key="origId" value="1_-1"/>
         </lane>
     </edge>
@@ -434,14 +434,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="1_1"/>
         </lane>
     </edge>
-    <edge id="1#4" from="1000000" to="1#4" priority="1" type="driving|driving|none" shape="-13.31,-82.64 -13.31,-84.58 -13.30,-86.52 -13.29,-88.46 -13.28,-90.40 -13.20,-100.10 -13.19,-102.04 -13.18,-103.98 -13.17,-105.92 -13.17,-107.86">
-        <lane id="1#4_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.66" width="3.50" shape="-22.05,-86.73 -22.04,-88.51 -22.03,-90.47 -21.95,-100.17 -21.94,-102.09 -21.93,-104.02 -21.92,-105.94 -21.92,-106.37" type="driving">
+    <edge id="1#4" from="1000000" to="1#4" priority="1" type="driving|driving|none" shape="-13.31,-82.64 -13.31,-84.58 -13.30,-86.52 -13.29,-88.46 -13.26,-92.34 -13.20,-100.10 -13.19,-102.04 -13.18,-103.98 -13.17,-105.92 -13.17,-107.86">
+        <lane id="1#4_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.66" width="3.50" shape="-22.05,-86.73 -22.04,-88.52 -22.01,-92.41 -21.95,-100.17 -21.94,-102.09 -21.93,-104.02 -21.92,-105.94 -21.92,-106.37" type="driving">
             <param key="origId" value="1_3"/>
         </lane>
-        <lane id="1#4_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.66" width="3.50" shape="-18.55,-86.71 -18.54,-88.49 -18.53,-90.44 -18.45,-100.14 -18.44,-102.07 -18.43,-104.00 -18.42,-105.93 -18.42,-106.37" type="driving">
+        <lane id="1#4_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.66" width="3.50" shape="-18.55,-86.71 -18.54,-88.49 -18.51,-92.38 -18.45,-100.14 -18.44,-102.07 -18.43,-104.00 -18.42,-105.93 -18.42,-106.37" type="driving">
             <param key="origId" value="1_2"/>
         </lane>
-        <lane id="1#4_2" index="2" disallow="all" speed="1.39" length="19.66" width="3.50" shape="-15.05,-86.69 -15.04,-88.47 -15.03,-90.41 -14.95,-100.11 -14.94,-102.05 -14.93,-103.99 -14.92,-105.92 -14.92,-106.36" type="none">
+        <lane id="1#4_2" index="2" disallow="all" speed="1.39" length="19.66" width="3.50" shape="-15.05,-86.69 -15.04,-88.47 -15.01,-92.35 -14.95,-100.11 -14.94,-102.05 -14.93,-103.99 -14.92,-105.92 -14.92,-106.36" type="none">
             <param key="origId" value="1_1"/>
         </lane>
     </edge>
