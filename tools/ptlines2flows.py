@@ -317,7 +317,7 @@ def createTrips(options):
 
 
 def joinTrips(options, tripList, trpMap):
-    net = optins.net
+    net = options.net
     # join opposite pairs of trips
     linePairs = collections.defaultdict(list)
     for tripID, ptl in trpMap.items():
@@ -383,7 +383,7 @@ def distCheck(options, refOrig, eID1, eID2):
     for p in shape1:
         minDist = min(minDist, geomhelper.distancePointToPolygon(p, shape2))
     if minDist > options.joinThreshold:
-        sys.stderr.write("Warning: Cannot join line '%s' at edges '%s' and '%s' with distance %s" % (
+        sys.stderr.write("Warning: Cannot join line '%s' at edges '%s' and '%s' with distance %s\n" % (
             refOrig, eID1, eID2, minDist))
         return False
     else:
@@ -477,6 +477,7 @@ def createRoutes(options, trpMap):
         parking = ' parking="true"' if vehicle.type == "bus" and options.busparking else ''
         color = ' color="%s"' % ptline.color if ptline.color is not None else ""
         repeat = ""
+        stops = vehicle.stop
         if len(ptline.terminalIndices) == 2 and stops:
             lastBusStop = stops[-1].busStop
             lastUntil = stopsUntil.get((id, lastBusStop))
@@ -487,7 +488,6 @@ def createRoutes(options, trpMap):
                     repeat = ' repeat="%s" cycleTime="%s"' % (numRepeats, ft(cycleTime))
 
 
-        stops = vehicle.stop
         # jump over disconnected parts
         jumps = {}  # edge -> duration
         usedJumps = set()
