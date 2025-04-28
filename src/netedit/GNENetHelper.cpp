@@ -2507,7 +2507,7 @@ GNENetHelper::AttributeCarriers::deleteConnection(GNEConnection* connection) {
 void
 GNENetHelper::AttributeCarriers::insertInternalLane(GNEInternalLane* internalLane) {
     if (myInternalLanes.count(internalLane->getGUIGlObject()) > 0) {
-        throw ProcessError(internalLane->getTagStr() + " with ID='" + internalLane->getID() + "' already exist");
+        throw ProcessError(internalLane->getTagStr() + " with ID='" + internalLane->getMicrosimID() + "' already exist");
     } else {
         myInternalLanes[internalLane->getGUIGlObject()] = internalLane;
         myNumberOfNetworkElements++;
