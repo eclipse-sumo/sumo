@@ -166,12 +166,14 @@ title: ChangeLog
   - In delete mode, hovering over a junction will highlight all edges that would be deleted when deleting the junction #14114
   - Selection of rerouter edges now uses improved highlight and permits toggling of edges #16430
   - Disabled superfluous attribute stopOffsetException when inspecting lanes where stopOffset is 0 #13985
+  - Menu-toggle 'show bubbles' is now available in additional editing modes and toggles between showing junction shapes and junction bubbles. #16214
 
 - netconvert
   - Added option **--junctions.join.parallel-threshold DEGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
   - Added option **--osm.annotate-defaults** to document whether speed and lane number were based on OSM data or typemap default values #16094
   - Trams now use safe and efficient zipper merging where possible when no tram rail signals are defined. Option **--railway.signal.permit-unsignalized** can be used to configure other vClasses that are subject to this behavior #16216
   - OSM: newer tagging schemes for on-street parking are now supported #16558
+  - The visual configuration 'Show bubbles' make 'show bubbles' more useful #16214
 
 - sumo-gui
   - started work on Japanese translation #16129
