@@ -27,14 +27,14 @@ title: ChangeLog
   - Fixed misclassification of some frontal-collisions as normal (rear-end) collision #16398
   - Fixed invalid formula for coasting deceleration in case of steep inclines #16309
   - Fixed invalid rail behavior after rerouting #16431
-  - Fixed blocked lane changes on a junctionsvehicle on junction #16443
+  - Fixed blocked lane changes on junction #16443
   - Fixed deadlock between vehicle and pedestrian on walkingarea #16458
   - The electric vehicle model now honors engine shuttoff via params `shutOffStopDuration` and `shutOffAutoDuration` #16341
   - JuPedSim-pedestrians now take into account traffic lights when walking against the direction of the edge. #16313
   - SSM device: fixed unhelpful error message on invalid `device.ssm.exclude-conflict-types` #16511
   - SSM device: fixed problems with indirect left turn #16519
   - Fixed bug where right-turning vehicle ignores bicycle on indirect left turn #16520
-  - Option **--ignore-junction-blocker** now longer triggers junction collisions #16525
+  - Option **--ignore-junction-blocker** no longer triggers junction collisions #16525
   - Stops in flows are now correctly handled when saving and loading state #16527
   - Fixed invalid behavior when rerouter closes multiple lanes or edges with different permissions in the same interval #13846
   - Fixed rare crash on loading rail simulation with internal links #16532
@@ -58,18 +58,18 @@ title: ChangeLog
   - Fixed invalid connections after using *reset connections* #16127
   - Saving demand that was loaded from a sumocfg in multiple route files is now working #14805
   - Fixed handling of special vType params for visualizing rail carriages #16334
-  - Fixed nvalid geometry of person plans that end in a stopLane #15355
+  - Fixed invalid geometry of person plans that end in a stopLane #15355
   - Fixed invalid geometry of person plan from stoppingPlace to stoppingPlace  #15348
   - Fixed crash after deleting edges with opposite-lane information #16500
   - Fixed superfluous default attributes when saving meanData #16427
-  - Selection coloring is isnstantly updated after selecting lanes with button functions (dead end, dead start, ...) in connection mode #16464
+  - Selection coloring is instantly updated after selecting lanes with button functions (dead end, dead start, ...) in connection mode #16464
 
 
 - sumo-gui
   - Fixed rendering of rail carriages when scaled by length/geometry #16425
   - Visualization option *scale length with geometry* now works for rail carriages and allows rendering with unscaled length #11576
   - Fixed crash on invalid output file path for calibrators #16545
-  - vehicle color param and vehicle text param are not correctly saved in settings #16561
+  - vehicle color param and vehicle text param are now correctly saved in settings #16561
 
 - netconvert
   - Fixed unsafe program transition from 'G' to 'g' #16289 (regression in 1.20.0)
@@ -90,7 +90,6 @@ title: ChangeLog
   - Fixed invalid internal lane shape when importin OpenDRIVE #16482
   - Fixed invalid ptline-output when running with option **--ptstop-output.no-bidi** #16534
   - Option **--ptline-clean-up** now cleans up more stops #16540
-  - Fixed invalid ptline-output when running with option **--ptstop-output.no-bidi** #16534
   - Fixed failure to join junctions #16557
 
 - durarouter
@@ -126,7 +125,7 @@ title: ChangeLog
   - randomTrips.py: can now load custom boolean duarouter option from config #16551
   - randomTrips.py: writing .rou.xml.gz is now working #16556
   - scaleRoutes.py: Fixed bug in scaling #16474
-  - scaleRoutes.py: Fixed crashes when input exceeds the ocnfigured time range #16467
+  - scaleRoutes.py: Fixed crashes when input exceeds the configured time range #16467
   - scaleRoutes.py: option **--timeline-pair** is now working #16473
   - scaleRoutes.py: Now works with flows defined via `period` #16470
   - route_1htoDay.py: fixed misleading option help text #16466
@@ -134,9 +133,8 @@ title: ChangeLog
   - analyzePersonPlans.py: fixed invalid car use classification #16549
   - distributeChargingStations.py: Fixed invalid position of generated parking area when input contains negative positions #16560
   - ptlines2flows.py: Fixed invalid route with **--extend-to-fringe** when pt line is split #16573
-  - ptlines2flows.py: No longer writing invalid (disconnected) routes when using a modified input network. Instead disconnected parts are bridged with jumps #16292
+  - ptlines2flows.py: No longer writing invalid (disconnected) routes when using a modified input network. Instead disconnected parts are bridged with jumps #16292    
   - loading tool config with multiple positional input file arguments now works #16447
-  - generateTurnRatios.py: added option **--split-types** to create type-specific turn ration attributes #16579 
 
 ### Enhancements
 
@@ -146,8 +144,8 @@ title: ChangeLog
   - Added stop attribute `jumpUntil` to set a minimum time for the end of a jump #16153
   - Tram insertion automatically uses moving-block mode when there are no rail signals for tram in the network. The behavior can be configured with option **--railsignal.default-classes** #16208
   - Taxis that transfer passengers at a busStop now register at that stop. This shows up in **--stop-output**. #16263
-  - Road slope is now used in HBEFA computation #16307
-  - Rerouting device now supports `<param key="ignoreDest" value="1"/>` to support rerouting to any parkingArea regardless of visibility or occupancy of the current destination. One use case is to control to [idle-algorithm for finding the next taxi stand](Simulation/Taxi.md#idle_behavior) #16387
+  - Road slope is now used in HBEFA3 and HBEFA4 computation #16307
+  - Rerouting device now supports `<param key="ignoreDest" value="1"/>` to support rerouting to any parkingArea regardless of visibility or occupancy of the current destination. One use case is configuring the [idle-algorithm for finding the next taxi stand](Simulation/Taxi.md#idle_behavior) #16387
   - The **--full-output** now includes vehicle road slope (in degrees) in networks with elevation data #16389
   - Collisions that happen as the direct result of lane-changing are now distinguished as "side"-collisions in errors and **--collision-output** #16396
   - The warning "bus stop too short" no longer occurs if a stop fills the whole length of it's lane or if it's `parkingLength` is set to a sufficiently high value #16391
@@ -160,7 +158,7 @@ title: ChangeLog
   - collision-output now writes network coordindates of the front and rear of the involved vehicles #16509
   - SSM device parameter "write-na" can be used to disable conflict information where all values are `n/a` #16513
   - public transport rides that are created for a personTrip now use any vehicle that stops at the destination by default. The previous behavior of restricting rides to a single line id can be restored with option **--persontrip.ride-public-line**. #12263
-  - All carFollowModels now support attributes `speedTable`, `maxAccelProfile` and `desAccelProfile` to model spee-dependant limits on acceleration #3920
+  - All carFollowModels now support attributes `speedTable`, `maxAccelProfile` and `desAccelProfile` to model speed-dependant limits on acceleration #3920
 
 - netedit
   - Each object now tracks the file from which it was loaded to facilitate working with projects where multiple route- or additional-files are used #12430
@@ -172,7 +170,7 @@ title: ChangeLog
 - netconvert
   - Added option **--junctions.join.parallel-threshold DEGREES** to increase user control over joining junctions (with **--junctions.join**) #16140
   - Added option **--osm.annotate-defaults** to document whether speed and lane number were based on OSM data or typemap default values #16094
-  - Trams now use safe and efficient zipper merging where possible when no tram rail signals are defined. Option ** --railway.signal.permit-unsignalized** can be used to configure other vClasses that are subject to this behavior #16216
+  - Trams now use safe and efficient zipper merging where possible when no tram rail signals are defined. Option **--railway.signal.permit-unsignalized** can be used to configure other vClasses that are subject to this behavior #16216
   - OSM: newer tagging schemes for on-street parking are now supported #16558
 
 - sumo-gui
@@ -200,7 +198,7 @@ title: ChangeLog
 - Tools
   - randomTrips.py: When option **--validate** is set, the generated amount of vehicles is guaranteed (by replacing invalid trips with new valid trips) #8843
   - randomTrips.py: Using value of **--vehicle-class** as default for **--edge-permission** #16471
-  - netcheck.py: Added option **--right-of-way** to find selected cases of faulty right-of-way rules (currently only on-ramps are check) #16036
+  - netcheck.py: Added option **--right-of-way** to find selected cases of faulty right-of-way rules (currently only on-ramps are checked) #16036
   - jtcrouter.py: Added option **--additional-files** which are passed to [jtrrouter](jtrrouter.md) #16191
   - csv2xml.py: Added option **--flat** to convert arbitrary csv files without a schema #16204
   - plotXMLAttributes.py: Added option **--xstr** and **--ystr** to force data interpretation as category #16205
@@ -208,7 +206,7 @@ title: ChangeLog
   - sumolib: Objects loaded with function `xml.parse` now preserve their attribute order when serialized with `toXML` #16254
   - [remap_additionals.py](Tools/Net.md#remap_additionalspy): convert infrastructure from one network to another network (which may differ in geometry, lanes and edge splits) #16206
   - [remap_renamed.py](Tools/Net.md#remap_renamedpy): convert route files and additional files after renaming network ids (i.e. with **--numerical-ids**) #16252
-  - [remap_network.py](Tools/Net.md#remap_renamedpy): New tool for finding correspondence between networks based on geometry #16409
+  - [remap_network.py](Tools/Net.md#remap_networkpy): New tool for finding correspondence between networks based on geometry #16409
   - ptlines2flows.py: now sorts written routes and flows by id #16222
   - ptlines2flows.py: now safely handles missing edges #16293
   - gtfs2pt.py: now supports option **--merged-csv** for loading transit schedule data from a single file and option **--merged-csv-output** for creating such a file from GTFS input. #16310
@@ -225,6 +223,7 @@ title: ChangeLog
   - [mapDetectors.py](Tools/Detector.md#mapdetectorspy): now filters duplicates #16553
   - [mapDetectors.py](Tools/Detector.md#mapdetectorspy): Option **--write-params** can be used to import further data columns #16554
   - edgeDataFromFlow.py: Now supports custom column names with option **--id-column** and **--time-column** and custom interpretation of time values with option **--time-scale** #16555
+  - generateTurnRatios.py: added option **--split-types** to create type-specific turn ration attributes #16579
 
 
 ### Miscellaneous
