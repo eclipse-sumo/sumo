@@ -21,8 +21,7 @@ title: ChangeLog
   - Fixed invalid bestLaneOffset when an edge has usable lanes divided by forbidden lanes. This could result in invalid departure errors #16287
   - Fixed crash after lane change with E3 detector using `detectPersons="car"` #16296
   - Ensured simulation terminates when using LC2013 with sublane model #16297
-  - Fixed crash when using option **--device.rerouting.threads** with option **--weights.random-factor** and rerouters #16347
-  - Fixed treatment of stationfinder device parameter `checkEnergyForRoute` #16380
+  - Fixed crash when using option **--device.rerouting.threads** with option **--weights.random-factor** and rerouters #16347  
   - Fixed collision due to unsafe lane changing ahead of a zipper merge #16305
   - Fixed duplicate collision output when using **--collision-action warn** #16397
   - Fixed misclassification of some frontal-collisions as normal (rear-end) collision #16398
@@ -39,10 +38,14 @@ title: ChangeLog
   - Stops in flows are now correctly handled when saving and loading state #16527
   - Fixed invalid behavior when rerouter closes multiple lanes or edges with different permissions in the same interval #13846
   - Fixed rare crash on loading rail simulation with internal links #16532
-  - Fixed insufficient precision when using **--fcd-replay** with JuPedSim #16047
-  - Fixed bug where stationfinder device fails to search for station after failed estimation at low charge #16562
+  - Fixed insufficient precision when using **--fcd-replay** with JuPedSim #16047  
   - Free insertion now takes into account a stop on the insertion edge #16592
   - Insertion after jump no longer skips stop on the insertion edge #16583
+  - Fixed treatment of stationfinder device parameter `checkEnergyForRoute` #16380
+  - Fixed bug where stationfinder device fails to search for station after failed estimation at low charge #16562
+  - Fixed bug where electric vehicles with stationfinder device only recharge once #16597
+  - stationFinder/parkingReroute: Fixed invalid estimate of time to reach new stopping place #16603
+
 
 - netedit
   - Restored functionality for setting custom geometry point by entering values #16179 (regression in 1.20.0)
@@ -74,7 +77,8 @@ title: ChangeLog
   - Option **--bikelanes.guess** no longer impacts loaded connection attributes #16196
   - Fixed invalid right of way rules / junction type when shared tram lanes crosses another tram line #16215
   - Fixed bug where stops loaded with option **--ptstop-files** were renamed #16220
-  - failure to map elevation to a network with z-data #16235
+  - Fixed failure to map elevation to a network with z-data #16235
+  - OpenDRIVE import: Fixed invalid simplification of elevation data on straight roads #16566
   - Fixed invalid connections when using option **--osm.turn-lanes** #13586
   - Fixed invalid bus connections when guessing #16291
   - Fixed invalid right-of-way rules at traffic lights with uncommon phase layouts. #16338
