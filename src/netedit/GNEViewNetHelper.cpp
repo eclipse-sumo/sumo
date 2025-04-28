@@ -2806,19 +2806,19 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     menuCheckAutoOppositeEdge->setChecked(false);
     menuCheckAutoOppositeEdge->create();
 
-    menuCheckShowJunctionBubble = new MFXCheckableButton(false, gripModes, toolTipMenu,
-            (std::string("\t") + TL("Show bubbles") + std::string("\t") + TL("Toggle show bubbles instead of junctions shapes.")),
-            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
-            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES, GUIDesignMFXCheckableButtonSquare);
-    menuCheckShowJunctionBubble->setChecked(false);
-    menuCheckShowJunctionBubble->create();
-
     menuCheckMoveElevation = new MFXCheckableButton(false, gripModes, toolTipMenu,
             (std::string("\t") + TL("Move elevation") + std::string("\t") + TL("Apply mouse movement to elevation instead of x,y position.")),
             GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ELEVATION),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION, GUIDesignMFXCheckableButtonSquare);
     menuCheckMoveElevation->setChecked(false);
     menuCheckMoveElevation->create();
+
+    menuCheckShowJunctionBubble = new MFXCheckableButton(false, gripModes, toolTipMenu,
+            (std::string("\t") + TL("Show bubbles") + std::string("\t") + TL("Toggle show bubbles over junctions shapes.")),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES, GUIDesignMFXCheckableButtonSquare);
+    menuCheckShowJunctionBubble->setChecked(false);
+    menuCheckShowJunctionBubble->create();
 
     // always recalc after creating new elements
     gripModes->recalc();
@@ -2885,17 +2885,17 @@ GNEViewNetHelper::NetworkViewOptions::getVisibleNetworkMenuCommands(std::vector<
     if (menuCheckMergeAutomatically->shown()) {
         commands.push_back(menuCheckMergeAutomatically);
     }
-    if (menuCheckShowJunctionBubble->shown()) {
-        commands.push_back(menuCheckShowJunctionBubble);
-    }
-    if (menuCheckMoveElevation->shown()) {
-        commands.push_back(menuCheckMoveElevation);
-    }
     if (menuCheckChainEdges->shown()) {
         commands.push_back(menuCheckChainEdges);
     }
     if (menuCheckAutoOppositeEdge->shown()) {
         commands.push_back(menuCheckAutoOppositeEdge);
+    }
+    if (menuCheckMoveElevation->shown()) {
+        commands.push_back(menuCheckMoveElevation);
+    }
+    if (menuCheckShowJunctionBubble->shown()) {
+        commands.push_back(menuCheckShowJunctionBubble);
     }
 }
 

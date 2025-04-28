@@ -926,15 +926,15 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
                                 GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_TWOWAY),
                                 myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES);
 
-    menuCheckShowJunctionBubble = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                  TL("Show bubbles instead of junctions shapes"), "Alt+7", "",
-                                  GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
-                                  myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES);
-
     menuCheckMoveElevation = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                             TL("Apply mouse movement to elevation"), "Alt+8", "",
+                             TL("Apply mouse movement to elevation"), "Alt+7", "",
                              GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ELEVATION),
                              myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION);
+
+    menuCheckShowJunctionBubble = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                                  TL("Show bubbles over junctions shapes"), "Alt+8", "",
+                                  GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
+                                  myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES);
 
     // build separator
     separator = new FXMenuSeparator(editMenu);
@@ -1011,20 +1011,20 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::updateShortcut
         menuCheckMergeAutomatically->setAccelText(("Alt+" + toString(index)).c_str());
         index++;
     }
-    if (menuCheckShowJunctionBubble->shown()) {
-        menuCheckShowJunctionBubble->setAccelText(("Alt+" + toString(index)).c_str());
-        index++;
-    }
-    if (menuCheckMoveElevation->shown()) {
-        menuCheckMoveElevation->setAccelText(("Alt+" + toString(index)).c_str());
-        index++;
-    }
     if (menuCheckChainEdges->shown()) {
         menuCheckChainEdges->setAccelText(("Alt+" + toString(index)).c_str());
         index++;
     }
     if (menuCheckAutoOppositeEdge->shown()) {
         menuCheckAutoOppositeEdge->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckMoveElevation->shown()) {
+        menuCheckMoveElevation->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowJunctionBubble->shown()) {
+        menuCheckShowJunctionBubble->setAccelText(("Alt+" + toString(index)).c_str());
         index++;
     }
 }
@@ -2385,9 +2385,6 @@ GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const 
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckMergeAutomatically) {
         // Call manually onCmdToggleMergeAutomatically
         viewNet->onCmdToggleMergeAutomatically(obj, sel, nullptr);
-    } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowJunctionBubble) {
-        // Call manually onCmdToggleShowJunctionBubble
-        viewNet->onCmdToggleShowJunctionBubbles(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckMoveElevation) {
         // Call manually onCmdToggleMoveElevation
         viewNet->onCmdToggleMoveElevation(obj, sel, nullptr);
@@ -2397,6 +2394,9 @@ GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const 
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckAutoOppositeEdge) {
         // Call manually onCmdToggleAutoOppositeEdge
         viewNet->onCmdToggleAutoOppositeEdge(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowJunctionBubble) {
+        // Call manually onCmdToggleShowJunctionBubble
+        viewNet->onCmdToggleShowJunctionBubbles(obj, sel, nullptr);
     } else {
         return false;
     }
