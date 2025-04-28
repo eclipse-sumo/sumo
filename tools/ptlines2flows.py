@@ -487,7 +487,6 @@ def createRoutes(options, trpMap):
                 if numRepeats > 1:
                     repeat = ' repeat="%s" cycleTime="%s"' % (numRepeats, ft(cycleTime))
 
-
         # jump over disconnected parts
         jumps = {}  # edge -> duration
         usedJumps = set()
@@ -513,7 +512,9 @@ def createRoutes(options, trpMap):
                 if (id, stop.busStop) in stopsUntil:
                     stopEdge = options.stopEdges[stop.busStop]
                     until = stopsUntil[(id, stop.busStop)]
-                    stopname = ' <!-- %s -->' % options.stopNames[stop.busStop] if stop.busStop in options.stopNames else ''
+                    stopname = ''
+                    if stop.busStop in options.stopNames:
+                        stopname = ' <!-- %s -->' % options.stopNames[stop.busStop]
                     untilZeroBased = until[0] - actualDepart[id] + untilOffset
                     if stop.jump is not None:
                         jump = ' jump="%s"' % stop.jump
@@ -537,7 +538,7 @@ def createRoutes(options, trpMap):
         for edgeID, jumpDuration in jumps.items():
             if edgeID not in usedJumps:
                 tmpio.write(
-                        '        <stop edge="%s" speed="999" jump="%s" index="fit"/>\n' % ( edgeID, jumpDuration))
+                        '        <stop edge="%s" speed="999" jump="%s" index="fit"/>\n' % (edgeID, jumpDuration))
 
         tmpio.write('    </route>\n')
         routes.append((flowID, tmpio.getvalue()))
