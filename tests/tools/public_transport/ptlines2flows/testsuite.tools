@@ -27,9 +27,9 @@ extendFringe
 # extend train route beyond terminal stops (for split line)
 extendFringe_split
 
-# bridge disconnect with jumps
-disconnected_route
-
 # test more route types
 share_taxi_minibus
 missing_edges
+
+# join opposite lines at the terminal stops
+join
