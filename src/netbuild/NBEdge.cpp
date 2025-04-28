@@ -4768,7 +4768,10 @@ NBEdge::shiftToLanesToEdge(NBEdge* to, int laneOff) {
 
 void
 NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
-    if (myLaneSpreadFunction == LaneSpreadFunction::CENTER && !isRailway(getPermissions()) && getBidiEdge() == nullptr) {
+    if (myLaneSpreadFunction == LaneSpreadFunction::CENTER
+            && !isRailway(getPermissions())
+            && !isRailway(other->getPermissions())
+            && getBidiEdge() == nullptr) {
         const int i = (node == myTo ? -1 : 0);
         const int i2 = (node == myTo ? 0 : -1);
         const double dist = myGeom[i].distanceTo2D(node->getPosition());
@@ -4783,6 +4786,7 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
             try {
                 tmp.move2side(neededOffset - dist);
                 myGeom[i] = tmp[i];
+                //std::cout << getID() << " shiftPositionAtNode needed=" << neededOffset << " dist=" << dist << " needed2=" << neededOffset2 << " dist2=" << dist2 << "  by=" << (neededOffset - dist) << " other=" << other->getID() << "\n";
             } catch (InvalidArgument&) {
                 WRITE_WARNINGF(TL("Could not avoid overlapping shape at node '%' for edge '%'."), node->getID(), getID());
             }
