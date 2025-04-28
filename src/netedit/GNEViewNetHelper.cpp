@@ -2807,7 +2807,7 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     menuCheckAutoOppositeEdge->create();
 
     menuCheckShowJunctionBubble = new MFXCheckableButton(false, gripModes, toolTipMenu,
-            (std::string("\t") + TL("Show bubbles") + std::string("\t") + TL("Toggle show bubbles over junctions shapes.")),
+            (std::string("\t") + TL("Show bubbles") + std::string("\t") + TL("Toggle show bubbles instead of junctions shapes.")),
             GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES, GUIDesignMFXCheckableButtonSquare);
     menuCheckShowJunctionBubble->setChecked(false);
