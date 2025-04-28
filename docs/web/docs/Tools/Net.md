@@ -269,3 +269,13 @@ python tools/net/remap_additionals.py -n input_net2.net.xml -r input_routes.rou.
 python tools/net/remap_additionals.py -n input_net2.net.xml -a input_additionals.add.xml -o out.add.xml
 python tools/net/remap_additionals.py -n input_net2.net.xml -s input_selection.txt -o selection.txt
 ```
+
+# remap_network.py
+
+Compute correspondence between two networks with somewhat similar geometry (but different splits, joins, ids etc). The output is a csv-file with an 1-to-n mapping of original edge to zero or more target edges. 
+For each target edge, the common length in m as well as the fraction of the target edge being covered by the original edge are listed. Output on the quality of the mapping is written to **--success-output**.
+
+Example call:
+```
+python tools/net/remap_network.py --orig-net net.net.xml --target-net net2.net.xml -o out.csv --success-output success.txt
+```
