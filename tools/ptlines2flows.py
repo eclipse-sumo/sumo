@@ -538,7 +538,7 @@ def createRoutes(options, trpMap):
         for edgeID, jumpDuration in jumps.items():
             if edgeID not in usedJumps:
                 tmpio.write(
-                        '        <stop edge="%s" speed="999" jump="%s" index="fit"/>\n' % (edgeID, jumpDuration))
+                    '        <stop edge="%s" speed="999" jump="%s" index="fit"/>\n' % (edgeID, jumpDuration))
 
         tmpio.write('    </route>\n')
         routes.append((flowID, tmpio.getvalue()))
@@ -596,7 +596,7 @@ def main(options):
     options.stopEdges = {}
     options.stopNames = {}
     for stop in sumolib.output.parse(options.ptstops, ['busStop', 'trainStop']):
-        options.stopEdges[stop.id] = sumolib.net.lane2edge(stop.lane)
+        options.stopEdges[stop.id] = sumolib._laneID2edgeID(stop.lane)
         if stop.name:
             options.stopNames[stop.id] = stop.attr_name
 
