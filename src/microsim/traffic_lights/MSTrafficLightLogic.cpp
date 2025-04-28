@@ -256,8 +256,15 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                     for (int j = 0; j < numLinks; ++j) {
                                         for (int k = 0; k < (int)myLinks[j].size(); ++k) {
                                             MSLink* link = myLinks[j][k];
-                                            if (link->getJunction() == junction && !link->fromInternalLane()) {
-                                                // internal links may have their own control (i.e. for indirect left turn) but they also have their own conflict matrix
+                                            if (link->getJunction() == junction) {
+                                                if (link->fromInternalLane()) {
+                                                    // internal links may have their own control (i.e. for indirect left turn) but they also have their own conflict matrix
+                                                    continue;
+                                                }
+                                                if (link->isCont() && link->getViaLane() != nullptr && link->getViaLane()->getLinkCont()[0]->getTLIndex() >= 0) {
+                                                    // if the internal junction link is controlled, the first-part indices are not deadlock-relevant
+                                                    continue;
+                                                }
                                                 tlIndex[link->getIndex()] = link->getTLIndex();
                                             }
                                         }
