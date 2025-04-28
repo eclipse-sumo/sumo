@@ -231,7 +231,7 @@ title: ChangeLog
 
 - In netedit, the default extension of edge data files is now *.xml, instead of *.dat.xml #16257
 - Netedit: unified contextual menus for all elements #15314
-- The new default emission model is now [HBEFA4](models/Emissions/HBEFA4-based.md) #15950. Please note that this means a major reduction especially in the values for CO and HC at low speeds.
+- The new default emission model is now [HBEFA4](Models/Emissions/HBEFA4-based.md) #15950. Please note that this means a major reduction especially in the values for CO and HC at low speeds.
 - mapDetectors.py: no longer searching up to range 1000 by default #16571
 - person-ride attribute `lines="ANY"` is no longer written as this is the default value when loading a ride without `line` attribute. #12263
 - TraCI
