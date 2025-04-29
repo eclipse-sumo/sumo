@@ -1345,8 +1345,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     loadDataElements();
     loadMeanDataElements();
     // load selection
-    if (!OptionsCont::getOptions().isDefault("selection-file")) {
-        myViewNet->getViewParent()->getSelectorFrame()->getSelectionOperationModul()->loadFromFile(OptionsCont::getOptions().getString("selection-file"));
+    if (!neteditOptions.isDefault("selection-file")) {
+        myViewNet->getViewParent()->getSelectorFrame()->getSelectionOperationModul()->loadFromFile(neteditOptions.getString("selection-file"));
     }
     // after loading net shouldn't be saved
     if (myNet) {
@@ -1356,6 +1356,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     update();
     // restore focus
     setFocus();
+    // check if run test thread
+    if (neteditOptions.getString("test-file").size() > 0) {
+        myTestThread->startTest();
+    }
 }
 
 
