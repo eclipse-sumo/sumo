@@ -44,7 +44,7 @@ class GNETestThread : protected MFXSingleEventThread {
 
 public:
     /// @brief constructor
-    GNETestThread(GNEApplicationWindow* applicationWindow, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev);
+    GNETestThread(GNEApplicationWindow* applicationWindow);
 
     /// @brief destructor
     virtual ~GNETestThread();
@@ -56,20 +56,6 @@ public:
     void startTest();
 
 private:
-    /**@brief Closes the loading process
-     *
-     * This method is called both on success and failure.
-     * All message callbacks to this instance are removed and the parent
-     * application is informed about the loading
-     */
-    void submitEndAndCleanup(GNENet* net, const std::string& loadedFile, const std::string& guiSettingsFile = "", const bool viewportFromRegistry = false);
-
     /// @brief netedit application windows
     GNEApplicationWindow* myApplicationWindow;
-
-    /// @brief event Queue
-    MFXSynchQue<GUIEvent*>& myEventQueue;
-
-    /// @brief event throw
-    FXEX::MFXThreadEvent& myEventThrow;
 };
