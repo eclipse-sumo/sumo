@@ -31,6 +31,8 @@ set(netedit_SRCS
    GNETagProperties.h
    GNETagPropertiesDatabase.cpp
    GNETagPropertiesDatabase.h
+   GNETestThread.cpp
+   GNETestThread.h
    GNEUndoList.cpp
    GNEUndoList.h
    GNEViewNet.cpp
