@@ -524,8 +524,6 @@ GNEApplicationWindow::dependentBuild() {
     // build the thread - io
     myLoadThreadEvent.setTarget(this);
     myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
-    myTestThreadEvent.setTarget(this);
-    myTestThreadEvent.setSelector(ID_TESTTHREAD_EVENT);
     // build the status bar
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     // build geo coordinates label
@@ -558,7 +556,7 @@ GNEApplicationWindow::dependentBuild() {
     fillMenuBar();
     // build additional threads
     myLoadThread = new GNELoadThread(this, myEvents, myLoadThreadEvent);
-    myTestThread = new GNETestThread(this, myEvents, myTestThreadEvent);
+    myTestThread = new GNETestThread(this);
     // set the status bar
     setStatusBarText(TL("Ready."));
     // set the caption
