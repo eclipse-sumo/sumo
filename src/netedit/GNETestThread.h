@@ -37,9 +37,7 @@ class GNEApplicationWindow;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNETestThread
- */
+
 class GNETestThread : protected MFXSingleEventThread {
 
 public:
@@ -55,7 +53,49 @@ public:
     /// @brief run test
     void startTest();
 
+protected:
+    /// @brief process test file
+    void processTestFile();
+
 private:
+    enum class TestStepType {
+        // go to supermode
+        SUPERMODE_NETWORK,
+        SUPERMODE_DEMAND,
+        SUPERMODE_DATA,
+
+        //other
+        QUIT
+    };
+
+    /// @brief test step
+    struct TestStep {
+        /// @brief parameter constructor
+        TestStep(const std::string &row);
+
+        /// @brief return step type
+        TestStepType getStepType() const;
+
+    private:
+        /// @brief step type
+        TestStepType myStepType;
+        
+        /// @brief function
+        std::string myFunction;
+
+        /// @brief arguments
+        std::vector<std::string> myArguments;
+
+        /// @brief parse function and arguments
+        void parseFunctionAndArguments(const std::string &row);
+
+        /// @brief invalidate default constructor
+        TestStep() = delete;
+    };
+
     /// @brief netedit application windows
     GNEApplicationWindow* myApplicationWindow;
+
+    /// @brief test steps
+    std::vector<TestStep> myTestStep;
 };
