@@ -55,9 +55,6 @@ public:
     /// @brief run test
     void startTest();
 
-    /// @brief Retrieves messages from the loading module
-    void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
-
 private:
     /**@brief Closes the loading process
      *
