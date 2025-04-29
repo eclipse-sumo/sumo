@@ -22,6 +22,16 @@
 
 #include "GNEApplicationWindowHelper.h"
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+
+class GNELoadThread;
+class GNETagPropertiesDatabase;
+class GNETestThread;
+class GNEUndoList;
+class GNEUndoListDialog;
+class GUIEvent;
 
 // ===========================================================================
 // class definition
@@ -631,6 +641,9 @@ protected:
     /// @brief the thread that loads the network
     GNELoadThread* myLoadThread = nullptr;
 
+    /// @brief the tread used for testing netedit
+    GNETestThread* myTestThread = nullptr;
+
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;
 
@@ -697,6 +710,9 @@ protected:
 
     /// @brief io-event with the load-thread
     FXEX::MFXThreadEvent myLoadThreadEvent;
+
+    /// @brief io-event with the test-thread
+    FXEX::MFXThreadEvent myTestThreadEvent;
 
     /// @brief check if had dependent build
     bool myHadDependentBuild = false;

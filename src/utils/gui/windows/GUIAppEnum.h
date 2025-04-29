@@ -344,6 +344,8 @@ enum {
 
     /// @brief The loading thread
     ID_LOADTHREAD_EVENT,
+    /// @brief The test thread
+    ID_TESTTHREAD_EVENT,
     /// @brief The Simulation execution thread
     ID_RUNTHREAD_EVENT,
     /// @brief ID for message passing between threads

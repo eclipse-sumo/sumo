@@ -228,18 +228,4 @@ GNETestThread::startTest() {
     start();
 }
 
-
-void
-GNETestThread::startTest() {
-    // start thread
-    start();
-}
-
-
-void
-GNETestThread::retrieveMessage(const MsgHandler::MsgType type, const std::string& msg) {
-    myEventQueue.push_back(new GUIEvent_Message(type, msg));
-    myEventThrow.signal();
-}
-
 /****************************************************************************/
