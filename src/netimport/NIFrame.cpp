@@ -431,6 +431,10 @@ NIFrame::checkOptions(OptionsCont& oc) {
             // changed default since we wish to preserve the network as far as possible
             oc.set("geometry.min-radius.fix.railways", "false");
         }
+        if (oc.isWriteable("geometry.avoid-overlap")) {
+            // changed default since we wish to preserve the network as far as possible
+            oc.set("geometry.avoid-overlap", "false");
+        }
     }
     if (!oc.isSet("type-files")) {
         const char* sumoPath = std::getenv("SUMO_HOME");
