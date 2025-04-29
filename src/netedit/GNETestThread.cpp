@@ -18,6 +18,9 @@
 // Thread used for testing netedit
 /****************************************************************************/
 
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/MsgHandler.h>
+
 #include "GNEApplicationWindow.h"
 #include "GNETestThread.h"
 
@@ -36,7 +39,9 @@ GNETestThread::~GNETestThread() {}
 
 FXint
 GNETestThread::run() {
-    // process options
+    // first process test file
+    processTestFile();
+    // execute every step
     return 0;
 }
 
@@ -45,6 +50,109 @@ void
 GNETestThread::startTest() {
     // start thread
     start();
+}
+
+
+void
+GNETestThread::processTestFile() {
+    const std::string testFile = OptionsCont::getOptions().getString("test-file");
+    // open file
+    std::ifstream strm(testFile);
+    // check if file can be opened
+    if (!strm.good()) {
+        WRITE_ERRORF(TL("Could not open test file '%'."), testFile);
+    } else {
+        // continue while stream exist
+        while (strm.good()) {
+            std::string line;
+            strm >> line;
+            // check if line isn't empty
+            if ((line.size() > 0) && line[0] != '#') {
+                myTestStep.push_back(TestStep(line));
+            }
+        }
+    }
+}
+
+
+GNETestThread::TestStep::TestStep(const std::string &row) {
+    // first split between functions and arguments
+    parseFunctionAndArguments(row);
+    // continue depending of function
+    if (myFunction == "supermode") {
+        if (myArguments.size() == 1) {
+            if (myArguments[0] == "network") {
+                myStepType = TestStepType::SUPERMODE_NETWORK;
+            } else if (myArguments[0] == "demand") {
+                myStepType = TestStepType::SUPERMODE_DEMAND;
+            } else if (myArguments[0] == "data") {
+                myStepType = TestStepType::SUPERMODE_DATA;
+            } else {
+                throw ProcessError("Invalid supermode");
+            }
+        } else {
+            throw ProcessError("Invalid number of arguments for function " + myFunction);
+        }
+    } else if (myFunction == "quit") {
+        if (myArguments.empty()) {
+            myStepType = TestStepType::QUIT;
+        } else {
+            throw ProcessError("Invalid number of arguments for function " + myFunction);
+        }
+    }
+}
+
+GNETestThread::TestStepType
+GNETestThread::TestStep::getStepType() const {
+    return myStepType;
+}
+
+
+void
+GNETestThread::TestStep::parseFunctionAndArguments(const std::string &row) {
+    // make a copy to help editing row
+    std::string editedRow = row;
+    // every function has the format <function>(<argument1>, <argument2>,....,)
+    if ((row.size() < 3) || (row.front() == '(') || (row.back() != ')')) {
+        throw ProcessError("Invalid testStep row '" + row + "' check function(arguments) format");
+    }
+    // first extract function
+    while (editedRow.size() > 0) {
+        if (editedRow.front() == '(') {
+            break;
+        } else {
+            myFunction.push_back(editedRow.front());
+            editedRow.erase(editedRow.begin());
+        }
+    }
+    // check format
+    if (editedRow.size() < 2) {
+        throw ProcessError("Invalid testStep row '" + row + "'. Check <function>(<arguments>) format");
+    }
+    // remove both pharentersis
+    editedRow.erase(editedRow.begin());
+    editedRow.pop_back();
+    // continue if there are arguments
+    if (editedRow.size() > 0) {
+        // now extract arguments
+        bool inString = false;
+        std::string argument;
+        while (editedRow.size() > 0) {
+            if ((editedRow.front() == ',') && !inString) {
+                myArguments.push_back(argument);
+                argument.clear();
+            } else if ((editedRow.front() == '"')) {
+                inString = !inString;
+            } else {
+                argument.push_back(editedRow.front());
+            }
+            editedRow.erase(editedRow.begin());
+        }
+        myArguments.push_back(argument);
+        if (inString) {
+            throw ProcessError("Invalid testStep row '" + row + "'. Check \" in arguments ");
+        }
+    }
 }
 
 /****************************************************************************/
