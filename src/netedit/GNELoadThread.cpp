@@ -301,6 +301,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("selection-file", new Option_FileName());
     neteditOptions.addDescription("selection-file", "Input", TL("Load element selection"));
 
+    neteditOptions.doRegister("test-file", new Option_FileName());
+    neteditOptions.addDescription("test-file", "Input", TL("Test file"));
+
     // TOPIC: Output
 
     neteditOptions.doRegister("tls-file", new Option_String());

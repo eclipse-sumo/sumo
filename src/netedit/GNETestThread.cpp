@@ -18,26 +18,13 @@
 // Thread used for testing netedit
 /****************************************************************************/
 
-#include <netbuild/NBFrame.h>
-#include <netbuild/NBNetBuilder.h>
-#include <netimport/NIFrame.h>
-#include <netimport/NILoader.h>
-#include <netwrite/NWFrame.h>
-#include <utils/common/MsgRetrievingFunction.h>
-#include <utils/common/SystemFrame.h>
-#include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsIO.h>
-#include <utils/xml/XMLSubSys.h>
-
 #include "GNEApplicationWindow.h"
-#include "GNEEvent_NetworkLoaded.h"
 #include "GNETestThread.h"
-#include "GNENet.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 GNETestThread::GNETestThread(GNEApplicationWindow* applicationWindow) :
     MFXSingleEventThread(applicationWindow->getApp(), applicationWindow),
     myApplicationWindow(applicationWindow) {
