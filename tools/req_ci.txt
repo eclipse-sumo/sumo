@@ -2,3 +2,4 @@
 # the "normal" requirements should be used in addition
 ortools==9.10.4067; python_version >= '3.8' and python_version < '3.13'
 pandas<2.2.0; python_version < '3.13'
+fmpy<0.3.23
