@@ -208,9 +208,7 @@ class ArgumentParser(argparse.ArgumentParser):
         return s
 
     def __init__(self, *args, **kwargs):
-        self._allowed_programs = kwargs.get("allowed_programs", [])
-        if "allowed_programs" in kwargs:
-            del kwargs["allowed_programs"]
+        self._allowed_programs = kwargs.pop("allowed_programs", [])
         self._catch_all = None
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
         # add common argument for loading configuration
@@ -224,22 +222,15 @@ class ArgumentParser(argparse.ArgumentParser):
     def add_argument(self, *args, **kwargs):
         # due argparse only accept certain values (action, choices, type, help...),
         #  we need to extract extra parameters before call add_argument
-        fix_path = kwargs.get("fix_path")
-        if "fix_path" in kwargs:
-            del kwargs["fix_path"]
-        # get category
-        category = kwargs.get("category")
-        if "category" in kwargs:
-            del kwargs["category"]
-        catch_all = kwargs.get("catch_all", False)
-        if "catch_all" in kwargs:
-            del kwargs["catch_all"]
+        fix_path = kwargs.pop("fix_path", False)
+        category = kwargs.pop("category", None)
+        catch_all = kwargs.pop("catch_all", False)
         # get action
         action = kwargs.get("action")
         # parse argument
         a = argparse.ArgumentParser.add_argument(self, *args, **kwargs)
         # check if fix path
-        if fix_path is True:
+        if fix_path:
             for s in a.option_strings:
                 if s.startswith("--"):
                     self._fix_path_args.add(s[2:])
@@ -265,7 +256,7 @@ class ArgumentParser(argparse.ArgumentParser):
 
     def add_mutually_exclusive_group(self, required=False):
         group = argparse.ArgumentParser.add_mutually_exclusive_group(self, required=required)
-        group.add_argument = handleCategoryWrapper(group.add_argument)
+        group.add_argument = handleCategoryWrapper(self, group.add_argument)
         return group
 
     def _write_config_file(self, namespace, toString=False):
@@ -471,14 +462,17 @@ class ArgumentParser(argparse.ArgumentParser):
         return namespace, remaining_args
 
 
-def handleCategoryWrapper(func):
+def handleCategoryWrapper(parser, func):
     @wraps(func)
     def inner(*args, **kwargs):
-        category = kwargs.get("category")
         # remove category from arguments and set in result
-        if "category" in kwargs:
-            del kwargs["category"]
+        category = kwargs.pop("category", None)
+        fix_path = kwargs.pop("fix_path", True)
         result = func(*args, **kwargs)
+        if fix_path:
+            for s in result.option_strings:
+                if s.startswith("--"):
+                    parser._fix_path_args.add(s[2:])
         result.category = category
         # set if is a boolean
         action = kwargs.get("action")

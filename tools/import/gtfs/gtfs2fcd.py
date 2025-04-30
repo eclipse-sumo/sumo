@@ -42,9 +42,9 @@ def add_options():
     op.add_argument("-r", "--region", default="gtfs", category="input",
                     help="define the region to process")
     gp = op.add_mutually_exclusive_group(required=True)
-    gp.add_argument("--gtfs", category="input", type=op.data_file,
+    gp.add_argument("--gtfs", category="input", type=op.data_file, fix_path=True,
                     help="define gtfs zip file to load (mandatory)")
-    gp.add_argument("--merged-csv", category="input", type=op.data_file, dest="mergedCSV",
+    gp.add_argument("--merged-csv", category="input", type=op.data_file, dest="mergedCSV", fix_path=True,
                     help="define csv file for loading merged data (instead of gtfs data)")
     op.add_argument("--merged-csv-output", category="output", type=op.data_file, dest="mergedCSVOutput",
                     help="define csv file for saving merged GTFS data")
