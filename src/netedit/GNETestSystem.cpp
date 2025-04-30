@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNETestThread.h
+/// @file    GNETestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -25,25 +25,22 @@
 #include <chrono>
 
 #include "GNEApplicationWindow.h"
-#include "GNETestThread.h"
-#include "GNELoadThread.h"
+#include "GNETestSystem.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNETestThread::GNETestThread(GNEApplicationWindow* applicationWindow) :
+GNETestSystem::GNETestSystem(GNEApplicationWindow* applicationWindow) :
     myApplicationWindow(applicationWindow) {
 }
 
 
-GNETestThread::~GNETestThread() {}
+GNETestSystem::~GNETestSystem() {}
 
 
-FXint
-GNETestThread::run() {
-    // wait 1 sec
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+void
+GNETestSystem::runTest() {
     // first process test file
     processTestFile();
     // execute every operation
@@ -71,23 +68,12 @@ GNETestThread::run() {
             default:
                 break;
         }
-        // wait 1 sec
-        std::this_thread::sleep_for(std::chrono::seconds(3));
     }
-    // execute every step
-    return 0;
 }
 
 
 void
-GNETestThread::startTest() {
-    // start thread
-    start();
-}
-
-
-void
-GNETestThread::processTestFile() {
+GNETestSystem::processTestFile() {
     const std::string testFile = OptionsCont::getOptions().getString("test-file");
     // open file
     std::ifstream strm(testFile);
@@ -108,7 +94,7 @@ GNETestThread::processTestFile() {
 }
 
 
-GNETestThread::TestStep::TestStep(const std::string &row) {
+GNETestSystem::TestStep::TestStep(const std::string &row) {
     // first split between functions and arguments
     parseFunctionAndArguments(row);
     // continue depending of function
@@ -151,14 +137,14 @@ GNETestThread::TestStep::TestStep(const std::string &row) {
     }
 }
 
-GNETestThread::TestStepType
-GNETestThread::TestStep::getStepType() const {
+GNETestSystem::TestStepType
+GNETestSystem::TestStep::getStepType() const {
     return myStepType;
 }
 
 
 void
-GNETestThread::TestStep::parseFunctionAndArguments(const std::string &row) {
+GNETestSystem::TestStep::parseFunctionAndArguments(const std::string &row) {
     // make a copy to help editing row
     std::string editedRow = row;
     // every function has the format <function>(<argument1>, <argument2>,....,)

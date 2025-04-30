@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNETestThread.h
+/// @file    GNETestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -20,33 +20,27 @@
 #pragma once
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNEApplicationWindow;
-class GNELoadThread;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNETestThread : protected FXThread {
+class GNETestSystem {
 
 public:
     /// @brief constructor
-    GNETestThread(GNEApplicationWindow* applicationWindow);
+    GNETestSystem(GNEApplicationWindow* applicationWindow);
 
     /// @brief destructor
-    virtual ~GNETestThread();
-
-    /// @brief starts the thread. The thread ends after the net has been loaded
-    FXint run();
+    ~GNETestSystem();
 
     /// @brief run test
-    void startTest();
+    void runTest();
 
 protected:
     /// @brief process test file
