@@ -249,9 +249,9 @@ MSDevice_Transportable::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
             MSTransportableControl& tc = myAmContainer ? MSNet::getInstance()->getContainerControl() : MSNet::getInstance()->getPersonControl();
             MSTransportable* transportable = *i;
             if (transportable->getDestination() != veh.getEdge()) {
-                WRITE_WARNING((myAmContainer ? "Teleporting container '" : "Teleporting person '") + transportable->getID() +
-                              "' from vehicle destination edge '" + veh.getEdge()->getID() +
-                              "' to intended destination edge '" + transportable->getDestination()->getID() + "' time=" + time2string(SIMSTEP));
+                WRITE_WARNINGF("Teleporting % '%' from vehicle destination edge '%' to intended destination edge '%' time=%",
+                               myAmContainer ? "container" : "person", transportable->getID(), veh.getEdge()->getID(),
+                               transportable->getDestination()->getID(), time2string(SIMSTEP));
                 tc.registerTeleportWrongDest();
             }
             if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep(), true)) {

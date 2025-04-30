@@ -1,0 +1,5 @@
+Warning: 1 total messages of type: Unused states in tlLogic '%', program '%' in phase % after tl-index %
+Warning: 1 total messages of type: Vehicle 'f_0.202'; junction collision with vehicle 'f_0.204', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'f_0.203'; collision with vehicle 'f_0.196', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'f_0.226'; junction collision with vehicle 'f_0.219', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'f_0.33'; junction collision with vehicle 'f_0.40', lane='%', gap=%%, time=%, stage=%.

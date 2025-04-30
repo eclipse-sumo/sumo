@@ -1,0 +1,9 @@
+Warning: 1 total messages of type: Teleporting vehicle 'SN.0'; junction collision with vehicle 'WE.0', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'SN.11'; junction collision with vehicle 'WE.6', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'SN.17'; junction collision with vehicle 'WE.9', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'SN.18'; junction collision with vehicle 'WE.10', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'SN.2'; junction collision with vehicle 'WE.1', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'SN.8'; junction collision with vehicle 'WE.4', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'SN.9'; junction collision with vehicle 'WE.5', lane='%', gap=%%, time=%, stage=%.
+Warning: 7 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
+Warning: 4 total messages of type: Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.

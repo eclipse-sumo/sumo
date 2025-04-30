@@ -1,0 +1,9 @@
+Warning: 4 total messages of type: Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.
+Warning: 1 total messages of type: Vehicle 'v.10278'; collision with vehicle 'v.10112', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.10945'; junction collision with vehicle 'v.11000', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.12334'; collision with vehicle 'v.12167', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.13834'; junction collision with vehicle 'v.13778', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.4278'; collision with vehicle 'v.4112', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.7945'; collision with vehicle 'v.7778', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.8612'; collision with vehicle 'v.8445', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.8612'; junction collision with vehicle 'v.8445', lane='%', gap=%%, time=%, stage=%.

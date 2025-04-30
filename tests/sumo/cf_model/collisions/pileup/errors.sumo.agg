@@ -1,0 +1,11 @@
+Warning: 7 total messages of type: Teleporting vehicle '%' after earlier collision, lane='%', time=%.
+Warning: 2 total messages of type: Value of tau=% in vehicle type '%' lower than simulation step size may cause collisions.
+Warning: 4 total messages of type: Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.
+Warning: 1 total messages of type: Vehicle '%' skips stop on lane '%' time=%.
+Warning: 7 total messages of type: Vehicle '%' teleports beyond arrival edge '%', time=%.
+Warning: 1 total messages of type: Vehicle 'follower.0'; collision with vehicle 'leader', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'follower.1'; collision with vehicle 'follower.0', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'follower.2'; collision with vehicle 'follower.1', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'follower.3'; collision with vehicle 'follower.2', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'follower.4'; collision with vehicle 'follower.3', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'follower.5'; collision with vehicle 'follower.4', lane='%', gap=%%, time=%, stage=%.

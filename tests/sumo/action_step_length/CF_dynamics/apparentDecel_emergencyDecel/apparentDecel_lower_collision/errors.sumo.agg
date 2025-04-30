@@ -1,0 +1,2 @@
+Warning: 1 total messages of type: Teleporting vehicle 'follower'; collision with vehicle 'leader', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle '%' teleports beyond arrival edge '%', time=%.

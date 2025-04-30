@@ -1,6 +1,0 @@
-Warning: Teleporting vehicle 'EW.5'; frontal collision with vehicle 'WE.2', lane='center_0', gap=-0.06, time=222.80 stage=move.
-Warning: Vehicle 'EW.5' ends teleporting on edge '-west', time 222.80.
-Warning: Teleporting vehicle 'EW.35'; frontal collision with vehicle 'WE.6', lane='center_0', gap=-0.14, time=470.80 stage=move.
-Warning: Vehicle 'EW.35' ends teleporting on edge '-west', time 470.80.
-Warning: Teleporting vehicle 'EW.34'; frontal collision with vehicle 'WE.6', lane='center_0', gap=-0.00, time=484.20 stage=move.
-Warning: Vehicle 'EW.34' ends teleporting on edge '-west', time 484.20.

@@ -1,0 +1,3 @@
+Warning: 1 total messages of type: Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %.
+Warning: 1 total messages of type: Vehicle 'horizontal.0'; junction collision with vehicle 'vertical.0', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'horizontal.2'; junction collision with vehicle 'vertical.2', lane='%', gap=%%, time=%, stage=%.

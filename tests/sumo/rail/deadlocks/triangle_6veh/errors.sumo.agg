@@ -1,0 +1,3 @@
+Warning: 3 total messages of type: Teleporting vehicle '%'; waited too long (yield, railSignal), lane='%', time=%.
+Warning: 3 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
+Warning: 3 total messages of type: Vehicle '%' skips stop on lane '%' time=%.

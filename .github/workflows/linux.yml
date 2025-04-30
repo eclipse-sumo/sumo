@@ -11,6 +11,7 @@ on:
   pull_request:    # run on pull requests
     paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
+  workflow_dispatch:
   schedule:
     - cron:  '5 0 * * *'
 
@@ -91,11 +92,13 @@ jobs:
         make traas
 
     - name: Setting up SonarQube
-      if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      if: matrix.build_type == 'full' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && matrix.compiler == 'gcc'
       uses: warchant/setup-sonar-scanner@v8
+      with:
+        version: 6.2.1.4610
 
     - name: Building SUMO with SonarQube wrapper
-      if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      if: matrix.build_type == 'full' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && matrix.compiler == 'gcc'
       run: |
         cd sumo/cmake-build
         curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip

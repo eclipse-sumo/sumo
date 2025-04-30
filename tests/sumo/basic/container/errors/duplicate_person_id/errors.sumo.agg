@@ -1,0 +1,2 @@
+Warning: Container '1' aborted waiting for v1 at edge 'beg'.
+Warning: 1 total messages of type: There exists a person and a container with the same id '%'. Starting with SUMO 1.9.0 this is an error.

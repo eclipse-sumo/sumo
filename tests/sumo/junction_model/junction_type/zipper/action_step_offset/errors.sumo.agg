@@ -1,0 +1,1 @@
+Warning: 1 total messages of type: Action step length '%' is used for vehicle type '%' but step-method.ballistic was not set. Setting it now to avoid collisions.

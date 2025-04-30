@@ -1,0 +1,2 @@
+Warning: Cannot interpret line in SSM device edge filter (input_selection.txt): egde:WC
+Warning: 1 total messages of type: No measures specified for ssm device of vehicle '%'. Registering all available SSMs.
