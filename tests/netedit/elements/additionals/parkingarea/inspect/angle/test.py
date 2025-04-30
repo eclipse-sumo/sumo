@@ -33,7 +33,7 @@ netedit.additionalMode()
 
 # select parkingArea
 netedit.changeElement("parkingArea")
- 
+
 # create parkingArea in mode "Center"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
