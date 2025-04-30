@@ -41,12 +41,6 @@ else:
         if 'LIBSUMO_AS_TRACI' in os.environ:
             warnings.warn("Could not import libsumo, falling back to pure python traci (%s)." % e)
             print(sys.executable, sys.path, file=sys.stderr)
-            libsumo_dir = os.path.join(os.path.dirname(__file__), "..", "libsumo")
-            if os.path.exists():
-                for f in os.listdir(libsumo_dir):
-                    print(f, file=sys.stderr)
-            else:
-                print("no libsumo dir", libsumo_dir, file=sys.stderr)
         else:
             warnings.warn("Could not import libtraci, falling back to pure python traci (%s)." % e)
         from .main import *  # noqa
