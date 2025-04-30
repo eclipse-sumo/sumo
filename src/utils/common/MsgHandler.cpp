@@ -293,7 +293,6 @@ MsgHandler::initOutputOptions() {
     OutputDevice::getDevice("stderr");
     OptionsCont& oc = OptionsCont::getOptions();
     getWarningInstance()->setAggregationThreshold(oc.getInt("aggregate-warnings"));
-    getErrorInstance()->setAggregationThreshold(oc.getInt("aggregate-warnings"));
     if (oc.getBool("no-warnings")) {
         getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
     }
