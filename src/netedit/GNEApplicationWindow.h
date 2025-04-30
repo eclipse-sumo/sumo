@@ -28,7 +28,7 @@
 
 class GNELoadThread;
 class GNETagPropertiesDatabase;
-class GNETestThread;
+class GNETestSystem;
 class GNEUndoList;
 class GNEUndoListDialog;
 class GUIEvent;
@@ -642,7 +642,7 @@ protected:
     GNELoadThread* myLoadThread = nullptr;
 
     /// @brief the tread used for testing netedit
-    GNETestThread* myTestThread = nullptr;
+    GNETestSystem* myTestThread = nullptr;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;

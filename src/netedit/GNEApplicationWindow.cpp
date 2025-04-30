@@ -70,7 +70,7 @@
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
-#include "GNETestThread.h"
+#include "GNETestSystem.h"
 #include "GNENet.h"
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
@@ -556,7 +556,7 @@ GNEApplicationWindow::dependentBuild() {
     fillMenuBar();
     // build additional threads
     myLoadThread = new GNELoadThread(this, myThreadEvents, myLoadThreadEvent);
-    myTestThread = new GNETestThread(this);
+    myTestThread = new GNETestSystem(this);
     // set the status bar
     setStatusBarText(TL("Ready."));
     // set the caption
@@ -1357,7 +1357,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     setFocus();
     // check if run test thread
     if (neteditOptions.getString("test-file").size() > 0) {
-        myTestThread->startTest();
+        myTestThread->runTest();
     }
 }
 
@@ -1984,9 +1984,9 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
                     break;
             }
         }
+        // refresh to update undo-redo button
+        myViewNet->getViewParent()->getGNEAppWindows()->forceRefresh();
     }
-    // refresh to update undo-redo button
-    myViewNet->getViewParent()->getGNEAppWindows()->forceRefresh();
     return 1;
 }
 
@@ -3326,39 +3326,31 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
         // save all elements giving automatic names based on patter if their file isn't defined
         if (onCmdSaveNetwork(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
-            return 0;
-        }
-        if (onCmdSaveAdditionalElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
+        } else if (onCmdSaveAdditionalElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
-            return 0;
-        }
-        if (onCmdSaveDemandElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
+        } else if (onCmdSaveDemandElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
-            return 0;
-        }
-        if (onCmdSaveDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
+        } else if (onCmdSaveDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
-            return 0;
-        }
-        if (onCmdSaveMeanDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
+        } else if (onCmdSaveMeanDataElements(nullptr, MID_GNE_AUTOMATICFILENAME, &patterFile) != 1) {
             WRITE_MESSAGE(TL("Saving of Netedit configuration aborted"));
-            return 0;
-        }
-        // configuration
-        std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
-        if (out.good()) {
-            // write netedit config
-            neteditOptions.writeConfiguration(out, true, false, false, filePath, true);
-            // write info
-            WRITE_MESSAGE(TL("Netedit configuration saved in '") + neteditConfigFile + "'");
-            // config saved
-            myNet->getSavingStatus()->neteditConfigSaved();
-            // After saving a config successfully, add it into recent configs
-            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
         } else {
-            WRITE_ERROR(TL("Could not save netedit configuration in '") + neteditConfigFile + "'");
+            // configuration
+            std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
+            if (out.good()) {
+                // write netedit config
+                neteditOptions.writeConfiguration(out, true, false, false, filePath, true);
+                // write info
+                WRITE_MESSAGE(TL("Netedit configuration saved in '") + neteditConfigFile + "'");
+                // config saved
+                myNet->getSavingStatus()->neteditConfigSaved();
+                // After saving a config successfully, add it into recent configs
+                myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
+            } else {
+                WRITE_ERROR(TL("Could not save netedit configuration in '") + neteditConfigFile + "'");
+            }
+            out.close();
         }
-        out.close();
         return 1;
     }
 }
