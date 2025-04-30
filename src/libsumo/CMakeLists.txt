@@ -8,7 +8,7 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.14.0)
 endif()
 if (${CMAKE_VERSION} VERSION_GREATER 3.21.0)
     # use library name conventions for C#
-    cmake_policy(SET CMP0122 NEW)
+    cmake_policy(SET CMP0122 OLD)
 endif ()
 set(libsumostatic_STAT_SRCS
     Edge.cpp
