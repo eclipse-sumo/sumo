@@ -1,2 +1,0 @@
-Error: Only one of the options 'lanechange.duration' or 'lateral-resolution' may be given.
-Warning: Vehicle 'v1' could not finish continuous lane change (lane disappeared) time=3.00.
