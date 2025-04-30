@@ -256,6 +256,12 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ViewObjectsSelector& v
 }
 
 
+GNETagSelector*
+GNEAdditionalFrame::getAdditionalTagSelector() const {
+    return myAdditionalTagSelector;
+}
+
+
 GNEConsecutiveSelector*
 GNEAdditionalFrame::getConsecutiveLaneSelector() const {
     return myConsecutiveLaneSelector;

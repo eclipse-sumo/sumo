@@ -20,12 +20,14 @@
 
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
-
-#include <thread>
-#include <chrono>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <netedit/frames/network/GNEAdditionalFrame.h>
+#include <netedit/frames/GNETagSelector.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNETestSystem.h"
+#include "GNEViewNet.h"
+#include "GNEViewParent.h"
 
 // ===========================================================================
 // member method definitions
@@ -36,7 +38,11 @@ GNETestSystem::GNETestSystem(GNEApplicationWindow* applicationWindow) :
 }
 
 
-GNETestSystem::~GNETestSystem() {}
+GNETestSystem::~GNETestSystem() {
+    for (auto testStep : myTestSteps) {
+        delete testStep;
+    }
+}
 
 
 void
@@ -46,7 +52,11 @@ GNETestSystem::runTest() {
     // execute every operation
     for (const auto &testStep : myTestSteps) {
         // continue depending of step type
-        switch (testStep.getStepType()) {
+        switch (testStep->getStepType()) {
+            // basic
+            case TestStepType::CLICK:
+                myApplicationWindow->getViewNet()->onLeftBtnPress(myApplicationWindow, 0, (void*)testStep->getEvent());
+                break;
             // supermodes
             case TestStepType::SUPERMODE_NETWORK:
                 myApplicationWindow->onCmdSetSuperMode(myApplicationWindow, MID_HOTKEY_F2_SUPERMODE_NETWORK, nullptr);
@@ -100,6 +110,10 @@ GNETestSystem::runTest() {
             case TestStepType::NETWORKMODE_DECAL:
                 myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION, nullptr);
                 break;
+            // set additional
+            case TestStepType::SELECT_ADDITIONAL:
+                myApplicationWindow->getViewNet()->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->setCurrentTag(testStep->getTag());
+                break;
             // other
             case TestStepType::PROCESSING:
                 myApplicationWindow->onCmdProcessButton(myApplicationWindow, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND, nullptr);
@@ -132,18 +146,43 @@ GNETestSystem::processTestFile() {
             strm >> line;
             // check if line isn't empty
             if ((line.size() > 0) && line[0] != '#') {
-                myTestSteps.push_back(TestStep(line));
+                myTestSteps.push_back(new TestStep(line));
             }
         }
     }
 }
 
 
-GNETestSystem::TestStep::TestStep(const std::string &row) {
+GNETestSystem::TestStep::TestStep(const std::string &row) :
+    myEvent(new FXEvent) {
     // first split between functions and arguments
     parseFunctionAndArguments(row);
     // continue depending of function
-    if (myFunction == "supermode") {
+    if (myFunction == "click") {
+        if (myArguments.size() == 2) {
+            if (!GNEAttributeCarrier::canParse<int>(myArguments[0])) {
+                throw ProcessError("First click cannot be parsed to int");
+            } else if (!GNEAttributeCarrier::canParse<int>(myArguments[1])) {
+                throw ProcessError("Second click cannot be parsed to int");
+            } else {
+                // set fxevent
+                myEvent->win_x = GNEAttributeCarrier::parse<int>(myArguments[0]);
+                myEvent->win_y = GNEAttributeCarrier::parse<int>(myArguments[1]);
+                myEvent->click_x = GNEAttributeCarrier::parse<int>(myArguments[0]);
+                myEvent->click_y = GNEAttributeCarrier::parse<int>(myArguments[1]);
+                myEvent->type = 3;
+                myEvent->state = 256;
+                myEvent->code = 1;
+                myEvent->click_button = 1;
+                myEvent->click_count = 1;
+                myEvent->moved = false;
+                myEvent->synthetic = true;
+            }
+            myStepType = TestStepType::CLICK;
+        } else {
+            throw ProcessError("Invalid number of arguments for function " + myFunction);
+        }
+    } else if (myFunction == "supermode") {
         if (myArguments.size() == 1) {
             if (myArguments[0] == "network") {
                 myStepType = TestStepType::SUPERMODE_NETWORK;
@@ -157,6 +196,7 @@ GNETestSystem::TestStep::TestStep(const std::string &row) {
         } else {
             throw ProcessError("Invalid number of arguments for function " + myFunction);
         }
+    // network modes
     } else if (myFunction == "networkMode") {
         if (myArguments.size() == 1) {
             if (myArguments[0] == "inspect") {
@@ -193,6 +233,15 @@ GNETestSystem::TestStep::TestStep(const std::string &row) {
         } else {
             throw ProcessError("Invalid number of arguments for function " + myFunction);
         }
+    // select additional
+    } else if (myFunction == "selectAdditional") {
+        if (myArguments.size() == 1) {
+            myStepType = TestStepType::SELECT_ADDITIONAL;
+            myTag = static_cast<SumoXMLTag>(SUMOXMLDefinitions::Tags.get(myArguments[0]));
+        } else {
+            throw ProcessError("Invalid number of arguments for function " + myFunction);
+        }
+    // other
     } else if (myFunction == "processing") {
         if (myArguments.empty()) {
             myStepType = TestStepType::PROCESSING;
@@ -218,9 +267,27 @@ GNETestSystem::TestStep::TestStep(const std::string &row) {
     }
 }
 
+
+GNETestSystem::TestStep::~TestStep() {
+    delete myEvent;
+}
+
+
 GNETestSystem::TestStepType
 GNETestSystem::TestStep::getStepType() const {
     return myStepType;
+}
+
+
+SumoXMLTag
+GNETestSystem::TestStep::getTag() const {
+    return myTag;
+}
+
+
+FXEvent*
+GNETestSystem::TestStep::getEvent() {
+    return myEvent;
 }
 
 
