@@ -47,6 +47,7 @@ GNETestSystem::runTest() {
     for (const auto &testStep : myTestSteps) {
         // continue depending of step type
         switch (testStep.getStepType()) {
+            // supermodes
             case TestStepType::SUPERMODE_NETWORK:
                 myApplicationWindow->onCmdSetSuperMode(myApplicationWindow, MID_HOTKEY_F2_SUPERMODE_NETWORK, nullptr);
                 break;
@@ -56,6 +57,50 @@ GNETestSystem::runTest() {
             case TestStepType::SUPERMODE_DATA:
                 myApplicationWindow->onCmdSetSuperMode(myApplicationWindow, MID_HOTKEY_F4_SUPERMODE_DATA, nullptr);
                 break;
+            // network mode
+            case TestStepType::NETWORKMODE_INSPECT:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_I_MODE_INSPECT, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_DELETE:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_SELECT:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_MOVE:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_M_MODE_MOVE_MEANDATA, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_EDGE:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_E_MODE_EDGE_EDGEDATA, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_TRAFFICLIGHT:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_T_MODE_TLS_TYPE, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_CONNECTION:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_C_MODE_CONNECT_CONTAINER, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_PROHIBITION:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_CROSSING:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_ADDITIONAL:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_WIRE:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_TAZ:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_Z_MODE_TAZ_TAZREL, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_SHAPE:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_P_MODE_POLYGON_PERSON, nullptr);
+                break;
+            case TestStepType::NETWORKMODE_DECAL:
+                myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION, nullptr);
+                break;
+            // other
             case TestStepType::PROCESSING:
                 myApplicationWindow->onCmdProcessButton(myApplicationWindow, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND, nullptr);
                 break;
@@ -108,6 +153,42 @@ GNETestSystem::TestStep::TestStep(const std::string &row) {
                 myStepType = TestStepType::SUPERMODE_DATA;
             } else {
                 throw ProcessError("Invalid supermode");
+            }
+        } else {
+            throw ProcessError("Invalid number of arguments for function " + myFunction);
+        }
+    } else if (myFunction == "networkMode") {
+        if (myArguments.size() == 1) {
+            if (myArguments[0] == "inspect") {
+                myStepType = TestStepType::NETWORKMODE_INSPECT;
+            } else if (myArguments[0] == "delete") {
+                myStepType = TestStepType::NETWORKMODE_DELETE;
+            } else if (myArguments[0] == "select") {
+                myStepType = TestStepType::NETWORKMODE_SELECT;
+            } else if (myArguments[0] == "move") {
+                myStepType = TestStepType::NETWORKMODE_MOVE;
+            } else if (myArguments[0] == "edge") {
+                myStepType = TestStepType::NETWORKMODE_EDGE;
+            } else if (myArguments[0] == "trafficLight") {
+                myStepType = TestStepType::NETWORKMODE_TRAFFICLIGHT;
+            } else if (myArguments[0] == "connection") {
+                myStepType = TestStepType::NETWORKMODE_CONNECTION;
+            } else if (myArguments[0] == "prohibition") {
+                myStepType = TestStepType::NETWORKMODE_PROHIBITION;
+            } else if (myArguments[0] == "crossing") {
+                myStepType = TestStepType::NETWORKMODE_CROSSING;
+            } else if (myArguments[0] == "additional") {
+                myStepType = TestStepType::NETWORKMODE_ADDITIONAL;
+            } else if (myArguments[0] == "wire") {
+                myStepType = TestStepType::NETWORKMODE_WIRE;
+            } else if (myArguments[0] == "taz") {
+                myStepType = TestStepType::NETWORKMODE_TAZ;
+            } else if (myArguments[0] == "shape") {
+                myStepType = TestStepType::NETWORKMODE_SHAPE;
+            } else if (myArguments[0] == "decal") {
+                myStepType = TestStepType::NETWORKMODE_DECAL;
+            } else {
+                throw ProcessError("Invalid network mode");
             }
         } else {
             throw ProcessError("Invalid number of arguments for function " + myFunction);
