@@ -16,6 +16,9 @@ trip_jump_connected
 # define an explicit jump (disconnect) in the route
 jump
 
+# define a jump without stopping
+waypoint
+
 # define an earliest end for the jump time
 jump_until
 
@@ -48,3 +51,4 @@ vias
 
 # jumping should not skip stops (#16583)
 stop_after_jump
+
