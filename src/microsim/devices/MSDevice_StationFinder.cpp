@@ -42,6 +42,7 @@
 
 //#define DEBUG_STATIONFINDER_RESCUE
 //#define DEBUG_STATIONFINDER_REROUTE
+#define DEBUG_COND (myHolder.isSelected())
 
 
 // ===========================================================================
@@ -289,6 +290,9 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
             rerouteToChargingStation();
         }
         myUpdateSoC = currentSoC - MAX2(0.1 * currentSoC, 0.01);
+#ifdef DEBUG_STATIONFINDER_REROUTE
+        std::cout << SIMTIME << " " << myHolder.getID() << " currentSoC=" << currentSoC << " nextUpdateSoC=" << myUpdateSoC << "\n";
+#endif
     }
     myLastChargeCheck = SIMSTEP;
     return true;
@@ -434,6 +438,9 @@ bool
 MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
     double expectedConsumption = (myCheckEnergyForRoute) ? MIN2(estimateConsumption() * myReserveFactor, myBattery->getMaximumBatteryCapacity() * myTargetSoC) :
                                  myBattery->getMaximumBatteryCapacity() * MAX2(myTargetSoC - myBattery->getActualBatteryCapacity() / myBattery->getMaximumBatteryCapacity(), 0.);
+#ifdef DEBUG_STATIONFINDER_REROUTE
+    std::cout << SIMTIME << " " << myHolder.getID() << " expectedConsumption=" << expectedConsumption << " reserve=" << (myEmptySoC * myBattery->getMaximumBatteryCapacity()) << " chargeLevel=" << myBattery->getActualBatteryCapacity() << "\n";
+#endif
     if (!myCheckEnergyForRoute || myBattery->getActualBatteryCapacity() < expectedConsumption + myEmptySoC * myBattery->getMaximumBatteryCapacity()) {
         myLastSearch = SIMSTEP;
         MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
