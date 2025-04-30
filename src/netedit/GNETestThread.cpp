@@ -21,15 +21,18 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 
+#include <thread>
+#include <chrono>
+
 #include "GNEApplicationWindow.h"
 #include "GNETestThread.h"
+#include "GNELoadThread.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNETestThread::GNETestThread(GNEApplicationWindow* applicationWindow) :
-    MFXSingleEventThread(applicationWindow->getApp(), applicationWindow),
     myApplicationWindow(applicationWindow) {
 }
 
@@ -39,8 +42,38 @@ GNETestThread::~GNETestThread() {}
 
 FXint
 GNETestThread::run() {
+    // wait 1 sec
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     // first process test file
     processTestFile();
+    // execute every operation
+    for (const auto &testStep : myTestSteps) {
+        // continue depending of step type
+        switch (testStep.getStepType()) {
+            case TestStepType::SUPERMODE_NETWORK:
+                myApplicationWindow->onCmdSetSuperMode(myApplicationWindow, MID_HOTKEY_F2_SUPERMODE_NETWORK, nullptr);
+                break;
+            case TestStepType::SUPERMODE_DEMAND:
+                myApplicationWindow->onCmdSetSuperMode(myApplicationWindow, MID_HOTKEY_F3_SUPERMODE_DEMAND, nullptr);
+                break;
+            case TestStepType::SUPERMODE_DATA:
+                myApplicationWindow->onCmdSetSuperMode(myApplicationWindow, MID_HOTKEY_F4_SUPERMODE_DATA, nullptr);
+                break;
+            case TestStepType::PROCESSING:
+                myApplicationWindow->onCmdProcessButton(myApplicationWindow, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND, nullptr);
+                break;
+            case TestStepType::SAVE_NETEDITCONFIG:
+                myApplicationWindow->onCmdSaveNeteditConfig(myApplicationWindow, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, nullptr);
+                break;
+            case TestStepType::QUIT:
+                myApplicationWindow->onCmdQuit(myApplicationWindow, MID_HOTKEY_CTRL_Q_CLOSE, nullptr); 
+                break;
+            default:
+                break;
+        }
+        // wait 1 sec
+        std::this_thread::sleep_for(std::chrono::seconds(3));
+    }
     // execute every step
     return 0;
 }
@@ -68,7 +101,7 @@ GNETestThread::processTestFile() {
             strm >> line;
             // check if line isn't empty
             if ((line.size() > 0) && line[0] != '#') {
-                myTestStep.push_back(TestStep(line));
+                myTestSteps.push_back(TestStep(line));
             }
         }
     }
@@ -89,6 +122,22 @@ GNETestThread::TestStep::TestStep(const std::string &row) {
                 myStepType = TestStepType::SUPERMODE_DATA;
             } else {
                 throw ProcessError("Invalid supermode");
+            }
+        } else {
+            throw ProcessError("Invalid number of arguments for function " + myFunction);
+        }
+    } else if (myFunction == "processing") {
+        if (myArguments.empty()) {
+            myStepType = TestStepType::PROCESSING;
+        } else {
+            throw ProcessError("Invalid number of arguments for function " + myFunction);
+        }
+    } else if (myFunction == "save") {
+        if (myArguments.size() == 1) {
+            if (myArguments.front() == "neteditConfig") {
+                myStepType = TestStepType::SAVE_NETEDITCONFIG;
+            } else {
+                throw ProcessError("Invalid number of arguments for function " + myFunction);
             }
         } else {
             throw ProcessError("Invalid number of arguments for function " + myFunction);

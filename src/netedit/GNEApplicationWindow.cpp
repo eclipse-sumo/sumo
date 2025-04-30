@@ -555,7 +555,7 @@ GNEApplicationWindow::dependentBuild() {
     // fill menu and tool bar
     fillMenuBar();
     // build additional threads
-    myLoadThread = new GNELoadThread(this, myEvents, myLoadThreadEvent);
+    myLoadThread = new GNELoadThread(this, myThreadEvents, myLoadThreadEvent);
     myTestThread = new GNETestThread(this);
     // set the status bar
     setStatusBarText(TL("Ready."));
@@ -649,11 +649,12 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myLanguageMenu;
     // Delete load thread
     delete myLoadThread;
+    delete myTestThread;
     // drop all events
-    while (!myEvents.empty()) {
+    while (!myThreadEvents.empty()) {
         // get the next event
-        GUIEvent* e = myEvents.top();
-        myEvents.pop();
+        GUIEvent* e = myThreadEvents.top();
+        myThreadEvents.pop();
         delete e;
     }
     // delete undoList and dialog
@@ -1241,10 +1242,11 @@ GNEApplicationWindow::onLoadThreadEvent(FXObject*, FXSelector, void*) {
 
 void
 GNEApplicationWindow::eventOccurred() {
-    while (!myEvents.empty()) {
+    // load events
+    while (!myThreadEvents.empty()) {
         // get the next event
-        GUIEvent* e = myEvents.top();
-        myEvents.pop();
+        GUIEvent* e = myThreadEvents.top();
+        myThreadEvents.pop();
         // process
         switch (e->getOwnType()) {
             case GUIEventType::SIMULATION_LOADED:

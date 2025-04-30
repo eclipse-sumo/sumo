@@ -21,24 +21,19 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
-#include <utils/foxtools/MFXSingleEventThread.h>
-#include <utils/foxtools/MFXSynchQue.h>
-#include <utils/foxtools/MFXInterThreadEventClient.h>
-
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNENet;
-class GUIEvent;
 class GNEApplicationWindow;
+class GNELoadThread;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNETestThread : protected MFXSingleEventThread {
+class GNETestThread : protected FXThread {
 
 public:
     /// @brief constructor
@@ -63,7 +58,10 @@ private:
         SUPERMODE_NETWORK,
         SUPERMODE_DEMAND,
         SUPERMODE_DATA,
-
+        // processing
+        PROCESSING,
+        // saving
+        SAVE_NETEDITCONFIG,
         //other
         QUIT
     };
@@ -97,5 +95,5 @@ private:
     GNEApplicationWindow* myApplicationWindow;
 
     /// @brief test steps
-    std::vector<TestStep> myTestStep;
+    std::vector<TestStep> myTestSteps;
 };

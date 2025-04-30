@@ -705,14 +705,11 @@ protected:
     /// @brief Button used for show if recomputing is needed
     MFXButtonTooltip* myRequireRecomputingButton = nullptr;
 
-    /// @brief List of got requests
-    MFXSynchQue<GUIEvent*> myEvents;
+    /// @brief List of load requests
+    MFXSynchQue<GUIEvent*> myThreadEvents;
 
     /// @brief io-event with the load-thread
     FXEX::MFXThreadEvent myLoadThreadEvent;
-
-    /// @brief io-event with the test-thread
-    FXEX::MFXThreadEvent myTestThreadEvent;
 
     /// @brief check if had dependent build
     bool myHadDependentBuild = false;
