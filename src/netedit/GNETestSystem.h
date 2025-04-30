@@ -48,6 +48,8 @@ protected:
 
 private:
     enum class TestStepType {
+        // basic
+        CLICK,
         // go to supermode
         SUPERMODE_NETWORK,
         SUPERMODE_DEMAND,
@@ -67,6 +69,8 @@ private:
         NETWORKMODE_TAZ,
         NETWORKMODE_SHAPE,
         NETWORKMODE_DECAL,
+        // select elements in frames
+        SELECT_ADDITIONAL,
         // processing
         PROCESSING,
         // saving
@@ -80,8 +84,17 @@ private:
         /// @brief parameter constructor
         TestStep(const std::string &row);
 
+        /// @brief destructor
+        ~TestStep();
+
         /// @brief return step type
         TestStepType getStepType() const;
+
+        /// @brief get tag
+        SumoXMLTag getTag() const;
+
+        /// @brief get event
+        FXEvent *getEvent();
 
     private:
         /// @brief step type
@@ -92,6 +105,12 @@ private:
 
         /// @brief arguments
         std::vector<std::string> myArguments;
+
+        /// @brief tag (used in certain tests)
+        SumoXMLTag myTag = SUMO_TAG_NOTHING;
+
+        /// @brief fx event (used for simulate clicks)
+        FXEvent *myEvent;
 
         /// @brief parse function and arguments
         void parseFunctionAndArguments(const std::string &row);
@@ -104,5 +123,5 @@ private:
     GNEApplicationWindow* myApplicationWindow;
 
     /// @brief test steps
-    std::vector<TestStep> myTestSteps;
+    std::vector<TestStep*> myTestSteps;
 };

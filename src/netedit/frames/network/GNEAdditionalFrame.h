@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/GNEViewNetHelper.h>
 
 // ===========================================================================
 // class declaration
@@ -106,6 +107,9 @@ public:
      * @return true if additional was successfully added
      */
     bool addAdditional(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
+
+    /// @brief get additional tag selector
+    GNETagSelector* getAdditionalTagSelector() const;
 
     /// @brief get consecutive lane selector
     GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
