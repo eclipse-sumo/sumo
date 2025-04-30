@@ -1,0 +1,5 @@
+Warning: 1 total messages of type: Teleporting vehicle 'mixed.34'; collision with vehicle 'mixed.38', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'mixed.59'; side collision with vehicle 'mixed.61', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'mixed.84'; side collision with vehicle 'mixed.83', lane='%', gap=%%, time=%, stage=%.
+Warning: 3 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
+Warning: 8 total messages of type: Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.

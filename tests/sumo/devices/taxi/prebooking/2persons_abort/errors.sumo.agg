@@ -1,0 +1,3 @@
+Warning: Person 'p2' aborted waiting for taxi at edge 'A1B1'.
+Warning: 1 total messages of type: Taxi '%' aborts waiting for customers: % at time=%.
+Warning: 1 total messages of type: Vehicle '%' aborted waiting %.

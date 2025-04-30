@@ -1,0 +1,3 @@
+Warning: 16 total messages of type: Teleporting vehicle '%'; waited too long (blocked), lane='%', time=%.
+Warning: 23 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
+Warning: 39 total messages of type: Vehicle '%' teleports beyond arrival edge '%', time=%.

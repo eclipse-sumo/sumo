@@ -1,0 +1,11 @@
+Warning: 1 total messages of type: At NEMA tlLogic '%', actuated phase % has no controlling detector
+Warning: 1 total messages of type: At NEMA tlLogic '%, linkIndex % has no controlling detector
+Warning: 1 total messages of type: Missing green phase in tlLogic '%', program '%' for tl-index %.
+Warning: 5 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
+Warning: 72 total messages of type: Teleporting vehicle '%'; waited too long (yield), lane='%', time=%.
+Warning: 1 total messages of type: Teleporting vehicle 'NW_1.0'; collision with vehicle 'EW_1.106', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'NW_1.1'; collision with vehicle 'EW_1.108', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'NW_1.2'; collision with vehicle 'EW_1.111', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'NW_1.3'; collision with vehicle 'EW_1.273', lane='%', gap=%%, time=%, stage=%.
+Warning: 77 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
+Warning: 4 total messages of type: Vehicle '%' teleports beyond arrival edge '%', time=%.

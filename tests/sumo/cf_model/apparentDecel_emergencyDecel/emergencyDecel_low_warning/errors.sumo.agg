@@ -1,0 +1,2 @@
+Warning: 1 total messages of type: Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType '%' may cause collisions.
+Warning: 1 total messages of type: Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType '%'.

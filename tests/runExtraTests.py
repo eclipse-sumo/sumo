@@ -39,9 +39,10 @@ def run(suffix, args, guiTests=False, chrouter=True):
                    "od2trips", "polyconvert", "sumo"):
         env[binary.upper() + "_BINARY"] = os.path.join(root, "..", "bin", binary + suffix)
     env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "sumo-gui" + suffix)
-    apps = "sumo.extra,sumo.extra.gcf,sumo.extra.sf,sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,"\
-           "sumo.astar,sumo.parallel,duarouter.astar,netconvert.gdal,polyconvert.gdal,"\
-           "complex.meso,complex.libsumo,complex.libtraci"
+    apps = ("sumo.extra,sumo.extra.gcf,sumo.extra.sf,sumo.meso,"
+            "sumo.agg.ballistic,sumo.agg.idm,sumo.agg.sublanes,"
+            "sumo.astar,sumo.parallel,duarouter.astar,netconvert.gdal,polyconvert.gdal,"
+            "complex.meso,complex.libsumo,complex.libtraci")
     if chrouter:
         apps += ",duarouter.chrouter,duarouter.chwrapper"
     if guiTests:

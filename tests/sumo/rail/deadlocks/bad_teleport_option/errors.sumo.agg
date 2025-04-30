@@ -1,0 +1,3 @@
+Warning: Railsignal-deadlock will not be detected because time-to-teleport (150.00) is lower than time-to-teleport.railsignal-deadlock (200.00).
+Warning: 3 total messages of type: Teleporting vehicle '%'; waited too long (yield), lane='%', time=%.
+Warning: 3 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.

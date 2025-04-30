@@ -1,0 +1,3 @@
+Warning: 4 total messages of type: Teleporting vehicle '%'; waited too long (yield), lane='%', time=%.
+Warning: 4 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
+Warning: 1 total messages of type: Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.

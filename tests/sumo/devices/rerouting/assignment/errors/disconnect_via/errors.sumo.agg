@@ -1,0 +1,4 @@
+Error: Vehicle '0' has no valid route.
+Quitting (on error).
+Warning: 1 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 1 total messages of type: No route for vehicle '%' found.

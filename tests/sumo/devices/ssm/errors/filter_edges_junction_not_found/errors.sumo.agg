@@ -1,0 +1,2 @@
+Warning: Unknown junction ID 'CC' in SSM device edge filter (input_selection.txt): junction:CC
+Warning: 1 total messages of type: No measures specified for ssm device of vehicle '%'. Registering all available SSMs.

@@ -1,0 +1,2 @@
+Warning: 1 total messages of type: Not using public transport line '%' for routing persons. It has less than two usable stops.
+Warning: 15 total messages of type: Person '%' is jammed on edge '%', time=%.

@@ -1,0 +1,7 @@
+Warning: Collision of person 'fwd60' and person 'fwd59', lane='EC_0', time=264.00.
+Warning: Collision of person 'bwd71' and person 'bwd79', lane='EC_0', time=458.00.
+Warning: Collision of person 'bwd46' and person 'bwd53', lane='EC_0', time=468.00.
+Warning: Collision of person 'bwd54' and person 'bwd65', lane='EC_0', time=519.00.
+Warning: Collision of person 'fwd72' and person 'fwd81', lane='EC_0', time=607.00.
+Warning: Collision of person 'bwd103' and person 'bwd93', lane='EC_0', time=640.00.
+Warning: 1386 total messages of type: Person '%' is jammed on edge '%', time=%.

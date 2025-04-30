@@ -1,0 +1,14 @@
+Warning: At NEMA tlLogic '0', the phases before barrier 1 from both rings do not add up. (ring1=97.00, ring2=102.00)
+Warning: 1 total messages of type: At NEMA tlLogic '%', actuated phase % has no controlling detector
+Warning: 1 total messages of type: At NEMA tlLogic '%, linkIndex % has no controlling detector
+Warning: 1 total messages of type: Teleporting vehicle 'NW_1.0'; collision with vehicle 'EW.5', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'NW_1.1'; collision with vehicle 'EW.8', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'NW_1.5'; collision with vehicle 'SW_1.7', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'NW_1.6'; collision with vehicle 'SW_1.10', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'NW_1.7'; collision with vehicle 'SW_1.19', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'NW_1.9'; collision with vehicle 'EW.16', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'SE_1.1'; collision with vehicle 'NE.23', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'SE_1.2'; collision with vehicle 'NE.26', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'SW.0'; collision with vehicle 'NW.4', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'SW_1.5'; collision with vehicle 'NW_1.4', lane='%', gap=%%, time=%, stage=%.
+Warning: 10 total messages of type: Vehicle '%' teleports beyond arrival edge '%', time=%.

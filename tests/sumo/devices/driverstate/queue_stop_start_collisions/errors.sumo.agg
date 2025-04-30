@@ -1,0 +1,7 @@
+Warning: 1 total messages of type: Teleporting vehicle 'flow.0'; collision with vehicle 'first', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'flow.11'; collision with vehicle 'flow.10', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'flow.17'; collision with vehicle 'flow.16', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'flow.20'; collision with vehicle 'flow.19', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'flow.25'; collision with vehicle 'flow.24', lane='%', gap=%%, time=%, stage=%.
+Warning: 22 total messages of type: Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.
+Warning: 5 total messages of type: Vehicle '%' teleports beyond arrival edge '%', time=%.

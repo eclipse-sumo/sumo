@@ -1,0 +1,45 @@
+Warning: 1 total messages of type: Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %.
+Warning: 1 total messages of type: Unused states in tlLogic '%', program '%' in phase % after tl-index %
+Warning: 7 total messages of type: Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset=%), time=%.
+Warning: 1 total messages of type: Vehicle 'flow_0.172'; junction collision with vehicle 'flow_1.41', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_0.206'; junction collision with vehicle 'flow_1.46', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_0.212'; junction collision with vehicle 'flow_1.47', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_0.269'; junction collision with vehicle 'flow_1.58', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_0.271'; junction collision with vehicle 'flow_1.58', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_0.284'; junction collision with vehicle 'flow_0.282', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_0.305'; junction collision with vehicle 'flow_1.64', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_0.80'; junction collision with vehicle 'flow_1.26', lane='%', gap=%%, time=%, stage=%.
+Warning: 2 total messages of type: Vehicle 'flow_1.10'; collision with vehicle 'flow_1.9', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.12'; junction collision with vehicle 'flow_0.34', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.14'; junction collision with vehicle 'flow_0.35', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.24'; junction collision with vehicle 'flow_0.70', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.25'; junction collision with vehicle 'flow_0.70', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.26'; junction collision with vehicle 'flow_0.78', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.26'; junction collision with vehicle 'flow_0.92', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.28'; junction collision with vehicle 'flow_0.101', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.29'; junction collision with vehicle 'flow_0.102', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.30'; junction collision with vehicle 'flow_0.108', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.30'; junction collision with vehicle 'flow_0.116', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.34'; junction collision with vehicle 'flow_0.134', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.35'; junction collision with vehicle 'flow_0.135', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.37'; junction collision with vehicle 'flow_0.159', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.37'; junction collision with vehicle 'flow_0.160', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.40'; junction collision with vehicle 'flow_0.170', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.41'; junction collision with vehicle 'flow_0.171', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.41'; junction collision with vehicle 'flow_0.173', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.43'; junction collision with vehicle 'flow_0.193', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.45'; junction collision with vehicle 'flow_0.203', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.46'; junction collision with vehicle 'flow_0.205', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.46'; junction collision with vehicle 'flow_0.207', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.47'; junction collision with vehicle 'flow_0.210', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.47'; junction collision with vehicle 'flow_0.220', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.51'; junction collision with vehicle 'flow_0.235', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.58'; junction collision with vehicle 'flow_0.270', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.59'; junction collision with vehicle 'flow_0.282', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.64'; junction collision with vehicle 'flow_0.303', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.64'; junction collision with vehicle 'flow_0.304', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.65'; junction collision with vehicle 'flow_0.329', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.65'; junction collision with vehicle 'flow_0.330', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.69'; junction collision with vehicle 'flow_0.341', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.71'; junction collision with vehicle 'flow_0.363', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'flow_1.71'; junction collision with vehicle 'flow_0.364', lane='%', gap=%%, time=%, stage=%.

@@ -1,0 +1,3 @@
+Warning: 1 total messages of type: Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %.
+Warning: 1 total messages of type: Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.
+Warning: 1 total messages of type: Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset=%), time=%.

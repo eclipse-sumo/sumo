@@ -1,0 +1,3 @@
+Warning: Vehicle 'veh0' is not allowed on destination edge 'left'.
+Warning: Vehicle 'veh1' is not allowed on destination edge 'left'.
+Warning: 2 total messages of type: No route for vehicle '%' found.

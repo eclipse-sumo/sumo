@@ -1,0 +1,2 @@
+Warning: 1 total messages of type: Teleporting vehicle 'noprio'; junction collision with vehicle 'prio', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.

@@ -1,0 +1,2 @@
+Warning: 2 total messages of type: Teleporting vehicle '%'; waited too long (jam, bidi), lane='%', time=%.
+Warning: 2 total messages of type: Vehicle '%' teleports beyond arrival edge '%', time=%.

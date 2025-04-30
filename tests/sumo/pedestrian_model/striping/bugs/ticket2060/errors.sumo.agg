@@ -1,0 +1,3 @@
+Warning: Person 'backward_forward' could not find route across junction 'C' from walkingArea ':C_w1' to edge 'CN', time=1.00.
+Warning: Person 'forward_backward' could not find route across junction 'C' from walkingArea ':C_w1' to edge 'NC', time=290.00.
+Warning: 4 total messages of type: No connection between % '%' and % '%' found.

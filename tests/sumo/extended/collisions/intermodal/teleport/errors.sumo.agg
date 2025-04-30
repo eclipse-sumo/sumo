@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'NE.3' after collision with person 'pedSN.2', lane=':C_7_0', time=43.00, stage=move.
+Warning: Teleporting vehicle 'WE.4' after collision with person 'pedNS.3', lane=':C_5_0', time=55.00, stage=move.
+Warning: Teleporting vehicle 'WE.9' after collision with person 'pedNS.10', lane=':C_5_0', time=139.00, stage=move.
+Warning: 3 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.

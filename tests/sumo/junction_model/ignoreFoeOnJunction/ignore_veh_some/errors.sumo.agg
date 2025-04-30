@@ -1,0 +1,3 @@
+Warning: 1 total messages of type: Teleporting vehicle 'SN.6'; junction collision with vehicle 'WE.3', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
+Warning: 4 total messages of type: Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.

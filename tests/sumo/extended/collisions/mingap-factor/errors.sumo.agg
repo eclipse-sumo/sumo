@@ -1,0 +1,10 @@
+Warning: 1 total messages of type: Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %.
+Warning: 1 total messages of type: Removing collision participants: vehicle 'always_right.20', vehicle 'horizontal.15', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Removing collision participants: vehicle 'always_right.29', vehicle 'horizontal.27', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Removing collision participants: vehicle 'horizontal.10', vehicle 'always_right.12', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Removing collision participants: vehicle 'horizontal.11', vehicle 'always_right.13', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Removing collision participants: vehicle 'horizontal.14', vehicle 'always_right.19', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Removing collision participants: vehicle 'horizontal.28', vehicle 'always_right.30', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Removing collision participants: vehicle 'horizontal.5', vehicle 'always_right.5', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Removing collision participants: vehicle 'horizontal.6', vehicle 'always_right.6', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Removing collision participants: vehicle 'horizontal.7', vehicle 'always_right.7', lane='%', gap=%%, time=%, stage=%.
