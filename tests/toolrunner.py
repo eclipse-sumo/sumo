@@ -19,6 +19,7 @@
 import os
 import subprocess
 import sys
+
 if len(sys.argv) < 2:
     sys.exit('required argument <tool> missing')
 idx = len(sys.argv) - 1
@@ -34,6 +35,6 @@ if tool[0].endswith(".jar"):
     tool = ["java", "-jar"] + tool
 
 if tool[0].endswith(".py"):
-    python = os.environ.get('PYTHON', 'python')
+    python = sys.executable
     tool = ([python] + tool) if python.endswith("2") else ([python, "-Wd"] + tool)
 subprocess.call(tool + sys.argv[1:], env=os.environ, stdout=sys.stdout, stderr=sys.stderr)

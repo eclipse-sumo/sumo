@@ -1,0 +1,14 @@
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
+Loading route-files incrementally from 'input_routes2.rou.xml'
+Loading done.
+Simulation started with time: 800.00.
+Simulation ended at time: 1000.00.
+Performance:
+ Duration: 0.14s
+ Real time factor: 1408.45
+ UPS: 0.000000
+Vehicles:
+ Inserted: 0 (Loaded: 1)
+ Running: 0
+ Waiting: 1

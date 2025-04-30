@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Sep 12 14:02:50 2019 by Eclipse SUMO duarouter Version v1_3_1+0271-f54e37b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="osm.net.xml"/>
+        <additional-files value="osm_stops.add.xml,osm_pt.rou.xml"/>
+        <route-files value="osm.pedestrian.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="carPublic.rou.xml"/>
+        <alternatives-output value="carPublic.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ped_pedestrian" vClass="pedestrian"/>
+    <person id="123" type="ped_pedestrian" depart="0.00">
+        <walk edges="335703510 335703511#1 335703511#0 254523894 274513542 274513577#1 335704573 335704572 274513573 43185718#2 43185718#3 394345494#1 274513552 335043660 274513581#3 43185731 70163730#1 465376241 22972195#2 -11483007 169999355 461526153 194069450#1 194069450#0 196850609#2 196850609#1 196850609#0 -35557143#0 35557143#1" busStop="3869306767"/> <!-- U Französische Straße -->
+        <ride busStop="3869306774" intended="12345.6" depart="695.00"/> <!-- Werderscher Markt -->
+        <walk edges="23755950#0 23755950#1 23755950#2 23755950#3 -43346200#4 -15973619#0"/>
+    </person>
+</routes>
