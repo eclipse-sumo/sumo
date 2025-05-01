@@ -296,7 +296,7 @@ errors:No imaging
 errors:Scipy version [0-9]+\.[0-9]+\.[0-9]+{REPLACE Scipy}
 errors:OptimizeWarning
 errors:File ".*[\\/]tests[\\/]..[\\/]tools[\\/]{REPLACE File "sumo/tools/}
-errors:File ".*[\\/]sumo[\\/]tools[\\/]{REPLACE File "sumo/tools/}
+errors:File ".*[\\/]sumo[\\/]tools[\\/]devel[\\/]{REPLACE File "sumo/tools/devel/}
 errors:.*statistics.py:[0-9]+{REPLACE statistics.py:}
 errors:unknown url type{REPLACE [Errno 2] No such file or directory}
 errors:Matplotlib is building the font cache; this may take a moment.

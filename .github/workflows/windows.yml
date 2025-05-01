@@ -95,11 +95,11 @@ jobs:
         cd sumo/build_msvc
         $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter"
-        ctest -R texttest --verbose
+        ctest -R texttest --output-on-failure
         $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert,netconvert"
-        ctest -R texttest --verbose
+        ctest -R texttest --output-on-failure
         $env:TEXTTEST_CI_APPS = "-a sumo"
-        ctest -R texttest --verbose
+        ctest -R texttest --output-on-failure
 
     - name: Examples and extra tests
       if: matrix.build_type == 'extra'
@@ -107,11 +107,12 @@ jobs:
         python -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
+        ctest -E texttest --output-on-failure
         $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
-        ctest --build-config Release --verbose
+        ctest -R texttest --output-on-failure
         $env:TEXTTEST_CI_APPS = "-a sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
-        ctest --build-config Release --verbose
+        ctest -R texttest --output-on-failure
 
     - name: Compressing test results
       if: failure()
