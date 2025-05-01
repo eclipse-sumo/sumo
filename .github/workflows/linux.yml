@@ -94,8 +94,8 @@ jobs:
     - name: Setting up SonarQube
       if: matrix.build_type == 'full' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && matrix.compiler == 'gcc'
       uses: warchant/setup-sonar-scanner@v8
-      with:
-        version: 6.0.0.4432
+      # with:
+        # version: 6.0.0.4432
 
     - name: Building SUMO with SonarQube wrapper
       if: matrix.build_type == 'full' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && matrix.compiler == 'gcc'
@@ -105,8 +105,8 @@ jobs:
         unzip -o build-wrapper-linux-x86.zip
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output make -j4
         cd ..
-        export SONAR_SCANNER_JAVA_OPTS="-Xmx2048m"
-        export SONAR_SCANNER_OPTS="-Xmx2048m"
+        export SONAR_SCANNER_JAVA_OPTS="-Xmx8192m"
+        export SONAR_SCANNER_OPTS="-Xmx8192m"
         sonar-scanner -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.cfamily.compile-commands=cmake-build/bw-output/compile_commands.json
 
     - name: Building and Installing SUMO
