@@ -17,7 +17,6 @@
 
 import argparse
 import io
-import os
 import zipfile
 
 import requests
