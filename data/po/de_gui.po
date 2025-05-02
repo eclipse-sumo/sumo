@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:36+0200\n"
-"PO-Revision-Date: 2025-04-17 08:54+0000\n"
+"PO-Revision-Date: 2025-05-02 12:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:307 src/gui/GUIApplicationWindow.cpp:310
 #: src/gui/GUIApplicationWindow.cpp:2267 src/gui/GUIApplicationWindow.cpp:2268
@@ -2964,7 +2964,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4325
 msgid "MeanDatas elements saved"
-msgstr ""
+msgstr "MeanData-Elemente gespeichert"
 
 #: src/netedit/GNEApplicationWindow.cpp:4328
 msgid "Saving MeanData elements aborted"
@@ -2972,7 +2972,7 @@ msgstr "Speichervorgang der MeanData-Elemente abgebrochen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4357
 msgid "saving of unified mean data elements in '%'"
-msgstr ""
+msgstr "Speichern der gesammelten MeanData-Elemente in '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4665
 msgid "loading additional elements from '"
@@ -4981,27 +4981,27 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:380
 msgid "Root"
-msgstr ""
+msgstr "Wurzel"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:385
 #: src/netedit/GNETagPropertiesDatabase.cpp:387
 msgid "Supermode network"
-msgstr ""
+msgstr "Netzwerk-Supermodus"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:391
 #: src/netedit/GNETagPropertiesDatabase.cpp:393
 msgid "Supermode demand"
-msgstr ""
+msgstr "Nachfrage-Supermodus"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:397
 #: src/netedit/GNETagPropertiesDatabase.cpp:399
 msgid "Supermode data"
-msgstr ""
+msgstr "Daten-Supermodus"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:404
 #: src/netedit/GNETagPropertiesDatabase.cpp:406
 msgid "Network elements"
-msgstr ""
+msgstr "Netzwerkelemente"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:411
 #: src/netedit/GNETagPropertiesDatabase.cpp:413
@@ -5389,12 +5389,16 @@ msgstr "Die Breite von Fußgängerfurten"
 #: src/netedit/GNETagPropertiesDatabase.cpp:961
 msgid "sets the tls-index for this crossing (-1 means automatic assignment)"
 msgstr ""
+"weist diesen LSA-Index dieser Fußgängerfurt zu (-1 bedeutet eine "
+"automatische Zuweisung)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:967
 msgid ""
 "sets the opposite-direction tls-index for this crossing (-1 means not "
 "assigned)"
 msgstr ""
+"weist den LSA-Index der Gegenrichtung dieser Fußgängerfurt zu (-1 "
+"kennzeichnet eine fehlende Zuweisung)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:973
 msgid "Overrides default shape of pedestrian crossing"
@@ -5478,12 +5482,17 @@ msgid ""
 "sets index of this connection within the controlling traffic light (-1 means"
 " automatic assignment)"
 msgstr ""
+"weist der Verbindung ihren Index für die steuernde LSA zu (-1 bedeutet eine "
+"automatische Zuweisung)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1073
 msgid ""
 "sets index for the internal junction of this connection within the "
 "controlling traffic light (-1 means internal junction not controlled)"
 msgstr ""
+"weist dem internen Knotenpunkt dieser Verbindung seinen Index für die "
+"steuernde LSA zu (-1 bedeutet, dass der Knotenpunkt nicht lichtsignalisiert "
+"ist)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1081
 msgid "sets custom speed limit for the connection"
@@ -5567,6 +5576,8 @@ msgstr "Zugang"
 msgid ""
 "The walking length of the access in meters (default is geometric length)"
 msgstr ""
+"Die Fußweglänge des Zugangs in Metern (entspricht standardmäßig der "
+"geometrischen Länge)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1240
 #: src/netedit/GNETagPropertiesDatabase.cpp:4763
