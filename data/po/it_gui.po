@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-08 15:43+0200\n"
-"PO-Revision-Date: 2025-04-18 12:04+0000\n"
+"PO-Revision-Date: 2025-05-02 12:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:307 src/gui/GUIApplicationWindow.cpp:310
 #: src/gui/GUIApplicationWindow.cpp:2267 src/gui/GUIApplicationWindow.cpp:2268
@@ -4967,7 +4967,7 @@ msgstr "L'attributo '%' non esiste"
 #: src/netedit/GNETagProperties.cpp:358
 #, c-format
 msgid "Invalid index '%' used in getAttributeProperties(int)"
-msgstr ""
+msgstr "Indice invalido '%' usato in getAttributeProperties(int)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:89
 #, c-format
@@ -6060,11 +6060,11 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2296
 msgid "Use the edges within the shape"
-msgstr ""
+msgstr "Usa gli archi all'interno della forma"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2298
 msgid "edges within"
-msgstr ""
+msgstr "archi all'interno"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2308
 msgid "TAZ Source"
@@ -6156,7 +6156,7 @@ msgstr "La forma dell'area pedonale"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2482
 msgid "A custom geo shape for this walkable area"
-msgstr ""
+msgstr "Una forma personalizzata per questa area pedonale"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2492
 msgid "JuPedSim Obstacle"
@@ -6168,7 +6168,7 @@ msgstr "La forma dell'ostacolo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2513
 msgid "A custom geo shape for this obstacle"
-msgstr ""
+msgstr "Una forma personalizzata per questo ostacolo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2529
 msgid "RouteDistribution"
@@ -6176,23 +6176,25 @@ msgstr "Distribuzione di itinerari"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2558
 msgid "Route (Ref)"
-msgstr ""
+msgstr "Itinerario (referenza)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2565
 msgid "Route distribution in which this routeRef is defined"
 msgstr ""
+"Distribuzione di itinerari nella quale questa referenza di itinerario è "
+"definita"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2570
 msgid "Reference ID of route"
-msgstr ""
+msgstr "Codice identificativo di referenza dell'itinerario"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2582
 msgid "Route (embedded)"
-msgstr ""
+msgstr "Itinerario (interno)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2601
 msgid "Deterministic distribution"
-msgstr ""
+msgstr "Distribuzione deterministica"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2615
 msgid "VehicleType"
@@ -6200,15 +6202,15 @@ msgstr "Tipo di veicolo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2631
 msgid "VType (Ref)"
-msgstr ""
+msgstr "Tipo di veicolo (referenza)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2638
 msgid "VType distribution in which this vTypeRef is defined"
-msgstr ""
+msgstr "Distribuzione di tipi di veicoli nella quale la referenza è definita"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2643
 msgid "Reference ID of vType"
-msgstr ""
+msgstr "Codice identificativo di referenza del tipo di veicolo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2661
 msgid "TripEdges"
@@ -7485,7 +7487,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6924
 #, c-format
 msgid "Center view over element % after creation"
-msgstr ""
+msgstr "Centra la veduta sul elemento % dopo la sua creazione"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6925
 msgid "center view"
@@ -7573,7 +7575,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7041
 msgid "Reference position used for creating %"
-msgstr ""
+msgstr "Posizione di referenza usata per creare %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7056
 msgid "A typename for the POI"
@@ -8492,7 +8494,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8255
 #, c-format
 msgid "speed of the person for this % in m/s (not together with duration)"
-msgstr ""
+msgstr "velocità della persona di questo/a % in m/s (non usare con duration)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8261
 #: src/netedit/GNETagPropertiesDatabase.cpp:8307
@@ -8663,11 +8665,11 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8565
 #: src/netedit/GNETagPropertiesDatabase.cpp:8570
 msgid "ID of %"
-msgstr ""
+msgstr "Codice identificativo di %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8580
 msgid "Optional name for %"
-msgstr ""
+msgstr "Nome opzionale per %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8591
 #: src/netedit/GNETagPropertiesDatabase.cpp:8597
@@ -8678,7 +8680,7 @@ msgstr "Il codice identificativo di un arco nella rete"
 #: src/netedit/GNETagPropertiesDatabase.cpp:8614
 #, c-format
 msgid "The name of the lane the % shall be located at"
-msgstr ""
+msgstr "Il nome della corsia dove il/la % deve essere posizionato/a"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8624
 msgid ""
@@ -8712,7 +8714,7 @@ msgstr "Il percorso del file in uscita"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8655
 msgid "Path to the output file for writing information"
-msgstr ""
+msgstr "Percorso del file in uscita per scrivere delle informazioni"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8667
 #: src/netedit/GNETagPropertiesDatabase.cpp:8672
