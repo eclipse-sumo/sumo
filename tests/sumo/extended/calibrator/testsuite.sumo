@@ -71,4 +71,7 @@ remove_from_all_queues
 
 # test insertion on a particular lane (see #5794)
 departLane_given
+
+# see #16626
+2day_sim
 errors
