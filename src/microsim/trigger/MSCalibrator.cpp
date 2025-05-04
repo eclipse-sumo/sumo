@@ -377,7 +377,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
         }
         if (myCurrentStateInterval == myIntervals.end()) {
             // keep calibrator alive for gui but do not call again
-            return TIME2STEPS(86400);
+            return SUMOTime_MAX - currentTime;
         }
         return myFrequency;
     }
