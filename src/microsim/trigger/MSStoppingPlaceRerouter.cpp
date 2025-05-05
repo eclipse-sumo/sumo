@@ -50,7 +50,7 @@ MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::s
 }
 
 MSStoppingPlace*
-MSStoppingPlaceRerouter::rerouteStoppingPlace(std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores,
+MSStoppingPlaceRerouter::rerouteStoppingPlace(const std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores,
                                  const MSEdgeVector& closedEdges, const int insertStopIndex, const bool keepCurrentStop) {
     // Reroute destination from initial stopping place to an alternative stopping place
     // if the following conditions are met:
@@ -105,7 +105,7 @@ MSStoppingPlaceRerouter::rerouteStoppingPlace(std::vector<StoppingPlaceVisible>&
     } else {
         double bestDist = std::numeric_limits<double>::max();
         const double brakeGap = veh.getBrakeGap(true);
-        for (StoppingPlaceVisible& item : stoppingPlaceCandidates) {
+        for (const StoppingPlaceVisible& item : stoppingPlaceCandidates) {
             if (item.second) {
                 if (&item.first->getLane().getEdge() == veh.getEdge()
                         && getLastStepStoppingPlaceOccupancy(item.first) < getStoppingPlaceCapacity(item.first)) {
