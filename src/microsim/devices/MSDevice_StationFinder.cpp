@@ -113,7 +113,7 @@ MSDevice_StationFinder::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 // ---------------------------------------------------------------------------
 MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     : MSVehicleDevice(holder, "stationfinder_" + holder.getID()),
-      MSStoppingPlaceRerouter(SUMO_TAG_CHARGING_STATION, "device.stationfinder.charging", true, false, {
+      MSStoppingPlaceRerouter("device.stationfinder.charging", true, false, {
     {"waitingTime", 1.}, {"chargingTime", 1.}
 }, { {"waitingTime", false}, {"chargingTime", false} }),
 myVeh(dynamic_cast<MSVehicle&>(holder)),
@@ -427,7 +427,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
     std::vector<double> probs(candidates.size(), 1.);
     bool newDestination;
     myCheckValidity = constrainTT;
-    MSStoppingPlace* bestCandidate = rerouteStoppingPlace(candidates, probs, myHolder, newDestination, newRoute, scores);
+    MSStoppingPlace* bestCandidate = rerouteStoppingPlace(nullptr, candidates, probs, myHolder, newDestination, newRoute, scores);
     myCheckValidity = true;
     minStation = dynamic_cast<MSChargingStation*>(bestCandidate);
     return minStation;

@@ -36,8 +36,8 @@
 
 
 ///@brief Constructor
-MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::string paramPrefix, bool checkValidity, bool checkVisibility, StoppingPlaceParamMap_t addEvalParams, StoppingPlaceParamSwitchMap_t addInvertParams) :
-    myStoppingType(stoppingType), myParamPrefix(paramPrefix), myCheckValidity(checkValidity), myConsiderDestVisibility(checkVisibility) {
+MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(std::string paramPrefix, bool checkValidity, bool checkVisibility, StoppingPlaceParamMap_t addEvalParams, StoppingPlaceParamSwitchMap_t addInvertParams) :
+    myParamPrefix(paramPrefix), myCheckValidity(checkValidity), myConsiderDestVisibility(checkVisibility) {
     myEvalParams = { {"probability", 0.}, {"capacity", 0.}, {"timefrom", 0.}, {"timeto", 0.}, {"distancefrom", 0.}, {"distanceto", 1.}, {"absfreespace", 0.}, {"relfreespace", 0.}, };
     myInvertParams = { {"probability", false}, { "capacity", true }, { "timefrom", false }, { "timeto", false }, { "distancefrom", false }, { "distanceto", false }, { "absfreespace", true }, { "relfreespace", true } };
     for (auto param : addEvalParams) {
@@ -50,7 +50,7 @@ MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::s
 }
 
 MSStoppingPlace*
-MSStoppingPlaceRerouter::rerouteStoppingPlace(const std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores,
+MSStoppingPlaceRerouter::rerouteStoppingPlace(MSStoppingPlace* destStoppingPlace, const std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores,
                                  const MSEdgeVector& closedEdges, const int insertStopIndex, const bool keepCurrentStop) {
     // Reroute destination from initial stopping place to an alternative stopping place
     // if the following conditions are met:
@@ -63,14 +63,8 @@ MSStoppingPlaceRerouter::rerouteStoppingPlace(const std::vector<StoppingPlaceVis
     MSStoppingPlace* nearStoppingPlace = nullptr;
 
     // get vehicle params
-    MSStoppingPlace* destStoppingPlace = nullptr;
     bool destVisible = false;
-    if (myStoppingType == SUMO_TAG_PARKING_AREA) {
-        destStoppingPlace = veh.getNextParkingArea();
-        if (destStoppingPlace == nullptr) {
-            // not driving towards the right type of stop
-            return nullptr;
-        }
+    if (destStoppingPlace != nullptr) {
         destVisible = (&destStoppingPlace->getLane().getEdge() == veh.getEdge());
         // if the vehicle is on the destination stop edge it is always visible
         for (auto stoppingPlace : stoppingPlaceCandidates) {

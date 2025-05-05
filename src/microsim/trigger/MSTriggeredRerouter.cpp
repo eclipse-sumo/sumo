@@ -87,7 +87,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
         SUMOTime timeThreshold, const std::string& vTypes, const Position& pos, const double radius) :
     Named(id),
     MSMoveReminder(id),
-    MSStoppingPlaceRerouter(SUMO_TAG_PARKING_AREA, "parking"),
+    MSStoppingPlaceRerouter("parking"),
     myEdges(edges),
     myProbability(prob),
     myUserProbability(prob),
@@ -841,9 +841,14 @@ MSTriggeredRerouter::setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value)
 MSParkingArea*
 MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                         SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) {
+    MSStoppingPlace* destStoppingPlace = veh.getNextParkingArea();
+    if (destStoppingPlace == nullptr) {
+        // not driving towards the right type of stop
+        return nullptr;
+    }
     std::vector<StoppingPlaceVisible> parks = rerouteDef->parkProbs.getVals();
     StoppingPlaceParamMap_t addInput = {};
-    return dynamic_cast<MSParkingArea*>(rerouteStoppingPlace(parks, rerouteDef->parkProbs.getProbs(), veh, newDestination, newRoute, addInput, rerouteDef->getClosed()));
+    return dynamic_cast<MSParkingArea*>(rerouteStoppingPlace(destStoppingPlace, parks, rerouteDef->parkProbs.getProbs(), veh, newDestination, newRoute, addInput, rerouteDef->getClosed()));
 }
 
 

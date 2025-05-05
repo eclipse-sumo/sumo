@@ -133,7 +133,7 @@ public:
     typedef std::pair<MSStoppingPlace*, bool> StoppingPlaceVisible;
 
     ///@brief Constructor
-    MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::string paramPrefix = "", bool checkValidity = false, bool checkVisibility = true, StoppingPlaceParamMap_t addEvalParams = {}, StoppingPlaceParamSwitchMap_t addInvertParams = {});
+    MSStoppingPlaceRerouter(std::string paramPrefix = "", bool checkValidity = false, bool checkVisibility = true, StoppingPlaceParamMap_t addEvalParams = {}, StoppingPlaceParamSwitchMap_t addInvertParams = {});
 
     // Destructor
     virtual ~MSStoppingPlaceRerouter() {}
@@ -151,7 +151,7 @@ public:
      * @param[in] keepCurrentStop whether the current stop at the given stopp index should still be served after the new one
      * @return the best stopping place according to the target function or nullptr
      */
-    MSStoppingPlace* rerouteStoppingPlace(const std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh,
+    MSStoppingPlace* rerouteStoppingPlace(MSStoppingPlace* destStoppingPlace, const std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh,
                              bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores, const MSEdgeVector& closedEdges = {},
                              const int insertStopIndex = 0, const bool keepCurrentStop = true);
     /** @brief compute the target function for a single alternative
@@ -304,7 +304,6 @@ private:
     MSStoppingPlaceRerouter() = delete;
 
 protected:
-    const SumoXMLTag myStoppingType;
     const std::string myParamPrefix;
     bool myCheckValidity;
     const bool myConsiderDestVisibility;
