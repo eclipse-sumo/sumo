@@ -141,6 +141,22 @@ To run the simulation call:
 sumo-gui -n osm.net.xml --additional pt_vtypes.xml,gtfs_publictransport.add.xml --routes gtfs_publictransport.rou.xml
 ```
 
+## Stops from OSM
+
+In this case, the mapping of stops from (imprecise) GTFS coordinates to candidate network edges is guided buy using public transport stop locations from OSM. 
+This is useful when GTFS data has no shape information and provides two advantages:
+
+- mapping is greatly sped up because fever candidate edges are considered
+- mapping of public rail transport is greatly improved because OSM stops encode information about the typical usage direction of rail tracks (and thus stop track assignment at stations)
+
+The call is:
+
+```
+python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --stops osm_stops.add.xml --repair --modes bus --vtype-output pt_vtypes.xml
+```
+
+The generated simulation inputs are the same as [above](#routes_from_osm) and thus the same call to sumo/sumo-gui can be used.
+
 # Using the outputs in a simulation
 
 Below an example of using the mapped stops and buses in a simulation by calling sumo-gui:
