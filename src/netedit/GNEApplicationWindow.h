@@ -92,6 +92,9 @@ public:
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
 
+    /// @brief get test system used for testing netedit
+    GNETestSystem* getTestSystem() const;
+
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occurred
@@ -641,8 +644,8 @@ protected:
     /// @brief the thread that loads the network
     GNELoadThread* myLoadThread = nullptr;
 
-    /// @brief the tread used for testing netedit
-    GNETestSystem* myTestThread = nullptr;
+    /// @brief test system used for testing netedit
+    GNETestSystem* myTestSystem = nullptr;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;

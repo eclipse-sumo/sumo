@@ -39,8 +39,11 @@ public:
     /// @brief destructor
     ~GNETestSystem();
 
-    /// @brief run test
-    void runTest();
+    /// @brief init test
+    void initTests();
+
+    /// @brief run all tests
+    void runAllTests();
 
 protected:
     /// @brief process test file
@@ -93,8 +96,18 @@ private:
         /// @brief get tag
         SumoXMLTag getTag() const;
 
-        /// @brief get event
-        FXEvent *getEvent();
+        /// @brief get list of consecutive event
+        const std::vector<FXEvent*> &getEvents() const;
+
+    protected:
+        /// @brief build mouse move event
+        FXEvent* buildMouseMoveEvent(const int posX, const int posY) const;
+
+        /// @brief build mouse left click press event
+        FXEvent* buildMouseLeftClickPressEvent(const int posX, const int posY) const;
+
+        /// @brief build mouse left click release event
+        FXEvent* buildMouseLeftClickReleaseEvent(const int posX, const int posY) const;
 
     private:
         /// @brief step type
@@ -109,8 +122,8 @@ private:
         /// @brief tag (used in certain tests)
         SumoXMLTag myTag = SUMO_TAG_NOTHING;
 
-        /// @brief fx event (used for simulate clicks)
-        FXEvent *myEvent;
+        /// @brief list of events associated with this step
+        std::vector<FXEvent*> myEvents;
 
         /// @brief parse function and arguments
         void parseFunctionAndArguments(const std::string &row);
@@ -124,4 +137,7 @@ private:
 
     /// @brief test steps
     std::vector<TestStep*> myTestSteps;
+
+    /// @brief current step
+    int myCurrentStep = 0;
 };

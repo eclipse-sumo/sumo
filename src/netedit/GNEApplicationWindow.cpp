@@ -556,7 +556,7 @@ GNEApplicationWindow::dependentBuild() {
     fillMenuBar();
     // build additional threads
     myLoadThread = new GNELoadThread(this, myThreadEvents, myLoadThreadEvent);
-    myTestThread = new GNETestSystem(this);
+    myTestSystem = new GNETestSystem(this);
     // set the status bar
     setStatusBarText(TL("Ready."));
     // set the caption
@@ -649,7 +649,8 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myLanguageMenu;
     // Delete load thread
     delete myLoadThread;
-    delete myTestThread;
+    // delete test system
+    delete myTestSystem;
     // drop all events
     while (!myThreadEvents.empty()) {
         // get the next event
@@ -1357,7 +1358,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     setFocus();
     // check if run test thread
     if (neteditOptions.getString("test-file").size() > 0) {
-        myTestThread->runTest();
+        myTestSystem->initTests();
     }
 }
 
@@ -1833,6 +1834,12 @@ GNEApplicationWindow::consoleOptionsLoaded() {
     } else {
         return false;
     }
+}
+
+
+GNETestSystem*
+GNEApplicationWindow::getTestSystem() const {
+    return myTestSystem;
 }
 
 

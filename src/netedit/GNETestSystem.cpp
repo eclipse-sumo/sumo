@@ -46,16 +46,25 @@ GNETestSystem::~GNETestSystem() {
 
 
 void
-GNETestSystem::runTest() {
+GNETestSystem::initTests() {
     // first process test file
     processTestFile();
-    // execute every operation
-    for (const auto &testStep : myTestSteps) {
+}
+
+
+void
+GNETestSystem::runAllTests() {
+    // only once
+    while (myCurrentStep < (int)myTestSteps.size()) {
+        const auto testStep = myTestSteps.at(myCurrentStep);
         // continue depending of step type
         switch (testStep->getStepType()) {
             // basic
             case TestStepType::CLICK:
-                myApplicationWindow->getViewNet()->onLeftBtnPress(myApplicationWindow, 0, (void*)testStep->getEvent());
+                // run all events (move, click press, click release)
+                myApplicationWindow->getViewNet()->onMouseMove(myApplicationWindow, 0, (void*)testStep->getEvents().at(0));
+                myApplicationWindow->getViewNet()->onLeftBtnPress(myApplicationWindow, 0, (void*)testStep->getEvents().at(1));
+                myApplicationWindow->getViewNet()->onLeftBtnRelease(myApplicationWindow, 0, (void*)testStep->getEvents().at(2));
                 break;
             // supermodes
             case TestStepType::SUPERMODE_NETWORK:
@@ -127,6 +136,7 @@ GNETestSystem::runTest() {
             default:
                 break;
         }
+        myCurrentStep++;
     }
 }
 
@@ -153,8 +163,7 @@ GNETestSystem::processTestFile() {
 }
 
 
-GNETestSystem::TestStep::TestStep(const std::string &row) :
-    myEvent(new FXEvent) {
+GNETestSystem::TestStep::TestStep(const std::string &row) {
     // first split between functions and arguments
     parseFunctionAndArguments(row);
     // continue depending of function
@@ -165,18 +174,12 @@ GNETestSystem::TestStep::TestStep(const std::string &row) :
             } else if (!GNEAttributeCarrier::canParse<int>(myArguments[1])) {
                 throw ProcessError("Second click cannot be parsed to int");
             } else {
-                // set fxevent
-                myEvent->win_x = GNEAttributeCarrier::parse<int>(myArguments[0]);
-                myEvent->win_y = GNEAttributeCarrier::parse<int>(myArguments[1]);
-                myEvent->click_x = GNEAttributeCarrier::parse<int>(myArguments[0]);
-                myEvent->click_y = GNEAttributeCarrier::parse<int>(myArguments[1]);
-                myEvent->type = 3;
-                myEvent->state = 256;
-                myEvent->code = 1;
-                myEvent->click_button = 1;
-                myEvent->click_count = 1;
-                myEvent->moved = false;
-                myEvent->synthetic = true;
+                const int posX = GNEAttributeCarrier::parse<int>(myArguments[0]);
+                const int posY = GNEAttributeCarrier::parse<int>(myArguments[1]);
+                // set event of moving, click presss and click release
+                myEvents.push_back(buildMouseMoveEvent(posX, posY));
+                myEvents.push_back(buildMouseLeftClickPressEvent(posX, posY));
+                myEvents.push_back(buildMouseLeftClickReleaseEvent(posX, posY));
             }
             myStepType = TestStepType::CLICK;
         } else {
@@ -269,7 +272,9 @@ GNETestSystem::TestStep::TestStep(const std::string &row) :
 
 
 GNETestSystem::TestStep::~TestStep() {
-    delete myEvent;
+    for (auto event : myEvents) {
+        delete event;
+    }
 }
 
 
@@ -285,9 +290,85 @@ GNETestSystem::TestStep::getTag() const {
 }
 
 
+const std::vector<FXEvent*>&
+GNETestSystem::TestStep::getEvents() const {
+    return myEvents;
+}
+
+/*
+    moveEvent->type = 9;
+    moveEvent->time = 0;
+    moveEvent->win_x = posX;
+    moveEvent->win_y = posY;
+    moveEvent->root_x = 0;
+    moveEvent->root_y = 0;
+    moveEvent->state = 0;
+    moveEvent->code = 0;
+    moveEvent->text = "";
+    moveEvent->last_x = 0;
+    moveEvent->last_y = 0;
+    moveEvent->click_x = 0;
+    moveEvent->click_y = 0;
+    moveEvent->rootclick_x = 0;
+    moveEvent->rootclick_y = 0;
+    moveEvent->click_time = 0;
+    moveEvent->click_button = 0;
+    moveEvent->click_count = 0;
+    moveEvent->moved = true;
+    moveEvent->rect = FXRectangle(0, 0, 0, 0);
+    moveEvent->synthetic = true;
+    moveEvent->target = 0;
+*/
+
+
 FXEvent*
-GNETestSystem::TestStep::getEvent() {
-    return myEvent;
+GNETestSystem::TestStep::buildMouseMoveEvent(const int posX, const int posY) const {
+    FXEvent* moveEvent = new FXEvent();
+    moveEvent->type = 9;
+    moveEvent->win_x = posX;
+    moveEvent->win_y = posY;
+    moveEvent->moved = true;
+    moveEvent->rect = FXRectangle(0, 0, 0, 0);
+    moveEvent->synthetic = true;
+    return moveEvent;
+}
+
+
+FXEvent*
+GNETestSystem::TestStep::buildMouseLeftClickPressEvent(const int posX, const int posY) const {
+    FXEvent* leftClickPressEvent = new FXEvent();
+    // set fxevent
+    leftClickPressEvent->win_x = posX;
+    leftClickPressEvent->win_y = posY;
+    leftClickPressEvent->click_x = posX;
+    leftClickPressEvent->click_y = posY;
+    leftClickPressEvent->type = 3;
+    leftClickPressEvent->state = 256;
+    leftClickPressEvent->code = 1;
+    leftClickPressEvent->click_button = 1;
+    leftClickPressEvent->click_count = 1;
+    leftClickPressEvent->moved = false;
+    leftClickPressEvent->synthetic = true;
+    return leftClickPressEvent;
+}
+
+
+FXEvent*
+GNETestSystem::TestStep::buildMouseLeftClickReleaseEvent(const int posX, const int posY) const {
+    FXEvent* leftClickPressEvent = new FXEvent();
+    // set fxevent
+    leftClickPressEvent->win_x = posX;
+    leftClickPressEvent->win_y = posY;
+    leftClickPressEvent->click_x = posX;
+    leftClickPressEvent->click_y = posY;
+    leftClickPressEvent->type = 4;
+    leftClickPressEvent->state = 256;
+    leftClickPressEvent->code = 1;
+    leftClickPressEvent->click_button = 1;
+    leftClickPressEvent->click_count = 1;
+    leftClickPressEvent->moved = false;
+    leftClickPressEvent->synthetic = true;
+    return leftClickPressEvent;
 }
 
 
