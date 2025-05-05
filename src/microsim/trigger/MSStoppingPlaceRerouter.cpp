@@ -98,8 +98,7 @@ MSStoppingPlaceRerouter::rerouteStoppingPlace(std::vector<StoppingPlaceVisible>&
             }
 #ifdef DEBUG_STOPPINGPLACE
             if (DEBUGCOND) {
-                //std::cout << SIMTIME << " << " veh=" << veh.getID()
-                //    << " dest=" << ((destStoppingPlace == nullptr)? "null" : destStoppingPlace->getID()) << " stopAnywhere=" << stopAnywhere << "reroutes=" << getNumberStoppingPlaceReroutes(veh) << " stay on original route\n";
+                //std::cout << SIMTIME << " veh=" << veh.getID() << " dest=" << ((destStoppingPlace == nullptr)? "null" : destStoppingPlace->getID()) << " stopAnywhere=" << stopAnywhere << " reroutes=" << getNumberStoppingPlaceReroutes(veh) << " stay on original route\n";
             }
 #endif
         }
@@ -485,7 +484,10 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
             }
 
             // The time to reach the new stopping place
-            stoppingPlaceValues["timeto"] = router.recomputeCosts(edgesToStop, &veh, SIMSTEP) - ((alternative->getLane().getLength() - alternative->getEndLanePosition()) / alternative->getLane().getSpeedLimit());
+            const double correctionLastEdge = ((alternative->getLane().getLength() - alternative->getEndLanePosition()) / alternative->getLane().getVehicleMaxSpeed(&veh));
+            const double correctionFirstEdge = veh.getPositionOnLane() / edgesToStop.front()->getVehicleMaxSpeed(&veh);
+
+            stoppingPlaceValues["timeto"] = router.recomputeCosts(edgesToStop, &veh, SIMSTEP) - correctionLastEdge - correctionFirstEdge;
             ConstMSEdgeVector newEdges = edgesToStop;
             if (newDestination) {
                 stoppingPlaceValues["distancefrom"] = 0;

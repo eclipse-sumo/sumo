@@ -84,7 +84,8 @@ def getFlows(options):
     for file in options.routefiles:
         if options.verbose:
             print("route file:%s" % file)
-        for veh, route in sumolib.output.parse_fast_nested(file, 'vehicle',['id', 'type','depart'],'route',['edges'],
+        for veh, route in sumolib.output.parse_fast_nested(
+                file, 'vehicle', ['id', 'type', 'depart'], 'route', ['edges'],
                 optional=True):
             depart = parseTime(veh.depart)
             if depart < options.begin or depart > options.end:
@@ -131,7 +132,7 @@ def main(options):
                                 if veh_type not in total_counts:
                                     total_counts[veh_type] = 0
                                 total_counts[veh_type] += count
-                        
+
                         # Write probabilities for each edge pair and vehicle type
                         for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
                             attrs = []
@@ -139,35 +140,35 @@ def main(options):
                                 if total_counts[veh_type] > 0:
                                     prob = count / total_counts[veh_type]
                                     attrs.append('%s_probability="%.2f"' % (veh_type, prob))
-                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s/>\n' %
-                                    (from_edge, to_edge, ' '.join(attrs)))
+                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s/>\n' % (
+                                from_edge, to_edge, ' '.join(attrs)))
                     else:
                         for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
                             attrs = []
                             for veh_type, count in sorted(type_counts.items()):
                                 attrs.append('%s_count="%s"' % (veh_type, count))
-                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s/>\n' %
-                                    (from_edge, to_edge, ' '.join(attrs)))
+                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s/>\n' % (
+                                from_edge, to_edge, ' '.join(attrs)))
                 else:
                     if options.prob:
                         # Calculate total counts across all vehicle types and destination edges
                         total_count = 0
                         for to_edge, type_counts in edgePairFlowsMap[from_edge].items():
                             total_count += sum(type_counts.values())
-                        
+
                         # Write probabilities for each edge pair (combined across all vehicle types)
                         for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
                             count = sum(type_counts.values())
                             if total_count > 0:
                                 prob = count / total_count
-                                outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" probability="%.2f"/>\n' %
-                                        (from_edge, to_edge, prob))
+                                outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" probability="%.2f"/>\n' % (
+                                    from_edge, to_edge, prob))
                     else:
                         # Write combined counts for each edge pair (summed across all vehicle types)
                         for to_edge, type_counts in sorted(edgePairFlowsMap[from_edge].items()):
                             count = sum(type_counts.values())
-                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" count="%s"/>\n' %
-                                    (from_edge, to_edge, count))
+                            outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" count="%s"/>\n' % (
+                                from_edge, to_edge, count))
             outf.write('    </interval>\n')
         outf.write('</data>\n')
     outf.close()

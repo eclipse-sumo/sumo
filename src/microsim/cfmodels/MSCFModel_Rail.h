@@ -91,9 +91,6 @@ private:
         double getTraction(double speed) const;
     };
 
-    std::vector<double> getValueTable(const MSVehicleType* vtype, SumoXMLAttr attr);
-
-
 public:
     double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage = CalcReason::CURRENT) const;
 

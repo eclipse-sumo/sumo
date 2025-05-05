@@ -648,37 +648,38 @@ SUMOVTypeParameter::getCFParamString(const SumoXMLAttr attr, const std::string d
 }
 
 
-std::vector<std::pair<double, double> >
-SUMOVTypeParameter::getCFProfile(const SumoXMLAttr attr, const std::vector<std::pair<double, double> > defaultProfile) const {
-    if (cfParameter.count(attr)) {
-        return createCFProfile(attr, cfParameter.find(attr)->second);
-    } else {
-        return defaultProfile;
+std::vector<double>
+SUMOVTypeParameter::getCFValueTable(SumoXMLAttr attr) const {
+    std::vector<double> result;
+    const std::string values = getCFParamString(attr, "");
+    if (!values.empty()) {
+        for (std::string value : StringTokenizer(values).getVector()) {
+            result.push_back(StringUtils::toDouble(value));
+        }
     }
+    return result;
 }
 
 
-std::vector<std::pair<double, double> >
-SUMOVTypeParameter::createCFProfile(const SumoXMLAttr attr, const std::string profile) const {
-    StringTokenizer st(profile, ",");
-    std::vector<std::pair<double, double>> vectorProfile;
-    int pairsCount = 0;
-    double p1, p2;
-    while (st.hasNext()) {
-        StringTokenizer pos(st.next());
-        p1 = StringUtils::toDouble(pos.next());
-        p2 = StringUtils::toDouble(pos.next());
-        vectorProfile.push_back(std::make_pair(p1, p2));
-    }
 
-    if (vectorProfile[0].first > 0.) {
-        vectorProfile.insert(vectorProfile.begin(),std::make_pair(0.0, vectorProfile[0].second));
+LinearApproxHelpers::LinearApproxMap
+SUMOVTypeParameter::getCFProfile(const SumoXMLAttr attr, const LinearApproxHelpers::LinearApproxMap& defaultProfile) const {
+    if (cfParameter.count(attr)) {
+        std::vector<double> speedTable = getCFValueTable(SUMO_ATTR_SPEED_TABLE);
+        std::vector<double> valueTable = getCFValueTable(attr);
+        if (valueTable.size() == 1) {
+            throw ProcessError(TLF("Invalid size of % table for vType '%' (at least 2 values are required).", toString(attr), id));
+        } else if (speedTable.size() != valueTable.size()) {
+            throw ProcessError(TLF("Mismatching size of speedTable (%) and % table (%) for vType '%'.", speedTable.size(), toString(attr), valueTable.size(), id));
+        }
+        LinearApproxHelpers::LinearApproxMap result;
+        for (int i = 0; i < (int)speedTable.size(); i++) {
+            result[speedTable[i]] = valueTable[i];
+        }
+        return result;
+    } else {
+        return defaultProfile;
     }
-    if (vectorProfile.back().first < (10000 / 3.6)) {
-        vectorProfile.push_back(std::make_pair((10000 / 3.6), vectorProfile.back().second));
-    }
-
-    return vectorProfile;
 }
 
 
@@ -1067,8 +1068,10 @@ SUMOVTypeParameter::getTimeToTeleportBidi(SUMOTime defaultValue) const {
     return timeToTeleportBidi == TTT_UNSET ? defaultValue : timeToTeleportBidi;
 }
 
-std::vector<std::pair<double, double> >
+LinearApproxHelpers::LinearApproxMap
 SUMOVTypeParameter::getDefaultMaxAccelProfile(const SUMOVehicleClass vc, double maxAccel) {
+    UNUSED_PARAMETER(maxAccel);
+    LinearApproxHelpers::LinearApproxMap result;
     std::vector<std::pair<double, double> > MaxAccelProfile;
     switch (vc) {
     case SVC_PEDESTRIAN:
@@ -1086,15 +1089,14 @@ SUMOVTypeParameter::getDefaultMaxAccelProfile(const SUMOVehicleClass vc, double 
     case SVC_RAIL_FAST:
     case SVC_SHIP:
     default:
-        MaxAccelProfile.push_back(std::make_pair(0.0, maxAccel));
-        MaxAccelProfile.push_back(std::make_pair((10000 / 3.6), maxAccel));
-        return MaxAccelProfile;
+        return result;
     }
 }
 
-std::vector<std::pair<double, double> >
+LinearApproxHelpers::LinearApproxMap
 SUMOVTypeParameter::getDefaultDesAccelProfile(const SUMOVehicleClass vc, double desAccel) {
-    std::vector<std::pair<double, double> > DesAccelProfile;
+    UNUSED_PARAMETER(desAccel);
+    LinearApproxHelpers::LinearApproxMap result;
     switch (vc) {
     case SVC_PEDESTRIAN:
     case SVC_BICYCLE:
@@ -1111,9 +1113,7 @@ SUMOVTypeParameter::getDefaultDesAccelProfile(const SUMOVehicleClass vc, double 
     case SVC_RAIL_FAST:
     case SVC_SHIP:
     default:
-        DesAccelProfile.push_back(std::make_pair(0.0, desAccel));
-        DesAccelProfile.push_back(std::make_pair((10000 / 3.6), desAccel));
-        return DesAccelProfile;
+        return result;
     }
 }
 

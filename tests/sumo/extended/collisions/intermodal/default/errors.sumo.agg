@@ -1,0 +1,5 @@
+Warning: Vehicle 'NE.3' collision with person 'pedSN.2', lane=':C_7_0', time=43.00, stage=move.
+Warning: Vehicle 'WE.4' collision with person 'pedNS.3', lane=':C_5_0', time=55.00, stage=move.
+Warning: Vehicle 'WE.4' collision with person 'pedSN.3', lane=':C_5_0', time=56.00, stage=move.
+Warning: Vehicle 'NE.4' collision with person 'pedSN.6', lane=':C_7_0', time=92.00, stage=move.
+Warning: Vehicle 'WE.9' collision with person 'pedNS.10', lane=':C_5_0', time=139.00, stage=move.

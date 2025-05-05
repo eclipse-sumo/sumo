@@ -33,3 +33,6 @@ disconnected_route
 # test more route types
 share_taxi_minibus
 missing_edges
+
+# join opposite lines at the terminal stops
+join

@@ -33,7 +33,7 @@ SLACK = 1
 
 
 def get_options(args=None):
-    desc = "Identify which edges in the original network correspond to edges in the target network"
+    desc = "Identify which edges in the target network correspond to edges in the original network"
     ap = sumolib.options.ArgumentParser(description=desc)
     ap.add_argument("--orig-net", dest="origNet", required=True, category="input", type=ap.net_file,
                     help="SUMO network with edges of interest", metavar="FILE")

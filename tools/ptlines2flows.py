@@ -317,7 +317,7 @@ def createTrips(options):
 
 
 def joinTrips(options, tripList, trpMap):
-    net = optins.net
+    net = options.net
     # join opposite pairs of trips
     linePairs = collections.defaultdict(list)
     for tripID, ptl in trpMap.items():
@@ -383,7 +383,7 @@ def distCheck(options, refOrig, eID1, eID2):
     for p in shape1:
         minDist = min(minDist, geomhelper.distancePointToPolygon(p, shape2))
     if minDist > options.joinThreshold:
-        sys.stderr.write("Warning: Cannot join line '%s' at edges '%s' and '%s' with distance %s" % (
+        sys.stderr.write("Warning: Cannot join line '%s' at edges '%s' and '%s' with distance %s\n" % (
             refOrig, eID1, eID2, minDist))
         return False
     else:
@@ -477,6 +477,7 @@ def createRoutes(options, trpMap):
         parking = ' parking="true"' if vehicle.type == "bus" and options.busparking else ''
         color = ' color="%s"' % ptline.color if ptline.color is not None else ""
         repeat = ""
+        stops = vehicle.stop
         if len(ptline.terminalIndices) == 2 and stops:
             lastBusStop = stops[-1].busStop
             lastUntil = stopsUntil.get((id, lastBusStop))
@@ -486,8 +487,6 @@ def createRoutes(options, trpMap):
                 if numRepeats > 1:
                     repeat = ' repeat="%s" cycleTime="%s"' % (numRepeats, ft(cycleTime))
 
-
-        stops = vehicle.stop
         # jump over disconnected parts
         jumps = {}  # edge -> duration
         usedJumps = set()
@@ -513,7 +512,9 @@ def createRoutes(options, trpMap):
                 if (id, stop.busStop) in stopsUntil:
                     stopEdge = options.stopEdges[stop.busStop]
                     until = stopsUntil[(id, stop.busStop)]
-                    stopname = ' <!-- %s -->' % options.stopNames[stop.busStop] if stop.busStop in options.stopNames else ''
+                    stopname = ''
+                    if stop.busStop in options.stopNames:
+                        stopname = ' <!-- %s -->' % options.stopNames[stop.busStop]
                     untilZeroBased = until[0] - actualDepart[id] + untilOffset
                     if stop.jump is not None:
                         jump = ' jump="%s"' % stop.jump
@@ -537,7 +538,7 @@ def createRoutes(options, trpMap):
         for edgeID, jumpDuration in jumps.items():
             if edgeID not in usedJumps:
                 tmpio.write(
-                        '        <stop edge="%s" speed="999" jump="%s" index="fit"/>\n' % ( edgeID, jumpDuration))
+                    '        <stop edge="%s" speed="999" jump="%s" index="fit"/>\n' % (edgeID, jumpDuration))
 
         tmpio.write('    </route>\n')
         routes.append((flowID, tmpio.getvalue()))
@@ -595,7 +596,7 @@ def main(options):
     options.stopEdges = {}
     options.stopNames = {}
     for stop in sumolib.output.parse(options.ptstops, ['busStop', 'trainStop']):
-        options.stopEdges[stop.id] = sumolib.net.lane2edge(stop.lane)
+        options.stopEdges[stop.id] = sumolib._laneID2edgeID(stop.lane)
         if stop.name:
             options.stopNames[stop.id] = stop.attr_name
 

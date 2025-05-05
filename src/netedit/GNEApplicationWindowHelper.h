@@ -181,7 +181,7 @@ struct GNEApplicationWindowHelper {
         void setJuPedSimView();
 
         /// @brief checkBox for allow undo-redo loading
-        MFXMenuCheckIcon* menuCheckAllowUndoRedoLoading = nullptr;
+        FXMenuCheck* menuCheckAllowUndoRedoLoading = nullptr;
 
     private:
         /// @brief build netedit config section

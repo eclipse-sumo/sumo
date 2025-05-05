@@ -1,0 +1,3 @@
+Warning: 4 total messages of type: Teleporting vehicle '%'; waited too long (jam), lane='%', time=%.
+Warning: 1 total messages of type: Teleporting vehicle '%'; waited too long (yield), lane='%', time=%.
+Warning: 5 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.

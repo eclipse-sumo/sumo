@@ -106,24 +106,8 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     const_cast<MSVehicleType*>(vtype)->setLength(myTrainParams.length);
 
     // init tabular curves
-    std::vector<double> speedTable = getValueTable(vtype, SUMO_ATTR_SPEED_TABLE);
-    std::vector<double> tractionTable = getValueTable(vtype, SUMO_ATTR_TRACTION_TABLE);
-    std::vector<double> resistanceTable = getValueTable(vtype, SUMO_ATTR_RESISTANCE_TABLE);
-    if (speedTable.size() > 0 || tractionTable.size() > 0 || resistanceTable.size() > 0) {
-        if (speedTable.size() == 1) {
-            throw ProcessError(TLF("Invalid size of speedTable for vType '%' (at least 2 values are required).", vtype->getID()));
-        } else if (speedTable.size() != tractionTable.size()) {
-            throw ProcessError(TLF("Mismatching size of speedTable and tractionTable for vType '%'.", vtype->getID()));
-        } else if (speedTable.size() != resistanceTable.size()) {
-            throw ProcessError(TLF("Mismatching size of speedTable and resistanceTable for vType '%'.", vtype->getID()));
-        }
-        myTrainParams.traction.clear();
-        myTrainParams.resistance.clear();
-        for (int i = 0; i < (int)speedTable.size(); i++) {
-            myTrainParams.traction[speedTable[i]] = tractionTable[i];
-            myTrainParams.resistance[speedTable[i]] = resistanceTable[i];
-        }
-    }
+    myTrainParams.traction = vtype->getParameter().getCFProfile(SUMO_ATTR_TRACTION_TABLE, myTrainParams.traction);
+    myTrainParams.resistance = vtype->getParameter().getCFProfile(SUMO_ATTR_RESISTANCE_TABLE, myTrainParams.resistance);
 
     // init parametric curves
     myTrainParams.maxPower = vtype->getParameter().getCFParam(SUMO_ATTR_MAXPOWER, INVALID_DOUBLE);
@@ -137,7 +121,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     } else if (myTrainParams.maxPower == INVALID_DOUBLE && myTrainParams.maxTraction != INVALID_DOUBLE) {
         throw ProcessError(TLF("Undefined maxTraction for vType '%'.", vtype->getID()));
     }
-    if (myTrainParams.maxPower != INVALID_DOUBLE && tractionTable.size() > 0) {
+    if (myTrainParams.maxPower != INVALID_DOUBLE && vtype->getParameter().getCFParamString(SUMO_ATTR_TRACTION_TABLE, "") != "") {
         WRITE_WARNING(TLF("Ignoring tractionTable because maxPower and maxTraction are set for vType '%'.", vtype->getID()));
     }
     const bool hasSomeResCoef = (myTrainParams.resCoef_constant != INVALID_DOUBLE
@@ -149,7 +133,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     if (hasSomeResCoef && !hasAllResCoef) {
         throw ProcessError(TLF("Some undefined resistance coefficients for vType '%' (requires resCoef_constant, resCoef_linear and resCoef_quadratic)", vtype->getID()));
     }
-    if (myTrainParams.resCoef_constant != INVALID_DOUBLE && resistanceTable.size() > 0) {
+    if (myTrainParams.resCoef_constant != INVALID_DOUBLE && vtype->getParameter().getCFParamString(SUMO_ATTR_RESISTANCE_TABLE, "") != "") {
         WRITE_WARNING(TLF("Ignoring resistanceTable because resistance coefficients are set for vType '%'.", vtype->getID()));
     }
 
@@ -163,19 +147,6 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
 
 
 MSCFModel_Rail::~MSCFModel_Rail() { }
-
-
-std::vector<double>
-MSCFModel_Rail::getValueTable(const MSVehicleType* vtype, SumoXMLAttr attr) {
-    std::vector<double> result;
-    const std::string values = vtype->getParameter().getCFParamString(attr, "");
-    if (!values.empty()) {
-        for (std::string value : StringTokenizer(values).getVector()) {
-            result.push_back(StringUtils::toDouble(value));
-        }
-    }
-    return result;
-}
 
 
 double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double gap,

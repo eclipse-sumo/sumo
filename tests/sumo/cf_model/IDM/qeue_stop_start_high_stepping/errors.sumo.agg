@@ -1,0 +1,2 @@
+Warning: 1 total messages of type: Stepping duration of % for % model in vType % is unsafe
+Warning: 3 total messages of type: Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.

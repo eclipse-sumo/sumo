@@ -1,0 +1,7 @@
+Warning: 1 total messages of type: At NEMA tlLogic '%', actuated phase % has no controlling detector
+Warning: 1 total messages of type: At NEMA tlLogic '%, linkIndex % has no controlling detector
+Warning: 1 total messages of type: Teleporting vehicle 'SE.24'; collision with vehicle 'WE.114', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'SE.48'; collision with vehicle 'WE.242', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'WE.112'; collision with vehicle 'SE.23', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Teleporting vehicle 'WE.240'; collision with vehicle 'SE.47', lane='%', gap=%%, time=%, stage=%.
+Warning: 4 total messages of type: Vehicle '%' teleports beyond arrival edge '%', time=%.

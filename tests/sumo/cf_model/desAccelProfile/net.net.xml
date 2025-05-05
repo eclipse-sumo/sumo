@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-25 13:39:39 by Eclipse SUMO netedit Version v1_22_0+1740-14a490d9871
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="1589.00,1511.23" convBoundary="0.00,0.00,10000.00,0.00" origBoundary="-1589.00,-1511.23,1589.00,1511.23" projParameter="!"/>
+
+    <edge id="0" from="start" to="end" priority="1" spreadType="center">
+        <lane id="0_0" index="0" speed="55.55" length="10000.00" shape="0.00,0.00 10000.00,0.00"/>
+    </edge>
+
+    <junction id="end" type="dead_end" x="10000.00" y="0.00" incLanes="0_0" intLanes="" shape="10000.00,-1.60 10000.00,1.60"/>
+    <junction id="start" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,1.60 0.00,-1.60"/>
+
+</net>

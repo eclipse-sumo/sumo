@@ -386,7 +386,7 @@ GNETLSEditorFrame::buildInternalLanes(const NBTrafficLightDefinition* tlDef) {
                     backward.move2side(crossing->width / 4);
                     GNEInternalLane* internalLaneReverse = new GNEInternalLane(this, myTLSJunction->getCurrentJunction(), crossing->id + "_r", backward, crossing->tlLinkIndex2);
                     // add into atribute carriers
-                    myViewNet->getNet()->getAttributeCarriers()->insertInternalLane(internalLane);
+                    myViewNet->getNet()->getAttributeCarriers()->insertInternalLane(internalLaneReverse);
                     myInternalLanes[crossing->tlLinkIndex2].push_back(internalLaneReverse);
                 } else {
                     // draw only one lane for both directions

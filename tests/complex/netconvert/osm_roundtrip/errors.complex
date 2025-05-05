@@ -20,6 +20,12 @@ Warning: Minor green from edge '-24214693#0' to edge '-7727483#3' exceeds 19.44m
 Warning: 8 total messages of type: Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.
 --- 
 +++ 
+@@ -1,4 +1,4 @@
+-<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
++<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+ 
+ 
+     <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" width="2.00"/>
 @@ -887,7 +887,7 @@
      <junction id="38919927" type="priority" x="297.39" y="446.01" incLanes="-6137233#0_0" intLanes="" shape="297.39,446.01 296.76,449.15 297.39,446.01">
          <request index="0" response="0" foes="0"/>

@@ -16,7 +16,7 @@
 # @date    2024-05-03
 
 import argparse
-import os
+import io
 import zipfile
 
 import requests
@@ -42,7 +42,7 @@ def get_latest_artifact_url(options, artifact_name):
     response = request("%sworkflows/%s/runs" % (prefix, workflow_id), options.token)
     for workflow_run in response.json()['workflow_runs']:
         if (workflow_run['status'] == "completed"
-            and workflow_run['conclusion'] == "success"
+            and (options.allow_failed or workflow_run['conclusion'] == "success")
                 and workflow_run['head_branch'] == options.branch):
             workflow_run_id = workflow_run['id']
             break
@@ -56,6 +56,7 @@ def get_latest_artifact_url(options, artifact_name):
             artifact_id = artifact['id']
     if artifact_id:
         return "%sartifacts/%s/zip" % (prefix, artifact_id)
+    return None
 
 
 if __name__ == "__main__":
@@ -67,17 +68,16 @@ if __name__ == "__main__":
     ap.add_argument("--branch", default="main")
     ap.add_argument("--token", help="GitHub authentication token")
     ap.add_argument("--directory", help="output directory")
+    ap.add_argument("--allow-failed", action="store_true", default=False, help="download even if the build failed")
     ap.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me more")
     options = ap.parse_args()
 
-    for minor in range(7, 13):
+    for minor in range(8, 14):
         artifact_url = get_latest_artifact_url(options, "libsumo-python-3.%s-wheels" % minor)
-        response = request(artifact_url, options.token)
-        if response.status_code == 200:
-            with open("wheels.zip", "wb") as w:
-                w.write(response.content)
-            zip = zipfile.ZipFile(w.name)
-            zip.extractall(options.directory)
-            os.remove(w.name)
-        if options.verbose:
-            print(artifact_url, response)
+        if artifact_url:
+            response = request(artifact_url, options.token)
+            if response.status_code == 200:
+                with zipfile.ZipFile(io.BytesIO(response.content)) as zip:
+                    zip.extractall(options.directory)
+            if options.verbose:
+                print(artifact_url, response)

@@ -14,6 +14,8 @@ implement only the following, major ones:
 - PM<sub>x</sub>
 - fuel consumption
 
+A publication that explains the details of the Model implementation can be found at [Second_Generation_of_Pollutant_Emission_Models_for_SUMO, Daniel Krajzewicz et.al. 2014](https://www.researchgate.net/publication/263281112_Second_Generation_of_Pollutant_Emission_Models_for_SUMO)
+
 ## Vehicle Emission Classes
 
 The vehicle classes below map directly to vehicle classes supplied by

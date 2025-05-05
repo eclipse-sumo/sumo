@@ -39,7 +39,6 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
 import route2poly  # noqa
 import sumolib  # noqa
 from sumolib.miscutils import humanReadableTime  # noqa
-from sumolib.net import lane2edge  # noqa
 import tracemapper  # noqa
 
 import gtfs2fcd  # noqa
@@ -239,12 +238,12 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                     for idx, xy in enumerate(trace):
                         candidates = stopLookup.getCandidates(xy, options.radius)
                         if candidates:
-                            all_edges = [invEdgeMap[lane2edge(stop.lane)] for stop in candidates]
+                            all_edges = [invEdgeMap[sumolib._laneID2edgeID(stop.lane)] for stop in candidates]
                             vias[idx] = [e for e in all_edges if e in mode_edges]
                 for idx in range(len(trace)):
                     fixed = fixedStops.get("%s.%s" % (tid, idx))
                     if fixed:
-                        vias[idx] = [invEdgeMap[lane2edge(fixed.lane)]]
+                        vias[idx] = [invEdgeMap[sumolib._laneID2edgeID(fixed.lane)]]
                 if trace in traceCache:
                     mappedRoute = traceCache[trace]
                     cacheHits += 1
@@ -357,7 +356,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                     xy = net.convertLonLat2XY(float(veh.x), float(veh.y))
                     candidates = stopLookup.getCandidates(xy, options.radius)
                     if candidates:
-                        on_route = [s for s in candidates if lane2edge(s.lane) in route[lastIndex:]]
+                        on_route = [s for s in candidates if sumolib._laneID2edgeID(s.lane) in route[lastIndex:]]
                         if on_route:
                             bestDist = 1e3 * options.radius
                             for stopObj in on_route:
@@ -373,7 +372,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
 
                                 endPos = float(stopObj.endPos)
                                 if (stopIndex > 0
-                                        and lane2edge(stopObj.lane) == route[lastIndex]
+                                        and sumolib._laneID2edgeID(stopObj.lane) == route[lastIndex]
                                         and lane.interpretOffset(endPos) < lane.interpretOffset(lastPos)):
                                     continue
                                 dist = sumolib.geomhelper.distance(stopObj.center_xy, xy)

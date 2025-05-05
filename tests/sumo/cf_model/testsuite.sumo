@@ -1,5 +1,6 @@
 # test the use of model-specific parameters
 parameters
+desAccelProfile
 
 # create fundamental diagram. to plot:
 # visualization/plotXMLAttributes.py edgedata.xml -i id -x density -y left -s --scatterplot --yfactor 60 --ylabel vehs/hour

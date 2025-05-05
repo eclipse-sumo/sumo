@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <vType accel="1.0" decel="5.0" id="ElectricVehicle1" emissionClass="Energy" mass="1600" maxSpeed="100.0" sigma="0.0">
+        <param key="device.battery.capacity" value="2500"/>
+    </vType>
+
+    <route id="route01" edges="E0 -E0"/>
+
+    <vehicle depart="000" id="veh0" route="route01" type="ElectricVehicle1">
+        <param key="device.battery.chargeLevel" value="1500"/>
+    </vehicle>
+</routes>

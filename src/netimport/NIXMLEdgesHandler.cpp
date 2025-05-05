@@ -203,8 +203,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         if (!ok) {
             return;
         }
-        if (!myTypeCont.knows(myCurrentType) && !myOptions.getBool("ignore-errors.edge-type")) {
+        if (!myTypeCont.knows(myCurrentType) && !myOptions.getBool("ignore-errors.edge-type") && myHaveReportedMissingType.count(myCurrentType) == 0) {
             WRITE_ERRORF("Type '%' used by edge '%' was not defined (ignore with option --ignore-errors.edge-type).", myCurrentType, myCurrentID);
+            myHaveReportedMissingType.insert(myCurrentType);
             return;
         }
         myCurrentSpeed = myTypeCont.getEdgeTypeSpeed(myCurrentType);

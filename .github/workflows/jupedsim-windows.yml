@@ -21,7 +21,7 @@ jobs:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails
       fail-fast: false
       matrix:
-        jps_version: [rls-1.2, master]
+        jps_version: [rls-1.3, master]
         build_config: [Release, Debug]
 
     steps:

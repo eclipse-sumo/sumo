@@ -28,6 +28,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/LinearApproxHelpers.h>
 #include <utils/distribution/Distribution_Parameterized.h>
 
 // ===========================================================================
@@ -222,6 +223,9 @@ public:
      * @return The named value from the map or the default if it does not exist there
      */
     double getCFParam(const SumoXMLAttr attr, const double defaultValue) const;
+
+    /// @brief retrieve value table from cfParameter
+    std::vector<double> getCFValueTable(SumoXMLAttr attr) const;
 
     /** @brief Returns the named value from the map, or the default if it is not contained there
     * @param[in] attr The corresponding xml attribute
@@ -532,7 +536,7 @@ public:
      * @param[in] maxAccel the maximum acceleration for all speeds
      * @return the maximum acceleration profile in m/s^2
      */
-    static std::vector<std::pair<double, double> > getDefaultMaxAccelProfile(const SUMOVehicleClass vc, double maxAccel);
+    static LinearApproxHelpers::LinearApproxMap getDefaultMaxAccelProfile(const SUMOVehicleClass vc, double maxAccel);
 
     /** @brief Returns the default desired acceleration profile for the given vehicle class
      * This needs to be a function because the actual profile is stored in the car following model
@@ -540,14 +544,14 @@ public:
      * @param[in] desAccel the desired acceleration for all speeds
      * @return the desired acceleration profile in m/s^2
      */
-    static std::vector<std::pair<double, double> > getDefaultDesAccelProfile(const SUMOVehicleClass vc, double desAccel);
+    static LinearApproxHelpers::LinearApproxMap getDefaultDesAccelProfile(const SUMOVehicleClass vc, double desAccel);
 
     /** @brief Returns the named value from the map, or the default if it is not contained there
      * @param[in] attr The corresponding xml attribute
      * @param[in] defaultValue The value to return if the given map does not contain the named variable
      * @return The named value from the map or the default if it does not exist there
      */
-    std::vector<std::pair<double, double> > getCFProfile(const SumoXMLAttr attr, const std::vector<std::pair<double, double> > defaultProfile) const;
+    LinearApproxHelpers::LinearApproxMap getCFProfile(const SumoXMLAttr attr, const LinearApproxHelpers::LinearApproxMap& defaultProfile) const;
 
     /** @brief Creates a vector of pairs from a string
      * @param[in] profile The string containing pairs

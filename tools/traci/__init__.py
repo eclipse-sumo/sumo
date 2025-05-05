@@ -21,6 +21,7 @@
 
 from __future__ import absolute_import
 import os
+import sys
 import warnings
 
 # the pure python version needs to be the first variant to help IDEs finding the docstrings
@@ -38,7 +39,8 @@ else:
                 print("Using libtraci as traci as requested by environment variable.")
     except ImportError as e:
         if 'LIBSUMO_AS_TRACI' in os.environ:
-            warnings.warn("Could not import libsumo, falling back to pure python traci (%s)." % e)
+            warnings.warn("Could not import libsumo using %s, falling back to pure python traci (%s)." %
+                          (sys.executable, e))
         else:
             warnings.warn("Could not import libtraci, falling back to pure python traci (%s)." % e)
         from .main import *  # noqa

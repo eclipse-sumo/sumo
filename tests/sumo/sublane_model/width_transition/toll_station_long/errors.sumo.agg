@@ -1,0 +1,17 @@
+Warning: 2 total messages of type: Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.
+Warning: 1 total messages of type: Vehicle 'v.13167'; junction collision with vehicle 'v.13612', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.13278'; collision with vehicle 'v.13112', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.13834'; side collision with vehicle 'v.14334', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.14167'; collision with vehicle 'v.14445', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.14834'; junction collision with vehicle 'v.14667', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.15613'; junction collision with vehicle 'v.15778', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.17500'; junction collision with vehicle 'v.17334', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.17667'; collision with vehicle 'v.17500', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.19612'; collision with vehicle 'v.19445', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.19667'; junction collision with vehicle 'v.19500', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.20667'; junction collision with vehicle 'v.20500', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.2112'; junction collision with vehicle 'v.1945', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.4389'; collision with vehicle 'v.3945', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.7389'; side collision with vehicle 'v.7223', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.8724'; side collision with vehicle 'v.8890', lane='%', gap=%%, time=%, stage=%.
+Warning: 1 total messages of type: Vehicle 'v.9889'; collision with vehicle 'v.9667', lane='%', gap=%%, time=%, stage=%.

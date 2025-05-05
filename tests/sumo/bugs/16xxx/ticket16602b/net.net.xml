@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-28 14:25:32 by Eclipse SUMO netedit Version v1_22_0+1783-505b7462ad7
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/localdata/1/debug/16602/reduced3.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata/1/debug/16602/reduced3.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-672401.23,-5399632.08" convBoundary="3173.75,5249.40,3785.49,5573.96" origBoundary="11.274814,48.715766,11.611141,48.814343" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="cycleway.track|highway.primary" priority="12" numLanes="2" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric ship" oneway="1" sidewalkWidth="-1.00" bikeLaneWidth="-1.00"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="1" width="2.00"/>
+    <type id="highway.primary" priority="12" numLanes="2" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric ship" oneway="1" sidewalkWidth="-1.00"/>
+    <type id="highway.secondary" priority="11" numLanes="2" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric ship" oneway="1" sidewalkWidth="-1.00"/>
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric ship" oneway="1" sidewalkWidth="-1.00"/>
+
+    <edge id=":1870520929_0" function="internal">
+        <lane id=":1870520929_0_0" index="0" allow="pedestrian bicycle" speed="2.78" length="0.26" width="2.00" shape="3679.15,5329.66 3679.17,5329.40"/>
+    </edge>
+    <edge id=":cluster_1602381793_1782978609_1804327788_313321254_w0" function="walkingarea">
+        <lane id=":cluster_1602381793_1782978609_1804327788_313321254_w0_0" index="0" allow="pedestrian" speed="2.78" length="16.41" width="2.00" shape="3699.38,5256.00 3701.38,5256.18 3683.01,5254.87 3685.01,5254.98"/>
+    </edge>
+    <edge id=":cluster_6807450803_6807450804_0" function="internal">
+        <lane id=":cluster_6807450803_6807450804_0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="8.84" shape="3690.50,5327.46 3690.95,5330.07 3692.01,5331.74 3693.06,5333.40 3693.47,5336.01"/>
+        <lane id=":cluster_6807450803_6807450804_0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="8.84" shape="3690.50,5327.46 3690.27,5335.89"/>
+    </edge>
+    <edge id=":cluster_6807450803_6807450804_2" function="internal">
+        <lane id=":cluster_6807450803_6807450804_2_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="8.38" shape="3687.11,5335.78 3687.30,5327.40"/>
+    </edge>
+    <edge id=":cluster_6807450803_6807450804_3" function="internal">
+        <lane id=":cluster_6807450803_6807450804_3_0" index="0" allow="bicycle" speed="8.34" length="9.08" width="2.00" shape="3696.84,5327.58 3697.38,5330.19 3698.23,5331.90 3699.00,5333.61 3699.27,5336.22"/>
+    </edge>
+    <edge id=":cluster_6807450803_6807450804_w0" function="walkingarea">
+        <lane id=":cluster_6807450803_6807450804_w0_0" index="0" allow="pedestrian" speed="2.78" length="9.78" width="2.00" shape="3700.27,5336.26 3702.26,5336.33 3697.83,5327.51 3695.84,5327.65 3692.68,5329.80 3694.22,5331.09 3696.22,5331.87 3698.22,5332.65 3699.73,5333.94"/>
+    </edge>
+    <edge id=":gneJ498_0" function="internal">
+        <lane id=":gneJ498_0_0" index="0" allow="pedestrian bicycle" speed="2.78" length="5.73" width="2.00" shape="3706.45,5427.70 3705.05,5427.90 3704.10,5428.62 3703.58,5429.87 3703.50,5431.64"/>
+    </edge>
+    <edge id=":gneJ498_1" function="internal">
+        <lane id=":gneJ498_1_0" index="0" allow="bicycle" speed="6.23" length="4.98" width="2.00" shape="3706.45,5427.70 3705.35,5427.67 3703.85,5427.56 3702.46,5427.29 3701.64,5426.79"/>
+    </edge>
+    <edge id=":gneJ498_2" function="internal">
+        <lane id=":gneJ498_2_0" index="0" allow="pedestrian bicycle" speed="2.78" length="5.97" width="2.00" shape="3703.39,5425.82 3703.98,5427.39 3703.90,5428.59 3703.60,5429.86 3703.50,5431.64"/>
+    </edge>
+    <edge id=":gneJ498_w0" function="walkingarea">
+        <lane id=":gneJ498_w0_0" index="0" allow="pedestrian" speed="2.78" length="4.78" width="2.00" shape="3702.50,5431.71 3704.50,5431.57 3706.41,5428.70 3706.49,5426.70 3704.26,5425.33 3702.52,5426.30"/>
+    </edge>
+    <edge id=":gneJ500_0" function="internal">
+        <lane id=":gneJ500_0_0" index="0" allow="bicycle" speed="10.78" length="32.90" width="2.00" shape="3698.86,5421.78 3694.60,5419.79 3688.59,5419.21 3680.52,5417.86 3673.14,5415.72 3667.09,5417.46"/>
+    </edge>
+    <edge id=":gneJ500_1" function="internal">
+        <lane id=":gneJ500_1_0" index="0" allow="bicycle" speed="8.34" length="37.00" width="2.00" shape="3698.86,5421.78 3694.21,5418.05 3683.54,5416.69 3672.47,5414.33 3666.35,5414.82 3666.91,5412.05"/>
+    </edge>
+    <edge id=":gneJ500_2" function="internal">
+        <lane id=":gneJ500_2_0" index="0" allow="bicycle" speed="9.09" length="2.90" width="2.00" shape="3698.86,5421.78 3698.97,5418.88"/>
+    </edge>
+    <edge id=":gneJ500_32" function="internal">
+        <lane id=":gneJ500_32_0" index="0" allow="bicycle" speed="8.34" length="29.36" width="2.00" shape="3666.91,5412.05 3668.17,5405.88 3670.08,5393.69 3671.35,5387.58 3672.82,5383.35"/>
+    </edge>
+    <edge id=":gneJ500_33" function="internal">
+        <lane id=":gneJ500_33_0" index="0" allow="bicycle" speed="9.09" length="26.58" width="2.00" shape="3698.97,5418.88 3699.20,5413.18 3700.38,5404.12 3702.20,5397.36 3706.86,5398.24"/>
+    </edge>
+    <edge id=":gneJ500_3" function="internal">
+        <lane id=":gneJ500_3_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="6.58" length="9.62" shape="3702.58,5417.69 3699.53,5417.51 3697.27,5418.09 3695.80,5419.45 3695.12,5421.58"/>
+    </edge>
+    <edge id=":gneJ500_4" function="internal">
+        <lane id=":gneJ500_4_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="39.37" shape="3703.27,5414.56 3664.39,5409.63"/>
+        <lane id=":gneJ500_4_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="39.37" shape="3703.96,5411.43 3664.73,5406.45"/>
+    </edge>
+    <edge id=":gneJ500_6" function="internal">
+        <lane id=":gneJ500_6_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="12.96" length="13.64" shape="3704.64,5408.30 3696.19,5405.68 3692.39,5402.76"/>
+    </edge>
+    <edge id=":gneJ500_7" function="internal">
+        <lane id=":gneJ500_7_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="4.15" length="3.29" shape="3704.64,5408.30 3703.24,5406.84 3702.93,5405.62"/>
+    </edge>
+    <edge id=":gneJ500_34" function="internal">
+        <lane id=":gneJ500_34_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="12.96" length="19.58" shape="3692.39,5402.76 3690.08,5400.99 3686.30,5394.24 3684.85,5385.43"/>
+    </edge>
+    <edge id=":gneJ500_35" function="internal">
+        <lane id=":gneJ500_35_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="4.15" length="3.29" shape="3702.93,5405.62 3703.72,5404.64 3705.61,5403.90"/>
+    </edge>
+    <edge id=":gneJ500_8" function="internal">
+        <lane id=":gneJ500_8_0" index="0" allow="bicycle" speed="9.49" length="17.60" width="2.00" shape="3697.67,5385.06 3698.18,5390.06 3699.87,5393.92 3702.77,5396.64 3706.86,5398.24"/>
+    </edge>
+    <edge id=":gneJ500_9" function="internal">
+        <lane id=":gneJ500_9_0" index="0" allow="bicycle" speed="8.34" length="35.89" width="2.00" shape="3697.67,5385.06 3698.33,5395.00 3698.71,5404.16 3699.90,5415.53 3700.61,5420.81"/>
+    </edge>
+    <edge id=":gneJ500_10" function="internal">
+        <lane id=":gneJ500_10_0" index="0" allow="bicycle" speed="13.89" length="38.00" width="2.00" shape="3697.67,5385.06 3697.05,5395.03 3698.06,5410.89 3698.18,5421.22 3696.51,5420.57"/>
+    </edge>
+    <edge id=":gneJ500_11" function="internal">
+        <lane id=":gneJ500_11_0" index="0" allow="bicycle" speed="3.68" length="5.28" width="2.00" shape="3680.54,5385.55 3675.32,5384.77"/>
+    </edge>
+    <edge id=":gneJ500_12" function="internal">
+        <lane id=":gneJ500_12_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="10.44" length="7.15" shape="3695.07,5385.14 3695.69,5391.04 3696.19,5392.14"/>
+    </edge>
+    <edge id=":gneJ500_13" function="internal">
+        <lane id=":gneJ500_13_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="36.57" shape="3691.87,5385.23 3692.41,5397.21 3693.80,5406.52 3695.05,5414.28 3695.12,5421.58"/>
+    </edge>
+    <edge id=":gneJ500_14" function="internal">
+        <lane id=":gneJ500_14_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="12.45" length="38.26" shape="3688.67,5385.32 3687.28,5396.36 3683.20,5403.23 3675.87,5406.43 3664.73,5406.45"/>
+    </edge>
+    <edge id=":gneJ500_36" function="internal">
+        <lane id=":gneJ500_36_0" index="0" allow="bicycle" speed="13.89" length="30.07" width="2.00" shape="3696.51,5420.57 3694.83,5419.92 3686.92,5419.08 3673.30,5416.04 3667.11,5417.48"/>
+    </edge>
+    <edge id=":gneJ500_37" function="internal">
+        <lane id=":gneJ500_37_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="10.44" length="13.96" shape="3696.19,5392.14 3697.77,5395.61 3701.30,5398.86 3706.30,5400.78"/>
+    </edge>
+    <edge id=":gneJ500_15" function="internal">
+        <lane id=":gneJ500_15_0" index="0" allow="pedestrian bicycle" speed="2.78" length="2.89" width="2.00" shape="3670.63,5385.07 3671.32,5384.75 3671.98,5384.41 3672.52,5383.97 3672.82,5383.35"/>
+    </edge>
+    <edge id=":gneJ500_16" function="internal">
+        <lane id=":gneJ500_16_0" index="0" allow="bicycle" speed="8.34" length="41.07" width="2.00" shape="3670.63,5385.07 3675.52,5385.58 3685.56,5387.89 3697.70,5388.52 3704.39,5397.32 3706.86,5398.24"/>
+    </edge>
+    <edge id=":gneJ500_17" function="internal">
+        <lane id=":gneJ500_17_0" index="0" allow="pedestrian bicycle" speed="2.78" length="40.00" width="2.00" shape="3670.63,5385.07 3675.46,5385.78 3698.54,5387.68 3703.25,5393.90 3703.93,5397.84 3703.91,5398.00"/>
+    </edge>
+    <edge id=":gneJ500_18" function="internal">
+        <lane id=":gneJ500_18_0" index="0" allow="pedestrian bicycle" speed="8.34" length="1.04" width="2.00" shape="3670.63,5385.07 3671.30,5385.86"/>
+    </edge>
+    <edge id=":gneJ500_38" function="internal">
+        <lane id=":gneJ500_38_0" index="0" allow="pedestrian bicycle" speed="2.78" length="23.05" width="2.00" shape="3703.91,5398.00 3700.61,5420.81"/>
+    </edge>
+    <edge id=":gneJ500_39" function="internal">
+        <lane id=":gneJ500_39_0" index="0" allow="pedestrian bicycle" speed="8.34" length="34.41" width="2.00" shape="3671.30,5385.86 3673.98,5388.97 3673.97,5394.51 3672.89,5405.38 3671.59,5412.08 3667.09,5417.46"/>
+    </edge>
+    <edge id=":gneJ500_19" function="internal">
+        <lane id=":gneJ500_19_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="9.04" length="18.83" shape="3666.67,5388.12 3674.65,5387.97 3680.34,5387.47 3683.74,5386.62 3684.85,5385.43"/>
+    </edge>
+    <edge id=":gneJ500_20" function="internal">
+        <lane id=":gneJ500_20_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="41.13" shape="3666.33,5391.32 3678.26,5392.21 3686.49,5394.46 3694.62,5397.50 3706.30,5400.78"/>
+        <lane id=":gneJ500_20_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="41.13" shape="3665.99,5394.51 3677.87,5395.40 3685.97,5397.62 3693.99,5400.64 3705.61,5403.90"/>
+    </edge>
+    <edge id=":gneJ500_22" function="internal">
+        <lane id=":gneJ500_22_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="12.99" length="27.51" shape="3665.65,5397.71 3678.34,5398.67 3686.98,5402.18 3689.91,5406.79"/>
+    </edge>
+    <edge id=":gneJ500_23" function="internal">
+        <lane id=":gneJ500_23_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="5.46" length="9.47" shape="3665.65,5397.71 3668.70,5400.24 3669.56,5402.54 3668.23,5404.61 3667.71,5404.89"/>
+    </edge>
+    <edge id=":gneJ500_40" function="internal">
+        <lane id=":gneJ500_40_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="12.99" length="14.91" shape="3689.91,5406.79 3691.53,5409.34 3691.94,5421.22"/>
+    </edge>
+    <edge id=":gneJ500_41" function="internal">
+        <lane id=":gneJ500_41_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="5.46" length="3.36" shape="3667.71,5404.89 3664.73,5406.45"/>
+    </edge>
+    <edge id=":gneJ500_24" function="internal">
+        <lane id=":gneJ500_24_0" index="0" allow="pedestrian bicycle" speed="2.78" length="4.53" width="2.00" shape="3665.67,5416.06 3666.95,5411.71"/>
+    </edge>
+    <edge id=":gneJ500_25" function="internal">
+        <lane id=":gneJ500_25_0" index="0" allow="bicycle" speed="8.34" length="35.00" width="2.00" shape="3665.67,5416.06 3668.35,5412.82 3671.67,5396.74 3674.06,5385.94 3677.36,5386.25"/>
+    </edge>
+    <edge id=":gneJ500_26" function="internal">
+        <lane id=":gneJ500_26_0" index="0" allow="pedestrian bicycle" speed="2.78" length="0.41" width="2.00" shape="3665.67,5416.06 3666.06,5415.91"/>
+    </edge>
+    <edge id=":gneJ500_27" function="internal">
+        <lane id=":gneJ500_27_0" index="0" allow="pedestrian bicycle" speed="2.89" length="0.90" width="2.00" shape="3665.67,5416.06 3666.55,5415.88"/>
+    </edge>
+    <edge id=":gneJ500_42" function="internal">
+        <lane id=":gneJ500_42_0" index="0" allow="pedestrian bicycle" speed="2.78" length="29.01" width="2.00" shape="3666.95,5411.71 3667.53,5409.77 3669.34,5398.50 3670.95,5389.58 3672.82,5383.35"/>
+    </edge>
+    <edge id=":gneJ500_43" function="internal">
+        <lane id=":gneJ500_43_0" index="0" allow="bicycle" speed="8.34" length="35.02" width="2.00" shape="3677.36,5386.25 3686.26,5387.07 3699.43,5388.19 3704.22,5396.82 3706.86,5398.24"/>
+    </edge>
+    <edge id=":gneJ500_44" function="internal">
+        <lane id=":gneJ500_44_0" index="0" allow="pedestrian bicycle" speed="2.78" length="38.14" width="2.00" shape="3666.06,5415.91 3676.14,5412.06 3686.05,5413.80 3696.71,5415.66 3700.61,5420.81"/>
+    </edge>
+    <edge id=":gneJ500_45" function="internal">
+        <lane id=":gneJ500_45_0" index="0" allow="pedestrian bicycle" speed="2.89" length="2.02" width="2.00" shape="3666.55,5415.88 3667.08,5416.05 3667.26,5416.58 3667.09,5417.46"/>
+    </edge>
+    <edge id=":gneJ500_28" function="internal">
+        <lane id=":gneJ500_28_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="9.53" length="10.49" shape="3671.00,5417.57 3668.87,5414.18 3667.05,5411.72 3665.56,5410.21 3664.39,5409.63"/>
+    </edge>
+    <edge id=":gneJ500_29" function="internal">
+        <lane id=":gneJ500_29_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="34.84" shape="3679.13,5419.75 3680.24,5408.76 3682.21,5398.84 3684.08,5390.79 3684.85,5385.43"/>
+    </edge>
+    <edge id=":gneJ500_30" function="internal">
+        <lane id=":gneJ500_30_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="11.93" length="37.46" shape="3682.32,5420.11 3683.94,5409.36 3688.24,5402.66 3695.57,5399.85 3706.30,5400.78"/>
+        <lane id=":gneJ500_30_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="11.00" length="31.69" shape="3685.51,5420.48 3686.85,5411.35 3690.42,5405.60 3696.57,5403.15 3705.61,5403.90"/>
+    </edge>
+    <edge id=":gneJ500_w1" function="walkingarea">
+        <lane id=":gneJ500_w1_0" index="0" allow="pedestrian" speed="2.78" length="13.61" width="2.00" shape="3707.07,5397.26 3707.50,5395.31 3700.67,5385.02 3698.67,5384.99 3698.86,5388.28 3699.53,5391.01 3700.68,5393.28 3702.33,5395.07 3704.46,5396.40"/>
+    </edge>
+    <edge id=":gneJ500_w2" function="walkingarea">
+        <lane id=":gneJ500_w2_0" index="0" allow="pedestrian" speed="2.78" length="2.79" width="2.00" shape="3673.80,5383.56 3671.84,5383.15 3670.17,5384.18 3671.09,5385.96 3671.74,5386.50 3675.90,5386.42 3679.12,5386.28 3681.42,5386.07 3682.80,5385.80"/>
+    </edge>
+    <edge id=":gneJ500_w3" function="walkingarea">
+        <lane id=":gneJ500_w3_0" index="0" allow="pedestrian" speed="2.78" length="2.00" width="2.00" shape="3664.96,5415.36 3666.38,5416.76 3667.81,5418.16 3668.31,5416.23 3667.17,5414.46 3666.18,5413.08 3665.37,5412.08 3664.71,5411.46"/>
+    </edge>
+    <edge id=":gneJ502_0" function="internal">
+        <lane id=":gneJ502_0_0" index="0" allow="pedestrian bicycle" speed="2.78" length="5.92" width="2.00" shape="3665.17,5421.98 3664.59,5420.56 3663.74,5419.42 3662.61,5418.54 3661.20,5417.94"/>
+    </edge>
+    <edge id=":gneJ502_1" function="internal">
+        <lane id=":gneJ502_1_0" index="0" allow="pedestrian bicycle" speed="2.78" length="5.05" width="2.00" shape="3665.17,5421.98 3664.88,5420.91 3664.57,5419.42 3664.43,5417.98 3664.69,5417.05"/>
+    </edge>
+    <edge id=":gneJ502_2" function="internal">
+        <lane id=":gneJ502_2_0" index="0" allow="pedestrian bicycle" speed="6.05" length="5.05" width="2.00" shape="3666.12,5418.45 3665.53,5418.70 3664.52,5418.70 3663.08,5418.44 3661.20,5417.94"/>
+    </edge>
+    <edge id=":gneJ502_w0" function="walkingarea">
+        <lane id=":gneJ502_w0_0" index="0" allow="pedestrian" speed="2.78" length="4.14" width="4.00" shape="3664.20,5422.25 3666.13,5421.71 3666.03,5420.79 3666.10,5420.35 3666.26,5419.94 3666.50,5419.54 3666.83,5419.16 3663.98,5416.35 3663.24,5416.89 3662.83,5417.04 3662.41,5417.10 3661.96,5417.09 3661.49,5416.98 3660.92,5418.90 3662.42,5419.61 3663.02,5420.12 3663.52,5420.73 3663.91,5421.44"/>
+    </edge>
+
+    <edge id="-201238726#0" from="cluster_6807450803_6807450804" to="cluster_1602381793_1782978609_1804327788_313321254" name="Permoserstraße" priority="10" type="highway.tertiary" shape="3688.82,5331.77 3688.95,5324.28 3689.38,5303.95 3690.51,5287.26 3692.34,5260.05">
+        <lane id="-201238726#0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="72.09" shape="3687.30,5327.40 3687.35,5324.25 3687.78,5303.88 3688.91,5287.15 3691.05,5255.43">
+            <param key="origId" value="201238726"/>
+        </lane>
+    </edge>
+    <edge id="-201238726#1" from="gneJ500" to="cluster_6807450803_6807450804" name="Permoserstraße" priority="10" type="highway.tertiary" shape="3686.45,5385.38 3686.24,5377.98 3686.84,5367.63 3688.77,5334.84 3688.82,5331.77">
+        <lane id="-201238726#1_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="49.72" shape="3684.85,5385.43 3684.64,5377.96 3685.24,5367.54 3687.11,5335.78">
+            <param key="origId" value="201238726"/>
+        </lane>
+    </edge>
+    <edge id="128361109#2" from="2190335546" to="gneJ500" name="Richard-Wagner-Straße" priority="12" type="highway.primary" spreadType="center" shape="3360.30,5326.72 3418.76,5344.10 3481.34,5361.16 3542.08,5374.70 3609.09,5388.21 3647.55,5392.16 3660.37,5392.90 3671.74,5392.93">
+        <lane id="128361109#2_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="313.74" shape="3361.67,5322.12 3420.08,5339.48 3482.49,5356.50 3543.08,5370.00 3609.81,5383.46 3647.93,5387.37 3660.51,5388.10 3666.67,5388.12">
+            <param key="origId" value="128361109"/>
+        </lane>
+        <lane id="128361109#2_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="313.74" shape="3360.75,5325.19 3419.20,5342.56 3481.72,5359.61 3542.41,5373.13 3609.33,5386.63 3647.68,5390.56 3660.42,5391.30 3666.33,5391.32">
+            <param key="origId" value="128361109"/>
+        </lane>
+        <lane id="128361109#2_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="313.74" shape="3359.84,5328.25 3418.32,5345.64 3480.96,5362.71 3541.75,5376.27 3608.85,5389.79 3647.42,5393.76 3660.32,5394.50 3665.99,5394.51">
+            <param key="origId" value="128361109"/>
+        </lane>
+        <lane id="128361109#2_3" index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="313.74" shape="3358.93,5331.32 3417.44,5348.72 3480.19,5365.82 3541.08,5379.40 3608.37,5392.96 3647.17,5396.95 3660.23,5397.70 3665.65,5397.71">
+            <param key="origId" value="128361109"/>
+        </lane>
+    </edge>
+    <edge id="128906569#8" from="cluster_1602381793_1782978609_1804327788_313321254" to="cluster_6807450803_6807450804" priority="1" type="highway.path" spreadType="center" shape="3699.96,5260.75 3695.98,5304.84 3696.40,5321.61 3697.19,5332.44">
+        <lane id="128906569#8_0" index="0" allow="pedestrian bicycle" speed="2.78" length="71.71" width="2.00" shape="3700.38,5256.09 3695.98,5304.84 3696.40,5321.61 3696.84,5327.58">
+            <param key="origId" value="128906569"/>
+        </lane>
+    </edge>
+    <edge id="137133006#0.121" from="gneJ386" to="gneJ500" name="Hans-Stuck-Straße" priority="11" type="highway.secondary" spreadType="center" shape="3676.72,5488.05 3681.40,5458.77 3682.09,5427.61 3682.47,5415.16">
+        <lane id="137133006#0.121_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="73.81" shape="3672.69,5492.97 3678.21,5458.48 3678.89,5427.53 3679.13,5419.75">
+            <param key="origId" value="137133006"/>
+        </lane>
+        <lane id="137133006#0.121_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="73.81" shape="3675.85,5493.47 3681.40,5458.77 3682.09,5427.61 3682.32,5420.11">
+            <param key="origId" value="137133006"/>
+        </lane>
+        <lane id="137133006#0.121_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="73.81" shape="3679.01,5493.98 3684.59,5459.06 3685.29,5427.69 3685.51,5420.48">
+            <param key="origId" value="137133006"/>
+        </lane>
+    </edge>
+    <edge id="137133008#0" from="gneJ502" to="1513106181" priority="1" type="highway.path" spreadType="center" shape="3664.30,5418.87 3651.83,5415.13 3641.22,5413.30 3626.57,5411.88 3605.38,5408.76 3533.96,5395.79 3501.51,5388.38">
+        <lane id="137133008#0_0" index="0" allow="pedestrian bicycle" speed="2.78" length="162.56" width="2.00" shape="3661.20,5417.94 3651.83,5415.13 3641.22,5413.30 3626.57,5411.88 3605.38,5408.76 3533.96,5395.79 3501.51,5388.38">
+            <param key="origId" value="137133008"/>
+        </lane>
+    </edge>
+    <edge id="137133008#1" from="1863241591" to="gneJ502" priority="1" type="highway.path" spreadType="center" shape="3662.23,5486.45 3668.26,5458.01 3669.26,5444.23 3668.67,5438.37 3668.05,5432.32 3664.30,5418.87">
+        <lane id="137133008#1_0" index="0" allow="pedestrian bicycle" speed="2.78" length="65.59" width="2.00" shape="3662.23,5486.45 3668.26,5458.01 3669.26,5444.23 3668.67,5438.37 3668.05,5432.32 3665.17,5421.98">
+            <param key="origId" value="137133008"/>
+        </lane>
+    </edge>
+    <edge id="166878984#0" from="gneJ500" to="1870520929" priority="1" type="highway.path" spreadType="center" shape="3673.08,5383.50 3672.63,5384.29 3675.96,5368.20 3677.38,5359.99 3679.16,5329.53">
+        <lane id="166878984#0_0" index="0" allow="pedestrian bicycle" speed="2.78" length="54.19" width="2.00" shape="3672.82,5383.35 3675.96,5368.20 3677.38,5359.99 3679.15,5329.66">
+            <param key="origId" value="166878984"/>
+        </lane>
+    </edge>
+    <edge id="166878984#1" from="1870520929" to="cluster_1602381793_1782978609_1804327788_313321254" priority="1" type="highway.path" spreadType="center" shape="3679.16,5329.53 3681.43,5303.82 3684.30,5249.40">
+        <lane id="166878984#1_0" index="0" allow="pedestrian bicycle" speed="2.78" length="74.64" width="2.00" shape="3679.17,5329.40 3681.43,5303.82 3684.01,5254.93">
+            <param key="origId" value="166878984"/>
+        </lane>
+    </edge>
+    <edge id="175770985" from="243630833" to="gneJ500" priority="1" type="highway.path" spreadType="center" shape="3173.75,5253.93 3181.75,5257.15 3281.49,5288.70 3404.16,5328.61 3450.48,5342.99 3500.13,5355.73 3572.28,5371.56 3610.95,5377.96 3661.59,5381.74 3669.74,5385.53 3670.63,5385.07">
+        <lane id="175770985_0" index="0" allow="pedestrian bicycle" speed="2.78" length="515.83" width="2.00" shape="3173.75,5253.93 3181.75,5257.15 3281.49,5288.70 3404.16,5328.61 3450.48,5342.99 3500.13,5355.73 3572.28,5371.56 3610.95,5377.96 3661.59,5381.74 3669.74,5385.53 3670.63,5385.07">
+            <param key="origId" value="175770985"/>
+        </lane>
+    </edge>
+    <edge id="175770986" from="gneJ498" to="1863241624" priority="1" type="highway.path" spreadType="center" shape="3703.22,5427.57 3704.33,5443.66 3704.61,5451.92 3700.84,5464.41 3696.08,5484.62 3689.44,5509.01 3684.69,5536.01 3681.83,5552.17 3677.01,5566.38">
+        <lane id="175770986_0" index="0" allow="pedestrian bicycle" speed="2.78" length="138.23" width="2.00" shape="3703.50,5431.64 3704.33,5443.66 3704.61,5451.92 3700.84,5464.41 3696.08,5484.62 3689.44,5509.01 3684.69,5536.01 3681.83,5552.17 3677.01,5566.38">
+            <param key="origId" value="175770986"/>
+        </lane>
+    </edge>
+    <edge id="176550265#0" from="gneJ500" to="gneJ498" priority="1" type="highway.path" spreadType="center" shape="3686.98,5396.25 3704.09,5427.08">
+        <lane id="176550265#0_0" index="0" allow="pedestrian bicycle" speed="2.78" length="5.73" width="2.00" shape="3700.61,5420.81 3703.39,5425.82">
+            <param key="origId" value="176550265"/>
+        </lane>
+    </edge>
+    <edge id="176550269#8" from="1992455911" to="gneJ498" priority="1" type="highway.path" spreadType="center" shape="3732.21,5430.18 3725.48,5428.93 3718.19,5428.19 3703.22,5427.57">
+        <lane id="176550269#8_0" index="0" allow="pedestrian bicycle" speed="2.78" length="25.92" width="2.00" shape="3732.21,5430.18 3725.48,5428.93 3718.19,5428.19 3706.45,5427.70">
+            <param key="origId" value="176550269"/>
+        </lane>
+    </edge>
+    <edge id="186865419#0" from="gneJ502" to="gneJ500" priority="1" type="highway.path" spreadType="center" shape="3663.57,5418.19 3685.41,5396.06">
+        <lane id="186865419#0_0" index="0" allow="pedestrian bicycle" speed="2.78" length="1.39" width="2.00" shape="3664.69,5417.05 3665.67,5416.06">
+            <param key="origId" value="186865419"/>
+        </lane>
+    </edge>
+    <edge id="201201953#12" from="195635398" to="gneJ500" name="Richard-Wagner-Straße" priority="12" type="cycleway.track|highway.primary" spreadType="center" shape="3777.35,5421.43 3741.87,5418.86 3718.20,5415.41 3700.55,5412.49">
+        <lane id="201201953#12_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="82.31" shape="3785.01,5426.80 3741.35,5423.63 3717.46,5420.15 3702.58,5417.69">
+            <param key="origId" value="201201953"/>
+        </lane>
+        <lane id="201201953#12_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="82.31" shape="3785.24,5423.61 3741.70,5420.45 3717.95,5416.99 3703.27,5414.56">
+            <param key="origId" value="201201953"/>
+        </lane>
+        <lane id="201201953#12_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="82.31" shape="3785.47,5420.41 3742.04,5417.27 3718.45,5413.83 3703.96,5411.43">
+            <param key="origId" value="201201953"/>
+        </lane>
+        <lane id="201201953#12_3" index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="82.31" shape="3785.70,5417.22 3742.39,5414.09 3718.94,5410.67 3704.64,5408.30">
+            <param key="origId" value="201201953"/>
+        </lane>
+    </edge>
+    <edge id="201238719#1" from="gneJ500" to="cluster_1863241610_1863241614_1863241632_1863241633_1863241635_1863241638_1863241639_1863241641_1870520994_7705782706" name="Hans-Stuck-Straße" priority="11" type="highway.secondary" spreadType="center" shape="3694.05,5416.87 3693.08,5425.39 3691.94,5451.74 3688.75,5477.91 3685.09,5504.11 3676.80,5529.32 3661.89,5560.04">
+        <lane id="201238719#1_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="162.60" shape="3695.12,5421.58 3694.68,5425.52 3693.54,5451.87 3690.34,5478.12 3686.65,5504.47 3678.29,5529.92 3655.16,5577.57">
+            <param key="origId" value="201238719"/>
+        </lane>
+        <lane id="201238719#1_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="162.60" shape="3691.94,5421.22 3691.48,5425.26 3690.34,5451.61 3687.16,5477.70 3683.53,5503.75 3675.31,5528.72 3652.28,5576.17">
+            <param key="origId" value="201238719"/>
+        </lane>
+    </edge>
+    <edge id="201238726#0" from="cluster_1602381793_1782978609_1804327788_313321254" to="cluster_6807450803_6807450804" name="Permoserstraße" priority="10" type="highway.tertiary" shape="3692.34,5260.05 3690.51,5287.26 3689.38,5303.95 3688.95,5324.28 3688.82,5331.77">
+        <lane id="201238726#0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="71.92" shape="3694.24,5255.65 3692.11,5287.37 3690.98,5304.02 3690.55,5324.31 3690.50,5327.46">
+            <param key="origId" value="201238726"/>
+        </lane>
+    </edge>
+    <edge id="201238726#1" from="cluster_6807450803_6807450804" to="gneJ500" name="Permoserstraße" priority="10" type="highway.tertiary" shape="3688.82,5331.77 3687.48,5368.79 3687.27,5373.33 3687.07,5385.14">
+        <lane id="201238726#1_0" index="0" allow="pedestrian" speed="13.89" length="49.07" width="2.00" shape="3701.26,5336.29 3700.07,5369.26 3699.87,5373.73 3699.67,5385.00">
+            <param key="origId" value="201238726"/>
+        </lane>
+        <lane id="201238726#1_1" index="1" allow="bicycle" speed="13.89" length="49.07" width="2.00" shape="3699.27,5336.22 3698.07,5369.19 3697.87,5373.66 3697.67,5385.06">
+            <param key="origId" value="201238726"/>
+        </lane>
+        <lane id="201238726#1_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="49.07" shape="3696.67,5336.13 3695.47,5369.09 3695.27,5373.58 3695.07,5385.14">
+            <param key="origId" value="201238726"/>
+        </lane>
+        <lane id="201238726#1_3" index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="49.07" shape="3693.47,5336.01 3692.28,5368.97 3692.07,5373.48 3691.87,5385.23">
+            <param key="origId" value="201238726"/>
+        </lane>
+        <lane id="201238726#1_4" index="4" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="49.07" shape="3690.27,5335.89 3689.08,5368.85 3688.87,5373.38 3688.67,5385.32">
+            <param key="origId" value="201238726"/>
+        </lane>
+    </edge>
+    <edge id="201238730" from="gneJ500" to="cluster_1602381828_1870520935" name="Richard-Wagner-Straße" priority="12" type="highway.primary" spreadType="center" shape="3702.52,5399.54 3709.90,5401.16 3739.48,5404.09">
+        <lane id="201238730_0" index="0" allow="pedestrian" speed="13.89" length="33.01" width="2.00" shape="3707.28,5396.29 3710.56,5397.00 3739.65,5399.89">
+            <param key="origId" value="201238730"/>
+        </lane>
+        <lane id="201238730_1" index="1" allow="bicycle" speed="13.89" length="33.01" width="2.00" shape="3706.86,5398.24 3710.25,5398.98 3739.45,5401.88">
+            <param key="origId" value="201238730"/>
+        </lane>
+        <lane id="201238730_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="33.01" shape="3706.30,5400.78 3709.84,5401.56 3739.20,5404.46">
+            <param key="origId" value="201238730"/>
+        </lane>
+        <lane id="201238730_3" index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="33.01" shape="3705.61,5403.90 3709.33,5404.72 3738.88,5407.65">
+            <param key="origId" value="201238730"/>
+        </lane>
+    </edge>
+    <edge id="718850685#2" from="gneJ500" to="cluster_1513106179_456368155" name="Richard-Wagner-Straße" priority="12" type="highway.primary" spreadType="center" shape="3664.56,5408.04 3653.96,5406.92 3606.48,5401.67 3542.34,5389.94 3469.94,5373.46 3409.95,5355.64 3268.10,5310.14">
+        <lane id="718850685#2_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="408.01" shape="3664.39,5409.63 3653.79,5408.51 3606.25,5403.25 3542.02,5391.51 3469.53,5375.01 3409.48,5357.17 3268.97,5312.10">
+            <param key="origId" value="718850685"/>
+        </lane>
+        <lane id="718850685#2_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="408.01" shape="3664.73,5406.45 3654.13,5405.33 3606.71,5400.09 3542.66,5388.37 3470.35,5371.91 3410.42,5354.11 3269.95,5309.05">
+            <param key="origId" value="718850685"/>
+        </lane>
+    </edge>
+    <edge id="gneE27" from="gneJ386" to="gneJ500" priority="-1" shape="3670.96,5487.27 3675.45,5456.91 3676.03,5436.04 3676.26,5427.69 3673.78,5419.11 3669.42,5411.78">
+        <lane id="gneE27_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="75.88" shape="3668.59,5492.36 3673.85,5456.77 3674.43,5436.00 3674.65,5427.89 3672.30,5419.75 3671.00,5417.57"/>
+    </edge>
+    <edge id="gneE380" from="gneJ498" to="gneJ500" priority="1">
+        <lane id="gneE380_0" index="0" allow="bicycle" speed="13.89" length="5.73" width="2.00" shape="3701.64,5426.79 3698.86,5421.78"/>
+    </edge>
+    <edge id="gneE381" from="gneJ500" to="gneJ502" priority="1">
+        <lane id="gneE381_0" index="0" allow="pedestrian bicycle" speed="13.89" length="1.39" width="2.00" shape="3667.09,5417.46 3666.12,5418.45"/>
+    </edge>
+
+    <tlLogic id="gneJ500" type="static" programID="0" offset="0">
+        <phase duration="9"  state="rrrGGGggrrrrrrrGrrrGGGggrrrGrrrr"/>
+        <phase duration="3"  state="rrryyyggrrrrrrryrrryyyggrrryrrrr"/>
+        <phase duration="6"  state="rrrrrrGGrrrrrrrrrrrrrrGGrrrrrrrr"/>
+        <phase duration="3"  state="rrrrrryyrrrrrrrrrrrrrryyrrrrrrrr"/>
+        <phase duration="9"  state="rrrrrrrrGGgGgGgrrrrrrrrrrrrrGrrr"/>
+        <phase duration="3"  state="rrrrrrrryyyyyygrrrrrrrrrrrrryrrr"/>
+        <phase duration="6"  state="rrrrrrrrGGgGgGGrrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrrrrryyyyyyyrrrrrrrrrrrrrrrrr"/>
+        <phase duration="9"  state="GGGrrrrrrrrrrrrrrrrrrrrGrrrrrrrr"/>
+        <phase duration="3"  state="yyyrrrrrrrrrrrrrrrrrrrryrrrrrrrr"/>
+        <phase duration="9"  state="rrrrrrrrrrrrrrrGGGGrrrrGrrrrrrrr"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrryyyyrrrryrrrrrrrr"/>
+        <phase duration="9"  state="GrrrrrrrrrrrrrrrrrrrrrrGGGGgrrrr"/>
+        <phase duration="3"  state="yrrrrrrrrrrrrrrrrrrrrrryyyyyrrrr"/>
+        <phase duration="9"  state="rrrGrrrrrrrrrrrGrrGrrrrGrrrrrGGG"/>
+        <phase duration="3"  state="rrryrrrrrrrrrrryrryrrrryrrrrryyy"/>
+    </tlLogic>
+    <tlLogic id="gneJ500" type="static" programID="real_tl_4140_1" offset="0">
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrggrgrrrrrrrgrrr"/>
+        <phase duration="2"  state="rggrrgrrrrrrrrrrrggrgrrrrrrrgGrr"/>
+        <phase duration="17" state="rggrrgrrrggggGrrrggrgrrrrrrrgGrr"/>
+        <phase duration="1"  state="rggrrgrrrggggGrrryyryrrrrrrryGrr"/>
+        <phase duration="2"  state="ryyrryrrryyyyYrrryyryrrrrrrryYrr"/>
+        <phase duration="1"  state="ryyrryrrryyyyYrrrrrrrrrrrrrrrYrr"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="7"  state="rrrrrrrrrrrrrrgrrrrrrrrrrrrrrrgg"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrryrrrrrrrrrrrrrrryy"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="20" state="rrrgGGggrrrrrrrrrrrgGGggggggrrrr"/>
+        <phase duration="3"  state="rrryYYyyrrrrrrrrrrrgGGggggggrrrr"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrryYYyyyyyyrrrr"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+    </tlLogic>
+
+    <junction id="1513106181" type="dead_end" x="3501.51" y="5388.38" incLanes="137133008#0_0" intLanes="" shape="3501.29,5389.35 3501.73,5387.41"/>
+    <junction id="1863241591" type="dead_end" x="3662.23" y="5486.45" incLanes="" intLanes="" shape="3663.21,5486.66 3661.25,5486.24"/>
+    <junction id="1863241624" type="dead_end" x="3677.01" y="5566.38" incLanes="175770986_0" intLanes="" shape="3677.96,5566.70 3676.06,5566.06"/>
+    <junction id="1870520929" type="priority" x="3679.16" y="5329.53" incLanes="166878984#0_0" intLanes=":1870520929_0_0" shape="3680.17,5329.49 3678.18,5329.31 3678.15,5329.60 3680.15,5329.72">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="195635398" type="dead_end" x="3785.49" y="5420.19" incLanes="" intLanes="" shape="3785.82,5415.63 3784.90,5428.39"/>
+    <junction id="1992455911" type="dead_end" x="3732.21" y="5430.18" incLanes="" intLanes="" shape="3732.39,5429.20 3732.03,5431.16"/>
+    <junction id="2190335546" type="dead_end" x="3359.87" y="5328.16" incLanes="" intLanes="" shape="3358.47,5332.85 3362.12,5320.58"/>
+    <junction id="243630833" type="dead_end" x="3173.75" y="5253.93" incLanes="" intLanes="" shape="3173.38,5254.86 3174.12,5253.00"/>
+    <junction id="cluster_1513106179_456368155" type="dead_end" x="3268.47" y="5313.65" incLanes="718850685#2_0 718850685#2_1" intLanes="" shape="3268.48,5313.62 3270.43,5307.53"/>
+    <junction id="cluster_1602381793_1782978609_1804327788_313321254" type="dead_end" x="3692.38" y="5255.35" incLanes="-201238726#0_0 166878984#1_0" intLanes="" shape="3699.39,5255.98 3701.38,5256.16 3683.01,5254.86 3685.01,5254.96 3689.46,5255.15 3695.85,5255.58"/>
+    <junction id="cluster_1602381828_1870520935" type="dead_end" x="3739.56" y="5400.79" incLanes="201238730_0 201238730_1 201238730_2 201238730_3" intLanes="" shape="3739.75,5398.89 3738.72,5409.24"/>
+    <junction id="cluster_1863241610_1863241614_1863241632_1863241633_1863241635_1863241638_1863241639_1863241641_1870520994_7705782706" type="dead_end" x="3647.72" y="5573.96" incLanes="201238719#1_0 201238719#1_1" intLanes="" shape="3656.60,5578.27 3650.84,5575.48"/>
+    <junction id="cluster_6807450803_6807450804" type="priority" x="3693.01" y="5332.11" incLanes="201238726#0_0 -201238726#1_0 128906569#8_0" intLanes=":cluster_6807450803_6807450804_0_0 :cluster_6807450803_6807450804_0_1 :cluster_6807450803_6807450804_2_0 :cluster_6807450803_6807450804_3_0" shape="3697.84,5327.60 3685.70,5327.37 3685.51,5335.72 3702.26,5336.33 3702.02,5334.32 3701.27,5332.98 3700.25,5331.96 3699.18,5330.94 3698.30,5329.60">
+        <request index="0" response="0000" foes="0000" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
+    </junction>
+    <junction id="gneJ386" type="dead_end" x="3673.10" y="5493.03" incLanes="" intLanes="" shape="3680.59,5494.23 3671.11,5492.71 3670.17,5492.60 3667.01,5492.13"/>
+    <junction id="gneJ498" type="right_before_left" x="3703.22" y="5427.57" incLanes="176550269#8_0 176550265#0_0" intLanes=":gneJ498_0_0 :gneJ498_1_0 :gneJ498_2_0" shape="3702.50,5431.71 3704.50,5431.57 3704.62,5429.94 3704.87,5429.38 3705.26,5428.98 3705.77,5428.76 3706.41,5428.70 3706.49,5426.70 3705.58,5426.52 3705.19,5426.33 3704.84,5426.07 3704.53,5425.73 3704.26,5425.33 3700.77,5427.27 3701.69,5428.82 3702.01,5429.38 3702.24,5429.97 3702.40,5430.70">
+        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="1" response="000" foes="100" cont="0"/>
+        <request index="2" response="011" foes="011" cont="0"/>
+    </junction>
+    <junction id="gneJ500" type="traffic_light" x="3686.12" y="5396.76" incLanes="gneE380_0 201201953#12_0 201201953#12_1 201201953#12_2 201201953#12_3 201238726#1_0 201238726#1_1 201238726#1_2 201238726#1_3 201238726#1_4 175770985_0 128361109#2_0 128361109#2_1 128361109#2_2 128361109#2_3 186865419#0_0 gneE27_0 137133006#0.121_0 137133006#0.121_1 137133006#0.121_2" intLanes=":gneJ500_0_0 :gneJ500_32_0 :gneJ500_33_0 :gneJ500_3_0 :gneJ500_4_0 :gneJ500_4_1 :gneJ500_34_0 :gneJ500_35_0 :gneJ500_8_0 :gneJ500_9_0 :gneJ500_36_0 :gneJ500_11_0 :gneJ500_37_0 :gneJ500_13_0 :gneJ500_14_0 :gneJ500_15_0 :gneJ500_16_0 :gneJ500_38_0 :gneJ500_39_0 :gneJ500_19_0 :gneJ500_20_0 :gneJ500_20_1 :gneJ500_40_0 :gneJ500_41_0 :gneJ500_42_0 :gneJ500_43_0 :gneJ500_44_0 :gneJ500_45_0 :gneJ500_28_0 :gneJ500_29_0 :gneJ500_30_0 :gneJ500_30_1" shape="3697.99,5422.26 3701.48,5420.32 3701.24,5419.62 3701.31,5419.40 3701.50,5419.27 3701.80,5419.22 3702.24,5419.26 3707.50,5395.31 3705.37,5394.60 3703.64,5393.48 3702.31,5391.96 3701.37,5390.04 3700.82,5387.71 3700.67,5384.98 3683.25,5385.47 3672.21,5383.01 3673.95,5383.99 3674.16,5382.90 3673.72,5382.79 3672.90,5382.97 3671.72,5383.43 3670.17,5384.18 3671.09,5385.96 3670.13,5386.27 3669.48,5386.38 3668.71,5386.46 3667.83,5386.50 3666.83,5386.52 3664.22,5411.22 3666.24,5411.89 3666.59,5412.49 3666.49,5413.26 3665.95,5414.22 3664.96,5415.36 3667.81,5418.16 3668.48,5417.71 3668.79,5417.69 3669.08,5417.79 3669.36,5418.02 3669.63,5418.39 3672.38,5416.75 3677.53,5419.56 3696.71,5421.76 3696.93,5421.16 3697.12,5421.14 3697.36,5421.32 3697.65,5421.70">
+        <request index="0"  response="11110000010000000010000000001000" foes="11111000010001000010010000001000" cont="0"/>
+        <request index="1"  response="11100111001110110010100000111000" foes="11100111001110111110110000111000" cont="1"/>
+        <request index="2"  response="11000110001100110000001001111000" foes="11000110001100110001011101111000" cont="1"/>
+        <request index="3"  response="00000000000000100000000000000111" foes="00000100000000100010001000000111" cont="0"/>
+        <request index="4"  response="00000000000000000000000000000010" foes="11110011110001100110011000000110" cont="0"/>
+        <request index="5"  response="00100000000000000010001000000010" foes="11110011110001100110011000000110" cont="0"/>
+        <request index="6"  response="00000000001110010000010000000100" foes="11100010001110110110111000000100" cont="1"/>
+        <request index="7"  response="11000000001100000000000000000000" foes="11000000001100000000000000000000" cont="1"/>
+        <request index="8"  response="00000010000000010000000000000100" foes="00000010000000010000000000000100" cont="0"/>
+        <request index="9"  response="00000110001100000000000001111000" foes="11000110001100110001000001111100" cont="0"/>
+        <request index="10" response="00110110011100010010000001110111" foes="11111110011101110011000001110111" cont="1"/>
+        <request index="11" response="00100001000010000000000001000000" foes="00100001000010001111000001000010" cont="0"/>
+        <request index="12" response="11000010001100010000111000000100" foes="11000010001100010000111000000100" cont="1"/>
+        <request index="13" response="00000110001100000000000001111000" foes="11000110001100110000110001111011" cont="0"/>
+        <request index="14" response="00100001011101110000000001110010" foes="00100011111101110000100001110010" cont="0"/>
+        <request index="15" response="00000001000000000000100000000010" foes="00000001000000000000100000000010" cont="0"/>
+        <request index="16" response="00100000001110000010001001000000" foes="00100011001110000111011101000110" cont="0"/>
+        <request index="17" response="00100000001110000110011001111000" foes="11100111001110000110011001111110" cont="1"/>
+        <request index="18" response="00010000011110000100010000110001" foes="00011111011110000100010000110001" cont="1"/>
+        <request index="19" response="00000000000000010000000000000010" foes="00100001000001110000100001000010" cont="0"/>
+        <request index="20" response="00100000000000000010001000000000" foes="11100011000001110111011011000110" cont="0"/>
+        <request index="21" response="00000000000000000000000000000000" foes="11100011000001110111011011000110" cont="0"/>
+        <request index="22" response="00000000000000000000010000110001" foes="11100111000001000100010000110001" cont="1"/>
+        <request index="23" response="00000000000000000100000000110000" foes="00000000000000000100000000110000" cont="1"/>
+        <request index="24" response="00000000011111110000100000110010" foes="00010000011111111100100000110010" cont="1"/>
+        <request index="25" response="00100000011101110111011001110110" foes="00110000011101110111011101110110" cont="1"/>
+        <request index="26" response="00100000010001100010011000001110" foes="11110000010001100010011000001110" cont="1"/>
+        <request index="27" response="00000000000001000000010000000001" foes="00000000000001000000010000000001" cont="1"/>
+        <request index="28" response="00000111000000000000000000110000" foes="00000111000001000000010000110001" cont="0"/>
+        <request index="29" response="00000110011110010000000001110000" foes="00000110011110110100110001110011" cont="0"/>
+        <request index="30" response="00000100011100100011011001110110" foes="00000100011100100011011011110111" cont="0"/>
+        <request index="31" response="00000100011100100011011001110110" foes="00000100011100100011011011110111" cont="0"/>
+    </junction>
+    <junction id="gneJ502" type="priority" x="3664.30" y="5418.87" incLanes="137133008#1_0 gneE381_0" intLanes=":gneJ502_0_0 :gneJ502_1_0 :gneJ502_2_0" shape="3664.20,5422.25 3666.13,5421.71 3666.03,5420.79 3666.10,5420.35 3666.26,5419.94 3666.50,5419.54 3666.83,5419.16 3663.98,5416.35 3663.24,5416.89 3662.83,5417.04 3662.41,5417.10 3661.96,5417.09 3661.49,5416.98 3660.92,5418.90 3662.42,5419.61 3663.02,5420.12 3663.52,5420.73 3663.91,5421.44">
+        <request index="0" response="100" foes="100" cont="0"/>
+        <request index="1" response="100" foes="100" cont="0"/>
+        <request index="2" response="000" foes="011" cont="0"/>
+    </junction>
+
+    <junction id=":gneJ500_32_0" type="internal" x="3666.91" y="5412.05" incLanes=":gneJ500_1_0 128361109#2_0 128361109#2_1 128361109#2_2 137133006#0.121_0 137133006#0.121_1 137133006#0.121_2 175770985_0 186865419#0_0 201201953#12_0 201201953#12_1 201201953#12_2 201238726#1_1 201238726#1_3" intLanes=":gneJ500_3_0 :gneJ500_4_0 :gneJ500_4_1 :gneJ500_10_0 :gneJ500_11_0 :gneJ500_13_0 :gneJ500_14_0 :gneJ500_15_0 :gneJ500_16_0 :gneJ500_17_0 :gneJ500_19_0 :gneJ500_20_0 :gneJ500_20_1 :gneJ500_24_0 :gneJ500_25_0 :gneJ500_26_0 :gneJ500_29_0 :gneJ500_30_0 :gneJ500_30_1"/>
+    <junction id=":gneJ500_33_0" type="internal" x="3698.97" y="5418.88" incLanes=":gneJ500_2_0 128361109#2_1 128361109#2_2 175770985_0 201201953#12_1 201201953#12_2 201238726#1_1" intLanes=":gneJ500_3_0 :gneJ500_4_0 :gneJ500_4_1 :gneJ500_6_0 :gneJ500_7_0 :gneJ500_8_0 :gneJ500_9_0 :gneJ500_10_0 :gneJ500_12_0 :gneJ500_16_0 :gneJ500_17_0 :gneJ500_20_0 :gneJ500_20_1 :gneJ500_25_0 :gneJ500_26_0 :gneJ500_30_0 :gneJ500_30_1"/>
+    <junction id=":gneJ500_34_0" type="internal" x="3692.39" y="5402.76" incLanes=":gneJ500_6_0 128361109#2_0 128361109#2_1 128361109#2_2" intLanes=":gneJ500_2_0 :gneJ500_9_0 :gneJ500_10_0 :gneJ500_11_0 :gneJ500_13_0 :gneJ500_14_0 :gneJ500_16_0 :gneJ500_17_0 :gneJ500_19_0 :gneJ500_20_0 :gneJ500_20_1 :gneJ500_25_0 :gneJ500_29_0 :gneJ500_30_0 :gneJ500_30_1"/>
+    <junction id=":gneJ500_35_0" type="internal" x="3702.93" y="5405.62" incLanes=":gneJ500_7_0 128361109#2_1 128361109#2_2 137133006#0.121_1 137133006#0.121_2 175770985_0 186865419#0_0 gneE380_0" intLanes=":gneJ500_2_0 :gneJ500_8_0 :gneJ500_12_0 :gneJ500_16_0 :gneJ500_20_0 :gneJ500_20_1 :gneJ500_25_0 :gneJ500_30_0 :gneJ500_30_1"/>
+    <junction id=":gneJ500_36_0" type="internal" x="3696.51" y="5420.57" incLanes=":gneJ500_10_0 128361109#2_1 128361109#2_2 128361109#2_3 137133006#0.121_0 175770985_0 201201953#12_1 201201953#12_2 201201953#12_3 201238726#1_3 gneE27_0 gneE380_0" intLanes=":gneJ500_0_0 :gneJ500_1_0 :gneJ500_2_0 :gneJ500_4_0 :gneJ500_4_1 :gneJ500_6_0 :gneJ500_13_0 :gneJ500_16_0 :gneJ500_17_0 :gneJ500_18_0 :gneJ500_20_0 :gneJ500_20_1 :gneJ500_22_0 :gneJ500_25_0 :gneJ500_26_0 :gneJ500_27_0 :gneJ500_28_0 :gneJ500_29_0 :gneJ500_30_0 :gneJ500_30_1"/>
+    <junction id=":gneJ500_37_0" type="internal" x="3696.19" y="5392.14" incLanes=":gneJ500_12_0 201238726#1_1" intLanes=":gneJ500_2_0 :gneJ500_7_0 :gneJ500_9_0 :gneJ500_10_0 :gneJ500_11_0 :gneJ500_16_0 :gneJ500_20_0 :gneJ500_20_1 :gneJ500_25_0 :gneJ500_30_0 :gneJ500_30_1"/>
+    <junction id=":gneJ500_38_0" type="internal" x="3703.91" y="5398.00" incLanes=":gneJ500_17_0 128361109#2_0 128361109#2_1 128361109#2_2 137133006#0.121_0 201201953#12_0 201201953#12_1 201201953#12_2 201238726#1_1 201238726#1_3 201238726#1_4" intLanes=":gneJ500_1_0 :gneJ500_2_0 :gneJ500_3_0 :gneJ500_4_0 :gneJ500_4_1 :gneJ500_6_0 :gneJ500_9_0 :gneJ500_10_0 :gneJ500_13_0 :gneJ500_14_0 :gneJ500_19_0 :gneJ500_20_0 :gneJ500_20_1 :gneJ500_24_0 :gneJ500_25_0 :gneJ500_26_0 :gneJ500_29_0 :gneJ500_30_0 :gneJ500_30_1"/>
+    <junction id=":gneJ500_39_0" type="internal" x="3671.30" y="5385.86" incLanes=":gneJ500_18_0 128361109#2_0 128361109#2_1 128361109#2_2 128361109#2_3 201201953#12_1 201201953#12_2 201238726#1_1 gneE27_0 gneE380_0" intLanes=":gneJ500_0_0 :gneJ500_4_0 :gneJ500_4_1 :gneJ500_10_0 :gneJ500_14_0 :gneJ500_19_0 :gneJ500_20_0 :gneJ500_20_1 :gneJ500_22_0 :gneJ500_24_0 :gneJ500_25_0 :gneJ500_26_0 :gneJ500_27_0 :gneJ500_28_0"/>
+    <junction id=":gneJ500_40_0" type="internal" x="3689.91" y="5406.79" incLanes=":gneJ500_22_0 201201953#12_0 201201953#12_1 201201953#12_2" intLanes=":gneJ500_0_0 :gneJ500_3_0 :gneJ500_4_0 :gneJ500_4_1 :gneJ500_10_0 :gneJ500_13_0 :gneJ500_14_0 :gneJ500_18_0 :gneJ500_24_0 :gneJ500_25_0 :gneJ500_26_0 :gneJ500_29_0 :gneJ500_30_0 :gneJ500_30_1"/>
+    <junction id=":gneJ500_41_0" type="internal" x="3667.71" y="5404.89" incLanes=":gneJ500_23_0 201201953#12_1 201201953#12_2 201238726#1_4 gneE27_0" intLanes=":gneJ500_4_0 :gneJ500_4_1 :gneJ500_14_0 :gneJ500_28_0"/>
+    <junction id=":gneJ500_42_0" type="internal" x="3666.95" y="5411.71" incLanes=":gneJ500_24_0 128361109#2_0 128361109#2_1 128361109#2_2 128361109#2_3 175770985_0 201201953#12_1 201201953#12_2" intLanes=":gneJ500_1_0 :gneJ500_4_0 :gneJ500_4_1 :gneJ500_11_0 :gneJ500_14_0 :gneJ500_15_0 :gneJ500_16_0 :gneJ500_17_0 :gneJ500_18_0 :gneJ500_19_0 :gneJ500_20_0 :gneJ500_20_1 :gneJ500_22_0 :gneJ500_28_0"/>
+    <junction id=":gneJ500_43_0" type="internal" x="3677.36" y="5386.25" incLanes=":gneJ500_25_0 128361109#2_1 128361109#2_2 128361109#2_3 137133006#0.121_0 175770985_0 201201953#12_1 201201953#12_2 201201953#12_3 201238726#1_1 201238726#1_3" intLanes=":gneJ500_1_0 :gneJ500_2_0 :gneJ500_4_0 :gneJ500_4_1 :gneJ500_6_0 :gneJ500_7_0 :gneJ500_8_0 :gneJ500_9_0 :gneJ500_10_0 :gneJ500_12_0 :gneJ500_13_0 :gneJ500_14_0 :gneJ500_16_0 :gneJ500_17_0 :gneJ500_18_0 :gneJ500_20_0 :gneJ500_20_1 :gneJ500_22_0 :gneJ500_28_0 :gneJ500_29_0 :gneJ500_30_0 :gneJ500_30_1"/>
+    <junction id=":gneJ500_44_0" type="internal" x="3666.06" y="5415.91" incLanes=":gneJ500_26_0 128361109#2_3 175770985_0 201201953#12_0" intLanes=":gneJ500_1_0 :gneJ500_2_0 :gneJ500_3_0 :gneJ500_9_0 :gneJ500_10_0 :gneJ500_13_0 :gneJ500_17_0 :gneJ500_18_0 :gneJ500_22_0 :gneJ500_28_0 :gneJ500_29_0 :gneJ500_30_0 :gneJ500_30_1"/>
+    <junction id=":gneJ500_45_0" type="internal" x="3666.55" y="5415.88" incLanes=":gneJ500_27_0 175770985_0 201238726#1_1 gneE380_0" intLanes=":gneJ500_0_0 :gneJ500_10_0 :gneJ500_18_0"/>
+
+    <connection from="-201238726#1" to="-201238726#0" fromLane="0" toLane="0" via=":cluster_6807450803_6807450804_2_0" dir="s" state="M"/>
+    <connection from="128361109#2" to="-201238726#1" fromLane="0" toLane="0" via=":gneJ500_19_0" tl="gneJ500" linkIndex="19" dir="r" state="O"/>
+    <connection from="128361109#2" to="201238730" fromLane="1" toLane="2" via=":gneJ500_20_0" tl="gneJ500" linkIndex="20" dir="s" state="O"/>
+    <connection from="128361109#2" to="201238730" fromLane="2" toLane="3" via=":gneJ500_20_1" tl="gneJ500" linkIndex="21" dir="s" state="O"/>
+    <connection from="128361109#2" to="201238719#1" fromLane="3" toLane="1" via=":gneJ500_22_0" tl="gneJ500" linkIndex="22" dir="l" state="o"/>
+    <connection from="128361109#2" to="718850685#2" fromLane="3" toLane="1" via=":gneJ500_23_0" tl="gneJ500" linkIndex="23" dir="t" state="o"/>
+    <connection from="128906569#8" to="201238726#1" fromLane="0" toLane="1" via=":cluster_6807450803_6807450804_3_0" dir="s" state="M"/>
+    <connection from="137133006#0.121" to="-201238726#1" fromLane="0" toLane="0" via=":gneJ500_29_0" tl="gneJ500" linkIndex="29" dir="s" state="o"/>
+    <connection from="137133006#0.121" to="201238730" fromLane="1" toLane="2" via=":gneJ500_30_0" tl="gneJ500" linkIndex="30" dir="l" state="o"/>
+    <connection from="137133006#0.121" to="201238730" fromLane="2" toLane="3" via=":gneJ500_30_1" tl="gneJ500" linkIndex="31" dir="l" state="o"/>
+    <connection from="137133008#1" to="137133008#0" fromLane="0" toLane="0" via=":gneJ502_0_0" dir="r" state="m"/>
+    <connection from="137133008#1" to="186865419#0" fromLane="0" toLane="0" via=":gneJ502_1_0" dir="l" state="m"/>
+    <connection from="166878984#0" to="166878984#1" fromLane="0" toLane="0" via=":1870520929_0_0" dir="s" state="M"/>
+    <connection from="175770985" to="166878984#0" fromLane="0" toLane="0" uncontrolled="1" via=":gneJ500_15_0" dir="l" state="m"/>
+    <connection from="175770985" to="201238730" fromLane="0" toLane="1" shape="3670.63,5385.07 3675.52,5385.58 3685.56,5387.89 3697.70,5388.52 3704.39,5397.32 3706.86,5398.24" via=":gneJ500_16_0" tl="gneJ500" linkIndex="20" dir="s" state="o"/>
+    <connection from="175770985" to="176550265#0" fromLane="0" toLane="0" contPos="40.00" shape="3670.63,5385.07 3675.46,5385.78 3698.54,5387.68 3703.25,5393.90 3703.93,5397.84 3700.10,5420.40" via=":gneJ500_17_0" tl="gneJ500" linkIndex="17" linkIndex2="13" dir="L" state="o"/>
+    <connection from="175770985" to="gneE381" fromLane="0" toLane="0" shape="3670.63,5385.07 3673.98,5388.97 3673.97,5394.51 3672.89,5405.38 3671.59,5412.08 3667.09,5417.46" via=":gneJ500_18_0" tl="gneJ500" linkIndex="18" dir="l" state="o"/>
+    <connection from="176550265#0" to="175770986" fromLane="0" toLane="0" via=":gneJ498_2_0" dir="s" state="="/>
+    <connection from="176550269#8" to="175770986" fromLane="0" toLane="0" via=":gneJ498_0_0" dir="r" state="M"/>
+    <connection from="176550269#8" to="gneE380" fromLane="0" toLane="0" via=":gneJ498_1_0" dir="l" state="M"/>
+    <connection from="186865419#0" to="166878984#0" fromLane="0" toLane="0" shape="3665.67,5416.06 3667.53,5409.77 3669.34,5398.50 3670.95,5389.58 3672.82,5383.35" via=":gneJ500_24_0" tl="gneJ500" linkIndex="24" dir="l" state="o"/>
+    <connection from="186865419#0" to="201238730" fromLane="0" toLane="1" contPos="35.00" shape="3665.67,5416.06 3668.35,5412.82 3671.67,5396.74 3674.06,5385.94 3686.26,5387.07 3699.43,5388.19 3704.22,5396.82 3706.86,5398.24" via=":gneJ500_25_0" tl="gneJ500" linkIndex="25" linkIndex2="20" dir="L" state="o"/>
+    <connection from="186865419#0" to="176550265#0" fromLane="0" toLane="0" shape="3665.67,5416.06 3676.14,5412.06 3686.05,5413.80 3696.71,5415.66 3700.61,5420.81" via=":gneJ500_26_0" tl="gneJ500" linkIndex="26" dir="l" state="o"/>
+    <connection from="186865419#0" to="gneE381" fromLane="0" toLane="0" via=":gneJ500_27_0" tl="gneJ500" linkIndex="27" dir="t" state="o"/>
+    <connection from="201201953#12" to="201238719#1" fromLane="0" toLane="0" via=":gneJ500_3_0" tl="gneJ500" linkIndex="3" dir="r" state="O"/>
+    <connection from="201201953#12" to="718850685#2" fromLane="1" toLane="0" via=":gneJ500_4_0" tl="gneJ500" linkIndex="4" dir="s" state="O"/>
+    <connection from="201201953#12" to="718850685#2" fromLane="2" toLane="1" via=":gneJ500_4_1" tl="gneJ500" linkIndex="5" dir="s" state="O"/>
+    <connection from="201201953#12" to="-201238726#1" fromLane="3" toLane="0" via=":gneJ500_6_0" tl="gneJ500" linkIndex="6" dir="l" state="o"/>
+    <connection from="201201953#12" to="201238730" fromLane="3" toLane="3" via=":gneJ500_7_0" tl="gneJ500" linkIndex="7" dir="t" state="o"/>
+    <connection from="201238726#0" to="201238726#1" fromLane="0" toLane="3" via=":cluster_6807450803_6807450804_0_0" dir="s" state="M"/>
+    <connection from="201238726#0" to="201238726#1" fromLane="0" toLane="4" via=":cluster_6807450803_6807450804_0_1" dir="s" state="M"/>
+    <connection from="201238726#1" to="201238730" fromLane="1" toLane="1" uncontrolled="1" via=":gneJ500_8_0" dir="r" state="m"/>
+    <connection from="201238726#1" to="176550265#0" fromLane="1" toLane="0" shape="3697.67,5385.06 3698.33,5395.00 3698.71,5404.16 3699.90,5415.53 3700.61,5420.81" via=":gneJ500_9_0" tl="gneJ500" linkIndex="13" dir="s" state="o"/>
+    <connection from="201238726#1" to="gneE381" fromLane="1" toLane="0" contPos="38.00" shape="3697.67,5385.06 3697.05,5395.03 3698.06,5410.89 3698.18,5421.22 3694.83,5419.92 3686.92,5419.08 3673.30,5416.04 3667.00,5417.50" via=":gneJ500_10_0" tl="gneJ500" linkIndex="10" linkIndex2="5" dir="L" state="o"/>
+    <connection from="201238726#1" to="166878984#0" fromLane="1" toLane="0" shape="3697.67,5385.06 3696.49,5386.92 3687.03,5386.51 3674.95,5384.72 3672.82,5383.35" via=":gneJ500_11_0" tl="gneJ500" linkIndex="11" dir="s" state="o"/>
+    <connection from="201238726#1" to="201238730" fromLane="2" toLane="2" via=":gneJ500_12_0" tl="gneJ500" linkIndex="12" dir="r" state="o"/>
+    <connection from="201238726#1" to="201238719#1" fromLane="3" toLane="0" via=":gneJ500_13_0" tl="gneJ500" linkIndex="13" dir="s" state="o"/>
+    <connection from="201238726#1" to="718850685#2" fromLane="4" toLane="1" via=":gneJ500_14_0" tl="gneJ500" linkIndex="14" dir="l" state="o"/>
+    <connection from="gneE27" to="718850685#2" fromLane="0" toLane="0" via=":gneJ500_28_0" tl="gneJ500" linkIndex="28" dir="r" state="o"/>
+    <connection from="gneE380" to="gneE381" fromLane="0" toLane="0" shape="3698.86,5421.78 3694.60,5419.79 3688.59,5419.21 3680.52,5417.86 3673.14,5415.72 3667.09,5417.46" via=":gneJ500_0_0" tl="gneJ500" linkIndex="5" dir="r" state="o"/>
+    <connection from="gneE380" to="166878984#0" fromLane="0" toLane="0" contPos="37.00" shape="3698.86,5421.78 3694.21,5418.05 3683.54,5416.69 3672.47,5414.33 3666.35,5414.82 3668.17,5405.88 3670.08,5393.69 3671.35,5387.58 3672.82,5383.35" via=":gneJ500_1_0" tl="gneJ500" linkIndex="5" linkIndex2="29" dir="r" state="o"/>
+    <connection from="gneE380" to="201238730" fromLane="0" toLane="1" shape="3698.86,5421.78 3699.20,5413.18 3700.38,5404.12 3702.20,5397.36 3706.86,5398.24" via=":gneJ500_2_0" tl="gneJ500" linkIndex="2" dir="l" state="o"/>
+    <connection from="gneE381" to="137133008#0" fromLane="0" toLane="0" via=":gneJ502_2_0" dir="l" state="M"/>
+
+    <connection from=":1870520929_0" to="166878984#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_6807450803_6807450804_0" to="201238726#1" fromLane="0" toLane="3" dir="s" state="M"/>
+    <connection from=":cluster_6807450803_6807450804_0" to="201238726#1" fromLane="1" toLane="4" dir="s" state="M"/>
+    <connection from=":cluster_6807450803_6807450804_2" to="-201238726#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_6807450803_6807450804_3" to="201238726#1" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ498_0" to="175770986" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ498_1" to="gneE380" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ498_2" to="175770986" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ500_0" to="gneE381" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ500_1" to="166878984#0" fromLane="0" toLane="0" via=":gneJ500_32_0" tl="gneJ500" linkIndex="29" dir="r" state="m"/>
+    <connection from=":gneJ500_32" to="166878984#0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ500_2" to="201238730" fromLane="0" toLane="1" via=":gneJ500_33_0" dir="l" state="m"/>
+    <connection from=":gneJ500_33" to="201238730" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":gneJ500_3" to="201238719#1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ500_4" to="718850685#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ500_4" to="718850685#2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ500_6" to="-201238726#1" fromLane="0" toLane="0" via=":gneJ500_34_0" dir="l" state="m"/>
+    <connection from=":gneJ500_34" to="-201238726#1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ500_7" to="201238730" fromLane="0" toLane="3" via=":gneJ500_35_0" dir="t" state="m"/>
+    <connection from=":gneJ500_35" to="201238730" fromLane="0" toLane="3" dir="t" state="M"/>
+    <connection from=":gneJ500_8" to="201238730" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":gneJ500_9" to="176550265#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ500_10" to="gneE381" fromLane="0" toLane="0" via=":gneJ500_36_0" tl="gneJ500" linkIndex="5" dir="L" state="m"/>
+    <connection from=":gneJ500_36" to="gneE381" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from=":gneJ500_11" to="166878984#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ500_12" to="201238730" fromLane="0" toLane="2" via=":gneJ500_37_0" dir="r" state="m"/>
+    <connection from=":gneJ500_37" to="201238730" fromLane="0" toLane="2" dir="r" state="M"/>
+    <connection from=":gneJ500_13" to="201238719#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ500_14" to="718850685#2" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":gneJ500_15" to="166878984#0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ500_16" to="201238730" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ500_17" to="176550265#0" fromLane="0" toLane="0" via=":gneJ500_38_0" tl="gneJ500" linkIndex="13" dir="L" state="m"/>
+    <connection from=":gneJ500_38" to="176550265#0" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from=":gneJ500_18" to="gneE381" fromLane="0" toLane="0" via=":gneJ500_39_0" dir="l" state="m"/>
+    <connection from=":gneJ500_39" to="gneE381" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ500_19" to="-201238726#1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ500_20" to="201238730" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":gneJ500_20" to="201238730" fromLane="1" toLane="3" dir="s" state="M"/>
+    <connection from=":gneJ500_22" to="201238719#1" fromLane="0" toLane="1" via=":gneJ500_40_0" dir="l" state="m"/>
+    <connection from=":gneJ500_40" to="201238719#1" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":gneJ500_23" to="718850685#2" fromLane="0" toLane="1" via=":gneJ500_41_0" dir="t" state="m"/>
+    <connection from=":gneJ500_41" to="718850685#2" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":gneJ500_24" to="166878984#0" fromLane="0" toLane="0" via=":gneJ500_42_0" dir="l" state="m"/>
+    <connection from=":gneJ500_42" to="166878984#0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ500_25" to="201238730" fromLane="0" toLane="1" via=":gneJ500_43_0" tl="gneJ500" linkIndex="20" dir="L" state="m"/>
+    <connection from=":gneJ500_43" to="201238730" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":gneJ500_26" to="176550265#0" fromLane="0" toLane="0" via=":gneJ500_44_0" dir="l" state="m"/>
+    <connection from=":gneJ500_44" to="176550265#0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ500_27" to="gneE381" fromLane="0" toLane="0" via=":gneJ500_45_0" dir="t" state="m"/>
+    <connection from=":gneJ500_45" to="gneE381" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":gneJ500_28" to="718850685#2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ500_29" to="-201238726#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ500_30" to="201238730" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":gneJ500_30" to="201238730" fromLane="1" toLane="3" dir="l" state="M"/>
+    <connection from=":gneJ502_0" to="137133008#0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":gneJ502_1" to="186865419#0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":gneJ502_2" to="137133008#0" fromLane="0" toLane="0" dir="l" state="M"/>
+
+    <connection from=":cluster_1602381793_1782978609_1804327788_313321254_w0" to="128906569#8" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="166878984#1" to=":cluster_1602381793_1782978609_1804327788_313321254_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_6807450803_6807450804_w0" to="201238726#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="128906569#8" to=":cluster_6807450803_6807450804_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ498_w0" to="175770986" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="176550269#8" to=":gneJ498_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="176550265#0" to=":gneJ498_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ500_w1" to="201238730" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="201238726#1" to=":gneJ500_w1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ500_w2" to="166878984#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="175770985" to=":gneJ500_w2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ500_w3" to="gneE381" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="186865419#0" to=":gneJ500_w3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ502_w0" to="186865419#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ502_w0" to="137133008#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="137133008#1" to=":gneJ502_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="gneE381" to=":gneJ502_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

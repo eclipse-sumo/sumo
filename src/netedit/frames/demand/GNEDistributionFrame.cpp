@@ -459,11 +459,11 @@ GNEDistributionFrame::DistributionRow::onCmdRemoveRow(FXObject*, FXSelector, voi
 
 bool
 GNEDistributionFrame::DistributionRow::isValidNewKey() const {
+    /*
     const auto ACs = myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
     // get element associated with key
     //const auto element = ACs->retrieveDemandElement(myDistributionValuesEditorParent->myDistributionValueTag, myComboBoxKeys->getText().text(), false);
     // first check if element exists
-    /*
     if (element) {
         // avoid duplicated keys
         return !myKey->keyExists(element);

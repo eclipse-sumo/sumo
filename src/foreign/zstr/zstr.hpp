@@ -9,6 +9,7 @@
 #pragma once
 
 #include <cassert>
+#include <cstdint>
 #include <fstream>
 #include <sstream>
 #include <zlib.h>

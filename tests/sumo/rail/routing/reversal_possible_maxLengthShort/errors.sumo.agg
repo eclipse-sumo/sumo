@@ -1,0 +1,5 @@
+Error: Vehicle 't0' has no valid route.
+Quitting (on error).
+Warning: 1 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 1 total messages of type: No route for vehicle '%' found.
+Warning: 1 total messages of type: Vehicle '%' with length % exceeds configured value of --railway.max-train-length %

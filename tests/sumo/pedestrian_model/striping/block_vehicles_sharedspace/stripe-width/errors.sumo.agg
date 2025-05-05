@@ -1,0 +1,1 @@
+Warning: 2 total messages of type: Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width and this may cause collisions with vehicles.

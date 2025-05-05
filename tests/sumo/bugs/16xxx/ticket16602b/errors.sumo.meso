@@ -1,0 +1,5 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Missing green phase in tlLogic 'gneJ500', program 'real_tl_4140_1' for tl-index 0.
+Warning: Program 'real_tl_4140_1' at tlLogic 'gneJ500' is incompatible with logic at junction 'gneJ500' (mutual conflict between link indices 1,5 tl indices 5,5 phase 1).
+  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
+  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
