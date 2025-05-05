@@ -94,8 +94,7 @@ title: ChangeLog
   - Fixed invalid ptline-output when running with option **--ptstop-output.no-bidi** #16534
   - Option **--ptline-clean-up** now cleans up more stops #16540
   - Fixed failure to join junctions #16557
-  - Fixed bug where a loaded network successively changed it's geometry #16609
-  - Option --aggregate-warnings 0 no longer disables "quitting on error" #16621
+  - Fixed bug where a loaded network successively changed it's geometry #16609 
 
 - durarouter
   - Fixed invalid route output when loading invalid routes with stops and setting option **--ignore-errors** #16365
