@@ -1,4 +1,5 @@
 import_config_file:../config_all
+interpreter:python
 binary:test.py
 use_case_record_mode:GUI
 virtual_display_wm_executable:fluxbox
