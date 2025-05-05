@@ -93,7 +93,7 @@ finding the fastest path between stops.
 If you have downloaded the network and the GTFS data (or have the URL) it is as easy as
 
 ```
-python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --modes bus --vtype-output pt_vtypes.xml
+python tools/import/gtfs/gtfs2pt.py -n osm.net.xml.gz --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --modes bus --vtype-output pt_vtypes.xml
 ```
 
 The script runs for about five minutes and generates several subdirectories but in the end it provides three output files:
