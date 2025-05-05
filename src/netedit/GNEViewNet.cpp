@@ -82,6 +82,7 @@
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNEApplicationWindow.h"
+#include "GNETestSystem.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -1305,6 +1306,8 @@ GNEViewNet::getDrawingToggle() const {
 
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
+    // run all test in the first draw
+    myViewParent->getGNEAppWindows()->getTestSystem()->runAllTests();
     // set lefthand and laneIcons
     myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
     myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
