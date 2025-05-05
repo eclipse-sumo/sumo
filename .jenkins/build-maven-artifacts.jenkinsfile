@@ -70,7 +70,7 @@ spec:
             git clone -q --filter=tree:0 --branch v1.2.1 https://github.com/PedestrianDynamics/jupedsim.git
 
             # Building JuPedSim
-            cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache -B jupedsim-build jupedsim
+            cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=jupedsim-install -B jupedsim-build jupedsim
             cmake --build jupedsim-build -j2 --config Release
             cmake --install jupedsim-build --config Release
 
