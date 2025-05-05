@@ -10,21 +10,21 @@ spec:
   - name: jnlp
     resources:
       limits:
-        memory: "3Gi"
-        cpu: "750m"
+        memory: "4Gi"
+        cpu: "1"
       requests:
-        memory: "3Gi"
-        cpu: "750m"
+        memory: "4Gi"
+        cpu: "1"
   - name: ubuntu-sumo
     image: ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest
     tty: true
     resources:
       limits:
         memory: "4Gi"
-        cpu: "2"
+        cpu: "1.5"
       requests:
         memory: "4Gi"
-        cpu: "2"
+        cpu: "1.5"
     command:
     - cat
     env:
