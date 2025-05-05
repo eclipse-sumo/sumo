@@ -91,7 +91,7 @@ title: ChangeLog
   - Fixed bug where option **--edges.join-tram-dist** didn't join enough #16408
   - Fixed `nan` value in generated network when loading connections with custom length value and length-0 geometry #16441
   - Fixed invalid right of way with respect to left-turns from the oncoming direction at junctiop type `left_before_right` #16480
-  - Fixed invalid internal lane shape when importin OpenDRIVE #16482
+  - Fixed invalid internal lane shape when importing OpenDRIVE #16482
   - Fixed invalid ptline-output when running with option **--ptstop-output.no-bidi** #16534
   - Option **--ptline-clean-up** now cleans up more stops #16540
   - Fixed failure to join junctions #16557
