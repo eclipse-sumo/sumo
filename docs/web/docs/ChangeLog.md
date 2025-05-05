@@ -45,12 +45,15 @@ title: ChangeLog
   - Fixed bug where stationfinder device fails to search for station after failed estimation at low charge #16562
   - Fixed bug where electric vehicles with stationfinder device only recharge once #16597
   - stationFinder/parkingReroute: Fixed invalid estimate of time to reach new stopping place #16603
+  - StationFinder: fixed bug where charging only worked once #16597
+
 
 
 - netedit
   - Restored functionality for setting custom geometry point by entering values #16179 (regression in 1.20.0)
   - Improved visibility of internal junction markers on connections #16485 (regression in 1.20.0)
   - Move mode with elevation checkbox active now shows elevation numbers again when zoomed out #16236 (regression in 1.20.0)
+  - Fixed crash in tls mode #16608 (regression in 1.20.0)
   - Fixed missing edge colors when defining person walk #16461 (regression in 1.21.0)
   - Fixed overly large endpoint markers in move mode #16266 (regression in 1.22.0)
   - Fixed crash when TL controlled junction overlaps with another uncontrolled one #16483 (regression in 1.22.0)
@@ -91,6 +94,8 @@ title: ChangeLog
   - Fixed invalid ptline-output when running with option **--ptstop-output.no-bidi** #16534
   - Option **--ptline-clean-up** now cleans up more stops #16540
   - Fixed failure to join junctions #16557
+  - Fixed bug where a loaded network successively changed it's geometry #16609
+  - Option --aggregate-warnings 0 no longer disables "quitting on error" #16621
 
 - durarouter
   - Fixed invalid route output when loading invalid routes with stops and setting option **--ignore-errors** #16365
@@ -226,7 +231,8 @@ title: ChangeLog
   - [mapDetectors.py](Tools/Detector.md#mapdetectorspy): Option **--write-params** can be used to import further data columns #16554
   - edgeDataFromFlow.py: Now supports custom column names with option **--id-column** and **--time-column** and custom interpretation of time values with option **--time-scale** #16555
   - generateTurnRatios.py: added option **--split-types** to create type-specific turn ration attributes #16579
-
+  - analyzePersonPlans.py: now handles rides without line attribute #16617
+    
 
 ### Miscellaneous
 

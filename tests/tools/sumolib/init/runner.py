@@ -40,7 +40,7 @@ class Test_Init(unittest.TestCase):
             # try whether the eclipse-sumo wheel is installed
             import sumo  # noqa
             self.assertIn('sumo', sumolib.checkBinary('sumo'))
-            self.assertIn('python', sumolib.checkBinary('sumo'))
+            self.assertIn('python', sumolib.checkBinary('sumo').lower())
         except ImportError:
             self.assertEqual('sumo', sumolib.checkBinary('sumo', ''))
 

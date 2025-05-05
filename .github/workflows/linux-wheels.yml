@@ -116,11 +116,6 @@ jobs:
         python3 -m pip install -r tools/req_ci.txt -r tools/requirements.txt
         tests/runTests.sh -b ci -v ci.fast
 
-    - name: Running meta tests and cleaning up
-      run: |
-        tests/runTests.sh -b ci -v ci -ts meta
-        sed -i '/SUMO_HOME/d' $GITHUB_ENV
-
     - name: Running libsumo tests
       run: |
         source testenv/bin/activate

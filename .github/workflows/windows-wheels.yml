@@ -164,8 +164,8 @@ jobs:
         python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
         $env:TEXTTEST_CI_APPS = "-v ci.fast -a activitygen,dfrouter,duarouter,jtrrouter,marouter,netgen,od2trips,polyconvert,netconvert,sumo"
         tests\runCiTests.bat $env:pythonLocation\Scripts\texttest.exe
-#        $env:TEXTTEST_CI_APPS = "-v ci.fast -a complex,tools"
-#        tests\runCiTests.bat $env:pythonLocation\Scripts\texttest.exe
+        $env:TEXTTEST_CI_APPS = "-v ci.fast -a complex,tools"
+        tests\runCiTests.bat $env:pythonLocation\Scripts\texttest.exe
 
     - name: Installing libsumo
       run: |
