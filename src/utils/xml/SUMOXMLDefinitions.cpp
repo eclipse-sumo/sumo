@@ -82,6 +82,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "parkingAreaReroute",                     SUMO_TAG_PARKING_AREA_REROUTE },
     { "viaProbReroute",                         SUMO_TAG_VIA_PROB_REROUTE },
     { "overtakingReroute",                      SUMO_TAG_OVERTAKING_REROUTE },
+    { "stationReroute",                         SUMO_TAG_STATION_REROUTE },
     { "step",                                   SUMO_TAG_STEP },
     { "variableSpeedSign",                      SUMO_TAG_VSS },
     { "variableSpeedSignSymbol",                GNE_TAG_VSS_SYMBOL },

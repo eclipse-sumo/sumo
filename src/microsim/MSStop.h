@@ -124,4 +124,7 @@ public:
 
     /// @brief whether the stop is in range of the given position
     bool isInRange(const double pos, const double tolerance) const;
+
+    /// @brief return all stoppingPlaces associated with this stop
+    std::vector<MSStoppingPlace*> getPlaces() const;
 };

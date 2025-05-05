@@ -343,6 +343,9 @@ public:
     /** @brief Returns parameters of the next stop or nullptr **/
     virtual const SUMOVehicleParameter::Stop* getNextStopParameter() const = 0;
 
+    /// @brief get remaining stop duration or 0 if the vehicle isn't stopped
+    virtual SUMOTime getStopDuration() const = 0;
+
     /**
      * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
      * will wait for the given duration before continuing on its route
