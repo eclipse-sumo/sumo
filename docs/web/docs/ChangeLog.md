@@ -46,6 +46,7 @@ title: ChangeLog
   - Fixed bug where electric vehicles with stationfinder device only recharge once #16597
   - stationFinder/parkingReroute: Fixed invalid estimate of time to reach new stopping place #16603
   - StationFinder: fixed bug where charging only worked once #16597
+  - Fixed crash when using calibrator in a simulation beyond step 86400 #16626
 
 
 
