@@ -130,6 +130,9 @@ if (SWIG_FOUND)
         else()
             swig_link_libraries(libtracics libtracistatic ${libtcpip})
         endif()
+        ADD_CUSTOM_COMMAND(TARGET libtracics POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/libtracics-sources.zip" --format=zip "cs"
+        )
         set_property(TARGET libtracics PROPERTY FOLDER "libtraci")
         install(TARGETS libtracics DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
     endif()
