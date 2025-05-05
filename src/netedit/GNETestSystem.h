@@ -140,4 +140,7 @@ private:
 
     /// @brief current step
     int myCurrentStep = 0;
+
+    /// @brief inited
+    bool myInitedTest = false;
 };
