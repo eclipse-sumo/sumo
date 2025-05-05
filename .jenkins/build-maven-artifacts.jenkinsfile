@@ -10,10 +10,10 @@ spec:
   - name: jnlp
     resources:
       limits:
-        memory: "3Gi"
+        memory: "2Gi"
         cpu: "1000m"
       requests:
-        memory: "3Gi"
+        memory: "2Gi"
         cpu: "1000m"
   - name: ubuntu-sumo
     image: ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest
