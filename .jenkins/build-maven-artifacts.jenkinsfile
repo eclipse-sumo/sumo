@@ -69,7 +69,7 @@ spec:
 
             # Building JuPedSim
             cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=jupedsim-install -B jupedsim-build jupedsim
-            cmake --build jupedsim-build -j2 --config Release
+            cmake --build jupedsim-build -j4 --config Release
             cmake --install jupedsim-build --config Release
 
             # Cloning SUMO
@@ -84,7 +84,7 @@ spec:
             # Building SUMO & TraaS
             export VIRTUAL_ENV=${WORKSPACE}/env
             cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=sumo-install -B sumo-build sumo
-            cmake --build sumo-build -j2
+            cmake --build sumo-build -j4
             cmake --build sumo-build --target traas
           '''
         }
