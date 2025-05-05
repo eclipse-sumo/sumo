@@ -64,22 +64,23 @@ spec:
       steps {
         container('ubuntu-sumo') {
           sh '''
-            git fetch --tags --force
-            mkdir -p cmake-build
-            cd cmake-build
-            export CC=gcc; export CXX=g++;
-            cmake ..
-            make -j2
-          '''
-        }
-      }
-    }
-    stage('Build TraaS') {
-      steps {
-        container('ubuntu-sumo') {
-          sh '''
-            cd cmake-build
-            make traas
+            git config --global advice.detachedHead false
+
+            # Cloning SUMO
+            git clone -q --filter=tree:0 --branch main https://github.com/eclipse-sumo/sumo.git
+            export SUMO_HOME=\${WORKSPACE}/sumo
+
+            # Creating virtual env for Python for the whole process
+            python3 -m venv env
+            env/bin/python3 -m pip install --quiet -r sumo/tools/requirements.txt
+            env/bin/python3 -m pip install --quiet dmgbuild delocate
+
+            # Building SUMO & TraaS
+            export VIRTUAL_ENV=${WORKSPACE}/env
+            export PATH=${WORKSPACE}/env/bin:\$PATH
+            cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=sumo-install -B sumo-build sumo
+            cmake --build sumo-build -j4
+            cmake --build sumo-build --target traas
           '''
         }
       }
@@ -88,7 +89,7 @@ spec:
       steps {
         container('ubuntu-sumo') {
           sh '''
-            cd cmake-build/src/libsumo
+            cd sumo-build/src/libsumo
             mvn --batch-mode deploy
           '''
         }
@@ -98,7 +99,7 @@ spec:
       steps {
         container('ubuntu-sumo') {
           sh '''
-            cd cmake-build/src/libtraci
+            cd sumo-build/src/libtraci
             mvn --batch-mode deploy
           '''
         }
