@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-03 20:56:08 by Eclipse SUMO duarouter Version v1_21_0+1830-1621789eca8
+<!-- generated on 2025-05-05 21:56:00 by Eclipse SUMO duarouter Version v1_22_0+1872-170b1223605
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -108,6 +108,7 @@
             <xsd:element name="persontrip.transfer.taxi-walk" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.transfer.walk-taxi" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.taxi.waiting-time" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.ride-public-line" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.max-train-length" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

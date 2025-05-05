@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-09 19:54:02 by Eclipse SUMO netconvert Version v1_20_0+2262-4c4b720e23e
+<!-- generated on 2025-05-05 21:56:01 by Eclipse SUMO netconvert Version v1_22_0+1872-170b1223605
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -283,6 +283,7 @@
             <xsd:element name="no-left-connections" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-dist" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.join.parallel-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-exclude" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-same" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="max-join-ids" type="intOptionType" minOccurs="0"/>
@@ -345,6 +346,7 @@
             <xsd:element name="railway.topology.extend-priority" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.geometry.straighten" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.signal.guess.by-stops" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="railway.signal.permit-unsignalized" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="railway.access-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railway.max-accesses" type="intOptionType" minOccurs="0"/>
             <xsd:element name="railway.access-factor" type="floatOptionType" minOccurs="0"/>
@@ -364,6 +366,7 @@
             <xsd:element name="osm.lane-access" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.bike-access" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.sidewalks" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.oneway-reverse-sidewalk" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.crossings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.turn-lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length" type="floatOptionType" minOccurs="0"/>
@@ -374,6 +377,7 @@
             <xsd:element name="osm.all-attributes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.extra-attributes" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="osm.speedlimit-none" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="osm.annotate-defaults" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="matsim.keep-length" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="matsim.lanes-from-capacity" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.street-id" type="strOptionType" minOccurs="0"/>
