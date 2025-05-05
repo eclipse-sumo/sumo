@@ -133,7 +133,7 @@ public:
     typedef std::pair<MSStoppingPlace*, bool> StoppingPlaceVisible;
 
     ///@brief Constructor
-    MSStoppingPlaceRerouter(std::string paramPrefix = "", bool checkValidity = false, bool checkVisibility = true, StoppingPlaceParamMap_t addEvalParams = {}, StoppingPlaceParamSwitchMap_t addInvertParams = {});
+    MSStoppingPlaceRerouter(std::string paramPrefix = "", bool checkValidity = false, StoppingPlaceParamMap_t addEvalParams = {}, StoppingPlaceParamSwitchMap_t addInvertParams = {});
 
     // Destructor
     virtual ~MSStoppingPlaceRerouter() {}
@@ -306,7 +306,6 @@ private:
 protected:
     const std::string myParamPrefix;
     bool myCheckValidity;
-    const bool myConsiderDestVisibility;
     StoppingPlaceParamMap_t myEvalParams;
     StoppingPlaceParamSwitchMap_t myNormParams;
     StoppingPlaceParamSwitchMap_t myInvertParams;

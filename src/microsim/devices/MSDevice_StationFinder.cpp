@@ -113,7 +113,7 @@ MSDevice_StationFinder::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 // ---------------------------------------------------------------------------
 MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     : MSVehicleDevice(holder, "stationfinder_" + holder.getID()),
-      MSStoppingPlaceRerouter("device.stationfinder.charging", true, false, {
+      MSStoppingPlaceRerouter("device.stationfinder.charging", true, {
     {"waitingTime", 1.}, {"chargingTime", 1.}
 }, { {"waitingTime", false}, {"chargingTime", false} }),
 myVeh(dynamic_cast<MSVehicle&>(holder)),

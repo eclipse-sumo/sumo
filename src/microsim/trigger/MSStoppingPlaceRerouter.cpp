@@ -36,8 +36,8 @@
 
 
 ///@brief Constructor
-MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(std::string paramPrefix, bool checkValidity, bool checkVisibility, StoppingPlaceParamMap_t addEvalParams, StoppingPlaceParamSwitchMap_t addInvertParams) :
-    myParamPrefix(paramPrefix), myCheckValidity(checkValidity), myConsiderDestVisibility(checkVisibility) {
+MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(std::string paramPrefix, bool checkValidity, StoppingPlaceParamMap_t addEvalParams, StoppingPlaceParamSwitchMap_t addInvertParams) :
+    myParamPrefix(paramPrefix), myCheckValidity(checkValidity) {
     myEvalParams = { {"probability", 0.}, {"capacity", 0.}, {"timefrom", 0.}, {"timeto", 0.}, {"distancefrom", 0.}, {"distanceto", 1.}, {"absfreespace", 0.}, {"relfreespace", 0.}, };
     myInvertParams = { {"probability", false}, { "capacity", true }, { "timefrom", false }, { "timeto", false }, { "distancefrom", false }, { "distanceto", false }, { "absfreespace", true }, { "relfreespace", true } };
     for (auto param : addEvalParams) {
@@ -78,7 +78,7 @@ MSStoppingPlaceRerouter::rerouteStoppingPlace(MSStoppingPlace* destStoppingPlace
 
     MSStoppingPlace* onTheWay = nullptr;
     const int stopAnywhere = (int)getWeight(veh, "anywhere", -1);
-    const bool ignoreDest = getWeight(veh, "ignoreDest", myConsiderDestVisibility ? 0 : 1) != 0;
+    const bool ignoreDest = getWeight(veh, "ignoreDest", destStoppingPlace != nullptr ? 0 : 1) != 0;
     // check whether we are ready to accept any free stopping place along the
     // way to our destination
     if (stopAnywhere < 0 || stopAnywhere > getNumberStoppingPlaceReroutes(veh)) {
