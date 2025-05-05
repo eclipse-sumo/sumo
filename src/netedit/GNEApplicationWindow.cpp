@@ -1309,47 +1309,44 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             Position p(off.x(), off.y(), 0);
             myViewNet->setViewportFromToRot(off, p, 0);
         }
-    }
-    myMessageWindow->registerMsgHandlers();
-    // if we're loading a sumo config, update netedit options
-    if ((mySumoOptions.getStringVector("additional-files").size() > 0) && neteditOptions.getStringVector("additional-files").empty()) {
-        neteditOptions.resetWritable();
-        neteditOptions.set("additional-files", mySumoOptions.getValueString("additional-files"));
-    }
-    if ((mySumoOptions.getStringVector("route-files").size() > 0) && neteditOptions.getStringVector("route-files").empty()) {
-        neteditOptions.resetWritable();
-        neteditOptions.set("route-files", mySumoOptions.getValueString("route-files"));
-    }
-    // update default filenames
-    const auto& additionalFiles = neteditOptions.getStringVector("additional-files");
-    if (additionalFiles.size() > 0) {
-        myNet->getSavingFilesHandler()->updateAdditionalEmptyFilenames(additionalFiles.front());
-    }
-    const auto& demandFiles = neteditOptions.getStringVector("route-files");
-    if (demandFiles.size() > 0) {
-        myNet->getSavingFilesHandler()->updateDemandEmptyFilenames(demandFiles.front());
-    }
-    const auto& dataFiles = neteditOptions.getStringVector("data-files");
-    if (dataFiles.size() > 0) {
-        myNet->getSavingFilesHandler()->updateDataEmptyFilenames(dataFiles.front());
-    }
-    const auto& meanDataFiles = neteditOptions.getStringVector("meandata-files");
-    if (meanDataFiles.size() > 0) {
-        myNet->getSavingFilesHandler()->updateMeanDataEmptyFilenames(meanDataFiles.front());
-    }
-    // load elements
-    loadAdditionalElements();
-    loadDemandElements();
-    loadDataElements();
-    loadMeanDataElements();
-    // load selection
-    if (!OptionsCont::getOptions().isDefault("selection-file")) {
-        myViewNet->getViewParent()->getSelectorFrame()->getSelectionOperationModul()->loadFromFile(OptionsCont::getOptions().getString("selection-file"));
-    }
-    // after loading net shouldn't be saved
-    if (myNet) {
+        // if we're loading a sumo config, update netedit options
+        if ((mySumoOptions.getStringVector("additional-files").size() > 0) && neteditOptions.getStringVector("additional-files").empty()) {
+            neteditOptions.resetWritable();
+            neteditOptions.set("additional-files", mySumoOptions.getValueString("additional-files"));
+        }
+        if ((mySumoOptions.getStringVector("route-files").size() > 0) && neteditOptions.getStringVector("route-files").empty()) {
+            neteditOptions.resetWritable();
+            neteditOptions.set("route-files", mySumoOptions.getValueString("route-files"));
+        }
+        // update default filenames
+        const auto& additionalFiles = neteditOptions.getStringVector("additional-files");
+        if (additionalFiles.size() > 0) {
+            myNet->getSavingFilesHandler()->updateAdditionalEmptyFilenames(additionalFiles.front());
+        }
+        const auto& demandFiles = neteditOptions.getStringVector("route-files");
+        if (demandFiles.size() > 0) {
+            myNet->getSavingFilesHandler()->updateDemandEmptyFilenames(demandFiles.front());
+        }
+        const auto& dataFiles = neteditOptions.getStringVector("data-files");
+        if (dataFiles.size() > 0) {
+            myNet->getSavingFilesHandler()->updateDataEmptyFilenames(dataFiles.front());
+        }
+        const auto& meanDataFiles = neteditOptions.getStringVector("meandata-files");
+        if (meanDataFiles.size() > 0) {
+            myNet->getSavingFilesHandler()->updateMeanDataEmptyFilenames(meanDataFiles.front());
+        }
+        // load elements
+        loadAdditionalElements();
+        loadDemandElements();
+        loadDataElements();
+        loadMeanDataElements();
+        // load selection
+        if (!OptionsCont::getOptions().isDefault("selection-file")) {
+            myViewNet->getViewParent()->getSelectorFrame()->getSelectionOperationModul()->loadFromFile(OptionsCont::getOptions().getString("selection-file"));
+        }
         myNet->getSavingStatus()->networkSaved();
     }
+    myMessageWindow->registerMsgHandlers();
     // update app
     update();
     // restore focus
