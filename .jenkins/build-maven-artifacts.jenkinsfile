@@ -10,20 +10,20 @@ spec:
   - name: jnlp
     resources:
       limits:
-        memory: "1Gi"
-        cpu: "500m"
+        memory: "4Gi"
+        cpu: "1000m"
       requests:
-        memory: "1Gi"
-        cpu: "500m"
+        memory: "4Gi"
+        cpu: "1000m"
   - name: ubuntu-sumo
     image: ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest
     tty: true
     resources:
       limits:
-        memory: "2Gi"
+        memory: "4Gi"
         cpu: "1"
       requests:
-        memory: "2Gi"
+        memory: "4Gi"
         cpu: "1"
     command:
     - cat
@@ -64,20 +64,16 @@ spec:
       steps {
         container('ubuntu-sumo') {
           sh '''
-            git config --global advice.detachedHead false
+            # git config --global advice.detachedHead false
 
             # Cloning SUMO
             git clone -q --filter=tree:0 --branch main https://github.com/eclipse-sumo/sumo.git
             export SUMO_HOME=\${WORKSPACE}/sumo
 
-            # Creating virtual env for Python for the whole process
-            python3 -m venv env
-            env/bin/python3 -m pip install --quiet -r sumo/tools/requirements.txt
-            env/bin/python3 -m pip install --quiet dmgbuild delocate
+            # python3 -m pip install --quiet -r sumo/tools/requirements.txt
+            # python3 -m pip install --quiet dmgbuild delocate
 
             # Building SUMO & TraaS
-            export VIRTUAL_ENV=${WORKSPACE}/env
-            export PATH=${WORKSPACE}/env/bin:\$PATH
             cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=sumo-install -B sumo-build sumo
             cmake --build sumo-build -j4
             cmake --build sumo-build --target traas
