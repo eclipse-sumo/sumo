@@ -118,7 +118,7 @@ title: ChangeLog
 
 - Tools
   - `sumolib.net.lane.getClosestLanePosAndDist` now gives correct results when lane length differs from shape length #16269
-  - `sumolib.xml` no properly escapes special characters when generating xml #16318
+  - `sumolib.xml` now properly escapes special characters when generating xml #16318
   - gtfs2pt.py: Fixed problem that caused invalid routes to be written #16336
   - gtfs2pt.py: Fixed invalid stop placement on disallowed lane #16352
   - gtfs2pt.py: Now warning about input that provokes negative stop-until times #16322
