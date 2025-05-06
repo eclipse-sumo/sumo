@@ -84,7 +84,7 @@ public:
     void setNumVisible(FXint nvis);
 
     /// @brief Set the text in the textField
-    void setText(const FXString& text);
+    void setText(const FXString& text, FXbool notify = FALSE);
 
     /// @brief Return true if current item
     FXbool isItemCurrent(FXint index) const;
