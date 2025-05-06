@@ -1,11 +1,3 @@
-%if 0%{?mandriva_version}
-  Substitute: libnetcdf-devel netcdf-devel
-  Substitute: hdf-devel HDF-devel
-%endif
-%if 0%{?sles_version} == 10
-  Prefer: sqlite-devel
-  Prefer: liblapack3
-%endif
 %if 0%{?suse_version} > 1220
   Prefer: postgresql-devel
 %endif
@@ -25,11 +17,8 @@
   Prefer: blas
   Prefer: lapack
   Prefer: atlas
+  Prefer: libzstd-devel
   Substitute: gcc-fortran gcc-gfortran
-%endif
-%if 0%{?fedora_version} == 16 || 0%{?mandriva_version}
-  Substitute: Xerces-c-devel xerces-c-devel
-  Substitute: Xerces-c xerces-c
 %endif
 %if 0%{?centos_version} >= 600 || 0%{?rhel_version} >= 600 || 0%{?scientificlinux_version} || 0%{?fedora_version}
   Substitute: libxerces-c-devel xerces-c-devel
@@ -58,3 +47,9 @@ Prefer: libjpeg-dev
 Prefer: libfontconfig1-dev
 Prefer: libcurl4-gnutls-dev
 Prefer: libfreetype-dev
+Prefer: blas-openblas
+Prefer: libgfortran5
+%if 0%{?centos_version} && 0%{?centos_version} < 800
+  Prefer: java-1.8.0-openjdk
+  Prefer: java-1.8.0-openjdk-devel
+%endif
