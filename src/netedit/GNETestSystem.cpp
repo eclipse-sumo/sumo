@@ -24,6 +24,9 @@
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/GNETagSelector.h>
 
+#include <thread>
+#include <chrono>
+
 #include "GNEApplicationWindow.h"
 #include "GNETestSystem.h"
 #include "GNEViewNet.h"
@@ -53,95 +56,99 @@ GNETestSystem::initTests() {
 
 
 void
-GNETestSystem::runAllTests() {
+GNETestSystem::startTests() {
     if (myInitedTest == false) {
+        start();
         myInitedTest = true;
-        while (myCurrentStep < (int)myTestSteps.size()) {
-            const auto testStep = myTestSteps.at(myCurrentStep);
-            // continue depending of step type
-            switch (testStep->getStepType()) {
-                // basic
-                case TestStepType::CLICK:
-                    // run all events (move, click press, click release)
-                    myApplicationWindow->getViewNet()->onMouseMove(myApplicationWindow, 0, (void*)testStep->getEvents().at(0));
-                    // force repaint for updating objects under cursor
-                    myApplicationWindow->getViewNet()->onPaint(nullptr, 0, nullptr);
-                    myApplicationWindow->getViewNet()->onLeftBtnPress(myApplicationWindow, 0, (void*)testStep->getEvents().at(1));
-                    myApplicationWindow->getViewNet()->onLeftBtnRelease(myApplicationWindow, 0, (void*)testStep->getEvents().at(2));
-                    break;
-                // supermodes
-                case TestStepType::SUPERMODE_NETWORK:
-                    myApplicationWindow->onCmdSetSuperMode(myApplicationWindow, MID_HOTKEY_F2_SUPERMODE_NETWORK, nullptr);
-                    break;
-                case TestStepType::SUPERMODE_DEMAND:
-                    myApplicationWindow->onCmdSetSuperMode(myApplicationWindow, MID_HOTKEY_F3_SUPERMODE_DEMAND, nullptr);
-                    break;
-                case TestStepType::SUPERMODE_DATA:
-                    myApplicationWindow->onCmdSetSuperMode(myApplicationWindow, MID_HOTKEY_F4_SUPERMODE_DATA, nullptr);
-                    break;
-                // network mode
-                case TestStepType::NETWORKMODE_INSPECT:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_I_MODE_INSPECT, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_DELETE:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_SELECT:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_MOVE:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_M_MODE_MOVE_MEANDATA, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_EDGE:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_E_MODE_EDGE_EDGEDATA, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_TRAFFICLIGHT:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_T_MODE_TLS_TYPE, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_CONNECTION:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_C_MODE_CONNECT_CONTAINER, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_PROHIBITION:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_CROSSING:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_ADDITIONAL:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_WIRE:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_TAZ:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_Z_MODE_TAZ_TAZREL, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_SHAPE:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_P_MODE_POLYGON_PERSON, nullptr);
-                    break;
-                case TestStepType::NETWORKMODE_DECAL:
-                    myApplicationWindow->onCmdSetMode(myApplicationWindow, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION, nullptr);
-                    break;
-                // set additional
-                case TestStepType::SELECT_ADDITIONAL:
-                    myApplicationWindow->getViewNet()->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->setCurrentTag(testStep->getTag());
-                    break;
-                // other
-                case TestStepType::PROCESSING:
-                    myApplicationWindow->onCmdProcessButton(myApplicationWindow, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND, nullptr);
-                    break;
-                case TestStepType::SAVE_NETEDITCONFIG:
-                    myApplicationWindow->onCmdSaveNeteditConfig(myApplicationWindow, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, nullptr);
-                    break;
-                case TestStepType::QUIT:
-                    myApplicationWindow->onCmdQuit(myApplicationWindow, MID_HOTKEY_CTRL_Q_CLOSE, nullptr); 
-                    break;
-                default:
-                    break;
-            }
-            myCurrentStep++;
+    }
+}
+
+int
+GNETestSystem::run() {
+    for (const auto &testStep :myTestSteps) {
+        // continue depending of step type
+        switch (testStep->getStepType()) {
+            // basic
+            case TestStepType::CLICK:
+                // run all events (move, click press, click release)
+                myApplicationWindow->getViewNet()->onMouseMove(myApplicationWindow, 0, (void*)testStep->getEvents().at(0));
+                // force repaint for updating objects under cursor
+                myApplicationWindow->getViewNet()->onPaint(nullptr, 0, nullptr);
+                myApplicationWindow->getViewNet()->onLeftBtnPress(myApplicationWindow, 0, (void*)testStep->getEvents().at(1));
+                myApplicationWindow->getViewNet()->onLeftBtnRelease(myApplicationWindow, 0, (void*)testStep->getEvents().at(2));
+                break;
+            // supermodes
+            case TestStepType::SUPERMODE_NETWORK:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F2_SUPERMODE_NETWORK), nullptr);
+                break;
+            case TestStepType::SUPERMODE_DEMAND:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND), nullptr);
+                break;
+            case TestStepType::SUPERMODE_DATA:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA), nullptr);
+                break;
+            // network mode
+            case TestStepType::NETWORKMODE_INSPECT:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_DELETE:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_SELECT:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_MOVE:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE_MEANDATA), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_EDGE:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_TRAFFICLIGHT:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_CONNECTION:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_PROHIBITION:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_CROSSING:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_ADDITIONAL:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_WIRE:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_TAZ:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_SHAPE:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_P_MODE_POLYGON_PERSON), nullptr);
+                break;
+            case TestStepType::NETWORKMODE_DECAL:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION), nullptr);
+                break;
+            // set additional
+            case TestStepType::SELECT_ADDITIONAL:
+                myApplicationWindow->getViewNet()->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->handle(nullptr, FXSEL(SEL_COMMAND, MID_GNE_TAG_SELECTED), (void*)testStep->getText());
+                break;
+            // other
+            case TestStepType::PROCESSING:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND), nullptr);
+                break;
+            case TestStepType::SAVE_NETEDITCONFIG:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG), nullptr);
+                break;
+            case TestStepType::QUIT:
+                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE), nullptr);
+                break;
+            default:
+                break;
         }
     }
+    return 1;
 }
 
 
@@ -244,7 +251,7 @@ GNETestSystem::TestStep::TestStep(const std::string &row) {
     } else if (myFunction == "selectAdditional") {
         if (myArguments.size() == 1) {
             myStepType = TestStepType::SELECT_ADDITIONAL;
-            myTag = static_cast<SumoXMLTag>(SUMOXMLDefinitions::Tags.get(myArguments[0]));
+            myText = new FXString(myArguments[0].c_str());
         } else {
             throw ProcessError("Invalid number of arguments for function " + myFunction);
         }
@@ -279,6 +286,9 @@ GNETestSystem::TestStep::~TestStep() {
     for (auto event : myEvents) {
         delete event;
     }
+    if (myText) {
+        delete myText;
+    }
 }
 
 
@@ -288,9 +298,9 @@ GNETestSystem::TestStep::getStepType() const {
 }
 
 
-SumoXMLTag
-GNETestSystem::TestStep::getTag() const {
-    return myTag;
+FXString* 
+GNETestSystem::TestStep::getText() const {
+    return myText;
 }
 
 
