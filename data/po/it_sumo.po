@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:39+0200\n"
-"PO-Revision-Date: 2025-05-05 12:54+0000\n"
+"PO-Revision-Date: 2025-05-07 08:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4146,7 +4146,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Emissions.cpp:52
 msgid "Recording begin time for emission-data"
-msgstr ""
+msgstr "Ora iniziale per registrare i dati di emissioni"
 
 #: src/microsim/devices/MSDevice_Emissions.cpp:55
 msgid "Recording period for emission-output"
@@ -4460,6 +4460,8 @@ msgstr ""
 #: src/microsim/devices/MSDevice_SSM.cpp:258
 msgid "Whether to write conflict outputs with no data as NA values or skip it"
 msgstr ""
+"Se dati vuoti di conflitti devono essere scritti come valori NA oppure "
+"saltati in uscita"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:260
 msgid ""
@@ -4589,6 +4591,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-lane-"
 "positions'. Using default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro di veicolo 'device.ssm.write-lane-"
+"positions'. Perciò si usa il valore standard '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4006
 #, c-format
@@ -5591,6 +5595,8 @@ msgid ""
 "Edge '%' is shorter than %m (%m) and will cause incorrect flow reduction "
 "with option --meso-tls-penalty"
 msgstr ""
+"L'arco '%' è più corto di %m (%m) e provocherà una riduzione di flusso "
+"scorretta usando l'opzione --meso-tls-penalty"
 
 #: src/microsim/traffic_lights/NEMAController.cpp:164
 msgid ""
@@ -6220,6 +6226,8 @@ msgid ""
 "Edge sequence is not consistent with stop sequence in line '%', not adding "
 "bidi edges."
 msgstr ""
+"Non si aggiungeranno degli archi bidirezionali perché la sequenza di archi "
+"non è consistente con la sequenza di fermata della linea '%'."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1020
 #, c-format
