@@ -63,19 +63,30 @@ GNETestSystem::startTests() {
 }
 
 
+void
+GNETestSystem::lock() {
+    myContinue = false;
+}
+
+void
+GNETestSystem::unlock() {
+    myContinue = true;
+}
+
+
+
 int
 GNETestSystem::run() {
-    for (const auto &testStep :myTestSteps) {
+    for (const auto &testStep : myTestSteps) {
         // continue depending of step type
         switch (testStep->getStepType()) {
             // basic
             case TestStepType::CLICK:
-                // run all events (move, click press, click release)
-                myApplicationWindow->getViewNet()->onMouseMove(myApplicationWindow, 0, (void*)testStep->getEvents().at(0));
-                // force repaint for updating objects under cursor
-                myApplicationWindow->getViewNet()->onPaint(nullptr, 0, nullptr);
-                myApplicationWindow->getViewNet()->onLeftBtnPress(myApplicationWindow, 0, (void*)testStep->getEvents().at(1));
-                myApplicationWindow->getViewNet()->onLeftBtnRelease(myApplicationWindow, 0, (void*)testStep->getEvents().at(2));
+                myApplicationWindow->getViewNet()->handle(nullptr, FXSEL(SEL_MOTION, 0), (void*)testStep->getEvents().at(0));
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                myApplicationWindow->getViewNet()->handle(nullptr, FXSEL(SEL_LEFTBUTTONPRESS, 0), (void*)testStep->getEvents().at(1));
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                myApplicationWindow->getViewNet()->handle(nullptr, FXSEL(SEL_LEFTBUTTONRELEASE, 0), (void*)testStep->getEvents().at(2));
                 break;
             // supermodes
             case TestStepType::SUPERMODE_NETWORK:
@@ -146,6 +157,9 @@ GNETestSystem::run() {
                 break;
             default:
                 break;
+        }
+        while (!myContinue) {
+            FXThread::sleep(10);  
         }
     }
     return 1;

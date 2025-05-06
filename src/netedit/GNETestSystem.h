@@ -42,6 +42,10 @@ public:
     /// @brief run all tests
     void startTests();
 
+    void lock();
+
+    void unlock();
+
     /// @brief run all tests
     int run();
 
@@ -138,6 +142,9 @@ private:
     /// @brief test steps
     std::vector<TestStep*> myTestSteps;
 
-    /// @brief inited
+    /// @brief flag to check if test are initedinited
     bool myInitedTest = false;
+
+    /// @brief flag used for continue
+    bool myContinue = true;
 };
