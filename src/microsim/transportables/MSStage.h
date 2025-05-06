@@ -129,7 +129,7 @@ public:
         return nullptr;
     }
 
-    /// Returns the current lane (if applicable)
+    /// @brief Return the current jump duration (if applicable)
     virtual SUMOTime getJumpDuration() const {
         return -1;
     }
