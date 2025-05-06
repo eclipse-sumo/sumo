@@ -1430,7 +1430,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             }
             std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "");
             double pos = (stop.startPos + stop.endPos) / 2.;
-            if (!myActiveTransportablePlan->empty()) {
+            if (!myActiveTransportablePlan->empty() && myActiveTransportablePlan->back()->getJumpDuration() < 0) {
                 pos = myActiveTransportablePlan->back()->unspecifiedArrivalPos() ?
                       MSStage::ARRIVALPOS_UNSPECIFIED : myActiveTransportablePlan->back()->getArrivalPos();
             }
