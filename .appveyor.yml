@@ -10,13 +10,11 @@ environment:
           ver: 2015
           generator: "Visual Studio 14 2015 Win64"
           configuration: Release
-          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0 -DNETEDIT=0"
           PYTHON: C:\Python38-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
           ver: 2017
           generator: "Visual Studio 15 2017 Win64"
           configuration: Release
-          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0 -DNETEDIT=0"
           PYTHON: C:\Python38-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
           ver: 2019
@@ -44,15 +42,13 @@ install:
 
 build_script:
     - cd %APPVEYOR_BUILD_FOLDER%
-    - mkdir build_msvc%ver% &&
-      cd build_msvc%ver% &&
-      cmake .. -G"%generator%" -DPYTHON_EXECUTABLE=%PYTHON%\python.exe %cmake_opts% &&
-      cmake --build . --config %configuration% -j 4 && cd .. &&
+    - cmake -B build_msvc%ver% -G"%generator%" -DPYTHON_EXECUTABLE=%PYTHON%\python.exe %cmake_opts% &&
+      cmake --build build_msvc%ver% --config %configuration% -j 4 &&
       %PYTHON%\python.exe tools\build_config\setup-libsumo.py bdist_wheel
 
 
 matrix:
-    fast_finish: true
+    fast_finish: false
 
 artifacts:
     - path: bin
