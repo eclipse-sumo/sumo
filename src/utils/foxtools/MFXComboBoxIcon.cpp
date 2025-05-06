@@ -210,8 +210,8 @@ MFXComboBoxIcon::setNumVisible(FXint nvis) {
 
 
 void
-MFXComboBoxIcon::setText(const FXString& text) {
-    myTextFieldIcon->setText(text);
+MFXComboBoxIcon::setText(const FXString& text, FXbool notify) {
+    myTextFieldIcon->setText(text, notify);
 }
 
 
