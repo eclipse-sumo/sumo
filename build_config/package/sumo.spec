@@ -36,6 +36,7 @@ BuildRequires:  cmake
 %endif
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
+BuildRequires:  java-devel
 BuildRequires:  swig
 BuildRequires:  help2man
 BuildRequires:  pkgconfig
@@ -132,8 +133,12 @@ install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
 install -p -m 644 build_config/package/*sh %{buildroot}%{_sysconfdir}/profile.d
 install -d -m 755 %{buildroot}%{_datadir}/applications
 install -p -m 644 build_config/package/%{name}.desktop %{buildroot}%{_datadir}/applications
+install -p -m 644 build_config/package/netedit.desktop %{buildroot}%{_datadir}/applications
+install -p -m 644 build_config/package/osmWebWizard.desktop %{buildroot}%{_datadir}/applications
 install -d -m 755 %{buildroot}%{_datadir}/pixmaps
 install -p -m 644 build_config/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
+install -p -m 644 build_config/package/netedit.png %{buildroot}%{_datadir}/pixmaps
+install -p -m 644 build_config/package/osmWebWizard.png %{buildroot}%{_datadir}/pixmaps
 %if 0%{?suse_version}
 install -d -m 755 %{buildroot}%{_datadir}/mime/application
 install -p -m 644 build_config/package/%{name}.xml %{buildroot}%{_datadir}/mime/application/%{name}.xml
@@ -152,6 +157,8 @@ cd cmake-build
 %{_bindir}/*
 %{_libdir}/libsumocs.so
 %{_libdir}/libtracics.so
+%{_libdir}/liblibsumojni.so
+%{_libdir}/liblibtracijni.so
 %{_datadir}/sumo
 %doc AUTHORS README.md ChangeLog CONTRIBUTING.md NOTICE.md docs/pydoc docs/userdoc docs/examples docs/tutorial
 %if 0%{?suse_version} < 1500
@@ -161,8 +168,8 @@ cd cmake-build
 %endif
 %{_mandir}/man1/*
 %config %{_sysconfdir}/profile.d/%{name}.*sh
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/applications/*.desktop
+%{_datadir}/pixmaps/*.png
 %if 0%{?suse_version}
 %{_datadir}/mime/application
 %endif
