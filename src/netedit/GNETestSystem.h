@@ -39,9 +39,6 @@ public:
     /// @brief destructor
     ~GNETestSystem();
 
-    /// @brief init test
-    void initTests();
-
     /// @brief run all tests
     void startTests();
 
