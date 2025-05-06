@@ -160,6 +160,8 @@ def main(options, platform="x64"):
                             os.path.join(installDir, "LICENSE"))
             for f in glob.glob(os.path.join(SUMO_HOME, "bin", "*.jar")):
                 shutil.copy(f, os.path.join(installDir, "bin"))
+            for f in glob.glob(os.path.join(SUMO_HOME, "bin", "*-sources.zip")):
+                shutil.unpack_archive(f, os.path.join(installDir, "include"))
             if options.suffix == "extra" and os.path.exists(os.path.join(options.remoteDir, "cadyts.jar")):
                 shutil.copy(os.path.join(options.remoteDir, "cadyts.jar"), os.path.join(installDir, "bin"))
             shutil.copytree(os.path.join(SUMO_HOME, "docs"), os.path.join(installDir, "docs"),
