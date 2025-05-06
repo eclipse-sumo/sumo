@@ -23,7 +23,7 @@ SUMO is also available via winget so `winget install --name sumo` should give yo
 
 ### SUMO-Game
 
-<ul><li>Windows binaries: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-game-{{Version}}.zip">sumo-game-{{Version}}.zip</a><?php getInfo("sumo-game-{{Version}}.zip","r",false);?></li></ul>
+<ul><li>Windows binaries: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-game-win64-{{Version}}.zip">sumo-game-win64-{{Version}}.zip</a><?php getInfo("sumo-game-win64-{{Version}}.zip","r",false);?></li></ul>
 
 
 ## Linux
@@ -64,6 +64,7 @@ repositories include a nightly build as well (called ***sumo-git***).
 - [Fedora 39 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_39/)
 - [Fedora 40 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_40/)
 - [Fedora 41 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_41/)
+- [Fedora 42 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_42/)
 - [Fedora Rawhide repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_Rawhide/)
 - [CentOS 7 repository](https://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
 - [Debian 9 repository](https://download.opensuse.org/repositories/science:/dlr/Debian_9.0/)
