@@ -28,7 +28,7 @@ def request(url, token):
     return requests.get(url)
 
 
-def get_latest_artifact_url(options, artifact_name):
+def get_latest_artifact_url(options):
     prefix = "%s/repos/%s/%s/actions/" % (options.api_url, options.owner, options.repository)
     workflow_id = None
     response = request(prefix + "workflows", options.token)
@@ -56,7 +56,7 @@ def get_latest_artifact_url(options, artifact_name):
     for workflow_run_id in workflow_run_ids:
         response = request("%sruns/%s/artifacts" % (prefix, workflow_run_id), options.token)
         for artifact in response.json()['artifacts']:
-            if artifact['name'] == artifact_name:
+            if artifact['name'].startswith(options.prefix):
                 yield "%sartifacts/%s/zip" % (prefix, artifact['id'])
 
 
@@ -69,15 +69,15 @@ if __name__ == "__main__":
     ap.add_argument("--branch", default="main")
     ap.add_argument("--token", help="GitHub authentication token")
     ap.add_argument("--directory", help="output directory")
+    ap.add_argument("--prefix", default="libsumo-python-3.", help="prefix of the artifact zip file")
     ap.add_argument("--allow-failed", action="store_true", default=False, help="download even if the build failed")
     ap.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me more")
     options = ap.parse_args()
 
-    for minor in range(8, 14):
-        for artifact_url in get_latest_artifact_url(options, "libsumo-python-3.%s-wheels" % minor):
-            response = request(artifact_url, options.token)
-            if response.status_code == 200:
-                with zipfile.ZipFile(io.BytesIO(response.content)) as zip:
-                    zip.extractall(options.directory)
-            if options.verbose:
-                print(artifact_url, response)
+    for artifact_url in get_latest_artifact_url(options):
+        response = request(artifact_url, options.token)
+        if response.status_code == 200:
+            with zipfile.ZipFile(io.BytesIO(response.content)) as zip:
+                zip.extractall(options.directory)
+        if options.verbose:
+            print(artifact_url, response)
