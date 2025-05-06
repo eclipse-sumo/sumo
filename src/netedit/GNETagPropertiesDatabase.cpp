@@ -321,32 +321,29 @@ GNETagPropertiesDatabase::getHierarchyDepth() const {
 
 void
 GNETagPropertiesDatabase::writeAttributeHelp() const {
-    // merge "virtual" netedit tags like  '<walk: edge->edge'
-    static std::map<SumoXMLTag, GNETagProperties*> mergedAttributeProperties;
-    for (const auto& tagPropertyItem : myTagProperties) {
-        mergedAttributeProperties[tagPropertyItem.second->getXMLTag()] = tagPropertyItem.second;
-    }
     const std::string opt = "attribute-help-output";
     OutputDevice::createDeviceByOption(opt);
     OutputDevice& dev = OutputDevice::getDeviceByOption(opt);
     dev << "# Netedit attribute help\n";
-    for (const auto& mergedTagProperty : mergedAttributeProperties) {
-        if (mergedTagProperty.second->getAttributeProperties().begin() == mergedTagProperty.second->getAttributeProperties().end()) {
+    for (const auto& tagProperty : myTagProperties) {
+        if (tagProperty.second->getAttributeProperties().begin() == tagProperty.second->getAttributeProperties().end()) {
             // don't write elements without attributes, they are only used for internal purposes
             continue;
         }
-        if (mergedTagProperty.second->getXMLParentTags().empty()) {
-            dev << "\n## " << toString(mergedTagProperty.first) << "\n";
+        if (tagProperty.second->getXMLTag() != tagProperty.first) {
+            dev << "\n## " << toString(tagProperty.second->getXMLTag()) << " (" << toString(tagProperty.first) << ")\n";
+        } else if (tagProperty.second->getXMLParentTags().empty()) {
+            dev << "\n## " << toString(tagProperty.first) << "\n";
         } else {
-            if (mergedTagProperty.first == SUMO_TAG_FLOW) {
-                dev << "\n## " << toString(mergedTagProperty.first) << "\n";
+            if (tagProperty.first == SUMO_TAG_FLOW) {
+                dev << "\n## " << toString(tagProperty.first) << "\n";
                 dev << "also child element of ";
             } else {
-                dev << "\n### " << toString(mergedTagProperty.first) << "\n";
+                dev << "\n### " << toString(tagProperty.first) << "\n";
                 dev << "child element of ";
             }
             bool sep = false;
-            for (const auto& pTag : mergedTagProperty.second->getXMLParentTags()) {
+            for (const auto& pTag : tagProperty.second->getXMLParentTags()) {
                 if (sep) {
                     dev << ", ";
                 } else {
@@ -358,14 +355,17 @@ GNETagPropertiesDatabase::writeAttributeHelp() const {
         }
         dev << "| Attribute | Type | Description |\n";
         dev << "|-----------|------|-------------|\n";
-        for (const auto& attr : mergedTagProperty.second->getAttributeProperties()) {
-            dev << "|" << toString(attr->getAttr()) << "|"
-                << attr->getDescription() << "|"
-                << StringUtils::replace(attr->getDefinition(), "\n", " ");
-            if (attr->hasDefaultValue()) {
-                dev << " *default:* **" << attr->getDefaultStringValue() << "**";
+        for (const auto& attr : tagProperty.second->getAttributeProperties()) {
+            // ignore netedit attributes (front, selected, etc.)
+            if (!attr->isNeteditEditor() && (attr->getAttr() != GNE_ATTR_PARAMETERS)) {
+                dev << "|" << toString(attr->getAttr()) << "|"
+                    << attr->getDescription() << "|"
+                    << StringUtils::replace(attr->getDefinition(), "\n", " ");
+                if (attr->hasDefaultValue()) {
+                    dev << " *default:* **" << attr->getDefaultStringValue() << "**";
+                }
+                dev << "|\n";
             }
-            dev << "|\n";
         }
     }
 }
