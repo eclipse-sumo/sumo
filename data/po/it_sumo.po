@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:39+0200\n"
-"PO-Revision-Date: 2025-04-15 00:58+0000\n"
+"PO-Revision-Date: 2025-05-05 12:54+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/applications/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -762,6 +763,8 @@ msgid ""
 "The option --weights.random-factor should not be used together with astar "
 "and precomputed distances."
 msgstr ""
+"L'opzione --weights.random-factor non dovrebbe essere usata insieme a astar "
+"e distanze precalcolate."
 
 #: src/duarouter/RODUAFrame.cpp:238 src/marouter/ROMAFrame.cpp:243
 msgid "Invalid route choice method '%'."
@@ -2706,7 +2709,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:679
 msgid "Replay exact rerouting sequence from vehroute-output"
-msgstr ""
+msgstr "Riproduzione della sequenza di itinerari successivi da vehroute-output"
 
 #: src/microsim/MSFrame.cpp:684 src/router/ROFrame.cpp:59
 #: src/tools/emissionsDrivingCycle_main.cpp:132
@@ -3929,6 +3932,8 @@ msgstr "Se tutti i punti di riconoscimento devono essere scritti"
 #: src/microsim/devices/MSDevice_BTreceiver.cpp:71
 msgid "The offtime used for calculating detection probability (in seconds)"
 msgstr ""
+"Il periodo spento usato per calcolare la probabilità di rilevamento (in "
+"secondi)"
 
 #: src/microsim/devices/MSDevice_BTreceiver.cpp:295
 msgid ""
@@ -4121,17 +4126,23 @@ msgstr ""
 msgid ""
 "Overhead wire solver is on, but the Eigen library has not been compiled in!"
 msgstr ""
+"Il risolutore di catenaria è attivato ma la biblioteca Eigen non è stata "
+"compilata!"
 
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:631
 #: src/utils/traction_wire/Circuit.cpp:880
 msgid "The element or node with the last Id was not found in the circuit!"
 msgstr ""
+"L'elemento o nodo con L'ultimo codice identificativo non è stato trovato nel "
+"circuito!"
 
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:753
 msgid ""
 "Getting the vehicle mass via parameters is deprecated, please use getMass "
 "for the vehicle or its type."
 msgstr ""
+"Accedere alla massa del veicolo attraverso i parametri è obsoleto; ormai si "
+"può usare getMass per il veicolo o il suo tipo."
 
 #: src/microsim/devices/MSDevice_Emissions.cpp:52
 msgid "Recording begin time for emission-data"

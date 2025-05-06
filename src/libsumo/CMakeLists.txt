@@ -175,6 +175,9 @@ if (SWIG_FOUND)
             swig_link_libraries(libsumocs ${libsumo_link_library} ${sumolibs})
         endif()
         swig_link_libraries(libsumocs ${sumo_link_libraries})
+        ADD_CUSTOM_COMMAND(TARGET libsumocs POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/libsumocs-sources.zip" --format=zip "cs"
+        )
         set_property(TARGET libsumocs PROPERTY FOLDER "libsumo")
         install(TARGETS libsumocs DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
     endif()

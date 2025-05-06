@@ -106,7 +106,6 @@ SUMO can be easily installed on macOS by using the provided package file:
 
 <ul>
 <li>pkg installer: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-{{Version}}.pkg">sumo-{{Version}}.pkg</a><?php getInfo("sumo-{{Version}}.pkg","r",false);?></li>
-<li>dmg containing the installer and uninstaller: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-{{Version}}.dmg">sumo-{{Version}}.dmg</a><?php getInfo("sumo-{{Version}}.dmg","r",false);?></li>
 </ul>
 
 Make sure to have Python and XQuartz installed on your Mac.

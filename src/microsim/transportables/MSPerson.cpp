@@ -216,7 +216,7 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
     }
     if (prior->getJumpDuration() > 0) {
         // negative distance indicates jump
-        MSStage* newStage = new MSPersonStage_Access(prior->getDestination(), nullptr, prior->getArrivalPos(), 0.0, -1, true,
+        MSStage* newStage = new MSPersonStage_Access(getDestination(), nullptr, getArrivalPos(), 0.0, -1, true,
                 prior->getPosition(SIMSTEP) , (*myStep)->getPosition(SIMSTEP));
         myStep = myPlan->insert(myStep, newStage);
         return true;

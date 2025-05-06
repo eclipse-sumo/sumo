@@ -6,6 +6,11 @@ title: ChangeLog
 
 ### Bugfixes
 
+
+## Version 1.23.0 (06.05.2025)
+
+### Bugfixes
+
 - sumo
   - Fixed invalid stop position at busStop when a vehicle became blocked while the stop was occupied #16270 (regression in 1.6.0)
   - Fixed crash when using rail signal on shared lane #16219 (regression in 1.22.0)
@@ -21,7 +26,7 @@ title: ChangeLog
   - Fixed invalid bestLaneOffset when an edge has usable lanes divided by forbidden lanes. This could result in invalid departure errors #16287
   - Fixed crash after lane change with E3 detector using `detectPersons="car"` #16296
   - Ensured simulation terminates when using LC2013 with sublane model #16297
-  - Fixed crash when using option **--device.rerouting.threads** with option **--weights.random-factor** and rerouters #16347  
+  - Fixed crash when using option **--device.rerouting.threads** with option **--weights.random-factor** and rerouters #16347
   - Fixed collision due to unsafe lane changing ahead of a zipper merge #16305
   - Fixed duplicate collision output when using **--collision-action warn** #16397
   - Fixed misclassification of some frontal-collisions as normal (rear-end) collision #16398
@@ -38,7 +43,7 @@ title: ChangeLog
   - Stops in flows are now correctly handled when saving and loading state #16527
   - Fixed invalid behavior when rerouter closes multiple lanes or edges with different permissions in the same interval #13846
   - Fixed rare crash on loading rail simulation with internal links #16532
-  - Fixed insufficient precision when using **--fcd-replay** with JuPedSim #16047  
+  - Fixed insufficient precision when using **--fcd-replay** with JuPedSim #16047
   - Free insertion now takes into account a stop on the insertion edge #16592
   - Insertion after jump no longer skips stop on the insertion edge #16583
   - Fixed treatment of stationfinder device parameter `checkEnergyForRoute` #16380
@@ -46,6 +51,7 @@ title: ChangeLog
   - Fixed bug where electric vehicles with stationfinder device only recharge once #16597
   - stationFinder/parkingReroute: Fixed invalid estimate of time to reach new stopping place #16603
   - StationFinder: fixed bug where charging only worked once #16597
+  - Fixed crash when using calibrator in a simulation beyond step 86400 #16626
 
 
 
@@ -90,12 +96,11 @@ title: ChangeLog
   - Fixed bug where option **--edges.join-tram-dist** didn't join enough #16408
   - Fixed `nan` value in generated network when loading connections with custom length value and length-0 geometry #16441
   - Fixed invalid right of way with respect to left-turns from the oncoming direction at junctiop type `left_before_right` #16480
-  - Fixed invalid internal lane shape when importin OpenDRIVE #16482
+  - Fixed invalid internal lane shape when importing OpenDRIVE #16482
   - Fixed invalid ptline-output when running with option **--ptstop-output.no-bidi** #16534
   - Option **--ptline-clean-up** now cleans up more stops #16540
   - Fixed failure to join junctions #16557
   - Fixed bug where a loaded network successively changed it's geometry #16609
-  - Option --aggregate-warnings 0 no longer disables "quitting on error" #16621
 
 - durarouter
   - Fixed invalid route output when loading invalid routes with stops and setting option **--ignore-errors** #16365
@@ -118,7 +123,7 @@ title: ChangeLog
 
 - Tools
   - `sumolib.net.lane.getClosestLanePosAndDist` now gives correct results when lane length differs from shape length #16269
-  - `sumolib.xml` no properly escapes special characters when generating xml #16318
+  - `sumolib.xml` now properly escapes special characters when generating xml #16318
   - gtfs2pt.py: Fixed problem that caused invalid routes to be written #16336
   - gtfs2pt.py: Fixed invalid stop placement on disallowed lane #16352
   - gtfs2pt.py: Now warning about input that provokes negative stop-until times #16322
@@ -138,7 +143,7 @@ title: ChangeLog
   - analyzePersonPlans.py: fixed invalid car use classification #16549
   - distributeChargingStations.py: Fixed invalid position of generated parking area when input contains negative positions #16560
   - ptlines2flows.py: Fixed invalid route with **--extend-to-fringe** when pt line is split #16573
-  - ptlines2flows.py: No longer writing invalid (disconnected) routes when using a modified input network. Instead disconnected parts are bridged with jumps #16292    
+  - ptlines2flows.py: No longer writing invalid (disconnected) routes when using a modified input network. Instead disconnected parts are bridged with jumps #16292
   - loading tool config with multiple positional input file arguments now works #16447
 
 ### Enhancements
@@ -232,7 +237,7 @@ title: ChangeLog
   - edgeDataFromFlow.py: Now supports custom column names with option **--id-column** and **--time-column** and custom interpretation of time values with option **--time-scale** #16555
   - generateTurnRatios.py: added option **--split-types** to create type-specific turn ration attributes #16579
   - analyzePersonPlans.py: now handles rides without line attribute #16617
-    
+
 
 ### Miscellaneous
 

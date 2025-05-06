@@ -165,6 +165,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--persontrip.transfer.taxi-walk** {{DT_STR_LIST}} | Where taxis can drop off customers ('allJunctions, 'ptStops') |
 | **--persontrip.transfer.walk-taxi** {{DT_STR_LIST}} | Where taxis can pick up customers ('allJunctions, 'ptStops') |
 | **--persontrip.taxi.waiting-time** {{DT_TIME}} | Estimated time for taxi pickup; *default:* **300** |
+| **--persontrip.ride-public-line** {{DT_BOOL}} | Only use the intended public transport line rather than any alternative line that stops at the destination; *default:* **false** |
 | **--railway.max-train-length** {{DT_FLOAT}} | Use FLOAT as a maximum train length when initializing the railway router; *default:* **1000** |
 
 ### Defaults
