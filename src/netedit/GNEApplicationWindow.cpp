@@ -450,8 +450,32 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onUpdToggleTimeFormat),
 };
 
+GNETestSystem* tmpTest = nullptr;
+
+#define FXIMPLEMENT2(classname, baseclassname, mapping, nmappings) \
+    FX::FXObject* classname::manufacture(){  \
+        return new classname;  \
+    } \
+    const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
+    long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
+        const FXMapEntry* me=(const FXMapEntry*)metaClass.search(sel); \
+        int result; \
+        if (tmpTest) { \
+            tmpTest->lock(); \
+        } \
+        if (me) { \
+            result = (this->* me->func)(sender,sel,ptr); \
+        } else { \
+            result = baseclassname::handle(sender,sel,ptr); \
+        } \
+        if (tmpTest) { \
+            tmpTest->unlock(); \
+        } \
+        return result;\
+    }
+
 // Object implementation
-FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNUMBER(GNEApplicationWindowMap))
+FXIMPLEMENT2(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNUMBER(GNEApplicationWindowMap))
 
 
 // ===========================================================================
@@ -557,6 +581,7 @@ GNEApplicationWindow::dependentBuild() {
     // build additional threads
     myLoadThread = new GNELoadThread(this, myThreadEvents, myLoadThreadEvent);
     myTestSystem = new GNETestSystem(this);
+    tmpTest = myTestSystem;
     // set the status bar
     setStatusBarText(TL("Ready."));
     // set the caption
