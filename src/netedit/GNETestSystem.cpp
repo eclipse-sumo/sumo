@@ -49,19 +49,19 @@ GNETestSystem::~GNETestSystem() {
 
 
 void
-GNETestSystem::initTests() {
-    // first process test file
-    processTestFile();
-}
-
-
-void
 GNETestSystem::startTests() {
+    // run rest only once
     if (myInitedTest == false) {
+        // check if run test thread
+        if (OptionsCont::getOptions().getString("test-file").size() > 0) {
+            processTestFile();
+        }
+        // start thread
         start();
         myInitedTest = true;
     }
 }
+
 
 int
 GNETestSystem::run() {

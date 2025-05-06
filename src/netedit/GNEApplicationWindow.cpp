@@ -1356,10 +1356,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     update();
     // restore focus
     setFocus();
-    // check if run test thread
-    if (neteditOptions.getString("test-file").size() > 0) {
-        myTestSystem->initTests();
-    }
 }
 
 
