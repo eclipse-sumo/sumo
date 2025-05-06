@@ -78,7 +78,7 @@ All scenarios should be fixed by now.
 
 - start and save a new version draft [in Zenodo](https://zenodo.org/) (using the sumo@dlr.de user), in order to reserve a DOI. Don't Publish it yet, and don't upload a file to it!
   - update the version doi in CITATION.cff and in the README badge to this new reserved one
-- patch the version information using `tools/build_config/updateReleaseInfo.py 0.13.7` and double check changes
+- patch the version information using `tools/build_config/updateReleaseInfo.py {{Version}}` and double check changes
   - in src/config.h.cmake, also the HAVE_VERSION_H macro should be disabled
   - in CMakeLists.txt
   - [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end
@@ -108,19 +108,17 @@ and committing the changes after careful inspection
 The nightly build should have generated all releasable packages. If not,
 delay the release. (The complete documentation, tests and source
 distribution build can be achieved via "make dist".) The
-following things need to be there:
+following things need to be in the S:\daily directory:
 
 - the platform independent part of the distribution;
   - source and all inclusive distributions (.tar.gz, .zip) ("make dist")
 - the binary part of the distribution
   - windows binary distribution (zip, unzip the x64 file and run at least sumo-gui)
   - windows installer (msi, Win32 and x64, includes docs)
-- check the wheels on PyPI
-  - https://pypi.org/project/eclipse-sumo/
-  - https://pypi.org/project/libsumo/
-  - https://pypi.org/project/sumolib/
-  - https://pypi.org/project/traci/
-- check the Maven build https://ci.eclipse.org/sumo/job/sumo-build/view/tags/ and ensure that the artifacts have been uploaded to:
+- check the wheels in S:\daily\wheels
+  - eclipse-sumo and libsumo for Windows, macOS, Linux x64 and Linux aarch64 (libsumo for all current python versions)
+  - sumolib, traci
+- check the Maven build https://ci.eclipse.org/sumo/job/maven-artifacts/ and ensure that the artifacts have been uploaded to:
   - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libtraci and
   - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libsumo/
 
@@ -129,14 +127,16 @@ If everything is fine:
 
 - make a new folder in S:\Releases
 - make new sumo.dlr.de-release
-  - copy the folder from S:\Releases to the releases dir `scp -r /media/S/Releases/{{Version}} delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
+  - copy the folder from S:\Releases to the releases dir `scp -r /s/Releases/{{Version}} delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
 - update the eclipse.dev/sumo website
   - modify the version number (Version) and the DOI number (DOI) [in config.yaml](https://github.com/eclipse-sumo/sumo.website/blob/source/config/_default/config.yaml) in the **Default Parameters** section
 - make new sourceforge-release
-  - make a new release within the sumo package (named "version {{Version}}")
-  - add files to the release
-  - change default download attributes
-- finish the Zenodo version draft, by uploading the `sumo-src-{{Version}}.tar.gz` and publishing it
+  - create a shell `ssh -t <user>,sumo@shell.sf.net create` and log off immediately
+  - copy the files `scp -O -r /s/Releases/{{Version}} <user>,sumo@shell.sf.net:`
+  - login again, delete the wheels and move the files into the right directory `mv {{Version}} /home/frs/project/sumo/sumo/"version {{Version}}"`
+  - change default download attributes by logging in on the web browser at https://sourceforge.net/projects/sumo/files/sumo/version%20{{Version}}/ and clicking on the circled "i" after each file
+    - the default for Windows is sumo-win64extra-{{Version}}.msi, for macOS sumo-{{Version}}.pkg and for all the others sumo-src-{{Version}}.tar.gz
+- finish the Zenodo version draft, by uploading the `sumo-src-{{Version}}.tar.gz`, adding the release info (can also be done later) and publishing it
 - create a new entry in [elib](https://elib.dlr.de/)
   - the easiest way to do it, is by going to [Einträge verwalten](https://elib.dlr.de/cgi/users/home?screen=Items) and clicking on the magnifying-glass-icon for an old release, then going to the "Aktionen" tab and selecting "Als Vorlage verwenden"
   - take a look at the [Eintrag von Forschungssoftware-Publikationen - Tutorial](https://wiki.dlr.de/pages/viewpage.action?pageId=711888423), or the entry for a previous release: https://elib.dlr.de/205320/
@@ -154,7 +154,7 @@ If everything is fine:
 - update the [flatpak](https://github.com/flathub/org.eclipse.sumo) (update version number and commit hash)
 - start a pull request against [winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/e/EclipseFoundation/SUMO)
 - [update the Homebrew Formula](HowToUpdateHomebrewFormula.md)
-- do a remote login to the M1 Mac and upload the wheels to PyPI using `twine upload clangMacOS_M1/sumo/dist_native/* clangMacOS_M1/sumo/wheelhouse/*`
+- upload the wheels to PyPI using `twine upload /s/Releases/{{Version}}/wheels/*`
 - scenarios (optional)
   - add files to [the scenario folder](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/)
   - updated README.txt
@@ -175,4 +175,4 @@ The trunk is now open for changes again.
 - rename version to "git" in CMakeLists.txt
 - insert a new empty "Git Main" section at the top of the [ChangeLog](../ChangeLog.md)
 - commit changes
-- drink your favorite beverage
+- drink your favorite beverage and/or eat cake
