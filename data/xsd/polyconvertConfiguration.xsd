@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-03 20:56:08 by Eclipse SUMO polyconvert Version v1_21_0+1830-1621789eca8
+<!-- generated on 2025-05-05 21:56:00 by Eclipse SUMO polyconvert Version v1_22_0+1872-170b1223605
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -32,6 +32,7 @@
             <xsd:element name="osm.keep-full-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.use-name" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.merge-relations" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geojson-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="shapefile-prefixes" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.guess-projection" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.traditional-axis-mapping" type="boolOptionType" minOccurs="0"/>

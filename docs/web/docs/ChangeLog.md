@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.23.0 (06.05.2025)
 
 ### Bugfixes
 
@@ -46,6 +46,7 @@ title: ChangeLog
   - Fixed bug where electric vehicles with stationfinder device only recharge once #16597
   - stationFinder/parkingReroute: Fixed invalid estimate of time to reach new stopping place #16603
   - StationFinder: fixed bug where charging only worked once #16597
+  - Fixed crash when using calibrator in a simulation beyond step 86400 #16626
 
 
 
@@ -90,12 +91,11 @@ title: ChangeLog
   - Fixed bug where option **--edges.join-tram-dist** didn't join enough #16408
   - Fixed `nan` value in generated network when loading connections with custom length value and length-0 geometry #16441
   - Fixed invalid right of way with respect to left-turns from the oncoming direction at junctiop type `left_before_right` #16480
-  - Fixed invalid internal lane shape when importin OpenDRIVE #16482
+  - Fixed invalid internal lane shape when importing OpenDRIVE #16482
   - Fixed invalid ptline-output when running with option **--ptstop-output.no-bidi** #16534
   - Option **--ptline-clean-up** now cleans up more stops #16540
   - Fixed failure to join junctions #16557
-  - Fixed bug where a loaded network successively changed it's geometry #16609
-  - Option --aggregate-warnings 0 no longer disables "quitting on error" #16621
+  - Fixed bug where a loaded network successively changed it's geometry #16609 
 
 - durarouter
   - Fixed invalid route output when loading invalid routes with stops and setting option **--ignore-errors** #16365
@@ -118,7 +118,7 @@ title: ChangeLog
 
 - Tools
   - `sumolib.net.lane.getClosestLanePosAndDist` now gives correct results when lane length differs from shape length #16269
-  - `sumolib.xml` no properly escapes special characters when generating xml #16318
+  - `sumolib.xml` now properly escapes special characters when generating xml #16318
   - gtfs2pt.py: Fixed problem that caused invalid routes to be written #16336
   - gtfs2pt.py: Fixed invalid stop placement on disallowed lane #16352
   - gtfs2pt.py: Now warning about input that provokes negative stop-until times #16322

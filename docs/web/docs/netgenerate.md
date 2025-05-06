@@ -81,12 +81,12 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--rand.min-angle** {{DT_FLOAT}} | The minimum angle for each pair of (bidirectional) roads in DEGREES; *default:* **45** |
 | **--rand.num-tries** {{DT_INT}} | The number of tries for creating each node; *default:* **50** |
 | **--rand.connectivity** {{DT_FLOAT}} | Probability for roads to continue at each node; *default:* **0.95** |
-| **--rand.neighbor-dist1** {{DT_FLOAT}} | Probability for a node having exactly 1 neighbor; *default:* **0** |
-| **--rand.neighbor-dist2** {{DT_FLOAT}} | Probability for a node having exactly 2 neighbors; *default:* **0** |
-| **--rand.neighbor-dist3** {{DT_FLOAT}} | Probability for a node having exactly 3 neighbors; *default:* **10** |
-| **--rand.neighbor-dist4** {{DT_FLOAT}} | Probability for a node having exactly 4 neighbors; *default:* **10** |
-| **--rand.neighbor-dist5** {{DT_FLOAT}} | Probability for a node having exactly 5 neighbors; *default:* **2** |
-| **--rand.neighbor-dist6** {{DT_FLOAT}} | Probability for a node having exactly 6 neighbors; *default:* **1** |
+| **--rand.neighbor-dist1** {{DT_FLOAT}} | Probability for a node having at most 1 neighbor; *default:* **0** |
+| **--rand.neighbor-dist2** {{DT_FLOAT}} | Probability for a node having at most 2 neighbors; *default:* **0** |
+| **--rand.neighbor-dist3** {{DT_FLOAT}} | Probability for a node having at most 3 neighbors; *default:* **10** |
+| **--rand.neighbor-dist4** {{DT_FLOAT}} | Probability for a node having at most 4 neighbors; *default:* **10** |
+| **--rand.neighbor-dist5** {{DT_FLOAT}} | Probability for a node having at most 5 neighbors; *default:* **2** |
+| **--rand.neighbor-dist6** {{DT_FLOAT}} | Probability for a node having at most 6 neighbors; *default:* **1** |
 | **--rand.grid** {{DT_BOOL}} | Place nodes on a regular grid with spacing rand.min-distance; *default:* **false** |
 
 ### Input
@@ -238,6 +238,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--tls.ungroup-signals** {{DT_BOOL}} | Assign a distinct tls link index to every connection; *default:* **false** |
 | **--tls.rebuild** {{DT_BOOL}} | rebuild all traffic light plans in the network; *default:* **false** |
 | **--tls.discard-simple** {{DT_BOOL}} | Does not instantiate traffic lights at geometry-like nodes; *default:* **false** |
+| **--railway.signal.permit-unsignalized** {{DT_STR_LIST}} | List rail classes that may run without rail signals; *default:* **tram,cable_car** |
 
 ### Edge Removal
 
@@ -276,6 +277,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--no-left-connections** {{DT_BOOL}} | Disables building connections to left; *default:* **false** |
 | **--junctions.join** {{DT_BOOL}} | Joins junctions that are close to each other (recommended for OSM import); *default:* **false** |
 | **--junctions.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining junctions (defaults to 10); *default:* **10** |
+| **--junctions.join.parallel-threshold** {{DT_FLOAT}} | The angular threshold in degress for rejection of parallel edges when joining junctions; *default:* **30** |
 | **--junctions.join-same** {{DT_BOOL}} | Joins junctions that have the same coordinates even if not connected; *default:* **false** |
 | **--max-join-ids** {{DT_INT}} | Abbreviate junction or TLS id if it joins more than INT junctions; *default:* **4** |
 | **--junctions.corner-detail** {{DT_INT}} | Generate INT intermediate points to smooth out intersection corners; *default:* **5** |
@@ -355,3 +357,4 @@ Options](Basics/Using_the_Command_Line_Applications.md#random_number_options).
 |--------|-------------|
 | **--random** {{DT_BOOL}} | Initialises the random number generator with the current system time; *default:* **false** |
 | **--seed** {{DT_INT}} | Initialises the random number generator with the given value; *default:* **23423** |
+

@@ -67,4 +67,6 @@ errorScreenshot.netedit binary
 /.github export-ignore
 /.gitignore export-ignore
 /.gitmodules export-ignore
+/.jenkins export-ignore
+/.pre-commit-config.yaml export-ignore
 /.travis.yml export-ignore

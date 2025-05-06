@@ -16,11 +16,35 @@
 # > docker build -f Dockerfile.jenkins-build -t ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest .
 # > docker push ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest
 
-FROM ubuntu:24.04
+# If you are building this image on an armv64 platform:
+# > docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile.jenkins-build -t ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest .
+
+# The ubuntu:latest tag points to the "latest LTS"
+FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && \
-    apt-get install -y cmake git libeigen3-dev libfox-1.6-dev libgdal-dev libgl2ps-dev libgoogle-perftools-dev libgtest-dev libproj-dev libxerces-c-dev maven openjdk-8-jdk python3-dev python3-setuptools swig curl unzip && \
-    apt-get autoremove -y && \
-    apt-get clean -y && \
+RUN apt-get update &&               \
+    apt-get install -y              \
+        cmake                       \
+        curl                        \
+        git                         \
+        libeigen3-dev               \
+        libfox-1.6-dev              \
+        libgdal-dev                 \
+        libgl2ps-dev                \
+        libgoogle-perftools-dev     \
+        libgtest-dev                \
+        libproj-dev                 \
+        libxerces-c-dev             \
+        maven                       \
+        openjdk-8-jdk               \
+        python3-dev                 \
+        python3-pip                 \
+        python3-setuptools          \
+        python3-venv                \
+        swig                        \
+        unzip                       \
+        &&                          \
+    apt-get autoremove -y &&        \
+    apt-get clean -y &&             \
     rm -r /var/cache/apt /var/lib/apt/lists/*
