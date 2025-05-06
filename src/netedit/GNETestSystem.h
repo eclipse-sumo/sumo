@@ -30,7 +30,7 @@ class GNEApplicationWindow;
 // class definitions
 // ===========================================================================
 
-class GNETestSystem {
+class GNETestSystem : public FXThread {
 
 public:
     /// @brief constructor
@@ -43,7 +43,10 @@ public:
     void initTests();
 
     /// @brief run all tests
-    void runAllTests();
+    void startTests();
+
+    /// @brief run all tests
+    int run();
 
 protected:
     /// @brief process test file
@@ -93,8 +96,8 @@ private:
         /// @brief return step type
         TestStepType getStepType() const;
 
-        /// @brief get tag
-        SumoXMLTag getTag() const;
+        /// @brief get text
+        FXString* getText() const;
 
         /// @brief get list of consecutive event
         const std::vector<FXEvent*> &getEvents() const;
@@ -120,7 +123,7 @@ private:
         std::vector<std::string> myArguments;
 
         /// @brief tag (used in certain tests)
-        SumoXMLTag myTag = SUMO_TAG_NOTHING;
+        FXString* myText = nullptr;
 
         /// @brief list of events associated with this step
         std::vector<FXEvent*> myEvents;
@@ -137,9 +140,6 @@ private:
 
     /// @brief test steps
     std::vector<TestStep*> myTestSteps;
-
-    /// @brief current step
-    int myCurrentStep = 0;
 
     /// @brief inited
     bool myInitedTest = false;

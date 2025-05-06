@@ -1307,7 +1307,7 @@ GNEViewNet::getDrawingToggle() const {
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
     // run all test in the first draw
-    myViewParent->getGNEAppWindows()->getTestSystem()->runAllTests();
+    myViewParent->getGNEAppWindows()->getTestSystem()->startTests();
     // set lefthand and laneIcons
     myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
     myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
