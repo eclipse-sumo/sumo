@@ -527,7 +527,7 @@ MSDevice_StationFinder::planOpportunisticCharging() {
     // check next stop
     double capacityDelta = MAX2(0., myTargetSoC * myBattery->getMaximumBatteryCapacity() - myBattery->getActualBatteryCapacity());
     if (myHolder.hasStops() && capacityDelta > 0.) {
-        MSStop& nextStop = myHolder.getNextStop();
+        const MSStop& nextStop = myHolder.getNextStop();
         if (myHolder.isStopped() || nextStop.chargingStation != nullptr || myHolder.getCurrentRouteEdge() != nextStop.edge ||
                 nextStop.getMinDuration(SIMSTEP) < myMinOpportunisticTime) {
             return false;
@@ -582,7 +582,7 @@ MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/
 #endif
         // remove the vehicle if teleport to a charging station fails
         if (myHolder.isStopped()) {
-            MSStop& currentStop = myHolder.getNextStop();
+            MSStop& currentStop = myHolder.getNextStopMutable();
             currentStop.duration += DELTA_T;
             SUMOVehicleParameter::Stop& stopPar = const_cast<SUMOVehicleParameter::Stop&>(currentStop.pars);
             stopPar.jump = -1;

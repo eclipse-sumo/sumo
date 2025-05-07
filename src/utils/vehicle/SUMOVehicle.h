@@ -335,7 +335,13 @@ public:
     * returns the next imminent stop in the stop queue
     * @return the upcoming stop
     */
-    virtual MSStop& getNextStop() = 0;
+    virtual const MSStop& getNextStop() const = 0;
+
+    /**
+    * returns the next imminent stop in the stop queue
+    * @return the upcoming stop
+    */
+    virtual MSStop& getNextStopMutable() = 0;
 
     /// @brief mark vehicle as active
     virtual void unregisterWaiting() = 0;

@@ -1726,8 +1726,14 @@ MSBaseVehicle::getStopIndices() const {
 }
 
 
+const MSStop&
+MSBaseVehicle::getNextStop() const {
+    assert(myStops.size() > 0);
+    return myStops.front();
+}
+
 MSStop&
-MSBaseVehicle::getNextStop() {
+MSBaseVehicle::getNextStopMutable() {
     assert(myStops.size() > 0);
     return myStops.front();
 }
