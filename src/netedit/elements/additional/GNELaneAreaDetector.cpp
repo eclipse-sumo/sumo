@@ -484,7 +484,7 @@ GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LENGTH:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return canParse<SUMOTime>(value);
+            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) >= 0);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
