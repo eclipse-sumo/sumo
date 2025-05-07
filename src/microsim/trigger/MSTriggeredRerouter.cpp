@@ -822,10 +822,14 @@ MSTriggeredRerouter::getLastStepStoppingPlaceOccupancy(MSStoppingPlace* sp) {
 
 double
 MSTriggeredRerouter::getStoppingPlaceCapacity(MSStoppingPlace* sp) {
-    return (sp->getElement() == SUMO_TAG_PARKING_AREA
-        ? dynamic_cast<MSParkingArea*>(sp)->getCapacity()
-        // assume only one vehicle at a time (for stationReroute)
-        : 1);
+    if (myBlockedStoppingPlaces.count(sp) == 0) {
+        return (sp->getElement() == SUMO_TAG_PARKING_AREA
+                ? dynamic_cast<MSParkingArea*>(sp)->getCapacity()
+                // assume only one vehicle at a time (for stationReroute)
+                : 1);
+    } else {
+        return 0;
+    }
 }
 
 
@@ -953,6 +957,7 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
 
 void
 MSTriggeredRerouter::checkStopSwitch(MSBaseVehicle& ego, const MSTriggeredRerouter::RerouteInterval* def) {
+    myBlockedStoppingPlaces.clear();
 #ifdef DEBUG_REROUTER
     std::cout << SIMTIME << " " << getID() << " ego=" << ego.getID() << "\n";
 #endif
@@ -979,13 +984,36 @@ MSTriggeredRerouter::checkStopSwitch(MSBaseVehicle& ego, const MSTriggeredRerout
 #ifdef DEBUG_REROUTER
     std::cout << SIMTIME << " " << getID() << " ego=" << ego.getID() << " stopped=" << toString(stopped) << "\n";
 #endif
-    if (stopped.empty()) {
-        /// @todo: look upstream for vehicles that stop here before ego arrives
-        return;
-    }
     SUMOTime stoppedDuration = -1;
-    for (const SUMOVehicle* veh : cur->getStoppedVehicles()) {
-        stoppedDuration = MAX2(stoppedDuration, veh->getStopDuration());
+    if (stopped.empty()) {
+        /// look upstream for vehicles that stop on this lane before ego arrives
+        const MSLane& stopLane = cur->getLane();
+        MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+        for (MSVehicleControl::constVehIt it_veh = c.loadedVehBegin(); it_veh != c.loadedVehEnd(); ++it_veh) {
+            const MSBaseVehicle* veh = dynamic_cast<const MSBaseVehicle*>((*it_veh).second);
+            if (veh->isOnRoad() && veh->hasStops()) {
+                const MSStop& stop = veh->getNextStop();
+                if (stop.pars.lane == stopLane.getID()) {
+                    myBlockedStoppingPlaces.insert(cur);
+                    if (veh->isStopped()) {
+                        // stopped somewhere else on the same lane
+                        stoppedDuration = MAX3((SUMOTime)0, stoppedDuration, veh->getStopDuration());
+                    } else {
+                        std::pair<double, double> timeDist = veh->estimateTimeToNextStop();
+                        SUMOTime timeTo = TIME2STEPS(timeDist.first);
+                        stoppedDuration = MAX3((SUMOTime)0, stoppedDuration, timeTo + stop.getMinDuration(SIMSTEP + timeTo));
+                    }
+                }
+            }
+        }
+    } else {
+        stoppedDuration = 0;
+        for (const SUMOVehicle* veh : cur->getStoppedVehicles()) {
+            stoppedDuration = MAX2(stoppedDuration, veh->getStopDuration());
+        }
+    }
+    if (stoppedDuration < 0) {
+        return;
     }
     /// @todo: consider time for conflict veh to leave the block
     const SUMOTime stopFree = SIMSTEP + stoppedDuration;

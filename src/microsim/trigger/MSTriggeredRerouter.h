@@ -336,6 +336,8 @@ protected:
     /// whether this rerouter has loaded parkingReroute definitions
     bool myHaveParkProbs;
 
+    std::set<const MSStoppingPlace*> myBlockedStoppingPlaces;
+
     /// @brief special destination values
     static MSEdge mySpecialDest_keepDestination;
     static MSEdge mySpecialDest_terminateRoute;
