@@ -333,10 +333,30 @@ pipeline {
             }
         }
 
-        stage('Uploading notarized artifacts to GitHub') {
+        stage('Retrieving notarized pkg for macOS workspace') {
             steps {
                 // Make sure to have the notarized files in our workspace on the macOS node
                 unstash 'notarized'
+                stash name: 'notarized', includes: 'notarized/sumo*.pkg'
+            }
+        }
+
+        stage('Uploading to Eclipse download server') {
+            agent {
+                label 'ubuntu-latest'
+            }
+            steps {
+                unstash 'notarized'
+
+                // Upload the files to Eclipse download storage area
+                sshagent(['projects-storage.eclipse.org-bot-ssh']) {
+                    sh """
+                        ssh -o BatchMode=yes genie.sumo@projects-storage.eclipse.org ls -al /home/data/httpd/download.eclipse.org/sumo/
+                        ssh -o BatchMode=yes genie.sumo@projects-storage.eclipse.org mkdir -p /home/data/httpd/download.eclipse.org/sumo/daily
+                        ssh -o BatchMode=yes genie.sumo@projects-storage.eclipse.org ls -al /home/data/httpd/download.eclipse.org/sumo/daily
+                        scp -o BatchMode=yes notarized/sumo*.pkg genie.sumo@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/sumo/daily/
+                    """
+                }
             }
         }
     }

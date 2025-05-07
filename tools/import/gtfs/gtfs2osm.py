@@ -468,6 +468,7 @@ def import_osm(options, net):
             if ptLine.type not in options.modes or not ptLine.route:
                 continue
             route_edges = ptLine.route[0].edges.split()
+            route_edges = [e for e in route_edges if net.hasEdge(e)]
             if route_edges:
                 # TODO recheck what happens if it is only one edge
                 x, y = net.getEdge(route_edges[0]).getFromNode().getCoord()
@@ -750,11 +751,24 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                                ":" + str(row.arrival_fixed).split(' ')[2])),
                             min(stop_index), max(stop_index), pt_type, pt_color)
                 output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s"%s>\n' % veh_attr)  # noqa
-                output_file.write(u'        <param key="gtfs.route_name" value=%s/>\n' %
-                                  sumolib.xml.quoteattr(str(row.route_short_name), True))
+                params = [("gtfs.route_name", row.route_short_name)]
                 if row.trip_headsign:
-                    output_file.write(u'        <param key="gtfs.trip_headsign" value=%s/>\n' %
-                                      sumolib.xml.quoteattr(str(row.trip_headsign), True))
+                    params.append(("gtfs.trip_headsign", row.trip_headsign))
+                if options.writeTerminals:
+                    firstStop = stop_list.iloc[0]
+                    lastStop = stop_list.iloc[-1]
+                    firstDepart = parseTime(str(firstStop.departure_fixed.days + day) +
+                                        ":" + str(firstStop.departure_fixed).split(' ')[2])
+                    lastArrival = parseTime(str(lastStop.arrival_fixed.days + day) +
+                                        ":" + str(lastStop.arrival_fixed).split(' ')[2])
+                    params += [("gtfs.origin_stop", firstStop.stop_name),
+                               ("gtfs.origin_depart", ft(firstDepart)),
+                               ("gtfs.destination_stop", lastStop.stop_name),
+                               ("gtfs.destination_arrrival", ft(lastArrival))]
+                for k, v in params:
+                    output_file.write(u'        <param key="%s" value=%s/>\n' % (
+                        k, sumolib.xml.quoteattr(str(v), True)))
+
                 check_seq = -1
                 for stop in stop_list.itertuples():
                     if not stop.stop_item_id:

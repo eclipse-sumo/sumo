@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-05-07 10:38:32.338523 by gtfs2pt.py v1_23_0+0022-c20cc19a213
+  options: -n net2.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>modes bus <doubleminus>min-stops 0 <doubleminus>vtype-output vehtypes.xml <doubleminus>end 122400 <doubleminus>verbose -H <doubleminus>write-terminals
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="120010001502_0" lane="8108069_0" startPos="2.49" endPos="15.49" name="Braunschweig Altstadtmarkt" friendlyPos="true"/>
+    <busStop id="120010007512_0" lane="5021504_0" startPos="28.35" endPos="41.35" name="Braunschweig Schloss" friendlyPos="true"/>
+    <busStop id="120010016102_0" lane="-320399277#2_0" startPos="4.37" endPos="17.37" name="Braunschweig Güldenstraße" friendlyPos="true"/>
+    <busStop id="120010016104_0" lane="8618349#0_0" startPos="38.21" endPos="51.21" name="Braunschweig Güldenstraße" friendlyPos="true"/>
+    <busStop id="120010031501_0" lane="30425275#0_0" startPos="31.86" endPos="44.86" name="Braunschweig Hintern Brüdern" friendlyPos="true"/>
+    <busStop id="120010032201_0" lane="37983000_0" startPos="31.86" endPos="44.86" name="Braunschweig Packhof" friendlyPos="true"/>
+    <busStop id="120010034202_0" lane="-5148300_0" startPos="0.00" endPos="13.00" name="Braunschweig Rathaus" friendlyPos="true"/>
+    <busStop id="120010034211_0" lane="198087353#1_0" startPos="26.47" endPos="39.47" name="Braunschweig Rathaus" friendlyPos="true"/>
+</additional>

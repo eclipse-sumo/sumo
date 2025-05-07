@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-05-07 10:38:32.355852 by gtfs2pt.py v1_23_0+0022-c20cc19a213
+  options: -n net2.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>modes bus <doubleminus>min-stops 0 <doubleminus>vtype-output vehtypes.xml <doubleminus>end 122400 <doubleminus>verbose -H <doubleminus>write-terminals
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="1960" edges="-5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855"/>
+    <vehicle id="132185786.trimmed.0" route="1960" line="14781_3_132185786.trimmed" depart="00:03:00" departEdge="19" arrivalEdge="22" type="bus">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="A&amp;B -&gt; Wästpark"/>
+        <param key="gtfs.origin_stop" value="Braunschweig Altstadtmarkt"/>
+        <param key="gtfs.origin_depart" value="00:03:00"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Güldenstraße"/>
+        <param key="gtfs.destination_arrrival" value="00:05:00"/>
+        <stop busStop="120010001502_0" arrival="00:03:00" duration="10" until="00:03:00"/><!--stopSequence="3.0/4.0" "Braunschweig Altstadtmarkt"-->
+        <stop busStop="120010016102_0" arrival="00:05:00" duration="10" until="00:05:00"/><!--stopSequence="4.0/4.0" "Braunschweig Güldenstraße"-->
+    </vehicle>
+    <vehicle id="132185978.0" route="1960" line="14781_3_132185978" depart="01:20:00" departEdge="0" arrivalEdge="22" type="bus">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+        <param key="gtfs.origin_stop" value="Braunschweig Rathaus"/>
+        <param key="gtfs.origin_depart" value="01:20:00"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Güldenstraße"/>
+        <param key="gtfs.destination_arrrival" value="01:25:00"/>
+        <stop busStop="120010034202_0" arrival="01:20:00" duration="10" until="01:20:00"/><!--stopSequence="0.0/4.0" "Braunschweig Rathaus"-->
+        <stop busStop="120010032201_0" arrival="01:21:00" duration="10" until="01:21:00"/><!--stopSequence="1.0/4.0" "Braunschweig Packhof"-->
+        <stop busStop="120010031501_0" arrival="01:22:00" duration="10" until="01:22:00"/><!--stopSequence="2.0/4.0" "Braunschweig Hintern Brüdern"-->
+        <stop busStop="120010001502_0" arrival="01:23:00" duration="10" until="01:23:00"/><!--stopSequence="3.0/4.0" "Braunschweig Altstadtmarkt"-->
+        <stop busStop="120010016102_0" arrival="01:25:00" duration="10" until="01:25:00"/><!--stopSequence="4.0/4.0" "Braunschweig Güldenstraße"-->
+    </vehicle>
+    <vehicle id="132185783.0" route="1960" line="14781_3_132185978" depart="05:15:00" departEdge="0" arrivalEdge="22" type="bus">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+        <param key="gtfs.origin_stop" value="Braunschweig Rathaus"/>
+        <param key="gtfs.origin_depart" value="05:15:00"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Güldenstraße"/>
+        <param key="gtfs.destination_arrrival" value="05:20:00"/>
+        <stop busStop="120010034202_0" arrival="05:15:00" duration="10" until="05:15:00"/><!--stopSequence="0.0/4.0" "Braunschweig Rathaus"-->
+        <stop busStop="120010032201_0" arrival="05:16:00" duration="10" until="05:16:00"/><!--stopSequence="1.0/4.0" "Braunschweig Packhof"-->
+        <stop busStop="120010031501_0" arrival="05:17:00" duration="10" until="05:17:00"/><!--stopSequence="2.0/4.0" "Braunschweig Hintern Brüdern"-->
+        <stop busStop="120010001502_0" arrival="05:18:00" duration="10" until="05:18:00"/><!--stopSequence="3.0/4.0" "Braunschweig Altstadtmarkt"-->
+        <stop busStop="120010016102_0" arrival="05:20:00" duration="10" until="05:20:00"/><!--stopSequence="4.0/4.0" "Braunschweig Güldenstraße"-->
+    </vehicle>
+    <route id="2115" edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 32055586#0 23209152#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 27220209#0 314842169#0 -10740033#2 -10740033#1 326537335 627097688 5134711#0 5134711#3 150679087#0 150679087#1"/>
+    <vehicle id="132218462.0" route="2115" line="22086_3_132218462" depart="06:17:00" departEdge="14" arrivalEdge="18" type="bus">
+        <param key="gtfs.route_name" value="730"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Rathaus"/>
+        <param key="gtfs.origin_stop" value="Braunschweig John-F.-Kennedy-Platz"/>
+        <param key="gtfs.origin_depart" value="06:17:00"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Rathaus"/>
+        <param key="gtfs.destination_arrrival" value="06:21:00"/>
+        <stop busStop="120010007512_0" arrival="06:19:00" duration="10" until="06:19:00"/><!--stopSequence="31.0/32.0" "Braunschweig Schloss"-->
+        <stop busStop="120010034211_0" arrival="06:21:00" duration="10" until="06:21:00"/><!--stopSequence="32.0/32.0" "Braunschweig Rathaus"-->
+    </vehicle>
+    <route id="2485" edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 8618349#0 8618349#3 319389908#0 31016344#0 316781879#0 8618348 316785565 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2"/>
+    <vehicle id="132189814.0" route="2485" line="31727_3_132189814" depart="10:15:00" departEdge="6" arrivalEdge="28" type="bus">
+        <param key="gtfs.route_name" value="413"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
+        <param key="gtfs.origin_stop" value="Braunschweig Staatstheater"/>
+        <param key="gtfs.origin_depart" value="10:15:00"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Holzhof"/>
+        <param key="gtfs.destination_arrrival" value="10:24:00"/>
+        <stop busStop="120010034202_0" arrival="10:17:00" duration="10" until="10:17:00"/><!--stopSequence="17.0/23.0" "Braunschweig Rathaus"-->
+        <stop busStop="120010032201_0" arrival="10:18:00" duration="10" until="10:18:00"/><!--stopSequence="18.0/23.0" "Braunschweig Packhof"-->
+        <stop busStop="120010031501_0" arrival="10:19:00" duration="10" until="10:19:00"/><!--stopSequence="19.0/23.0" "Braunschweig Hintern Brüdern"-->
+        <stop busStop="120010001502_0" arrival="10:20:00" duration="10" until="10:20:00"/><!--stopSequence="20.0/23.0" "Braunschweig Altstadtmarkt"-->
+        <stop busStop="120010016104_0" arrival="10:22:00" duration="10" until="10:22:00"/><!--stopSequence="21.0/23.0" "Braunschweig Güldenstraße"-->
+    </vehicle>
+    <vehicle id="132190299.0" route="2485" line="31727_3_132190299" depart="12:02:00" departEdge="6" arrivalEdge="28" type="bus">
+        <param key="gtfs.route_name" value="413"/>
+        <param key="gtfs.trip_headsign" value="Leiferde"/>
+        <param key="gtfs.origin_stop" value="Braunschweig Rathaus"/>
+        <param key="gtfs.origin_depart" value="12:02:00"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Holzhof"/>
+        <param key="gtfs.destination_arrrival" value="12:09:00"/>
+        <stop busStop="120010034202_0" arrival="12:02:00" duration="10" until="12:02:00"/><!--stopSequence="0.0/38.0" "Braunschweig Rathaus"-->
+        <stop busStop="120010032201_0" arrival="12:03:00" duration="10" until="12:03:00"/><!--stopSequence="33.0/38.0" "Braunschweig Packhof"-->
+        <stop busStop="120010031501_0" arrival="12:04:00" duration="10" until="12:04:00"/><!--stopSequence="34.0/38.0" "Braunschweig Hintern Brüdern"-->
+        <stop busStop="120010001502_0" arrival="12:05:00" duration="10" until="12:05:00"/><!--stopSequence="35.0/38.0" "Braunschweig Altstadtmarkt"-->
+        <stop busStop="120010016104_0" arrival="12:07:00" duration="10" until="12:07:00"/><!--stopSequence="36.0/38.0" "Braunschweig Güldenstraße"-->
+    </vehicle>
+    <vehicle id="132185786.0" route="1960" line="14781_3_132185978" depart="23:55:00" departEdge="0" arrivalEdge="22" type="bus">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="A&amp;B -&gt; Wästpark"/>
+        <param key="gtfs.origin_stop" value="Braunschweig Rathaus"/>
+        <param key="gtfs.origin_depart" value="23:55:00"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Güldenstraße"/>
+        <param key="gtfs.destination_arrrival" value="1:00:05:00"/>
+        <stop busStop="120010034202_0" arrival="23:55:00" duration="10" until="23:55:00"/><!--stopSequence="0.0/4.0" "Braunschweig Rathaus"-->
+        <stop busStop="120010032201_0" arrival="23:58:00" duration="10" until="23:58:00"/><!--stopSequence="1.0/4.0" "Braunschweig Packhof"-->
+        <stop busStop="120010031501_0" arrival="23:59:00" duration="10" until="23:59:00"/><!--stopSequence="2.0/4.0" "Braunschweig Hintern Brüdern"-->
+        <stop busStop="120010001502_0" arrival="1:00:03:00" duration="10" until="1:00:03:00"/><!--stopSequence="3.0/4.0" "Braunschweig Altstadtmarkt"-->
+        <stop busStop="120010016102_0" arrival="1:00:05:00" duration="10" until="1:00:05:00"/><!--stopSequence="4.0/4.0" "Braunschweig Güldenstraße"-->
+    </vehicle>
+    <vehicle id="132185978.1" route="1960" line="14781_3_132185978" depart="1:01:20:00" departEdge="0" arrivalEdge="22" type="bus">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+        <param key="gtfs.origin_stop" value="Braunschweig Rathaus"/>
+        <param key="gtfs.origin_depart" value="1:01:20:00"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Güldenstraße"/>
+        <param key="gtfs.destination_arrrival" value="1:01:25:00"/>
+        <stop busStop="120010034202_0" arrival="1:01:20:00" duration="10" until="1:01:20:00"/><!--stopSequence="0.0/4.0" "Braunschweig Rathaus"-->
+        <stop busStop="120010032201_0" arrival="1:01:21:00" duration="10" until="1:01:21:00"/><!--stopSequence="1.0/4.0" "Braunschweig Packhof"-->
+        <stop busStop="120010031501_0" arrival="1:01:22:00" duration="10" until="1:01:22:00"/><!--stopSequence="2.0/4.0" "Braunschweig Hintern Brüdern"-->
+        <stop busStop="120010001502_0" arrival="1:01:23:00" duration="10" until="1:01:23:00"/><!--stopSequence="3.0/4.0" "Braunschweig Altstadtmarkt"-->
+        <stop busStop="120010016102_0" arrival="1:01:25:00" duration="10" until="1:01:25:00"/><!--stopSequence="4.0/4.0" "Braunschweig Güldenstraße"-->
+    </vehicle>
+    <vehicle id="132185783.1" route="1960" line="14781_3_132185978" depart="1:05:15:00" departEdge="0" arrivalEdge="22" type="bus">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+        <param key="gtfs.origin_stop" value="Braunschweig Rathaus"/>
+        <param key="gtfs.origin_depart" value="1:05:15:00"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Güldenstraße"/>
+        <param key="gtfs.destination_arrrival" value="1:05:20:00"/>
+        <stop busStop="120010034202_0" arrival="1:05:15:00" duration="10" until="1:05:15:00"/><!--stopSequence="0.0/4.0" "Braunschweig Rathaus"-->
+        <stop busStop="120010032201_0" arrival="1:05:16:00" duration="10" until="1:05:16:00"/><!--stopSequence="1.0/4.0" "Braunschweig Packhof"-->
+        <stop busStop="120010031501_0" arrival="1:05:17:00" duration="10" until="1:05:17:00"/><!--stopSequence="2.0/4.0" "Braunschweig Hintern Brüdern"-->
+        <stop busStop="120010001502_0" arrival="1:05:18:00" duration="10" until="1:05:18:00"/><!--stopSequence="3.0/4.0" "Braunschweig Altstadtmarkt"-->
+        <stop busStop="120010016102_0" arrival="1:05:20:00" duration="10" until="1:05:20:00"/><!--stopSequence="4.0/4.0" "Braunschweig Güldenstraße"-->
+    </vehicle>
+    <vehicle id="132218462.1" route="2115" line="22086_3_132218462" depart="1:06:17:00" departEdge="14" arrivalEdge="18" type="bus">
+        <param key="gtfs.route_name" value="730"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Rathaus"/>
+        <param key="gtfs.origin_stop" value="Braunschweig John-F.-Kennedy-Platz"/>
+        <param key="gtfs.origin_depart" value="1:06:17:00"/>
+        <param key="gtfs.destination_stop" value="Braunschweig Rathaus"/>
+        <param key="gtfs.destination_arrrival" value="1:06:21:00"/>
+        <stop busStop="120010007512_0" arrival="1:06:19:00" duration="10" until="1:06:19:00"/><!--stopSequence="31.0/32.0" "Braunschweig Schloss"-->
+        <stop busStop="120010034211_0" arrival="1:06:21:00" duration="10" until="1:06:21:00"/><!--stopSequence="32.0/32.0" "Braunschweig Rathaus"-->
+    </vehicle>
+</routes>

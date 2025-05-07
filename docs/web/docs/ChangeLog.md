@@ -6,6 +6,18 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed crash when person jumps between stops #16641
+  - Fixed invalid arrivalPos when person jumps between stops #16642
+  - Fixed crash when using `overtakeReroute` #16647
+ 
+- netedit
+  - Short connections are visible again when activating 'show connections' #16644 (regression in 1.22.0)
+
+- Tools
+  - gtfs2pt.py: option **--write-terminals** now works when setting **--osm-routes** #16645
+  - gtfs2pt.py: fixed crash when loading **--osm-routes** with smaller network #16646
+      
 
 ## Version 1.23.0 (06.05.2025)
 

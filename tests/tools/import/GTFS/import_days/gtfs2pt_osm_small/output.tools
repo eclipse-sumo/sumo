@@ -1,0 +1,6 @@
+Loading net
+Loading GTFS data "gtfs.zip"
+Import osm routes
+Map stops and routes
+Generates stops and routes output
+Not all given gtfs elements have been mapped, see gtfs_missing.xml for more information

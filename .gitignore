@@ -52,6 +52,7 @@
 /bin/*.manifest
 /bin/osgPlugins*
 /bin/libsumoc*
+/bin/libtracic*
 /bin/liblibsumojni.jnilib
 /bin/liblibtracijni.jnilib
 /bin/libsumofmi2.dylib

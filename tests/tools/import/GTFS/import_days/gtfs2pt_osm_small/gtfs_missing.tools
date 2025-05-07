@@ -1,0 +1,9 @@
+<missingElements>
+    <stop id="120010016202" name="Braunschweig Holzhof" ptLine="413" direction_id="1"/>
+    <stop id="120010022105" name="Braunschweig John-F.-Kennedy-Platz" ptLine="730" direction_id="1"/>
+    <stop id="120010039401" name="Braunschweig Staatstheater" ptLine="413" direction_id="1"/>
+    <stop id="120010041001" name="Braunschweig Südstraße" ptLine="413" direction_id="1"/>
+    <ptLine id="14737_3" name="620" trip_headsign="Steterburg(Salzgitter) Danziger Straße" direction_id="1"/>
+    <ptLine id="32616_3" name="429" trip_headsign="Braunschweig Hauptbahnhof" direction_id="0"/>
+    <ptLine id="32727_3" name="419" trip_headsign="Braunschweig Hauptbahnhof" direction_id="0"/>
+</missingElements>

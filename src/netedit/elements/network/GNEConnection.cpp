@@ -79,11 +79,12 @@ GNEConnection::updateGeometry() {
             myConnectionGeometry.updateGeometry(nbCon.customShape);
         } else if (nbCon.shape.size() > 1) {
             PositionVector connectionShape;
-            if (nbCon.shape.front() == nbCon.shape.back()) {
-                laneShapeFrom.move2side(0.7);
-                laneShapeTo.move2side(0.7);
+            if (nbCon.shape.front().distanceSquaredTo(nbCon.shape.back()) < 0.2) {
+                laneShapeFrom.move2side(0.8);
+                laneShapeTo.move2side(-0.8);
                 connectionShape.push_back(laneShapeFrom.back());
                 connectionShape.push_back(laneShapeTo.front());
+                connectionShape.rotate2D(nbCon.shape.front(), 0.5 * M_PI);
             } else {
                 connectionShape = nbCon.shape;
             }
