@@ -13,6 +13,9 @@ title: ChangeLog
  
 - netedit
   - Short connections are visible again when activating 'show connections' #16644 (regression in 1.22.0)
+  - Fixed crash setting a negative time treshhold in E2 detectors
+  - Fixed crash when using new selection mode features #16648
+  - Fixed crash when placing two vaporizers on the same edge #16649
 
 - Tools
   - gtfs2pt.py: option **--write-terminals** now works when setting **--osm-routes** #16645
