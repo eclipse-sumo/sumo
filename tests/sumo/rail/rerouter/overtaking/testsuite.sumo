@@ -37,3 +37,12 @@ follower_delay_low
 
 # no detour needed
 leader_high_prio
+
+# no detour needed if the fast train has already entered the main section
+fast_entered
+
+# no detour needed if the fast train has already left the main section
+fast_past
+
+# no detour needed if the fast train has already left the simulation
+fast_past_gone
