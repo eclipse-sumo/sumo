@@ -865,7 +865,7 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
             auto itOnMain2 = route2.end();
             int mainIndex = 0;
             for (const MSEdge* m : main) {
-                itOnMain2 = std::find(route2.begin(), route2.end(), m);
+                itOnMain2 = std::find(veh2->getCurrentRouteEdge(), route2.end(), m);
                 if (itOnMain2 != route2.end()) {
                     break;
                 }
