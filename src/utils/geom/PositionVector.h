@@ -251,6 +251,9 @@ public:
     //// @brief rotate all points around (0,0) in the plane by the given angle
     void rotate2D(double angle);
 
+    //// @brief rotate all points around the given position in the plane by the given angle
+    void rotate2D(const Position& pos, double angle);
+
     //// @brief rotate all points around the first element
     void rotateAroundFirstElement2D(double angle);
 

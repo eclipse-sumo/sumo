@@ -1690,6 +1690,16 @@ PositionVector::rotate2D(double angle) {
 
 
 void
+PositionVector::rotate2D(const Position& pos, double angle) {
+    PositionVector aux = *this;
+    aux.sub(pos);
+    aux.rotate2D(angle);
+    aux.add(pos);
+    *this = aux;
+}
+
+
+void
 PositionVector::rotateAroundFirstElement2D(double angle) {
     if (size() > 1) {
         // translate position vector to (0,0), rotate, and traslate back again
