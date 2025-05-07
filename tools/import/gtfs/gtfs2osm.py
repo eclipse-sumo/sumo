@@ -468,6 +468,7 @@ def import_osm(options, net):
             if ptLine.type not in options.modes or not ptLine.route:
                 continue
             route_edges = ptLine.route[0].edges.split()
+            route_edges = [e for e in route_edges if net.hasEdge(e)]
             if route_edges:
                 # TODO recheck what happens if it is only one edge
                 x, y = net.getEdge(route_edges[0]).getFromNode().getCoord()
