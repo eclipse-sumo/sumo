@@ -3,3 +3,6 @@ simple
 
 # Copy of simple
 2blocked
+
+# the blocking vehicle isn't stopped at the same stop as ego
+blocker_notAtStop
