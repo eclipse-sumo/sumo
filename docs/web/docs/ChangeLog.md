@@ -9,6 +9,7 @@ title: ChangeLog
 - sumo
   - Fixed crash when person jumps between stops #16641
   - Fixed invalid arrivalPos when person jumps between stops #16642
+  - Fixed crash when using `overtakeReroute` #16647
  
 - netedit
   - Short connections are visible again when activating 'show connections' #16644 (regression in 1.22.0)
