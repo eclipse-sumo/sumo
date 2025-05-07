@@ -39,7 +39,7 @@ endif ()
 
 cmake_minimum_required(VERSION 3.5)
 project("${PROJECT_NAME}" CXX C)
-set(PACKAGE_VERSION "git")
+set(PACKAGE_VERSION "1.23.1")
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")

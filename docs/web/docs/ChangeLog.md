@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.23.1 (08.05.2025)
 
 ### Bugfixes
 
