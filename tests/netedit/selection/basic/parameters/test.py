@@ -32,31 +32,31 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all trainStops with lanes that contains "E5_0" and remove it
-netedit.selectItems("Additional", "trainStop", "lane", "E5_0")
+netedit.selectStoppingPlaceItems("Additional elements", "Stopping places", "trainStop", "lane", "E5_0")
 netedit.deleteSelectedItems()
 
 # select all chargingStations with id "cs_3" and remove it
-netedit.selectItems("Additional", "chargingStation", "id", "cs_3")
+netedit.selectStoppingPlaceItems("Additional elements", "Stopping places", "chargingStation", "id", "cs_3")
 netedit.deleteSelectedItems()
 
 # select all containerStops with id "cs_3" and remove it
-netedit.selectItems("Additional", "containerStop", "id", "cs_3")
+netedit.selectStoppingPlaceItems("Additional elements", "Stopping places", "containerStop", "id", "cs_3")
 netedit.deleteSelectedItems()
 
 # select all busStops with startPos greater than 18
-netedit.selectItems("Additional", "busStop", "endPos", ">18")
+netedit.selectStoppingPlaceItems("Additional elements", "Stopping places", "busStop", "endPos", ">18")
 netedit.deleteSelectedItems()
 
 # select all busStops with startPos greater than 25
-netedit.selectItems("Additional", "parkingArea", "startPos", "")
+netedit.selectStoppingPlaceItems("Additional elements", "Stopping places", "parkingArea", "startPos", "")
 netedit.deleteSelectedItems()
 
 # select all busStops with lines that contains "lineToRemove" and remove it
-netedit.selectItems("Additional", "busStop", "lines", "line1")
+netedit.selectStoppingPlaceItems("Additional elements", "Stopping places", "busStop", "lines", "line1")
 netedit.deleteSelectedItems()
 
 # select all busStops with lines that contains "linetoRemove" and remove it
-netedit.selectItems("Additional", "busStop", "lines", "line2")
+netedit.selectStoppingPlaceItems("Additional elements", "Stopping places", "busStop", "lines", "line2")
 netedit.deleteSelectedItems()
 
 # save Netedit config

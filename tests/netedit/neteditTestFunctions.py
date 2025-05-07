@@ -2581,6 +2581,43 @@ def selectItems(elementClass, elementType, attribute, value):
     time.sleep(DELAY_SELECT)
 
 
+def selectStoppingPlaceItems(elementClass, stoppingPlace, elementType, attribute, value):
+    """
+    @brief select items
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to elementClass
+    for _ in range(8):
+        typeTab()
+    # paste the new elementClass
+    pasteIntoTextField(elementClass)
+    # jump to element
+    for _ in range(2):
+        typeTab()
+    # paste the new elementType
+    pasteIntoTextField(stoppingPlace)
+    # jump to stoppingPlace
+    for _ in range(2):
+        typeTab()
+    # paste the new elementType
+    pasteIntoTextField(elementType)
+    # jump to attribute
+    for _ in range(3):
+        typeTab()
+    # paste the new attribute
+    pasteIntoTextField(attribute)
+    # jump to value
+    for _ in range(2):
+        typeTab()
+    # paste the new value
+    pasteIntoTextField(value)
+    # type enter to select it
+    typeEnter()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
+
+
 def deleteSelectedItems():
     """
     @brief delete selected items
