@@ -6,3 +6,6 @@ simple
 
 # the blocking vehicle isn't stopped at the same stop as ego
 blocker_notAtStop
+
+# the blocking vehicle isn't stopped yet
+blocker_notAtStop2

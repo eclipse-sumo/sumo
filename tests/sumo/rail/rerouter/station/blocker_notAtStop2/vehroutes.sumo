@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-07 14:40:07 by Eclipse SUMO sumo Version v1_23_0+0034-fd7d1577f1c
+<!-- generated on 2025-05-07 14:43:26 by Eclipse SUMO sumo Version v1_23_0+0034-fd7d1577f1c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,7 +40,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </sumoConfiguration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0" depart="5.00" departLane="E2_0" departPos="50.10" departSpeed="44.44" departDelay="0.00" arrival="123.00" arrivalLane="E9_0" arrivalPos="100.00" arrivalSpeed="14.50" duration="118.00" routeLength="1689.86" waitingTime="0.00" waitingCount="0" stopTime="10.00" timeLoss="67.92" rerouteNo="1" devices="vehroute_v0 tripinfo_v0" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="blocker" depart="0.00" departLane="E5_0" departPos="80.00" departSpeed="0.00" departDelay="0.00" arrival="657.00" arrivalLane="E9_0" arrivalPos="100.00" arrivalSpeed="14.50" duration="657.00" routeLength="420.21" waitingTime="0.00" waitingCount="0" stopTime="599.00" timeLoss="48.38" rerouteNo="0" devices="vehroute_blocker tripinfo_blocker" vType="train" speedFactor="1.00" vaporized=""/>
-</tripinfos>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v0" type="train" depart="5.00" departSpeed="44.44" departEdge="2" speedFactor="1.0000" arrival="123.00">
+        <routeDistribution>
+            <route replacedOnEdge="E2" replacedOnIndex="2" reason="rr_0:stationReroute" replacedAtTime="5.00" probability="0" edges="E0 E1 E2 E3 E4 E5 E6 E7 E8 E9"/>
+            <route edges="E0 E1 E2 E3 E4b E5b E6b E6.1b E7 E8 E9"/>
+        </routeDistribution>
+        <stop busStop="ts_5b" duration="10.00" until="60.00"/>
+    </vehicle>
+
+    <vehicle id="blocker" type="train" depart="0.00" departEdge="4" arrival="657.00">
+        <route edges="E0 E1 E2 E3 E4 E5 E6 E7 E8 E9"/>
+        <stop edge="E5" endPos="80.00" duration="10.00" until="600.00"/>
+    </vehicle>
+
+</routes>
