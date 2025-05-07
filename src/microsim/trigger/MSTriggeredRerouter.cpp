@@ -871,7 +871,7 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
                 }
                 mainIndex++;
             }
-            if (itOnMain2 != route2.end()) {
+            if (itOnMain2 != route2.end() && itOnMain2 > veh2->getCurrentRouteEdge()) {
                 auto itOnMain = mainStart + mainIndex;
                 double timeToMain = 0;
                 // veh2 may be anywhere on the current edge so we have to discount
