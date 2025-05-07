@@ -1625,20 +1625,21 @@ class vaporizer:
         begin = 5
         end = 6
         name = 7
-        center = 11
+        parameters = 9
+        center = 12
 
     class inspect:
         edge = 1
-        begin = 2
-        end = 3
-        name = 4
-        parameters = 7
+        name = 2
+        begin = 3
+        end = 4
+        parameters = 6
 
     class inspectSelection:
-        begin = 1
-        end = 2
-        name = 3
-        parameters = 6
+        name = 1
+        begin = 2
+        end = 3
+        parameters = 5
 
 # --------------------------------
 # SHAPE ELEMENTS
