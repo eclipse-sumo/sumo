@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:36+0200\n"
-"PO-Revision-Date: 2025-05-02 12:53+0000\n"
+"PO-Revision-Date: 2025-05-07 14:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4597,7 +4597,7 @@ msgstr "Präfix für containerFlow-Bezeichnung"
 
 #: src/netedit/GNELoadThread.cpp:444
 msgid "Prefix for dataSet naming"
-msgstr ""
+msgstr "Präfix für Dataset-Benennung"
 
 #: src/netedit/GNELoadThread.cpp:449
 msgid "Prefix for meanDataEdge naming"
@@ -4972,7 +4972,7 @@ msgstr "Ungültiger Index '%' in getAttributeProperties(int) verwendet"
 #: src/netedit/GNETagPropertiesDatabase.cpp:89
 #, c-format
 msgid "Property for tag '%' not defined"
-msgstr ""
+msgstr "Eigenschaft nicht für Tag '%' definiert"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:102
 #, c-format
@@ -6068,11 +6068,11 @@ msgstr "Eine Information, ob die Verkehrsumlegungszone ausgefüllt werden soll"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2296
 msgid "Use the edges within the shape"
-msgstr ""
+msgstr "Kanten innerhalb des Shape nutzen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2298
 msgid "edges within"
-msgstr ""
+msgstr "enthaltene Kanten"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2308
 msgid "TAZ Source"
@@ -6166,7 +6166,7 @@ msgstr "Der Shape der Fußgängerfläche"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2482
 msgid "A custom geo shape for this walkable area"
-msgstr ""
+msgstr "Ein benutzerdefiniertes Shape für diese Fußgängerfläche"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2492
 msgid "JuPedSim Obstacle"
@@ -6178,7 +6178,7 @@ msgstr "Der Shape des Hindernis"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2513
 msgid "A custom geo shape for this obstacle"
-msgstr ""
+msgstr "Ein benutzerdefinierter Shape für dieses Hindernis"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2529
 msgid "RouteDistribution"
@@ -7488,11 +7488,11 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6924
 #, c-format
 msgid "Center view over element % after creation"
-msgstr ""
+msgstr "Ansicht nach dessen Erstellung über Element % zentrieren"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6925
 msgid "center view"
-msgstr ""
+msgstr "Ansicht zentrieren"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6933
 msgid "The path to the additional file"
@@ -8670,7 +8670,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8580
 msgid "Optional name for %"
-msgstr ""
+msgstr "Optionaler Name für %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8591
 #: src/netedit/GNETagPropertiesDatabase.cpp:8597
