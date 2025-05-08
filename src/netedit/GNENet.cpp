@@ -65,6 +65,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEApplicationWindow.h"
@@ -78,7 +79,7 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXIMPLEMENT_ABSTRACT(GNENetHelper::GNEChange_ReplaceEdgeInTLS, GNEChange, nullptr, 0)
+FXIMPLEMENT_TESTING_ABSTRACT(GNENetHelper::GNEChange_ReplaceEdgeInTLS, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // static members

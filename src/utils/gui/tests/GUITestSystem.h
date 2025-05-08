@@ -36,7 +36,7 @@ class GNEApplicationWindow;
 // ===========================================================================
 
 // we use this macro for check test signals
-#define TEST_SIGNALS
+//#define TEST_SIGNALS
 //#define TEST_SIGNALS_UPDATE
 
 #ifndef TEST_SIGNALS
@@ -56,6 +56,14 @@ class GNEApplicationWindow;
             gTestSystem.nextTest(sender, sel); \
             return result;\
         }
+
+    #define FXIMPLEMENT_TESTING_ABSTRACT(classname, baseclassname, mapping, nmappings) \
+        const FX::FXMetaClass classname::metaClass(#classname,NULL,&baseclassname::metaClass,mapping,nmappings,sizeof(classname::FXMapEntry)); \
+        long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr){ \
+        const FXMapEntry* me=(const FXMapEntry*)metaClass.search(sel); \
+        return me ? (this->* me->func)(sender,sel,ptr) : baseclassname::handle(sender,sel,ptr); \
+        }
+
 #else
     #define FXIMPLEMENT_TESTING(classname, baseclassname, mapping, nmappings) \
         FX::FXObject* classname::manufacture(){  \
@@ -74,7 +82,26 @@ class GNEApplicationWindow;
             gTestSystem.nextTest(sender, sel); \
             return result;\
         }
+
+    #define FXIMPLEMENT_TESTING_ABSTRACT(classname, baseclassname, mapping, nmappings) \
+        FX::FXObject* classname::manufacture(){  \
+            return new classname;  \
+        } \
+        const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
+        long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
+            gTestSystem.writeSignalInfo(sender, sel); \
+            const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
+            int result; \
+            if (me) { \
+                result = (this->*me->func)(sender, sel, ptr); \
+            } else { \
+                result = baseclassname::handle(sender, sel, ptr); \
+            } \
+            gTestSystem.nextTest(sender, sel); \
+            return result;\
+        }
 #endif
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
