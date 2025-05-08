@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:36+0200\n"
-"PO-Revision-Date: 2025-05-07 14:08+0000\n"
+"PO-Revision-Date: 2025-05-08 13:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2960,7 +2960,7 @@ msgstr "Nachfolgende MeanData-Datei wurde erfolgreich geladen: "
 
 #: src/netedit/GNEApplicationWindow.cpp:4263
 msgid "reloading meanDatas"
-msgstr ""
+msgstr "Erneutes Laden der MeanData-Elemente"
 
 #: src/netedit/GNEApplicationWindow.cpp:4325
 msgid "MeanDatas elements saved"
@@ -5114,7 +5114,7 @@ msgstr "Containerhalte"
 #: src/netedit/GNETagPropertiesDatabase.cpp:543
 #: src/netedit/GNETagPropertiesDatabase.cpp:545
 msgid "Datas"
-msgstr ""
+msgstr "Daten"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:572
 #: src/netedit/frames/network/GNECrossingFrame.cpp:67
@@ -6186,23 +6186,23 @@ msgstr "Routenverteilung"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2558
 msgid "Route (Ref)"
-msgstr ""
+msgstr "Route (Referenz)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2565
 msgid "Route distribution in which this routeRef is defined"
-msgstr ""
+msgstr "Routenverteilung, in welcher diese Routenreferenz definiert ist"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2570
 msgid "Reference ID of route"
-msgstr ""
+msgstr "Referenz-ID der Route"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2582
 msgid "Route (embedded)"
-msgstr ""
+msgstr "Route (intern)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2601
 msgid "Deterministic distribution"
-msgstr ""
+msgstr "Deterministische Verteilung"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2615
 msgid "VehicleType"
@@ -6210,15 +6210,16 @@ msgstr "Fahrzeugtyp"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2631
 msgid "VType (Ref)"
-msgstr ""
+msgstr "Fahrzeugtyp (Referenz)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2638
 msgid "VType distribution in which this vTypeRef is defined"
 msgstr ""
+"Fahrzeugtypverteilung, in welcher diese Fahrzeugtypreferenz definiert ist"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2643
 msgid "Reference ID of vType"
-msgstr ""
+msgstr "Referenz-ID des Fahrzeugtyps"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2661
 msgid "TripEdges"
@@ -7500,7 +7501,7 @@ msgstr "Der Pfad zur Datei mit weiteren Elementen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6935
 msgid "add. file"
-msgstr ""
+msgstr "Datei für weitere Elemente"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6940
 msgid "The path to the route file"
@@ -7508,7 +7509,7 @@ msgstr "Der Pfad zur Routendatei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6942
 msgid "route file"
-msgstr ""
+msgstr "Routendatei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6947
 #: src/netedit/GNETagPropertiesDatabase.cpp:6954
@@ -7517,7 +7518,7 @@ msgstr "Der Pfad zur Datendatei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6949
 msgid "data file"
-msgstr ""
+msgstr "Datendatei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6956
 msgid "mean file"
