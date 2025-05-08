@@ -32,10 +32,32 @@
 class GNEApplicationWindow;
 
 // ===========================================================================
+// macro declarations
+// ===========================================================================
+
+#define FXIMPLEMENT_TESTING(classname, baseclassname, mapping, nmappings) \
+    FX::FXObject* classname::manufacture(){  \
+        return new classname;  \
+    } \
+    const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
+    long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
+        const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
+        int result; \
+        gTestSystem.checkLock(sender, sel); \
+        if (me) { \
+            result = (this->*me->func)(sender, sel, ptr); \
+        } else { \
+            result = baseclassname::handle(sender, sel, ptr); \
+        } \
+        gTestSystem.checkUnlock(sender, sel); \
+        return result;\
+    }
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GUITestSystem : public FXThread {
+class GUITestSystem : public FXObject, public FXThread {
 
 public:
     /// @brief constructor
@@ -47,9 +69,11 @@ public:
     /// @brief run all tests
     void startTests(GNEApplicationWindow* neteditApplicationWindow);
 
-    void lock();
+    /// @brief check lock
+    void checkLock(FXObject* sender, FXSelector sel);
 
-    void unlock();
+    /// @brief check unlock
+    void checkUnlock(FXObject* sender, FXSelector sel);
 
     /// @brief run all tests
     int run();
