@@ -38,12 +38,12 @@
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/demand/GNEContainerFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/demand/GNEPersonFrame.h>
-#include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/templates.h>
 #include <netimport/NIFrame.h>
 #include <netimport/NITypeLoader.h>
@@ -63,6 +63,7 @@
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
+#include <utils/gui/tests/GUITestSystem.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/xml/XMLSubSys.h>
@@ -70,7 +71,6 @@
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
-#include "GNETestSystem.h"
 #include "GNENet.h"
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
