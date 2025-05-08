@@ -33,10 +33,10 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake3
 %else
 BuildRequires:  cmake
+BuildRequires:  java-devel
 %endif
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
-BuildRequires:  java-devel
 BuildRequires:  swig
 BuildRequires:  help2man
 BuildRequires:  pkgconfig
@@ -157,15 +157,13 @@ cd cmake-build
 %{_bindir}/*
 %{_libdir}/libsumocs.so
 %{_libdir}/libtracics.so
+%if 0%{?centos_version} == 0
 %{_libdir}/liblibsumojni.so
 %{_libdir}/liblibtracijni.so
+%endif
 %{_datadir}/sumo
 %doc AUTHORS README.md ChangeLog CONTRIBUTING.md NOTICE.md docs/pydoc docs/userdoc docs/examples docs/tutorial
-%if 0%{?suse_version} < 1500
-%doc LICENSE
-%else
 %license LICENSE
-%endif
 %{_mandir}/man1/*
 %config %{_sysconfdir}/profile.d/%{name}.*sh
 %{_datadir}/applications/*.desktop
@@ -175,28 +173,16 @@ cd cmake-build
 %endif
 
 %files -n libsumocpp
-%if 0%{?suse_version} < 1500
-%doc LICENSE
-%else
 %license LICENSE
-%endif
 %{_libdir}/libsumocpp.so
 %{_libdir}/libtracicpp.so
 
 %files -n libsumocpp-devel
-%if 0%{?suse_version} < 1500
-%doc LICENSE
-%else
 %license LICENSE
-%endif
 %{_includedir}/libsumo
 
 %files -n python3-libsumo
-%if 0%{?suse_version} < 1500
-%doc LICENSE
-%else
 %license LICENSE
-%endif
 %{python3_sitelib}/sumolib*/
 %{python3_sitelib}/traci*/
 %{python3_sitelib}/simpla*/
