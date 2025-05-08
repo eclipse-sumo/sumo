@@ -363,53 +363,56 @@ GNEMatchAttribute::getMatches(const char compOp, const double val, const std::st
     const auto allACbyTag = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(myCurrentEditedProperties->getTagProperties()->getTag());
     // iterate over all ACs
     for (const auto& AC : allACbyTag) {
-        if (expr == "" && compOp == '@') {
-            result.push_back(AC);
-        } else if (myCurrentEditedProperties->getAttributeProperties()->isNumerical()) {
-            double acVal;
-            std::istringstream buf(AC->getAttribute(myCurrentEditedProperties->getAttributeProperties()->getAttr()));
-            buf >> acVal;
-            switch (compOp) {
-                case '<':
-                    if (acVal < val) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '>':
-                    if (acVal > val) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '=':
-                    if (acVal == val) {
-                        result.push_back(AC);
-                    }
-                    break;
-            }
-        } else {
-            // string match
-            std::string acVal = AC->getAttributeForSelection(myCurrentEditedProperties->getAttributeProperties()->getAttr());
-            switch (compOp) {
-                case '@':
-                    if (acVal.find(expr) != std::string::npos) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '!':
-                    if (acVal.find(expr) == std::string::npos) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '=':
-                    if (acVal == expr) {
-                        result.push_back(AC);
-                    }
-                    break;
-                case '^':
-                    if (acVal != expr) {
-                        result.push_back(AC);
-                    }
-                    break;
+        // first check if the attribute exist in the given tag
+        if (AC->getTagProperty()->hasAttribute(myCurrentEditedProperties->getAttributeProperties()->getAttr())) {
+            if (expr == "" && compOp == '@') {
+                result.push_back(AC);
+            } else if (myCurrentEditedProperties->getAttributeProperties()->isNumerical()) {
+                double acVal;
+                std::istringstream buf(AC->getAttribute(myCurrentEditedProperties->getAttributeProperties()->getAttr()));
+                buf >> acVal;
+                switch (compOp) {
+                    case '<':
+                        if (acVal < val) {
+                            result.push_back(AC);
+                        }
+                        break;
+                    case '>':
+                        if (acVal > val) {
+                            result.push_back(AC);
+                        }
+                        break;
+                    case '=':
+                        if (acVal == val) {
+                            result.push_back(AC);
+                        }
+                        break;
+                }
+            } else {
+                // string match
+                std::string acVal = AC->getAttributeForSelection(myCurrentEditedProperties->getAttributeProperties()->getAttr());
+                switch (compOp) {
+                    case '@':
+                        if (acVal.find(expr) != std::string::npos) {
+                            result.push_back(AC);
+                        }
+                        break;
+                    case '!':
+                        if (acVal.find(expr) == std::string::npos) {
+                            result.push_back(AC);
+                        }
+                        break;
+                    case '=':
+                        if (acVal == expr) {
+                            result.push_back(AC);
+                        }
+                        break;
+                    case '^':
+                        if (acVal != expr) {
+                            result.push_back(AC);
+                        }
+                        break;
+                }
             }
         }
     }

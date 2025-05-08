@@ -2548,19 +2548,21 @@ GNENet::saveMeanDatasConfirmed() {
 void
 GNENet::writeAdditionalByType(OutputDevice& device, const std::unordered_set<const GNEAttributeCarrier*>& ACs,
                               const std::vector<SumoXMLTag> tags) const {
-    std::map<std::string, GNEAdditional*> sortedAdditionals;
+    std::map<std::string, std::vector<GNEAdditional*> > sortedAdditionals;
     for (const auto& tag : tags) {
         for (const auto& additional : myAttributeCarriers->getAdditionals().at(tag)) {
-            if (sortedAdditionals.count(additional.second->getID()) == 0) {
-                sortedAdditionals[additional.second->getID()] = additional.second;
+            if ((tag == SUMO_TAG_VAPORIZER) || (sortedAdditionals.count(additional.second->getID()) == 0)) {
+                sortedAdditionals[additional.second->getID()].push_back(additional.second);
             } else {
                 throw ProcessError(TL("Duplicated ID"));
             }
         }
     }
-    for (const auto& additional : sortedAdditionals) {
-        if (ACs.count(additional.second) > 0) {
-            additional.second->writeAdditional(device);
+    for (const auto& additionalVector : sortedAdditionals) {
+        for (const auto& additional : additionalVector.second) {
+            if (ACs.count(additional) > 0) {
+                additional->writeAdditional(device);
+            }
         }
     }
 }

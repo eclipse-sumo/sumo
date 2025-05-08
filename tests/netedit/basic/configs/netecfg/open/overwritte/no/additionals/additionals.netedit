@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-17 14:42:07 by Eclipse SUMO netedit Version v1_21_0+1889-0e6dceb87c7
+<!-- generated on 2025-05-07 16:51:48 by Eclipse SUMO netedit Version v1_23_0+0040-dbbc66ca3e9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -112,8 +112,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <variableSpeedSign id="vs_1" lanes="-E5_0" pos="-22.00,-10.00"/>
     <variableSpeedSign id="vs_2" lanes="-E2_0" pos="22.00,10.00"/>
     <vaporizer id="-E10" begin="0.00" end="3600.00"/>
+    <vaporizer id="-E10" begin="0.00" end="3600.00"/>
+    <vaporizer id="-E11" begin="0.00" end="3600.00"/>
     <vaporizer id="-E11" begin="0.00" end="3600.00"/>
     <vaporizer id="E6" begin="0.00" end="3600.00"/>
+    <vaporizer id="E6" begin="0.00" end="3600.00"/>
+    <vaporizer id="E7" begin="0.00" end="3600.00"/>
     <vaporizer id="E7" begin="0.00" end="3600.00"/>
     <!-- Shapes -->
     <poly id="po_0" color="red" fill="1" layer="0.00" shape="-12.000000,12.000000 -12.000000,8.000000 -8.000000,8.000000 -8.000000,12.000000 -12.000000,12.000000"/>
