@@ -20,6 +20,11 @@
 #pragma once
 #include <config.h>
 
+#include <string>
+#include <vector>
+
+#include <utils/foxtools/fxheader.h>
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -34,13 +39,13 @@ class GUITestSystem : public FXThread {
 
 public:
     /// @brief constructor
-    GUITestSystem(GNEApplicationWindow* applicationWindow);
+    GUITestSystem();
 
     /// @brief destructor
     ~GUITestSystem();
 
     /// @brief run all tests
-    void startTests();
+    void startTests(GNEApplicationWindow* neteditApplicationWindow);
 
     void lock();
 
@@ -137,7 +142,7 @@ private:
     };
 
     /// @brief netedit application windows
-    GNEApplicationWindow* myApplicationWindow;
+    GNEApplicationWindow* myNeteditApplicationWindow = nullptr;
 
     /// @brief test steps
     std::vector<TestStep*> myTestSteps;
