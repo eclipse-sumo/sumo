@@ -26,6 +26,7 @@
 #include <utils/foxtools/MFXComboBoxAttrProperty.h>
 #include <utils/foxtools/MFXComboBoxTagProperty.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEMatchAttribute.h"
@@ -43,7 +44,7 @@ FXDEFMAP(GNEMatchAttribute) GNEMatchAttributeMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMatchAttribute, MFXGroupBoxModule, GNEMatchAttributeMap, ARRAYNUMBER(GNEMatchAttributeMap))
+FXIMPLEMENT_TESTING(GNEMatchAttribute, MFXGroupBoxModule, GNEMatchAttributeMap, ARRAYNUMBER(GNEMatchAttributeMap))
 
 // ===========================================================================
 // method definitions

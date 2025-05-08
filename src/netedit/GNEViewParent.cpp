@@ -54,6 +54,7 @@
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEApplicationWindow.h"
@@ -86,7 +87,7 @@ FXDEFMAP(GNEViewParent) GNEViewParentMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEViewParent, GUIGlChildWindow, GNEViewParentMap, ARRAYNUMBER(GNEViewParentMap))
+FXIMPLEMENT_TESTING(GNEViewParent, GUIGlChildWindow, GNEViewParentMap, ARRAYNUMBER(GNEViewParentMap))
 
 
 // ===========================================================================

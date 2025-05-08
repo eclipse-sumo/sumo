@@ -24,6 +24,7 @@
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 // ===========================================================================
@@ -51,10 +52,10 @@ FXDEFMAP(GNEMoveFrame::ShiftShapeGeometry) ShiftShapeGeometryMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMoveFrame::NetworkMoveOptions,           MFXGroupBoxModule, NetworkMoveOptionsMap,  ARRAYNUMBER(NetworkMoveOptionsMap))
-FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,           MFXGroupBoxModule, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
-FXIMPLEMENT(GNEMoveFrame::ShiftEdgeSelectedGeometry,    MFXGroupBoxModule, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
-FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           MFXGroupBoxModule, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
+FXIMPLEMENT_TESTING(GNEMoveFrame::NetworkMoveOptions,           MFXGroupBoxModule, NetworkMoveOptionsMap,  ARRAYNUMBER(NetworkMoveOptionsMap))
+FXIMPLEMENT_TESTING(GNEMoveFrame::ChangeZInSelection,           MFXGroupBoxModule, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
+FXIMPLEMENT_TESTING(GNEMoveFrame::ShiftEdgeSelectedGeometry,    MFXGroupBoxModule, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
+FXIMPLEMENT_TESTING(GNEMoveFrame::ShiftShapeGeometry,           MFXGroupBoxModule, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
 
 // ===========================================================================
 // method definitions

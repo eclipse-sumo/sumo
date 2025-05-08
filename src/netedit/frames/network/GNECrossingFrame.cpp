@@ -27,6 +27,7 @@
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNECrossingFrame.h"
@@ -50,9 +51,9 @@ FXDEFMAP(GNECrossingFrame::CreateCrossing) CreateCrossingMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECrossingFrame::EdgesSelector,        MFXGroupBoxModule,     EdgesSelectorMap,       ARRAYNUMBER(EdgesSelectorMap))
-FXIMPLEMENT(GNECrossingFrame::CrossingParameters,   MFXGroupBoxModule,     CrossingParametersMap,  ARRAYNUMBER(CrossingParametersMap))
-FXIMPLEMENT(GNECrossingFrame::CreateCrossing,       MFXGroupBoxModule,     CreateCrossingMap,      ARRAYNUMBER(CreateCrossingMap))
+FXIMPLEMENT_TESTING(GNECrossingFrame::EdgesSelector,        MFXGroupBoxModule,     EdgesSelectorMap,       ARRAYNUMBER(EdgesSelectorMap))
+FXIMPLEMENT_TESTING(GNECrossingFrame::CrossingParameters,   MFXGroupBoxModule,     CrossingParametersMap,  ARRAYNUMBER(CrossingParametersMap))
+FXIMPLEMENT_TESTING(GNECrossingFrame::CreateCrossing,       MFXGroupBoxModule,     CreateCrossingMap,      ARRAYNUMBER(CreateCrossingMap))
 
 
 // ===========================================================================

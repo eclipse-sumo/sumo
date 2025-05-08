@@ -25,6 +25,7 @@
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNERerouterDialog.h"
@@ -41,7 +42,7 @@ FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNERerouterDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
+FXIMPLEMENT_TESTING(GNERerouterDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
 
 // ===========================================================================
 // member method definitions

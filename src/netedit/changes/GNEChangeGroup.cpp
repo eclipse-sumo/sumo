@@ -18,6 +18,8 @@
 //
 /****************************************************************************/
 
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
+
 #include "GNEChangeGroup.h"
 
 // ===========================================================================
@@ -25,7 +27,7 @@
 // ===========================================================================
 
 // Object implementation
-FXIMPLEMENT(GNEChangeGroup, GNEChange, nullptr, 0)
+FXIMPLEMENT_TESTING(GNEChangeGroup, GNEChange, nullptr, 0)
 
 // ---------------------------------------------------------------------------
 // GNEChangeGroup - methods

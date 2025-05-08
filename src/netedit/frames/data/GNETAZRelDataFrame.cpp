@@ -26,6 +26,7 @@
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNETAZRelDataFrame.h"
 
@@ -40,7 +41,7 @@ FXDEFMAP(GNETAZRelDataFrame::ConfirmTAZRelation) ConfirmTAZRelationMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETAZRelDataFrame::ConfirmTAZRelation, MFXGroupBoxModule, ConfirmTAZRelationMap, ARRAYNUMBER(ConfirmTAZRelationMap))
+FXIMPLEMENT_TESTING(GNETAZRelDataFrame::ConfirmTAZRelation, MFXGroupBoxModule, ConfirmTAZRelationMap, ARRAYNUMBER(ConfirmTAZRelationMap))
 
 // ===========================================================================
 // method definitions

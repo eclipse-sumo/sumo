@@ -27,6 +27,7 @@
 #include <netedit/elements/network/GNELane.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNEProhibitionFrame.h"
 
@@ -41,7 +42,7 @@ FXDEFMAP(GNEProhibitionFrame::Selection) SelectionMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEProhibitionFrame::Selection, FXVerticalFrame, SelectionMap, ARRAYNUMBER(SelectionMap))
+FXIMPLEMENT_TESTING(GNEProhibitionFrame::Selection, FXVerticalFrame, SelectionMap, ARRAYNUMBER(SelectionMap))
 
 // ===========================================================================
 // method definitions

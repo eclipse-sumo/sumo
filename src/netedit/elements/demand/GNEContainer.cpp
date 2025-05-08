@@ -27,6 +27,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEContainer.h"
@@ -45,8 +46,8 @@ FXDEFMAP(GNEContainer::GNESelectedContainersPopupMenu) selectedContainersPopupMe
 };
 
 // Object implementation
-FXIMPLEMENT(GNEContainer::GNEContainerPopupMenu,          GUIGLObjectPopupMenu, containerPopupMenuMap,           ARRAYNUMBER(containerPopupMenuMap))
-FXIMPLEMENT(GNEContainer::GNESelectedContainersPopupMenu, GUIGLObjectPopupMenu, selectedContainersPopupMenuMap,  ARRAYNUMBER(selectedContainersPopupMenuMap))
+FXIMPLEMENT_TESTING(GNEContainer::GNEContainerPopupMenu,          GUIGLObjectPopupMenu, containerPopupMenuMap,           ARRAYNUMBER(containerPopupMenuMap))
+FXIMPLEMENT_TESTING(GNEContainer::GNESelectedContainersPopupMenu, GUIGLObjectPopupMenu, selectedContainersPopupMenuMap,  ARRAYNUMBER(selectedContainersPopupMenuMap))
 
 // ===========================================================================
 // GNEContainer::GNEContainerPopupMenu

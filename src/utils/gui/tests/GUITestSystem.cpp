@@ -83,6 +83,7 @@ GUITestSystem::checkUnlock(FXObject* sender, FXSelector sel) {
 int
 GUITestSystem::run() {
     for (const auto &testStep : myTestSteps) {
+        myContinue = false;
         // continue depending of step type
         switch (testStep->getStepType()) {
             // basic

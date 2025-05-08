@@ -21,6 +21,7 @@
 #include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/XMLSubSys.h>
 
@@ -54,9 +55,9 @@ FXDEFMAP(GNEVTypeDistributionsDialog::ParametersOperations) ParametersOperations
 };
 
 // Object implementation
-FXIMPLEMENT(GNEVTypeDistributionsDialog,                          FXDialogBox,    GNEVTypeDistributionsDialogMap,   ARRAYNUMBER(GNEVTypeDistributionsDialogMap))
-FXIMPLEMENT(GNEVTypeDistributionsDialog::ParametersValues,        FXGroupBox,     ParametersValuesMap,              ARRAYNUMBER(ParametersValuesMap))
-FXIMPLEMENT(GNEVTypeDistributionsDialog::ParametersOperations,    FXGroupBox,     ParametersOperationsMap,          ARRAYNUMBER(ParametersOperationsMap))
+FXIMPLEMENT_TESTING(GNEVTypeDistributionsDialog,                          FXDialogBox,    GNEVTypeDistributionsDialogMap,   ARRAYNUMBER(GNEVTypeDistributionsDialogMap))
+FXIMPLEMENT_TESTING(GNEVTypeDistributionsDialog::ParametersValues,        FXGroupBox,     ParametersValuesMap,              ARRAYNUMBER(ParametersValuesMap))
+FXIMPLEMENT_TESTING(GNEVTypeDistributionsDialog::ParametersOperations,    FXGroupBox,     ParametersOperationsMap,          ARRAYNUMBER(ParametersOperationsMap))
 
 // ===========================================================================
 // member method definitions

@@ -18,12 +18,13 @@
 // Dialog for edit calibrator routes
 /****************************************************************************/
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNERouteDialog.h"
 
@@ -36,7 +37,7 @@ FXDEFMAP(GNERouteDialog) GNERouteDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNERouteDialog, GNEDemandElementDialog, GNERouteDialogMap, ARRAYNUMBER(GNERouteDialogMap))
+FXIMPLEMENT_TESTING(GNERouteDialog, GNEDemandElementDialog, GNERouteDialogMap, ARRAYNUMBER(GNERouteDialogMap))
 
 // ===========================================================================
 // member method definitions

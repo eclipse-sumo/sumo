@@ -25,6 +25,7 @@
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNETypeFrame.h"
@@ -46,8 +47,8 @@ FXDEFMAP(GNETypeFrame::TypeEditor) typeEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETypeFrame::TypeSelector,         MFXGroupBoxModule,  typeSelectorMap,        ARRAYNUMBER(typeSelectorMap))
-FXIMPLEMENT(GNETypeFrame::TypeEditor,           MFXGroupBoxModule,  typeEditorMap,          ARRAYNUMBER(typeEditorMap))
+FXIMPLEMENT_TESTING(GNETypeFrame::TypeSelector,         MFXGroupBoxModule,  typeSelectorMap,        ARRAYNUMBER(typeSelectorMap))
+FXIMPLEMENT_TESTING(GNETypeFrame::TypeEditor,           MFXGroupBoxModule,  typeEditorMap,          ARRAYNUMBER(typeEditorMap))
 
 // ===========================================================================
 // method definitions

@@ -31,6 +31,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEElementTree.h"
@@ -50,8 +51,7 @@ FXDEFMAP(GNEElementTree) HierarchicalElementTreeMap[] = {
 
 
 // Object implementation
-FXIMPLEMENT(GNEElementTree,    MFXGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
-
+FXIMPLEMENT_TESTING(GNEElementTree,    MFXGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
 
 // ===========================================================================
 // method definitions

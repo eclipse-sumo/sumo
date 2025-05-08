@@ -31,6 +31,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/POIIcons.h>
 #include <utils/gui/images/VClassIcons.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNEAttributesEditorRow.h"
 
@@ -51,7 +52,7 @@ FXDEFMAP(GNEAttributesEditorRow) GNEAttributeRowMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAttributesEditorRow, FXHorizontalFrame, GNEAttributeRowMap, ARRAYNUMBER(GNEAttributeRowMap))
+FXIMPLEMENT_TESTING(GNEAttributesEditorRow, FXHorizontalFrame, GNEAttributeRowMap, ARRAYNUMBER(GNEAttributeRowMap))
 
 // ===========================================================================
 // defines

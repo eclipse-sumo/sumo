@@ -20,6 +20,7 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEKeepElementsDialog.h"
@@ -34,7 +35,7 @@ FXDEFMAP(GNEKeepElementsDialog) GNEKeepElementsDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEKeepElementsDialog, FXDialogBox, GNEKeepElementsDialogMap, ARRAYNUMBER(GNEKeepElementsDialogMap))
+FXIMPLEMENT_TESTING(GNEKeepElementsDialog, FXDialogBox, GNEKeepElementsDialogMap, ARRAYNUMBER(GNEKeepElementsDialogMap))
 
 // ===========================================================================
 // member method definitions

@@ -29,6 +29,7 @@
 #include <netedit/frames/GNEElementTree.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEInspectorFrame.h"
@@ -48,8 +49,8 @@ FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEInspectorFrame,                  FXVerticalFrame,    GNEInspectorFrameMap,   ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,  MFXGroupBoxModule,  TemplateEditorMap,      ARRAYNUMBER(TemplateEditorMap))
+FXIMPLEMENT_TESTING(GNEInspectorFrame,                  FXVerticalFrame,    GNEInspectorFrameMap,   ARRAYNUMBER(GNEInspectorFrameMap))
+FXIMPLEMENT_TESTING(GNEInspectorFrame::TemplateEditor,  MFXGroupBoxModule,  TemplateEditorMap,      ARRAYNUMBER(TemplateEditorMap))
 
 
 // ===========================================================================

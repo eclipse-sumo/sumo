@@ -26,11 +26,12 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <utils/gui/windows/GUIAppEnum.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNERoute.h"
 #include "GNEVehicle.h"
@@ -44,7 +45,7 @@ FXDEFMAP(GNERoute::GNERoutePopupMenu) GNERoutePopupMenuMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNERoute::GNERoutePopupMenu, GUIGLObjectPopupMenu, GNERoutePopupMenuMap, ARRAYNUMBER(GNERoutePopupMenuMap))
+FXIMPLEMENT_TESTING(GNERoute::GNERoutePopupMenu, GUIGLObjectPopupMenu, GNERoutePopupMenuMap, ARRAYNUMBER(GNERoutePopupMenuMap))
 
 // ===========================================================================
 // GNERoute::GNERoutePopupMenu - methods

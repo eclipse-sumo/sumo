@@ -28,6 +28,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEPlanCreator.h"
@@ -45,13 +46,11 @@ FXDEFMAP(GNEPlanCreator) PathCreatorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPlanCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
-
+FXIMPLEMENT_TESTING(GNEPlanCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
 
 GNEPlanCreator::PlanPath::PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge) :
     myConflictVClass(false),

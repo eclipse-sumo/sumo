@@ -37,6 +37,7 @@
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/foxtools/MFXToggleButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNETLSEditorFrame.h"
@@ -104,11 +105,11 @@ FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETLSEditorFrame::TLSJunction,     MFXGroupBoxModule,  TLSJunctionMap,     ARRAYNUMBER(TLSJunctionMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSDefinition,   MFXGroupBoxModule,  TLSDefinitionMap,   ARRAYNUMBER(TLSDefinitionMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSAttributes,   MFXGroupBoxModule,  TLSAttributesMap,   ARRAYNUMBER(TLSAttributesMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSPhases,       MFXGroupBoxModule,  TLSPhasesMap,       ARRAYNUMBER(TLSPhasesMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSFile,         MFXGroupBoxModule,  TLSFileMap,         ARRAYNUMBER(TLSFileMap))
+FXIMPLEMENT_TESTING(GNETLSEditorFrame::TLSJunction,     MFXGroupBoxModule,  TLSJunctionMap,     ARRAYNUMBER(TLSJunctionMap))
+FXIMPLEMENT_TESTING(GNETLSEditorFrame::TLSDefinition,   MFXGroupBoxModule,  TLSDefinitionMap,   ARRAYNUMBER(TLSDefinitionMap))
+FXIMPLEMENT_TESTING(GNETLSEditorFrame::TLSAttributes,   MFXGroupBoxModule,  TLSAttributesMap,   ARRAYNUMBER(TLSAttributesMap))
+FXIMPLEMENT_TESTING(GNETLSEditorFrame::TLSPhases,       MFXGroupBoxModule,  TLSPhasesMap,       ARRAYNUMBER(TLSPhasesMap))
+FXIMPLEMENT_TESTING(GNETLSEditorFrame::TLSFile,         MFXGroupBoxModule,  TLSFileMap,         ARRAYNUMBER(TLSFileMap))
 
 
 // ===========================================================================
