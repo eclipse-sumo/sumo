@@ -75,12 +75,10 @@ GUITestSystem::nextTest(FXObject* sender, FXSelector sel) {
 
 void
 GUITestSystem::writeSignalInfo(FXObject* sender, FXSelector sel) const {
-    // check if filter signal update
-    #ifndef TEST_SIGNALS_UPDATE
+    // ignore update
     if (FXSELTYPE(sel) == SEL_UPDATE) {
         return;
     }
-    #endif
     std::string signalType;
     switch (FXSELTYPE(sel)) {
         case SEL_KEYPRESS:
