@@ -18,19 +18,19 @@
 // Thread used for testing netedit
 /****************************************************************************/
 
-#include <utils/common/StringTokenizer.h>
-#include <utils/common/MsgHandler.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
-#include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/network/GNEAdditionalFrame.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
 
 #include <thread>
 #include <chrono>
 
-#include "GNEApplicationWindow.h"
-#include "GNETestSystem.h"
-#include "GNEViewNet.h"
-#include "GNEViewParent.h"
+#include "GUITestSystem.h"
 
 // ===========================================================================
 // member method definitions
