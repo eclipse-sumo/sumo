@@ -88,7 +88,7 @@ FXDEFMAP(GNEPythonToolDialogElements::SumoConfigArgument) SumoConfigArgumentMap[
 };
 
 // Object implementation
-FXIMPLEMENT_ABSTRACT(GNEPythonToolDialogElements::Argument,     FXHorizontalFrame,                              ArgumentMap,            ARRAYNUMBER(ArgumentMap))
+FXIMPLEMENT_TESTING_ABSTRACT(GNEPythonToolDialogElements::Argument,     FXHorizontalFrame,                              ArgumentMap,            ARRAYNUMBER(ArgumentMap))
 FXIMPLEMENT_TESTING(GNEPythonToolDialogElements::EdgeVectorArgument,    GNEPythonToolDialogElements::Argument,          EdgeVectorArgumentMap,  ARRAYNUMBER(EdgeVectorArgumentMap))
 FXIMPLEMENT_TESTING(GNEPythonToolDialogElements::FileNameArgument,      GNEPythonToolDialogElements::Argument,          FileNameArgumentMap,    ARRAYNUMBER(FileNameArgumentMap))
 FXIMPLEMENT_TESTING(GNEPythonToolDialogElements::NetworkArgument,       GNEPythonToolDialogElements::FileNameArgument,  NetworkArgumentMap,     ARRAYNUMBER(NetworkArgumentMap))

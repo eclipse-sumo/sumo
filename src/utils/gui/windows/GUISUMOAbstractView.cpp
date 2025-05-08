@@ -32,34 +32,35 @@
 #ifdef HAVE_GL2PS
 #include <gl2ps.h>
 #endif
-#include <utils/foxtools/MFXSingleEventThread.h>
+#include <foreign/fontstash/fontstash.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/RGBColor.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/SysUtils.h>
+#include <utils/common/ToString.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXImageHelper.h>
-#include <utils/common/RGBColor.h>
-#include <utils/common/ToString.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/SysUtils.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/globjects/GUICursorDialog.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/shapes/PointOfInterest.h>
-#include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/gui/globjects/GUIPolygon.h>
-#include <utils/gui/windows/GUIDialog_ViewSettings.h>
+#include <utils/foxtools/MFXSingleEventThread.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <foreign/fontstash/fontstash.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUICursorDialog.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <utils/gui/globjects/GUIPolygon.h>
+#include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/shapes/PointOfInterest.h>
 
 #include <unordered_set>
 
@@ -107,30 +108,30 @@ const double GUISUMOAbstractView::SENSITIVITY = 0.1; // meters
  * GUISUMOAbstractView - FOX callback mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[] = {
-    FXMAPFUNC(SEL_CONFIGURE,            0,               GUISUMOAbstractView::onConfigure),
-    FXMAPFUNC(SEL_PAINT,                0,               GUISUMOAbstractView::onPaint),
-    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,               GUISUMOAbstractView::onLeftBtnPress),
-    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,               GUISUMOAbstractView::onLeftBtnRelease),
-    FXMAPFUNC(SEL_MIDDLEBUTTONPRESS,    0,               GUISUMOAbstractView::onMiddleBtnPress),
-    FXMAPFUNC(SEL_MIDDLEBUTTONRELEASE,  0,               GUISUMOAbstractView::onMiddleBtnRelease),
-    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,               GUISUMOAbstractView::onRightBtnPress),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,               GUISUMOAbstractView::onRightBtnRelease),
-    FXMAPFUNC(SEL_DOUBLECLICKED,        0,               GUISUMOAbstractView::onDoubleClicked),
-    FXMAPFUNC(SEL_MOUSEWHEEL,           0,               GUISUMOAbstractView::onMouseWheel),
-    FXMAPFUNC(SEL_MOTION,               0,               GUISUMOAbstractView::onMouseMove),
-    FXMAPFUNC(SEL_LEAVE,                0,               GUISUMOAbstractView::onMouseLeft),
-    FXMAPFUNC(SEL_KEYPRESS,             0,               GUISUMOAbstractView::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,           0,               GUISUMOAbstractView::onKeyRelease),
-    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE,               GUISUMOAbstractView::onCmdCloseLane),
-    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE,               GUISUMOAbstractView::onCmdCloseEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_ADD_REROUTER,             GUISUMOAbstractView::onCmdAddRerouter),
-    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,             GUISUMOAbstractView::onCmdShowReachability),
-    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,             GUISUMOAbstractView::onCmdShowReachability),
-    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE, GUISUMOAbstractView::onVisualizationChange),
+    FXMAPFUNC(SEL_CONFIGURE,            0,                              GUISUMOAbstractView::onConfigure),
+    FXMAPFUNC(SEL_PAINT,                0,                              GUISUMOAbstractView::onPaint),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,                              GUISUMOAbstractView::onLeftBtnPress),
+    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,                              GUISUMOAbstractView::onLeftBtnRelease),
+    FXMAPFUNC(SEL_MIDDLEBUTTONPRESS,    0,                              GUISUMOAbstractView::onMiddleBtnPress),
+    FXMAPFUNC(SEL_MIDDLEBUTTONRELEASE,  0,                              GUISUMOAbstractView::onMiddleBtnRelease),
+    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,                              GUISUMOAbstractView::onRightBtnPress),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,                              GUISUMOAbstractView::onRightBtnRelease),
+    FXMAPFUNC(SEL_DOUBLECLICKED,        0,                              GUISUMOAbstractView::onDoubleClicked),
+    FXMAPFUNC(SEL_MOUSEWHEEL,           0,                              GUISUMOAbstractView::onMouseWheel),
+    FXMAPFUNC(SEL_MOTION,               0,                              GUISUMOAbstractView::onMouseMove),
+    FXMAPFUNC(SEL_LEAVE,                0,                              GUISUMOAbstractView::onMouseLeft),
+    FXMAPFUNC(SEL_KEYPRESS,             0,                              GUISUMOAbstractView::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,           0,                              GUISUMOAbstractView::onKeyRelease),
+    FXMAPFUNC(SEL_COMMAND,              MID_CLOSE_LANE,                 GUISUMOAbstractView::onCmdCloseLane),
+    FXMAPFUNC(SEL_COMMAND,              MID_CLOSE_EDGE,                 GUISUMOAbstractView::onCmdCloseEdge),
+    FXMAPFUNC(SEL_COMMAND,              MID_ADD_REROUTER,               GUISUMOAbstractView::onCmdAddRerouter),
+    FXMAPFUNC(SEL_COMMAND,              MID_REACHABILITY,               GUISUMOAbstractView::onCmdShowReachability),
+    FXMAPFUNC(SEL_COMMAND,              MID_REACHABILITY,               GUISUMOAbstractView::onCmdShowReachability),
+    FXMAPFUNC(SEL_CHANGED,              MID_SIMPLE_VIEW_COLORCHANGE,    GUISUMOAbstractView::onVisualizationChange),
 };
 
 
-FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, ARRAYNUMBER(GUISUMOAbstractViewMap))
+FXIMPLEMENT_TESTING_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, ARRAYNUMBER(GUISUMOAbstractViewMap))
 
 
 /* -------------------------------------------------------------------------

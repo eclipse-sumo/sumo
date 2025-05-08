@@ -24,6 +24,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEDemandElementDialog.h"
@@ -43,7 +44,7 @@ FXDEFMAP(GNEDemandElementDialog) GNEDemandElementDialogMap[] = {
 };
 
 // Object abstract implementation
-FXIMPLEMENT_ABSTRACT(GNEDemandElementDialog, FXTopWindow, GNEDemandElementDialogMap, ARRAYNUMBER(GNEDemandElementDialogMap))
+FXIMPLEMENT_TESTING_ABSTRACT(GNEDemandElementDialog, FXTopWindow, GNEDemandElementDialogMap, ARRAYNUMBER(GNEDemandElementDialogMap))
 
 // ===========================================================================
 // member method definitions

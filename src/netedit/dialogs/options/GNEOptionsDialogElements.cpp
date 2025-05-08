@@ -26,6 +26,7 @@
 #include <utils/common/ToString.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/options/OptionsCont.h>
@@ -55,8 +56,8 @@ FXDEFMAP(GNEOptionsDialogElements::InputFilename) InputFilenameMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_ABSTRACT(GNEOptionsDialogElements::InputOption,     FXHorizontalFrame,                      InputOptionMap,     ARRAYNUMBER(InputOptionMap))
-FXIMPLEMENT_ABSTRACT(GNEOptionsDialogElements::InputFilename,   GNEOptionsDialogElements::InputOption,  InputFilenameMap,   ARRAYNUMBER(InputFilenameMap))
+FXIMPLEMENT_TESTING_ABSTRACT(GNEOptionsDialogElements::InputOption,     FXHorizontalFrame,                      InputOptionMap,     ARRAYNUMBER(InputOptionMap))
+FXIMPLEMENT_TESTING_ABSTRACT(GNEOptionsDialogElements::InputFilename,   GNEOptionsDialogElements::InputOption,  InputFilenameMap,   ARRAYNUMBER(InputFilenameMap))
 
 // ===========================================================================
 // method definitions

@@ -340,11 +340,12 @@ GUITestSystem::run() {
         switch (testStep->getStepType()) {
             // basic
             case TestStepType::CLICK:
-                myNeteditApplicationWindow->getViewNet()->handle(this, FXSEL(SEL_MOTION, 0), (void*)testStep->getEvents().at(0));
+                myNeteditApplicationWindow->getViewNet()->onMouseMove(this, FXSEL(SEL_MOTION, 0), (void*)testStep->getEvents().at(0));
                 waitForContinue();
-                myNeteditApplicationWindow->getViewNet()->handle(this, FXSEL(SEL_LEFTBUTTONPRESS, 0), (void*)testStep->getEvents().at(1));
+                myNeteditApplicationWindow->getViewNet()->onLeftBtnPress(this, FXSEL(SEL_LEFTBUTTONPRESS, 0), (void*)testStep->getEvents().at(1));
                 waitForContinue();
-                myNeteditApplicationWindow->getViewNet()->handle(this, FXSEL(SEL_LEFTBUTTONRELEASE, 0), (void*)testStep->getEvents().at(2));
+                myNeteditApplicationWindow->getViewNet()->onLeftBtnRelease(this, FXSEL(SEL_LEFTBUTTONRELEASE, 0), (void*)testStep->getEvents().at(2));
+                waitForContinue();
                 break;
             // supermodes
             case TestStepType::SUPERMODE_NETWORK:

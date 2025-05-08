@@ -25,6 +25,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/gui/div/GUIGlobalViewUpdater.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEUndoList.h"
@@ -43,7 +44,7 @@ FXDEFMAP(GNEUndoList) GNEUndoListMap[] = {
 // FOX-declarations
 // ===========================================================================
 
-FXIMPLEMENT_ABSTRACT(GNEUndoList, GNEChangeGroup, GNEUndoListMap, ARRAYNUMBER(GNEUndoListMap))
+FXIMPLEMENT_TESTING_ABSTRACT(GNEUndoList, GNEChangeGroup, GNEUndoListMap, ARRAYNUMBER(GNEUndoListMap))
 
 
 // ===========================================================================
