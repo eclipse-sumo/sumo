@@ -75,6 +75,12 @@ GUITestSystem::nextTest(FXObject* sender, FXSelector sel) {
 
 void
 GUITestSystem::writeSignalInfo(FXObject* sender, FXSelector sel) const {
+    // check if filter signal update
+    #ifndef TEST_SIGNALS_UPDATE
+    if (FXSELTYPE(sel) == SEL_UPDATE) {
+        return;
+    }
+    #endif
     std::string signalType;
     switch (FXSELTYPE(sel)) {
         case SEL_KEYPRESS:
@@ -138,7 +144,7 @@ GUITestSystem::writeSignalInfo(FXObject* sender, FXSelector sel) const {
             signalType = "Window was shown";
             break;
         case SEL_CONFIGURE:
-            signalType = "Resize";
+            signalType = "Configure (Resize)";
             break;
         case SEL_SELECTION_LOST:
             signalType = "Widget lost selection";
