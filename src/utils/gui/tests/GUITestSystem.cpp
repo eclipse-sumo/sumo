@@ -50,48 +50,294 @@ void
 GUITestSystem::startTests(GNEApplicationWindow* neteditApplicationWindow) {
     // run rest only once
     if (myInitedTest == false) {
+        myInitedTest = true;
         myNeteditApplicationWindow = neteditApplicationWindow;
         // check if run test thread
         if (OptionsCont::getOptions().getString("test-file").size() > 0) {
             processTestFile();
         }
         // start thread
-        start();
-        myInitedTest = true;
+        if (myTestSteps.size() > 0) {
+            start();
+        }
     }
 }
 
 
 void
-GUITestSystem::checkLock(FXObject* sender, FXSelector sel) {
+GUITestSystem::nextTest(FXObject* sender, FXSelector sel) {
+    // only continue if the signal was send by the test server
     if (sender == this) {
-        std::cout << "lock" << std::endl;
-        myContinue = false;
-    }
-}
-
-
-void
-GUITestSystem::checkUnlock(FXObject* sender, FXSelector sel) {
-    if (sender == this) {
-        std::cout << "unlock" << std::endl;
         myContinue = true;
     }
+}
+
+
+void
+GUITestSystem::writeSignalInfo(FXObject* sender, FXSelector sel) const {
+    std::string signalType;
+    switch (FXSELTYPE(sel)) {
+        case SEL_KEYPRESS:
+            signalType = "Key pressed";
+            break;
+        case SEL_KEYRELEASE:
+            signalType = "Key released";
+            break;
+        case SEL_LEFTBUTTONPRESS:
+            signalType = "Left mouse button pressed";
+            break;
+        case SEL_LEFTBUTTONRELEASE:
+            signalType = "Left mouse button released";
+            break;
+        case SEL_MIDDLEBUTTONPRESS:
+            signalType = "Middle mouse button pressed";
+            break;
+        case SEL_MIDDLEBUTTONRELEASE:
+            signalType = "Middle mouse button released";
+            break;
+        case SEL_RIGHTBUTTONPRESS:
+            signalType = "Right mouse button pressed";
+            break;
+        case SEL_RIGHTBUTTONRELEASE:
+            signalType = "Right mouse button released";
+            break;
+        case SEL_MOTION:
+            signalType = "Mouse motion";
+            break;
+        case SEL_ENTER:
+            signalType = "Mouse entered window";
+            break;
+        case SEL_LEAVE:
+            signalType = "Mouse left window";
+            break;
+        case SEL_FOCUSIN:
+            signalType = "Focus into window";
+            break;
+        case SEL_FOCUSOUT:
+            signalType = "Focus out of window";
+            break;
+        case SEL_KEYMAP:
+            signalType = "Key map";
+            break;
+        case SEL_UNGRABBED:
+            signalType = "Lost the grab (Windows)";
+            break;
+        case SEL_PAINT:
+            signalType = "Must repaint window";
+            break;
+        case SEL_CREATE:
+            signalType = "Create";
+            break;
+        case SEL_DESTROY:
+            signalType = "Destroy";
+            break;
+        case SEL_UNMAP:
+            signalType = "Window was hidden";
+            break;
+        case SEL_MAP:
+            signalType = "Window was shown";
+            break;
+        case SEL_CONFIGURE:
+            signalType = "Resize";
+            break;
+        case SEL_SELECTION_LOST:
+            signalType = "Widget lost selection";
+            break;
+        case SEL_SELECTION_GAINED:
+            signalType = "Widget gained selection";
+            break;
+        case SEL_SELECTION_REQUEST:
+            signalType = "Inquire selection data";
+            break;
+        case SEL_RAISED:
+            signalType = "Window to top of stack";
+            break;
+        case SEL_LOWERED:
+            signalType = "Window to bottom of stack";
+            break;
+        case SEL_CLOSE:
+            signalType = "Close window";
+            break;
+        case SEL_DELETE:
+            signalType = "Delete window";
+            break;
+        case SEL_MINIMIZE:
+            signalType = "Iconified";
+            break;
+        case SEL_RESTORE:
+            signalType = "No longer iconified or maximized";
+            break;
+        case SEL_MAXIMIZE:
+            signalType = "Maximized";
+            break;
+        case SEL_UPDATE:
+            signalType = "GUI update";
+            break;
+        case SEL_COMMAND:
+            signalType = "GUI command";
+            break;
+        case SEL_CLICKED:
+            signalType = "Clicked";
+            break;
+        case SEL_DOUBLECLICKED:
+            signalType = "Double-clicked";
+            break;
+        case SEL_TRIPLECLICKED:
+            signalType = "Triple-clicked";
+            break;
+        case SEL_MOUSEWHEEL:
+            signalType = "Mouse wheel";
+            break;
+        case SEL_CHANGED:
+            signalType = "GUI has changed";
+            break;
+        case SEL_VERIFY:
+            signalType = "Verify change";
+            break;
+        case SEL_DESELECTED:
+            signalType = "Deselected";
+            break;
+        case SEL_SELECTED:
+            signalType = "Selected";
+            break;
+        case SEL_INSERTED:
+            signalType = "Inserted";
+            break;
+        case SEL_REPLACED:
+            signalType = "Replaced";
+            break;
+        case SEL_DELETED:
+            signalType = "Deleted";
+            break;
+        case SEL_OPENED:
+            signalType = "Opened";
+            break;
+        case SEL_CLOSED:
+            signalType = "Closed";
+            break;
+        case SEL_EXPANDED:
+            signalType = "Expanded";
+            break;
+        case SEL_COLLAPSED:
+            signalType = "Collapsed";
+            break;
+        case SEL_BEGINDRAG:
+            signalType = "Start a drag";
+            break;
+        case SEL_ENDDRAG:
+            signalType = "End a drag";
+            break;
+        case SEL_DRAGGED:
+            signalType = "Dragged";
+            break;
+        case SEL_LASSOED:
+            signalType = "Lassoed";
+            break;
+        case SEL_TIMEOUT:
+            signalType = "Timeout occurred";
+            break;
+        case SEL_SIGNAL:
+            signalType = "Signal received";
+            break;
+        case SEL_CLIPBOARD_LOST:
+            signalType = "Widget lost clipboard";
+            break;
+        case SEL_CLIPBOARD_GAINED:
+            signalType = "Widget gained clipboard";
+            break;
+        case SEL_CLIPBOARD_REQUEST:
+            signalType = "Inquire clipboard data";
+            break;
+        case SEL_CHORE:
+            signalType = "Background chore";
+            break;
+        case SEL_FOCUS_SELF:
+            signalType = "Focus on widget itself";
+            break;
+        case SEL_FOCUS_RIGHT:
+            signalType = "Focus moved right";
+            break;
+        case SEL_FOCUS_LEFT:
+            signalType = "Focus moved left";
+            break;
+        case SEL_FOCUS_DOWN:
+            signalType = "Focus moved down";
+            break;
+        case SEL_FOCUS_UP:
+            signalType = "Focus moved up";
+            break;
+        case SEL_FOCUS_NEXT:
+            signalType = "Focus moved to next widget";
+            break;
+        case SEL_FOCUS_PREV:
+            signalType = "Focus moved to previous widget";
+            break;
+        case SEL_DND_ENTER:
+            signalType = "Drag action entering potential drop target";
+            break;
+        case SEL_DND_LEAVE:
+            signalType = "Drag action leaving potential drop target";
+            break;
+        case SEL_DND_DROP:
+            signalType = "Drop on drop target";
+            break;
+        case SEL_DND_MOTION:
+            signalType = "Drag position changed over potential drop target";
+            break;
+        case SEL_DND_REQUEST:
+            signalType = "Inquire drag and drop data";
+            break;
+        case SEL_IO_READ:
+            signalType = "Read activity on a pipe";
+            break;
+        case SEL_IO_WRITE:
+            signalType = "Write activity on a pipe";
+            break;
+        case SEL_IO_EXCEPT:
+            signalType = "Except activity on a pipe";
+            break;
+        case SEL_PICKED:
+            signalType = "Picked some location";
+            break;
+        case SEL_QUERY_TIP:
+            signalType = "Message inquiring about tooltip";
+            break;
+        case SEL_QUERY_HELP:
+            signalType = "Message inquiring about statusline help";
+            break;
+        case SEL_DOCKED:
+            signalType = "Toolbar docked";
+            break;
+        case SEL_FLOATED:
+            signalType = "Toolbar floated";
+            break;
+        case SEL_SESSION_NOTIFY:
+            signalType = "Session is about to close";
+            break;
+        case SEL_SESSION_CLOSED:
+            signalType = "Session is closed";
+            break;
+        default:
+            signalType = "Undefined";
+            break;
+    }
+    std::cout << sender->getClassName() << " sent a signal of type '" << signalType << "'" << std::endl;
 }
 
 
 int
 GUITestSystem::run() {
     for (const auto &testStep : myTestSteps) {
+        // stop thread until nextTest() is called in FXIMPLEMENT_TESTING
         myContinue = false;
         // continue depending of step type
         switch (testStep->getStepType()) {
             // basic
             case TestStepType::CLICK:
                 myNeteditApplicationWindow->getViewNet()->handle(this, FXSEL(SEL_MOTION, 0), (void*)testStep->getEvents().at(0));
-                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                waitForContinue();
                 myNeteditApplicationWindow->getViewNet()->handle(this, FXSEL(SEL_LEFTBUTTONPRESS, 0), (void*)testStep->getEvents().at(1));
-                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                waitForContinue();
                 myNeteditApplicationWindow->getViewNet()->handle(this, FXSEL(SEL_LEFTBUTTONRELEASE, 0), (void*)testStep->getEvents().at(2));
                 break;
             // supermodes
@@ -160,13 +406,14 @@ GUITestSystem::run() {
                 break;
             case TestStepType::QUIT:
                 myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE), nullptr);
+                // in this case, don't wait and simply stop
+                return 1;
                 break;
             default:
                 break;
         }
-        while (!myContinue) {
-            FXThread::sleep(10);  
-        }
+        // wait until nextTest() is called
+        waitForContinue();
     }
     return 1;
 }
@@ -190,6 +437,14 @@ GUITestSystem::processTestFile() {
                 myTestSteps.push_back(new TestStep(line));
             }
         }
+    }
+}
+
+
+void
+GUITestSystem::waitForContinue() const {
+    while (!myContinue) {
+        FXThread::sleep(10);  
     }
 }
 
