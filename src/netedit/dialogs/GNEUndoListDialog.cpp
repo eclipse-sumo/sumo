@@ -20,6 +20,7 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEUndoListDialog.h"
@@ -35,7 +36,7 @@ FXDEFMAP(GNEUndoListDialog) GNEUndoListDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GNEUndoListDialogMap))
+FXIMPLEMENT_TESTING(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GNEUndoListDialogMap))
 
 // ===========================================================================
 // member method definitions

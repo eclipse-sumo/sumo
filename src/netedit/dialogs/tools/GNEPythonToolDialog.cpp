@@ -24,6 +24,7 @@
 #include <netedit/tools/GNEPythonTool.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNEPythonToolDialog.h"
 
@@ -53,7 +54,7 @@ FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPythonToolDialog, FXDialogBox, GNEPythonToolDialogMap, ARRAYNUMBER(GNEPythonToolDialogMap))
+FXIMPLEMENT_TESTING(GNEPythonToolDialog, FXDialogBox, GNEPythonToolDialogMap, ARRAYNUMBER(GNEPythonToolDialogMap))
 
 // ============================================-===============================
 // member method definitions

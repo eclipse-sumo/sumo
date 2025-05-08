@@ -25,6 +25,7 @@
 #include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEMeanDataFrame.h"
@@ -50,9 +51,9 @@ FXDEFMAP(GNEMeanDataFrame::MeanDataSelector) meanDataTypeSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMeanDataFrame::MeanDataTypeSelector, MFXGroupBoxModule,  meanDataSelectorMap,        ARRAYNUMBER(meanDataSelectorMap))
-FXIMPLEMENT(GNEMeanDataFrame::MeanDataEditor,       MFXGroupBoxModule,  meanDataEditorMap,          ARRAYNUMBER(meanDataEditorMap))
-FXIMPLEMENT(GNEMeanDataFrame::MeanDataSelector,     MFXGroupBoxModule,  meanDataTypeSelectorMap,    ARRAYNUMBER(meanDataTypeSelectorMap))
+FXIMPLEMENT_TESTING(GNEMeanDataFrame::MeanDataTypeSelector, MFXGroupBoxModule,  meanDataSelectorMap,        ARRAYNUMBER(meanDataSelectorMap))
+FXIMPLEMENT_TESTING(GNEMeanDataFrame::MeanDataEditor,       MFXGroupBoxModule,  meanDataEditorMap,          ARRAYNUMBER(meanDataEditorMap))
+FXIMPLEMENT_TESTING(GNEMeanDataFrame::MeanDataSelector,     MFXGroupBoxModule,  meanDataTypeSelectorMap,    ARRAYNUMBER(meanDataTypeSelectorMap))
 
 
 // ===========================================================================

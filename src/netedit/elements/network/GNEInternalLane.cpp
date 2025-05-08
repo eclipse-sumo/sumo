@@ -25,6 +25,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNEInternalLane.h"
 #include "GNEJunction.h"
@@ -32,7 +33,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXIMPLEMENT(GNEInternalLane, FXDelegator, 0, 0)
+FXIMPLEMENT_TESTING(GNEInternalLane, FXDelegator, 0, 0)
 
 // ===========================================================================
 // static member definitions

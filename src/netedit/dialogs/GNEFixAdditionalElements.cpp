@@ -22,6 +22,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFixAdditionalElements.h"
@@ -37,7 +38,7 @@ FXDEFMAP(GNEFixAdditionalElements) GNEFixAdditionalElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFixAdditionalElements, FXDialogBox, GNEFixAdditionalElementsMap, ARRAYNUMBER(GNEFixAdditionalElementsMap))
+FXIMPLEMENT_TESTING(GNEFixAdditionalElements, FXDialogBox, GNEFixAdditionalElementsMap, ARRAYNUMBER(GNEFixAdditionalElementsMap))
 
 // ===========================================================================
 // member method definitions

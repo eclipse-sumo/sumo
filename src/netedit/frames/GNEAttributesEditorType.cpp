@@ -32,6 +32,7 @@
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEAttributesEditor.h"
@@ -59,7 +60,7 @@ FXDEFMAP(GNEAttributesEditorType) GNEAttributeTableMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAttributesEditorType,  MFXGroupBoxModule,  GNEAttributeTableMap,   ARRAYNUMBER(GNEAttributeTableMap))
+FXIMPLEMENT_TESTING(GNEAttributesEditorType,  MFXGroupBoxModule,  GNEAttributeTableMap,   ARRAYNUMBER(GNEAttributeTableMap))
 
 // ===========================================================================
 // method definitions

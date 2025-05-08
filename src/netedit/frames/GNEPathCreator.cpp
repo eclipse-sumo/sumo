@@ -27,6 +27,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEPathCreator.h"
@@ -45,7 +46,7 @@ FXDEFMAP(GNEPathCreator) PathCreatorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPathCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
+FXIMPLEMENT_TESTING(GNEPathCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
 
 
 // ===========================================================================

@@ -22,6 +22,7 @@
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEAllowVClassesDialog.h"
@@ -42,7 +43,7 @@ FXDEFMAP(GNEAllowVClassesDialog) GNEAllowVClassesDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAllowVClassesDialog, FXDialogBox, GNEAllowVClassesDialogMap, ARRAYNUMBER(GNEAllowVClassesDialogMap))
+FXIMPLEMENT_TESTING(GNEAllowVClassesDialog, FXDialogBox, GNEAllowVClassesDialogMap, ARRAYNUMBER(GNEAllowVClassesDialogMap))
 
 // ===========================================================================
 // member method definitions

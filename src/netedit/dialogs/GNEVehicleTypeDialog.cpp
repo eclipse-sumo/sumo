@@ -29,6 +29,7 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/VClassIcons.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEVehicleTypeDialog.h"
@@ -48,8 +49,8 @@ FXDEFMAP(GNEVehicleTypeDialog::CarFollowingModelParameters) CarFollowingModelPar
 };
 
 // Object implementation
-FXIMPLEMENT(GNEVehicleTypeDialog::VTypeAttributes,              FXVerticalFrame,    VTypeAttributesMap,             ARRAYNUMBER(VTypeAttributesMap))
-FXIMPLEMENT(GNEVehicleTypeDialog::CarFollowingModelParameters,  FXGroupBox,         CarFollowingModelParametersMap, ARRAYNUMBER(CarFollowingModelParametersMap))
+FXIMPLEMENT_TESTING(GNEVehicleTypeDialog::VTypeAttributes,              FXVerticalFrame,    VTypeAttributesMap,             ARRAYNUMBER(VTypeAttributesMap))
+FXIMPLEMENT_TESTING(GNEVehicleTypeDialog::CarFollowingModelParameters,  FXGroupBox,         CarFollowingModelParametersMap, ARRAYNUMBER(CarFollowingModelParametersMap))
 
 // ===========================================================================
 // member method definitions

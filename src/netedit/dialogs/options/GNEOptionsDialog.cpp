@@ -32,6 +32,7 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsLoader.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <xercesc/parsers/SAXParser.hpp>
 
 #include "GNEOptionsDialog.h"
@@ -60,7 +61,7 @@ FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEOptionsDialog,   FXDialogBox,    GUIDialogOptionsMap,    ARRAYNUMBER(GUIDialogOptionsMap))
+FXIMPLEMENT_TESTING(GNEOptionsDialog,   FXDialogBox,    GUIDialogOptionsMap,    ARRAYNUMBER(GUIDialogOptionsMap))
 
 // ===========================================================================
 // method definitions

@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNETagSelector.h"
@@ -36,7 +37,7 @@ FXDEFMAP(GNETagSelector) TagSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETagSelector, MFXGroupBoxModule,  TagSelectorMap, ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT_TESTING(GNETagSelector, MFXGroupBoxModule,  TagSelectorMap, ARRAYNUMBER(TagSelectorMap))
 
 // ===========================================================================
 // method definitions

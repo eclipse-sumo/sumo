@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEDemandSelector.h"
@@ -36,7 +37,7 @@ FXDEFMAP(GNEDemandElementSelector) DemandElementSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDemandElementSelector,      MFXGroupBoxModule,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
+FXIMPLEMENT_TESTING(GNEDemandElementSelector,      MFXGroupBoxModule,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
 
 
 // ===========================================================================

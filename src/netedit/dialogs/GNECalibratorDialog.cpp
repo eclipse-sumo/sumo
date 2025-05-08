@@ -18,8 +18,6 @@
 // Dialog for edit calibrators
 /****************************************************************************/
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/GNENet.h>
@@ -29,6 +27,9 @@
 #include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNECalibratorFlow.h>
 #include <netedit/elements/demand/GNEVType.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNECalibratorDialog.h"
 #include "GNECalibratorFlowDialog.h"
@@ -49,7 +50,7 @@ FXDEFMAP(GNECalibratorDialog) GNECalibratorDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECalibratorDialog, GNEAdditionalDialog, GNECalibratorDialogMap, ARRAYNUMBER(GNECalibratorDialogMap))
+FXIMPLEMENT_TESTING(GNECalibratorDialog, GNEAdditionalDialog, GNECalibratorDialogMap, ARRAYNUMBER(GNECalibratorDialogMap))
 
 // ===========================================================================
 // member method definitions

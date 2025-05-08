@@ -43,7 +43,6 @@ class GNEApplicationWindow;
     long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
         const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
         int result; \
-        gTestSystem.checkLock(sender, sel); \
         if (me) { \
             result = (this->*me->func)(sender, sel, ptr); \
         } else { \

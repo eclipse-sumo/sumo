@@ -23,6 +23,7 @@
 #include <netedit/GNEUndoList.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNEMultipleParametersDialog.h"
@@ -56,9 +57,9 @@ FXDEFMAP(GNEMultipleParametersDialog::ParametersOperations) ParametersOperations
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMultipleParametersDialog,                    FXDialogBox,   GNEMultipleParametersDialogMap,  ARRAYNUMBER(GNEMultipleParametersDialogMap))
-FXIMPLEMENT(GNEMultipleParametersDialog::ParametersValues,  FXGroupBox,    ParametersValuesMap,             ARRAYNUMBER(ParametersValuesMap))
-FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOperations, FXGroupBox,    ParametersOperationsMap,            ARRAYNUMBER(ParametersOperationsMap))
+FXIMPLEMENT_TESTING(GNEMultipleParametersDialog,                        FXDialogBox,    GNEMultipleParametersDialogMap, ARRAYNUMBER(GNEMultipleParametersDialogMap))
+FXIMPLEMENT_TESTING(GNEMultipleParametersDialog::ParametersValues,      FXGroupBox,     ParametersValuesMap,            ARRAYNUMBER(ParametersValuesMap))
+FXIMPLEMENT_TESTING(GNEMultipleParametersDialog::ParametersOperations,  FXGroupBox,     ParametersOperationsMap,        ARRAYNUMBER(ParametersOperationsMap))
 
 // ===========================================================================
 // member method definitions
