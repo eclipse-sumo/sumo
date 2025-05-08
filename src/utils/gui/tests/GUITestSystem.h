@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNETestSystem.h
+/// @file    GUITestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -30,14 +30,14 @@ class GNEApplicationWindow;
 // class definitions
 // ===========================================================================
 
-class GNETestSystem : public FXThread {
+class GUITestSystem : public FXThread {
 
 public:
     /// @brief constructor
-    GNETestSystem(GNEApplicationWindow* applicationWindow);
+    GUITestSystem(GNEApplicationWindow* applicationWindow);
 
     /// @brief destructor
-    ~GNETestSystem();
+    ~GUITestSystem();
 
     /// @brief run all tests
     void startTests();

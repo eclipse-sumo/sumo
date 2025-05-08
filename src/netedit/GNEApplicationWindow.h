@@ -28,7 +28,7 @@
 
 class GNELoadThread;
 class GNETagPropertiesDatabase;
-class GNETestSystem;
+class GUITestSystem;
 class GNEUndoList;
 class GNEUndoListDialog;
 class GUIEvent;
@@ -93,7 +93,7 @@ public:
     bool consoleOptionsLoaded();
 
     /// @brief get test system used for testing netedit
-    GNETestSystem* getTestSystem() const;
+    GUITestSystem* getTestSystem() const;
 
     /// @name Inter-thread event handling
     /// @{
@@ -645,7 +645,7 @@ protected:
     GNELoadThread* myLoadThread = nullptr;
 
     /// @brief test system used for testing netedit
-    GNETestSystem* myTestSystem = nullptr;
+    GUITestSystem* myTestSystem = nullptr;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;

@@ -450,7 +450,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onUpdToggleTimeFormat),
 };
 
-GNETestSystem* tmpTest = nullptr;
+GUITestSystem* tmpTest = nullptr;
 
 #define FXIMPLEMENT2(classname, baseclassname, mapping, nmappings) \
     FX::FXObject* classname::manufacture(){  \
@@ -580,7 +580,7 @@ GNEApplicationWindow::dependentBuild() {
     fillMenuBar();
     // build additional threads
     myLoadThread = new GNELoadThread(this, myThreadEvents, myLoadThreadEvent);
-    myTestSystem = new GNETestSystem(this);
+    myTestSystem = new GUITestSystem(this);
     tmpTest = myTestSystem;
     // set the status bar
     setStatusBarText(TL("Ready."));
@@ -1858,7 +1858,7 @@ GNEApplicationWindow::consoleOptionsLoaded() {
 }
 
 
-GNETestSystem*
+GUITestSystem*
 GNEApplicationWindow::getTestSystem() const {
     return myTestSystem;
 }
