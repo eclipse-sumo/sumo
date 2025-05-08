@@ -35,23 +35,45 @@ class GNEApplicationWindow;
 // macro declarations
 // ===========================================================================
 
-#define FXIMPLEMENT_TESTING(classname, baseclassname, mapping, nmappings) \
-    FX::FXObject* classname::manufacture(){  \
-        return new classname;  \
-    } \
-    const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
-    long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
-        const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
-        int result; \
-        if (me) { \
-            result = (this->*me->func)(sender, sel, ptr); \
-        } else { \
-            result = baseclassname::handle(sender, sel, ptr); \
-        } \
-        gTestSystem.checkUnlock(sender, sel); \
-        return result;\
-    }
+// we use this macro for check test signals
+#define TEST_SIGNALS
 
+#ifndef TEST_SIGNALS
+    #define FXIMPLEMENT_TESTING(classname, baseclassname, mapping, nmappings) \
+        FX::FXObject* classname::manufacture(){  \
+            return new classname;  \
+        } \
+        const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
+        long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
+            const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
+            int result; \
+            if (me) { \
+                result = (this->*me->func)(sender, sel, ptr); \
+            } else { \
+                result = baseclassname::handle(sender, sel, ptr); \
+            } \
+            gTestSystem.nextTest(sender, sel); \
+            return result;\
+        }
+#else
+    #define FXIMPLEMENT_TESTING(classname, baseclassname, mapping, nmappings) \
+        FX::FXObject* classname::manufacture(){  \
+            return new classname;  \
+        } \
+        const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
+        long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
+            gTestSystem.writeSignalInfo(sender, sel); \
+            const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
+            int result; \
+            if (me) { \
+                result = (this->*me->func)(sender, sel, ptr); \
+            } else { \
+                result = baseclassname::handle(sender, sel, ptr); \
+            } \
+            gTestSystem.nextTest(sender, sel); \
+            return result;\
+        }
+#endif
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -65,14 +87,14 @@ public:
     /// @brief destructor
     ~GUITestSystem();
 
-    /// @brief run all tests
+    /// @brief start test
     void startTests(GNEApplicationWindow* neteditApplicationWindow);
 
-    /// @brief check lock
-    void checkLock(FXObject* sender, FXSelector sel);
+    /// @brief execute next test
+    void nextTest(FXObject* sender, FXSelector sel);
 
-    /// @brief check unlock
-    void checkUnlock(FXObject* sender, FXSelector sel);
+    /// @brief 
+    void writeSignalInfo(FXObject* sender, FXSelector sel) const;
 
     /// @brief run all tests
     int run();
@@ -80,6 +102,9 @@ public:
 protected:
     /// @brief process test file
     void processTestFile();
+
+    /// @brief wait for continue
+    void waitForContinue() const;
 
 private:
     enum class TestStepType {
