@@ -34,10 +34,10 @@
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
 #include <netedit/frames/GNEDrawingShape.h>
-#include <netedit/frames/GNEViewObjectSelector.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPlanCreator.h>
+#include <netedit/frames/GNEViewObjectSelector.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
@@ -74,6 +74,7 @@
 #include <utils/gui/globjects/GUICursorDialog.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include <utils/gui/tests/GUITestSystem.h>
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 
@@ -82,7 +83,6 @@
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
 #include "GNEApplicationWindow.h"
-#include "GNETestSystem.h"
 
 // ===========================================================================
 // FOX callback mapping

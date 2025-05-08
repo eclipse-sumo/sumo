@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNETestSystem.h
+/// @file    GUITestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -36,12 +36,12 @@
 // member method definitions
 // ===========================================================================
 
-GNETestSystem::GNETestSystem(GNEApplicationWindow* applicationWindow) :
+GUITestSystem::GUITestSystem(GNEApplicationWindow* applicationWindow) :
     myApplicationWindow(applicationWindow) {
 }
 
 
-GNETestSystem::~GNETestSystem() {
+GUITestSystem::~GUITestSystem() {
     for (auto testStep : myTestSteps) {
         delete testStep;
     }
@@ -49,7 +49,7 @@ GNETestSystem::~GNETestSystem() {
 
 
 void
-GNETestSystem::startTests() {
+GUITestSystem::startTests() {
     // run rest only once
     if (myInitedTest == false) {
         // check if run test thread
@@ -64,19 +64,19 @@ GNETestSystem::startTests() {
 
 
 void
-GNETestSystem::lock() {
+GUITestSystem::lock() {
     myContinue = false;
 }
 
 void
-GNETestSystem::unlock() {
+GUITestSystem::unlock() {
     myContinue = true;
 }
 
 
 
 int
-GNETestSystem::run() {
+GUITestSystem::run() {
     for (const auto &testStep : myTestSteps) {
         // continue depending of step type
         switch (testStep->getStepType()) {
@@ -167,7 +167,7 @@ GNETestSystem::run() {
 
 
 void
-GNETestSystem::processTestFile() {
+GUITestSystem::processTestFile() {
     const std::string testFile = OptionsCont::getOptions().getString("test-file");
     // open file
     std::ifstream strm(testFile);
@@ -188,7 +188,7 @@ GNETestSystem::processTestFile() {
 }
 
 
-GNETestSystem::TestStep::TestStep(const std::string &row) {
+GUITestSystem::TestStep::TestStep(const std::string &row) {
     // first split between functions and arguments
     parseFunctionAndArguments(row);
     // continue depending of function
@@ -296,7 +296,7 @@ GNETestSystem::TestStep::TestStep(const std::string &row) {
 }
 
 
-GNETestSystem::TestStep::~TestStep() {
+GUITestSystem::TestStep::~TestStep() {
     for (auto event : myEvents) {
         delete event;
     }
@@ -306,20 +306,20 @@ GNETestSystem::TestStep::~TestStep() {
 }
 
 
-GNETestSystem::TestStepType
-GNETestSystem::TestStep::getStepType() const {
+GUITestSystem::TestStepType
+GUITestSystem::TestStep::getStepType() const {
     return myStepType;
 }
 
 
 FXString* 
-GNETestSystem::TestStep::getText() const {
+GUITestSystem::TestStep::getText() const {
     return myText;
 }
 
 
 const std::vector<FXEvent*>&
-GNETestSystem::TestStep::getEvents() const {
+GUITestSystem::TestStep::getEvents() const {
     return myEvents;
 }
 
@@ -350,7 +350,7 @@ GNETestSystem::TestStep::getEvents() const {
 
 
 FXEvent*
-GNETestSystem::TestStep::buildMouseMoveEvent(const int posX, const int posY) const {
+GUITestSystem::TestStep::buildMouseMoveEvent(const int posX, const int posY) const {
     FXEvent* moveEvent = new FXEvent();
     moveEvent->type = 9;
     moveEvent->win_x = posX;
@@ -363,7 +363,7 @@ GNETestSystem::TestStep::buildMouseMoveEvent(const int posX, const int posY) con
 
 
 FXEvent*
-GNETestSystem::TestStep::buildMouseLeftClickPressEvent(const int posX, const int posY) const {
+GUITestSystem::TestStep::buildMouseLeftClickPressEvent(const int posX, const int posY) const {
     FXEvent* leftClickPressEvent = new FXEvent();
     // set fxevent
     leftClickPressEvent->win_x = posX;
@@ -382,7 +382,7 @@ GNETestSystem::TestStep::buildMouseLeftClickPressEvent(const int posX, const int
 
 
 FXEvent*
-GNETestSystem::TestStep::buildMouseLeftClickReleaseEvent(const int posX, const int posY) const {
+GUITestSystem::TestStep::buildMouseLeftClickReleaseEvent(const int posX, const int posY) const {
     FXEvent* leftClickPressEvent = new FXEvent();
     // set fxevent
     leftClickPressEvent->win_x = posX;
@@ -401,7 +401,7 @@ GNETestSystem::TestStep::buildMouseLeftClickReleaseEvent(const int posX, const i
 
 
 void
-GNETestSystem::TestStep::parseFunctionAndArguments(const std::string &row) {
+GUITestSystem::TestStep::parseFunctionAndArguments(const std::string &row) {
     // make a copy to help editing row
     std::string editedRow = row;
     // every function has the format <function>(<argument1>, <argument2>,....,)
