@@ -336,14 +336,14 @@ class edge:
 class lane:
     class create:
         add = 24
-        remove = 25
-        speed = 26
-        allowButton = 27
-        allow = 28
-        disallow = 29
-        width = 30
-        parameters = 32
-        parametersButton = 33
+        remove = 24
+        speed = 25
+        allowButton = 26
+        allow = 27
+        disallow = 282
+        width = 29
+        parameters = 31
+        parametersButton = 32
 
     class inspect:
         speed = 1
@@ -1625,20 +1625,21 @@ class vaporizer:
         begin = 5
         end = 6
         name = 7
-        center = 11
+        parameters = 9
+        center = 12
 
     class inspect:
         edge = 1
-        begin = 2
-        end = 3
-        name = 4
-        parameters = 7
+        name = 2
+        begin = 3
+        end = 4
+        parameters = 6
 
     class inspectSelection:
-        begin = 1
-        end = 2
-        name = 3
-        parameters = 6
+        name = 1
+        begin = 2
+        end = 3
+        parameters = 5
 
 # --------------------------------
 # SHAPE ELEMENTS

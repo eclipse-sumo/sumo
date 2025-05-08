@@ -54,10 +54,6 @@ Error: Could not build rerouter with ID 'rr_0' in netedit; Found another reroute
 Error: Could not build rerouter with ID 'rr_1' in netedit; Found another rerouter with the same ID.
 Error: Could not build variableSpeedSign with ID 'vs_1' in netedit; Found another variableSpeedSign with the same ID.
 Error: Could not build variableSpeedSign with ID 'vs_2' in netedit; Found another variableSpeedSign with the same ID.
-Error: Could not build vaporizer with ID '-E10' in netedit; Found another vaporizer with the same ID.
-Error: Could not build vaporizer with ID '-E11' in netedit; Found another vaporizer with the same ID.
-Error: Could not build vaporizer with ID 'E6' in netedit; Found another vaporizer with the same ID.
-Error: Could not build vaporizer with ID 'E7' in netedit; Found another vaporizer with the same ID.
 Error: Could not build poly with ID 'po_0' in netedit; Found another poly with the same ID.
 Error: Could not build poly with ID 'po_1' in netedit; Found another poly with the same ID.
 Error: Could not build poly with ID 'po_2' in netedit; Found another poly with the same ID.
@@ -86,4 +82,4 @@ Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_0' in netedit; Fo
 Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_1' in netedit; Found another jupedsim.obstacle with the same ID.
 Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_2' in netedit; Found another jupedsim.obstacle with the same ID.
 Error: Could not build jupedsim.obstacle with ID 'jps.obstacle_3' in netedit; Found another jupedsim.obstacle with the same ID.
-Error: Loading of additional file failed: C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Jan171539.4668\netedit.gui\basic\configs\netecfg\open\overwritte\no\additionals\additionals.add.xml
+Error: Loading of additional file failed: C:\Users\alva_pa\.texttest\tmp\netedit.gui.07May165111.22092\netedit.gui\basic\configs\netecfg\open\overwritte\no\additionals\additionals.add.xml

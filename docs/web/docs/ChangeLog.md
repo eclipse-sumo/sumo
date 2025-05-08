@@ -6,18 +6,26 @@ title: ChangeLog
 
 ### Bugfixes
 
+
+## Version 1.23.1 (08.05.2025)
+
+### Bugfixes
+
 - sumo
   - Fixed crash when person jumps between stops #16641
   - Fixed invalid arrivalPos when person jumps between stops #16642
   - Fixed crash when using `overtakeReroute` #16647
- 
+
 - netedit
   - Short connections are visible again when activating 'show connections' #16644 (regression in 1.22.0)
+  - Fixed crash setting a negative time treshhold in E2 detectors
+  - Fixed crash when using new selection mode features #16648
+  - Fixed crash when placing two vaporizers on the same edge #16649
 
 - Tools
   - gtfs2pt.py: option **--write-terminals** now works when setting **--osm-routes** #16645
   - gtfs2pt.py: fixed crash when loading **--osm-routes** with smaller network #16646
-      
+
 
 ## Version 1.23.0 (06.05.2025)
 
