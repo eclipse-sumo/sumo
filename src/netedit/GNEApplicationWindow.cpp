@@ -450,26 +450,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onUpdToggleTimeFormat),
 };
 
-#define FXIMPLEMENT2(classname, baseclassname, mapping, nmappings) \
-    FX::FXObject* classname::manufacture(){  \
-        return new classname;  \
-    } \
-    const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
-    long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
-        const FXMapEntry* me=(const FXMapEntry*)metaClass.search(sel); \
-        int result; \
-        gTestSystem.lock(); \
-        if (me) { \
-            result = (this->* me->func)(sender,sel,ptr); \
-        } else { \
-            result = baseclassname::handle(sender,sel,ptr); \
-        } \
-        gTestSystem.unlock(); \
-        return result;\
-    }
-
 // Object implementation
-FXIMPLEMENT2(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNUMBER(GNEApplicationWindowMap))
+FXIMPLEMENT_TESTING(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNUMBER(GNEApplicationWindowMap))
 
 // ===========================================================================
 // GNEApplicationWindow method definitions
