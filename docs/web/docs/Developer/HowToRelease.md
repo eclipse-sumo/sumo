@@ -11,7 +11,10 @@ For an overview of created packages and contents see
 
 Below, a list of steps that should be done in order to publish a new
 release is given. All necessary commits which have no ticket of their
-own may refer to #563.
+own may refer to #563. All the steps assume you are using bash
+either natively (Linux, macOS), on WSL or the git bash (or some other mingw bash).
+Furthermore you should have either your passwords ready or even better ssh keys
+deployed on all the remote servers in question.
 
 ### Merge phase
 
@@ -151,10 +154,8 @@ If everything is fine:
   - copy the debian dir one level up
   - modify the changelog, using `dch` (enter an email address which has write access to the ppa and a valid gpg key)
   - run `dpkg-buildpackage -S` in the sumo dir and `dput -f ppa:sumo/stable sumo_{{Version}}_source.changes` one level up
-- update the [flatpak](https://github.com/flathub/org.eclipse.sumo) (update version number and commit hash)
 - start a pull request against [winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/e/EclipseFoundation/SUMO)
-- [update the Homebrew Formula](HowToUpdateHomebrewFormula.md)
-- upload the wheels to PyPI using `twine upload /s/Releases/{{Version}}/wheels/*`
+- upload the wheels to PyPI using `twine upload /s/daily/wheels/*{{Version}}*.whl`
 - scenarios (optional)
   - add files to [the scenario folder](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/)
   - updated README.txt
@@ -171,6 +172,7 @@ If everything is fine:
 
 The trunk is now open for changes again.
 
+- wait for the automated [flatpak](https://github.com/flathub/org.eclipse.sumo) pull request to appear and built, then accept it
 - re-enable HAVE_VERSION_H in src/config.h.cmake
 - rename version to "git" in CMakeLists.txt
 - insert a new empty "Git Main" section at the top of the [ChangeLog](../ChangeLog.md)
