@@ -36,9 +36,7 @@
 // member method definitions
 // ===========================================================================
 
-GUITestSystem::GUITestSystem(GNEApplicationWindow* applicationWindow) :
-    myApplicationWindow(applicationWindow) {
-}
+GUITestSystem::GUITestSystem() {}
 
 
 GUITestSystem::~GUITestSystem() {
@@ -49,9 +47,10 @@ GUITestSystem::~GUITestSystem() {
 
 
 void
-GUITestSystem::startTests() {
+GUITestSystem::startTests(GNEApplicationWindow* neteditApplicationWindow) {
     // run rest only once
     if (myInitedTest == false) {
+        myNeteditApplicationWindow = neteditApplicationWindow;
         // check if run test thread
         if (OptionsCont::getOptions().getString("test-file").size() > 0) {
             processTestFile();
@@ -82,78 +81,78 @@ GUITestSystem::run() {
         switch (testStep->getStepType()) {
             // basic
             case TestStepType::CLICK:
-                myApplicationWindow->getViewNet()->handle(nullptr, FXSEL(SEL_MOTION, 0), (void*)testStep->getEvents().at(0));
+                myNeteditApplicationWindow->getViewNet()->handle(nullptr, FXSEL(SEL_MOTION, 0), (void*)testStep->getEvents().at(0));
                 std::this_thread::sleep_for(std::chrono::milliseconds(10));
-                myApplicationWindow->getViewNet()->handle(nullptr, FXSEL(SEL_LEFTBUTTONPRESS, 0), (void*)testStep->getEvents().at(1));
+                myNeteditApplicationWindow->getViewNet()->handle(nullptr, FXSEL(SEL_LEFTBUTTONPRESS, 0), (void*)testStep->getEvents().at(1));
                 std::this_thread::sleep_for(std::chrono::milliseconds(10));
-                myApplicationWindow->getViewNet()->handle(nullptr, FXSEL(SEL_LEFTBUTTONRELEASE, 0), (void*)testStep->getEvents().at(2));
+                myNeteditApplicationWindow->getViewNet()->handle(nullptr, FXSEL(SEL_LEFTBUTTONRELEASE, 0), (void*)testStep->getEvents().at(2));
                 break;
             // supermodes
             case TestStepType::SUPERMODE_NETWORK:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F2_SUPERMODE_NETWORK), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F2_SUPERMODE_NETWORK), nullptr);
                 break;
             case TestStepType::SUPERMODE_DEMAND:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND), nullptr);
                 break;
             case TestStepType::SUPERMODE_DATA:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA), nullptr);
                 break;
             // network mode
             case TestStepType::NETWORKMODE_INSPECT:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT), nullptr);
                 break;
             case TestStepType::NETWORKMODE_DELETE:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE), nullptr);
                 break;
             case TestStepType::NETWORKMODE_SELECT:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT), nullptr);
                 break;
             case TestStepType::NETWORKMODE_MOVE:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE_MEANDATA), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE_MEANDATA), nullptr);
                 break;
             case TestStepType::NETWORKMODE_EDGE:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA), nullptr);
                 break;
             case TestStepType::NETWORKMODE_TRAFFICLIGHT:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE), nullptr);
                 break;
             case TestStepType::NETWORKMODE_CONNECTION:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER), nullptr);
                 break;
             case TestStepType::NETWORKMODE_PROHIBITION:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN), nullptr);
                 break;
             case TestStepType::NETWORKMODE_CROSSING:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA), nullptr);
                 break;
             case TestStepType::NETWORKMODE_ADDITIONAL:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS), nullptr);
                 break;
             case TestStepType::NETWORKMODE_WIRE:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION), nullptr);
                 break;
             case TestStepType::NETWORKMODE_TAZ:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL), nullptr);
                 break;
             case TestStepType::NETWORKMODE_SHAPE:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_P_MODE_POLYGON_PERSON), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_P_MODE_POLYGON_PERSON), nullptr);
                 break;
             case TestStepType::NETWORKMODE_DECAL:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION), nullptr);
                 break;
             // set additional
             case TestStepType::SELECT_ADDITIONAL:
-                myApplicationWindow->getViewNet()->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->handle(nullptr, FXSEL(SEL_COMMAND, MID_GNE_TAG_SELECTED), (void*)testStep->getText());
+                myNeteditApplicationWindow->getViewNet()->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->handle(nullptr, FXSEL(SEL_COMMAND, MID_GNE_TAG_SELECTED), (void*)testStep->getText());
                 break;
             // other
             case TestStepType::PROCESSING:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND), nullptr);
                 break;
             case TestStepType::SAVE_NETEDITCONFIG:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG), nullptr);
                 break;
             case TestStepType::QUIT:
-                myApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE), nullptr);
+                myNeteditApplicationWindow->handle(nullptr, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE), nullptr);
                 break;
             default:
                 break;

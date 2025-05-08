@@ -74,7 +74,7 @@
 #include <utils/gui/globjects/GUICursorDialog.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/gui/tests/GUITestSystem.h>
+#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 
@@ -1396,7 +1396,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
         }
     */
     // run all test in the first draw
-    myViewParent->getGNEAppWindows()->getTestSystem()->startTests();
+    gTestSystem.startTests(myViewParent->getGNEAppWindows());
     return hits;
 }
 
