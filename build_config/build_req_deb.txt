@@ -1,8 +1,11 @@
 astyle
 ccache
 cmake
+debhelper
+devscripts
 default-jdk
 doxygen
+freeglut3-dev
 g++
 gettext
 git
@@ -20,6 +23,7 @@ libgtest-dev
 libproj-dev
 libv8-dev
 libxerces-c-dev
+libxrandr-dev
 maven
 mkdocs
 pipx

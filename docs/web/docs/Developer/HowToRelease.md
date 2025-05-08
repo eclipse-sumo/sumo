@@ -95,9 +95,6 @@ and committing the changes after careful inspection
 - check the documentation
   - update the [ChangeLog](../ChangeLog.md) again and include
     version and release date
-- If it is the first release of the year, create a new Eclipse release at https://projects.eclipse.org/projects/automotive.sumo (after login there should be a "Create Release" button)
-  - add an IP Log to the release
-  - send an email to the PMC at automotive-pmc@eclipse.org asking for review (include links to the release and the IP log)
 - check presence of RPMs on
   <https://build.opensuse.org/package/show/science:dlr/sumo_nightly>
 - add a new version tag
@@ -140,6 +137,7 @@ If everything is fine:
   - change default download attributes by logging in on the web browser at https://sourceforge.net/projects/sumo/files/sumo/version%20{{Version}}/ and clicking on the circled "i" after each file
     - the default for Windows is sumo-win64extra-{{Version}}.msi, for macOS sumo-{{Version}}.pkg and for all the others sumo-src-{{Version}}.tar.gz
 - finish the Zenodo version draft, by uploading the `sumo-src-{{Version}}.tar.gz`, adding the release info (can also be done later) and publishing it
+- Create a new Eclipse release at https://projects.eclipse.org/projects/automotive.sumo (after login there should be a "Create Release" button)
 - create a new entry in [elib](https://elib.dlr.de/)
   - the easiest way to do it, is by going to [Einträge verwalten](https://elib.dlr.de/cgi/users/home?screen=Items) and clicking on the magnifying-glass-icon for an old release, then going to the "Aktionen" tab and selecting "Als Vorlage verwenden"
   - take a look at the [Eintrag von Forschungssoftware-Publikationen - Tutorial](https://wiki.dlr.de/pages/viewpage.action?pageId=711888423), or the entry for a previous release: https://elib.dlr.de/205320/
@@ -149,11 +147,10 @@ If everything is fine:
 - update the ubuntu ppa (see
 <https://askubuntu.com/questions/642632/how-to-bump-the-version-of-a-package-available-in-another-users-ppa>)
   - this assumes you have the devscripts package as well as all sumo dependencies installed
-    - if you try this on Windows Linux Subsystem you will also need to do `sudo update-alternatives --set fakeroot /usr/bin/fakeroot-tcp`
-  - unzip the special source release `sumo_{{Version}}.orig.tar.gz`
-  - copy the debian dir one level up
+  - unzip the special source release `tar xzf sumo_{{Version}}.orig.tar.gz`
+  - copy the debian dir one level up `cd sumo_{{Version}} && cp -a build_config/debian debian`
   - modify the changelog, using `dch` (enter an email address which has write access to the ppa and a valid gpg key)
-  - run `dpkg-buildpackage -S` in the sumo dir and `dput -f ppa:sumo/stable sumo_{{Version}}_source.changes` one level up
+  - run `dpkg-buildpackage -S` in the sumo dir and `dput -f ppa:sumo/stable ../sumo_{{Version}}_source.changes`
 - start a pull request against [winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/e/EclipseFoundation/SUMO)
 - upload the wheels to PyPI using `twine upload /s/daily/wheels/*{{Version}}*.whl`
 - scenarios (optional)
