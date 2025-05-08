@@ -37,6 +37,7 @@ class GNEApplicationWindow;
 
 // we use this macro for check test signals
 #define TEST_SIGNALS
+//#define TEST_SIGNALS_UPDATE
 
 #ifndef TEST_SIGNALS
     #define FXIMPLEMENT_TESTING(classname, baseclassname, mapping, nmappings) \
