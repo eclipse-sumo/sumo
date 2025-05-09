@@ -25,7 +25,6 @@
 // global variables definitions
 // ===========================================================================
 
-GUISumoTestSystem gSumoTestSystem;
-GUINeteditTestSystem gNeteditTestSystem;
+GUITestSystem* gTestSystem = nullptr;
 
 /****************************************************************************/

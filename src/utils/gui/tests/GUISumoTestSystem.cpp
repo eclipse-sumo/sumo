@@ -18,6 +18,7 @@
 // Thread used for testing sumo
 /****************************************************************************/
 
+#include "GUIGlobalTestSystem.h"
 #include "GUISumoTestSystem.h"
 
 // ===========================================================================
@@ -28,6 +29,12 @@ GUISumoTestSystem::GUISumoTestSystem() {}
 
 
 GUISumoTestSystem::~GUISumoTestSystem() {}
+
+
+void
+GUISumoTestSystem::createTestSystem() {
+    gTestSystem = new GUISumoTestSystem();
+}
 
 
 void GUISumoTestSystem::setSpecificMainWindow(GUIMainWindow* /*mainWindow*/) {

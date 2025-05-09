@@ -22,6 +22,7 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/foxtools/MsgHandlerSynchronized.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include <utils/gui/tests/GUINeteditTestSystem.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/xml/XMLSubSys.h>
 
@@ -61,6 +62,8 @@ main(int argc, char** argv) {
 #endif
         // initialise subsystems
         XMLSubSys::init();
+        // init netedit test system
+        GUINeteditTestSystem::createTestSystem();
         // fill options
         GNELoadThread::fillOptions(neteditOptions);
         // set default options

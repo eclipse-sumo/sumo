@@ -35,6 +35,9 @@ public:
     /// @brief destructor
     ~GUISumoTestSystem();
 
+    /// @brief create sumo test system (must be called in sumo main cpp file)
+    static void createTestSystem();
+
 protected:
     /// @brief set specific main window
     void setSpecificMainWindow(GUIMainWindow* mainWindow);
