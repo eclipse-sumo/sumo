@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUINeteditTestSystem.h
+/// @file    GUITestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -30,16 +30,16 @@
 #include <thread>
 #include <chrono>
 
-#include "GUINeteditTestSystem.h"
+#include "GUITestSystem.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GUINeteditTestSystem::GUINeteditTestSystem() {}
+GUITestSystem::GUITestSystem() {}
 
 
-GUINeteditTestSystem::~GUINeteditTestSystem() {
+GUITestSystem::~GUITestSystem() {
     for (auto testStep : myTestSteps) {
         delete testStep;
     }
@@ -47,16 +47,19 @@ GUINeteditTestSystem::~GUINeteditTestSystem() {
 
 
 void
-GUINeteditTestSystem::startTests(GNEApplicationWindow* neteditApplicationWindow) {
+GUITestSystem::startTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow) {
     // run rest only once
     if (myInitedTest == false) {
         myInitedTest = true;
-        myNeteditApplicationWindow = neteditApplicationWindow;
+        // set common abstract view
+        myAbstractView = view;
+        // set specific parameter in children
+        setSpecificMainWindow(mainWindow);
         // check if run test thread
         if (OptionsCont::getOptions().getString("test-file").size() > 0) {
             processTestFile();
         }
-        // start thread
+        // start thread if we have more than one test
         if (myTestSteps.size() > 0) {
             start();
         }
@@ -65,8 +68,8 @@ GUINeteditTestSystem::startTests(GNEApplicationWindow* neteditApplicationWindow)
 
 
 void
-GUINeteditTestSystem::nextTest(FXObject* sender, FXSelector sel) {
-    // only continue if the signal was send by the test server
+GUITestSystem::nextTest(FXObject* sender, FXSelector sel) {
+    // only continue if the signal was send by the test system
     if (sender == this) {
         myContinue = true;
     }
@@ -74,7 +77,7 @@ GUINeteditTestSystem::nextTest(FXObject* sender, FXSelector sel) {
 
 
 void
-GUINeteditTestSystem::writeSignalInfo(FXObject* sender, FXSelector sel) const {
+GUITestSystem::writeSignalInfo(FXObject* sender, FXSelector sel) const {
     // ignore update
     if (FXSELTYPE(sel) == SEL_UPDATE) {
         return;
@@ -330,131 +333,37 @@ GUINeteditTestSystem::writeSignalInfo(FXObject* sender, FXSelector sel) const {
 
 
 int
-GUINeteditTestSystem::run() {
+GUITestSystem::run() {
     for (const auto &testStep : myTestSteps) {
         // stop thread until nextTest() is called in FXIMPLEMENT_TESTING
         myContinue = false;
         // continue depending of step type
         switch (testStep->getStepType()) {
-            // basic
+            // specific of abstract view
             case TestStepType::CLICK:
-                myNeteditApplicationWindow->getViewNet()->onMouseMove(this, FXSEL(SEL_MOTION, 0), (void*)testStep->getEvents().at(0));
+                myAbstractView->handle(this, FXSEL(SEL_MOTION, 0), (void*)testStep->getEvents().at(0));
                 waitForContinue();
-                myNeteditApplicationWindow->getViewNet()->onLeftBtnPress(this, FXSEL(SEL_LEFTBUTTONPRESS, 0), (void*)testStep->getEvents().at(1));
+                myAbstractView->handle(this, FXSEL(SEL_LEFTBUTTONPRESS, 0), (void*)testStep->getEvents().at(1));
                 waitForContinue();
-                myNeteditApplicationWindow->getViewNet()->onLeftBtnRelease(this, FXSEL(SEL_LEFTBUTTONRELEASE, 0), (void*)testStep->getEvents().at(2));
+                myAbstractView->handle(this, FXSEL(SEL_LEFTBUTTONRELEASE, 0), (void*)testStep->getEvents().at(2));
                 waitForContinue();
-                break;
-            // supermodes
-            case TestStepType::SUPERMODE_NETWORK:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_F2_SUPERMODE_NETWORK), nullptr);
-                break;
-            case TestStepType::SUPERMODE_DEMAND:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND), nullptr);
-                break;
-            case TestStepType::SUPERMODE_DATA:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA), nullptr);
-                break;
-            // network mode
-            case TestStepType::NETWORKMODE_INSPECT:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_DELETE:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_SELECT:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_MOVE:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE_MEANDATA), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_EDGE:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_TRAFFICLIGHT:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_CONNECTION:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_PROHIBITION:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_CROSSING:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_ADDITIONAL:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_WIRE:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_TAZ:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_SHAPE:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_P_MODE_POLYGON_PERSON), nullptr);
-                break;
-            case TestStepType::NETWORKMODE_DECAL:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION), nullptr);
-                break;
-            // set additional
-            case TestStepType::SELECT_ADDITIONAL:
-                myNeteditApplicationWindow->getViewNet()->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->handle(this, FXSEL(SEL_COMMAND, MID_GNE_TAG_SELECTED), (void*)testStep->getText());
-                break;
-            // other
-            case TestStepType::PROCESSING:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND), nullptr);
-                break;
-            case TestStepType::SAVE_NETEDITCONFIG:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG), nullptr);
-                break;
-            case TestStepType::QUIT:
-                myNeteditApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE), nullptr);
-                // in this case, don't wait and simply stop
-                return 1;
                 break;
             default:
+                runSpecificTest(testStep);
                 break;
         }
-        // wait until nextTest() is called
-        waitForContinue();
+        // if this is the quit order, stop thread. In other case, wait until nextTest() is called
+        if (testStep->getStepType() ==  TestStepType::QUIT) {
+            return 1;
+        } else {
+            waitForContinue();
+        }
     }
     return 1;
 }
 
 
-void
-GUINeteditTestSystem::processTestFile() {
-    const std::string testFile = OptionsCont::getOptions().getString("test-file");
-    // open file
-    std::ifstream strm(testFile);
-    // check if file can be opened
-    if (!strm.good()) {
-        WRITE_ERRORF(TL("Could not open test file '%'."), testFile);
-    } else {
-        // continue while stream exist
-        while (strm.good()) {
-            std::string line;
-            strm >> line;
-            // check if line isn't empty
-            if ((line.size() > 0) && line[0] != '#') {
-                myTestSteps.push_back(new TestStep(line));
-            }
-        }
-    }
-}
-
-
-void
-GUINeteditTestSystem::waitForContinue() const {
-    while (!myContinue) {
-        FXThread::sleep(10);  
-    }
-}
-
-
-GUINeteditTestSystem::TestStep::TestStep(const std::string &row) {
+GUITestSystem::TestStep::TestStep(const std::string &row) {
     // first split between functions and arguments
     parseFunctionAndArguments(row);
     // continue depending of function
@@ -562,7 +471,7 @@ GUINeteditTestSystem::TestStep::TestStep(const std::string &row) {
 }
 
 
-GUINeteditTestSystem::TestStep::~TestStep() {
+GUITestSystem::TestStep::~TestStep() {
     for (auto event : myEvents) {
         delete event;
     }
@@ -572,20 +481,20 @@ GUINeteditTestSystem::TestStep::~TestStep() {
 }
 
 
-GUINeteditTestSystem::TestStepType
-GUINeteditTestSystem::TestStep::getStepType() const {
+GUITestSystem::TestStepType
+GUITestSystem::TestStep::getStepType() const {
     return myStepType;
 }
 
 
 FXString* 
-GUINeteditTestSystem::TestStep::getText() const {
+GUITestSystem::TestStep::getText() const {
     return myText;
 }
 
 
 const std::vector<FXEvent*>&
-GUINeteditTestSystem::TestStep::getEvents() const {
+GUITestSystem::TestStep::getEvents() const {
     return myEvents;
 }
 
@@ -616,7 +525,7 @@ GUINeteditTestSystem::TestStep::getEvents() const {
 
 
 FXEvent*
-GUINeteditTestSystem::TestStep::buildMouseMoveEvent(const int posX, const int posY) const {
+GUITestSystem::TestStep::buildMouseMoveEvent(const int posX, const int posY) const {
     FXEvent* moveEvent = new FXEvent();
     moveEvent->type = 9;
     moveEvent->win_x = posX;
@@ -629,7 +538,7 @@ GUINeteditTestSystem::TestStep::buildMouseMoveEvent(const int posX, const int po
 
 
 FXEvent*
-GUINeteditTestSystem::TestStep::buildMouseLeftClickPressEvent(const int posX, const int posY) const {
+GUITestSystem::TestStep::buildMouseLeftClickPressEvent(const int posX, const int posY) const {
     FXEvent* leftClickPressEvent = new FXEvent();
     // set fxevent
     leftClickPressEvent->win_x = posX;
@@ -648,7 +557,7 @@ GUINeteditTestSystem::TestStep::buildMouseLeftClickPressEvent(const int posX, co
 
 
 FXEvent*
-GUINeteditTestSystem::TestStep::buildMouseLeftClickReleaseEvent(const int posX, const int posY) const {
+GUITestSystem::TestStep::buildMouseLeftClickReleaseEvent(const int posX, const int posY) const {
     FXEvent* leftClickPressEvent = new FXEvent();
     // set fxevent
     leftClickPressEvent->win_x = posX;
@@ -667,7 +576,7 @@ GUINeteditTestSystem::TestStep::buildMouseLeftClickReleaseEvent(const int posX, 
 
 
 void
-GUINeteditTestSystem::TestStep::parseFunctionAndArguments(const std::string &row) {
+GUITestSystem::TestStep::parseFunctionAndArguments(const std::string &row) {
     // make a copy to help editing row
     std::string editedRow = row;
     // every function has the format <function>(<argument1>, <argument2>,....,)
@@ -709,6 +618,36 @@ GUINeteditTestSystem::TestStep::parseFunctionAndArguments(const std::string &row
         myArguments.push_back(argument);
         if (inString) {
             throw ProcessError("Invalid testStep row '" + row + "'. Check \" in arguments ");
+        }
+    }
+}
+
+
+void
+GUITestSystem::waitForContinue() const {
+    while (!myContinue) {
+        FXThread::sleep(10);  
+    }
+}
+
+
+void
+GUITestSystem::processTestFile() {
+    const std::string testFile = OptionsCont::getOptions().getString("test-file");
+    // open file
+    std::ifstream strm(testFile);
+    // check if file can be opened
+    if (!strm.good()) {
+        WRITE_ERRORF(TL("Could not open test file '%'."), testFile);
+    } else {
+        // continue while stream exist
+        while (strm.good()) {
+            std::string line;
+            strm >> line;
+            // check if line isn't empty
+            if ((line.size() > 0) && line[0] != '#') {
+                myTestSteps.push_back(new TestStep(line));
+            }
         }
     }
 }
