@@ -1,1 +1,1 @@
-Warning: Missing green phase in tlLogic 'gneJ1', program '0' for tl-index 12
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
