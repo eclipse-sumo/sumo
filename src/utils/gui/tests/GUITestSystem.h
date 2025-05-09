@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUINeteditTestSystem.h
+/// @file    GUITestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -26,26 +26,27 @@
 #include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
-// class declarations
+// class declaration
 // ===========================================================================
 
-class GNEApplicationWindow;
+class GUISUMOAbstractView;
+class GUIMainWindow;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GUINeteditTestSystem : public FXObject, public FXThread {
+class GUITestSystem : public FXObject, public FXThread {
 
 public:
     /// @brief constructor
-    GUINeteditTestSystem();
+    GUITestSystem();
 
     /// @brief destructor
-    ~GUINeteditTestSystem();
+    ~GUITestSystem();
 
-    /// @brief start test
-    void startTests(GNEApplicationWindow* neteditApplicationWindow);
+    /// @brief start test. The argument is either GNEApplicationWindow or GUIApplicationWindows
+    void startTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow);
 
     /// @brief execute next test
     void nextTest(FXObject* sender, FXSelector sel);
@@ -57,13 +58,6 @@ public:
     int run();
 
 protected:
-    /// @brief process test file
-    void processTestFile();
-
-    /// @brief wait for continue
-    void waitForContinue() const;
-
-private:
     enum class TestStepType {
         // basic
         CLICK,
@@ -146,9 +140,13 @@ private:
         TestStep() = delete;
     };
 
-    /// @brief netedit application windows
-    GNEApplicationWindow* myNeteditApplicationWindow = nullptr;
+    /// @brief run specific test
+    virtual void setSpecificMainWindow(GUIMainWindow* mainWindow) = 0;
 
+    /// @brief run specific test
+    virtual void runSpecificTest(const TestStep* testStep) = 0;
+
+private:
     /// @brief test steps
     std::vector<TestStep*> myTestSteps;
 
@@ -157,4 +155,13 @@ private:
 
     /// @brief flag used for continue
     bool myContinue = true;
+
+    /// @brief abstract view
+    GUISUMOAbstractView* myAbstractView = nullptr;
+
+    /// @brief wait for continue
+    void waitForContinue() const;
+
+    /// @brief process test file
+    void processTestFile();
 };

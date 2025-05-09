@@ -20,22 +20,13 @@
 #pragma once
 #include <config.h>
 
-#include <string>
-#include <vector>
-
-#include <utils/foxtools/fxheader.h>
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEApplicationWindow;
+#include "GUITestSystem.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GUISumoTestSystem : public FXObject, public FXThread {
+class GUISumoTestSystem : public GUITestSystem {
 
 public:
     /// @brief constructor
@@ -44,117 +35,10 @@ public:
     /// @brief destructor
     ~GUISumoTestSystem();
 
-    /// @brief start test
-    void startTests(GNEApplicationWindow* neteditApplicationWindow);
-
-    /// @brief execute next test
-    void nextTest(FXObject* sender, FXSelector sel);
-
-    /// @brief 
-    void writeSignalInfo(FXObject* sender, FXSelector sel) const;
-
-    /// @brief run all tests
-    int run();
-
 protected:
-    /// @brief process test file
-    void processTestFile();
+    /// @brief set specific main window
+    void setSpecificMainWindow(GUIMainWindow* mainWindow);
 
-    /// @brief wait for continue
-    void waitForContinue() const;
-
-private:
-    enum class TestStepType {
-        // basic
-        CLICK,
-        // go to supermode
-        SUPERMODE_NETWORK,
-        SUPERMODE_DEMAND,
-        SUPERMODE_DATA,
-        // network modes
-        NETWORKMODE_INSPECT,
-        NETWORKMODE_DELETE,
-        NETWORKMODE_SELECT,
-        NETWORKMODE_MOVE,
-        NETWORKMODE_EDGE,
-        NETWORKMODE_TRAFFICLIGHT,
-        NETWORKMODE_CONNECTION,
-        NETWORKMODE_PROHIBITION,
-        NETWORKMODE_CROSSING,
-        NETWORKMODE_ADDITIONAL,
-        NETWORKMODE_WIRE,
-        NETWORKMODE_TAZ,
-        NETWORKMODE_SHAPE,
-        NETWORKMODE_DECAL,
-        // select elements in frames
-        SELECT_ADDITIONAL,
-        // processing
-        PROCESSING,
-        // saving
-        SAVE_NETEDITCONFIG,
-        //other
-        QUIT
-    };
-
-    /// @brief test step
-    struct TestStep {
-        /// @brief parameter constructor
-        TestStep(const std::string &row);
-
-        /// @brief destructor
-        ~TestStep();
-
-        /// @brief return step type
-        TestStepType getStepType() const;
-
-        /// @brief get text
-        FXString* getText() const;
-
-        /// @brief get list of consecutive event
-        const std::vector<FXEvent*> &getEvents() const;
-
-    protected:
-        /// @brief build mouse move event
-        FXEvent* buildMouseMoveEvent(const int posX, const int posY) const;
-
-        /// @brief build mouse left click press event
-        FXEvent* buildMouseLeftClickPressEvent(const int posX, const int posY) const;
-
-        /// @brief build mouse left click release event
-        FXEvent* buildMouseLeftClickReleaseEvent(const int posX, const int posY) const;
-
-    private:
-        /// @brief step type
-        TestStepType myStepType;
-        
-        /// @brief function
-        std::string myFunction;
-
-        /// @brief arguments
-        std::vector<std::string> myArguments;
-
-        /// @brief tag (used in certain tests)
-        FXString* myText = nullptr;
-
-        /// @brief list of events associated with this step
-        std::vector<FXEvent*> myEvents;
-
-        /// @brief parse function and arguments
-        void parseFunctionAndArguments(const std::string &row);
-
-        /// @brief invalidate default constructor
-        TestStep() = delete;
-    };
-
-    /// @brief netedit application windows
-    GNEApplicationWindow* myNeteditApplicationWindow = nullptr;
-
-    /// @brief test steps
-    std::vector<TestStep*> myTestSteps;
-
-    /// @brief flag to check if test are initedinited
-    bool myInitedTest = false;
-
-    /// @brief flag used for continue
-    bool myContinue = true;
+    /// @brief run specific test
+    void runSpecificTest(const TestStep* testStep);
 };
