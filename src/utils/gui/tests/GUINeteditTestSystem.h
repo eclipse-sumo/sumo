@@ -41,6 +41,9 @@ public:
     /// @brief destructor
     ~GUINeteditTestSystem();
 
+    /// @brief create netedit test system (must be called in netedit main cpp file)
+    static void createTestSystem();
+
 protected:
     /// @brief set specific main window
     void setSpecificMainWindow(GUIMainWindow* mainWindow);

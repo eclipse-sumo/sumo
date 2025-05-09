@@ -18,7 +18,6 @@
 // Thread used for testing netedit
 /****************************************************************************/
 
-
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/options/OptionsCont.h>
 

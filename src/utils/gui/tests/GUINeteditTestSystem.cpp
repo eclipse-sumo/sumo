@@ -24,6 +24,7 @@
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 
+#include "GUIGlobalTestSystem.h"
 #include "GUINeteditTestSystem.h"
 
 // ===========================================================================
@@ -34,6 +35,12 @@ GUINeteditTestSystem::GUINeteditTestSystem() {}
 
 
 GUINeteditTestSystem::~GUINeteditTestSystem() {}
+
+
+void
+GUINeteditTestSystem::createTestSystem() {
+    gTestSystem = new GUINeteditTestSystem();
+}
 
 
 void 

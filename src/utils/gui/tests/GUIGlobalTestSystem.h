@@ -20,24 +20,23 @@
 #pragma once
 #include <config.h>
 
-#include "GUINeteditTestSystem.h"
-#include "GUISumoTestSystem.h"
+#include "GUITestSystem.h"
 
 // ===========================================================================
 // global variable declarations
 // ===========================================================================
 
-extern GUISumoTestSystem gSumoTestSystem;
-extern GUINeteditTestSystem gNeteditTestSystem;
+extern GUITestSystem* gTestSystem;
 
 // ===========================================================================
 // macro declarations
 // ===========================================================================
 
-// we use this macro for check test signals
-//#define TEST_SIGNALS
+// we use this macro for debug signals
+//#define DEBUG_SIGNALS
 
-#ifndef TEST_SIGNALS
+#ifndef DEBUG_SIGNALS
+    ///@brief reimplementation of FXIMPLEMENT used in sumo
     #define FXIMPLEMENT_SUMO(classname, baseclassname, mapping, nmappings) \
         FX::FXObject* classname::manufacture(){  \
             return new classname;  \
@@ -51,11 +50,14 @@ extern GUINeteditTestSystem gNeteditTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            gSumoTestSystem.nextTest(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->nextTest(sender, sel); \
+            } \
             return result;\
         }
 
-    #define FXIMPLEMENT_NETEDIT_SUMO(classname, baseclassname, mapping, nmappings) \
+    ///@brief reimplementation of FXIMPLEMENT_ABSTRACT used in sumo
+    #define FXIMPLEMENT_SUMO_ABSTRACT(classname, baseclassname, mapping, nmappings) \
         const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
@@ -65,10 +67,13 @@ extern GUINeteditTestSystem gNeteditTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            gSumoTestSystem.nextTest(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->nextTest(sender, sel); \
+            } \
             return result;\
         }
 
+    ///@brief reimplementation of FXIMPLEMENT used in netedit
     #define FXIMPLEMENT_NETEDIT(classname, baseclassname, mapping, nmappings) \
         FX::FXObject* classname::manufacture(){  \
             return new classname;  \
@@ -82,10 +87,13 @@ extern GUINeteditTestSystem gNeteditTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            gNeteditTestSystem.nextTest(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->nextTest(sender, sel); \
+            } \
             return result;\
         }
 
+    // @brief reimplementation of FXIMPLEMENT_ABSTRACT used in netedit
     #define FXIMPLEMENT_NETEDIT_ABSTRACT(classname, baseclassname, mapping, nmappings) \
         const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
@@ -96,18 +104,20 @@ extern GUINeteditTestSystem gNeteditTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            gNeteditTestSystem.nextTest(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->nextTest(sender, sel); \
+            } \
             return result;\
         }
-
 #else
+    ///@brief reimplementation of FXIMPLEMENT used in sumo that write signal info
     #define FXIMPLEMENT_SUMO(classname, baseclassname, mapping, nmappings) \
         FX::FXObject* classname::manufacture(){  \
             return new classname;  \
         } \
         const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
-            gSumoTestSystem.writeSignalInfo(sender, sel); \
+            gTestSystem.writeSignalInfo(sender, sel); \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
@@ -115,14 +125,17 @@ extern GUINeteditTestSystem gNeteditTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            gSumoTestSystem.nextTest(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->nextTest(sender, sel); \
+            } \
             return result;\
         }
 
-    #define FXIMPLEMENT_NETEDIT_SUMO(classname, baseclassname, mapping, nmappings) \
+    ///@brief reimplementation of FXIMPLEMENT_ABSTRACT used in sumo that write signal info
+    #define FXIMPLEMENT_SUMO_ABSTRACT(classname, baseclassname, mapping, nmappings) \
         const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
-        gSumoTestSystem.writeSignalInfo(sender, sel); \
+        gTestSystem.writeSignalInfo(sender, sel); \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
@@ -130,17 +143,20 @@ extern GUINeteditTestSystem gNeteditTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            gSumoTestSystem.nextTest(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->nextTest(sender, sel); \
+            } \
             return result;\
         }
 
+    ///@brief reimplementation of FXIMPLEMENT used in netedit that write signal info
     #define FXIMPLEMENT_NETEDIT(classname, baseclassname, mapping, nmappings) \
         FX::FXObject* classname::manufacture(){  \
             return new classname;  \
         } \
         const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
-            gSumoTestSystem.writeSignalInfo(sender, sel); \
+            gTestSystem.writeSignalInfo(sender, sel); \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
@@ -148,14 +164,17 @@ extern GUINeteditTestSystem gNeteditTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            gNeteditTestSystem.nextTest(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->nextTest(sender, sel); \
+            } \
             return result;\
         }
 
+    ///@brief reimplementation of FXIMPLEMENT_ABSTRACT used in netedit that write signal info
     #define FXIMPLEMENT_NETEDIT_ABSTRACT(classname, baseclassname, mapping, nmappings) \
         const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
-            gSumoTestSystem.writeSignalInfo(sender, sel); \
+            gTestSystem.writeSignalInfo(sender, sel); \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
@@ -163,9 +182,9 @@ extern GUINeteditTestSystem gNeteditTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            gNeteditTestSystem.nextTest(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->nextTest(sender, sel); \
+            } \
             return result;\
         }
-
-
 #endif
