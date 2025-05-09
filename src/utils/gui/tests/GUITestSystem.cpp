@@ -18,17 +18,9 @@
 // Thread used for testing netedit
 /****************************************************************************/
 
-#include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/elements/GNEAttributeCarrier.h>
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/network/GNEAdditionalFrame.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/StringTokenizer.h>
 
-#include <thread>
-#include <chrono>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GUITestSystem.h"
 
@@ -369,13 +361,13 @@ GUITestSystem::TestStep::TestStep(const std::string &row) {
     // continue depending of function
     if (myFunction == "click") {
         if (myArguments.size() == 2) {
-            if (!GNEAttributeCarrier::canParse<int>(myArguments[0])) {
-                throw ProcessError("First click cannot be parsed to int");
-            } else if (!GNEAttributeCarrier::canParse<int>(myArguments[1])) {
-                throw ProcessError("Second click cannot be parsed to int");
+            if (!StringUtils::isInt(myArguments[0])) {
+                throw ProcessError("First click position cannot be parsed to int");
+            } else if (!StringUtils::isInt(myArguments[1])) {
+                throw ProcessError("Second click position cannot be parsed to int");
             } else {
-                const int posX = GNEAttributeCarrier::parse<int>(myArguments[0]);
-                const int posY = GNEAttributeCarrier::parse<int>(myArguments[1]);
+                const int posX = StringUtils::toInt(myArguments[0]);
+                const int posY = StringUtils::toInt(myArguments[1]);
                 // set event of moving, click presss and click release
                 myEvents.push_back(buildMouseMoveEvent(posX, posY));
                 myEvents.push_back(buildMouseLeftClickPressEvent(posX, posY));

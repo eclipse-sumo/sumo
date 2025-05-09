@@ -21,14 +21,8 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/StringTokenizer.h>
-
-#include <thread>
-#include <chrono>
 
 #include "GUINeteditTestSystem.h"
 
