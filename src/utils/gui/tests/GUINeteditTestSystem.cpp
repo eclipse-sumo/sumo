@@ -56,76 +56,10 @@ GUINeteditTestSystem::setSpecificMainWindow(GUIMainWindow* mainWindow) {
 void
 GUINeteditTestSystem::runSpecificTest(const TestStep* testStep) {
     // continue depending of step type
-    switch (testStep->getStepType()) {
-        // supermodes
-        case TestStepType::SUPERMODE_NETWORK:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_F2_SUPERMODE_NETWORK), nullptr);
-            break;
-        case TestStepType::SUPERMODE_DEMAND:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND), nullptr);
-            break;
-        case TestStepType::SUPERMODE_DATA:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA), nullptr);
-            break;
-        // network mode
-        case TestStepType::NETWORKMODE_INSPECT:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_DELETE:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_SELECT:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_MOVE:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE_MEANDATA), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_EDGE:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_TRAFFICLIGHT:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_CONNECTION:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_PROHIBITION:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_CROSSING:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_ADDITIONAL:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_WIRE:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_TAZ:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_SHAPE:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_P_MODE_POLYGON_PERSON), nullptr);
-            break;
-        case TestStepType::NETWORKMODE_DECAL:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION), nullptr);
-            break;
-        // set additional
-        case TestStepType::SELECT_ADDITIONAL:
-            myGNEApplicationWindow->getViewNet()->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->handle(this, FXSEL(SEL_COMMAND, MID_GNE_TAG_SELECTED), (void*)testStep->getText());
-            break;
-        // other
-        case TestStepType::PROCESSING:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND), nullptr);
-            break;
-        case TestStepType::SAVE_NETEDITCONFIG:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG), nullptr);
-            break;
-        case TestStepType::QUIT:
-            myGNEApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE), nullptr);
-            break;
-        default:
-            throw ProcessError("Test type not yet implemented for Netedit");
+    if (testStep->getCategory() == "additionalFrame") {
+        myGNEApplicationWindow->getViewNet()->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->handle(this, testStep->getSelector(), (void*)testStep->getText());
+    } else if (testStep->getCategory() == "applicationWindow") {
+        myGNEApplicationWindow->handle(this, testStep->getSelector(), nullptr);
     }
 }
 

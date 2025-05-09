@@ -58,54 +58,41 @@ public:
     int run();
 
 protected:
-    enum class TestStepType {
-        // basic
-        CLICK,
-        // go to supermode
-        SUPERMODE_NETWORK,
-        SUPERMODE_DEMAND,
-        SUPERMODE_DATA,
-        // network modes
-        NETWORKMODE_INSPECT,
-        NETWORKMODE_DELETE,
-        NETWORKMODE_SELECT,
-        NETWORKMODE_MOVE,
-        NETWORKMODE_EDGE,
-        NETWORKMODE_TRAFFICLIGHT,
-        NETWORKMODE_CONNECTION,
-        NETWORKMODE_PROHIBITION,
-        NETWORKMODE_CROSSING,
-        NETWORKMODE_ADDITIONAL,
-        NETWORKMODE_WIRE,
-        NETWORKMODE_TAZ,
-        NETWORKMODE_SHAPE,
-        NETWORKMODE_DECAL,
-        // select elements in frames
-        SELECT_ADDITIONAL,
-        // processing
-        PROCESSING,
-        // saving
-        SAVE_NETEDITCONFIG,
-        //other
-        QUIT
-    };
 
     /// @brief test step
     struct TestStep {
-        /// @brief parameter constructor
-        TestStep(const std::string &row);
+
+        /// @brief constructor using a row
+        TestStep(GUITestSystem* testSystem, const std::string &row);
+
+        /// @brief constructor using parameters (needed for certain functions like click)
+        TestStep(FXSelector messageType, FXSelector messageID, const std::string &category,
+                 const std::string &function, const std::vector<std::string> &arguments,
+                 FXString* text, FXEvent* event);
 
         /// @brief destructor
         ~TestStep();
 
-        /// @brief return step type
-        TestStepType getStepType() const;
+        /// @brief get message type
+        FXSelector getMessageType() const;
+        
+        /// @brief get message ID
+        FXSelector getMessageID() const;
+
+        /// @brief get selector (based in messageType and messageID)
+        FXSelector getSelector() const;
+
+        /// @brief get category
+        const std::string &getCategory() const;
+
+        /// @brief get function
+        const std::string &getFunction() const;
 
         /// @brief get text
         FXString* getText() const;
 
-        /// @brief get list of consecutive event
-        const std::vector<FXEvent*> &getEvents() const;
+        /// @brief get event associated with this step
+        const FXEvent* getEvent() const;
 
     protected:
         /// @brief build mouse move event
@@ -118,8 +105,14 @@ protected:
         FXEvent* buildMouseLeftClickReleaseEvent(const int posX, const int posY) const;
 
     private:
-        /// @brief step type
-        TestStepType myStepType;
+        /// @brief message type (by default SEL_COMMAND)
+        FXSelector myMessageType = SEL_COMMAND;
+        
+        /// @brief message ID
+        FXSelector myMessageID = 0;
+
+        // @brief category
+        std::string myCategory;
         
         /// @brief function
         std::string myFunction;
@@ -131,7 +124,7 @@ protected:
         FXString* myText = nullptr;
 
         /// @brief list of events associated with this step
-        std::vector<FXEvent*> myEvents;
+        FXEvent* myEvent;
 
         /// @brief parse function and arguments
         void parseFunctionAndArguments(const std::string &row);
@@ -155,6 +148,9 @@ private:
 
     /// @brief flag used for continue
     bool myContinue = true;
+
+    /// @brief current selector
+    FXSelector myCurrentSelector = 0;
 
     /// @brief abstract view
     GUISUMOAbstractView* myAbstractView = nullptr;

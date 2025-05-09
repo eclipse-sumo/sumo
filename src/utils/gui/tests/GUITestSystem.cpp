@@ -18,6 +18,7 @@
 // Thread used for testing netedit
 /****************************************************************************/
 
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/options/OptionsCont.h>
 
@@ -61,7 +62,7 @@ GUITestSystem::startTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow) 
 void
 GUITestSystem::nextTest(FXObject* sender, FXSelector sel) {
     // only continue if the signal was send by the test system
-    if (sender == this) {
+    if ((sender == this) && (sel == myCurrentSelector)) {
         myContinue = true;
     }
 }
@@ -329,22 +330,13 @@ GUITestSystem::run() {
         // stop thread until nextTest() is called in FXIMPLEMENT_TESTING
         myContinue = false;
         // continue depending of step type
-        switch (testStep->getStepType()) {
-            // specific of abstract view
-            case TestStepType::CLICK:
-                myAbstractView->handle(this, FXSEL(SEL_MOTION, 0), (void*)testStep->getEvents().at(0));
-                waitForContinue();
-                myAbstractView->handle(this, FXSEL(SEL_LEFTBUTTONPRESS, 0), (void*)testStep->getEvents().at(1));
-                waitForContinue();
-                myAbstractView->handle(this, FXSEL(SEL_LEFTBUTTONRELEASE, 0), (void*)testStep->getEvents().at(2));
-                waitForContinue();
-                break;
-            default:
-                runSpecificTest(testStep);
-                break;
+        if (testStep->getCategory() == "abstractView") {
+            myAbstractView->handle(this, testStep->getSelector(), (void*)testStep->getEvent());
+        } else {
+            runSpecificTest(testStep);
         }
         // if this is the quit order, stop thread. In other case, wait until nextTest() is called
-        if (testStep->getStepType() ==  TestStepType::QUIT) {
+        if (testStep->getFunction() == "quit") {
             return 1;
         } else {
             waitForContinue();
@@ -354,11 +346,12 @@ GUITestSystem::run() {
 }
 
 
-GUITestSystem::TestStep::TestStep(const std::string &row) {
+GUITestSystem::TestStep::TestStep(GUITestSystem* testSystem, const std::string &row) {
     // first split between functions and arguments
     parseFunctionAndArguments(row);
     // continue depending of function
     if (myFunction == "click") {
+        myCategory = "virtual";
         if (myArguments.size() == 2) {
             if (!StringUtils::isInt(myArguments[0])) {
                 throw ProcessError("First click position cannot be parsed to int");
@@ -367,23 +360,23 @@ GUITestSystem::TestStep::TestStep(const std::string &row) {
             } else {
                 const int posX = StringUtils::toInt(myArguments[0]);
                 const int posY = StringUtils::toInt(myArguments[1]);
-                // set event of moving, click presss and click release
-                myEvents.push_back(buildMouseMoveEvent(posX, posY));
-                myEvents.push_back(buildMouseLeftClickPressEvent(posX, posY));
-                myEvents.push_back(buildMouseLeftClickReleaseEvent(posX, posY));
+                // we need to add three steps
+                testSystem->myTestSteps.push_back(new TestStep(SEL_MOTION, 0, "abstractView", "move", {}, nullptr, buildMouseMoveEvent(posX, posY)));
+                testSystem->myTestSteps.push_back(new TestStep(SEL_LEFTBUTTONPRESS, 0, "abstractView", "leftButtonPress", {}, nullptr, buildMouseLeftClickPressEvent(posX, posY)));
+                testSystem->myTestSteps.push_back(new TestStep(SEL_LEFTBUTTONRELEASE, 0, "abstractView", "leftButtonRelease", {}, nullptr, buildMouseLeftClickReleaseEvent(posX, posY)));
             }
-            myStepType = TestStepType::CLICK;
         } else {
             throw ProcessError("Invalid number of arguments for function " + myFunction);
         }
     } else if (myFunction == "supermode") {
+        myCategory = "applicationWindow";
         if (myArguments.size() == 1) {
             if (myArguments[0] == "network") {
-                myStepType = TestStepType::SUPERMODE_NETWORK;
+                myMessageID = MID_HOTKEY_F2_SUPERMODE_NETWORK;
             } else if (myArguments[0] == "demand") {
-                myStepType = TestStepType::SUPERMODE_DEMAND;
+                myMessageID = MID_HOTKEY_F3_SUPERMODE_DEMAND;
             } else if (myArguments[0] == "data") {
-                myStepType = TestStepType::SUPERMODE_DATA;
+                myMessageID = MID_HOTKEY_F4_SUPERMODE_DATA;
             } else {
                 throw ProcessError("Invalid supermode");
             }
@@ -392,35 +385,36 @@ GUITestSystem::TestStep::TestStep(const std::string &row) {
         }
     // network modes
     } else if (myFunction == "networkMode") {
+        myCategory = "applicationWindow";
         if (myArguments.size() == 1) {
             if (myArguments[0] == "inspect") {
-                myStepType = TestStepType::NETWORKMODE_INSPECT;
+                myMessageID = MID_HOTKEY_I_MODE_INSPECT;
             } else if (myArguments[0] == "delete") {
-                myStepType = TestStepType::NETWORKMODE_DELETE;
+                myMessageID = MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE;
             } else if (myArguments[0] == "select") {
-                myStepType = TestStepType::NETWORKMODE_SELECT;
+                myMessageID = MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT;
             } else if (myArguments[0] == "move") {
-                myStepType = TestStepType::NETWORKMODE_MOVE;
+                myMessageID = MID_HOTKEY_M_MODE_MOVE_MEANDATA;
             } else if (myArguments[0] == "edge") {
-                myStepType = TestStepType::NETWORKMODE_EDGE;
+                myMessageID = MID_HOTKEY_E_MODE_EDGE_EDGEDATA;
             } else if (myArguments[0] == "trafficLight") {
-                myStepType = TestStepType::NETWORKMODE_TRAFFICLIGHT;
+                myMessageID = MID_HOTKEY_T_MODE_TLS_TYPE;
             } else if (myArguments[0] == "connection") {
-                myStepType = TestStepType::NETWORKMODE_CONNECTION;
+                myMessageID = MID_HOTKEY_C_MODE_CONNECT_CONTAINER;
             } else if (myArguments[0] == "prohibition") {
-                myStepType = TestStepType::NETWORKMODE_PROHIBITION;
+                myMessageID = MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN;
             } else if (myArguments[0] == "crossing") {
-                myStepType = TestStepType::NETWORKMODE_CROSSING;
+                myMessageID = MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA;
             } else if (myArguments[0] == "additional") {
-                myStepType = TestStepType::NETWORKMODE_ADDITIONAL;
+                myMessageID = MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS;
             } else if (myArguments[0] == "wire") {
-                myStepType = TestStepType::NETWORKMODE_WIRE;
+                myMessageID = MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION;
             } else if (myArguments[0] == "taz") {
-                myStepType = TestStepType::NETWORKMODE_TAZ;
+                myMessageID = MID_HOTKEY_Z_MODE_TAZ_TAZREL;
             } else if (myArguments[0] == "shape") {
-                myStepType = TestStepType::NETWORKMODE_SHAPE;
+                myMessageID = MID_HOTKEY_P_MODE_POLYGON_PERSON;
             } else if (myArguments[0] == "decal") {
-                myStepType = TestStepType::NETWORKMODE_DECAL;
+                myMessageID = MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION;
             } else {
                 throw ProcessError("Invalid network mode");
             }
@@ -429,23 +423,26 @@ GUITestSystem::TestStep::TestStep(const std::string &row) {
         }
     // select additional
     } else if (myFunction == "selectAdditional") {
+        myCategory = "additionalFrame";
         if (myArguments.size() == 1) {
-            myStepType = TestStepType::SELECT_ADDITIONAL;
+            myMessageID = MID_GNE_TAG_SELECTED;
             myText = new FXString(myArguments[0].c_str());
         } else {
             throw ProcessError("Invalid number of arguments for function " + myFunction);
         }
     // other
     } else if (myFunction == "processing") {
+        myCategory = "applicationWindow";
         if (myArguments.empty()) {
-            myStepType = TestStepType::PROCESSING;
+            myMessageID = MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND;
         } else {
             throw ProcessError("Invalid number of arguments for function " + myFunction);
         }
     } else if (myFunction == "save") {
+        myCategory = "applicationWindow";
         if (myArguments.size() == 1) {
             if (myArguments.front() == "neteditConfig") {
-                myStepType = TestStepType::SAVE_NETEDITCONFIG;
+                myMessageID = MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG;
             } else {
                 throw ProcessError("Invalid number of arguments for function " + myFunction);
             }
@@ -453,8 +450,9 @@ GUITestSystem::TestStep::TestStep(const std::string &row) {
             throw ProcessError("Invalid number of arguments for function " + myFunction);
         }
     } else if (myFunction == "quit") {
+        myCategory = "applicationWindow";
         if (myArguments.empty()) {
-            myStepType = TestStepType::QUIT;
+            myMessageID = MID_HOTKEY_CTRL_Q_CLOSE;
         } else {
             throw ProcessError("Invalid number of arguments for function " + myFunction);
         }
@@ -462,9 +460,21 @@ GUITestSystem::TestStep::TestStep(const std::string &row) {
 }
 
 
+GUITestSystem::TestStep::TestStep(FXSelector messageType, FXSelector messageID, const std::string &category,
+    const std::string &function, const std::vector<std::string> &arguments, FXString* text, FXEvent* event) :
+    myMessageType(messageType),
+    myMessageID(messageID),
+    myCategory(category),
+    myFunction(function),
+    myArguments(arguments),
+    myText(text),
+    myEvent(event) {
+}
+
+
 GUITestSystem::TestStep::~TestStep() {
-    for (auto event : myEvents) {
-        delete event;
+    if (myEvent) {
+        delete myEvent;
     }
     if (myText) {
         delete myText;
@@ -472,9 +482,33 @@ GUITestSystem::TestStep::~TestStep() {
 }
 
 
-GUITestSystem::TestStepType
-GUITestSystem::TestStep::getStepType() const {
-    return myStepType;
+FXSelector
+GUITestSystem::TestStep::getMessageType() const {
+    return myMessageType;
+}
+        
+
+FXSelector
+GUITestSystem::TestStep::getMessageID() const {
+    return myMessageID;
+}
+
+
+FXSelector
+GUITestSystem::TestStep::getSelector() const {
+    return FXSEL(myMessageType, myMessageID);
+}
+
+
+const std::string&
+GUITestSystem::TestStep::getCategory() const {
+    return myCategory;
+}
+
+
+const std::string&
+GUITestSystem::TestStep::getFunction() const {
+    return myFunction;
 }
 
 
@@ -484,9 +518,9 @@ GUITestSystem::TestStep::getText() const {
 }
 
 
-const std::vector<FXEvent*>&
-GUITestSystem::TestStep::getEvents() const {
-    return myEvents;
+const FXEvent*
+GUITestSystem::TestStep::getEvent() const {
+    return myEvent;
 }
 
 /*
@@ -637,7 +671,11 @@ GUITestSystem::processTestFile() {
             strm >> line;
             // check if line isn't empty
             if ((line.size() > 0) && line[0] != '#') {
-                myTestSteps.push_back(new TestStep(line));
+                auto step = new TestStep(this, line);
+                // only add to list if this is not a virtual attribute (for example, click)
+                if (step->getCategory() != "virtual") {
+                    myTestSteps.push_back(step);
+                }
             }
         }
     }
