@@ -113,7 +113,7 @@ MSDevice_StationFinder::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 // ---------------------------------------------------------------------------
 MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     : MSVehicleDevice(holder, "stationfinder_" + holder.getID()),
-      MSStoppingPlaceRerouter(SUMO_TAG_CHARGING_STATION, "device.stationfinder.charging", true, false, {
+      MSStoppingPlaceRerouter("device.stationfinder.charging", true, {
     {"waitingTime", 1.}, {"chargingTime", 1.}
 }, { {"waitingTime", false}, {"chargingTime", false} }),
 myVeh(dynamic_cast<MSVehicle&>(holder)),
@@ -427,7 +427,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
     std::vector<double> probs(candidates.size(), 1.);
     bool newDestination;
     myCheckValidity = constrainTT;
-    MSStoppingPlace* bestCandidate = rerouteStoppingPlace(candidates, probs, myHolder, newDestination, newRoute, scores);
+    MSStoppingPlace* bestCandidate = rerouteStoppingPlace(nullptr, candidates, probs, myHolder, newDestination, newRoute, scores);
     myCheckValidity = true;
     minStation = dynamic_cast<MSChargingStation*>(bestCandidate);
     return minStation;
@@ -527,7 +527,7 @@ MSDevice_StationFinder::planOpportunisticCharging() {
     // check next stop
     double capacityDelta = MAX2(0., myTargetSoC * myBattery->getMaximumBatteryCapacity() - myBattery->getActualBatteryCapacity());
     if (myHolder.hasStops() && capacityDelta > 0.) {
-        MSStop& nextStop = myHolder.getNextStop();
+        const MSStop& nextStop = myHolder.getNextStop();
         if (myHolder.isStopped() || nextStop.chargingStation != nullptr || myHolder.getCurrentRouteEdge() != nextStop.edge ||
                 nextStop.getMinDuration(SIMSTEP) < myMinOpportunisticTime) {
             return false;
@@ -582,7 +582,7 @@ MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/
 #endif
         // remove the vehicle if teleport to a charging station fails
         if (myHolder.isStopped()) {
-            MSStop& currentStop = myHolder.getNextStop();
+            MSStop& currentStop = myHolder.getNextStopMutable();
             currentStop.duration += DELTA_T;
             SUMOVehicleParameter::Stop& stopPar = const_cast<SUMOVehicleParameter::Stop&>(currentStop.pars);
             stopPar.jump = -1;

@@ -335,13 +335,22 @@ public:
     * returns the next imminent stop in the stop queue
     * @return the upcoming stop
     */
-    virtual MSStop& getNextStop() = 0;
+    virtual const MSStop& getNextStop() const = 0;
+
+    /**
+    * returns the next imminent stop in the stop queue
+    * @return the upcoming stop
+    */
+    virtual MSStop& getNextStopMutable() = 0;
 
     /// @brief mark vehicle as active
     virtual void unregisterWaiting() = 0;
 
     /** @brief Returns parameters of the next stop or nullptr **/
     virtual const SUMOVehicleParameter::Stop* getNextStopParameter() const = 0;
+
+    /// @brief get remaining stop duration or 0 if the vehicle isn't stopped
+    virtual SUMOTime getStopDuration() const = 0;
 
     /**
      * schedule a new stop for the vehicle; each time a stop is reached, the vehicle

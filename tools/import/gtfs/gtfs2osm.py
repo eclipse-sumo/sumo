@@ -758,9 +758,9 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                     firstStop = stop_list.iloc[0]
                     lastStop = stop_list.iloc[-1]
                     firstDepart = parseTime(str(firstStop.departure_fixed.days + day) +
-                                        ":" + str(firstStop.departure_fixed).split(' ')[2])
+                                            ":" + str(firstStop.departure_fixed).split(' ')[2])
                     lastArrival = parseTime(str(lastStop.arrival_fixed.days + day) +
-                                        ":" + str(lastStop.arrival_fixed).split(' ')[2])
+                                            ":" + str(lastStop.arrival_fixed).split(' ')[2])
                     params += [("gtfs.origin_stop", firstStop.stop_name),
                                ("gtfs.origin_depart", ft(firstDepart)),
                                ("gtfs.destination_stop", lastStop.stop_name),

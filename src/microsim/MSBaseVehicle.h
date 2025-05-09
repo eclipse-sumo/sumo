@@ -383,6 +383,11 @@ public:
         return INVALID_DOUBLE;
     }
 
+    /// @brief return time (s) and distance to the next stop
+    virtual std::pair<double, double> estimateTimeToNextStop() const {
+        return std::make_pair(-1, -1);
+    }
+
     /** @brief Returns this vehicle's real departure position
      * @return This vehicle's real departure position
      */
@@ -726,7 +731,13 @@ public:
     * returns the next imminent stop in the stop queue
     * @return the upcoming stop
     */
-    MSStop& getNextStop();
+    const MSStop& getNextStop() const;
+
+    /**
+    * returns the next imminent stop in the stop queue
+    * @return the upcoming stop
+    */
+    MSStop& getNextStopMutable();
 
     /// @brief get remaining stop duration or 0 if the vehicle isn't stopped
     SUMOTime getStopDuration() const;

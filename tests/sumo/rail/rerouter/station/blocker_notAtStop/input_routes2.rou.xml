@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-29 13:13:30 by Eclipse SUMO netedit Version v1_22_0+1138-59136279702
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="blocker" type="train" depart="0.00" route="r_main" departEdge="5" departPos="stop">
+        <stop edge="E5" endPos="80" until="600" duration="10"/>
+    </vehicle>
+    <vehicle id="v0" type="train" depart="5.00" route="r_main" departSpeed="max" departEdge="2">
+        <stop busStop="ts_5" until="60" duration="10"/>
+    </vehicle>
+</routes>
