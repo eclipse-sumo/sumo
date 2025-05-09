@@ -80,7 +80,9 @@ assigned to a later milestone.
 All scenarios should be fixed by now.
 
 - start and save a new version draft [in Zenodo](https://zenodo.org/) (using the sumo@dlr.de user), in order to reserve a DOI. Don't Publish it yet, and don't upload a file to it!
-  - update the version doi in CITATION.cff and in the README badge to this new reserved one
+  - update the version doi in [CITATION.cff](../../../../CITATION.cff) and in the [README](../../../../README.md) badge to this new reserved one
+- update the [ChangeLog](../ChangeLog.md) again if necessary
+- check the correct email address and list of current ubuntu releases in `tools/build_config/ubuntu_release.sh`
 - patch the version information using `tools/build_config/updateReleaseInfo.py {{Version}}` and double check changes
   - in src/config.h.cmake, also the HAVE_VERSION_H macro should be disabled
   - in CMakeLists.txt
@@ -88,15 +90,12 @@ All scenarios should be fixed by now.
     to update the [download links](../Downloads.md)
   - [in sumo.metainfo.xml]({{Source}}build_config/package/sumo.metainfo.xml)
     for correct flatpak info
-  - in CITATION.cff
+  - in [CITATION.cff](../../../../CITATION.cff)
+  - in the [ChangeLog](../ChangeLog.md)
   - commit the changes
-- recheck whether submodules changed by doing `git submodule update --remote`
-and committing the changes after careful inspection
+- recheck whether submodules changed by doing `git submodule update --remote` and commit the changes after careful inspection
 - check the documentation
-  - update the [ChangeLog](../ChangeLog.md) again and include
-    version and release date
-- check presence of RPMs on
-  <https://build.opensuse.org/package/show/science:dlr/sumo_nightly>
+- check presence of RPMs on <https://build.opensuse.org/package/show/science:dlr/sumo_nightly>
 - add a new version tag
 ```
 > git tag -a v0_13_7 -m "tagging release 0.13.7, refs #563"
@@ -148,9 +147,7 @@ If everything is fine:
 <https://askubuntu.com/questions/642632/how-to-bump-the-version-of-a-package-available-in-another-users-ppa>)
   - this assumes you have the devscripts package as well as all sumo dependencies installed
   - unzip the special source release `tar xzf sumo_{{Version}}.orig.tar.gz`
-  - copy the debian dir one level up `cd sumo_{{Version}} && cp -a build_config/debian debian`
-  - modify the changelog, using `dch` (enter an email address which has write access to the ppa and a valid gpg key)
-  - run `dpkg-buildpackage -S` in the sumo dir and `dput -f ppa:sumo/stable ../sumo_{{Version}}_source.changes`
+  - run `cd sumo-{{Version}} && tools/build_config/ubuntu_release.sh` and enter the release comment
 - start a pull request against [winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/e/EclipseFoundation/SUMO)
 - upload the wheels to PyPI using `twine upload /s/daily/wheels/*{{Version}}*.whl`
 - scenarios (optional)
