@@ -140,7 +140,6 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
     }
     if (phases.size() > 1) {
         bool haveWarnedAboutUnusedStates = false;
-        std::vector<bool> foundGreen(phases.front()->getState().size(), false);
         for (int i = 0; i < (int)phases.size(); ++i) {
             // warn about unused states
             std::vector<int> nextPhases;
@@ -195,30 +194,35 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                         }
                     }
                 }
-                // warn about links that never get the green light
-                for (int j = 0; j < (int)state1.size(); ++j) {
-                    LinkState ls = (LinkState)state1[j];
-                    if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR || ls == LINKSTATE_TL_OFF_BLINKING || ls == LINKSTATE_TL_OFF_NOSIGNAL || ls == LINKSTATE_STOP) {
-                        foundGreen[j] = true;
-                    }
-                }
-            }
-        }
-        std::vector<bool> usedIndices(phases.front()->getState().size(), false);
-        for (auto lv : myLinks) {
-            for (const MSLink* link : lv) {
-                if (link->getTLIndex() >= 0) {
-                    usedIndices[link->getTLIndex()] = true;
-                }
-            }
-        }
-        for (int j = 0; j < (int)foundGreen.size(); ++j) {
-            if (!foundGreen[j] && usedIndices[j]) {
-                WRITE_WARNINGF(TL("Missing green phase in tlLogic '%', program '%' for tl-index %."), getID(), getProgramID(), j);
-                break;
             }
         }
     }
+    // warn about links that never get the green light
+    std::vector<bool> foundGreen(phases.front()->getState().size(), false);
+    for (int i = 0; i < (int)phases.size(); ++i) {
+        const std::string& state = phases[i]->getState();
+        for (int j = 0; j < (int)state.size(); ++j) {
+            LinkState ls = (LinkState)state[j];
+            if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR || ls == LINKSTATE_TL_OFF_BLINKING || ls == LINKSTATE_TL_OFF_NOSIGNAL || ls == LINKSTATE_STOP) {
+                foundGreen[j] = true;
+            }
+        }
+    }
+    std::vector<bool> usedIndices(phases.front()->getState().size(), false);
+    for (auto lv : myLinks) {
+        for (const MSLink* link : lv) {
+            if (link->getTLIndex() >= 0) {
+                usedIndices[link->getTLIndex()] = true;
+            }
+        }
+    }
+    for (int j = 0; j < (int)foundGreen.size(); ++j) {
+        if (!foundGreen[j] && usedIndices[j]) {
+            WRITE_WARNINGF(TL("Missing green phase in tlLogic '%', program '%' for tl-index %."), getID(), getProgramID(), j);
+            break;
+        }
+    }
+
     // check incompatible junction logic
     // this can happen if the network was built with a very different signal
     // plan from the one currently being used.
