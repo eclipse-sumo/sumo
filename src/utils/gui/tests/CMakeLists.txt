@@ -1,8 +1,12 @@
 set(utils_gui_tests_STAT_SRCS
     GUIGlobalTestSystem.cpp
     GUIGlobalTestSystem.h
+    GUITestSystem.cpp
+    GUITestSystem.h
     GUINeteditTestSystem.cpp
     GUINeteditTestSystem.h
+    GUISumoTestSystem.cpp
+    GUISumoTestSystem.h
 )
 
 add_library(utils_gui_tests STATIC ${utils_gui_tests_STAT_SRCS})
