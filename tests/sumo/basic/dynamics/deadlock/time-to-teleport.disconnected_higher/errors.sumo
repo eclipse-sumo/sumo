@@ -1,3 +1,4 @@
+Warning: Missing green phase in tlLogic 'C', program '1' for tl-index 0.
 Warning: Teleporting vehicle 'v_1'; waited too long (yield), lane='NC_0', time=301.00.
 Warning: Vehicle 'v_1' ends teleporting on edge 'CS', time=301.00.
 Warning: Teleporting vehicle 'v_0'; waited too long (wrong lane, disconnected), lane='SC_0', time=1001.00.
