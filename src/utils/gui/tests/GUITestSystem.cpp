@@ -329,6 +329,7 @@ GUITestSystem::run() {
     for (const auto &testStep : myTestSteps) {
         // stop thread until nextTest() is called in FXIMPLEMENT_TESTING
         myContinue = false;
+        myCurrentSelector = testStep->getSelector();
         // continue depending of step type
         if (testStep->getCategory() == "abstractView") {
             myAbstractView->handle(this, testStep->getSelector(), (void*)testStep->getEvent());
