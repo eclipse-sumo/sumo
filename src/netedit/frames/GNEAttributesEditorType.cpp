@@ -60,7 +60,7 @@ FXDEFMAP(GNEAttributesEditorType) GNEAttributeTableMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEAttributesEditorType,  MFXGroupBoxModule,  GNEAttributeTableMap,   ARRAYNUMBER(GNEAttributeTableMap))
+FXIMPLEMENT_NETEDIT(GNEAttributesEditorType,  MFXGroupBoxModule,  GNEAttributeTableMap,   ARRAYNUMBER(GNEAttributeTableMap))
 
 // ===========================================================================
 // method definitions

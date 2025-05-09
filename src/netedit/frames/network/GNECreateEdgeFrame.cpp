@@ -55,8 +55,8 @@ FXDEFMAP(GNECreateEdgeFrame::LaneTypeSelector) LaneTypeSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNECreateEdgeFrame::EdgeTypeSelector,       MFXGroupBoxModule,     EdgeTypeSelectorMap,    ARRAYNUMBER(EdgeTypeSelectorMap))
-FXIMPLEMENT_TESTING(GNECreateEdgeFrame::LaneTypeSelector,       MFXGroupBoxModule,     LaneTypeSelectorMap,    ARRAYNUMBER(LaneTypeSelectorMap))
+FXIMPLEMENT_NETEDIT(GNECreateEdgeFrame::EdgeTypeSelector,       MFXGroupBoxModule,     EdgeTypeSelectorMap,    ARRAYNUMBER(EdgeTypeSelectorMap))
+FXIMPLEMENT_NETEDIT(GNECreateEdgeFrame::LaneTypeSelector,       MFXGroupBoxModule,     LaneTypeSelectorMap,    ARRAYNUMBER(LaneTypeSelectorMap))
 
 
 // ===========================================================================

@@ -36,7 +36,7 @@ FXDEFMAP(GNEUndoListDialog) GNEUndoListDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GNEUndoListDialogMap))
+FXIMPLEMENT_NETEDIT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GNEUndoListDialogMap))
 
 // ===========================================================================
 // member method definitions

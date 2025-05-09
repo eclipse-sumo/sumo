@@ -61,10 +61,10 @@ FXDEFMAP(GNESelectorFrame::SelectionHierarchy) SelectionHierarchyMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNESelectorFrame::ModificationMode,     MFXGroupBoxModule,   ModificationModeMap,    ARRAYNUMBER(ModificationModeMap))
-FXIMPLEMENT_TESTING(GNESelectorFrame::VisualScaling,        MFXGroupBoxModule,   VisualScalingMap,       ARRAYNUMBER(VisualScalingMap))
-FXIMPLEMENT_TESTING(GNESelectorFrame::SelectionOperation,   MFXGroupBoxModule,   SelectionOperationMap,  ARRAYNUMBER(SelectionOperationMap))
-FXIMPLEMENT_TESTING(GNESelectorFrame::SelectionHierarchy,   MFXGroupBoxModule,   SelectionHierarchyMap,  ARRAYNUMBER(SelectionHierarchyMap))
+FXIMPLEMENT_NETEDIT(GNESelectorFrame::ModificationMode,     MFXGroupBoxModule,   ModificationModeMap,    ARRAYNUMBER(ModificationModeMap))
+FXIMPLEMENT_NETEDIT(GNESelectorFrame::VisualScaling,        MFXGroupBoxModule,   VisualScalingMap,       ARRAYNUMBER(VisualScalingMap))
+FXIMPLEMENT_NETEDIT(GNESelectorFrame::SelectionOperation,   MFXGroupBoxModule,   SelectionOperationMap,  ARRAYNUMBER(SelectionOperationMap))
+FXIMPLEMENT_NETEDIT(GNESelectorFrame::SelectionHierarchy,   MFXGroupBoxModule,   SelectionHierarchyMap,  ARRAYNUMBER(SelectionHierarchyMap))
 
 // ===========================================================================
 // method definitions

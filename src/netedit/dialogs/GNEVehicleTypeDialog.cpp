@@ -49,8 +49,8 @@ FXDEFMAP(GNEVehicleTypeDialog::CarFollowingModelParameters) CarFollowingModelPar
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEVehicleTypeDialog::VTypeAttributes,              FXVerticalFrame,    VTypeAttributesMap,             ARRAYNUMBER(VTypeAttributesMap))
-FXIMPLEMENT_TESTING(GNEVehicleTypeDialog::CarFollowingModelParameters,  FXGroupBox,         CarFollowingModelParametersMap, ARRAYNUMBER(CarFollowingModelParametersMap))
+FXIMPLEMENT_NETEDIT(GNEVehicleTypeDialog::VTypeAttributes,              FXVerticalFrame,    VTypeAttributesMap,             ARRAYNUMBER(VTypeAttributesMap))
+FXIMPLEMENT_NETEDIT(GNEVehicleTypeDialog::CarFollowingModelParameters,  FXGroupBox,         CarFollowingModelParametersMap, ARRAYNUMBER(CarFollowingModelParametersMap))
 
 // ===========================================================================
 // member method definitions

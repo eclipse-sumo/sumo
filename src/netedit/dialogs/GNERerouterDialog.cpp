@@ -42,7 +42,7 @@ FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNERerouterDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
+FXIMPLEMENT_NETEDIT(GNERerouterDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
 
 // ===========================================================================
 // member method definitions

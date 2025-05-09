@@ -42,7 +42,7 @@ FXDEFMAP(GNEAdditionalDialog) GNEAdditionalDialogMap[] = {
 };
 
 // Object abstract implementation
-FXIMPLEMENT_TESTING_ABSTRACT(GNEAdditionalDialog, FXTopWindow, GNEAdditionalDialogMap, ARRAYNUMBER(GNEAdditionalDialogMap))
+FXIMPLEMENT_NETEDIT_ABSTRACT(GNEAdditionalDialog, FXTopWindow, GNEAdditionalDialogMap, ARRAYNUMBER(GNEAdditionalDialogMap))
 
 // ===========================================================================
 // member method definitions

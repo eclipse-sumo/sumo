@@ -50,8 +50,8 @@ FXDEFMAP(GNEConnectorFrame::ConnectionOperations) ConnectionOperationsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEConnectorFrame::ConnectionModifications, MFXGroupBoxModule, ConnectionModificationsMap, ARRAYNUMBER(ConnectionModificationsMap))
-FXIMPLEMENT_TESTING(GNEConnectorFrame::ConnectionOperations,    MFXGroupBoxModule, ConnectionOperationsMap,    ARRAYNUMBER(ConnectionOperationsMap))
+FXIMPLEMENT_NETEDIT(GNEConnectorFrame::ConnectionModifications, MFXGroupBoxModule, ConnectionModificationsMap, ARRAYNUMBER(ConnectionModificationsMap))
+FXIMPLEMENT_NETEDIT(GNEConnectorFrame::ConnectionOperations,    MFXGroupBoxModule, ConnectionOperationsMap,    ARRAYNUMBER(ConnectionOperationsMap))
 
 
 // ===========================================================================

@@ -58,10 +58,10 @@ FXDEFMAP(GNETAZFrame::TAZEdgesGraphic) TAZEdgesGraphicMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNETAZFrame::TAZSaveChanges,            MFXGroupBoxModule,     TAZSaveChangesMap,              ARRAYNUMBER(TAZSaveChangesMap))
-FXIMPLEMENT_TESTING(GNETAZFrame::TAZChildDefaultParameters, MFXGroupBoxModule,     TAZChildDefaultParametersMap,   ARRAYNUMBER(TAZChildDefaultParametersMap))
-FXIMPLEMENT_TESTING(GNETAZFrame::TAZSelectionStatistics,    MFXGroupBoxModule,     TAZSelectionStatisticsMap,      ARRAYNUMBER(TAZSelectionStatisticsMap))
-FXIMPLEMENT_TESTING(GNETAZFrame::TAZEdgesGraphic,           MFXGroupBoxModule,     TAZEdgesGraphicMap,             ARRAYNUMBER(TAZEdgesGraphicMap))
+FXIMPLEMENT_NETEDIT(GNETAZFrame::TAZSaveChanges,            MFXGroupBoxModule,     TAZSaveChangesMap,              ARRAYNUMBER(TAZSaveChangesMap))
+FXIMPLEMENT_NETEDIT(GNETAZFrame::TAZChildDefaultParameters, MFXGroupBoxModule,     TAZChildDefaultParametersMap,   ARRAYNUMBER(TAZChildDefaultParametersMap))
+FXIMPLEMENT_NETEDIT(GNETAZFrame::TAZSelectionStatistics,    MFXGroupBoxModule,     TAZSelectionStatisticsMap,      ARRAYNUMBER(TAZSelectionStatisticsMap))
+FXIMPLEMENT_NETEDIT(GNETAZFrame::TAZEdgesGraphic,           MFXGroupBoxModule,     TAZEdgesGraphicMap,             ARRAYNUMBER(TAZEdgesGraphicMap))
 
 
 // ===========================================================================

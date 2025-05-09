@@ -51,7 +51,7 @@ FXDEFMAP(GNEElementTree) HierarchicalElementTreeMap[] = {
 
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEElementTree,    MFXGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
+FXIMPLEMENT_NETEDIT(GNEElementTree,    MFXGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
 
 // ===========================================================================
 // method definitions

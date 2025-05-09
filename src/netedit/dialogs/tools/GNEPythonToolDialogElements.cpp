@@ -88,14 +88,14 @@ FXDEFMAP(GNEPythonToolDialogElements::SumoConfigArgument) SumoConfigArgumentMap[
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING_ABSTRACT(GNEPythonToolDialogElements::Argument,     FXHorizontalFrame,                              ArgumentMap,            ARRAYNUMBER(ArgumentMap))
-FXIMPLEMENT_TESTING(GNEPythonToolDialogElements::EdgeVectorArgument,    GNEPythonToolDialogElements::Argument,          EdgeVectorArgumentMap,  ARRAYNUMBER(EdgeVectorArgumentMap))
-FXIMPLEMENT_TESTING(GNEPythonToolDialogElements::FileNameArgument,      GNEPythonToolDialogElements::Argument,          FileNameArgumentMap,    ARRAYNUMBER(FileNameArgumentMap))
-FXIMPLEMENT_TESTING(GNEPythonToolDialogElements::NetworkArgument,       GNEPythonToolDialogElements::FileNameArgument,  NetworkArgumentMap,     ARRAYNUMBER(NetworkArgumentMap))
-FXIMPLEMENT_TESTING(GNEPythonToolDialogElements::AdditionalArgument,    GNEPythonToolDialogElements::FileNameArgument,  AdditionalArgumentMap,  ARRAYNUMBER(AdditionalArgumentMap))
-FXIMPLEMENT_TESTING(GNEPythonToolDialogElements::RouteArgument,         GNEPythonToolDialogElements::FileNameArgument,  RouteArgumentMap,       ARRAYNUMBER(RouteArgumentMap))
-FXIMPLEMENT_TESTING(GNEPythonToolDialogElements::DataArgument,          GNEPythonToolDialogElements::FileNameArgument,  DataArgumentMap,        ARRAYNUMBER(DataArgumentMap))
-FXIMPLEMENT_TESTING(GNEPythonToolDialogElements::SumoConfigArgument,    GNEPythonToolDialogElements::FileNameArgument,  SumoConfigArgumentMap,  ARRAYNUMBER(SumoConfigArgumentMap))
+FXIMPLEMENT_NETEDIT_ABSTRACT(GNEPythonToolDialogElements::Argument,     FXHorizontalFrame,                              ArgumentMap,            ARRAYNUMBER(ArgumentMap))
+FXIMPLEMENT_NETEDIT(GNEPythonToolDialogElements::EdgeVectorArgument,    GNEPythonToolDialogElements::Argument,          EdgeVectorArgumentMap,  ARRAYNUMBER(EdgeVectorArgumentMap))
+FXIMPLEMENT_NETEDIT(GNEPythonToolDialogElements::FileNameArgument,      GNEPythonToolDialogElements::Argument,          FileNameArgumentMap,    ARRAYNUMBER(FileNameArgumentMap))
+FXIMPLEMENT_NETEDIT(GNEPythonToolDialogElements::NetworkArgument,       GNEPythonToolDialogElements::FileNameArgument,  NetworkArgumentMap,     ARRAYNUMBER(NetworkArgumentMap))
+FXIMPLEMENT_NETEDIT(GNEPythonToolDialogElements::AdditionalArgument,    GNEPythonToolDialogElements::FileNameArgument,  AdditionalArgumentMap,  ARRAYNUMBER(AdditionalArgumentMap))
+FXIMPLEMENT_NETEDIT(GNEPythonToolDialogElements::RouteArgument,         GNEPythonToolDialogElements::FileNameArgument,  RouteArgumentMap,       ARRAYNUMBER(RouteArgumentMap))
+FXIMPLEMENT_NETEDIT(GNEPythonToolDialogElements::DataArgument,          GNEPythonToolDialogElements::FileNameArgument,  DataArgumentMap,        ARRAYNUMBER(DataArgumentMap))
+FXIMPLEMENT_NETEDIT(GNEPythonToolDialogElements::SumoConfigArgument,    GNEPythonToolDialogElements::FileNameArgument,  SumoConfigArgumentMap,  ARRAYNUMBER(SumoConfigArgumentMap))
 
 
 // ===========================================================================

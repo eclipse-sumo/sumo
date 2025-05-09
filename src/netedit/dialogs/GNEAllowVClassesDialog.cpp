@@ -43,7 +43,7 @@ FXDEFMAP(GNEAllowVClassesDialog) GNEAllowVClassesDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEAllowVClassesDialog, FXDialogBox, GNEAllowVClassesDialogMap, ARRAYNUMBER(GNEAllowVClassesDialogMap))
+FXIMPLEMENT_NETEDIT(GNEAllowVClassesDialog, FXDialogBox, GNEAllowVClassesDialogMap, ARRAYNUMBER(GNEAllowVClassesDialogMap))
 
 // ===========================================================================
 // member method definitions

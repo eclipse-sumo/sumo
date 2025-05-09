@@ -44,7 +44,7 @@ FXDEFMAP(GNEVariableSpeedSignDialog) GNERerouterDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEVariableSpeedSignDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
+FXIMPLEMENT_NETEDIT(GNEVariableSpeedSignDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYNUMBER(GNERerouterDialogMap))
 
 // ===========================================================================
 // member method definitions

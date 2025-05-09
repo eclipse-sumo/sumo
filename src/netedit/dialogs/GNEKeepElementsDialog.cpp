@@ -35,7 +35,7 @@ FXDEFMAP(GNEKeepElementsDialog) GNEKeepElementsDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEKeepElementsDialog, FXDialogBox, GNEKeepElementsDialogMap, ARRAYNUMBER(GNEKeepElementsDialogMap))
+FXIMPLEMENT_NETEDIT(GNEKeepElementsDialog, FXDialogBox, GNEKeepElementsDialogMap, ARRAYNUMBER(GNEKeepElementsDialogMap))
 
 // ===========================================================================
 // member method definitions
