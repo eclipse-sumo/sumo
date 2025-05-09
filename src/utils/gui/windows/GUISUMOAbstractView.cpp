@@ -88,7 +88,6 @@
 #endif
 #endif
 
-
 // ===========================================================================
 // debug constants
 // ===========================================================================
@@ -100,13 +99,10 @@
 
 const double GUISUMOAbstractView::SENSITIVITY = 0.1; // meters
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
 
-// ===========================================================================
-// member method definitions
-// ===========================================================================
-/* -------------------------------------------------------------------------
- * GUISUMOAbstractView - FOX callback mapping
- * ----------------------------------------------------------------------- */
 FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[] = {
     FXMAPFUNC(SEL_CONFIGURE,            0,                              GUISUMOAbstractView::onConfigure),
     FXMAPFUNC(SEL_PAINT,                0,                              GUISUMOAbstractView::onPaint),
@@ -130,13 +126,12 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[] = {
     FXMAPFUNC(SEL_CHANGED,              MID_SIMPLE_VIEW_COLORCHANGE,    GUISUMOAbstractView::onVisualizationChange),
 };
 
+FXIMPLEMENT_SUMO_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, ARRAYNUMBER(GUISUMOAbstractViewMap))
 
-FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, ARRAYNUMBER(GUISUMOAbstractViewMap))
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 
-
-/* -------------------------------------------------------------------------
- * GUISUMOAbstractView - methods
- * ----------------------------------------------------------------------- */
 GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, FXGLVisual* glVis, FXGLCanvas* share) :
     FXGLCanvas(p, glVis, share, p, MID_GLCANVAS, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
     myApp(&app),
