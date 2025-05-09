@@ -16,9 +16,10 @@
 # @author  Michael Behrisch
 # @date    2025-05-08
 
+OUT_DIR=${1:-.}
 BASE_URL="https://download.eclipse.org"
 LATEST=$(curl -s $BASE_URL/sumo/daily/ | \
   grep -oE "href='(/sumo/daily/sumo[^']+\.pkg)'" | \
   sed "s/href='//;s/'//" | \
   sort -V | tail -n1)
-curl -o $(basename $LATEST) $BASE_URL$LATEST
+curl --no-progress-meter --remote-time -o $OUT_DIR/$(basename $LATEST) $BASE_URL$LATEST
