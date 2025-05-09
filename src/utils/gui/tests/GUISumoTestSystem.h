@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUINeteditTestSystem.h
+/// @file    GUISumoTestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
-// Thread used for testing netedit
+// Thread used for testing sumo
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -35,14 +35,14 @@ class GNEApplicationWindow;
 // class definitions
 // ===========================================================================
 
-class GUINeteditTestSystem : public FXObject, public FXThread {
+class GUISumoTestSystem : public FXObject, public FXThread {
 
 public:
     /// @brief constructor
-    GUINeteditTestSystem();
+    GUISumoTestSystem();
 
     /// @brief destructor
-    ~GUINeteditTestSystem();
+    ~GUISumoTestSystem();
 
     /// @brief start test
     void startTests(GNEApplicationWindow* neteditApplicationWindow);
