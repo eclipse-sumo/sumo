@@ -332,7 +332,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
         // start fresh from the current edge
         if (myHolder.isStoppedParking()) {
             // parking stop must be ended normally
-            MSStop& stop = myHolder.getNextStop();
+            MSStop& stop = myHolder.getNextStopMutable();
             stop.duration = 0;
             lastPos = stop.pars.endPos;
             if (myHolder.isStoppedTriggered()) {
@@ -753,7 +753,7 @@ MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist)
     }
     if (myHolder.isStopped() && (isEmpty() || MSGlobals::gUseMesoSim) && myHolder.getNextStop().endBoarding > myServiceEnd) {
         // limit duration of stop (but only for idling-related stops)
-        myHolder.getNextStop().endBoarding = myServiceEnd;
+        myHolder.getNextStopMutable().endBoarding = myServiceEnd;
     }
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND && myIsStopped != myHolder.isStopped()) {

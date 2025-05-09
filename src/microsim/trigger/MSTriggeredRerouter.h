@@ -41,6 +41,7 @@ class MSNet;
 class MSLane;
 class MSRoute;
 class SUMOVehicle;
+class MSBaseVehicle;
 class MSParkingArea;
 class MSRailSignal;
 
@@ -122,6 +123,11 @@ public:
         double sidingLength = 0;
         /// @brief The threshold in savings for triggering reroute
         double minSaving;
+        //}
+
+        /// @name stationReroute
+        ///@{
+        std::vector<MSStoppingPlaceRerouter::StoppingPlaceVisible> stopAlternatives;
         //}
 
         MSEdgeVector getClosed() const {
@@ -207,14 +213,14 @@ public:
         return myPosition;
     }
 
-    /// @brief Return the number of occupied places of the ParkingArea
-    double getStoppingPlaceOccupancy(MSStoppingPlace* parkingArea);
+    /// @brief Return the number of occupied places of the stopping place
+    double getStoppingPlaceOccupancy(MSStoppingPlace* sp);
 
-    /// @brief Return the number of occupied places of the StoppingPlace from the previous time step
-    double getLastStepStoppingPlaceOccupancy(MSStoppingPlace* parkingArea);
+    /// @brief Return the number of occupied places of the stopping place from the previous time step
+    double getLastStepStoppingPlaceOccupancy(MSStoppingPlace* sp);
 
-    /// @brief Return the number of places the ParkingArea provides
-    double getStoppingPlaceCapacity(MSStoppingPlace* parkingArea);
+    /// @brief Return the number of places the stopping place provides
+    double getStoppingPlaceCapacity(MSStoppingPlace* sp);
 
     /// @brief store the blocked ParkingArea in the vehicle
     void rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* parkingArea, bool blocked);
@@ -240,6 +246,9 @@ public:
 
     /// @brief determine whether veh should switch from main to siding to be overtaken and return the overtaking vehicle or nullptr
     std::pair<const SUMOVehicle*, MSRailSignal*> overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::const_iterator mainStart, const MSTriggeredRerouter::RerouteInterval*);
+
+    /// @brief consider switching the location of the upcoming stop
+    void checkStopSwitch(MSBaseVehicle& veh, const MSTriggeredRerouter::RerouteInterval* def);
 
     /// @brief find the last downstream signal on the given route
     MSRailSignal* findSignal(ConstMSEdgeVector::const_iterator begin, ConstMSEdgeVector::const_iterator end);
@@ -326,6 +335,8 @@ protected:
 
     /// whether this rerouter has loaded parkingReroute definitions
     bool myHaveParkProbs;
+
+    std::set<const MSStoppingPlace*> myBlockedStoppingPlaces;
 
     /// @brief special destination values
     static MSEdge mySpecialDest_keepDestination;

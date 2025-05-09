@@ -116,6 +116,12 @@
                                 <xsd:attribute name="minSaving" type="nonNegativeFloatType" use="optional"/>
                             </xsd:complexType>
                         </xsd:element>
+                        <xsd:element name="stationReroute">
+                            <xsd:complexType>
+                                <xsd:attribute name="id" type="xsd:string" use="required"/>
+                                <xsd:attribute name="minSaving" type="nonNegativeFloatType" use="optional"/>
+                            </xsd:complexType>
+                        </xsd:element>
                     </xsd:choice>
                     <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"/>
                     <xsd:attribute name="end" type="nonNegativeFloatType" use="required"/>
@@ -378,6 +384,12 @@
                             <xsd:complexType>
                                 <xsd:attribute name="main" type="xsd:string" use="required"/>
                                 <xsd:attribute name="siding" type="xsd:string" use="required"/>
+                                <xsd:attribute name="minSaving" type="nonNegativeFloatType" use="optional"/>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="stationReroute">
+                            <xsd:complexType>
+                                <xsd:attribute name="id" type="xsd:string" use="required"/>
                                 <xsd:attribute name="minSaving" type="nonNegativeFloatType" use="optional"/>
                             </xsd:complexType>
                         </xsd:element>

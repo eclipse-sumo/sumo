@@ -1,0 +1,5 @@
+-n net.net.xml
+-a input_additional.add.xml,input_additional2.add.xml,input_routes.rou.xml
+-r input_routes2.rou.xml
+--no-step-log
+--time-to-teleport 1800

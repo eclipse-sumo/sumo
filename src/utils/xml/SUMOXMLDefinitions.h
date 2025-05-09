@@ -131,6 +131,8 @@ enum SumoXMLTag {
     SUMO_TAG_VIA_PROB_REROUTE,
     /// @brief decision point for rerouting to be overtaken
     SUMO_TAG_OVERTAKING_REROUTE,
+    /// @brief decision point for switching trainStop/busStop within a station
+    SUMO_TAG_STATION_REROUTE,
     /// @brief A variable speed sign
     SUMO_TAG_VSS,
     /// @brief VSS Symbol

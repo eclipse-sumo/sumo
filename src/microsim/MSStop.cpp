@@ -170,4 +170,26 @@ MSStop::isInRange(const double pos, const double tolerance) const {
     return pars.startPos - tolerance <= pos && pars.endPos + tolerance >= pos;
 }
 
+
+std::vector<MSStoppingPlace*>
+MSStop::getPlaces() const {
+    std::vector<MSStoppingPlace*> result;
+    if (busstop != nullptr) {
+        result.push_back(busstop);
+    }
+    if (containerstop != nullptr) {
+        result.push_back(containerstop);
+    }
+    if (parkingarea != nullptr) {
+        result.push_back(parkingarea);
+    }
+    if (chargingStation != nullptr) {
+        result.push_back(chargingStation);
+    }
+    if (overheadWireSegment != nullptr) {
+        result.push_back(overheadWireSegment);
+    }
+    return result;
+}
+
 /****************************************************************************/
