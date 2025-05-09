@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUINeteditTestSystem.h
+/// @file    GUIGlobalTestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2025
 ///
@@ -21,11 +21,13 @@
 #include <config.h>
 
 #include "GUINeteditTestSystem.h"
+#include "GUISumoTestSystem.h"
 
 // ===========================================================================
 // global variable declarations
 // ===========================================================================
 
+extern GUISumoTestSystem gSumoTestSystem;
 extern GUINeteditTestSystem gNeteditTestSystem;
 
 // ===========================================================================
@@ -36,6 +38,37 @@ extern GUINeteditTestSystem gNeteditTestSystem;
 //#define TEST_SIGNALS
 
 #ifndef TEST_SIGNALS
+    #define FXIMPLEMENT_SUMO(classname, baseclassname, mapping, nmappings) \
+        FX::FXObject* classname::manufacture(){  \
+            return new classname;  \
+        } \
+        const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
+        long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
+            const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
+            int result; \
+            if (me) { \
+                result = (this->*me->func)(sender, sel, ptr); \
+            } else { \
+                result = baseclassname::handle(sender, sel, ptr); \
+            } \
+            gSumoTestSystem.nextTest(sender, sel); \
+            return result;\
+        }
+
+    #define FXIMPLEMENT_NETEDIT_SUMO(classname, baseclassname, mapping, nmappings) \
+        const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
+        long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
+            const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
+            int result; \
+            if (me) { \
+                result = (this->*me->func)(sender, sel, ptr); \
+            } else { \
+                result = baseclassname::handle(sender, sel, ptr); \
+            } \
+            gSumoTestSystem.nextTest(sender, sel); \
+            return result;\
+        }
+
     #define FXIMPLEMENT_NETEDIT(classname, baseclassname, mapping, nmappings) \
         FX::FXObject* classname::manufacture(){  \
             return new classname;  \
@@ -56,25 +89,58 @@ extern GUINeteditTestSystem gNeteditTestSystem;
     #define FXIMPLEMENT_NETEDIT_ABSTRACT(classname, baseclassname, mapping, nmappings) \
         const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
-        const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
-        int result; \
-        if (me) { \
-            result = (this->*me->func)(sender, sel, ptr); \
-        } else { \
-            result = baseclassname::handle(sender, sel, ptr); \
-        } \
-        gNeteditTestSystem.nextTest(sender, sel); \
-        return result;\
+            const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
+            int result; \
+            if (me) { \
+                result = (this->*me->func)(sender, sel, ptr); \
+            } else { \
+                result = baseclassname::handle(sender, sel, ptr); \
+            } \
+            gNeteditTestSystem.nextTest(sender, sel); \
+            return result;\
         }
 
 #else
+    #define FXIMPLEMENT_SUMO(classname, baseclassname, mapping, nmappings) \
+        FX::FXObject* classname::manufacture(){  \
+            return new classname;  \
+        } \
+        const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
+        long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
+            gSumoTestSystem.writeSignalInfo(sender, sel); \
+            const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
+            int result; \
+            if (me) { \
+                result = (this->*me->func)(sender, sel, ptr); \
+            } else { \
+                result = baseclassname::handle(sender, sel, ptr); \
+            } \
+            gSumoTestSystem.nextTest(sender, sel); \
+            return result;\
+        }
+
+    #define FXIMPLEMENT_NETEDIT_SUMO(classname, baseclassname, mapping, nmappings) \
+        const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
+        long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
+        gSumoTestSystem.writeSignalInfo(sender, sel); \
+            const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
+            int result; \
+            if (me) { \
+                result = (this->*me->func)(sender, sel, ptr); \
+            } else { \
+                result = baseclassname::handle(sender, sel, ptr); \
+            } \
+            gSumoTestSystem.nextTest(sender, sel); \
+            return result;\
+        }
+
     #define FXIMPLEMENT_NETEDIT(classname, baseclassname, mapping, nmappings) \
         FX::FXObject* classname::manufacture(){  \
             return new classname;  \
         } \
         const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
-            gNeteditTestSystem.writeSignalInfo(sender, sel); \
+            gSumoTestSystem.writeSignalInfo(sender, sel); \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
@@ -89,7 +155,7 @@ extern GUINeteditTestSystem gNeteditTestSystem;
     #define FXIMPLEMENT_NETEDIT_ABSTRACT(classname, baseclassname, mapping, nmappings) \
         const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
-            gNeteditTestSystem.writeSignalInfo(sender, sel); \
+            gSumoTestSystem.writeSignalInfo(sender, sel); \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
@@ -100,4 +166,6 @@ extern GUINeteditTestSystem gNeteditTestSystem;
             gNeteditTestSystem.nextTest(sender, sel); \
             return result;\
         }
+
+
 #endif
