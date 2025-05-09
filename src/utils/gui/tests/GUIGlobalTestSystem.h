@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUITestSystem.h
+/// @file    GUINeteditTestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2025
 ///
@@ -20,13 +20,13 @@
 #pragma once
 #include <config.h>
 
-#include "GUITestSystem.h"
+#include "GUINeteditTestSystem.h"
 
 // ===========================================================================
 // global variable declarations
 // ===========================================================================
 
-extern GUITestSystem gTestSystem;
+extern GUINeteditTestSystem gNeteditTestSystem;
 
 // ===========================================================================
 // macro declarations
@@ -49,7 +49,7 @@ extern GUITestSystem gTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            gTestSystem.nextTest(sender, sel); \
+            gNeteditTestSystem.nextTest(sender, sel); \
             return result;\
         }
 
@@ -63,7 +63,7 @@ extern GUITestSystem gTestSystem;
         } else { \
             result = baseclassname::handle(sender, sel, ptr); \
         } \
-        gTestSystem.nextTest(sender, sel); \
+        gNeteditTestSystem.nextTest(sender, sel); \
         return result;\
         }
 
@@ -74,7 +74,7 @@ extern GUITestSystem gTestSystem;
         } \
         const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
-            gTestSystem.writeSignalInfo(sender, sel); \
+            gNeteditTestSystem.writeSignalInfo(sender, sel); \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
@@ -82,14 +82,14 @@ extern GUITestSystem gTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            gTestSystem.nextTest(sender, sel); \
+            gNeteditTestSystem.nextTest(sender, sel); \
             return result;\
         }
 
     #define FXIMPLEMENT_NETEDIT_ABSTRACT(classname, baseclassname, mapping, nmappings) \
         const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
-            gTestSystem.writeSignalInfo(sender, sel); \
+            gNeteditTestSystem.writeSignalInfo(sender, sel); \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
@@ -97,7 +97,7 @@ extern GUITestSystem gTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            gTestSystem.nextTest(sender, sel); \
+            gNeteditTestSystem.nextTest(sender, sel); \
             return result;\
         }
 #endif

@@ -1396,7 +1396,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
         }
     */
     // run all test in the first draw
-    gTestSystem.startTests(myViewParent->getGNEAppWindows());
+    gNeteditTestSystem.startTests(myViewParent->getGNEAppWindows());
     return hits;
 }
 

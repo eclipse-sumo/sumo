@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUITestSystem.h
+/// @file    GUINeteditTestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -30,16 +30,16 @@
 #include <thread>
 #include <chrono>
 
-#include "GUITestSystem.h"
+#include "GUINeteditTestSystem.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GUITestSystem::GUITestSystem() {}
+GUINeteditTestSystem::GUINeteditTestSystem() {}
 
 
-GUITestSystem::~GUITestSystem() {
+GUINeteditTestSystem::~GUINeteditTestSystem() {
     for (auto testStep : myTestSteps) {
         delete testStep;
     }
@@ -47,7 +47,7 @@ GUITestSystem::~GUITestSystem() {
 
 
 void
-GUITestSystem::startTests(GNEApplicationWindow* neteditApplicationWindow) {
+GUINeteditTestSystem::startTests(GNEApplicationWindow* neteditApplicationWindow) {
     // run rest only once
     if (myInitedTest == false) {
         myInitedTest = true;
@@ -65,7 +65,7 @@ GUITestSystem::startTests(GNEApplicationWindow* neteditApplicationWindow) {
 
 
 void
-GUITestSystem::nextTest(FXObject* sender, FXSelector sel) {
+GUINeteditTestSystem::nextTest(FXObject* sender, FXSelector sel) {
     // only continue if the signal was send by the test server
     if (sender == this) {
         myContinue = true;
@@ -74,7 +74,7 @@ GUITestSystem::nextTest(FXObject* sender, FXSelector sel) {
 
 
 void
-GUITestSystem::writeSignalInfo(FXObject* sender, FXSelector sel) const {
+GUINeteditTestSystem::writeSignalInfo(FXObject* sender, FXSelector sel) const {
     // ignore update
     if (FXSELTYPE(sel) == SEL_UPDATE) {
         return;
@@ -330,7 +330,7 @@ GUITestSystem::writeSignalInfo(FXObject* sender, FXSelector sel) const {
 
 
 int
-GUITestSystem::run() {
+GUINeteditTestSystem::run() {
     for (const auto &testStep : myTestSteps) {
         // stop thread until nextTest() is called in FXIMPLEMENT_TESTING
         myContinue = false;
@@ -425,7 +425,7 @@ GUITestSystem::run() {
 
 
 void
-GUITestSystem::processTestFile() {
+GUINeteditTestSystem::processTestFile() {
     const std::string testFile = OptionsCont::getOptions().getString("test-file");
     // open file
     std::ifstream strm(testFile);
@@ -447,14 +447,14 @@ GUITestSystem::processTestFile() {
 
 
 void
-GUITestSystem::waitForContinue() const {
+GUINeteditTestSystem::waitForContinue() const {
     while (!myContinue) {
         FXThread::sleep(10);  
     }
 }
 
 
-GUITestSystem::TestStep::TestStep(const std::string &row) {
+GUINeteditTestSystem::TestStep::TestStep(const std::string &row) {
     // first split between functions and arguments
     parseFunctionAndArguments(row);
     // continue depending of function
@@ -562,7 +562,7 @@ GUITestSystem::TestStep::TestStep(const std::string &row) {
 }
 
 
-GUITestSystem::TestStep::~TestStep() {
+GUINeteditTestSystem::TestStep::~TestStep() {
     for (auto event : myEvents) {
         delete event;
     }
@@ -572,20 +572,20 @@ GUITestSystem::TestStep::~TestStep() {
 }
 
 
-GUITestSystem::TestStepType
-GUITestSystem::TestStep::getStepType() const {
+GUINeteditTestSystem::TestStepType
+GUINeteditTestSystem::TestStep::getStepType() const {
     return myStepType;
 }
 
 
 FXString* 
-GUITestSystem::TestStep::getText() const {
+GUINeteditTestSystem::TestStep::getText() const {
     return myText;
 }
 
 
 const std::vector<FXEvent*>&
-GUITestSystem::TestStep::getEvents() const {
+GUINeteditTestSystem::TestStep::getEvents() const {
     return myEvents;
 }
 
@@ -616,7 +616,7 @@ GUITestSystem::TestStep::getEvents() const {
 
 
 FXEvent*
-GUITestSystem::TestStep::buildMouseMoveEvent(const int posX, const int posY) const {
+GUINeteditTestSystem::TestStep::buildMouseMoveEvent(const int posX, const int posY) const {
     FXEvent* moveEvent = new FXEvent();
     moveEvent->type = 9;
     moveEvent->win_x = posX;
@@ -629,7 +629,7 @@ GUITestSystem::TestStep::buildMouseMoveEvent(const int posX, const int posY) con
 
 
 FXEvent*
-GUITestSystem::TestStep::buildMouseLeftClickPressEvent(const int posX, const int posY) const {
+GUINeteditTestSystem::TestStep::buildMouseLeftClickPressEvent(const int posX, const int posY) const {
     FXEvent* leftClickPressEvent = new FXEvent();
     // set fxevent
     leftClickPressEvent->win_x = posX;
@@ -648,7 +648,7 @@ GUITestSystem::TestStep::buildMouseLeftClickPressEvent(const int posX, const int
 
 
 FXEvent*
-GUITestSystem::TestStep::buildMouseLeftClickReleaseEvent(const int posX, const int posY) const {
+GUINeteditTestSystem::TestStep::buildMouseLeftClickReleaseEvent(const int posX, const int posY) const {
     FXEvent* leftClickPressEvent = new FXEvent();
     // set fxevent
     leftClickPressEvent->win_x = posX;
@@ -667,7 +667,7 @@ GUITestSystem::TestStep::buildMouseLeftClickReleaseEvent(const int posX, const i
 
 
 void
-GUITestSystem::TestStep::parseFunctionAndArguments(const std::string &row) {
+GUINeteditTestSystem::TestStep::parseFunctionAndArguments(const std::string &row) {
     // make a copy to help editing row
     std::string editedRow = row;
     // every function has the format <function>(<argument1>, <argument2>,....,)
