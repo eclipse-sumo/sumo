@@ -204,8 +204,16 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 }
             }
         }
+        std::vector<bool> usedIndices(phases.front()->getState().size(), false);
+        for (auto lv : myLinks) {
+            for (const MSLink* link : lv) {
+                if (link->getTLIndex() >= 0) {
+                    usedIndices[link->getTLIndex()] = true;
+                }
+            }
+        }
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
-            if (!foundGreen[j]) {
+            if (!foundGreen[j] && usedIndices[j]) {
                 WRITE_WARNINGF(TL("Missing green phase in tlLogic '%', program '%' for tl-index %."), getID(), getProgramID(), j);
                 break;
             }
