@@ -51,9 +51,9 @@ FXDEFMAP(GNECrossingFrame::CreateCrossing) CreateCrossingMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNECrossingFrame::EdgesSelector,        MFXGroupBoxModule,     EdgesSelectorMap,       ARRAYNUMBER(EdgesSelectorMap))
-FXIMPLEMENT_TESTING(GNECrossingFrame::CrossingParameters,   MFXGroupBoxModule,     CrossingParametersMap,  ARRAYNUMBER(CrossingParametersMap))
-FXIMPLEMENT_TESTING(GNECrossingFrame::CreateCrossing,       MFXGroupBoxModule,     CreateCrossingMap,      ARRAYNUMBER(CreateCrossingMap))
+FXIMPLEMENT_NETEDIT(GNECrossingFrame::EdgesSelector,        MFXGroupBoxModule,     EdgesSelectorMap,       ARRAYNUMBER(EdgesSelectorMap))
+FXIMPLEMENT_NETEDIT(GNECrossingFrame::CrossingParameters,   MFXGroupBoxModule,     CrossingParametersMap,  ARRAYNUMBER(CrossingParametersMap))
+FXIMPLEMENT_NETEDIT(GNECrossingFrame::CreateCrossing,       MFXGroupBoxModule,     CreateCrossingMap,      ARRAYNUMBER(CreateCrossingMap))
 
 
 // ===========================================================================

@@ -87,7 +87,7 @@ FXDEFMAP(GNEViewParent) GNEViewParentMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEViewParent, GUIGlChildWindow, GNEViewParentMap, ARRAYNUMBER(GNEViewParentMap))
+FXIMPLEMENT_NETEDIT(GNEViewParent, GUIGlChildWindow, GNEViewParentMap, ARRAYNUMBER(GNEViewParentMap))
 
 
 // ===========================================================================

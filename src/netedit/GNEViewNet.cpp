@@ -249,7 +249,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewNetMap))
+FXIMPLEMENT_NETEDIT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewNetMap))
 
 
 // ===========================================================================

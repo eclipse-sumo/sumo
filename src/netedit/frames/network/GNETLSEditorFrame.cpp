@@ -105,11 +105,11 @@ FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNETLSEditorFrame::TLSJunction,     MFXGroupBoxModule,  TLSJunctionMap,     ARRAYNUMBER(TLSJunctionMap))
-FXIMPLEMENT_TESTING(GNETLSEditorFrame::TLSDefinition,   MFXGroupBoxModule,  TLSDefinitionMap,   ARRAYNUMBER(TLSDefinitionMap))
-FXIMPLEMENT_TESTING(GNETLSEditorFrame::TLSAttributes,   MFXGroupBoxModule,  TLSAttributesMap,   ARRAYNUMBER(TLSAttributesMap))
-FXIMPLEMENT_TESTING(GNETLSEditorFrame::TLSPhases,       MFXGroupBoxModule,  TLSPhasesMap,       ARRAYNUMBER(TLSPhasesMap))
-FXIMPLEMENT_TESTING(GNETLSEditorFrame::TLSFile,         MFXGroupBoxModule,  TLSFileMap,         ARRAYNUMBER(TLSFileMap))
+FXIMPLEMENT_NETEDIT(GNETLSEditorFrame::TLSJunction,     MFXGroupBoxModule,  TLSJunctionMap,     ARRAYNUMBER(TLSJunctionMap))
+FXIMPLEMENT_NETEDIT(GNETLSEditorFrame::TLSDefinition,   MFXGroupBoxModule,  TLSDefinitionMap,   ARRAYNUMBER(TLSDefinitionMap))
+FXIMPLEMENT_NETEDIT(GNETLSEditorFrame::TLSAttributes,   MFXGroupBoxModule,  TLSAttributesMap,   ARRAYNUMBER(TLSAttributesMap))
+FXIMPLEMENT_NETEDIT(GNETLSEditorFrame::TLSPhases,       MFXGroupBoxModule,  TLSPhasesMap,       ARRAYNUMBER(TLSPhasesMap))
+FXIMPLEMENT_NETEDIT(GNETLSEditorFrame::TLSFile,         MFXGroupBoxModule,  TLSFileMap,         ARRAYNUMBER(TLSFileMap))
 
 
 // ===========================================================================

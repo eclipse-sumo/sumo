@@ -46,8 +46,8 @@ FXDEFMAP(GNEContainer::GNESelectedContainersPopupMenu) selectedContainersPopupMe
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEContainer::GNEContainerPopupMenu,          GUIGLObjectPopupMenu, containerPopupMenuMap,           ARRAYNUMBER(containerPopupMenuMap))
-FXIMPLEMENT_TESTING(GNEContainer::GNESelectedContainersPopupMenu, GUIGLObjectPopupMenu, selectedContainersPopupMenuMap,  ARRAYNUMBER(selectedContainersPopupMenuMap))
+FXIMPLEMENT_NETEDIT(GNEContainer::GNEContainerPopupMenu,          GUIGLObjectPopupMenu, containerPopupMenuMap,           ARRAYNUMBER(containerPopupMenuMap))
+FXIMPLEMENT_NETEDIT(GNEContainer::GNESelectedContainersPopupMenu, GUIGLObjectPopupMenu, selectedContainersPopupMenuMap,  ARRAYNUMBER(selectedContainersPopupMenuMap))
 
 // ===========================================================================
 // GNEContainer::GNEContainerPopupMenu

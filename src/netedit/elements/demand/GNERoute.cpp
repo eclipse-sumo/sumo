@@ -45,7 +45,7 @@ FXDEFMAP(GNERoute::GNERoutePopupMenu) GNERoutePopupMenuMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNERoute::GNERoutePopupMenu, GUIGLObjectPopupMenu, GNERoutePopupMenuMap, ARRAYNUMBER(GNERoutePopupMenuMap))
+FXIMPLEMENT_NETEDIT(GNERoute::GNERoutePopupMenu, GUIGLObjectPopupMenu, GNERoutePopupMenuMap, ARRAYNUMBER(GNERoutePopupMenuMap))
 
 // ===========================================================================
 // GNERoute::GNERoutePopupMenu - methods

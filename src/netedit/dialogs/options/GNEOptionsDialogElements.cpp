@@ -56,8 +56,8 @@ FXDEFMAP(GNEOptionsDialogElements::InputFilename) InputFilenameMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING_ABSTRACT(GNEOptionsDialogElements::InputOption,     FXHorizontalFrame,                      InputOptionMap,     ARRAYNUMBER(InputOptionMap))
-FXIMPLEMENT_TESTING_ABSTRACT(GNEOptionsDialogElements::InputFilename,   GNEOptionsDialogElements::InputOption,  InputFilenameMap,   ARRAYNUMBER(InputFilenameMap))
+FXIMPLEMENT_NETEDIT_ABSTRACT(GNEOptionsDialogElements::InputOption,     FXHorizontalFrame,                      InputOptionMap,     ARRAYNUMBER(InputOptionMap))
+FXIMPLEMENT_NETEDIT_ABSTRACT(GNEOptionsDialogElements::InputFilename,   GNEOptionsDialogElements::InputOption,  InputFilenameMap,   ARRAYNUMBER(InputFilenameMap))
 
 // ===========================================================================
 // method definitions

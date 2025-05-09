@@ -39,7 +39,7 @@ FXDEFMAP(GNEGeometryPointDialog) GNEGeometryPointDialogMap[] = {
 };
 
 // Object abstract implementation
-FXIMPLEMENT_TESTING_ABSTRACT(GNEGeometryPointDialog, FXTopWindow, GNEGeometryPointDialogMap, ARRAYNUMBER(GNEGeometryPointDialogMap))
+FXIMPLEMENT_NETEDIT_ABSTRACT(GNEGeometryPointDialog, FXTopWindow, GNEGeometryPointDialogMap, ARRAYNUMBER(GNEGeometryPointDialogMap))
 
 // ===========================================================================
 // member method definitions

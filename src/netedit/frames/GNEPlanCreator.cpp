@@ -46,7 +46,7 @@ FXDEFMAP(GNEPlanCreator) PathCreatorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEPlanCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
+FXIMPLEMENT_NETEDIT(GNEPlanCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
 
 // ===========================================================================
 // method definitions

@@ -39,7 +39,7 @@ FXDEFMAP(GNEFixNetworkElements) GNEFixNetworkElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEFixNetworkElements, FXDialogBox, GNEFixNetworkElementsMap, ARRAYNUMBER(GNEFixNetworkElementsMap))
+FXIMPLEMENT_NETEDIT(GNEFixNetworkElements, FXDialogBox, GNEFixNetworkElementsMap, ARRAYNUMBER(GNEFixNetworkElementsMap))
 
 // ===========================================================================
 // member method definitions

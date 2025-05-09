@@ -36,7 +36,7 @@ extern GUITestSystem gTestSystem;
 //#define TEST_SIGNALS
 
 #ifndef TEST_SIGNALS
-    #define FXIMPLEMENT_TESTING(classname, baseclassname, mapping, nmappings) \
+    #define FXIMPLEMENT_NETEDIT(classname, baseclassname, mapping, nmappings) \
         FX::FXObject* classname::manufacture(){  \
             return new classname;  \
         } \
@@ -53,7 +53,7 @@ extern GUITestSystem gTestSystem;
             return result;\
         }
 
-    #define FXIMPLEMENT_TESTING_ABSTRACT(classname, baseclassname, mapping, nmappings) \
+    #define FXIMPLEMENT_NETEDIT_ABSTRACT(classname, baseclassname, mapping, nmappings) \
         const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
         const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
@@ -63,11 +63,12 @@ extern GUITestSystem gTestSystem;
         } else { \
             result = baseclassname::handle(sender, sel, ptr); \
         } \
+        gTestSystem.nextTest(sender, sel); \
         return result;\
         }
 
 #else
-    #define FXIMPLEMENT_TESTING(classname, baseclassname, mapping, nmappings) \
+    #define FXIMPLEMENT_NETEDIT(classname, baseclassname, mapping, nmappings) \
         FX::FXObject* classname::manufacture(){  \
             return new classname;  \
         } \
@@ -85,12 +86,18 @@ extern GUITestSystem gTestSystem;
             return result;\
         }
 
-    #define FXIMPLEMENT_TESTING_ABSTRACT(classname, baseclassname, mapping, nmappings) \
-        FX::FXObject* classname::manufacture(){  \
-            return new classname;  \
-        } \
+    #define FXIMPLEMENT_NETEDIT_ABSTRACT(classname, baseclassname, mapping, nmappings) \
+        const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
-        const FXMapEntry* me=(const FXMapEntry*)metaClass.search(sel); \
-        return me ? (this->* me->func)(sender,sel,ptr) : baseclassname::handle(sender,sel,ptr); \
+            gTestSystem.writeSignalInfo(sender, sel); \
+            const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
+            int result; \
+            if (me) { \
+                result = (this->*me->func)(sender, sel, ptr); \
+            } else { \
+                result = baseclassname::handle(sender, sel, ptr); \
+            } \
+            gTestSystem.nextTest(sender, sel); \
+            return result;\
         }
 #endif

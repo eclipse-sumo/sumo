@@ -51,9 +51,9 @@ FXDEFMAP(GNEMeanDataFrame::MeanDataSelector) meanDataTypeSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEMeanDataFrame::MeanDataTypeSelector, MFXGroupBoxModule,  meanDataSelectorMap,        ARRAYNUMBER(meanDataSelectorMap))
-FXIMPLEMENT_TESTING(GNEMeanDataFrame::MeanDataEditor,       MFXGroupBoxModule,  meanDataEditorMap,          ARRAYNUMBER(meanDataEditorMap))
-FXIMPLEMENT_TESTING(GNEMeanDataFrame::MeanDataSelector,     MFXGroupBoxModule,  meanDataTypeSelectorMap,    ARRAYNUMBER(meanDataTypeSelectorMap))
+FXIMPLEMENT_NETEDIT(GNEMeanDataFrame::MeanDataTypeSelector, MFXGroupBoxModule,  meanDataSelectorMap,        ARRAYNUMBER(meanDataSelectorMap))
+FXIMPLEMENT_NETEDIT(GNEMeanDataFrame::MeanDataEditor,       MFXGroupBoxModule,  meanDataEditorMap,          ARRAYNUMBER(meanDataEditorMap))
+FXIMPLEMENT_NETEDIT(GNEMeanDataFrame::MeanDataSelector,     MFXGroupBoxModule,  meanDataTypeSelectorMap,    ARRAYNUMBER(meanDataTypeSelectorMap))
 
 
 // ===========================================================================

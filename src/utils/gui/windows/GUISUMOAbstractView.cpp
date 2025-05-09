@@ -131,7 +131,7 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[] = {
 };
 
 
-FXIMPLEMENT_TESTING_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, ARRAYNUMBER(GUISUMOAbstractViewMap))
+FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, ARRAYNUMBER(GUISUMOAbstractViewMap))
 
 
 /* -------------------------------------------------------------------------

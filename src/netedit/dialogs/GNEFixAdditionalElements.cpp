@@ -38,7 +38,7 @@ FXDEFMAP(GNEFixAdditionalElements) GNEFixAdditionalElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEFixAdditionalElements, FXDialogBox, GNEFixAdditionalElementsMap, ARRAYNUMBER(GNEFixAdditionalElementsMap))
+FXIMPLEMENT_NETEDIT(GNEFixAdditionalElements, FXDialogBox, GNEFixAdditionalElementsMap, ARRAYNUMBER(GNEFixAdditionalElementsMap))
 
 // ===========================================================================
 // member method definitions

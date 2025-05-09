@@ -61,7 +61,7 @@ FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_TESTING(GNEOptionsDialog,   FXDialogBox,    GUIDialogOptionsMap,    ARRAYNUMBER(GUIDialogOptionsMap))
+FXIMPLEMENT_NETEDIT(GNEOptionsDialog,   FXDialogBox,    GUIDialogOptionsMap,    ARRAYNUMBER(GUIDialogOptionsMap))
 
 // ===========================================================================
 // method definitions
