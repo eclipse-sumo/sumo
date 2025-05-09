@@ -33,7 +33,7 @@ extern GUITestSystem* gTestSystem;
 // ===========================================================================
 
 // we use this macro for debug signals
-//#define DEBUG_SIGNALS
+// #define DEBUG_SIGNALS
 
 #ifndef DEBUG_SIGNALS
     ///@brief reimplementation of FXIMPLEMENT used in sumo
@@ -117,7 +117,9 @@ extern GUITestSystem* gTestSystem;
         } \
         const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
-            gTestSystem.writeSignalInfo(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->writeSignalInfo(sender, sel); \
+            } \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
@@ -135,7 +137,9 @@ extern GUITestSystem* gTestSystem;
     #define FXIMPLEMENT_SUMO_ABSTRACT(classname, baseclassname, mapping, nmappings) \
         const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
-        gTestSystem.writeSignalInfo(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->writeSignalInfo(sender, sel); \
+            } \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
@@ -156,7 +160,9 @@ extern GUITestSystem* gTestSystem;
         } \
         const FX::FXMetaClass classname::metaClass(#classname, classname::manufacture, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender,FX::FXSelector sel,void* ptr) { \
-            gTestSystem.writeSignalInfo(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->writeSignalInfo(sender, sel); \
+            } \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
@@ -174,7 +180,9 @@ extern GUITestSystem* gTestSystem;
     #define FXIMPLEMENT_NETEDIT_ABSTRACT(classname, baseclassname, mapping, nmappings) \
         const FX::FXMetaClass classname::metaClass(#classname, NULL, &baseclassname::metaClass, mapping, nmappings, sizeof(classname::FXMapEntry)); \
         long classname::handle(FX::FXObject* sender, FX::FXSelector sel, void* ptr) { \
-            gTestSystem.writeSignalInfo(sender, sel); \
+            if (gTestSystem) { \
+                gTestSystem->writeSignalInfo(sender, sel); \
+            } \
             const FXMapEntry* me = (const FXMapEntry*)metaClass.search(sel); \
             int result; \
             if (me) { \
