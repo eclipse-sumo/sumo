@@ -4146,16 +4146,19 @@ NBNode::getWalkingArea(const std::string& id) {
 
 
 bool
-NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex) {
+NBNode::setCrossingTLIndices(const std::string& tlID, int startIndex, bool ignoreCustom) {
     bool usedCustom = false;
     for (auto c : getCrossings()) {
         c->tlLinkIndex = startIndex++;
         c->tlID = tlID;
-        if (c->customTLIndex != -1) {
+        if (c->customTLIndex != -1 && !ignoreCustom) {
             usedCustom |= (c->tlLinkIndex != c->customTLIndex);
             c->tlLinkIndex = c->customTLIndex;
         }
-        c->tlLinkIndex2 = c->customTLIndex2;
+        if (c->customTLIndex2 != -1 && !ignoreCustom) {
+            usedCustom = true;
+            c->tlLinkIndex2 = c->customTLIndex2;
+        }
     }
     return usedCustom;
 }

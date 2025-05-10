@@ -768,7 +768,7 @@ public:
     /* @brief set tl indices of this nodes crossing starting at the given index
      * @return Whether a custom index was used
      */
-    bool setCrossingTLIndices(const std::string& tlID, int startIndex);
+    bool setCrossingTLIndices(const std::string& tlID, int startIndex, bool ignoreCustom = false);
 
     /// @brief return the number of lane-to-lane connections at this junction (excluding crossings)
     int numNormalConnections() const;
