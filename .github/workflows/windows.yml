@@ -25,6 +25,7 @@ jobs:
     env:
       CC: cl
       CXX: cl
+      TEXTTEST_TMP: D:/texttest
 
     steps:
     - name: Cloning SUMO
@@ -92,27 +93,23 @@ jobs:
     - name: Plain examples and tests
       if: matrix.build_type == 'plain'
       run: |
-        cd sumo/build_msvc
-        $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter"
-        ctest -R texttest --output-on-failure
+        sumo\tests\runCiTests.bat (Convert-Path sumolibraries\texttest*\texttest.exe)
         $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert,netconvert"
-        ctest -R texttest --output-on-failure
+        sumo\tests\runCiTests.bat (Convert-Path sumolibraries\texttest*\texttest.exe)
         $env:TEXTTEST_CI_APPS = "-a sumo"
-        ctest -R texttest --output-on-failure
+        sumo\tests\runCiTests.bat (Convert-Path sumolibraries\texttest*\texttest.exe)
 
     - name: Examples and extra tests
       if: matrix.build_type == 'extra'
       run: |
         python -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
-        cd sumo/build_msvc
-        cmake --build . --config Release --target examples
-        ctest -E texttest --output-on-failure
-        $env:TEXTTEST_TMP = "D:/texttest"
+        cmake --build sumo/build_msvc --config Release --target examples
+        ctest --test-dir sumo/build_msvc -E texttest --output-on-failure
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
-        ctest -R texttest --output-on-failure
+        sumo\tests\runCiTests.bat (Convert-Path sumolibraries\texttest*\texttest.exe)
         $env:TEXTTEST_CI_APPS = "-a sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
-        ctest -R texttest --output-on-failure
+        sumo\tests\runCiTests.bat (Convert-Path sumolibraries\texttest*\texttest.exe)
 
     - name: Compressing test results
       if: failure()
