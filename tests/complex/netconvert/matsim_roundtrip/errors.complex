@@ -1,3 +1,7 @@
+Warning: Minor green from edge '7216737#3' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214693#0' to edge '-7727483#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '7727483#1' to edge '-7216737#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Connection '27441289_0->7727482_0' is only 0.04m short.
 Warning: Ambiguity in turnarounds computation at junction '294168098'.
 Warning: Ambiguity in turnarounds computation at junction '294168710'.
