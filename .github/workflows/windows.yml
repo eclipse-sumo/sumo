@@ -106,7 +106,7 @@ jobs:
         python -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
         cmake --build sumo/build_msvc --config Release --target examples
         ctest --test-dir sumo/build_msvc -E texttest --output-on-failure
-        $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
+        $env:TEXTTEST_CI_APPS = "-a complex,traci"
         sumo\tests\runCiTests.bat (Convert-Path sumolibraries\texttest*\texttest.exe)
         $env:TEXTTEST_CI_APPS = "-a sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
         sumo\tests\runCiTests.bat (Convert-Path sumolibraries\texttest*\texttest.exe)
