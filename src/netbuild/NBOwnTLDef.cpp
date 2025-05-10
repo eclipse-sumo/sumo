@@ -623,7 +623,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 
         state = addPedestrianPhases(logic, greenTime, minDur, maxDur, earliestEnd, latestEnd, state, crossings, fromEdges, toEdges);
         // pedestrians have 'r' from here on
-        for (int i1 = pos; i1 < pos + (int)crossings.size(); ++i1) {
+        for (int i1 = pos; i1 < (int)state.size(); ++i1) {
             state[i1] = 'r';
         }
         if (brakingTime > 0) {
