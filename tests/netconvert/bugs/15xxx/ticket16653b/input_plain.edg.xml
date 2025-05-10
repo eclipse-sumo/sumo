@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-05-10 11:30:56 by Eclipse SUMO netconvert Version v1_23_0+0017-d43872979d0
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain2.nod.xml"/>
+        <edge-files value="input_plain2.edg.xml"/>
+        <connection-files value="input_plain2.con.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="100"/>
+        <numerical-ids.edge-start value="0"/>
+    </processing>
+
+</netconvertConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-677900.34,-5404512.44" convBoundary="0.00,0.00,205.95,140.73" origBoundary="11.274814,48.715766,11.611141,48.814343" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="0" from="108" to="104" name="Hofkoflerstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="1.67,39.45 25.99,47.56">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="27825654"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="27825654"/>
+        </lane>
+    </edge>
+    <edge id="1" from="104" to="107" priority="1" type="highway.cycleway" numLanes="1" speed="8.33" shape="61.07,59.94 71.43,62.81 84.45,64.85 92.90,65.06 101.44,65.09 128.10,66.41 146.73,66.93 183.76,70.53 205.11,73.26" width="1.00" allow="bicycle">
+        <lane index="0">
+            <param key="origId" value="301066469"/>
+        </lane>
+    </edge>
+    <edge id="10" from="104" to="106" name="Harderstraße" priority="4" type="highway.unclassified" numLanes="4" speed="13.89" shape="53.33,33.59 57.61,26.28 69.41,6.81">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="51856495"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="2.00">
+            <param key="origId" value="51856495"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="51856495"/>
+        </lane>
+        <lane index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="51856495"/>
+        </lane>
+    </edge>
+    <edge id="11" from="109" to="104" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="67.46,36.45 62.90,39.23" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="80369238"/>
+        </lane>
+    </edge>
+    <edge id="12" from="104" to="101" name="Esplanade" priority="10" type="cycleway.track|highway.tertiary" numLanes="3" speed="8.33" shape="62.59,48.20 77.34,51.60 115.44,54.52 189.75,61.76">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="816133986"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.50">
+            <param key="origId" value="816133986"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="816133986"/>
+        </lane>
+    </edge>
+    <edge id="13" from="104" to="105" priority="1" type="highway.cycleway" numLanes="1" speed="8.33" shape="50.30,64.07 20.94,134.27" spreadType="center" width="1.00" allow="bicycle">
+        <lane index="0">
+            <param key="origId" value="816133987"/>
+        </lane>
+    </edge>
+    <edge id="14" from="103" to="104" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="33.23,37.82 32.76,43.81" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="816603275"/>
+        </lane>
+    </edge>
+    <edge id="2" from="104" to="102" name="Harderstraße" priority="10" type="highway.tertiary" numLanes="3" speed="13.89" shape="40.67,60.76 35.70,72.11">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="31343381"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="31343381"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="31343381"/>
+        </lane>
+    </edge>
+    <edge id="3" from="106" to="104" name="Harderstraße" priority="4" type="highway.unclassified" numLanes="4" speed="13.89" shape="69.41,6.81 53.34,33.57">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="51856495"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="2.00">
+            <param key="origId" value="51856495"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="51856495"/>
+        </lane>
+        <lane index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="51856495"/>
+        </lane>
+    </edge>
+    <edge id="4" from="110" to="104" name="Esplanade" priority="10" type="cycleway.track|highway.tertiary" numLanes="4" speed="8.33" shape="86.77,52.55 78.07,51.96 62.43,48.25">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="816133986"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.50">
+            <param key="origId" value="816133986"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="816133986"/>
+        </lane>
+        <lane index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="816133986"/>
+        </lane>
+    </edge>
+    <edge id="5" from="104" to="105" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="51.94,64.60 21.21,138.47" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="213350776"/>
+        </lane>
+    </edge>
+    <edge id="6" from="100" to="104" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="3.67,113.89 2.43,107.58 10.42,88.33 14.42,79.39 27.14,54.82" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="216187666"/>
+        </lane>
+    </edge>
+    <edge id="7" from="104" to="108" name="Hofkoflerstraße" priority="3" type="highway.residential" numLanes="2" speed="8.33" shape="25.95,47.48 1.67,39.45">
+        <lane index="0" allow="pedestrian" width="2.00">
+            <param key="origId" value="27825654"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="27825654"/>
+        </lane>
+    </edge>
+    <edge id="8" from="107" to="104" priority="1" type="highway.cycleway" numLanes="1" speed="8.33" shape="203.55,73.85 195.57,72.74 183.98,70.87 148.84,68.00 93.15,65.58 83.54,65.16 70.10,63.06 60.72,60.59" width="1.00" allow="bicycle">
+        <lane index="0">
+            <param key="origId" value="301066469"/>
+        </lane>
+    </edge>
+    <edge id="9" from="102" to="104" name="Harderstraße" priority="10" type="highway.tertiary" numLanes="4" speed="13.89" shape="35.70,72.11 40.63,60.68">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="31343381"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="2.00">
+            <param key="origId" value="31343381"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="31343381"/>
+        </lane>
+        <lane index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway">
+            <param key="origId" value="31343381"/>
+        </lane>
+    </edge>
+</edges>

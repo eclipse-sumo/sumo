@@ -27,3 +27,6 @@ ticket16609b
 
 # signal plan with missing  red
 ticket16653
+
+# crash resulting from cd3f7b361a1ddca1831cd675b13cfef9d712dabd (#16653)
+ticket16653b

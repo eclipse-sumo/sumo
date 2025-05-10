@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-05-10 11:30:56 by Eclipse SUMO netconvert Version v1_23_0+0017-d43872979d0
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain2.nod.xml"/>
+        <edge-files value="input_plain2.edg.xml"/>
+        <connection-files value="input_plain2.con.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="100"/>
+        <numerical-ids.edge-start value="0"/>
+    </processing>
+
+</netconvertConfiguration>
+-->
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="0" to="10" fromLane="1" toLane="1"/>
+    <connection from="0" to="10" fromLane="1" toLane="2"/>
+    <connection from="0" to="12" fromLane="1" toLane="1"/>
+    <connection from="0" to="12" fromLane="1" toLane="2"/>
+    <connection from="0" to="1" fromLane="1" toLane="0"/>
+    <connection from="0" to="13" fromLane="1" toLane="0"/>
+    <connection from="0" to="2" fromLane="1" toLane="2"/>
+
+    <connection from="1" to="8" fromLane="0" toLane="0"/>
+
+    <connection from="10"/>
+
+    <connection from="2"/>
+
+    <connection from="3" to="12" fromLane="1" toLane="1" uncontrolled="1"/>
+    <connection from="3" to="13" fromLane="1" toLane="0"/>
+    <connection from="3" to="12" fromLane="2" toLane="2"/>
+    <connection from="3" to="1" fromLane="2" toLane="0"/>
+    <connection from="3" to="13" fromLane="2" toLane="0"/>
+    <connection from="3" to="2" fromLane="2" toLane="1"/>
+    <connection from="3" to="2" fromLane="3" toLane="2"/>
+    <connection from="3" to="7" fromLane="3" toLane="1"/>
+
+    <connection from="4" to="13" fromLane="1" toLane="0"/>
+    <connection from="4" to="10" fromLane="1" toLane="1" shape="61.05,55.27 57.64,55.58 52.65,59.51 48.82,60.63 41.95,57.85 35.11,54.90 41.67,39.69 46.54,30.55"/>
+    <connection from="4" to="2" fromLane="2" toLane="1"/>
+    <connection from="4" to="2" fromLane="2" toLane="2"/>
+    <connection from="4" to="1" fromLane="3" toLane="0"/>
+    <connection from="4" to="13" fromLane="3" toLane="0"/>
+    <connection from="4" to="10" fromLane="3" toLane="3"/>
+
+    <connection from="7" to="0" fromLane="1" toLane="1"/>
+
+    <connection from="8" to="13" fromLane="0" toLane="0" uncontrolled="1"/>
+    <connection from="8" to="7" fromLane="0" toLane="1"/>
+    <connection from="8" to="10" fromLane="0" toLane="3" shape="59.76,60.85 50.46,56.66 46.18,50.46 46.46,42.37 49.17,36.25 50.82,32.53"/>
+    <connection from="8" to="12" fromLane="0" toLane="1"/>
+    <connection from="8" to="12" fromLane="0" toLane="2"/>
+    <connection from="8" to="1" fromLane="0" toLane="0"/>
+
+    <connection from="9" to="7" fromLane="1" toLane="1"/>
+    <connection from="9" to="10" fromLane="1" toLane="1" shape="33.95,57.48 38.26,49.50 41.10,44.14 44.38,37.45 46.54,30.55"/>
+    <connection from="9" to="12" fromLane="1" toLane="1" contPos="27.00" shape="33.95,57.48 36.97,48.85 39.03,43.71 42.18,36.83 43.83,33.41 58.76,42.02 63.48,44.35"/>
+    <connection from="9" to="7" fromLane="2" toLane="1"/>
+    <connection from="9" to="10" fromLane="2" toLane="2"/>
+    <connection from="9" to="10" fromLane="3" toLane="3"/>
+    <connection from="9" to="12" fromLane="3" toLane="2"/>
+    <connection from="9" to="1" fromLane="3" toLane="0"/>
+    <connection from="9" to="13" fromLane="3" toLane="0"/>
+
+    <crossing node="104" edges="1 8" priority="1" width="4.00" linkIndex="37" outlineShape="60.30,58.63 59.64,61.30 57.47,60.93 55.62,60.91 55.75,60.35 56.41,57.67 60.29,58.52 60.89,56.00 60.46,56.11 60.13,56.55 60.03,56.82"/>
+    <crossing node="104" edges="12 4" priority="1" width="4.00" linkIndex="31" outlineShape="63.65,43.61 60.86,56.07 60.46,56.11 60.13,56.55 59.91,57.17 59.89,57.39 56.97,55.10 59.75,42.73 63.65,43.62 64.32,40.70 63.90,39.79 62.86,38.09 63.00,37.69 61.28,36.66 60.61,37.47 60.04,39.03 59.80,40.33 60.04,41.41"/>
+    <crossing node="104" edges="10 3" priority="1" width="4.00" linkIndex="33" outlineShape="45.55,29.98 60.70,37.52 60.04,39.03 59.80,40.33 60.05,41.44 60.33,41.80 43.56,33.45 36.64,45.47 34.91,44.46 33.73,44.17 31.74,44.01 27.63,42.63 27.00,44.52 29.89,44.91 32.87,44.18 35.93,42.33 39.09,39.35 42.34,35.26"/>
+    <crossing node="104" edges="7 0" priority="1" width="4.00" linkIndex="34" outlineShape="24.95,50.50 27.01,44.51 29.89,44.91 31.21,44.59 28.67,51.98 27.83,51.58"/>
+    <crossing node="104" edges="2 9" priority="1" width="4.00" linkIndex="35" outlineShape="46.67,63.02 33.03,57.08 32.94,57.04 33.03,57.08 33.22,55.96 32.79,54.84 31.75,53.74 34.62,53.42 48.27,59.35 46.67,63.01 46.77,63.05"/>
+    <crossing node="104" edges="13" priority="1" width="4.00" linkIndex="36" outlineShape="50.67,64.74 49.56,64.28 49.66,64.31 51.20,60.62 53.41,61.55 50.58,64.70 50.77,64.81 52.62,65.58 59.64,61.30 57.47,60.93 55.56,60.90 53.92,61.27 53.41,61.55"/>
+    <crossing node="106" edges="3 10" priority="1" width="4.00" outlineShape="81.08,3.69 66.73,-4.97 68.80,-8.40 68.04,-7.92 68.80,-8.40 83.15,0.26 81.16,3.74 82.80,4.72 83.08,1.16"/>
+    <crossing node="108" edges="0 7" priority="0" width="4.00" outlineShape="1.04,35.86 -0.98,41.95 -1.02,42.04 -0.99,41.94 -4.78,40.69 -2.76,34.60 1.03,35.86 1.07,35.77"/>
+</connections>
