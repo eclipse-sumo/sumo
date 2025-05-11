@@ -8,7 +8,7 @@ accept = [429]
 insecure = true
 
 # Remap URI matching pattern to different URI.
-remap = ['%7B%7BVersion%7D%7D 1.22.0']
+remap = ['%7B%7BVersion%7D%7D 1.23.1']
 
 # Exclude URLs and mail addresses from checking (supports regex).
 exclude = ['%7B%7BSource%7D%7D', '^https://sumo\.dlr\.de/pydoc/', '^https://sumo\.dlr\.de/generate-documentation\.php', '^https://sumo\.dlr\.de/xsd/SCHEMA_FILE',
