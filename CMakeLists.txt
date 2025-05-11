@@ -109,6 +109,10 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         # flags for clang and gcc in linux
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -pedantic -Wextra")
     endif ()
+    if (GNU_COMPILER)
+        # see https://stackoverflow.com/questions/23499909/adjust-variable-tracking-assignment-length
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --param=max-vartrack-size=200000")
+    endif ()
     if (PROFILING)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Profiling")
