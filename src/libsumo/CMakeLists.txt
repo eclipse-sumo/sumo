@@ -157,11 +157,12 @@ if (SWIG_FOUND)
     endif()
 
     if (ENABLE_CS_BINDINGS)
-        set(CMAKE_SWIG_FLAGS -namespace Eclipse.Sumo.Libsumo)
+        set(CS_NAMESPACE Eclipse.Sumo.Libsumo)
+        set(CMAKE_SWIG_FLAGS -namespace ${CS_NAMESPACE})
         if (FOX_FOUND)
             set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS} -DHAVE_LIBSUMOGUI)
         endif()
-        set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/cs)
+        set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/${CS_NAMESPACE})
         set(SWIG_MODULE_libsumocs_EXTRA_DEPS ${LIBSUMO_HEADERS} libsumo_typemap.i)
         if (${CMAKE_VERSION} VERSION_GREATER 3.8.0)
             SWIG_ADD_LIBRARY(libsumocs LANGUAGE CSharp SOURCES libsumo.i)
@@ -176,7 +177,7 @@ if (SWIG_FOUND)
         endif()
         swig_link_libraries(libsumocs ${sumo_link_libraries})
         ADD_CUSTOM_COMMAND(TARGET libsumocs POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/libsumocs-sources.zip" --format=zip "cs"
+            COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/libsumocs-sources.zip" --format=zip "${CS_NAMESPACE}"
         )
         set_property(TARGET libsumocs PROPERTY FOLDER "libsumo")
         install(TARGETS libsumocs DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
