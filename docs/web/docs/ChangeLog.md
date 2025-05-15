@@ -6,6 +6,27 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed invalid traffic light warnings #16602
+
+- netconvert
+  - Fixed bug where option **--tls.rebuild** creates invalid signal plan when using custom crossing traffic light indices. #16653
+  - Fixed unsafe signal plan when crossings use linkIndex2 #16657
+
+- tools
+  - osmWebWizard.py: Fixed bug where the wizard wouldn't open properly on Linux #16086
+  - net2geojson.py: Fixed bug that was causing invalid shapes with option **--boundary** #16295
+  - gtfs2pt.py: Fixed obsolete config header when using **--osm-routes** #16680
+
+### Enhancements
+
+- sumo
+  - A warning is now issued for traffic light programs where a link never gets a green phase even when the program has only a single phase. #16652
+ 
+### Miscellaneous
+
+- sumo-gui: swapped color semantics of stopping place occupancy indicator (red means used and green now means empty) #16668
+
 
 ## Version 1.23.1 (08.05.2025)
 
