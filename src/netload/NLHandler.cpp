@@ -76,6 +76,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myHaveSeenNeighs(false),
     myHaveSeenAdditionalSpeedRestrictions(false),
     myHaveSeenMesoEdgeType(false),
+    myHaveSeenTLSParams(false),
     myNetworkVersion(0, 0),
     myNetIsLoaded(false) {
 }
@@ -652,6 +653,9 @@ NLHandler::addParam(const SUMOSAXAttributes& attrs) {
     if (ok && myAmParsingTLLogicOrJunction) {
         assert(key != "");
         myJunctionControlBuilder.addParam(key, val);
+        if (myNetIsLoaded) {
+            myHaveSeenTLSParams = true;
+        }
     }
 }
 

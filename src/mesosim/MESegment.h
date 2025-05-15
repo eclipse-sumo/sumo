@@ -51,6 +51,7 @@ class MESegment : public Named {
 public:
     static const double DO_NOT_PATCH_JAM_THRESHOLD;
     static const int PARKING_QUEUE = -1;
+    static const std::string OVERRIDE_TLS_PENALTIES;
 
     /// @brief edge type specific meso parameters
     struct MesoEdgeType {
@@ -509,6 +510,9 @@ private:
     }
 
     SUMOTime getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const;
+
+    /// @brief whether the traffic light should use normal junction control despite penalty options
+    bool tlsPenaltyOverride() const;
 
 private:
     /// @brief The microsim edge this segment belongs to

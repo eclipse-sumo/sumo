@@ -256,6 +256,10 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
                 // effect but parameters that are checked at runtime can be used
                 // here (i.e. device.glosa.range)
                 myLogicParams[existing] = myAdditionalParameter;
+                if (myAdditionalParameter.count(MESegment::OVERRIDE_TLS_PENALTIES) != 0) {
+                    // value must be available when calling setMesoTypes and before setting the rest in postLoadInitialization
+                    existing->setParameter(MESegment::OVERRIDE_TLS_PENALTIES, myAdditionalParameter[MESegment::OVERRIDE_TLS_PENALTIES]);
+                }
                 return;
             }
         }

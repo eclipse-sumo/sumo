@@ -29,6 +29,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSMoveReminder.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/output/MSXMLRawOut.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/MSVehicleControl.h>
@@ -58,6 +59,7 @@
 MSEdge MESegment::myDummyParent("MESegmentDummyParent", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
 MESegment MESegment::myVaporizationTarget("vaporizationTarget");
 const double MESegment::DO_NOT_PATCH_JAM_THRESHOLD(std::numeric_limits<double>::max());
+const std::string MESegment::OVERRIDE_TLS_PENALTIES("meso.tls.control");
 
 
 // ===========================================================================
@@ -173,7 +175,8 @@ MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const
                     myNextSegment == nullptr && (
                         parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT ||
                         parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION ||
-                        parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED));
+                        parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED)
+                    && !tlsPenaltyOverride());
 
     // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
     myCheckMinorPenalty = (edgeType.minorPenalty > 0 &&
@@ -846,7 +849,7 @@ MESegment::getLinkPenalty(const MEVehicle* veh) const {
     const MSLink* link = getLink(veh, myTLSPenalty || myCheckMinorPenalty);
     if (link != nullptr) {
         SUMOTime result = 0;
-        if (link->isTLSControlled()) {
+        if (link->isTLSControlled() && myTLSPenalty) {
             result += link->getMesoTLSPenalty();
         }
         // minor tls links may get an additional penalty
@@ -861,6 +864,19 @@ MESegment::getLinkPenalty(const MEVehicle* veh) const {
     } else {
         return 0;
     }
+}
+
+
+bool
+MESegment::tlsPenaltyOverride() const {
+    for (const MSLane* lane : myEdge.getLanes()) {
+        for (const MSLink* link : lane->getLinkCont()) {
+            if (link->isTLSControlled() && StringUtils::toBool(link->getTLLogic()->getParameter(OVERRIDE_TLS_PENALTIES, "0"))) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 
