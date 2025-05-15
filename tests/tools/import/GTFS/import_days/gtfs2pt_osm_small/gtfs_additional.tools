@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-07 10:38:32.338523 by gtfs2pt.py v1_23_0+0022-c20cc19a213
-  options: -n net2.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>modes bus <doubleminus>min-stops 0 <doubleminus>vtype-output vehtypes.xml <doubleminus>end 122400 <doubleminus>verbose -H <doubleminus>write-terminals
+<!-- generated on 2025-05-15 08:27:54.348392 by gtfs2pt.py v1_23_1+0041-b74dc590c91
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20201111"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <write-terminals value="True"/>
+    <human-readable-time value="True"/>
+    <verbose value="True"/>
+    <end value="122400.0"/>
+    <bbox value="10.509219,52.256458,10.530758,52.270119"/>
+    <network value="net2.net.xml"/>
+    <osm-routes value="ptlines.xml"/>
+    <min-stops value="0"/>
+</configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">

@@ -372,6 +372,7 @@ scaled:<!-- generated on{[->]}-->
 scaledObj:<!-- generated on{[->]}-->
 gtfs_additional:<!-- generated on{[->]}-->
 gtfs_routes:<!-- generated on{[->]}-->
+gtfs_missing:<!-- generated on{[->]}-->
 
 [floating_point_tolerance]
 net:0.0101
