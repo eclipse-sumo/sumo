@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-07 10:40:16 by Eclipse SUMO netconvert Version v1_21_0+1697-7fb9a6a7246
+<!-- generated on 2025-05-09 14:41:21 by Eclipse SUMO netconvert Version v1_23_1+0031-a46029fb78e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -647,24 +647,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="5"  state="rr"/>
     </tlLogic>
     <tlLogic id="127" type="actuated" programID="0" offset="0">
-        <phase duration="6"  state="rrrGrrrGgrrrrrrrrrgGGGrrrrGrrGGGrrGrrr" minDur="5" maxDur="50"/>
+        <phase duration="6"  state="rrrGrrrGgrrrrrrrrrgGGGrrrrGrrrGrrGGrrG" minDur="5" maxDur="50"/>
         <phase duration="5"  state="rrrGrrrGgrrrrrrrrrgGGGrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrryrrryyrrrrrrrrryyyyrrrrrrrrrrrrrrrr"/>
         <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="6"  state="rrrrrGrrrGrrrrrrrrrrrrGrGrGGGGrrGGGrrr" minDur="1" maxDur="50"/>
+        <phase duration="6"  state="rrrrrGrrrGrrrrrrrrrrrrGrGrGGGrGrrrrGGG" minDur="1" maxDur="50"/>
         <phase duration="5"  state="rrrrrGrrrGrrrrrrrrrrrrGrGrrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrryrrryrrrrrrrrrrrryryrrrrrrrrrrrrr"/>
-        <phase duration="6"  state="GgGrrrrrrrgGgGrrrrrrrrrrrrrGGrGGGrGrrr" minDur="5" maxDur="50"/>
+        <phase duration="6"  state="GgGrrrrrrrgGgGrrrrrrrrrrrrrGGrrrrGGGrG" minDur="5" maxDur="50"/>
         <phase duration="5"  state="GgGrrrrrrrgGgGrrrrrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyrrrrrrryyyyrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="6"  state="rrrrrGrrrGrrrrrrrrrrrrrGrGGGGGrrGGGrrr" minDur="1" maxDur="50"/>
+        <phase duration="6"  state="rrrrrGrrrGrrrrrrrrrrrrrGrGGGGrGrrrrGGG" minDur="1" maxDur="50"/>
         <phase duration="5"  state="rrrrrGrrrGrrrrrrrrrrrrrGrGrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrryrrryrrrrrrrrrrrrryryrrrrrrrrrrrr"/>
-        <phase duration="6"  state="rrrrGrrGgrrrrrgGGGrrrrrrrrGrrGGGrGrrrr" minDur="5" maxDur="50"/>
+        <phase duration="6"  state="rrrrGrrGgrrrrrgGGGrrrrrrrrGrrrGrrGGrGr" minDur="5" maxDur="50"/>
         <phase duration="5"  state="rrrrGrrGgrrrrrgGGGrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrryrryyrrrrryyyyrrrrrrrrrrrrrrrrrrrr"/>
         <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="6"  state="rrrrrrgGgrgrrrrrrrrrrGrrrrGrGGGGGrGrrr" minDur="5" maxDur="50"/>
+        <phase duration="6"  state="rrrrrrgGgrgrrrrrrrrrrGrrrrGrGrGrrGGGrG" minDur="5" maxDur="50"/>
         <phase duration="5"  state="rrrrrrgGgrgrrrrrrrrrrGrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="rrrrrryyyryrrrrrrrrrryrrrrrrrrrrrrrrrr"/>
         <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>

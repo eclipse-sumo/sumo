@@ -181,6 +181,11 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
                 oDef->setTLControllingInformation();
                 for (NBNode* node : oDef->getNodes()) {
                     node->removeTrafficLight(def);
+                    for (auto c : node->getCrossings()) {
+                        c->customTLIndex = -1;
+                        c->customTLIndex2 = -1;
+                        c->tlLinkIndex2 = -1;
+                    }
                 }
                 removeProgram(def->getID(), def->getProgramID());
                 insert(oDef);

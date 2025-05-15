@@ -43,6 +43,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSBaseVehicle.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEventControl.h>
@@ -62,9 +63,9 @@
 #include <mesosim/MESegment.h>
 
 //#define DEBUG_REROUTER
-#define DEBUGCOND (veh.isSelected())
-//#define DEBUGCOND (true)
-//#define DEBUGCOND (veh.getID() == "")
+#define DEBUGCOND(veh) (veh.isSelected())
+//#define DEBUGCOND(veh) (true)
+//#define DEBUGCOND(veh) (veh.getID() == "")
 
 /// assume that a faster train has more priority and a slower train doesn't matter
 #define DEFAULT_PRIO_OVERTAKER 1
@@ -87,7 +88,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
         SUMOTime timeThreshold, const std::string& vTypes, const Position& pos, const double radius) :
     Named(id),
     MSMoveReminder(id),
-    MSStoppingPlaceRerouter(SUMO_TAG_PARKING_AREA, "parking"),
+    MSStoppingPlaceRerouter("parking"),
     myEdges(edges),
     myProbability(prob),
     myUserProbability(prob),
@@ -303,6 +304,18 @@ MSTriggeredRerouter::myStartElement(int element,
         }
         myParsedRerouteInterval.minSaving = attrs.getOpt<double>(SUMO_ATTR_MINSAVING, getID().c_str(), ok, 300);
     }
+    if (element == SUMO_TAG_STATION_REROUTE) {
+        // for letting a train switch it's stopping place in case of conflict
+        const std::string stopID = attrs.getStringSecure(SUMO_ATTR_ID, "");
+        if (stopID == "") {
+            throw ProcessError(TLF("rerouter '%': stationReroute requires a stopping place id.", getID()));
+        }
+        MSStoppingPlace* stop = MSNet::getInstance()->getStoppingPlace(stopID);
+        if (stop == nullptr) {
+            throw ProcessError(TLF("rerouter '%': stopping place '%' is not known.", getID(), stopID));
+        }
+        myParsedRerouteInterval.stopAlternatives.push_back(std::make_pair(stop, true));
+    }
 }
 
 
@@ -408,7 +421,9 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOTrafficObject& obj) co
                 // routeProbReroute
                 ri.routeProbs.getOverallProb() > 0 ||
                 // parkingZoneReroute
-                ri.parkProbs.getOverallProb() > 0) {
+                ri.parkProbs.getOverallProb() > 0 ||
+                // stationReroute
+                ri.stopAlternatives.size() > 0) {
                 return &ri;
             }
             if (!ri.closed.empty() || !ri.closedLanesAffected.empty() || !ri.main.empty()) {
@@ -493,8 +508,8 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     }
     const MSEdge* lastEdge = tObject.getRerouteDestination();
 #ifdef DEBUG_REROUTER
-    if (DEBUGCOND) {
-        std::cout << SIMTIME << " veh=" << veh.getID() << " check rerouter " << getID() << " lane=" << Named::getIDSecure(veh.getLane()) << " edge=" << veh.getEdge()->getID() << " finalEdge=" << lastEdge->getID() << " arrivalPos=" << veh.getArrivalPos() << "\n";
+    if (DEBUGCOND(tObject)) {
+        std::cout << SIMTIME << " veh=" << tObject.getID() << " check rerouter " << getID() << " lane=" << Named::getIDSecure(tObject.getLane()) << " edge=" << tObject.getEdge()->getID() << " finalEdge=" << lastEdge->getID() /*<< " arrivalPos=" << tObject.getArrivalPos()*/ << "\n";
     }
 #endif
 
@@ -586,13 +601,19 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
         }
         return false;
     }
-
+    if (rerouteDef->stopAlternatives.size() > 0) {
+        // somewhat similar to parkProbs but taking into account public transport schedule
+        if (!tObject.isVehicle()) {
+            return false;
+        }
+        checkStopSwitch(static_cast<MSBaseVehicle&>(tObject), rerouteDef);
+    }
     // get rerouting params
     ConstMSRoutePtr newRoute = rerouteDef->routeProbs.getOverallProb() > 0 ? rerouteDef->routeProbs.get() : nullptr;
     // we will use the route if given rather than calling our own dijsktra...
     if (newRoute != nullptr) {
 #ifdef DEBUG_REROUTER
-        if (DEBUGCOND) {
+        if (DEBUGCOND(tObject)) {
             std::cout << "    replacedRoute from routeDist " << newRoute->getID() << "\n";
         }
 #endif
@@ -659,10 +680,10 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             }
             if (!rerouteDef->isVia) {
 #ifdef DEBUG_REROUTER
-                if (DEBUGCOND) std::cout << "   rerouting:  newDest=" << newEdge->getID()
+                if (DEBUGCOND(tObject)) std::cout << "   rerouting:  newDest=" << newEdge->getID()
                                              << " newEdges=" << toString(edges)
-                                             << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
-                                             << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
+                                             << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
+                                             << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->getClosed()) << "\n";
 #endif
                 if (ok && newArrivalPos != -1) {
                     // must be called here because replaceRouteEdges may also set the arrivalPos
@@ -713,10 +734,10 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
             const bool useNewRoute = veh.replaceRouteEdges(edges, routeCost, 0, getID());
 #ifdef DEBUG_REROUTER
-            if (DEBUGCOND) std::cout << "   rerouting:  newDest=" << newEdge->getID()
+            if (DEBUGCOND(tObject)) std::cout << "   rerouting:  newDest=" << newEdge->getID()
                                          << " newEdges=" << toString(edges)
                                          << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
-                                         << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
+                                         << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->getClosed()) << "\n";
 #endif
             if (useNewRoute && newArrivalPos != -1) {
                 // must be called here because replaceRouteEdges may also set the arrivalPos
@@ -784,21 +805,31 @@ MSTriggeredRerouter::getUserProbability() const {
 
 
 double
-MSTriggeredRerouter::getStoppingPlaceOccupancy(MSStoppingPlace* parkingArea) {
-    return dynamic_cast<MSParkingArea*>(parkingArea)->getOccupancy();
+MSTriggeredRerouter::getStoppingPlaceOccupancy(MSStoppingPlace* sp) {
+    return (sp->getElement() == SUMO_TAG_PARKING_AREA
+        ? dynamic_cast<MSParkingArea*>(sp)->getOccupancy()
+        : sp->getStoppedVehicles().size());
 }
 
 
 double
-MSTriggeredRerouter::getLastStepStoppingPlaceOccupancy(MSStoppingPlace* parkingArea) {
-    return dynamic_cast<MSParkingArea*>(parkingArea)->getLastStepOccupancy();
+MSTriggeredRerouter::getLastStepStoppingPlaceOccupancy(MSStoppingPlace* sp) {
+    return (sp->getElement() == SUMO_TAG_PARKING_AREA
+        ? dynamic_cast<MSParkingArea*>(sp)->getLastStepOccupancy()
+        : sp->getStoppedVehicles().size());
 }
 
 
 double
-MSTriggeredRerouter::getStoppingPlaceCapacity(MSStoppingPlace* parkingArea) {
-    MSParkingArea* pa = dynamic_cast<MSParkingArea*>(parkingArea);
-    return pa->getCapacity();
+MSTriggeredRerouter::getStoppingPlaceCapacity(MSStoppingPlace* sp) {
+    if (myBlockedStoppingPlaces.count(sp) == 0) {
+        return (sp->getElement() == SUMO_TAG_PARKING_AREA
+                ? dynamic_cast<MSParkingArea*>(sp)->getCapacity()
+                // assume only one vehicle at a time (for stationReroute)
+                : 1);
+    } else {
+        return 0;
+    }
 }
 
 
@@ -841,9 +872,14 @@ MSTriggeredRerouter::setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value)
 MSParkingArea*
 MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                         SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) {
+    MSStoppingPlace* destStoppingPlace = veh.getNextParkingArea();
+    if (destStoppingPlace == nullptr) {
+        // not driving towards the right type of stop
+        return nullptr;
+    }
     std::vector<StoppingPlaceVisible> parks = rerouteDef->parkProbs.getVals();
     StoppingPlaceParamMap_t addInput = {};
-    return dynamic_cast<MSParkingArea*>(rerouteStoppingPlace(parks, rerouteDef->parkProbs.getProbs(), veh, newDestination, newRoute, addInput, rerouteDef->getClosed()));
+    return dynamic_cast<MSParkingArea*>(rerouteStoppingPlace(destStoppingPlace, parks, rerouteDef->parkProbs.getProbs(), veh, newDestination, newRoute, addInput, rerouteDef->getClosed()));
 }
 
 
@@ -916,6 +952,143 @@ MSTriggeredRerouter::overtakingTrain(const SUMOVehicle& veh, ConstMSEdgeVector::
         }
     }
     return std::make_pair(nullptr, nullptr);
+}
+
+
+void
+MSTriggeredRerouter::checkStopSwitch(MSBaseVehicle& ego, const MSTriggeredRerouter::RerouteInterval* def) {
+    myBlockedStoppingPlaces.clear();
+#ifdef DEBUG_REROUTER
+    std::cout << SIMTIME << " " << getID() << " ego=" << ego.getID() << "\n";
+#endif
+    if (!ego.hasStops()) {
+        return;
+    }
+    const MSStop& stop = ego.getNextStop();
+    if (stop.reached || stop.joinTriggered || (stop.pars.arrival < 0 && stop.pars.until < 0)) {
+        return;
+    }
+    MSStoppingPlace* cur = nullptr;
+    for (MSStoppingPlace* sp : stop.getPlaces()) {
+        for (auto item : def->stopAlternatives) {
+            if (sp == item.first) {
+                cur = sp;
+                break;
+            }
+        }
+    }
+    if (cur == nullptr) {
+        return;
+    }
+    std::vector<const SUMOVehicle*> stopped = cur->getStoppedVehicles();
+#ifdef DEBUG_REROUTER
+    std::cout << SIMTIME << " " << getID() << " ego=" << ego.getID() << " stopped=" << toString(stopped) << "\n";
+#endif
+    SUMOTime stoppedDuration = -1;
+    if (stopped.empty()) {
+        /// look upstream for vehicles that stop on this lane before ego arrives
+        const MSLane& stopLane = cur->getLane();
+        MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+        for (MSVehicleControl::constVehIt it_veh = c.loadedVehBegin(); it_veh != c.loadedVehEnd(); ++it_veh) {
+            const MSBaseVehicle* veh = dynamic_cast<const MSBaseVehicle*>((*it_veh).second);
+            if (veh->isOnRoad() && veh->hasStops()) {
+                const MSStop& stop = veh->getNextStop();
+                if (stop.pars.lane == stopLane.getID()) {
+                    myBlockedStoppingPlaces.insert(cur);
+                    if (veh->isStopped()) {
+                        // stopped somewhere else on the same lane
+                        stoppedDuration = MAX3((SUMOTime)0, stoppedDuration, veh->getStopDuration());
+                    } else {
+                        std::pair<double, double> timeDist = veh->estimateTimeToNextStop();
+                        SUMOTime timeTo = TIME2STEPS(timeDist.first);
+                        stoppedDuration = MAX3((SUMOTime)0, stoppedDuration, timeTo + stop.getMinDuration(SIMSTEP + timeTo));
+                    }
+                }
+            }
+        }
+    } else {
+        stoppedDuration = 0;
+        for (const SUMOVehicle* veh : cur->getStoppedVehicles()) {
+            stoppedDuration = MAX2(stoppedDuration, veh->getStopDuration());
+        }
+    }
+    if (stoppedDuration < 0) {
+        return;
+    }
+    /// @todo: consider time for conflict veh to leave the block
+    const SUMOTime stopFree = SIMSTEP + stoppedDuration;
+    const SUMOTime scheduledArrival = stop.pars.arrival >= 0 ? stop.pars.arrival : stop.pars.until - stop.pars.duration;
+#ifdef DEBUG_REROUTER
+    std::cout << SIMTIME << " " << getID() << " ego=" << ego.getID() << " stopFree=" << stopFree << " scheduledArrival=" << time2string(scheduledArrival) << "\n";
+#endif
+    if (stopFree < scheduledArrival) {
+        // no conflict according to the schedule
+        return;
+    }
+    const SUMOTime estimatedArrival = SIMSTEP + (stop.pars.arrival >= 0
+            ? ego.getStopArrivalDelay()
+            : ego.getStopDelay() - stop.pars.duration);
+#ifdef DEBUG_REROUTER
+    std::cout << SIMTIME << " " << getID() << " ego=" << ego.getID() << " stopFree=" << stopFree << " estimatedArrival=" << time2string(estimatedArrival) << "\n";
+#endif
+    if (stopFree < estimatedArrival) {
+        // no conflict when considering current delay
+        return;
+    }
+    const std::vector<double> probs(1, def->stopAlternatives.size());
+    StoppingPlaceParamMap_t scores = {};
+    bool newDestination;
+    ConstMSEdgeVector newRoute;
+    // @todo: consider future conflicts caused by rerouting
+    // @todo: reject alternatives with large detour
+    const MSStoppingPlace* alternative = rerouteStoppingPlace(nullptr, def->stopAlternatives, probs, ego, newDestination, newRoute, scores);
+#ifdef DEBUG_REROUTER
+    std::cout << SIMTIME << " " << getID() << " ego=" << ego.getID() << " alternative=" << Named::getIDSecure(alternative) << "\n";
+#endif
+    if (alternative != nullptr) {
+        // @todo adapt plans of any riders
+        //for (MSTransportable* p : ego.getPersons()) {
+        //    p->rerouteParkingArea(ego.getNextParkingArea(), newParkingArea);
+        //}
+
+        if (newDestination) {
+            // update arrival parameters
+            SUMOVehicleParameter* newParameter = new SUMOVehicleParameter();
+            *newParameter = ego.getParameter();
+            newParameter->arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
+            newParameter->arrivalPos = alternative->getEndLanePosition();
+            ego.replaceParameter(newParameter);
+        }
+
+        SUMOVehicleParameter::Stop newStop = stop.pars;
+        newStop.lane = alternative->getLane().getID();
+        newStop.startPos = alternative->getBeginLanePosition();
+        newStop.endPos = alternative->getEndLanePosition();
+        switch (alternative->getElement()) {
+            case SUMO_TAG_PARKING_AREA:
+                newStop.parkingarea = alternative->getID();
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                newStop.containerstop = alternative->getID();
+                break;
+            case SUMO_TAG_CHARGING_STATION:
+                newStop.chargingStation = alternative->getID();
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
+                newStop.overheadWireSegment = alternative->getID();
+                break;
+            case SUMO_TAG_BUS_STOP:
+            case SUMO_TAG_TRAIN_STOP:
+            default:
+                newStop.busstop = alternative->getID();
+        }
+        std::string errorMsg;
+        if (!ego.replaceStop(0, newStop, getID() + ":" + toString(SUMO_TAG_STATION_REROUTE), false, errorMsg)) {
+            WRITE_WARNING("Vehicle '" + ego.getID() + "' at rerouter '" + getID()
+                          + "' could not perform stationReroute to '" + alternative->getID()
+                          + "' reason=" + errorMsg + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+        }
+    }
 }
 
 

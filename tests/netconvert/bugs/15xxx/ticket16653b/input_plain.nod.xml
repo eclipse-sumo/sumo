@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-05-10 11:30:56 by Eclipse SUMO netconvert Version v1_23_0+0017-d43872979d0
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain2.nod.xml"/>
+        <edge-files value="input_plain2.edg.xml"/>
+        <connection-files value="input_plain2.con.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="100"/>
+        <numerical-ids.edge-start value="0"/>
+    </processing>
+
+</netconvertConfiguration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-677900.34,-5404512.44" convBoundary="0.00,0.00,205.95,140.73" origBoundary="11.274814,48.715766,11.611141,48.814343" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="100" x="3.67" y="113.89" type="dead_end"/>
+    <node id="101" x="189.75" y="61.76" type="dead_end"/>
+    <node id="102" x="35.70" y="72.11" type="dead_end"/>
+    <node id="103" x="35.45" y="30.44" type="dead_end" shape="34.74,38.44 38.38,33.80 39.35,30.05 39.35,26.74 40.36,24.93 38.69,23.83 31.34,23.78 31.60,27.26 31.75,29.63 31.83,32.90 31.92,37.13 34.74,38.44"/>
+    <node id="104" x="49.36" y="48.61" type="traffic_light" tl="104" shape="59.60,61.54 64.40,40.72 63.87,39.85 62.35,37.04 61.29,37.71 45.68,30.13 43.48,35.62 40.09,43.04 36.96,45.31 27.56,42.60 24.32,52.42 25.64,53.03 26.28,54.15 52.61,65.59 54.17,63.25 55.24,62.45 56.50,61.90 57.95,61.60 59.60,61.54"/>
+    <node id="105" x="9.55" y="140.73" type="dead_end"/>
+    <node id="106" x="74.94" y="0.00" type="dead_end"/>
+    <node id="107" x="205.95" y="64.60" type="priority"/>
+    <node id="108" x="0.00" y="38.96" type="priority"/>
+    <node id="109" x="71.23" y="34.18" type="dead_end"/>
+    <node id="110" x="86.77" y="52.55" type="dead_end"/>
+</nodes>

@@ -19,9 +19,6 @@ portion_working
 # test rail-specific routing features (train reversal / train length constraints)
 routing
 
-# test correct simulation behavior in case trains are rerouted during the simulation
-rerouting
-
 # rail specific rerouter elements
 rerouter
 

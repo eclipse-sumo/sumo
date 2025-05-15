@@ -1458,7 +1458,7 @@ Vehicle::resume(const std::string& vehID) {
         throw TraCIException("Failed to resume vehicle '" + veh->getID() + "', it has no stops.");
     }
     if (!veh->resumeFromStopping()) {
-        MSStop& sto = veh->getNextStop();
+        const MSStop& sto = veh->getNextStop();
         std::ostringstream strs;
         strs << "reached: " << sto.reached;
         strs << ", duration:" << sto.duration;

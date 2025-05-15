@@ -110,7 +110,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             WRITE_WARNINGF(TL("Idle taxi '%' could not stop within %m"), taxi->getHolder().getID(), toString(brakeGap));
         }
     } else {
-        MSStop& stop = taxi->getHolder().getNextStop();
+        MSStop& stop = taxi->getHolder().getNextStopMutable();
 #ifdef DEBUG_IDLING
         if (DEBUG_COND(taxi)) {
             std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " MSIdling_Stop reusing stop with duration " << time2string(stop.duration) << "\n";
