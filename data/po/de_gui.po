@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:36+0200\n"
-"PO-Revision-Date: 2025-05-08 13:33+0000\n"
+"PO-Revision-Date: 2025-05-15 22:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -7334,7 +7334,7 @@ msgstr "Kanten"
 #: src/netedit/GNETagPropertiesDatabase.cpp:5471
 #: src/netedit/GNETagPropertiesDatabase.cpp:5481
 msgid "PersonTrip"
-msgstr ""
+msgstr "Fahrt einer Person"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:5507
 #: src/netedit/GNETagPropertiesDatabase.cpp:5517
