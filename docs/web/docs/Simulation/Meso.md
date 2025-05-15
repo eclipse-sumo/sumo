@@ -184,6 +184,19 @@ headway = defaultHeadway / greenFraction
 
 Note, that the maximum flow cannot exceed the value at permanent green light regardless of penalty value.
 
+### Partial TLS Penalties
+
+The above two options apply to all traffic lights in the network by default.
+By adding the [generic parameter](GenericParameters.md) key `<param key="meso.tls.control" value="true"/>` to a `<tlLogic>` definition, individual traffic lights can be made exempt from the penalties and instead by treated in full detail (when option **--meso-junction-control** is also set).
+
+It is also possible to load an additional file where only this option is set:
+
+```
+    <tlLogic id="C" programID="0">
+        <param key="meso.tls.control" value="true"/>
+    </tlLogic>
+```
+
 ### Penalty at uncontrolled intersections
 
 **--meso-minor-penalty** {{DT_TIME}} can be used to apply a fixed time penalty when passing an unprioritzed
