@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:39+0200\n"
-"PO-Revision-Date: 2025-05-07 08:01+0000\n"
+"PO-Revision-Date: 2025-05-15 22:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -938,6 +938,9 @@ msgid ""
 "Ignoring veh '%' no-opposite subscription filter for geographic range object"
 " collection. Consider using the 'lanes' filter."
 msgstr ""
+"Il filtro del veicolo '%' per sottoscrivere alla collezione di oggetti nel "
+"suo intorno (escluso la direzione opposta) viene ignorato. Considera di "
+"usare il filtro di corsie."
 
 #: src/libsumo/Helper.cpp:1084
 msgid ""
@@ -968,6 +971,8 @@ msgid ""
 "addSubscriptionFilterLateralDistance could not determine shape of lane '%' "
 "with a lateral shift of %."
 msgstr ""
+"addSubscriptionFilterLateralDistance non ha potuto determinare la forma "
+"della corsia '%' con uno spostamento laterale di %."
 
 #: src/libsumo/Helper.cpp:1416
 msgid "Vehicle '%' was removed though being controlled by TraCI"
@@ -1027,6 +1032,8 @@ msgid ""
 "Cannot check for all deadlocks on swapConstraints because the route for "
 "vehicle '%' is not computed yet"
 msgstr ""
+"Impossibile di controllare blocchi ipotetici riconducibili a swapConstraints "
+"perché l'itinerario del veicolo '%' non è ancora stato calcolato"
 
 #: src/libsumo/Vehicle.cpp:1288 src/libsumo/Vehicle.cpp:1426
 msgid "Unsupported parameter '%'"
@@ -4618,6 +4625,8 @@ msgid ""
 "SSM exclude-conflict-type '%' is not supported. Aborting construction of SSM"
 " device '%'."
 msgstr ""
+"L'espressione '%' per escludere tipi di conflitti da SSM non è supportata. "
+"La costruzione dell'attrezzo SSM '%' viene interrotta."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4054
 #, c-format
