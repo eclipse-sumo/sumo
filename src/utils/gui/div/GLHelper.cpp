@@ -678,9 +678,6 @@ GLHelper::setGL2PS(bool active) {
 void
 GLHelper::drawSpaceOccupancies(const double exaggeration, const Position& pos, const double rotation,
                                const double width, const double length, const bool vehicle) {
-    // declare colors
-    const RGBColor red(255, 0, 0, 255);
-    const RGBColor green(0, 255, 0, 255);
     // declare geometry
     PositionVector geom;
     const double w = width / 2. - 0.1 * exaggeration;
@@ -705,7 +702,7 @@ GLHelper::drawSpaceOccupancies(const double exaggeration, const Position& pos, c
     // rotate
     glRotated(rotation, 0, 0, 1);
     // set color
-    GLHelper::setColor(vehicle ? green : red);
+    GLHelper::setColor(vehicle ? RGBColor::RED : RGBColor::GREEN);
     // draw box lines
     GLHelper::drawBoxLines(geom, 0.1 * exaggeration);
     // pop matrix

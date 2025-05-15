@@ -124,6 +124,10 @@ public:
         return myHaveSeenMesoEdgeType;
     }
 
+    bool haveSeenTLSParams() const {
+        return myHaveSeenTLSParams;
+    }
+
     MMVersion networkVersion() const {
         return myNetworkVersion;
     }
@@ -371,8 +375,10 @@ protected:
     /// @brief whether additional files contained type-specific speed limits
     bool myHaveSeenAdditionalSpeedRestrictions;
 
-    /// @brief whether edge type specific meso paramters were loaded
+    /// @brief whether edge type specific meso parameters were loaded
     bool myHaveSeenMesoEdgeType;
+    /// @brief whether tls params were loaded
+    bool myHaveSeenTLSParams;
 
     /// @brief the loaded network version
     MMVersion myNetworkVersion;

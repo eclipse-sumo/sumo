@@ -660,7 +660,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
 def write_vtypes(options, seen=None):
     if options.vtype_output:
         with sumolib.openz(options.vtype_output, mode='w') as vout:
-            sumolib.xml.writeHeader(vout, root="additional")
+            sumolib.xml.writeHeader(vout, root="additional", options=options)
             for osm_type, sumo_class in sorted(OSM2SUMO_MODES.items()):
                 if osm_type in options.modes and (seen is None or osm_type in seen):
                     vout.write(u'    <vType id="%s" vClass="%s"/>\n' %
@@ -680,7 +680,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     ft = humanReadableTime if "hrtime" in options and options.hrtime else int
 
     with sumolib.openz(options.additional_output, mode='w') as output_file:
-        sumolib.xml.writeHeader(output_file, root="additional")
+        sumolib.xml.writeHeader(output_file, root="additional", options=options)
         for stop, value in sorted(map_stops.items()):
             name, lane, start_pos, end_pos, access, v_type = value[:6]
             typ = "busStop" if v_type == "bus" else "trainStop"
@@ -696,7 +696,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     write_vtypes(options)
 
     with sumolib.openz(options.route_output, mode='w') as output_file:
-        sumolib.xml.writeHeader(output_file, root="routes")
+        sumolib.xml.writeHeader(output_file, root="routes", options=options)
         numDays = int(options.end) // 86401
         start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
         shapes_written = set()
@@ -801,7 +801,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     if any([missing_stops, missing_lines, sequence_errors]):
         print("Not all given gtfs elements have been mapped, see %s for more information" % options.warning_output)
         with io.open(options.warning_output, 'w', encoding="utf8") as output_file:
-            output_file.write(u'<missingElements>\n')
+            sumolib.xml.writeHeader(output_file, root="missingElements", rootAttrs=None, options=options)
             for stop in sorted(set(missing_stops)):
                 output_file.write(u'    <stop id="%s" name=%s ptLine="%s" direction_id="%s"/>\n' % stop)
             for line in sorted(set(missing_lines)):

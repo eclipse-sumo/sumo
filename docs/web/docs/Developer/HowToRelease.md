@@ -80,7 +80,7 @@ assigned to a later milestone.
 All scenarios should be fixed by now.
 
 - start and save a new version draft [in Zenodo](https://zenodo.org/) (using the sumo@dlr.de user), in order to reserve a DOI. Don't Publish it yet, and don't upload a file to it!
-  - update the version doi in [CITATION.cff](../../../../CITATION.cff) and in the [README](../../../../README.md) badge to this new reserved one
+  - update the version doi in [CITATION.cff]({{Source}}CITATION.cff) and in the [README]({{Source}}README.md) badge to this new reserved one
 - update the [ChangeLog](../ChangeLog.md) again if necessary
 - check the correct email address and list of current ubuntu releases in `tools/build_config/ubuntu_release.sh`
 - patch the version information using `tools/build_config/updateReleaseInfo.py {{Version}}` and double check changes
@@ -90,7 +90,7 @@ All scenarios should be fixed by now.
     to update the [download links](../Downloads.md)
   - [in sumo.metainfo.xml]({{Source}}build_config/package/sumo.metainfo.xml)
     for correct flatpak info
-  - in [CITATION.cff](../../../../CITATION.cff)
+  - in [CITATION.cff]({{Source}}CITATION.cff)
   - in the [ChangeLog](../ChangeLog.md)
   - commit the changes
 - recheck whether submodules changed by doing `git submodule update --remote` and commit the changes after careful inspection

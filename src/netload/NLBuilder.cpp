@@ -213,7 +213,7 @@ NLBuilder::build() {
         if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
             myNet.getEdgeControl().setAdditionalRestrictions();
         }
-        if (MSGlobals::gUseMesoSim && myXMLHandler.haveSeenMesoEdgeType()) {
+        if (MSGlobals::gUseMesoSim && (myXMLHandler.haveSeenMesoEdgeType() || myXMLHandler.haveSeenTLSParams())) {
             myNet.getEdgeControl().setMesoTypes();
             for (MSTrafficLightLogic* tll : myNet.getTLSControl().getAllLogics()) {
                 tll->initMesoTLSPenalties();

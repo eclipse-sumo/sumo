@@ -297,8 +297,8 @@ protected:
                              const std::vector<int>& fromLanes,
                              bool& buildMixedGreenPhase, std::vector<bool>& mixedGreen);
 
-    /// @brief fix states in regard to custom crossing indices
-    void checkCustomCrossingIndices(NBTrafficLightLogic* logic) const;
+    /// @brief find maximum crossing index
+    int maxCrossingIndex(const NBNode* node) const;
 
     /// @brief avoid yellow signal between successive green (major) phases
     void fixSuperfluousYellow(NBTrafficLightLogic* logic) const;
