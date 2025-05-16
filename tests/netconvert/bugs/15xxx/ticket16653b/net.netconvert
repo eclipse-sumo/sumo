@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-10 11:39:11 by Eclipse SUMO netconvert Version v1_23_1+0037-d9d789f9118
+<!-- generated on 2025-05-16 22:38:27 by Eclipse SUMO netconvert Version v1_23_1+0083-8d98c775f14
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -395,17 +395,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="104" type="static" programID="0" offset="0">
-        <phase duration="26" state="rrrrrrrrrrrrgggGGGgrrrrrrrgGggGrgrGrrr"/>
-        <phase duration="5"  state="rrrrrrrrrrrrgggGGGgrrrrrrrgGggGrgrrrrr"/>
-        <phase duration="3"  state="rrrrrrrrrrrryyyyyygrrrrrrryyyyyrgrrrrr"/>
+        <phase duration="31" state="rrrrrrrrrrrrgggGGGgrrrrrrrGGggGGgggrrr"/>
+        <phase duration="3"  state="rrrrrrrrrrrryyyyyygrrrrrrryyyyyygggrrr"/>
         <phase duration="6"  state="rrrrrrrrrrrrrrrrrrGrrrrrrrrrrrrrGGGrrr"/>
         <phase duration="3"  state="rrrrrrrrrrrrrrrrrryrrrrrrrrrrrrryyyrrr"/>
         <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="26" state="GgggggggggggrrrrrrrggGGGggrrrrrrrGrrrr"/>
-        <phase duration="5"  state="GgggggggggggrrrrrrrggGGGggrrrrrrrrrrrr"/>
+        <phase duration="31" state="GgggggggggggrrrrrrrGGGGGggrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyyyyyyyyyyrrrrrrryyyyyyyrrrrrrrrrrrr"/>
         <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrgrggGGG"/>
+        <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrGGG"/>
         <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 

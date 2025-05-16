@@ -1,0 +1,6 @@
+Warning: Custom crossing linkIndex 31 conflicts with vehicular connections at tlLogic '104'
+Warning: Custom crossing linkIndex 33 conflicts with vehicular connections at tlLogic '104'
+Warning: Custom crossing linkIndex 34 conflicts with vehicular connections at tlLogic '104'
+Warning: Custom crossing linkIndex 33 conflicts with vehicular connections at tlLogic '104'
+Warning: Custom crossing linkIndex 31 conflicts with vehicular connections at tlLogic '104'
+Warning: 14 total messages of type: Custom crossing linkIndex % conflicts with vehicular connections at tlLogic '%'
