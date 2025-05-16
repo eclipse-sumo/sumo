@@ -1,0 +1,2 @@
+-s input_stopinfos.xml
+-i pt_light_rail_S46:1.0 -v --legend --filter-ids \*S46\*

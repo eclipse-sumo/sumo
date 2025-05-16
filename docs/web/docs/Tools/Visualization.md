@@ -77,6 +77,16 @@ The following attribute values have a special meaning. Instead of using an attri
 - `@BOX`: one or more [box plots](https://en.wikipedia.org/wiki/Box_plot) of the *other* value are drawn. The **--idattr** is used for grouping and there will be one box plot per id
 - `@NONE`: can be used with option **--idattr** to explicitly avoid grouping
 
+### Interactive Plot
+
+When clicking on a line or plot point, the data point ids near the click position are printed in the console.
+
+### Filtering
+
+Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data ids.
+
+It is permitted to use the wildcars *\**, *?*, *[* and *]* when specifying filters. This workings according to [file name globbing rules](https://en.wikipedia.org/wiki/Glob_(programming)).
+
 ### Multi-line plots
 
 - By default, every distinct ID (as defined by **--idattr**) will generated a new line for all the data points associated with that ID.
@@ -240,6 +250,9 @@ where -x is the attribute for the x axis; -y is the attribute for the y axis; -o
 
 ### Public transport schedule
 
+!!! note
+    The tool [plotStops.py](Railways.md#plotstopspy) simplifies plotting such schedules
+
 In this type of plot time is on the y-axis running from top to bottom. Input is route file of a [public transport schedule](../Simulation/Public_Transport.md#public_transport_schedules) where each vehicle is modelled individually.
 A similar plot could also be generated from [stop-output](../Simulation/Output/StopOutput.md) by using attribute `started` or `ended` (or `started,ended`) instead of `until`.
 
@@ -261,6 +274,9 @@ In order to group busStops that belong to different tracks of the same train sta
 *KX
 *LHG
 ```
+
+!!! note
+    The main advantage of [plotStops.py](Railways.md#plotstopspy) is creating a stoplist.txt file automatically.
 
 !!! note
     When plotting stops from a route file that also defines `<vType>` elements, then the option **--idelem** must be used to declare where the id attribute must be loaded from (i.e. **--idelem trip**).
