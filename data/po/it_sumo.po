@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:39+0200\n"
-"PO-Revision-Date: 2025-05-16 08:26+0000\n"
+"PO-Revision-Date: 2025-05-16 12:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10971,6 +10971,8 @@ msgid ""
 "The overheadWireSegment '%' was not created as it is attached to internal "
 "lane. It will be build automatically."
 msgstr ""
+"Il segmento di catenaria '%' non è stato creato perché situato su una corsia "
+"interna. Il segmento verrà creato automaticamente."
 
 #: src/netload/NLTriggerBuilder.cpp:203
 #, c-format
@@ -10978,6 +10980,8 @@ msgid ""
 "The overheadWireSegment '%' not built as it is attached to internal lane. It"
 " will be build automatically."
 msgstr ""
+"Il segmento di catenaria '%' non è stato creato perché situato su una corsia "
+"interna. Il segmento verrà creato automaticamente."
 
 #: src/netload/NLTriggerBuilder.cpp:215
 #, c-format
@@ -10985,12 +10989,16 @@ msgid ""
 "The overheadWireSegment '%' has wrong position. Automatically set from 0 to "
 "the length of the lane."
 msgstr ""
+"Il segmento di catenaria '%' tiene una posizione sbagliata. Si estenderà "
+"sulla corsia intera."
 
 #: src/netload/NLTriggerBuilder.cpp:223
 msgid ""
 "Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire"
 " simulation"
 msgstr ""
+"Il risolutore di catenarie (Eigen) non è stato compilato che può condurre a "
+"degli errori nella simulazione delle catenarie"
 
 #: src/netload/NLTriggerBuilder.cpp:383
 msgid ""
