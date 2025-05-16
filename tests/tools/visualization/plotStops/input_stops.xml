@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-05-16 08:14:04 by Eclipse SUMO netconvert Version v1_23_1+0056-1d7495c659c
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
+        <osm-files value="osm_bbox.osm.xml.gz"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml.gz"/>
+        <output.street-names value="true"/>
+        <output.original-names value="true"/>
+        <ptstop-output value="osm_stops.add.xml"/>
+        <ptline-output value="osm_ptlines.xml"/>
+        <ptline-clean-up value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <tls_building>
+        <tls.discard-simple value="true"/>
+        <tls.join value="true"/>
+        <tls.guess-signals value="true"/>
+        <tls.default-type value="actuated"/>
+    </tls_building>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+    </ramp_guessing>
+
+    <junctions>
+        <junctions.join value="true"/>
+        <junctions.corner-detail value="5"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+        <railway.signal.guess.by-stops value="true"/>
+    </railway>
+
+</netconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-2837556544" name="Ostbahnhof" lane="-136697970#0_0" startPos="0.00" endPos="80.47" friendlyPos="true"/>
+    <busStop id="-412193321" name="Ostbahnhof" lane="-659305039#1_0" startPos="0.00" endPos="80.99" friendlyPos="true" lines="S75"/>
+    <busStop id="-5032009260" name="Warschauer Straße" lane="-654481301_0" startPos="0.00" endPos="153.63" friendlyPos="true"/>
+    <busStop id="-5316085166" name="Ostkreuz" lane="-653881643#0_0" startPos="0.00" endPos="173.65" friendlyPos="true" lines="S5 S7 S3"/>
+    <busStop id="1095078246" name="Hermannstraße" lane="292236431#1_0" startPos="0.00" endPos="135.47" friendlyPos="true" lines="S41 S45 S47 S46"/>
+    <busStop id="1095078257" name="Südkreuz" lane="27681621#2_0" startPos="0.00" endPos="159.52" friendlyPos="true" lines="S2 S25 S26"/>
+    <busStop id="1095078277" name="Schöneweide" lane="24165451#3_0" startPos="3.96" endPos="203.96" friendlyPos="true" lines="S47"/>
+    <busStop id="1095078302" name="Neukölln" lane="13252388#1_0" startPos="0.00" endPos="157.85" friendlyPos="true" lines="S42 S45 S46 S47"/>
+    <busStop id="1095078318" name="Südkreuz" lane="802024949#1_0" startPos="0.00" endPos="142.27" friendlyPos="true" lines="S41 S45 S46"/>
+    <busStop id="110124633" name="Halensee" lane="4407773#1_0" startPos="0.00" endPos="200.00" friendlyPos="true" lines="S42 S46"/>
+    <busStop id="1106283718" name="Rummelsburg" lane="174528752_0" startPos="0.00" endPos="167.89" friendlyPos="true" lines="S3"/>
+    <busStop id="1106283740" name="Sonnenallee" lane="24314518#1_0" startPos="0.00" endPos="165.52" friendlyPos="true" lines="S42"/>
+    <busStop id="1106283742" name="Betriebsbahnhof Rummelsburg" lane="719295167#1_0" startPos="107.36" endPos="307.36" friendlyPos="true" lines="S3"/>
+    <busStop id="1106283795" name="Treptower Park" lane="136703825_0" startPos="0.00" endPos="165.10" friendlyPos="true" lines="S41 S85"/>
+    <busStop id="1106283806" name="Sonnenallee" lane="28813047#1_0" startPos="0.00" endPos="164.63" friendlyPos="true" lines="S41"/>
+    <busStop id="1106283849" name="Treptower Park" lane="136703828_0" startPos="0.00" endPos="160.36" friendlyPos="true" lines="S8 S9"/>
+    <busStop id="1106283867" name="Plänterwald" lane="24165981_0" startPos="0.00" endPos="182.59" friendlyPos="true" lines="S8 S9 S85"/>
+    <busStop id="1106283879" name="Karlshorst" lane="175440860#1_0" startPos="1.43" endPos="201.43" friendlyPos="true" lines="S3"/>
+    <busStop id="1106283890" name="Betriebsbahnhof Rummelsburg" lane="385258473_0" startPos="0.00" endPos="174.40" friendlyPos="true" lines="S3"/>
+    <busStop id="1106283897" name="Treptower Park" lane="136703831_0" startPos="0.00" endPos="160.80" friendlyPos="true" lines="S8 S9 S85"/>
+    <busStop id="1117011600" name="Springpfuhl" lane="705181367#2_0" startPos="0.00" endPos="173.65" friendlyPos="true" lines="S7 S75"/>
+    <busStop id="1117011608" name="Springpfuhl" lane="1239772056#0_0" startPos="0.00" endPos="179.70" friendlyPos="true" lines="S7 S75"/>
+    <busStop id="1117011733" name="Poelchaustraße" lane="404401917_0" startPos="15.28" endPos="215.28" friendlyPos="true" lines="S7"/>
+    <busStop id="1117011753" name="Nöldnerplatz" lane="1236722180_0" startPos="0.00" endPos="164.02" friendlyPos="true" lines="S5 S7 S75"/>
+    <busStop id="1117011829" name="Friedrichsfelde Ost" lane="385393643_0" startPos="0.00" endPos="191.40" friendlyPos="true" lines="S5 S7 S75"/>
+    <busStop id="1117011864" name="Poelchaustraße" lane="404401915#2_0" startPos="252.77" endPos="452.77" friendlyPos="true" lines="S7"/>
+    <busStop id="1117011896" name="Nöldnerplatz" lane="136651800#0_0" startPos="0.00" endPos="159.71" friendlyPos="true" lines="S5 S7 S75"/>
+    <busStop id="1117011942" name="Lichtenberg" lane="136651804#1_0" startPos="14.78" endPos="214.78" friendlyPos="true" lines="S5 S7 S75"/>
+    <busStop id="1127966939" name="Gesundbrunnen" lane="116355015#2_0" startPos="0.00" endPos="166.25" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="1127966943" name="Wedding" lane="27707583#2_0" startPos="0.00" endPos="172.79" friendlyPos="true" lines="S42"/>
+    <busStop id="1127966949" name="Gesundbrunnen" lane="237947343_0" startPos="0.00" endPos="163.40" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="1127966954" name="Prenzlauer Allee" lane="42146223_0" startPos="29.33" endPos="229.33" friendlyPos="true" lines="S42 S8 S85"/>
+    <busStop id="1127966977" name="Schönhauser Allee" lane="41893764#1_0" startPos="0.00" endPos="37.05" friendlyPos="true" lines="S42 S8 S85"/>
+    <busStop id="1127966986" name="Landsberger Allee" lane="28813658#9_0" startPos="0.00" endPos="186.95" friendlyPos="true" lines="S41 S8 S85"/>
+    <busStop id="1127966988" name="Bornholmer Straße" lane="29120494#1_0" startPos="0.00" endPos="159.08" friendlyPos="true" lines="S2 S8 S85 S26"/>
+    <busStop id="1127966990" name="Storkower Straße" lane="375331614#0_0" startPos="0.00" endPos="180.69" friendlyPos="true" lines="S42 S8 S85"/>
+    <busStop id="1127966995" name="Bornholmer Straße" lane="1236950979#0_0" startPos="0.00" endPos="158.57" friendlyPos="true" lines="S1 S25 S85"/>
+    <busStop id="1127967008" name="Landsberger Allee" lane="383960623#1_0" startPos="0.00" endPos="176.15" friendlyPos="true" lines="S42 S8 S85"/>
+    <busStop id="1127967028" name="Greifswalder Straße" lane="28813657_0" startPos="21.89" endPos="221.89" friendlyPos="true" lines="S41 S8 S85"/>
+    <busStop id="1127967030" name="Bornholmer Straße" lane="107824637#2_0" startPos="0.00" endPos="159.41" friendlyPos="true" lines="S1 S25 S85"/>
+    <busStop id="1127967031" name="Wedding" lane="27708533#0_0" startPos="0.00" endPos="159.64" friendlyPos="true" lines="S41"/>
+    <busStop id="1127967036" name="Schönhauser Allee" lane="28820206#1_0" startPos="0.00" endPos="156.06" friendlyPos="true" lines="S41 S8 S85"/>
+    <busStop id="1127967045" name="Bornholmer Straße" lane="23085231#1_0" startPos="0.00" endPos="158.63" friendlyPos="true" lines="S2 S8 S85 S26"/>
+    <busStop id="12148418281" name="Schöneweide" lane="136703817#1_0" startPos="0.00" endPos="181.24" friendlyPos="true" lines="S45 S8 S9 S46 S85"/>
+    <busStop id="128376788" name="Messe Nord/ZOB" lane="1155801229_0" startPos="0.00" endPos="177.44" friendlyPos="true" lines="S42 S46"/>
+    <busStop id="1676057413" name="Humboldthain" lane="230977081#1_0" startPos="0.00" endPos="176.97" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="1745157971" name="Hackescher Markt" lane="32590640#1_0" startPos="0.00" endPos="180.72" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="1745157972" name="Jannowitzbrücke" lane="377474960#2_0" startPos="0.00" endPos="166.87" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="1745157973" name="Ostbahnhof" lane="136697960#0_0" startPos="0.00" endPos="79.13" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="1745174995" name="Bellevue" lane="24988543#2_0" startPos="0.00" endPos="120.76" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="1745174999" name="Tiergarten" lane="377118650#2_0" startPos="0.00" endPos="139.97" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="1745221431" name="Savignyplatz" lane="377124041#1_0" startPos="0.00" endPos="161.52" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="1745221443" name="Westkreuz" lane="28861240#3_0" startPos="0.00" endPos="125.22" friendlyPos="true" lines="S5 S3 S9"/>
+    <busStop id="1745221448" name="Zoologischer Garten" lane="273275700_0" startPos="0.00" endPos="156.44" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="1769645503" name="Oranienburger Straße" lane="463462760_0" startPos="0.00" endPos="158.48" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="1797163098" name="Ostkreuz" lane="711114630#1_0" startPos="0.00" endPos="180.75" friendlyPos="true" lines="S41 S8 S85"/>
+    <busStop id="1797163101" name="Ostkreuz" lane="154456590#2_0" startPos="0.00" endPos="149.97" friendlyPos="true" lines="S42 S8 S85"/>
+    <busStop id="1797290853" name="Friedenau" lane="276219536#0_0" startPos="30.47" endPos="230.47" friendlyPos="true" lines="S1"/>
+    <busStop id="1797290858" name="Schöneberg" lane="276205112_0" startPos="0.00" endPos="164.31" friendlyPos="true" lines="S1"/>
+    <busStop id="1806004200" name="Beusselstraße" lane="1237407033#1_0" startPos="0.00" endPos="167.20" friendlyPos="true" lines="S41"/>
+    <busStop id="1806004207" name="Bundesplatz" lane="290736429#1_0" startPos="0.00" endPos="115.39" friendlyPos="true" lines="S41 S46"/>
+    <busStop id="1806004214" name="Halensee" lane="290741156#1_0" startPos="0.00" endPos="168.36" friendlyPos="true" lines="S41 S46"/>
+    <busStop id="1806004216" name="Heidelberger Platz" lane="374931227#0_0" startPos="15.88" endPos="215.88" friendlyPos="true" lines="S41 S46"/>
+    <busStop id="1806004219" name="Hohenzollerndamm" lane="384165128_0" startPos="11.81" endPos="211.81" friendlyPos="true" lines="S41 S46"/>
+    <busStop id="1806004222" name="Jungfernheide" lane="27992305#2_0" startPos="0.00" endPos="176.45" friendlyPos="true" lines="S41"/>
+    <busStop id="1806004223" name="Messe Nord/ZOB" lane="1237407039#2_0" startPos="141.20" endPos="341.20" friendlyPos="true" lines="S41 S46"/>
+    <busStop id="1806004226" name="Schöneberg" lane="25982344#1_0" startPos="0.00" endPos="136.47" friendlyPos="true" lines="S41 S46"/>
+    <busStop id="1806004228" name="Westend" lane="438768575#1_0" startPos="0.00" endPos="161.02" friendlyPos="true" lines="S41 S46"/>
+    <busStop id="1806004231" name="Westhafen" lane="446633269#4_0" startPos="0.00" endPos="179.58" friendlyPos="true" lines="S41"/>
+    <busStop id="1806004234" name="Westkreuz" lane="1236722171#1_0" startPos="0.00" endPos="157.60" friendlyPos="true" lines="S41 S46"/>
+    <busStop id="1920671945" name="Charlottenburg" lane="37427032#2_0" startPos="0.00" endPos="118.87" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="1920671950" name="Charlottenburg" lane="37427058_0" startPos="0.00" endPos="183.79" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="1930939368" name="Friedrichstraße" lane="394320751_0" startPos="25.79" endPos="225.79" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="2093326267" name="Anhalter Bahnhof" lane="238192696#1_0" startPos="0.00" endPos="156.00" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="2108146647" name="Westkreuz" lane="290872961_0" startPos="0.00" endPos="159.03" friendlyPos="true" lines="S7"/>
+    <busStop id="2108146652" name="Westkreuz" lane="31028606#2_0" startPos="0.00" endPos="171.31" friendlyPos="true" lines="S7 S3"/>
+    <busStop id="2118668062" name="Yorckstraße (Großgörschenstraße)" lane="26477249_0" startPos="16.03" endPos="216.03" friendlyPos="true" lines="S1"/>
+    <busStop id="21385742" name="Frankfurter Allee" lane="8096476#1_0" startPos="0.00" endPos="176.24" friendlyPos="true" lines="S42 S8 S85"/>
+    <busStop id="2393814847" name="Nordbahnhof" lane="230957292#1_0" startPos="0.00" endPos="161.85" friendlyPos="true" lines="S1 S2 S25 S26">
+        <access lane="396459320#0_0" pos="0.00" length="18.78" friendlyPos="1"/>
+        <access lane="396459320#1_0" pos="0.00" length="34.75" friendlyPos="1"/>
+        <access lane="396459326#1_0" pos="1.59" length="31.54" friendlyPos="1"/>
+        <access lane="396459327#0_0" pos="0.21" length="19.67" friendlyPos="1"/>
+        <access lane="396459327#1_0" pos="1.75" length="11.65" friendlyPos="1"/>
+    </busStop>
+    <busStop id="2490859942" name="Gesundbrunnen" lane="4740765#1_0" startPos="0.00" endPos="42.73" friendlyPos="true" lines="S42"/>
+    <busStop id="249189069" name="Humboldthain" lane="230977079#0_0" startPos="0.00" endPos="174.95" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="2603331695" name="Friedrichstraße" lane="25946662#2_0" startPos="0.00" endPos="158.51" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="26124364" name="Jungfernheide" lane="1155801227#1_0" startPos="0.00" endPos="172.28" friendlyPos="true" lines="S42"/>
+    <busStop id="261744786" name="Schöneweide" lane="24165419#1_0" startPos="0.00" endPos="149.36" friendlyPos="true" lines="S47"/>
+    <busStop id="261750068" name="Treptower Park" lane="136703834_0" startPos="0.00" endPos="162.39" friendlyPos="true" lines="S42"/>
+    <busStop id="261751113" name="Plänterwald" lane="1238672205_0" startPos="0.00" endPos="181.91" friendlyPos="true" lines="S8 S9 S85"/>
+    <busStop id="261855390" name="Baumschulenweg" lane="24227682#3_0" startPos="0.00" endPos="171.97" friendlyPos="true" lines="S45 S8 S9 S47 S46 S85"/>
+    <busStop id="262322666" name="Baumschulenweg" lane="24166221#3_0" startPos="0.00" endPos="169.90" friendlyPos="true" lines="S8 S9 S85"/>
+    <busStop id="26906574" name="Rathaus Steglitz" lane="4463529#0_0" startPos="8.40" endPos="208.40" friendlyPos="true" lines="S1"/>
+    <busStop id="26908540" name="Friedenau" lane="276219537#1_0" startPos="0.00" endPos="177.01" friendlyPos="true" lines="S1"/>
+    <busStop id="27186919" name="Schöneberg" lane="4525885_0" startPos="0.00" endPos="198.78" friendlyPos="true" lines="S1"/>
+    <busStop id="27325589" name="Bundesplatz" lane="290738875#1_0" startPos="0.00" endPos="165.76" friendlyPos="true" lines="S42 S46"/>
+    <busStop id="27325925" name="Innsbrucker Platz" lane="4525935#2_0" startPos="260.69" endPos="460.69" friendlyPos="true" lines="S42 S46"/>
+    <busStop id="27411231" name="Alexanderplatz" lane="72984377#1_0" startPos="0.00" endPos="160.64" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="27411240" name="Hackescher Markt" lane="4471817#2_0" startPos="0.00" endPos="158.41" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="27412232" name="Friedrichstraße" lane="25946658#2_0" startPos="0.00" endPos="184.12" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="27412648" name="Hauptbahnhof" lane="114919150#3_0" startPos="0.00" endPos="173.72" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="27429866" name="Priesterweg" lane="29327005#1_0" startPos="0.00" endPos="135.11" friendlyPos="true" lines="S25 S26"/>
+    <busStop id="27527830" name="Westkreuz" lane="531237642_0" startPos="0.00" endPos="144.40" friendlyPos="true" lines="S42 S46"/>
+    <busStop id="27540514" name="Tempelhof" lane="463435052#1_0" startPos="0.00" endPos="158.36" friendlyPos="true" lines="S41 S45 S46"/>
+    <busStop id="27554979" name="Hermannstraße" lane="141176100_0" startPos="0.00" endPos="167.21" friendlyPos="true" lines="S42 S45 S46 S47"/>
+    <busStop id="2781518430" name="Zoologischer Garten" lane="273275699#2_0" startPos="0.00" endPos="117.08" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="28092581" name="Yorckstraße (Großgörschenstraße)" lane="13860451_0" startPos="0.00" endPos="189.74" friendlyPos="true" lines="S1"/>
+    <busStop id="2813070486" name="Hauptbahnhof" lane="32591076#3_0" startPos="0.00" endPos="181.09" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="2837556544" name="Ostbahnhof" lane="136697970#0_0" startPos="0.00" endPos="80.47" friendlyPos="true" lines="S3"/>
+    <busStop id="2837556545" name="Ostbahnhof" lane="136697964_0" startPos="0.00" endPos="94.29" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="290175314" name="Yorckstraße" lane="238452719#1_0" startPos="0.00" endPos="167.24" friendlyPos="true" lines="S2 S25 S26"/>
+    <busStop id="29809225" name="Karlshorst" lane="174512813#0_0" startPos="1.86" endPos="201.86" friendlyPos="true" lines="S3"/>
+    <busStop id="29921550" name="Schöneweide" lane="29649964#2_0" startPos="0.00" endPos="162.12" friendlyPos="true" lines="S45 S8 S9 S46 S85"/>
+    <busStop id="29925371" name="Köllnische Heide" lane="24163536#0_0" startPos="40.79" endPos="240.79" friendlyPos="true" lines="S45 S47 S46"/>
+    <busStop id="30019971" name="Feuerbachstraße" lane="276219538#2_0" startPos="478.12" endPos="678.12" friendlyPos="true" lines="S1"/>
+    <busStop id="300259347" name="Julius-Leber-Brücke" lane="1236950984#3_0" startPos="0.00" endPos="166.11" friendlyPos="true" lines="S1"/>
+    <busStop id="30353065" name="Yorckstraße" lane="4756286#2_0" startPos="0.00" endPos="167.87" friendlyPos="true" lines="S2 S25 S26"/>
+    <busStop id="30353079" name="Potsdamer Platz" lane="237751547#0_0" startPos="0.00" endPos="171.43" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="30353449" name="Oranienburger Straße" lane="230976793#1_0" startPos="0.00" endPos="101.01" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="305801671" name="Feuerbachstraße" lane="28826751_0" startPos="686.21" endPos="886.21" friendlyPos="true" lines="S1"/>
+    <busStop id="315501112" name="Westhafen" lane="1155804298#1_0" startPos="0.00" endPos="165.26" friendlyPos="true" lines="S42"/>
+    <busStop id="316775452" name="Tempelhof" lane="463435053#1_0" startPos="0.00" endPos="161.56" friendlyPos="true" lines="S42 S45 S46"/>
+    <busStop id="316778068" name="Neukölln" lane="29653893#1_0" startPos="0.00" endPos="178.46" friendlyPos="true" lines="S41 S45 S47 S46"/>
+    <busStop id="316785822" name="Prenzlauer Allee" lane="375348222#1_0" startPos="0.00" endPos="170.06" friendlyPos="true" lines="S41 S8 S85"/>
+    <busStop id="316786620" name="Storkower Straße" lane="1237407031_0" startPos="34.86" endPos="234.86" friendlyPos="true" lines="S41 S8 S85"/>
+    <busStop id="316787417" name="Frankfurter Allee" lane="375331609_0" startPos="0.00" endPos="180.55" friendlyPos="true" lines="S41 S8 S85"/>
+    <busStop id="320929401" name="Lichtenberg" lane="136651807#0_0" startPos="15.91" endPos="215.91" friendlyPos="true" lines="S5 S7 S75"/>
+    <busStop id="322633812" name="Anhalter Bahnhof" lane="238192694#1_0" startPos="0.00" endPos="156.93" friendlyPos="true" lines="S1"/>
+    <busStop id="322633851" name="Anhalter Bahnhof" lane="238192692_0" startPos="0.00" endPos="154.48" friendlyPos="true" lines="S2 S25 S26"/>
+    <busStop id="322796203" name="Potsdamer Platz" lane="29326643_0" startPos="525.99" endPos="725.99" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="322796388" name="Brandenburger Tor" lane="459344269_0" startPos="34.88" endPos="234.88" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="322799089" name="Nordbahnhof" lane="230957293#1_0" startPos="0.00" endPos="158.60" friendlyPos="true" lines="S1 S2 S25 S26">
+        <access lane="396459320#0_0" pos="9.25" length="37.43" friendlyPos="1"/>
+        <access lane="396459320#1_0" pos="0.20" length="35.45" friendlyPos="1"/>
+        <access lane="396459321#0_0" pos="0.00" length="30.13" friendlyPos="1"/>
+        <access lane="396459321#1_0" pos="0.00" length="38.67" friendlyPos="1"/>
+        <access lane="396459326#0_0" pos="0.00" length="11.90" friendlyPos="1"/>
+    </busStop>
+    <busStop id="34663472" name="Priesterweg" lane="718121903_0" startPos="0.00" endPos="165.77" friendlyPos="true" lines="S2"/>
+    <busStop id="34663477" name="Priesterweg" lane="718121904_0" startPos="0.00" endPos="162.42" friendlyPos="true" lines="S25 S26"/>
+    <busStop id="34663482" name="Priesterweg" lane="368769080_0" startPos="0.00" endPos="133.61" friendlyPos="true" lines="S2"/>
+    <busStop id="3714150030" name="Warschauer Straße" lane="440405446#6_0" startPos="0.00" endPos="155.74" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="3761260321" name="Julius-Leber-Brücke" lane="1295392727_0" startPos="104.16" endPos="304.16" friendlyPos="true" lines="S1"/>
+    <busStop id="3761260322" name="Rathaus Steglitz" lane="27853060#0_0" startPos="161.48" endPos="361.48" friendlyPos="true" lines="S1"/>
+    <busStop id="3876863066" name="Greifswalder Straße" lane="463431360#2_0" startPos="0.00" endPos="126.84" friendlyPos="true" lines="S42 S8 S85"/>
+    <busStop id="3998225896" name="Savignyplatz" lane="57728648#2_0" startPos="0.00" endPos="121.45" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="4095970528" name="Ostkreuz" lane="446682250_0" startPos="0.00" endPos="171.59" friendlyPos="true" lines="S75"/>
+    <busStop id="4095970537" name="Ostkreuz" lane="446682252#2_0" startPos="0.00" endPos="154.01" friendlyPos="true" lines="S75 S3"/>
+    <busStop id="412193321" name="Ostbahnhof" lane="659305039#1_0" startPos="0.00" endPos="80.99" friendlyPos="true" lines="S75"/>
+    <busStop id="4264720740" name="Gesundbrunnen" lane="26436023#0_0" startPos="0.00" endPos="47.29" friendlyPos="true" lines="S41"/>
+    <busStop id="4439191866" name="Ostkreuz" lane="446682260#2_0" startPos="0.00" endPos="18.78" friendlyPos="true" lines="S5 S7 S3"/>
+    <busStop id="474368351" name="Friedrichstraße" lane="394320752#0_0" startPos="1.78" endPos="201.78" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="47786602" name="Westkreuz" lane="802255094#1_0" startPos="0.00" endPos="171.77" friendlyPos="true" lines="S5 S9"/>
+    <busStop id="4946539224" name="Jannowitzbrücke" lane="32590419#2_0" startPos="0.00" endPos="168.30" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="4946539227" name="Tiergarten" lane="4448413#1_0" startPos="0.00" endPos="126.09" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="4946539230" name="Südkreuz" lane="52782252#2_0" startPos="0.00" endPos="178.87" friendlyPos="true" lines="S42 S45 S46"/>
+    <busStop id="4946539231" name="Westend" lane="180406884#2_0" startPos="0.00" endPos="187.92" friendlyPos="true" lines="S42 S46"/>
+    <busStop id="4946539232" name="Hohenzollerndamm" lane="1265856115_0" startPos="257.49" endPos="457.49" friendlyPos="true" lines="S42 S46"/>
+    <busStop id="4946539237" name="Brandenburger Tor" lane="459344270#0_0" startPos="0.82" endPos="200.82" friendlyPos="true" lines="S1 S2 S25 S26"/>
+    <busStop id="4946539240" name="Heidelberger Platz" lane="384165125#2_0" startPos="272.34" endPos="472.34" friendlyPos="true" lines="S42 S46"/>
+    <busStop id="4946539242" name="Bellevue" lane="4490323_0" startPos="0.00" endPos="154.92" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="5046353031" name="Rummelsburg" lane="385250925_0" startPos="0.00" endPos="164.99" friendlyPos="true" lines="S3"/>
+    <busStop id="527860811" name="Beusselstraße" lane="4543951_0" startPos="0.00" endPos="174.00" friendlyPos="true" lines="S42"/>
+    <busStop id="574265352" name="Alexanderplatz" lane="25946659#2_0" startPos="0.00" endPos="158.10" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="596414162" name="Köllnische Heide" lane="29653264#0_0" startPos="23.61" endPos="223.61" friendlyPos="true" lines="S45 S46 S47"/>
+    <busStop id="604676232" name="Südkreuz" lane="136703826#3_0" startPos="0.00" endPos="164.10" friendlyPos="true" lines="S2 S25 S26"/>
+    <busStop id="6127606967" name="Warschauer Straße" lane="222917863#1_0" startPos="0.00" endPos="168.67" friendlyPos="true" lines="S5 S7 S3 S9"/>
+    <busStop id="6132735787" name="Warschauer Straße" lane="654481298#2_0" startPos="0.00" endPos="170.04" friendlyPos="true" lines="S75 S3"/>
+    <busStop id="621239643" name="Baumschulenweg" lane="344073167#3_0" startPos="0.00" endPos="170.07" friendlyPos="true" lines="S45 S46 S47"/>
+    <busStop id="670814566" name="Schöneberg" lane="276205109#1_0" startPos="0.00" endPos="130.89" friendlyPos="true" lines="S42 S46"/>
+    <busStop id="6946321451" name="Innsbrucker Platz" lane="24295311#0_0" startPos="0.00" endPos="161.96" friendlyPos="true" lines="S41 S46"/>
+    <busStop id="7896839337" name="Friedrichsfelde Ost" lane="24565640#6_0" startPos="0.00" endPos="179.45" friendlyPos="true" lines="S5 S7 S75"/>
+</additional>

@@ -1,0 +1,4 @@
+-a input_stops.xml -r input_routes.rou.xml --blind 
+--stop-order-output output_data.txt
+--csv-output out.csv
+tools/visualization/plotStops.py
