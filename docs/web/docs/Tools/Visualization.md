@@ -83,8 +83,9 @@ When clicking on a line or plot point, the data point ids near the click positio
 
 ### Filtering
 
-Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data ids
-It is permitted to use the wildcars *\**, *?*, *[* and *]* when specifying filters.
+Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data ids.
+
+It is permitted to use the wildcars *\**, *?*, *[* and *]* when specifying filters. This workings according to [file name globbing rules](https://en.wikipedia.org/wiki/Glob_(programming)).
 
 ### Multi-line plots
 
