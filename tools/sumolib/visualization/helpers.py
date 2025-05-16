@@ -393,9 +393,19 @@ def parseColorMap(mapDef):
     return colormap
 
 
-def parseTicks(tickfile):
-    # whether we're loading <FLOAT>:<LABEL> instead of <LABEL>
+def parseTicks(tickfile, mapping=None):
+    # there are multiple possible formats:
+    # 1. for defining the order (label is a data value or a wildcard):
+    #   <LABEL>
+    # 2. for defining the tick positions for the data values
+    #   <FLOAT>:<LABEL>
+    # 3. for defining the tick positions and a mapping from data values to displayed labels
+    #   <FLOAT>:<DATA>:<LABEL>
+
+    # whether explicit tick positions  are available
     haveOffsets = True
+    # whether a data->label mapping is available
+
     offsets = []
     labels = []
     with open(tickfile) as tf:
@@ -408,7 +418,12 @@ def parseTicks(tickfile):
                 of = float(of_label[0])
                 offsets.append(of)
                 if len(of_label) > 1:
-                    labels.append(' '.join(of_label[1:]))
+                    if len(of_label) == 3:
+                        labels.append(of_label[2])
+                        if mapping is not None:
+                            mapping[of_label[1]] = of_label[2]
+                    else:
+                        labels.append(' '.join(of_label[1:]))
                 else:
                     # also accept <FLOAT> format
                     labels.append(str(of))

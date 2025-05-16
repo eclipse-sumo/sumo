@@ -576,8 +576,15 @@ def makeNumeric(val):
 
 
 def applyTicks(d, xyIndex, ticksFile):
-    offsets, labels = sumolib.visualization.helpers.parseTicks(ticksFile)
+    mapping = dict()
+    offsets, labels = sumolib.visualization.helpers.parseTicks(ticksFile, mapping)
     l2o = dict(zip(labels, offsets))
+    if mapping:
+        l2oMapped = {}
+        for k, v in mapping.items():
+            l2oMapped[k] = l2o[v]
+        labels = mapping.keys()
+        l2o = l2oMapped
     if useWildcards(labels):
         def getOffset(val):
             for label in labels:
@@ -695,6 +702,7 @@ def main(options):
 
     barOffset = 0
     barWidth = options.barbin / (len(data.items()) + 1)
+    hadData = False
 
     for dataID, d in data.items():
 
@@ -734,6 +742,8 @@ def main(options):
         if len(xvalues) == 0:
             assert len(yvalues) == 0
             continue
+        else:
+            hadData = True
 
         minY = min(minY, min(yvalues))
         maxY = max(maxY, max(yvalues))
@@ -779,7 +789,7 @@ def main(options):
             plt.yticks(range(len(labels)), labels)
         plt.boxplot(boxdata, vert=options.xattr == BOX_ATTR)
 
-    if options.invertYAxis:
+    if options.invertYAxis and hadData:
         plt.axis([minX, maxX, maxY, minY])
 
     if options.csv_output is not None:
