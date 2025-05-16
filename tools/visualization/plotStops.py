@@ -92,12 +92,12 @@ def main(options):
     xattr = None
     for veh in sumolib.xml.parse(options.routeFile, ['vehicle', 'trip', 'flow']):
         if veh.id == options.vehID:
-            if veh.route:
-                stops = routeStops[veh.route]
-                idelem = 'route'
-            else:
+            if veh.stop:
                 stops = [getStopID(stop) for stop in veh.stop]
                 idelem = veh.name
+            else:
+                stops = routeStops[veh.route]
+                idelem = 'route'
             xattr = FOUND_ATTR[0]
 
     if not stops:
