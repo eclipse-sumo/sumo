@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:39+0200\n"
-"PO-Revision-Date: 2025-05-16 12:57+0000\n"
+"PO-Revision-Date: 2025-05-17 04:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5674,7 +5674,7 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:311
 msgid "No waiting set for crossing at %."
-msgstr ""
+msgstr "Nessun insieme di attese al passaggio pedonale su %."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:351
 msgid "Error while adding a journey for person '%': %"
@@ -6246,6 +6246,8 @@ msgid ""
 "Stop on edge '%' can only be reached in reverse but edge has the wrong "
 "spreadType."
 msgstr ""
+"La fermata sull'arco '%' può essere raggiunta solamente andando contromano "
+"ma l'arco possiede lo spreadType sbagliato."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1045
 msgid "No connection found between stops on edge '%' and edge '%'."
@@ -6994,6 +6996,7 @@ msgstr "Indovina i segnali che proteggono fermate di trasporto pubblico"
 #: src/netbuild/NBFrame.cpp:269 src/netgen/netgen_main.cpp:97
 msgid "List rail classes that may run without rail signals"
 msgstr ""
+"Elenca le classi ferroviarie capaci di circolare senza segnali ferroviari"
 
 #: src/netbuild/NBFrame.cpp:272
 msgid "The search radius for finding suitable road accesses for rail stops"
