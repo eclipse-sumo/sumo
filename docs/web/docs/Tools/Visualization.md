@@ -77,6 +77,15 @@ The following attribute values have a special meaning. Instead of using an attri
 - `@BOX`: one or more [box plots](https://en.wikipedia.org/wiki/Box_plot) of the *other* value are drawn. The **--idattr** is used for grouping and there will be one box plot per id
 - `@NONE`: can be used with option **--idattr** to explicitly avoid grouping
 
+### Interactive Plot
+
+When clicking on a line or plot point, the data point ids near the click position are printed in the console.
+
+### Filtering
+
+Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data ids
+It is permitted to use the wildcars *\**, *?*, *[* and *]* when specifying filters.
+
 ### Multi-line plots
 
 - By default, every distinct ID (as defined by **--idattr**) will generated a new line for all the data points associated with that ID.
