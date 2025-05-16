@@ -41,13 +41,13 @@ def getOptions(args=None):
     op.add_option("-r", "--route-file", dest="routeFile", category="input", required=True, 
                   help="Route file for obtaining the ordering of stops")
     op.add_option("-a", "--stop-file", dest="stopFile", category="input", type=op.file,
-                  help="write ordering of stops to file")
+                  help="Read ordering of stops from file")
     op.add_option("-s", "--stopinfo-file", dest="stopinfoFile", category="input", type=op.file,
                   help="plot simulation stop-output file")
     op.add_option("-t", "--time-attribute", dest="timeAttr", default="until",
                   help="attribute(s) for plotting time")
     op.add_option("-S", "--stop-order-output", dest="stopList", category="output", type=op.file, default="stoplist.txt",
-                  help="write ordering of stops to file")
+                  help="write ordering and stop names to file")
     op.add_option("-i", "--veh-id", dest="vehID", required=True,
                   help="plot route for the given vehicle id")
     op.add_option("--filter-ids", dest="filterIDs",
@@ -56,6 +56,8 @@ def getOptions(args=None):
                   help="plot label (default input file name")
     op.add_option("--legend", action="store_true", default=False, category="visualization",
                   help="Add legend")
+    op.add_option("--csv-output", dest="csv_output", category="output",
+                  help="write plot as csv")
     sumolib.visualization.helpers.addInteractionOptions(op)
     op.add_option("-v", "--verbose", action="store_true", default=False,
                   help="tell me what you are doing")
@@ -146,6 +148,8 @@ def plot(options, idelem, xattr):
         pxargs += ['-o', options.output]
     if options.blind:
         pxargs += ['--blind']
+    if options.csv_output:
+        pxargs += ['--csv-output', options.csv_output]
 
     if options.verbose:
         print("plotXMLAttributes.py " + " ".join(pxargs))
