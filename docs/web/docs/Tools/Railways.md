@@ -173,3 +173,44 @@ Example:
 ```
 <SUMO_HOME>/tools/route/checkReversals.py -n <input-net-file> -r <input-route-file> -o reversals.xml
 ```
+
+# plotStops.py
+
+Plot a public transport schedule (either planned or actual timins). This script is a wrapper around [plotXMLAttributes.py](Visualization.md#public_transport_schedule) with the main advantage of defining the ordering of stops along a specified line and aggregating data by the human-readable stop name rather than track-specific stop positions.
+Several options are passed directly to [plotXMLAttributes.py](Visualization.md#plotxmlattributespy)
+
+The following examples show how to work with files created by [osmWebWizard.py](../Tutorials/OSMWebWizard.md) (using [ptlines2fows.py](Tools/Misc.html#ptlines2flowspy) in the background). The input files can be bound in the [SUMO 2025 User Conference Tutorial](https://sumo.dlr.de/daily/sumo2025_tutorial.zip).
+
+The following arguments are necessary:
+
+- **-r, --route-file**: a file that defines the ordering of the stops along the x-axis
+- **-i, --veh-id**: the id of a vehicle, trip or flow from the route-file to select which route shall be plotted
+
+Also recommended is setting option **-a**,--stop-file** with the definition of public transport stops for reading their names.
+
+Example: loading simulation inputs
+```
+<SUMO_HOME>/tools/visualization/plotStops.py -r osm_pt.rou.xml -a osm_stops.add.xml -i pt_light_rail_S46:1 -v --legend --filter-ids \*S46\*
+```
+<img src="../images//S46_input_flows.png" width="500px"/>
+
+
+Example: after running the simulation with **--vehroute-output vehroutes.xml**
+```
+<SUMO_HOME>/tools/visualization/plotStops.py -r vehroutes.xml -a osm_stops.add.xml -i pt_light_rail_S46:1.0 -v --legend --filter-ids \*S46\*
+```
+!!! note
+    Here, option **-i** references a vehicle id rather than a flow id as in the prior example
+
+<img src="../images/S46.png" width="500px"/>
+
+Example: after running the simulation with **--stop-output stopinfos.xml** for reading actual timing.
+Such a file is loaded by adding the option **-s, --stopinfo-file** to the options from the previous example.
+```
+<SUMO_HOME>/tools/visualization/plotStops.py -r vehroutes.xml -a osm_stops.add.xml -i pt_light_rail_S46:1.0 -s stopinfos.xml -v --legend --filter-ids \*S46\*
+```
+!!! note
+    Here, option **-i** references a vehicle id rather than a flow id as in the prior example
+
+<img src="../images/S46_actual.png" width="500px"/>
+
