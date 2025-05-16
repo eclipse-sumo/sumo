@@ -250,6 +250,9 @@ where -x is the attribute for the x axis; -y is the attribute for the y axis; -o
 
 ### Public transport schedule
 
+!!! note:
+    The tool [plotStops.py](Railways.md#plotstopspy) simplifies plotting such schedules
+
 In this type of plot time is on the y-axis running from top to bottom. Input is route file of a [public transport schedule](../Simulation/Public_Transport.md#public_transport_schedules) where each vehicle is modelled individually.
 A similar plot could also be generated from [stop-output](../Simulation/Output/StopOutput.md) by using attribute `started` or `ended` (or `started,ended`) instead of `until`.
 
@@ -271,6 +274,9 @@ In order to group busStops that belong to different tracks of the same train sta
 *KX
 *LHG
 ```
+
+!!! note:
+    The main advantage of [plotStops.py](Railways.md#plotstopspy) is creating a stoplist.txt file automatically.
 
 !!! note
     When plotting stops from a route file that also defines `<vType>` elements, then the option **--idelem** must be used to declare where the id attribute must be loaded from (i.e. **--idelem trip**).
