@@ -192,7 +192,7 @@ Example: loading simulation inputs
 ```
 <SUMO_HOME>/tools/visualization/plotStops.py -r osm_pt.rou.xml -a osm_stops.add.xml -i pt_light_rail_S46:1 -v --legend --filter-ids \*S46\*
 ```
-<img src="../images//S46_input_flows.png" width="500px"/>
+<img src="../images//S46_input_flows.png" width="800px"/>
 
 
 Example: after running the simulation with **--vehroute-output vehroutes.xml**
@@ -202,15 +202,13 @@ Example: after running the simulation with **--vehroute-output vehroutes.xml**
 !!! note
     Here, option **-i** references a vehicle id rather than a flow id as in the prior example
 
-<img src="../images/S46.png" width="500px"/>
+<img src="../images/S46.png" width="800px"/>
 
 Example: after running the simulation with **--stop-output stopinfos.xml** for reading actual timing.
 Such a file is loaded by adding the option **-s, --stopinfo-file** to the options from the previous example.
 ```
 <SUMO_HOME>/tools/visualization/plotStops.py -r vehroutes.xml -a osm_stops.add.xml -i pt_light_rail_S46:1.0 -s stopinfos.xml -v --legend --filter-ids \*S46\*
 ```
-!!! note
-    Here, option **-i** references a vehicle id rather than a flow id as in the prior example
 
-<img src="../images/S46_actual.png" width="500px"/>
+<img src="../images/S46_actual.png" width="800px"/>
 
