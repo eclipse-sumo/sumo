@@ -1528,7 +1528,10 @@ MSNet::existTractionSubstation(const std::string& substationId) {
 
 
 MSVehicleRouter&
-MSNet::getRouterTT(const int rngIndex, const MSEdgeVector& prohibited) const {
+MSNet::getRouterTT(int rngIndex, const MSEdgeVector& prohibited) const {
+    if (MSGlobals::gNumSimThreads == 1) {
+        rngIndex = 0;
+    }
     if (myRouterTT.count(rngIndex) == 0) {
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
@@ -1546,7 +1549,10 @@ MSNet::getRouterTT(const int rngIndex, const MSEdgeVector& prohibited) const {
 
 
 MSVehicleRouter&
-MSNet::getRouterEffort(const int rngIndex, const MSEdgeVector& prohibited) const {
+MSNet::getRouterEffort(int rngIndex, const MSEdgeVector& prohibited) const {
+    if (MSGlobals::gNumSimThreads == 1) {
+        rngIndex = 0;
+    }
     if (myRouterEffort.count(rngIndex) == 0) {
         myRouterEffort[rngIndex] = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getEffort, &MSNet::getTravelTime, false, nullptr, true);
     }
@@ -1556,7 +1562,10 @@ MSNet::getRouterEffort(const int rngIndex, const MSEdgeVector& prohibited) const
 
 
 MSPedestrianRouter&
-MSNet::getPedestrianRouter(const int rngIndex, const MSEdgeVector& prohibited) const {
+MSNet::getPedestrianRouter(int rngIndex, const MSEdgeVector& prohibited) const {
+    if (MSGlobals::gNumSimThreads == 1) {
+        rngIndex = 0;
+    }
     if (myPedestrianRouter.count(rngIndex) == 0) {
         myPedestrianRouter[rngIndex] = new MSPedestrianRouter();
     }
@@ -1566,7 +1575,10 @@ MSNet::getPedestrianRouter(const int rngIndex, const MSEdgeVector& prohibited) c
 
 
 MSTransportableRouter&
-MSNet::getIntermodalRouter(const int rngIndex, const int routingMode, const MSEdgeVector& prohibited) const {
+MSNet::getIntermodalRouter(int rngIndex, const int routingMode, const MSEdgeVector& prohibited) const {
+    if (MSGlobals::gNumSimThreads == 1) {
+        rngIndex = 0;
+    }
     const OptionsCont& oc = OptionsCont::getOptions();
     const int key = rngIndex * oc.getInt("thread-rngs") + routingMode;
     if (myIntermodalRouter.count(key) == 0) {
