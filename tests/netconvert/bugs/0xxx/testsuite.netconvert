@@ -18,6 +18,7 @@
 
 # Test for #38 speed instead of length while importing XML
 ticket38
+ticket55
 
 # Test for #193 invalid traffic lights at dead ends
 ticket193
