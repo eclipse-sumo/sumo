@@ -1,5 +1,9 @@
 outgoing for passenger: ['E2']
+<connection from="E0" to="E2" fromLane="0" toLane="0" direction="s"> allows 'passenger' True
+<connection from="E0" to="E1" fromLane="0" toLane="0" direction="l"> allows 'passenger' False
 outgoing for bus: ['E2', 'E1']
+<connection from="E0" to="E2" fromLane="0" toLane="0" direction="s"> allows 'bus' True
+<connection from="E0" to="E1" fromLane="0" toLane="0" direction="l"> allows 'bus' True
 outgoing for ignoring: ['E2', 'E1']
-<connection from="E0" to="E2" fromLane="0" toLane="0" direction="s"> allows 'ignoring' False
-<connection from="E0" to="E1" fromLane="0" toLane="0" direction="l"> allows 'ignoring' False
+<connection from="E0" to="E2" fromLane="0" toLane="0" direction="s"> allows 'ignoring' True
+<connection from="E0" to="E1" fromLane="0" toLane="0" direction="l"> allows 'ignoring' True
