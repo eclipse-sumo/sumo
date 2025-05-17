@@ -31,3 +31,8 @@ net = sumolib.net.readNet(sys.argv[1])
 E0 = net.getEdge("E0")
 for vClass in ['passenger', 'bus', 'ignoring']:
     print("outgoing for %s:" % vClass, [e.getID() for e in E0.getAllowedOutgoing(vClass)])
+
+for e, cons in E0.getOutgoing().items():
+    for c in cons:
+        print(c, "allows 'ignoring'", c.allows("ignoring"))
+
