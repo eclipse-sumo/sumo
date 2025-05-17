@@ -433,8 +433,10 @@ def repair_routes(options, net):
 
     # parse repaired routes
     n_routes = len(osm_routes)
+    broken = set(osm_routes.keys())
     for ptline, ptline_route in parse_fast_nested("dua_output.xml", "vehicle", "id", "route", "edges"):
         osm_routes[ptline.id] += (ptline_route.edges, )
+        broken.remove(ptline.id)
 
     # remove dua files
     os.remove("dua_input.xml")
@@ -442,7 +444,7 @@ def repair_routes(options, net):
     os.remove("dua_output.alt.xml")
 
     # remove invalid routes from dict
-    [osm_routes.pop(line) for line in list(osm_routes) if len(osm_routes[line]) < 5]
+    [osm_routes.pop(line) for line in list(osm_routes) if line in broken]
 
     if n_routes != len(osm_routes):
         print("%s of %s routes have been imported, see '%s' for more information." %
