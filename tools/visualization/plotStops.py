@@ -27,10 +27,11 @@ import sys
 
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..', 'visualization'))
-import sumolib
+import sumolib  # noqa
 from sumolib import openz  # noqa
 from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
-import plotXMLAttributes
+import plotXMLAttributes  # noqa
+
 
 def getOptions(args=None):
     op = ArgumentParser(
@@ -38,7 +39,7 @@ def getOptions(args=None):
         epilog=__doc__,
         formatter_class=RawDescriptionHelpFormatter, conflict_handler='resolve')
 
-    op.add_option("-r", "--route-file", dest="routeFile", category="input", required=True, 
+    op.add_option("-r", "--route-file", dest="routeFile", category="input", required=True,
                   help="Route file for obtaining the ordering of stops")
     op.add_option("-a", "--stop-file", dest="stopFile", category="input", type=op.file,
                   help="Read ordering of stops from file")
@@ -84,7 +85,7 @@ def main(options):
 
     for stop in sumolib.xml.parse(options.stopFile, ['busStop', 'trainStop']):
         stopNames[stop.id] = stop.getAttributeSecure('attr_name', stop.id)
-    
+
     for route in sumolib.xml.parse(options.routeFile, 'route'):
         if route.id:
             routeStops[route.id] = [getStopID(stop) for stop in route.stop]
@@ -108,7 +109,7 @@ def main(options):
         sys.exit(1)
         return
 
-    with openz(options.stopList, 'w') as slf: 
+    with openz(options.stopList, 'w') as slf:
         stopName2index = {}
         for i, stop in enumerate(stops):
             name = stopNames.get(stop)
@@ -130,13 +131,13 @@ def plot(options, idelem, xattr):
         pxargs = [options.routeFile, '--idelem', idelem]
 
     pxargs += ['-x', xattr,
-              '-y', options.timeAttr,
-              '--ytime1',
-              '--invert-yaxis',
-              '--marker', 'o',
-              '--xstr',
-              '--xticks-file', options.stopList,
-              '--xticksorientation', '45']
+               '-y', options.timeAttr,
+               '--ytime1',
+               '--invert-yaxis',
+               '--marker', 'o',
+               '--xstr',
+               '--xticks-file', options.stopList,
+               '--xticksorientation', '45']
 
     if options.label:
         pxargs += ['--label', options.label]
