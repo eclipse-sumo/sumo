@@ -284,9 +284,10 @@ class Net:
         self._roundabouts.append(r)
         return r
 
-    def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state, viaLaneID=None):
+    def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, tllink2, allow, disallow, state, viaLaneID=None):
         conn = connection.Connection(
-            fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, state, viaLaneID)
+            fromEdge, toEdge, fromlane, tolane, direction,
+            tls, tllink, tllink2, allow, disallow, state, viaLaneID)
         fromEdge.addOutgoing(conn)
         fromlane.addOutgoing(conn)
         toEdge._addIncoming(conn)
@@ -297,7 +298,7 @@ class Net:
                 viaEdge = viaLane.getEdge()
                 viaEdge._addIncoming(connection.Connection(
                     fromEdge, viaEdge, fromlane, viaLane, direction, tls,
-                    tllink, state, ''))
+                    tllink, tllink2, allow, disallow, state, ''))
             except Exception:
                 pass
         return conn
@@ -840,7 +841,7 @@ class NetReader(handler.ContentHandler):
                 viaLaneID = attrs['via']
                 self._net.addConnection(self._currentEdge, connected, self._currentEdge._lanes[
                                         self._currentLane], tolane,
-                                        attrs['dir'], tl, tllink, attrs['state'], viaLaneID)
+                                        attrs['dir'], tl, tllink, -1, attrs.get('allow'), attrs.get('disallow'), attrs['state'], viaLaneID)
         elif name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
             fromEdgeID = attrs['from']
             toEdgeID = attrs['to']
@@ -855,11 +856,13 @@ class NetReader(handler.ContentHandler):
                 if 'tl' in attrs and attrs['tl'] != "":
                     tl = attrs['tl']
                     tllink = int(attrs['linkIndex'])
+                    tllink2 = int(attrs.get('linkIndex2', -1))
                     tls = self._net.addTLS(tl, fromLane, toLane, tllink)
                     fromEdge.setTLS(tls)
                 else:
                     tl = ""
                     tllink = -1
+                    tllink2 = -1
                 try:
                     viaLaneID = attrs['via']
                 except KeyError:
@@ -867,7 +870,7 @@ class NetReader(handler.ContentHandler):
 
                 self._currentConnection = self._net.addConnection(
                     fromEdge, toEdge, fromLane, toLane, attrs['dir'], tl,
-                    tllink, attrs['state'], viaLaneID)
+                    tllink, tllink2, attrs.get('allow'), attrs.get('disallow'), attrs['state'], viaLaneID)
 
         # 'row-logic' is deprecated!!!
         elif self._withFoes and name == 'ROWLogic':

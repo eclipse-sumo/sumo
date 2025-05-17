@@ -18,6 +18,7 @@
 # @author  Jakob Erdmann
 # @date    2011-11-28
 
+from sumolib.net.lane import get_allowed
 
 class Connection:
     # constants as defined in sumo/src/utils/xml/SUMOXMLDefinitions.cpp
@@ -31,7 +32,7 @@ class Connection:
 
     """edge connection for a sumo network"""
 
-    def __init__(self, fromEdge, toEdge, fromLane, toLane, direction, tls, tllink, state, viaLaneID=None):
+    def __init__(self, fromEdge, toEdge, fromLane, toLane, direction, tls, tllink, tllink2, allow, disallow, state, viaLaneID=None):
         self._from = fromEdge
         self._to = toEdge
         self._fromLane = fromLane
@@ -39,19 +40,25 @@ class Connection:
         self._direction = direction
         self._tls = tls
         self._tlLink = tllink
+        self._tlLink2 = tllink2
         self._state = state
         self._via = viaLaneID
+        self._allowed = get_allowed(allow, disallow)
         self._params = {}
 
     def __str__(self):
-        return '<connection from="%s" to="%s" fromLane="%s" toLane="%s" %sdirection="%s">' % (
+        return '<connection from="%s" to="%s" fromLane="%s" toLane="%s" %s%sdirection="%s">' % (
             self._from.getID(),
             self._to.getID(),
             self._fromLane.getIndex(),
             self._toLane.getIndex(),
-            ('' if self._tls == '' else 'tl="%s" linkIndex="%s" ' %
-             (self._tls, self._tlLink)),
+            ('' if self._tls == '' else 'tl="%s" linkIndex="%s" ' % (self._tls, self._tlLink)),
+            ('' if self._tlLink2 < 0 else ' linkIndex2="%s" ' % self._tlLink2),
             self._direction)
+
+    def allows(self, vClass):
+        """true if this connection allows the given vehicle class"""
+        return vClass in self._allowed
 
     def setParam(self, key, value):
         self._params[key] = value
@@ -85,6 +92,9 @@ class Connection:
 
     def getTLLinkIndex(self):
         return self._tlLink
+
+    def getTLLinkIndex2(self):
+        return self._tlLink2
 
     def getJunctionIndex(self):
         return self._from.getToNode().getLinkIndex(self)

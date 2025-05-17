@@ -122,7 +122,8 @@ class Edge:
             for e, conns in self._outgoing.items():
                 allowedConns = [c for c in conns if
                                 c.getFromLane().allows(vClass) and
-                                c.getToLane().allows(vClass)]
+                                c.getToLane().allows(vClass) and
+                                c.allows(vClass)]
                 if allowedConns:
                     result[e] = allowedConns
             return result
