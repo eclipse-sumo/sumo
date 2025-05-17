@@ -8,20 +8,32 @@ title: ChangeLog
 
 - sumo
   - Fixed invalid traffic light warnings #16602
+  - Fixed overly verbose router output when using stationfinder device #16624
 
 - netconvert
   - Fixed bug where option **--tls.rebuild** creates invalid signal plan when using custom crossing traffic light indices. #16653
   - Fixed unsafe signal plan when crossings use linkIndex2 #16657
+  - Fixed missing yellow phase when crossing re-uses vehicular link index #16658
 
 - tools
-  - osmWebWizard.py: Fixed bug where the wizard wouldn't open properly on Linux #16086
-  - net2geojson.py: Fixed bug that was causing invalid shapes with option **--boundary** #16295
+  - gtfs2pt.py: Fixed bug where option **--repair** did not fix broken **--osm-routes**. #16632 (regression in 1.17.0)
   - gtfs2pt.py: Fixed obsolete config header when using **--osm-routes** #16680
+  - osmWebWizard.py: Fixed bug where the wizard wouldn't open properly on Linux #16086
+  - net2geojson.py: Fixed bug that was causing invalid shapes with option **--boundary** #16295  
+  - sumolib.net.connection: No longer ignores connection permissions #16633
 
 ### Enhancements
 
 - sumo
   - A warning is now issued for traffic light programs where a link never gets a green phase even when the program has only a single phase. #16652
+ 
+- meso
+  - `<tlLogic>` with `<param key="meso.tls.control" value="true"/>` is now excempt from options **--meso-tls-penalty** and **--meso-tls-flow-penalty** and runs with full control #16674
+
+- tools
+  - plotXMLAttributes.py: The options **--xticks-file** and **--yticks-file** now support giving a column for name aliases to group the respective values #16683
+  - [plotStops.py](Tools/Railways.md#plotstopspy): New tool to simplify drawing a train schedule diagram along a specified route. #16683
+
  
 ### Miscellaneous
 
