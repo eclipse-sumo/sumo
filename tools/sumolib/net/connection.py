@@ -58,6 +58,8 @@ class Connection:
 
     def allows(self, vClass):
         """true if this connection allows the given vehicle class"""
+        if vClass is None or vClass == "ignoring":
+            return True
         return vClass in self._allowed
 
     def setParam(self, key, value):
