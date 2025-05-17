@@ -108,7 +108,7 @@ it to the real situation especially concerning capacity (number of seats) for th
 In order to use them in a simulation you should pass them as additional files (not route files!) in the order given above.
 
 ```
-sumo-gui -n osm.net.xml --additional pt_vtypes.xml,gtfs_publictransport.add.xml,gtfs_publictransport.rou.xml
+sumo-gui -n osm.net.xml.gz --additional pt_vtypes.xml,gtfs_publictransport.add.xml,gtfs_publictransport.rou.xml
 ```
 
 ## Routes from OSM
@@ -120,7 +120,7 @@ which automatically generate the "osm_ptlines.xml" file with the public transpor
 The call is:
 
 ```
-python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --osm-routes osm_ptlines.xml --repair --modes bus --vtype-output pt_vtypes.xml
+python tools/import/gtfs/gtfs2pt.py -n osm.net.xml.gz --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --osm-routes osm_ptlines.xml --repair --modes bus --vtype-output pt_vtypes.xml
 ```
 
 The option **--repair** is not mandatory, but helpful. It takes the given ptLines
@@ -138,7 +138,7 @@ The script generates the following output files:
 To run the simulation call:
 
 ```
-sumo-gui -n osm.net.xml --additional pt_vtypes.xml,gtfs_publictransport.add.xml --routes gtfs_publictransport.rou.xml
+sumo-gui -n osm.net.xml.gz --additional pt_vtypes.xml,gtfs_publictransport.add.xml --routes gtfs_publictransport.rou.xml
 ```
 
 ## Stops from OSM
@@ -152,7 +152,7 @@ This is useful when GTFS data has no shape information and provides two advantag
 The call is:
 
 ```
-python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --stops osm_stops.add.xml --repair --modes bus --vtype-output pt_vtypes.xml
+python tools/import/gtfs/gtfs2pt.py -n osm.net.xml.gz --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --stops osm_stops.add.xml --repair --modes bus --vtype-output pt_vtypes.xml
 ```
 
 The generated simulation inputs are the same as [above](#routes_from_osm) and thus the same call to sumo/sumo-gui can be used.
