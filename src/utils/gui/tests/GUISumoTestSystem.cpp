@@ -20,7 +20,6 @@
 
 #include "GUIGlobalTestSystem.h"
 #include "GUISumoTestSystem.h"
-#include "GUITestSystemStep.h"
 
 // ===========================================================================
 // member method definitions
