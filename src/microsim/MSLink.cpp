@@ -439,6 +439,22 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                           << " dist1=" << myConflicts.back().lengthBehindCrossing
                           << "\n";
 #endif
+                const MSLane* const siblingCont = sibling->getLinkCont().front()->getViaLaneOrLane();
+                if (siblingCont->isInternal() && lane->getShape().distance2D(siblingCont->getShape().front()) < minDist) {
+                    // there may still be overlap with siblingCont (when considering vehicle widths)
+                    const double distToDivergence2 = computeDistToDivergence(lane, siblingCont, minDist, true, sibling->getLength());
+                    double lbcLane2 = MAX2(0.0, lane->getLength() - lane->interpolateGeometryPosToLanePos(distToDivergence2));
+                    ConflictInfo ci2 = ConflictInfo(lbcLane2, siblingCont->getWidth(), CONFLICT_SIBLING_CONTINUATION);
+                    myConflicts.push_back(ci2);
+                    myFoeLanes.push_back(siblingCont);
+                    myRecheck.insert({this, siblingCont->getLinkCont().front()});
+
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                    std::cout << " adding same-origin foeContinuation" << siblingCont->getID()
+                        << " dist1=" << myConflicts.back().lengthBehindCrossing
+                        << "\n";
+#endif
+                }
             }
         }
         // init points for the symmetrical conflict
@@ -545,6 +561,24 @@ MSLink::recheckSetRequestInformation() {
             continue;
         }
         ConflictInfo& ci = link->myConflicts[conflictIndex];
+        if (ci.flag & CONFLICT_SIBLING_CONTINUATION) {
+            const MSLane* lane = link->getInternalLaneBefore();
+            const MSLane* siblingCont = foeExitLink->getInternalLaneBefore();
+            const MSLane* sibling = siblingCont->getLogicalPredecessorLane();
+            // this is an approximation because lane and sibling+siblingCont are still close to each other but may have different curvature
+            const double distToDivergence = lane->getLength() - ci.lengthBehindCrossing;
+            double lbcSibCont = MIN2(siblingCont->getLength(), MAX2(0.0, sibling->getLength() + siblingCont->getLength() - distToDivergence));
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+            std::cout << " siblingContinuation: distToDivergence=" << distToDivergence << " lbcSibCont=" << lbcSibCont << "\n";
+#endif
+            ConflictInfo ci2 = ConflictInfo(lbcSibCont, lane->getWidth());
+            ci2.foeConflictIndex = conflictIndex;
+            ci.foeConflictIndex = (int)foeExitLink->myConflicts.size();
+            foeExitLink->myFoeLanes.push_back(lane);
+            foeExitLink->myConflicts.push_back(ci2);
+            continue;
+        }
+
         std::vector<double> intersections1 = foeLane->getShape().intersectsAtLengths2D(lane->getShape());
         if (intersections1.size() == 0) {
 #ifdef MSLink_DEBUG_CROSSING_POINTS
@@ -567,7 +601,7 @@ MSLink::recheckSetRequestInformation() {
 }
 
 double
-MSLink::computeDistToDivergence(const MSLane* lane, const MSLane* sibling, double minDist, bool sameSource) const {
+MSLink::computeDistToDivergence(const MSLane* lane, const MSLane* sibling, double minDist, bool sameSource, double siblingPredLength) const {
     double lbcSibling = 0;
     double lbcLane = 0;
 
@@ -634,7 +668,7 @@ MSLink::computeDistToDivergence(const MSLane* lane, const MSLane* sibling, doubl
         assert(lbcSibling >= -NUMERICAL_EPS);
         assert(lbcLane >= -NUMERICAL_EPS);
     }
-    const double distToDivergence1 = sibling->getLength() - lbcSibling;
+    const double distToDivergence1 = sibling->getLength() + siblingPredLength - lbcSibling;
     const double distToDivergence2 = lane->getLength() - lbcLane;
     const double distToDivergence = MIN3(
                                         MAX2(distToDivergence1, distToDivergence2),
@@ -1487,7 +1521,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
         double distToCrossing = dist - myConflicts[i].getLengthBehindCrossing(this);
         const double foeDistToCrossing = foeLane->getLength() - myConflicts[i].getFoeLengthBehindCrossing(foeExitLink);
         const bool sameTarget = (myLane == foeExitLink->getLane()) && !isInternalJunctionLink() && !foeExitLink->isInternalJunctionLink();
-        const bool sameSource = (myInternalLaneBefore != nullptr && myInternalLaneBefore->getLogicalPredecessorLane() == foeLane->getLogicalPredecessorLane());
+        const bool sameSource = (myInternalLaneBefore != nullptr && myInternalLaneBefore->getNormalPredecessorLane() == foeLane->getNormalPredecessorLane());
         const double crossingWidth = (sameTarget || sameSource) ? 0 : myConflicts[i].conflictSize;
         const double foeCrossingWidth = (sameTarget || sameSource) ? 0 : myConflicts[i].getFoeConflictSize(foeExitLink);
         // special treatment of contLane foe only applies if this lane is not a contLane or contLane follower itself

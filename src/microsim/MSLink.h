@@ -187,7 +187,8 @@ public:
         CONFLICT_DEFAULT,
         CONFLICT_DUMMY_MERGE,
         CONFLICT_NO_INTERSECTION,
-        CONFLICT_STOP_AT_INTERNAL_JUNCTION
+        CONFLICT_STOP_AT_INTERNAL_JUNCTION,
+        CONFLICT_SIBLING_CONTINUATION
     };
 
     /// @brief pre-computed information for conflict points
@@ -747,7 +748,7 @@ private:
     bool contIntersect(const MSLane* lane, const MSLane* foe);
 
     /// @brief compute point of divergence for geomatries with a common start or end
-    double computeDistToDivergence(const MSLane* lane, const MSLane* sibling, double minDist, bool sameSource) const;
+    double computeDistToDivergence(const MSLane* lane, const MSLane* sibling, double minDist, bool sameSource, double siblingPredLength = 0) const;
 
     /// @brief compute arrival time if foe vehicle is braking for ego
     static SUMOTime computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, double impatience, double dist, double& fasb);
