@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:39+0200\n"
-"PO-Revision-Date: 2025-05-19 10:49+0000\n"
+"PO-Revision-Date: 2025-05-19 13:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5628,6 +5628,8 @@ msgstr ""
 #: src/microsim/traffic_lights/NEMAController.cpp:584
 msgid "At NEMA tlLogic '%, linkIndex % has no controlling detector"
 msgstr ""
+"Nella logica semaforica NEMA '%' l'indice di collegamento % non viene "
+"controllato da nessun rivelatore"
 
 #: src/microsim/traffic_lights/NEMAController.cpp:630
 #, c-format
@@ -9433,6 +9435,8 @@ msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten with signal '%' and controller '%'."
 msgstr ""
+"La segnalazione del collegamento da '%' a '%' (centralina '%') è ambigua "
+"perché sovrascritta con lo segnale '%' e la centralina '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1394
 #: src/netimport/NIImporter_OpenDrive.cpp:1427
@@ -9506,11 +9510,13 @@ msgstr "Ripetizione senza oggetto all'arco '%'."
 msgid ""
 "Could not set projection (%). This can be ignored with --ignore-errors."
 msgstr ""
+"Non ho potuto impostare la proiezione (%). Questo può essere ignorato con "
+"--ignore-errors."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2730
 #, c-format
 msgid "geoReference format '%' currently not supported"
-msgstr ""
+msgstr "Il formato geoReference '%' tuttora risulta incompatibile"
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2845
 msgid "Mismatching parenthesis in geometry definition for road '%'"
@@ -9556,7 +9562,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:629
 msgid "New value for oneway found: %"
-msgstr ""
+msgstr "Incontrato un nuovo valore per il senso unico: %"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:664
 msgid "Skipping edge '%' because it has zero lanes."
@@ -9774,10 +9780,11 @@ msgstr ""
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2488
 msgid "Discarding unusable type '%' (first occurrence for edge '%')."
 msgstr ""
+"Il tipo inutilizzabile '%' viene scartato (prima apparizione nell'arco '%')."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2533
 msgid "Discarding compound type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "Il tipo composito viene scartato (prima apparizione nell'arco '%')."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2548
 msgid "Adding new type '%' (first occurrence for edge '%')."
@@ -9968,6 +9975,8 @@ msgid ""
 "Incoming connector '%' will not be build - would be not connected to "
 "network."
 msgstr ""
+"Il connettore entrante '%' non verrà costruito - non sarebbe collegato alla "
+"rete."
 
 #: src/netimport/NIImporter_VISUM.cpp:584
 #: src/netimport/NIImporter_VISUM.cpp:618
@@ -9985,6 +9994,8 @@ msgid ""
 "Outgoing connector '%' will not be build - would be not connected to "
 "network."
 msgstr ""
+"Il connettore uscente '%' non verrà costruito - non sarebbe collegato alla "
+"rete."
 
 #: src/netimport/NIImporter_VISUM.cpp:665
 #: src/netimport/NIImporter_VISUM.cpp:671
@@ -11008,8 +11019,8 @@ msgid ""
 "Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire"
 " simulation"
 msgstr ""
-"Il risolutore di catenarie (Eigen) non è stato compilato che può condurre a "
-"degli errori nella simulazione delle catenarie"
+"Il risolutore di catenarie (Eigen) non è stato compilato - questo può "
+"condurre a degli errori nella simulazione delle catenarie"
 
 #: src/netload/NLTriggerBuilder.cpp:383
 msgid ""
@@ -13166,18 +13177,22 @@ msgstr "Gli elementi MeanData non possono caricare attributi come parametri"
 
 #: src/utils/handlers/RouteHandler.cpp:652
 msgid "an embedded route cannot have their own ID"
-msgstr ""
+msgstr "un itinerario interno non può avere un codice identificativo dedicato"
 
 #: src/utils/handlers/RouteHandler.cpp:719
 #: src/utils/handlers/RouteHandler.cpp:809
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
+"Gli attributi 'from', 'fromJunction' e 'fromTaz' non possono essere definiti "
+"allo stesso tempo"
 
 #: src/utils/handlers/RouteHandler.cpp:722
 #: src/utils/handlers/RouteHandler.cpp:812
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
+"Gli attributi 'to', 'toJunction' e 'toTaz' non possono essere definiti allo "
+"stesso tempo"
 
 #: src/utils/handlers/RouteHandler.cpp:987
 msgid "Speed and duration attributes cannot be defined together in walks"
