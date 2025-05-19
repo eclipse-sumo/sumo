@@ -29,7 +29,7 @@
 // member method definitions
 // ===========================================================================
 
-GUITestSystemStep::GUITestSystemStep(const std::string &rowText) {
+GUITestSystemStep::GUITestSystemStep(GUITestSystem* testSystem, const std::string &rowText) {
     // first split between functions and arguments
     const auto function = parseStep(rowText);
     // continue depending of function
@@ -44,9 +44,9 @@ GUITestSystemStep::GUITestSystemStep(const std::string &rowText) {
                 const int posX = StringUtils::toInt(myArguments[0]);
                 const int posY = StringUtils::toInt(myArguments[1]);
                 // add move, left button press and left button release
-                gTestSystem->addTestStep(new GUITestSystemStep(SEL_MOTION, 0, Category::VIEW, buildMouseMoveEvent(posX, posY)));
-                gTestSystem->addTestStep(new GUITestSystemStep(SEL_LEFTBUTTONPRESS, 0, Category::VIEW, buildMouseLeftClickPressEvent(posX, posY)));
-                gTestSystem->addTestStep(new GUITestSystemStep(SEL_LEFTBUTTONRELEASE, 0, Category::VIEW, buildMouseLeftClickReleaseEvent(posX, posY)));
+                testSystem->addTestStep(new GUITestSystemStep(SEL_MOTION, 0, Category::VIEW, buildMouseMoveEvent(posX, posY)));
+                testSystem->addTestStep(new GUITestSystemStep(SEL_LEFTBUTTONPRESS, 0, Category::VIEW, buildMouseLeftClickPressEvent(posX, posY)));
+                testSystem->addTestStep(new GUITestSystemStep(SEL_LEFTBUTTONRELEASE, 0, Category::VIEW, buildMouseLeftClickReleaseEvent(posX, posY)));
             }
         } else {
             throw ProcessError("Invalid number of arguments for function " + function);

@@ -22,7 +22,6 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/foxtools/MsgHandlerSynchronized.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/xml/XMLSubSys.h>
 
@@ -84,10 +83,6 @@ main(int argc, char** argv) {
             int minor, major;
             if (!FXGLVisual::supported(&application, major, minor)) {
                 throw ProcessError(TL("This system has no OpenGL support. Exiting."));
-            }
-            // check if create tests system
-            if (OptionsCont::getOptions().getString("test-file").size() > 0) {
-                gTestSystem = new GUITestSystem(OptionsCont::getOptions().getString("test-file"));
             }
             // build the main window
             GNEApplicationWindow* netedit = new GNEApplicationWindow(&application, tagPropertiesDatabase, "*.netc.cfg,*.netccfg");

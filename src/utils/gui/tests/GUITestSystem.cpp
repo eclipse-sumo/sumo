@@ -46,7 +46,7 @@ GUITestSystem::GUITestSystem(const std::string &testFile) {
             strm >> line;
             // check if line isn't empty
             if ((line.size() > 0) && line[0] != '#') {
-                myTestSteps.push_back(new GUITestSystemStep(line));
+                myTestSteps.push_back(new GUITestSystemStep(this, line));
             }
         }
     }

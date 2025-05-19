@@ -501,6 +501,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     TemplateHandler::parseTemplate(myOriginalSumoOptions, sumoTemplate);
     TemplateHandler::parseTemplate(myNetgenerateOptions, netgenerateTemplate);
     TemplateHandler::parseTemplate(myOriginalNetgenerateOptions, netgenerateTemplate);
+    // check if create tests system
+    if (OptionsCont::getOptions().getString("test-file").size() > 0) {
+        gTestSystem = new GUITestSystem(OptionsCont::getOptions().getString("test-file"));
+    }
 }
 #ifdef _MSC_VER
 #pragma warning(pop)
@@ -657,6 +661,10 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     // delete undoList and dialog
     delete myUndoList;
     delete myUndoListDialog;
+    // delete test system
+    if (gTestSystem) {
+        delete gTestSystem;
+    }
 }
 
 

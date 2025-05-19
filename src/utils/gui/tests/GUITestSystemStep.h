@@ -23,6 +23,12 @@
 #include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GUITestSystem;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -38,7 +44,7 @@ public:
     };
 
     /// @brief constructor using a row
-    GUITestSystemStep(const std::string &rowText);
+    GUITestSystemStep(GUITestSystem* testSystem, const std::string &rowText);
 
     /// @brief constructor using parameters (needed for certain functions like click)
     GUITestSystemStep(FXSelector messageType, FXSelector messageID, Category category,
