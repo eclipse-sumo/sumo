@@ -1,5 +1,5 @@
 --
-title: "SUMO: A software suite for microscopic transportation system simulations"
+title: "Eclipse SUMO: A software suite for microscopic transportation system simulations"
 
 tags:
   - C++
@@ -59,7 +59,7 @@ affiliations:
  - name: German Aerospace Center (DLR), Institute of Transportation Systems, Berlin, Germany
    index: 1
 
-date: 11 April 2025
+date: 19 May 2025
 bibliography: paper.bib
 ---
 
@@ -75,20 +75,20 @@ For larger networks, an additional step is needed to transfer the demand (the ti
 
 `SUMO` has been designed to be useful in the assessment of a wide range of transport questions. This may start from the estimation of new control algorithms for traffic signals, to the exploration of on-demand public transport services, or to the improvement of railway operations, for which the modelling of railway systems, the vehicles as well as the infrastructure itself, has been considerably improved during the last years. It can be even used to simulate electrical autonomous air-taxis, however this is currently not in the main focus of the development. `SUMO` has been used for research, for business, and even by laypersons to answer all kind of what-happens-if questions in transportation systems.
 
-`SUMO` has also being used for teaching, for example in courses at the TH Wildau, TU Munich, and the TU Berlin (all in Germany), to name but a few. Many tutorials do exist, which have also been extended in order to teach traffic modelling and simulation.
+`SUMO` has also been used for teaching, for example in courses at the TH Wildau, TU Munich, and the TU Berlin (all in Germany), to name but a few. Many tutorials do exist, which have also been extended in order to teach traffic modelling and simulation.
 
 # Similar and/or related packages
 
-Especially regarding demand for transport and the computation of the user equilibrium, the best known tool to this is MATSim [@MATSim:2016]. A much less developed approach which is not simulation-based can be found in [@Ortmann2022]. Many smaller tools may exist, for a more traffic flow optimized tooling the user is referred to Martin Treiber's [movsim](https://github.com/movsim/traffic-simulation-de), or Open Traffic Sim [@opentrafficsim], or City Flow [@CityFlow]. On the other side of spectrum are simulators focussing on very detailed single vehicle models including their sensors such as CARLA [@Carla]
+Especially regarding demand for transport and the computation of the user equilibrium, the best known tool to this is MATSim [@MATSim:2016]. A much less developed approach which is not simulation-based can be found in [@Ortmann2022]. Many smaller tools may exist, for a more traffic flow optimized tooling the user is referred to Martin Treiber's [movsim](https://github.com/movsim/traffic-simulation-de), or Open Traffic Sim [@opentrafficsim], or City Flow [@CityFlow]. On the other side of spectrum are simulators focussing on very detailed single vehicle models including their sensors such as CARLA [@Carla].
 
 # Outlook and use cases
 
-One example has been picked as a use case where the simulation produces crashes deliberately. While not the original intention, crashes and traffic safety is a highly relevant topic of research. While simple in principle, investigations are needed to better understand how to do this, and to reproduce known results from traffic safety research. One of the very early attempts in this regard is [@DarzentasEtAl1980], and we have set-up a simulation that replicates the set-up of this work. Furthermore, there are known results that state that the number of crashes at such a three-arm intersection is some safety performance function of the two flows $q_{\text{major}}$ and $q_{\text{minor}}$. It is not be expected that `SUMO` reproduces this out of the box, nevertheless a first result for the simulated crash probability is presented in \autoref{fig:pCrash}.
+One example has been picked as a use case where the simulation produces crashes deliberately. While not the original intention, crashes and traffic safety is a highly relevant topic of research. While simple in principle, investigations are needed to better understand how to do this, and to reproduce known results from traffic safety research. One of the very early attempts in this regard is [@DarzentasEtAl1980], and we have set-up a simulation that replicates the set-up of this work. Furthermore, there are known results that state that the number of crashes at such a three-arm intersection is some safety performance function of the two flows $q_{\text{major}}$ and $q_{\text{minor}}$. It is not be expected that `SUMO` reproduces this out of the box, nevertheless a first result for the simulated crash probability as function of the two flows is presented in \autoref{fig:pCrash}.
 
 ![Crash probability as function of qMajor and qMinor.\label{fig:pCrash}](pCrash-vs-qMaj-qMin.png)
 
 # Acknowledgements
 
-We acknowledge financial support by the German Aerospace Center, and from multiple projects (and the related funds) that have been helped a lot during the 20+ years of SUMO's development.
+We acknowledge financial support by the German Aerospace Center, and from multiple projects (and the related funds) that have been helped a lot during the 20+ years of SUMO's development. Furthermore we thank the Eclipse Foundation for hosting the project.
 
 # References
