@@ -13,6 +13,9 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Install gettext for translations
+        run: sudo apt-get update && sudo apt-get install -y gettext
+
       - name: Checkout code
         uses: actions/checkout@v4
 
