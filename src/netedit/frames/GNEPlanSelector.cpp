@@ -79,7 +79,7 @@ FXDEFMAP(GNEPlanSelector) TagSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEPlanSelector, MFXGroupBoxModule, TagSelectorMap, ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT(GNEPlanSelector, MFXGroupBoxModule, TagSelectorMap, ARRAYNUMBER(TagSelectorMap))
 
 // ===========================================================================
 // method definitions

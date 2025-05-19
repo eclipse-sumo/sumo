@@ -79,7 +79,7 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXIMPLEMENT_NETEDIT_ABSTRACT(GNENetHelper::GNEChange_ReplaceEdgeInTLS, GNEChange, nullptr, 0)
+FXIMPLEMENT_ABSTRACT(GNENetHelper::GNEChange_ReplaceEdgeInTLS, GNEChange, nullptr, 0)
 
 // ===========================================================================
 // static members

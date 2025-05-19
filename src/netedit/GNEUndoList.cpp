@@ -44,7 +44,7 @@ FXDEFMAP(GNEUndoList) GNEUndoListMap[] = {
 // FOX-declarations
 // ===========================================================================
 
-FXIMPLEMENT_NETEDIT_ABSTRACT(GNEUndoList, GNEChangeGroup, GNEUndoListMap, ARRAYNUMBER(GNEUndoListMap))
+FXIMPLEMENT_ABSTRACT(GNEUndoList, GNEChangeGroup, GNEUndoListMap, ARRAYNUMBER(GNEUndoListMap))
 
 
 // ===========================================================================

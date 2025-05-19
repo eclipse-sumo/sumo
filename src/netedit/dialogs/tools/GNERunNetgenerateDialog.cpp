@@ -49,7 +49,7 @@ FXDEFMAP(GNERunNetgenerateDialog) GNERunNetgenerateDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNERunNetgenerateDialog, FXDialogBox, GNERunNetgenerateDialogMap, ARRAYNUMBER(GNERunNetgenerateDialogMap))
+FXIMPLEMENT(GNERunNetgenerateDialog, FXDialogBox, GNERunNetgenerateDialogMap, ARRAYNUMBER(GNERunNetgenerateDialogMap))
 
 // ============================================-===============================
 // member method definitions

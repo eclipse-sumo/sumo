@@ -49,8 +49,8 @@ FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEInspectorFrame,                  FXVerticalFrame,    GNEInspectorFrameMap,   ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT_NETEDIT(GNEInspectorFrame::TemplateEditor,  MFXGroupBoxModule,  TemplateEditorMap,      ARRAYNUMBER(TemplateEditorMap))
+FXIMPLEMENT(GNEInspectorFrame,                  FXVerticalFrame,    GNEInspectorFrameMap,   ARRAYNUMBER(GNEInspectorFrameMap))
+FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,  MFXGroupBoxModule,  TemplateEditorMap,      ARRAYNUMBER(TemplateEditorMap))
 
 
 // ===========================================================================

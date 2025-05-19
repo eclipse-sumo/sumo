@@ -50,7 +50,7 @@ FXDEFMAP(GNERunPythonToolDialog) GNERunPythonToolDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNERunPythonToolDialog, FXDialogBox, GNERunPythonToolDialogMap, ARRAYNUMBER(GNERunPythonToolDialogMap))
+FXIMPLEMENT(GNERunPythonToolDialog, FXDialogBox, GNERunPythonToolDialogMap, ARRAYNUMBER(GNERunPythonToolDialogMap))
 
 // ============================================-===============================
 // member method definitions

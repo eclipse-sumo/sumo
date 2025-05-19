@@ -44,7 +44,7 @@ FXDEFMAP(GNEMatchAttribute) GNEMatchAttributeMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEMatchAttribute, MFXGroupBoxModule, GNEMatchAttributeMap, ARRAYNUMBER(GNEMatchAttributeMap))
+FXIMPLEMENT(GNEMatchAttribute, MFXGroupBoxModule, GNEMatchAttributeMap, ARRAYNUMBER(GNEMatchAttributeMap))
 
 // ===========================================================================
 // method definitions

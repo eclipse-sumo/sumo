@@ -55,9 +55,9 @@ FXDEFMAP(GNEVTypeDistributionsDialog::ParametersOperations) ParametersOperations
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEVTypeDistributionsDialog,                          FXDialogBox,    GNEVTypeDistributionsDialogMap,   ARRAYNUMBER(GNEVTypeDistributionsDialogMap))
-FXIMPLEMENT_NETEDIT(GNEVTypeDistributionsDialog::ParametersValues,        FXGroupBox,     ParametersValuesMap,              ARRAYNUMBER(ParametersValuesMap))
-FXIMPLEMENT_NETEDIT(GNEVTypeDistributionsDialog::ParametersOperations,    FXGroupBox,     ParametersOperationsMap,          ARRAYNUMBER(ParametersOperationsMap))
+FXIMPLEMENT(GNEVTypeDistributionsDialog,                          FXDialogBox,    GNEVTypeDistributionsDialogMap,   ARRAYNUMBER(GNEVTypeDistributionsDialogMap))
+FXIMPLEMENT(GNEVTypeDistributionsDialog::ParametersValues,        FXGroupBox,     ParametersValuesMap,              ARRAYNUMBER(ParametersValuesMap))
+FXIMPLEMENT(GNEVTypeDistributionsDialog::ParametersOperations,    FXGroupBox,     ParametersOperationsMap,          ARRAYNUMBER(ParametersOperationsMap))
 
 // ===========================================================================
 // member method definitions

@@ -47,8 +47,8 @@ FXDEFMAP(GNEDeleteFrame::ProtectElements) ProtectElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEDeleteFrame::DeleteOptions,      MFXGroupBoxModule, DeleteOptionsMap,    ARRAYNUMBER(DeleteOptionsMap))
-FXIMPLEMENT_NETEDIT(GNEDeleteFrame::ProtectElements,    MFXGroupBoxModule, ProtectElementsMap,  ARRAYNUMBER(ProtectElementsMap))
+FXIMPLEMENT(GNEDeleteFrame::DeleteOptions,      MFXGroupBoxModule, DeleteOptionsMap,    ARRAYNUMBER(DeleteOptionsMap))
+FXIMPLEMENT(GNEDeleteFrame::ProtectElements,    MFXGroupBoxModule, ProtectElementsMap,  ARRAYNUMBER(ProtectElementsMap))
 
 // ---------------------------------------------------------------------------
 // GNEDeleteFrame::DeleteOptions - methods

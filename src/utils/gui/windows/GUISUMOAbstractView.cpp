@@ -126,7 +126,7 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[] = {
     FXMAPFUNC(SEL_CHANGED,              MID_SIMPLE_VIEW_COLORCHANGE,    GUISUMOAbstractView::onVisualizationChange),
 };
 
-FXIMPLEMENT_SUMO_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, ARRAYNUMBER(GUISUMOAbstractViewMap))
+FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, ARRAYNUMBER(GUISUMOAbstractViewMap))
 
 // ===========================================================================
 // member method definitions

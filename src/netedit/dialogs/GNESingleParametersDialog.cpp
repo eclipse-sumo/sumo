@@ -62,9 +62,9 @@ FXDEFMAP(GNESingleParametersDialog::ParametersOperations) ParametersOperationsMa
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNESingleParametersDialog,                          FXDialogBox,    GNESingleParametersDialogMap,   ARRAYNUMBER(GNESingleParametersDialogMap))
-FXIMPLEMENT_NETEDIT(GNESingleParametersDialog::ParametersValues,        FXGroupBox,     ParametersValuesMap,            ARRAYNUMBER(ParametersValuesMap))
-FXIMPLEMENT_NETEDIT(GNESingleParametersDialog::ParametersOperations,    FXGroupBox,     ParametersOperationsMap,        ARRAYNUMBER(ParametersOperationsMap))
+FXIMPLEMENT(GNESingleParametersDialog,                          FXDialogBox,    GNESingleParametersDialogMap,   ARRAYNUMBER(GNESingleParametersDialogMap))
+FXIMPLEMENT(GNESingleParametersDialog::ParametersValues,        FXGroupBox,     ParametersValuesMap,            ARRAYNUMBER(ParametersValuesMap))
+FXIMPLEMENT(GNESingleParametersDialog::ParametersOperations,    FXGroupBox,     ParametersOperationsMap,        ARRAYNUMBER(ParametersOperationsMap))
 
 // ===========================================================================
 // member method definitions

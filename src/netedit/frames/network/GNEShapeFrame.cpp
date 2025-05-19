@@ -43,7 +43,7 @@ FXDEFMAP(GNEShapeFrame::GEOPOICreator) GEOPOICreatorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEShapeFrame::GEOPOICreator,     MFXGroupBoxModule,     GEOPOICreatorMap,   ARRAYNUMBER(GEOPOICreatorMap))
+FXIMPLEMENT(GNEShapeFrame::GEOPOICreator,     MFXGroupBoxModule,     GEOPOICreatorMap,   ARRAYNUMBER(GEOPOICreatorMap))
 
 
 // ===========================================================================

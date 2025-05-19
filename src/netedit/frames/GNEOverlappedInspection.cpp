@@ -41,7 +41,7 @@ FXDEFMAP(GNEOverlappedInspection) OverlappedInspectionMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEOverlappedInspection,       MFXGroupBoxModule,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
+FXIMPLEMENT(GNEOverlappedInspection,       MFXGroupBoxModule,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
 
 // ===========================================================================
 // method definitions

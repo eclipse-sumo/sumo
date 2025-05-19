@@ -47,8 +47,8 @@ FXDEFMAP(GNETypeFrame::TypeEditor) typeEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNETypeFrame::TypeSelector,         MFXGroupBoxModule,  typeSelectorMap,        ARRAYNUMBER(typeSelectorMap))
-FXIMPLEMENT_NETEDIT(GNETypeFrame::TypeEditor,           MFXGroupBoxModule,  typeEditorMap,          ARRAYNUMBER(typeEditorMap))
+FXIMPLEMENT(GNETypeFrame::TypeSelector,         MFXGroupBoxModule,  typeSelectorMap,        ARRAYNUMBER(typeSelectorMap))
+FXIMPLEMENT(GNETypeFrame::TypeEditor,           MFXGroupBoxModule,  typeEditorMap,          ARRAYNUMBER(typeEditorMap))
 
 // ===========================================================================
 // method definitions

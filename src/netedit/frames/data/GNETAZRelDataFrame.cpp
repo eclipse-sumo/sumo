@@ -41,7 +41,7 @@ FXDEFMAP(GNETAZRelDataFrame::ConfirmTAZRelation) ConfirmTAZRelationMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNETAZRelDataFrame::ConfirmTAZRelation, MFXGroupBoxModule, ConfirmTAZRelationMap, ARRAYNUMBER(ConfirmTAZRelationMap))
+FXIMPLEMENT(GNETAZRelDataFrame::ConfirmTAZRelation, MFXGroupBoxModule, ConfirmTAZRelationMap, ARRAYNUMBER(ConfirmTAZRelationMap))
 
 // ===========================================================================
 // method definitions

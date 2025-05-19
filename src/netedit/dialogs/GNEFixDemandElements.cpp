@@ -39,7 +39,7 @@ FXDEFMAP(GNEFixDemandElements) GNEFixDemandElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEFixDemandElements, FXDialogBox, GNEFixDemandElementsMap, ARRAYNUMBER(GNEFixDemandElementsMap))
+FXIMPLEMENT(GNEFixDemandElements, FXDialogBox, GNEFixDemandElementsMap, ARRAYNUMBER(GNEFixDemandElementsMap))
 
 // ===========================================================================
 // member method definitions

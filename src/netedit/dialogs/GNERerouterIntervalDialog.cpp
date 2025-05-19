@@ -68,7 +68,7 @@ FXDEFMAP(GNERerouterIntervalDialog) GNERerouterIntervalDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNERerouterIntervalDialog, GNEAdditionalDialog, GNERerouterIntervalDialogMap, ARRAYNUMBER(GNERerouterIntervalDialogMap))
+FXIMPLEMENT(GNERerouterIntervalDialog, GNEAdditionalDialog, GNERerouterIntervalDialogMap, ARRAYNUMBER(GNERerouterIntervalDialogMap))
 
 // ===========================================================================
 // member method definitions

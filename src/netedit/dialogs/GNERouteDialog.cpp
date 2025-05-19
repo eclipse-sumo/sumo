@@ -37,7 +37,7 @@ FXDEFMAP(GNERouteDialog) GNERouteDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNERouteDialog, GNEDemandElementDialog, GNERouteDialogMap, ARRAYNUMBER(GNERouteDialogMap))
+FXIMPLEMENT(GNERouteDialog, GNEDemandElementDialog, GNERouteDialogMap, ARRAYNUMBER(GNERouteDialogMap))
 
 // ===========================================================================
 // member method definitions

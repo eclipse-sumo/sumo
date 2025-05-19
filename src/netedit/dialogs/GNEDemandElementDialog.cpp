@@ -44,7 +44,7 @@ FXDEFMAP(GNEDemandElementDialog) GNEDemandElementDialogMap[] = {
 };
 
 // Object abstract implementation
-FXIMPLEMENT_NETEDIT_ABSTRACT(GNEDemandElementDialog, FXTopWindow, GNEDemandElementDialogMap, ARRAYNUMBER(GNEDemandElementDialogMap))
+FXIMPLEMENT_ABSTRACT(GNEDemandElementDialog, FXTopWindow, GNEDemandElementDialogMap, ARRAYNUMBER(GNEDemandElementDialogMap))
 
 // ===========================================================================
 // member method definitions

@@ -58,7 +58,7 @@
 // ===========================================================================
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNELane, FXDelegator, 0, 0)
+FXIMPLEMENT(GNELane, FXDelegator, 0, 0)
 
 // ===========================================================================
 // method definitions

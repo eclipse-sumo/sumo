@@ -54,7 +54,7 @@ FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEPythonToolDialog, FXDialogBox, GNEPythonToolDialogMap, ARRAYNUMBER(GNEPythonToolDialogMap))
+FXIMPLEMENT(GNEPythonToolDialog, FXDialogBox, GNEPythonToolDialogMap, ARRAYNUMBER(GNEPythonToolDialogMap))
 
 // ============================================-===============================
 // member method definitions

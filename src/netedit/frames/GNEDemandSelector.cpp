@@ -37,7 +37,7 @@ FXDEFMAP(GNEDemandElementSelector) DemandElementSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEDemandElementSelector,      MFXGroupBoxModule,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
+FXIMPLEMENT(GNEDemandElementSelector,      MFXGroupBoxModule,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
 
 
 // ===========================================================================

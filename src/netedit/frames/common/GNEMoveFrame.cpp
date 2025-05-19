@@ -52,10 +52,10 @@ FXDEFMAP(GNEMoveFrame::ShiftShapeGeometry) ShiftShapeGeometryMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEMoveFrame::NetworkMoveOptions,           MFXGroupBoxModule, NetworkMoveOptionsMap,  ARRAYNUMBER(NetworkMoveOptionsMap))
-FXIMPLEMENT_NETEDIT(GNEMoveFrame::ChangeZInSelection,           MFXGroupBoxModule, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
-FXIMPLEMENT_NETEDIT(GNEMoveFrame::ShiftEdgeSelectedGeometry,    MFXGroupBoxModule, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
-FXIMPLEMENT_NETEDIT(GNEMoveFrame::ShiftShapeGeometry,           MFXGroupBoxModule, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
+FXIMPLEMENT(GNEMoveFrame::NetworkMoveOptions,           MFXGroupBoxModule, NetworkMoveOptionsMap,  ARRAYNUMBER(NetworkMoveOptionsMap))
+FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,           MFXGroupBoxModule, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
+FXIMPLEMENT(GNEMoveFrame::ShiftEdgeSelectedGeometry,    MFXGroupBoxModule, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
+FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           MFXGroupBoxModule, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
 
 // ===========================================================================
 // method definitions

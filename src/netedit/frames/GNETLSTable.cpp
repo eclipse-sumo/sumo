@@ -69,7 +69,7 @@ FXDEFMAP(GNETLSTable) GNETLSTableMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNETLSTable, FXHorizontalFrame, GNETLSTableMap, ARRAYNUMBER(GNETLSTableMap))
+FXIMPLEMENT(GNETLSTable, FXHorizontalFrame, GNETLSTableMap, ARRAYNUMBER(GNETLSTableMap))
 
 // ===========================================================================
 // method definitions

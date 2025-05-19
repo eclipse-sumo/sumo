@@ -42,7 +42,7 @@ FXDEFMAP(GNEProhibitionFrame::Selection) SelectionMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEProhibitionFrame::Selection, FXVerticalFrame, SelectionMap, ARRAYNUMBER(SelectionMap))
+FXIMPLEMENT(GNEProhibitionFrame::Selection, FXVerticalFrame, SelectionMap, ARRAYNUMBER(SelectionMap))
 
 // ===========================================================================
 // method definitions

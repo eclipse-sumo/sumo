@@ -44,7 +44,7 @@ FXDEFMAP(GNEConsecutiveSelector) ConsecutiveLaneSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEConsecutiveSelector, MFXGroupBoxModule, ConsecutiveLaneSelectorMap, ARRAYNUMBER(ConsecutiveLaneSelectorMap))
+FXIMPLEMENT(GNEConsecutiveSelector, MFXGroupBoxModule, ConsecutiveLaneSelectorMap, ARRAYNUMBER(ConsecutiveLaneSelectorMap))
 
 // ---------------------------------------------------------------------------
 // GNEConsecutiveSelector - methods

@@ -249,7 +249,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewNetMap))
+FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewNetMap))
 
 
 // ===========================================================================
@@ -1402,50 +1402,54 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
 
 
 long
-GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
-    // set focus in view net
-    setFocus();
-    // update MouseButtonKeyPressed
-    myMouseButtonKeyPressed.update(eventData);
-    // process left button press function depending of supermode
-    if (myEditModes.isCurrentSupermodeNetwork()) {
-        processLeftButtonPressNetwork(eventData);
-    } else if (myEditModes.isCurrentSupermodeDemand()) {
-        processLeftButtonPressDemand(eventData);
-    } else if (myEditModes.isCurrentSupermodeData()) {
-        processLeftButtonPressData(eventData);
+GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector, void* eventData) {
+    if (obj == gTestSystem) {
+        // set focus in view net
+        setFocus();
+        // update MouseButtonKeyPressed
+        myMouseButtonKeyPressed.update(eventData);
+        // process left button press function depending of supermode
+        if (myEditModes.isCurrentSupermodeNetwork()) {
+            processLeftButtonPressNetwork(eventData);
+        } else if (myEditModes.isCurrentSupermodeDemand()) {
+            processLeftButtonPressDemand(eventData);
+        } else if (myEditModes.isCurrentSupermodeData()) {
+            processLeftButtonPressData(eventData);
+        }
+        // update cursor
+        updateCursor();
+        // update view
+        updateViewNet();
     }
-    // update cursor
-    updateCursor();
-    // update view
-    updateViewNet();
     return 1;
 }
 
 
 long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
-    // avoid closing Popup dialog in Linux
-    if (myCreatedPopup) {
-        myCreatedPopup = false;
-        return 1;
+    if (obj == gTestSystem) {
+        // avoid closing Popup dialog in Linux
+        if (myCreatedPopup) {
+            myCreatedPopup = false;
+            return 1;
+        }
+        // process parent function
+        GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
+        // update MouseButtonKeyPressed
+        myMouseButtonKeyPressed.update(eventData);
+        // process left button release function depending of supermode
+        if (myEditModes.isCurrentSupermodeNetwork()) {
+            processLeftButtonReleaseNetwork();
+        } else if (myEditModes.isCurrentSupermodeDemand()) {
+            processLeftButtonReleaseDemand();
+        } else if (myEditModes.isCurrentSupermodeData()) {
+            processLeftButtonReleaseData();
+        }
+        // update cursor
+        updateCursor();
+        // update view
+        updateViewNet();
     }
-    // process parent function
-    GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
-    // update MouseButtonKeyPressed
-    myMouseButtonKeyPressed.update(eventData);
-    // process left button release function depending of supermode
-    if (myEditModes.isCurrentSupermodeNetwork()) {
-        processLeftButtonReleaseNetwork();
-    } else if (myEditModes.isCurrentSupermodeDemand()) {
-        processLeftButtonReleaseDemand();
-    } else if (myEditModes.isCurrentSupermodeData()) {
-        processLeftButtonReleaseData();
-    }
-    // update cursor
-    updateCursor();
-    // update view
-    updateViewNet();
     return 1;
 }
 
@@ -1506,22 +1510,24 @@ GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
-    // process mouse move in GUISUMOAbstractView
-    GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
-    // update MouseButtonKeyPressed
-    myMouseButtonKeyPressed.update(eventData);
-    // update cursor
-    updateCursor();
-    // process mouse move function depending of supermode
-    if (myEditModes.isCurrentSupermodeNetwork()) {
-        processMoveMouseNetwork(myMouseButtonKeyPressed.mouseLeftButtonPressed());
-    } else if (myEditModes.isCurrentSupermodeDemand()) {
-        processMoveMouseDemand(myMouseButtonKeyPressed.mouseLeftButtonPressed());
-    } else if (myEditModes.isCurrentSupermodeData()) {
-        processMoveMouseData(myMouseButtonKeyPressed.mouseLeftButtonPressed());
+    if (obj == gTestSystem) {
+        // process mouse move in GUISUMOAbstractView
+        GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
+        // update MouseButtonKeyPressed
+        myMouseButtonKeyPressed.update(eventData);
+        // update cursor
+        updateCursor();
+        // process mouse move function depending of supermode
+        if (myEditModes.isCurrentSupermodeNetwork()) {
+            processMoveMouseNetwork(myMouseButtonKeyPressed.mouseLeftButtonPressed());
+        } else if (myEditModes.isCurrentSupermodeDemand()) {
+            processMoveMouseDemand(myMouseButtonKeyPressed.mouseLeftButtonPressed());
+        } else if (myEditModes.isCurrentSupermodeData()) {
+            processMoveMouseData(myMouseButtonKeyPressed.mouseLeftButtonPressed());
+        }
+        // update view
+        updateViewNet();
     }
-    // update view
-    updateViewNet();
     return 1;
 }
 

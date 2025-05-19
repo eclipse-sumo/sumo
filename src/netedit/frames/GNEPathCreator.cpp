@@ -46,7 +46,7 @@ FXDEFMAP(GNEPathCreator) PathCreatorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEPathCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
+FXIMPLEMENT(GNEPathCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
 
 
 // ===========================================================================

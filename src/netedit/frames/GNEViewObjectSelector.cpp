@@ -39,7 +39,7 @@ FXDEFMAP(GNEViewObjectSelector) SelectorParentNetworkElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEViewObjectSelector, MFXGroupBoxModule, SelectorParentNetworkElementsMap, ARRAYNUMBER(SelectorParentNetworkElementsMap))
+FXIMPLEMENT(GNEViewObjectSelector, MFXGroupBoxModule, SelectorParentNetworkElementsMap, ARRAYNUMBER(SelectorParentNetworkElementsMap))
 
 // ---------------------------------------------------------------------------
 // GNEViewObjectSelector - methods

@@ -52,7 +52,7 @@ FXDEFMAP(GNEAttributesEditorRow) GNEAttributeRowMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEAttributesEditorRow, FXHorizontalFrame, GNEAttributeRowMap, ARRAYNUMBER(GNEAttributeRowMap))
+FXIMPLEMENT(GNEAttributesEditorRow, FXHorizontalFrame, GNEAttributeRowMap, ARRAYNUMBER(GNEAttributeRowMap))
 
 // ===========================================================================
 // defines

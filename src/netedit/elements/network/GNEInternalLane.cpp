@@ -33,7 +33,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXIMPLEMENT_NETEDIT(GNEInternalLane, FXDelegator, 0, 0)
+FXIMPLEMENT(GNEInternalLane, FXDelegator, 0, 0)
 
 // ===========================================================================
 // static member definitions

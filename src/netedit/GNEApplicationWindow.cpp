@@ -451,7 +451,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNUMBER(GNEApplicationWindowMap))
+FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNUMBER(GNEApplicationWindowMap))
 
 // ===========================================================================
 // GNEApplicationWindow method definitions

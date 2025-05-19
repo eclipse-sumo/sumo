@@ -38,7 +38,7 @@ FXDEFMAP(GNEDrawingShape) DrawingShapeMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNEDrawingShape,               MFXGroupBoxModule,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEDrawingShape,               MFXGroupBoxModule,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 
 
 // ===========================================================================

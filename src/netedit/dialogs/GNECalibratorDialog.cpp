@@ -50,7 +50,7 @@ FXDEFMAP(GNECalibratorDialog) GNECalibratorDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_NETEDIT(GNECalibratorDialog, GNEAdditionalDialog, GNECalibratorDialogMap, ARRAYNUMBER(GNECalibratorDialogMap))
+FXIMPLEMENT(GNECalibratorDialog, GNEAdditionalDialog, GNECalibratorDialogMap, ARRAYNUMBER(GNECalibratorDialogMap))
 
 // ===========================================================================
 // member method definitions
