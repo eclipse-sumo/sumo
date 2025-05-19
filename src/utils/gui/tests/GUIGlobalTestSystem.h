@@ -50,7 +50,7 @@ extern GUITestSystem* gTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            if (gTestSystem) { \
+            if (false) { \
                 gTestSystem->nextTest(sender, sel); \
             } \
             return result;\
@@ -67,7 +67,7 @@ extern GUITestSystem* gTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            if (gTestSystem) { \
+            if (false) { \
                 gTestSystem->nextTest(sender, sel); \
             } \
             return result;\
@@ -87,7 +87,7 @@ extern GUITestSystem* gTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            if (gTestSystem) { \
+            if (false) { \
                 gTestSystem->nextTest(sender, sel); \
             } \
             return result;\
@@ -104,7 +104,7 @@ extern GUITestSystem* gTestSystem;
             } else { \
                 result = baseclassname::handle(sender, sel, ptr); \
             } \
-            if (gTestSystem) { \
+            if (false) { \
                 gTestSystem->nextTest(sender, sel); \
             } \
             return result;\

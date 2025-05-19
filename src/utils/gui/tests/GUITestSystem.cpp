@@ -54,7 +54,7 @@ GUITestSystem::startTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow) 
         }
         // start thread if we have more than one test
         if (myTestSteps.size() > 0) {
-            start();
+            run();
         }
     }
 }
@@ -337,11 +337,14 @@ GUITestSystem::run() {
         } else {
             runSpecificTest(testStep);
         }
+        // update view after every step
+
+
         // if this is the quit order, stop thread. In other case, wait until nextTest() is called
         if (testStep->getFunction() == "quit") {
             return 1;
         } else {
-            waitForContinue();
+            myAbstractView->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
         }
     }
     return 1;
@@ -363,6 +366,7 @@ GUITestSystem::TestStep::TestStep(GUITestSystem* testSystem, const std::string &
                 const int posX = StringUtils::toInt(myArguments[0]);
                 const int posY = StringUtils::toInt(myArguments[1]);
                 // we need to add three steps
+                testSystem->myTestSteps.push_back(new TestStep(SEL_MOTION, 0, "abstractView", "move", {}, nullptr, buildMouseMoveEvent(posX, posY)));
                 testSystem->myTestSteps.push_back(new TestStep(SEL_MOTION, 0, "abstractView", "move", {}, nullptr, buildMouseMoveEvent(posX, posY)));
                 testSystem->myTestSteps.push_back(new TestStep(SEL_LEFTBUTTONPRESS, 0, "abstractView", "leftButtonPress", {}, nullptr, buildMouseLeftClickPressEvent(posX, posY)));
                 testSystem->myTestSteps.push_back(new TestStep(SEL_LEFTBUTTONRELEASE, 0, "abstractView", "leftButtonRelease", {}, nullptr, buildMouseLeftClickReleaseEvent(posX, posY)));
