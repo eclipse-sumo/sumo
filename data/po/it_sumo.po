@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:39+0200\n"
-"PO-Revision-Date: 2025-05-17 04:14+0000\n"
+"PO-Revision-Date: 2025-05-19 10:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1091,6 +1091,8 @@ msgid ""
 "Ignoring lane change subscription filter with non-neighboring lane offset "
 "direction=%."
 msgstr ""
+"Il filtro per l'abbonamento dei cambi corsia viene ignorato perché dichiara "
+"una direzione una corsia relativa non vicina %."
 
 #: src/libsumo/VehicleType.cpp:339
 #, c-format
@@ -5614,10 +5616,14 @@ msgid ""
 "At NEMA tlLogic '%', different sizes of NEMA phase states. Please check the "
 "NEMA XML"
 msgstr ""
+"La logica semaforica NEMA '%' contiene varie taglie di fasi NEMA. Per favore "
+"controlla XML NEMA"
 
 #: src/microsim/traffic_lights/NEMAController.cpp:566
 msgid "At NEMA tlLogic '%', actuated phase % has no controlling detector"
 msgstr ""
+"Nella logica semaforica NEMA '%' la fase attuata % non viene controllata da "
+"nessun rivelatore"
 
 #: src/microsim/traffic_lights/NEMAController.cpp:584
 msgid "At NEMA tlLogic '%, linkIndex % has no controlling detector"
@@ -7441,7 +7447,7 @@ msgstr ""
 
 #: src/netbuild/NBHelpers.cpp:89
 msgid "Could not load names of edges to keep from '%'."
-msgstr ""
+msgstr "Non ho potuto caricare i nomi degli archi da mantenere da '%'."
 
 #: src/netbuild/NBHelpers.cpp:107
 msgid "Could not load IDs from '%'."
@@ -8737,6 +8743,8 @@ msgid ""
 "Default to building two sidewalks on oneway streets (may affect divided "
 "roads)"
 msgstr ""
+"Crea dei marciapiedi su ambi lati di una via a senso unico per difetto (può "
+"avere degli effetti su vie con carreggiate divise)"
 
 #: src/netimport/NIFrame.cpp:210
 msgid "Import crossings"
