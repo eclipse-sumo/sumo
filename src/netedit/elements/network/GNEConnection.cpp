@@ -550,7 +550,6 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_PASS:
         case SUMO_ATTR_KEEP_CLEAR:
         case SUMO_ATTR_CONTPOS:
-        case SUMO_ATTR_UNCONTROLLED:
         case SUMO_ATTR_VISIBILITY_DISTANCE:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
@@ -571,6 +570,17 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_TLLINKINDEX2:
             if (isAttributeEnabled(SUMO_ATTR_TLLINKINDEX) && (value != getAttribute(key))) {
                 changeTLIndex(key, c.tlLinkIndex, parse<int>(value), undoList);
+            }
+            break;
+        case SUMO_ATTR_UNCONTROLLED:
+            {
+                const bool wasUncontrolled = c.uncontrolled;
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+                if (wasUncontrolled && !c.uncontrolled) {
+                    GNEEdge* srcEdge = getParentEdges().front();
+                    NBConnection newNBCon(srcEdge->getNBEdge(), c.fromLane, c.toEdge, c.toLane);
+                    srcEdge->getToJunction()->invalidateTLS(undoList, NBConnection::InvalidConnection, newNBCon);
+                }
             }
             break;
         case SUMO_ATTR_INDIRECT:
