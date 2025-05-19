@@ -40,10 +40,10 @@ GUITestSystem::~GUITestSystem() {
 
 
 void
-GUITestSystem::startTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow) {
+GUITestSystem::runTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow) {
     // run rest only once
-    if (myInitedTest == false) {
-        myInitedTest = true;
+    if (myTestStarted == false) {
+        myTestStarted = true;
         // set common abstract view
         myAbstractView = view;
         // set specific parameter in children
@@ -52,46 +52,20 @@ GUITestSystem::startTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow) 
         if (OptionsCont::getOptions().getString("test-file").size() > 0) {
             processTestFile();
         }
-        // start thread if we have more than one test
-        if (myTestSteps.size() > 0) {
-            run();
+        // process every step
+        for (const auto &testStep : myTestSteps) {
+            // continue depending of step type
+            if (testStep->getCategory() == "abstractView") {
+                myAbstractView->handle(this, testStep->getSelector(), testStep->getEvent());
+            } else {
+                runSpecificTest(testStep);
+            }
+            // update view after every test, except if test is quit()
+            if (testStep->getFunction() != "quit") {
+                myAbstractView->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
+            }
         }
     }
-}
-
-
-void
-GUITestSystem::nextTest(FXObject* sender, FXSelector sel) {
-    // only continue if the signal was send by the test system
-    if ((sender == this) && (sel == myCurrentSelector)) {
-        myContinue = true;
-    }
-}
-
-
-int
-GUITestSystem::run() {
-    for (const auto &testStep : myTestSteps) {
-        // stop thread until nextTest() is called in FXIMPLEMENT_TESTING
-        myContinue = false;
-        myCurrentSelector = testStep->getSelector();
-        // continue depending of step type
-        if (testStep->getCategory() == "abstractView") {
-            myAbstractView->handle(this, testStep->getSelector(), (void*)testStep->getEvent());
-        } else {
-            runSpecificTest(testStep);
-        }
-        // update view after every step
-
-
-        // if this is the quit order, stop thread. In other case, wait until nextTest() is called
-        if (testStep->getFunction() == "quit") {
-            return 1;
-        } else {
-            myAbstractView->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
-        }
-    }
-    return 1;
 }
 
 
@@ -268,7 +242,7 @@ GUITestSystem::TestStep::getText() const {
 }
 
 
-const FXEvent*
+void*
 GUITestSystem::TestStep::getEvent() const {
     return myEvent;
 }
@@ -394,14 +368,6 @@ GUITestSystem::TestStep::parseFunctionAndArguments(const std::string &row) {
         if (inString) {
             throw ProcessError("Invalid testStep row '" + row + "'. Check \" in arguments ");
         }
-    }
-}
-
-
-void
-GUITestSystem::waitForContinue() const {
-    while (!myContinue) {
-        FXThread::sleep(10);  
     }
 }
 

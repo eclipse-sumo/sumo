@@ -36,7 +36,7 @@ class GUIMainWindow;
 // class definitions
 // ===========================================================================
 
-class GUITestSystem : public FXObject, public FXThread {
+class GUITestSystem : public FXObject {
 
 public:
     /// @brief constructor
@@ -46,16 +46,7 @@ public:
     ~GUITestSystem();
 
     /// @brief start test. The argument is either GNEApplicationWindow or GUIApplicationWindows
-    void startTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow);
-
-    /// @brief execute next test
-    void nextTest(FXObject* sender, FXSelector sel);
-
-    /// @brief 
-    void writeSignalInfo(FXObject* sender, FXSelector sel) const;
-
-    /// @brief run all tests
-    int run();
+    void runTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow);
 
 protected:
 
@@ -92,7 +83,7 @@ protected:
         FXString* getText() const;
 
         /// @brief get event associated with this step
-        const FXEvent* getEvent() const;
+        void* getEvent() const;
 
     protected:
         /// @brief build mouse move event
@@ -124,7 +115,7 @@ protected:
         FXString* myText = nullptr;
 
         /// @brief list of events associated with this step
-        FXEvent* myEvent;
+        FXEvent* myEvent = nullptr;
 
         /// @brief parse function and arguments
         void parseFunctionAndArguments(const std::string &row);
@@ -140,24 +131,15 @@ protected:
     virtual void runSpecificTest(const TestStep* testStep) = 0;
 
 private:
+    /// @brief process test file
+    void processTestFile();
+
     /// @brief test steps
     std::vector<TestStep*> myTestSteps;
 
-    /// @brief flag to check if test are initedinited
-    bool myInitedTest = false;
-
-    /// @brief flag used for continue
-    bool myContinue = true;
-
-    /// @brief current selector
-    FXSelector myCurrentSelector = 0;
+    /// @brief flag to check if test are started
+    bool myTestStarted = false;
 
     /// @brief abstract view
     GUISUMOAbstractView* myAbstractView = nullptr;
-
-    /// @brief wait for continue
-    void waitForContinue() const;
-
-    /// @brief process test file
-    void processTestFile();
 };
