@@ -51,3 +51,6 @@ change_permissions_filtered
 
 # patching permissions should impact edge filtering by permissions
 change_permissions_filtered_postload
+
+# make an uncontrolled connection controlled 
+make_controlled
