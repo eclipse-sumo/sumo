@@ -1,10 +1,12 @@
-Warning: Teleporting vehicle 'SW.54'; waited too long (jam), lane='EC_0', time=660.00.
-Warning: Vehicle 'SW.54' ends teleporting on edge 'CW', time=660.00.
-Warning: Teleporting vehicle 'SW.65'; waited too long (jam), lane='EC_1', time=661.00.
-Warning: Vehicle 'SW.65' ends teleporting on edge 'CW', time=661.00.
-Warning: Teleporting vehicle 'SW.181'; waited too long (jam), lane='EC_0', time=1294.00.
-Warning: Vehicle 'SW.181' ends teleporting on edge 'CW', time=1294.00.
-Warning: Teleporting vehicle 'SW.183'; waited too long (jam), lane='EC_1', time=1299.00.
-Warning: Vehicle 'SW.183' ends teleporting on edge 'CW', time=1299.00.
-Warning: Teleporting vehicle 'SW.194'; waited too long (yield), lane=':C_10_0', time=1339.00.
-Warning: Vehicle 'SW.194' ends teleporting on edge 'CW', time=1339.00.
+Warning: Teleporting vehicle 'SW.2'; waited too long (yield), lane=':C_10_0', time=328.00.
+Warning: Vehicle 'SW.2' ends teleporting on edge 'CW', time=328.00.
+Warning: Teleporting vehicle 'SW.39'; waited too long (yield), lane=':C_10_0', time=656.00.
+Warning: Vehicle 'SW.39' ends teleporting on edge 'CW', time=656.00.
+Warning: Teleporting vehicle 'SW.40'; waited too long (yield), lane=':C_10_0', time=959.00.
+Warning: Vehicle 'SW.40' ends teleporting on edge 'CW', time=959.00.
+Warning: Teleporting vehicle 'SW.42'; waited too long (yield), lane=':C_10_0', time=1262.00.
+Warning: Vehicle 'SW.42' ends teleporting on edge 'CW', time=1262.00.
+Warning: Teleporting vehicle 'SW.46'; waited too long (yield), lane=':C_10_0', time=1565.00.
+Warning: Vehicle 'SW.46' ends teleporting on edge 'CW', time=1565.00.
+Warning: Teleporting vehicle 'SW.48'; waited too long (yield), lane=':C_10_0', time=1868.00.
+Warning: Vehicle 'SW.48' ends teleporting on edge 'CW', time=1868.00.
