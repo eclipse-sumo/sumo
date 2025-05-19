@@ -25,3 +25,6 @@ ticket16641
 
 # missing tls warning
 ticket16652
+
+# junction collision must be detected
+ticket16695
