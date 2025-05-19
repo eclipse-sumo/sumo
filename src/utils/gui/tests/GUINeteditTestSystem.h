@@ -49,7 +49,7 @@ protected:
     void setSpecificMainWindow(GUIMainWindow* mainWindow);
 
     /// @brief run specific test
-    void runSpecificTest(const TestStep* testStep);
+    void runSpecificTest(const GUITestSystemStep* testStep);
 
 private:
     /// @brief netedit application windows

@@ -26,6 +26,7 @@
 
 #include "GUIGlobalTestSystem.h"
 #include "GUINeteditTestSystem.h"
+#include "GUITestSystemStep.h"
 
 // ===========================================================================
 // member method definitions
@@ -54,7 +55,7 @@ GUINeteditTestSystem::setSpecificMainWindow(GUIMainWindow* mainWindow) {
 
 
 void
-GUINeteditTestSystem::runSpecificTest(const TestStep* testStep) {
+GUINeteditTestSystem::runSpecificTest(const GUITestSystemStep* testStep) {
     // continue depending of step type
     if (testStep->getCategory() == "additionalFrame") {
         myGNEApplicationWindow->getViewNet()->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->handle(this, testStep->getSelector(), (void*)testStep->getText());

@@ -20,6 +20,7 @@
 
 #include "GUIGlobalTestSystem.h"
 #include "GUISumoTestSystem.h"
+#include "GUITestSystemStep.h"
 
 // ===========================================================================
 // member method definitions
@@ -42,7 +43,7 @@ void GUISumoTestSystem::setSpecificMainWindow(GUIMainWindow* /*mainWindow*/) {
 }
 
 
-void GUISumoTestSystem::runSpecificTest(const TestStep* /*testStep*/) {
+void GUISumoTestSystem::runSpecificTest(const GUITestSystemStep* /*testStep*/) {
     // waiting for implementation in SUMO GUI
 }
 

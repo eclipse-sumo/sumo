@@ -29,8 +29,9 @@
 // class declaration
 // ===========================================================================
 
-class GUISUMOAbstractView;
 class GUIMainWindow;
+class GUISUMOAbstractView;
+class GUITestSystemStep;
 
 // ===========================================================================
 // class definitions
@@ -48,94 +49,22 @@ public:
     /// @brief start test. The argument is either GNEApplicationWindow or GUIApplicationWindows
     void runTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow);
 
+    /// @brief add test steps
+    void addTestStep(const GUITestSystemStep* step);
+
 protected:
-
-    /// @brief test step
-    struct TestStep {
-
-        /// @brief constructor using a row
-        TestStep(GUITestSystem* testSystem, const std::string &row);
-
-        /// @brief constructor using parameters (needed for certain functions like click)
-        TestStep(FXSelector messageType, FXSelector messageID, const std::string &category,
-                 const std::string &function, const std::vector<std::string> &arguments,
-                 FXString* text, FXEvent* event);
-
-        /// @brief destructor
-        ~TestStep();
-
-        /// @brief get message type
-        FXSelector getMessageType() const;
-        
-        /// @brief get message ID
-        FXSelector getMessageID() const;
-
-        /// @brief get selector (based in messageType and messageID)
-        FXSelector getSelector() const;
-
-        /// @brief get category
-        const std::string &getCategory() const;
-
-        /// @brief get function
-        const std::string &getFunction() const;
-
-        /// @brief get text
-        FXString* getText() const;
-
-        /// @brief get event associated with this step
-        void* getEvent() const;
-
-    protected:
-        /// @brief build mouse move event
-        FXEvent* buildMouseMoveEvent(const int posX, const int posY) const;
-
-        /// @brief build mouse left click press event
-        FXEvent* buildMouseLeftClickPressEvent(const int posX, const int posY) const;
-
-        /// @brief build mouse left click release event
-        FXEvent* buildMouseLeftClickReleaseEvent(const int posX, const int posY) const;
-
-    private:
-        /// @brief message type (by default SEL_COMMAND)
-        FXSelector myMessageType = SEL_COMMAND;
-        
-        /// @brief message ID
-        FXSelector myMessageID = 0;
-
-        // @brief category
-        std::string myCategory;
-        
-        /// @brief function
-        std::string myFunction;
-
-        /// @brief arguments
-        std::vector<std::string> myArguments;
-
-        /// @brief tag (used in certain tests)
-        FXString* myText = nullptr;
-
-        /// @brief list of events associated with this step
-        FXEvent* myEvent = nullptr;
-
-        /// @brief parse function and arguments
-        void parseFunctionAndArguments(const std::string &row);
-
-        /// @brief invalidate default constructor
-        TestStep() = delete;
-    };
-
     /// @brief run specific test
     virtual void setSpecificMainWindow(GUIMainWindow* mainWindow) = 0;
 
     /// @brief run specific test
-    virtual void runSpecificTest(const TestStep* testStep) = 0;
+    virtual void runSpecificTest(const GUITestSystemStep* testStep) = 0;
 
 private:
     /// @brief process test file
     void processTestFile();
 
     /// @brief test steps
-    std::vector<TestStep*> myTestSteps;
+    std::vector<const GUITestSystemStep*> myTestSteps;
 
     /// @brief flag to check if test are started
     bool myTestStarted = false;
