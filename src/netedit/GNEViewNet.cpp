@@ -1395,8 +1395,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
             myNet->getGrid().updateBoundaries(gObjectsInPosition.recomputeBoundaries);
         }
     */
-    // run all test in the first draw
-    gTestSystem->startTests(this, myViewParent->getGNEAppWindows());
+    // run tests in the first draw
+    gTestSystem->runTests(this, myViewParent->getGNEAppWindows());
     return hits;
 }
 
@@ -1404,7 +1404,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
 long
 GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector, void* eventData) {
     // check if we're in test mode
-    if (!gTestSystem || (obj != gTestSystem)) {
+    if (!gTestSystem || (obj == gTestSystem)) {
         // set focus in view net
         setFocus();
         // update MouseButtonKeyPressed
@@ -1431,7 +1431,7 @@ GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector, void* eventData) {
 long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // check if we're in test mode
-    if (!gTestSystem || (obj != gTestSystem)) {
+    if (!gTestSystem || (obj == gTestSystem)) {
         // avoid closing Popup dialog in Linux
         if (myCreatedPopup) {
             myCreatedPopup = false;
@@ -1463,7 +1463,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 long
 GNEViewNet::onMiddleBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
     // check if we're in test mode
-    if (!gTestSystem || (obj != gTestSystem)) {
+    if (!gTestSystem || (obj == gTestSystem)) {
         // process parent function
         GUISUMOAbstractView::onMiddleBtnPress(obj, sel, eventData);
         // update cursor
@@ -1480,7 +1480,7 @@ GNEViewNet::onMiddleBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
 long
 GNEViewNet::onMiddleBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // check if we're in test mode
-    if (!gTestSystem || (obj != gTestSystem)) {
+    if (!gTestSystem || (obj == gTestSystem)) {
         // process parent function
         GUISUMOAbstractView::onMiddleBtnRelease(obj, sel, eventData);
         // update cursor
@@ -1497,7 +1497,7 @@ GNEViewNet::onMiddleBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 long
 GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
     // check if we're in test mode
-    if (!gTestSystem || (obj != gTestSystem)) {
+    if (!gTestSystem || (obj == gTestSystem)) {
         // update MouseButtonKeyPressed
         myMouseButtonKeyPressed.update(eventData);
         // update cursor
@@ -1517,7 +1517,7 @@ GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
 long
 GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // check if we're in test mode
-    if (!gTestSystem || (obj != gTestSystem)) {
+    if (!gTestSystem || (obj == gTestSystem)) {
         // update MouseButtonKeyPressed
         myMouseButtonKeyPressed.update(eventData);
         // update cursor
@@ -1537,7 +1537,7 @@ GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     // check if we're in test mode
-    if (!gTestSystem || (obj != gTestSystem)) {
+    if (!gTestSystem || (obj == gTestSystem)) {
         // process mouse move in GUISUMOAbstractView
         GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
         // update MouseButtonKeyPressed
@@ -1564,7 +1564,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
 long
 GNEViewNet::onKeyPress(FXObject* obj, FXSelector sel, void* eventData) {
     // check if we're in test mode
-    if (!gTestSystem || (obj != gTestSystem)) {
+    if (!gTestSystem || (obj == gTestSystem)) {
         // update MouseButtonKeyPressed
         myMouseButtonKeyPressed.update(eventData);
         // update cursor
@@ -1592,7 +1592,7 @@ GNEViewNet::onKeyPress(FXObject* obj, FXSelector sel, void* eventData) {
 long
 GNEViewNet::onKeyRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // check if we're in test mode
-    if (!gTestSystem || (obj != gTestSystem)) {
+    if (!gTestSystem || (obj == gTestSystem)) {
         // update MouseButtonKeyPressed
         myMouseButtonKeyPressed.update(eventData);
         // update cursor
