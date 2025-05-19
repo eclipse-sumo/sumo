@@ -21,6 +21,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/options/OptionsCont.h>
+#include <fstream>
 
 #include "GUITestSystem.h"
 
