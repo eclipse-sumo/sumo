@@ -1100,7 +1100,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
             if (id != 0) {
                 GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
                 if (o != nullptr) {
-                    if (o->getType() == GLO_VEHICLE || o->getType() == GLO_PERSON) {
+                    if (!myApp->isGaming() && (o->getType() == GLO_VEHICLE || o->getType() == GLO_PERSON)) {
                         startTrack(id);
                     } else if (o->getType() == GLO_REROUTER_EDGE) {
                         o->onLeftBtnPress(ptr);
