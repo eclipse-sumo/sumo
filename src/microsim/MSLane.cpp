@@ -2692,7 +2692,9 @@ MSLane::succLinkSec(const SUMOVehicle& veh, int nRouteSuccs,
     if (nRouteSuccs < (int)conts.size()) {
         // we go through the links in our list and return the matching one
         for (std::vector<MSLink*>::const_iterator link = succLinkSource.myLinks.begin(); link != succLinkSource.myLinks.end(); ++link) {
-            if ((*link)->getLane() != nullptr && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
+            if ((*link)->getLane() != nullptr && (*link)->getLane()->myEdge == nRouteEdge
+                    && (*link)->getLane()->allowsVehicleClass(veh.getVClass())
+                    && ((*link)->getViaLane() == nullptr || (*link)->getViaLane()->allowsVehicleClass(veh.getVClass()))) {
                 // we should use the link if it connects us to the best lane
                 if ((*link)->getLane() == conts[nRouteSuccs]) {
                     return link;

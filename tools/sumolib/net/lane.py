@@ -297,6 +297,8 @@ class Lane:
 
     def allows(self, vClass):
         """true if this lane allows the given vehicle class"""
+        if vClass is None or vClass == "ignoring":
+            return True
         return vClass in self._allowed
 
     def setNeigh(self, neigh):

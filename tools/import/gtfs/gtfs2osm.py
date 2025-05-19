@@ -415,8 +415,8 @@ def repair_routes(options, net):
             # find ptLine direction
             line_dir = get_line_dir(line_orig, line_dest)
 
-            osm_routes[ptLine.id] = (ptLine.attr_name, ptLine.line, ptLine.type, line_dir, ptLine.color,
-                                     ptLine.route[0].edges, [s.attr_name for s in (ptLine.stops or [])])
+            osm_routes[ptLine.id] = [ptLine.attr_name, ptLine.line, ptLine.type, line_dir, ptLine.color,
+                                     None, [s.attr_name for s in (ptLine.stops or [])]]
             dua_file.write(u'    <trip id="%s" type="%s" depart="0" via="%s"/>\n' %
                            (ptLine.id, ptLine.type, (" ").join(route_edges)))
         dua_file.write(u"</routes>\n")
@@ -433,8 +433,10 @@ def repair_routes(options, net):
 
     # parse repaired routes
     n_routes = len(osm_routes)
+    broken = set(osm_routes.keys())
     for ptline, ptline_route in parse_fast_nested("dua_output.xml", "vehicle", "id", "route", "edges"):
-        osm_routes[ptline.id] += (ptline_route.edges, )
+        osm_routes[ptline.id][5] = ptline_route.edges
+        broken.remove(ptline.id)
 
     # remove dua files
     os.remove("dua_input.xml")
@@ -442,7 +444,7 @@ def repair_routes(options, net):
     os.remove("dua_output.alt.xml")
 
     # remove invalid routes from dict
-    [osm_routes.pop(line) for line in list(osm_routes) if len(osm_routes[line]) < 5]
+    [osm_routes.pop(line) for line in list(osm_routes) if line in broken]
 
     if n_routes != len(osm_routes):
         print("%s of %s routes have been imported, see '%s' for more information." %

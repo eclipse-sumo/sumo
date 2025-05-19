@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:39+0200\n"
-"PO-Revision-Date: 2025-04-10 07:35+0000\n"
+"PO-Revision-Date: 2025-05-07 08:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/applications/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -766,6 +767,8 @@ msgid ""
 "The option --weights.random-factor should not be used together with astar "
 "and precomputed distances."
 msgstr ""
+"Die Option --weights.random-factor sollte nicht gemeinsam mit astar und "
+"vorberechneten Entfernungen verwendet werden."
 
 #: src/duarouter/RODUAFrame.cpp:238 src/marouter/ROMAFrame.cpp:243
 msgid "Invalid route choice method '%'."
@@ -4459,6 +4462,7 @@ msgstr ""
 #: src/microsim/devices/MSDevice_SSM.cpp:258
 msgid "Whether to write conflict outputs with no data as NA values or skip it"
 msgstr ""
+"Ob leere Konfliktkennwerte als NA ausgegeben oder übersprungen werden sollen"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:260
 msgid ""
@@ -4585,6 +4589,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-lane-"
 "positions'. Using default of '%'."
 msgstr ""
+"Das Fahrzeug '%' definiert keinen Parameter 'device.ssm.write-lane-"
+"positions'. Deshalb wird der Standardwert '%' verwendet."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4006
 #, c-format
@@ -4609,6 +4615,8 @@ msgid ""
 "SSM exclude-conflict-type '%' is not supported. Aborting construction of SSM"
 " device '%'."
 msgstr ""
+"Der SSM-Konflikttypausschluss '%' wird nicht unterstützt. Die Erstellung der "
+"SSM-Einrichtung '%' wird abgebrochen."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4054
 #, c-format
@@ -6186,8 +6194,8 @@ msgid ""
 "Edge sequence is not consistent with stop sequence in line '%', not adding "
 "bidi edges."
 msgstr ""
-"Kantensequenz ist nicht mit der Haltsequenz konsistent in Zeile '%', "
-"Zweirichtungs-Kanten werden nicht hinzugefügt."
+"Die Kantenfolge ist nicht mit der Haltefolge der Linie '%' konsistent, "
+"sodass keine Zweirichtungskanten hinzugefügt werden."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1020
 #, c-format
@@ -13028,6 +13036,9 @@ msgid ""
 "Could not build % with ID '%' in netedit; Requires either a route or an "
 "embedded route or a from-to attribute (Edges, junctions or TAZs)."
 msgstr ""
+"'%' mit der ID '%' konnte nicht in netedit erstellt werden; Es wird entweder "
+"eine Route, eine interne Route oder from-to-Attribute benötigt (Kante, "
+"Knotenpunkt oder TAZ)."
 
 #: src/utils/handlers/CommonHandler.cpp:229
 msgid ""

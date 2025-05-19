@@ -282,6 +282,9 @@ ptlines-file will be used, rather than creating new shortest path routes between
 A *ptlines-file* is typically created by [netconvert](../netconvert.md) option **--ptline-output** when importing OSM data.
 However it can also be customized or created from scratch for a non OSM network.
 
+!!! note
+    A [tutorial](../Tutorials/PT_from_OpenStreetMap.md) for using this tool with OSM data is also availabe
+
 ## Example Input
 
 A minimal description for a bus line looks like this:

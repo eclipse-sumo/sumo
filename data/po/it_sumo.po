@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:39+0200\n"
-"PO-Revision-Date: 2025-05-05 12:54+0000\n"
+"PO-Revision-Date: 2025-05-16 12:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -938,6 +938,9 @@ msgid ""
 "Ignoring veh '%' no-opposite subscription filter for geographic range object"
 " collection. Consider using the 'lanes' filter."
 msgstr ""
+"Il filtro del veicolo '%' per sottoscrivere alla collezione di oggetti nel "
+"suo intorno (escluso la direzione opposta) viene ignorato. Considera di "
+"usare il filtro di corsie."
 
 #: src/libsumo/Helper.cpp:1084
 msgid ""
@@ -968,6 +971,8 @@ msgid ""
 "addSubscriptionFilterLateralDistance could not determine shape of lane '%' "
 "with a lateral shift of %."
 msgstr ""
+"addSubscriptionFilterLateralDistance non ha potuto determinare la forma "
+"della corsia '%' con uno spostamento laterale di %."
 
 #: src/libsumo/Helper.cpp:1416
 msgid "Vehicle '%' was removed though being controlled by TraCI"
@@ -1027,6 +1032,8 @@ msgid ""
 "Cannot check for all deadlocks on swapConstraints because the route for "
 "vehicle '%' is not computed yet"
 msgstr ""
+"Impossibile di controllare blocchi ipotetici riconducibili a swapConstraints "
+"perché l'itinerario del veicolo '%' non è ancora stato calcolato"
 
 #: src/libsumo/Vehicle.cpp:1288 src/libsumo/Vehicle.cpp:1426
 msgid "Unsupported parameter '%'"
@@ -4146,7 +4153,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Emissions.cpp:52
 msgid "Recording begin time for emission-data"
-msgstr ""
+msgstr "Ora iniziale per registrare i dati di emissioni"
 
 #: src/microsim/devices/MSDevice_Emissions.cpp:55
 msgid "Recording period for emission-output"
@@ -4460,6 +4467,8 @@ msgstr ""
 #: src/microsim/devices/MSDevice_SSM.cpp:258
 msgid "Whether to write conflict outputs with no data as NA values or skip it"
 msgstr ""
+"Se dati vuoti di conflitti devono essere scritti come valori NA oppure "
+"saltati in uscita"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:260
 msgid ""
@@ -4589,6 +4598,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-lane-"
 "positions'. Using default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro di veicolo 'device.ssm.write-lane-"
+"positions'. Perciò si usa il valore standard '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4006
 #, c-format
@@ -4614,6 +4625,8 @@ msgid ""
 "SSM exclude-conflict-type '%' is not supported. Aborting construction of SSM"
 " device '%'."
 msgstr ""
+"L'espressione '%' per escludere tipi di conflitti da SSM non è supportata. "
+"La costruzione dell'attrezzo SSM '%' viene interrotta."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4054
 #, c-format
@@ -5311,6 +5324,8 @@ msgstr ""
 #: src/microsim/output/MSE2Collector.cpp:914
 msgid "Multi-lane e2Detector does not support detecting persons yet"
 msgstr ""
+"Il rivelatore E2 esteso su più corsie tuttora non supporta la detezione di "
+"persone"
 
 #: src/microsim/output/MSMeanData.cpp:160
 msgid "Negative vehicle step fraction for '%' on lane '%'."
@@ -5591,6 +5606,8 @@ msgid ""
 "Edge '%' is shorter than %m (%m) and will cause incorrect flow reduction "
 "with option --meso-tls-penalty"
 msgstr ""
+"L'arco '%' è più corto di %m (%m) e provocherà una riduzione di flusso "
+"scorretta usando l'opzione --meso-tls-penalty"
 
 #: src/microsim/traffic_lights/NEMAController.cpp:164
 msgid ""
@@ -6220,6 +6237,8 @@ msgid ""
 "Edge sequence is not consistent with stop sequence in line '%', not adding "
 "bidi edges."
 msgstr ""
+"Non si aggiungeranno degli archi bidirezionali perché la sequenza di archi "
+"non è consistente con la sequenza di fermata della linea '%'."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1020
 #, c-format
@@ -10952,6 +10971,8 @@ msgid ""
 "The overheadWireSegment '%' was not created as it is attached to internal "
 "lane. It will be build automatically."
 msgstr ""
+"Il segmento di catenaria '%' non è stato creato perché situato su una corsia "
+"interna. Il segmento verrà creato automaticamente."
 
 #: src/netload/NLTriggerBuilder.cpp:203
 #, c-format
@@ -10959,6 +10980,8 @@ msgid ""
 "The overheadWireSegment '%' not built as it is attached to internal lane. It"
 " will be build automatically."
 msgstr ""
+"Il segmento di catenaria '%' non è stato creato perché situato su una corsia "
+"interna. Il segmento verrà creato automaticamente."
 
 #: src/netload/NLTriggerBuilder.cpp:215
 #, c-format
@@ -10966,12 +10989,16 @@ msgid ""
 "The overheadWireSegment '%' has wrong position. Automatically set from 0 to "
 "the length of the lane."
 msgstr ""
+"Il segmento di catenaria '%' tiene una posizione sbagliata. Si estenderà "
+"sulla corsia intera."
 
 #: src/netload/NLTriggerBuilder.cpp:223
 msgid ""
 "Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire"
 " simulation"
 msgstr ""
+"Il risolutore di catenarie (Eigen) non è stato compilato che può condurre a "
+"degli errori nella simulazione delle catenarie"
 
 #: src/netload/NLTriggerBuilder.cpp:383
 msgid ""

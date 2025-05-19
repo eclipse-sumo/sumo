@@ -16,6 +16,8 @@ ticket11558
 # glitched walkingarea shape
 ticket11590
 
+ticket11737
+
 # crash during roundabout processing
 ticket11779
 
@@ -50,11 +52,7 @@ ticket13542b
 
 # crash
 ticket13581
-ticket9874
 ticket12676
-ticket11737
-ticket55
-ticket9874b
 
 # crash involving roundabout deletion
 ticket14930

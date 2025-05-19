@@ -945,6 +945,7 @@ NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<long long int, NIO
     SUMOSAXHandler("osm - file"),
     myToFill(toFill),
     myCurrentNode(nullptr),
+    myIsStation(false),
     myHierarchyLevel(0),
     myUniqueNodes(uniqueNodes),
     myImportElevation(oc.getBool("osm.elevation")),
@@ -1021,6 +1022,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 || key == "name" || key == "train" || key == "bus" || key == "tram" || key == "light_rail" || key == "subway" || key == "station" || key == "noexit"
                 || key == "crossing:barrier"
                 || key == "crossing:light"
+                || key == "railway:ref"
                 || StringUtils::startsWith(key, "railway:signal")
                 || StringUtils::startsWith(key, "railway:position")
            ) {
@@ -1080,6 +1082,9 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 }
             } else if (key == "station") {
                 interpretTransportType(value, myCurrentNode);
+                myIsStation = true;
+            } else if (key == "railway:ref") {
+                myRailwayRef = value;
             } else {
                 // v="yes"
                 interpretTransportType(key, myCurrentNode);
@@ -1096,7 +1101,12 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
 void
 NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_NODE && myHierarchyLevel == 2) {
+        if (myIsStation && myRailwayRef != "") {
+            myCurrentNode->setParameter("railway:ref", myRailwayRef);
+        }
         myCurrentNode = nullptr;
+        myIsStation = false;
+        myRailwayRef = "";
     }
     --myHierarchyLevel;
 }
@@ -1829,6 +1839,7 @@ NIImporter_OpenStreetMap::RelationHandler::resetValues() {
     myToWay = INVALID_ID;
     myViaNode = INVALID_ID;
     myViaWay = INVALID_ID;
+    myStation = INVALID_ID;
     myRestrictionType = RestrictionType::UNKNOWN;
     myPlatforms.clear();
     myStops.clear();
@@ -1903,12 +1914,19 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element, const SUM
                 myPlatforms.push_back(platform);
             }
 
+        } else if (role == "station") {
+            myStation = ref;
         } else if (role.empty()) {
             std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, nullptr, ok);
             if (memberType == "way") {
                 myWays.push_back(ref);
             } else if (memberType == "node") {
-                myStops.push_back(ref);
+                auto it = myOSMNodes.find(ref);
+                if (it != myOSMNodes.end() && it->second->hasParameter("railway:ref")) {
+                    myStation = ref;
+                } else {
+                    myStops.push_back(ref);
+                }
             }
         }
         return;
@@ -2090,6 +2108,14 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     }
                 }
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1, myCurrentRelation);
+                if (myStation != INVALID_ID) {
+                    NIOSMNode* station = myOSMNodes.find(myStation)->second;
+                    if (station != nullptr) {
+                        if (station->hasParameter("railway:ref")) {
+                            ptStop->setParameter("stationRef", station->getParameter("railway:ref"));
+                        }
+                    }
+                }
             }
         } else if (myPTRouteType != "" && myIsRoute) {
             NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService,

@@ -1,0 +1,1 @@
+plotXMLAttributes.py input_routes.rou.xml --idelem vehicle -x busStop -y until --ytime1 --invert-yaxis --marker o --xstr --xticks-file output_data.txt --xticksorientation 45 --legend --filter-ids *S46* --blind --csv-output out.csv

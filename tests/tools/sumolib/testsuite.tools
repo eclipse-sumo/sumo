@@ -53,3 +53,6 @@ net_and_additional
 
 # reading files with BOM marker
 utf8_bom
+
+# see #16633
+connection_permissions

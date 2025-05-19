@@ -773,10 +773,10 @@ public:
     /* @brief get the router, initialize on first use
      * @param[in] prohibited The vector of forbidden edges (optional)
      */
-    MSVehicleRouter& getRouterTT(const int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSVehicleRouter& getRouterEffort(const int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSPedestrianRouter& getPedestrianRouter(const int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSTransportableRouter& getIntermodalRouter(const int rngIndex, const int routingMode = 0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSVehicleRouter& getRouterTT(int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSVehicleRouter& getRouterEffort(int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSPedestrianRouter& getPedestrianRouter(int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSTransportableRouter& getIntermodalRouter(int rngIndex, const int routingMode = 0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
 
     static void adaptIntermodalRouter(MSTransportableRouter& router);
 

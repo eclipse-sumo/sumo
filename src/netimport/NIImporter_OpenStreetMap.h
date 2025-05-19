@@ -465,6 +465,9 @@ protected:
         /// @brief the currently parsed node
         NIOSMNode* myCurrentNode;
 
+        bool myIsStation;
+        std::string myRailwayRef;
+
         /// @brief The current hierarchy level
         int myHierarchyLevel;
 
@@ -477,7 +480,7 @@ protected:
         /// @brief custom requirements for rail signal tagging
         StringVector myRailSignalRules;
 
-        /// @brief number of diplicate nodes
+        /// @brief number of duplicate nodes
         int myDuplicateNodes;
 
         /// @brief the options
@@ -647,6 +650,8 @@ protected:
         long long int myViaNode;
         long long int myViaWay;
 
+        /// @brief the station node for the current stop_area
+        long long int myStation;
 
         /// @brief the options cont
         const OptionsCont& myOptionsCont;

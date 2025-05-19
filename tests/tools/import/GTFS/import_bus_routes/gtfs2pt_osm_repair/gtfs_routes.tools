@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-22 14:18:11.801156 by gtfs2pt.py v1_19_0+0967-1d0ac66c070
-  options: -H -n net.net.xml <doubleminus>osm-routes ptlines.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>bbox 10.509219,52.256458,10.530758,52.270119 <doubleminus>repair <doubleminus>modes bus <doubleminus>min-stops 0 <doubleminus>vtype-output vehtypes.xml <doubleminus>verbose
+<!-- generated on 2025-05-17 12:51:33.324632 by gtfs2pt.py v1_23_1+0099-6edb18498d5
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20201111"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <human-readable-time value="True"/>
+    <verbose value="True"/>
+    <bbox value="10.509219,52.256458,10.530758,52.270119"/>
+    <network value="net.net.xml"/>
+    <osm-routes value="ptlines.xml"/>
+    <repair value="True"/>
+    <min-stops value="0"/>
+</configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -54,7 +66,7 @@
         <stop busStop="120010013704_0" arrival="05:39:00" duration="10" until="05:39:00"/><!--stopSequence="3.0/4.0" "Braunschweig Friedrich-Wilhelm-Platz"-->
         <stop busStop="120010013002_0" arrival="05:41:00" duration="10" until="05:41:00"/><!--stopSequence="4.0/4.0" "Braunschweig Europaplatz"-->
     </vehicle>
-    <route id="2115" edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 32055586#0 23209152#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 27220209#0 314842169#0 -10740033#2 -10740033#1 326537335 627097688 5134711#0 5134711#3 150679087#0 150679087#1"/>
+    <route id="2115" edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 32055586#0 23209152#0 190405266#0 25116462#0 320044358#0 5021504 220890642#4 5148300 198087353#0 198087353#1 5134732 314841164#0 27220209#0 314842169#0 -10740033#2 -10740033#1 33230627#0 326537335 627097688 5134711#0 5134711#3 150679087#0 150679087#1"/>
     <vehicle id="132218462.0" route="2115" line="22086_3_132218462" depart="06:17:00" departEdge="2" arrivalEdge="21" type="bus">
         <param key="gtfs.route_name" value="730"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Rathaus"/>

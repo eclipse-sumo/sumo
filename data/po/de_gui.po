@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:36+0200\n"
-"PO-Revision-Date: 2025-05-02 12:53+0000\n"
+"PO-Revision-Date: 2025-05-15 22:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2960,7 +2960,7 @@ msgstr "Nachfolgende MeanData-Datei wurde erfolgreich geladen: "
 
 #: src/netedit/GNEApplicationWindow.cpp:4263
 msgid "reloading meanDatas"
-msgstr ""
+msgstr "Erneutes Laden der MeanData-Elemente"
 
 #: src/netedit/GNEApplicationWindow.cpp:4325
 msgid "MeanDatas elements saved"
@@ -4597,7 +4597,7 @@ msgstr "Präfix für containerFlow-Bezeichnung"
 
 #: src/netedit/GNELoadThread.cpp:444
 msgid "Prefix for dataSet naming"
-msgstr ""
+msgstr "Präfix für Dataset-Benennung"
 
 #: src/netedit/GNELoadThread.cpp:449
 msgid "Prefix for meanDataEdge naming"
@@ -4972,7 +4972,7 @@ msgstr "Ungültiger Index '%' in getAttributeProperties(int) verwendet"
 #: src/netedit/GNETagPropertiesDatabase.cpp:89
 #, c-format
 msgid "Property for tag '%' not defined"
-msgstr ""
+msgstr "Eigenschaft nicht für Tag '%' definiert"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:102
 #, c-format
@@ -5114,7 +5114,7 @@ msgstr "Containerhalte"
 #: src/netedit/GNETagPropertiesDatabase.cpp:543
 #: src/netedit/GNETagPropertiesDatabase.cpp:545
 msgid "Datas"
-msgstr ""
+msgstr "Daten"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:572
 #: src/netedit/frames/network/GNECrossingFrame.cpp:67
@@ -6068,11 +6068,11 @@ msgstr "Eine Information, ob die Verkehrsumlegungszone ausgefüllt werden soll"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2296
 msgid "Use the edges within the shape"
-msgstr ""
+msgstr "Kanten innerhalb des Shape nutzen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2298
 msgid "edges within"
-msgstr ""
+msgstr "enthaltene Kanten"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2308
 msgid "TAZ Source"
@@ -6166,7 +6166,7 @@ msgstr "Der Shape der Fußgängerfläche"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2482
 msgid "A custom geo shape for this walkable area"
-msgstr ""
+msgstr "Ein benutzerdefiniertes Shape für diese Fußgängerfläche"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2492
 msgid "JuPedSim Obstacle"
@@ -6178,7 +6178,7 @@ msgstr "Der Shape des Hindernis"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2513
 msgid "A custom geo shape for this obstacle"
-msgstr ""
+msgstr "Ein benutzerdefinierter Shape für dieses Hindernis"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2529
 msgid "RouteDistribution"
@@ -6186,23 +6186,23 @@ msgstr "Routenverteilung"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2558
 msgid "Route (Ref)"
-msgstr ""
+msgstr "Route (Referenz)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2565
 msgid "Route distribution in which this routeRef is defined"
-msgstr ""
+msgstr "Routenverteilung, in welcher diese Routenreferenz definiert ist"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2570
 msgid "Reference ID of route"
-msgstr ""
+msgstr "Referenz-ID der Route"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2582
 msgid "Route (embedded)"
-msgstr ""
+msgstr "Route (intern)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2601
 msgid "Deterministic distribution"
-msgstr ""
+msgstr "Deterministische Verteilung"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2615
 msgid "VehicleType"
@@ -6210,15 +6210,16 @@ msgstr "Fahrzeugtyp"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2631
 msgid "VType (Ref)"
-msgstr ""
+msgstr "Fahrzeugtyp (Referenz)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2638
 msgid "VType distribution in which this vTypeRef is defined"
 msgstr ""
+"Fahrzeugtypverteilung, in welcher diese Fahrzeugtypreferenz definiert ist"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2643
 msgid "Reference ID of vType"
-msgstr ""
+msgstr "Referenz-ID des Fahrzeugtyps"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2661
 msgid "TripEdges"
@@ -7333,7 +7334,7 @@ msgstr "Kanten"
 #: src/netedit/GNETagPropertiesDatabase.cpp:5471
 #: src/netedit/GNETagPropertiesDatabase.cpp:5481
 msgid "PersonTrip"
-msgstr ""
+msgstr "Fahrt einer Person"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:5507
 #: src/netedit/GNETagPropertiesDatabase.cpp:5517
@@ -7488,11 +7489,11 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6924
 #, c-format
 msgid "Center view over element % after creation"
-msgstr ""
+msgstr "Ansicht nach dessen Erstellung über Element % zentrieren"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6925
 msgid "center view"
-msgstr ""
+msgstr "Ansicht zentrieren"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6933
 msgid "The path to the additional file"
@@ -7500,7 +7501,7 @@ msgstr "Der Pfad zur Datei mit weiteren Elementen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6935
 msgid "add. file"
-msgstr ""
+msgstr "Datei für weitere Elemente"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6940
 msgid "The path to the route file"
@@ -7508,7 +7509,7 @@ msgstr "Der Pfad zur Routendatei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6942
 msgid "route file"
-msgstr ""
+msgstr "Routendatei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6947
 #: src/netedit/GNETagPropertiesDatabase.cpp:6954
@@ -7517,7 +7518,7 @@ msgstr "Der Pfad zur Datendatei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6949
 msgid "data file"
-msgstr ""
+msgstr "Datendatei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6956
 msgid "mean file"
@@ -8670,7 +8671,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8580
 msgid "Optional name for %"
-msgstr ""
+msgstr "Optionaler Name für %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8591
 #: src/netedit/GNETagPropertiesDatabase.cpp:8597
