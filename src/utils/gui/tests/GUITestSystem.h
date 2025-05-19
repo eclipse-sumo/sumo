@@ -29,8 +29,7 @@
 // class declaration
 // ===========================================================================
 
-class GUIMainWindow;
-class GUISUMOAbstractView;
+class GNEViewNet;
 class GUITestSystemStep;
 
 // ===========================================================================
@@ -41,34 +40,21 @@ class GUITestSystem : public FXObject {
 
 public:
     /// @brief constructor
-    GUITestSystem();
+    GUITestSystem(const std::string &testFile);
 
     /// @brief destructor
     ~GUITestSystem();
 
-    /// @brief start test. The argument is either GNEApplicationWindow or GUIApplicationWindows
-    void runTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow);
+    /// @brief start netedit test
+    void runNeteditTests(GNEViewNet* viewNet);
 
     /// @brief add test steps
     void addTestStep(const GUITestSystemStep* step);
 
-protected:
-    /// @brief run specific test
-    virtual void setSpecificMainWindow(GUIMainWindow* mainWindow) = 0;
-
-    /// @brief run specific test
-    virtual void runSpecificTest(const GUITestSystemStep* testStep) = 0;
-
 private:
-    /// @brief process test file
-    void processTestFile();
-
     /// @brief test steps
     std::vector<const GUITestSystemStep*> myTestSteps;
 
     /// @brief flag to check if test are started
     bool myTestStarted = false;
-
-    /// @brief abstract view
-    GUISUMOAbstractView* myAbstractView = nullptr;
 };

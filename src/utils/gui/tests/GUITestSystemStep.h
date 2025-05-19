@@ -23,25 +23,30 @@
 #include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
-// class declaration
-// ===========================================================================
-
-class GUITestSystem;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GUITestSystemStep {
 
 public:
+    /// @name category step
+    enum class Category {
+        VIRTUAL,                        // non processed step (used for pack certain operations like click)
+        MAINWINDOW,                     // main window
+        VIEW,                           // specific view (either GUIView or GNEViewNet)
+        FRAME_ADDITIONAL_TAGSELECTOR    // additional frame
+    };
+
     /// @brief constructor using a row
-    GUITestSystemStep(GUITestSystem* testSystem, const std::string &row);
+    GUITestSystemStep(const std::string &rowText);
 
     /// @brief constructor using parameters (needed for certain functions like click)
-    GUITestSystemStep(FXSelector messageType, FXSelector messageID, const std::string &category,
-                      const std::string &function, const std::vector<std::string> &arguments,
+    GUITestSystemStep(FXSelector messageType, FXSelector messageID, Category category,
+                      const std::vector<std::string> &arguments,
                       FXString* text, FXEvent* event);
+
+    /// @brief constructor for events
+    GUITestSystemStep(FXSelector messageType, FXSelector messageID, Category category, FXEvent* event);
 
     /// @brief destructor
     ~GUITestSystemStep();
@@ -56,10 +61,7 @@ public:
     FXSelector getSelector() const;
 
     /// @brief get category
-    const std::string &getCategory() const;
-
-    /// @brief get function
-    const std::string &getFunction() const;
+    Category getCategory() const;
 
     /// @brief get text
     FXString* getText() const;
@@ -84,11 +86,8 @@ private:
     /// @brief message ID
     FXSelector myMessageID = 0;
 
-    // @brief category
-    std::string myCategory;
-        
-    /// @brief function
-    std::string myFunction;
+    // @brief step category
+    Category myCategory;
 
     /// @brief arguments
     std::vector<std::string> myArguments;
@@ -100,7 +99,7 @@ private:
     FXEvent* myEvent = nullptr;
 
     /// @brief parse function and arguments
-    void parseFunctionAndArguments(const std::string &row);
+    std::string parseStep(const std::string &rowText);
 
     /// @brief invalidate default constructor
     GUITestSystemStep() = delete;

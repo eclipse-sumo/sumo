@@ -1,10 +1,6 @@
 set(utils_gui_tests_STAT_SRCS
     GUIGlobalTestSystem.cpp
     GUIGlobalTestSystem.h
-    GUINeteditTestSystem.cpp
-    GUINeteditTestSystem.h
-    GUISumoTestSystem.cpp
-    GUISumoTestSystem.h
     GUITestSystem.cpp
     GUITestSystem.h
     GUITestSystemStep.cpp

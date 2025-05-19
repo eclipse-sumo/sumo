@@ -1395,8 +1395,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
             myNet->getGrid().updateBoundaries(gObjectsInPosition.recomputeBoundaries);
         }
     */
-    // run tests in the first draw
-    gTestSystem->runTests(this, myViewParent->getGNEAppWindows());
+    // run netedit test in the first draw
+    gTestSystem->runNeteditTests(this);
     return hits;
 }
 

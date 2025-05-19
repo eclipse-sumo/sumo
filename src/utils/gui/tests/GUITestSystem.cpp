@@ -18,7 +18,12 @@
 // Thread used for testing netedit
 /****************************************************************************/
 
-#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/network/GNEAdditionalFrame.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GUITestSystem.h"
@@ -28,55 +33,7 @@
 // member method definitions
 // ===========================================================================
 
-GUITestSystem::GUITestSystem() {}
-
-
-GUITestSystem::~GUITestSystem() {
-    for (auto testStep : myTestSteps) {
-        delete testStep;
-    }
-}
-
-
-void
-GUITestSystem::runTests(GUISUMOAbstractView* view, GUIMainWindow* mainWindow) {
-    // run rest only once
-    if (myTestStarted == false) {
-        myTestStarted = true;
-        // set common abstract view
-        myAbstractView = view;
-        // set specific parameter in children
-        setSpecificMainWindow(mainWindow);
-        // check if run test thread
-        if (OptionsCont::getOptions().getString("test-file").size() > 0) {
-            processTestFile();
-        }
-        // process every step
-        for (const auto &testStep : myTestSteps) {
-            // continue depending of step type
-            if (testStep->getCategory() == "abstractView") {
-                myAbstractView->handle(this, testStep->getSelector(), testStep->getEvent());
-            } else {
-                runSpecificTest(testStep);
-            }
-            // update view after every test, except if test is quit()
-            if (testStep->getFunction() != "quit") {
-                myAbstractView->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
-            }
-        }
-    }
-}
-
-
-void
-GUITestSystem::addTestStep(const GUITestSystemStep* step) {
-    myTestSteps.push_back(step);
-}
-
-
-void
-GUITestSystem::processTestFile() {
-    const std::string testFile = OptionsCont::getOptions().getString("test-file");
+GUITestSystem::GUITestSystem(const std::string &testFile) {
     // open file
     std::ifstream strm(testFile);
     // check if file can be opened
@@ -89,14 +46,48 @@ GUITestSystem::processTestFile() {
             strm >> line;
             // check if line isn't empty
             if ((line.size() > 0) && line[0] != '#') {
-                auto step = new GUITestSystemStep(this, line);
-                // only add to list if this is not a virtual attribute (for example, click)
-                if (step->getCategory() != "virtual") {
-                    myTestSteps.push_back(step);
-                }
+                myTestSteps.push_back(new GUITestSystemStep(line));
             }
         }
     }
+}
+
+
+GUITestSystem::~GUITestSystem() {
+    for (auto testStep : myTestSteps) {
+        delete testStep;
+    }
+}
+
+
+void
+GUITestSystem::runNeteditTests(GNEViewNet* viewNet) {
+    // run rest only once
+    if (myTestStarted == false) {
+        myTestStarted = true;
+        // process every step
+        for (const auto &testStep : myTestSteps) {
+            // check if we have to process it in main windows, abstract view or specific view
+            if (testStep->getCategory() == GUITestSystemStep::Category::VIEW) {
+                viewNet->handle(this, testStep->getSelector(), testStep->getEvent());
+            } else if (testStep->getCategory() == GUITestSystemStep::Category::MAINWINDOW) {
+                viewNet->getViewParent()->getGNEAppWindows()->handle(this, testStep->getSelector(), testStep->getEvent());
+            } else if (testStep->getCategory() == GUITestSystemStep::Category::FRAME_ADDITIONAL_TAGSELECTOR) {
+                viewNet->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->handle(this, testStep->getSelector(), (void*)testStep->getText());
+            }
+            // update view after every test, except if test is quit() or category is virtual
+            if ((testStep->getCategory() != GUITestSystemStep::Category::VIRTUAL) && 
+                (testStep->getMessageID() != MID_HOTKEY_CTRL_Q_CLOSE)) {
+                viewNet->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
+            }
+        }
+    }
+}
+
+
+void
+GUITestSystem::addTestStep(const GUITestSystemStep* step) {
+    myTestSteps.push_back(step);
 }
 
 /****************************************************************************/

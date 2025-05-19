@@ -23,17 +23,18 @@
 
 #include "GUITestSystemStep.h"
 #include "GUITestSystem.h"
+#include "GUIGlobalTestSystem.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GUITestSystemStep::GUITestSystemStep(GUITestSystem* testSystem, const std::string &row) {
+GUITestSystemStep::GUITestSystemStep(const std::string &rowText) {
     // first split between functions and arguments
-    parseFunctionAndArguments(row);
+    const auto function = parseStep(rowText);
     // continue depending of function
-    if (myFunction == "click") {
-        myCategory = "virtual";
+    if (function == "click") {
+        myCategory = Category::VIRTUAL;
         if (myArguments.size() == 2) {
             if (!StringUtils::isInt(myArguments[0])) {
                 throw ProcessError("First click position cannot be parsed to int");
@@ -43,15 +44,15 @@ GUITestSystemStep::GUITestSystemStep(GUITestSystem* testSystem, const std::strin
                 const int posX = StringUtils::toInt(myArguments[0]);
                 const int posY = StringUtils::toInt(myArguments[1]);
                 // add move, left button press and left button release
-                testSystem->addTestStep(new GUITestSystemStep(SEL_MOTION, 0, "abstractView", "move", {}, nullptr, buildMouseMoveEvent(posX, posY)));
-                testSystem->addTestStep(new GUITestSystemStep(SEL_LEFTBUTTONPRESS, 0, "abstractView", "leftButtonPress", {}, nullptr, buildMouseLeftClickPressEvent(posX, posY)));
-                testSystem->addTestStep(new GUITestSystemStep(SEL_LEFTBUTTONRELEASE, 0, "abstractView", "leftButtonRelease", {}, nullptr, buildMouseLeftClickReleaseEvent(posX, posY)));
+                gTestSystem->addTestStep(new GUITestSystemStep(SEL_MOTION, 0, Category::VIEW, buildMouseMoveEvent(posX, posY)));
+                gTestSystem->addTestStep(new GUITestSystemStep(SEL_LEFTBUTTONPRESS, 0, Category::VIEW, buildMouseLeftClickPressEvent(posX, posY)));
+                gTestSystem->addTestStep(new GUITestSystemStep(SEL_LEFTBUTTONRELEASE, 0, Category::VIEW, buildMouseLeftClickReleaseEvent(posX, posY)));
             }
         } else {
-            throw ProcessError("Invalid number of arguments for function " + myFunction);
+            throw ProcessError("Invalid number of arguments for function " + function);
         }
-    } else if (myFunction == "supermode") {
-        myCategory = "applicationWindow";
+    } else if (function == "supermode") {
+        myCategory = Category::MAINWINDOW;
         if (myArguments.size() == 1) {
             if (myArguments[0] == "network") {
                 myMessageID = MID_HOTKEY_F2_SUPERMODE_NETWORK;
@@ -63,11 +64,11 @@ GUITestSystemStep::GUITestSystemStep(GUITestSystem* testSystem, const std::strin
                 throw ProcessError("Invalid supermode");
             }
         } else {
-            throw ProcessError("Invalid number of arguments for function " + myFunction);
+            throw ProcessError("Invalid number of arguments for function " + function);
         }
     // network modes
-    } else if (myFunction == "networkMode") {
-        myCategory = "applicationWindow";
+    } else if (function == "networkMode") {
+        myCategory = Category::MAINWINDOW;
         if (myArguments.size() == 1) {
             if (myArguments[0] == "inspect") {
                 myMessageID = MID_HOTKEY_I_MODE_INSPECT;
@@ -101,55 +102,63 @@ GUITestSystemStep::GUITestSystemStep(GUITestSystem* testSystem, const std::strin
                 throw ProcessError("Invalid network mode");
             }
         } else {
-            throw ProcessError("Invalid number of arguments for function " + myFunction);
+            throw ProcessError("Invalid number of arguments for function " + function);
         }
     // select additional
-    } else if (myFunction == "selectAdditional") {
-        myCategory = "additionalFrame";
+    } else if (function == "selectAdditional") {
+        myCategory = Category::FRAME_ADDITIONAL_TAGSELECTOR;
         if (myArguments.size() == 1) {
             myMessageID = MID_GNE_TAG_SELECTED;
             myText = new FXString(myArguments[0].c_str());
         } else {
-            throw ProcessError("Invalid number of arguments for function " + myFunction);
+            throw ProcessError("Invalid number of arguments for function " + function);
         }
     // other
-    } else if (myFunction == "processing") {
-        myCategory = "applicationWindow";
+    } else if (function == "processing") {
+        myCategory = Category::MAINWINDOW;
         if (myArguments.empty()) {
             myMessageID = MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND;
         } else {
-            throw ProcessError("Invalid number of arguments for function " + myFunction);
+            throw ProcessError("Invalid number of arguments for function " + function);
         }
-    } else if (myFunction == "save") {
-        myCategory = "applicationWindow";
+    } else if (function == "save") {
+        myCategory = Category::MAINWINDOW;
         if (myArguments.size() == 1) {
             if (myArguments.front() == "neteditConfig") {
                 myMessageID = MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG;
             } else {
-                throw ProcessError("Invalid number of arguments for function " + myFunction);
+                throw ProcessError("Invalid number of arguments for function " + function);
             }
         } else {
-            throw ProcessError("Invalid number of arguments for function " + myFunction);
+            throw ProcessError("Invalid number of arguments for function " + function);
         }
-    } else if (myFunction == "quit") {
-        myCategory = "applicationWindow";
+    } else if (function == "quit") {
+        myCategory = Category::MAINWINDOW;
         if (myArguments.empty()) {
             myMessageID = MID_HOTKEY_CTRL_Q_CLOSE;
         } else {
-            throw ProcessError("Invalid number of arguments for function " + myFunction);
+            throw ProcessError("Invalid number of arguments for function " + function);
         }
     }
 }
 
 
-GUITestSystemStep::GUITestSystemStep(FXSelector messageType, FXSelector messageID, const std::string &category,
-    const std::string &function, const std::vector<std::string> &arguments, FXString* text, FXEvent* event) :
+GUITestSystemStep::GUITestSystemStep(FXSelector messageType, FXSelector messageID, Category category,
+        const std::vector<std::string> &arguments, FXString* text, FXEvent* event) :
     myMessageType(messageType),
     myMessageID(messageID),
     myCategory(category),
-    myFunction(function),
     myArguments(arguments),
     myText(text),
+    myEvent(event) {
+}
+
+
+GUITestSystemStep::GUITestSystemStep(FXSelector messageType, FXSelector messageID, Category category,
+        FXEvent* event) :
+    myMessageType(messageType),
+    myMessageID(messageID),
+    myCategory(category),
     myEvent(event) {
 }
 
@@ -182,15 +191,9 @@ GUITestSystemStep::getSelector() const {
 }
 
 
-const std::string&
+GUITestSystemStep::Category
 GUITestSystemStep::getCategory() const {
     return myCategory;
-}
-
-
-const std::string&
-GUITestSystemStep::getFunction() const {
-    return myFunction;
 }
 
 
@@ -205,35 +208,11 @@ GUITestSystemStep::getEvent() const {
     return myEvent;
 }
 
-/*
-    moveEvent->type = 9;
-    moveEvent->time = 0;
-    moveEvent->win_x = posX;
-    moveEvent->win_y = posY;
-    moveEvent->root_x = 0;
-    moveEvent->root_y = 0;
-    moveEvent->state = 0;
-    moveEvent->code = 0;
-    moveEvent->text = "";
-    moveEvent->last_x = 0;
-    moveEvent->last_y = 0;
-    moveEvent->click_x = 0;
-    moveEvent->click_y = 0;
-    moveEvent->rootclick_x = 0;
-    moveEvent->rootclick_y = 0;
-    moveEvent->click_time = 0;
-    moveEvent->click_button = 0;
-    moveEvent->click_count = 0;
-    moveEvent->moved = true;
-    moveEvent->rect = FXRectangle(0, 0, 0, 0);
-    moveEvent->synthetic = true;
-    moveEvent->target = 0;
-*/
-
 
 FXEvent*
 GUITestSystemStep::buildMouseMoveEvent(const int posX, const int posY) const {
     FXEvent* moveEvent = new FXEvent();
+    // set event values
     moveEvent->type = 9;
     moveEvent->win_x = posX;
     moveEvent->win_y = posY;
@@ -247,7 +226,7 @@ GUITestSystemStep::buildMouseMoveEvent(const int posX, const int posY) const {
 FXEvent*
 GUITestSystemStep::buildMouseLeftClickPressEvent(const int posX, const int posY) const {
     FXEvent* leftClickPressEvent = new FXEvent();
-    // set fxevent
+    // set event values
     leftClickPressEvent->win_x = posX;
     leftClickPressEvent->win_y = posY;
     leftClickPressEvent->click_x = posX;
@@ -266,7 +245,7 @@ GUITestSystemStep::buildMouseLeftClickPressEvent(const int posX, const int posY)
 FXEvent*
 GUITestSystemStep::buildMouseLeftClickReleaseEvent(const int posX, const int posY) const {
     FXEvent* leftClickPressEvent = new FXEvent();
-    // set fxevent
+    // set event values
     leftClickPressEvent->win_x = posX;
     leftClickPressEvent->win_y = posY;
     leftClickPressEvent->click_x = posX;
@@ -282,26 +261,27 @@ GUITestSystemStep::buildMouseLeftClickReleaseEvent(const int posX, const int pos
 }
 
 
-void
-GUITestSystemStep::parseFunctionAndArguments(const std::string &row) {
+std::string
+GUITestSystemStep::parseStep(const std::string &rowText) {
+    std::string functionName;
     // make a copy to help editing row
-    std::string editedRow = row;
+    std::string editedRow = rowText;
     // every function has the format <function>(<argument1>, <argument2>,....,)
-    if ((row.size() < 3) || (row.front() == '(') || (row.back() != ')')) {
-        throw ProcessError("Invalid testStep row '" + row + "' check function(arguments) format");
+    if ((rowText.size() < 3) || (rowText.front() == '(') || (rowText.back() != ')')) {
+        throw ProcessError("Invalid testStep row '" + rowText + "' check function(arguments) format");
     }
     // first extract function
     while (editedRow.size() > 0) {
         if (editedRow.front() == '(') {
             break;
         } else {
-            myFunction.push_back(editedRow.front());
+            functionName.push_back(editedRow.front());
             editedRow.erase(editedRow.begin());
         }
     }
     // check format
     if (editedRow.size() < 2) {
-        throw ProcessError("Invalid testStep row '" + row + "'. Check <function>(<arguments>) format");
+        throw ProcessError("Invalid testStep row '" + rowText + "'. Check <function>(<arguments>) format");
     }
     // remove both pharentersis
     editedRow.erase(editedRow.begin());
@@ -324,9 +304,10 @@ GUITestSystemStep::parseFunctionAndArguments(const std::string &row) {
         }
         myArguments.push_back(argument);
         if (inString) {
-            throw ProcessError("Invalid testStep row '" + row + "'. Check \" in arguments ");
+            throw ProcessError("Invalid testStep row '" + rowText + "'. Check \" in arguments ");
         }
     }
+    return functionName;
 }
 
 /****************************************************************************/
