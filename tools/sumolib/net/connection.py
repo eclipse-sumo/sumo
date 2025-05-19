@@ -20,6 +20,7 @@
 
 from sumolib.net.lane import get_allowed
 
+
 class Connection:
     # constants as defined in sumo/src/utils/xml/SUMOXMLDefinitions.cpp
     LINKDIR_STRAIGHT = "s"
@@ -32,7 +33,8 @@ class Connection:
 
     """edge connection for a sumo network"""
 
-    def __init__(self, fromEdge, toEdge, fromLane, toLane, direction, tls, tllink, tllink2, allow, disallow, state, viaLaneID=None):
+    def __init__(self, fromEdge, toEdge, fromLane, toLane, direction,
+                 tls, tllink, tllink2, allow, disallow, state, viaLaneID=None):
         self._from = fromEdge
         self._to = toEdge
         self._fromLane = fromLane

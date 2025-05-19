@@ -284,7 +284,8 @@ class Net:
         self._roundabouts.append(r)
         return r
 
-    def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction, tls, tllink, tllink2, allow, disallow, state, viaLaneID=None):
+    def addConnection(self, fromEdge, toEdge, fromlane, tolane, direction,
+                      tls, tllink, tllink2, allow, disallow, state, viaLaneID=None):
         conn = connection.Connection(
             fromEdge, toEdge, fromlane, tolane, direction,
             tls, tllink, tllink2, allow, disallow, state, viaLaneID)
@@ -841,7 +842,8 @@ class NetReader(handler.ContentHandler):
                 viaLaneID = attrs['via']
                 self._net.addConnection(self._currentEdge, connected, self._currentEdge._lanes[
                                         self._currentLane], tolane,
-                                        attrs['dir'], tl, tllink, -1, attrs.get('allow'), attrs.get('disallow'), attrs['state'], viaLaneID)
+                                        attrs['dir'], tl, tllink, -1,
+                                        attrs.get('allow'), attrs.get('disallow'), attrs['state'], viaLaneID)
         elif name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
             fromEdgeID = attrs['from']
             toEdgeID = attrs['to']

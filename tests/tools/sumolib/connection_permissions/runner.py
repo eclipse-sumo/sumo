@@ -34,4 +34,3 @@ for vClass in ['passenger', 'bus', 'ignoring']:
     for e, cons in E0.getOutgoing().items():
         for c in cons:
             print(c, "allows '%s'" % vClass, c.allows(vClass))
-
