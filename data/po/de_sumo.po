@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-04-16 14:39+0200\n"
-"PO-Revision-Date: 2025-05-07 08:01+0000\n"
+"PO-Revision-Date: 2025-05-19 13:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -9491,11 +9491,11 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:629
 msgid "New value for oneway found: %"
-msgstr "Neuer Wert für eine einfache Fahrt gefunden: %"
+msgstr "Neuer Wert für Einbahnangaben gefunden: %"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:664
 msgid "Skipping edge '%' because it has zero lanes."
-msgstr "Überspringe Kante '%', da sie null Fahrstreifen hat."
+msgstr "Überspringe Kante '%', da sie keine Fahrstreifen hat."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:715
 msgid "Skipping edge '%' because it has speed %."
