@@ -503,7 +503,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     TemplateHandler::parseTemplate(myOriginalNetgenerateOptions, netgenerateTemplate);
     // check if create tests system
     if (OptionsCont::getOptions().getString("test-file").size() > 0) {
-        gTestSystem = new GUITestSystem(OptionsCont::getOptions().getString("test-file"));
+        gTestSystem = new GUINeteditTestSystem(OptionsCont::getOptions().getString("test-file"));
     }
 }
 #ifdef _MSC_VER

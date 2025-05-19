@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUITestSystem.h
+/// @file    GUINeteditTestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -22,14 +22,14 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
 #include "GUITestSystemStep.h"
-#include "GUITestSystem.h"
+#include "GUINeteditTestSystem.h"
 #include "GUIGlobalTestSystem.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GUITestSystemStep::GUITestSystemStep(GUITestSystem* testSystem, const std::string &rowText) {
+GUITestSystemStep::GUITestSystemStep(GUINeteditTestSystem* testSystem, const std::string &rowText) {
     // first split between functions and arguments
     const auto function = parseStep(rowText);
     // continue depending of function

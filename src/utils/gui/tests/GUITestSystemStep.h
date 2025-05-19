@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUITestSystem.h
+/// @file    GUINeteditTestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -26,7 +26,7 @@
 // class declaration
 // ===========================================================================
 
-class GUITestSystem;
+class GUINeteditTestSystem;
 
 // ===========================================================================
 // class definitions
@@ -44,7 +44,7 @@ public:
     };
 
     /// @brief constructor using a row
-    GUITestSystemStep(GUITestSystem* testSystem, const std::string &rowText);
+    GUITestSystemStep(GUINeteditTestSystem* testSystem, const std::string &rowText);
 
     /// @brief constructor using parameters (needed for certain functions like click)
     GUITestSystemStep(FXSelector messageType, FXSelector messageID, Category category,

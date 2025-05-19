@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUITestSystem.h
+/// @file    GUINeteditTestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -26,14 +26,14 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 
-#include "GUITestSystem.h"
+#include "GUINeteditTestSystem.h"
 #include "GUITestSystemStep.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GUITestSystem::GUITestSystem(const std::string &testFile) {
+GUINeteditTestSystem::GUINeteditTestSystem(const std::string &testFile) {
     // open file
     std::ifstream strm(testFile);
     // check if file can be opened
@@ -53,7 +53,7 @@ GUITestSystem::GUITestSystem(const std::string &testFile) {
 }
 
 
-GUITestSystem::~GUITestSystem() {
+GUINeteditTestSystem::~GUINeteditTestSystem() {
     for (auto testStep : myTestSteps) {
         delete testStep;
     }
@@ -61,7 +61,7 @@ GUITestSystem::~GUITestSystem() {
 
 
 void
-GUITestSystem::runNeteditTests(GNEViewNet* viewNet) {
+GUINeteditTestSystem::runNeteditTests(GNEViewNet* viewNet) {
     // run rest only once
     if (myTestStarted == false) {
         myTestStarted = true;
@@ -86,7 +86,7 @@ GUITestSystem::runNeteditTests(GNEViewNet* viewNet) {
 
 
 void
-GUITestSystem::addTestStep(const GUITestSystemStep* step) {
+GUINeteditTestSystem::addTestStep(const GUITestSystemStep* step) {
     myTestSteps.push_back(step);
 }
 

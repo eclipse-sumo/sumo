@@ -20,10 +20,10 @@
 #pragma once
 #include <config.h>
 
-#include "GUITestSystem.h"
+#include "GUINeteditTestSystem.h"
 
 // ===========================================================================
 // global variable declarations
 // ===========================================================================
 
-extern GUITestSystem* gTestSystem;
+extern GUINeteditTestSystem* gTestSystem;

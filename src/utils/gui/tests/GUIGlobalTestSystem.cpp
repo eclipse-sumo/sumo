@@ -25,6 +25,6 @@
 // global variables definitions
 // ===========================================================================
 
-GUITestSystem* gTestSystem = nullptr;
+GUINeteditTestSystem* gTestSystem = nullptr;
 
 /****************************************************************************/
