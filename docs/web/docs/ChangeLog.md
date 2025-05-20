@@ -9,6 +9,13 @@ title: ChangeLog
 - sumo
   - Fixed invalid traffic light warnings #16602
   - Fixed overly verbose router output when using stationfinder device #16624
+  - Vehicles no longer drive onto forbidden internal lanes when option **--ignore-route-errors** is set #16635
+  - Fixed bug where junction collision was not detected #16695
+  - Fixed collision on junction due to unsafe lane changing #16643
+
+- netedit
+  - Changing connection attribute 'uncontrolled' to `False` and a traffic light, now makes that connection controlled by the traffic light #16705
+  - Fixed crash after using tls-mode "reset single" when loaded programs had non-standard programIDs. #16702
 
 - netconvert
   - Fixed bug where option **--tls.rebuild** creates invalid signal plan when using custom crossing traffic light indices. #16653
@@ -38,6 +45,7 @@ title: ChangeLog
 ### Miscellaneous
 
 - sumo-gui: swapped color semantics of stopping place occupancy indicator (red means used and green now means empty) #16668
+- Shift-click no longer switches traffic lights or starts tracking vehicles in gaming mode #16703, #16704
 
 
 ## Version 1.23.1 (08.05.2025)
