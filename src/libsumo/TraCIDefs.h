@@ -384,8 +384,9 @@ struct TraCIPhase {
     TraCIPhase(const double _duration, const std::string& _state, const double _minDur = libsumo::INVALID_DOUBLE_VALUE,
                const double _maxDur = libsumo::INVALID_DOUBLE_VALUE,
                const std::vector<int>& _next = std::vector<int>(),
-               const std::string& _name = "") :
-        duration(_duration), state(_state), minDur(_minDur), maxDur(_maxDur), next(_next), name(_name) {}
+               const std::string& _name = "",
+               const std::string& _earlyTarget = "") :
+        duration(_duration), state(_state), minDur(_minDur), maxDur(_maxDur), next(_next), name(_name), earlyTarget(_earlyTarget) {}
     ~TraCIPhase() {}
 
     double duration;
@@ -393,6 +394,7 @@ struct TraCIPhase {
     double minDur, maxDur;
     std::vector<int> next;
     std::string name;
+    std::string earlyTarget;
 };
 }
 
