@@ -210,7 +210,6 @@ Although this is a python package, it contains all compiled SUMO binaries and sh
 The nightly python wheels are also available for libsumo, sumolib and traci.
 
 The Linux [repositories](#repositories) at the open build service contain a nightly build as well.
-This is unfortunately not the case for the Debian, Ubuntu and Arch versions.
 
 [The corresponding documentation](https://sumo.dlr.de/daily/userdoc) is
 also visible live including [Doxygen

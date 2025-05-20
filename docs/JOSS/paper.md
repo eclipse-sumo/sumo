@@ -14,6 +14,10 @@ authors:
     orcid: 0000-0001-9950-3596
     equal-contrib: true
     affiliation: 1
+  - name: Pablo Alvarez Lopez
+    orcid: 0000-0002-0651-6767
+    equal-contrib: true
+    affiliation: 1
   - name: Angelo Banse
     orcid: 0000-0001-7615-627X
     equal-contrib: true
@@ -40,10 +44,6 @@ authors:
     affiliation: 1
   - name: Robert Hilbrich
     orcid: 0000-0003-3793-3982
-    equal-contrib: true
-    affiliation: 1
-  - name: Pablo Alvarez Lopez
-    orcid: 0000-0002-0651-6767
     equal-contrib: true
     affiliation: 1
   - name: Ronald Nippold
