@@ -992,8 +992,8 @@ MSTriggeredRerouter::checkStopSwitch(MSBaseVehicle& ego, const MSTriggeredRerout
         for (MSVehicleControl::constVehIt it_veh = c.loadedVehBegin(); it_veh != c.loadedVehEnd(); ++it_veh) {
             const MSBaseVehicle* veh = dynamic_cast<const MSBaseVehicle*>((*it_veh).second);
             if (veh->isOnRoad() && veh->hasStops()) {
-                const MSStop& stop = veh->getNextStop();
-                if (stop.pars.lane == stopLane.getID()) {
+                const MSStop& vehStop = veh->getNextStop();
+                if (vehStop.pars.lane == stopLane.getID()) {
                     myBlockedStoppingPlaces.insert(cur);
                     if (veh->isStopped()) {
                         // stopped somewhere else on the same lane
@@ -1001,7 +1001,7 @@ MSTriggeredRerouter::checkStopSwitch(MSBaseVehicle& ego, const MSTriggeredRerout
                     } else {
                         std::pair<double, double> timeDist = veh->estimateTimeToNextStop();
                         SUMOTime timeTo = TIME2STEPS(timeDist.first);
-                        stoppedDuration = MAX3((SUMOTime)0, stoppedDuration, timeTo + stop.getMinDuration(SIMSTEP + timeTo));
+                        stoppedDuration = MAX3((SUMOTime)0, stoppedDuration, timeTo + vehStop.getMinDuration(SIMSTEP + timeTo));
                     }
                 }
             }

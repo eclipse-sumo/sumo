@@ -451,8 +451,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                     std::cout << " adding same-origin foeContinuation" << siblingCont->getID()
-                        << " dist1=" << myConflicts.back().lengthBehindCrossing
-                        << "\n";
+                              << " dist1=" << myConflicts.back().lengthBehindCrossing
+                              << "\n";
 #endif
                 }
             }
@@ -545,10 +545,10 @@ MSLink::recheckSetRequestInformation() {
 #ifdef MSLink_DEBUG_CROSSING_POINTS
         std::cout << " recheck l1=" << item.first->getDescription() << " l2=" << item.second->getDescription() << "\n";
 #endif
-        MSLink* link = item.first;
-        MSLink* foeExitLink = item.second;
-        const MSLane* lane = link->getInternalLaneBefore();
-        const MSLane* foeLane = foeExitLink->getInternalLaneBefore();
+        MSLink* const link = item.first;
+        MSLink* const foeExitLink = item.second;
+        const MSLane* const lane = link->getInternalLaneBefore();
+        const MSLane* const foeLane = foeExitLink->getInternalLaneBefore();
         int conflictIndex = -1;
         for (int i = 0; i < (int)link->myFoeLanes.size(); i++) {
             if (link->myFoeLanes[i] == foeLane) {
@@ -562,19 +562,19 @@ MSLink::recheckSetRequestInformation() {
         }
         ConflictInfo& ci = link->myConflicts[conflictIndex];
         if (ci.flag & CONFLICT_SIBLING_CONTINUATION) {
-            const MSLane* lane = link->getInternalLaneBefore();
-            const MSLane* siblingCont = foeExitLink->getInternalLaneBefore();
-            const MSLane* sibling = siblingCont->getLogicalPredecessorLane();
-            // this is an approximation because lane and sibling+siblingCont are still close to each other but may have different curvature
-            const double distToDivergence = lane->getLength() - ci.lengthBehindCrossing;
+            const MSLane* const intLane = link->getInternalLaneBefore();
+            const MSLane* const siblingCont = foeExitLink->getInternalLaneBefore();
+            const MSLane* const sibling = siblingCont->getLogicalPredecessorLane();
+            // this is an approximation because intLane and sibling+siblingCont are still close to each other but may have different curvature
+            const double distToDivergence = intLane->getLength() - ci.lengthBehindCrossing;
             double lbcSibCont = MIN2(siblingCont->getLength(), MAX2(0.0, sibling->getLength() + siblingCont->getLength() - distToDivergence));
 #ifdef MSLink_DEBUG_CROSSING_POINTS
             std::cout << " siblingContinuation: distToDivergence=" << distToDivergence << " lbcSibCont=" << lbcSibCont << "\n";
 #endif
-            ConflictInfo ci2 = ConflictInfo(lbcSibCont, lane->getWidth());
+            ConflictInfo ci2 = ConflictInfo(lbcSibCont, intLane->getWidth());
             ci2.foeConflictIndex = conflictIndex;
             ci.foeConflictIndex = (int)foeExitLink->myConflicts.size();
-            foeExitLink->myFoeLanes.push_back(lane);
+            foeExitLink->myFoeLanes.push_back(intLane);
             foeExitLink->myConflicts.push_back(ci2);
             continue;
         }

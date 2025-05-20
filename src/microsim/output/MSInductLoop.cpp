@@ -468,7 +468,7 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool includeEarly, bool leaveTi
     for (const VehicleData& i : myLastVehicleDataCont) {
         if (includeEarly || !i.leftEarlyM) {
             if ((!lastInterval && (i.entryTimeM >= t || (leaveTime && i.leaveTimeM >= t)))
-                    || (lastInterval && i.leaveTimeM <= t + myLastIntervalEnd - myLastIntervalBegin)) { // TODO: check duration of last interval
+                    || (lastInterval && i.leaveTimeM <= t + STEPS2TIME(myLastIntervalEnd - myLastIntervalBegin))) { // TODO: check duration of last interval
                 ret.push_back(i);
             }
         }
