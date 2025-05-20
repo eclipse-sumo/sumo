@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUINeteditTestSystem.h
+/// @file    GNETestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -20,10 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <string>
-#include <vector>
-
-#include <utils/foxtools/fxheader.h>
+#include <utils/gui/tests/GUITestSystem.h>
 
 // ===========================================================================
 // class declaration
@@ -36,25 +33,15 @@ class GUITestSystemStep;
 // class definitions
 // ===========================================================================
 
-class GUINeteditTestSystem : public FXObject {
+class GNETestSystem : public GUITestSystem {
 
 public:
     /// @brief constructor
-    GUINeteditTestSystem(const std::string &testFile);
+    GNETestSystem(const std::string &testFile);
 
     /// @brief destructor
-    ~GUINeteditTestSystem();
+    ~GNETestSystem();
 
     /// @brief start netedit test
     void runNeteditTests(GNEViewNet* viewNet);
-
-    /// @brief add test steps
-    void addTestStep(const GUITestSystemStep* step);
-
-private:
-    /// @brief test steps
-    std::vector<const GUITestSystemStep*> myTestSteps;
-
-    /// @brief flag to check if test are started
-    bool myTestStarted = false;
 };

@@ -74,15 +74,15 @@
 #include <utils/gui/globjects/GUICursorDialog.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/gui/tests/GUINeteditTestSystem.h>
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 
+#include "GNEApplicationWindow.h"
 #include "GNENet.h"
+#include "GNETestSystem.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
-#include "GNEApplicationWindow.h"
 
 // ===========================================================================
 // FOX callback mapping

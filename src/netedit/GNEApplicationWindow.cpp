@@ -63,7 +63,6 @@
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
-#include <utils/gui/tests/GUINeteditTestSystem.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/xml/XMLSubSys.h>
@@ -72,8 +71,9 @@
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
-#include "GNEViewNet.h"
+#include "GNETestSystem.h"
 #include "GNEUndoList.h"
+#include "GNEViewNet.h"
 #include "GNEViewParent.h"
 
 #ifdef HAVE_VERSION_H
@@ -557,7 +557,7 @@ GNEApplicationWindow::dependentBuild() {
     myLoadThread = new GNELoadThread(this, myThreadEvents, myLoadThreadEvent);
     // check if create tests system
     if (OptionsCont::getOptions().getString("test-file").size() > 0) {
-        myNeteditTestSystem = new GUINeteditTestSystem(OptionsCont::getOptions().getString("test-file"));
+        myNeteditTestSystem = new GNETestSystem(OptionsCont::getOptions().getString("test-file"));
     }
     // set the status bar
     setStatusBarText(TL("Ready."));
@@ -4840,7 +4840,7 @@ GNEApplicationWindow::loadMeanDataElements() {
 }
 
 
-GUINeteditTestSystem*
+GNETestSystem*
 GNEApplicationWindow::getNeteditTestSystem() const {
     return myNeteditTestSystem;
 }

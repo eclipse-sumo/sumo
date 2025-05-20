@@ -27,7 +27,7 @@
 // ===========================================================================
 
 class GNELoadThread;
-class GUINeteditTestSystem;
+class GNETestSystem;
 class GNETagPropertiesDatabase;
 class GNEUndoList;
 class GNEUndoListDialog;
@@ -638,7 +638,7 @@ public:
     /// @{
 
     /// @brief get netedit test system
-    GUINeteditTestSystem* getNeteditTestSystem() const;
+    GNETestSystem* getNeteditTestSystem() const;
 
     /// @brief check if ignore input signal (using during netedit tests)
     bool allowInputSignals(FXObject* obj) const;
@@ -653,7 +653,7 @@ protected:
     GNELoadThread* myLoadThread = nullptr;
 
     /// @brief the thread that loads the network
-    GUINeteditTestSystem* myNeteditTestSystem = nullptr;
+    GNETestSystem* myNeteditTestSystem = nullptr;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;

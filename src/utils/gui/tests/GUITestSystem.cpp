@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUINeteditTestSystem.h
+/// @file    GUITestSystem.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
-// Thread used for testing netedit
+// Abstract class used for test systems
 /****************************************************************************/
 
 #include <netedit/frames/GNETagSelector.h>
@@ -26,14 +26,14 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 
-#include "GUINeteditTestSystem.h"
+#include "GUITestSystem.h"
 #include "GUITestSystemStep.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GUINeteditTestSystem::GUINeteditTestSystem(const std::string &testFile) {
+GUITestSystem::GUITestSystem(const std::string &testFile) {
     // open file
     std::ifstream strm(testFile);
     // check if file can be opened
@@ -53,7 +53,7 @@ GUINeteditTestSystem::GUINeteditTestSystem(const std::string &testFile) {
 }
 
 
-GUINeteditTestSystem::~GUINeteditTestSystem() {
+GUITestSystem::~GUITestSystem() {
     for (auto testStep : myTestSteps) {
         delete testStep;
     }
@@ -61,32 +61,7 @@ GUINeteditTestSystem::~GUINeteditTestSystem() {
 
 
 void
-GUINeteditTestSystem::runNeteditTests(GNEViewNet* viewNet) {
-    // run rest only once
-    if (myTestStarted == false) {
-        myTestStarted = true;
-        // process every step
-        for (const auto &testStep : myTestSteps) {
-            // check if we have to process it in main windows, abstract view or specific view
-            if (testStep->getCategory() == GUITestSystemStep::Category::VIEW) {
-                viewNet->handle(this, testStep->getSelector(), testStep->getEvent());
-            } else if (testStep->getCategory() == GUITestSystemStep::Category::MAINWINDOW) {
-                viewNet->getViewParent()->getGNEAppWindows()->handle(this, testStep->getSelector(), testStep->getEvent());
-            } else if (testStep->getCategory() == GUITestSystemStep::Category::FRAME_ADDITIONAL_TAGSELECTOR) {
-                viewNet->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->handle(this, testStep->getSelector(), (void*)testStep->getText());
-            }
-            // update view after every test, except if test is quit() or category is virtual
-            if ((testStep->getCategory() != GUITestSystemStep::Category::VIRTUAL) && 
-                (testStep->getMessageID() != MID_HOTKEY_CTRL_Q_CLOSE)) {
-                viewNet->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
-            }
-        }
-    }
-}
-
-
-void
-GUINeteditTestSystem::addTestStep(const GUITestSystemStep* step) {
+GUITestSystem::addTestStep(const GUITestSystemStep* step) {
     myTestSteps.push_back(step);
 }
 
