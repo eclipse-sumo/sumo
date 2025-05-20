@@ -92,28 +92,22 @@ jobs:
 
     - name: Running examples and unit tests
       run: |
-        python -m pip install texttest
         cmake --build sumo/build_msvc --config Release --target examples
         ctest --test-dir sumo/build_msvc -E texttest --output-on-failure
 
     - name: Plain tests
       if: matrix.build_type == 'plain'
       run: |
-        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter"
-        sumo\tests\runCiTests.bat
-        $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert,netconvert"
-        sumo\tests\runCiTests.bat
-        $env:TEXTTEST_CI_APPS = "-a sumo"
-        sumo\tests\runCiTests.bat
+        sumo\tests\runCiTests.bat "texttest.exe -a activitygen,dfrouter,duarouter,jtrrouter"
+        sumo\tests\runCiTests.bat "texttest.exe -a marouter,netgen,od2trips,polyconvert,netconvert"
+        sumo\tests\runCiTests.bat "texttest.exe -a sumo"
 
     - name: Extra tests
       if: matrix.build_type == 'extra'
       run: |
         python -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
-        $env:TEXTTEST_CI_APPS = "-a complex,traci"
-        sumo\tests\runCiTests.bat
-        $env:TEXTTEST_CI_APPS = "-a sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
-        sumo\tests\runCiTests.bat
+        sumo\tests\runCiTests.bat "texttest.exe -a complex,traci"
+        sumo\tests\runCiTests.bat "texttest.exe -a sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
 
     - name: Compressing test results
       if: failure()

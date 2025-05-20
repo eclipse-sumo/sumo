@@ -367,7 +367,6 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     file(GLOB SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-*/swig.exe")
     file(GLOB MVN_EXECUTABLE "${SUMO_LIBRARIES}/apache-maven-*/bin/mvn.cmd")
-    file(GLOB TEXTTEST_EXECUTABLE "${SUMO_LIBRARIES}/TextTest-*/texttest.exe")
 else ()
     # for Linux and Mac only
     find_package(GTest)
@@ -793,14 +792,6 @@ add_subdirectory(src)
 if (GTEST_FOUND)
     add_subdirectory(unittest)
 endif ()
-if (TEXTTEST_EXECUTABLE AND EXISTS ${CMAKE_SOURCE_DIR}/tests/runCiTests.bat)
-    add_test(NAME texttest COMMAND ${CMAKE_SOURCE_DIR}/tests/runCiTests.bat ${TEXTTEST_EXECUTABLE} $<CONFIG>)
-else ()
-    find_program(TEXTTEST_FOUND "texttest")
-    if (TEXTTEST_FOUND AND EXISTS ${CMAKE_SOURCE_DIR}/tests/runTests.sh)
-        add_test(texttest ${CMAKE_SOURCE_DIR}/tests/runTests.sh -b ci -v ci)
-    endif()
-endif()
 
 # example and dist targets
 add_custom_target(examples
