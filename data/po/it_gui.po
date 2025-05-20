@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-05-20 09:34+0200\n"
-"PO-Revision-Date: 2025-05-15 22:07+0000\n"
+"PO-Revision-Date: 2025-05-20 13:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8718,13 +8719,15 @@ msgstr "Percorso del file in uscita per scrivere delle informazioni"
 #: src/netedit/GNETagPropertiesDatabase.cpp:8667
 #: src/netedit/GNETagPropertiesDatabase.cpp:8672
 msgid "A bitmap to use for rendering this %"
-msgstr ""
+msgstr "Un bitmap da usare per disegnare questo/a %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8683
 msgid ""
 "The departure time of the (first) % which is generated using this trip "
 "definition"
 msgstr ""
+"L'ora di partenza del (primo) % generato utilizzando questa definizione di "
+"corsa"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8693
 msgid ""
@@ -8743,7 +8746,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8708
 #, c-format
 msgid "The position on the lane the % shall be laid on in meters"
-msgstr ""
+msgstr "La posizione relativa alla corsia dove il/la % deve essere posizionato"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8718
 msgid "Detect persons instead of vehicles (pedestrians or passengers)"
@@ -8752,7 +8755,7 @@ msgstr "Rivela persone invece di veicoli (pedoni o passeggeri)"
 #: src/netedit/GNETagPropertiesDatabase.cpp:8729
 #, c-format
 msgid "The RGBA color with which the % shall be displayed"
-msgstr ""
+msgstr "Il colore RGBA da usare per disegnare il/la %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8739
 #, c-format
@@ -11437,7 +11440,7 @@ msgstr "' ha bisogno di almeno un'arco"
 #: src/netedit/elements/additional/GNEStoppingPlace.cpp:792
 #, c-format
 msgid " %'s length"
-msgstr ""
+msgstr " la lunghezza di %"
 
 #: src/netedit/elements/additional/GNETAZ.cpp:286
 #: src/netedit/elements/network/GNELane.cpp:575
@@ -11683,12 +11686,14 @@ msgstr ""
 #: src/netedit/elements/demand/GNERouteHandler.cpp:977
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1011
 msgid "add % '%'"
-msgstr ""
+msgstr "aggiungi % '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:227
 msgid ""
 "Route '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
+"L'itinerario '%' con la probabilità non può essere referenziato nella "
+"distribuzione '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:268
 #: src/netedit/elements/demand/GNERouteHandler.cpp:871
