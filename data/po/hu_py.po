@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-01-02 15:02+0100\n"
+"POT-Creation-Date: 2025-05-20 07:55+0000\n"
 "PO-Revision-Date: 2023-05-11 18:10+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -81,7 +81,7 @@ msgstr ""
 msgid "DRT - Demo"
 msgstr ""
 
-#: tools/game/runner.py:82 /tools/game/runner.py:92
+#: tools/game/runner.py:82 tools/game/runner.py:92
 msgid "Highscore"
 msgstr ""
 
