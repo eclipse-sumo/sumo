@@ -98,16 +98,21 @@ jobs:
     - name: Plain tests
       if: matrix.build_type == 'plain'
       run: |
-        sumo\tests\runCiTests.bat "texttest.exe -a activitygen,dfrouter,duarouter,jtrrouter"
-        sumo\tests\runCiTests.bat "texttest.exe -a marouter,netgen,od2trips,polyconvert,netconvert"
-        sumo\tests\runCiTests.bat "texttest.exe -a sumo"
+        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter"
+        sumo\tests\runCiTests.bat texttest.exe
+        $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert,netconvert"
+        sumo\tests\runCiTests.bat texttest.exe
+        $env:TEXTTEST_CI_APPS = "-a sumo"
+        sumo\tests\runCiTests.bat texttest.exe
 
     - name: Extra tests
       if: matrix.build_type == 'extra'
       run: |
         python -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
-        sumo\tests\runCiTests.bat "texttest.exe -a complex,traci"
-        sumo\tests\runCiTests.bat "texttest.exe -a sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
+        $env:TEXTTEST_CI_APPS = "-a complex,traci"
+        sumo\tests\runCiTests.bat texttest.exe
+        $env:TEXTTEST_CI_APPS = "-a sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
+        sumo\tests\runCiTests.bat texttest.exe
 
     - name: Compressing test results
       if: failure()
