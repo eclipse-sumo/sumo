@@ -84,7 +84,7 @@ GNEConnection::updateGeometry() {
                 laneShapeTo.move2side(-0.8);
                 connectionShape.push_back(laneShapeFrom.back());
                 connectionShape.push_back(laneShapeTo.front());
-                connectionShape.rotate2D(nbCon.shape.front(), 0.5 * M_PI);
+                connectionShape.rotate2D(nbCon.shape.front(), -0.5 * M_PI);
             } else {
                 connectionShape = nbCon.shape;
             }
