@@ -8,7 +8,7 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.14.0)
 endif()
 if (${CMAKE_VERSION} VERSION_GREATER 3.21.0)
     # use library name conventions for C#
-    cmake_policy(SET CMP0122 OLD)
+    cmake_policy(SET CMP0122 NEW)
 endif ()
 set(libsumostatic_STAT_SRCS
     Edge.cpp
@@ -179,7 +179,7 @@ if (SWIG_FOUND)
         ADD_CUSTOM_COMMAND(TARGET libsumocs POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/libsumocs-sources.zip" --format=zip "${CS_NAMESPACE}"
         )
-        set_property(TARGET libsumocs PROPERTY FOLDER "libsumo")
+        set_target_properties(libsumocs PROPERTIES FOLDER "libsumo" OUTPUT_NAME "libsumocs")
         install(TARGETS libsumocs DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
     endif()
 
