@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-05-20 09:34+0200\n"
-"PO-Revision-Date: 2025-05-19 13:34+0000\n"
+"PO-Revision-Date: 2025-05-20 13:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/applications/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -744,6 +745,8 @@ msgid ""
 "Only use the intended public transport line rather than any alternative line"
 " that stops at the destination"
 msgstr ""
+"Utilizza solamente la linea di trasporto pubblico programmata invece di "
+"linee alternative che fermano ugualmente nella destinazione"
 
 #: src/duarouter/RODUAFrame.cpp:189 src/microsim/MSFrame.cpp:683
 msgid ""
@@ -2427,6 +2430,8 @@ msgid ""
 "List vehicle classes that uses block-based insertion checks even when the "
 "network has no rail signals for them"
 msgstr ""
+"Elenca le classi di veicoli che usano controlli di inserzione a base di "
+"blocchi anche se la rete non contiene segnali ferroviari per loro"
 
 #: src/microsim/MSFrame.cpp:516
 msgid ""
@@ -12823,7 +12828,7 @@ msgstr ""
 
 #: src/utils/emissions/EnergyParams.cpp:91
 msgid " And also set a vehicle mass!"
-msgstr ""
+msgstr " Non dimenticarsi di impostare la massa del veicolo!"
 
 #: src/utils/emissions/EnergyParams.cpp:97
 #, c-format
@@ -12831,14 +12836,16 @@ msgid ""
 "Vehicle type '%' uses the Energy model parameter 'internalMomentOfInertia' "
 "which is deprecated. Use 'rotatingMass' instead."
 msgstr ""
+"Il tipo di veicolo '%' usa il parametro 'internalMomentOfInertia' obsoleto "
+"del modello di energia. Invece usa 'rotatingMass'."
 
 #: src/utils/emissions/HelpersEnergy.cpp:227
 msgid "An acceleration given by the power was not found."
-msgstr ""
+msgstr "Non è stata trovata nessuna accelerazione data attraverso la potenza."
 
 #: src/utils/foxtools/MFXComboBoxIcon.cpp:88
 msgid "No matches found"
-msgstr ""
+msgstr "Nessun risultato"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:73
 msgid "Add decal"
@@ -12959,7 +12966,7 @@ msgstr ""
 
 #: src/utils/geom/GeomHelper.cpp:237
 msgid "GeomHelper::makeCircle() requires nPoints>=3"
-msgstr ""
+msgstr "GeomHelper::makeCircle() richiede nPoints>=3"
 
 #: src/utils/geom/PositionVector.cpp:611
 msgid "Splitting vector close to end (pos: %, length: %)"
@@ -12975,7 +12982,7 @@ msgstr ""
 
 #: src/utils/handlers/AdditionalHandler.cpp:970
 msgid "Invalid charge type '%' defined in chargingStation '%'."
-msgstr ""
+msgstr "Tipo di carica '%' invalido definito nella stazione di ricarica '%'."
 
 #: src/utils/handlers/AdditionalHandler.cpp:1125
 msgid ""
