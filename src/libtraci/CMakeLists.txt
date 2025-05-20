@@ -8,7 +8,7 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.14.0)
 endif()
 if (${CMAKE_VERSION} VERSION_GREATER 3.21.0)
     # use library name conventions for C#
-    cmake_policy(SET CMP0122 OLD)
+    cmake_policy(SET CMP0122 NEW)
 endif ()
 set(libtracistatic_STAT_SRCS
     Connection.cpp
@@ -134,7 +134,7 @@ if (SWIG_FOUND)
         ADD_CUSTOM_COMMAND(TARGET libtracics POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/libtracics-sources.zip" --format=zip "${CS_NAMESPACE}"
         )
-        set_property(TARGET libtracics PROPERTY FOLDER "libtraci")
+        set_target_properties(libtracics PROPERTIES FOLDER "libtraci" OUTPUT_NAME "libtracics")
         install(TARGETS libtracics DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
     endif()
 

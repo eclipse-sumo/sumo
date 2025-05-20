@@ -70,6 +70,8 @@ def getOptions(args=None):
 
 
 FOUND_ATTR = []
+
+
 def getStopID(stop):
     for attr in ['busStop', 'trainStop', 'edge', 'lane']:
         if stop.hasAttribute(attr):

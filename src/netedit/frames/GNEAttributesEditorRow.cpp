@@ -727,9 +727,9 @@ GNEAttributesEditorRow::showAttributeFile(const GNEAttributeProperties* attrProp
     // update attribute button
     myAttributeButton->setText(attrProperty->getAttrStr().c_str());
     if (attrProperty->isFileOpen()) {
-        myAttributeButton->setHelpText(TL("Open dialog for select an existent file"));
+        myAttributeButton->setHelpText(TL("Open dialog to select an existent file"));
     } else {
-        myAttributeButton->setHelpText(TL("Open dialog for select or create an existent file"));
+        myAttributeButton->setHelpText(TL("Open dialog to select or create an existent file"));
     }
     myAttributeButton->setTipText(myAttributeButton->getHelpText());
     myAttributeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));

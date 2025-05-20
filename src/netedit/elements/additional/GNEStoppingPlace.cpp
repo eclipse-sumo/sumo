@@ -772,7 +772,7 @@ GNEStoppingPlace::adjustLenght(const double newLength, GNEUndoList* undoList) {
             }
         }
         // set new start and end positions
-        undoList->begin(this, TLF(" %'s lenght", myTagProperty->getTagStr()));
+        undoList->begin(this, TLF(" %'s length", myTagProperty->getTagStr()));
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_STARTPOS, toString(newStartPos), undoList);
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(newEndPos), undoList);
         undoList->end();
@@ -781,7 +781,7 @@ GNEStoppingPlace::adjustLenght(const double newLength, GNEUndoList* undoList) {
         if (newStartPos < 0) {
             newStartPos = 0;
         }
-        undoList->begin(this, TLF(" %'s lenght", myTagProperty->getTagStr()));
+        undoList->begin(this, TLF(" %'s length", myTagProperty->getTagStr()));
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_STARTPOS, toString(newStartPos), undoList);
         undoList->end();
     } else if (newEndPos != INVALID_DOUBLE) {
@@ -789,7 +789,7 @@ GNEStoppingPlace::adjustLenght(const double newLength, GNEUndoList* undoList) {
         if (newEndPos > laneLenght) {
             newEndPos = laneLenght;
         }
-        undoList->begin(this, TLF(" %'s lenght", myTagProperty->getTagStr()));
+        undoList->begin(this, TLF(" %'s length", myTagProperty->getTagStr()));
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(newEndPos), undoList);
         undoList->end();
     }

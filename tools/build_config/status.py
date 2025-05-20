@@ -98,11 +98,15 @@ def printStatus(makeLog, makeAllLog, smtpServer="localhost", out=sys.stdout, toA
     warnings = 0
     errors = 0
     svnLocked = False
+    generator = False
     for ml in io.open(makeLog, errors="replace"):
         if ("svn: Working copy" in ml and "locked" in ml) or "svn: Failed" in ml:
             svnLocked = True
             failed += ml
-        warnings, errors, failed = findErrors(ml, warnings, errors, failed)
+        if ml.startswith("-- Trying ") and "generator" in ml:
+            generator = not generator
+        if not generator:
+            warnings, errors, failed = findErrors(ml, warnings, errors, failed)
     if svnLocked:
         failed += "svn up failed\n\n"
     print(warnings, "warnings", file=out)

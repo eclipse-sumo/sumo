@@ -24,13 +24,20 @@
 #include <config.h>
 
 #include <utils/common/StdDefs.h>
-#include "MFXTextFieldIcon.h"
 
+#include "fxheader.h"
 #include <fxkeys.h>
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4266) // mask warning about hidden member function FX::FXTextCodec::utf2mblen
+#endif
 #include <FX88591Codec.h>
-#include <FX88591Codec.h>
-#include <FXCP1252Codec.h>
 #include <FXUTF16Codec.h>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+#include "MFXTextFieldIcon.h"
 
 
 // ===========================================================================

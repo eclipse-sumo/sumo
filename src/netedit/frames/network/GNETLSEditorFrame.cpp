@@ -1643,9 +1643,9 @@ GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector
     myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, oldDef, false), true);
     // create new definition, and add it
     NBOwnTLDef* newDef = new NBOwnTLDef(oldDef->getID(), oldDef->getNodes(), oldDef->getOffset(), oldDef->getType());
+    newDef->setProgramID(programID);
     myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, newDef, true, true), true);
     // set old index
-    newDef->setProgramID(programID);
     // end undo
     myTLSEditorParent->getViewNet()->getUndoList()->end();
     // inspect junction again

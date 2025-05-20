@@ -258,10 +258,11 @@ private:
 
     /// @brief draw connection
     void drawConnection(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                        const PositionVector& shape, const double exaggeration) const;
+                        const GUIGeometry& superposedGeometry, const double exaggeration) const;
 
     /// @brief draw arrows over connections
-    void drawConnectionArrows(const GUIVisualizationSettings& s, const RGBColor& color) const;
+    void drawConnectionArrows(const GUIVisualizationSettings& s, const GUIGeometry& superposedGeometry,
+                              const RGBColor& color) const;
 
     /// @brief draw edge value
     void drawEdgeValues(const GUIVisualizationSettings& s, const PositionVector& shape) const;
