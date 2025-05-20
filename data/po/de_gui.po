@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-04-16 14:36+0200\n"
+"POT-Creation-Date: 2025-05-20 18:34+0200\n"
 "PO-Revision-Date: 2025-05-20 09:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
-"sumo-gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
+"gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,32 +22,32 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:307 src/gui/GUIApplicationWindow.cpp:310
 #: src/gui/GUIApplicationWindow.cpp:2267 src/gui/GUIApplicationWindow.cpp:2268
 #: src/gui/GUIApplicationWindow.cpp:2270
-#: src/netedit/GNEApplicationWindow.cpp:535
-#: src/netedit/GNEApplicationWindow.cpp:539
-#: src/netedit/GNEApplicationWindow.cpp:543
-#: src/netedit/GNEApplicationWindow.cpp:1629
-#: src/netedit/GNEApplicationWindow.cpp:1630
-#: src/netedit/GNEApplicationWindow.cpp:1631
+#: src/netedit/GNEApplicationWindow.cpp:536
+#: src/netedit/GNEApplicationWindow.cpp:540
+#: src/netedit/GNEApplicationWindow.cpp:544
+#: src/netedit/GNEApplicationWindow.cpp:1638
+#: src/netedit/GNEApplicationWindow.cpp:1639
+#: src/netedit/GNEApplicationWindow.cpp:1640
 msgid "N/A"
 msgstr "Nicht verfügbar"
 
 #: src/gui/GUIApplicationWindow.cpp:307
-#: src/netedit/GNEApplicationWindow.cpp:536
+#: src/netedit/GNEApplicationWindow.cpp:537
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr "Originalkoordinate (vor der Koordinatentransformation in netconvert)"
 
 #: src/gui/GUIApplicationWindow.cpp:310
-#: src/netedit/GNEApplicationWindow.cpp:540
+#: src/netedit/GNEApplicationWindow.cpp:541
 msgid "Network coordinate"
 msgstr "Netzwerkkoordinate"
 
 #: src/gui/GUIApplicationWindow.cpp:338
-#: src/netedit/GNEApplicationWindow.cpp:559
+#: src/netedit/GNEApplicationWindow.cpp:564
 msgid "Ready."
 msgstr "Fertig."
 
 #: src/gui/GUIApplicationWindow.cpp:461
-#: src/netedit/GNEApplicationWindow.cpp:1371
+#: src/netedit/GNEApplicationWindow.cpp:1380
 msgid "&File"
 msgstr "&Datei"
 
@@ -93,7 +93,7 @@ msgid "Load edge related data for visualization."
 msgstr "Lade kantenbezogene Daten zur Visualisierung."
 
 #: src/gui/GUIApplicationWindow.cpp:479
-#: src/netedit/GNEApplicationWindow.cpp:1037
+#: src/netedit/GNEApplicationWindow.cpp:1045
 msgid "&Reload"
 msgstr "Neu &laden"
 
@@ -130,17 +130,17 @@ msgid "Close the simulation."
 msgstr "Schließe die Simulation."
 
 #: src/gui/GUIApplicationWindow.cpp:497
-#: src/netedit/GNEApplicationWindow.cpp:1392
+#: src/netedit/GNEApplicationWindow.cpp:1401
 msgid "&Quit"
 msgstr "&Beenden"
 
 #: src/gui/GUIApplicationWindow.cpp:497
-#: src/netedit/GNEApplicationWindow.cpp:1392
+#: src/netedit/GNEApplicationWindow.cpp:1401
 msgid "Quit the Application."
 msgstr "Beende die Anwendung."
 
 #: src/gui/GUIApplicationWindow.cpp:506
-#: src/netedit/GNEApplicationWindow.cpp:1407
+#: src/netedit/GNEApplicationWindow.cpp:1416
 msgid "&Edit"
 msgstr "&Bearbeiten"
 
@@ -262,7 +262,7 @@ msgid "Toggle full screen mode on/off."
 msgstr "Schalte Vollbildmodus an/aus."
 
 #: src/gui/GUIApplicationWindow.cpp:551
-#: src/netedit/GNEApplicationWindow.cpp:1443
+#: src/netedit/GNEApplicationWindow.cpp:1452
 msgid "&Locate"
 msgstr "F&inden"
 
@@ -466,7 +466,7 @@ msgid "Load simulation state for the current network from file."
 msgstr "Lade einen Simulationsstand für das aktuelle Netz aus einer Datei."
 
 #: src/gui/GUIApplicationWindow.cpp:610
-#: src/netedit/GNEApplicationWindow.cpp:1514
+#: src/netedit/GNEApplicationWindow.cpp:1523
 msgid "&Window"
 msgstr "&Fenster"
 
@@ -569,7 +569,7 @@ msgid "Clear the message window."
 msgstr "Leere das Meldungsfenster."
 
 #: src/gui/GUIApplicationWindow.cpp:654
-#: src/netedit/GNEApplicationWindow.cpp:1520
+#: src/netedit/GNEApplicationWindow.cpp:1529
 msgid "&Help"
 msgstr "&Hilfe"
 
@@ -651,8 +651,8 @@ msgstr "\tSchritt\tFühre einen einzelnen Simulationsschritt aus."
 
 #: src/gui/GUIApplicationWindow.cpp:708
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and "
-"hour:minute:seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
+"seconds display."
 msgstr ""
 "Zeit:\tWechsle zwischen Zeitformaten\tWechsle Zeitformat zwischen Sekunden "
 "und Stunde:Minute:Sekunde."
@@ -760,10 +760,10 @@ msgid "Open Shapes"
 msgstr "Shapes laden"
 
 #: src/gui/GUIApplicationWindow.cpp:1101 src/gui/GUIApplicationWindow.cpp:1129
-#: src/netedit/GNEApplicationWindow.cpp:4674
-#: src/netedit/GNEApplicationWindow.cpp:4725
-#: src/netedit/GNEApplicationWindow.cpp:4769
-#: src/netedit/GNEApplicationWindow.cpp:4813
+#: src/netedit/GNEApplicationWindow.cpp:4691
+#: src/netedit/GNEApplicationWindow.cpp:4742
+#: src/netedit/GNEApplicationWindow.cpp:4786
+#: src/netedit/GNEApplicationWindow.cpp:4830
 #, c-format
 msgid "Loading of % failed."
 msgstr "Laden von % fehlgeschlagen."
@@ -789,7 +789,7 @@ msgid "Quick-Reloading."
 msgstr "Lade erneut (Schnellmodus)."
 
 #: src/gui/GUIApplicationWindow.cpp:1176
-#: src/netedit/GNEApplicationWindow.cpp:1109
+#: src/netedit/GNEApplicationWindow.cpp:1117
 msgid "Already loading!"
 msgstr "Lädt bereits!"
 
@@ -978,7 +978,7 @@ msgstr "Bedingungen"
 msgid "Overflow in time computation occurred."
 msgstr "Überlauf bei der Zeitberechnung aufgetreten."
 
-#: src/gui/GUIViewTraffic.cpp:109 src/netedit/GNEViewNet.cpp:374
+#: src/gui/GUIViewTraffic.cpp:109 src/netedit/GNEViewNet.cpp:375
 msgid "Locate Junctions"
 msgstr "Knotenpunkte finden"
 
@@ -986,7 +986,7 @@ msgstr "Knotenpunkte finden"
 msgid "Locate a junction within the network."
 msgstr "Findet einen Knotenpunkt im Netz."
 
-#: src/gui/GUIViewTraffic.cpp:114 src/netedit/GNEViewNet.cpp:378
+#: src/gui/GUIViewTraffic.cpp:114 src/netedit/GNEViewNet.cpp:379
 msgid "Locate Edges"
 msgstr "Kanten finden"
 
@@ -994,7 +994,7 @@ msgstr "Kanten finden"
 msgid "Locate an edge within the network."
 msgstr "Findet eine Kante im Netz."
 
-#: src/gui/GUIViewTraffic.cpp:119 src/netedit/GNEViewNet.cpp:386
+#: src/gui/GUIViewTraffic.cpp:119 src/netedit/GNEViewNet.cpp:387
 msgid "Locate Vehicles"
 msgstr "Fahrzeuge finden"
 
@@ -1002,7 +1002,7 @@ msgstr "Fahrzeuge finden"
 msgid "Locate a vehicle within the network."
 msgstr "Findet ein Fahrzeug im Netz."
 
-#: src/gui/GUIViewTraffic.cpp:124 src/netedit/GNEViewNet.cpp:390
+#: src/gui/GUIViewTraffic.cpp:124 src/netedit/GNEViewNet.cpp:391
 msgid "Locate Persons"
 msgstr "Personen finden"
 
@@ -1018,7 +1018,7 @@ msgstr "Container finden"
 msgid "Locate a container within the network."
 msgstr "Findet einen Container im Netz."
 
-#: src/gui/GUIViewTraffic.cpp:134 src/netedit/GNEViewNet.cpp:413
+#: src/gui/GUIViewTraffic.cpp:134 src/netedit/GNEViewNet.cpp:414
 msgid "Locate TLS"
 msgstr "LSA finden"
 
@@ -1026,7 +1026,7 @@ msgstr "LSA finden"
 msgid "Locate a tls within the network."
 msgstr "Findet eine LSA im Netz."
 
-#: src/gui/GUIViewTraffic.cpp:139 src/netedit/GNEViewNet.cpp:417
+#: src/gui/GUIViewTraffic.cpp:139 src/netedit/GNEViewNet.cpp:418
 msgid "Locate Additional"
 msgstr "Weitere Elemente finden"
 
@@ -1034,7 +1034,7 @@ msgstr "Weitere Elemente finden"
 msgid "Locate an additional structure within the network."
 msgstr "Findet eine weitere Struktur im Netz."
 
-#: src/gui/GUIViewTraffic.cpp:144 src/netedit/GNEViewNet.cpp:421
+#: src/gui/GUIViewTraffic.cpp:144 src/netedit/GNEViewNet.cpp:422
 msgid "Locate PoI"
 msgstr "PoI finden"
 
@@ -1042,7 +1042,7 @@ msgstr "PoI finden"
 msgid "Locate a PoI within the network."
 msgstr "Findet ein PoI im Netz."
 
-#: src/gui/GUIViewTraffic.cpp:149 src/netedit/GNEViewNet.cpp:425
+#: src/gui/GUIViewTraffic.cpp:149 src/netedit/GNEViewNet.cpp:426
 msgid "Locate Polygon"
 msgstr "Polygone finden"
 
@@ -1056,8 +1056,8 @@ msgstr "Über Eclipse SUMO sumo-gui"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:54
 msgid ""
-"Graphical user interface for the microscopic, multi-modal traffic simulation"
-" SUMO."
+"Graphical user interface for the microscopic, multi-modal traffic simulation "
+"SUMO."
 msgstr ""
 "Grafische Nutzeroberfläche für die mikroskopische, multimodale "
 "Verkehrssimulation SUMO."
@@ -1068,8 +1068,7 @@ msgstr "Beinhaltet JuPedSim %.%.%"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:64
 #: src/netedit/dialogs/GNEAbout.cpp:64
-msgid ""
-"This application is based on code provided by the Eclipse SUMO project."
+msgid "This application is based on code provided by the Eclipse SUMO project."
 msgstr ""
 "Diese Anwendung basiert auf Code, der vom Eclipse SUMO-Projekt "
 "bereitgestellt wird."
@@ -2481,216 +2480,216 @@ msgstr ""
 msgid "This system has no OpenGL support. Exiting."
 msgstr "Dieses System unterstützt OpenGL nicht. Abbruch."
 
-#: src/netedit/GNEApplicationWindow.cpp:494
+#: src/netedit/GNEApplicationWindow.cpp:495
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr ""
 "Grafische Version der mikroskopischen, multimodalen Verkehrssimulation SUMO."
 
-#: src/netedit/GNEApplicationWindow.cpp:531
+#: src/netedit/GNEApplicationWindow.cpp:532
 msgid "Recomputing"
 msgstr "Erneute Berechnung"
 
-#: src/netedit/GNEApplicationWindow.cpp:532
+#: src/netedit/GNEApplicationWindow.cpp:533
 msgid "Recomputing is needed"
 msgstr "Erneute Berechnung notwendig"
 
-#: src/netedit/GNEApplicationWindow.cpp:544
+#: src/netedit/GNEApplicationWindow.cpp:545
 msgid "Test coordinate"
 msgstr "Test-Koordinate"
 
-#: src/netedit/GNEApplicationWindow.cpp:858
-#: src/netedit/GNEApplicationWindow.cpp:878
+#: src/netedit/GNEApplicationWindow.cpp:866
+#: src/netedit/GNEApplicationWindow.cpp:886
 msgid "loading TLS Programs from '"
 msgstr "Lädt LSA-Programme aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:920
+#: src/netedit/GNEApplicationWindow.cpp:928
 msgid "Loaded edge types from '"
 msgstr "Kantentypen geladen aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:922
-#: src/netedit/GNEApplicationWindow.cpp:955
+#: src/netedit/GNEApplicationWindow.cpp:930
+#: src/netedit/GNEApplicationWindow.cpp:963
 msgid "load edgeTypes"
 msgstr "Lade Kantentypen"
 
-#: src/netedit/GNEApplicationWindow.cpp:953
+#: src/netedit/GNEApplicationWindow.cpp:961
 msgid "Reloaded edge types from '"
 msgstr "Kantentypen erneut geladen aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1010
+#: src/netedit/GNEApplicationWindow.cpp:1018
 msgid "Reloading netedit config file '"
 msgstr "Lädt netedit-Konfigurationsdatei erneut aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1014
+#: src/netedit/GNEApplicationWindow.cpp:1022
 msgid "Reloading sumo config file '"
 msgstr "Lädt sumo-Konfigurationsdatei erneut aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1018
-#: src/netedit/GNEApplicationWindow.cpp:1079
+#: src/netedit/GNEApplicationWindow.cpp:1026
+#: src/netedit/GNEApplicationWindow.cpp:1087
 msgid "Reloading network file '"
 msgstr "Lädt Netzdatei erneut aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1034
+#: src/netedit/GNEApplicationWindow.cpp:1042
 msgid "&Reload Netedit config"
 msgstr "Netedit-Konfiguration erneut laden"
 
-#: src/netedit/GNEApplicationWindow.cpp:1035
+#: src/netedit/GNEApplicationWindow.cpp:1043
 msgid "&Reload Sumo config"
 msgstr "Sumo-Konfiguration erneut laden"
 
-#: src/netedit/GNEApplicationWindow.cpp:1036
+#: src/netedit/GNEApplicationWindow.cpp:1044
 msgid "&Reload Network"
 msgstr "Netz erneut laden"
 
-#: src/netedit/GNEApplicationWindow.cpp:1275
+#: src/netedit/GNEApplicationWindow.cpp:1284
 msgid "Loading of '"
 msgstr "Laden von '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1280
+#: src/netedit/GNEApplicationWindow.cpp:1289
 msgid "'"
 msgstr "'"
 
-#: src/netedit/GNEApplicationWindow.cpp:1280
+#: src/netedit/GNEApplicationWindow.cpp:1289
 msgid "' loaded."
 msgstr "' geladen."
 
-#: src/netedit/GNEApplicationWindow.cpp:1396
+#: src/netedit/GNEApplicationWindow.cpp:1405
 msgid "&Modes"
 msgstr "&Modi"
 
-#: src/netedit/GNEApplicationWindow.cpp:1432
+#: src/netedit/GNEApplicationWindow.cpp:1441
 msgid "L&ock"
 msgstr "Sperren"
 
-#: src/netedit/GNEApplicationWindow.cpp:1439
+#: src/netedit/GNEApplicationWindow.cpp:1448
 msgid "&Processing"
 msgstr "&Operationen"
 
-#: src/netedit/GNEApplicationWindow.cpp:1466
+#: src/netedit/GNEApplicationWindow.cpp:1475
 msgid "&Tools"
 msgstr "Werkzeuge"
 
-#: src/netedit/GNEApplicationWindow.cpp:1468
+#: src/netedit/GNEApplicationWindow.cpp:1477
 msgid "Assign"
 msgstr "Zuweisen"
 
-#: src/netedit/GNEApplicationWindow.cpp:1469
+#: src/netedit/GNEApplicationWindow.cpp:1478
 #: src/netedit/GNETagPropertiesDatabase.cpp:425
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
 msgid "Detectors"
 msgstr "Detektoren"
 
-#: src/netedit/GNEApplicationWindow.cpp:1470
+#: src/netedit/GNEApplicationWindow.cpp:1479
 msgid "Districts"
 msgstr "Bezirke"
 
-#: src/netedit/GNEApplicationWindow.cpp:1471
+#: src/netedit/GNEApplicationWindow.cpp:1480
 msgid "DRT"
 msgstr "Bedarfsorientierter ÖPNV (DRT)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1473
+#: src/netedit/GNEApplicationWindow.cpp:1482
 msgid "CityBrain"
 msgstr "CityBrain"
 
-#: src/netedit/GNEApplicationWindow.cpp:1474
+#: src/netedit/GNEApplicationWindow.cpp:1483
 msgid "GTFS"
 msgstr "GTFS"
 
-#: src/netedit/GNEApplicationWindow.cpp:1475
+#: src/netedit/GNEApplicationWindow.cpp:1484
 msgid "Vissim"
 msgstr "Vissim"
 
-#: src/netedit/GNEApplicationWindow.cpp:1476
+#: src/netedit/GNEApplicationWindow.cpp:1485
 msgid "Visum"
 msgstr "Visum"
 
-#: src/netedit/GNEApplicationWindow.cpp:1477
+#: src/netedit/GNEApplicationWindow.cpp:1486
 msgid "Import"
 msgstr "Importieren"
 
-#: src/netedit/GNEApplicationWindow.cpp:1478
+#: src/netedit/GNEApplicationWindow.cpp:1487
 msgid "Net"
 msgstr "Netz"
 
-#: src/netedit/GNEApplicationWindow.cpp:1479
+#: src/netedit/GNEApplicationWindow.cpp:1488
 msgid "Output"
 msgstr "Ausgabe"
 
-#: src/netedit/GNEApplicationWindow.cpp:1480
+#: src/netedit/GNEApplicationWindow.cpp:1489
 #: src/netedit/GNEApplicationWindowHelper.cpp:705
 #: src/netedit/GNETagPropertiesDatabase.cpp:2067
 #: src/netedit/GNETagPropertiesDatabase.cpp:2542
 msgid "Route"
 msgstr "Route"
 
-#: src/netedit/GNEApplicationWindow.cpp:1482
+#: src/netedit/GNEApplicationWindow.cpp:1491
 msgid "TLS"
 msgstr "LSA"
 
-#: src/netedit/GNEApplicationWindow.cpp:1483
+#: src/netedit/GNEApplicationWindow.cpp:1492
 msgid "Trigger"
 msgstr "Auslöser"
 
-#: src/netedit/GNEApplicationWindow.cpp:1484
+#: src/netedit/GNEApplicationWindow.cpp:1493
 msgid "Turn-defs"
 msgstr "Abbiegedefinitionen (Turn-defs)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1485
+#: src/netedit/GNEApplicationWindow.cpp:1494
 msgid "Visualization"
 msgstr "Darstellung"
 
-#: src/netedit/GNEApplicationWindow.cpp:1486
+#: src/netedit/GNEApplicationWindow.cpp:1495
 msgid "XML"
 msgstr "XML"
 
-#: src/netedit/GNEApplicationWindow.cpp:1582
+#: src/netedit/GNEApplicationWindow.cpp:1591
 msgid "Network computed"
 msgstr "Netz berechnet"
 
-#: src/netedit/GNEApplicationWindow.cpp:1586
+#: src/netedit/GNEApplicationWindow.cpp:1595
 msgid "Press F5"
 msgstr "Drücke F5"
 
-#: src/netedit/GNEApplicationWindow.cpp:1587
+#: src/netedit/GNEApplicationWindow.cpp:1596
 msgid "Network requires recomputing"
 msgstr "Das Netz muss neu berechnet werden"
 
-#: src/netedit/GNEApplicationWindow.cpp:1664
+#: src/netedit/GNEApplicationWindow.cpp:1673
 msgid "Loading console arguments"
 msgstr "Lädt Kommandozeilenargumente"
 
-#: src/netedit/GNEApplicationWindow.cpp:1692
+#: src/netedit/GNEApplicationWindow.cpp:1701
 msgid "Creating new network."
 msgstr "Erstellt ein neues Netz."
 
-#: src/netedit/GNEApplicationWindow.cpp:1703
+#: src/netedit/GNEApplicationWindow.cpp:1712
 msgid "Trying to load an empty network"
 msgstr "Das Netz enthält keine Elemente"
 
-#: src/netedit/GNEApplicationWindow.cpp:1719
+#: src/netedit/GNEApplicationWindow.cpp:1728
 msgid "Loading network file '"
 msgstr "Lädt Netzdatei '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1731
+#: src/netedit/GNEApplicationWindow.cpp:1740
 msgid "Trying to load an empty configuration"
 msgstr "Versuche eine leere Konfiguration zu laden"
 
-#: src/netedit/GNEApplicationWindow.cpp:1747
+#: src/netedit/GNEApplicationWindow.cpp:1756
 msgid "Loading configuration file '"
 msgstr "Lädt Konfigurationsdatei '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1777
+#: src/netedit/GNEApplicationWindow.cpp:1786
 msgid "Select Import Options"
 msgstr "Importoptionen auswählen"
 
-#: src/netedit/GNEApplicationWindow.cpp:1783
+#: src/netedit/GNEApplicationWindow.cpp:1792
 msgid "Loading OSM file '"
 msgstr "Lade OSM-Datei '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1801
+#: src/netedit/GNEApplicationWindow.cpp:1810
 msgid "Recompute with volatile options"
 msgstr "Mit volatilen Optionen neu berechnen"
 
-#: src/netedit/GNEApplicationWindow.cpp:1802
+#: src/netedit/GNEApplicationWindow.cpp:1811
 msgid ""
 "Changes produced in the net due a recomputing with volatile options cannot "
 "be undone. Continue?"
@@ -2698,292 +2697,292 @@ msgstr ""
 "Änderungen am Netz durch die Neuberechnung mit volatilen Optionen können "
 "nicht rückgängig gemacht werden. Trotzdem fortfahren?"
 
-#: src/netedit/GNEApplicationWindow.cpp:2014
-#: src/netedit/GNEApplicationWindow.cpp:2074
+#: src/netedit/GNEApplicationWindow.cpp:2023
+#: src/netedit/GNEApplicationWindow.cpp:2083
 msgid "Running "
 msgstr "Führt aus "
 
-#: src/netedit/GNEApplicationWindow.cpp:2037
+#: src/netedit/GNEApplicationWindow.cpp:2046
 msgid "Loading network '"
 msgstr "Lädt Netz '"
 
-#: src/netedit/GNEApplicationWindow.cpp:2037
 #: src/netedit/GNEApplicationWindow.cpp:2046
+#: src/netedit/GNEApplicationWindow.cpp:2055
 msgid "' in SUMO-GUI"
 msgstr "' in SUMO-GUI"
 
-#: src/netedit/GNEApplicationWindow.cpp:2046
+#: src/netedit/GNEApplicationWindow.cpp:2055
 msgid "Loading sumo config '"
 msgstr "Lädt SUMO-Konfiguration '"
 
-#: src/netedit/GNEApplicationWindow.cpp:2393
+#: src/netedit/GNEApplicationWindow.cpp:2410
 msgid "Netedit options"
 msgstr "Netedit-Optionen"
 
-#: src/netedit/GNEApplicationWindow.cpp:2410
+#: src/netedit/GNEApplicationWindow.cpp:2427
 #: src/netedit/GNEApplicationWindowHelper.cpp:1895
 msgid "Sumo options"
 msgstr "Sumo-Optionen"
 
-#: src/netedit/GNEApplicationWindow.cpp:2427
+#: src/netedit/GNEApplicationWindow.cpp:2444
 msgid "Netgenerate options"
 msgstr "Netgenerate-Optionen"
 
-#: src/netedit/GNEApplicationWindow.cpp:2443
+#: src/netedit/GNEApplicationWindow.cpp:2460
 #: src/netedit/GNEApplicationWindowHelper.cpp:1283
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:108
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
 msgstr "Rückgängig"
 
-#: src/netedit/GNEApplicationWindow.cpp:2474
+#: src/netedit/GNEApplicationWindow.cpp:2491
 #: src/netedit/GNEApplicationWindowHelper.cpp:1286
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:111
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
 msgstr "Wiederherstellen"
 
-#: src/netedit/GNEApplicationWindow.cpp:3200
+#: src/netedit/GNEApplicationWindow.cpp:3217
 msgid "Saving Network failed!"
 msgstr "Speichern des Netzes fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3204
+#: src/netedit/GNEApplicationWindow.cpp:3221
 msgid "Network saved in '"
 msgstr "Netz gespeichert in'"
 
-#: src/netedit/GNEApplicationWindow.cpp:3210
+#: src/netedit/GNEApplicationWindow.cpp:3227
 msgid "Could not save network in '"
 msgstr "Konnte das Netz nicht im folgenden Pfad speichern: '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3264
+#: src/netedit/GNEApplicationWindow.cpp:3281
 msgid "Plain XML saved with prefix '"
 msgstr "Im \"Plain XML\"-Format gespeichert; Präfix '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3267
+#: src/netedit/GNEApplicationWindow.cpp:3284
 msgid "Saving plain xml failed!"
 msgstr "Speichern im \"Plain XML\"-Format fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3288
+#: src/netedit/GNEApplicationWindow.cpp:3305
 msgid "Joined junctions saved to '"
 msgstr "Vereinigte Knoten gespeichert unter '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3291
+#: src/netedit/GNEApplicationWindow.cpp:3308
 msgid "Saving joined junctions failed!"
 msgstr "Speichern der vereinigten Knoten fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3320
-#: src/netedit/GNEApplicationWindow.cpp:3324
-#: src/netedit/GNEApplicationWindow.cpp:3328
-#: src/netedit/GNEApplicationWindow.cpp:3332
-#: src/netedit/GNEApplicationWindow.cpp:3336
+#: src/netedit/GNEApplicationWindow.cpp:3337
+#: src/netedit/GNEApplicationWindow.cpp:3341
+#: src/netedit/GNEApplicationWindow.cpp:3345
+#: src/netedit/GNEApplicationWindow.cpp:3349
+#: src/netedit/GNEApplicationWindow.cpp:3353
 msgid "Saving of Netedit configuration aborted"
 msgstr "Speichervorgang der Netedit-Konfiguration abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:3345
+#: src/netedit/GNEApplicationWindow.cpp:3362
 msgid "Netedit configuration saved in '"
 msgstr "Netedit-Konfiguration wurde gespeichert unter '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3351
+#: src/netedit/GNEApplicationWindow.cpp:3368
 msgid "Could not save netedit configuration in '"
 msgstr ""
 "Konnte die netedit-Konfiguration nicht unter folgendem Pfad speichern: '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3424
-#: src/netedit/GNEApplicationWindow.cpp:3428
-#: src/netedit/GNEApplicationWindow.cpp:3432
-#: src/netedit/GNEApplicationWindow.cpp:3436
-#: src/netedit/GNEApplicationWindow.cpp:3440
+#: src/netedit/GNEApplicationWindow.cpp:3441
+#: src/netedit/GNEApplicationWindow.cpp:3445
+#: src/netedit/GNEApplicationWindow.cpp:3449
+#: src/netedit/GNEApplicationWindow.cpp:3453
+#: src/netedit/GNEApplicationWindow.cpp:3457
 msgid "Saving of SUMO configuration aborted"
 msgstr "Speichervorgang der SUMO-Konfiguration abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:3455
+#: src/netedit/GNEApplicationWindow.cpp:3472
 msgid "SUMO configuration saved in '"
 msgstr "Sumo-Konfiguration gespeichert unter '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3463
+#: src/netedit/GNEApplicationWindow.cpp:3480
 msgid "Could not save SUMO configuration in '"
 msgstr ""
 "Konnte die sumo-Konfiguration nicht unter dem folgenden Pfad speichern: '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3517
+#: src/netedit/GNEApplicationWindow.cpp:3534
 msgid "TLS Programs saved in '"
 msgstr "LSA-Programme unter dem folgenden Pfad gespeichert: '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3520
+#: src/netedit/GNEApplicationWindow.cpp:3537
 msgid "Saving TLS Programs failed!"
 msgstr "Speichern der LSA-Programme fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3561
+#: src/netedit/GNEApplicationWindow.cpp:3578
 msgid "EdgeType saved in '"
 msgstr "EdgeType gespeichert unter '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3564
+#: src/netedit/GNEApplicationWindow.cpp:3581
 msgid "Saving edgeTypes failed!"
 msgstr "Speichern der edgeTypes fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3667
+#: src/netedit/GNEApplicationWindow.cpp:3684
 msgid "load additionals from '"
 msgstr "Lädt weitere Daten aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3671 src/netedit/GNENet.cpp:1500
+#: src/netedit/GNEApplicationWindow.cpp:3688 src/netedit/GNENet.cpp:1500
 msgid "Loading of additional file failed: "
 msgstr "Laden weiterer Daten aus der folgenden Datei fehlgeschlagen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:3674 src/netedit/GNENet.cpp:1502
+#: src/netedit/GNEApplicationWindow.cpp:3691 src/netedit/GNENet.cpp:1502
 msgid "Loading of additional file successfully: "
 msgstr "Weitere Daten erfolgreich aus der folgenden Datei geladen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:3699
+#: src/netedit/GNEApplicationWindow.cpp:3716
 msgid "reloading additionals"
 msgstr "Erneutes Laden der weiteren Daten"
 
-#: src/netedit/GNEApplicationWindow.cpp:3708
+#: src/netedit/GNEApplicationWindow.cpp:3725
 #, c-format
 msgid "Reloading of additional file '%' failed."
 msgstr "Das erneute Laden der Datei '%' ist fehlgeschlagen."
 
-#: src/netedit/GNEApplicationWindow.cpp:3764
+#: src/netedit/GNEApplicationWindow.cpp:3781
 msgid "Additionals saved"
 msgstr "Weitere Daten gespeichert"
 
-#: src/netedit/GNEApplicationWindow.cpp:3767
+#: src/netedit/GNEApplicationWindow.cpp:3784
 msgid "Saving additional aborted"
 msgstr "Speichervorgang der weiteren Daten abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:3772
+#: src/netedit/GNEApplicationWindow.cpp:3789
 msgid "Saving additionals failed!"
 msgstr "Speichern der weiteren Elemente fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3796
+#: src/netedit/GNEApplicationWindow.cpp:3813
 msgid "saving of unified additional elements in '%'"
 msgstr "Speichern der gesammelten weiteren Elemente in '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:3837
+#: src/netedit/GNEApplicationWindow.cpp:3854
 msgid "JuPedSim elements saved"
 msgstr "JuPedSim-Elemente gespeichert"
 
-#: src/netedit/GNEApplicationWindow.cpp:3840
+#: src/netedit/GNEApplicationWindow.cpp:3857
 msgid "Saving JuPedSim aborted"
 msgstr "Speichervorgang der JuPedSim-Inhalte abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:3846
+#: src/netedit/GNEApplicationWindow.cpp:3863
 msgid "Saving JuPedSim elements failed!"
 msgstr "Speichern der JuPedSim-Elemente fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3881
-#: src/netedit/GNEApplicationWindow.cpp:4713
-#: src/netedit/GNEApplicationWindow.cpp:4720
+#: src/netedit/GNEApplicationWindow.cpp:3898
+#: src/netedit/GNEApplicationWindow.cpp:4730
+#: src/netedit/GNEApplicationWindow.cpp:4737
 msgid "loading demand elements from '"
 msgstr "Lädt Nachfrageelemente aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3885 src/netedit/GNENet.cpp:1512
+#: src/netedit/GNEApplicationWindow.cpp:3902 src/netedit/GNENet.cpp:1512
 msgid "Loading of route file failed: "
 msgstr "Laden der folgenden Route-Datei fehlgeschlagen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:3888 src/netedit/GNENet.cpp:1514
+#: src/netedit/GNEApplicationWindow.cpp:3905 src/netedit/GNENet.cpp:1514
 msgid "Loading of route file successfully: "
 msgstr "Folgende Route-Datei wurde erfolgreich geladen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:3913
+#: src/netedit/GNEApplicationWindow.cpp:3930
 msgid "reloading demand elements"
 msgstr "Erneutes Laden der Nachfrageelemente"
 
-#: src/netedit/GNEApplicationWindow.cpp:3922
+#: src/netedit/GNEApplicationWindow.cpp:3939
 #, c-format
 msgid "Reloading of route file '%'failed."
 msgstr "Das erneute Laden der Routendatei '%' ist fehlgeschlagen."
 
-#: src/netedit/GNEApplicationWindow.cpp:3976
+#: src/netedit/GNEApplicationWindow.cpp:3993
 msgid "Demand elements saved"
 msgstr "Nachfrageelemente gespeichert"
 
-#: src/netedit/GNEApplicationWindow.cpp:3979
-#: src/netedit/GNEApplicationWindow.cpp:4156
+#: src/netedit/GNEApplicationWindow.cpp:3996
+#: src/netedit/GNEApplicationWindow.cpp:4173
 msgid "Saving demand elements aborted"
 msgstr "Speichervorgang der Nachfrageelemente abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:3984
-#: src/netedit/GNEApplicationWindow.cpp:4330
+#: src/netedit/GNEApplicationWindow.cpp:4001
+#: src/netedit/GNEApplicationWindow.cpp:4347
 msgid "Saving demand elements failed!"
 msgstr "Speichern der Nachfrageelemente fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4008
+#: src/netedit/GNEApplicationWindow.cpp:4025
 msgid "saving of unified demand elements in '%'"
 msgstr "Speichern der gesammelten Nachfrageelemente in '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4055
-#: src/netedit/GNEApplicationWindow.cpp:4757
-#: src/netedit/GNEApplicationWindow.cpp:4764
+#: src/netedit/GNEApplicationWindow.cpp:4072
+#: src/netedit/GNEApplicationWindow.cpp:4774
+#: src/netedit/GNEApplicationWindow.cpp:4781
 msgid "loading data elements from '"
 msgstr "Lädt Nachfrageelemente aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4059 src/netedit/GNENet.cpp:1523
+#: src/netedit/GNEApplicationWindow.cpp:4076 src/netedit/GNENet.cpp:1523
 msgid "Loading of data file failed: "
 msgstr "Laden der Datendatei ist fehlgeschlagen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4062 src/netedit/GNENet.cpp:1525
+#: src/netedit/GNEApplicationWindow.cpp:4079 src/netedit/GNENet.cpp:1525
 msgid "Loading of data file successfully: "
 msgstr "Laden der Datendatei war erfolgreich: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4091
+#: src/netedit/GNEApplicationWindow.cpp:4108
 msgid "reloading data elements"
 msgstr "Erneutes Laden der Datenelemente"
 
-#: src/netedit/GNEApplicationWindow.cpp:4100
+#: src/netedit/GNEApplicationWindow.cpp:4117
 msgid "Reloading of data file failed: "
 msgstr "Erneutes Laden der Datendatei ist fehlgeschlagen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4153
+#: src/netedit/GNEApplicationWindow.cpp:4170
 msgid "Data elements saved"
 msgstr "Datenelemente gespeichert"
 
-#: src/netedit/GNEApplicationWindow.cpp:4161
+#: src/netedit/GNEApplicationWindow.cpp:4178
 msgid "Saving data elements failed!"
 msgstr "Speichern der Datenelemente fehlgeschlagen!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4185
+#: src/netedit/GNEApplicationWindow.cpp:4202
 msgid "saving of unified data elements in '%'"
 msgstr "Speichern der gesammelten Datenelemente in '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4228
+#: src/netedit/GNEApplicationWindow.cpp:4245
 msgid "load meanDatas from '"
 msgstr "Lädt meanData aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4232 src/netedit/GNENet.cpp:1534
+#: src/netedit/GNEApplicationWindow.cpp:4249 src/netedit/GNENet.cpp:1534
 msgid "Loading of meandata file failed: "
 msgstr "Laden der folgenden meanData-Datei fehlgeschlagen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4235
-#: src/netedit/GNEApplicationWindow.cpp:4269 src/netedit/GNENet.cpp:1536
+#: src/netedit/GNEApplicationWindow.cpp:4252
+#: src/netedit/GNEApplicationWindow.cpp:4286 src/netedit/GNENet.cpp:1536
 msgid "Loading of meandata file successfully: "
 msgstr "Nachfolgende MeanData-Datei wurde erfolgreich geladen: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4260
+#: src/netedit/GNEApplicationWindow.cpp:4277
 msgid "reloading meanDatas"
 msgstr "Erneutes Laden der MeanData-Elemente"
 
-#: src/netedit/GNEApplicationWindow.cpp:4322
+#: src/netedit/GNEApplicationWindow.cpp:4339
 msgid "MeanDatas elements saved"
 msgstr "MeanData-Elemente gespeichert"
 
-#: src/netedit/GNEApplicationWindow.cpp:4325
+#: src/netedit/GNEApplicationWindow.cpp:4342
 msgid "Saving MeanData elements aborted"
 msgstr "Speichervorgang der MeanData-Elemente abgebrochen"
 
-#: src/netedit/GNEApplicationWindow.cpp:4354
+#: src/netedit/GNEApplicationWindow.cpp:4371
 msgid "saving of unified mean data elements in '%'"
 msgstr "Speichern der gesammelten MeanData-Elemente in '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4662
+#: src/netedit/GNEApplicationWindow.cpp:4679
 msgid "loading additional elements from '"
 msgstr "lädt weitere Elemente aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4669
+#: src/netedit/GNEApplicationWindow.cpp:4686
 msgid "loading additionals from '"
 msgstr "lädt weitere Elemente aus '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4801
-#: src/netedit/GNEApplicationWindow.cpp:4808
+#: src/netedit/GNEApplicationWindow.cpp:4818
+#: src/netedit/GNEApplicationWindow.cpp:4825
 msgid "loading meanData elements from '"
 msgstr "Laden von MeanData-Elementen aus '"
 
@@ -3220,8 +3219,7 @@ msgid "Save TLS Programs As..."
 msgstr "LSA-Programme speichern unter..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:410
-msgid ""
-"Save all traffic light programs of the current network to another file."
+msgid "Save all traffic light programs of the current network to another file."
 msgstr ""
 "Speichere alle Programme der Lichtsignalanlagen des aktuellen Netzes in "
 "einer neuen Datei."
@@ -3525,7 +3523,7 @@ msgid "Create and edit route distributions."
 msgstr "Erstelle und bearbeite Routenverteilungen."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:712
-#: src/netedit/elements/demand/GNEVehicle.cpp:114
+#: src/netedit/elements/demand/GNEVehicle.cpp:115
 msgid "Vehicle"
 msgstr "Fahrzeug"
 
@@ -3638,8 +3636,7 @@ msgstr "Knotenpunktgeometrie ausblenden"
 #: src/netedit/GNEApplicationWindowHelper.cpp:870
 msgid "Draw vehicles spread in lane or in depart position"
 msgstr ""
-"Zeichne Fahrzeuge über den Fahrstreifen verteilt oder an der "
-"Abfahrtsposition"
+"Zeichne Fahrzeuge über den Fahrstreifen verteilt oder an der Abfahrtsposition"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:875
 #: src/netedit/GNEApplicationWindowHelper.cpp:1191
@@ -4002,8 +3999,7 @@ msgstr "Personenpläne anpassen"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1886
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
-msgstr ""
-"Passe Personenpläne (Start/Endpositionen, Ankunftspositionen, etc.) an"
+msgstr "Passe Personenpläne (Start/Endpositionen, Ankunftspositionen, etc.) an"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1889
 msgid "Clean invalid route elements"
@@ -4243,7 +4239,7 @@ msgid "GEO"
 msgstr ""
 
 #: src/netedit/GNEAttributeProperties.cpp:299
-#: src/netedit/elements/demand/GNEVehicle.cpp:134
+#: src/netedit/elements/demand/GNEVehicle.cpp:135
 msgid "Flow"
 msgstr "Fluss"
 
@@ -4351,8 +4347,8 @@ msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
 msgstr ""
-"Ungültige Option für Netz-Eingabedaten. Lade entweder mit "
-"sumo/netedit/netconvert config oder mit der Option -new"
+"Ungültige Option für Netz-Eingabedaten. Lade entweder mit sumo/netedit/"
+"netconvert config oder mit der Option -new"
 
 #: src/netedit/GNELoadThread.cpp:134
 msgid "Invalid Options. Nothing loaded"
@@ -4417,249 +4413,251 @@ msgstr ""
 msgid "Load element selection"
 msgstr "Elementauswahl laden"
 
-#: src/netedit/GNELoadThread.cpp:307
+#: src/netedit/GNELoadThread.cpp:305
+msgid "Test file"
+msgstr ""
+
+#: src/netedit/GNELoadThread.cpp:310
 msgid "File in which TLS Programs must be saved"
 msgstr "Datei für LSA-Programme"
 
-#: src/netedit/GNELoadThread.cpp:310
+#: src/netedit/GNELoadThread.cpp:313
 msgid "File in which edgeTypes must be saved"
 msgstr "Datei für Kantentypen"
 
-#: src/netedit/GNELoadThread.cpp:316
+#: src/netedit/GNELoadThread.cpp:319
 msgid "Start netedit with a new network"
 msgstr "Starte netedit mit einem neuen Netz"
 
-#: src/netedit/GNELoadThread.cpp:319
+#: src/netedit/GNELoadThread.cpp:322
 msgid "Write attribute help to file"
 msgstr "Attributhilfetext in Datei schreiben"
 
-#: src/netedit/GNELoadThread.cpp:322
+#: src/netedit/GNELoadThread.cpp:325
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr ""
 "Dialog zum Wechsel des Supermodus in Änderungschronik (Rückgängig-"
 "Wiederherstellen) ignorieren"
 
-#: src/netedit/GNELoadThread.cpp:325
+#: src/netedit/GNELoadThread.cpp:328
 msgid "Ignore additional elements during loading of sumo-configs"
 msgstr ""
 "In Sumo-Konfigurationsdateien referenzierte weitere Elemente ignorieren"
 
-#: src/netedit/GNELoadThread.cpp:328
+#: src/netedit/GNELoadThread.cpp:331
 msgid "Ignore route elements during loading of sumo-configs"
 msgstr "In Sumo-Konfigurationsdateien referenzierte Routenelemente ignorieren"
 
-#: src/netedit/GNELoadThread.cpp:331
+#: src/netedit/GNELoadThread.cpp:334
 msgid ""
 "If the lane is shorter than the additional, automatically enable friendlyPos"
 msgstr ""
 "Aktiviere friendlyPos automatisch, falls der Fahrstreifen kürzer als das "
 "weitere Element ist"
 
-#: src/netedit/GNELoadThread.cpp:334
+#: src/netedit/GNELoadThread.cpp:337
 msgid ""
 "If enabled, elements will be saved regardless of whether they have been "
 "edited or not"
 msgstr ""
-"Falls aktiviert, werden Elemente unabhängig von ihrer Bearbeitung "
-"gespeichert"
+"Falls aktiviert, werden Elemente unabhängig von ihrer Bearbeitung gespeichert"
 
-#: src/netedit/GNELoadThread.cpp:339
+#: src/netedit/GNELoadThread.cpp:342
 msgid "Prefix for node naming"
 msgstr "Präfix für Knotenbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:342
+#: src/netedit/GNELoadThread.cpp:345
 msgid "Prefix for edge naming"
 msgstr "Präfix für Kantenbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:345
+#: src/netedit/GNELoadThread.cpp:348
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
 msgstr "Infix für Kantennamen aktivieren (<Anfangsknoten><Infix><Endknoten>)"
 
-#: src/netedit/GNELoadThread.cpp:350
+#: src/netedit/GNELoadThread.cpp:353
 msgid "Prefix for busStop naming"
 msgstr "Präfix für Bushaltepunktbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:353
+#: src/netedit/GNELoadThread.cpp:356
 msgid "Prefix for trainStop naming"
 msgstr "Präfix für Zughaltepunktbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:356
+#: src/netedit/GNELoadThread.cpp:359
 msgid "Prefix for containerStop naming"
 msgstr "Präfix für Container-Haltepunktbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:359
+#: src/netedit/GNELoadThread.cpp:362
 msgid "Prefix for chargingStation naming"
 msgstr "Präfix für Ladepunktbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:362
+#: src/netedit/GNELoadThread.cpp:365
 msgid "Prefix for parkingArea naming"
 msgstr "Präfix für Parkplatzbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:365
+#: src/netedit/GNELoadThread.cpp:368
 msgid "Prefix for e1Detector naming"
 msgstr "Präfix für e1Detector-Bezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:368
+#: src/netedit/GNELoadThread.cpp:371
 msgid "Prefix for e2Detector naming"
 msgstr "Präfix für e2Detector-Bezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:371
+#: src/netedit/GNELoadThread.cpp:374
 msgid "Prefix for e3Detector naming"
 msgstr "Präfix für e3Detector-Bezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:374
+#: src/netedit/GNELoadThread.cpp:377
 msgid "Prefix for e1InstantDetector naming"
 msgstr "Präfix für e1InstantDetector-Bezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:377
+#: src/netedit/GNELoadThread.cpp:380
 msgid "Prefix for rerouter naming"
 msgstr "Präfix für Rerouter-Bezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:380
+#: src/netedit/GNELoadThread.cpp:383
 msgid "Prefix for calibrator naming"
 msgstr "Präfix für Calibrator-Bezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:383
+#: src/netedit/GNELoadThread.cpp:386
 msgid "Prefix for routeProbe naming"
 msgstr "Präfix für routeProbe-Bezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:386
+#: src/netedit/GNELoadThread.cpp:389
 msgid "Prefix for variable speed sign naming"
 msgstr "Präfix für Bezeichner der dynamischen Geschwindigkeitsanzeigen"
 
-#: src/netedit/GNELoadThread.cpp:389
+#: src/netedit/GNELoadThread.cpp:392
 msgid "Prefix for traction substation naming"
 msgstr "Präfix für Unterwerkbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:392
+#: src/netedit/GNELoadThread.cpp:395
 msgid "Prefix for overhead wire naming"
 msgstr "Präfix für Oberleitungsbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:395
+#: src/netedit/GNELoadThread.cpp:398
 msgid "Prefix for polygon naming"
 msgstr "Präfix für Polygonbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:398
+#: src/netedit/GNELoadThread.cpp:401
 msgid "Prefix for poi naming"
 msgstr "Präfix für PoI-Bezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:401
+#: src/netedit/GNELoadThread.cpp:404
 msgid "Prefix for jps walkable area naming"
 msgstr "Präfix für jps-Fußgängerflächenbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:404
+#: src/netedit/GNELoadThread.cpp:407
 msgid "Prefix for jps obstacle naming"
 msgstr "Präfix für jps-Hindernisbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:409
+#: src/netedit/GNELoadThread.cpp:412
 msgid "Prefix for route naming"
 msgstr "Präfix für Routenbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:412
+#: src/netedit/GNELoadThread.cpp:415
 msgid "Prefix for route distribution naming"
 msgstr "Präfix für Routenverteilungsbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:415
+#: src/netedit/GNELoadThread.cpp:418
 msgid "Prefix for type naming"
 msgstr "Präfix für Typenbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:418
+#: src/netedit/GNELoadThread.cpp:421
 msgid "Prefix for type distribution naming"
 msgstr "Präfix für Typenverteilungsbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:421
+#: src/netedit/GNELoadThread.cpp:424
 msgid "Prefix for vehicle naming"
 msgstr "Präfix für Fahrzeugbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:424
+#: src/netedit/GNELoadThread.cpp:427
 msgid "Prefix for trip naming"
 msgstr "Präfix für Fahrtenbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:427
+#: src/netedit/GNELoadThread.cpp:430
 msgid "Prefix for flow naming"
 msgstr "Präfix für Flussbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:430
+#: src/netedit/GNELoadThread.cpp:433
 msgid "Prefix for person naming"
 msgstr "Präfix für Personenbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:433
+#: src/netedit/GNELoadThread.cpp:436
 msgid "Prefix for personFlow naming"
 msgstr "Präfix für personFlow-Bezeichnung (Personenfluss)"
 
-#: src/netedit/GNELoadThread.cpp:436
+#: src/netedit/GNELoadThread.cpp:439
 msgid "Prefix for container naming"
 msgstr "Präfix für Containerbezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:439
+#: src/netedit/GNELoadThread.cpp:442
 msgid "Prefix for containerFlow naming"
 msgstr "Präfix für containerFlow-Bezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:444
+#: src/netedit/GNELoadThread.cpp:447
 msgid "Prefix for dataSet naming"
 msgstr "Präfix für Dataset-Benennung"
 
-#: src/netedit/GNELoadThread.cpp:449
+#: src/netedit/GNELoadThread.cpp:452
 msgid "Prefix for meanDataEdge naming"
 msgstr "Präfix für meanData-Bezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:452
+#: src/netedit/GNELoadThread.cpp:455
 msgid "Prefix for meanDataLane naming"
 msgstr "Präfix für meanDataLane-Bezeichnung"
 
-#: src/netedit/GNELoadThread.cpp:459
+#: src/netedit/GNELoadThread.cpp:462
 msgid "Disable icons of special lanes"
 msgstr "Symbole von besonderen Fahrstreifen deaktivieren"
 
-#: src/netedit/GNELoadThread.cpp:462
+#: src/netedit/GNELoadThread.cpp:465
 msgid "Disable textures"
 msgstr "Texturen deaktivieren"
 
-#: src/netedit/GNELoadThread.cpp:465
+#: src/netedit/GNELoadThread.cpp:468
 msgid "Load visualisation settings from FILE"
 msgstr "Darstellungseinstellung von FILE laden"
 
-#: src/netedit/GNELoadThread.cpp:470
+#: src/netedit/GNELoadThread.cpp:473
 msgid "Load current viewport from registry"
 msgstr "Aktuellen Ansichtsbereich aus Registry laden"
 
-#: src/netedit/GNELoadThread.cpp:473
+#: src/netedit/GNELoadThread.cpp:476
 msgid "Create initial window with the given x,y size"
 msgstr "Anfangsfenster mit der angegebenen x,y-Größe erstellen"
 
-#: src/netedit/GNELoadThread.cpp:476
+#: src/netedit/GNELoadThread.cpp:479
 msgid "Create initial window at the given x,y position"
 msgstr "Anfangsfenster mit der angegebenen x,y-Position erstellen"
 
-#: src/netedit/GNELoadThread.cpp:481
+#: src/netedit/GNELoadThread.cpp:484
 msgid "Enable overlay for screen recognition"
 msgstr "Überlagerung für die Bildschirmerkennung aktivieren"
 
-#: src/netedit/GNELoadThread.cpp:484
+#: src/netedit/GNELoadThread.cpp:487
 msgid "Enable output messages during GUI-Testing"
 msgstr "Ausgabemeldungen während der GUI-Testung aktivieren"
 
-#: src/netedit/GNELoadThread.cpp:487
-msgid "Enable output messages during GUI-Testing specific of gl functions"
-msgstr ""
-"Aktiviere Ausgabemeldungen während GUI-Test spezifischer GL-Funktionen"
-
 #: src/netedit/GNELoadThread.cpp:490
+msgid "Enable output messages during GUI-Testing specific of gl functions"
+msgstr "Aktiviere Ausgabemeldungen während GUI-Test spezifischer GL-Funktionen"
+
+#: src/netedit/GNELoadThread.cpp:493
 msgid "Save gui settings in the given settings-output file"
 msgstr "Darstellungseinstellungen in dieser Ausgabedatei speichern"
 
-#: src/netedit/GNELoadThread.cpp:497
+#: src/netedit/GNELoadThread.cpp:500
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr ""
 "Definiert die Startzeit in Sekunden; Die Simulation beginnt zu diesem "
 "Zeitpunkt"
 
-#: src/netedit/GNELoadThread.cpp:500
+#: src/netedit/GNELoadThread.cpp:503
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr ""
 "Definiert die Endzeit in Sekunden; Die Simulation endet zu diesem Zeitpunkt"
 
-#: src/netedit/GNELoadThread.cpp:503
+#: src/netedit/GNELoadThread.cpp:506
 msgid ""
 "Length of the default interval length between action points for the car-"
 "following and lane-change models (in seconds). If not specified, the "
@@ -4673,7 +4671,7 @@ msgstr ""
 "Fahrzeugtyp spezifische Einstellungen setzen die Standardeinstellung außer "
 "Kraft. Muss ein Vielfaches der Simulationsschrittlänge sein."
 
-#: src/netedit/GNELoadThread.cpp:506
+#: src/netedit/GNELoadThread.cpp:509
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class)"
@@ -4682,7 +4680,7 @@ msgstr ""
 "Fahrzeugklassen-spezifische Standardwerte (0,1 für die Standard-"
 "Passagierklasse)"
 
-#: src/netedit/GNELoadThread.cpp:545
+#: src/netedit/GNELoadThread.cpp:548
 msgid "Failed to reset options."
 msgstr "Rücksetzung der Optionen fehlgeschlagen."
 
@@ -4725,7 +4723,7 @@ msgstr "löschen "
 msgid "Trying to delete a default Vehicle Type"
 msgstr "Versuche einen Standardfahrzeugtypen zu löschen"
 
-#: src/netedit/GNENet.cpp:840 src/netedit/GNEViewNet.cpp:3131
+#: src/netedit/GNENet.cpp:840 src/netedit/GNEViewNet.cpp:3177
 msgid "duplicate lane"
 msgstr "Fahrstreifen duplizieren"
 
@@ -4799,8 +4797,7 @@ msgstr "Position des vereinigten Knotenpunkts"
 
 #: src/netedit/GNENet.cpp:1654
 msgid ""
-"There is another unselected junction in the same position of joined "
-"junction."
+"There is another unselected junction in the same position of joined junction."
 msgstr ""
 "An der Position des vereinigten Knotenpunkts gibt es einen weiteren, nicht "
 "ausgewählten Knotenpunkt."
@@ -5040,7 +5037,7 @@ msgstr "Verkehrsumlegungszonen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:459
 #: src/netedit/GNETagPropertiesDatabase.cpp:461
-#: src/netedit/elements/demand/GNEVehicle.cpp:271
+#: src/netedit/elements/demand/GNEVehicle.cpp:272
 #: src/netedit/frames/GNETagSelector.cpp:102
 #: src/netedit/frames/common/GNESelectorFrame.cpp:111
 #: src/netedit/frames/demand/GNEVehicleFrame.cpp:130
@@ -5049,7 +5046,7 @@ msgid "Vehicles"
 msgstr "Fahrzeuge"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:466
-#: src/netedit/elements/demand/GNEVehicle.cpp:286
+#: src/netedit/elements/demand/GNEVehicle.cpp:287
 msgid "Flows"
 msgstr "Flüsse"
 
@@ -5208,8 +5205,8 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:695
 msgid "The width of the sidewalk that should be added as an additional lane"
 msgstr ""
-"Die Breite des Gehwegs, der als zusätzlicher Fahrstreifen hinzugefügt werden"
-" soll"
+"Die Breite des Gehwegs, der als zusätzlicher Fahrstreifen hinzugefügt werden "
+"soll"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:701
 msgid "The width of the bike lane that should be added as an additional lane"
@@ -5239,14 +5236,13 @@ msgstr "Kante"
 #: src/netedit/GNETagPropertiesDatabase.cpp:743
 msgid "The name of a node within the nodes-file the edge shall start at"
 msgstr ""
-"Der Name eines Knotens innerhalb der Knotendatei, bei dem die Kante beginnen"
-" soll"
+"Der Name eines Knotens innerhalb der Knotendatei, bei dem die Kante beginnen "
+"soll"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:748
 msgid "The name of a node within the nodes-file the edge shall end at"
 msgstr ""
-"Der Name eines Knotens innerhalb der Knotendatei, an dem die Kante enden "
-"soll"
+"Der Name eines Knotens innerhalb der Knotendatei, an dem die Kante enden soll"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:771
 msgid "The name of a type within the SUMO edge type file"
@@ -5254,8 +5250,8 @@ msgstr "Der Name eines Typs in der SUMO-Kantentypdatei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:778
 msgid ""
-"If the shape is given it should start and end with the positions of the "
-"from-node and to-node"
+"If the shape is given it should start and end with the positions of the from-"
+"node and to-node"
 msgstr ""
 "Wenn der Shape gegeben ist, sollte es starten und enden mit den Positionen "
 "vom Ausgangs- und Endknoten"
@@ -5287,8 +5283,8 @@ msgstr ""
 msgid ""
 "Custom position in which shape end (by default position of junction from)"
 msgstr ""
-"Nutzerdefinierte Position in welcher der Shape endet (standardmäßig Position"
-" des Knotenpunkt von)"
+"Nutzerdefinierte Position in welcher der Shape endet (standardmäßig Position "
+"des Knotenpunkt von)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:822
 msgid "Show if edge is bidirectional"
@@ -5319,8 +5315,8 @@ msgstr "Fahrstreifen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:863
 msgid ""
-"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1"
-" is the leftmost one)"
+"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
+"is the leftmost one)"
 msgstr ""
 "Der Aufzählungsindex des Fahrstreifens (0 ist der ganz rechte Fahrstreifen, "
 "<NUMBER_LANES>-1 ist der ganz linke)"
@@ -5450,8 +5446,8 @@ msgstr "wenn gesetzt, warten Fahrzeuge, die diese Verbindung passieren, nicht"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1043
 msgid ""
-"if set to false, vehicles which pass this (lane-2-lane) connection) will not"
-" worry about blocking the intersection"
+"if set to false, vehicles which pass this (lane-2-lane) connection) will not "
+"worry about blocking the intersection"
 msgstr ""
 "wenn auf 'false' gesetzt, sorgen sich Fahrzeuge, die diese Verbindung "
 "passieren, nicht darum, die Kreuzung zu blockieren"
@@ -5479,8 +5475,8 @@ msgstr "Sichtweite zwischen Fahrzeugen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1067
 msgid ""
-"sets index of this connection within the controlling traffic light (-1 means"
-" automatic assignment)"
+"sets index of this connection within the controlling traffic light (-1 means "
+"automatic assignment)"
 msgstr ""
 "weist der Verbindung ihren Index für die steuernde LSA zu (-1 bedeutet eine "
 "automatische Zuweisung)"
@@ -5538,14 +5534,14 @@ msgid ""
 "Meant to be the names of the bus lines that stop at this bus stop. This is "
 "only used for visualization purposes"
 msgstr ""
-"Namen der Buslinien, die an dieser Bushaltestelle halten. Dies dient nur der"
-" Darstellung"
+"Namen der Buslinien, die an dieser Bushaltestelle halten. Dies dient nur der "
+"Darstellung"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1168
 #: src/netedit/GNETagPropertiesDatabase.cpp:1199
 msgid ""
-"Larger numbers of persons trying to enter will create an upstream jam on the"
-" sidewalk"
+"Larger numbers of persons trying to enter will create an upstream jam on the "
+"sidewalk"
 msgstr ""
 "Eine größere Anzahl von Personen, die versuchen, einzusteigen, führt zu "
 "einem stromaufwärts gelegenen Stau auf dem Bürgersteig"
@@ -5627,8 +5623,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1299
 msgid ""
-"Time delay after the vehicles has reached / stopped on the charging station,"
-" before the energy transfer (charging) begins"
+"Time delay after the vehicles has reached / stopped on the charging station, "
+"before the energy transfer (charging) begins"
 msgstr ""
 "Zeitverzögerung, nachdem das Fahrzeug die Ladestation erreicht / angehalten "
 "hat, bevor die Energieübertragung (Laden) beginnt"
@@ -5652,8 +5648,8 @@ msgstr "Parkplatz"
 #: src/netedit/GNETagPropertiesDatabase.cpp:1337
 msgid "Lane position in that vehicle must depart when leaves parkingArea"
 msgstr ""
-"Die Fahrstreifenposition des Fahrzeuges muss beim Verlassen des Parkbereichs"
-" verlassen werden"
+"Die Fahrstreifenposition des Fahrzeuges muss beim Verlassen des Parkbereichs "
+"verlassen werden"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1342
 msgid "Accepted badges to access this parkingArea"
@@ -5677,11 +5673,11 @@ msgstr "Die Breite der Parkstände am Straßenrand"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1365
 msgid ""
-"The length of the road-side parking spaces. By default (endPos - startPos) /"
-" roadsideCapacity"
+"The length of the road-side parking spaces. By default (endPos - startPos) / "
+"roadsideCapacity"
 msgstr ""
-"Die Länge der straßenseitigen Parkstände. Standardmäßig (endPos - startPos) "
-"/ roadsideCapacity"
+"Die Länge der straßenseitigen Parkstände. Standardmäßig (endPos - "
+"startPos) / roadsideCapacity"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1371
 #: src/netedit/GNETagPropertiesDatabase.cpp:1412
@@ -5865,8 +5861,7 @@ msgstr "Ende des Abfahrtsintervalls"
 #: src/netedit/GNETagPropertiesDatabase.cpp:1873
 msgid "The id of the vehicle type to use for this calibrator flow"
 msgstr ""
-"Die ID des Fahrzeugtyps, der für diesen Kalibratorfluss verwendet werden "
-"soll"
+"Die ID des Fahrzeugtyps, der für diesen Kalibratorfluss verwendet werden soll"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1879
 msgid "Number of vehicles per hour, equally spaced"
@@ -5887,8 +5882,8 @@ msgstr "X-Y-Position im Editor (wird nur in netedit verwendet)"
 #: src/netedit/GNETagPropertiesDatabase.cpp:1911
 msgid "An edge id or a list of edge ids where vehicles shall be rerouted"
 msgstr ""
-"Eine Kanten-ID oder eine Liste von Kanten-IDs, an denen Fahrzeuge umgeleitet"
-" werden sollen"
+"Eine Kanten-ID oder eine Liste von Kanten-IDs, an denen Fahrzeuge umgeleitet "
+"werden sollen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1918
 msgid "The probability for vehicle rerouting (0-1)"
@@ -5896,11 +5891,11 @@ msgstr "Die Wahrscheinlichkeit zum Umleiten vom Fahrzeugen (0-1)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1924
 msgid ""
-"The waiting time threshold (in s) that must be reached to activate rerouting"
-" (default -1 which disables the threshold)"
+"The waiting time threshold (in s) that must be reached to activate rerouting "
+"(default -1 which disables the threshold)"
 msgstr ""
-"Der Schwellenwert für die Wartezeit (in s), der erreicht werden muss, um die"
-" Umleitung zu aktivieren (Standardwert -1, wodurch der Schwellenwert "
+"Der Schwellenwert für die Wartezeit (in s), der erreicht werden muss, um die "
+"Umleitung zu aktivieren (Standardwert -1, wodurch der Schwellenwert "
 "deaktiviert wird)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1932
@@ -6125,8 +6120,8 @@ msgstr "Endposition auf dem angegebenen Fahrstreifen"
 #: src/netedit/GNETagPropertiesDatabase.cpp:2413
 msgid "Inner lanes, where placing of overhead wire is restricted"
 msgstr ""
-"Innere Fahrstreifen, auf denen die Verlegung von Oberleitungen eingeschränkt"
-" ist"
+"Innere Fahrstreifen, auf denen die Verlegung von Oberleitungen eingeschränkt "
+"ist"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2423
 msgid "OverheadWireClamp"
@@ -6146,8 +6141,8 @@ msgstr "ID des ausgehenden Oberleitungssegments der Klemme"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2440
 msgid ""
-"ID of the overhead wire segment, to the end of which the overhead wire clamp"
-" is connected"
+"ID of the overhead wire segment, to the end of which the overhead wire clamp "
+"is connected"
 msgstr ""
 "ID des Oberleitungssegments, an dessen Ende die Oberleitungsklemme "
 "angeschlossen ist"
@@ -6436,8 +6431,7 @@ msgid "WaypointLane"
 msgstr "Wegpunkt auf Fahrstreifen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3213
-msgid ""
-"The lateral offset on the named lane at which the vehicle must waypoint"
+msgid "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
 "Der seitliche Versatz auf dem benannten Fahrstreifen, auf den das Fahrzeug "
 "einen Wegpunkt anfährt"
@@ -7601,8 +7595,8 @@ msgstr "Höhe des gerenderten Bildes in Metern"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7100
 msgid ""
-"The edges the vehicle shall drive along, given as their ids, separated using"
-" spaces"
+"The edges the vehicle shall drive along, given as their ids, separated using "
+"spaces"
 msgstr ""
 "Die Kanten, die das Fahrzeug entlangfahren soll, werden als IDs angegeben "
 "und durch Leerzeichen getrennt"
@@ -7616,14 +7610,13 @@ msgid ""
 "When defining a repeating route with stops and those stops use the until "
 "attribute,"
 msgstr ""
-"Wenn eine sich wiederholende Route mit Haltestellen definiert wird und diese"
-" Haltestellen das until-Attribut verwenden,"
+"Wenn eine sich wiederholende Route mit Haltestellen definiert wird und diese "
+"Haltestellen das until-Attribut verwenden,"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7114
 msgid "the times will be shifted forward by 'cycleTime' on each repeat"
 msgstr ""
-"die Zeiten werden bei jeder Wiederholung um 'cycleTime' nach vorne "
-"verschoben"
+"die Zeiten werden bei jeder Wiederholung um 'cycleTime' nach vorne verschoben"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7124
 msgid "An abstract vehicle class"
@@ -7656,8 +7649,7 @@ msgstr ""
 "speedFactor)."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7154
-msgid ""
-"Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
+msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr ""
 "Anzuwenden, wo/wenn keine Geschwindigkeitsbegrenzung vorliegt (Fahrrad, "
 "einige Autobahnen) [m/s]"
@@ -7721,8 +7713,8 @@ msgid ""
 "The minimum lateral gap at a speed difference of 50km/h when using the "
 "sublane-model"
 msgstr ""
-"Der minimale seitliche Abstand bei einer Geschwindigkeitsdifferenz von 50 "
-"km/h bei Verwendung des Sublane-Modells"
+"Der minimale seitliche Abstand bei einer Geschwindigkeitsdifferenz von 50 km/"
+"h bei Verwendung des Sublane-Modells"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7239
 msgid "The maximum lateral speed when using the sublane-model"
@@ -7734,8 +7726,8 @@ msgid ""
 "The interval length for which vehicle performs its decision logic "
 "(acceleration and lane-changing)"
 msgstr ""
-"Die Intervalllänge, für die das Fahrzeug seine Entscheidungslogik durchführt"
-" (Beschleunigung und Fahrstreifenwechsel)"
+"Die Intervalllänge, für die das Fahrzeug seine Entscheidungslogik durchführt "
+"(Beschleunigung und Fahrstreifenwechsel)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7253
 msgid "3D model file for this class"
@@ -7767,8 +7759,8 @@ msgstr "Die Geschwindigkeit, mit der das Fahrzeug das Netz verlassen soll"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7327
 msgid ""
-"A string specifying the id of a public transport line which can be used when"
-" specifying person rides"
+"A string specifying the id of a public transport line which can be used when "
+"specifying person rides"
 msgstr ""
 "Ein String der die ID einer ÖV-Linie angibt, die bei der Angabe von "
 "Personenfahrten verwendet werden kann"
@@ -7793,8 +7785,8 @@ msgstr ""
 msgid ""
 "The lateral position on the arrival lane at which the vehicle shall arrive"
 msgstr ""
-"Die seitliche Position auf dem Ankunftsfahrstreifen, an dem das Fahrzeug das"
-" Netz verlassen soll"
+"Die seitliche Position auf dem Ankunftsfahrstreifen, an dem das Fahrzeug das "
+"Netz verlassen soll"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7356
 msgid "Insertion checks"
@@ -7863,16 +7855,15 @@ msgstr "Das Verzögerungsvermögen von Fahrzeugen dieses Typs [m/s^2]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7445
 msgid ""
-"The apparent deceleration of the vehicle as used by the standard model "
-"[m/s^2]"
+"The apparent deceleration of the vehicle as used by the standard model [m/"
+"s^2]"
 msgstr ""
-"Die vom Standardmodell verwendete scheinbare Verzögerung des Fahrzeugs "
-"[m/s^2]"
+"Die vom Standardmodell verwendete scheinbare Verzögerung des Fahrzeugs [m/"
+"s^2]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7451
 msgid "The maximal physically possible deceleration for the vehicle [m/s^2]"
-msgstr ""
-"Die maximal physikalisch mögliche Verzögerung für das Fahrzeug [m/s^2]"
+msgstr "Die maximal physikalisch mögliche Verzögerung für das Fahrzeug [m/s^2]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7459
 #: src/netedit/GNETagPropertiesDatabase.cpp:7466
@@ -7921,8 +7912,7 @@ msgstr "EIDM-Gleichgültigkeitsparameter [-]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7528
 msgid "EIDM leader speed estimation error parameter [-]"
-msgstr ""
-"EIDM-Schätzfehlerparameter für Geschwindigkeit des Vorderfahrzeugs [-]"
+msgstr "EIDM-Schätzfehlerparameter für Geschwindigkeit des Vorderfahrzeugs [-]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7534
 msgid "EIDM gap estimation error parameter [-]"
@@ -7938,8 +7928,8 @@ msgstr "Maximaler EIDM-Ruckparameter [m/s^3]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7552
 msgid ""
-"EIDM maximal negative acceleration between two Action Points (threshold) "
-"[m/s^2]"
+"EIDM maximal negative acceleration between two Action Points (threshold) [m/"
+"s^2]"
 msgstr ""
 "EIDM maximale negative Beschleunigung zwischen zwei Aktionspunkten "
 "(Schwellenwert) [m/s^2]"
@@ -7961,8 +7951,8 @@ msgstr "EIDM-Verschiebungsparameter der Anfahr-/Abfahrkurve [-]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7576
 msgid ""
-"EIDM parameter if model shall include vehicle dynamics into the acceleration"
-" calculation [0/1]"
+"EIDM parameter if model shall include vehicle dynamics into the acceleration "
+"calculation [0/1]"
 msgstr ""
 "EIDM-Parameter, wenn das Modell die Fahrdynamik in die "
 "Beschleunigungsberechnung einbeziehen soll [0/1]"
@@ -8031,8 +8021,8 @@ msgid ""
 "Minimum distance to pedestrians that are walking towards the conflict point "
 "with the ego vehicle."
 msgstr ""
-"Mindestabstand zu Fußgängern, die auf den Konfliktpunkt mit dem Ego-Fahrzeug"
-" zulaufen."
+"Mindestabstand zu Fußgängern, die auf den Konfliktpunkt mit dem Ego-Fahrzeug "
+"zulaufen."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7719
 msgid ""
@@ -8052,16 +8042,16 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7731
 msgid ""
-"This value causes vehicles to violate a red light if the duration of the red"
-" phase is lower than the given threshold."
+"This value causes vehicles to violate a red light if the duration of the red "
+"phase is lower than the given threshold."
 msgstr ""
 "Dieser Wert bewirkt, dass Fahrzeuge gegen eine rote Phase verstoßen, wenn "
 "die Dauer der Rotphase kleiner als der vorgegebene Schwellenwert ist."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7737
 msgid ""
-"This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
-" violating a red light."
+"This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
+"violating a red light."
 msgstr ""
 "Dieser Wert bewirkt, dass von jmDriveAfterRedTime betroffene Fahrzeuge beim "
 "Überfahren einer roten LSA langsamer werden."
@@ -8157,8 +8147,8 @@ msgid ""
 "The eagerness for overtaking through the opposite-direction lane. Higher "
 "values result in more lane-changing."
 msgstr ""
-"Bereitschaft zum Überholen auf dem Gegenfahrstreifen. Höhere Werte führen zu"
-" mehr Fahrstreifenwechseln."
+"Bereitschaft zum Überholen auf dem Gegenfahrstreifen. Höhere Werte führen zu "
+"mehr Fahrstreifenwechseln."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7816
 msgid "Willingness to encroach laterally on other drivers."
@@ -8169,14 +8159,14 @@ msgid ""
 "Minimum lateral gap when encroaching laterally on other drives (alternative "
 "way to define lcPushy)"
 msgstr ""
-"Minimaler seitlicher Abstand beim Beeinträchigen anderer Fahrer (alternative"
-" Art, lcPushy zu definieren)"
+"Minimaler seitlicher Abstand beim Beeinträchigen anderer Fahrer (alternative "
+"Art, lcPushy zu definieren)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7828
 msgid "Willingness to accept lower front and rear gaps on the target lane."
 msgstr ""
-"Bereitschaft, kürzere vordere und hintere Lücken auf dem Zielfahrstreifen zu"
-" akzeptieren."
+"Bereitschaft, kürzere vordere und hintere Lücken auf dem Zielfahrstreifen zu "
+"akzeptieren."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7834
 msgid "Dynamic factor for modifying lcAssertive and lcPushy."
@@ -8196,8 +8186,8 @@ msgstr "Maximale Querbeschleunigung pro Sekunde."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7852
 msgid ""
-"Factor for configuring the strategic lookahead distance when a change to the"
-" left is necessary (relative to right lookahead)."
+"Factor for configuring the strategic lookahead distance when a change to the "
+"left is necessary (relative to right lookahead)."
 msgstr ""
 "Faktor zur Konfiguration des strategischen Vorgriffs-Abstands, wenn ein "
 "Wechsel nach links erforderlich ist (relativ zum rechten Vorgriff)."
@@ -8224,8 +8214,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7876
 msgid ""
-"Distance to an upcoming turn on the vehicles route, below which the "
-"alignment"
+"Distance to an upcoming turn on the vehicles route, below which the alignment"
 msgstr ""
 "Entfernung zu einer bevorstehenden Abbiegevorgang auf der Fahrzeugroute, "
 "unter der die seitliche Position"
@@ -8341,8 +8330,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8022
 msgid ""
-"Whether the stop may be skipped if no passengers wants to embark or "
-"disembark"
+"Whether the stop may be skipped if no passengers wants to embark or disembark"
 msgstr ""
 "Ob die Haltestelle übersprungen werden darf, wenn kein Fahrgast ein- oder "
 "aussteigen möchte"
@@ -8471,8 +8459,8 @@ msgid ""
 "List of possible traffic modes. Walking is always possible regardless of "
 "this value"
 msgstr ""
-"Liste der möglichen Verkehrsmodi. Gehen ist unabhängig von diesem Wert immer"
-" möglich"
+"Liste der möglichen Verkehrsmodi. Gehen ist unabhängig von diesem Wert immer "
+"möglich"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8234
 msgid "list of vehicle alternatives to take for the person trip"
@@ -8660,8 +8648,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8555
 msgid ""
-"Whether the traffic statistic of all edges shall be aggregated into a single"
-" value"
+"Whether the traffic statistic of all edges shall be aggregated into a single "
+"value"
 msgstr ""
 "Ob die Verkehrsstatistik aller Kanten zu einem einzigen Wert aggregiert "
 "werden soll"
@@ -8687,8 +8675,7 @@ msgid "The name of the lane the % shall be located at"
 msgstr "Der Name des Fahrstreifens wo der/die % liegen soll"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8624
-msgid ""
-"If set, no error will be reported if element is placed behind the lane."
+msgid "If set, no error will be reported if element is placed behind the lane."
 msgstr ""
 "Wenn gesetzt, wird kein Fehler gemeldet, wenn das Element außerhalb der "
 "Fahrstreifengrenzen platziert wird."
@@ -8697,8 +8684,8 @@ msgstr ""
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,"
 msgstr ""
-"Stattdessen wird es 0.1 Meter vom Fahrstreifenende entfernt oder an Position"
-" 0.1 platziert"
+"Stattdessen wird es 0.1 Meter vom Fahrstreifenende entfernt oder an Position "
+"0.1 platziert"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8626
 msgid ""
@@ -8736,8 +8723,8 @@ msgstr "Die Abfahrtszeit des (ersten) aus dieser Fahrtdefinition generiertem %"
 msgid ""
 "Explicitly allows the given vehicle classes (not given will be not allowed)"
 msgstr ""
-"Erlaubt ausdrücklich die angegebenen Fahrzeugklassen (alle nicht angegebenen"
-" sind nicht zugelassen)"
+"Erlaubt ausdrücklich die angegebenen Fahrzeugklassen (alle nicht angegebenen "
+"sind nicht zugelassen)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8699
 msgid ""
@@ -8770,8 +8757,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8749
 msgid ""
-"List of edge ids that must all be part of the future route of the vehicle to"
-" qualify for detection"
+"List of edge ids that must all be part of the future route of the vehicle to "
+"qualify for detection"
 msgstr ""
 "Liste an Kanten-IDs, welche alle Teil der zukünftigen Route des Fahrzeugs "
 "sein müssen, um für die Erfassung geeignet zu sein"
@@ -8825,81 +8812,81 @@ msgstr "Wiederholen deaktiviert"
 msgid "Cannot Redo in the middle of "
 msgstr "Wiederholen inmitten dieses Vorgangs nicht möglich: "
 
-#: src/netedit/GNEViewNet.cpp:374
+#: src/netedit/GNEViewNet.cpp:375
 msgid "Locate a junction within the network. (Shift+J)"
 msgstr "Finde einen Knotenpunkt im Netz. (Shift+J)"
 
-#: src/netedit/GNEViewNet.cpp:378
+#: src/netedit/GNEViewNet.cpp:379
 msgid "Locate an edge within the network. (Shift+E)"
 msgstr "Finde eine Kante im Netz. (Shift+E)"
 
-#: src/netedit/GNEViewNet.cpp:382
+#: src/netedit/GNEViewNet.cpp:383
 msgid "Locate WalkingAreas"
 msgstr "WalkingAreas finden"
 
-#: src/netedit/GNEViewNet.cpp:382
+#: src/netedit/GNEViewNet.cpp:383
 msgid "Locate a walkingArea within the network. (Shift+W)"
 msgstr "Finde eine WalkingArea im Netz. (Shift+W)"
 
-#: src/netedit/GNEViewNet.cpp:386
+#: src/netedit/GNEViewNet.cpp:387
 msgid "Locate a vehicle within the network. (Shift+V)"
 msgstr "Finde ein Fahrzeug im Netz. (Shift+V)"
 
-#: src/netedit/GNEViewNet.cpp:390
+#: src/netedit/GNEViewNet.cpp:391
 msgid "Locate a person within the network. (Shift+P)"
 msgstr "Finde eine Person im Netz. (Shift+P)"
 
-#: src/netedit/GNEViewNet.cpp:394
+#: src/netedit/GNEViewNet.cpp:395
 msgid "Locate Containers"
 msgstr "Container finden"
 
-#: src/netedit/GNEViewNet.cpp:394
+#: src/netedit/GNEViewNet.cpp:395
 msgid "Locate a container within the network. (Shift+C)"
 msgstr "Finde einen Container im Netz. (Shift+C)"
 
-#: src/netedit/GNEViewNet.cpp:398
+#: src/netedit/GNEViewNet.cpp:399
 msgid "Locate Route"
 msgstr "Routen finden"
 
-#: src/netedit/GNEViewNet.cpp:398
+#: src/netedit/GNEViewNet.cpp:399
 msgid "Locate a route within the network. (Shift+R)"
 msgstr "Finde eine Route im Netz. (Shift+R)"
 
-#: src/netedit/GNEViewNet.cpp:402
+#: src/netedit/GNEViewNet.cpp:403
 msgid "Locate Stops"
 msgstr "Halte finden"
 
-#: src/netedit/GNEViewNet.cpp:402
+#: src/netedit/GNEViewNet.cpp:403
 msgid "Locate a stop within the network. (Shift+S)"
 msgstr "Finde einen Halt im Netz. (Shift+S)"
 
-#: src/netedit/GNEViewNet.cpp:413
+#: src/netedit/GNEViewNet.cpp:414
 msgid "Locate a tls within the network. (Shift+T)"
 msgstr "Finde eine LSA im Netz. (Shift+T)"
 
-#: src/netedit/GNEViewNet.cpp:417
+#: src/netedit/GNEViewNet.cpp:418
 msgid "Locate an additional structure within the network. (Shift+A)"
 msgstr "Finde ein weiteres Element im Netz. (Shift+A)"
 
-#: src/netedit/GNEViewNet.cpp:421
+#: src/netedit/GNEViewNet.cpp:422
 msgid "Locate a PoI within the network. (Shift+O)"
 msgstr "Finde ein PoI im Netz. (Shift+O)"
 
-#: src/netedit/GNEViewNet.cpp:425
+#: src/netedit/GNEViewNet.cpp:426
 msgid "Locate a Polygon within the network. (Shift+L)"
 msgstr "Finde ein Polygon im Netz. (Shift+L)"
 
-#: src/netedit/GNEViewNet.cpp:754
+#: src/netedit/GNEViewNet.cpp:755
 msgid "GUI-Settings cannot be saved in "
 msgstr ""
 "Darstellungseinstellungen konnten nicht in folgender Datei gespeichert "
 "werden: "
 
-#: src/netedit/GNEViewNet.cpp:919
+#: src/netedit/GNEViewNet.cpp:920
 msgid "Confirm Junction Merger"
 msgstr "Bestätige die Knotenpunktzusammenlegung"
 
-#: src/netedit/GNEViewNet.cpp:920
+#: src/netedit/GNEViewNet.cpp:921
 msgid ""
 "Do you wish to merge junctions '%' and '%'?\n"
 "('%' will be eliminated and its roads added to '%')"
@@ -8907,313 +8894,313 @@ msgstr ""
 "Sollen die Knotenpunkte '%' und '%' zusammengeführt werden?\n"
 "('%' wird entfernt und seine Straßen zu '%' hinzugefügt)"
 
-#: src/netedit/GNEViewNet.cpp:940
+#: src/netedit/GNEViewNet.cpp:941
 msgid " requires switch to network mode. Continue?"
 msgstr " erfordert den Wechsel in den Netzmodus. Fortfahren?"
 
-#: src/netedit/GNEViewNet.cpp:942
+#: src/netedit/GNEViewNet.cpp:943
 msgid " requires switch to demand mode. Continue?"
 msgstr " erfordert den Wechsel in den Nachfragemodus. Fortfahren?"
 
-#: src/netedit/GNEViewNet.cpp:944
+#: src/netedit/GNEViewNet.cpp:945
 msgid " requires switch to data mode. Continue?"
 msgstr " erfordert den Wechsel in den Datenmodus. Fortfahren?"
 
-#: src/netedit/GNEViewNet.cpp:949
+#: src/netedit/GNEViewNet.cpp:950
 msgid "Confirm switch mode"
 msgstr "Moduswechsel bestätigen"
 
-#: src/netedit/GNEViewNet.cpp:1004
+#: src/netedit/GNEViewNet.cpp:1005
 msgid "Multiple lane in the same edge selected"
 msgstr "Mehrere Fahrstreifen der gleichen Kante ausgewählt"
 
-#: src/netedit/GNEViewNet.cpp:1005
+#: src/netedit/GNEViewNet.cpp:1006
 msgid "There are selected lanes that belong to the same edge."
 msgstr "Es gehören mehrere ausgewählte Fahrstreifen zu der gleichen Kante."
 
-#: src/netedit/GNEViewNet.cpp:1006
+#: src/netedit/GNEViewNet.cpp:1007
 msgid "Only one lane per edge will be restricted to %."
 msgstr "Nur ein Fahrstreifen pro Kante wird auf % beschränkt."
 
-#: src/netedit/GNEViewNet.cpp:1021 src/netedit/GNEViewNet.cpp:1027
+#: src/netedit/GNEViewNet.cpp:1022 src/netedit/GNEViewNet.cpp:1028
 #, c-format
 msgid "Set vclass to % for selected lanes"
 msgstr "Fahrzeugklasse % für die ausgewählten Fahrstreifen setzen"
 
-#: src/netedit/GNEViewNet.cpp:1022
+#: src/netedit/GNEViewNet.cpp:1023
 msgid ""
 "All lanes own already another lane in the same edge with a restriction for "
 msgstr ""
 "Alle Fahrstreifen besitzen bereits einen anderen Fahrstreifen in der "
 "gleichen Kante mit einer Einschränkung für "
 
-#: src/netedit/GNEViewNet.cpp:1028
+#: src/netedit/GNEViewNet.cpp:1029
 msgid "% lanes will be restricted to %. Continue?"
 msgstr "% Fahrstreifen werden auf % beschränkt. Fortfahren?"
 
-#: src/netedit/GNEViewNet.cpp:1045
+#: src/netedit/GNEViewNet.cpp:1046
 msgid "restrict lane to "
 msgstr "Fahrstreifen einschränken zu "
 
-#: src/netedit/GNEViewNet.cpp:1085 src/netedit/GNEViewNet.cpp:1091
+#: src/netedit/GNEViewNet.cpp:1086 src/netedit/GNEViewNet.cpp:1092
 #, c-format
 msgid "Add vclass % to selected lanes"
 msgstr "Fahrzeugklasse % zu den ausgewählten Fahrstreifen hinzufügen"
 
-#: src/netedit/GNEViewNet.cpp:1086
+#: src/netedit/GNEViewNet.cpp:1087
 msgid ""
 "All lanes own already another lane in the same edge with a restriction to %."
 msgstr ""
 "In jeder Kante der ausgewählten Fahrstreifen existiert bereits ein auf % "
 "beschränkter Fahrstreifen."
 
-#: src/netedit/GNEViewNet.cpp:1092
+#: src/netedit/GNEViewNet.cpp:1093
 msgid "% restrictions to % will be added. Continue?"
 msgstr "% Einschränkungen auf % werden hinzugefügt. Fortfahren?"
 
-#: src/netedit/GNEViewNet.cpp:1099
+#: src/netedit/GNEViewNet.cpp:1100
 msgid "add restrictions for "
 msgstr "Einschränkungen hinzufügen für "
 
-#: src/netedit/GNEViewNet.cpp:1109
+#: src/netedit/GNEViewNet.cpp:1110
 msgid "add vclass for "
 msgstr "Fahrzeugklasse hinzufügen für "
 
-#: src/netedit/GNEViewNet.cpp:1163 src/netedit/GNEViewNet.cpp:1169
+#: src/netedit/GNEViewNet.cpp:1164 src/netedit/GNEViewNet.cpp:1170
 #, c-format
 msgid "Remove vclass % from selected lanes"
 msgstr "Fahrzeugklasse % von den ausgewählten Fahrstreifen entfernen"
 
-#: src/netedit/GNEViewNet.cpp:1164
+#: src/netedit/GNEViewNet.cpp:1165
 msgid "The selected lanes and edges don't have a restriction to %."
 msgstr "Die ausgewählten Fahrstreifen und Kanten sind nicht auf % beschränkt."
 
-#: src/netedit/GNEViewNet.cpp:1170
+#: src/netedit/GNEViewNet.cpp:1171
 msgid "% restrictions to % will be removed. Continue?"
 msgstr "% Einschränkungen auf % werden entfernt. Fortfahren?"
 
-#: src/netedit/GNEViewNet.cpp:1187
+#: src/netedit/GNEViewNet.cpp:1188
 msgid "Remove vclass for "
 msgstr "Fahrzeugklasse entfernen für "
 
-#: src/netedit/GNEViewNet.cpp:1678
+#: src/netedit/GNEViewNet.cpp:1724
 msgid "Cannot delete in this mode"
 msgstr "In diesem Modus kann nichts gelöscht werden"
 
-#: src/netedit/GNEViewNet.cpp:1681
+#: src/netedit/GNEViewNet.cpp:1727
 msgid "delete network inspected elements"
 msgstr "Elemente aus Netz löschen"
 
-#: src/netedit/GNEViewNet.cpp:1691
+#: src/netedit/GNEViewNet.cpp:1737
 msgid "delete network selection"
 msgstr "Netzauswahl löschen"
 
-#: src/netedit/GNEViewNet.cpp:1701
+#: src/netedit/GNEViewNet.cpp:1747
 msgid "delete demand inspected elements"
 msgstr "Nachfrageelemente löschen"
 
-#: src/netedit/GNEViewNet.cpp:1711
+#: src/netedit/GNEViewNet.cpp:1757
 msgid "delete demand selection"
 msgstr "Nachfrageauswahl löschen"
 
-#: src/netedit/GNEViewNet.cpp:1721
+#: src/netedit/GNEViewNet.cpp:1767
 msgid "delete data inspected elements"
 msgstr "Datenelemente löschen"
 
-#: src/netedit/GNEViewNet.cpp:1731
+#: src/netedit/GNEViewNet.cpp:1777
 msgid "delete data selection"
 msgstr "Datenauswahl löschen"
 
-#: src/netedit/GNEViewNet.cpp:2371
+#: src/netedit/GNEViewNet.cpp:2417
 msgid "Reverse selected edges"
 msgstr "Ausgewählte Kanten umdrehen"
 
-#: src/netedit/GNEViewNet.cpp:2378
+#: src/netedit/GNEViewNet.cpp:2424
 msgid "Reverse edge"
 msgstr "Kante umdrehen"
 
-#: src/netedit/GNEViewNet.cpp:2392
+#: src/netedit/GNEViewNet.cpp:2438
 msgid "Add Reverse edge for selected edges"
 msgstr "Gegenrichtungskante für die ausgewählten Kanten erstellen"
 
-#: src/netedit/GNEViewNet.cpp:2399
+#: src/netedit/GNEViewNet.cpp:2445
 msgid "Add reverse edge"
 msgstr "Gegenrichtungskante hinzufügen"
 
-#: src/netedit/GNEViewNet.cpp:2413
+#: src/netedit/GNEViewNet.cpp:2459
 msgid "Add Reverse disconnected edge for selected edges"
 msgstr ""
 "Gegenrichtungskante für die ausgewählten Kanten erstellen (nicht verbinden)"
 
-#: src/netedit/GNEViewNet.cpp:2420
+#: src/netedit/GNEViewNet.cpp:2466
 msgid "Add reverse disconnected edge"
 msgstr "Gegenrichtungskante hinzufügen (nicht verbinden)"
 
-#: src/netedit/GNEViewNet.cpp:2449
+#: src/netedit/GNEViewNet.cpp:2495
 msgid "reset geometry points"
 msgstr "Geometriestützpunkte zurücksetzen"
 
-#: src/netedit/GNEViewNet.cpp:2470
+#: src/netedit/GNEViewNet.cpp:2516
 msgid "straighten selected edges"
 msgstr "Ausgewählte Kanten begradigen"
 
-#: src/netedit/GNEViewNet.cpp:2478
+#: src/netedit/GNEViewNet.cpp:2524
 msgid "straighten edge"
 msgstr "Kante begradigen"
 
-#: src/netedit/GNEViewNet.cpp:2492
+#: src/netedit/GNEViewNet.cpp:2538
 msgid "smooth selected edges"
 msgstr "ausgewählte Kanten glätten"
 
-#: src/netedit/GNEViewNet.cpp:2499
+#: src/netedit/GNEViewNet.cpp:2545
 msgid "smooth edge"
 msgstr "Kante glätten"
 
-#: src/netedit/GNEViewNet.cpp:2513
+#: src/netedit/GNEViewNet.cpp:2559
 msgid "straighten elevation of selected edges"
 msgstr "Höhe der ausgewählten Kanten begradigen"
 
-#: src/netedit/GNEViewNet.cpp:2520
+#: src/netedit/GNEViewNet.cpp:2566
 msgid "straighten edge elevation"
 msgstr "Kantenhöhe begradigen"
 
-#: src/netedit/GNEViewNet.cpp:2534
+#: src/netedit/GNEViewNet.cpp:2580
 msgid "smooth elevation of selected edges"
 msgstr "Höhe der ausgewählten Kanten glätten"
 
-#: src/netedit/GNEViewNet.cpp:2541
+#: src/netedit/GNEViewNet.cpp:2587
 msgid "smooth edge elevation"
 msgstr "Kantenhöhe glätten"
 
-#: src/netedit/GNEViewNet.cpp:2555
+#: src/netedit/GNEViewNet.cpp:2601
 msgid "reset edge lengths"
 msgstr "Kantenlängen zurücksetzen"
 
-#: src/netedit/GNEViewNet.cpp:2584
+#: src/netedit/GNEViewNet.cpp:2630
 msgid "copy edge template"
 msgstr "Kantenvorlage kopieren"
 
-#: src/netedit/GNEViewNet.cpp:2612
+#: src/netedit/GNEViewNet.cpp:2658
 msgid "simplify shapes"
 msgstr "Shapes vereinfachen"
 
-#: src/netedit/GNEViewNet.cpp:2654
+#: src/netedit/GNEViewNet.cpp:2700
 msgid "close polygon shapes"
 msgstr "Polygon-Shapes schließen"
 
-#: src/netedit/GNEViewNet.cpp:2686
+#: src/netedit/GNEViewNet.cpp:2732
 msgid "open polygon shapes"
 msgstr "Polygon-Shapes öffnen"
 
-#: src/netedit/GNEViewNet.cpp:2733
+#: src/netedit/GNEViewNet.cpp:2779
 msgid "select within polygon boundary"
 msgstr "Innerhalb des Polygonumrisses auswählen"
 
-#: src/netedit/GNEViewNet.cpp:2757
+#: src/netedit/GNEViewNet.cpp:2803
 msgid "triangulate polygon"
 msgstr "Polygon triangulieren"
 
-#: src/netedit/GNEViewNet.cpp:2793 src/netedit/GNEViewNet.cpp:2823
-#: src/netedit/GNEViewNet.cpp:2838 src/netedit/GNEViewNet.cpp:2855
-#: src/netedit/GNEViewNet.cpp:2872 src/netedit/GNEViewNet.cpp:2887
+#: src/netedit/GNEViewNet.cpp:2839 src/netedit/GNEViewNet.cpp:2869
+#: src/netedit/GNEViewNet.cpp:2884 src/netedit/GNEViewNet.cpp:2901
+#: src/netedit/GNEViewNet.cpp:2918 src/netedit/GNEViewNet.cpp:2933
 msgid "simplify edited shape"
 msgstr "bearbeiteten Shape vereinfachen"
 
-#: src/netedit/GNEViewNet.cpp:2808
+#: src/netedit/GNEViewNet.cpp:2854
 msgid "straigthen edited shape"
 msgstr "bearbeiteten Shape begradigen"
 
-#: src/netedit/GNEViewNet.cpp:2922
+#: src/netedit/GNEViewNet.cpp:2968
 #, c-format
 msgid "No lanes around % to attach it"
 msgstr "Keine Fahrstreifen in der Nähe, um % anzubinden"
 
-#: src/netedit/GNEViewNet.cpp:2945
+#: src/netedit/GNEViewNet.cpp:2991
 msgid "attach POI into lane"
 msgstr "PoI an Fahrstreifen anbinden"
 
-#: src/netedit/GNEViewNet.cpp:2958
+#: src/netedit/GNEViewNet.cpp:3004
 msgid "release POI from lane"
 msgstr "PoI von Fahrstreifen lösen"
 
-#: src/netedit/GNEViewNet.cpp:2975
+#: src/netedit/GNEViewNet.cpp:3021
 msgid "reverse % '%'"
 msgstr "drehe % '%' um"
 
-#: src/netedit/GNEViewNet.cpp:2989
+#: src/netedit/GNEViewNet.cpp:3035
 msgid "add reverse '%'"
 msgstr "füge Gegenrichtung '%' hinzu"
 
-#: src/netedit/GNEViewNet.cpp:3018
+#: src/netedit/GNEViewNet.cpp:3064
 msgid "change edge Geometry Point position"
 msgstr "Geometriestützpunkt einer Kante verschieben"
 
-#: src/netedit/GNEViewNet.cpp:3050
+#: src/netedit/GNEViewNet.cpp:3096
 msgid "change polygon Geometry Point position"
 msgstr "Punkt eines Polygons verschieben"
 
-#: src/netedit/GNEViewNet.cpp:3070
+#: src/netedit/GNEViewNet.cpp:3116
 msgid "change TAZ Geometry Point position"
 msgstr "Geometriepunkt einer Verkehrsumlegungszone verschieben"
 
-#: src/netedit/GNEViewNet.cpp:3094
+#: src/netedit/GNEViewNet.cpp:3140
 msgid "reset end points of selected edges"
 msgstr "Endpunkte der ausgewählten Kanten zurücksetzen"
 
-#: src/netedit/GNEViewNet.cpp:3105
+#: src/netedit/GNEViewNet.cpp:3151
 msgid "reset end points of edge '"
 msgstr "Endpunkte der folgenden Kante zurücksetzen: '"
 
-#: src/netedit/GNEViewNet.cpp:3124
+#: src/netedit/GNEViewNet.cpp:3170
 msgid "duplicate selected lanes"
 msgstr "Ausgewählte Fahrstreifen duplizieren"
 
-#: src/netedit/GNEViewNet.cpp:3161
+#: src/netedit/GNEViewNet.cpp:3207
 msgid "reset custom lane shapes"
 msgstr "benutzerdefinierte Fahrstreifen-Shapes zurücksetzen"
 
-#: src/netedit/GNEViewNet.cpp:3168
+#: src/netedit/GNEViewNet.cpp:3214
 msgid "reset custom lane shape"
 msgstr "benutzerdefinierten Fahrstreifen-Shape zurücksetzen"
 
-#: src/netedit/GNEViewNet.cpp:3184
+#: src/netedit/GNEViewNet.cpp:3230
 msgid "reset opposite lanes"
 msgstr "Verknüpfung mit Gegenrichtungsfahrstreifen lösen"
 
-#: src/netedit/GNEViewNet.cpp:3191
+#: src/netedit/GNEViewNet.cpp:3237
 msgid "reset opposite lane"
 msgstr "Verknüpfung mit Gegenrichtungsfahrstreifen lösen"
 
-#: src/netedit/GNEViewNet.cpp:3250
+#: src/netedit/GNEViewNet.cpp:3296
 msgid "select lane reachability"
 msgstr "Erreichbare Fahrstreifen auswählen"
 
-#: src/netedit/GNEViewNet.cpp:3462
+#: src/netedit/GNEViewNet.cpp:3508
 msgid "reset edge endpoints"
 msgstr "Kantenendpositionen zurücksetzen"
 
-#: src/netedit/GNEViewNet.cpp:3507 src/netedit/GNEViewNet.cpp:3773
-#: src/netedit/GNEViewNet.cpp:3808 src/netedit/GNEViewNet.cpp:3831
+#: src/netedit/GNEViewNet.cpp:3553 src/netedit/GNEViewNet.cpp:3819
+#: src/netedit/GNEViewNet.cpp:3854 src/netedit/GNEViewNet.cpp:3877
 msgid "Grid is still active, press ctrl+g to deactivate"
 msgstr "Raster ist noch aktiviert, drücke ctrl+g zum Deaktivieren"
 
-#: src/netedit/GNEViewNet.cpp:3526
+#: src/netedit/GNEViewNet.cpp:3572
 msgid "reset custom junction shapes"
 msgstr "Benutzerdefinierte Knotenpunkt-Shapes zurücksetzen"
 
-#: src/netedit/GNEViewNet.cpp:3533
+#: src/netedit/GNEViewNet.cpp:3579
 msgid "reset custom junction shape"
 msgstr "Benutzerdefinierten Knotenpunkt-Shape zurücksetzen"
 
-#: src/netedit/GNEViewNet.cpp:3642
+#: src/netedit/GNEViewNet.cpp:3688
 msgid "clear connections of selected junctions"
 msgstr "Verbindungen von ausgewählten Knotenpunkten entfernen"
 
-#: src/netedit/GNEViewNet.cpp:3676
+#: src/netedit/GNEViewNet.cpp:3722
 msgid "reset connections of selected junctions"
 msgstr "Verbindungen von ausgewählten Knotenpunkten zurücksetzen"
 
-#: src/netedit/GNEViewNet.cpp:3699 src/netedit/GNEViewNet.cpp:3726
+#: src/netedit/GNEViewNet.cpp:3745 src/netedit/GNEViewNet.cpp:3772
 msgid "add TLS in multiple junctions"
 msgstr "LSA zu mehreren Knotenpunkten hinzufügen"
 
@@ -9400,8 +9387,7 @@ msgstr "Knotenpunkt-Shape ein-/ausblenden. (Ctrl+J)"
 #: src/netedit/GNEViewNetHelper.cpp:2728
 msgid "Draw vehicles spread in lane or depart position"
 msgstr ""
-"Zeichne Fahrzeuge über den Fahrstreifen verteilt oder an der "
-"Abfahrtsposition"
+"Zeichne Fahrzeuge über den Fahrstreifen verteilt oder an der Abfahrtsposition"
 
 #: src/netedit/GNEViewNetHelper.cpp:2728 src/netedit/GNEViewNetHelper.cpp:3012
 msgid "Draw vehicles spread in lane or in depart position."
@@ -9421,8 +9407,8 @@ msgstr "Bei Klick Fahrstreifen auswählen"
 msgid ""
 "Toggle whether clicking should inspect/select/delete lanes instead of edges."
 msgstr ""
-"Wechsle zwischen Fahrstreifen und Kanten als mit einem Klick "
-"geprüfte/ausgewählte/gelöschte Elemente."
+"Wechsle zwischen Fahrstreifen und Kanten als mit einem Klick geprüfte/"
+"ausgewählte/gelöschte Elemente."
 
 #: src/netedit/GNEViewNetHelper.cpp:2748
 msgid "Toggle show connections over junctions."
@@ -9475,19 +9461,18 @@ msgstr "Knotenpunkte automatisch zusammenführen"
 #: src/netedit/GNEViewNetHelper.cpp:2790
 msgid "Toggle ask for confirmation before merging junction."
 msgstr ""
-"Um Bestätigung bitten vor dem Zusammenfügen eines Knotenpunkts "
-"ein-/ausschalten."
+"Um Bestätigung bitten vor dem Zusammenfügen eines Knotenpunkts ein-/"
+"ausschalten."
 
 #: src/netedit/GNEViewNetHelper.cpp:2796
 msgid "Edge chain mode"
 msgstr "Kanten verketten"
 
 #: src/netedit/GNEViewNetHelper.cpp:2796
-msgid ""
-"Create consecutive edges with a single click (hit ESC to cancel chain)."
+msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
-"Erstellen von aufeinanderfolgenden Kanten mit einem Klick (ESC zum Abbrechen"
-" der Kette drücken)."
+"Erstellen von aufeinanderfolgenden Kanten mit einem Klick (ESC zum Abbrechen "
+"der Kette drücken)."
 
 #: src/netedit/GNEViewNetHelper.cpp:2803
 msgid "Edge opposite direction"
@@ -9519,8 +9504,7 @@ msgstr "Shapes ein-/ausblenden (Polygone und Pole)."
 
 #: src/netedit/GNEViewNetHelper.cpp:3026
 msgid "Toggle show all trips (requires updated demand - F5)."
-msgstr ""
-"Alle Fahrten ein-/ausblenden (erfordert aktualisierte Nachfrage - F5)."
+msgstr "Alle Fahrten ein-/ausblenden (erfordert aktualisierte Nachfrage - F5)."
 
 #: src/netedit/GNEViewNetHelper.cpp:3033
 msgid "Toggle show all person plans."
@@ -9883,16 +9867,16 @@ msgstr "Erstellung wiederholen "
 msgid "Redo delete "
 msgstr "Löschen wiederholen "
 
-#: src/netedit/changes/GNEChange_Attribute.cpp:49
-#: src/netedit/changes/GNEChange_Attribute.cpp:70
+#: src/netedit/changes/GNEChange_Attribute.cpp:50
+#: src/netedit/changes/GNEChange_Attribute.cpp:71
 msgid "change '%' attribute in % '%' to '%'"
 msgstr "setze Attribut '%' in % '%' auf '%'"
 
-#: src/netedit/changes/GNEChange_Attribute.cpp:162
+#: src/netedit/changes/GNEChange_Attribute.cpp:163
 msgid "Undo change "
 msgstr "Änderung rückgängig machen "
 
-#: src/netedit/changes/GNEChange_Attribute.cpp:168
+#: src/netedit/changes/GNEChange_Attribute.cpp:169
 msgid "Redo change "
 msgstr "Änderung wiederholen "
 
@@ -10059,16 +10043,16 @@ msgstr "Netzeditor für Eclipse SUMO, the Simulation of Urban MObility"
 msgid "Graphical editor for road networks and infrastructure."
 msgstr "Grafischer Editor für Straßennetze und Infrastruktur."
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:62
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:908
 msgid "Accept"
 msgstr "Akzeptieren"
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:62
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 msgid "Close accepting changes"
 msgstr "Schließen und Änderungen akzeptieren"
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:63
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:60
 #: src/netedit/dialogs/options/GNEOptionsDialog.cpp:382
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:98
@@ -10078,17 +10062,17 @@ msgstr "Schließen und Änderungen akzeptieren"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:63
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 msgid "Close discarding changes"
 msgstr "Schließen und Änderungen verwerfen"
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:64
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:65
 #: src/netedit/dialogs/options/GNEOptionsDialog.cpp:383
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:101
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:64
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:65
 msgid "Reset to previous values"
 msgstr "Auf vorherige Werte zurücksetzen"
 
@@ -10386,8 +10370,8 @@ msgid ""
 "Cancel saving of additionals and select invalid stopping places and E2 "
 "detectors"
 msgstr ""
-"Breche Speicherung weiterer Daten ab und wähle ungültige Haltestellen und "
-"E2-Detektoren aus"
+"Breche Speicherung weiterer Daten ab und wähle ungültige Haltestellen und E2-"
+"Detektoren aus"
 
 #: src/netedit/dialogs/GNEFixAdditionalElements.cpp:324
 #: src/netedit/dialogs/GNEFixElementsDialog.cpp:324
@@ -10602,8 +10586,8 @@ msgstr "- Parameter sind definiert als Paar aus Schlüssel und Wert.\n"
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:404
 #: src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:395
 msgid ""
-"- In Netedit can be defined using format "
-"key1=parameter1|key2=parameter2|...\n"
+"- In Netedit can be defined using format key1=parameter1|"
+"key2=parameter2|...\n"
 msgstr ""
 "- Kann in Netedit im Format Schlüssel1=Parameter1| Schlüssel2=Parameter2| "
 "definiert werden...\n"
@@ -11049,8 +11033,8 @@ msgstr "Container-Haltepunkt hinzufügen '"
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:297
 msgid "Could not build % with ID '%' in netedit; Invalid charge type '%' ."
 msgstr ""
-"% mit der ID '%' konnte nicht in netedit erstellt werden; Ungültiger Ladetyp"
-" '%'."
+"% mit der ID '%' konnte nicht in netedit erstellt werden; Ungültiger Ladetyp "
+"'%'."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:304
 msgid "add charging station '"
@@ -11071,8 +11055,8 @@ msgstr "Parkplatz hinzufügen '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:374
 msgid ""
-"Could not build parking space in netedit; attribute width cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute width cannot be parse to "
+"float."
 msgstr ""
 "Konnte keinen Parkbereich in netedit erstellen; Attribut breite kann nicht "
 "in einen float eingelesen werden."
@@ -11082,13 +11066,13 @@ msgid ""
 "Could not build parking space in netedit; attribute length cannot be parse "
 "to float."
 msgstr ""
-"Konnte keinen Parkbereich in netedit erstellen; Attribut Länge kann nicht in"
-" einen float eingelesen werden."
+"Konnte keinen Parkbereich in netedit erstellen; Attribut Länge kann nicht in "
+"einen float eingelesen werden."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:378
 msgid ""
-"Could not build parking space in netedit; attribute angle cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute angle cannot be parse to "
+"float."
 msgstr ""
 "Konnte keinen Parkraum in netedit erstellen; Attribut angle kann nicht als "
 "Fließkommazahl eingelesen werden."
@@ -11162,8 +11146,8 @@ msgstr "Rerouter hinzufügen '"
 msgid ""
 "Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr ""
-"Konnte kein Intervall mit der ID '%' in netedit erstellen; Beginn liegt nach"
-" dem Ende."
+"Konnte kein Intervall mit der ID '%' in netedit erstellen; Beginn liegt nach "
+"dem Ende."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:965
 msgid "add rerouter interval in '"
@@ -11174,8 +11158,8 @@ msgstr "Rerouter-Intervall hinzufügen in '"
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
 msgstr ""
-"Konnte das Intervall zwischen '%' und '%' nicht erstellen, da es mit anderen"
-" überlappt."
+"Konnte das Intervall zwischen '%' und '%' nicht erstellen, da es mit anderen "
+"überlappt."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:996
 msgid "add closing lane reroute in '"
@@ -11659,7 +11643,7 @@ msgstr ""
 "mit der ersten ist"
 
 #: src/netedit/elements/demand/GNERoute.cpp:708
-#: src/netedit/elements/demand/GNEVehicle.cpp:1851
+#: src/netedit/elements/demand/GNEVehicle.cpp:1852
 msgid "copy % '%'"
 msgstr "% '%' kopieren"
 
@@ -11668,8 +11652,7 @@ msgid "delete % '%'"
 msgstr "% '%' entfernen"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:123
-msgid ""
-"VType '%' with probability % cannot be referenced with distribution '%'"
+msgid "VType '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
 "Der Fahrzeugtyp '%' mit der Wahrscheinlichkeit % kann nicht in der "
 "Verteilung '%' referenziert werden"
@@ -11697,8 +11680,7 @@ msgid "add % '%'"
 msgstr "% '%' hinzufügen"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:227
-msgid ""
-"Route '%' with probability % cannot be referenced with distribution '%'"
+msgid "Route '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
 "Die Route '%' mit der Wahrscheinlichkeit % kann nicht in der Verteilung '%' "
 "referenziert werden"
@@ -11728,8 +11710,7 @@ msgstr "% in '%' hinzufügen"
 #: src/netedit/elements/demand/GNERouteHandler.cpp:758
 msgid "Invalid % used in % '%'. % is greater than number of lanes"
 msgstr ""
-"Ungültige(r) % in % '%' benutzt. % ist größer als die Anzahl der "
-"Fahrstreifen"
+"Ungültige(r) % in % '%' benutzt. % ist größer als die Anzahl der Fahrstreifen"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:325
 #: src/netedit/elements/demand/GNERouteHandler.cpp:369
@@ -11829,8 +11810,8 @@ msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
 msgstr ""
-"Ungültige Typenverteilungswahrscheinlichkeiten in % '%'. Es muss die gleiche"
-" Anzahl an Elementen enthalten"
+"Ungültige Typenverteilungswahrscheinlichkeiten in % '%'. Es muss die gleiche "
+"Anzahl an Elementen enthalten"
 
 #: src/netedit/elements/demand/GNERouteRef.cpp:266
 #: src/netedit/elements/demand/GNEVTypeRef.cpp:266
@@ -11845,135 +11826,135 @@ msgstr "Ungültiges Elternelement eines Halts"
 msgid "Invalid parent"
 msgstr "Ungültiger Elternteil"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:83
-#: src/netedit/elements/demand/GNEVehicle.cpp:97
-#: src/netedit/elements/demand/GNEVehicle.cpp:111
+#: src/netedit/elements/demand/GNEVehicle.cpp:84
+#: src/netedit/elements/demand/GNEVehicle.cpp:98
+#: src/netedit/elements/demand/GNEVehicle.cpp:112
 msgid "transform to"
 msgstr "umwandeln in"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:86
+#: src/netedit/elements/demand/GNEVehicle.cpp:87
 msgid "Trip (over junctions)"
 msgstr "Fahrt (über Knoten)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:90
+#: src/netedit/elements/demand/GNEVehicle.cpp:91
 msgid "Flow (over junctions)"
 msgstr "Fluss (über Knoten)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:100
+#: src/netedit/elements/demand/GNEVehicle.cpp:101
 msgid "Trip (over TAZs)"
 msgstr "Fahrt (über Verkehrsumlegungszonen)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:104
+#: src/netedit/elements/demand/GNEVehicle.cpp:105
 msgid "Flow (over TAZs)"
 msgstr "Fluss (über Verkehrsumlegungszonen)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:118
+#: src/netedit/elements/demand/GNEVehicle.cpp:119
 msgid "Vehicle (embedded route)"
 msgstr "Fahrzeug (mit integrierter Route)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:122
+#: src/netedit/elements/demand/GNEVehicle.cpp:123
 msgid "RouteFlow"
 msgstr "Fluss über Route"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:126
+#: src/netedit/elements/demand/GNEVehicle.cpp:127
 msgid "RouteFlow (embedded route)"
 msgstr "Fluss über interne Route"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:130
+#: src/netedit/elements/demand/GNEVehicle.cpp:131
 msgid "Trip"
 msgstr "Fahrt"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:205
-#: src/netedit/elements/demand/GNEVehicle.cpp:226
-#: src/netedit/elements/demand/GNEVehicle.cpp:247
+#: src/netedit/elements/demand/GNEVehicle.cpp:206
+#: src/netedit/elements/demand/GNEVehicle.cpp:227
+#: src/netedit/elements/demand/GNEVehicle.cpp:248
 msgid "transform selected to"
 msgstr "Auswahl umwandeln in"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:208
+#: src/netedit/elements/demand/GNEVehicle.cpp:209
 msgid "Trips (over junctions) (only %)"
 msgstr "Fahrten (über Knoten) (nur %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:211
+#: src/netedit/elements/demand/GNEVehicle.cpp:212
 msgid "Flows (over junctions) (only %)"
 msgstr "Flüsse (über Knoten) (nur %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:217
+#: src/netedit/elements/demand/GNEVehicle.cpp:218
 msgid "Trips (over junctions)"
 msgstr "Fahrten (über Knoten)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:220
+#: src/netedit/elements/demand/GNEVehicle.cpp:221
 msgid "Flows (over junctions)"
 msgstr "Flüsse (über Knoten)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:229
+#: src/netedit/elements/demand/GNEVehicle.cpp:230
 msgid "Trips (over TAZs) (only %)"
 msgstr "Fahrten (über Verkehrsumlegungszonen) (nur %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:232
+#: src/netedit/elements/demand/GNEVehicle.cpp:233
 msgid "Flows (over TAZs) (only %)"
 msgstr "Flüsse (über Verkehrsumlegungszonen) (nur %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:238
+#: src/netedit/elements/demand/GNEVehicle.cpp:239
 msgid "Trips (over TAZs)"
 msgstr "Fahrten (über Verkehrsumlegungszonen)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:241
+#: src/netedit/elements/demand/GNEVehicle.cpp:242
 msgid "Flows (over TAZs)"
 msgstr "Flüsse (über Verkehrsumlegungszonen)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:250
+#: src/netedit/elements/demand/GNEVehicle.cpp:251
 msgid "Vehicles (only %)"
 msgstr "Fahrzeuge (nur %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:253
+#: src/netedit/elements/demand/GNEVehicle.cpp:254
 msgid "Vehicles (embedded route) (only %)"
 msgstr "Fahrzeuge (mit integrierter Route) (nur %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:256
+#: src/netedit/elements/demand/GNEVehicle.cpp:257
 msgid "RouteFlows (only %)"
 msgstr "Flüsse über Routen (nur %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:259
+#: src/netedit/elements/demand/GNEVehicle.cpp:260
 msgid "RouteFlows (embedded route) (only %)"
 msgstr "Flüsse über Routen (interne Route, nur %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:262
+#: src/netedit/elements/demand/GNEVehicle.cpp:263
 msgid "Trips (only %)"
 msgstr "Fahrten (nur %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:265
+#: src/netedit/elements/demand/GNEVehicle.cpp:266
 msgid "Flows (only %)"
 msgstr "Flüsse (nur %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:274
+#: src/netedit/elements/demand/GNEVehicle.cpp:275
 msgid "Vehicles (embedded route)"
 msgstr "Fahrzeuge (interne Route)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:277
+#: src/netedit/elements/demand/GNEVehicle.cpp:278
 msgid "RouteFlows"
 msgstr "Flüsse über Routen"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:280
+#: src/netedit/elements/demand/GNEVehicle.cpp:281
 msgid "RouteFlows (embedded route)"
 msgstr "Flüsse über interne Routen"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:283
+#: src/netedit/elements/demand/GNEVehicle.cpp:284
 msgid "Trips"
 msgstr "Fahrten"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:823
+#: src/netedit/elements/demand/GNEVehicle.cpp:824
 msgid "Invalid vehicle tag"
 msgstr "Ungültiger Fahrzeug-Tag"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:2270
+#: src/netedit/elements/demand/GNEVehicle.cpp:2271
 msgid "departPos of %"
 msgstr "Abfahrtsposition von %"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:2280
+#: src/netedit/elements/demand/GNEVehicle.cpp:2281
 msgid "arrivalPos of %"
 msgstr "Ankunftsposition von %"
 
-#: src/netedit/elements/network/GNEConnection.cpp:644
+#: src/netedit/elements/network/GNEConnection.cpp:648
 msgid "Could not set attribute '%' (tls is broken)"
 msgstr "Konnte Attribut '%' nicht anwenden (LSA ist ungültig)"
 
@@ -12171,8 +12152,7 @@ msgstr ""
 
 #: src/netedit/elements/network/GNELane.cpp:2028
 msgid "Split edge in both directions here (no opposite edge)"
-msgstr ""
-"Kante in beiden Richtungen hier auftrennen (keine Gegenrichtungskante)"
+msgstr "Kante in beiden Richtungen hier auftrennen (keine Gegenrichtungskante)"
 
 #: src/netedit/elements/network/GNELane.cpp:2035
 msgid "Split edge in both directions here"
@@ -12562,31 +12542,31 @@ msgstr ""
 "Ein neuer Punkt kann nicht hinzugefügt werden, wenn das Zeichnen noch nicht "
 "gestartet ist."
 
-#: src/netedit/frames/GNEElementTree.cpp:61
+#: src/netedit/frames/GNEElementTree.cpp:60
 msgid "Hierarchy"
 msgstr "Hierarchie"
 
-#: src/netedit/frames/GNEElementTree.cpp:202
+#: src/netedit/frames/GNEElementTree.cpp:201
 #, c-format
 msgid "Default Vehicle Type '%' cannot be removed"
 msgstr "Standardfahrzeugtyp '%' kann nicht entfernt werden"
 
-#: src/netedit/frames/GNEElementTree.cpp:309
+#: src/netedit/frames/GNEElementTree.cpp:308
 msgid "Edge: %"
 msgstr "Kante: %"
 
-#: src/netedit/frames/GNEElementTree.cpp:314
+#: src/netedit/frames/GNEElementTree.cpp:313
 #: src/utils/gui/globjects/GUIGlObject.cpp:326
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:88
 msgid "Center"
 msgstr "Zentrieren"
 
-#: src/netedit/frames/GNEElementTree.cpp:321
+#: src/netedit/frames/GNEElementTree.cpp:320
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:419
 msgid "Inspect"
 msgstr "Prüfen"
 
-#: src/netedit/frames/GNEElementTree.cpp:322
+#: src/netedit/frames/GNEElementTree.cpp:321
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:323
 #: src/netedit/frames/common/GNESelectorFrame.cpp:260
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:90
@@ -12596,63 +12576,63 @@ msgstr "Prüfen"
 msgid "Delete"
 msgstr "Löschen"
 
-#: src/netedit/frames/GNEElementTree.cpp:398
-#: src/netedit/frames/GNEElementTree.cpp:417
-#: src/netedit/frames/GNEElementTree.cpp:484
+#: src/netedit/frames/GNEElementTree.cpp:397
+#: src/netedit/frames/GNEElementTree.cpp:416
+#: src/netedit/frames/GNEElementTree.cpp:483
 msgid " origin"
 msgstr " Quelle"
 
-#: src/netedit/frames/GNEElementTree.cpp:399
-#: src/netedit/frames/GNEElementTree.cpp:418
-#: src/netedit/frames/GNEElementTree.cpp:485
+#: src/netedit/frames/GNEElementTree.cpp:398
+#: src/netedit/frames/GNEElementTree.cpp:417
+#: src/netedit/frames/GNEElementTree.cpp:484
 msgid " destination"
 msgstr " Ziel"
 
-#: src/netedit/frames/GNEElementTree.cpp:517
-#: src/netedit/frames/GNEElementTree.cpp:651
-#: src/netedit/frames/GNEElementTree.cpp:733
+#: src/netedit/frames/GNEElementTree.cpp:516
+#: src/netedit/frames/GNEElementTree.cpp:650
+#: src/netedit/frames/GNEElementTree.cpp:732
 msgid " additionals..."
 msgstr " weitere Daten..."
 
-#: src/netedit/frames/GNEElementTree.cpp:531
-#: src/netedit/frames/GNEElementTree.cpp:598
-#: src/netedit/frames/GNEElementTree.cpp:665
-#: src/netedit/frames/GNEElementTree.cpp:747
+#: src/netedit/frames/GNEElementTree.cpp:530
+#: src/netedit/frames/GNEElementTree.cpp:597
+#: src/netedit/frames/GNEElementTree.cpp:664
+#: src/netedit/frames/GNEElementTree.cpp:746
 msgid " demand elements..."
 msgstr " Nachfrageelemente..."
 
-#: src/netedit/frames/GNEElementTree.cpp:545
-#: src/netedit/frames/GNEElementTree.cpp:612
-#: src/netedit/frames/GNEElementTree.cpp:679
-#: src/netedit/frames/GNEElementTree.cpp:765
+#: src/netedit/frames/GNEElementTree.cpp:544
+#: src/netedit/frames/GNEElementTree.cpp:611
+#: src/netedit/frames/GNEElementTree.cpp:678
+#: src/netedit/frames/GNEElementTree.cpp:764
 msgid " edges..."
 msgstr " Kanten..."
 
-#: src/netedit/frames/GNEElementTree.cpp:559
-#: src/netedit/frames/GNEElementTree.cpp:626
-#: src/netedit/frames/GNEElementTree.cpp:693
-#: src/netedit/frames/GNEElementTree.cpp:783
+#: src/netedit/frames/GNEElementTree.cpp:558
+#: src/netedit/frames/GNEElementTree.cpp:625
+#: src/netedit/frames/GNEElementTree.cpp:692
+#: src/netedit/frames/GNEElementTree.cpp:782
 msgid " lanes..."
 msgstr " Fahrstreifen..."
 
-#: src/netedit/frames/GNEElementTree.cpp:584
+#: src/netedit/frames/GNEElementTree.cpp:583
 msgid " TAZElements..."
 msgstr " Verkehrsumlegungszonen-Elemente..."
 
-#: src/netedit/frames/GNEElementTree.cpp:837
+#: src/netedit/frames/GNEElementTree.cpp:836
 msgid "Incomings"
 msgstr "Eingehende"
 
-#: src/netedit/frames/GNEElementTree.cpp:847
+#: src/netedit/frames/GNEElementTree.cpp:846
 msgid "Outgoing"
 msgstr "Ausgehende"
 
-#: src/netedit/frames/GNEElementTree.cpp:869
+#: src/netedit/frames/GNEElementTree.cpp:868
 msgid "SourceSinks (%)"
 msgstr ""
 
-#: src/netedit/frames/GNEElementTree.cpp:890
-#: src/netedit/frames/GNEElementTree.cpp:916
+#: src/netedit/frames/GNEElementTree.cpp:889
+#: src/netedit/frames/GNEElementTree.cpp:915
 msgid "Data elements"
 msgstr "Datenelemente"
 
@@ -12700,8 +12680,8 @@ msgstr "Netedit Parameterhilfe"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:317
 msgid ""
-"- The 'Match Attribute' controls allow to specify a set of objects which are"
-" then applied to the current selection\n"
+"- The 'Match Attribute' controls allow to specify a set of objects which are "
+"then applied to the current selection\n"
 msgstr ""
 "- Die Steuerelemente 'Match Attribute' ermöglichen die Angabe einer Reihe "
 "von Objekten, die dann auf die aktuelle Auswahl angewendet werden\n"
@@ -12732,8 +12712,8 @@ msgstr "- Der leere Ausdruck passt auf alle Objekte\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:324
 msgid ""
-"- For numerical attributes the match expression must consist of a comparison"
-" operator ('<', '>', '=') and a number.\n"
+"- For numerical attributes the match expression must consist of a comparison "
+"operator ('<', '>', '=') and a number.\n"
 msgstr ""
 "- Bei numerischen Attributen muss der Übereinstimmungsausdruck aus einem "
 "Vergleichsoperator ('<', '>', '=') und einer Zahl bestehen.\n"
@@ -12743,16 +12723,16 @@ msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'\n"
 msgstr ""
-"- Ein Objekt stimmt überein, wenn der Vergleich zwischen seinem Attribut und"
-" der angegebenen Zahl durch den angegebenen Operator 'wahr' ergibt\n"
+"- Ein Objekt stimmt überein, wenn der Vergleich zwischen seinem Attribut und "
+"der angegebenen Zahl durch den angegebenen Operator 'wahr' ergibt\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:327
 msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string.\n"
 msgstr ""
-"- Bei String-Attributen muss der Match-Ausdruck aus einem Vergleichsoperator"
-" ('', '=', '!', '^') und einem String bestehen.\n"
+"- Bei String-Attributen muss der Match-Ausdruck aus einem Vergleichsoperator "
+"('', '=', '!', '^') und einem String bestehen.\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:328
 msgid ""
@@ -12783,8 +12763,7 @@ msgstr "- Beispiele:\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:334
 msgid ""
-"     junction; id; 'foo' -> match all junctions that have 'foo' in their "
-"id\n"
+"     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
 msgstr ""
 "     junction; id; 'foo' -> erfasst alle Knotenpunkte, deren ID 'foo' "
 "enthält\n"
@@ -12800,8 +12779,8 @@ msgstr ""
 #: src/netedit/frames/GNEMatchAttribute.cpp:336
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
 msgstr ""
-"     edge; speed; '>10' -> entspricht allen Kanten mit einer Geschwindigkeit"
-" über 10\n"
+"     edge; speed; '>10' -> entspricht allen Kanten mit einer Geschwindigkeit "
+"über 10\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:491
 msgid "Show all attributes"
@@ -12850,7 +12829,7 @@ msgid "   previous element"
 msgstr "   vorheriges Element"
 
 #: src/netedit/frames/GNEPathCreator.cpp:126
-#: src/netedit/frames/GNEPlanCreator.cpp:154
+#: src/netedit/frames/GNEPlanCreator.cpp:152
 msgid "Route creator"
 msgstr "Routenersteller"
 
@@ -12861,17 +12840,17 @@ msgid "No edges selected"
 msgstr "Keine Kanten ausgewählt"
 
 #: src/netedit/frames/GNEPathCreator.cpp:135
-#: src/netedit/frames/GNEPlanCreator.cpp:160
+#: src/netedit/frames/GNEPlanCreator.cpp:158
 msgid "Use last route"
 msgstr "Nutze letzte Route"
 
 #: src/netedit/frames/GNEPathCreator.cpp:138
-#: src/netedit/frames/GNEPlanCreator.cpp:163
+#: src/netedit/frames/GNEPlanCreator.cpp:161
 msgid "Finish route creation"
 msgstr "Schließe Routenerstellung ab"
 
 #: src/netedit/frames/GNEPathCreator.cpp:141
-#: src/netedit/frames/GNEPlanCreator.cpp:166
+#: src/netedit/frames/GNEPlanCreator.cpp:164
 msgid "Abort route creation"
 msgstr "Breche Routenerstellung ab"
 
@@ -12896,7 +12875,7 @@ msgid "BACKSPACE: undo click"
 msgstr "RÜCKTASTE: Klick rückgängig machen"
 
 #: src/netedit/frames/GNEPathCreator.cpp:277
-#: src/netedit/frames/GNEPlanCreator.cpp:781
+#: src/netedit/frames/GNEPlanCreator.cpp:779
 msgid "Double junctions aren't allowed"
 msgstr "Doppelte Knotenpunkte sind nicht erlaubt"
 
@@ -12909,7 +12888,7 @@ msgid "creation of path between junctions"
 msgstr "Pfad zwischen Knotenpunkten erstellen"
 
 #: src/netedit/frames/GNEPathCreator.cpp:324
-#: src/netedit/frames/GNEPlanCreator.cpp:815
+#: src/netedit/frames/GNEPlanCreator.cpp:813
 msgid "Double TAZs aren't allowed"
 msgstr "Duplikate von Verkehrsumlegungszonen sind nicht erlaubt"
 
@@ -12922,8 +12901,8 @@ msgid "creation of path between TAZs"
 msgstr "Pfad zwischen Verkehrsumlegezonen erstellen"
 
 #: src/netedit/frames/GNEPathCreator.cpp:367
-#: src/netedit/frames/GNEPlanCreator.cpp:757
-#: src/netedit/frames/GNEPlanCreator.cpp:849
+#: src/netedit/frames/GNEPlanCreator.cpp:755
+#: src/netedit/frames/GNEPlanCreator.cpp:847
 msgid "Double edges aren't allowed"
 msgstr "Doppelte Kanten sind nicht erlaubt"
 
@@ -12997,22 +12976,22 @@ msgstr " Kantenkonflikt (Fahrzeugklasse)"
 msgid " edge disconnected"
 msgstr " Kante unterbrochen"
 
-#: src/netedit/frames/GNEPlanCreator.cpp:169
+#: src/netedit/frames/GNEPlanCreator.cpp:167
 msgid "Remove last element"
 msgstr "Letztes Element löschen"
 
-#: src/netedit/frames/GNEPlanCreator.cpp:697
+#: src/netedit/frames/GNEPlanCreator.cpp:695
 msgid "Click over:"
 msgstr "Klicke auf:"
 
-#: src/netedit/frames/GNEPlanCreator.cpp:788
-#: src/netedit/frames/GNEPlanCreator.cpp:822
-#: src/netedit/frames/GNEPlanCreator.cpp:856
-#: src/netedit/frames/GNEPlanCreator.cpp:896
+#: src/netedit/frames/GNEPlanCreator.cpp:786
+#: src/netedit/frames/GNEPlanCreator.cpp:820
+#: src/netedit/frames/GNEPlanCreator.cpp:854
+#: src/netedit/frames/GNEPlanCreator.cpp:894
 msgid "Only two from-to elements are allowed"
 msgstr "Es sind nur zwei Quelle-Ziel-Elemente erlaubt"
 
-#: src/netedit/frames/GNEPlanCreator.cpp:889
+#: src/netedit/frames/GNEPlanCreator.cpp:887
 msgid "Double stoppingPlaces aren't allowed"
 msgstr "Doppelte Halte sind nicht erlaubt"
 
@@ -13028,7 +13007,7 @@ msgstr " Vom Element"
 msgid " To element"
 msgstr " Zu Element"
 
-#: src/netedit/frames/GNEPlanSelector.cpp:90
+#: src/netedit/frames/GNEPlanSelector.cpp:88
 msgid "Plan type"
 msgstr "Plantyp"
 
@@ -13185,50 +13164,50 @@ msgstr "Fahrten"
 msgid "Person stops"
 msgstr "Personenhaltepunkte"
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:49
+#: src/netedit/frames/GNEViewObjectSelector.cpp:48
 msgid "NetworkElements"
 msgstr "Netzelemente"
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:52
+#: src/netedit/frames/GNEViewObjectSelector.cpp:51
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:58
 msgid "Clear selection"
 msgstr "Auswahl entfernen"
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:53
+#: src/netedit/frames/GNEViewObjectSelector.cpp:52
 msgid "Use selected"
 msgstr "Ausgewählte verwenden"
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:55
+#: src/netedit/frames/GNEViewObjectSelector.cpp:54
 msgid "Selected elements"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:85
+#: src/netedit/frames/GNEViewObjectSelector.cpp:84
 msgid ""
 "-This additional requires to\n"
 " select at least\n"
 " one element"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:86
+#: src/netedit/frames/GNEViewObjectSelector.cpp:85
 #, c-format
 msgid "-Click over % to select"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:87
+#: src/netedit/frames/GNEViewObjectSelector.cpp:86
 msgid "-ESC to clear elements"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:88
+#: src/netedit/frames/GNEViewObjectSelector.cpp:87
 #, c-format
 msgid "Use selected %s"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:90
+#: src/netedit/frames/GNEViewObjectSelector.cpp:89
 #, c-format
 msgid "% selector"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:151
+#: src/netedit/frames/GNEViewObjectSelector.cpp:150
 #, c-format
 msgid "List of % cannot be empty"
 msgstr ""
@@ -13753,8 +13732,8 @@ msgstr "Quelle-Ziel-Beziehung erstellen"
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:56
 msgid "Click fromTaz and toTaz (confirm hotkey <ENTER>)"
 msgstr ""
-"Auf Ausgangsverkehrsumlegungszone und Endverkehrsumlegungszone klicken (dann"
-" mit Hotkey <ENTER> bestätigen)"
+"Auf Ausgangsverkehrsumlegungszone und Endverkehrsumlegungszone klicken (dann "
+"mit Hotkey <ENTER> bestätigen)"
 
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:58
 msgid "Clear selected TAZs (hotkey <ESC>)"
@@ -14067,8 +14046,8 @@ msgstr "Aktuell ausgewählte weitere Daten sind ungültig."
 #: src/netedit/frames/network/GNEWireFrame.cpp:224
 msgid "Currently unsupported. Create rerouter elements using rerouter dialog"
 msgstr ""
-"Aktuell nicht unterstützt. Zum Erstellen von Rerouter-Elementen den "
-"Rerouter-Dialog nutzen"
+"Aktuell nicht unterstützt. Zum Erstellen von Rerouter-Elementen den Rerouter-"
+"Dialog nutzen"
 
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:215
 msgid "Currently unsupported. Create VSS steps using VSS dialog"
@@ -14082,13 +14061,13 @@ msgstr ""
 "Aktuell nicht unterstützt. Zum Erstellen von Kalibrator-Flüssen den "
 "Kalibrator-Dialog nutzen"
 
-#: src/netedit/frames/network/GNEAdditionalFrame.cpp:285
+#: src/netedit/frames/network/GNEAdditionalFrame.cpp:291
 msgid "E2 multilane detectors need at least two consecutive lanes"
 msgstr ""
 "E2 mehrspurige Detektoren benötigen mindestens zwei aufeinanderfolgende "
 "Fahrstreifen"
 
-#: src/netedit/frames/network/GNEAdditionalFrame.cpp:417
+#: src/netedit/frames/network/GNEAdditionalFrame.cpp:423
 #: src/netedit/frames/network/GNEWireFrame.cpp:201
 msgid "A % must be selected before insertion of %."
 msgstr ""
@@ -14131,8 +14110,8 @@ msgstr "Fehler beim Speichern der Verbindungsoperationen"
 #, c-format
 msgid "Connection edition cannot be saved because route '%' is broken."
 msgstr ""
-"Die modifizierte Verbindung kann nicht gespeichert werden, da die Route '%' "
-"unterbrochen wurde."
+"Die modifizierte Verbindung kann nicht gespeichert werden, da die Route "
+"'%' unterbrochen wurde."
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:137
 msgid "Changes accepted"
@@ -14222,12 +14201,12 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:317
 msgid ""
-"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper"
-" nodes or with incompatible permissions)"
+"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
+"nodes or with incompatible permissions)"
 msgstr ""
 "Halte während des Klickens <CTRL> gedrückt, um in Konflikt stehende "
-"Verbindungen zu erstellen (z.B. an Reißverschlussfahrstreifnwechsel oder bei"
-" inkompatiblen Zufahrtsrechten)"
+"Verbindungen zu erstellen (z.B. an Reißverschlussfahrstreifnwechsel oder bei "
+"inkompatiblen Zufahrtsrechten)"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:331
 msgid "Possible Target"
@@ -14393,8 +14372,7 @@ msgstr "Kante erstellen"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:688
 msgid ""
-"Select either default edgeType or short edge or a custom edgeType or "
-"template"
+"Select either default edgeType or short edge or a custom edgeType or template"
 msgstr ""
 "Entweder den Standardkantentyp, eine kurze Kante, einen benutzerdefinierten "
 "Kantentyp oder eine Vorlage wählen"
@@ -15076,8 +15054,7 @@ msgstr "LSA kann nicht erstellt werden"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1535
 msgid "Traffic Light cannot be created because junction must have"
-msgstr ""
-"LSA kann nicht erstellt werden, da ein Knotenpunkt vorhanden sein muss"
+msgstr "LSA kann nicht erstellt werden, da ein Knotenpunkt vorhanden sein muss"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1536
 msgid "at least one incoming edge and one outgoing edge."
@@ -15129,8 +15106,7 @@ msgid "Clean unused states from all phase"
 msgstr "Ungenutzte Signalbilder aus allen Phasen entfernen"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1934
-msgid ""
-"Clean unused states from all phase. (Not allowed for multiple programs)"
+msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
 "Unbenutzte Signalbilder aus allen Phasen entfernen. (Nicht zulässig für "
 "mehrere Programme)"
@@ -15590,8 +15566,7 @@ msgid "Invalid vClass"
 msgstr "Ungültige Fahrzeugklasse"
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:77
-msgid ""
-"The 'value' attribute is deprecated for breakpoints. Please use 'time'."
+msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr ""
 "Das 'value'-Attribut ist für Haltepunkte veraltet. Bitte verwende 'time'."
 
@@ -15610,6 +15585,43 @@ msgstr ""
 #: src/utils/gui/settings/GUISettingsHandler.cpp:592
 msgid "Could not decode breakpoint '%'."
 msgstr "Der Unterbrechungspunkt '%' konnte nicht gelesen werden."
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:197
+msgid "by param (numerical, streetwise)"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:198
+msgid "by param (numerical, lanewise)"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:199
+msgid "by param (numerical)"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:200
+msgid "by edgeData (numerical, streetwise)"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:201
+msgid "by attribute (numerical)"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:202
+msgid "by selection"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:203
+msgid "by type"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:204
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:1843
+msgid "by permission code"
+msgstr "nach Zufahrtsrecht (numerisch)"
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:205
+msgid "by live edgeData"
+msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:952
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1200
@@ -16238,10 +16250,6 @@ msgstr "keine Verkehrsumlegungszone"
 msgid "data mode"
 msgstr "Datenmodus"
 
-#: src/utils/gui/settings/GUIVisualizationSettings.cpp:1843
-msgid "by permission code"
-msgstr "nach Zufahrtsrecht (numerisch)"
-
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1891
 msgid "by height at segment start"
 msgstr "nach Höhe am Segmentbeginn"
@@ -16277,6 +16285,10 @@ msgstr "nach Zielverkehrsumlegungszone"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:2703
 msgid "No color defined for LinkState '%'"
 msgstr "Keinen Farbe definiert für den Linkstand '%'"
+
+#: src/utils/gui/tests/GUITestSystem.cpp:36
+msgid "Could not open test file '%'."
+msgstr ""
 
 #: src/utils/gui/tracker/GUIParameterTracker.cpp:116
 msgid "Save the data..."
@@ -16938,7 +16950,7 @@ msgid "Recenter view to the simulated area."
 msgstr "Ansicht auf den simulierten Bereich zentrieren."
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:123
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1592
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1589
 msgctxt "Labels"
 msgid "Edit Viewport"
 msgstr "Ansichtsbereich bearbeiten"
@@ -17095,13 +17107,12 @@ msgstr "Neustart erforderlich"
 #: src/utils/gui/windows/GUIMainWindow.cpp:422
 msgid "Changing display language needs restart to take effect."
 msgstr ""
-"Die Änderung der Anzeigesprache muss neu gestartet werden, damit sie wirksam"
-" wird."
+"Die Änderung der Anzeigesprache muss neu gestartet werden, damit sie wirksam "
+"wird."
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:425
 msgid ""
-"For the Debug build you might also need to set the LANG environment "
-"variable."
+"For the Debug build you might also need to set the LANG environment variable."
 msgstr ""
 "Für den Debug-Build muss möglicherweise auch die Umgebungsvariable LANG "
 "festgelegt werden."
@@ -17112,11 +17123,11 @@ msgstr ""
 "In Entwicklung. Sie können helfen, unter der nachfolgenden Adresse die "
 "Übersetzung zu verbessern:"
 
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:254
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:249
 msgid "(No projection defined)"
 msgstr "(Keine Projektion definiert)"
 
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1743
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1740
 msgid "Could not convert coordinates in %."
 msgstr "Konnte Koordinaten nicht in % konvertieren."
 
@@ -17302,8 +17313,8 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ "If attributes mask the start and end position, both attributes have to be "
 #~ "defined"
 #~ msgstr ""
-#~ "Wenn Attribute die Start- und Endposition überlagern, müssen beide Attribute"
-#~ " definiert werden"
+#~ "Wenn Attribute die Start- und Endposition überlagern, müssen beide "
+#~ "Attribute definiert werden"
 
 #~ msgid "Attributes aren't combinables"
 #~ msgstr "Attribute sind nicht kombinierbar"
@@ -17374,13 +17385,15 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ msgstr "Name des Bushaltepunkts (busStop)"
 
 #~ msgid ""
-#~ "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1"
+#~ "Instead, it will be placed 0.1 meters from the lanes end or at position "
+#~ "0.1"
 #~ msgstr ""
-#~ "Stattdessen wird es 0.1 Meter vom Fahrstreifenende entfernt oder an Position"
-#~ " 0.1 platziert"
+#~ "Stattdessen wird es 0.1 Meter vom Fahrstreifenende entfernt oder an "
+#~ "Position 0.1 platziert"
 
 #~ msgid "The RGBA color with which the busStop shall be displayed"
-#~ msgstr "Die RGBA-Farbe, mit welcher der Bushaltepunkt dargestellt werden soll"
+#~ msgstr ""
+#~ "Die RGBA-Farbe, mit welcher der Bushaltepunkt dargestellt werden soll"
 
 #~ msgid "The id of train stop"
 #~ msgstr "Die ID des Zughaltepunkts (trainStop)"
@@ -17395,8 +17408,8 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 
 #~ msgid "The RGBA color with which the trainStop shall be displayed"
 #~ msgstr ""
-#~ "Die RGBA-Farbe, mit welcher der Zughaltepunkt (trainStop) dargestellt werden"
-#~ " soll"
+#~ "Die RGBA-Farbe, mit welcher der Zughaltepunkt (trainStop) dargestellt "
+#~ "werden soll"
 
 #~ msgid "The name of the lane the stop access shall be located at"
 #~ msgstr ""
@@ -17405,8 +17418,8 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 
 #~ msgid "The position on the lane (the lower position on the lane) in meters"
 #~ msgstr ""
-#~ "Die Position auf dem Fahrstreifen (die untere Position auf dem Fahrstreifen)"
-#~ " in Metern"
+#~ "Die Position auf dem Fahrstreifen (die untere Position auf dem "
+#~ "Fahrstreifen) in Metern"
 
 #~ msgid "The walking length of the access in meters"
 #~ msgstr "Die Gehlänge des Zugangs in Metern"
@@ -17424,7 +17437,8 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 
 #~ msgid "The RGBA color with which the containerStop shall be displayed"
 #~ msgstr ""
-#~ "Die RGBA-Farbe, mit welcher der Containerhaltepunkt dargestellt werden soll"
+#~ "Die RGBA-Farbe, mit welcher der Containerhaltepunkt dargestellt werden "
+#~ "soll"
 
 #~ msgid "The id of charging station"
 #~ msgstr "Die ID der Ladestation (chargingStation)"
@@ -17445,7 +17459,8 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ msgstr "Die ID des Parkplatzes"
 
 #~ msgid "The name of the lane the Parking Area shall be located at"
-#~ msgstr "Der Name des Fahrstreifens, auf der sich der Parkplatz befinden soll"
+#~ msgstr ""
+#~ "Der Name des Fahrstreifens, auf der sich der Parkplatz befinden soll"
 
 #~ msgid "Name of parkingArea"
 #~ msgstr "Name des Parkplatzes"
@@ -17457,8 +17472,8 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ msgstr "Die ID von E1"
 
 #~ msgid ""
-#~ "The id of the lane the detector shall be laid on. The lane must be a part of"
-#~ " the network used"
+#~ "The id of the lane the detector shall be laid on. The lane must be a part "
+#~ "of the network used"
 #~ msgstr ""
 #~ "Die ID des Fahrstreifen, auf die der Detektor gelegt werden soll. Der "
 #~ "Fahrstreifen muss Teil des verwendeten Netzes sein"
@@ -17501,8 +17516,8 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ "The time-based threshold that describes how much time has to pass until a "
 #~ "vehicle is recognized as halting) in s"
 #~ msgstr ""
-#~ "Die zeitbasierte Schwelle, die beschreibt, wie viel Zeit vergehen muss, bis "
-#~ "ein Fahrzeug als haltend erkannt wird) in s"
+#~ "Die zeitbasierte Schwelle, die beschreibt, wie viel Zeit vergehen muss, "
+#~ "bis ein Fahrzeug als haltend erkannt wird) in s"
 
 #~ msgid "The id of Instant Induction Loop (E1Instant)"
 #~ msgstr "Die ID der momentanen Induktionsschleife (E1Instant)"
@@ -17523,8 +17538,8 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ "Space separated list of vehicle type ids to consider (empty to affect all "
 #~ "types)"
 #~ msgstr ""
-#~ "Durch Leerzeichen getrennte Liste der zu berücksichtigenden Fahrzeugtyp-IDs "
-#~ "(leer, um alle Typen zu beeinflussen)"
+#~ "Durch Leerzeichen getrennte Liste der zu berücksichtigenden Fahrzeugtyp-"
+#~ "IDs (leer, um alle Typen zu beeinflussen)"
 
 #~ msgid "The id of Variable Speed Signal"
 #~ msgstr "Die ID der dynamischen Geschwindigkeitsanzeige"
@@ -17551,8 +17566,8 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ "space separated list of vehicle type ids to consider (empty to affect all "
 #~ "types)"
 #~ msgstr ""
-#~ "durch Leerzeichen getrennte Liste der zu berücksichtigenden Fahrzeugtyp-IDs "
-#~ "(leer, um alle Typen zu beeinflussen)"
+#~ "durch Leerzeichen getrennte Liste der zu berücksichtigenden Fahrzeugtyp-"
+#~ "IDs (leer, um alle Typen zu beeinflussen)"
 
 #~ msgid "The id of lane in the simulation network"
 #~ msgstr "Die ID vom Fahrstreifen im simulierten Netz"
@@ -17567,11 +17582,11 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ msgstr "Name vom Rerouter"
 
 #~ msgid ""
-#~ "The list of vehicle types that shall be affected by this rerouter (empty to "
-#~ "affect all types)"
+#~ "The list of vehicle types that shall be affected by this rerouter (empty "
+#~ "to affect all types)"
 #~ msgstr ""
-#~ "Die Liste der Fahrzeugtypen, die von diesem Rerouter betroffen sein sollen "
-#~ "(leer, um alle Typen zu beeinflussen)"
+#~ "Die Liste der Fahrzeugtypen, die von diesem Rerouter betroffen sein "
+#~ "sollen (leer, um alle Typen zu beeinflussen)"
 
 #~ msgid "allowed vehicles"
 #~ msgstr "erlaubte Fahrzeuge"
@@ -17610,11 +17625,11 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ msgstr "Der Name des Fahrstreifen, auf der sich der Pol befindet"
 
 #~ msgid ""
-#~ "The position on the named lane or in the net in meters at which the POI is "
-#~ "located at"
+#~ "The position on the named lane or in the net in meters at which the POI "
+#~ "is located at"
 #~ msgstr ""
-#~ "Die Position auf dem benannten Fahrstreifen oder im Netz in Metern, an der "
-#~ "sich der Pol befindet"
+#~ "Die Position auf dem benannten Fahrstreifen oder im Netz in Metern, an "
+#~ "der sich der Pol befindet"
 
 #~ msgid "The id of the TAZ"
 #~ msgstr "Die ID der Verkehrsumlegungszone"
@@ -17673,11 +17688,11 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ msgstr "Die Farbe dieses Typs"
 
 #~ msgid ""
-#~ "Image file for rendering vehicles of this type (should be grayscale to allow"
-#~ " functional coloring)"
+#~ "Image file for rendering vehicles of this type (should be grayscale to "
+#~ "allow functional coloring)"
 #~ msgstr ""
-#~ "Bilddatei zum Rendern von Fahrzeugen dieses Typs (sollte in Graustufen sein,"
-#~ " um eine funktionale Farbgebung zu ermöglichen)"
+#~ "Bilddatei zum Rendern von Fahrzeugen dieses Typs (sollte in Graustufen "
+#~ "sein, um eine funktionale Farbgebung zu ermöglichen)"
 
 #~ msgid "Carriage lengths"
 #~ msgstr "Wagenlängen"
@@ -17723,7 +17738,8 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ msgstr "Der Name des Flusses"
 
 #~ msgid "The name of the lane the stop shall be located at"
-#~ msgstr "Der Name des Fahrstreifens, an dem sich der Haltepunkt befinden soll"
+#~ msgstr ""
+#~ "Der Name des Fahrstreifens, an dem sich der Haltepunkt befinden soll"
 
 #~ msgid "The name of the lane the waypoint shall be located at"
 #~ msgstr "Der Name des Fahrstreifen, auf der sich der Wegpunkt befinden soll"
@@ -17774,11 +17790,11 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ msgstr "Der Pfad zur Ausgabedatei. Der Pfad kann relativ sein"
 
 #~ msgid ""
-#~ "Whether pedestrians shall be recorded instead of vehicles. Allowed value is "
-#~ "walk"
+#~ "Whether pedestrians shall be recorded instead of vehicles. Allowed value "
+#~ "is walk"
 #~ msgstr ""
-#~ "Ob statt Fahrzeugen Fußgänger erfasst werden sollen. Zulässiger Wert ist der"
-#~ " Fußweg"
+#~ "Ob statt Fahrzeugen Fußgänger erfasst werden sollen. Zulässiger Wert ist "
+#~ "der Fußweg"
 
 #~ msgid "Control + click to create two stop in the same position"
 #~ msgstr ""
@@ -17850,14 +17866,15 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ msgstr "- Referenzpunkt: Anfangsposition des Zusatzelements markieren."
 
 #~ msgid ""
-#~ "  Example: If you want to create a busStop with a length of 30 in the point "
-#~ "100 of the lane:"
+#~ "  Example: If you want to create a busStop with a length of 30 in the "
+#~ "point 100 of the lane:"
 #~ msgstr ""
-#~ "  Beispiel: Wenn ein Bushaltepunkt mit einer Länge von 30 im Punkt 100 des "
-#~ "Fahrstreifens erstellen werden soll:"
+#~ "  Beispiel: Wenn ein Bushaltepunkt mit einer Länge von 30 im Punkt 100 "
+#~ "des Fahrstreifens erstellen werden soll:"
 
 #~ msgid "  - Reference Left: will have startPos = 70 and endPos = 100."
-#~ msgstr "  - Referenzposition links: Führt zu startPos = 70 und endPos = 100."
+#~ msgstr ""
+#~ "  - Referenzposition links: Führt zu startPos = 70 und endPos = 100."
 
 #~ msgid "  - Reference Right: will have startPos = 100 and endPos = 130."
 #~ msgstr ""
@@ -17874,19 +17891,20 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 
 #~ msgid "  - Extended Right: will have startPos from start and endPos = 115."
 #~ msgstr ""
-#~ "  - Erweiterung rechts: Führt zu startPos am Fahrstreifenbeginn und endPos ="
-#~ " 115."
+#~ "  - Erweiterung rechts: Führt zu startPos am Fahrstreifenbeginn und "
+#~ "endPos = 115."
 
 #~ msgid ""
-#~ "  - Extended: will have startPos from start and endPos until lane's length."
+#~ "  - Extended: will have startPos from start and endPos until lane's "
+#~ "length."
 #~ msgstr "  - Erweiterung: Belegt die gesamte Fahrstreifenlänge."
 
 #~ msgid ""
 #~ "- Block movement: if is enabled, the created additional element will be "
 #~ "blocked. i.e. cannot be moved with"
 #~ msgstr ""
-#~ "- Verschieben blockieren: Wenn aktiviert, wird das erstellte weitere Element"
-#~ " blockiert. d.h. es kann nicht mit verschoben werden"
+#~ "- Verschieben blockieren: Wenn aktiviert, wird das erstellte weitere "
+#~ "Element blockiert. d.h. es kann nicht mit verschoben werden"
 
 #~ msgid "  the mouse. This option can be modified inspecting element."
 #~ msgstr ""
@@ -17895,8 +17913,8 @@ msgstr "Konnte Koordinaten nicht in % konvertieren."
 #~ msgid ""
 #~ "- Center view: if is enabled, view will be center over created element."
 #~ msgstr ""
-#~ "- Ansicht zentrieren: Wenn diese Option aktiviert ist, wird die Ansicht über"
-#~ " dem erstellten Element zentriert."
+#~ "- Ansicht zentrieren: Wenn diese Option aktiviert ist, wird die Ansicht "
+#~ "über dem erstellten Element zentriert."
 
 #~ msgid "-Click over an edge to select"
 #~ msgstr "-Über eine Kante klicken zum Auswählen"
