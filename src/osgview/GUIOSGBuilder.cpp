@@ -40,6 +40,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/shapes/ShapeContainer.h>
 
 #include "GUIOSGView.h"
 #include "GUIOSGBuilder.h"
@@ -101,6 +102,14 @@ GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::No
             root->addChild(tlNode);
             lastLane = lane;
         }
+    }
+
+    // build PoI and polygons
+    for (const auto& entry : net->getShapeContainer().getPolygons()) {
+        buildPolygonGeometry(*entry.second, *root, tesselator);
+    }
+    for (const auto& entry : net->getShapeContainer().getPOIs()) {
+        buildPoIGeometry(*entry.second, *root, tesselator);
     }
     return root;
 }
@@ -259,6 +268,86 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
         tessellator.retessellatePolygons(*geom);
     }
     junction.setGeometry(geom);
+}
+
+
+void
+GUIOSGBuilder::buildPolygonGeometry(const SUMOPolygon& poly, osg::Group& addTo, osgUtil::Tessellator& tessellator) {
+    const PositionVector& shape = poly.getShape();
+    const std::vector<PositionVector>& holes = poly.getHoles();
+    const bool isFilled = poly.getFill();
+    const double lineWidth = poly.getLineWidth();
+
+    osg::Geode* geode = new osg::Geode();
+    osg::Geometry* geom = new osg::Geometry();
+    geode->addDrawable(geom);
+    geode->setName("polygon:" + poly.getID());
+    addTo.addChild(geode);
+    osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size()); // OSG needs float coordinates here
+    geom->setVertexArray(osg_coords);
+    for (unsigned int k = 0; k < (int)shape.size(); ++k) {
+        (*osg_coords)[k].set((float)shape[k].x(), (float)shape[k].y(), 0.1f);
+    }
+    // TODO: how to draw holes? Don't worry for the moment, just don't
+    if (holes.size() > 0) {
+    }
+
+    osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
+    (*osg_normals)[0] = osg::Vec3(0, 0, 1); // OSG needs float coordinates here
+    geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
+    osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
+    const RGBColor col = poly.getShapeColor();
+    (*osg_colors)[0].set(col.red(), col.green(), col.blue(), 255);
+    geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
+    geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, (int)shape.size()));
+
+    osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
+    ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+    ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
+
+    if (shape.size() > 4) {
+        tessellator.retessellatePolygons(*geom);
+    }
+}
+
+
+void
+GUIOSGBuilder::buildPoIGeometry(const PointOfInterest& poi, osg::Group& addTo, osgUtil::Tessellator& tessellator) {
+    osg::Geode* geode = new osg::Geode();
+    osg::Geometry* geom = new osg::Geometry();
+    geode->addDrawable(geom);
+    geode->setName("poi:" + poi.getID());
+    addTo.addChild(geode);
+    osg::Vec3Array* osg_coords = new osg::Vec3Array(4); // OSG needs float coordinates here
+    geom->setVertexArray(osg_coords);
+    // make a square
+    const Position& center = poi.getCenter();
+    const double width = poi.getWidth();
+    const double height = poi.getHeight();
+    PositionVector shape;
+    shape.push_back(Position(center.x() - 0.5 * width, center.y() + 0.5 * height));
+    shape.push_back(Position(center.x() + 0.5 * width, center.y() + 0.5 * height));
+    shape.push_back(Position(center.x() + 0.5 * width, center.y() - 0.5 * height));
+    shape.push_back(Position(center.x() - 0.5 * width, center.y() - 0.5 * height));
+    for (unsigned int k = 0; k < shape.size(); ++k) {
+        (*osg_coords)[k].set((float)shape[k].x(), (float)shape[k].y(), 0.2f);
+    }
+    osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
+    (*osg_normals)[0] = osg::Vec3(0, 0, 1); // OSG needs float coordinates here
+    geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
+    osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
+    const RGBColor col = poi.getShapeColor();
+    (*osg_colors)[0].set(col.red(), col.green(), col.blue(), 255);
+    geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
+    geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, (int)shape.size()));
+
+    osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
+    ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+    ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
+
+    if (shape.size() > 4) {
+        tessellator.retessellatePolygons(*geom);
+    }
 }
 
 
