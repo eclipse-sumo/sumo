@@ -56,7 +56,6 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/options/OptionsCont.h>

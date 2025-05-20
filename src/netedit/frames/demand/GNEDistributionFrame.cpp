@@ -29,7 +29,6 @@
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNEDistributionFrame.h"
 

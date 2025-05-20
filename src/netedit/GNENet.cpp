@@ -65,7 +65,6 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEApplicationWindow.h"

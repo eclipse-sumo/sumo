@@ -27,7 +27,6 @@
 #include <netedit/elements/network/GNELane.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNEProhibitionFrame.h"
 

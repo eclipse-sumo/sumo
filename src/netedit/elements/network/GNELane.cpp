@@ -45,7 +45,6 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/images/VClassIcons.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNELane.h"

@@ -21,7 +21,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEGeometryPointDialog.h"

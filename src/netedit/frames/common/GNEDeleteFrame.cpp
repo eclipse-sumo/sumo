@@ -27,7 +27,6 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNEDeleteFrame.h"
 

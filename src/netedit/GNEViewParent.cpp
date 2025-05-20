@@ -54,7 +54,6 @@
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEApplicationWindow.h"

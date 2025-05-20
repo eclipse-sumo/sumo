@@ -23,7 +23,6 @@
 #include <netedit/tools/GNERunPythonTool.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNERunPythonToolDialog.h"
 

@@ -27,6 +27,7 @@
 // ===========================================================================
 
 class GNELoadThread;
+class GUINeteditTestSystem;
 class GNETagPropertiesDatabase;
 class GNEUndoList;
 class GNEUndoListDialog;
@@ -632,6 +633,17 @@ public:
 
     /// @brief load meanData elements
     void loadMeanDataElements();
+    
+    /// @name functions related with test system
+    /// @{
+
+    /// @brief get netedit test system
+    GUINeteditTestSystem* getNeteditTestSystem() const;
+
+    /// @brief check if ignore input signal (using during netedit tests)
+    bool allowInputSignals(FXObject* obj) const;
+
+    /// @}
 
 protected:
     /// @brief FOX needs this for static members
@@ -639,6 +651,9 @@ protected:
 
     /// @brief the thread that loads the network
     GNELoadThread* myLoadThread = nullptr;
+
+    /// @brief the thread that loads the network
+    GUINeteditTestSystem* myNeteditTestSystem = nullptr;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;

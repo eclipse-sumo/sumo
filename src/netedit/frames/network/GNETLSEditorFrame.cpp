@@ -37,7 +37,6 @@
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/foxtools/MFXToggleButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNETLSEditorFrame.h"

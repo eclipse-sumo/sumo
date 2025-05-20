@@ -30,7 +30,6 @@
 #include <netedit/frames/GNEDrawingShape.h>
 #include <utils/foxtools/MFXDynamicLabel.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNETAZFrame.h"
 

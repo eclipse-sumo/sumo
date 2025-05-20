@@ -20,7 +20,6 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEUndoListDialog.h"

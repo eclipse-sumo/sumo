@@ -26,7 +26,6 @@
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNETAZRelDataFrame.h"
 

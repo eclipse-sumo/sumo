@@ -31,7 +31,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/POIIcons.h>
 #include <utils/gui/images/VClassIcons.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 
 #include "GNEAttributesEditorRow.h"
 

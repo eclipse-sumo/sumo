@@ -32,7 +32,6 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsLoader.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <xercesc/parsers/SAXParser.hpp>
 
 #include "GNEOptionsDialog.h"

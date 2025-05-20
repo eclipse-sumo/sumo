@@ -63,7 +63,7 @@
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
+#include <utils/gui/tests/GUINeteditTestSystem.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/xml/XMLSubSys.h>
@@ -501,10 +501,6 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* app, const GNETagPropertiesDat
     TemplateHandler::parseTemplate(myOriginalSumoOptions, sumoTemplate);
     TemplateHandler::parseTemplate(myNetgenerateOptions, netgenerateTemplate);
     TemplateHandler::parseTemplate(myOriginalNetgenerateOptions, netgenerateTemplate);
-    // check if create tests system
-    if (OptionsCont::getOptions().getString("test-file").size() > 0) {
-        gTestSystem = new GUINeteditTestSystem(OptionsCont::getOptions().getString("test-file"));
-    }
 }
 #ifdef _MSC_VER
 #pragma warning(pop)
@@ -559,6 +555,10 @@ GNEApplicationWindow::dependentBuild() {
     fillMenuBar();
     // build additional threads
     myLoadThread = new GNELoadThread(this, myThreadEvents, myLoadThreadEvent);
+    // check if create tests system
+    if (OptionsCont::getOptions().getString("test-file").size() > 0) {
+        myNeteditTestSystem = new GUINeteditTestSystem(OptionsCont::getOptions().getString("test-file"));
+    }
     // set the status bar
     setStatusBarText(TL("Ready."));
     // set the caption
@@ -651,6 +651,9 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myLanguageMenu;
     // Delete load thread
     delete myLoadThread;
+    if (myNeteditTestSystem) {
+        delete myNeteditTestSystem;
+    }
     // drop all events
     while (!myThreadEvents.empty()) {
         // get the next event
@@ -661,10 +664,6 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     // delete undoList and dialog
     delete myUndoList;
     delete myUndoListDialog;
-    // delete test system
-    if (gTestSystem) {
-        delete gTestSystem;
-    }
 }
 
 
@@ -4839,6 +4838,25 @@ GNEApplicationWindow::loadMeanDataElements() {
         }
     }
 }
+
+
+GUINeteditTestSystem*
+GNEApplicationWindow::getNeteditTestSystem() const {
+    return myNeteditTestSystem;
+}
+
+
+bool
+GNEApplicationWindow::allowInputSignals(FXObject* obj) const {
+    if (myNeteditTestSystem == nullptr) {
+        return true;
+    } else if (obj == myNeteditTestSystem) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 // ---------------------------------------------------------------------------
 // GNEApplicationWindow - protected methods

@@ -29,7 +29,6 @@
 #include <netedit/frames/GNEElementTree.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
-#include <utils/gui/tests/GUIGlobalTestSystem.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEInspectorFrame.h"

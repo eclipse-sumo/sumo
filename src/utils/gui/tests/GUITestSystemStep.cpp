@@ -23,7 +23,6 @@
 
 #include "GUITestSystemStep.h"
 #include "GUINeteditTestSystem.h"
-#include "GUIGlobalTestSystem.h"
 
 // ===========================================================================
 // member method definitions
