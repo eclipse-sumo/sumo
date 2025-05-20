@@ -149,7 +149,7 @@ if (SWIG_FOUND)
             else()
                 message(WARNING "Could not build libsumo jar, maven was not found.")
             endif()
-            set_property(TARGET libsumojni PROPERTY FOLDER "libsumo")
+            set_target_properties(libsumojni PROPERTIES FOLDER "libsumo" PREFIX "")
             install(TARGETS libsumojni DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
         else()
             message(WARNING "ENABLE_JAVA_BINDINGS is set but Java or JNI was not found.")
@@ -179,7 +179,7 @@ if (SWIG_FOUND)
         ADD_CUSTOM_COMMAND(TARGET libsumocs POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/libsumocs-sources.zip" --format=zip "${CS_NAMESPACE}"
         )
-        set_target_properties(libsumocs PROPERTIES FOLDER "libsumo" OUTPUT_NAME "libsumocs")
+        set_target_properties(libsumocs PROPERTIES FOLDER "libsumo" PREFIX "")
         install(TARGETS libsumocs DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
     endif()
 

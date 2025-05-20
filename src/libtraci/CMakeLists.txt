@@ -108,7 +108,7 @@ if (SWIG_FOUND)
             else()
                 message(WARNING "Could not build libtraci jar, maven was not found.")
             endif()
-            set_property(TARGET libtracijni PROPERTY FOLDER "libtraci")
+            set_target_properties(libtracijni PROPERTIES FOLDER "libtraci" PREFIX "")
             install(TARGETS libtracijni DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
         else()
             message(WARNING "ENABLE_JAVA_BINDINGS is set but Java or JNI was not found.")
@@ -134,7 +134,7 @@ if (SWIG_FOUND)
         ADD_CUSTOM_COMMAND(TARGET libtracics POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/libtracics-sources.zip" --format=zip "${CS_NAMESPACE}"
         )
-        set_target_properties(libtracics PROPERTIES FOLDER "libtraci" OUTPUT_NAME "libtracics")
+        set_target_properties(libtracics PROPERTIES FOLDER "libtraci" PREFIX "")
         install(TARGETS libtracics DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
     endif()
 
