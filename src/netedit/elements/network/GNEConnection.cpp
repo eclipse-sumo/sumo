@@ -72,25 +72,28 @@ GNEConnection::updateGeometry() {
         // Get shape of from and to lanes
         const NBEdge::Connection& nbCon = getNBEdgeConnection();
         // obtain lane shapes
-        auto laneShapeFrom = getParentLanes().front()->getLaneShape();
-        auto laneShapeTo = getParentLanes().back()->getLaneShape();
+        const auto& laneShapeFrom = getParentLanes().front()->getLaneShape();
+        const auto& laneShapeTo = getParentLanes().back()->getLaneShape();
         // Calculate shape of connection depending of the size of Junction shape
         if (nbCon.customShape.size() > 0) {
             myConnectionGeometry.updateGeometry(nbCon.customShape);
         } else if (nbCon.shape.size() > 1) {
             PositionVector connectionShape;
-            if (nbCon.shape.front().distanceSquaredTo(nbCon.shape.back()) < 0.2) {
-                laneShapeFrom.move2side(0.8);
-                laneShapeTo.move2side(-0.8);
+            if ((nbCon.shape.length() < 3) && !nbCon.haveVia) {
+                if (laneShapeFrom.length() > 1) {
+                    connectionShape.push_back(laneShapeFrom.positionAtOffset(laneShapeFrom.length() - 1));
+                }
                 connectionShape.push_back(laneShapeFrom.back());
                 connectionShape.push_back(laneShapeTo.front());
-                connectionShape.rotate2D(nbCon.shape.front(), -0.5 * M_PI);
+                if (laneShapeTo.length() > 1) {
+                    connectionShape.push_back(laneShapeTo.positionAtOffset(1));
+                }
             } else {
                 connectionShape = nbCon.shape;
-            }
-            // only append via shape if it exists
-            if (nbCon.haveVia) {
-                connectionShape.append(nbCon.viaShape);
+                // only append via shape if it exists
+                if (nbCon.haveVia) {
+                    connectionShape.append(nbCon.viaShape);
+                }
             }
             myConnectionGeometry.updateGeometry(connectionShape);
         } else if (getParentLanes().front()->getLane2laneConnections().exist(getParentLanes().back())) {
@@ -392,10 +395,11 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         if (getParentLanes().front()->getDrawingConstants()->drawSuperposed()) {
             shapeSuperposed.move2side(0.5);
         }
+        GUIGeometry superposedGeometry(shapeSuperposed);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             // draw connection
-            drawConnection(s, d, shapeSuperposed, connectionExaggeration);
+            drawConnection(s, d, superposedGeometry, connectionExaggeration);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 0.1);
             // draw dotted contour depending if we're editing the custom shape
@@ -702,42 +706,42 @@ GNEConnection::getConnectionColor(const GUIVisualizationSettings& s) const {
 
 void
 GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                              const PositionVector& shape, const double exaggeration) const {
+                              const GUIGeometry& superposedGeometry, const double exaggeration) const {
     // get color
     RGBColor connectionColor = getConnectionColor(s);
     // Push layer matrix
     GLHelper::pushMatrix();
     // translate to front
     if (myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() == this) {
-        drawInLayer(GLO_CONNECTION, 1);
+        drawInLayer(GLO_CONNECTION, 200);
     } else {
-        drawInLayer(GLO_CONNECTION, 0);
+        drawInLayer(GLO_CONNECTION, 200);
     }
     // Set color
     GLHelper::setColor(connectionColor);
     // continue depending of detail level
     if (d <= GUIVisualizationSettings::Detail::JunctionElementDetails) {
         // draw geometry
-        GLHelper::drawBoxLines(shape, myConnectionGeometry.getShapeRotations(), myConnectionGeometry.getShapeLengths(),
+        GLHelper::drawBoxLines(superposedGeometry.getShape(), superposedGeometry.getShapeRotations(), superposedGeometry.getShapeLengths(),
                                s.connectionSettings.connectionWidth * exaggeration);
         // draw arrows over connection
-        drawConnectionArrows(s, connectionColor);
+        drawConnectionArrows(s, superposedGeometry, connectionColor);
         // check if internal junction marker has to be drawn
         if (myInternalJunctionMarkerGeometry.getShape().size() > 0) {
             GLHelper::setColor(RGBColor::GREY);
             GUIGeometry::drawGeometry(d, myInternalJunctionMarkerGeometry, s.connectionSettings.connectionWidth * exaggeration * 0.5);
         }
         // draw edge values
-        drawEdgeValues(s, shape);
+        drawEdgeValues(s, superposedGeometry.getShape());
         // draw shape points only in Network supemode
         if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.connectionGeometryPointRadius)) {
             // draw geometry points
-            GUIGeometry::drawGeometryPoints(d, myConnectionGeometry.getShape(), connectionColor.changedBrightness(-32),
+            GUIGeometry::drawGeometryPoints(d, superposedGeometry.getShape(), connectionColor.changedBrightness(-32),
                                             s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
                                             myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }
     } else {
-        GLHelper::drawLine(myConnectionGeometry.getShape());
+        GLHelper::drawLine(superposedGeometry.getShape());
     }
     // Pop layer matrix
     GLHelper::popMatrix();
@@ -745,7 +749,8 @@ GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisual
 
 
 void
-GNEConnection::drawConnectionArrows(const GUIVisualizationSettings& s, const RGBColor& color) const {
+GNEConnection::drawConnectionArrows(const GUIVisualizationSettings& s, const GUIGeometry& superposedGeometry,
+                                    const RGBColor& color) const {
     if (s.showLaneDirection) {
         // Push matrix
         GLHelper::pushMatrix();
@@ -754,9 +759,9 @@ GNEConnection::drawConnectionArrows(const GUIVisualizationSettings& s, const RGB
         // change color
         GLHelper::setColor(color.changedBrightness(51));
         // draw triangles
-        for (int i = 1; i < (int)myConnectionGeometry.getShape().size(); i++) {
-            const auto posA = myConnectionGeometry.getShape()[i - 1];
-            const auto posB = myConnectionGeometry.getShape()[i];
+        for (int i = 1; i < (int)superposedGeometry.getShape().size(); i++) {
+            const auto posA = superposedGeometry.getShape()[i - 1];
+            const auto posB = superposedGeometry.getShape()[i];
             GLHelper::drawTriangleAtEnd(posA, posB, (double) 1, (double) .2);
         }
         // Pop matrix
