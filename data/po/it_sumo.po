@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-05-20 07:55+0000\n"
-"PO-Revision-Date: 2025-05-16 12:57+0000\n"
+"POT-Creation-Date: 2025-04-16 14:39+0200\n"
+"PO-Revision-Date: 2025-05-19 13:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1087,6 +1087,8 @@ msgid ""
 "Ignoring lane change subscription filter with non-neighboring lane offset "
 "direction=%."
 msgstr ""
+"Il filtro per l'abbonamento dei cambi corsia viene ignorato perché dichiara "
+"una direzione una corsia relativa non vicina %."
 
 #: src/libsumo/VehicleType.cpp:339
 #, c-format
@@ -5569,14 +5571,20 @@ msgid ""
 "At NEMA tlLogic '%', different sizes of NEMA phase states. Please check the "
 "NEMA XML"
 msgstr ""
+"La logica semaforica NEMA '%' contiene varie taglie di fasi NEMA. Per favore "
+"controlla XML NEMA"
 
 #: src/microsim/traffic_lights/NEMAController.cpp:566
 msgid "At NEMA tlLogic '%', actuated phase % has no controlling detector"
 msgstr ""
+"Nella logica semaforica NEMA '%' la fase attuata % non viene controllata da "
+"nessun rivelatore"
 
 #: src/microsim/traffic_lights/NEMAController.cpp:584
 msgid "At NEMA tlLogic '%, linkIndex % has no controlling detector"
 msgstr ""
+"Nella logica semaforica NEMA '%' l'indice di collegamento % non viene "
+"controllato da nessun rivelatore"
 
 #: src/microsim/traffic_lights/NEMAController.cpp:630
 #, c-format
@@ -5629,7 +5637,7 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:311
 msgid "No waiting set for crossing at %."
-msgstr ""
+msgstr "Nessun insieme di attese al passaggio pedonale su %."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:351
 msgid "Error while adding a journey for person '%': %"
@@ -6204,6 +6212,8 @@ msgid ""
 "Stop on edge '%' can only be reached in reverse but edge has the wrong "
 "spreadType."
 msgstr ""
+"La fermata sull'arco '%' può essere raggiunta solamente andando contromano "
+"ma l'arco possiede lo spreadType sbagliato."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1045
 msgid "No connection found between stops on edge '%' and edge '%'."
@@ -6946,6 +6956,7 @@ msgstr "Indovina i segnali che proteggono fermate di trasporto pubblico"
 #: src/netbuild/NBFrame.cpp:269 src/netgen/netgen_main.cpp:97
 msgid "List rail classes that may run without rail signals"
 msgstr ""
+"Elenca le classi ferroviarie capaci di circolare senza segnali ferroviari"
 
 #: src/netbuild/NBFrame.cpp:272
 msgid "The search radius for finding suitable road accesses for rail stops"
@@ -7385,7 +7396,7 @@ msgstr ""
 
 #: src/netbuild/NBHelpers.cpp:89
 msgid "Could not load names of edges to keep from '%'."
-msgstr ""
+msgstr "Non ho potuto caricare i nomi degli archi da mantenere da '%'."
 
 #: src/netbuild/NBHelpers.cpp:107
 msgid "Could not load IDs from '%'."
@@ -8691,6 +8702,8 @@ msgid ""
 "Default to building two sidewalks on oneway streets (may affect divided "
 "roads)"
 msgstr ""
+"Crea dei marciapiedi su ambi lati di una via a senso unico per difetto (può "
+"avere degli effetti su vie con carreggiate divise)"
 
 #: src/netimport/NIFrame.cpp:210
 msgid "Import crossings"
@@ -9375,6 +9388,8 @@ msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten with signal '%' and controller '%'."
 msgstr ""
+"La segnalazione del collegamento da '%' a '%' (centralina '%') è ambigua "
+"perché sovrascritta con lo segnale '%' e la centralina '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1394
 #: src/netimport/NIImporter_OpenDrive.cpp:1427
@@ -9447,11 +9462,13 @@ msgstr "Ripetizione senza oggetto all'arco '%'."
 #: src/netimport/NIImporter_OpenDrive.cpp:2726
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
 msgstr ""
+"Non ho potuto impostare la proiezione (%). Questo può essere ignorato con "
+"--ignore-errors."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2730
 #, c-format
 msgid "geoReference format '%' currently not supported"
-msgstr ""
+msgstr "Il formato geoReference '%' tuttora risulta incompatibile"
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2845
 msgid "Mismatching parenthesis in geometry definition for road '%'"
@@ -9495,7 +9512,7 @@ msgstr "L'arco '%' che collega due nodi identici senza geometria viene omesso."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:629
 msgid "New value for oneway found: %"
-msgstr ""
+msgstr "Incontrato un nuovo valore per il senso unico: %"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:664
 msgid "Skipping edge '%' because it has zero lanes."
@@ -9711,10 +9728,11 @@ msgstr ""
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2514
 msgid "Discarding unusable type '%' (first occurrence for edge '%')."
 msgstr ""
+"Il tipo inutilizzabile '%' viene scartato (prima apparizione nell'arco '%')."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2559
 msgid "Discarding compound type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "Il tipo composito viene scartato (prima apparizione nell'arco '%')."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2574
 msgid "Adding new type '%' (first occurrence for edge '%')."
@@ -9903,6 +9921,8 @@ msgstr "Si è prodotto un arco raddoppiato ('%')."
 msgid ""
 "Incoming connector '%' will not be build - would be not connected to network."
 msgstr ""
+"Il connettore entrante '%' non verrà costruito - non sarebbe collegato alla "
+"rete."
 
 #: src/netimport/NIImporter_VISUM.cpp:584
 #: src/netimport/NIImporter_VISUM.cpp:618
@@ -9919,6 +9939,8 @@ msgstr "Un codice identificativo raddoppiato si è prodotto (ID='%')."
 msgid ""
 "Outgoing connector '%' will not be build - would be not connected to network."
 msgstr ""
+"Il connettore uscente '%' non verrà costruito - non sarebbe collegato alla "
+"rete."
 
 #: src/netimport/NIImporter_VISUM.cpp:665
 #: src/netimport/NIImporter_VISUM.cpp:671
@@ -10935,8 +10957,8 @@ msgid ""
 "Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire "
 "simulation"
 msgstr ""
-"Il risolutore di catenarie (Eigen) non è stato compilato che può condurre a "
-"degli errori nella simulazione delle catenarie"
+"Il risolutore di catenarie (Eigen) non è stato compilato - questo può "
+"condurre a degli errori nella simulazione delle catenarie"
 
 #: src/netload/NLTriggerBuilder.cpp:383
 msgid ""
@@ -13070,18 +13092,22 @@ msgstr "Gli elementi MeanData non possono caricare attributi come parametri"
 
 #: src/utils/handlers/RouteHandler.cpp:646
 msgid "an embedded route cannot have their own ID"
-msgstr ""
+msgstr "un itinerario interno non può avere un codice identificativo dedicato"
 
 #: src/utils/handlers/RouteHandler.cpp:713
 #: src/utils/handlers/RouteHandler.cpp:803
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
+"Gli attributi 'from', 'fromJunction' e 'fromTaz' non possono essere definiti "
+"allo stesso tempo"
 
 #: src/utils/handlers/RouteHandler.cpp:716
 #: src/utils/handlers/RouteHandler.cpp:806
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
+"Gli attributi 'to', 'toJunction' e 'toTaz' non possono essere definiti allo "
+"stesso tempo"
 
 #: src/utils/handlers/RouteHandler.cpp:981
 msgid "Speed and duration attributes cannot be defined together in walks"
