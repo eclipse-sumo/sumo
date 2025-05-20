@@ -448,6 +448,9 @@ public:
     /// @brief update toggle time format button
     long onUpdToggleTimeFormat(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief run tests
+    long onCmdRunTests(FXObject*, FXSelector, void*);
+
     /// @brief enable or disable sender object depending if viewNet exist
     long onUpdRequireViewNet(FXObject* sender, FXSelector sel, void* ptr);
 

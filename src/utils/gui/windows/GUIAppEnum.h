@@ -1675,6 +1675,9 @@ enum {
 
     /// @}
 
+    /// @brief run tests
+    MID_RUNTESTS,
+
     /// @brief last element of enum (not used)
     MID_LAST
 };

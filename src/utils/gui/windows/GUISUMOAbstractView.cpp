@@ -1023,6 +1023,8 @@ GUISUMOAbstractView::onPaint(FXObject*, FXSelector, void*) {
         paintGL();
         makeNonCurrent();
     }
+    // run tests
+    myApp->handle(this, FXSEL(SEL_COMMAND, MID_RUNTESTS), nullptr);
     return 1;
 }
 

@@ -1395,8 +1395,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
             myNet->getGrid().updateBoundaries(gObjectsInPosition.recomputeBoundaries);
         }
     */
-    // run netedit test in the first draw
-    myViewParent->getGNEAppWindows()->getNeteditTestSystem()->runNeteditTests(this);
     return hits;
 }
 
@@ -6388,6 +6386,5 @@ GNEViewNet::processMoveMouseData(const bool mouseLeftButtonPressed) {
         myMoveSingleElement.moveSingleElement(mouseLeftButtonPressed);
     }
 }
-
 
 /****************************************************************************/

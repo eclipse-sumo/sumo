@@ -448,6 +448,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_RECOMPUTINGNEEDED,                  GNEApplicationWindow::onUpdRequireRecomputing),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onCmdToggleTimeFormat),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onUpdToggleTimeFormat),
+    FXMAPFUNC(SEL_COMMAND,              MID_RUNTESTS,                               GNEApplicationWindow::onCmdRunTests),
 };
 
 // Object implementation
@@ -2194,6 +2195,14 @@ GNEApplicationWindow::onUpdToggleTimeFormat(FXObject*, FXSelector, void*) {
     }
     return 1;
 }
+
+
+long
+GNEApplicationWindow::onCmdRunTests(FXObject*, FXSelector, void*) {
+    myNeteditTestSystem->runNeteditTests(this);
+    return 1;
+}
+
 
 long
 GNEApplicationWindow::onUpdRequireViewNet(FXObject* sender, FXSelector, void*) {

@@ -26,8 +26,7 @@
 // class declaration
 // ===========================================================================
 
-class GNEViewNet;
-class GUITestSystemStep;
+class GNEApplicationWindow;
 
 // ===========================================================================
 // class definitions
@@ -43,5 +42,5 @@ public:
     ~GNETestSystem();
 
     /// @brief start netedit test
-    void runNeteditTests(GNEViewNet* viewNet);
+    void runNeteditTests(GNEApplicationWindow* applicationWindow);
 };

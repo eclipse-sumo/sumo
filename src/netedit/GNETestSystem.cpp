@@ -38,29 +38,28 @@ GNETestSystem::GNETestSystem(const std::string &testFile) :
 }
 
 
-GNETestSystem::~GNETestSystem() {
-}
+GNETestSystem::~GNETestSystem() {}
 
 
 void
-GNETestSystem::runNeteditTests(GNEViewNet* viewNet) {
+GNETestSystem::runNeteditTests(GNEApplicationWindow* applicationWindow) {
     // run rest only once
     if (myTestStarted == false) {
         myTestStarted = true;
         // process every step
         for (const auto &testStep : myTestSteps) {
             // check if we have to process it in main windows, abstract view or specific view
-            if (testStep->getCategory() == GUITestSystemStep::Category::VIEW) {
-                viewNet->handle(this, testStep->getSelector(), testStep->getEvent());
-            } else if (testStep->getCategory() == GUITestSystemStep::Category::MAINWINDOW) {
-                viewNet->getViewParent()->getGNEAppWindows()->handle(this, testStep->getSelector(), testStep->getEvent());
+            if (testStep->getCategory() == GUITestSystemStep::Category::MAINWINDOW) {
+                applicationWindow->handle(this, testStep->getSelector(), testStep->getEvent());
+            } else if (testStep->getCategory() == GUITestSystemStep::Category::VIEW) {
+                applicationWindow->getViewNet()->handle(this, testStep->getSelector(), testStep->getEvent());
             } else if (testStep->getCategory() == GUITestSystemStep::Category::FRAME_ADDITIONAL_TAGSELECTOR) {
-                viewNet->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->handle(this, testStep->getSelector(), (void*)testStep->getText());
+                applicationWindow->getViewNet()->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->handle(this, testStep->getSelector(), (void*)testStep->getText());
             }
             // update view after every test, except if test is quit() or category is virtual
             if ((testStep->getCategory() != GUITestSystemStep::Category::VIRTUAL) && 
                 (testStep->getMessageID() != MID_HOTKEY_CTRL_Q_CLOSE)) {
-                viewNet->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
+                applicationWindow->getViewNet()->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
             }
         }
     }
