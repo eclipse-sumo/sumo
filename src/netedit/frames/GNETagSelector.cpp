@@ -177,18 +177,24 @@ GNETagSelector::refreshTagSelector() {
 
 
 long
-GNETagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
-    myCurrentTemplateAC = myFrameParent->getViewNet()->getNet()->getACTemplates()->getTemplateAC(myTagsMatchBox->getText().text());
-    if (myCurrentTemplateAC) {
-        // set color of myTypeMatchBox to black (valid)
-        myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
-        myTagsMatchBox->killFocus();
+GNETagSelector::onCmdSelectTag(FXObject*, FXSelector, void* ptr) {
+    // check if we given the tag throught the ptr (used in indirect test)
+    if (ptr != nullptr) {
+        FXString* newTag = static_cast<FXString*>(ptr);
+        myTagsMatchBox->setText(*newTag, TRUE);
     } else {
-        // set color of myTypeMatchBox to red (invalid)
-        myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
+        myCurrentTemplateAC = myFrameParent->getViewNet()->getNet()->getACTemplates()->getTemplateAC(myTagsMatchBox->getText().text());
+        if (myCurrentTemplateAC) {
+            // set color of myTypeMatchBox to black (valid)
+            myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myTagsMatchBox->killFocus();
+        } else {
+            // set color of myTypeMatchBox to red (invalid)
+            myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
+        }
+        // inform to frame parent that a tag was selected
+        myFrameParent->tagSelected();
     }
-    // inform to frame parent that a tag was selected
-    myFrameParent->tagSelected();
     return 1;
 }
 

@@ -65,7 +65,7 @@ public:
     /// @name FOX-callbacks
     /// @{
     /// @brief Called when the user select an elementin ComboBox
-    long onCmdSelectTag(FXObject*, FXSelector, void*);
+    long onCmdSelectTag(FXObject*, FXSelector, void* ptr);
     /// @}
 
 protected:

@@ -38,12 +38,12 @@
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/demand/GNEContainerFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/demand/GNEPersonFrame.h>
-#include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/templates.h>
 #include <netimport/NIFrame.h>
 #include <netimport/NITypeLoader.h>
@@ -71,8 +71,9 @@
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
-#include "GNEViewNet.h"
+#include "GNETestSystem.h"
 #include "GNEUndoList.h"
+#include "GNEViewNet.h"
 #include "GNEViewParent.h"
 
 #ifdef HAVE_VERSION_H
@@ -447,11 +448,11 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_RECOMPUTINGNEEDED,                  GNEApplicationWindow::onUpdRequireRecomputing),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onCmdToggleTimeFormat),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onUpdToggleTimeFormat),
+    FXMAPFUNC(SEL_COMMAND,              MID_RUNTESTS,                               GNEApplicationWindow::onCmdRunTests),
 };
 
 // Object implementation
 FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNUMBER(GNEApplicationWindowMap))
-
 
 // ===========================================================================
 // GNEApplicationWindow method definitions
@@ -554,7 +555,11 @@ GNEApplicationWindow::dependentBuild() {
     // fill menu and tool bar
     fillMenuBar();
     // build additional threads
-    myLoadThread = new GNELoadThread(this, myEvents, myLoadThreadEvent);
+    myLoadThread = new GNELoadThread(this, myThreadEvents, myLoadThreadEvent);
+    // check if create tests system
+    if (OptionsCont::getOptions().getString("test-file").size() > 0) {
+        myNeteditTestSystem = new GNETestSystem(OptionsCont::getOptions().getString("test-file"));
+    }
     // set the status bar
     setStatusBarText(TL("Ready."));
     // set the caption
@@ -647,11 +652,14 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myLanguageMenu;
     // Delete load thread
     delete myLoadThread;
+    if (myNeteditTestSystem) {
+        delete myNeteditTestSystem;
+    }
     // drop all events
-    while (!myEvents.empty()) {
+    while (!myThreadEvents.empty()) {
         // get the next event
-        GUIEvent* e = myEvents.top();
-        myEvents.pop();
+        GUIEvent* e = myThreadEvents.top();
+        myThreadEvents.pop();
         delete e;
     }
     // delete undoList and dialog
@@ -1239,10 +1247,11 @@ GNEApplicationWindow::onLoadThreadEvent(FXObject*, FXSelector, void*) {
 
 void
 GNEApplicationWindow::eventOccurred() {
-    while (!myEvents.empty()) {
+    // load events
+    while (!myThreadEvents.empty()) {
         // get the next event
-        GUIEvent* e = myEvents.top();
-        myEvents.pop();
+        GUIEvent* e = myThreadEvents.top();
+        myThreadEvents.pop();
         // process
         switch (e->getOwnType()) {
             case GUIEventType::SIMULATION_LOADED:
@@ -1976,9 +1985,9 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
                     break;
             }
         }
+        // refresh to update undo-redo button
+        myViewNet->getViewParent()->getGNEAppWindows()->forceRefresh();
     }
-    // refresh to update undo-redo button
-    myViewNet->getViewParent()->getGNEAppWindows()->forceRefresh();
     return 1;
 }
 
@@ -2186,6 +2195,14 @@ GNEApplicationWindow::onUpdToggleTimeFormat(FXObject*, FXSelector, void*) {
     }
     return 1;
 }
+
+
+long
+GNEApplicationWindow::onCmdRunTests(FXObject*, FXSelector, void*) {
+    myNeteditTestSystem->runNeteditTests(this);
+    return 1;
+}
+
 
 long
 GNEApplicationWindow::onUpdRequireViewNet(FXObject* sender, FXSelector, void*) {
@@ -4830,6 +4847,25 @@ GNEApplicationWindow::loadMeanDataElements() {
         }
     }
 }
+
+
+GNETestSystem*
+GNEApplicationWindow::getNeteditTestSystem() const {
+    return myNeteditTestSystem;
+}
+
+
+bool
+GNEApplicationWindow::allowInputSignals(FXObject* obj) const {
+    if (myNeteditTestSystem == nullptr) {
+        return true;
+    } else if (obj == myNeteditTestSystem) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 // ---------------------------------------------------------------------------
 // GNEApplicationWindow - protected methods

@@ -39,18 +39,13 @@
 // ===========================================================================
 
 class GNEApplicationWindow;
-class GNELoadThread;
 class GNENet;
 class GNENetgenerateDialog;
 class GNEPythonTool;
 class GNEPythonToolDialog;
 class GNERunNetgenerateDialog;
 class GNERunPythonToolDialog;
-class GNETagPropertiesDatabase;
-class GNEUndoList;
-class GNEUndoListDialog;
 class GNEViewNet;
-class GUIEvent;
 class MFXMenuCheckIcon;
 
 // ===========================================================================

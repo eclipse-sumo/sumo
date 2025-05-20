@@ -47,11 +47,9 @@ FXDEFMAP(GNEPlanCreator) PathCreatorMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEPlanCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
 
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
 
 GNEPlanCreator::PlanPath::PlanPath(GNEPathManager* pathManager, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge) :
     myConflictVClass(false),

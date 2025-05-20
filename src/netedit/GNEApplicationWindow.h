@@ -22,6 +22,16 @@
 
 #include "GNEApplicationWindowHelper.h"
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+
+class GNELoadThread;
+class GNETestSystem;
+class GNETagPropertiesDatabase;
+class GNEUndoList;
+class GNEUndoListDialog;
+class GUIEvent;
 
 // ===========================================================================
 // class definition
@@ -438,6 +448,9 @@ public:
     /// @brief update toggle time format button
     long onUpdToggleTimeFormat(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief run tests
+    long onCmdRunTests(FXObject*, FXSelector, void*);
+
     /// @brief enable or disable sender object depending if viewNet exist
     long onUpdRequireViewNet(FXObject* sender, FXSelector sel, void* ptr);
 
@@ -623,6 +636,17 @@ public:
 
     /// @brief load meanData elements
     void loadMeanDataElements();
+    
+    /// @name functions related with test system
+    /// @{
+
+    /// @brief get netedit test system
+    GNETestSystem* getNeteditTestSystem() const;
+
+    /// @brief check if ignore input signal (using during netedit tests)
+    bool allowInputSignals(FXObject* obj) const;
+
+    /// @}
 
 protected:
     /// @brief FOX needs this for static members
@@ -630,6 +654,9 @@ protected:
 
     /// @brief the thread that loads the network
     GNELoadThread* myLoadThread = nullptr;
+
+    /// @brief the thread that loads the network
+    GNETestSystem* myNeteditTestSystem = nullptr;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;
@@ -692,8 +719,8 @@ protected:
     /// @brief Button used for show if recomputing is needed
     MFXButtonTooltip* myRequireRecomputingButton = nullptr;
 
-    /// @brief List of got requests
-    MFXSynchQue<GUIEvent*> myEvents;
+    /// @brief List of load requests
+    MFXSynchQue<GUIEvent*> myThreadEvents;
 
     /// @brief io-event with the load-thread
     FXEX::MFXThreadEvent myLoadThreadEvent;

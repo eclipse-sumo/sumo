@@ -157,7 +157,8 @@ protected:
     GUISUMOAbstractView& myCallback;
 
     /// @brief the current mouse position
-    FXint myMouseXPosition, myMouseYPosition;
+    FXint myMouseXPosition = 0;
+    FXint myMouseYPosition = 0;
 
     /// @brief the intended viewport
     Boundary myViewPort;

@@ -56,9 +56,9 @@ FXDEFMAP(GNEMultipleParametersDialog::ParametersOperations) ParametersOperations
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMultipleParametersDialog,                    FXDialogBox,   GNEMultipleParametersDialogMap,  ARRAYNUMBER(GNEMultipleParametersDialogMap))
-FXIMPLEMENT(GNEMultipleParametersDialog::ParametersValues,  FXGroupBox,    ParametersValuesMap,             ARRAYNUMBER(ParametersValuesMap))
-FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOperations, FXGroupBox,    ParametersOperationsMap,            ARRAYNUMBER(ParametersOperationsMap))
+FXIMPLEMENT(GNEMultipleParametersDialog,                        FXDialogBox,    GNEMultipleParametersDialogMap, ARRAYNUMBER(GNEMultipleParametersDialogMap))
+FXIMPLEMENT(GNEMultipleParametersDialog::ParametersValues,      FXGroupBox,     ParametersValuesMap,            ARRAYNUMBER(ParametersValuesMap))
+FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOperations,  FXGroupBox,     ParametersOperationsMap,        ARRAYNUMBER(ParametersOperationsMap))
 
 // ===========================================================================
 // member method definitions

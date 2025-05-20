@@ -34,10 +34,10 @@
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
 #include <netedit/frames/GNEDrawingShape.h>
-#include <netedit/frames/GNEViewObjectSelector.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPlanCreator.h>
+#include <netedit/frames/GNEViewObjectSelector.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
@@ -77,11 +77,12 @@
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 
+#include "GNEApplicationWindow.h"
 #include "GNENet.h"
+#include "GNETestSystem.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
-#include "GNEApplicationWindow.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -1399,178 +1400,223 @@ GNEViewNet::doPaintGL(int mode, const Boundary& drawingBoundary) {
 
 
 long
-GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
-    // set focus in view net
-    setFocus();
-    // update MouseButtonKeyPressed
-    myMouseButtonKeyPressed.update(eventData);
-    // process left button press function depending of supermode
-    if (myEditModes.isCurrentSupermodeNetwork()) {
-        processLeftButtonPressNetwork(eventData);
-    } else if (myEditModes.isCurrentSupermodeDemand()) {
-        processLeftButtonPressDemand(eventData);
-    } else if (myEditModes.isCurrentSupermodeData()) {
-        processLeftButtonPressData(eventData);
+GNEViewNet::onLeftBtnPress(FXObject* obj, FXSelector, void* eventData) {
+    // check if we're in test mode
+    if (myViewParent->getGNEAppWindows()->allowInputSignals(obj)) {
+        // set focus in view net
+        setFocus();
+        // update MouseButtonKeyPressed
+        myMouseButtonKeyPressed.update(eventData);
+        // process left button press function depending of supermode
+        if (myEditModes.isCurrentSupermodeNetwork()) {
+            processLeftButtonPressNetwork(eventData);
+        } else if (myEditModes.isCurrentSupermodeDemand()) {
+            processLeftButtonPressDemand(eventData);
+        } else if (myEditModes.isCurrentSupermodeData()) {
+            processLeftButtonPressData(eventData);
+        }
+        // update cursor
+        updateCursor();
+        // update view
+        updateViewNet();
+        return 1;
+    } else {
+        return 0;
     }
-    // update cursor
-    updateCursor();
-    // update view
-    updateViewNet();
-    return 1;
 }
 
 
 long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
-    // avoid closing Popup dialog in Linux
-    if (myCreatedPopup) {
-        myCreatedPopup = false;
+    // check if we're in test mode
+    if (myViewParent->getGNEAppWindows()->allowInputSignals(obj)) {
+        // avoid closing Popup dialog in Linux
+        if (myCreatedPopup) {
+            myCreatedPopup = false;
+            return 1;
+        }
+        // process parent function
+        GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
+        // update MouseButtonKeyPressed
+        myMouseButtonKeyPressed.update(eventData);
+        // process left button release function depending of supermode
+        if (myEditModes.isCurrentSupermodeNetwork()) {
+            processLeftButtonReleaseNetwork();
+        } else if (myEditModes.isCurrentSupermodeDemand()) {
+            processLeftButtonReleaseDemand();
+        } else if (myEditModes.isCurrentSupermodeData()) {
+            processLeftButtonReleaseData();
+        }
+        // update cursor
+        updateCursor();
+        // update view
+        updateViewNet();
         return 1;
+    } else {
+        return 0;
     }
-    // process parent function
-    GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
-    // update MouseButtonKeyPressed
-    myMouseButtonKeyPressed.update(eventData);
-    // process left button release function depending of supermode
-    if (myEditModes.isCurrentSupermodeNetwork()) {
-        processLeftButtonReleaseNetwork();
-    } else if (myEditModes.isCurrentSupermodeDemand()) {
-        processLeftButtonReleaseDemand();
-    } else if (myEditModes.isCurrentSupermodeData()) {
-        processLeftButtonReleaseData();
-    }
-    // update cursor
-    updateCursor();
-    // update view
-    updateViewNet();
-    return 1;
 }
 
 
 long
 GNEViewNet::onMiddleBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
-    // process parent function
-    GUISUMOAbstractView::onMiddleBtnPress(obj, sel, eventData);
-    // update cursor
-    updateCursor();
-    // update view
-    updateViewNet();
-    return 1;
+    // check if we're in test mode
+    if (myViewParent->getGNEAppWindows()->allowInputSignals(obj)) {
+        // process parent function
+        GUISUMOAbstractView::onMiddleBtnPress(obj, sel, eventData);
+        // update cursor
+        updateCursor();
+        // update view
+        updateViewNet();
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 
 long
 GNEViewNet::onMiddleBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
-    // process parent function
-    GUISUMOAbstractView::onMiddleBtnRelease(obj, sel, eventData);
-    // update cursor
-    updateCursor();
-    // update view
-    updateViewNet();
-    return 1;
+    // check if we're in test mode
+    if (myViewParent->getGNEAppWindows()->allowInputSignals(obj)) {
+        // process parent function
+        GUISUMOAbstractView::onMiddleBtnRelease(obj, sel, eventData);
+        // update cursor
+        updateCursor();
+        // update view
+        updateViewNet();
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 
 long
 GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
-    // update MouseButtonKeyPressed
-    myMouseButtonKeyPressed.update(eventData);
-    // update cursor
-    updateCursor();
-    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
-        // disable right button press during drawing polygon
-        return 1;
+    // check if we're in test mode
+    if (myViewParent->getGNEAppWindows()->allowInputSignals(obj)) {
+        // update MouseButtonKeyPressed
+        myMouseButtonKeyPressed.update(eventData);
+        // update cursor
+        updateCursor();
+        if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
+            // disable right button press during drawing polygon
+            return 1;
+        } else {
+            return GUISUMOAbstractView::onRightBtnPress(obj, sel, eventData);
+        }
     } else {
-        return GUISUMOAbstractView::onRightBtnPress(obj, sel, eventData);
+        return 0;
     }
 }
 
 
 long
 GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
-    // update MouseButtonKeyPressed
-    myMouseButtonKeyPressed.update(eventData);
-    // update cursor
-    updateCursor();
-    // disable right button release during drawing polygon
-    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
-        return 1;
+    // check if we're in test mode
+    if (myViewParent->getGNEAppWindows()->allowInputSignals(obj)) {
+        // update MouseButtonKeyPressed
+        myMouseButtonKeyPressed.update(eventData);
+        // update cursor
+        updateCursor();
+        // disable right button release during drawing polygon
+        if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
+            return 1;
+        } else {
+            return GUISUMOAbstractView::onRightBtnRelease(obj, sel, eventData);
+        }
     } else {
-        return GUISUMOAbstractView::onRightBtnRelease(obj, sel, eventData);
+        return 0;
     }
 }
 
 
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
-    // process mouse move in GUISUMOAbstractView
-    GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
-    // update MouseButtonKeyPressed
-    myMouseButtonKeyPressed.update(eventData);
-    // update cursor
-    updateCursor();
-    // process mouse move function depending of supermode
-    if (myEditModes.isCurrentSupermodeNetwork()) {
-        processMoveMouseNetwork(myMouseButtonKeyPressed.mouseLeftButtonPressed());
-    } else if (myEditModes.isCurrentSupermodeDemand()) {
-        processMoveMouseDemand(myMouseButtonKeyPressed.mouseLeftButtonPressed());
-    } else if (myEditModes.isCurrentSupermodeData()) {
-        processMoveMouseData(myMouseButtonKeyPressed.mouseLeftButtonPressed());
+    // check if we're in test mode
+    if (myViewParent->getGNEAppWindows()->allowInputSignals(obj)) {
+        // process mouse move in GUISUMOAbstractView
+        GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
+        // update MouseButtonKeyPressed
+        myMouseButtonKeyPressed.update(eventData);
+        // update cursor
+        updateCursor();
+        // process mouse move function depending of supermode
+        if (myEditModes.isCurrentSupermodeNetwork()) {
+            processMoveMouseNetwork(myMouseButtonKeyPressed.mouseLeftButtonPressed());
+        } else if (myEditModes.isCurrentSupermodeDemand()) {
+            processMoveMouseDemand(myMouseButtonKeyPressed.mouseLeftButtonPressed());
+        } else if (myEditModes.isCurrentSupermodeData()) {
+            processMoveMouseData(myMouseButtonKeyPressed.mouseLeftButtonPressed());
+        }
+        // update view
+        updateViewNet();
+        return 1;
+    } else {
+        return 0;
     }
-    // update view
-    updateViewNet();
-    return 1;
 }
 
 
 long
-GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
-    // update MouseButtonKeyPressed
-    myMouseButtonKeyPressed.update(eventData);
-    // update cursor
-    updateCursor();
-    // continue depending of current edit mode
-    if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
-        // update viewNet (for temporal junction)
-        updateViewNet();
-    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
-        // change "delete last created point" depending of shift key
-        myViewParent->getShapeFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
-    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModule()->isDrawing()) {
-        // change "delete last created point" depending of shift key
-        myViewParent->getTAZFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
-    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) || (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE)) {
-        updateViewNet();
+GNEViewNet::onKeyPress(FXObject* obj, FXSelector sel, void* eventData) {
+    // check if we're in test mode
+    if (myViewParent->getGNEAppWindows()->allowInputSignals(obj)) {
+        // update MouseButtonKeyPressed
+        myMouseButtonKeyPressed.update(eventData);
+        // update cursor
+        updateCursor();
+        // continue depending of current edit mode
+        if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
+            // update viewNet (for temporal junction)
+            updateViewNet();
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
+            // change "delete last created point" depending of shift key
+            myViewParent->getShapeFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModule()->isDrawing()) {
+            // change "delete last created point" depending of shift key
+            myViewParent->getTAZFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) || (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE)) {
+            updateViewNet();
+        }
+        return GUISUMOAbstractView::onKeyPress(obj, sel, eventData);
+    } else {
+        return 0;
     }
-    return GUISUMOAbstractView::onKeyPress(o, sel, eventData);
 }
 
 
 long
-GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
-    // update MouseButtonKeyPressed
-    myMouseButtonKeyPressed.update(eventData);
-    // update cursor
-    updateCursor();
-    // continue depending of current edit mode
-    if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
-        // update viewNet (for temporal junction)
-        updateViewNet();
-    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
-        // change "delete last created point" depending of shift key
-        myViewParent->getShapeFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
-    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModule()->isDrawing()) {
-        // change "delete last created point" depending of shift key
-        myViewParent->getTAZFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
-    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) || (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE)) {
-        updateViewNet();
+GNEViewNet::onKeyRelease(FXObject* obj, FXSelector sel, void* eventData) {
+    // check if we're in test mode
+    if (myViewParent->getGNEAppWindows()->allowInputSignals(obj)) {
+        // update MouseButtonKeyPressed
+        myMouseButtonKeyPressed.update(eventData);
+        // update cursor
+        updateCursor();
+        // continue depending of current edit mode
+        if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
+            // update viewNet (for temporal junction)
+            updateViewNet();
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) && myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
+            // change "delete last created point" depending of shift key
+            myViewParent->getShapeFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModule()->isDrawing()) {
+            // change "delete last created point" depending of shift key
+            myViewParent->getTAZFrame()->getDrawingShapeModule()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) || (myEditModes.demandEditMode == DemandEditMode::DEMAND_MOVE)) {
+            updateViewNet();
+        }
+        // check if selecting using rectangle has to be disabled
+        if (mySelectingArea.selectingUsingRectangle && !myMouseButtonKeyPressed.shiftKeyPressed()) {
+            mySelectingArea.selectingUsingRectangle = false;
+            updateViewNet();
+        }
+        return GUISUMOAbstractView::onKeyRelease(obj, sel, eventData);
+    } else {
+        return 0;
     }
-    // check if selecting using rectangle has to be disabled
-    if (mySelectingArea.selectingUsingRectangle && !myMouseButtonKeyPressed.shiftKeyPressed()) {
-        mySelectingArea.selectingUsingRectangle = false;
-        updateViewNet();
-    }
-    return GUISUMOAbstractView::onKeyRelease(o, sel, eventData);
 }
 
 
@@ -6340,6 +6386,5 @@ GNEViewNet::processMoveMouseData(const bool mouseLeftButtonPressed) {
         myMoveSingleElement.moveSingleElement(mouseLeftButtonPressed);
     }
 }
-
 
 /****************************************************************************/

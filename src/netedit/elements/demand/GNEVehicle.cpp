@@ -58,6 +58,7 @@ FXIMPLEMENT(GNEVehicle::GNESelectedVehiclesPopupMenu,   GUIGLObjectPopupMenu,   
 // ===========================================================================
 // static definitions
 // ===========================================================================
+
 const double GNEVehicle::myArrivalPositionDiameter = SUMO_const_halfLaneWidth * 0.5;
 
 // ===========================================================================
