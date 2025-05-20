@@ -18,13 +18,8 @@
 // Abstract class used for test systems
 /****************************************************************************/
 
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/network/GNEAdditionalFrame.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/options/OptionsCont.h>
+#include <fstream>
+#include <utils/common/MsgHandler.h>
 
 #include "GUITestSystem.h"
 #include "GUITestSystemStep.h"

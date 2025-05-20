@@ -24,8 +24,6 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/tests/GUITestSystemStep.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/options/OptionsCont.h>
 
 #include "GNETestSystem.h"
 
