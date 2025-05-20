@@ -33,7 +33,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'Update translatable strings ref #11859'
           title: 'Update gettext po files'
-          add-paths: ${{ github.workspace }}/data/po/*.po
           draft: always-true
           base: main
           branch: sumo-patches
