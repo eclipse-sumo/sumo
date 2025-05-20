@@ -573,6 +573,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             }
             break;
         case SUMO_ATTR_UNCONTROLLED:
+            undoList->begin(this, "change attribute controlled for connection");
             {
                 const bool wasUncontrolled = c.uncontrolled;
                 GNEChange_Attribute::changeAttribute(this, key, value, undoList);
@@ -582,6 +583,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
                     srcEdge->getToJunction()->invalidateTLS(undoList, NBConnection::InvalidConnection, newNBCon);
                 }
             }
+            undoList->end();
             break;
         case SUMO_ATTR_INDIRECT:
             undoList->begin(this, "change attribute indirect for connection");
