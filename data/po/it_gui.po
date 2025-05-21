@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-05-20 18:34+0200\n"
-"PO-Revision-Date: 2025-05-20 13:19+0000\n"
+"PO-Revision-Date: 2025-05-21 06:41+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -15544,39 +15544,39 @@ msgstr ""
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:589
 msgid "A breakpoint value must be a time description (%)."
-msgstr ""
+msgstr "Il valore di un punto di interruzione deve descrivere un'ora (%)."
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:592
 msgid "Could not decode breakpoint '%'."
-msgstr ""
+msgstr "Non ho potuto analizzare il punto di interruzione '%'."
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:197
 msgid "by param (numerical, streetwise)"
-msgstr ""
+msgstr "per parametro (numerico, livello via)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:198
 msgid "by param (numerical, lanewise)"
-msgstr ""
+msgstr "per parametro (numerico, livello corsia)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:199
 msgid "by param (numerical)"
-msgstr ""
+msgstr "per parametro (numerico)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:200
 msgid "by edgeData (numerical, streetwise)"
-msgstr ""
+msgstr "per edgeData (numerico, livello via)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:201
 msgid "by attribute (numerical)"
-msgstr ""
+msgstr "per attributo (numerico)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:202
 msgid "by selection"
-msgstr ""
+msgstr "per selezione"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:203
 msgid "by type"
-msgstr ""
+msgstr "per tipo"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:204
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1843
@@ -15585,7 +15585,7 @@ msgstr "per codice di autorizzazione"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:205
 msgid "by live edgeData"
-msgstr ""
+msgstr "per edgeData in diretta"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:952
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1200
