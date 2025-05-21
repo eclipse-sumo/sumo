@@ -64,6 +64,7 @@ if not os.path.exists(sumolib.translation.LOCALEDIR) and os.path.exists(os.path.
 def updateLocalMessages():
     global _LANGUAGE_CAPTIONS
     _LANGUAGE_CAPTIONS = {'title': TL('Interactive Traffic Light'),
+                          'rail': TL('Railway Control'),
                           'fkk_in': TL('Research intersection Ingolstadt'),
                           'cross': TL('Simple Junction'),
                           'cross_demo': TL('Simple Junction (Demo)'),
