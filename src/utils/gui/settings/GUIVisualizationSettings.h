@@ -90,7 +90,7 @@ struct GUIVisualizationRainbowSettings {
 
     /// @brief constructor
     GUIVisualizationRainbowSettings(bool _hideMin, double _minThreshold, bool _hideMax, double _maxThreshold, bool _setNeutral,
-            double _neutralThreshold, bool _fixRange, int _rainboScheme);
+                                    double _neutralThreshold, bool _fixRange, int _rainboScheme);
 
     /// @brief equality comparator
     bool operator==(const GUIVisualizationRainbowSettings& other);
@@ -1018,6 +1018,9 @@ public:
 
     /// @name 3D visualization settings
     /// @{
+    /// @brief whether the coloring schemes of vehicles should be ignored
+    bool ignoreColorSchemeFor3DVehicles;
+
     /// @brief whether the TLS link markers should be drawn
     bool show3DTLSLinkMarkers;
 

@@ -730,6 +730,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showSizeLegend = (myShowSizeLegend->getCheck() != FALSE);
     tmpSettings.showColorLegend = (myShowColorLegend->getCheck() != FALSE);
     tmpSettings.showVehicleColorLegend = (myShowVehicleColorLegend->getCheck() != FALSE);
+    tmpSettings.ignoreColorSchemeFor3DVehicles = (myIgnoreColorSchemeFor3DVehicles->getCheck() != FALSE);
     tmpSettings.show3DTLSDomes = (myShow3DTLSDomes->getCheck() != FALSE);
     tmpSettings.show3DTLSLinkMarkers = (myShow3DTLSLinkMarkers->getCheck() != FALSE);
     tmpSettings.show3DHeadUpDisplay = (myShow3DHeadUpDisplay->getCheck() != FALSE);
@@ -2452,6 +2453,8 @@ GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
     FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
 
     FXMatrix* m82 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myIgnoreColorSchemeFor3DVehicles = new FXCheckButton(m82, TL("Ignore color scheme for vehicles"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myIgnoreColorSchemeFor3DVehicles->setCheck(mySettings->ignoreColorSchemeFor3DVehicles);
     myShow3DTLSLinkMarkers = new FXCheckButton(m82, TL("Show TLS link markers"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShow3DTLSLinkMarkers->setCheck(mySettings->show3DTLSLinkMarkers);
     //FXMatrix* m83 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);

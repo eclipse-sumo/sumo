@@ -650,6 +650,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     edgeRelWidthExaggeration(1),
     relDataAttr("count"),
     dataValueRainBow(false, -100, false, 100, false, 0, false, 1),
+    ignoreColorSchemeFor3DVehicles(false),
     show3DTLSLinkMarkers(true),
     show3DTLSDomes(true),
     generate3DTLSModels(false),
@@ -2267,6 +2268,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.closeTag();
     // 3D
     dev.openTag(SUMO_TAG_VIEWSETTINGS_3D);
+    dev.writeAttr("ignoreColorSchemeFor3DVehicles", ignoreColorSchemeFor3DVehicles);
     dev.writeAttr("show3DTLSLinkMarkers", show3DTLSLinkMarkers);
     dev.writeAttr("show3DTLSDomes", show3DTLSDomes);
     dev.writeAttr("show3DHeadUpDisplay", show3DHeadUpDisplay);
@@ -2287,6 +2289,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
 
 bool
 GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
+    if (ignoreColorSchemeFor3DVehicles != v2.ignoreColorSchemeFor3DVehicles) {
+        return false;
+    }
     if (show3DTLSDomes != v2.show3DTLSDomes) {
         return false;
     }
