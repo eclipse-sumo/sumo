@@ -288,6 +288,7 @@ GUITriggeredRerouter::myEndElement(int element) {
                 }
             }
             if (lastEdge != nullptr) {
+                double maxProb = ri.routeProbs.getProbs()[myShiftProbDistIndex];
                 for (int i = 0; i < (int)ri.routeProbs.getVals().size(); i++) {
                     const ConstMSEdgeVector& edges = ri.routeProbs.getVals()[i]->getEdges();
                     if (nextIndex < (int)edges.size()) {
@@ -295,6 +296,11 @@ GUITriggeredRerouter::myEndElement(int element) {
                         myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(edge, this, REROUTER_SWITCH_EDGE, i));
                         dynamic_cast<GUINet*>(GUINet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(myEdgeVisualizations.back());
                         myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
+                    }
+                    double prob = ri.routeProbs.getProbs()[i];
+                    if (prob > maxProb) {
+                        maxProb = prob;
+                        myShiftProbDistIndex = i;
                     }
                 }
             }
@@ -358,7 +364,6 @@ GUITriggeredRerouter::shiftProbs() {
     const RerouteInterval* const ri = getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
     if (ri != nullptr && ri->routeProbs.getProbs().size() > 1) {
         auto& rp = const_cast<RandomDistributor<ConstMSRoutePtr>&>(ri->routeProbs);
-        myShiftProbDistIndex = myShiftProbDistIndex % rp.getProbs().size();
         double prob = rp.getProbs()[myShiftProbDistIndex];
         rp.add(rp.getVals()[myShiftProbDistIndex], -prob);
         myShiftProbDistIndex = (myShiftProbDistIndex + 1) % rp.getProbs().size();
