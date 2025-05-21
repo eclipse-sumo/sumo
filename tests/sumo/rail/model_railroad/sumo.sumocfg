@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <gui_only>
         <gui-settings-file value="settings.xml"/>
+        <delay value="100"/>
     </gui_only>
-    <delay value="100"/>
 
 </sumoConfiguration>
