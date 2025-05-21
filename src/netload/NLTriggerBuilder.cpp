@@ -732,7 +732,11 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     if (pos != "") {
         const std::vector<std::string> posSplit = StringTokenizer(pos, ",").getVector();
         if (posSplit.size() == 1) {
-            p = edges.front()->getLanes()[0]->geometryPositionAtOffset(StringUtils::toDouble(pos));
+            double lanePos = StringUtils::toDouble(pos);
+            if (lanePos < 0) {
+                lanePos += edges.front()->getLanes()[0]->getLength();
+            }
+            p = edges.front()->getLanes()[0]->geometryPositionAtOffset(lanePos);
         } else if (posSplit.size() == 2) {
             p = Position(StringUtils::toDouble(posSplit[0]), StringUtils::toDouble(posSplit[1]));
         } else if (posSplit.size() == 3) {
