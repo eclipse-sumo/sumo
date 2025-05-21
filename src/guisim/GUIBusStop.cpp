@@ -61,9 +61,9 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
     GUIGlObject_AbstractAdd(GLO_BUS_STOP, id, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP)),
     myEmptyColor(RGBColor::INVISIBLE) {
     // see MSVehicleControl defContainerType
-    myWidth = MAX2(1.0, ceil((double)personCapacity / getTransportablesAbreast()) * myTransportableDepth);
+    myWidth = MAX2(1.0, ceil((double)myTransportableCapacity / getTransportablesAbreast()) * myTransportableDepth);
     initShape(myFGShape, myFGShapeRotations, myFGShapeLengths, myFGSignPos, myFGSignRot);
-    if (lane.getShape(true).size() > 0) {
+    if (myLane.getShape(true).size() > 0) {
         initShape(myFGShape2, myFGShapeRotations2, myFGShapeLengths2, myFGSignPos2, myFGSignRot2, true);
     }
 }
@@ -105,6 +105,7 @@ GUIBusStop::initShape(PositionVector& fgShape,
 
 void
 GUIBusStop::finishedLoading() {
+    MSStoppingPlace::finishedLoading();
     if (hasParameter("emptyColor")) {
         try {
             myEmptyColor = RGBColor::parseColor(getParameter("emptyColor"));

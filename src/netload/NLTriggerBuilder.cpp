@@ -509,10 +509,10 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     int defaultCapacity;
     SumoXMLAttr capacityAttr;
     if (element != SUMO_TAG_CONTAINER_STOP) {
-        defaultCapacity = MAX2(MSStoppingPlace::getTransportablesAbreast(topos - frompos, element) * 3, 6);
+        defaultCapacity = MAX2(MSStoppingPlace::getDefaultTransportablesAbreast(topos - frompos, element) * 3, 6);
         capacityAttr = SUMO_ATTR_PERSON_CAPACITY;
     } else {
-        defaultCapacity = MSStoppingPlace::getTransportablesAbreast(topos - frompos, element);
+        defaultCapacity = MSStoppingPlace::getDefaultTransportablesAbreast(topos - frompos, element);
         capacityAttr = SUMO_ATTR_CONTAINER_CAPACITY;
     }
     const int transportableCapacity = attrs.getOpt<int>(capacityAttr, id.c_str(), ok, defaultCapacity);

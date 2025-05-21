@@ -56,7 +56,9 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
     myParkingFactor(parkingLength <= 0 ? 1 : (endPos - begPos) / parkingLength),
     myColor(color),
     // see MSVehicleControl defContainerType
-    myTransportableDepth(element == SUMO_TAG_CONTAINER_STOP ? SUMO_const_waitingContainerDepth : SUMO_const_waitingPersonDepth) {
+    myTransportableDepth(element == SUMO_TAG_CONTAINER_STOP ? SUMO_const_waitingContainerDepth : SUMO_const_waitingPersonDepth),
+    myTransportableWidth(getDefaultTransportableWidth(myElement))
+{
     computeLastFreePos();
     for (int i = 0; i < capacity; i++) {
         myWaitingSpots.insert(i);
@@ -65,6 +67,27 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
 
 
 MSStoppingPlace::~MSStoppingPlace() {}
+
+
+double
+MSStoppingPlace::getDefaultTransportableWidth(SumoXMLTag element) {
+    return element == SUMO_TAG_CONTAINER_STOP
+        ? SUMO_const_waitingContainerWidth
+        : SUMO_const_waitingPersonWidth;
+
+}
+
+void
+MSStoppingPlace::finishedLoading() {
+    const std::string waitingWidth = getParameter("waitingWidth");
+    if (waitingWidth != "") {
+        try {
+            myTransportableWidth = StringUtils::toDouble(waitingWidth);
+        } catch (ProcessError& e) {
+            WRITE_WARNINGF("Could not waitingWidth (m) '%' (%)", waitingWidth, e.what());
+        }
+    }
+}
 
 
 const MSLane&
@@ -153,11 +176,8 @@ MSStoppingPlace::fits(double pos, const SUMOVehicle& veh) const {
 double
 MSStoppingPlace::getWaitingPositionOnLane(MSTransportable* t) const {
     auto it = myWaitingTransportables.find(t);
-    const double waitingWidth = myElement == SUMO_TAG_CONTAINER_STOP
-                                ? SUMO_const_waitingContainerWidth
-                                : SUMO_const_waitingPersonWidth;
     if (it != myWaitingTransportables.end() && it->second >= 0) {
-        return myEndPos - (0.5 + (it->second) % getTransportablesAbreast()) * waitingWidth;
+        return myEndPos - (0.5 + (it->second) % getTransportablesAbreast()) * myTransportableWidth;
     } else {
         return (myEndPos + myBegPos) / 2;
     }
@@ -165,15 +185,13 @@ MSStoppingPlace::getWaitingPositionOnLane(MSTransportable* t) const {
 
 
 int
-MSStoppingPlace::getTransportablesAbreast(double length, SumoXMLTag element) {
-    return MAX2(1, (int)floor(length / (element == SUMO_TAG_CONTAINER_STOP
-                                        ? SUMO_const_waitingContainerWidth
-                                        : SUMO_const_waitingPersonWidth)));
+MSStoppingPlace::getDefaultTransportablesAbreast(double length, SumoXMLTag element) {
+    return MAX2(1, (int)floor(length / getDefaultTransportableWidth(element)));
 }
 
 int
 MSStoppingPlace::getTransportablesAbreast() const {
-    return getTransportablesAbreast(myEndPos - myBegPos, myElement);
+    return MAX2(1, (int)floor((myEndPos - myBegPos) / myTransportableWidth));
 }
 
 Position
