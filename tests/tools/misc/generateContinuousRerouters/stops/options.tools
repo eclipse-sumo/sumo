@@ -1,0 +1,5 @@
+-n net.net.xml -o out.add.xml 
+-b 10 -e 2500
+--stop-file input_additional.add.xml
+--stop.duration 30
+tools/generateContinuousRerouters.py
