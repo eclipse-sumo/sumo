@@ -703,6 +703,7 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
         base->setScale(osg::Vec3d(type.getWidth() / (bbox.xMax() - bbox.xMin()),
                                   type.getLength() / (bbox.yMax() - bbox.yMin()),
                                   type.getHeight() / (bbox.zMax() - bbox.zMin())));
+        m.body = base;
         m.pos->addChild(base);
 
         // material for coloring the person or vehicle body

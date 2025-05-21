@@ -130,10 +130,19 @@ public:
     /// @brief struct for OSG movable elements
     struct OSGMovable {
         osg::ref_ptr<osg::PositionAttitudeTransform> pos;
-        osg::ref_ptr<osg::ShapeDrawable> geom;
+        osg::ref_ptr<osg::PositionAttitudeTransform> body;
         osg::ref_ptr<osg::Material> mat;
         osg::ref_ptr<osg::Switch> lights;
         bool active;
+
+        void activateMaterial(bool state = true) {
+            osg::ref_ptr<osg::StateSet> ss = body->getOrCreateStateSet();
+            if (state) {
+                ss->setAttribute(mat, osg::StateAttribute::ON | osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED);
+            } else {
+                ss->setAttribute(mat, osg::StateAttribute::OFF);
+            }
+        }
     };
 
     /// @brief constructor
