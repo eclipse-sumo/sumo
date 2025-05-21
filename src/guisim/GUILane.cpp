@@ -427,6 +427,13 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
             glVertex2d(x2 - myHalfLaneWidth, 0.5);
             glVertex2d(x2 - myHalfLaneWidth, 0.0);
             glEnd();
+            if (s.gaming && link->haveGreen()) {
+                const MSLane* lane = link->getLane();
+                // exaggerate green signals for railway game
+                if (isRailway(lane->getPermissions())) {
+                    GLHelper::drawFilledCircle(lane->getWidth() / 2., 8, 90, 270);
+                }
+            }
         }
         GLHelper::popName();
         GLHelper::popMatrix();

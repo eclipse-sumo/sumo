@@ -339,8 +339,11 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
                     glRotated(rot, 0, 0, 1);
                     GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_RED));
                     GLHelper::drawFilledCircle(lane->getWidth() / 2., 8, -90, 90);
-                    GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_YELLOW_MAJOR));
-                    GLHelper::drawFilledCircle(lane->getWidth() / 2., 8, 90, 270);
+                    if (!isRailway(lane->getPermissions())) {
+                        // no yellow half-cirlce in railway game
+                        GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_YELLOW_MAJOR));
+                        GLHelper::drawFilledCircle(lane->getWidth() / 2., 8, 90, 270);
+                    }
                     GLHelper::popMatrix();
                 }
             }
