@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-05-20 18:34+0200\n"
-"PO-Revision-Date: 2025-05-20 13:19+0000\n"
+"PO-Revision-Date: 2025-05-22 09:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6085,10 +6085,12 @@ msgstr ""
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:311
 msgid "rerouter '%': stationReroute requires a stopping place id."
 msgstr ""
+"rerouter '%': stationReroute richiede un codice identificativo di un luogo "
+"di fermata."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:315
 msgid "rerouter '%': stopping place '%' is not known."
-msgstr ""
+msgstr "rerouter '%': il luogo di fermata '%' è sconosciuto."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:643
 #, c-format
@@ -7432,6 +7434,8 @@ msgid ""
 "TYellow of signal group '%' was less than the computed one; patched (was:%, "
 "is:%)"
 msgstr ""
+"Il tempo giallo del gruppo di segnali '%' è minore di quello calcolato e "
+"quindi è stato sovrascritto (prima:%, adesso:%)"
 
 #: src/netbuild/NBLoadedTLDef.cpp:300
 msgid "During computation of traffic light '%'."
