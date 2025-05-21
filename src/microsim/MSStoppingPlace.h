@@ -227,7 +227,7 @@ public:
 
     const RGBColor& getColor() const;
 
-    static int getTransportablesAbreast(double length, SumoXMLTag element);
+    static int getDefaultTransportablesAbreast(double length, SumoXMLTag element);
 
     /// @brief get list of vehicles waiting at this stop
     std::vector<const SUMOVehicle*> getStoppedVehicles() const;
@@ -250,7 +250,7 @@ public:
     void getWaitingPersonIDs(std::vector<std::string>& into) const;
 
     /// @brief perform extra processing after element has been loaded
-    virtual void finishedLoading() {};
+    virtual void finishedLoading();
 
     /** @brief Remove all vehicles before quick-loading state */
     void clearState();
@@ -265,6 +265,8 @@ protected:
     void computeLastFreePos();
 
     int getTransportablesAbreast() const;
+
+    static double getDefaultTransportableWidth(SumoXMLTag element);
 
 protected:
     /// @brief the type of stopping place
@@ -304,6 +306,8 @@ protected:
 
     /// @brief row depth of waiting transportables
     const double myTransportableDepth;
+    /// @brief the with of waiting transportables
+    double myTransportableWidth;
 
     /// @brief Persons waiting at this stop (mapped to waiting position)
     std::map<const MSTransportable*, int> myWaitingTransportables;

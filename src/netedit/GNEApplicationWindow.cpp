@@ -2199,7 +2199,9 @@ GNEApplicationWindow::onUpdToggleTimeFormat(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdRunTests(FXObject*, FXSelector, void*) {
-    myNeteditTestSystem->runNeteditTests(this);
+    if (myNeteditTestSystem) {
+        myNeteditTestSystem->runNeteditTests(this);
+    }
     return 1;
 }
 

@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-05-20 09:34+0200\n"
+"POT-Creation-Date: 2025-05-20 18:34+0200\n"
 "PO-Revision-Date: 2025-02-26 08:53+0000\n"
 "Last-Translator: TransTony <wt20010624@163.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,32 +22,32 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:307 src/gui/GUIApplicationWindow.cpp:310
 #: src/gui/GUIApplicationWindow.cpp:2267 src/gui/GUIApplicationWindow.cpp:2268
 #: src/gui/GUIApplicationWindow.cpp:2270
-#: src/netedit/GNEApplicationWindow.cpp:535
-#: src/netedit/GNEApplicationWindow.cpp:539
-#: src/netedit/GNEApplicationWindow.cpp:543
-#: src/netedit/GNEApplicationWindow.cpp:1629
-#: src/netedit/GNEApplicationWindow.cpp:1630
-#: src/netedit/GNEApplicationWindow.cpp:1631
+#: src/netedit/GNEApplicationWindow.cpp:536
+#: src/netedit/GNEApplicationWindow.cpp:540
+#: src/netedit/GNEApplicationWindow.cpp:544
+#: src/netedit/GNEApplicationWindow.cpp:1638
+#: src/netedit/GNEApplicationWindow.cpp:1639
+#: src/netedit/GNEApplicationWindow.cpp:1640
 msgid "N/A"
 msgstr "不适用"
 
 #: src/gui/GUIApplicationWindow.cpp:307
-#: src/netedit/GNEApplicationWindow.cpp:536
+#: src/netedit/GNEApplicationWindow.cpp:537
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr "原始坐标(netconvert中坐标转换前)"
 
 #: src/gui/GUIApplicationWindow.cpp:310
-#: src/netedit/GNEApplicationWindow.cpp:540
+#: src/netedit/GNEApplicationWindow.cpp:541
 msgid "Network coordinate"
 msgstr "网络坐标"
 
 #: src/gui/GUIApplicationWindow.cpp:338
-#: src/netedit/GNEApplicationWindow.cpp:559
+#: src/netedit/GNEApplicationWindow.cpp:564
 msgid "Ready."
 msgstr "就绪。"
 
 #: src/gui/GUIApplicationWindow.cpp:461
-#: src/netedit/GNEApplicationWindow.cpp:1371
+#: src/netedit/GNEApplicationWindow.cpp:1380
 msgid "&File"
 msgstr "&档案"
 
@@ -92,7 +93,7 @@ msgid "Load edge related data for visualization."
 msgstr "载入路段相关资料以进行视觉化。"
 
 #: src/gui/GUIApplicationWindow.cpp:479
-#: src/netedit/GNEApplicationWindow.cpp:1037
+#: src/netedit/GNEApplicationWindow.cpp:1045
 msgid "&Reload"
 msgstr "&重新载入"
 
@@ -129,17 +130,17 @@ msgid "Close the simulation."
 msgstr "关闭仿真。"
 
 #: src/gui/GUIApplicationWindow.cpp:497
-#: src/netedit/GNEApplicationWindow.cpp:1392
+#: src/netedit/GNEApplicationWindow.cpp:1401
 msgid "&Quit"
 msgstr "&退出"
 
 #: src/gui/GUIApplicationWindow.cpp:497
-#: src/netedit/GNEApplicationWindow.cpp:1392
+#: src/netedit/GNEApplicationWindow.cpp:1401
 msgid "Quit the Application."
 msgstr "退出应用程序。"
 
 #: src/gui/GUIApplicationWindow.cpp:506
-#: src/netedit/GNEApplicationWindow.cpp:1407
+#: src/netedit/GNEApplicationWindow.cpp:1416
 msgid "&Edit"
 msgstr "&编辑"
 
@@ -255,7 +256,7 @@ msgid "Toggle full screen mode on/off."
 msgstr "切换全屏幕模式 打开/关闭。"
 
 #: src/gui/GUIApplicationWindow.cpp:551
-#: src/netedit/GNEApplicationWindow.cpp:1443
+#: src/netedit/GNEApplicationWindow.cpp:1452
 msgid "&Locate"
 msgstr "&定位"
 
@@ -457,7 +458,7 @@ msgid "Load simulation state for the current network from file."
 msgstr "将仿真状态档案载入当前路网中。"
 
 #: src/gui/GUIApplicationWindow.cpp:610
-#: src/netedit/GNEApplicationWindow.cpp:1514
+#: src/netedit/GNEApplicationWindow.cpp:1523
 msgid "&Window"
 msgstr "&视窗"
 
@@ -560,7 +561,7 @@ msgid "Clear the message window."
 msgstr "清除信息窗内信息。"
 
 #: src/gui/GUIApplicationWindow.cpp:654
-#: src/netedit/GNEApplicationWindow.cpp:1520
+#: src/netedit/GNEApplicationWindow.cpp:1529
 msgid "&Help"
 msgstr "&求助"
 
@@ -642,15 +643,17 @@ msgstr "\t时间节距\t执行单一仿真时间节距。"
 
 #: src/gui/GUIApplicationWindow.cpp:708
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and "
-"hour:minute:seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
+"seconds display."
 msgstr "时间:\t切换时间格式\t时间显示切换：秒 或 小时：分钟：秒。"
 
 #: src/gui/GUIApplicationWindow.cpp:722
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
-msgstr "延迟(毫秒):\t每个仿真秒(simulated second)的延迟\t每个仿真秒的延迟。按键执行最后两个延迟值的切换 。"
+msgstr ""
+"延迟(毫秒):\t每个仿真秒(simulated second)的延迟\t每个仿真秒的延迟。按键执行最"
+"后两个延迟值的切换 。"
 
 #: src/gui/GUIApplicationWindow.cpp:745
 msgid "Scale Traffic:"
@@ -742,10 +745,10 @@ msgid "Open Shapes"
 msgstr "打开几何物件(shape)"
 
 #: src/gui/GUIApplicationWindow.cpp:1101 src/gui/GUIApplicationWindow.cpp:1129
-#: src/netedit/GNEApplicationWindow.cpp:4674
-#: src/netedit/GNEApplicationWindow.cpp:4725
-#: src/netedit/GNEApplicationWindow.cpp:4769
-#: src/netedit/GNEApplicationWindow.cpp:4813
+#: src/netedit/GNEApplicationWindow.cpp:4691
+#: src/netedit/GNEApplicationWindow.cpp:4742
+#: src/netedit/GNEApplicationWindow.cpp:4786
+#: src/netedit/GNEApplicationWindow.cpp:4830
 #, c-format
 msgid "Loading of % failed."
 msgstr "加载%失败。"
@@ -771,7 +774,7 @@ msgid "Quick-Reloading."
 msgstr "快速重新载入。"
 
 #: src/gui/GUIApplicationWindow.cpp:1176
-#: src/netedit/GNEApplicationWindow.cpp:1109
+#: src/netedit/GNEApplicationWindow.cpp:1117
 msgid "Already loading!"
 msgstr "已经载入！"
 
@@ -960,7 +963,7 @@ msgstr "条件"
 msgid "Overflow in time computation occurred."
 msgstr "时间计算出现溢出。"
 
-#: src/gui/GUIViewTraffic.cpp:109 src/netedit/GNEViewNet.cpp:374
+#: src/gui/GUIViewTraffic.cpp:109 src/netedit/GNEViewNet.cpp:375
 msgid "Locate Junctions"
 msgstr "定位路口"
 
@@ -968,7 +971,7 @@ msgstr "定位路口"
 msgid "Locate a junction within the network."
 msgstr "在路网內定位一个路口。"
 
-#: src/gui/GUIViewTraffic.cpp:114 src/netedit/GNEViewNet.cpp:378
+#: src/gui/GUIViewTraffic.cpp:114 src/netedit/GNEViewNet.cpp:379
 msgid "Locate Edges"
 msgstr "定位路段"
 
@@ -976,7 +979,7 @@ msgstr "定位路段"
 msgid "Locate an edge within the network."
 msgstr "在路网內定位一个路段。"
 
-#: src/gui/GUIViewTraffic.cpp:119 src/netedit/GNEViewNet.cpp:386
+#: src/gui/GUIViewTraffic.cpp:119 src/netedit/GNEViewNet.cpp:387
 msgid "Locate Vehicles"
 msgstr "定位车辆"
 
@@ -984,7 +987,7 @@ msgstr "定位车辆"
 msgid "Locate a vehicle within the network."
 msgstr "在路网內定位一辆車。"
 
-#: src/gui/GUIViewTraffic.cpp:124 src/netedit/GNEViewNet.cpp:390
+#: src/gui/GUIViewTraffic.cpp:124 src/netedit/GNEViewNet.cpp:391
 msgid "Locate Persons"
 msgstr "定位人员"
 
@@ -1000,7 +1003,7 @@ msgstr "定位货柜"
 msgid "Locate a container within the network."
 msgstr "在路网內定位一个货柜。"
 
-#: src/gui/GUIViewTraffic.cpp:134 src/netedit/GNEViewNet.cpp:413
+#: src/gui/GUIViewTraffic.cpp:134 src/netedit/GNEViewNet.cpp:414
 msgid "Locate TLS"
 msgstr "定位交通信号"
 
@@ -1008,7 +1011,7 @@ msgstr "定位交通信号"
 msgid "Locate a tls within the network."
 msgstr "在路网內定位一个交通信号。"
 
-#: src/gui/GUIViewTraffic.cpp:139 src/netedit/GNEViewNet.cpp:417
+#: src/gui/GUIViewTraffic.cpp:139 src/netedit/GNEViewNet.cpp:418
 msgid "Locate Additional"
 msgstr "定位附加物"
 
@@ -1016,7 +1019,7 @@ msgstr "定位附加物"
 msgid "Locate an additional structure within the network."
 msgstr "在路网內定位一个附加的结构。"
 
-#: src/gui/GUIViewTraffic.cpp:144 src/netedit/GNEViewNet.cpp:421
+#: src/gui/GUIViewTraffic.cpp:144 src/netedit/GNEViewNet.cpp:422
 msgid "Locate PoI"
 msgstr "定位兴趣点"
 
@@ -1024,7 +1027,7 @@ msgstr "定位兴趣点"
 msgid "Locate a PoI within the network."
 msgstr "在路网內定位一个兴趣点。"
 
-#: src/gui/GUIViewTraffic.cpp:149 src/netedit/GNEViewNet.cpp:425
+#: src/gui/GUIViewTraffic.cpp:149 src/netedit/GNEViewNet.cpp:426
 msgid "Locate Polygon"
 msgstr "定位多边形物件"
 
@@ -1038,8 +1041,8 @@ msgstr "关于 Eclipse SUMO 的 sumo-gui"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:54
 msgid ""
-"Graphical user interface for the microscopic, multi-modal traffic simulation"
-" SUMO."
+"Graphical user interface for the microscopic, multi-modal traffic simulation "
+"SUMO."
 msgstr "用于多模式微观交通仿真的图形用户界面。"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:57
@@ -1048,8 +1051,7 @@ msgstr "引入JuPedSim %.%.%"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:64
 #: src/netedit/dialogs/GNEAbout.cpp:64
-msgid ""
-"This application is based on code provided by the Eclipse SUMO project."
+msgid "This application is based on code provided by the Eclipse SUMO project."
 msgstr "这个应用程序是基于Eclipse SUMO项目提供的代码。"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:65
@@ -2452,504 +2454,505 @@ msgstr "微观多运具交通仿真软件SUMO的图形用户界面（GUI）版�
 msgid "This system has no OpenGL support. Exiting."
 msgstr "该系统不支持OpenGL。退出。"
 
-#: src/netedit/GNEApplicationWindow.cpp:494
+#: src/netedit/GNEApplicationWindow.cpp:495
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "微观多运具交通仿真软件。"
 
-#: src/netedit/GNEApplicationWindow.cpp:531
+#: src/netedit/GNEApplicationWindow.cpp:532
 msgid "Recomputing"
 msgstr "重新计算"
 
-#: src/netedit/GNEApplicationWindow.cpp:532
+#: src/netedit/GNEApplicationWindow.cpp:533
 msgid "Recomputing is needed"
 msgstr "需要重新计算"
 
-#: src/netedit/GNEApplicationWindow.cpp:544
+#: src/netedit/GNEApplicationWindow.cpp:545
 msgid "Test coordinate"
 msgstr "测试坐标"
 
-#: src/netedit/GNEApplicationWindow.cpp:858
-#: src/netedit/GNEApplicationWindow.cpp:878
+#: src/netedit/GNEApplicationWindow.cpp:866
+#: src/netedit/GNEApplicationWindow.cpp:886
 msgid "loading TLS Programs from '"
 msgstr "从..载入交通信号方案"
 
-#: src/netedit/GNEApplicationWindow.cpp:920
+#: src/netedit/GNEApplicationWindow.cpp:928
 msgid "Loaded edge types from '"
 msgstr "载入的路段类型从 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:922
-#: src/netedit/GNEApplicationWindow.cpp:955
+#: src/netedit/GNEApplicationWindow.cpp:930
+#: src/netedit/GNEApplicationWindow.cpp:963
 msgid "load edgeTypes"
 msgstr "载入路段类型"
 
-#: src/netedit/GNEApplicationWindow.cpp:953
+#: src/netedit/GNEApplicationWindow.cpp:961
 msgid "Reloaded edge types from '"
 msgstr "重新载入的路段类型从 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1010
+#: src/netedit/GNEApplicationWindow.cpp:1018
 msgid "Reloading netedit config file '"
 msgstr "重新载入netedit 的设定档案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1014
+#: src/netedit/GNEApplicationWindow.cpp:1022
 msgid "Reloading sumo config file '"
 msgstr "重新载入sumo的设定档案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1018
-#: src/netedit/GNEApplicationWindow.cpp:1079
+#: src/netedit/GNEApplicationWindow.cpp:1026
+#: src/netedit/GNEApplicationWindow.cpp:1087
 msgid "Reloading network file '"
 msgstr "重新载入路网档案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1034
+#: src/netedit/GNEApplicationWindow.cpp:1042
 msgid "&Reload Netedit config"
 msgstr "&重新载入 Netedit 的设定档"
 
-#: src/netedit/GNEApplicationWindow.cpp:1035
+#: src/netedit/GNEApplicationWindow.cpp:1043
 msgid "&Reload Sumo config"
 msgstr "&重新载入Sumo的设定档"
 
-#: src/netedit/GNEApplicationWindow.cpp:1036
+#: src/netedit/GNEApplicationWindow.cpp:1044
 msgid "&Reload Network"
 msgstr "&重新载入路网"
 
-#: src/netedit/GNEApplicationWindow.cpp:1275
+#: src/netedit/GNEApplicationWindow.cpp:1284
 msgid "Loading of '"
 msgstr "...载入中"
 
-#: src/netedit/GNEApplicationWindow.cpp:1280
+#: src/netedit/GNEApplicationWindow.cpp:1289
 msgid "'"
 msgstr "'"
 
-#: src/netedit/GNEApplicationWindow.cpp:1280
+#: src/netedit/GNEApplicationWindow.cpp:1289
 msgid "' loaded."
 msgstr "已载入。"
 
-#: src/netedit/GNEApplicationWindow.cpp:1396
+#: src/netedit/GNEApplicationWindow.cpp:1405
 msgid "&Modes"
 msgstr "&运具"
 
-#: src/netedit/GNEApplicationWindow.cpp:1432
+#: src/netedit/GNEApplicationWindow.cpp:1441
 msgid "L&ock"
 msgstr "锁定"
 
-#: src/netedit/GNEApplicationWindow.cpp:1439
+#: src/netedit/GNEApplicationWindow.cpp:1448
 msgid "&Processing"
 msgstr "&处理中"
 
-#: src/netedit/GNEApplicationWindow.cpp:1466
+#: src/netedit/GNEApplicationWindow.cpp:1475
 msgid "&Tools"
 msgstr "&工具"
 
-#: src/netedit/GNEApplicationWindow.cpp:1468
+#: src/netedit/GNEApplicationWindow.cpp:1477
 msgid "Assign"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1469
+#: src/netedit/GNEApplicationWindow.cpp:1478
 #: src/netedit/GNETagPropertiesDatabase.cpp:425
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
 msgid "Detectors"
 msgstr "探测器"
 
-#: src/netedit/GNEApplicationWindow.cpp:1470
+#: src/netedit/GNEApplicationWindow.cpp:1479
 msgid "Districts"
 msgstr "分区"
 
-#: src/netedit/GNEApplicationWindow.cpp:1471
+#: src/netedit/GNEApplicationWindow.cpp:1480
 msgid "DRT"
 msgstr "需求反应运输(DRT)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1473
+#: src/netedit/GNEApplicationWindow.cpp:1482
 msgid "CityBrain"
 msgstr "城市大脑(CityBrain)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1474
+#: src/netedit/GNEApplicationWindow.cpp:1483
 msgid "GTFS"
 msgstr "一般公共交通数据规范(GTFS)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1475
+#: src/netedit/GNEApplicationWindow.cpp:1484
 msgid "Vissim"
 msgstr "Vissim"
 
-#: src/netedit/GNEApplicationWindow.cpp:1476
+#: src/netedit/GNEApplicationWindow.cpp:1485
 msgid "Visum"
 msgstr "Visum"
 
-#: src/netedit/GNEApplicationWindow.cpp:1477
+#: src/netedit/GNEApplicationWindow.cpp:1486
 msgid "Import"
 msgstr "导入"
 
-#: src/netedit/GNEApplicationWindow.cpp:1478
+#: src/netedit/GNEApplicationWindow.cpp:1487
 msgid "Net"
 msgstr "路网"
 
-#: src/netedit/GNEApplicationWindow.cpp:1479
+#: src/netedit/GNEApplicationWindow.cpp:1488
 msgid "Output"
 msgstr "输出"
 
-#: src/netedit/GNEApplicationWindow.cpp:1480
+#: src/netedit/GNEApplicationWindow.cpp:1489
 #: src/netedit/GNEApplicationWindowHelper.cpp:705
 #: src/netedit/GNETagPropertiesDatabase.cpp:2067
 #: src/netedit/GNETagPropertiesDatabase.cpp:2542
 msgid "Route"
 msgstr "路径"
 
-#: src/netedit/GNEApplicationWindow.cpp:1482
+#: src/netedit/GNEApplicationWindow.cpp:1491
 msgid "TLS"
 msgstr "交通信号"
 
-#: src/netedit/GNEApplicationWindow.cpp:1483
+#: src/netedit/GNEApplicationWindow.cpp:1492
 msgid "Trigger"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1484
+#: src/netedit/GNEApplicationWindow.cpp:1493
 msgid "Turn-defs"
 msgstr "转向定义(Turn-defs)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1485
+#: src/netedit/GNEApplicationWindow.cpp:1494
 msgid "Visualization"
 msgstr "视觉化"
 
-#: src/netedit/GNEApplicationWindow.cpp:1486
+#: src/netedit/GNEApplicationWindow.cpp:1495
 msgid "XML"
 msgstr "可延伸标示语言(XML)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1582
+#: src/netedit/GNEApplicationWindow.cpp:1591
 msgid "Network computed"
 msgstr "路网已计算完成"
 
-#: src/netedit/GNEApplicationWindow.cpp:1586
+#: src/netedit/GNEApplicationWindow.cpp:1595
 msgid "Press F5"
 msgstr "按F5按键"
 
-#: src/netedit/GNEApplicationWindow.cpp:1587
+#: src/netedit/GNEApplicationWindow.cpp:1596
 msgid "Network requires recomputing"
 msgstr "路网需要重新计算"
 
-#: src/netedit/GNEApplicationWindow.cpp:1664
+#: src/netedit/GNEApplicationWindow.cpp:1673
 msgid "Loading console arguments"
 msgstr "加载控制台参数"
 
-#: src/netedit/GNEApplicationWindow.cpp:1692
+#: src/netedit/GNEApplicationWindow.cpp:1701
 msgid "Creating new network."
 msgstr "建立新路网。"
 
-#: src/netedit/GNEApplicationWindow.cpp:1703
+#: src/netedit/GNEApplicationWindow.cpp:1712
 msgid "Trying to load an empty network"
 msgstr "尝试载入一个空白路网"
 
-#: src/netedit/GNEApplicationWindow.cpp:1719
+#: src/netedit/GNEApplicationWindow.cpp:1728
 msgid "Loading network file '"
 msgstr "载入路网档案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1731
+#: src/netedit/GNEApplicationWindow.cpp:1740
 msgid "Trying to load an empty configuration"
 msgstr "尝试载入一个空白设定档"
 
-#: src/netedit/GNEApplicationWindow.cpp:1747
+#: src/netedit/GNEApplicationWindow.cpp:1756
 msgid "Loading configuration file '"
 msgstr "载入设定档案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1777
+#: src/netedit/GNEApplicationWindow.cpp:1786
 msgid "Select Import Options"
 msgstr "选择汇入选项"
 
-#: src/netedit/GNEApplicationWindow.cpp:1783
+#: src/netedit/GNEApplicationWindow.cpp:1792
 msgid "Loading OSM file '"
 msgstr "载入开放街图（OSM)档案"
 
-#: src/netedit/GNEApplicationWindow.cpp:1801
+#: src/netedit/GNEApplicationWindow.cpp:1810
 msgid "Recompute with volatile options"
 msgstr "用易变的选项进行重新计算"
 
-#: src/netedit/GNEApplicationWindow.cpp:1802
+#: src/netedit/GNEApplicationWindow.cpp:1811
 msgid ""
 "Changes produced in the net due a recomputing with volatile options cannot "
 "be undone. Continue?"
-msgstr "由于使用易变选项重新计算而在网络中产生的更改将无法复原。 还继续执行吗？"
+msgstr ""
+"由于使用易变选项重新计算而在网络中产生的更改将无法复原。 还继续执行吗？"
 
-#: src/netedit/GNEApplicationWindow.cpp:2014
-#: src/netedit/GNEApplicationWindow.cpp:2074
+#: src/netedit/GNEApplicationWindow.cpp:2023
+#: src/netedit/GNEApplicationWindow.cpp:2083
 msgid "Running "
 msgstr "执行中 "
 
-#: src/netedit/GNEApplicationWindow.cpp:2037
+#: src/netedit/GNEApplicationWindow.cpp:2046
 msgid "Loading network '"
 msgstr "载入路网 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:2037
 #: src/netedit/GNEApplicationWindow.cpp:2046
+#: src/netedit/GNEApplicationWindow.cpp:2055
 msgid "' in SUMO-GUI"
 msgstr "' 在 SUMO-GUI 中"
 
-#: src/netedit/GNEApplicationWindow.cpp:2046
+#: src/netedit/GNEApplicationWindow.cpp:2055
 msgid "Loading sumo config '"
 msgstr "载入Sumo的设定档"
 
-#: src/netedit/GNEApplicationWindow.cpp:2393
+#: src/netedit/GNEApplicationWindow.cpp:2410
 msgid "Netedit options"
 msgstr "Netedit 选项"
 
-#: src/netedit/GNEApplicationWindow.cpp:2410
+#: src/netedit/GNEApplicationWindow.cpp:2427
 #: src/netedit/GNEApplicationWindowHelper.cpp:1895
 msgid "Sumo options"
 msgstr "sumo选项"
 
-#: src/netedit/GNEApplicationWindow.cpp:2427
+#: src/netedit/GNEApplicationWindow.cpp:2444
 msgid "Netgenerate options"
 msgstr "Netedit 选项"
 
-#: src/netedit/GNEApplicationWindow.cpp:2443
+#: src/netedit/GNEApplicationWindow.cpp:2460
 #: src/netedit/GNEApplicationWindowHelper.cpp:1283
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:108
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
 msgstr "还原"
 
-#: src/netedit/GNEApplicationWindow.cpp:2474
+#: src/netedit/GNEApplicationWindow.cpp:2491
 #: src/netedit/GNEApplicationWindowHelper.cpp:1286
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:111
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
 msgstr "重做"
 
-#: src/netedit/GNEApplicationWindow.cpp:3200
+#: src/netedit/GNEApplicationWindow.cpp:3217
 msgid "Saving Network failed!"
 msgstr "存储路网失败！"
 
-#: src/netedit/GNEApplicationWindow.cpp:3204
+#: src/netedit/GNEApplicationWindow.cpp:3221
 msgid "Network saved in '"
 msgstr "路网存储于 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3210
+#: src/netedit/GNEApplicationWindow.cpp:3227
 msgid "Could not save network in '"
 msgstr "无法将路网存储于 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3264
+#: src/netedit/GNEApplicationWindow.cpp:3281
 msgid "Plain XML saved with prefix '"
 msgstr "以前置字为基础存储的纯 XML档案 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3267
+#: src/netedit/GNEApplicationWindow.cpp:3284
 msgid "Saving plain xml failed!"
 msgstr "存储纯 xml档案失败！"
 
-#: src/netedit/GNEApplicationWindow.cpp:3288
+#: src/netedit/GNEApplicationWindow.cpp:3305
 msgid "Joined junctions saved to '"
 msgstr "整合路口存储于"
 
-#: src/netedit/GNEApplicationWindow.cpp:3291
+#: src/netedit/GNEApplicationWindow.cpp:3308
 msgid "Saving joined junctions failed!"
 msgstr "存储整合路口失败！"
 
-#: src/netedit/GNEApplicationWindow.cpp:3320
-#: src/netedit/GNEApplicationWindow.cpp:3324
-#: src/netedit/GNEApplicationWindow.cpp:3328
-#: src/netedit/GNEApplicationWindow.cpp:3332
-#: src/netedit/GNEApplicationWindow.cpp:3336
+#: src/netedit/GNEApplicationWindow.cpp:3337
+#: src/netedit/GNEApplicationWindow.cpp:3341
+#: src/netedit/GNEApplicationWindow.cpp:3345
+#: src/netedit/GNEApplicationWindow.cpp:3349
+#: src/netedit/GNEApplicationWindow.cpp:3353
 msgid "Saving of Netedit configuration aborted"
 msgstr "Netedit 配置保存已中止"
 
-#: src/netedit/GNEApplicationWindow.cpp:3345
+#: src/netedit/GNEApplicationWindow.cpp:3362
 msgid "Netedit configuration saved in '"
 msgstr "netedit的设定档案存储于'"
 
-#: src/netedit/GNEApplicationWindow.cpp:3351
+#: src/netedit/GNEApplicationWindow.cpp:3368
 msgid "Could not save netedit configuration in '"
 msgstr "无法将netedit的设定档案存储于 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3424
-#: src/netedit/GNEApplicationWindow.cpp:3428
-#: src/netedit/GNEApplicationWindow.cpp:3432
-#: src/netedit/GNEApplicationWindow.cpp:3436
-#: src/netedit/GNEApplicationWindow.cpp:3440
+#: src/netedit/GNEApplicationWindow.cpp:3441
+#: src/netedit/GNEApplicationWindow.cpp:3445
+#: src/netedit/GNEApplicationWindow.cpp:3449
+#: src/netedit/GNEApplicationWindow.cpp:3453
+#: src/netedit/GNEApplicationWindow.cpp:3457
 msgid "Saving of SUMO configuration aborted"
 msgstr "SUMO 配置保存已中止"
 
-#: src/netedit/GNEApplicationWindow.cpp:3455
+#: src/netedit/GNEApplicationWindow.cpp:3472
 msgid "SUMO configuration saved in '"
 msgstr "SUMO设定档案存储于 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3463
+#: src/netedit/GNEApplicationWindow.cpp:3480
 msgid "Could not save SUMO configuration in '"
 msgstr "无法将SUMO设定档案存储于 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3517
+#: src/netedit/GNEApplicationWindow.cpp:3534
 msgid "TLS Programs saved in '"
 msgstr "交通信号方案存储于 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3520
+#: src/netedit/GNEApplicationWindow.cpp:3537
 msgid "Saving TLS Programs failed!"
 msgstr "交通信号方案存储失败！"
 
-#: src/netedit/GNEApplicationWindow.cpp:3561
+#: src/netedit/GNEApplicationWindow.cpp:3578
 msgid "EdgeType saved in '"
 msgstr "路段类型（EdgeType）存储于'"
 
-#: src/netedit/GNEApplicationWindow.cpp:3564
+#: src/netedit/GNEApplicationWindow.cpp:3581
 msgid "Saving edgeTypes failed!"
 msgstr "存储路段类型（EdgeType）失败！"
 
-#: src/netedit/GNEApplicationWindow.cpp:3667
+#: src/netedit/GNEApplicationWindow.cpp:3684
 msgid "load additionals from '"
 msgstr "载入其它档案 '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3671 src/netedit/GNENet.cpp:1500
+#: src/netedit/GNEApplicationWindow.cpp:3688 src/netedit/GNENet.cpp:1500
 msgid "Loading of additional file failed: "
 msgstr "载入附加档案失败： "
 
-#: src/netedit/GNEApplicationWindow.cpp:3674 src/netedit/GNENet.cpp:1502
+#: src/netedit/GNEApplicationWindow.cpp:3691 src/netedit/GNENet.cpp:1502
 msgid "Loading of additional file successfully: "
 msgstr "成功载入附加档案： "
 
-#: src/netedit/GNEApplicationWindow.cpp:3699
+#: src/netedit/GNEApplicationWindow.cpp:3716
 msgid "reloading additionals"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3708
+#: src/netedit/GNEApplicationWindow.cpp:3725
 #, c-format
 msgid "Reloading of additional file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3764
+#: src/netedit/GNEApplicationWindow.cpp:3781
 msgid "Additionals saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3767
+#: src/netedit/GNEApplicationWindow.cpp:3784
 msgid "Saving additional aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3772
+#: src/netedit/GNEApplicationWindow.cpp:3789
 msgid "Saving additionals failed!"
 msgstr "存储附加文件(additional)失败!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3796
+#: src/netedit/GNEApplicationWindow.cpp:3813
 msgid "saving of unified additional elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3837
+#: src/netedit/GNEApplicationWindow.cpp:3854
 msgid "JuPedSim elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3840
+#: src/netedit/GNEApplicationWindow.cpp:3857
 msgid "Saving JuPedSim aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3846
+#: src/netedit/GNEApplicationWindow.cpp:3863
 msgid "Saving JuPedSim elements failed!"
 msgstr "存储JuPedSim 元素失败！"
 
-#: src/netedit/GNEApplicationWindow.cpp:3881
-#: src/netedit/GNEApplicationWindow.cpp:4713
-#: src/netedit/GNEApplicationWindow.cpp:4720
+#: src/netedit/GNEApplicationWindow.cpp:3898
+#: src/netedit/GNEApplicationWindow.cpp:4730
+#: src/netedit/GNEApplicationWindow.cpp:4737
 msgid "loading demand elements from '"
 msgstr "从 ' 载入交通需求要素"
 
-#: src/netedit/GNEApplicationWindow.cpp:3885 src/netedit/GNENet.cpp:1512
+#: src/netedit/GNEApplicationWindow.cpp:3902 src/netedit/GNENet.cpp:1512
 msgid "Loading of route file failed: "
 msgstr "载入路径档案失败： "
 
-#: src/netedit/GNEApplicationWindow.cpp:3888 src/netedit/GNENet.cpp:1514
+#: src/netedit/GNEApplicationWindow.cpp:3905 src/netedit/GNENet.cpp:1514
 msgid "Loading of route file successfully: "
 msgstr "成功载入路径档案： "
 
-#: src/netedit/GNEApplicationWindow.cpp:3913
+#: src/netedit/GNEApplicationWindow.cpp:3930
 msgid "reloading demand elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3922
+#: src/netedit/GNEApplicationWindow.cpp:3939
 #, c-format
 msgid "Reloading of route file '%'failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3976
+#: src/netedit/GNEApplicationWindow.cpp:3993
 msgid "Demand elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3979
-#: src/netedit/GNEApplicationWindow.cpp:4156
+#: src/netedit/GNEApplicationWindow.cpp:3996
+#: src/netedit/GNEApplicationWindow.cpp:4173
 msgid "Saving demand elements aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3984
-#: src/netedit/GNEApplicationWindow.cpp:4330
+#: src/netedit/GNEApplicationWindow.cpp:4001
+#: src/netedit/GNEApplicationWindow.cpp:4347
 msgid "Saving demand elements failed!"
 msgstr "存储需求元素失败!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4008
+#: src/netedit/GNEApplicationWindow.cpp:4025
 msgid "saving of unified demand elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4055
-#: src/netedit/GNEApplicationWindow.cpp:4757
-#: src/netedit/GNEApplicationWindow.cpp:4764
+#: src/netedit/GNEApplicationWindow.cpp:4072
+#: src/netedit/GNEApplicationWindow.cpp:4774
+#: src/netedit/GNEApplicationWindow.cpp:4781
 msgid "loading data elements from '"
 msgstr "从 '载入数据要素"
 
-#: src/netedit/GNEApplicationWindow.cpp:4059 src/netedit/GNENet.cpp:1523
+#: src/netedit/GNEApplicationWindow.cpp:4076 src/netedit/GNENet.cpp:1523
 msgid "Loading of data file failed: "
 msgstr "载入数据档案失败： "
 
-#: src/netedit/GNEApplicationWindow.cpp:4062 src/netedit/GNENet.cpp:1525
+#: src/netedit/GNEApplicationWindow.cpp:4079 src/netedit/GNENet.cpp:1525
 msgid "Loading of data file successfully: "
 msgstr "成功载入数据档案： "
 
-#: src/netedit/GNEApplicationWindow.cpp:4091
+#: src/netedit/GNEApplicationWindow.cpp:4108
 msgid "reloading data elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4100
+#: src/netedit/GNEApplicationWindow.cpp:4117
 msgid "Reloading of data file failed: "
 msgstr "载入数据档案失败： "
 
-#: src/netedit/GNEApplicationWindow.cpp:4153
+#: src/netedit/GNEApplicationWindow.cpp:4170
 msgid "Data elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4161
+#: src/netedit/GNEApplicationWindow.cpp:4178
 msgid "Saving data elements failed!"
 msgstr "存储文件元素失败!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4185
+#: src/netedit/GNEApplicationWindow.cpp:4202
 msgid "saving of unified data elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4228
+#: src/netedit/GNEApplicationWindow.cpp:4245
 msgid "load meanDatas from '"
 msgstr "从' 载入meanDatas"
 
-#: src/netedit/GNEApplicationWindow.cpp:4232 src/netedit/GNENet.cpp:1534
+#: src/netedit/GNEApplicationWindow.cpp:4249 src/netedit/GNENet.cpp:1534
 msgid "Loading of meandata file failed: "
 msgstr "载入meandata档案失败： "
 
-#: src/netedit/GNEApplicationWindow.cpp:4235
-#: src/netedit/GNEApplicationWindow.cpp:4269 src/netedit/GNENet.cpp:1536
+#: src/netedit/GNEApplicationWindow.cpp:4252
+#: src/netedit/GNEApplicationWindow.cpp:4286 src/netedit/GNENet.cpp:1536
 msgid "Loading of meandata file successfully: "
 msgstr "成功载入meandata档案： "
 
-#: src/netedit/GNEApplicationWindow.cpp:4260
+#: src/netedit/GNEApplicationWindow.cpp:4277
 msgid "reloading meanDatas"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4322
+#: src/netedit/GNEApplicationWindow.cpp:4339
 msgid "MeanDatas elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4325
+#: src/netedit/GNEApplicationWindow.cpp:4342
 msgid "Saving MeanData elements aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4354
+#: src/netedit/GNEApplicationWindow.cpp:4371
 msgid "saving of unified mean data elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4662
+#: src/netedit/GNEApplicationWindow.cpp:4679
 msgid "loading additional elements from '"
 msgstr "从 ' 载入附加要素"
 
-#: src/netedit/GNEApplicationWindow.cpp:4669
+#: src/netedit/GNEApplicationWindow.cpp:4686
 msgid "loading additionals from '"
 msgstr "从档案载入附加內容"
 
-#: src/netedit/GNEApplicationWindow.cpp:4801
-#: src/netedit/GNEApplicationWindow.cpp:4808
+#: src/netedit/GNEApplicationWindow.cpp:4818
+#: src/netedit/GNEApplicationWindow.cpp:4825
 msgid "loading meanData elements from '"
 msgstr ""
 
@@ -3182,8 +3185,7 @@ msgid "Save TLS Programs As..."
 msgstr "将交通信号方案另存为..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:410
-msgid ""
-"Save all traffic light programs of the current network to another file."
+msgid "Save all traffic light programs of the current network to another file."
 msgstr "现有路网内所有交通信号方案另存新档。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:416
@@ -3485,7 +3487,7 @@ msgid "Create and edit route distributions."
 msgstr "创建和编辑路径分配。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:712
-#: src/netedit/elements/demand/GNEVehicle.cpp:114
+#: src/netedit/elements/demand/GNEVehicle.cpp:115
 msgid "Vehicle"
 msgstr "车辆"
 
@@ -4196,7 +4198,7 @@ msgid "GEO"
 msgstr ""
 
 #: src/netedit/GNEAttributeProperties.cpp:299
-#: src/netedit/elements/demand/GNEVehicle.cpp:134
+#: src/netedit/elements/demand/GNEVehicle.cpp:135
 msgid "Flow"
 msgstr "流 (Flow)"
 
@@ -4301,7 +4303,8 @@ msgstr "载入netedit 设定档 '%' f 失败。"
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
-msgstr "输入路网选项无效。使用 sumo/netedit/netconvert 设定档案或 -new 选项载入"
+msgstr ""
+"输入路网选项无效。使用 sumo/netedit/netconvert 设定档案或 -new 选项载入"
 
 #: src/netedit/GNELoadThread.cpp:134
 msgid "Invalid Options. Nothing loaded"
@@ -4364,238 +4367,242 @@ msgstr "加载netedit配置后重置路线值（附加文件、路径、数据�
 msgid "Load element selection"
 msgstr "加载元素选择"
 
-#: src/netedit/GNELoadThread.cpp:307
+#: src/netedit/GNELoadThread.cpp:305
+msgid "Test file"
+msgstr ""
+
+#: src/netedit/GNELoadThread.cpp:310
 msgid "File in which TLS Programs must be saved"
 msgstr "交通信号方案文件必须被存储"
 
-#: src/netedit/GNELoadThread.cpp:310
+#: src/netedit/GNELoadThread.cpp:313
 msgid "File in which edgeTypes must be saved"
 msgstr "路段类型文件必须存储"
 
-#: src/netedit/GNELoadThread.cpp:316
+#: src/netedit/GNELoadThread.cpp:319
 msgid "Start netedit with a new network"
 msgstr "使用新路网打开netedit"
 
-#: src/netedit/GNELoadThread.cpp:319
+#: src/netedit/GNELoadThread.cpp:322
 msgid "Write attribute help to file"
 msgstr "将属性帮助写入文件"
 
-#: src/netedit/GNELoadThread.cpp:322
+#: src/netedit/GNELoadThread.cpp:325
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr "在“撤消-重做”中的编辑模式之间更改时，忽略问题对话框"
 
-#: src/netedit/GNELoadThread.cpp:325
+#: src/netedit/GNELoadThread.cpp:328
 msgid "Ignore additional elements during loading of sumo-configs"
 msgstr "在加载sumo配置文件时忽略附加元素"
 
-#: src/netedit/GNELoadThread.cpp:328
+#: src/netedit/GNELoadThread.cpp:331
 msgid "Ignore route elements during loading of sumo-configs"
 msgstr "在加载sumo配置文件时忽略路由元素"
 
-#: src/netedit/GNELoadThread.cpp:331
+#: src/netedit/GNELoadThread.cpp:334
 msgid ""
 "If the lane is shorter than the additional, automatically enable friendlyPos"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:334
+#: src/netedit/GNELoadThread.cpp:337
 msgid ""
 "If enabled, elements will be saved regardless of whether they have been "
 "edited or not"
 msgstr "如果启用，元素将被保存，无论它们是否已被编辑"
 
-#: src/netedit/GNELoadThread.cpp:339
+#: src/netedit/GNELoadThread.cpp:342
 msgid "Prefix for node naming"
 msgstr "节点的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:342
+#: src/netedit/GNELoadThread.cpp:345
 msgid "Prefix for edge naming"
 msgstr "路段的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:345
+#: src/netedit/GNELoadThread.cpp:348
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
 msgstr "使用路段中缀(<fromNodeID><infix><toNodeID>)"
 
-#: src/netedit/GNELoadThread.cpp:350
+#: src/netedit/GNELoadThread.cpp:353
 msgid "Prefix for busStop naming"
 msgstr "公交车站的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:353
+#: src/netedit/GNELoadThread.cpp:356
 msgid "Prefix for trainStop naming"
 msgstr "火车站的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:356
+#: src/netedit/GNELoadThread.cpp:359
 msgid "Prefix for containerStop naming"
 msgstr "货运车辆停靠站(containerStop)的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:359
+#: src/netedit/GNELoadThread.cpp:362
 msgid "Prefix for chargingStation naming"
 msgstr "充电站的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:362
+#: src/netedit/GNELoadThread.cpp:365
 msgid "Prefix for parkingArea naming"
 msgstr "停车区域的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:365
+#: src/netedit/GNELoadThread.cpp:368
 msgid "Prefix for e1Detector naming"
 msgstr "e1检测器的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:368
+#: src/netedit/GNELoadThread.cpp:371
 msgid "Prefix for e2Detector naming"
 msgstr "e2检测器的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:371
+#: src/netedit/GNELoadThread.cpp:374
 msgid "Prefix for e3Detector naming"
 msgstr "e3检测器的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:374
+#: src/netedit/GNELoadThread.cpp:377
 msgid "Prefix for e1InstantDetector naming"
 msgstr "e1瞬间检测器的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:377
+#: src/netedit/GNELoadThread.cpp:380
 msgid "Prefix for rerouter naming"
 msgstr "改道装置(rerouter)的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:380
+#: src/netedit/GNELoadThread.cpp:383
 msgid "Prefix for calibrator naming"
 msgstr "校估装置calibrator)的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:383
+#: src/netedit/GNELoadThread.cpp:386
 msgid "Prefix for routeProbe naming"
 msgstr "路径取样装置的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:386
+#: src/netedit/GNELoadThread.cpp:389
 msgid "Prefix for variable speed sign naming"
 msgstr "可变速度标志的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:389
+#: src/netedit/GNELoadThread.cpp:392
 msgid "Prefix for traction substation naming"
 msgstr "牵引变电站的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:392
+#: src/netedit/GNELoadThread.cpp:395
 msgid "Prefix for overhead wire naming"
 msgstr "架空线的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:395
+#: src/netedit/GNELoadThread.cpp:398
 msgid "Prefix for polygon naming"
 msgstr "多边形物件的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:398
+#: src/netedit/GNELoadThread.cpp:401
 msgid "Prefix for poi naming"
 msgstr "兴趣点的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:401
+#: src/netedit/GNELoadThread.cpp:404
 msgid "Prefix for jps walkable area naming"
 msgstr "jps （JuPedSim）中可步行区域命名的前缀"
 
-#: src/netedit/GNELoadThread.cpp:404
+#: src/netedit/GNELoadThread.cpp:407
 msgid "Prefix for jps obstacle naming"
 msgstr "jps （JuPedSim）中障碍物命名的前缀"
 
-#: src/netedit/GNELoadThread.cpp:409
+#: src/netedit/GNELoadThread.cpp:412
 msgid "Prefix for route naming"
 msgstr "路径的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:412
+#: src/netedit/GNELoadThread.cpp:415
 msgid "Prefix for route distribution naming"
 msgstr "路径分布的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:415
+#: src/netedit/GNELoadThread.cpp:418
 msgid "Prefix for type naming"
 msgstr "类型的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:418
+#: src/netedit/GNELoadThread.cpp:421
 msgid "Prefix for type distribution naming"
 msgstr "类型分布的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:421
+#: src/netedit/GNELoadThread.cpp:424
 msgid "Prefix for vehicle naming"
 msgstr "车辆的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:424
+#: src/netedit/GNELoadThread.cpp:427
 msgid "Prefix for trip naming"
 msgstr "行程的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:427
+#: src/netedit/GNELoadThread.cpp:430
 msgid "Prefix for flow naming"
 msgstr "流量的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:430
+#: src/netedit/GNELoadThread.cpp:433
 msgid "Prefix for person naming"
 msgstr "人员的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:433
+#: src/netedit/GNELoadThread.cpp:436
 msgid "Prefix for personFlow naming"
 msgstr "人流的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:436
+#: src/netedit/GNELoadThread.cpp:439
 msgid "Prefix for container naming"
 msgstr "容器的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:439
+#: src/netedit/GNELoadThread.cpp:442
 msgid "Prefix for containerFlow naming"
 msgstr "容器流的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:444
+#: src/netedit/GNELoadThread.cpp:447
 msgid "Prefix for dataSet naming"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:449
+#: src/netedit/GNELoadThread.cpp:452
 msgid "Prefix for meanDataEdge naming"
 msgstr "meanData路段的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:452
+#: src/netedit/GNELoadThread.cpp:455
 msgid "Prefix for meanDataLane naming"
 msgstr "meanData车道的命名前缀"
 
-#: src/netedit/GNELoadThread.cpp:459
+#: src/netedit/GNELoadThread.cpp:462
 msgid "Disable icons of special lanes"
 msgstr "禁用特殊车道的图示"
 
-#: src/netedit/GNELoadThread.cpp:462
+#: src/netedit/GNELoadThread.cpp:465
 msgid "Disable textures"
 msgstr "禁用贴图(textures)"
 
-#: src/netedit/GNELoadThread.cpp:465
+#: src/netedit/GNELoadThread.cpp:468
 msgid "Load visualisation settings from FILE"
 msgstr "从文件中加载可视化设置"
 
-#: src/netedit/GNELoadThread.cpp:470
+#: src/netedit/GNELoadThread.cpp:473
 msgid "Load current viewport from registry"
 msgstr "从注册表加载当前视口"
 
-#: src/netedit/GNELoadThread.cpp:473
+#: src/netedit/GNELoadThread.cpp:476
 msgid "Create initial window with the given x,y size"
 msgstr "以给定的x,y尺寸创建初始窗口"
 
-#: src/netedit/GNELoadThread.cpp:476
+#: src/netedit/GNELoadThread.cpp:479
 msgid "Create initial window at the given x,y position"
 msgstr "在给定的x,y位置创建初始窗口"
 
-#: src/netedit/GNELoadThread.cpp:481
+#: src/netedit/GNELoadThread.cpp:484
 msgid "Enable overlay for screen recognition"
 msgstr "允许荧屏辨识的覆盖"
 
-#: src/netedit/GNELoadThread.cpp:484
+#: src/netedit/GNELoadThread.cpp:487
 msgid "Enable output messages during GUI-Testing"
 msgstr "允许在 GU测试期间输出信息"
 
-#: src/netedit/GNELoadThread.cpp:487
+#: src/netedit/GNELoadThread.cpp:490
 msgid "Enable output messages during GUI-Testing specific of gl functions"
 msgstr "允许在特定于 gl 函数的 GUI 测试期间输出信息"
 
-#: src/netedit/GNELoadThread.cpp:490
+#: src/netedit/GNELoadThread.cpp:493
 msgid "Save gui settings in the given settings-output file"
 msgstr "將gui设定存储于指定的设定输出档案(settings-output)"
 
-#: src/netedit/GNELoadThread.cpp:497
+#: src/netedit/GNELoadThread.cpp:500
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr "定义开始时间（以秒为单位）; 仿真在这个时间开始"
 
-#: src/netedit/GNELoadThread.cpp:500
+#: src/netedit/GNELoadThread.cpp:503
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr "定义结束时间（以秒为单位）; 仿真在这个时间结束"
 
-#: src/netedit/GNELoadThread.cpp:503
+#: src/netedit/GNELoadThread.cpp:506
 msgid ""
 "Length of the default interval length between action points for the car-"
 "following and lane-change models (in seconds). If not specified, the "
@@ -4603,15 +4610,18 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
-"车辆跟车和变道模型的行动点之间的默认间隔长度（以秒为单位）。如果没有指定，则按默认值使用仿真步长。车辆或VType特定的设置将覆盖默认值。必须是仿真步长的倍数。"
+"车辆跟车和变道模型的行动点之间的默认间隔长度（以秒为单位）。如果没有指定，则"
+"按默认值使用仿真步长。车辆或VType特定的设置将覆盖默认值。必须是仿真步长的倍"
+"数。"
 
-#: src/netedit/GNELoadThread.cpp:506
+#: src/netedit/GNELoadThread.cpp:509
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class)"
-msgstr "选择速度偏差的预设值。负值表示 vClass 特定预设值（ 0.1为小客车等级的预设值)"
+msgstr ""
+"选择速度偏差的预设值。负值表示 vClass 特定预设值（ 0.1为小客车等级的预设值)"
 
-#: src/netedit/GNELoadThread.cpp:545
+#: src/netedit/GNELoadThread.cpp:548
 msgid "Failed to reset options."
 msgstr "无法重置选项。"
 
@@ -4654,7 +4664,7 @@ msgstr "删除 "
 msgid "Trying to delete a default Vehicle Type"
 msgstr "尝试删除默认的车辆类型"
 
-#: src/netedit/GNENet.cpp:840 src/netedit/GNEViewNet.cpp:3131
+#: src/netedit/GNENet.cpp:840 src/netedit/GNEViewNet.cpp:3177
 msgid "duplicate lane"
 msgstr "复制车道"
 
@@ -4728,8 +4738,7 @@ msgstr "合并路口的位置"
 
 #: src/netedit/GNENet.cpp:1654
 msgid ""
-"There is another unselected junction in the same position of joined "
-"junction."
+"There is another unselected junction in the same position of joined junction."
 msgstr "在合并路口的相同位置上有另外一个未被选择的路口。"
 
 #: src/netedit/GNENet.cpp:1655
@@ -4966,7 +4975,7 @@ msgstr "交通分区要素"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:459
 #: src/netedit/GNETagPropertiesDatabase.cpp:461
-#: src/netedit/elements/demand/GNEVehicle.cpp:271
+#: src/netedit/elements/demand/GNEVehicle.cpp:272
 #: src/netedit/frames/GNETagSelector.cpp:102
 #: src/netedit/frames/common/GNESelectorFrame.cpp:111
 #: src/netedit/frames/demand/GNEVehicleFrame.cpp:130
@@ -4975,7 +4984,7 @@ msgid "Vehicles"
 msgstr "车辆"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:466
-#: src/netedit/elements/demand/GNEVehicle.cpp:286
+#: src/netedit/elements/demand/GNEVehicle.cpp:287
 msgid "Flows"
 msgstr "流 (Flows)"
 
@@ -5164,9 +5173,11 @@ msgstr "在SUMO路段类型档案中的一个类型名称"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:778
 msgid ""
-"If the shape is given it should start and end with the positions of the "
-"from-node and to-node"
-msgstr "如果給定形状(shape)，则应以起始节点(from-node)和终止节点(to-node)的位置开始和结束"
+"If the shape is given it should start and end with the positions of the from-"
+"node and to-node"
+msgstr ""
+"如果給定形状(shape)，则应以起始节点(from-node)和终止节点(to-node)的位置开始和"
+"结束"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:783
 msgid "The length of the edge in meter"
@@ -5220,8 +5231,8 @@ msgstr "车道"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:863
 msgid ""
-"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1"
-" is the leftmost one)"
+"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
+"is the leftmost one)"
 msgstr "车道的枚举指数（0是最右边的车道，<NUMBER_LANES>-1是最左边的车道）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:868
@@ -5333,15 +5344,18 @@ msgstr "如果设定, 通过这个（车道-2-车道）连接的车辆将不会�
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1043
 msgid ""
-"if set to false, vehicles which pass this (lane-2-lane) connection) will not"
-" worry about blocking the intersection"
-msgstr "如果设置为假值（false），通过这个（车道-2-车道）连接的车辆将不会担心堵塞路口"
+"if set to false, vehicles which pass this (lane-2-lane) connection) will not "
+"worry about blocking the intersection"
+msgstr ""
+"如果设置为假值（false），通过这个（车道-2-车道）连接的车辆将不会担心堵塞路口"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1049
 msgid ""
 "If set to a more than 0 value, an internal junction will be built at this "
 "position (in m)/n from the start of the internal lane for this connection"
-msgstr "如果设置为大于0的值，将在该连接的内部车道起点的这个位置（以m计）/n处建立一个内部结点"
+msgstr ""
+"如果设置为大于0的值，将在该连接的内部车道起点的这个位置（以m计）/n处建立一个"
+"内部结点"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1055
 msgid ""
@@ -5355,8 +5369,8 @@ msgstr "车辆之间的视距"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1067
 msgid ""
-"sets index of this connection within the controlling traffic light (-1 means"
-" automatic assignment)"
+"sets index of this connection within the controlling traffic light (-1 means "
+"automatic assignment)"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1073
@@ -5411,8 +5425,8 @@ msgstr "意思是在这个公交站的公交线路的名称。这仅用于视觉
 #: src/netedit/GNETagPropertiesDatabase.cpp:1168
 #: src/netedit/GNETagPropertiesDatabase.cpp:1199
 msgid ""
-"Larger numbers of persons trying to enter will create an upstream jam on the"
-" sidewalk"
+"Larger numbers of persons trying to enter will create an upstream jam on the "
+"sidewalk"
 msgstr "大量人群试图进入将会在人行道上造成上游堵塞"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1174
@@ -5482,8 +5496,8 @@ msgstr "在运输过程中启用或禁用充电，即车辆必须或不得停车
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1299
 msgid ""
-"Time delay after the vehicles has reached / stopped on the charging station,"
-" before the energy transfer (charging) begins"
+"Time delay after the vehicles has reached / stopped on the charging station, "
+"before the energy transfer (charging) begins"
 msgstr "车辆到达/停在充电站后，能量传输（充电）开始之前的时间延迟"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1305
@@ -5526,8 +5540,8 @@ msgstr "路边停车位的宽度"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1365
 msgid ""
-"The length of the road-side parking spaces. By default (endPos - startPos) /"
-" roadsideCapacity"
+"The length of the road-side parking spaces. By default (endPos - startPos) / "
+"roadsideCapacity"
 msgstr "路边停车位的长度。预设情況下为（终点位置 - 开始位置）/路边容量"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1371
@@ -5725,9 +5739,11 @@ msgstr "车辆重新搜寻路径(rerouting)机率(0-1)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1924
 msgid ""
-"The waiting time threshold (in s) that must be reached to activate rerouting"
-" (default -1 which disables the threshold)"
-msgstr "启动路径重新搜寻必须达到的等待时间閾值, 以秒为单位(预设值为-1, 表示禁用此閾值)"
+"The waiting time threshold (in s) that must be reached to activate rerouting "
+"(default -1 which disables the threshold)"
+msgstr ""
+"启动路径重新搜寻必须达到的等待时间閾值, 以秒为单位(预设值为-1, 表示禁用此閾"
+"值)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1932
 msgid ""
@@ -5963,8 +5979,8 @@ msgstr "架空电线开始夹(overheadWireIDStartClamp)的架空电线区段车�
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2440
 msgid ""
-"ID of the overhead wire segment, to the end of which the overhead wire clamp"
-" is connected"
+"ID of the overhead wire segment, to the end of which the overhead wire clamp "
+"is connected"
 msgstr "与架空电线夹终点连接的架空电线区段的识别名(ID)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2445
@@ -6192,7 +6208,9 @@ msgstr "车道上的起始位置(车道上较低位置)(以米为单位)"
 msgid ""
 "The end position on the lane (the higher position on the lane) in meters, "
 "must be larger than startPos by more than 0.1m"
-msgstr "车道上的结束位置(车道上较高的位置) (以米为单位), 必须比起始位置(startPos)大于 0.1米以上"
+msgstr ""
+"车道上的结束位置(车道上较高的位置) (以米为单位), 必须比起始位置(startPos)大"
+"于 0.1米以上"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3062
 msgid "The lateral offset on the named lane at which the vehicle must stop"
@@ -6243,8 +6261,7 @@ msgid "WaypointLane"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3213
-msgid ""
-"The lateral offset on the named lane at which the vehicle must waypoint"
+msgid "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr "车辆必须在已指定车道上定点的侧向偏移值"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3243
@@ -7406,8 +7423,8 @@ msgstr "呈现的图像的高度(以米为单位)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7100
 msgid ""
-"The edges the vehicle shall drive along, given as their ids, separated using"
-" spaces"
+"The edges the vehicle shall drive along, given as their ids, separated using "
+"spaces"
 msgstr "车辆应沿着的路段行驶，以其ID形式给出，用空格分隔"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7107
@@ -7444,15 +7461,15 @@ msgstr "车辆的最大速度[米/秒]"
 msgid ""
 "The vehicle's expected multiplicator for lane speed limits (or a "
 "distribution specifier)"
-msgstr "车辆预期的车道速度限制乘数(multiplicator) (或一个分布说明符(specifier))"
+msgstr ""
+"车辆预期的车道速度限制乘数(multiplicator) (或一个分布说明符(specifier))"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7153
 msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
 msgstr "车辆所需的最大速度 (与 speedFactor 交互作用)。"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7154
-msgid ""
-"Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
+msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr "适用于沒有速度限制的情況 (自行车, 某些高速公路） [m/s]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7159
@@ -7551,8 +7568,8 @@ msgstr "车辆离开路网时应有的速度"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7327
 msgid ""
-"A string specifying the id of a public transport line which can be used when"
-" specifying person rides"
+"A string specifying the id of a public transport line which can be used when "
+"specifying person rides"
 msgstr "当指定人员乘車(ride)时, 一个用于指定公共运输路线的识别名的字串"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7332
@@ -7639,8 +7656,8 @@ msgstr "此类型车辆的减速能力[米/平方秒]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7445
 msgid ""
-"The apparent deceleration of the vehicle as used by the standard model "
-"[m/s^2]"
+"The apparent deceleration of the vehicle as used by the standard model [m/"
+"s^2]"
 msgstr "标准模式使用的车辆视在減速 [米/平方秒]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7451
@@ -7710,8 +7727,8 @@ msgstr "EIDM 最大急卫参数 [米/立方秒]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7552
 msgid ""
-"EIDM maximal negative acceleration between two Action Points (threshold) "
-"[m/s^2]"
+"EIDM maximal negative acceleration between two Action Points (threshold) [m/"
+"s^2]"
 msgstr "在两个动作点(action points)之间的EIDM 最大负加速度（阈值） [米/平方秒]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7558
@@ -7729,8 +7746,8 @@ msgstr "EIDM 启动/起步曲线的偏移参数 [-]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7576
 msgid ""
-"EIDM parameter if model shall include vehicle dynamics into the acceleration"
-" calculation [0/1]"
+"EIDM parameter if model shall include vehicle dynamics into the acceleration "
+"calculation [0/1]"
 msgstr "EIDM参数，如果模式应将车辆动力学纳入加速度计算 [0/1]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7582
@@ -7810,14 +7827,14 @@ msgstr "如果黄灯相位的时间低于给定的閾值，则此值会导致车
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7731
 msgid ""
-"This value causes vehicles to violate a red light if the duration of the red"
-" phase is lower than the given threshold."
+"This value causes vehicles to violate a red light if the duration of the red "
+"phase is lower than the given threshold."
 msgstr "如果红灯相位的时间低于給定的閾值，则此值会导致车辆闯红灯。"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7737
 msgid ""
-"This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
-" violating a red light."
+"This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
+"violating a red light."
 msgstr "此值会导致受 jmDriveAfterRedTime 影响的车辆在闯红灯时减速。"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7743
@@ -7922,9 +7939,10 @@ msgstr "每秒最大侧向加速度。"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7852
 msgid ""
-"Factor for configuring the strategic lookahead distance when a change to the"
-" left is necessary (relative to right lookahead)."
-msgstr "当需要向左变换（相当于向右前看）时, 用于设定策略性向前看距离的系数(factor)。"
+"Factor for configuring the strategic lookahead distance when a change to the "
+"left is necessary (relative to right lookahead)."
+msgstr ""
+"当需要向左变换（相当于向右前看）时, 用于设定策略性向前看距离的系数(factor)。"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7858
 msgid ""
@@ -7940,12 +7958,13 @@ msgstr "站立时侧向速度的上限。"
 msgid ""
 "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding "
 "+ lcMaxSpeedLatFactor * getSpeed()"
-msgstr "移动时侧向速度上限的计算为lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * getSpeed()"
+msgstr ""
+"移动时侧向速度上限的计算为lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * "
+"getSpeed()"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7876
 msgid ""
-"Distance to an upcoming turn on the vehicles route, below which the "
-"alignment"
+"Distance to an upcoming turn on the vehicles route, below which the alignment"
 msgstr "与车辆路线上即将出现的转弯的距离，低于该转弯的路线"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7877
@@ -8040,8 +8059,7 @@ msgstr "在startPos和endPos之间行驶时要保持的速度"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8022
 msgid ""
-"Whether the stop may be skipped if no passengers wants to embark or "
-"disembark"
+"Whether the stop may be skipped if no passengers wants to embark or disembark"
 msgstr "如果没有乘客想上船或下船，是否可以跳过该站"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8029
@@ -8325,8 +8343,8 @@ msgstr "将输出限制在文件中给出的路段列表中"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8555
 msgid ""
-"Whether the traffic statistic of all edges shall be aggregated into a single"
-" value"
+"Whether the traffic statistic of all edges shall be aggregated into a single "
+"value"
 msgstr "是否应将所有路段的流量统计汇总为一个单一的值"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8565
@@ -8350,8 +8368,7 @@ msgid "The name of the lane the % shall be located at"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8624
-msgid ""
-"If set, no error will be reported if element is placed behind the lane."
+msgid "If set, no error will be reported if element is placed behind the lane."
 msgstr "如果设定，若元素放置在车道后面，不会报告任何错误。"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8625
@@ -8420,8 +8437,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8749
 msgid ""
-"List of edge ids that must all be part of the future route of the vehicle to"
-" qualify for detection"
+"List of edge ids that must all be part of the future route of the vehicle to "
+"qualify for detection"
 msgstr "车辆未来路径中必须全部包含的路段 ID 列表（作为检测条件）"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8758
@@ -8434,13 +8451,16 @@ msgstr "以时间为基础的阈值，用来定义车辆必须停等多少时间
 msgid ""
 "The speed-based threshold that describes how slow a vehicle has to be to be "
 "recognized as halting) in m/s"
-msgstr "以速度为基础的閾值，用来定义车辆必须行驶多慢才会被认为是停等 (单位为 米/秒)"
+msgstr ""
+"以速度为基础的閾值，用来定义车辆必须行驶多慢才会被认为是停等 (单位为 米/秒)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8770
 msgid ""
 "The maximum distance to the next standing vehicle in order to make this "
 "vehicle count as a participant to the jam in m"
-msgstr "车辆到下一个停等的车辆的最大距离(米)，此距离用于计算该车辆是否被视为堵塞的参与者"
+msgstr ""
+"车辆到下一个停等的车辆的最大距离(米)，此距离用于计算该车辆是否被视为堵塞的参"
+"与者"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8782
 #: src/netedit/GNETagPropertiesDatabase.cpp:8788
@@ -8465,79 +8485,79 @@ msgstr ""
 msgid "Cannot Redo in the middle of "
 msgstr "无法在此过程中重做： "
 
-#: src/netedit/GNEViewNet.cpp:374
+#: src/netedit/GNEViewNet.cpp:375
 msgid "Locate a junction within the network. (Shift+J)"
 msgstr "在路网內定位一个路口。(Shift+J)"
 
-#: src/netedit/GNEViewNet.cpp:378
+#: src/netedit/GNEViewNet.cpp:379
 msgid "Locate an edge within the network. (Shift+E)"
 msgstr "在路网內定位一个路段。(Shift+E)"
 
-#: src/netedit/GNEViewNet.cpp:382
+#: src/netedit/GNEViewNet.cpp:383
 msgid "Locate WalkingAreas"
 msgstr "定位步行区域"
 
-#: src/netedit/GNEViewNet.cpp:382
+#: src/netedit/GNEViewNet.cpp:383
 msgid "Locate a walkingArea within the network. (Shift+W)"
 msgstr "在路网內定位步行区域。(Shift+W)"
 
-#: src/netedit/GNEViewNet.cpp:386
+#: src/netedit/GNEViewNet.cpp:387
 msgid "Locate a vehicle within the network. (Shift+V)"
 msgstr "在路网內定位车辆。(Shift+V)"
 
-#: src/netedit/GNEViewNet.cpp:390
+#: src/netedit/GNEViewNet.cpp:391
 msgid "Locate a person within the network. (Shift+P)"
 msgstr "在路网內定位人员。(Shift+P)"
 
-#: src/netedit/GNEViewNet.cpp:394
+#: src/netedit/GNEViewNet.cpp:395
 msgid "Locate Containers"
 msgstr "定位容器"
 
-#: src/netedit/GNEViewNet.cpp:394
+#: src/netedit/GNEViewNet.cpp:395
 msgid "Locate a container within the network. (Shift+C)"
 msgstr "在路网内定位容器。 (Shift+C)"
 
-#: src/netedit/GNEViewNet.cpp:398
+#: src/netedit/GNEViewNet.cpp:399
 msgid "Locate Route"
 msgstr "定位路径"
 
-#: src/netedit/GNEViewNet.cpp:398
+#: src/netedit/GNEViewNet.cpp:399
 msgid "Locate a route within the network. (Shift+R)"
 msgstr "在路网內定位路径。(Shift+R)"
 
-#: src/netedit/GNEViewNet.cpp:402
+#: src/netedit/GNEViewNet.cpp:403
 msgid "Locate Stops"
 msgstr "定位停靠点"
 
-#: src/netedit/GNEViewNet.cpp:402
+#: src/netedit/GNEViewNet.cpp:403
 msgid "Locate a stop within the network. (Shift+S)"
 msgstr "在路网內定位停靠点。(Shift+S)"
 
-#: src/netedit/GNEViewNet.cpp:413
+#: src/netedit/GNEViewNet.cpp:414
 msgid "Locate a tls within the network. (Shift+T)"
 msgstr "在路网內定位交通信号。(Shift+T)"
 
-#: src/netedit/GNEViewNet.cpp:417
+#: src/netedit/GNEViewNet.cpp:418
 msgid "Locate an additional structure within the network. (Shift+A)"
 msgstr "在路网內定位一个附加结构。(Shift+A)"
 
-#: src/netedit/GNEViewNet.cpp:421
+#: src/netedit/GNEViewNet.cpp:422
 msgid "Locate a PoI within the network. (Shift+O)"
 msgstr "在路网內定位兴趣点。(Shift+O)"
 
-#: src/netedit/GNEViewNet.cpp:425
+#: src/netedit/GNEViewNet.cpp:426
 msgid "Locate a Polygon within the network. (Shift+L)"
 msgstr "在路网內定位多边形物件。(Shift+L)"
 
-#: src/netedit/GNEViewNet.cpp:754
+#: src/netedit/GNEViewNet.cpp:755
 msgid "GUI-Settings cannot be saved in "
 msgstr "GUI-设定无法存储于 "
 
-#: src/netedit/GNEViewNet.cpp:919
+#: src/netedit/GNEViewNet.cpp:920
 msgid "Confirm Junction Merger"
 msgstr "确认路口合并"
 
-#: src/netedit/GNEViewNet.cpp:920
+#: src/netedit/GNEViewNet.cpp:921
 msgid ""
 "Do you wish to merge junctions '%' and '%'?\n"
 "('%' will be eliminated and its roads added to '%')"
@@ -8545,308 +8565,308 @@ msgstr ""
 "你想要合并路口 '%' 和 '%' 吗？\n"
 "（'%' 将会被删除，其路段会被添加到 '%'）"
 
-#: src/netedit/GNEViewNet.cpp:940
+#: src/netedit/GNEViewNet.cpp:941
 msgid " requires switch to network mode. Continue?"
 msgstr " 要求切换到路网模式。继续执行？"
 
-#: src/netedit/GNEViewNet.cpp:942
+#: src/netedit/GNEViewNet.cpp:943
 msgid " requires switch to demand mode. Continue?"
 msgstr " 要求切换到需求模式。继续执行？"
 
-#: src/netedit/GNEViewNet.cpp:944
+#: src/netedit/GNEViewNet.cpp:945
 msgid " requires switch to data mode. Continue?"
 msgstr " 要求切换到数据模式。继续执行？"
 
-#: src/netedit/GNEViewNet.cpp:949
+#: src/netedit/GNEViewNet.cpp:950
 msgid "Confirm switch mode"
 msgstr "确认切换模式"
 
-#: src/netedit/GNEViewNet.cpp:1004
+#: src/netedit/GNEViewNet.cpp:1005
 msgid "Multiple lane in the same edge selected"
 msgstr "在同一路段上选定多个车道"
 
-#: src/netedit/GNEViewNet.cpp:1005
+#: src/netedit/GNEViewNet.cpp:1006
 msgid "There are selected lanes that belong to the same edge."
 msgstr "有些选定的车道属于同一个路段。"
 
-#: src/netedit/GNEViewNet.cpp:1006
+#: src/netedit/GNEViewNet.cpp:1007
 msgid "Only one lane per edge will be restricted to %."
 msgstr "每个路段只有一条车道会被限制在 %。"
 
-#: src/netedit/GNEViewNet.cpp:1021 src/netedit/GNEViewNet.cpp:1027
+#: src/netedit/GNEViewNet.cpp:1022 src/netedit/GNEViewNet.cpp:1028
 #, c-format
 msgid "Set vclass to % for selected lanes"
 msgstr "将所选车道的限制车辆类型（vclass）设置为 %"
 
-#: src/netedit/GNEViewNet.cpp:1022
+#: src/netedit/GNEViewNet.cpp:1023
 msgid ""
 "All lanes own already another lane in the same edge with a restriction for "
 msgstr "在有受一个限制的同一路段上的所有车道已经有另一条車道 "
 
-#: src/netedit/GNEViewNet.cpp:1028
+#: src/netedit/GNEViewNet.cpp:1029
 msgid "% lanes will be restricted to %. Continue?"
 msgstr "% 条车道将会被限制为 %。继续操作吗？"
 
-#: src/netedit/GNEViewNet.cpp:1045
+#: src/netedit/GNEViewNet.cpp:1046
 msgid "restrict lane to "
 msgstr "将车道限制为 "
 
-#: src/netedit/GNEViewNet.cpp:1085 src/netedit/GNEViewNet.cpp:1091
+#: src/netedit/GNEViewNet.cpp:1086 src/netedit/GNEViewNet.cpp:1092
 #, c-format
 msgid "Add vclass % to selected lanes"
 msgstr "为所选车道添加车辆类型（vclass）%"
 
-#: src/netedit/GNEViewNet.cpp:1086
+#: src/netedit/GNEViewNet.cpp:1087
 msgid ""
 "All lanes own already another lane in the same edge with a restriction to %."
 msgstr "在所选车道的相同路段上已经存在一条限制为 % 的车道。"
 
-#: src/netedit/GNEViewNet.cpp:1092
+#: src/netedit/GNEViewNet.cpp:1093
 msgid "% restrictions to % will be added. Continue?"
 msgstr "将会添加对于 % 的 % 种限制。继续执行？"
 
-#: src/netedit/GNEViewNet.cpp:1099
+#: src/netedit/GNEViewNet.cpp:1100
 msgid "add restrictions for "
 msgstr "为其新增限制： "
 
-#: src/netedit/GNEViewNet.cpp:1109
+#: src/netedit/GNEViewNet.cpp:1110
 msgid "add vclass for "
 msgstr "为其新增车辆类型（vclass）： "
 
-#: src/netedit/GNEViewNet.cpp:1163 src/netedit/GNEViewNet.cpp:1169
+#: src/netedit/GNEViewNet.cpp:1164 src/netedit/GNEViewNet.cpp:1170
 #, c-format
 msgid "Remove vclass % from selected lanes"
 msgstr ""
 
-#: src/netedit/GNEViewNet.cpp:1164
+#: src/netedit/GNEViewNet.cpp:1165
 msgid "The selected lanes and edges don't have a restriction to %."
 msgstr ""
 
-#: src/netedit/GNEViewNet.cpp:1170
+#: src/netedit/GNEViewNet.cpp:1171
 msgid "% restrictions to % will be removed. Continue?"
 msgstr ""
 
-#: src/netedit/GNEViewNet.cpp:1187
+#: src/netedit/GNEViewNet.cpp:1188
 msgid "Remove vclass for "
 msgstr "为...刪除车辆类别(vclass) "
 
-#: src/netedit/GNEViewNet.cpp:1678
+#: src/netedit/GNEViewNet.cpp:1724
 msgid "Cannot delete in this mode"
 msgstr "在此模式下无法删除"
 
-#: src/netedit/GNEViewNet.cpp:1681
+#: src/netedit/GNEViewNet.cpp:1727
 msgid "delete network inspected elements"
 msgstr "刪除被检查的路网要素"
 
-#: src/netedit/GNEViewNet.cpp:1691
+#: src/netedit/GNEViewNet.cpp:1737
 msgid "delete network selection"
 msgstr "刪除路网选择"
 
-#: src/netedit/GNEViewNet.cpp:1701
+#: src/netedit/GNEViewNet.cpp:1747
 msgid "delete demand inspected elements"
 msgstr "刪除被检查需求要素"
 
-#: src/netedit/GNEViewNet.cpp:1711
+#: src/netedit/GNEViewNet.cpp:1757
 msgid "delete demand selection"
 msgstr "刪除需求选择"
 
-#: src/netedit/GNEViewNet.cpp:1721
+#: src/netedit/GNEViewNet.cpp:1767
 msgid "delete data inspected elements"
 msgstr "刪除被检查数据要素"
 
-#: src/netedit/GNEViewNet.cpp:1731
+#: src/netedit/GNEViewNet.cpp:1777
 msgid "delete data selection"
 msgstr "刪除数据选择"
 
-#: src/netedit/GNEViewNet.cpp:2371
+#: src/netedit/GNEViewNet.cpp:2417
 msgid "Reverse selected edges"
 msgstr "反转选定的路段"
 
-#: src/netedit/GNEViewNet.cpp:2378
+#: src/netedit/GNEViewNet.cpp:2424
 msgid "Reverse edge"
 msgstr "反向路段"
 
-#: src/netedit/GNEViewNet.cpp:2392
+#: src/netedit/GNEViewNet.cpp:2438
 msgid "Add Reverse edge for selected edges"
 msgstr "为选定的路段新增反向路段"
 
-#: src/netedit/GNEViewNet.cpp:2399
+#: src/netedit/GNEViewNet.cpp:2445
 msgid "Add reverse edge"
 msgstr "新增反向路段"
 
-#: src/netedit/GNEViewNet.cpp:2413
+#: src/netedit/GNEViewNet.cpp:2459
 msgid "Add Reverse disconnected edge for selected edges"
 msgstr "为选定的路段新增不相互连接的反向路段"
 
-#: src/netedit/GNEViewNet.cpp:2420
+#: src/netedit/GNEViewNet.cpp:2466
 msgid "Add reverse disconnected edge"
 msgstr "新增不相互连接的反向路段"
 
-#: src/netedit/GNEViewNet.cpp:2449
+#: src/netedit/GNEViewNet.cpp:2495
 msgid "reset geometry points"
 msgstr "重置几何点"
 
-#: src/netedit/GNEViewNet.cpp:2470
+#: src/netedit/GNEViewNet.cpp:2516
 msgid "straighten selected edges"
 msgstr "拉直所选定的路段"
 
-#: src/netedit/GNEViewNet.cpp:2478
+#: src/netedit/GNEViewNet.cpp:2524
 msgid "straighten edge"
 msgstr "拉直路段"
 
-#: src/netedit/GNEViewNet.cpp:2492
+#: src/netedit/GNEViewNet.cpp:2538
 msgid "smooth selected edges"
 msgstr "使选定的路段平滑"
 
-#: src/netedit/GNEViewNet.cpp:2499
+#: src/netedit/GNEViewNet.cpp:2545
 msgid "smooth edge"
 msgstr "使路段平滑"
 
-#: src/netedit/GNEViewNet.cpp:2513
+#: src/netedit/GNEViewNet.cpp:2559
 msgid "straighten elevation of selected edges"
 msgstr "拉直所选定路段的高程"
 
-#: src/netedit/GNEViewNet.cpp:2520
+#: src/netedit/GNEViewNet.cpp:2566
 msgid "straighten edge elevation"
 msgstr "拉直路段高程"
 
-#: src/netedit/GNEViewNet.cpp:2534
+#: src/netedit/GNEViewNet.cpp:2580
 msgid "smooth elevation of selected edges"
 msgstr "平滑所选定路段的高程"
 
-#: src/netedit/GNEViewNet.cpp:2541
+#: src/netedit/GNEViewNet.cpp:2587
 msgid "smooth edge elevation"
 msgstr "平滑路段高程"
 
-#: src/netedit/GNEViewNet.cpp:2555
+#: src/netedit/GNEViewNet.cpp:2601
 msgid "reset edge lengths"
 msgstr "重置路段长度"
 
-#: src/netedit/GNEViewNet.cpp:2584
+#: src/netedit/GNEViewNet.cpp:2630
 msgid "copy edge template"
 msgstr "复制路段范本"
 
-#: src/netedit/GNEViewNet.cpp:2612
+#: src/netedit/GNEViewNet.cpp:2658
 msgid "simplify shapes"
 msgstr "简化形狀"
 
-#: src/netedit/GNEViewNet.cpp:2654
+#: src/netedit/GNEViewNet.cpp:2700
 msgid "close polygon shapes"
 msgstr "关闭多边形形状"
 
-#: src/netedit/GNEViewNet.cpp:2686
+#: src/netedit/GNEViewNet.cpp:2732
 msgid "open polygon shapes"
 msgstr "打开多边形形狀"
 
-#: src/netedit/GNEViewNet.cpp:2733
+#: src/netedit/GNEViewNet.cpp:2779
 msgid "select within polygon boundary"
 msgstr "在多边形边界內选择"
 
-#: src/netedit/GNEViewNet.cpp:2757
+#: src/netedit/GNEViewNet.cpp:2803
 msgid "triangulate polygon"
 msgstr ""
 
-#: src/netedit/GNEViewNet.cpp:2793 src/netedit/GNEViewNet.cpp:2823
-#: src/netedit/GNEViewNet.cpp:2838 src/netedit/GNEViewNet.cpp:2855
-#: src/netedit/GNEViewNet.cpp:2872 src/netedit/GNEViewNet.cpp:2887
+#: src/netedit/GNEViewNet.cpp:2839 src/netedit/GNEViewNet.cpp:2869
+#: src/netedit/GNEViewNet.cpp:2884 src/netedit/GNEViewNet.cpp:2901
+#: src/netedit/GNEViewNet.cpp:2918 src/netedit/GNEViewNet.cpp:2933
 msgid "simplify edited shape"
 msgstr ""
 
-#: src/netedit/GNEViewNet.cpp:2808
+#: src/netedit/GNEViewNet.cpp:2854
 msgid "straigthen edited shape"
 msgstr ""
 
-#: src/netedit/GNEViewNet.cpp:2922
+#: src/netedit/GNEViewNet.cpp:2968
 #, c-format
 msgid "No lanes around % to attach it"
 msgstr "在 % t的\\周围沒有车道附接它"
 
-#: src/netedit/GNEViewNet.cpp:2945
+#: src/netedit/GNEViewNet.cpp:2991
 msgid "attach POI into lane"
 msgstr "将兴趣点附接到车道"
 
-#: src/netedit/GNEViewNet.cpp:2958
+#: src/netedit/GNEViewNet.cpp:3004
 msgid "release POI from lane"
 msgstr "从车道上释放兴趣点"
 
-#: src/netedit/GNEViewNet.cpp:2975
+#: src/netedit/GNEViewNet.cpp:3021
 msgid "reverse % '%'"
 msgstr "反转 % '%'"
 
-#: src/netedit/GNEViewNet.cpp:2989
+#: src/netedit/GNEViewNet.cpp:3035
 msgid "add reverse '%'"
 msgstr "添加反向 '%'"
 
-#: src/netedit/GNEViewNet.cpp:3018
+#: src/netedit/GNEViewNet.cpp:3064
 msgid "change edge Geometry Point position"
 msgstr "改变路段几何点位置"
 
-#: src/netedit/GNEViewNet.cpp:3050
+#: src/netedit/GNEViewNet.cpp:3096
 msgid "change polygon Geometry Point position"
 msgstr "改变多边形几何点位置"
 
-#: src/netedit/GNEViewNet.cpp:3070
+#: src/netedit/GNEViewNet.cpp:3116
 msgid "change TAZ Geometry Point position"
 msgstr "改变交通分区几何点位置"
 
-#: src/netedit/GNEViewNet.cpp:3094
+#: src/netedit/GNEViewNet.cpp:3140
 msgid "reset end points of selected edges"
 msgstr "重设选路段的終点"
 
-#: src/netedit/GNEViewNet.cpp:3105
+#: src/netedit/GNEViewNet.cpp:3151
 msgid "reset end points of edge '"
 msgstr "重设路段終点"
 
-#: src/netedit/GNEViewNet.cpp:3124
+#: src/netedit/GNEViewNet.cpp:3170
 msgid "duplicate selected lanes"
 msgstr "复制选择的车道"
 
-#: src/netedit/GNEViewNet.cpp:3161
+#: src/netedit/GNEViewNet.cpp:3207
 msgid "reset custom lane shapes"
 msgstr "重设自定的车道形狀"
 
-#: src/netedit/GNEViewNet.cpp:3168
+#: src/netedit/GNEViewNet.cpp:3214
 msgid "reset custom lane shape"
 msgstr "重设置自定的车道形狀"
 
-#: src/netedit/GNEViewNet.cpp:3184
+#: src/netedit/GNEViewNet.cpp:3230
 msgid "reset opposite lanes"
 msgstr "重设对向车道"
 
-#: src/netedit/GNEViewNet.cpp:3191
+#: src/netedit/GNEViewNet.cpp:3237
 msgid "reset opposite lane"
 msgstr "重设对向车道"
 
-#: src/netedit/GNEViewNet.cpp:3250
+#: src/netedit/GNEViewNet.cpp:3296
 msgid "select lane reachability"
 msgstr "选择车道可及性"
 
-#: src/netedit/GNEViewNet.cpp:3462
+#: src/netedit/GNEViewNet.cpp:3508
 msgid "reset edge endpoints"
 msgstr "重新设定路段终点"
 
-#: src/netedit/GNEViewNet.cpp:3507 src/netedit/GNEViewNet.cpp:3773
-#: src/netedit/GNEViewNet.cpp:3808 src/netedit/GNEViewNet.cpp:3831
+#: src/netedit/GNEViewNet.cpp:3553 src/netedit/GNEViewNet.cpp:3819
+#: src/netedit/GNEViewNet.cpp:3854 src/netedit/GNEViewNet.cpp:3877
 msgid "Grid is still active, press ctrl+g to deactivate"
 msgstr "网格仍处于使用中状态，按 ctrl+g 停用"
 
-#: src/netedit/GNEViewNet.cpp:3526
+#: src/netedit/GNEViewNet.cpp:3572
 msgid "reset custom junction shapes"
 msgstr "重置自定的路口形狀"
 
-#: src/netedit/GNEViewNet.cpp:3533
+#: src/netedit/GNEViewNet.cpp:3579
 msgid "reset custom junction shape"
 msgstr "重置自定的路口形狀"
 
-#: src/netedit/GNEViewNet.cpp:3642
+#: src/netedit/GNEViewNet.cpp:3688
 msgid "clear connections of selected junctions"
 msgstr "清除所选路口的连接线(connections)"
 
-#: src/netedit/GNEViewNet.cpp:3676
+#: src/netedit/GNEViewNet.cpp:3722
 msgid "reset connections of selected junctions"
 msgstr "重置所选路口的连接线(connections)"
 
-#: src/netedit/GNEViewNet.cpp:3699 src/netedit/GNEViewNet.cpp:3726
+#: src/netedit/GNEViewNet.cpp:3745 src/netedit/GNEViewNet.cpp:3772
 msgid "add TLS in multiple junctions"
 msgstr "在多个路口上新增交通信号(TLS)"
 
@@ -9087,7 +9107,9 @@ msgstr "將状态应用于所有相位(phases)"
 msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
-msgstr "切换是否点击时应将更改的状态(state)应用于现有交通信号(TLS) 方案的所有相位(phase)。"
+msgstr ""
+"切换是否点击时应将更改的状态(state)应用于现有交通信号(TLS) 方案的所有相位"
+"(phase)。"
 
 #: src/netedit/GNEViewNetHelper.cpp:2790
 msgid "Automatic merging junction"
@@ -9102,8 +9124,7 @@ msgid "Edge chain mode"
 msgstr "路段链(chain)模式"
 
 #: src/netedit/GNEViewNetHelper.cpp:2796
-msgid ""
-"Create consecutive edges with a single click (hit ESC to cancel chain)."
+msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr "单击一下即可建立连续的路段（按 ESC 取消链(chain))。"
 
 #: src/netedit/GNEViewNetHelper.cpp:2803
@@ -9497,16 +9518,16 @@ msgstr "重做创建 "
 msgid "Redo delete "
 msgstr "重做删除 "
 
-#: src/netedit/changes/GNEChange_Attribute.cpp:49
-#: src/netedit/changes/GNEChange_Attribute.cpp:70
+#: src/netedit/changes/GNEChange_Attribute.cpp:50
+#: src/netedit/changes/GNEChange_Attribute.cpp:71
 msgid "change '%' attribute in % '%' to '%'"
 msgstr "将 % '%' 中的 '%' 属性更改为 '%'"
 
-#: src/netedit/changes/GNEChange_Attribute.cpp:162
+#: src/netedit/changes/GNEChange_Attribute.cpp:163
 msgid "Undo change "
 msgstr "撤销更改 "
 
-#: src/netedit/changes/GNEChange_Attribute.cpp:168
+#: src/netedit/changes/GNEChange_Attribute.cpp:169
 msgid "Redo change "
 msgstr "重做更改 "
 
@@ -9673,16 +9694,16 @@ msgstr "Eclipse SUMO的网络编辑器，城市交通仿真"
 msgid "Graphical editor for road networks and infrastructure."
 msgstr "道路网络和基础设施的图形编辑器。"
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:62
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:908
 msgid "Accept"
 msgstr "接受"
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:62
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 msgid "Close accepting changes"
 msgstr "关闭接受变更"
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:63
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 #: src/netedit/dialogs/GNEKeepElementsDialog.cpp:60
 #: src/netedit/dialogs/options/GNEOptionsDialog.cpp:382
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:98
@@ -9692,17 +9713,17 @@ msgstr "关闭接受变更"
 msgid "Cancel"
 msgstr "取消"
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:63
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 msgid "Close discarding changes"
 msgstr "关闭丢弃更改"
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:64
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:65
 #: src/netedit/dialogs/options/GNEOptionsDialog.cpp:383
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:101
 msgid "Reset"
 msgstr "重置"
 
-#: src/netedit/dialogs/GNEAdditionalDialog.cpp:64
+#: src/netedit/dialogs/GNEAdditionalDialog.cpp:65
 msgid "Reset to previous values"
 msgstr "重置到以前的值"
 
@@ -10211,8 +10232,8 @@ msgstr "参数是由一個密码(key)及值(value)定义的。\n"
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:404
 #: src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:395
 msgid ""
-"- In Netedit can be defined using format "
-"key1=parameter1|key2=parameter2|...\n"
+"- In Netedit can be defined using format key1=parameter1|"
+"key2=parameter2|...\n"
 msgstr "- 在netedit 內可以用格式密码 1=参数1|密码 2=参数2|...来定义的\n"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
@@ -10668,8 +10689,8 @@ msgstr "添加停车区 '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:374
 msgid ""
-"Could not build parking space in netedit; attribute width cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute width cannot be parse to "
+"float."
 msgstr "无法在netedit中建立停车位；属性宽度不能被解析为浮动值。"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:376
@@ -10680,8 +10701,8 @@ msgstr "无法在netedit中建立停车位；属性长度不能被解析为浮�
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:378
 msgid ""
-"Could not build parking space in netedit; attribute angle cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute angle cannot be parse to "
+"float."
 msgstr "无法在netedit中建立停车位；属性长度不能被解析为浮点。"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:397
@@ -10698,7 +10719,9 @@ msgstr "添加感应线圈 '"
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
 "light ID."
-msgstr "无法在netedit中布设编号 (ID)为 '%' 的车道区域检测器；无效的交通信号灯编号 (ID)。"
+msgstr ""
+"无法在netedit中布设编号 (ID)为 '%' 的车道区域检测器；无效的交通信号灯编号 "
+"(ID)。"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:505
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:568
@@ -10758,7 +10781,8 @@ msgstr "在''中添加掉头间隔时间"
 #, c-format
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
-msgstr "由于重叠，无法在 netedit 中创建起始时刻为 \"%\"、结束时刻为 '%' 的区间。"
+msgstr ""
+"由于重叠，无法在 netedit 中创建起始时刻为 \"%\"、结束时刻为 '%' 的区间。"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:996
 msgid "add closing lane reroute in '"
@@ -10890,8 +10914,8 @@ msgid ""
 "calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
 msgstr ""
-"校准器 \"%\" 的校准器流量 (calibratorFlow) 无法写入。 "
-"必须启用类型（type）、小时车辆数（vehsPerHour）或速度（speed）"
+"校准器 \"%\" 的校准器流量 (calibratorFlow) 无法写入。 必须启用类型（type）、"
+"小时车辆数（vehsPerHour）或速度（speed）"
 
 #: src/netedit/elements/additional/GNELaneAreaDetector.cpp:164
 #: src/netedit/elements/additional/GNEOverheadWire.cpp:123
@@ -11227,7 +11251,7 @@ msgid "Cannot repeat route; front and last edge aren't connected"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERoute.cpp:708
-#: src/netedit/elements/demand/GNEVehicle.cpp:1851
+#: src/netedit/elements/demand/GNEVehicle.cpp:1852
 msgid "copy % '%'"
 msgstr "复制 % '%'"
 
@@ -11236,8 +11260,7 @@ msgid "delete % '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:123
-msgid ""
-"VType '%' with probability % cannot be referenced with distribution '%'"
+msgid "VType '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:127
@@ -11263,8 +11286,7 @@ msgid "add % '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:227
-msgid ""
-"Route '%' with probability % cannot be referenced with distribution '%'"
+msgid "Route '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:268
@@ -11398,135 +11420,135 @@ msgstr "无效的 \"停止 \"母体"
 msgid "Invalid parent"
 msgstr "无效的母体"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:83
-#: src/netedit/elements/demand/GNEVehicle.cpp:97
-#: src/netedit/elements/demand/GNEVehicle.cpp:111
+#: src/netedit/elements/demand/GNEVehicle.cpp:84
+#: src/netedit/elements/demand/GNEVehicle.cpp:98
+#: src/netedit/elements/demand/GNEVehicle.cpp:112
 msgid "transform to"
 msgstr "转换为"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:86
+#: src/netedit/elements/demand/GNEVehicle.cpp:87
 msgid "Trip (over junctions)"
 msgstr "出行（在交叉口之间）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:90
+#: src/netedit/elements/demand/GNEVehicle.cpp:91
 msgid "Flow (over junctions)"
 msgstr "流（在交叉口之间）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:100
+#: src/netedit/elements/demand/GNEVehicle.cpp:101
 msgid "Trip (over TAZs)"
 msgstr "出行（在交通小区TAZs之间）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:104
+#: src/netedit/elements/demand/GNEVehicle.cpp:105
 msgid "Flow (over TAZs)"
 msgstr "流（在交通小区TAZs之间）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:118
+#: src/netedit/elements/demand/GNEVehicle.cpp:119
 msgid "Vehicle (embedded route)"
 msgstr "交通实体（嵌入路径的）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:122
+#: src/netedit/elements/demand/GNEVehicle.cpp:123
 msgid "RouteFlow"
 msgstr "路径流"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:126
+#: src/netedit/elements/demand/GNEVehicle.cpp:127
 msgid "RouteFlow (embedded route)"
 msgstr "路径流（嵌入路径的）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:130
+#: src/netedit/elements/demand/GNEVehicle.cpp:131
 msgid "Trip"
 msgstr "出行"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:205
-#: src/netedit/elements/demand/GNEVehicle.cpp:226
-#: src/netedit/elements/demand/GNEVehicle.cpp:247
+#: src/netedit/elements/demand/GNEVehicle.cpp:206
+#: src/netedit/elements/demand/GNEVehicle.cpp:227
+#: src/netedit/elements/demand/GNEVehicle.cpp:248
 msgid "transform selected to"
 msgstr "将选择转换为"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:208
+#: src/netedit/elements/demand/GNEVehicle.cpp:209
 msgid "Trips (over junctions) (only %)"
 msgstr "出行（在交叉口之间） (仅 %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:211
+#: src/netedit/elements/demand/GNEVehicle.cpp:212
 msgid "Flows (over junctions) (only %)"
 msgstr "流（在交叉口之间） (仅 %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:217
+#: src/netedit/elements/demand/GNEVehicle.cpp:218
 msgid "Trips (over junctions)"
 msgstr "出行（在交叉口之间）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:220
+#: src/netedit/elements/demand/GNEVehicle.cpp:221
 msgid "Flows (over junctions)"
 msgstr "流（在交叉口之间）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:229
+#: src/netedit/elements/demand/GNEVehicle.cpp:230
 msgid "Trips (over TAZs) (only %)"
 msgstr "出行（在交通小区TAZs之间） (仅 %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:232
+#: src/netedit/elements/demand/GNEVehicle.cpp:233
 msgid "Flows (over TAZs) (only %)"
 msgstr "流（在交通小区TAZs之间） (仅 %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:238
+#: src/netedit/elements/demand/GNEVehicle.cpp:239
 msgid "Trips (over TAZs)"
 msgstr "出行（在交通小区 TAZs之间）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:241
+#: src/netedit/elements/demand/GNEVehicle.cpp:242
 msgid "Flows (over TAZs)"
 msgstr "流（在交通小区 TAZs之间）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:250
+#: src/netedit/elements/demand/GNEVehicle.cpp:251
 msgid "Vehicles (only %)"
 msgstr "交通实体 (仅 %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:253
+#: src/netedit/elements/demand/GNEVehicle.cpp:254
 msgid "Vehicles (embedded route) (only %)"
 msgstr "交通实体（嵌入路径的） (仅 %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:256
+#: src/netedit/elements/demand/GNEVehicle.cpp:257
 msgid "RouteFlows (only %)"
 msgstr "路径流 (仅 %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:259
+#: src/netedit/elements/demand/GNEVehicle.cpp:260
 msgid "RouteFlows (embedded route) (only %)"
 msgstr "路径流（嵌入路径的） (仅 %)"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:262
+#: src/netedit/elements/demand/GNEVehicle.cpp:263
 msgid "Trips (only %)"
 msgstr "出行（仅 %）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:265
+#: src/netedit/elements/demand/GNEVehicle.cpp:266
 msgid "Flows (only %)"
 msgstr "流 （仅 %）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:274
+#: src/netedit/elements/demand/GNEVehicle.cpp:275
 msgid "Vehicles (embedded route)"
 msgstr "交通实体（嵌入路径的）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:277
+#: src/netedit/elements/demand/GNEVehicle.cpp:278
 msgid "RouteFlows"
 msgstr "路径流"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:280
+#: src/netedit/elements/demand/GNEVehicle.cpp:281
 msgid "RouteFlows (embedded route)"
 msgstr "路径流（嵌入路径的）"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:283
+#: src/netedit/elements/demand/GNEVehicle.cpp:284
 msgid "Trips"
 msgstr "出行"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:823
+#: src/netedit/elements/demand/GNEVehicle.cpp:824
 msgid "Invalid vehicle tag"
 msgstr "无效车辆标签"
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:2270
+#: src/netedit/elements/demand/GNEVehicle.cpp:2271
 msgid "departPos of %"
 msgstr ""
 
-#: src/netedit/elements/demand/GNEVehicle.cpp:2280
+#: src/netedit/elements/demand/GNEVehicle.cpp:2281
 msgid "arrivalPos of %"
 msgstr ""
 
-#: src/netedit/elements/network/GNEConnection.cpp:644
+#: src/netedit/elements/network/GNEConnection.cpp:648
 msgid "Could not set attribute '%' (tls is broken)"
 msgstr "无法设置属性'%'（tls已损坏）"
 
@@ -12107,31 +12129,31 @@ msgstr "“Shift+鼠标左键”以删除最后插入的点。"
 msgid "A new point cannot be added if drawing wasn't started"
 msgstr "如果没有开始绘图，就不能添加新的点"
 
-#: src/netedit/frames/GNEElementTree.cpp:61
+#: src/netedit/frames/GNEElementTree.cpp:60
 msgid "Hierarchy"
 msgstr "层次划分"
 
-#: src/netedit/frames/GNEElementTree.cpp:202
+#: src/netedit/frames/GNEElementTree.cpp:201
 #, c-format
 msgid "Default Vehicle Type '%' cannot be removed"
 msgstr "默认的车辆类型'%'不能被删除"
 
-#: src/netedit/frames/GNEElementTree.cpp:309
+#: src/netedit/frames/GNEElementTree.cpp:308
 msgid "Edge: %"
 msgstr ""
 
-#: src/netedit/frames/GNEElementTree.cpp:314
+#: src/netedit/frames/GNEElementTree.cpp:313
 #: src/utils/gui/globjects/GUIGlObject.cpp:326
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:88
 msgid "Center"
 msgstr "中心"
 
-#: src/netedit/frames/GNEElementTree.cpp:321
+#: src/netedit/frames/GNEElementTree.cpp:320
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:419
 msgid "Inspect"
 msgstr "检查"
 
-#: src/netedit/frames/GNEElementTree.cpp:322
+#: src/netedit/frames/GNEElementTree.cpp:321
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:323
 #: src/netedit/frames/common/GNESelectorFrame.cpp:260
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:90
@@ -12141,63 +12163,63 @@ msgstr "检查"
 msgid "Delete"
 msgstr "删除"
 
-#: src/netedit/frames/GNEElementTree.cpp:398
-#: src/netedit/frames/GNEElementTree.cpp:417
-#: src/netedit/frames/GNEElementTree.cpp:484
+#: src/netedit/frames/GNEElementTree.cpp:397
+#: src/netedit/frames/GNEElementTree.cpp:416
+#: src/netedit/frames/GNEElementTree.cpp:483
 msgid " origin"
 msgstr " 来源"
 
-#: src/netedit/frames/GNEElementTree.cpp:399
-#: src/netedit/frames/GNEElementTree.cpp:418
-#: src/netedit/frames/GNEElementTree.cpp:485
+#: src/netedit/frames/GNEElementTree.cpp:398
+#: src/netedit/frames/GNEElementTree.cpp:417
+#: src/netedit/frames/GNEElementTree.cpp:484
 msgid " destination"
 msgstr " 目的地"
 
-#: src/netedit/frames/GNEElementTree.cpp:517
-#: src/netedit/frames/GNEElementTree.cpp:651
-#: src/netedit/frames/GNEElementTree.cpp:733
+#: src/netedit/frames/GNEElementTree.cpp:516
+#: src/netedit/frames/GNEElementTree.cpp:650
+#: src/netedit/frames/GNEElementTree.cpp:732
 msgid " additionals..."
 msgstr " 额外的..."
 
-#: src/netedit/frames/GNEElementTree.cpp:531
-#: src/netedit/frames/GNEElementTree.cpp:598
-#: src/netedit/frames/GNEElementTree.cpp:665
-#: src/netedit/frames/GNEElementTree.cpp:747
+#: src/netedit/frames/GNEElementTree.cpp:530
+#: src/netedit/frames/GNEElementTree.cpp:597
+#: src/netedit/frames/GNEElementTree.cpp:664
+#: src/netedit/frames/GNEElementTree.cpp:746
 msgid " demand elements..."
 msgstr " 需求元素..."
 
-#: src/netedit/frames/GNEElementTree.cpp:545
-#: src/netedit/frames/GNEElementTree.cpp:612
-#: src/netedit/frames/GNEElementTree.cpp:679
-#: src/netedit/frames/GNEElementTree.cpp:765
+#: src/netedit/frames/GNEElementTree.cpp:544
+#: src/netedit/frames/GNEElementTree.cpp:611
+#: src/netedit/frames/GNEElementTree.cpp:678
+#: src/netedit/frames/GNEElementTree.cpp:764
 msgid " edges..."
 msgstr " 路段..."
 
-#: src/netedit/frames/GNEElementTree.cpp:559
-#: src/netedit/frames/GNEElementTree.cpp:626
-#: src/netedit/frames/GNEElementTree.cpp:693
-#: src/netedit/frames/GNEElementTree.cpp:783
+#: src/netedit/frames/GNEElementTree.cpp:558
+#: src/netedit/frames/GNEElementTree.cpp:625
+#: src/netedit/frames/GNEElementTree.cpp:692
+#: src/netedit/frames/GNEElementTree.cpp:782
 msgid " lanes..."
 msgstr " 车道..."
 
-#: src/netedit/frames/GNEElementTree.cpp:584
+#: src/netedit/frames/GNEElementTree.cpp:583
 msgid " TAZElements..."
 msgstr " 交通分区要素..."
 
-#: src/netedit/frames/GNEElementTree.cpp:837
+#: src/netedit/frames/GNEElementTree.cpp:836
 msgid "Incomings"
 msgstr "收入"
 
-#: src/netedit/frames/GNEElementTree.cpp:847
+#: src/netedit/frames/GNEElementTree.cpp:846
 msgid "Outgoing"
 msgstr "支出"
 
-#: src/netedit/frames/GNEElementTree.cpp:869
+#: src/netedit/frames/GNEElementTree.cpp:868
 msgid "SourceSinks (%)"
 msgstr ""
 
-#: src/netedit/frames/GNEElementTree.cpp:890
-#: src/netedit/frames/GNEElementTree.cpp:916
+#: src/netedit/frames/GNEElementTree.cpp:889
+#: src/netedit/frames/GNEElementTree.cpp:915
 msgid "Data elements"
 msgstr "数据要素"
 
@@ -12245,8 +12267,8 @@ msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:317
 msgid ""
-"- The 'Match Attribute' controls allow to specify a set of objects which are"
-" then applied to the current selection\n"
+"- The 'Match Attribute' controls allow to specify a set of objects which are "
+"then applied to the current selection\n"
 msgstr "- 匹配属性 \"控件允许指定一组对象，然后将其应用于当前选择。\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:318
@@ -12273,21 +12295,27 @@ msgstr "- 空表达式可以匹配所有对象\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:324
 msgid ""
-"- For numerical attributes the match expression must consist of a comparison"
-" operator ('<', '>', '=') and a number.\n"
-msgstr "- 对于数字属性，匹配表达式必须由一个比较运算符（'<'、'>'、'='）和一个数字组成。\n"
+"- For numerical attributes the match expression must consist of a comparison "
+"operator ('<', '>', '=') and a number.\n"
+msgstr ""
+"- 对于数字属性，匹配表达式必须由一个比较运算符（'<'、'>'、'='）和一个数字组"
+"成。\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:325
 msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'\n"
-msgstr "- 如果一个对象的属性与给定的数字通过给定的运算符进行比较后评估为'真'，则该对象匹配。\n"
+msgstr ""
+"- 如果一个对象的属性与给定的数字通过给定的运算符进行比较后评估为'真'，则该对"
+"象匹配。\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:327
 msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string.\n"
-msgstr "- 对于字符串属性，匹配表达式必须由一个比较运算符（''、'='、'！'、'^'）和一个字符串组成。\n"
+msgstr ""
+"- 对于字符串属性，匹配表达式必须由一个比较运算符（''、'='、'！'、'^'）和一个"
+"字符串组成。\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:328
 msgid ""
@@ -12313,8 +12341,7 @@ msgstr "- 例子:\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:334
 msgid ""
-"     junction; id; 'foo' -> match all junctions that have 'foo' in their "
-"id\n"
+"     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
 msgstr "     junction; id; 'foo' -> 匹配所有id中带有'foo'的结点\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:335
@@ -12322,8 +12349,8 @@ msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'\n"
 msgstr ""
-"     junction; type; '=priority' -> "
-"匹配所有'priority'类型的路口，但不匹配'priority_stop'类型的路口。\n"
+"     junction; type; '=priority' -> 匹配所有'priority'类型的路口，但不匹"
+"配'priority_stop'类型的路口。\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:336
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
@@ -12376,7 +12403,7 @@ msgid "   previous element"
 msgstr "   前一个要素"
 
 #: src/netedit/frames/GNEPathCreator.cpp:126
-#: src/netedit/frames/GNEPlanCreator.cpp:154
+#: src/netedit/frames/GNEPlanCreator.cpp:152
 msgid "Route creator"
 msgstr "路径创建器"
 
@@ -12387,17 +12414,17 @@ msgid "No edges selected"
 msgstr "没有选择的路段"
 
 #: src/netedit/frames/GNEPathCreator.cpp:135
-#: src/netedit/frames/GNEPlanCreator.cpp:160
+#: src/netedit/frames/GNEPlanCreator.cpp:158
 msgid "Use last route"
 msgstr "使用最后的路径"
 
 #: src/netedit/frames/GNEPathCreator.cpp:138
-#: src/netedit/frames/GNEPlanCreator.cpp:163
+#: src/netedit/frames/GNEPlanCreator.cpp:161
 msgid "Finish route creation"
 msgstr "完成路径创建"
 
 #: src/netedit/frames/GNEPathCreator.cpp:141
-#: src/netedit/frames/GNEPlanCreator.cpp:166
+#: src/netedit/frames/GNEPlanCreator.cpp:164
 msgid "Abort route creation"
 msgstr "终止创建路径"
 
@@ -12422,7 +12449,7 @@ msgid "BACKSPACE: undo click"
 msgstr ""
 
 #: src/netedit/frames/GNEPathCreator.cpp:277
-#: src/netedit/frames/GNEPlanCreator.cpp:781
+#: src/netedit/frames/GNEPlanCreator.cpp:779
 msgid "Double junctions aren't allowed"
 msgstr "不允许有双重交叉口"
 
@@ -12435,7 +12462,7 @@ msgid "creation of path between junctions"
 msgstr ""
 
 #: src/netedit/frames/GNEPathCreator.cpp:324
-#: src/netedit/frames/GNEPlanCreator.cpp:815
+#: src/netedit/frames/GNEPlanCreator.cpp:813
 msgid "Double TAZs aren't allowed"
 msgstr "不允许有双向的交通小区 (TAZs)"
 
@@ -12448,8 +12475,8 @@ msgid "creation of path between TAZs"
 msgstr ""
 
 #: src/netedit/frames/GNEPathCreator.cpp:367
-#: src/netedit/frames/GNEPlanCreator.cpp:757
-#: src/netedit/frames/GNEPlanCreator.cpp:849
+#: src/netedit/frames/GNEPlanCreator.cpp:755
+#: src/netedit/frames/GNEPlanCreator.cpp:847
 msgid "Double edges aren't allowed"
 msgstr "不允许有双侧路段"
 
@@ -12521,22 +12548,22 @@ msgstr " 路段冲突 (vClass)"
 msgid " edge disconnected"
 msgstr " 路段断开"
 
-#: src/netedit/frames/GNEPlanCreator.cpp:169
+#: src/netedit/frames/GNEPlanCreator.cpp:167
 msgid "Remove last element"
 msgstr ""
 
-#: src/netedit/frames/GNEPlanCreator.cpp:697
+#: src/netedit/frames/GNEPlanCreator.cpp:695
 msgid "Click over:"
 msgstr ""
 
-#: src/netedit/frames/GNEPlanCreator.cpp:788
-#: src/netedit/frames/GNEPlanCreator.cpp:822
-#: src/netedit/frames/GNEPlanCreator.cpp:856
-#: src/netedit/frames/GNEPlanCreator.cpp:896
+#: src/netedit/frames/GNEPlanCreator.cpp:786
+#: src/netedit/frames/GNEPlanCreator.cpp:820
+#: src/netedit/frames/GNEPlanCreator.cpp:854
+#: src/netedit/frames/GNEPlanCreator.cpp:894
 msgid "Only two from-to elements are allowed"
 msgstr ""
 
-#: src/netedit/frames/GNEPlanCreator.cpp:889
+#: src/netedit/frames/GNEPlanCreator.cpp:887
 msgid "Double stoppingPlaces aren't allowed"
 msgstr ""
 
@@ -12552,7 +12579,7 @@ msgstr ""
 msgid " To element"
 msgstr ""
 
-#: src/netedit/frames/GNEPlanSelector.cpp:90
+#: src/netedit/frames/GNEPlanSelector.cpp:88
 msgid "Plan type"
 msgstr ""
 
@@ -12709,50 +12736,50 @@ msgstr "骑行"
 msgid "Person stops"
 msgstr "人员停止"
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:49
+#: src/netedit/frames/GNEViewObjectSelector.cpp:48
 msgid "NetworkElements"
 msgstr "网络要素"
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:52
+#: src/netedit/frames/GNEViewObjectSelector.cpp:51
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:58
 msgid "Clear selection"
 msgstr "清除选择"
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:53
+#: src/netedit/frames/GNEViewObjectSelector.cpp:52
 msgid "Use selected"
 msgstr "使用选定的"
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:55
+#: src/netedit/frames/GNEViewObjectSelector.cpp:54
 msgid "Selected elements"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:85
+#: src/netedit/frames/GNEViewObjectSelector.cpp:84
 msgid ""
 "-This additional requires to\n"
 " select at least\n"
 " one element"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:86
+#: src/netedit/frames/GNEViewObjectSelector.cpp:85
 #, c-format
 msgid "-Click over % to select"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:87
+#: src/netedit/frames/GNEViewObjectSelector.cpp:86
 msgid "-ESC to clear elements"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:88
+#: src/netedit/frames/GNEViewObjectSelector.cpp:87
 #, c-format
 msgid "Use selected %s"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:90
+#: src/netedit/frames/GNEViewObjectSelector.cpp:89
 #, c-format
 msgid "% selector"
 msgstr ""
 
-#: src/netedit/frames/GNEViewObjectSelector.cpp:151
+#: src/netedit/frames/GNEViewObjectSelector.cpp:150
 #, c-format
 msgid "List of % cannot be empty"
 msgstr ""
@@ -13411,7 +13438,8 @@ msgstr "所选停靠类型无效。"
 #: src/netedit/frames/demand/GNEStopFrame.cpp:194
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:225
 msgid "Shift + click to create two additionals in the same position"
-msgstr "移位键(shift) + 点选(click) 將在同一个位置上新加两个附加项(additionals)"
+msgstr ""
+"移位键(shift) + 点选(click) 將在同一个位置上新加两个附加项(additionals)"
 
 #: src/netedit/frames/demand/GNEStopFrame.cpp:202
 msgid "Selected % '%' as stop parent."
@@ -13592,11 +13620,11 @@ msgstr "目前不支持。使用VSS对话框创建VSS步骤"
 msgid "Currently unsupported. Create calibratorFlows using calibrator dialog"
 msgstr "目前不支持。使用校验器对话框创建校验器流"
 
-#: src/netedit/frames/network/GNEAdditionalFrame.cpp:285
+#: src/netedit/frames/network/GNEAdditionalFrame.cpp:291
 msgid "E2 multilane detectors need at least two consecutive lanes"
 msgstr "E2多车道探测器需要至少两个连续车道"
 
-#: src/netedit/frames/network/GNEAdditionalFrame.cpp:417
+#: src/netedit/frames/network/GNEAdditionalFrame.cpp:423
 #: src/netedit/frames/network/GNEWireFrame.cpp:201
 msgid "A % must be selected before insertion of %."
 msgstr ""
@@ -13717,9 +13745,10 @@ msgstr "在单击时按住 <Shift> 以创建牢固 (unyielding) 连接 (pass=tru
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:317
 msgid ""
-"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper"
-" nodes or with incompatible permissions)"
-msgstr "在单击时按住 <Ctrl> 以创建冲突连接（例如，在拉链节点或具有不兼容的权限时）"
+"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
+"nodes or with incompatible permissions)"
+msgstr ""
+"在单击时按住 <Ctrl> 以创建冲突连接（例如，在拉链节点或具有不兼容的权限时）"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:331
 msgid "Possible Target"
@@ -13883,8 +13912,7 @@ msgstr "创建路段"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:688
 msgid ""
-"Select either default edgeType or short edge or a custom edgeType or "
-"template"
+"Select either default edgeType or short edge or a custom edgeType or template"
 msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:698
@@ -14518,7 +14546,8 @@ msgstr "创建一个新的交通信号方案。"
 msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
-msgstr "删除一个交通信号方案。如果所有控制方案都被删除，路口就会变成一个优先路口。"
+msgstr ""
+"删除一个交通信号方案。如果所有控制方案都被删除，路口就会变成一个优先路口。"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1391
 msgid "Reset single"
@@ -14608,8 +14637,7 @@ msgid "Clean unused states from all phase"
 msgstr "清除所有相位的未使用状态"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1934
-msgid ""
-"Clean unused states from all phase. (Not allowed for multiple programs)"
+msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr "从所有相位中清理未使用的状态。(不允许有多个程序）"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1938
@@ -14624,7 +14652,9 @@ msgstr "为所有相位的状态向量扩展一个条目"
 msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
-msgstr "将所有相位的状态向量扩展一个条目。(在一个连接或交叉点被分配到新的指数之前未使用)"
+msgstr ""
+"将所有相位的状态向量扩展一个条目。(在一个连接或交叉点被分配到新的指数之前未使"
+"用)"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1944
 msgid "Group Sig."
@@ -14640,7 +14670,9 @@ msgstr "通过让具有相同信号状态的连接使用相同的指数来缩短
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
-msgstr "通过让具有相同信号状态的连接使用相同的指数来缩短状态定义。(对于多个程序来说不允许)"
+msgstr ""
+"通过让具有相同信号状态的连接使用相同的指数来缩短状态定义。(对于多个程序来说不"
+"允许)"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1950
 msgid "Ungroup Sig."
@@ -15050,8 +15082,7 @@ msgid "Invalid vClass"
 msgstr "无效的vClass"
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:77
-msgid ""
-"The 'value' attribute is deprecated for breakpoints. Please use 'time'."
+msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr "断点的'值（value)'属性已被废弃。请使用'时间（time）'。"
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:398
@@ -15064,6 +15095,43 @@ msgstr ""
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:592
 msgid "Could not decode breakpoint '%'."
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:197
+msgid "by param (numerical, streetwise)"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:198
+msgid "by param (numerical, lanewise)"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:199
+msgid "by param (numerical)"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:200
+msgid "by edgeData (numerical, streetwise)"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:201
+msgid "by attribute (numerical)"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:202
+msgid "by selection"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:203
+msgid "by type"
+msgstr ""
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:204
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:1843
+msgid "by permission code"
+msgstr "按权限代码"
+
+#: src/utils/gui/settings/GUIVisualizationSettings.cpp:205
+msgid "by live edgeData"
 msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:952
@@ -15693,10 +15761,6 @@ msgstr "无交通小区 (TAZ)"
 msgid "data mode"
 msgstr "数据模式"
 
-#: src/utils/gui/settings/GUIVisualizationSettings.cpp:1843
-msgid "by permission code"
-msgstr "按权限代码"
-
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1891
 msgid "by height at segment start"
 msgstr "按路段起始处的高度"
@@ -15732,6 +15796,10 @@ msgstr "按终点交通小区 (taz)"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:2703
 msgid "No color defined for LinkState '%'"
 msgstr "没有为链接状态'%'定义颜色"
+
+#: src/utils/gui/tests/GUITestSystem.cpp:36
+msgid "Could not open test file '%'."
+msgstr ""
 
 #: src/utils/gui/tracker/GUIParameterTracker.cpp:116
 msgid "Save the data..."
@@ -16393,7 +16461,7 @@ msgid "Recenter view to the simulated area."
 msgstr "重新将视图置于仿真区域。"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:123
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1592
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1589
 msgctxt "Labels"
 msgid "Edit Viewport"
 msgstr "编辑视区"
@@ -16550,19 +16618,18 @@ msgstr "改变显示语言需要重新启动才能生效。"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:425
 msgid ""
-"For the Debug build you might also need to set the LANG environment "
-"variable."
+"For the Debug build you might also need to set the LANG environment variable."
 msgstr "对于調試(Debug)构建，您可能还需要设置LANG环境变量。"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:428
 msgid "Under development. You can help to improve the translation at:"
 msgstr "正在开发中。可以在以下网站帮助改进翻译:"
 
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:254
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:249
 msgid "(No projection defined)"
 msgstr "(未定義投影方式)"
 
-#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1743
+#: src/utils/gui/windows/GUISUMOAbstractView.cpp:1740
 msgid "Could not convert coordinates in %."
 msgstr "无法转换以%为单位的坐标。"
 
@@ -16806,7 +16873,8 @@ msgstr "无法转换以%为单位的坐标。"
 #~ msgstr "公交站(busStop)的名称"
 
 #~ msgid ""
-#~ "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1"
+#~ "Instead, it will be placed 0.1 meters from the lanes end or at position "
+#~ "0.1"
 #~ msgstr "相反地，它将放置在距离 车道尽头0.1 米处或 0.1位置(position)"
 
 #~ msgid "The RGBA color with which the busStop shall be displayed"
@@ -16876,14 +16944,15 @@ msgstr "无法转换以%为单位的坐标。"
 #~ msgstr "E1 的id"
 
 #~ msgid ""
-#~ "The id of the lane the detector shall be laid on. The lane must be a part of"
-#~ " the network used"
+#~ "The id of the lane the detector shall be laid on. The lane must be a part "
+#~ "of the network used"
 #~ msgstr "检测器所在车道的 ID。车道必须位于所用路网內"
 
 #~ msgid ""
 #~ "The position on the lane the detector shall be laid on in meters. The "
 #~ "position must be a value between -1*lane's length and the lane's length"
-#~ msgstr "检测器在车道上的位置应以米为单位设置。该位置必须是在正负一个车道长度之間"
+#~ msgstr ""
+#~ "检测器在车道上的位置应以米为单位设置。该位置必须是在正负一个车道长度之間"
 
 #~ msgid "Name of induction loop"
 #~ msgstr "检测器名称"
@@ -16932,7 +17001,8 @@ msgstr "无法转换以%为单位的坐标。"
 #~ msgid ""
 #~ "Space separated list of vehicle type ids to consider (empty to affect all "
 #~ "types)"
-#~ msgstr "考虑的车辆类型 ID , 并以空格分隔的清单（空的(empty)表示影响所有类型）"
+#~ msgstr ""
+#~ "考虑的车辆类型 ID , 并以空格分隔的清单（空的(empty)表示影响所有类型）"
 
 #~ msgid "The id of Variable Speed Signal"
 #~ msgstr "可变速度标志的识别名(id)"
@@ -16958,7 +17028,8 @@ msgstr "无法转换以%为单位的坐标。"
 #~ msgid ""
 #~ "space separated list of vehicle type ids to consider (empty to affect all "
 #~ "types)"
-#~ msgstr "考虑的车辆类型 ID , 并以空格分隔的清单（空的(empty)表示影响所有类型）"
+#~ msgstr ""
+#~ "考虑的车辆类型 ID , 并以空格分隔的清单（空的(empty)表示影响所有类型）"
 
 #~ msgid "The id of lane in the simulation network"
 #~ msgstr "仿真路网內的路段的识别名(id)"
@@ -16973,9 +17044,11 @@ msgstr "无法转换以%为单位的坐标。"
 #~ msgstr "改道裝置名称"
 
 #~ msgid ""
-#~ "The list of vehicle types that shall be affected by this rerouter (empty to "
-#~ "affect all types)"
-#~ msgstr "受此重新搜寻路径裝置(rerouter)影响的车辆类型清单(空的表示所有车辆类型將被影响)"
+#~ "The list of vehicle types that shall be affected by this rerouter (empty "
+#~ "to affect all types)"
+#~ msgstr ""
+#~ "受此重新搜寻路径裝置(rerouter)影响的车辆类型清单(空的表示所有车辆类型將被"
+#~ "影响)"
 
 #~ msgid "allowed vehicles"
 #~ msgstr "允许的车辆"
@@ -17014,8 +17087,8 @@ msgstr "无法转换以%为单位的坐标。"
 #~ msgstr "兴趣点所在车道的名称"
 
 #~ msgid ""
-#~ "The position on the named lane or in the net in meters at which the POI is "
-#~ "located at"
+#~ "The position on the named lane or in the net in meters at which the POI "
+#~ "is located at"
 #~ msgstr "兴趣点在已命名车道或路网的位置(以米为单位)"
 
 #~ msgid "The id of the TAZ"
@@ -17064,9 +17137,10 @@ msgstr "无法转换以%为单位的坐标。"
 #~ msgstr "类型的颜色"
 
 #~ msgid ""
-#~ "Image file for rendering vehicles of this type (should be grayscale to allow"
-#~ " functional coloring)"
-#~ msgstr "用于渲染这种类型的车辆的图像文件（应该是灰度的，以便进行功能性着色）"
+#~ "Image file for rendering vehicles of this type (should be grayscale to "
+#~ "allow functional coloring)"
+#~ msgstr ""
+#~ "用于渲染这种类型的车辆的图像文件（应该是灰度的，以便进行功能性着色）"
 
 #~ msgid "Carriage lengths"
 #~ msgstr "车厢长度"
@@ -17158,8 +17232,8 @@ msgstr "无法转换以%为单位的坐标。"
 #~ msgstr "输出文件的路径。该路径可以是相对的"
 
 #~ msgid ""
-#~ "Whether pedestrians shall be recorded instead of vehicles. Allowed value is "
-#~ "walk"
+#~ "Whether pedestrians shall be recorded instead of vehicles. Allowed value "
+#~ "is walk"
 #~ msgstr "是否应记录行人而不是车辆。允许的值是步行"
 
 #~ msgid "Control + click to create two stop in the same position"
@@ -17206,8 +17280,8 @@ msgstr "无法转换以%为单位的坐标。"
 #~ msgstr "- 参考点：标记附加元素的初始位置。"
 
 #~ msgid ""
-#~ "  Example: If you want to create a busStop with a length of 30 in the point "
-#~ "100 of the lane:"
+#~ "  Example: If you want to create a busStop with a length of 30 in the "
+#~ "point 100 of the lane:"
 #~ msgstr "  例子：如果您想在车道的100点处创建一个长度为30的公交站："
 
 #~ msgid ""
@@ -17243,7 +17317,9 @@ msgstr "无法转换以%为单位的坐标。"
 #~ msgid ""
 #~ "- The 'MatchGenericData Attribute' controls allow to specify a set of "
 #~ "objects which are then applied to the current selection\n"
-#~ msgstr "-- MatchGenericData Attribute \"控件允许指定一组对象，然后将其应用于当前选择。\n"
+#~ msgstr ""
+#~ "-- MatchGenericData Attribute \"控件允许指定一组对象，然后将其应用于当前选"
+#~ "择。\n"
 
 #~ msgid "Invalid container parameters."
 #~ msgstr "无效的容器参数。"

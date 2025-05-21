@@ -44,7 +44,8 @@ class Tessellator;
 class MSVehicleType;
 class MSEdge;
 class GUIJunctionWrapper;
-
+class SUMOPolygon;
+class PointOfInterest;
 
 // ===========================================================================
 // class definitions
@@ -79,6 +80,9 @@ private:
 
     static void buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
                                          osg::Group& addTo, osgUtil::Tessellator& tessellator);
+
+    static void buildPolygonGeometry(const SUMOPolygon& poly, osg::Group& addTo, osgUtil::Tessellator& tessellator);
+    static void buildPoIGeometry(const PointOfInterest& poi, osg::Group& addTo, osgUtil::Tessellator& tessellator);
 
     static void setShapeState(osg::ref_ptr<osg::ShapeDrawable> shape);
 

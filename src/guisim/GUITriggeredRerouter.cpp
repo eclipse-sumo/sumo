@@ -398,7 +398,21 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge
                 continue;
             }
             const PositionVector& v = lane->getShape();
-            const double lanePos = edgeType == REROUTER_TRIGGER_EDGE ? MAX2(0.0, v.length() - 6) : MIN2(v.length(), 3.0);
+            double lanePos;
+            switch (edgeType) {
+                case REROUTER_TRIGGER_EDGE:
+                    // U sign at end of edge
+                    // (note: symbol is drawn downstream of lanePos and extends 6m)
+                    lanePos = MAX2(0.0, v.length() - 10);
+                    break;
+                case REROUTER_SWITCH_EDGE:
+                    // triangle with switch probability
+                    lanePos = 0;
+                    break;
+                default:
+                    // closing sign on start of edge
+                    lanePos = MIN2(v.length(), 3.0);
+            }
             myFGPositions.push_back(v.positionAtOffset(lanePos));
             myFGRotations.push_back(-v.rotationDegreeAtOffset(lanePos));
             myBoundary.add(myFGPositions.back());
@@ -406,7 +420,8 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge
         }
     } else {
         myFGPositions.push_back(pos);
-        myFGRotations.push_back(0);
+        const PositionVector& v = lanes.front()->getShape();
+        myFGRotations.push_back(-v.rotationDegreeAtOffset(lanes.front()->getLength()));
         myBoundary.add(myFGPositions.back());
         myHalfWidths.push_back(SUMO_const_halfLaneWidth * 0.875);
     }
@@ -491,6 +506,8 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 GLHelper::pushMatrix();
                 glTranslated(pos.x(), pos.y(), 0);
                 glRotated(rot, 0, 0, 1);
+                // draw the symbol downstream of pos (without touching the older drawing code)
+                glTranslated(0, -6, 0);
                 glTranslated(0, 0, getType());
                 glScaled(exaggeration, exaggeration, 1);
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

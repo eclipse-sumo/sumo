@@ -460,7 +460,8 @@ protected:
     FXCheckButton* myShowColorLegend = nullptr;
     FXCheckButton* myShowVehicleColorLegend = nullptr;
 
-    /// @brief 3D
+    /// @brief
+    FXCheckButton* myIgnoreColorSchemeFor3DVehicles = nullptr;
     FXCheckButton* myShow3DTLSLinkMarkers = nullptr;
     FXCheckButton* myShow3DTLSDomes = nullptr;
     FXCheckButton* myShow3DHeadUpDisplay = nullptr;

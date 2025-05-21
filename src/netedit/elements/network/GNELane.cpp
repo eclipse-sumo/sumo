@@ -1318,7 +1318,7 @@ GNELane::drawArrows(const GUIVisualizationSettings& s) const {
             glScaled(myDrawingConstants->getDrawingWidth() / SUMO_const_laneWidth, 1, 1);
         }
         // apply offset
-        glTranslated(myDrawingConstants->getOffset(), 0, 0);
+        glTranslated(myDrawingConstants->getOffset() * -1, 0, 0);
         // get destination node
         const NBNode* dest = getParentEdges().front()->getNBEdge()->myTo;
         // draw all links iterating over connections

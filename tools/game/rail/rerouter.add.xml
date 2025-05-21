@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-05-21 13:16:00.941170 by generateContinuousRerouters.py v1_23_1+0236-64790394f65
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output-file value="rerouter.add.xml"/>
+    <turn-defaults value="0,1,0,0"/>
+    <stop-file value="stops.add.xml"/>
+    <end value="86400"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <route id="-E3_-E0" edges="-E3 -E0 E24.25 -E28.46 -E28"/>
+    <route id="E0_E3" edges="E0 E3 E6 E23.25 -E26.46 -E26">
+        <stop busStop="ts_6" duration="60"/>
+    </route>
+    <route id="-E0_E24.25" edges="-E0 E24.25 -E28.46 -E28"/>
+    <route id="-E24_-E240" edges="-E24 -E240"/>
+    <route id="-E24_E0" edges="-E24 E0 E3 E6 E23.25 -E26.46 -E26">
+        <stop busStop="ts_6" duration="60"/>
+    </route>
+    <rerouter id="rr_-E24" edges="-E24">
+        <interval begin="0" end="86400">
+            <routeProbReroute id="-E24_-E240" probability="1.0"/>
+            <routeProbReroute id="-E24_E0" probability="0.0"/>
+        </interval>
+    </rerouter>
+    <route id="E24_E24.25" edges="E24 E24.25 -E28.46 -E28"/>
+    <route id="-E7_-E1" edges="-E7 -E1 -E4 E25 E28 E28.46 -E24"/>
+    <route id="E1_E7" edges="E1 E7 E9 E26 E26.46 -E23">
+        <stop busStop="ts_2" duration="60"/>
+    </route>
+    <route id="-E1_-E4" edges="-E1 -E4 E25 E28 E28.46 -E24"/>
+    <route id="E4_E1" edges="E4 E1 E7 E9 E26 E26.46 -E23">
+        <stop busStop="ts_2" duration="60"/>
+    </route>
+    <route id="-E19_-E17" edges="-E19 -E17 -E21 E24 E24.25 -E28.46 -E28">
+        <stop busStop="ts_4" duration="60"/>
+    </route>
+    <route id="E17_E19" edges="E17 E19 E23 E23.25 -E26.46 -E26"/>
+    <route id="-E17_-E21" edges="-E17 -E21 E24 E24.25 -E28.46 -E28">
+        <stop busStop="ts_4" duration="60"/>
+    </route>
+    <route id="E21_E17" edges="E21 E17 E19 E23 E23.25 -E26.46 -E26"/>
+    <route id="-E20_-E18" edges="-E20 -E18 -E22 E24 E24.25 -E28.46 -E28">
+        <stop busStop="ts_5" duration="60"/>
+    </route>
+    <route id="E18_E20" edges="E18 E20 E23 E23.25 -E26.46 -E26"/>
+    <route id="-E18_-E22" edges="-E18 -E22 E24 E24.25 -E28.46 -E28">
+        <stop busStop="ts_5" duration="60"/>
+    </route>
+    <route id="E22_E18" edges="E22 E18 E20 E23 E23.25 -E26.46 -E26"/>
+    <route id="-E230_-E19" edges="-E230 -E19 -E17 -E21 E24 E24.25 -E28.46 -E28">
+        <stop busStop="ts_4" duration="60"/>
+    </route>
+    <route id="-E230_-E20" edges="-E230 -E20 -E18 -E22 E24 E24.25 -E28.46 -E28">
+        <stop busStop="ts_5" duration="60"/>
+    </route>
+    <rerouter id="rr_-E230" edges="-E230">
+        <interval begin="0" end="86400">
+            <routeProbReroute id="-E230_-E19" probability="0.0"/>
+            <routeProbReroute id="-E230_-E20" probability="1.0"/>
+        </interval>
+    </rerouter>
+    <route id="E19_E23" edges="E19 E23 E23.25 -E26.46 -E26"/>
+    <route id="E20_E23" edges="E20 E23 E23.25 -E26.46 -E26"/>
+    <route id="-E8_-E2" edges="-E8 -E2 -E5 E25 E28 E28.46 -E24"/>
+    <route id="E2_E8" edges="E2 E8 E9 E26 E26.46 -E23">
+        <stop busStop="ts_3" duration="60"/>
+    </route>
+    <route id="-E2_-E5" edges="-E2 -E5 E25 E28 E28.46 -E24"/>
+    <route id="E5_E2" edges="E5 E2 E8 E9 E26 E26.46 -E23">
+        <stop busStop="ts_3" duration="60"/>
+    </route>
+    <route id="-E21_E24" edges="-E21 E24 E24.25 -E28.46 -E28"/>
+    <route id="-E22_E24" edges="-E22 E24 E24.25 -E28.46 -E28"/>
+    <route id="-E240_E21" edges="-E240 E21 E17 E19 E23 E23.25 -E26.46 -E26"/>
+    <route id="-E240_E22" edges="-E240 E22 E18 E20 E23 E23.25 -E26.46 -E26"/>
+    <rerouter id="rr_-E240" edges="-E240">
+        <interval begin="0" end="86400">
+            <routeProbReroute id="-E240_E21" probability="0.0"/>
+            <routeProbReroute id="-E240_E22" probability="1.0"/>
+        </interval>
+    </rerouter>
+    <route id="E23.25_-E26.46" edges="E23.25 -E26.46 -E26"/>
+    <route id="E26.46_-E23" edges="E26.46 -E23"/>
+    <route id="-E23_-E230" edges="-E23 -E230"/>
+    <route id="-E23_-E6" edges="-E23 -E6 -E3 -E0 E24.25 -E28.46 -E28"/>
+    <rerouter id="rr_-E23" edges="-E23">
+        <interval begin="0" end="86400">
+            <routeProbReroute id="-E23_-E230" probability="1.0"/>
+            <routeProbReroute id="-E23_-E6" probability="0.0"/>
+        </interval>
+    </rerouter>
+    <route id="E23_E23.25" edges="E23 E23.25 -E26.46 -E26"/>
+    <route id="E6_E23.25" edges="E6 E23.25 -E26.46 -E26"/>
+    <route id="E24.25_-E28.46" edges="E24.25 -E28.46 -E28"/>
+    <route id="E28.46_-E24" edges="E28.46 -E24"/>
+    <route id="-E28_-E25" edges="-E28 -E25"/>
+    <route id="-E28_E29" edges="-E28 E29 E30.50 E300 E26 E26.46 -E23"/>
+    <rerouter id="rr_-E28" edges="-E28">
+        <interval begin="0" end="86400">
+            <routeProbReroute id="-E28_-E25" probability="1.0"/>
+            <routeProbReroute id="-E28_E29" probability="0.0"/>
+        </interval>
+    </rerouter>
+    <route id="-E300_E28" edges="-E300 E28 E28.46 -E24"/>
+    <route id="E25_E28" edges="E25 E28 E28.46 -E24"/>
+    <route id="-E25_E4" edges="-E25 E4 E1 E7 E9 E26 E26.46 -E23">
+        <stop busStop="ts_2" duration="60"/>
+    </route>
+    <route id="-E25_E5" edges="-E25 E5 E2 E8 E9 E26 E26.46 -E23">
+        <stop busStop="ts_3" duration="60"/>
+    </route>
+    <rerouter id="rr_-E25" edges="-E25">
+        <interval begin="0" end="86400">
+            <routeProbReroute id="-E25_E4" probability="1.0"/>
+            <routeProbReroute id="-E25_E5" probability="0.0"/>
+        </interval>
+    </rerouter>
+    <route id="-E4_E25" edges="-E4 E25 E28 E28.46 -E24"/>
+    <route id="-E5_E25" edges="-E5 E25 E28 E28.46 -E24"/>
+    <route id="-E26.46_-E26" edges="-E26.46 -E26"/>
+    <route id="E26_E26.46" edges="E26 E26.46 -E23"/>
+    <route id="-E26_-E31" edges="-E26 -E31 -E30.50 -E300 E28 E28.46 -E24">
+        <stop busStop="ts_1" duration="60"/>
+    </route>
+    <route id="-E26_-E9" edges="-E26 -E9"/>
+    <rerouter id="rr_-E26" edges="-E26">
+        <interval begin="0" end="86400">
+            <routeProbReroute id="-E26_-E31" probability="0.0"/>
+            <routeProbReroute id="-E26_-E9" probability="1.0"/>
+        </interval>
+    </rerouter>
+    <route id="E300_E26" edges="E300 E26 E26.46 -E23"/>
+    <route id="E9_E26" edges="E9 E26 E26.46 -E23"/>
+    <route id="-E28.46_-E28" edges="-E28.46 -E28"/>
+    <route id="E28_E28.46" edges="E28 E28.46 -E24"/>
+    <route id="-E6_-E3" edges="-E6 -E3 -E0 E24.25 -E28.46 -E28"/>
+    <route id="E3_E6" edges="E3 E6 E23.25 -E26.46 -E26">
+        <stop busStop="ts_6" duration="60"/>
+    </route>
+    <route id="-E31_-E30.50" edges="-E31 -E30.50 -E300 E28 E28.46 -E24">
+        <stop busStop="ts_1" duration="60"/>
+    </route>
+    <route id="E30.50_E300" edges="E30.50 E300 E26 E26.46 -E23"/>
+    <route id="-E30.50_-E300" edges="-E30.50 -E300 E28 E28.46 -E24">
+        <stop busStop="ts_1" duration="60"/>
+    </route>
+    <route id="E29_E30.50" edges="E29 E30.50 E300 E26 E26.46 -E23"/>
+    <route id="-E9_-E7" edges="-E9 -E7 -E1 -E4 E25 E28 E28.46 -E24"/>
+    <route id="-E9_-E8" edges="-E9 -E8 -E2 -E5 E25 E28 E28.46 -E24"/>
+    <rerouter id="rr_-E9" edges="-E9">
+        <interval begin="0" end="86400">
+            <routeProbReroute id="-E9_-E7" probability="1.0"/>
+            <routeProbReroute id="-E9_-E8" probability="0.0"/>
+        </interval>
+    </rerouter>
+    <route id="E7_E9" edges="E7 E9 E26 E26.46 -E23"/>
+    <route id="E8_E9" edges="E8 E9 E26 E26.46 -E23"/>
+</additional>

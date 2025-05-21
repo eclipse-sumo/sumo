@@ -596,7 +596,7 @@ public:
      * @return The built vehicle type
      * @exception ProcessError on false values (not et used)
      */
-    static MSVehicleType* build(SUMOVTypeParameter& from);
+    static MSVehicleType* build(SUMOVTypeParameter& from, const std::string& fileName = "");
 
     /// @brief   Accessor function for parameter equivalent returning entry time for a specific manoeuver angle
     SUMOTime getEntryManoeuvreTime(const int angle) const;
