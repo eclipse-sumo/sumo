@@ -1167,7 +1167,21 @@ GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
 long
 GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    if (!myApp->isGaming()) {
+    if (myApp->isGaming()) {
+        if (makeCurrent()) {
+            int id = getObjectUnderCursor();
+            if (id != 0) {
+                GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+                if (o != nullptr) {
+                    if (o->getType() == GLO_REROUTER_EDGE) {
+                        o->onLeftBtnPress(ptr);
+                        update();
+                    }
+                }
+            }
+            makeNonCurrent();
+        }
+    } else {
         myChanger->onRightBtnPress(ptr);
     }
     grab();
