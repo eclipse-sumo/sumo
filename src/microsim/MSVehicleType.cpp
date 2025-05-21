@@ -323,7 +323,7 @@ MSVehicleType::setShape(SUMOVehicleShape shape) {
 
 // ------------ Static methods for building vehicle types
 MSVehicleType*
-MSVehicleType::build(SUMOVTypeParameter& from) {
+MSVehicleType::build(SUMOVTypeParameter& from, const std::string& fileName) {
     if (from.hasParameter("vehicleMass")) {
         if (from.wasSet(VTYPEPARS_MASS_SET)) {
             WRITE_WARNINGF(TL("The vType '%' has a 'mass' attribute and a 'vehicleMass' parameter. The 'mass' attribute will take precedence."), from.id);
@@ -401,7 +401,7 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
     }
     // init Rail visualization parameters
-    vtype->myParameter.initRailVisualizationParameters();
+    vtype->myParameter.initRailVisualizationParameters(fileName);
     return vtype;
 }
 

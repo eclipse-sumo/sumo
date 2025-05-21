@@ -27,6 +27,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -780,7 +781,7 @@ SUMOVTypeParameter::cacheParamRestrictions(const std::vector<std::string>& restr
 
 
 void
-SUMOVTypeParameter::initRailVisualizationParameters() {
+SUMOVTypeParameter::initRailVisualizationParameters(const std::string fileName) {
     if (hasParameter("carriageLength")) {
         carriageLength = StringUtils::toDouble(getParameter("carriageLength"));
         parametersSet |= VTYPEPARS_CARRIAGE_LENGTH_SET;
@@ -887,6 +888,12 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
     if (hasParameter("seatingWidth")) {
         seatingWidth = StringUtils::toDouble(getParameter("seatingWidth"));
         parametersSet |= VTYPEPARS_SEATING_WIDTH_SET;
+    }
+    if (hasParameter("carriageImages")) {
+        std::vector<std::string> rawFiles = StringTokenizer(getParameter("carriageImages"), ",").getVector();
+        for (const std::string& f : rawFiles) {
+           carriageImages.push_back(FileHelpers::checkForRelativity(f, fileName));
+        }
     }
 }
 

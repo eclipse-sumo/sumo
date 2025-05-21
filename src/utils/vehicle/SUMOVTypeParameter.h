@@ -271,7 +271,7 @@ public:
     void cacheParamRestrictions(const std::vector<std::string>& restrictionKeys);
 
     /// @brief init Rail Visualization Parameters
-    void initRailVisualizationParameters();
+    void initRailVisualizationParameters(const std::string fileName = "");
 
     /// @brief The vehicle type's id
     std::string id;
@@ -345,6 +345,9 @@ public:
 
     /// @brief Image file for this class
     std::string imgFile;
+
+    /// @brief Image files for additional carriages
+    std::vector<std::string> carriageImages;
     /// @}
 
 
