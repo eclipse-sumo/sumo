@@ -40,8 +40,11 @@ unit_tests
 # Testing the TraCI java and web service interface
 traas
 
-# Testing the libtraci/libsumo based java API 
+# Testing the libtraci/libsumo based java API
 traci_java
+
+# Testing the libtraci/libsumo based C# API
+#traci_cs
 
 # FMI related tests
 fmi
