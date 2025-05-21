@@ -25,15 +25,15 @@
         <stop trainStop="ts_3" duration="60"/>
     </trip>
     <vType id="DEFAULT_PEDTYPE" width="2" length="2"/>
-    <personFlow id="y" begin="0" end="3600" period="exp(0.1)" color="yellow">
+    <personFlow id="y" begin="0" number="35" period="exp(0.07)" color="yellow">
         <stop trainStop="ts_6" duration="0"/>
         <ride trainStop="ts_1" lines="trip_0"/>
     </personFlow>
-    <personFlow id="g" begin="0" end="3600" period="exp(0.1)" color="green">
+    <personFlow id="g" begin="0" number="20" period="exp(0.05)" color="green">
         <stop trainStop="ts_2" duration="0"/>
         <ride trainStop="ts_4" lines="trip_1 trip_2"/>
     </personFlow>
-    <personFlow id="b" begin="0" end="3600" period="exp(0.1)" color="cyan">
+    <personFlow id="b" begin="0" number="45" period="exp(0.1)" color="cyan">
         <stop trainStop="ts_3" duration="0"/>
         <ride trainStop="ts_5" lines="trip_1 trip_2"/>
     </personFlow>

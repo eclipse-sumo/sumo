@@ -211,6 +211,29 @@ def computeScoreDRT(gamename):
         return score, rideCount, True
 
 
+def computeScoreRail(gamename):
+    expectedMeanWait = 360
+    tripinfos = gamename + ".tripinfos.xml"
+    rideCount = 0
+    score = 0
+    for ride in sumolib.xml.parse(tripinfos, 'ride'):
+        wt = float(ride.waitingTime)
+        if wt < 0:
+            if _DEBUG:
+                print("negative waitingTime")
+            wt.waitingTime = 1000
+        factor = min(1, expectedMeanWait / wt)
+        if float(ride.arrival) >= 0:
+            score += 100 * factor
+        elif float(ride.duration) >= 0:
+            score += 50 * factor
+        rideCount += 1
+    if rideCount == 0:
+        return 0, 0, False
+    else:
+        return score, rideCount, True
+
+
 def computeScoreSquare(gamename):
     maxScore = 1000.0
     expectedVehCount = 142
@@ -244,6 +267,7 @@ _SCORING_FUNCTION.update({
     'DRT2': computeScoreDRT,
     'DRT_demo': computeScoreDRT,
     'square': computeScoreSquare,
+    'rail': computeScoreRail,
 })
 
 
