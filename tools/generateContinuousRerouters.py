@@ -44,6 +44,10 @@ def get_options(args=None):
                   help="place rerouters further upstream (after the previous decision point) to increase " +
                        "overlap of routes when rerouting and thereby improve anticipation of intersections")
     ap.add_option("--vclass", help="only create routes which permit the given vehicle class")
+    ap.add_option("-s", "--stop-file", dest="stopsFile", type=ap.file,
+                  help="Stop at any stopping places loaded from file")
+    ap.add_option("--stop.duration", dest="stopDuration", default=60, type=int,
+                  help="Set duration for added stops")
     ap.add_option("-b", "--begin",  default=0, help="begin time")
     ap.add_option("-e", "--end",  default=3600, help="end time (default 3600)")
     options = ap.parse_args(args=args)
@@ -108,9 +112,28 @@ def getNumSiblings(edge):
     return len(siblings)
 
 
+def writeRoute(options, outf, routeID, edgeIDs, edgeStops):
+    close = '/>\n'
+    outf.write('    <route id="%s" edges="%s"' % (routeID, ' '.join(edgeIDs)))
+    if edgeStops:
+        stops = [edgeStops[e] for e in edgeIDs if e in edgeStops]
+        if stops:
+            outf.write('>\n')
+            for stop in stops:
+                outf.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, options.stopDuration))
+            close = '    </route>\n'
+    outf.write(close)
+
+
 def main(options):
     net = sumolib.net.readNet(options.netfile)
     incomingRoutes = defaultdict(set)  # edge : set(route0, route1, ...)
+
+    edgeStops = {}
+    if options.stopsFile:
+        for stop in sumolib.output.parse(options.stopsFile, ['busStop', 'trainStop']):
+            edgeStops[sumolib._laneID2edgeID(stop.lane)] = stop.id
+
     if options.longRoutes:
         # build dictionary of routes leading from an intersection to each edge
         for junction in net.getNodes():
@@ -123,7 +146,7 @@ def main(options):
                         incomingRoutes[edges[-1]].add(edgeIDs)
 
     with open(options.outfile, 'w') as outf:
-        sumolib.xml.writeHeader(outf, root="additional")
+        sumolib.xml.writeHeader(outf, root="additional", options=options)
         for junction in net.getNodes():
             if len(junction.getOutgoing()) > 1:
                 routes = []
@@ -146,7 +169,7 @@ def main(options):
                                         routeID = "%s_%s_%s" % (firstEdgeID, edge.getID(), edges[0].getID())
                                         prob = options.turnDefaults[getTurnIndex(edge, edges[0])]
                                         edgeIDs = list(incomingRoute) + [e.getID() for e in edges]
-                                        outf.write('    <route id="%s" edges="%s"/>\n' % (routeID, ' '.join(edgeIDs)))
+                                        writeRoute(options, outf, routeID, edgeIDs, edgeStops)
                                         routeIDs.append((routeID, prob))
 
                                 outf.write('    <rerouter id="rr_%s_%s" edges="%s">\n' %
@@ -167,7 +190,7 @@ def main(options):
                                 routeID = "%s_%s" % (edge.getID(), edges[0].getID())
                                 prob = options.turnDefaults[getTurnIndex(edge, edges[0])]
                                 edgeIDs = [e.getID() for e in [edge] + edges]
-                                outf.write('    <route id="%s" edges="%s"/>\n' % (routeID, ' '.join(edgeIDs)))
+                                writeRoute(options, outf, routeID, edgeIDs, edgeStops)
                                 routeIDs.append((routeID, prob))
                         if len(routeIDs) > 1:
                             outf.write('    <rerouter id="rr_%s" edges="%s">\n' % (edge.getID(), edge.getID()))
