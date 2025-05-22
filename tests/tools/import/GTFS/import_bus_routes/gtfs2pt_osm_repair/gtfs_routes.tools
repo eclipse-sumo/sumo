@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-17 12:51:33.324632 by gtfs2pt.py v1_23_1+0099-6edb18498d5
+<!-- generated on 2025-05-22 15:14:58.128316 by gtfs2pt.py v1_23_1+0259-685f4546fa9
 <configuration>
     <gtfs value="gtfs.zip"/>
     <date value="20201111"/>
@@ -59,7 +59,7 @@
         <stop busStop="120010016102_0" arrival="05:20:00" duration="10" until="05:20:00"/><!--stopSequence="4.0/4.0" "Braunschweig Güldenstraße"-->
     </vehicle>
     <route id="1824" edges="25290398 25290438 32055654 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0 559570919#0 61996465#0 24021025 319389907"/>
-    <vehicle id="132244371.0" route="1824" line="14737_3_132244371" depart="05:33:00" departEdge="3" arrivalEdge="20" type="bus">
+    <vehicle id="132244371.0" route="1824" line="14737_3_132244371" depart="05:37:00" departEdge="3" arrivalEdge="20" type="bus">
         <param key="gtfs.route_name" value="620"/>
         <param key="gtfs.trip_headsign" value="Steterburg(Salzgitter) Danziger Straße"/>
         <stop busStop="120010022113_0" arrival="05:37:00" duration="10" until="05:37:00"/><!--stopSequence="2.0/4.0" "Braunschweig John-F.-Kennedy-Platz"-->

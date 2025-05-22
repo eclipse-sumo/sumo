@@ -435,70 +435,75 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multi
         else:
             criticalFlowRateMap[i] = 0.
     sumCriticalFlows = sum(criticalFlowRateMap.values())
+    
     if options.write_critical_flows:
         print(tl.getID(), criticalFlowRateMap)
         print('sum of the critical flow ratios: ', sumCriticalFlows)
 
-    if options.existcycle:
-        optCycle = currentLength
-    elif sumCriticalFlows >= 1.:
-        optCycle = options.maxcycle
-        if options.verbose:
-            print("Warning: the sum of the critical flows >= 1:%s" % sumCriticalFlows)
-            print('Warning: the maximal cycle defined in the option will be used as the optimal cycle.')
-    else:
-        optCycle = int(round((1.5 * lostTime + 5.) / (1. - sumCriticalFlows)))
-
-    if not options.existcycle and optCycle < options.mincycle:
-        optCycle = options.mincycle
-    elif not options.existcycle and optCycle > options.maxcycle:
-        optCycle = options.maxcycle
-
-    # calculate the green time for each critical group
-    effGreenTime = optCycle - lostTime
-    totalLength = len(groupFlowsMap)*options.yellowtime + options.allred
-    minGreenPhasesList = []
-    adjustGreenTimes = 0
-    totalGreenTimes = 0
-    subtotalGreenTimes = 0
-
-    for i in criticalFlowRateMap:
-        groupFlowsMap[i][0] = effGreenTime * \
-            (criticalFlowRateMap[i] / sum(criticalFlowRateMap.values())) - options.yellowtime + options.losttime
-        groupFlowsMap[i][0] = int(round(groupFlowsMap[i][0]))
-        totalGreenTimes += groupFlowsMap[i][0]
-        if groupFlowsMap[i][0] < options.mingreen:
-            groupFlowsMap[i][0] = options.mingreen
-            minGreenPhasesList.append(i)
+    if sum(criticalFlowRateMap.values()) > 0.:
+        if options.existcycle:
+            optCycle = currentLength
+        elif sumCriticalFlows >= 1.:
+            optCycle = options.maxcycle
+            if options.verbose:
+                print("Warning: the sum of the critical flows >= 1:%s" % sumCriticalFlows)
+                print('Warning: the maximal cycle defined in the option will be used as the optimal cycle.')
         else:
-            subtotalGreenTimes += groupFlowsMap[i][0]
-        totalLength += groupFlowsMap[i][0]
+            optCycle = int(round((1.5 * lostTime + 5.) / (1. - sumCriticalFlows)))
 
-    # adjust the green times if minimal green times are applied for keeping the defined maximal cycle length.
-    if minGreenPhasesList and totalLength > options.maxcycle and options.restrict:
+        if not options.existcycle and optCycle < options.mincycle:
+            optCycle = options.mincycle
+        elif not options.existcycle and optCycle > options.maxcycle:
+            optCycle = options.maxcycle
+
+        # calculate the green time for each critical group
+        effGreenTime = optCycle - lostTime
         totalLength = len(groupFlowsMap)*options.yellowtime + options.allred
+        minGreenPhasesList = []
+        adjustGreenTimes = 0
+        totalGreenTimes = 0
+        subtotalGreenTimes = 0
+
+        for i in criticalFlowRateMap:
+            groupFlowsMap[i][0] = effGreenTime * \
+                (criticalFlowRateMap[i] / sum(criticalFlowRateMap.values())) - options.yellowtime + options.losttime
+            groupFlowsMap[i][0] = int(round(groupFlowsMap[i][0]))
+            totalGreenTimes += groupFlowsMap[i][0]
+            if groupFlowsMap[i][0] < options.mingreen:
+                groupFlowsMap[i][0] = options.mingreen
+                minGreenPhasesList.append(i)
+            else:
+                subtotalGreenTimes += groupFlowsMap[i][0]
+            totalLength += groupFlowsMap[i][0]
+
+        # adjust the green times if minimal green times are applied for keeping the defined maximal cycle length.
+        if minGreenPhasesList and totalLength > options.maxcycle and options.restrict:
+            totalLength = len(groupFlowsMap)*options.yellowtime + options.allred
+            if options.verbose:
+                print("Re-allocate the green splits!")
+            adjustGreenTimes = totalGreenTimes - len(minGreenPhasesList) * options.mingreen
+            for i in groupFlowsMap:
+                if i not in minGreenPhasesList:
+                    groupFlowsMap[i][0] = int(round((groupFlowsMap[i][0] / float(subtotalGreenTimes)) * adjustGreenTimes))
+                totalLength += groupFlowsMap[i][0]
+
+        if options.unified_cycle and totalLength != optCycle:
+            diff = optCycle - totalLength
+            secs_to_distribute = [int(diff / abs(diff))] * abs(diff)
+            keys = list(groupFlowsMap.keys())
+            for i, s in enumerate(secs_to_distribute):
+                groupFlowsMap[keys[i % len(groupFlowsMap)]][0] += s
+
         if options.verbose:
-            print("Re-allocate the green splits!")
-        adjustGreenTimes = totalGreenTimes - len(minGreenPhasesList) * options.mingreen
-        for i in groupFlowsMap:
-            if i not in minGreenPhasesList:
-                groupFlowsMap[i][0] = int(round((groupFlowsMap[i][0] / float(subtotalGreenTimes)) * adjustGreenTimes))
-            totalLength += groupFlowsMap[i][0]
-
-    if options.unified_cycle and totalLength != optCycle:
-        diff = optCycle - totalLength
-        secs_to_distribute = [int(diff / abs(diff))] * abs(diff)
-        keys = list(groupFlowsMap.keys())
-        for i, s in enumerate(secs_to_distribute):
-            groupFlowsMap[keys[i % len(groupFlowsMap)]][0] += s
-
-    if options.verbose:
-        totalLength = len(groupFlowsMap)*options.yellowtime + options.allred
-        for i in groupFlowsMap:
-            totalLength += groupFlowsMap[i][0]
-            print("Green time for phase %s: %s" % (i, groupFlowsMap[i][0]))
-        print("The optimal cycle length:%s\n" % totalLength)
-
+            totalLength = len(groupFlowsMap)*options.yellowtime + options.allred
+            for i in groupFlowsMap:
+                totalLength += groupFlowsMap[i][0]
+                print("Green time for phase %s: %s" % (i, groupFlowsMap[i][0]))
+            print("The optimal cycle length:%s\n" % totalLength)
+    else:
+        print("WARNING: There are no flows at the intersection: %s. No green time optimization is done." %(tl.getID()))
+        groupFlowsMap = None
+        
     return groupFlowsMap
 
 
@@ -651,23 +656,23 @@ def main(options):
                     # optimize the cycle length and calculate the respective green splits
                     groupFlowsMap = optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap,
                                                       currentLength, multiOwnGreenMap, options)
+                    if groupFlowsMap != None:
+                        # write output
+                        outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%i">\n' %
+                                   (tl._id, programs[pro]._type, options.program, programs[pro]._offset))
 
-                # write output
-                outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%i">\n' %
-                           (tl._id, programs[pro]._type, options.program, programs[pro]._offset))
-
-                phases = programs[pro].getPhases()
-                for i, p in enumerate(phases):
-                    duration = p.duration
-                    if i in groupFlowsMap:
-                        duration = groupFlowsMap[i][0]
-                    # the yellow phase
-                    elif 'y' in p.state and 'r' in p.state:
-                        duration = options.yellowtime
-                    else:
-                        print("Duration for Phase %s is from the input file." % i)
-                    outf.write('        <phase duration="%s" state="%s"/>\n' % (duration, p.state))
-                outf.write('    </tlLogic>\n')
+                        phases = programs[pro].getPhases()
+                        for i, p in enumerate(phases):
+                            duration = p.duration
+                            if i in groupFlowsMap:
+                                duration = groupFlowsMap[i][0]
+                            # the yellow phase
+                            elif 'y' in p.state and 'r' in p.state:
+                                duration = options.yellowtime
+                            else:
+                                print("Duration for Phase %s is from the input file." % i)
+                            outf.write('        <phase duration="%s" state="%s"/>\n' % (duration, p.state))
+                        outf.write('    </tlLogic>\n')
         else:
             print("There are no flows at the given intersections. No green time optimization is done.")
         outf.write('</additional>\n')

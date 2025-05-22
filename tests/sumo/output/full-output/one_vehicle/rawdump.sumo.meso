@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-22 20:30:19 by Eclipse SUMO sumo Version v1_22_0+1646-d8cbcaf97a5
+<!-- generated on 2025-05-22 13:50:04 by Eclipse SUMO sumo Version v1_23_1+0253-55bd019dadd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -187,19 +187,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </edges>
         <tls>
             <trafficlight id="0/0" state="GgGr"/>
-            <trafficlight id="0/1" state="GGGGGGGGG"/>
+            <trafficlight id="0/1" state="GggrrrGGg"/>
             <trafficlight id="0/2" state="GgGr"/>
             <trafficlight id="1/0" state="rrrGGgGgg"/>
-            <trafficlight id="1/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="1/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="1/2" state="GggrrrGGg"/>
             <trafficlight id="2/0" state="rrrGGgGgg"/>
-            <trafficlight id="2/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="2/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="2/2" state="GggrrrGGg"/>
             <trafficlight id="3/0" state="rrrGGgGgg"/>
-            <trafficlight id="3/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="3/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="3/2" state="GggrrrGGg"/>
             <trafficlight id="4/0" state="GgGr"/>
-            <trafficlight id="4/1" state="GGGGGGGGG"/>
+            <trafficlight id="4/1" state="GGgGggrrr"/>
             <trafficlight id="4/2" state="GgGr"/>
         </tls>
     </data>
@@ -343,19 +343,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </edges>
         <tls>
             <trafficlight id="0/0" state="GgGr"/>
-            <trafficlight id="0/1" state="GGGGGGGGG"/>
+            <trafficlight id="0/1" state="GggrrrGGg"/>
             <trafficlight id="0/2" state="GgGr"/>
             <trafficlight id="1/0" state="rrrGGgGgg"/>
-            <trafficlight id="1/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="1/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="1/2" state="GggrrrGGg"/>
             <trafficlight id="2/0" state="rrrGGgGgg"/>
-            <trafficlight id="2/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="2/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="2/2" state="GggrrrGGg"/>
             <trafficlight id="3/0" state="rrrGGgGgg"/>
-            <trafficlight id="3/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="3/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="3/2" state="GggrrrGGg"/>
             <trafficlight id="4/0" state="GgGr"/>
-            <trafficlight id="4/1" state="GGGGGGGGG"/>
+            <trafficlight id="4/1" state="GGgGggrrr"/>
             <trafficlight id="4/2" state="GgGr"/>
         </tls>
     </data>
@@ -499,19 +499,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </edges>
         <tls>
             <trafficlight id="0/0" state="GgGr"/>
-            <trafficlight id="0/1" state="GGGGGGGGG"/>
+            <trafficlight id="0/1" state="GggrrrGGg"/>
             <trafficlight id="0/2" state="GgGr"/>
             <trafficlight id="1/0" state="rrrGGgGgg"/>
-            <trafficlight id="1/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="1/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="1/2" state="GggrrrGGg"/>
             <trafficlight id="2/0" state="rrrGGgGgg"/>
-            <trafficlight id="2/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="2/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="2/2" state="GggrrrGGg"/>
             <trafficlight id="3/0" state="rrrGGgGgg"/>
-            <trafficlight id="3/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="3/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="3/2" state="GggrrrGGg"/>
             <trafficlight id="4/0" state="GgGr"/>
-            <trafficlight id="4/1" state="GGGGGGGGG"/>
+            <trafficlight id="4/1" state="GGgGggrrr"/>
             <trafficlight id="4/2" state="GgGr"/>
         </tls>
     </data>
@@ -655,19 +655,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </edges>
         <tls>
             <trafficlight id="0/0" state="GgGr"/>
-            <trafficlight id="0/1" state="GGGGGGGGG"/>
+            <trafficlight id="0/1" state="GggrrrGGg"/>
             <trafficlight id="0/2" state="GgGr"/>
             <trafficlight id="1/0" state="rrrGGgGgg"/>
-            <trafficlight id="1/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="1/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="1/2" state="GggrrrGGg"/>
             <trafficlight id="2/0" state="rrrGGgGgg"/>
-            <trafficlight id="2/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="2/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="2/2" state="GggrrrGGg"/>
             <trafficlight id="3/0" state="rrrGGgGgg"/>
-            <trafficlight id="3/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="3/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="3/2" state="GggrrrGGg"/>
             <trafficlight id="4/0" state="GgGr"/>
-            <trafficlight id="4/1" state="GGGGGGGGG"/>
+            <trafficlight id="4/1" state="GGgGggrrr"/>
             <trafficlight id="4/2" state="GgGr"/>
         </tls>
     </data>
@@ -811,19 +811,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </edges>
         <tls>
             <trafficlight id="0/0" state="GgGr"/>
-            <trafficlight id="0/1" state="GGGGGGGGG"/>
+            <trafficlight id="0/1" state="GggrrrGGg"/>
             <trafficlight id="0/2" state="GgGr"/>
             <trafficlight id="1/0" state="rrrGGgGgg"/>
-            <trafficlight id="1/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="1/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="1/2" state="GggrrrGGg"/>
             <trafficlight id="2/0" state="rrrGGgGgg"/>
-            <trafficlight id="2/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="2/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="2/2" state="GggrrrGGg"/>
             <trafficlight id="3/0" state="rrrGGgGgg"/>
-            <trafficlight id="3/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="3/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="3/2" state="GggrrrGGg"/>
             <trafficlight id="4/0" state="GgGr"/>
-            <trafficlight id="4/1" state="GGGGGGGGG"/>
+            <trafficlight id="4/1" state="GGgGggrrr"/>
             <trafficlight id="4/2" state="GgGr"/>
         </tls>
     </data>
@@ -967,19 +967,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </edges>
         <tls>
             <trafficlight id="0/0" state="GgGr"/>
-            <trafficlight id="0/1" state="GGGGGGGGG"/>
+            <trafficlight id="0/1" state="GggrrrGGg"/>
             <trafficlight id="0/2" state="GgGr"/>
             <trafficlight id="1/0" state="rrrGGgGgg"/>
-            <trafficlight id="1/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="1/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="1/2" state="GggrrrGGg"/>
             <trafficlight id="2/0" state="rrrGGgGgg"/>
-            <trafficlight id="2/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="2/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="2/2" state="GggrrrGGg"/>
             <trafficlight id="3/0" state="rrrGGgGgg"/>
-            <trafficlight id="3/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="3/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="3/2" state="GggrrrGGg"/>
             <trafficlight id="4/0" state="GgGr"/>
-            <trafficlight id="4/1" state="GGGGGGGGG"/>
+            <trafficlight id="4/1" state="GGgGggrrr"/>
             <trafficlight id="4/2" state="GgGr"/>
         </tls>
     </data>
@@ -1123,19 +1123,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </edges>
         <tls>
             <trafficlight id="0/0" state="GgGr"/>
-            <trafficlight id="0/1" state="GGGGGGGGG"/>
+            <trafficlight id="0/1" state="GggrrrGGg"/>
             <trafficlight id="0/2" state="GgGr"/>
             <trafficlight id="1/0" state="rrrGGgGgg"/>
-            <trafficlight id="1/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="1/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="1/2" state="GggrrrGGg"/>
             <trafficlight id="2/0" state="rrrGGgGgg"/>
-            <trafficlight id="2/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="2/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="2/2" state="GggrrrGGg"/>
             <trafficlight id="3/0" state="rrrGGgGgg"/>
-            <trafficlight id="3/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="3/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="3/2" state="GggrrrGGg"/>
             <trafficlight id="4/0" state="GgGr"/>
-            <trafficlight id="4/1" state="GGGGGGGGG"/>
+            <trafficlight id="4/1" state="GGgGggrrr"/>
             <trafficlight id="4/2" state="GgGr"/>
         </tls>
     </data>
@@ -1279,19 +1279,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </edges>
         <tls>
             <trafficlight id="0/0" state="GgGr"/>
-            <trafficlight id="0/1" state="GGGGGGGGG"/>
+            <trafficlight id="0/1" state="GggrrrGGg"/>
             <trafficlight id="0/2" state="GgGr"/>
             <trafficlight id="1/0" state="rrrGGgGgg"/>
-            <trafficlight id="1/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="1/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="1/2" state="GggrrrGGg"/>
             <trafficlight id="2/0" state="rrrGGgGgg"/>
-            <trafficlight id="2/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="2/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="2/2" state="GggrrrGGg"/>
             <trafficlight id="3/0" state="rrrGGgGgg"/>
-            <trafficlight id="3/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="3/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="3/2" state="GggrrrGGg"/>
             <trafficlight id="4/0" state="GgGr"/>
-            <trafficlight id="4/1" state="GGGGGGGGG"/>
+            <trafficlight id="4/1" state="GGgGggrrr"/>
             <trafficlight id="4/2" state="GgGr"/>
         </tls>
     </data>
@@ -1435,19 +1435,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </edges>
         <tls>
             <trafficlight id="0/0" state="GgGr"/>
-            <trafficlight id="0/1" state="GGGGGGGGG"/>
+            <trafficlight id="0/1" state="GggrrrGGg"/>
             <trafficlight id="0/2" state="GgGr"/>
             <trafficlight id="1/0" state="rrrGGgGgg"/>
-            <trafficlight id="1/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="1/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="1/2" state="GggrrrGGg"/>
             <trafficlight id="2/0" state="rrrGGgGgg"/>
-            <trafficlight id="2/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="2/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="2/2" state="GggrrrGGg"/>
             <trafficlight id="3/0" state="rrrGGgGgg"/>
-            <trafficlight id="3/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="3/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="3/2" state="GggrrrGGg"/>
             <trafficlight id="4/0" state="GgGr"/>
-            <trafficlight id="4/1" state="GGGGGGGGG"/>
+            <trafficlight id="4/1" state="GGgGggrrr"/>
             <trafficlight id="4/2" state="GgGr"/>
         </tls>
     </data>
@@ -1591,19 +1591,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </edges>
         <tls>
             <trafficlight id="0/0" state="GgGr"/>
-            <trafficlight id="0/1" state="GGGGGGGGG"/>
+            <trafficlight id="0/1" state="GggrrrGGg"/>
             <trafficlight id="0/2" state="GgGr"/>
             <trafficlight id="1/0" state="rrrGGgGgg"/>
-            <trafficlight id="1/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="1/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="1/2" state="GggrrrGGg"/>
             <trafficlight id="2/0" state="rrrGGgGgg"/>
-            <trafficlight id="2/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="2/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="2/2" state="GggrrrGGg"/>
             <trafficlight id="3/0" state="rrrGGgGgg"/>
-            <trafficlight id="3/1" state="GGGGGGGGGGGGGGGG"/>
+            <trafficlight id="3/1" state="rrrrGGggrrrrGGgg"/>
             <trafficlight id="3/2" state="GggrrrGGg"/>
             <trafficlight id="4/0" state="GgGr"/>
-            <trafficlight id="4/1" state="GGGGGGGGG"/>
+            <trafficlight id="4/1" state="GGgGggrrr"/>
             <trafficlight id="4/2" state="GgGr"/>
         </tls>
     </data>

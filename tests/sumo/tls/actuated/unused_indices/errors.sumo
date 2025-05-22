@@ -1,2 +1,3 @@
 Warning: Unused states in tlLogic '0', program '0' in phase 0 after tl-index 14
+Warning: Unsafe green phase 0 in tlLogic '0', program '0'. Lane '4o_0' is targeted by 2 'G'-links. (use 'g' instead)
 Warning: At actuated tlLogic '0', linkIndex 3 has no controlling detector.

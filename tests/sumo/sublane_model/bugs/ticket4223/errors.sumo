@@ -1,0 +1,2 @@
+Warning: Unsafe green phase 0 in tlLogic '_gneJ14_gneJ17_gneJ19_gneJ27_gneJ29_gneJ31_gneJ40_gneJ8', program '0'. Lane 'EW4_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 0 in tlLogic '_gneJ14_gneJ17_gneJ19_gneJ27_gneJ29_gneJ31_gneJ40_gneJ8', program '0'. Lane 'WE4_0' is targeted by 2 'G'-links. (use 'g' instead)

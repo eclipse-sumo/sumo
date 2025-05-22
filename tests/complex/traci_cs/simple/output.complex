@@ -1,0 +1,15 @@
+-- Building for: Visual Studio 17 2022
+-- Selecting Windows SDK version 10.0.22621.0 to target Windows 10.0.22631.
+-- The CSharp compiler identification is Microsoft Visual Studio 2022
+-- The CSharp compiler version is 4.13.0
+-- Check for working C# compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/Roslyn/csc.exe
+-- Check for working C# compiler: C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/Roslyn/csc.exe - works
+-- Configuring done (1.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/behr_mi/.texttest/tmp/complex.21May161904.47992/complex/traci_cs/simple/build
+MSBuild-Version 17.13.9+e0f243f1e für .NET Framework
+
+  1>Checking Build System
+  TraCITestCS -> C:\Users\behr_mi\.texttest\tmp\complex.21May161904.47992\complex\traci_cs\simple\build\Release\TraCITestCS.exe
+  Building Custom Rule C:/Users/behr_mi/.texttest/tmp/complex.21May161904.47992/complex/traci_cs/simple/data/CMakeLists.txt
+Step #0.00 (1ms ~= 1000.00*RT, ~0.00UPS, TraCI: 0ms, vehicles TOT 0 ACT 0 BUF 0)          Step #5.00 (0ms ?*RT. ?UPS, TraCI: 0ms, vehicles TOT 0 ACT 0 BUF 0)

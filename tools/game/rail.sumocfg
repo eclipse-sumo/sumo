@@ -8,7 +8,7 @@
     <input>
         <net-file value="rail/net.net.xml"/>
         <route-files value="rail/input_routes.rou.xml"/>
-        <additional-files value="rail/stops.add.xml,rail/rerouter.add.xml,rail/pois.add.xml"/>
+        <additional-files value="rail/stops.add.xml,rail/rerouter.add.xml,rail/pois.add.xml,rail/tls_off.xml"/>
     </input>
 
     <time>

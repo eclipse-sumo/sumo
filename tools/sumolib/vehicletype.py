@@ -238,33 +238,29 @@ class CreateVehTypeDistribution:
     def to_xml(self, file_path):
         # type: (str) -> None
         xml_dom, existing_file = self._check_existing(file_path)
-        vtype_dist_node = self.create_veh_dist(xml_dom)
         if existing_file:
-            self._handle_existing(xml_dom, vtype_dist_node)
+            self._handle_existing(xml_dom)
+        vtype_dist_node = self.create_veh_dist(xml_dom)
         with sumolib.openz(file_path, 'w') as f:
             sumolib.xml.writeHeader(f)
             f.write(xml_dom.toXML())
         print("Output written to %s" % file_path)
 
-    def _handle_existing(self, xml_dom, veh_dist_node):
+    def _handle_existing(self, xmlTree):
         # type: (sumolib.xml.CompoundObject, sumolib.xml.CompoundObject) -> None
-        existingDistNodes = xml_dom.getElementsByTagName("vTypeDistribution")
-        replaceNode = None
-        for existingDistNode in existingDistNodes:
-            if existingDistNode.hasAttribute("id") and existingDistNode.getAttribute("id") == self.name:
-                replaceNode = existingDistNode
-                break
-        if replaceNode is not None:
-            replaceNode.parentNode.replaceChild(veh_dist_node, replaceNode)
-        else:
-            xml_dom.documentElement.appendChild(veh_dist_node)
+        if xmlTree.vTypeDistribution:
+            for existingDistNode in xmlTree.vTypeDistribution:
+                if existingDistNode.hasAttribute("id") and existingDistNode.id == self.name:
+                    xmlTree.removeChild(existingDistNode)
+                    break
 
     @staticmethod
     def _check_existing(file_path):
         # type: (str) -> Tuple[sumolib.xml.CompoundObject, bool]
         if os.path.exists(file_path):
             try:
-                return sumolib.xml.parse(file_path), True
+                xmlTree = list(sumolib.xml.parse(file_path, outputLevel=0))[0]
+                return xmlTree, True
             except Exception as e:
                 raise ValueError("Cannot parse existing %s. Error: %s" % (file_path, e))
         else:

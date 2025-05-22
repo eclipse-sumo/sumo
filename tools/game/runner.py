@@ -32,6 +32,7 @@ import sys
 import re
 import pickle
 import glob
+import time
 try:
     import Tkinter
 except ImportError:
@@ -65,6 +66,7 @@ def updateLocalMessages():
     global _LANGUAGE_CAPTIONS
     _LANGUAGE_CAPTIONS = {'title': TL('Interactive Traffic Light'),
                           'rail': TL('Railway Control'),
+                          'rail_demo': TL('Railway Control Demo'),
                           'fkk_in': TL('Research intersection Ingolstadt'),
                           'cross': TL('Simple Junction'),
                           'cross_demo': TL('Simple Junction (Demo)'),
@@ -221,7 +223,7 @@ def computeScoreRail(gamename):
         if wt < 0:
             if _DEBUG:
                 print("negative waitingTime")
-            wt.waitingTime = 1000
+            wt = 1000
         factor = min(1, expectedMeanWait / wt)
         if float(ride.arrival) >= 0:
             score += 100 * factor
@@ -231,7 +233,7 @@ def computeScoreRail(gamename):
     if rideCount == 0:
         return 0, 0, False
     else:
-        return score, rideCount, True
+        return int(score), rideCount, True
 
 
 def computeScoreSquare(gamename):
@@ -268,6 +270,7 @@ _SCORING_FUNCTION.update({
     'DRT_demo': computeScoreDRT,
     'square': computeScoreSquare,
     'rail': computeScoreRail,
+    'rail_demo': computeScoreRail,
 })
 
 
@@ -464,6 +467,8 @@ class StartDialog(Tkinter.Frame):
 
         if _DEBUG:
             print("ended", cfg)
+        # ensure files are fully written
+        time.sleep(1)
 
         # compute score
         score, totalArrived, complete = _SCORING_FUNCTION[self.category](self.category)
