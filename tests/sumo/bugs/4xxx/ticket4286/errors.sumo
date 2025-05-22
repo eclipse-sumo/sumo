@@ -1,0 +1,8 @@
+Warning: Unsafe green phase 2 in tlLogic 'C', program '0'. Lane 'NS2_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 2 in tlLogic 'C', program '0'. Lane 'SN2_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 6 in tlLogic 'C', program '0'. Lane 'NS2_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 7 in tlLogic 'C', program '0'. Lane 'NS2_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 7 in tlLogic 'C', program '0'. Lane 'SN2_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 11 in tlLogic 'C', program '0'. Lane 'EW2_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 11 in tlLogic 'C', program '0'. Lane 'EW2_1' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 11 in tlLogic 'C', program '0'. Lane 'WE2_1' is targeted by 2 'G'-links. (use 'g' instead)
