@@ -1,2 +1,0 @@
-Warning: Unsafe green phase 0 in tlLogic 'C', program '0'. Lane 'CW_2' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic 'C', program '0'. Lane 'CW_2' is targeted by 2 'G'-links. (use 'g' instead)
