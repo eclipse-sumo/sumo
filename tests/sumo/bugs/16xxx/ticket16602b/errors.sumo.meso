@@ -1,4 +1,5 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Unsafe green phase 0 in tlLogic 'gneJ500', program '0'. Lane 'gneE381_0' is targeted by 2 'G'-links. (use 'g' instead)
 Warning: Program 'real_tl_4140_1' at tlLogic 'gneJ500' is incompatible with logic at junction 'gneJ500' (mutual conflict between link indices 1,5 tl indices 5,5 phase 1).
   To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
   or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
