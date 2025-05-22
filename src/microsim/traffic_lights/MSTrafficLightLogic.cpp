@@ -230,6 +230,10 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         for (int j = 0; j < numLinks; ++j) {
             if (state[j] == LINKSTATE_TL_GREEN_MAJOR) {
                 for (const MSLink* link : myLinks[j]) {
+                    if (link->isInternalJunctionLink()) {
+                        // links from an internal junction have implicit priority in case of conflict
+                        continue;
+                    }
                     greenLanes[link->getLane()] += 1;
                 }
             }
