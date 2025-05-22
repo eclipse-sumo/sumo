@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-05-20 10:59:59 by Eclipse SUMO netedit Version v1_23_1+0130-9eb4eb1f45d
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poi id="1" type="left-click signal to toggle red/green" color="invisible" layer="202.00" x="0.00" y="0.00"/>
+    <poi id="2" type="right-click U-Symbol to switch tracks" color="invisible" layer="202.00" x="0.00" y="-10.00"/>
+</additional>

@@ -66,6 +66,7 @@ def updateLocalMessages():
     global _LANGUAGE_CAPTIONS
     _LANGUAGE_CAPTIONS = {'title': TL('Interactive Traffic Light'),
                           'rail': TL('Railway Control'),
+                          'rail_demo': TL('Railway Control Demo'),
                           'fkk_in': TL('Research intersection Ingolstadt'),
                           'cross': TL('Simple Junction'),
                           'cross_demo': TL('Simple Junction (Demo)'),
@@ -269,6 +270,7 @@ _SCORING_FUNCTION.update({
     'DRT_demo': computeScoreDRT,
     'square': computeScoreSquare,
     'rail': computeScoreRail,
+    'rail_demo': computeScoreRail,
 })
 
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-05-21 11:10:36 by Eclipse SUMO netedit Version v1_23_1+0227-03f68bd57ae
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <trainStop id="ts_1" lane="-E30.50_0" startPos="10.00" endPos="-10.00" color="187,187,52" personCapacity="20">
+        <param key="waitingWidth" value="4"/>
+    </trainStop>
+    <trainStop id="ts_2" lane="E1_0" startPos="10.00" endPos="-10.00" color="0,128,0" personCapacity="20">
+        <param key="waitingWidth" value="4"/>
+    </trainStop>
+    <trainStop id="ts_3" lane="E2_0" startPos="10.00" endPos="-10.00" color="blue" personCapacity="20">
+        <param key="waitingWidth" value="4"/>
+    </trainStop>
+    <trainStop id="ts_4" lane="-E17_0" startPos="10.00" endPos="-10.00" color="0,128,0" personCapacity="20">
+        <param key="waitingWidth" value="4"/>
+    </trainStop>
+    <trainStop id="ts_5" lane="-E18_0" startPos="10.00" endPos="-10.00" color="blue" personCapacity="20">
+        <param key="waitingWidth" value="4"/>
+    </trainStop>
+    <trainStop id="ts_6" lane="E3_0" startPos="10.00" endPos="-10.00" color="187,187,52" personCapacity="20">
+        <param key="waitingWidth" value="4"/>
+    </trainStop>
+</additional>

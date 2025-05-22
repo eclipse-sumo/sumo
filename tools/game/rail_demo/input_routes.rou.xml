@@ -19,12 +19,63 @@
     </vType>
     <trip id="trip_0" type="freightTrain" depart="0.00" from="-E30.50" to="E18" arrivalSpeed="0" departPos="stop" line="line1">
         <stop trainStop="ts_1" duration="60"/>
+        <stop trainStop="ts_6" duration="60"/>
+        <stop trainStop="ts_1" duration="60"/>
+        <stop trainStop="ts_6" duration="60"/>
+        <stop trainStop="ts_1" duration="60"/>
+        <stop trainStop="ts_6" duration="60"/>
+        <stop trainStop="ts_1" duration="60"/>
+        <stop trainStop="ts_6" duration="60"/>
+        <stop trainStop="ts_1" duration="60"/>
+        <stop trainStop="ts_6" duration="60"/>
+        <stop trainStop="ts_1" duration="60"/>
+        <stop trainStop="ts_6" duration="60"/>
+        <stop trainStop="ts_1" duration="60"/>
+        <stop trainStop="ts_6" duration="60"/>
+        <stop trainStop="ts_1" duration="60"/>
+        <stop trainStop="ts_6" duration="60"/>
+        <stop trainStop="ts_1" duration="60"/>
+        <stop trainStop="ts_6" duration="60"/>
     </trip>
     <trip id="trip_1" type="passengerTrain" depart="0.00" from="E1" to="-E17" arrivalSpeed="0" departPos="stop" line="line2">
         <stop trainStop="ts_2" duration="60"/>
+        <stop trainStop="ts_4" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_2" duration="60"/>
+        <stop trainStop="ts_4" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_2" duration="60"/>
+        <stop trainStop="ts_4" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_2" duration="60"/>
+        <stop trainStop="ts_4" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_2" duration="60"/>
+        <stop trainStop="ts_4" duration="60"/>
     </trip>
     <trip id="trip_2" type="passengerTrain" depart="0.00" from="E2" to="-E18" arrivalSpeed="0" departPos="stop" line="line2">
         <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
+        <stop trainStop="ts_3" duration="60"/>
+        <stop trainStop="ts_5" duration="60"/>
     </trip>
     <vType id="DEFAULT_PEDTYPE" width="2" length="2"/>
     <personFlow id="y" begin="0" number="35" period="exp(0.07)" color="yellow">
