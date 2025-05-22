@@ -1,5 +1,12 @@
 Warning: Unused states in tlLogic 'C', program '0' in phase 0 after tl-index 22
 Warning: Missing yellow phase in tlLogic 'C', program '0' for tl-index 6 when switching to phase 1.
+Warning: Unsafe green phase 0 in tlLogic 'C', program '0'. Lane 'CE_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 0 in tlLogic 'C', program '0'. Lane 'CE_1' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 0 in tlLogic 'C', program '0'. Lane 'CN_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 0 in tlLogic 'C', program '0'. Lane 'CN_1' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 0 in tlLogic 'C', program '0'. Lane 'CS_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 0 in tlLogic 'C', program '0'. Lane 'CS_1' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 0 in tlLogic 'C', program '0'. Lane 'CW_0' is targeted by 2 'G'-links. (use 'g' instead)
 Warning: Vehicle 'flow_1.9' performs emergency stop at the end of lane 'WC_1' because of a red traffic light (decel=-15.69, offset=5.51), time=33.00.
 Warning: Vehicle 'flow_0.9' performs emergency stop at the end of lane 'EC_0' because of a red traffic light (decel=-11.47, offset=1.78), time=34.00.
 Warning: Vehicle 'flow_1.10'; collision with vehicle 'flow_1.9', lane='WC_1', gap=-0.14, time=35.00, stage=move.
