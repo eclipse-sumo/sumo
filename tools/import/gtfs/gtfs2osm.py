@@ -747,10 +747,17 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                 stopSeq = tuple([stop.stop_item_id for stop in stop_list.itertuples()])
                 if stopSeq not in seqs:
                     seqs[stopSeq] = row.trip_id
+
+                # determine departure from first valid stop
+                depart = None
+                for stop in stop_list.itertuples():
+                    if stop.stop_item_id:
+                        depart = ft(parseTime(str(stop.arrival_fixed.days + day) +
+                                    ":" + str(stop.arrival_fixed).split(' ')[2]))
+                        break
+
                 veh_attr = (row.trip_id, day,
-                            main_shape, row.route_id, seqs[stopSeq],
-                            ft(parseTime(str(row.arrival_fixed.days + day) +
-                               ":" + str(row.arrival_fixed).split(' ')[2])),
+                            main_shape, row.route_id, seqs[stopSeq], depart,
                             min(stop_index), max(stop_index), pt_type, pt_color)
                 output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s" departEdge="%s" arrivalEdge="%s" type="%s"%s>\n' % veh_attr)  # noqa
                 params = [("gtfs.route_name", row.route_short_name)]
