@@ -32,3 +32,4 @@ speedFactor_without_speedDev
 
 # automatically set speedDev to 0 when only speedFactor is given
 speedFactor_with_speedDev
+extend_existing
