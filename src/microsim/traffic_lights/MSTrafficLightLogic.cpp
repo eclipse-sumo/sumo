@@ -225,7 +225,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
     // check direct conflict (two green links targeting the same lane)
     const int numLinks = (int)myLinks.size();
     for (int i = 0; i < (int)phases.size(); ++i) {
-        std::map<const MSLane*, int> greenLanes;
+        std::map<const MSLane*, int, ComparatorNumericalIdLess> greenLanes;
         const std::string& state = phases[i]->getState();
         for (int j = 0; j < numLinks; ++j) {
             if (state[j] == LINKSTATE_TL_GREEN_MAJOR) {
