@@ -43,15 +43,15 @@ pkg:generic/libiconv@1.17?download_url=https://ftp.gnu.org/pub/gnu/libiconv/libi
 pkg:github/pnggroup/libpng@v1.6.44
 pkg:generic/librttopo@1.1.0?download_url=https://gitlab.com/rttopo/rttopo/-/archive/librttopo-1.1.0/rttopo-librttopo-1.1.0.zip
 pkg:github/libssh2/libssh2@1.11.1
-pkg:generic/libxml2-2.13.4?download_url=https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.4.tar.xz
+pkg:generic/libxml2@2.13.4?download_url=https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.4.tar.xz
 pkg:github/zlib-ng/minizip-ng@4.0.7
-#openssl-3.3.2
-#pcre2-10.44
-#protobuf-28.2
-#sdl-2.30.8
-#sqlite-3.46.1
-#tcl-9.0.0
-#tiff-4.7.0
-#zlib-1.3.1
+pkg:github/openssl/openssl@openssl-3.3.2
+pkg:github/PCRE2Project/pcre2@pcre2-10.44
+pkg:github/protocolbuffers/protobuf@v28.2
+pkg:github/libsdl-org/SDL@release-2.30.8
+pkg:generic/sqlite@3.46.1?download_url=https://sqlite.org/2024/sqlite-src-3460100.zip
+pkg:generic/tcl@9.0.0?download_url=http://prdownloads.sourceforge.net/tcl/tcl900-src.zip
+pkg:generic/tiff@4.7.0?download_url=https://download.osgeo.org/libtiff/tiff-4.7.0.zip
+pkg:github/madler/zlib@v1.3.1
 
 # build time dependencies
