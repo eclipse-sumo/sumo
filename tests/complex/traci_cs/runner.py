@@ -36,22 +36,27 @@ sources = os.path.join(os.environ['SUMO_HOME'], "bin",
 assert os.path.exists(sources)
 
 shutil.unpack_archive(sources, "data")
-with open("data/CMakeLists.txt", "w") as cmakelists:
-    print("""cmake_minimum_required(VERSION 3.8)
-project(TraCITestCS LANGUAGES CSharp)
-add_executable(TraCITestCS""", file=cmakelists)
-    for f in sys.argv[1:]:
-        fname = "data/%s.cs" % f
-        print(f + ".cs", file=cmakelists)
-        if useLibsumo:
-            with open(fname, encoding="utf8") as fin:
-                filedata = fin.read()
-            with open(fname, 'w', encoding="utf8") as fob:
-                fob.write(filedata.replace('Libtraci', 'Libsumo'))
-    for f in glob.glob("data/*/*.cs"):
-        print("    " + f[5:].replace("\\", "/"), file=cmakelists)
-    print(")", file=cmakelists)
-subprocess.check_call(["cmake", "-B", "build", "data"])
-subprocess.check_call(["cmake", "--build", "build", "--config", "Release"])
-os.environ["PATH"] += os.pathsep + os.path.join(os.environ['SUMO_HOME'], "bin")
-subprocess.check_call([os.path.join("build", "Release", "TraCITestCS.exe")])
+files = []
+for f in sys.argv[1:]:
+    fname = "data/%s.cs" % f
+    if useLibsumo:
+        with open(fname, encoding="utf8") as fin:
+            filedata = fin.read()
+        with open(fname, 'w', encoding="utf8") as fob:
+            fob.write(filedata.replace('Libtraci', 'Libsumo'))
+    files.append(f + ".cs")
+files += [f[5:].replace("\\", "/") for f in glob.glob("data/*/*.cs")]
+if os.name == "nt":
+    with open("data/CMakeLists.txt", "w") as cmakelists:
+        print("""cmake_minimum_required(VERSION 3.8)
+    project(TraCITestCS LANGUAGES CSharp)
+    add_executable(TraCITestCS
+        %s)""" % "\n        ".join(files), file=cmakelists)
+    subprocess.check_call(["cmake", "-B", "build", "data"])
+    subprocess.check_call(["cmake", "--build", "build", "--config", "Release"])
+    os.environ["PATH"] += os.pathsep + os.path.join(os.environ['SUMO_HOME'], "bin")
+    subprocess.check_call([os.path.join("build", "Release", "TraCITestCS.exe")])
+else:
+    subprocess.check_call(["mcs"] + files, cwd="data")
+    os.environ["LD_LIBRARY_PATH"] = os.path.join(os.environ['SUMO_HOME'], "bin")
+    subprocess.check_call(["mono", os.path.join("data", "Program.exe")])
