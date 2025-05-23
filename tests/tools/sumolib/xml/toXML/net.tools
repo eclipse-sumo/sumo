@@ -1,28 +1,28 @@
 <net version="1.20" avoidOverlap="0">
   <location netOffset="100.00,100.00" convBoundary="0.00,100.00,100.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
   <edge id=":C_0" function="internal">
-      <lane id=":C_0_0" index="0" speed="13.89" length="7.74" shape="100.00,95.20 102.10,95.50 103.60,96.40 104.50,97.90 104.80,100.00"/>
-      <lane id=":C_0_1" index="1" speed="13.89" length="2.58" shape="100.00,98.40 100.70,98.50 101.20,98.80 101.50,99.30 101.60,100.00"/>
+    <lane id=":C_0_0" index="0" speed="13.89" length="7.74" shape="100.00,95.20 102.10,95.50 103.60,96.40 104.50,97.90 104.80,100.00"/>
+    <lane id=":C_0_1" index="1" speed="13.89" length="2.58" shape="100.00,98.40 100.70,98.50 101.20,98.80 101.50,99.30 101.60,100.00"/>
   </edge>
   <edge id="CN" from="C" to="N" priority="2">
-      <lane id="CN_0" index="0" speed="13.89" length="100.00" shape="104.80,100.00 104.80,200.00"/>
-      <lane id="CN_1" index="1" speed="13.89" length="100.00" shape="101.60,100.00 101.60,200.00"/>
-      <param key="testParam with &amp;" value="more problematic values: &lt; and &gt;"/>
+    <lane id="CN_0" index="0" speed="13.89" length="100.00" shape="104.80,100.00 104.80,200.00"/>
+    <lane id="CN_1" index="1" speed="13.89" length="100.00" shape="101.60,100.00 101.60,200.00"/>
+    <param key="testParam with &amp;" value="more problematic values: &lt; and &gt;"/>
   </edge>
   <edge id="WC" from="W" to="C" priority="2">
-      <lane id="WC_0" index="0" speed="13.89" length="100.00" shape="0.00,95.20 100.00,95.20"/>
-      <lane id="WC_1" index="1" speed="13.89" length="100.00" shape="0.00,98.40 100.00,98.40"/>
+    <lane id="WC_0" index="0" speed="13.89" length="100.00" shape="0.00,95.20 100.00,95.20"/>
+    <lane id="WC_1" index="1" speed="13.89" length="100.00" shape="0.00,98.40 100.00,98.40"/>
   </edge>
   <tlLogic id="C" type="static" programID="0" offset="0">
-      <phase duration="82" state="GG"/>
-      <phase duration="3" state="yy"/>
-      <phase duration="5" state="rr"/>
+    <phase duration="82" state="GG"/>
+    <phase duration="3" state="yy"/>
+    <phase duration="5" state="rr"/>
   </tlLogic>
   <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="WC_0 WC_1" intLanes=":C_0_0 :C_0_1" shape="100.00,100.00 106.40,100.00 100.00,93.60">
-      <request index="0" response="00" foes="00" cont="0"/>
-      <request index="1" response="00" foes="00" cont="0"/>
-      <param key="jk1" value="jv1"/>
-      <param key="jk2" value="jv2"/>
+    <request index="0" response="00" foes="00" cont="0"/>
+    <request index="1" response="00" foes="00" cont="0"/>
+    <param key="jk1" value="jv1"/>
+    <param key="jk2" value="jv2"/>
   </junction>
   <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1" intLanes="" shape="106.40,200.00 100.00,200.00"/>
   <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 0.00,93.60"/>
