@@ -262,7 +262,7 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
                 for i, c in enumerate(self._child_list):
                     if i > 0 and c.isComment() and withComments == "inline":
                         s = s[:-1]
-                    s += c.toXML(initialIndent + indent, withComments=withComments)
+                    s += c.toXML(initialIndent + indent, indent=indent, withComments=withComments)
                 if self._text is not None and self._text.strip():
                     s += self._text.strip(" ")
                 return s + "%s</%s%s>\n" % (initialIndent, self.name, commentEnd)
