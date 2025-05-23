@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-22 10:52:33.896359 by createVehTypeDistribution.py v1_23_1+0246-9257d7e27c2
+<!-- generated on 2025-05-23 08:16:29.608484 by createVehTypeDistribution.py v1_23_1+0269-dcf2ad3e628
   options: config_file.txt -o in_out.add.xml <doubleminus>size 10 <doubleminus>name exampleDist
 -->
 
-<additional >
+<additional>
     <vTypeDistribution id="exampleDist2">
         <vType id="exampleDist0" tau="0.825" sigma="0.401" length="5.151" class="passenger" carFollowModel="Krauss"/>
         <vType id="exampleDist1" tau="0.786" sigma="0.305" length="5.013" class="passenger" carFollowModel="Krauss"/>
