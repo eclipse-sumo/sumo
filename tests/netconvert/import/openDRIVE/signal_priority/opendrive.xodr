@@ -1,0 +1,1188 @@
+<OpenDRIVE>
+  <header revMajor="1" revMinor="8" version="1" vendor="Libram IntelRoad RoadPlanner" date="2025-03-04T13:32:27.845861Z" name="SUMO DEMO">
+    <offset x="1231473" y="409704" z="0" hdg="0"/>
+    <geoReference><![CDATA[+proj=tmerc +lat_0=0 +lon_0=47.55 +k=1 +x_0=1250000 +y_0=-5814743.504 +ellps=krass +towgs84=23.57,-140.95,-79.8,0,0.35,0.79,-0.22 +units=m +no_defs]]></geoReference>
+  </header>
+  <road id="r0" name="Новый участок" length="37.62471969821797" junction="-1">
+    <link>
+      <successor elementId="j72" elementType="junction" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="12.678900777541179" y="66.99579332607019" hdg="-1.8254562410762294" length="37.62471969821797">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <left>
+          <lane id="1" type="driving">
+            <width sOffset="0" a="5.186229861553646" b="-0.006236567825442126" c="0" d="0"/>
+            <link>
+              <predecessor id="-1"/>
+            </link>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" type="none">
+            <roadMark sOffset="0" type="solid" weight="standard" color="white">
+              <type name="1.1" width="0.15000000596046448">
+                <line length="0" tOffset="0" width="0.15000000596046448" space="0" sOffset="0"/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="5.40420442308361" b="-0.003057957946872389" c="0" d="0"/>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+    <signals>
+      <signal id="s2" s="37.210409224970164" t="-2.6452082782438695" zOffset="0" orientation="+" dynamic="no" country="RU" countryRevision="2018" type="roadMarking" subtype="1.12" length="0.4" width="5.290416556487739">
+        <validity fromLane="-1" toLane="-1"/>
+        <semantics>
+          <priority type="stopLine"/>
+        </semantics>
+      </signal>
+    </signals>
+  </road>
+  <road id="r4" name="Новый участок" length="21.580405555323555" junction="-1">
+    <link>
+      <predecessor elementId="j74" elementType="junction" elementDir="-"/>
+      <successor elementId="j72" elementType="junction" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-40.64850373181187" y="19.435599997394203" hdg="-0.2489347196157301" length="21.580405555323555">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <left>
+          <lane id="1" type="driving">
+            <width sOffset="0" a="4.895533753890448" b="0.0038141871115054725" c="0" d="0"/>
+            <width sOffset="1.0430831228619022" a="4.899512268093897" b="1.6750714702531617" c="0" d="0"/>
+            <width sOffset="1.7433675583458113" a="6.072538747035334" b="0.014954403168484337" c="0" d="0"/>
+            <width sOffset="2.960659976682112" a="6.090742628633074" b="-1.659786967906045" c="0" d="0"/>
+            <width sOffset="3.704517166092291" a="4.85609815966684" b="-0.0002823862754511437" c="0" d="0"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" type="none">
+            <roadMark sOffset="0" type="solid" weight="standard" color="white">
+              <type name="1.1" width="0.15000000596046448">
+                <line length="0" tOffset="0" width="0.15000000596046448" space="0" sOffset="0"/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.567988226382777" b="0.0026780652791469134" c="0" d="0"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+    <signals>
+      <signal id="s6" s="21.165664446587172" t="-2.3123356287236283" zOffset="0" orientation="+" dynamic="no" country="RU" countryRevision="2018" type="roadMarking" subtype="1.12" length="0.4" width="4.624671257447257">
+        <validity fromLane="-1" toLane="-1"/>
+        <semantics>
+          <priority type="stopLine"/>
+        </semantics>
+      </signal>
+    </signals>
+  </road>
+  <road id="r8" name="Новый участок" length="58.27099920322721" junction="-1">
+    <link>
+      <successor elementId="j72" elementType="junction" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-22.232920762286064" y="-63.94939397659125" hdg="1.3204322191859594" length="58.27099920322721">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <left>
+          <lane id="1" type="driving">
+            <width sOffset="0" a="4.833607710228212" b="-0.005017294140034607" c="0" d="0"/>
+            <link>
+              <predecessor id="-1"/>
+            </link>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" type="none">
+            <roadMark sOffset="0" type="solid" weight="standard" color="white">
+              <type name="1.1" width="0.15000000596046448">
+                <line length="0" tOffset="0" width="0.15000000596046448" space="0" sOffset="0"/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="3.330671465744274" b="0.0029058800530461495" c="0" d="0"/>
+            <roadMark sOffset="0" type="solid" weight="standard" color="white">
+              <type name="1.6" width="0.10000000149011612">
+                <line length="6" tOffset="0" width="0.10000000149011612" space="2" sOffset="0.36000001430511475"/>
+              </type>
+            </roadMark>
+            <roadMark sOffset="39.49989496424851" type="solid" weight="standard" color="white">
+              <type name="1.1" width="0.10000000149011612">
+                <line length="0" tOffset="0" width="0.10000000149011612" space="0" sOffset="0"/>
+              </type>
+            </roadMark>
+            <link>
+              <successor id="-1"/>
+            </link>
+          </lane>
+          <lane id="-2" type="driving">
+            <width sOffset="0" a="5.638946657485086" b="0.00043553261124033" c="0" d="0"/>
+            <link>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+    <signals>
+      <signal id="s10" s="57.44183861284961" t="-6.329572784504943" zOffset="0" orientation="+" dynamic="no" country="RU" countryRevision="2018" type="roadMarking" subtype="1.12" length="0.4" width="5.663964451450585">
+        <validity fromLane="-2" toLane="-2"/>
+        <semantics>
+          <priority type="stopLine"/>
+        </semantics>
+      </signal>
+      <signal id="s12" s="57.85656683552546" t="-1.7493978546246793" zOffset="0" orientation="+" dynamic="no" country="RU" countryRevision="2018" type="roadMarking" subtype="1.12" length="0.4" width="3.4987957092493587">
+        <validity fromLane="-1" toLane="-1"/>
+        <semantics>
+          <priority type="stopLine"/>
+        </semantics>
+      </signal>
+    </signals>
+  </road>
+  <road id="r14" name="Новый участок" length="74.17803779895746" junction="-1">
+    <link>
+      <predecessor elementId="j70" elementType="junction" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="42.619029007207274" y="-1.9152574711621844" hdg="-0.24833114479631752" length="43.78157054884582">
+        <line/>
+      </geometry>
+      <geometry s="43.78157054884582" x="85.05755406888076" y="-12.676182631819831" hdg="-0.24833114479631752" length="0.5572374389044086">
+        <arc curvature="0.19298860063170234"/>
+      </geometry>
+      <geometry s="44.33880798775023" x="85.60401450409366" y="-12.783864641275967" hdg="-0.14079067124256142" length="7.651171232688071">
+        <line/>
+      </geometry>
+      <geometry s="51.9899792204383" x="93.17948010575061" y="-13.857522943542437" hdg="-0.14079067124256142" length="0.7334748291982365">
+        <arc curvature="-0.12928968614372788"/>
+      </geometry>
+      <geometry s="52.72345404963654" x="93.89973288931344" y="-13.994702404274776" hdg="-0.23562140170392565" length="21.454583749320925">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <left>
+          <lane id="1" type="driving">
+            <width sOffset="0" a="4.732105894659532" b="0.0015752922133124342" c="0" d="0"/>
+            <width sOffset="44.736447251826746" a="4.802578871666597" b="-0.1423272687288018" c="0" d="0"/>
+            <width sOffset="52.702359623788404" a="3.6688123208323233" b="-0.006611379688777591" c="0" d="0"/>
+            <link>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" type="none">
+            <roadMark sOffset="0" type="solid" weight="standard" color="white">
+              <type name="1.1" width="0.15000000596046448">
+                <line length="0" tOffset="0" width="0.15000000596046448" space="0" sOffset="0"/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.336288778512927" b="0.006499960768379124" c="0" d="0"/>
+            <width sOffset="44.32883135340041" a="4.624424443218124" b="0.0959114389040794" c="0" d="0"/>
+            <width sOffset="51.873072175911965" a="5.348003435944102" b="0.0022946313526920736" c="0" d="0"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r16" name="Новый участок(clone)" length="55.499999999999986" junction="-1">
+    <link>
+      <successor elementId="j74" elementType="junction" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-110.92341390543604" y="37.30000875024838" hdg="-0.24893471961573033" length="55.499999999999986">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <left>
+          <lane id="1" type="driving">
+            <width sOffset="0" a="7.7528951447880345" b="0.020019543845154097" c="0" d="0"/>
+            <width sOffset="14.059182503981095" a="8.034353565353507" b="-2.506088842290388" c="0" d="0"/>
+            <width sOffset="14.657614289274049" a="6.534630345358918" b="-1.3867818028861407" c="0" d="0"/>
+            <width sOffset="15.314529392969254" a="5.623632433513346" b="-0.7884691281268542" c="0" d="0"/>
+            <width sOffset="16.130584865423366" a="4.980197886644304" b="-0.01939164979904962" c="0" d="0"/>
+            <width sOffset="19.184040781391474" a="4.920986338845014" b="0.8730394533439351" c="0" d="0"/>
+            <width sOffset="22.648276393458467" a="7.945400703858574" b="0.004485096164324415" c="0" d="0"/>
+            <width sOffset="31.89202622719148" a="7.986859810781825" b="-0.010361871403149201" c="0" d="0"/>
+            <width sOffset="43.60653715015073" a="7.865475555047334" b="-0.0009683449824658798" c="0" d="0"/>
+            <width sOffset="51.966031719754675" a="7.857380680424908" b="-1.0419875381722816" c="0" d="0"/>
+            <width sOffset="54.873088948736736" a="4.828263275071947" b="0.0038141871115054756" c="0" d="0"/>
+            <link>
+              <predecessor id="-1"/>
+            </link>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" type="none">
+            <roadMark sOffset="0" type="solid" weight="standard" color="white">
+              <type name="1.1" width="0.15000000596046448">
+                <line length="0" tOffset="0" width="0.15000000596046448" space="0" sOffset="0"/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.373801712991834" b="0.00267806527914692" c="0" d="0"/>
+            <link>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r18" name="Новый участок" length="10.560360775068801" junction="-1">
+    <link>
+      <successor elementId="j74" elementType="junction" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-42.39162866020259" y="40.66751246755859" hdg="-1.8552697789904633" length="10.560360775068801">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <left>
+          <lane id="1" type="driving">
+            <width sOffset="0" a="4.362664910681254" b="-0.00035469420284845425" c="0" d="0"/>
+            <link>
+              <predecessor id="-1"/>
+            </link>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" type="none">
+            <roadMark sOffset="0" type="none" weight="standard" color="white"/>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="3.5" b="0.01048558691320874" c="0" d="0"/>
+            <link>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r20" name="Новый участок(clone)" length="10.299999999999997" junction="-1">
+    <link>
+      <predecessor elementId="j72" elementType="junction" elementDir="-"/>
+      <successor elementId="j70" elementType="junction" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="22.146907105993915" y="3.2757563856735414" hdg="-0.24833114479631752" length="10.299999999999997">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <left>
+          <lane id="1" type="driving">
+            <width sOffset="0" a="4.69203131480376" b="0.001897470637110409" c="0" d="0"/>
+            <link>
+              <predecessor id="-1"/>
+            </link>
+          </lane>
+        </left>
+        <center>
+          <lane id="0" type="none">
+            <roadMark sOffset="0" type="solid" weight="standard" color="white">
+              <type name="1.1" width="0.15000000596046448">
+                <line length="0" tOffset="0" width="0.15000000596046448" space="0" sOffset="0"/>
+              </type>
+            </roadMark>
+          </lane>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.413600968968992" b="-0.0036606150784121746" c="0" d="0"/>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+    <signals>
+      <signal id="s22" s="0.41665217591365655" t="2.3456864557252435" zOffset="0" orientation="-" dynamic="no" country="RU" countryRevision="2018" type="roadMarking" subtype="1.12" length="0.4" width="4.692821900073445">
+        <validity fromLane="1" toLane="1"/>
+        <semantics>
+          <priority type="stopLine"/>
+        </semantics>
+      </signal>
+    </signals>
+  </road>
+  <road id="r24" name="Новый участок" length="3.448812944764406" junction="-1">
+    <link>
+      <successor elementId="j70" elementType="junction" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="31.36138905211871" y="-14.187677710201552" hdg="1.3205528266374893" length="3.448812944764406">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving" direction="both">
+            <width sOffset="0" a="4.552268090384685" b="-0.002022512071933357" c="0" d="0"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r26" name="Соединительная дорога" length="10.820000000000007" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+    <link>
+      <predecessor elementId="r14" elementType="road" contactPoint="start" elementDir="-"/>
+      <successor elementId="r20" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="42.619029007207274" y="-1.9152574711621844" hdg="2.8932615087934757" length="10.820000000000007">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.732105894659532" b="0" c="-0.0005261009160195257" d="3.241533678493686E-05"/>
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r28" name="Соединительная дорога" length="10.820000000000007" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+    <link>
+      <predecessor elementId="r20" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r14" elementType="road" contactPoint="start" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="32.13094382865005" y="0.7441539839023315" hdg="-0.24833114479631746" length="10.820000000000007">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.3758966336613465" b="0" c="-0.0010149579699848918" d="6.253591928434325E-05"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r30" name="Соединительная дорога" length="15.655461097927995" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+    <link>
+      <predecessor elementId="r20" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r24" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="32.13094382865005" y="0.7441539839023315" hdg="-0.2483311447963152" length="0.3748719388298287">
+        <line/>
+      </geometry>
+      <geometry s="0.3748719388298287" x="32.49431617851124" y="0.6520154692714367" hdg="-0.2483311447963152" length="11.180321487368182">
+        <arc curvature="-0.1406675723889401"/>
+      </geometry>
+      <geometry s="11.555193426198011" x="37.63455921288862" y="-7.999330503600634" hdg="-1.8210398269523016" length="4.100267671729984">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.3758966336613465" b="0" c="0.0020734480968521395" d="-8.829498681566826E-05"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r32" name="Соединительная дорога" length="13.194086002005461" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+    <link>
+      <predecessor elementId="r14" elementType="road" contactPoint="start" elementDir="-"/>
+      <successor elementId="r24" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="42.619029007207274" y="-1.9152574711621844" hdg="2.893261508793479" length="0.16612806117017076">
+        <line/>
+      </geometry>
+      <geometry s="0.16612806117017076" x="42.45799709814061" y="-1.874425413039855" hdg="2.893261508793479" length="4.961556593571825">
+        <arc curvature="0.31620801694904505"/>
+      </geometry>
+      <geometry s="5.127684654741996" x="38.61673208926491" y="-4.156733364540717" hdg="-1.8210398269523016" length="8.066401347263465">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.732105894659532" b="0" c="-0.0032193625762790214" d="0.00016266694920687386"/>
+            <link>
+              <predecessor id="1"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r34" name="Соединительная дорога" length="33.406769586558795" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+    <link>
+      <predecessor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r20" elementType="road" contactPoint="start" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-4.40501050868544" y="-8.362300473404128" hdg="1.3204322191859588" length="0.8903595363382237">
+        <line/>
+      </geometry>
+      <geometry s="0.8903595363382237" x="-4.184417940340903" y="-7.499700321109" hdg="1.3204322191859588" length="26.592511715409866">
+        <arc curvature="-0.05899267360567554"/>
+      </geometry>
+      <geometry s="27.48287125174809" x="16.404730551039393" y="4.731771458708038" hdg="-0.24833114479631854" length="5.923898334810705">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="5.6643255779276505" b="0" c="-0.0033621260095696463" d="6.709470467970453E-05"/>
+            <link>
+              <predecessor id="-2"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r36" name="Соединительная дорога" length="39.64215954135787" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+    <link>
+      <predecessor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r0" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-7.795888474062869" y="-7.495151914091579" hdg="1.3204322191859597" length="0.990890909308975">
+        <line/>
+      </geometry>
+      <geometry s="0.990890909308975" x="-7.5503885813648175" y="-6.5351547282434055" hdg="1.3204322191859597" length="17.830799288331328">
+        <arc curvature="-0.003328913092896765"/>
+      </geometry>
+      <geometry s="18.8216901976403" x="-2.6227382598332896" y="10.59850594670218" hdg="1.2610750379782192" length="1.9980485022109242">
+        <line/>
+      </geometry>
+      <geometry s="20.819738699851225" x="-2.0137466659219814" y="12.501484416294696" hdg="1.2610750379782192" length="17.831529932197665">
+        <arc curvature="0.003087865973627038"/>
+      </geometry>
+      <geometry s="38.65126863204889" x="2.9509988153360682" y="29.625573819009833" hdg="1.3161364125135644" length="0.9908909093089804">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="3.5" b="0" c="0.0027710722128932363" d="-4.6601433843048377E-05"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r38" name="Соединительная дорога" length="39.710754293664074" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+    <link>
+      <predecessor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r0" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-4.40501050868544" y="-8.362300473404128" hdg="1.320432219185959" length="0.9920620806781724">
+        <line/>
+      </geometry>
+      <geometry s="0.9920620806781724" x="-4.159220450397243" y="-7.401168630644671" hdg="1.320432219185959" length="17.836758457378046">
+        <arc curvature="0.0065568865131422184"/>
+      </geometry>
+      <geometry s="18.82882053805622" x="-0.7594766996618294" y="10.098237594681056" hdg="1.4373858201533165" length="2.054636665265896">
+        <line/>
+      </geometry>
+      <geometry s="20.883457203322116" x="-0.4861789764599209" y="12.13461677861209" hdg="1.4373858201533165" length="17.835235009663784">
+        <arc curvature="-0.006798307259425218"/>
+      </geometry>
+      <geometry s="38.7186922129859" x="2.9507037781715315" y="29.624440419059432" hdg="1.3161364125135644" length="0.9920620806781741">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="5.6643255779276505" b="0" c="-0.0013559355875317604" d="2.276353281203563E-05"/>
+            <link>
+              <predecessor id="-2"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r40" name="Соединительная дорога" length="43.26130397827019" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+    <link>
+      <predecessor elementId="r20" elementType="road" contactPoint="start" elementDir="-"/>
+      <successor elementId="r4" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="22.146907105993915" y="3.2757563856735414" hdg="2.8932615087934748" length="1.0815277831904844">
+        <line/>
+      </geometry>
+      <geometry s="1.0815277831904844" x="21.098556319202974" y="3.5415814665965835" hdg="2.8932615087934748" length="19.46734675739063">
+        <arc curvature="-0.0004994088185523403"/>
+      </geometry>
+      <geometry s="20.548874540581114" x="2.2519472516817824" y="8.41804856301412" hdg="2.8835393441490176" length="2.163536448668797">
+        <line/>
+      </geometry>
+      <geometry s="22.71241098924991" x="0.16004851732214043" y="8.97018047651207" hdg="2.8835393441490176" length="19.4673652058298">
+        <arc curvature="0.0004684039020500637"/>
+      </geometry>
+      <geometry s="42.17977619507971" x="-18.68511482373391" y="13.8523419600318" hdg="2.892657933974062" length="1.0815277831904808">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.69203131480376" b="0" c="0.00025490062217144486" d="-3.928077345973042E-06"/>
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r42" name="Соединительная дорога" length="43.26130397827019" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+    <link>
+      <predecessor elementId="r4" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r20" elementType="road" contactPoint="start" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-19.73330497425094" y="14.118799750632864" hdg="-0.24893471961573121" length="1.0815277831904826">
+        <line/>
+      </geometry>
+      <geometry s="1.0815277831904826" x="-18.685114823733908" y="13.8523419600318" hdg="-0.24893471961573121" length="19.4673652058298">
+        <arc curvature="-0.0004684039020500695"/>
+      </geometry>
+      <geometry s="20.54889298902028" x="0.16004851732213865" y="8.97018047651207" hdg="-0.25805330944077565" length="2.1635364486687934">
+        <line/>
+      </geometry>
+      <geometry s="22.712429437689075" x="2.2519472516817807" y="8.41804856301412" hdg="-0.25805330944077565" length="19.467346757390636">
+        <arc curvature="0.000499408818552336"/>
+      </geometry>
+      <geometry s="42.17977619507971" x="21.098556319202977" y="3.541581466596583" hdg="-0.24833114479631854" length="1.0815277831904808">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.625781961210398" b="0" c="-0.00034011714055200365" d="5.241283537867802E-06"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r44" name="Соединительная дорога" length="39.64215954135787" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+    <link>
+      <predecessor elementId="r0" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="3.2006203924481778" y="30.584507530165737" hdg="-1.825456241076229" length="0.9908909093089768">
+        <line/>
+      </geometry>
+      <geometry s="0.9908909093089768" x="2.9509988153360682" y="29.625573819009833" hdg="-1.825456241076229" length="17.831529932197665">
+        <arc curvature="-0.003087865973627038"/>
+      </geometry>
+      <geometry s="18.82242084150664" x="-2.013746665921981" y="12.501484416294693" hdg="-1.8805176156115742" length="1.9980485022109242">
+        <line/>
+      </geometry>
+      <geometry s="20.820469343717566" x="-2.622738259833289" y="10.598505946702176" hdg="-1.8805176156115742" length="17.83079928833133">
+        <arc curvature="0.003328913092896765"/>
+      </geometry>
+      <geometry s="38.6512686320489" x="-7.5503885813648175" y="-6.5351547282434055" hdg="-1.8211604344038337" length="0.9908909093089733">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="5.289149612483598" b="0" c="-0.0014277523222183627" d="2.4010671782042506E-05"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r46" name="Соединительная дорога" length="28.014697076866288" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+    <link>
+      <predecessor elementId="r4" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-19.73330497425094" y="14.118799750632864" hdg="-0.24893471961573124" length="0.8460127159958439">
+        <line/>
+      </geometry>
+      <geometry s="0.8460127159958439" x="-18.91337023942331" y="13.910366197072497" hdg="-0.24893471961573124" length="25.236237814776135">
+        <arc curvature="-0.06230032092452166"/>
+      </geometry>
+      <geometry s="26.08225053077198" x="-7.317111834521672" y="-5.622954653399892" hdg="-1.8211604344038337" length="1.932446546094308">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.625781961210398" b="0" c="-0.00032314407187796005" d="7.689870094289494E-06"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r48" name="Соединительная дорога" length="32.35290423481366" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+    <link>
+      <predecessor elementId="r0" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r4" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="3.2006203924481778" y="30.584507530165737" hdg="-1.825456241076229" length="4.464513237736785">
+        <line/>
+      </geometry>
+      <geometry s="4.464513237736785" x="2.0759367113566554" y="26.263979198189034" hdg="-1.825456241076229" length="26.986061027121234">
+        <arc curvature="-0.057995538161585904"/>
+      </geometry>
+      <geometry s="31.45057426485802" x="-18.858788940798984" y="13.896491221971463" hdg="2.892657933974062" length="0.9023299699556375">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="5.289149612483598" b="0" c="-0.0012556463177151717" d="2.5873953666350633E-05"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r50" name="Соединительная дорога" length="38.06014234372612" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+    <link>
+      <predecessor elementId="r20" elementType="road" contactPoint="start" elementDir="-"/>
+      <successor elementId="r0" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="22.146907105993915" y="3.2757563856735414" hdg="2.8932615087934748" length="4.491291798117295">
+        <line/>
+      </geometry>
+      <geometry s="4.491291798117295" x="17.793390383220384" y="4.379655910253069" hdg="2.8932615087934748" length="32.47811457893101">
+        <arc curvature="-0.048559625973578296"/>
+      </geometry>
+      <geometry s="36.96940637704831" x="2.9258462173526643" y="29.528948862111157" hdg="1.3161364125135644" length="1.090735966677812">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.69203131480376" b="0" c="0.0005375272905429433" d="-9.415401650164873E-06"/>
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r52" name="Соединительная дорога" length="17.009999999999998" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+    <link>
+      <predecessor elementId="r4" elementType="road" contactPoint="start" elementDir="-"/>
+      <successor elementId="r16" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-40.64850373181187" y="19.435599997394203" hdg="2.892657933974063" length="17.009999999999998">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.895533753890448" b="0" c="-0.000672696139595366" d="2.6364732102503078E-05"/>
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r54" name="Соединительная дорога" length="17.009999999999998" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+    <link>
+      <predecessor elementId="r16" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r4" elementType="road" contactPoint="start" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-57.1341777361333" y="23.626381860393096" hdg="-0.24893471961573047" length="17.009999999999998">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.522434335984488" b="0" c="0.000472321918720799" d="-1.8511539044514953E-05"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r56" name="Соединительная дорога" length="13.97408748931888" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+    <link>
+      <predecessor elementId="r4" elementType="road" contactPoint="start" elementDir="-"/>
+      <successor elementId="r18" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-40.64850373181187" y="19.435599997394203" hdg="2.8926579339740655" length="0.3818335475163934">
+        <line/>
+      </geometry>
+      <geometry s="0.3818335475163934" x="-41.01856742306812" y="19.529672960687336" hdg="2.8926579339740655" length="11.246730700311732">
+        <arc curvature="-0.14282684472299254"/>
+      </geometry>
+      <geometry s="11.628564247828125" x="-46.01369217125901" y="28.28032157653083" hdg="1.2863228745993287" length="2.3455232414907545">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.895533753890448" b="0" c="-0.008243977094021955" d="0.00039329829110837014"/>
+            <link>
+              <predecessor id="1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r58" name="Соединительная дорога" length="15.330006050303533" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+    <link>
+      <predecessor elementId="r18" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r16" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-45.35541613713088" y="30.531577212673877" hdg="-1.8552697789904646" length="0.6956980471136571">
+        <line/>
+      </geometry>
+      <geometry s="0.6956980471136571" x="-45.55066525822405" y="29.863839574472987" hdg="-1.8552697789904646" length="14.165641550706269">
+        <arc curvature="-0.10837896672166689"/>
+      </geometry>
+      <geometry s="14.861339597819926" x="-56.67995772717348" y="23.510915730536286" hdg="2.8926579339740655" length="0.46866645248360683">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="3.6107315807418243" b="0" c="0.015572881122118356" d="-0.0006772287443339491"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r60" name="Соединительная дорога" length="15.330006050303533" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+    <link>
+      <predecessor elementId="r16" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r18" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-57.1341777361333" y="23.626381860393096" hdg="-0.24893471961572766" length="0.46866645248360683">
+        <line/>
+      </geometry>
+      <geometry s="0.46866645248360683" x="-56.67995772717348" y="23.510915730536286" hdg="-0.24893471961572766" length="14.165641550706269">
+        <arc curvature="0.10837896672166689"/>
+      </geometry>
+      <geometry s="14.634308003189876" x="-45.55066525822404" y="29.863839574472987" hdg="1.2863228745993287" length="0.6956980471136571">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.522434335984488" b="0" c="-0.0020873464151475434" d="9.077388959918096E-05"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r62" name="Соединительная дорога" length="13.97408748931888" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+    <link>
+      <predecessor elementId="r18" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r4" elementType="road" contactPoint="start" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-45.35541613713088" y="30.531577212673877" hdg="-1.8552697789904646" length="2.3455232414907545">
+        <line/>
+      </geometry>
+      <geometry s="2.3455232414907545" x="-46.01369217125901" y="28.28032157653083" hdg="-1.8552697789904646" length="11.246730700311732">
+        <arc curvature="0.14282684472299256"/>
+      </geometry>
+      <geometry s="13.592253941802486" x="-41.01856742306812" y="19.529672960687336" hdg="-0.2489347196157276" length="0.3818335475163934">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="3.6107315807418243" b="0" c="0.014706276559329464" d="-0.0007015974660513724"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r64" name="Соединительная дорога" length="28.01469707686629" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+    <link>
+      <predecessor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r4" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="-7.795888474062869" y="-7.495151914091579" hdg="1.3204322191859597" length="1.932446546094308">
+        <line/>
+      </geometry>
+      <geometry s="1.932446546094308" x="-7.317111834521672" y="-5.622954653399891" hdg="1.3204322191859597" length="25.23623781477614">
+        <arc curvature="0.062300320924521646"/>
+      </geometry>
+      <geometry s="27.168684360870447" x="-18.91337023942331" y="13.910366197072497" hdg="2.892657933974062" length="0.8460127159958439">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="3.5" b="0" c="0.005164412178729685" d="-0.00012289768627659142"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r66" name="Соединительная дорога" length="12.959501490970027" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+    <link>
+      <predecessor elementId="r24" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r20" elementType="road" contactPoint="end" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="32.21545268364456" y="-10.84628787343012" hdg="1.320552826637491" length="8.409611525123614">
+        <line/>
+      </geometry>
+      <geometry s="8.409611525123614" x="34.29800789145078" y="-2.6986176659455836" hdg="1.320552826637491" length="4.402283083810824">
+        <arc curvature="0.35724842137924856"/>
+      </geometry>
+      <geometry s="12.811894608934438" x="32.27402271513161" y="0.707874184185899" hdg="2.8932615087934783" length="0.14760688203558914">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.545292824570059" b="0" c="0.0029702366024641938" d="-0.000152795826008884"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <road id="r68" name="Соединительная дорога" length="15.88208799668971" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+    <link>
+      <predecessor elementId="r24" elementType="road" contactPoint="end" elementDir="-"/>
+      <successor elementId="r14" elementType="road" contactPoint="start" elementDir="-"/>
+    </link>
+    <planView>
+      <geometry s="0" x="32.21545268364456" y="-10.84628787343012" hdg="1.320552826637491" length="3.739673042475988">
+        <line/>
+      </geometry>
+      <geometry s="3.739673042475988" x="33.14154487551741" y="-7.22309760561727" hdg="1.320552826637491" length="11.749021836249312">
+        <arc curvature="-0.13353315648740394"/>
+      </geometry>
+      <geometry s="15.488694878725301" x="42.237703634760976" y="-1.8185666981253932" hdg="-0.2483311447963145" length="0.39339311796440946">
+        <line/>
+      </geometry>
+    </planView>
+    <lanes>
+      <laneSection s="0">
+        <center>
+          <lane id="0" type="none"/>
+        </center>
+        <right>
+          <lane id="-1" type="driving">
+            <width sOffset="0" a="4.545292824570059" b="0" c="-0.002485768912817064" d="0.00010434265793998751"/>
+            <link>
+              <predecessor id="-1"/>
+              <successor id="-1"/>
+            </link>
+          </lane>
+        </right>
+      </laneSection>
+    </lanes>
+  </road>
+  <junction id="j70" name="Новый перекресток" type="default">
+    <connection id="70096" incomingRoad="r14" connectingRoad="r26" contactPoint="start">
+      <laneLink from="1" to="1"/>
+    </connection>
+    <connection id="70097" incomingRoad="r20" connectingRoad="r28" contactPoint="start">
+      <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="70098" incomingRoad="r20" connectingRoad="r30" contactPoint="start">
+      <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="70099" incomingRoad="r14" connectingRoad="r32" contactPoint="start">
+      <laneLink from="1" to="-1"/>
+    </connection>
+    <connection id="70100" incomingRoad="r24" connectingRoad="r66" contactPoint="start">
+      <laneLink from="-1" to="1"/>
+    </connection>
+    <connection id="70101" incomingRoad="r24" connectingRoad="r68" contactPoint="start">
+      <laneLink from="-1" to="-1"/>
+    </connection>
+  </junction>
+  <junction id="j72" name="Новый перекресток" type="default">
+    <connection id="70072" incomingRoad="r8" connectingRoad="r34" contactPoint="start">
+      <laneLink from="-2" to="-1"/>
+    </connection>
+    <connection id="70073" incomingRoad="r8" connectingRoad="r36" contactPoint="start">
+      <laneLink from="-1" to="1"/>
+    </connection>
+    <connection id="70074" incomingRoad="r8" connectingRoad="r38" contactPoint="start">
+      <laneLink from="-2" to="1"/>
+    </connection>
+    <connection id="70075" incomingRoad="r20" connectingRoad="r40" contactPoint="start">
+      <laneLink from="1" to="1"/>
+    </connection>
+    <connection id="70076" incomingRoad="r4" connectingRoad="r42" contactPoint="start">
+      <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="70077" incomingRoad="r0" connectingRoad="r44" contactPoint="start">
+      <laneLink from="-1" to="1"/>
+    </connection>
+    <connection id="70078" incomingRoad="r4" connectingRoad="r46" contactPoint="start">
+      <laneLink from="-1" to="1"/>
+    </connection>
+    <connection id="70079" incomingRoad="r0" connectingRoad="r48" contactPoint="start">
+      <laneLink from="-1" to="1"/>
+    </connection>
+    <connection id="70080" incomingRoad="r20" connectingRoad="r50" contactPoint="start">
+      <laneLink from="1" to="1"/>
+    </connection>
+    <connection id="70081" incomingRoad="r8" connectingRoad="r64" contactPoint="start">
+      <laneLink from="-1" to="1"/>
+    </connection>
+  </junction>
+  <junction id="j74" name="Новый перекресток" type="default">
+    <connection id="69844" incomingRoad="r4" connectingRoad="r52" contactPoint="start">
+      <laneLink from="1" to="1"/>
+    </connection>
+    <connection id="69845" incomingRoad="r16" connectingRoad="r54" contactPoint="start">
+      <laneLink from="-1" to="-1"/>
+    </connection>
+    <connection id="69846" incomingRoad="r4" connectingRoad="r56" contactPoint="start">
+      <laneLink from="1" to="1"/>
+    </connection>
+    <connection id="69847" incomingRoad="r18" connectingRoad="r58" contactPoint="start">
+      <laneLink from="-1" to="1"/>
+    </connection>
+    <connection id="69848" incomingRoad="r16" connectingRoad="r60" contactPoint="start">
+      <laneLink from="-1" to="1"/>
+    </connection>
+    <connection id="69849" incomingRoad="r18" connectingRoad="r62" contactPoint="start">
+      <laneLink from="-1" to="-1"/>
+    </connection>
+  </junction>
+</OpenDRIVE>
