@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -12,28 +11,24 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    testscore.py
-# @author  Jakob Erdmann
-# @date    2025-05-21
+# @file    runner.py
+# @author  Michael Behrisch
+# @date    2020-08-21
 
-"""
-This script test the game scoring function
-"""
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sys
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+import sumolib.xml  # noqa
 
-import runner
-from runner import _SCORING_FUNCTION
+infile, outfile = sys.argv[1:]
 
+xmlTree = list(sumolib.xml.parse(infile, outputLevel=0))[0]
 
-def main():
-    gamename = sys.argv[1]
-    runner._DEBUG = True
-    score, totalArrived, complete = _SCORING_FUNCTION[gamename](gamename)
-    print("score=%s totalCounted=%s complete=%s" % (
-        score, totalArrived, complete))
-
-
-if __name__ == "__main__":
-    main()
+with open(outfile, 'w') as outf:
+    outf.write(xmlTree.toXML(indent='  '))

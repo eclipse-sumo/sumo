@@ -241,7 +241,7 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
             return "<%s,child_dict=%s%s>" % (self.getAttributes(), dict(self._child_dict), nodeText)
 
         def toXML(self, initialIndent="", indent="    ", withComments=False):
-            fields = ['%s="%s"' % (self._original_fields[i], xmlescape(getattr(self, k)))
+            fields = [' %s="%s"' % (self._original_fields[i], xmlescape(getattr(self, k)))
                       for i, k in enumerate(self._fields) if getattr(self, k) is not None and
                       # see #3454
                       '{' not in self._original_fields[i]]
@@ -256,13 +256,13 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
                 commentStart = "!--"
                 commentEnd = "--"
             if not self._child_dict and self._text is None:
-                return initialIndent + "<%s%s %s/%s>\n" % (commentStart, self.name, " ".join(fields), commentEnd)
+                return initialIndent + "<%s%s%s/%s>\n" % (commentStart, self.name, "".join(fields), commentEnd)
             else:
-                s = initialIndent + "<%s%s %s>\n" % (commentStart, self.name, " ".join(fields))
+                s = initialIndent + "<%s%s%s>\n" % (commentStart, self.name, "".join(fields))
                 for i, c in enumerate(self._child_list):
                     if i > 0 and c.isComment() and withComments == "inline":
                         s = s[:-1]
-                    s += c.toXML(initialIndent + indent, withComments=withComments)
+                    s += c.toXML(initialIndent + indent, indent=indent, withComments=withComments)
                 if self._text is not None and self._text.strip():
                     s += self._text.strip(" ")
                 return s + "%s</%s%s>\n" % (initialIndent, self.name, commentEnd)
@@ -649,3 +649,34 @@ def quoteattr(val, ensureUnicode=False):
     if ensureUnicode and type(val) is bytes:
         val = val.decode("utf-8")
     return '"' + saxutils.quoteattr("'" + val)[2:]
+
+
+def contextualRename(xmlTree, prefixes, attribute='id', ids={}):
+    """
+    Renames the given attribute in a specified set of child elements within
+    xmlTree and also replaces all attribute values that referred to such an id
+    with the new value.
+    Example:
+    Given an opendrive file, when called with prefixes={'road': 'r', 'junction': 'j'}
+      - all road ids will be renamed to rN where N is a running integer
+      - all junction ids will be renamed to jN where N is also a running integer
+      - all attributes that refered to roads or junctions will now refer to
+        their new ids
+    """
+
+    def rename(obj):
+        if obj.name in prefixes:
+            if obj.id not in ids:
+                newID = prefixes[obj.name] + str(len(ids))
+                ids[obj.id] = newID
+                # keep id on second pass
+                ids[newID] = newID
+            obj.id = ids[obj.id]
+        else:
+            for a, v in obj.getAttributes():
+                if v in ids:
+                    obj.setAttribute(a, ids[v])
+        for child in obj.getChildList():
+            rename(child)
+    rename(xmlTree)
+    rename(xmlTree)  # call again in case usage came before definition
