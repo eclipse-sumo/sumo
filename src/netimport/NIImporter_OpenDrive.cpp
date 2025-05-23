@@ -100,6 +100,8 @@ SequentialStringBijection::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "controller",       NIImporter_OpenDrive::OPENDRIVE_TAG_CONTROLLER },
     { "control",          NIImporter_OpenDrive::OPENDRIVE_TAG_CONTROL },
     { "validity",         NIImporter_OpenDrive::OPENDRIVE_TAG_VALIDITY },
+    { "semantics",        NIImporter_OpenDrive::OPENDRIVE_TAG_SEMANTICS },
+    { "priority",         NIImporter_OpenDrive::OPENDRIVE_TAG_PRIORITY },
     { "junction",         NIImporter_OpenDrive::OPENDRIVE_TAG_JUNCTION },
     { "connection",       NIImporter_OpenDrive::OPENDRIVE_TAG_CONNECTION },
     { "laneLink",         NIImporter_OpenDrive::OPENDRIVE_TAG_LANELINK },
@@ -2520,6 +2522,15 @@ NIImporter_OpenDrive::myStartElement(int element,
                                                || myElementStack.back() == OPENDRIVE_TAG_SIGNALREFERENCE)) {
                 myCurrentEdge.signals.back().minLane = fromLane;
                 myCurrentEdge.signals.back().maxLane = toLane;
+            }
+        }
+        break;
+        case OPENDRIVE_TAG_PRIORITY: {
+            if (myElementStack.size() >= 2
+                    && myElementStack.back() == OPENDRIVE_TAG_SEMANTICS
+                    && myElementStack[myElementStack.size() - 2] == OPENDRIVE_TAG_SIGNAL) {
+                auto& signal = myCurrentEdge.signals.back();
+                signal.priority = attrs.get<std::string>(OPENDRIVE_ATTR_TYPE, signal.id.c_str(), ok);
             }
         }
         break;
