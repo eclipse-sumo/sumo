@@ -21,12 +21,11 @@ This script test the game scoring function
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import os
 import sys
 
 import runner
 from runner import _SCORING_FUNCTION
-from runner import computeScoreFromTimeLoss, computeScoreDRT, computeScoreSquare
+
 
 def main():
     gamename = sys.argv[1]
@@ -34,6 +33,7 @@ def main():
     score, totalArrived, complete = _SCORING_FUNCTION[gamename](gamename)
     print("score=%s totalCounted=%s complete=%s" % (
         score, totalArrived, complete))
+
 
 if __name__ == "__main__":
     main()

@@ -240,7 +240,7 @@ class CreateVehTypeDistribution:
         xml_dom, existing_file = self._check_existing(file_path)
         if existing_file:
             self._handle_existing(xml_dom)
-        vtype_dist_node = self.create_veh_dist(xml_dom)
+        self.create_veh_dist(xml_dom)
         with sumolib.openz(file_path, 'w') as f:
             sumolib.xml.writeHeader(f)
             f.write(xml_dom.toXML())

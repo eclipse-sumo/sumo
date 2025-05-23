@@ -435,7 +435,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multi
         else:
             criticalFlowRateMap[i] = 0.
     sumCriticalFlows = sum(criticalFlowRateMap.values())
-    
+
     if options.write_critical_flows:
         print(tl.getID(), criticalFlowRateMap)
         print('sum of the critical flow ratios: ', sumCriticalFlows)
@@ -484,7 +484,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multi
             adjustGreenTimes = totalGreenTimes - len(minGreenPhasesList) * options.mingreen
             for i in groupFlowsMap:
                 if i not in minGreenPhasesList:
-                    groupFlowsMap[i][0] = int(round((groupFlowsMap[i][0] / float(subtotalGreenTimes)) * adjustGreenTimes))
+                    groupFlowsMap[i][0] = int(round((groupFlowsMap[i][0] / float(subtotalGreenTimes)) * adjustGreenTimes))  # noqa
                 totalLength += groupFlowsMap[i][0]
 
         if options.unified_cycle and totalLength != optCycle:
@@ -501,9 +501,9 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multi
                 print("Green time for phase %s: %s" % (i, groupFlowsMap[i][0]))
             print("The optimal cycle length:%s\n" % totalLength)
     else:
-        print("WARNING: There are no flows at the intersection: %s. No green time optimization is done." %(tl.getID()))
+        print("WARNING: There are no flows at the intersection: %s. No green time optimization is done." % (tl.getID()))
         groupFlowsMap = None
-        
+
     return groupFlowsMap
 
 
@@ -656,7 +656,7 @@ def main(options):
                     # optimize the cycle length and calculate the respective green splits
                     groupFlowsMap = optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap,
                                                       currentLength, multiOwnGreenMap, options)
-                    if groupFlowsMap != None:
+                    if groupFlowsMap is not None:
                         # write output
                         outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%i">\n' %
                                    (tl._id, programs[pro]._type, options.program, programs[pro]._offset))
