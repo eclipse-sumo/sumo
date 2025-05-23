@@ -24,3 +24,6 @@ parse_fast
 
 # parsing optional attributes
 parse_fast_optional
+
+# parsing XML and  writing xml
+toXML
