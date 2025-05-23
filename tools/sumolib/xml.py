@@ -241,7 +241,7 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
             return "<%s,child_dict=%s%s>" % (self.getAttributes(), dict(self._child_dict), nodeText)
 
         def toXML(self, initialIndent="", indent="    ", withComments=False):
-            fields = ['%s="%s"' % (self._original_fields[i], xmlescape(getattr(self, k)))
+            fields = [' %s="%s"' % (self._original_fields[i], xmlescape(getattr(self, k)))
                       for i, k in enumerate(self._fields) if getattr(self, k) is not None and
                       # see #3454
                       '{' not in self._original_fields[i]]
@@ -256,9 +256,9 @@ def compound_object(element_name, attrnames, warn=False, sort=False):
                 commentStart = "!--"
                 commentEnd = "--"
             if not self._child_dict and self._text is None:
-                return initialIndent + "<%s%s %s/%s>\n" % (commentStart, self.name, " ".join(fields), commentEnd)
+                return initialIndent + "<%s%s%s/%s>\n" % (commentStart, self.name, "".join(fields), commentEnd)
             else:
-                s = initialIndent + "<%s%s %s>\n" % (commentStart, self.name, " ".join(fields))
+                s = initialIndent + "<%s%s%s>\n" % (commentStart, self.name, "".join(fields))
                 for i, c in enumerate(self._child_list):
                     if i > 0 and c.isComment() and withComments == "inline":
                         s = s[:-1]
