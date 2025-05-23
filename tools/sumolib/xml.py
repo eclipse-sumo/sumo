@@ -651,7 +651,7 @@ def quoteattr(val, ensureUnicode=False):
     return '"' + saxutils.quoteattr("'" + val)[2:]
 
 
-def contextualRename(xmlTree, prefixes, attribute='id', ids={}):
+def contextualRename(xmlTree, prefixes, attribute='id', ids=None):
     """
     Renames the given attribute in a specified set of child elements within
     xmlTree and also replaces all attribute values that referred to such an id
@@ -663,19 +663,29 @@ def contextualRename(xmlTree, prefixes, attribute='id', ids={}):
       - all attributes that refered to roads or junctions will now refer to
         their new ids
     """
-
+    if ids is None:
+        ids = {}
+    newIds = set()
+    index = 0
+    attribute = _prefix_keyword(attribute)
     def rename(obj):
+        nonlocal index
         if obj.name in prefixes:
-            if obj.id not in ids:
-                newID = prefixes[obj.name] + str(len(ids))
-                ids[obj.id] = newID
-                # keep id on second pass
-                ids[newID] = newID
-            obj.id = ids[obj.id]
-        else:
-            for a, v in obj.getAttributes():
-                if v in ids:
-                    obj.setAttribute(a, ids[v])
+            if obj.hasAttribute(attribute):
+                oldID = obj.getAttribute(attribute)
+                if oldID not in ids:
+                    newID = prefixes[obj.name] + str(len(ids))
+                    while newID in newIds:
+                        index += 1
+                        newID = prefixes[obj.name] + str(index)
+                    newIds.add(newID)
+                    ids[oldID] = newID
+                    # keep id on second pass
+                    ids[newID] = newID
+                obj.setAttribute(attribute, ids[oldID])
+        for a, v in obj.getAttributes():
+            if v in ids:
+                obj.setAttribute(a, ids[v])
         for child in obj.getChildList():
             rename(child)
     rename(xmlTree)
