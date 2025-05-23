@@ -649,3 +649,34 @@ def quoteattr(val, ensureUnicode=False):
     if ensureUnicode and type(val) is bytes:
         val = val.decode("utf-8")
     return '"' + saxutils.quoteattr("'" + val)[2:]
+
+
+def contextualRename(xmlTree, prefixes, attribute='id', ids={}):
+    """
+    Renames the given attribute in a specified set of child elements within
+    xmlTree and also replaces all attribute values that referred to such an id
+    with the new value.
+    Example:
+    Given an opendrive file, when called with prefixes={'road': 'r', 'junction': 'j'}
+      - all road ids will be renamed to rN where N is a running integer
+      - all junction ids will be renamed to jN where N is also a running integer
+      - all attributes that refered to roads or junctions will now refer to
+        their new ids
+    """
+
+    def rename(obj):
+        if obj.name in prefixes:
+            if obj.id not in ids:
+                newID = prefixes[obj.name] + str(len(ids))
+                ids[obj.id] = newID
+                # keep id on second pass
+                ids[newID] = newID
+            obj.id = ids[obj.id]
+        else:
+            for a, v in obj.getAttributes():
+                if v in ids:
+                    obj.setAttribute(a, ids[v])
+        for child in obj.getChildList():
+            rename(child)
+    rename(xmlTree)
+    rename(xmlTree)  # call again in case usage came before definition
