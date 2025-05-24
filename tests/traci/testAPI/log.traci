@@ -1,14 +1,17 @@
-***Starting server on port 49529 ***
-Loading net-file from 'net.net.xml' ... done (12ms).
-Loading additional-files from 'input_additional.add.xml' ... done (1ms).
+***Starting server on port 44463 ***
+Loading net-file from 'net.net.xml' ... done (6ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_21_0+1570-8eaf427e473 started with time: 0.00.
+Simulation version v1_23_1+0281-d588555e510 started with time: 0.00.
 Error: Answered with error to command 0xa3: No connection from lane 'e_vu0_0' to lane 'e_m4_1'
 Error: Answered with error to command 0xa3: Lane 'dummy' is not known
 Warning: Vehicle '0' moved by TraCI from 1640.00,491.75 to 2231.61,498.35 (dist 591.61) with implied speed of 591.61 (exceeding maximum speed 30.00). time=5.00.
 custom message test
 Warning: Person 'p1' walking from edge 'e_u1' to edge 'e_m5' has a disconnect between edge 'e_shape1' and edge 'e_m5', time=12.00.
+Warning: Unsafe green phase 2 in tlLogic 'n_m4', program 'custom'. Lane 'e_m4_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 2 in tlLogic 'n_m4', program 'custom'. Lane 'e_m4_1' is targeted by 3 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 2 in tlLogic 'n_m4', program 'custom'. Lane 'e_m4_2' is targeted by 2 'G'-links. (use 'g' instead)
 Error: Requested command not implemented (0xcc): GUI is not running, command not implemented in command line sumo
 Simulation ended at time: 14.00.
 Reason: TraCI issued load command.
