@@ -294,6 +294,7 @@ MSStageWalking::tripInfoOutput(OutputDevice& os, const MSTransportable* const pe
     os.writeAttr("routeLength", myArrived >= 0 ? toString(distance) : "-1");
     os.writeAttr("timeLoss", time2string(timeLoss));
     os.writeAttr("maxSpeed", maxSpeed);
+    os.writeAttr("waitingTime", time2string(getTotalWaitingTime()));
     os.closeTag();
 }
 
