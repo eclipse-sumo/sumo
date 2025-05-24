@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 15:32:16 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
+<!-- generated on 2025-05-24 11:20:35 by Eclipse SUMO sumo Version v1_23_1+0287-c293321ede3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,51 +49,51 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p0.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="143.00" waitingTime="0.00" timeLoss="0.00" traveltime="143.00">
         <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="89.00" arrivalPos="400.00" duration="89.00" routeLength="400.00" timeLoss="0.00"/>
         <access stop="D" depart="89.00" arrival="107.00" duration="18.00" routeLength="25.00"/>
-        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
     <personinfo id="p0.6" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="143.00" waitingTime="0.00" timeLoss="0.00" traveltime="143.00">
         <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="89.00" arrivalPos="400.00" duration="89.00" routeLength="400.00" timeLoss="0.00"/>
         <access stop="D" depart="89.00" arrival="107.00" duration="18.00" routeLength="25.00"/>
-        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
     <personinfo id="p0.8" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="143.00" waitingTime="0.00" timeLoss="0.00" traveltime="143.00">
         <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="89.00" arrivalPos="400.00" duration="89.00" routeLength="400.00" timeLoss="0.00"/>
         <access stop="D" depart="89.00" arrival="107.00" duration="18.00" routeLength="25.00"/>
-        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
     <personinfo id="p0.7" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="143.00" waitingTime="0.00" timeLoss="0.00" traveltime="143.00">
         <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="89.00" arrivalPos="400.00" duration="89.00" routeLength="400.00" timeLoss="0.00"/>
         <access stop="D" depart="89.00" arrival="107.00" duration="18.00" routeLength="25.00"/>
-        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
     <personinfo id="p0.4" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="143.00" waitingTime="0.00" timeLoss="0.00" traveltime="143.00">
         <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="89.00" arrivalPos="400.00" duration="89.00" routeLength="400.00" timeLoss="0.00"/>
         <access stop="D" depart="89.00" arrival="107.00" duration="18.00" routeLength="25.00"/>
-        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
     <personinfo id="p0.2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="143.00" waitingTime="0.00" timeLoss="0.00" traveltime="143.00">
         <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="89.00" arrivalPos="400.00" duration="89.00" routeLength="400.00" timeLoss="0.00"/>
         <access stop="D" depart="89.00" arrival="107.00" duration="18.00" routeLength="25.00"/>
-        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
     <personinfo id="p0.1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="143.00" waitingTime="0.00" timeLoss="0.00" traveltime="143.00">
         <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="89.00" arrivalPos="400.00" duration="89.00" routeLength="400.00" timeLoss="0.00"/>
         <access stop="D" depart="89.00" arrival="107.00" duration="18.00" routeLength="25.00"/>
-        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
     <personinfo id="p0.3" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="143.00" waitingTime="0.00" timeLoss="0.00" traveltime="143.00">
         <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="89.00" arrivalPos="400.00" duration="89.00" routeLength="400.00" timeLoss="0.00"/>
         <access stop="D" depart="89.00" arrival="107.00" duration="18.00" routeLength="25.00"/>
-        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
     <personinfo id="p0.9" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="143.00" waitingTime="0.00" timeLoss="0.00" traveltime="143.00">
         <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="89.00" arrivalPos="400.00" duration="89.00" routeLength="400.00" timeLoss="0.00"/>
         <access stop="D" depart="89.00" arrival="107.00" duration="18.00" routeLength="25.00"/>
-        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
     <personinfo id="p0.5" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="143.00" waitingTime="0.00" timeLoss="0.00" traveltime="143.00">
         <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="89.00" arrivalPos="400.00" duration="89.00" routeLength="400.00" timeLoss="0.00"/>
         <access stop="D" depart="89.00" arrival="107.00" duration="18.00" routeLength="25.00"/>
-        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="107.00" departPos="0.00" arrival="143.00" arrivalPos="50.00" duration="36.00" routeLength="50.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
 </tripinfos>
