@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-05 23:37:08 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
+<!-- generated on 2025-05-24 09:32:26 by Eclipse SUMO sumo Version v1_23_1+0285-ccec0cf88d7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net3.net.xml"/>
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
@@ -398,7 +398,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="fwd66" depart="216.00" type="ped" speedFactor="0.91" duration="68.00" waitingTime="0.00" timeLoss="0.39" traveltime="68.00">
         <walk depart="216.00" departPos="0.00" arrival="284.00" arrivalPos="85.15" duration="68.00" routeLength="85.15" timeLoss="0.39" maxSpeed="1.26"/>
     </personinfo>
-    <personinfo id="bwd57" depart="231.00" type="ped" speedFactor="1.24" duration="54.00" waitingTime="0.00" timeLoss="4.65" traveltime="54.00">
+    <personinfo id="bwd57" depart="231.00" type="ped" speedFactor="1.24" duration="54.00" waitingTime="1.00" timeLoss="4.65" traveltime="54.00">
         <walk depart="231.00" departPos="85.15" arrival="285.00" arrivalPos="0.00" duration="54.00" routeLength="85.15" timeLoss="4.65" maxSpeed="1.73"/>
     </personinfo>
     <personinfo id="fwd67" depart="220.00" type="ped" speedFactor="0.91" duration="67.00" waitingTime="0.00" timeLoss="0.00" traveltime="67.00">
@@ -581,7 +581,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="bwd89" depart="316.00" type="ped" speedFactor="1.01" duration="76.00" waitingTime="0.00" timeLoss="15.56" traveltime="76.00">
         <walk depart="316.00" departPos="85.15" arrival="392.00" arrivalPos="0.00" duration="76.00" routeLength="85.15" timeLoss="15.56" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="bwd88" depart="311.00" type="ped" speedFactor="1.30" duration="81.00" waitingTime="0.00" timeLoss="33.83" traveltime="81.00">
+    <personinfo id="bwd88" depart="311.00" type="ped" speedFactor="1.30" duration="81.00" waitingTime="2.00" timeLoss="33.83" traveltime="81.00">
         <walk depart="311.00" departPos="85.15" arrival="392.00" arrivalPos="0.00" duration="81.00" routeLength="85.15" timeLoss="33.83" maxSpeed="1.81"/>
     </personinfo>
     <personinfo id="fwd92" depart="321.00" type="ped" speedFactor="0.83" duration="74.00" waitingTime="0.00" timeLoss="0.45" traveltime="74.00">
@@ -638,7 +638,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="bwd97" depart="345.00" type="ped" speedFactor="0.98" duration="64.00" waitingTime="0.00" timeLoss="1.47" traveltime="64.00">
         <walk depart="345.00" departPos="85.15" arrival="409.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="1.47" maxSpeed="1.36"/>
     </personinfo>
-    <personinfo id="bwd95" depart="336.00" type="ped" speedFactor="1.13" duration="74.00" waitingTime="0.00" timeLoss="19.69" traveltime="74.00">
+    <personinfo id="bwd95" depart="336.00" type="ped" speedFactor="1.13" duration="74.00" waitingTime="3.00" timeLoss="19.69" traveltime="74.00">
         <walk depart="336.00" departPos="85.15" arrival="410.00" arrivalPos="0.00" duration="74.00" routeLength="85.15" timeLoss="19.69" maxSpeed="1.57"/>
     </personinfo>
     <personinfo id="bwd98" depart="346.00" type="ped" speedFactor="0.92" duration="67.00" waitingTime="0.00" timeLoss="0.01" traveltime="67.00">
@@ -710,7 +710,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="bwd112" depart="393.00" type="ped" speedFactor="1.08" duration="62.00" waitingTime="0.00" timeLoss="5.25" traveltime="62.00">
         <walk depart="393.00" departPos="85.15" arrival="455.00" arrivalPos="0.00" duration="62.00" routeLength="85.15" timeLoss="5.25" maxSpeed="1.50"/>
     </personinfo>
-    <personinfo id="fwd111" depart="386.00" type="ped" speedFactor="0.87" duration="73.00" waitingTime="0.00" timeLoss="2.20" traveltime="73.00">
+    <personinfo id="fwd111" depart="386.00" type="ped" speedFactor="0.87" duration="73.00" waitingTime="2.00" timeLoss="2.20" traveltime="73.00">
         <walk depart="386.00" departPos="0.00" arrival="459.00" arrivalPos="85.15" duration="73.00" routeLength="85.15" timeLoss="2.20" maxSpeed="1.20"/>
     </personinfo>
     <personinfo id="bwd113" depart="394.00" type="ped" speedFactor="0.95" duration="65.00" waitingTime="0.00" timeLoss="0.20" traveltime="65.00">
@@ -728,16 +728,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="bwd114" depart="396.00" type="ped" speedFactor="1.02" duration="64.00" waitingTime="0.00" timeLoss="3.82" traveltime="64.00">
         <walk depart="396.00" departPos="85.15" arrival="460.00" arrivalPos="0.00" duration="64.00" routeLength="85.15" timeLoss="3.82" maxSpeed="1.41"/>
     </personinfo>
-    <personinfo id="fwd115" depart="401.00" type="ped" speedFactor="0.92" duration="70.00" waitingTime="0.00" timeLoss="3.51" traveltime="70.00">
+    <personinfo id="fwd115" depart="401.00" type="ped" speedFactor="0.92" duration="70.00" waitingTime="3.00" timeLoss="3.51" traveltime="70.00">
         <walk depart="401.00" departPos="0.00" arrival="471.00" arrivalPos="85.15" duration="70.00" routeLength="85.15" timeLoss="3.51" maxSpeed="1.28"/>
     </personinfo>
-    <personinfo id="fwd116" depart="402.00" type="ped" speedFactor="1.18" duration="69.00" waitingTime="0.00" timeLoss="16.92" traveltime="69.00">
+    <personinfo id="fwd116" depart="402.00" type="ped" speedFactor="1.18" duration="69.00" waitingTime="2.00" timeLoss="16.92" traveltime="69.00">
         <walk depart="402.00" departPos="0.00" arrival="471.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="16.92" maxSpeed="1.63"/>
     </personinfo>
-    <personinfo id="fwd117" depart="403.00" type="ped" speedFactor="1.00" duration="69.00" waitingTime="0.00" timeLoss="7.95" traveltime="69.00">
+    <personinfo id="fwd117" depart="403.00" type="ped" speedFactor="1.00" duration="69.00" waitingTime="1.00" timeLoss="7.95" traveltime="69.00">
         <walk depart="403.00" departPos="0.00" arrival="472.00" arrivalPos="85.15" duration="69.00" routeLength="85.15" timeLoss="7.95" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="fwd118" depart="404.00" type="ped" speedFactor="0.99" duration="68.00" waitingTime="0.00" timeLoss="6.16" traveltime="68.00">
+    <personinfo id="fwd118" depart="404.00" type="ped" speedFactor="0.99" duration="68.00" waitingTime="1.00" timeLoss="6.16" traveltime="68.00">
         <walk depart="404.00" departPos="0.00" arrival="472.00" arrivalPos="85.15" duration="68.00" routeLength="85.15" timeLoss="6.16" maxSpeed="1.38"/>
     </personinfo>
     <personinfo id="fwd119" depart="410.00" type="ped" speedFactor="1.07" duration="62.00" waitingTime="0.00" timeLoss="4.75" traveltime="62.00">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-05 23:37:08 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
+<!-- generated on 2025-05-24 09:32:25 by Eclipse SUMO sumo Version v1_23_1+0285-ccec0cf88d7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net3.net.xml"/>
@@ -37,24 +37,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="blocker" depart="18.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="64.00" waitingTime="0.00" timeLoss="49.24" traveltime="64.00">
+    <personinfo id="blocker" depart="18.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="64.00" waitingTime="49.00" timeLoss="49.24" traveltime="64.00">
         <walk depart="18.00" departPos="1.00" arrival="82.00" arrivalPos="90.84" duration="64.00" routeLength="20.50" timeLoss="49.24" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="p0" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="95.00" waitingTime="0.00" timeLoss="14.85" traveltime="95.00">
+    <personinfo id="p0" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="95.00" waitingTime="11.00" timeLoss="14.85" traveltime="95.00">
         <walk depart="10.00" departPos="89.85" arrival="105.00" arrivalPos="90.84" duration="95.00" routeLength="111.33" timeLoss="14.85" maxSpeed="1.39"/>
     </personinfo>
     <tripinfo id="v0" depart="18.00" departLane="SC_1" departPos="60.00" departSpeed="0.00" departDelay="0.00" arrival="115.00" arrivalLane="CN_1" arrivalPos="90.85" arrivalSpeed="13.89" duration="97.00" routeLength="140.00" waitingTime="80.00" waitingCount="1" stopTime="0.00" timeLoss="86.04" rerouteNo="0" devices="tripinfo_v0" vType="t1" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p1" depart="11.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="106.00" waitingTime="0.00" timeLoss="25.85" traveltime="106.00">
+    <personinfo id="p1" depart="11.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="106.00" waitingTime="22.00" timeLoss="25.85" traveltime="106.00">
         <walk depart="11.00" departPos="89.85" arrival="117.00" arrivalPos="90.84" duration="106.00" routeLength="111.33" timeLoss="25.85" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="p2" depart="12.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="117.00" waitingTime="0.00" timeLoss="36.85" traveltime="117.00">
+    <personinfo id="p2" depart="12.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="117.00" waitingTime="32.00" timeLoss="36.85" traveltime="117.00">
         <walk depart="12.00" departPos="89.85" arrival="129.00" arrivalPos="90.84" duration="117.00" routeLength="111.33" timeLoss="36.85" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="p3" depart="13.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="126.00" waitingTime="0.00" timeLoss="45.85" traveltime="126.00">
+    <personinfo id="p3" depart="13.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="126.00" waitingTime="42.00" timeLoss="45.85" traveltime="126.00">
         <walk depart="13.00" departPos="89.85" arrival="139.00" arrivalPos="90.84" duration="126.00" routeLength="111.33" timeLoss="45.85" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>
