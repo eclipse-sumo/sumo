@@ -668,6 +668,7 @@ def contextualRename(xmlTree, prefixes, attribute='id', ids=None):
     newIds = set()
     index = 0
     attribute = _prefix_keyword(attribute)
+
     def rename(obj):
         nonlocal index
         if obj.name in prefixes:
@@ -688,5 +689,6 @@ def contextualRename(xmlTree, prefixes, attribute='id', ids=None):
                 obj.setAttribute(a, ids[v])
         for child in obj.getChildList():
             rename(child)
+
     rename(xmlTree)
     rename(xmlTree)  # call again in case usage came before definition
