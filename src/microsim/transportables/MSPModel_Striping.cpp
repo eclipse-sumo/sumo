@@ -2151,6 +2151,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs) {
         myWaitingTime = 0;
     } else {
         myWaitingTime += DELTA_T;
+        myTotalWaitingTime += DELTA_T;
     }
     myAngle = std::numeric_limits<double>::max(); // set on first access or via remote control
 }

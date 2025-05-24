@@ -154,6 +154,10 @@ public:
         return myWaitingTime;
     }
 
+    virtual SUMOTime getTotalWaitingTime() const {
+        return myTotalWaitingTime;
+    }
+
     /// @brief return the current speed of the transportable
     inline double getSpeed(const MSStageMoving& /* stage */) const {
         return mySpeed;
@@ -231,6 +235,8 @@ protected:
     bool myWaitingToEnter = false;
     /// @brief the consecutive time spent at speed 0
     SUMOTime myWaitingTime = 0;
+    /// @brief the total time spent at speed 0
+    SUMOTime myTotalWaitingTime = 0;
     /// @brief whether the person is jammed
     bool myAmJammed = false;
     /// @brief remote-controlled position

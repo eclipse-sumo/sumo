@@ -75,13 +75,16 @@ public:
     /// Returns the position of the container
     Position getPosition(SUMOTime now) const;
 
-    /// Returns the angle of the container
+    /// Returns the angle of the transportable
     double getAngle(SUMOTime now) const;
 
-    /// Returns the time the container spent waiting
+    /// Returns the time the transportable spent waiting
     SUMOTime getWaitingTime() const;
 
-    /// Returns the speed of the container
+    /// Returns the cumulative time the transportable spent waiting
+    SUMOTime getTotalWaitingTime() const;
+
+    /// Returns the speed of the transportable
     double getSpeed() const;
 
     /// Returns the configured speed in this stage
