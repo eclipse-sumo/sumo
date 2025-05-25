@@ -94,20 +94,38 @@ jobs:
     - name: Running examples and unit tests
       run: |
         cmake --build sumo/build_msvc --config Release --target examples
-        ctest --test-dir sumo/build_msvc -E texttest --output-on-failure
+        ctest --test-dir sumo/build_msvc --output-on-failure
 
-    - name: Plain tests
+    # The following tests need to be split because of resource constraints. If they are not in separate steps
+    # a failing texttest run will not let the step fail because only the final exit code counts.
+    - name: activitygen and router tests
       if: matrix.build_type == 'plain'
-      # reminder: if these tests need to be split, they need to be separate steps
-      # because otherwise failures which do not occur in the final texttest call won't let the step fail
       run: |
-        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,marouter,netgen,od2trips,polyconvert,netconvert,sumo"
+        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,marouter"
         sumo\tests\runCiTests.bat texttest.exe
 
-    - name: Extra tests
+    - name: network building, od2trips and polyconvert tests
+      if: matrix.build_type == 'plain'
+      run: |
+        $env:TEXTTEST_CI_APPS = "-a netgen,od2trips,polyconvert,netconvert"
+        sumo\tests\runCiTests.bat texttest.exe
+
+    - name: sumo tests
+      if: matrix.build_type == 'plain'
+      run: |
+        $env:TEXTTEST_CI_APPS = "-a sumo"
+        sumo\tests\runCiTests.bat texttest.exe
+
+    - name: complex, traci and tools tests
       if: matrix.build_type == 'extra'
       run: |
-        $env:TEXTTEST_CI_APPS = "-a complex,traci,tools,sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
+        $env:TEXTTEST_CI_APPS = "-a complex,traci,tools"
+        sumo\tests\runCiTests.bat texttest.exe
+
+    - name: meso, extra and gdal tests
+      if: matrix.build_type == 'extra'
+      run: |
+        $env:TEXTTEST_CI_APPS = "-a sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
         sumo\tests\runCiTests.bat texttest.exe
 
     - name: Compressing test results
