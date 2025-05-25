@@ -2,15 +2,15 @@
 # for PHEMlight see https://github.com/eclipse-sumo/sumo/issues/16678
 pkg:github/modelica/fmi-standard@v2.0.1
 pkg:github/memononen/fontstash@9cee1168ab9d79eb02e9efaa3623d2e1393fdd4a
-pkg:github/nlohmann/json@@v3.10.5
-pkg:github/itm/shawn/45ff42d775dd72ab6819524988031719a75b206a
+pkg:github/nlohmann/json@v3.10.5
+pkg:github/itm/shawn@45ff42d775dd72ab6819524988031719a75b206a#src/apps/tcpip
 pkg:generic/RTreeTemplate?download_url=https://superliminal.com/sources/RTreeTemplate.zip&checksum=sha256:5e8f8f8b1cc4ac82bc93f8bf650be837fea165fe53c85c97b258f51466f307d2
-pkg:github/DLR-TS/odrSpiral/aecce087488b515332ec86d59b24076e06410c15
-pkg:github/mateidavid/zstr/5fc1a6370d5888905e39a0c0a4e1a056c84332af
+pkg:github/DLR-TS/odrSpiral@aecce087488b515332ec86d59b24076e06410c15
+pkg:github/mateidavid/zstr@5fc1a6370d5888905e39a0c0a4e1a056c84332af
 
 # Non-GPL dependencies
 pkg:generic/vc_redist?download_url=https://aka.ms/vs/17/release/vc_redist.x64.exe
-pkg:github/apache/xerces-c/v3.3.0
+pkg:github/apache/xerces-c@v3.3.0
 pkg:generic/fox@1.6.59?download_url=http://fox-toolkit.org/ftp/fox-1.6.59.zip&checksum=sha256:73d16c2bbd32f432bd6f07212d4eb83cfdb7005e0386640a5996752d1a6e3281
 pkg:github/osgeo/proj@9.5.0
 pkg:github/osgeo/gdal@3.9.3
