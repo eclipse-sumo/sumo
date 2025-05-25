@@ -26,6 +26,7 @@ libxerces-c-dev
 libxrandr-dev
 maven
 mkdocs
+mono-mcs
 pipx
 plantuml
 pre-commit
