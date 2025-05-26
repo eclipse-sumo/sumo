@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select E1
 netedit.changeElement("instantInductionLoop")
@@ -38,7 +38,7 @@ netedit.changeElement("instantInductionLoop")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # delete created E1
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
 netedit.undo(referencePosition, 2)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # try to delete lane with the second loaded E1 (doesn't allowed)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0Ped)

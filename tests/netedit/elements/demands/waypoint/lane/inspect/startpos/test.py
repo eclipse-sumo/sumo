@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to waypoint mode
-netedit.stopMode()
+netedit.changeMode("stop")
 
 # change waypoint type with a valid value
 netedit.changeStopType("waypointLane")
@@ -41,7 +41,7 @@ netedit.changeStopType("waypointLane")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopLane)

@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select E3
 netedit.changeElement("entryExitDetector")
@@ -52,7 +52,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squa
 netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # delete childs of loaded detector
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

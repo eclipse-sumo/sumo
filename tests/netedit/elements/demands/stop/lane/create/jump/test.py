@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to stop mode
-netedit.stopMode()
+netedit.changeMode("stop")
 
 # change stop type with a valid value
 netedit.changeStopType("stopLane")

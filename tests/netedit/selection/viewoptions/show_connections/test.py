@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # first rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # lock edges
 netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.junctions)
@@ -47,7 +47,7 @@ netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.crossings)
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # use a rectangle to select central elements
 netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleSmallA,

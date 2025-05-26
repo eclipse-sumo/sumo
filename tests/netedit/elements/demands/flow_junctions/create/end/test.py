@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to vehicle mode
-netedit.vehicleMode()
+netedit.changeMode("vehicle")
 
 # select flow with embedded route
 netedit.changeElement("flow (from-to junctions)")
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set invalid arrival pos
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminate, "end")
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "dummy")
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "-30")
@@ -75,7 +75,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "20.5")
@@ -85,7 +85,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "22")

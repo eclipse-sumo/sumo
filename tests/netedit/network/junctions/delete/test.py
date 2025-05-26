@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Change to create edge mode
-netedit.createEdgeMode()
+netedit.changeMode("createEdge")
 
 # select two-way mode
 netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
@@ -48,10 +48,10 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Change to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # disable 'protect elements'
 netedit.protectElements(referencePosition)
@@ -60,16 +60,16 @@ netedit.protectElements(referencePosition)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 1)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Change to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # remove all junctions
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
@@ -79,13 +79,13 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD_2)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 9)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check redo
 netedit.redo(referencePosition, 9)

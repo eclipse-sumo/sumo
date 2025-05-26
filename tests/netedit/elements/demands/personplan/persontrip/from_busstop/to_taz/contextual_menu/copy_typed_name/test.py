@@ -30,10 +30,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to person mode
-netedit.personMode()
+netedit.changeMode("person")
 
 # change person plan
 netedit.changePersonPlan("walk", False)
@@ -43,10 +43,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to personTrip.busStop.busStop mode
-netedit.personPlanMode()
+netedit.changeMode("personPlan")
 
 # go to personTrip.busStop.busStop mode
 netedit.changePersonPlanMode("personTrip")
@@ -55,10 +55,10 @@ netedit.changePersonPlanMode("personTrip")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # transform
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.TAZRed,

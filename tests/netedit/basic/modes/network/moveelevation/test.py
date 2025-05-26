@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # change to move mode
-netedit.moveMode()
+netedit.changeMode("move")
 
 # toggle option
 netedit.changeEditMode(netedit.attrs.modes.network.moveElevation)

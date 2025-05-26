@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select first junction
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.le
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.right)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect central node
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
@@ -56,13 +56,13 @@ netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.type, "dummyT
 netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.type, "traffic_light_unregulated", False)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 1)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check redo
 netedit.redo(referencePosition, 1)

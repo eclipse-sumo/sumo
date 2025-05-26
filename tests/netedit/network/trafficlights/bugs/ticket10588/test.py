@@ -29,22 +29,22 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Change to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # remove edge
 netedit.leftClick(referencePosition, netedit.positions.bugs.ticket10588)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 1)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

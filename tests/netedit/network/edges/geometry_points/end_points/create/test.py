@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to move mode
-netedit.moveMode()
+netedit.changeMode("move")
 
 # create geometry points
 netedit.leftClickShift(referencePosition, netedit.positions.network.edge.leftTop)

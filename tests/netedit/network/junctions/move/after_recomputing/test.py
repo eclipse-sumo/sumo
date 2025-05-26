@@ -27,20 +27,20 @@ import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Change to move
-netedit.moveMode()
+netedit.changeMode("move")
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # move
 netedit.moveElement(referencePosition, netedit.positions.network.junction.cross.center,
                     netedit.positions.elements.movementRadius)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 5)

@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode (For undo-redo)
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
@@ -38,7 +38,7 @@ netedit.checkUndoRedo(referencePosition)
 netedit.saveDemandElements(True, referencePosition)
 
 # remove invalid routes
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

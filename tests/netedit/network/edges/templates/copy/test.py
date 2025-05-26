@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Change to create mode
-netedit.createEdgeMode()
+netedit.changeMode("createEdge")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
@@ -49,7 +49,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect
 netedit.leftClick(referencePosition, netedit.positions.network.edge.centerB)
@@ -67,7 +67,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.edge.template.copy)
 netedit.checkUndoRedo(referencePosition)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
-netedit.shapeMode()
+netedit.changeMode("shape")
 
 # select POI in list of shapes
 netedit.changeElement("poi")
@@ -38,7 +38,7 @@ netedit.changeElement("poi")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect first POI
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)

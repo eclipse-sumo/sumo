@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # use a rectangle to select central elements
 netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleMediumA,

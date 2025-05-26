@@ -29,13 +29,13 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select all using invert
 netedit.selectionInvert()
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # create trainStop in mode "Center"
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop)
@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trai
 netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.friendlyPos, "false", True)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # clear selection
 netedit.selectionClear()

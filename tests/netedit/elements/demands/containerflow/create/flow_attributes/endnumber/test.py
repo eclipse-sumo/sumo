@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to container mode
-netedit.containerMode()
+netedit.changeMode("container")
 
 # change Container
 netedit.changeElement("containerFlow")
@@ -48,13 +48,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set invalid arrival pos
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminate, "end-number")
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.end, "dummy")
@@ -64,25 +64,25 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.end, "-30")
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.end, "20.5")
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.number, "51")
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

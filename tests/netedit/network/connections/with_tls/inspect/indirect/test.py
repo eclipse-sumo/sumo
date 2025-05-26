@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # show connections
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
@@ -41,13 +41,13 @@ netedit.leftClick(referencePosition, netedit.positions.network.connection.connec
 netedit.modifyBoolAttribute(netedit.attrs.connection.inspectTLS.indirect, True)
 
 # rebuild
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 1)
 
 # rebuild
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check redo
 netedit.redo(referencePosition, 1)

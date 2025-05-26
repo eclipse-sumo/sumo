@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select calibrator
 netedit.changeElement("calibrator")
@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect calibrator
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibrator)

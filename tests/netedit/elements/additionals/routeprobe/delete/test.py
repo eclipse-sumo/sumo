@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select routeProbe
 netedit.changeElement("routeProbe")
@@ -41,7 +41,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.routeProbe.create.center)
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # inspect first routeProbe
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.routeProbe)
@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.rout
 netedit.undo(referencePosition, 2)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # enable 'Automatically delete additionals'
 netedit.protectElements(referencePosition)

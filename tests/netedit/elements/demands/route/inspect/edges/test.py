@@ -29,20 +29,20 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to route mode
-netedit.routeMode()
+netedit.changeMode("route")
 
 # create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

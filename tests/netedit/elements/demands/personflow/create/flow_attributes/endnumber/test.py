@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to person mode
-netedit.personMode()
+netedit.changeMode("person")
 
 # change Container
 netedit.changeElement("personFlow")
@@ -48,13 +48,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set invalid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.terminate, "end-number")
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.end, "dummy")
@@ -64,13 +64,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.end, "-30")
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.end, "20.5")
@@ -80,7 +80,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.number, "dummy")
@@ -90,25 +90,25 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.number, "-30")
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.number, "20.5")
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.number, "51")
 
 # press enter to create flow with embedded route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

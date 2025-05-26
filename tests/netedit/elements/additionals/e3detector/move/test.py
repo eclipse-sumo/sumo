@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select E3
 netedit.changeElement("entryExitDetector")
@@ -51,7 +51,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squa
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # go to mode move
-netedit.moveMode()
+netedit.changeMode("move")
 
 # move
 netedit.moveElement(referencePosition, netedit.positions.elements.additionals.squaredA,

@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to TAZ mode
-netedit.TAZMode()
+netedit.changeMode("TAZ")
 
 # change color using dialog
 netedit.changeColorUsingDialog(netedit.attrs.TAZ.create.colorButton, 5)

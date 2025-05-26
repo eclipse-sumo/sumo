@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
@@ -38,7 +38,7 @@ netedit.checkUndoRedo(referencePosition)
 netedit.saveNeteditConfig(referencePosition)
 
 # type space (for dialog)
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # quit netedit
 netedit.quit(neteditProcess)

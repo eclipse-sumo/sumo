@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to container mode
-netedit.containerMode()
+netedit.changeMode("container")
 
 # change Container
 netedit.changeElement("containerFlow")
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.changeColorUsingDialog(netedit.attrs.containerFlow.create.colorButton, 5)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set invalid containerFlow number
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.color, "Vlue")
@@ -58,13 +58,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set invalid containerFlow number
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.color, "red")
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

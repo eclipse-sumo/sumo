@@ -29,16 +29,16 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select all using invert
 netedit.selectionInvert()
 
 # go to inspect mode again
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # show connections
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)

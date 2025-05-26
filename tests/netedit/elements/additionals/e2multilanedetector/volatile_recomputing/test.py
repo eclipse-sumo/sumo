@@ -30,10 +30,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(
     neteditTestRoot, ['--sidewalks.guess', '--crossings.guess'])
 
 # rebuild before recomputing with volatile options
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Recompute with volatile options
-netedit.rebuildNetworkWithVolatileOptions()
+netedit.computeJunctionsVolatileOptions()
 
 # create new connections
 netedit.fixStoppingPlace("activateFriendlyPos")
@@ -42,7 +42,7 @@ netedit.fixStoppingPlace("activateFriendlyPos")
 netedit.saveNeteditConfig(referencePosition)
 
 # create new connections
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # quit netedit
 netedit.quit(neteditProcess)

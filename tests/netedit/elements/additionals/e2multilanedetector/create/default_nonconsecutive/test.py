@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select E2
 netedit.changeElement("multiLaneAreaDetector")
@@ -40,7 +40,7 @@ netedit.changeElement("multiLaneAreaDetector")
 # try to create E2 with default parameters but with non consecutive lanes
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

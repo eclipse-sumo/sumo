@@ -29,13 +29,13 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # change to createEdge mode
-netedit.createEdgeMode()
+netedit.changeMode("createEdge")
 
 # toggle option
 netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 
 # change to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

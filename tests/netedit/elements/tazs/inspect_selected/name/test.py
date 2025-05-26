@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # delete created polygon
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shap
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect first TAZ
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)

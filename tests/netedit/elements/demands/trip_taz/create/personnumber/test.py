@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to vehicle mode
-netedit.vehicleMode()
+netedit.changeMode("vehicle")
 
 # select trip over TAZs
 netedit.changeElement("trip (from-to TAZs)")
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set invalid personNumber
 netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.personNumber, "-12")
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set invalid personNumber
 netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.personNumber, "3.5")
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid personNumber
 netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.personNumber, "13")
@@ -75,7 +75,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

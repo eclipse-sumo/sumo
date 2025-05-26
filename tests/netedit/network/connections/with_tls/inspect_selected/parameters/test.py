@@ -29,19 +29,19 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # show connections
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select all using invert
 netedit.selectionInvert()
 
 # go to inspect mode agaim
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect selected connections
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)

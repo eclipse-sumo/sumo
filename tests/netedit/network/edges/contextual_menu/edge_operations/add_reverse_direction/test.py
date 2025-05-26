@@ -29,23 +29,23 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # reverse edge in both directions
 netedit.contextualMenuOperation(referencePosition, netedit.positions.network.edge.leftBot,
                                 netedit.contextualMenu.edges.edgeOperations.addReverseDirection)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undos
 netedit.undo(referencePosition, 1)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # check redos
 netedit.redo(referencePosition, 1)

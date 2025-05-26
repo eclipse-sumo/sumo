@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to TLS mode
-netedit.selectTLSMode()
+netedit.changeMode("TLS")
 
 # select junction
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
@@ -41,16 +41,16 @@ netedit.createTLS()
 netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
 
 # type enter to save changes
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # add phase
 netedit.addGreenPhase(netedit.attrs.TLS.single.delayBasedPhase.addButton)
 
 # type enter to save changes
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # type ESC (for undo-redo)
-netedit.typeEscape()
+netedit.typeKey('esc')
 
 # Check undo
 netedit.undo(referencePosition, 1)

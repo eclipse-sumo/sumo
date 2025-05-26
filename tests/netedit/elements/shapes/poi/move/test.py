@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
-netedit.shapeMode()
+netedit.changeMode("shape")
 
 # go to shape mode
 netedit.changeElement("poi")
@@ -53,7 +53,7 @@ netedit.changeDefaultValue(netedit.attrs.poi.create.imgFile, "berlin_icon.ico")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD)
 
 # go to move mode
-netedit.moveMode()
+netedit.changeMode("move")
 
 # move
 netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.additionals.shapeC,

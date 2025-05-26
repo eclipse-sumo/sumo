@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select parkingArea
 netedit.changeElement("parkingArea")
@@ -47,7 +47,7 @@ netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # change to move mode
-netedit.moveMode()
+netedit.changeMode("move")
 
 # move
 netedit.moveElement(referencePosition, netedit.positions.elements.additionals.parkingSpace,

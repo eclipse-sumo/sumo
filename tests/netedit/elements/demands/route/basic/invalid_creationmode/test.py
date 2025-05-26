@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to route mode
-netedit.routeMode()
+netedit.changeMode("route")
 
 # set invalid mode
 netedit.changeRouteMode("dummyMode")
@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid mode
 netedit.changeRouteMode("consecutive edges")
@@ -52,7 +52,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

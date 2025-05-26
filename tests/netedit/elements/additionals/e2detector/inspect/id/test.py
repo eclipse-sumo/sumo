@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select E2
 netedit.changeElement("laneAreaDetector")
@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect first E2
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector)

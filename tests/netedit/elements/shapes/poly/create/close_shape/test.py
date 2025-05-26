@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
-netedit.shapeMode()
+netedit.changeMode("shape")
 
 # change close shape
 netedit.changeDefaultBoolValue(netedit.attrs.poly.create.closeShape)

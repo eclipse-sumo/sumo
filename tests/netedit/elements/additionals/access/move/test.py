@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select BusStop
 netedit.changeElement("busStop")
@@ -45,7 +45,7 @@ netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0Ped)
 
 # go to move mode
-netedit.moveMode()
+netedit.changeMode("move")
 
 # move
 netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.edge0Ped,
@@ -58,7 +58,7 @@ netedit.checkUndoRedo(referencePosition)
 netedit.saveNeteditConfig(referencePosition)
 
 # fix position
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # quit netedit
 netedit.quit(neteditProcess)

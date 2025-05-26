@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select all trainStops with lanes that contains "E5_0" and remove it
 netedit.selectStoppingPlaceItems("Additional elements", "Stopping places", "trainStop", "lane", "E5_0")

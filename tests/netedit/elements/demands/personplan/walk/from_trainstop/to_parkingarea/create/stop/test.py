@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to person mode
-netedit.personMode()
+netedit.changeMode("person")
 
 # change person plan
 netedit.changePersonPlan("Person Stop", False)
@@ -41,10 +41,10 @@ netedit.changePersonPlan("Person Stop", False)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to walk.parkingArea.parkingArea mode
-netedit.personPlanMode()
+netedit.changeMode("personPlan")
 
 # go to walk.parkingArea.parkingArea mode
 netedit.changePersonPlanMode("walk")
@@ -53,7 +53,7 @@ netedit.changePersonPlanMode("walk")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingAreaB)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

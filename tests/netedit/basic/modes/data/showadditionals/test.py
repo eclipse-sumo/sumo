@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeData()
+netedit.changeSupermode("data")
 
 # toggle option
 netedit.changeEditMode(netedit.attrs.modes.data.showAdditionals)

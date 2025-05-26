@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Go to data supermode
-netedit.supermodeData()
+netedit.changeSupermode("data")
 
 # change to TAZRelData
-netedit.TAZRelData()
+netedit.changeMode("TAZRelData")
 
 # create dataSet
 netedit.createDataSet()
@@ -46,13 +46,13 @@ netedit.changeDefaultValue(netedit.attrs.TAZRelData.create.parameters, "dummyVal
 # create TAZRelData
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # set valid parameters
 netedit.changeDefaultValue(netedit.attrs.TAZRelData.create.parameters, "param1=value2|param3=value4")
 
 # create TAZRelData
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

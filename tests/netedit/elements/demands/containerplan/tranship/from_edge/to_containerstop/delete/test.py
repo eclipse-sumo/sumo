@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to container mode
-netedit.containerMode()
+netedit.changeMode("container")
 
 # change container plan
 netedit.changeContainerPlan("transport", False)
@@ -41,10 +41,10 @@ netedit.changeContainerPlan("transport", False)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to tranship.edge.containerStop mode
-netedit.containerPlanMode()
+netedit.changeMode("containerPlan")
 
 # go to tranship.edge.containerStop mode
 netedit.changeContainerPlanMode("tranship")
@@ -53,10 +53,10 @@ netedit.changeContainerPlanMode("tranship")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # delete created plan
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge2)

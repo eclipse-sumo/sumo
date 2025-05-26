@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to TAZ mode
-netedit.TAZMode()
+netedit.changeMode("TAZ")
 
 # create first TAZ
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
@@ -40,7 +40,7 @@ netedit.createSquaredShape(referencePosition, netedit.positions.elements.additio
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect first TAZ
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)

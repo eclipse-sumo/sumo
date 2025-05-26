@@ -30,10 +30,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # disable 'Automatically delete additionals'
 netedit.protectElements(referencePosition)
@@ -46,14 +46,14 @@ time.sleep(2)
 
 # check undo
 netedit.undo(referencePosition, 1)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # wait for output
 time.sleep(2)
 
 # check redo
 netedit.redo(referencePosition, 1)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

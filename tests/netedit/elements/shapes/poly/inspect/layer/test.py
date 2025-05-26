@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
-netedit.shapeMode()
+netedit.changeMode("shape")
 
 # go to poly mode and select poly
 netedit.changeElement("poly")
@@ -39,7 +39,7 @@ netedit.createSquaredShape(referencePosition, netedit.positions.elements.additio
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect first polygon
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)

@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
-netedit.shapeMode()
+netedit.changeMode("shape")
 
 # go to shape mode
 netedit.changeElement("poiGeo")
@@ -38,7 +38,7 @@ netedit.changeElement("poiGeo")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # delete created poi
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)

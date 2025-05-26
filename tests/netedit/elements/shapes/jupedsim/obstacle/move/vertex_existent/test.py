@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
-netedit.shapeMode()
+netedit.changeMode("shape")
 
 # go to shape mode
 netedit.changeElement("jupedsim.obstacle")
@@ -39,7 +39,7 @@ netedit.createSquaredShape(referencePosition, netedit.positions.elements.additio
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # go to move mode
-netedit.moveMode()
+netedit.changeMode("move")
 
 # move vertex new
 netedit.moveGeometryPoint(referencePosition,

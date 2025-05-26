@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to shape mode
-netedit.shapeMode()
+netedit.changeMode("shape")
 
 # go to shape mode
 netedit.changeElement("poiLane")
@@ -38,7 +38,7 @@ netedit.changeElement("poiLane")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # delete created E1
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.undo(referencePosition, 1)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # try to delete lane with the second loaded E1 (doesn't allowed)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)

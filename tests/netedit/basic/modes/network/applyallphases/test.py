@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # change to TLS mode
-netedit.selectTLSMode()
+netedit.changeMode("TLS")
 
 # toggle option
 netedit.changeEditMode(netedit.attrs.modes.network.applyAllPhases)

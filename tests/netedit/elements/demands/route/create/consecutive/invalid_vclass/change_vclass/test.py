@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to route mode
-netedit.routeMode()
+netedit.changeMode("route")
 
 # change to bus
 netedit.changeRouteVClass("bus")
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeBike0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

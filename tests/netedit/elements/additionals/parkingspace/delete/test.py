@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select parkingArea
 netedit.changeElement("parkingArea")
@@ -52,7 +52,7 @@ netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 1)
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # disable 'Automatically delete additionals'
 netedit.protectElements(referencePosition)

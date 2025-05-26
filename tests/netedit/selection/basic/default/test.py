@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select edges with speed < 10 and delete it (only one)
 netedit.selectDefault()

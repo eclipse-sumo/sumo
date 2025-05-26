@@ -29,27 +29,27 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to person mode
-netedit.personMode()
+netedit.changeMode("person")
 
 # create person using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create person
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # add to selected
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.person,
                                 netedit.contextualMenu.addToSelected)
 
 # delete junction
-netedit.typeDelete()
+netedit.typeKey('delete')
 
 # Check undos
 netedit.undo(referencePosition, 2)

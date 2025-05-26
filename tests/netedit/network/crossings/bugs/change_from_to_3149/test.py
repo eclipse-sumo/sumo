@@ -29,44 +29,44 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # select first left edge and change their junction
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "J0", False)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # select second left edge and change their junction
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "J3", False)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # select first right edge and change their junction
 netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "J0", False)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # select second right edge and change their junction
 netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "J3", False)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo redo
 netedit.undo(referencePosition, 4)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check redo
 netedit.redo(referencePosition, 4)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # save routes
 netedit.saveDemandElements(True, referencePosition)
 
 # press space to fix crossings
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

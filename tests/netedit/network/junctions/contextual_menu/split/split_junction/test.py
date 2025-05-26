@@ -29,35 +29,35 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # transform to roundAbout
 netedit.contextualMenuOperation(referencePosition, netedit.positions.network.junction.cross.center,
                                 netedit.contextualMenu.junction.splitJunction)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undos
 netedit.undo(referencePosition, 1)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # check redos
 netedit.redo(referencePosition, 1)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # save routes
 netedit.saveDemandElements(True, referencePosition)
 
 # remove invalid trips
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -29,13 +29,13 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # invert selection
 netedit.selectionInvert()
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect first POI
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)

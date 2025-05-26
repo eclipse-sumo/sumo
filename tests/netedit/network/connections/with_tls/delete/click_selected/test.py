@@ -29,31 +29,31 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # show connections
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
 # set select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select all connections
 netedit.selectItems("Network elements", "connection", "speed", "")
 
 # set delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # delete selected connections
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # rebuild
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 1)
 
 # rebuild
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check redo
 netedit.redo(referencePosition, 1)
@@ -62,7 +62,7 @@ netedit.redo(referencePosition, 1)
 netedit.saveDemandElements(True, referencePosition)
 
 # remove invalid trips
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

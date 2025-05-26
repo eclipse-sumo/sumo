@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.saveNeteditConfig(referencePosition)
 
 # save
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # quit netedit
 netedit.quit(neteditProcess)

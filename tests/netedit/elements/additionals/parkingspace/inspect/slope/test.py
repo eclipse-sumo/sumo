@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select parkingArea
 netedit.changeElement("parkingArea")
@@ -45,7 +45,7 @@ netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect space
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace)

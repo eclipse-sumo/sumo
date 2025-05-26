@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # set crossing mode
-netedit.crossingMode()
+netedit.changeMode("crossing")
 
 # select central node
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
@@ -41,12 +41,12 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 netedit.createCrossing(True)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
 
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 netedit.redo(referencePosition, 1)
 

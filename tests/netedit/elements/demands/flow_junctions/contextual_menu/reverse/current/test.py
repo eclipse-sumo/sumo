@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to vehicle mode
-netedit.vehicleMode()
+netedit.changeMode("vehicle")
 
 # select trip over junctions
 netedit.changeElement("flow (from-to junctions)")
@@ -42,10 +42,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # add to selected
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.vehicleJunction,
