@@ -15,5 +15,5 @@ add_custom_target(generate-internaltestdata-h ALL
         ${CMAKE_CURRENT_SOURCE_DIR}/../../../tests/contextualMenuOperations.txt
         ${CMAKE_CURRENT_SOURCE_DIR}/../../../tests/viewPositions.txt
 )
-add_dependencies(utils_tests generate-internaltestdata-h)
+#add_dependencies(utils_tests generate-internaltestdata-h)
 set_property(TARGET generate-internaltestdata-h PROPERTY FOLDER "CMake")
