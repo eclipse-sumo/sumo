@@ -11,46 +11,46 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUITestSystem.h
+/// @file    GNEInternalTest.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
-// Abstract class used for test systems
+// Internal test system used for testing netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <string>
-#include <vector>
-
-#include <utils/foxtools/fxheader.h>
+#include <utils/tests/InternalTest.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GUITestSystemStep;
+class GNEApplicationWindow;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GUITestSystem : public FXObject {
+class GNEInternalTest : public InternalTest {
 
 public:
     /// @brief constructor
-    GUITestSystem(const std::string &testFile);
+    GNEInternalTest(const std::string& testFile);
 
     /// @brief destructor
-    ~GUITestSystem();
+    ~GNEInternalTest();
 
-    /// @brief add test steps
-    void addTestStep(const GUITestSystemStep* step);
+    /// @brief start netedit test
+    void runNeteditTests(GNEApplicationWindow* applicationWindow);
 
-protected:
-    /// @brief test steps
-    std::vector<const GUITestSystemStep*> myTestSteps;
+private:
+    /// @brief Invalidated default constructor.
+    GNEInternalTest() = delete;
 
-    /// @brief flag to check if test are started
-    bool myTestStarted = false;
+    /// @brief Invalidated copy constructor.
+    GNEInternalTest(const GNEInternalTest&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNEInternalTest& operator=(const GNEInternalTest& src) = delete;
 };

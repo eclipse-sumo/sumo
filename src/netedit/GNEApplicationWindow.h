@@ -26,8 +26,8 @@
 // class declarations
 // ===========================================================================
 
+class GNEInternalTest;
 class GNELoadThread;
-class GNETestSystem;
 class GNETagPropertiesDatabase;
 class GNEUndoList;
 class GNEUndoListDialog;
@@ -636,12 +636,12 @@ public:
 
     /// @brief load meanData elements
     void loadMeanDataElements();
-    
+
     /// @name functions related with test system
     /// @{
 
     /// @brief get netedit test system
-    GNETestSystem* getNeteditTestSystem() const;
+    GNEInternalTest* getNeteditTestSystem() const;
 
     /// @brief check if ignore input signal (using during netedit tests)
     bool allowInputSignals(FXObject* obj) const;
@@ -655,8 +655,8 @@ protected:
     /// @brief the thread that loads the network
     GNELoadThread* myLoadThread = nullptr;
 
-    /// @brief the thread that loads the network
-    GNETestSystem* myNeteditTestSystem = nullptr;
+    /// @brief internal test system
+    GNEInternalTest* myInternalTest = nullptr;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;

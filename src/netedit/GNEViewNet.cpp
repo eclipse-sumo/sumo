@@ -79,7 +79,7 @@
 
 #include "GNEApplicationWindow.h"
 #include "GNENet.h"
-#include "GNETestSystem.h"
+#include "GNEInternalTest.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
