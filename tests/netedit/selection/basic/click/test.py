@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # select edge using control
 netedit.leftClickControl(referencePosition, netedit.positions.selection.edge)
@@ -41,7 +41,7 @@ netedit.leftClickControl(referencePosition, netedit.positions.selection.edge)
 netedit.deleteSelectedItems()
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select lane using shift + click
 netedit.leftClickShift(referencePosition, netedit.positions.selection.edge)

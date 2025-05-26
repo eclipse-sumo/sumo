@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Change to create mode
-netedit.createEdgeMode()
+netedit.changeMode("createEdge")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ri
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select busStop
 netedit.changeElement("busStop")
@@ -47,22 +47,22 @@ netedit.changeElement("busStop")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to route mode
-netedit.routeMode()
+netedit.changeMode("route")
 
 # create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # Go to data supermode
-netedit.supermodeData()
+netedit.changeSupermode("data")
 
 # change to edgeData
-netedit.edgeData()
+netedit.changeMode("edgeData")
 
 # create dataSet
 netedit.createDataSet()
@@ -74,7 +74,7 @@ netedit.createDataInterval()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
 
 # change to edgeData
-netedit.meanData()
+netedit.changeMode("meanData")
 
 # create mean data
 netedit.createMeanData()

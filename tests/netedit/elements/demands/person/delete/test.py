@@ -29,20 +29,20 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to person mode
-netedit.personMode()
+netedit.changeMode("person")
 
 # create person using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create person
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # delete person
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
@@ -51,10 +51,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 netedit.undo(referencePosition, 1)
 
 # Change to network mode
-netedit.supermodeNetwork()
+netedit.changeSupermode("network")
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # try to delete an edge with demand elements
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

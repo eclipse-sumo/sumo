@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to container mode
-netedit.containerMode()
+netedit.changeMode("container")
 
 # change container plan
 netedit.changeContainerPlan("tranship", False)
@@ -42,10 +42,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to transport.trainStop.trainStop mode
-netedit.containerPlanMode()
+netedit.changeMode("containerPlan")
 
 # go to transport.trainStop.trainStop mode
 netedit.changeContainerPlanMode("transport")
@@ -54,17 +54,17 @@ netedit.changeContainerPlanMode("transport")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStopB)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # transform
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.planEdgeBike0Ped,
                                 netedit.contextualMenu.addToSelected)
 
 # delete junction
-netedit.typeDelete()
+netedit.typeKey('delete')
 
 # Check undos
 netedit.undo(referencePosition, 2)

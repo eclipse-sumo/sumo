@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select vaporizer
 netedit.changeElement("vaporizer")
@@ -41,7 +41,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # inspect first vaporizer
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vaporizer)
@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vapo
 netedit.undo(referencePosition, 2)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # enable 'Automatically delete additionals'
 netedit.protectElements(referencePosition)

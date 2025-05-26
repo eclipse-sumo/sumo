@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to person mode
-netedit.personMode()
+netedit.changeMode("person")
 
 # change person plan
 netedit.changePersonPlan("walk", False)
@@ -42,10 +42,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to person plan mode
-netedit.personPlanMode()
+netedit.changeMode("personPlan")
 
 # go to person plan mode
 netedit.changePersonPlanMode("personTrip")
@@ -54,13 +54,13 @@ netedit.changePersonPlanMode("personTrip")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to network mode
-netedit.supermodeNetwork()
+netedit.changeSupermode("network")
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # disable 'Automatically delete demand elements'
 netedit.protectElements(referencePosition)

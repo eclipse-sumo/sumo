@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 15:32:39 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
+<!-- generated on 2025-05-24 11:20:41 by Eclipse SUMO sumo Version v1_23_1+0287-c293321ede3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,10 +46,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tripinfo id="bus.1" depart="300.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="514.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="1.48" duration="214.00" routeLength="3012.32" waitingTime="0.00" waitingCount="0" stopTime="105.25" timeLoss="105.25" rerouteNo="1" devices="tripinfo_bus.1 routing_bus.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="bus.2" depart="600.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="814.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="1.48" duration="214.00" routeLength="3012.32" waitingTime="0.00" waitingCount="0" stopTime="105.25" timeLoss="105.25" rerouteNo="1" devices="tripinfo_bus.2 routing_bus.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="901.00" waitingTime="0.00" timeLoss="1.00" traveltime="901.00">
-        <walk depart="0.00" departPos="0.00" arrival="901.00" arrivalPos="250.00" duration="901.00" routeLength="1250.00" timeLoss="1.00" maxSpeed="1.39"/>
+        <walk depart="0.00" departPos="0.00" arrival="901.00" arrivalPos="250.00" duration="901.00" routeLength="1250.00" timeLoss="1.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
     <tripinfo id="bus.3" depart="900.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="1114.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="1.48" duration="214.00" routeLength="3012.32" waitingTime="0.00" waitingCount="0" stopTime="105.25" timeLoss="105.25" rerouteNo="1" devices="tripinfo_bus.3 routing_bus.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="1260.00" waitingTime="0.00" timeLoss="0.00" traveltime="1260.00">
-        <walk depart="0.00" departPos="0.00" arrival="1260.00" arrivalPos="250.00" duration="1260.00" routeLength="1750.00" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="0.00" departPos="0.00" arrival="1260.00" arrivalPos="250.00" duration="1260.00" routeLength="1750.00" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
 </tripinfos>

@@ -157,3 +157,6 @@ ticket15486
 
 # crash when calling MSLink::opened without ego vehicle at allway_stop or priority_stop
 ticket15603
+
+# closing and re-opening a lane should also affect vehicles on the same edge
+ticket16721

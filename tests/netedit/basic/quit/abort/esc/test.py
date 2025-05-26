@@ -30,7 +30,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Change to create mode
-netedit.createEdgeMode()
+netedit.changeMode("createEdge")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
@@ -45,7 +45,7 @@ netedit.typeTwoKeys('ctrl', 'q')
 time.sleep(1)
 
 # type ESC
-netedit.typeEscape()
+netedit.typeKey('esc')
 
 # wait after question
 time.sleep(1)

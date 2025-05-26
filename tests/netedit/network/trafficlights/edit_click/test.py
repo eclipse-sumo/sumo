@@ -31,7 +31,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to TLS mode
-netedit.selectTLSMode()
+netedit.changeMode("TLS")
 
 # select junction
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
@@ -50,7 +50,7 @@ for _ in range(7):
     pyautogui.hotkey('down')
 
 # type right key for the second menu
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # focus on frame
 netedit.focusOnFrame()
@@ -60,13 +60,13 @@ for _ in range(3):
     # wait before every down
     time.sleep(0.3)
 # type down keys
-    netedit.typeTab()
+    netedit.typeKey('tab')
 
 # type right key for the second menu
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # create TLS
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # Check undo
 netedit.undo(referencePosition, 1)

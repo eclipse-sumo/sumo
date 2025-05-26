@@ -29,66 +29,66 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # set crossing mode
-netedit.crossingMode()
+netedit.changeMode("crossing")
 
 # select central node
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
-netedit.typeEnter()
-netedit.rebuildNetwork()
+netedit.typeKey('enter')
+netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
-netedit.typeEnter()
-netedit.rebuildNetwork()
+netedit.typeKey('enter')
+netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop)
-netedit.typeEnter()
-netedit.rebuildNetwork()
+netedit.typeKey('enter')
+netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot)
-netedit.typeEnter()
-netedit.rebuildNetwork()
+netedit.typeKey('enter')
+netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.topLeft)
-netedit.typeEnter()
-netedit.rebuildNetwork()
+netedit.typeKey('enter')
+netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.topRight)
-netedit.typeEnter()
-netedit.rebuildNetwork()
+netedit.typeKey('enter')
+netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.botLeft)
-netedit.typeEnter()
-netedit.rebuildNetwork()
+netedit.typeKey('enter')
+netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.botRight)
-netedit.typeEnter()
-netedit.rebuildNetwork()
+netedit.typeKey('enter')
+netedit.computeJunctions()
 
 # Check undo redo
 netedit.undo(referencePosition, 8)
 
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 netedit.redo(referencePosition, 8)
 
 # save network
-netedit.saveNetwork(True, referencePosition)
+netedit.saveNetwork(referencePosition, True)
 
 # press space to fix crossings
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

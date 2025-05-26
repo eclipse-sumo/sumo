@@ -30,10 +30,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--sidewalks.guess'])
 
 # Recompute with volatile options
-netedit.rebuildNetworkWithVolatileOptions(False)
+netedit.computeJunctionsVolatileOptions(False)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # wait for output
 time.sleep(10)

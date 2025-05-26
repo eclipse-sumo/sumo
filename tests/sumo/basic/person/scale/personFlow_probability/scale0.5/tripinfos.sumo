@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-05 23:36:58 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
+<!-- generated on 2025-05-24 09:37:10 by Eclipse SUMO sumo Version v1_23_1+0287-c293321ede3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net2.net.xml"/>
@@ -31,19 +31,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <duration-log.disable value="true"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="p.0" depart="2.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="29.00" waitingTime="0.00" timeLoss="1.42" traveltime="29.00">
-        <walk depart="2.00" departPos="0.00" arrival="31.00" arrivalPos="45.98" duration="29.00" routeLength="137.93" timeLoss="1.42" maxSpeed="5.00"/>
+        <walk depart="2.00" departPos="0.00" arrival="31.00" arrivalPos="45.98" duration="29.00" routeLength="137.93" timeLoss="1.42" maxSpeed="5.00" waitingTime="0.00"/>
     </personinfo>
     <personinfo id="p.2" depart="5.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="29.00" waitingTime="0.00" timeLoss="1.42" traveltime="29.00">
-        <walk depart="5.00" departPos="0.00" arrival="34.00" arrivalPos="45.98" duration="29.00" routeLength="137.93" timeLoss="1.42" maxSpeed="5.00"/>
+        <walk depart="5.00" departPos="0.00" arrival="34.00" arrivalPos="45.98" duration="29.00" routeLength="137.93" timeLoss="1.42" maxSpeed="5.00" waitingTime="0.00"/>
     </personinfo>
 </tripinfos>

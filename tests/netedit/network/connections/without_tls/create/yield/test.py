@@ -29,13 +29,13 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # show connections
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
 # set connection mode
-netedit.connectionMode()
+netedit.changeMode("connection")
 
 # create connection
 netedit.createConnection(referencePosition, netedit.positions.network.connection.laneUpLeft,
@@ -45,13 +45,13 @@ netedit.createConnection(referencePosition, netedit.positions.network.connection
 netedit.saveConnectionEdit()
 
 # rebuild
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 1)
 
 # rebuild
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check redo
 netedit.redo(referencePosition, 1)

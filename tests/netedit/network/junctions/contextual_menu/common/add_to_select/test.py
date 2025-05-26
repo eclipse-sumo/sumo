@@ -29,26 +29,26 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # add to selected
 netedit.contextualMenuOperation(referencePosition, netedit.positions.network.junction.cross.center,
                                 netedit.contextualMenu.addToSelected)
 
 # delete junction
-netedit.typeDelete()
+netedit.typeKey('delete')
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undos
 netedit.undo(referencePosition, 1)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # check redos
 netedit.redo(referencePosition, 1)

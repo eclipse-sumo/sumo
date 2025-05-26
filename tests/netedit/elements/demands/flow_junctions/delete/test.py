@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to vehicle mode
-netedit.vehicleMode()
+netedit.changeMode("vehicle")
 
 # change vehicle
 netedit.changeElement("flow (from-to junctions)")
@@ -42,10 +42,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # delete vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
@@ -54,10 +54,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJ
 netedit.undo(referencePosition, 1)
 
 # Change to network mode
-netedit.supermodeNetwork()
+netedit.changeSupermode("network")
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # try to delete junction with demand elements
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)

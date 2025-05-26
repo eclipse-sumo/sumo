@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Change to create edge mode
-netedit.createEdgeMode()
+netedit.changeMode("createEdge")
 
 # Create one way edge
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.cancelEdge()
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)

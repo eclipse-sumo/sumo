@@ -29,14 +29,14 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # add to selected
 netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.edge1Ped,
                                 netedit.contextualMenu.addToSelected)
 
 # delete junction
-netedit.typeDelete()
+netedit.typeKey('delete')
 
 # Check undos
 netedit.undo(referencePosition, 1)

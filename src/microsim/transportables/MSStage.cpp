@@ -146,6 +146,11 @@ MSStage::getWaitingTime() const {
 }
 
 SUMOTime
+MSStage::getTotalWaitingTime() const {
+    return getWaitingTime();
+}
+
+SUMOTime
 MSStage::getTimeLoss(const MSTransportable* /*transportable*/) const {
     return 0;
 }

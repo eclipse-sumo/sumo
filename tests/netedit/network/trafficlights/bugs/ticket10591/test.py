@@ -29,25 +29,25 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # toggle select lanes
 netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 
 # Change to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # remove edge
 netedit.leftClick(referencePosition, netedit.positions.bugs.ticket10591.lane)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 1)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # inspect junction
 netedit.leftClick(referencePosition, netedit.positions.bugs.ticket10591.junction)

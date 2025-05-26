@@ -29,19 +29,19 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # show connections
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select all using invert
 netedit.selectionInvert()
 
 # go to inspect mode agaim
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect selected connections
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
@@ -64,13 +64,13 @@ netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow,
                         "authority army vip passenger hov taxi bus coach tram bicycle", True)
 
 # rebuild
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 4)
 
 # rebuild
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check redo
 netedit.redo(referencePosition, 4)

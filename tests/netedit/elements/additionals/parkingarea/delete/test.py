@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select parkingArea
 netedit.changeElement("parkingArea")
@@ -38,7 +38,7 @@ netedit.changeElement("parkingArea")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # delete created parkingArea
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.park
 netedit.undo(referencePosition, 2)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # try to delete lane with the second loaded parkingArea (doesn't allowed)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

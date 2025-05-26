@@ -71,7 +71,7 @@
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
-#include "GNETestSystem.h"
+#include "GNEInternalTest.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
@@ -556,9 +556,9 @@ GNEApplicationWindow::dependentBuild() {
     fillMenuBar();
     // build additional threads
     myLoadThread = new GNELoadThread(this, myThreadEvents, myLoadThreadEvent);
-    // check if create tests system
+    // check if create internal test system
     if (OptionsCont::getOptions().getString("test-file").size() > 0) {
-        myNeteditTestSystem = new GNETestSystem(OptionsCont::getOptions().getString("test-file"));
+        myInternalTest = new GNEInternalTest(OptionsCont::getOptions().getString("test-file"));
     }
     // set the status bar
     setStatusBarText(TL("Ready."));
@@ -652,8 +652,8 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myLanguageMenu;
     // Delete load thread
     delete myLoadThread;
-    if (myNeteditTestSystem) {
-        delete myNeteditTestSystem;
+    if (myInternalTest) {
+        delete myInternalTest;
     }
     // drop all events
     while (!myThreadEvents.empty()) {
@@ -2199,8 +2199,8 @@ GNEApplicationWindow::onUpdToggleTimeFormat(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdRunTests(FXObject*, FXSelector, void*) {
-    if (myNeteditTestSystem) {
-        myNeteditTestSystem->runNeteditTests(this);
+    if (myInternalTest) {
+        myInternalTest->runNeteditTests(this);
     }
     return 1;
 }
@@ -4851,23 +4851,24 @@ GNEApplicationWindow::loadMeanDataElements() {
 }
 
 
-GNETestSystem*
+GNEInternalTest*
 GNEApplicationWindow::getNeteditTestSystem() const {
-    return myNeteditTestSystem;
+    return myInternalTest;
 }
 
 
 bool
 GNEApplicationWindow::allowInputSignals(FXObject* obj) const {
-    if (myNeteditTestSystem == nullptr) {
+    if (myInternalTest == nullptr) {
         return true;
-    } else if (obj == myNeteditTestSystem) {
+    } else if (obj == myInternalTest) {
+        return true;
+    } else if (myInternalTest->isTestFinished()) {
         return true;
     } else {
         return false;
     }
 }
-
 
 // ---------------------------------------------------------------------------
 // GNEApplicationWindow - protected methods

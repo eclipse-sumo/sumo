@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # set delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # disable 'Automatically delete additionals'
 netedit.protectElements(referencePosition)
@@ -42,34 +42,34 @@ netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
 netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # remove two right edges
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # remove two up edges
 netedit.leftClick(referencePosition, netedit.positions.network.edge.botLeft)
 netedit.leftClick(referencePosition, netedit.positions.network.edge.botRight)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # remove two down edges
 netedit.leftClick(referencePosition, netedit.positions.network.edge.topLeft)
 netedit.leftClick(referencePosition, netedit.positions.network.edge.topRight)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 8)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check redo
 netedit.redo(referencePosition, 8)

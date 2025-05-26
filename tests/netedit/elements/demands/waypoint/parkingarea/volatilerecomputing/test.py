@@ -30,7 +30,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(
     neteditTestRoot, ['--sidewalks.guess', '--crossings.guess'])
 
 # Recompute with volatile options
-netedit.rebuildNetworkWithVolatileOptions()
+netedit.computeJunctionsVolatileOptions()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

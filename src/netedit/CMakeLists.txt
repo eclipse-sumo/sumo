@@ -14,6 +14,8 @@ set(netedit_SRCS
    GNEAttributeProperties.cpp
    GNEAttributeProperties.h
    GNEEvent_NetworkLoaded.h
+   GNEInternalTest.cpp
+   GNEInternalTest.h
    GNELane2laneConnection.cpp
    GNELane2laneConnection.h
    GNELoadThread.cpp
@@ -31,8 +33,6 @@ set(netedit_SRCS
    GNETagProperties.h
    GNETagPropertiesDatabase.cpp
    GNETagPropertiesDatabase.h
-   GNETestSystem.cpp
-   GNETestSystem.h
    GNEUndoList.cpp
    GNEUndoList.h
    GNEViewNet.cpp
@@ -56,7 +56,7 @@ set_target_properties(netedit PROPERTIES OUTPUT_NAME netedit${BINARY_SUFFIX})
 set_target_properties(netedit PROPERTIES OUTPUT_NAME_DEBUG netedit${BINARY_SUFFIX}D)
 
 # link all previously compiled libraries to netedit. Every library was compiled in their own folder using own CMakeList.txt
-target_link_libraries(netedit gui_dialogs utils_gui_cursors utils_gui_shortcuts utils_gui_tests utils_foxtools foreign_eulerspiral
+target_link_libraries(netedit gui_dialogs utils_gui_cursors utils_gui_shortcuts utils_tests utils_foxtools foreign_eulerspiral
         netedit_frames_common netedit_frames_network netedit_frames_demand netedit_frames_data netedit_frames
         netedit_elements netedit_elements_network netedit_elements_additional netedit_elements_demand netedit_elements_data
         netedit_changes utils_gui_div utils_gui_settings utils_gui_images netedit_dialogs_tools netedit_dialogs_options netedit_tools

@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Change to create mode
-netedit.createEdgeMode()
+netedit.changeMode("createEdge")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA, 0, -30)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # save network
-netedit.saveNetwork(False, referencePosition)
+netedit.saveNetwork(referencePosition, False)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

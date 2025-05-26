@@ -5,6 +5,7 @@ internal class Program {
         Simulation.start(new StringVector(new string[] { "sumo", "-c", "data/config.sumocfg" }));
         for (int i = 0; i < 5; i++) {
             Simulation.step();
+            System.Console.WriteLine("Step " + Simulation.getTime());
         }
         Simulation.close();
     }

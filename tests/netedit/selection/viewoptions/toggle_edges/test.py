@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select lane using shift + click
 netedit.leftClick(referencePosition, netedit.positions.selection.edge)
@@ -50,7 +50,7 @@ netedit.deleteSelectedItems()
 netedit.saveNeteditConfig(referencePosition)
 
 # clear invalid crossings
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # quit netedit
 netedit.quit(neteditProcess)

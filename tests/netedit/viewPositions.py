@@ -349,7 +349,7 @@ class elements:
 
     class edge0_dataMode:
         x = 381
-        y = 443 + 30
+        y = 473  # 443 + 30
 
     class edge1Ped:
         x = 874
@@ -361,7 +361,7 @@ class elements:
 
     class edge1_dataMode:
         x = 850
-        y = 222 + 30
+        y = 252  # 222 + 30
 
     class edge2Ped:
         x = 463
@@ -631,7 +631,7 @@ class elements:
             y = -5
 
         class parkingAreaB:
-            x = 352.00
+            x = 352
             y = 282
 
         class route:

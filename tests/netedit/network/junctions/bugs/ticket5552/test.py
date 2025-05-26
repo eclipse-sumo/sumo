@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select junctions
 netedit.leftClick(referencePosition, netedit.positions.bugs.ticket5552.junction1)
@@ -43,20 +43,20 @@ netedit.leftClick(referencePosition, netedit.positions.bugs.ticket5552.junction6
 netedit.joinSelectedJunctions()
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # transform to roundAbout
 netedit.contextualMenuOperation(referencePosition, netedit.positions.network.junction.cross.center,
                                 netedit.contextualMenu.junction.splitJunctionAndReconnect)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 2)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check redo
 netedit.redo(referencePosition, 2)

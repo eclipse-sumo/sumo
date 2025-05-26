@@ -30,7 +30,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Change to move
-netedit.moveMode()
+netedit.changeMode("move")
 
 # move single edge junctions
 netedit.dragDrop(referencePosition,
@@ -43,10 +43,10 @@ netedit.dragDrop(referencePosition,
 time.sleep(2)
 
 # press enter
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 1)

@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to route mode
-netedit.routeMode()
+netedit.changeMode("route")
 
 # create route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -40,10 +40,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # delete both routes
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
@@ -53,10 +53,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
 netedit.undo(referencePosition, 2)
 
 # Change to network mode
-netedit.supermodeNetwork()
+netedit.changeSupermode("network")
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # try to delete an edge with demand elements
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

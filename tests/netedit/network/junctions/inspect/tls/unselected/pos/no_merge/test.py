@@ -30,7 +30,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # inspect central node
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
@@ -51,7 +51,7 @@ netedit.typeTwoKeys('alt', 'n')
 time.sleep(2)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # inspect central node in new position
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left, offsetX=80)
@@ -60,25 +60,25 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.le
 netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-15.00, 15.00", False)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo
 netedit.undo(referencePosition, 5)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check redo
 netedit.redo(referencePosition, 5)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
 
 # type space
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # quit netedit
 netedit.quit(neteditProcess)

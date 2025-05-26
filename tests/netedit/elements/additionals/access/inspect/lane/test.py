@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select BusStop
 netedit.changeElement("busStop")
@@ -46,7 +46,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2Ped)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect Access
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
@@ -70,7 +70,7 @@ netedit.checkUndoRedo(referencePosition)
 netedit.saveNeteditConfig(referencePosition)
 
 # set friendlyPos
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # quit netedit
 netedit.quit(neteditProcess)

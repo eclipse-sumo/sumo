@@ -319,7 +319,7 @@ MSEdge::getMesoPermissions(SVCPermissions p, SVCPermissions ignoreIgnored) {
 
 
 void
-MSEdge::rebuildAllowedLanes(const bool onInit) {
+MSEdge::rebuildAllowedLanes(const bool onInit, bool updateVehicles) {
     // rebuild myMinimumPermissions and myCombinedPermissions
     myMinimumPermissions = SVCAll;
     myCombinedPermissions = 0;
@@ -360,7 +360,7 @@ MSEdge::rebuildAllowedLanes(const bool onInit) {
         myOriginalMinimumPermissions = myMinimumPermissions;
         myOriginalCombinedPermissions = myCombinedPermissions;
     } else {
-        rebuildAllowedTargets(false);
+        rebuildAllowedTargets(updateVehicles);
         for (MSEdge* pred : myPredecessors) {
             if (myHaveTransientPermissions && !pred->myHaveTransientPermissions) {
                 pred->myOrigAllowed = pred->myAllowed;
@@ -368,7 +368,7 @@ MSEdge::rebuildAllowedLanes(const bool onInit) {
                 pred->myOrigClassesViaSuccessorMap = pred->myClassesViaSuccessorMap;
                 pred->myHaveTransientPermissions = true;
             }
-            pred->rebuildAllowedTargets(false);
+            pred->rebuildAllowedTargets(updateVehicles);
         }
         if (MSGlobals::gUseMesoSim) {
             for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*this); s != nullptr; s = s->getNextSegment()) {

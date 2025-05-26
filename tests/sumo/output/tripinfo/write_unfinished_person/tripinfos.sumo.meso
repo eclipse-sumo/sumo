@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 15:32:17 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
+<!-- generated on 2025-05-24 11:20:35 by Eclipse SUMO sumo Version v1_23_1+0287-c293321ede3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,6 +57,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <ride waitingTime="147.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </personinfo>
     <personinfo id="walk_not_finshed" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="-1" waitingTime="0.00" timeLoss="0.00" traveltime="-1">
-        <walk depart="0.00" departPos="0.00" arrival="-1" arrivalPos="-1" duration="150.00" routeLength="-1" timeLoss="0.00" maxSpeed="1.39"/>
+        <walk depart="0.00" departPos="0.00" arrival="-1" arrivalPos="-1" duration="150.00" routeLength="-1" timeLoss="0.00" maxSpeed="1.39" waitingTime="0.00"/>
     </personinfo>
 </tripinfos>

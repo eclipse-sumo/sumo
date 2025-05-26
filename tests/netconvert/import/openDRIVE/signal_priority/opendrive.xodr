@@ -3,7 +3,7 @@
     <offset x="1231473" y="409704" z="0" hdg="0"/>
     <geoReference><![CDATA[+proj=tmerc +lat_0=0 +lon_0=47.55 +k=1 +x_0=1250000 +y_0=-5814743.504 +ellps=krass +towgs84=23.57,-140.95,-79.8,0,0.35,0.79,-0.22 +units=m +no_defs]]></geoReference>
   </header>
-  <road id="r0" name="Новый участок" length="37.62471969821797" junction="-1">
+  <road id="r0" name="name0" length="37.62471969821797" junction="-1">
     <link>
       <successor elementId="j72" elementType="junction" elementDir="-"/>
     </link>
@@ -47,7 +47,7 @@
       </signal>
     </signals>
   </road>
-  <road id="r4" name="Новый участок" length="21.580405555323555" junction="-1">
+  <road id="r4" name="name0" length="21.580405555323555" junction="-1">
     <link>
       <predecessor elementId="j74" elementType="junction" elementDir="-"/>
       <successor elementId="j72" elementType="junction" elementDir="-"/>
@@ -101,7 +101,7 @@
       </signal>
     </signals>
   </road>
-  <road id="r8" name="Новый участок" length="58.27099920322721" junction="-1">
+  <road id="r8" name="name0" length="58.27099920322721" junction="-1">
     <link>
       <successor elementId="j72" elementType="junction" elementDir="-"/>
     </link>
@@ -170,7 +170,7 @@
       </signal>
     </signals>
   </road>
-  <road id="r14" name="Новый участок" length="74.17803779895746" junction="-1">
+  <road id="r14" name="name0" length="74.17803779895746" junction="-1">
     <link>
       <predecessor elementId="j70" elementType="junction" elementDir="-"/>
     </link>
@@ -226,7 +226,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r16" name="Новый участок(clone)" length="55.499999999999986" junction="-1">
+  <road id="r16" name="name2" length="55.499999999999986" junction="-1">
     <link>
       <successor elementId="j74" elementType="junction" elementDir="-"/>
     </link>
@@ -275,7 +275,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r18" name="Новый участок" length="10.560360775068801" junction="-1">
+  <road id="r18" name="name0" length="10.560360775068801" junction="-1">
     <link>
       <successor elementId="j74" elementType="junction" elementDir="-"/>
     </link>
@@ -310,7 +310,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r20" name="Новый участок(clone)" length="10.299999999999997" junction="-1">
+  <road id="r20" name="name2" length="10.299999999999997" junction="-1">
     <link>
       <predecessor elementId="j72" elementType="junction" elementDir="-"/>
       <successor elementId="j70" elementType="junction" elementDir="-"/>
@@ -355,7 +355,7 @@
       </signal>
     </signals>
   </road>
-  <road id="r24" name="Новый участок" length="3.448812944764406" junction="-1">
+  <road id="r24" name="name0" length="3.448812944764406" junction="-1">
     <link>
       <successor elementId="j70" elementType="junction" elementDir="-"/>
     </link>
@@ -381,7 +381,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r26" name="Соединительная дорога" length="10.820000000000007" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+  <road id="r26" name="name4" length="10.820000000000007" junction="j70">
     <link>
       <predecessor elementId="r14" elementType="road" contactPoint="start" elementDir="-"/>
       <successor elementId="r20" elementType="road" contactPoint="end" elementDir="-"/>
@@ -408,7 +408,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r28" name="Соединительная дорога" length="10.820000000000007" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+  <road id="r28" name="name4" length="10.820000000000007" junction="j70">
     <link>
       <predecessor elementId="r20" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r14" elementType="road" contactPoint="start" elementDir="-"/>
@@ -435,7 +435,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r30" name="Соединительная дорога" length="15.655461097927995" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+  <road id="r30" name="name4" length="15.655461097927995" junction="j70">
     <link>
       <predecessor elementId="r20" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r24" elementType="road" contactPoint="end" elementDir="-"/>
@@ -468,7 +468,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r32" name="Соединительная дорога" length="13.194086002005461" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+  <road id="r32" name="name4" length="13.194086002005461" junction="j70">
     <link>
       <predecessor elementId="r14" elementType="road" contactPoint="start" elementDir="-"/>
       <successor elementId="r24" elementType="road" contactPoint="end" elementDir="-"/>
@@ -501,7 +501,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r34" name="Соединительная дорога" length="33.406769586558795" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+  <road id="r34" name="name4" length="33.406769586558795" junction="j72">
     <link>
       <predecessor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r20" elementType="road" contactPoint="start" elementDir="-"/>
@@ -534,7 +534,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r36" name="Соединительная дорога" length="39.64215954135787" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+  <road id="r36" name="name4" length="39.64215954135787" junction="j72">
     <link>
       <predecessor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r0" elementType="road" contactPoint="end" elementDir="-"/>
@@ -573,7 +573,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r38" name="Соединительная дорога" length="39.710754293664074" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+  <road id="r38" name="name4" length="39.710754293664074" junction="j72">
     <link>
       <predecessor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r0" elementType="road" contactPoint="end" elementDir="-"/>
@@ -612,7 +612,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r40" name="Соединительная дорога" length="43.26130397827019" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+  <road id="r40" name="name4" length="43.26130397827019" junction="j72">
     <link>
       <predecessor elementId="r20" elementType="road" contactPoint="start" elementDir="-"/>
       <successor elementId="r4" elementType="road" contactPoint="end" elementDir="-"/>
@@ -651,7 +651,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r42" name="Соединительная дорога" length="43.26130397827019" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+  <road id="r42" name="name4" length="43.26130397827019" junction="j72">
     <link>
       <predecessor elementId="r4" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r20" elementType="road" contactPoint="start" elementDir="-"/>
@@ -690,7 +690,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r44" name="Соединительная дорога" length="39.64215954135787" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+  <road id="r44" name="name4" length="39.64215954135787" junction="j72">
     <link>
       <predecessor elementId="r0" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
@@ -729,7 +729,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r46" name="Соединительная дорога" length="28.014697076866288" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+  <road id="r46" name="name4" length="28.014697076866288" junction="j72">
     <link>
       <predecessor elementId="r4" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
@@ -762,7 +762,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r48" name="Соединительная дорога" length="32.35290423481366" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+  <road id="r48" name="name4" length="32.35290423481366" junction="j72">
     <link>
       <predecessor elementId="r0" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r4" elementType="road" contactPoint="end" elementDir="-"/>
@@ -795,7 +795,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r50" name="Соединительная дорога" length="38.06014234372612" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+  <road id="r50" name="name4" length="38.06014234372612" junction="j72">
     <link>
       <predecessor elementId="r20" elementType="road" contactPoint="start" elementDir="-"/>
       <successor elementId="r0" elementType="road" contactPoint="end" elementDir="-"/>
@@ -828,7 +828,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r52" name="Соединительная дорога" length="17.009999999999998" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+  <road id="r52" name="name4" length="17.009999999999998" junction="j74">
     <link>
       <predecessor elementId="r4" elementType="road" contactPoint="start" elementDir="-"/>
       <successor elementId="r16" elementType="road" contactPoint="end" elementDir="-"/>
@@ -855,7 +855,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r54" name="Соединительная дорога" length="17.009999999999998" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+  <road id="r54" name="name4" length="17.009999999999998" junction="j74">
     <link>
       <predecessor elementId="r16" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r4" elementType="road" contactPoint="start" elementDir="-"/>
@@ -882,7 +882,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r56" name="Соединительная дорога" length="13.97408748931888" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+  <road id="r56" name="name4" length="13.97408748931888" junction="j74">
     <link>
       <predecessor elementId="r4" elementType="road" contactPoint="start" elementDir="-"/>
       <successor elementId="r18" elementType="road" contactPoint="end" elementDir="-"/>
@@ -915,7 +915,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r58" name="Соединительная дорога" length="15.330006050303533" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+  <road id="r58" name="name4" length="15.330006050303533" junction="j74">
     <link>
       <predecessor elementId="r18" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r16" elementType="road" contactPoint="end" elementDir="-"/>
@@ -948,7 +948,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r60" name="Соединительная дорога" length="15.330006050303533" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+  <road id="r60" name="name4" length="15.330006050303533" junction="j74">
     <link>
       <predecessor elementId="r16" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r18" elementType="road" contactPoint="end" elementDir="-"/>
@@ -981,7 +981,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r62" name="Соединительная дорога" length="13.97408748931888" junction="a357541e-b5b9-4211-9ee8-a32d83debb1f">
+  <road id="r62" name="name4" length="13.97408748931888" junction="j74">
     <link>
       <predecessor elementId="r18" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r4" elementType="road" contactPoint="start" elementDir="-"/>
@@ -1014,7 +1014,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r64" name="Соединительная дорога" length="28.01469707686629" junction="798f51e9-865b-4bbf-99e3-1695a0b7c783">
+  <road id="r64" name="name4" length="28.01469707686629" junction="j72">
     <link>
       <predecessor elementId="r8" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r4" elementType="road" contactPoint="end" elementDir="-"/>
@@ -1047,7 +1047,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r66" name="Соединительная дорога" length="12.959501490970027" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+  <road id="r66" name="name4" length="12.959501490970027" junction="j70">
     <link>
       <predecessor elementId="r24" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r20" elementType="road" contactPoint="end" elementDir="-"/>
@@ -1080,7 +1080,7 @@
       </laneSection>
     </lanes>
   </road>
-  <road id="r68" name="Соединительная дорога" length="15.88208799668971" junction="c1eda0f9-50c2-46db-ba54-8c8cb42fa5d2">
+  <road id="r68" name="name4" length="15.88208799668971" junction="j70">
     <link>
       <predecessor elementId="r24" elementType="road" contactPoint="end" elementDir="-"/>
       <successor elementId="r14" elementType="road" contactPoint="start" elementDir="-"/>

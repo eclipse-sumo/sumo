@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # disable 'Automatically delete additionals'
 netedit.protectElements(referencePosition)
@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.undo(referencePosition, 1)
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # disable 'Automatically delete additionals'
 netedit.protectElements(referencePosition)
@@ -53,7 +53,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.waitDeleteWarning()
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

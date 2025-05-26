@@ -169,6 +169,7 @@ public:
     virtual SUMOTime getDuration() const;
     virtual SUMOTime getTravelTime() const;
     virtual SUMOTime getWaitingTime() const;
+    virtual SUMOTime getTotalWaitingTime() const;
 
     /// logs end of the step
     void setDeparted(SUMOTime now);

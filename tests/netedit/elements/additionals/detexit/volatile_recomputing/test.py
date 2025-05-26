@@ -30,10 +30,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(
     neteditTestRoot, ['--sidewalks.guess', '--crossings.guess'])
 
 # Recompute with volatile options
-netedit.rebuildNetworkWithVolatileOptions()
+netedit.computeJunctionsVolatileOptions()
 
 # fix positions
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

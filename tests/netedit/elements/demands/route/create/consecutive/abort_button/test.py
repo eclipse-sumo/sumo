@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # go to route mode
-netedit.routeMode()
+netedit.changeMode("route")
 
 # create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -42,8 +42,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 # press abort button
 netedit.focusOnFrame()
 for _ in range(netedit.attrs.frames.route.abort):
-    netedit.typeTab()
-netedit.typeSpace()
+    netedit.typeKey('tab')
+netedit.typeKey('space')
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

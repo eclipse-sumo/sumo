@@ -33,7 +33,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(
 netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 
 # Recompute with volatile options
-netedit.rebuildNetworkWithVolatileOptions()
+netedit.computeJunctionsVolatileOptions()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

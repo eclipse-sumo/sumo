@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
-netedit.additionalMode()
+netedit.changeMode("additional")
 
 # select chargingStation
 netedit.changeElement("chargingStation")
@@ -38,7 +38,7 @@ netedit.changeElement("chargingStation")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect first chargingStation
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

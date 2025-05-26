@@ -103,6 +103,8 @@ protected:
         OPENDRIVE_TAG_CONTROLLER,
         OPENDRIVE_TAG_CONTROL,
         OPENDRIVE_TAG_VALIDITY,
+        OPENDRIVE_TAG_SEMANTICS,
+        OPENDRIVE_TAG_PRIORITY,
         OPENDRIVE_TAG_JUNCTION,
         OPENDRIVE_TAG_CONNECTION,
         OPENDRIVE_TAG_LANELINK,
@@ -424,6 +426,7 @@ protected:
         std::string id;
         std::string type;
         std::string name;
+        std::string priority;
         int orientation;
         bool dynamic;
         double s;

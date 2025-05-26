@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Change to create mode
-netedit.createEdgeMode()
+netedit.changeMode("createEdge")
 
 # toggle grid
 netedit.changeEditMode(netedit.attrs.modes.network.grid)
@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.edge.left)
 netedit.leftClick(referencePosition, netedit.positions.network.edge.right)
 
 # Change to create mode
-netedit.moveMode()
+netedit.changeMode("move")
 
 netedit.moveElement(referencePosition, netedit.positions.network.edge.center,
                     netedit.positions.elements.movementRadiusC)

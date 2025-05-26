@@ -35,7 +35,7 @@ netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 netedit.loadNetwork(False)
 
 # cancel using ESC
-netedit.typeEscape()
+netedit.typeKey('esc')
 
 # save Netedit config
 netedit.saveNeteditConfigNew()

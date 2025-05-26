@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Go to data supermode
-netedit.supermodeData()
+netedit.changeSupermode("data")
 
 # change to TAZRelData
-netedit.TAZRelData()
+netedit.changeMode("TAZRelData")
 
 # create dataSet
 netedit.createDataSet()
@@ -43,10 +43,10 @@ netedit.createDataInterval()
 # create TAZRelData
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # inspect TAZRelData
 netedit.leftClick(referencePosition, netedit.positions.elements.data.TAZRelBot)

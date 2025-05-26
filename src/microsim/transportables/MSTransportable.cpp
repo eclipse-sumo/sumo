@@ -234,7 +234,7 @@ MSTransportable::tripInfoOutput(OutputDevice& os) const {
         } else {
             durationOK = false;
         }
-        t = i->getWaitingTime();
+        t = i->getTotalWaitingTime();
         if (t != SUMOTime_MAX) {
             waitingTime += t;
         } else {

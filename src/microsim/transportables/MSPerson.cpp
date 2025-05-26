@@ -40,7 +40,6 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSRouteHandler.h>
-#include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include "MSPModel_Striping.h"

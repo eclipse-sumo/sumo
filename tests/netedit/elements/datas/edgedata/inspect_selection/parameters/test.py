@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Go to data supermode
-netedit.supermodeData()
+netedit.changeSupermode("data")
 
 # change to edgeData
-netedit.edgeData()
+netedit.changeMode("edgeData")
 
 # create dataSet
 netedit.createDataSet()
@@ -47,13 +47,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1_dataMode)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select all using invert
 netedit.selectionInvertData()
 
 # go to inspect mode
-netedit.inspectMode()
+netedit.changeMode("inspect")
 
 # inspect edgeData
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)

@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode (For undo-redo)
-netedit.supermodeDemand()
+netedit.changeSupermode("demand")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

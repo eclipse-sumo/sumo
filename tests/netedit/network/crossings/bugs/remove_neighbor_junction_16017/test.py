@@ -29,31 +29,31 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Rebuild network
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Change to delete
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # disable 'Automatically delete additionals'
 netedit.protectElements(referencePosition)
 
 # select first left edge and change their junction
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.up)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check redo
 netedit.redo(referencePosition, 2)
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # save routes
 netedit.saveDemandElements(True, referencePosition)
 
 # press space to fix crossings
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

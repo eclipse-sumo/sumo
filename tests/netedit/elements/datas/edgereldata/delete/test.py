@@ -29,10 +29,10 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Go to data supermode
-netedit.supermodeData()
+netedit.changeSupermode("data")
 
 # change to edgeRelData
-netedit.edgeRelData()
+netedit.changeMode("edgeRelData")
 
 # create dataSet
 netedit.createDataSet()
@@ -43,10 +43,10 @@ netedit.createDataInterval()
 # create edgeRelData
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1_dataMode)
-netedit.typeEnter()
+netedit.typeKey('enter')
 
 # go to delete mode
-netedit.deleteMode()
+netedit.changeMode("delete")
 
 # delete edgeRelData
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)

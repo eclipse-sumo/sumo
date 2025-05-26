@@ -7,4 +7,8 @@
         <route-files value="routes.xml"/>
     </input>
 
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
 </sumoConfiguration>

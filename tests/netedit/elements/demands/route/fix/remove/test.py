@@ -35,7 +35,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 netedit.saveNeteditConfig(referencePosition)
 
 # press space to press ok button
-netedit.typeSpace()
+netedit.typeKey('space')
 
 # quit netedit
 netedit.quit(neteditProcess)

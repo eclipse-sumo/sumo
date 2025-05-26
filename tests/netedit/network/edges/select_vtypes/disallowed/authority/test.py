@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
-netedit.selectMode()
+netedit.changeMode("select")
 
 # select all edges with allow = "all" and remove it
 # (we cannot use "=all" since "all" is expanded to include all vClassess)
@@ -37,13 +37,13 @@ netedit.selectItems("Network elements", "edge", "disallow", "authority")
 netedit.deleteSelectedItems()
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # Check undos
 netedit.undo(referencePosition, 1)
 
 # recompute
-netedit.rebuildNetwork()
+netedit.computeJunctions()
 
 # check redos
 netedit.redo(referencePosition, 1)
