@@ -36,7 +36,7 @@ pkg:github/freetype/freetype@VER-2-13-3
 pkg:generic/freexl@2.0.0?download_url=https://www.gaia-gis.it/gaia-sins/freexl-2.0.0.zip&checksum=sha256:ccac8445f1f939b31f61a0ac92425e3fcbddc62e0369f53422649417130c05b0
 pkg:github/libgeos/geos@3.13.0
 pkg:generic/giflib@5.1.2?download_url=https://sourceforge.net/projects/giflib/files/giflib-5.1.2.tar.gz/download
-pkg:github/unicode-org/icu/@release-75-1
+pkg:github/unicode-org/icu@release-75-1
 pkg:generic/jpeg@9f?download_url=https://jpegclub.org/reference/wp-content/uploads/2024/01/jpegsr9f.zip
 pkg:github/libexpat/libexpat@R_2_6_3
 pkg:generic/libiconv@1.17?download_url=https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.17.tar.gz
