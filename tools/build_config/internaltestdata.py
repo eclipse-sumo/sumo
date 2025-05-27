@@ -56,7 +56,6 @@ def flattenClassTree(node, scope=None, result=None):
 
 
 def parseIntFile(inputFolder, outputFolder, file, prefix):
-    print("Generating internal auxiliar test file '" + file + ".txt'")
     # read python file
     pythonFile = inputFolder + "/" + file + ".py"
     with open(pythonFile, "r", encoding="utf-8") as f:
@@ -73,7 +72,6 @@ def parseIntFile(inputFolder, outputFolder, file, prefix):
 
 
 def parsePositionFile(inputFolder, outputFolder, file, prefix):
-    print("Generating internal auxiliar test file '" + file + ".txt'")
     # read python file
     pythonFile = inputFolder + "/" + file + ".py"
     with open(pythonFile, "r", encoding="utf-8") as f:
@@ -97,10 +95,14 @@ if __name__ == "__main__":
         sys.exit("Arguments: <pathToSumoSrcFolder>")
     inputFolder = sys.argv[1] + "/../../../../tests/netedit"
     outputFolder = sys.argv[1] + "/../../../../data/tests"
+    # calculate files for src folder (we need it to avoid visual studio warnings)
+    parseIntFile(inputFolder, sys.argv[1], "attributesEnum", "attrs")
+    parseIntFile(inputFolder, sys.argv[1], "contextualMenuOperations", "contextualMenu")
+    parsePositionFile(inputFolder, sys.argv[1], "viewPositions", "positions")
     # check if create folder
     if not os.path.exists(outputFolder):
         os.mkdir(outputFolder)
-    # obtain header files
+    # calculate files for data folder
     parseIntFile(inputFolder, outputFolder, "attributesEnum", "attrs")
     parseIntFile(inputFolder, outputFolder, "contextualMenuOperations", "contextualMenu")
     parsePositionFile(inputFolder, outputFolder, "viewPositions", "positions")
