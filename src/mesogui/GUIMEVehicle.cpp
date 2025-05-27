@@ -132,6 +132,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, "vType:" + myType->getID());
+    ret->mkItem("type", false, myType->getID());
     ret->mkItem("length [m]", false, myType->getLength());
     ret->mkItem("width [m]", false, myType->getWidth());
     ret->mkItem("height [m]", false, myType->getHeight());
@@ -141,9 +142,13 @@ GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     ret->mkItem("mass [kg]", false, myType->getMass());
     ret->mkItem("guiShape", false, getVehicleShapeName(myType->getGuiShape()));
     ret->mkItem("maximum speed [m/s]", false, getMaxSpeed());
+    ret->mkItem("desired maximum speed [m/s]", false, getVehicleType().getDesiredMaxSpeed());
+    ret->mkItem("desired headway (tau) [s]", false, getVehicleType().getCarFollowModel().getHeadwayTime());
     ret->mkItem("speedFactor", false, myType->getParameter().speedFactor.toStr(gPrecision));
     ret->mkItem("person capacity", false, myType->getPersonCapacity());
+    ret->mkItem(TL("boarding time [s]"), false, STEPS2TIME(myType->getLoadingDuration(true)));
     ret->mkItem("container capacity", false, myType->getContainerCapacity());
+    ret->mkItem(TL("loading time [s]"), false, STEPS2TIME(myType->getLoadingDuration(false)));
     ret->closeBuilding(&(myType->getParameter()));
     return ret;
 }
