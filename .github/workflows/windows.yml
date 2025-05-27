@@ -56,7 +56,10 @@ jobs:
       uses: compnerd/gha-setup-vsdevenv@main
 
     - name: Setup Python dependencies
-      run: python -m pip install -r tools/req_ci.txt -r tools/requirements.txt texttest
+      # the pipdeptree below is just for debugging but often comes handy so keep it enabled
+      run: |
+        python -m pip install -r tools/req_ci.txt -r tools/requirements.txt texttest pipdeptree
+        pipdeptree
 
     - name: Building SUMO plain
       if: matrix.build_type == 'plain'
