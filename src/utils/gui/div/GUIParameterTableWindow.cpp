@@ -67,7 +67,7 @@ std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, const std::string& title) :
-    FXMainWindow(app.getApp(), ((title == "" ? o.getFullName() : title) + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 40, 200, 500),
+    FXMainWindow(app.getApp(), ((title == "" ? o.getFullName() : title) + " parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 40, 200, 500),
     GUIPersistentWindowPos(this, "DIALOG_PARAMETERS", false, 20, 40),
     myObject(&o),
     myApplication(&app),
@@ -156,7 +156,7 @@ GUIParameterTableWindow::onLeftBtnPress(FXObject* sender, FXSelector sel, void* 
         GUIParameterTableItemInterface* i = myItems[row];
         if (i->dynamic() && i->getdoubleSourceCopy() != nullptr) {
             // open tracker directly
-            const std::string trackerName = i->getName() + " from " + myObject->getFullName();
+            const std::string trackerName = i->getName() + " of " + myObject->getFullName();
             TrackerValueDesc* newTracked = new TrackerValueDesc(i->getName(), RGBColor::BLACK, myApplication->getCurrentSimTime(), myApplication->getTrackerInterval());
             if (!GUIParameterTracker::addTrackedMultiplot(*myObject, i->getdoubleSourceCopy(), newTracked)) {
                 GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);

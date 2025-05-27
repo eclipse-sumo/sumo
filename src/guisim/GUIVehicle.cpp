@@ -230,6 +230,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, "vType:" + myType->getID());
+    ret->mkItem(TL("type"), false, myType->getID());
     ret->mkItem(TL("length [m]"), false, myType->getLength());
     ret->mkItem(TL("width [m]"), false, myType->getWidth());
     ret->mkItem(TL("height [m]"), false, myType->getHeight());
