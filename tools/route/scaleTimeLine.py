@@ -58,7 +58,7 @@ def get_options(args=None):
                     # multiplied by 10 (suitable for using with peak-hour-traffic and tools/route/route_1htoday.py
                     default="3600,8,5,4,3,4,12,45,74,66,52,50,50,52,53,56,67,84,86,74,50,39,30,21,16",
                     help="Define the interval duration and then the scaled percentage for each interval; "
-                    "e.g. 200% of the current demand")
+                    "e.g. 200 percent of the current demand")
     ap.add_argument("--timeline-pair", dest="timelinepair", type=str,
                     help="Define the timeline pairs (duration, scacled percentage)")
     ap.add_argument("--random", action="store_true", dest="random", category="random",
