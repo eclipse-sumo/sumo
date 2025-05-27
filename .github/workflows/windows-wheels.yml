@@ -108,10 +108,8 @@ jobs:
       if: matrix.build_type == 'libsumo'
       run: |
         $env:PATH += ";$pwd\bin"
-        cd build_msvc
         $env:TEXTTEST_CI_APPS = "-a complex.libsumo.ci"
-        ctest -R texttest --verbose
-        copy Testing/Temporary/LastTest.log D:/texttest
+        tests\runCiTests.bat texttest.exe
 
     - name: Compressing test results
       if: failure()

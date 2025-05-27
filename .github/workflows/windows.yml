@@ -31,7 +31,6 @@ jobs:
     - name: Cloning SUMO
       uses: actions/checkout@v4
       with:
-        path: sumo
         fetch-depth: 0
         filter: tree:0
         # to work around actions/checkout#1467
@@ -57,44 +56,41 @@ jobs:
       uses: compnerd/gha-setup-vsdevenv@main
 
     - name: Setup Python dependencies
-      run: python -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt texttest
+      run: python -m pip install -r tools/req_ci.txt -r tools/requirements.txt texttest
 
     - name: Building SUMO plain
       if: matrix.build_type == 'plain'
       run: |
         python -m pip install build wheel
-        cd sumo
         cmake -Bbuild_msvc -GNinja -DCHECK_OPTIONAL_LIBS=false -DENABLE_JAVA_BINDINGS=false
         cmake --build build_msvc
 
     - name: Building SUMO extra
       if: matrix.build_type == 'extra'
       run: |
-        cd sumo
         cmake -Bbuild_msvc -GNinja -DENABLE_JAVA_BINDINGS=false
         cmake --build build_msvc
 
     - name: Building SUMO debug
       if: github.event_name == 'workflow_dispatch'
       run: |
-        cd sumo
         cmake -Bbuild_msvc_debug -GNinja -DCMAKE_BUILD_TYPE=Debug
         cmake --build build_msvc_debug
 
     - name: Building TraaS
-      run: cmake --build sumo/build_msvc --config Release --target traas
+      run: cmake --build build_msvc --config Release --target traas
 
     - name: Uploading artifacts (SUMO binaries)
       uses: actions/upload-artifact@v4
       with:
         name: windows-${{ matrix.build_type }}-binaries
-        path: sumo/bin
+        path: bin
         retention-days: 30
 
     - name: Running examples and unit tests
       run: |
-        cmake --build sumo/build_msvc --config Release --target examples
-        ctest --test-dir sumo/build_msvc --output-on-failure
+        cmake --build build_msvc --config Release --target examples
+        ctest --test-dir build_msvc --output-on-failure
 
     # The following tests need to be split because of resource constraints. If they are not in separate steps
     # a failing texttest run will not let the step fail because only the final exit code counts.
@@ -102,31 +98,32 @@ jobs:
       if: matrix.build_type == 'plain'
       run: |
         $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,marouter"
-        sumo\tests\runCiTests.bat texttest.exe
+        tests\runCiTests.bat texttest.exe
 
     - name: network building, od2trips and polyconvert tests
       if: matrix.build_type == 'plain'
       run: |
         $env:TEXTTEST_CI_APPS = "-a netgen,od2trips,polyconvert,netconvert"
-        sumo\tests\runCiTests.bat texttest.exe
+        tests\runCiTests.bat texttest.exe
 
     - name: sumo tests
       if: matrix.build_type == 'plain'
       run: |
         $env:TEXTTEST_CI_APPS = "-a sumo"
-        sumo\tests\runCiTests.bat texttest.exe
+        tests\runCiTests.bat texttest.exe
 
     - name: complex, traci and tools tests
       if: matrix.build_type == 'extra'
       run: |
+        $env:PATH += ";$pwd\bin"
         $env:TEXTTEST_CI_APPS = "-a complex,traci,tools"
-        sumo\tests\runCiTests.bat texttest.exe
+        tests\runCiTests.bat texttest.exe
 
     - name: meso, extra and gdal tests
       if: matrix.build_type == 'extra'
       run: |
         $env:TEXTTEST_CI_APPS = "-a sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
-        sumo\tests\runCiTests.bat texttest.exe
+        tests\runCiTests.bat texttest.exe
 
     - name: Compressing test results
       if: failure()
