@@ -275,8 +275,8 @@ void
 GUIOSGBuilder::buildPolygonGeometry(const SUMOPolygon& poly, osg::Group& addTo, osgUtil::Tessellator& tessellator) {
     const PositionVector& shape = poly.getShape();
     const std::vector<PositionVector>& holes = poly.getHoles();
-    const bool isFilled = poly.getFill();
-    const double lineWidth = poly.getLineWidth();
+    //const bool isFilled = poly.getFill();
+    //const double lineWidth = poly.getLineWidth();
 
     osg::Geode* geode = new osg::Geode();
     osg::Geometry* geom = new osg::Geometry();
@@ -285,7 +285,7 @@ GUIOSGBuilder::buildPolygonGeometry(const SUMOPolygon& poly, osg::Group& addTo, 
     addTo.addChild(geode);
     osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size()); // OSG needs float coordinates here
     geom->setVertexArray(osg_coords);
-    for (unsigned int k = 0; k < (int)shape.size(); ++k) {
+    for (int k = 0; k < (int)shape.size(); ++k) {
         (*osg_coords)[k].set((float)shape[k].x(), (float)shape[k].y(), 0.1f);
     }
     // TODO: how to draw holes? Don't worry for the moment, just don't
