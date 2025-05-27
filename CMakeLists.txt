@@ -341,7 +341,7 @@ if (SUMO_LIBRARIES AND WIN32)
     endif(INSTALL_DLL_RUNTIMES)
     if (MSVC_VERSION GREATER 1919)
         # fmt in SUMOLibraries only works with MSVC 2019 and later
-        file(GLOB fmt_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/fmt-??.?.?")
+        file(GLOB fmt_PATH "${SUMO_LIBRARIES}/fmt-??.?.?")
     endif ()
     # declare flag for use google test
     set(USE_GOOGLETEST true)
@@ -474,7 +474,7 @@ if (CHECK_OPTIONAL_LIBS)
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
     file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-?.?.?")
-    file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*")
+    file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-?.??.?")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH}")
     file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll" "${JUPEDSIM_CUSTOMDIR}/bin/*.dll")
 
