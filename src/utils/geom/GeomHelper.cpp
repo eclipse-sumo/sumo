@@ -16,6 +16,7 @@
 /// @author  Friedemann Wesner
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Sept 2002
 ///
 // Some static methods performing geometrical operations
@@ -290,26 +291,28 @@ GeomHelper::calculateLotSpacePosition(const PositionVector& shape, const int ind
         pos = endOffset;
     } else {
         // angled parking
-        const double hlp_angle = fabs(((double)atan2((endOffset.x() - startOffset.x()), (startOffset.y() - endOffset.y())) * (double)180.0 / (double)M_PI) - 180);
-        if (angle >= 0 && angle <= 90) {
-            pos.setx((startOffset.x() + endOffset.x()) / 2 - (width / 2) * (1 - cos(angle / 180 * M_PI)) * cos(hlp_angle / 180 * M_PI));
-            pos.sety((startOffset.y() + endOffset.y()) / 2 + (width / 2) * (1 - cos(angle / 180 * M_PI)) * sin(hlp_angle / 180 * M_PI));
-            pos.setz((startOffset.z() + endOffset.z()) / 2);
-        } else if (angle > 90 && angle <= 180) {
-            pos.setx((startOffset.x() + endOffset.x()) / 2 - (width / 2) * (1 + cos(angle / 180 * M_PI)) * cos(hlp_angle / 180 * M_PI));
-            pos.sety((startOffset.y() + endOffset.y()) / 2 + (width / 2) * (1 + cos(angle / 180 * M_PI)) * sin(hlp_angle / 180 * M_PI));
-            pos.setz((startOffset.z() + endOffset.z()) / 2);
-        } else if (angle > 180 && angle <= 270) {
-            pos.setx((startOffset.x() + endOffset.x()) / 2 - (length)*sin((angle - hlp_angle) / 180 * M_PI) - (width / 2) * (1 + cos(angle / 180 * M_PI)) * cos(hlp_angle / 180 * M_PI));
-            pos.sety((startOffset.y() + endOffset.y()) / 2 + (length)*cos((angle - hlp_angle) / 180 * M_PI) + (width / 2) * (1 + cos(angle / 180 * M_PI)) * sin(hlp_angle / 180 * M_PI));
-            pos.setz((startOffset.z() + endOffset.z()) / 2);
-        } else if (angle > 270 && angle < 360) {
-            pos.setx((startOffset.x() + endOffset.x()) / 2 - (length)*sin((angle - hlp_angle) / 180 * M_PI) - (width / 2) * (1 - cos(angle / 180 * M_PI)) * cos(hlp_angle / 180 * M_PI));
-            pos.sety((startOffset.y() + endOffset.y()) / 2 + (length)*cos((angle - hlp_angle) / 180 * M_PI) + (width / 2) * (1 - cos(angle / 180 * M_PI)) * sin(hlp_angle / 180 * M_PI));
-            pos.setz((startOffset.z() + endOffset.z()) / 2);
-        } else {
-            pos = (startOffset + endOffset) * 0.5;
+        double normAngle = angle;
+        while (normAngle < 0) {
+            normAngle += 360.;
         }
+        normAngle = fmod(normAngle, 360);
+        const double radianAngle = normAngle / 180 * M_PI;
+        double spaceExtension = width * sin(radianAngle) + length * cos(radianAngle);
+        const double hlp_angle = fabs(((double)atan2((endOffset.y() - startOffset.y()), (endOffset.x() - startOffset.x()))));
+        Position offset;
+        double xOffset = 0.5 * width * sin(radianAngle) - 0.5 * (spaceExtension - spaceDim);
+        pos.setx(startOffset.x() + xOffset + length * cos(radianAngle));
+        if (normAngle <= 90) {
+            pos.sety((startOffset.y() + 0.5 * width * (1 - cos(radianAngle)) - length * sin(radianAngle)));
+        } else if (normAngle <= 180) {
+            pos.sety(startOffset.y() + 0.5 * width * (1 + cos(radianAngle)) - length * sin(radianAngle));
+        } else if (angle <= 270) {
+            pos.sety(startOffset.y() + 0.5 * width * (1 - cos(radianAngle - M_PI)));
+        } else {
+            pos.sety(startOffset.y() + 0.5 * width * (1 + cos(radianAngle - M_PI)));
+        }
+        pos.setz((startOffset.z() + endOffset.z()) / 2);
+        pos = pos.rotateAround2D(hlp_angle, startOffset);
     }
     return pos;
 }
@@ -321,7 +324,7 @@ GeomHelper::calculateLotSpaceAngle(const PositionVector& shape, const int index,
     const Position startOffset = shape.positionAtOffset(spaceDim * (index));
     const Position endOffset = shape.positionAtOffset(spaceDim * (index + 1));
     // return angle
-    return ((double)atan2((endOffset.x() - startOffset.x()), (startOffset.y() - endOffset.y())) * (double)180.0 / (double)M_PI) + angle;
+    return ((double)atan2((endOffset.x() - startOffset.x()), (startOffset.y() - endOffset.y())) * (double)180.0 / (double)M_PI) - angle;
 }
 
 

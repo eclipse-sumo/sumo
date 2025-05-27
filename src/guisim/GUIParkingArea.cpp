@@ -137,7 +137,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * exaggeration >= 1) {
         // draw the lots
         glTranslated(0, 0, .1);
-        // calculate shape lengt
+        // calculate shape length
         double ShapeLength = 0;
         for (const auto& length : myShapeLengths) {
             ShapeLength += length;
