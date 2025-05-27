@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-05-20 18:34+0200\n"
-"PO-Revision-Date: 2025-05-21 06:41+0000\n"
+"PO-Revision-Date: 2025-05-27 08:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -4412,7 +4412,7 @@ msgstr "Carica selezione di elementi"
 
 #: src/netedit/GNELoadThread.cpp:305
 msgid "Test file"
-msgstr ""
+msgstr "File prova"
 
 #: src/netedit/GNELoadThread.cpp:310
 msgid "File in which TLS Programs must be saved"
@@ -4597,7 +4597,7 @@ msgstr "Prefisso per la denominazione di flussi di contenitori (containerFlow)"
 
 #: src/netedit/GNELoadThread.cpp:447
 msgid "Prefix for dataSet naming"
-msgstr ""
+msgstr "Prefisso per il nome degli elementi dataSet"
 
 #: src/netedit/GNELoadThread.cpp:452
 msgid "Prefix for meanDataEdge naming"
@@ -7487,7 +7487,7 @@ msgstr "Il percorso del file addizionale"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6935
 msgid "add. file"
-msgstr ""
+msgstr "file di elementi addizionali"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6940
 msgid "The path to the route file"
@@ -8544,10 +8544,14 @@ msgstr "Relazione tra zone di assegnazione del traffico"
 #: src/netedit/GNETagPropertiesDatabase.cpp:8431
 msgid "The name of the TAZ the TAZRel starts at"
 msgstr ""
+"Il nome della zona di assegnazione del traffico dove inizia la relazione "
+"origine-destinazione"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8436
 msgid "The name of the TAZ the TAZRel ends at"
 msgstr ""
+"Il nome della zona di assegnazione del traffico dove termina la relazione "
+"origine-destinazione"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8446
 msgid "MeanDataEdge"
@@ -8742,7 +8746,7 @@ msgstr "Il colore RGBA da usare per disegnare il/la %"
 #, c-format
 msgid ""
 "The aggregation period the values the % detector collects shall be summed up"
-msgstr ""
+msgstr "Il periodo di aggregazione per i valori collezionati dal rivelatore %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8749
 msgid ""
@@ -10916,7 +10920,7 @@ msgstr "chiudi dialogo"
 #: src/netedit/elements/GNEAttributeCarrier.cpp:220
 #: src/netedit/frames/GNEAttributesEditorType.cpp:434
 msgid "reset %"
-msgstr ""
+msgstr "resetta %"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:250
 msgid "Nothing to enable, implement in Children"
@@ -11641,6 +11645,8 @@ msgstr "rimuovi % '%'"
 #: src/netedit/elements/demand/GNERouteHandler.cpp:123
 msgid "VType '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
+"Il tipo di veicolo '%' con la probabilità % non può essere referenziato "
+"nella distribuzione '%'"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:127
 #: src/netedit/elements/demand/GNERouteHandler.cpp:160
@@ -12345,12 +12351,12 @@ msgstr "Sposta l'elemento una corsia più giù"
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:452
 #, c-format
 msgid "Select existent o create new file for % attribute"
-msgstr ""
+msgstr "Seleziona un file esistente o ne crea uno nuovo per l'attributo %"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:453
 #, c-format
 msgid "Select existent file for % attribute"
-msgstr ""
+msgstr "Seleziona un file esistente per l'attributo %"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:648
 msgid "Reparent"
