@@ -267,16 +267,10 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         // (i.e. previous edge to edge after *i)
                         // we would then need to decide whether we have found a good
                         // tradeoff between faithfulness to the input data and detour-length
-                        ConstROEdgeVector edges;
-                        if (lastMandatory >= (int)newEdges.size() || last == newEdges[lastMandatory] || !router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges)) {
+                        if (lastMandatory >= (int)newEdges.size() || last == newEdges[lastMandatory] || !backTrack(router, i, lastMandatory, nextMandatory, newEdges, veh, begin)) {
                             mh->inform("Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
                             return false;
                         }
-                        while (*i != *nextMandatory) {
-                            ++i;
-                        }
-                        newEdges.erase(newEdges.begin() + lastMandatory + 1, newEdges.end());
-                        std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
                     } else if (!myMayBeDisconnected && !isTrip && last != (*i)) {
                         double airDist = last->getToJunction()->getPosition().distanceTo(
                                     (*i)->getFromJunction()->getPosition());
@@ -301,6 +295,25 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             }
         }
     }
+    return true;
+}
+
+
+bool
+RORouteDef::backTrack(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+        ConstROEdgeVector::const_iterator& i, int lastMandatory, ConstROEdgeVector::iterator nextMandatory,
+        ConstROEdgeVector& newEdges, const ROVehicle& veh, SUMOTime begin) {
+    ConstROEdgeVector edges;
+    bool ok = router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges);
+    if (!ok) {
+        return false;
+    }
+
+    while (*i != *nextMandatory) {
+        ++i;
+    }
+    newEdges.erase(newEdges.begin() + lastMandatory + 1, newEdges.end());
+    std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
     return true;
 }
 
