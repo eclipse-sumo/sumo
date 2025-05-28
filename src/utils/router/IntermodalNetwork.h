@@ -362,7 +362,11 @@ public:
             totalLength += (*splitIt)->getLength();
             ++splitIt;
         }
-        return *splitIt;
+        if (splitIt != splitList.end()) {
+            return *splitIt;
+        } else {
+            return splitList.back();
+        }
     }
 
     /// @brief Returns the arriving intermodal connector at the given split offset
