@@ -12897,14 +12897,15 @@ msgstr "GeomHelper::makeCircle() richiede nPoints>=3"
 #: src/utils/geom/PositionVector.cpp:611
 msgid "Splitting vector close to end (pos: %, length: %)"
 msgstr ""
+"Il vettore verrà tagliato vicino al termine (posizione: %, lunghezza: %)"
 
 #: src/utils/geom/PositionVector.cpp:1539
 msgid "Trying to subtract PositionVectors of different lengths."
-msgstr ""
+msgstr "Provando a sottrarre vettori di posizioni di dimensioni differenti."
 
 #: src/utils/geom/PositionVector.cpp:1553
 msgid "Trying to add PositionVectors of different lengths."
-msgstr ""
+msgstr "Provando a sommare dei vettori di posizioni di dimensioni differenti."
 
 #: src/utils/handlers/AdditionalHandler.cpp:970
 msgid "Invalid charge type '%' defined in chargingStation '%'."
@@ -12921,6 +12922,8 @@ msgid ""
 "A single lane area detector requires two parameters of those 'pos', 'endPos' "
 "and 'length'."
 msgstr ""
+"Un rivelatore multi-corsie richiede due dei parametri seguenti: 'pos', "
+"'endPos, 'length'."
 
 #: src/utils/handlers/AdditionalHandler.cpp:1453
 msgid "Calibrators need either an edge or a lane"
