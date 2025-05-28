@@ -170,6 +170,7 @@
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="timeLoss" use="required" type="signedTimeType"/> <!-- negative values indicate jumps or shortcuts in jupedsim -->
             <xsd:attribute name="maxSpeed" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 
