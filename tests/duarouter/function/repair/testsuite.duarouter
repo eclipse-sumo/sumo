@@ -33,3 +33,9 @@ repair.from_to_invalid
 
 # load a route distribution and try to repair it
 distribution
+
+# route around missing connection
+detour
+
+# route around missing connection
+detour_noBackTracking
