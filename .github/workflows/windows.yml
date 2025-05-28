@@ -25,6 +25,7 @@ jobs:
     env:
       CC: cl
       CXX: cl
+      SUMO_LIBRARIES: D:\a\sumo\sumo\SUMOLibraries
       TEXTTEST_TMP: D:/texttest
 
     steps:
@@ -40,7 +41,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: DLR-TS/SUMOLibraries
-        path: sumolibraries
 
     - name: ccache
       # do a clean build once a day
