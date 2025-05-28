@@ -20,10 +20,6 @@ from .imports import *
 from .constants import *
 from .input.keyboard import*
 
-#################################################
-# Exclusive from pyautogui tests
-#################################################
-
 def Popen(extraParameters):
     """
     @brief open netedit

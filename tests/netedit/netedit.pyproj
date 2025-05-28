@@ -43,6 +43,7 @@
     <Compile Include="neteditTestFunctions\frames\network\additional.py" />
     <Compile Include="neteditTestFunctions\frames\network\connection.py" />
     <Compile Include="neteditTestFunctions\frames\network\crossing.py" />
+    <Compile Include="neteditTestFunctions\general\fixElements.py" />
     <Compile Include="neteditTestFunctions\general\functions.py" />
     <Compile Include="neteditTestFunctions\general\contextualMenu.py" />
     <Compile Include="neteditTestFunctions\imports.py" />

@@ -22,11 +22,6 @@ from ..input.mouse import *
 from ..constants import *
 from .modes import *
 
-#################################################
-    # processing functions
-#################################################
-
-
 def computeJunctions():
     """
     @brief compute junctions (rebuild network)
@@ -125,42 +120,6 @@ def overwritte(value):
         typeKey('space')
 
 
-def fixDemandElements(solution):
-    """
-    @brief fix stoppingPlaces
-    """
-    # select bullet depending of solution
-    if (solution == "saveInvalids"):
-        for _ in range(3):
-            typeTwoKeys('shift', 'tab')
-        typeKey('space')
-        # go back and press accept
-        for _ in range(3):
-            typeKey('tab')
-        typeKey('space')
-    elif (solution == "fixPositions"):
-        for _ in range(2):
-            typeTwoKeys('shift', 'tab')
-        typeKey('space')
-        # go back and press accept
-        for _ in range(2):
-            typeKey('tab')
-        typeKey('space')
-    elif (solution == "selectInvalids"):
-        typeTwoKeys('shift', 'tab')
-        typeKey('space')
-        # go back and press accept
-        typeKey('tab')
-        typeKey('space')
-    elif (solution == "activateFriendlyPos"):
-        # default option, then press accept
-        typeKey('space')
-    else:
-        # press cancel
-        typeKey('tab')
-        typeKey('space')
-
-
 def openAboutDialog(waitingTime=DELAY_QUESTION):
     """
     @brief open and close about dialog
@@ -171,21 +130,3 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
     time.sleep(waitingTime)
     # press enter to close dialog (Ok must be focused)
     typeKey('space')
-
-#################################################
-    # demand elements
-#################################################
-
-def fixDemandElement(value):
-    """
-    @brief fix demand element
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to option
-    for _ in range(value):
-        typeTwoKeys('shift', 'tab')
-    # type space to select
-    typeKey('space')
-    # accept
-    typeTwoKeys('alt', 'a')

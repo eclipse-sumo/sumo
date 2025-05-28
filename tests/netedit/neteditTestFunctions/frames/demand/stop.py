@@ -18,7 +18,6 @@
 # imports
 from ...general.functions import *
 
-
 def changeStopParent(stopParent):
     """
     @brief change stop parent
