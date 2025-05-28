@@ -41,6 +41,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: DLR-TS/SUMOLibraries
+        path: SUMOLibraries
 
     - name: ccache
       # do a clean build once a day
