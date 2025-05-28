@@ -287,7 +287,11 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         const double detourFactor = repairDist / MAX2(airDist, 1.0);
                         const double detour = MAX2(0.0, repairDist - airDist);
                         const double maxDetourFactor = OptionsCont::getOptions().getFloat("repair.max-detour-factor");
-                        WRITE_MESSAGEF("    Taking detour of %m to avoid gap of %m)", detour, airDist);
+                        if (detourFactor > maxDetourFactor) {
+                            WRITE_MESSAGEF("    Backtracking to avoid detour of %m for gap of %m)", detour, airDist);
+                        } else if (detourFactor > 1.1) {
+                            WRITE_MESSAGEF("    Taking detour of %m to avoid gap of %m)", detour, airDist);
+                        }
                     }
                 }
             }

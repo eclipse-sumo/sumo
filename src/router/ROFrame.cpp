@@ -159,6 +159,9 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
         oc.doRegister("repair.to", new Option_Bool(false));
         oc.addDescription("repair.to", "Processing", TL("Tries to correct an invalid destination edge by using the last usable edge instead"));
 
+        oc.doRegister("repair.max-detour-factor", new Option_Float(10));
+        oc.addDescription("repair.max-detour-factor", "Processing", TL("Backtrack on route if the detour is longer than the gap by FACTOR"));
+
         oc.doRegister("mapmatch.distance", new Option_Float(100));
         oc.addDescription("mapmatch.distance", "Processing", TL("Maximum distance when mapping input coordinates (fromXY etc.) to the road network"));
 
