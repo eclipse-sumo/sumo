@@ -46,7 +46,9 @@ def flattenClassTree(node, scope=None, result=None):
                     if isinstance(value_node, ast.Constant):
                         result[key] = value_node.value
                     # negative number -n
-                    elif isinstance(value_node, ast.UnaryOp) and isinstance(value_node.op, ast.USub) and isinstance(value_node.operand, ast.Constant):
+                    elif (isinstance(value_node, ast.UnaryOp)
+                            and isinstance(value_node.op, ast.USub)
+                            and isinstance(value_node.operand, ast.Constant)):
                         result[key] = -value_node.operand.value
     return result
 
@@ -96,7 +98,7 @@ if __name__ == "__main__":
     inputFolder = sys.argv[1] + "/../../../../tests/netedit"
     outputFolder = sys.argv[1] + "/../../../../data/tests"
     # check if create folder
-    if os.path.exists(outputFolder) == False:
+    if not os.path.exists(outputFolder):
         os.mkdir(outputFolder)
     # obtain header files
     parseIntFile(inputFolder, outputFolder, "attributesEnum", "attrs")
