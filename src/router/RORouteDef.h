@@ -85,7 +85,8 @@ public:
     /** @brief Builds the complete route
      * (or chooses her from the list of alternatives, when existing) */
     bool repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime begin,
-                            const ROVehicle& veh, ConstROEdgeVector oldEdges, ConstROEdgeVector& newEdges) const;
+                            const ROVehicle& veh, ConstROEdgeVector oldEdges, ConstROEdgeVector& newEdges,
+                            bool isTrip = false) const;
 
     /** @brief Adds an alternative to the list of routes
     *
@@ -143,6 +144,12 @@ public:
     static void setUsingJTRR() {
         myUsingJTRR = true;
     }
+
+protected:
+    /// @brief backtrack to last mandatory edge and route to next mandatory
+    static bool backTrack(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+            ConstROEdgeVector::const_iterator& i, int lastMandatory, ConstROEdgeVector::iterator nextMandatory,
+            ConstROEdgeVector& newEdges, const ROVehicle& veh, SUMOTime begin);
 
 protected:
     /// @brief precomputed route for out-of-order computation
