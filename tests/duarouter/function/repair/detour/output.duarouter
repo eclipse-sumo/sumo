@@ -2,6 +2,6 @@ Loading net ... done.
 Skipped until: 0.00
 Edge 'B0toB1' not connected to edge 'B1toC1' for vehicle '0'.
     Backtracking to avoid detour of 97.60m for gap of 0.00m)
-DijkstraRouter answered 1 queries and explored 19.00 edges on average.
+DijkstraRouter answered 2 queries and explored 12.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Success.
