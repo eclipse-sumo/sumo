@@ -139,7 +139,7 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         // build a new route to test whether it is better
         ConstROEdgeVector oldEdges({getOrigin(), getDestination()});
         ConstROEdgeVector edges;
-        if (repairCurrentRoute(router, begin, veh, oldEdges, edges)) {
+        if (repairCurrentRoute(router, begin, veh, oldEdges, edges, true)) {
             if (edges.front()->isTazConnector()) {
                 edges.erase(edges.begin());
             }
@@ -169,7 +169,8 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
 bool
 RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                SUMOTime begin, const ROVehicle& veh,
-                               ConstROEdgeVector oldEdges, ConstROEdgeVector& newEdges) const {
+                               ConstROEdgeVector oldEdges, ConstROEdgeVector& newEdges,
+                               bool isTrip) const {
     MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ?
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
     const int initialSize = (int)oldEdges.size();
@@ -258,6 +259,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     //std::cout << " skipJump mIndex=" << (nextMandatory - 1 - mandatory.begin()) << " last=" << last->getID() << " next=" << (*i)->getID() << " newEdges=" << toString(newEdges) << "\n";
                 } else {
 
+                    int numEdgesBefore = (int)newEdges.size();
                     //                router.setHint(targets.begin(), i, &veh, begin);
                     if (!router.compute(last, *i, &veh, begin, newEdges)) {
                         // backtrack: try to route from last mandatory edge to next mandatory edge
@@ -275,8 +277,18 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         }
                         newEdges.erase(newEdges.begin() + lastMandatory + 1, newEdges.end());
                         std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
+                    } else if (!myMayBeDisconnected && !isTrip && last != (*i)) {
+                        double airDist = last->getToJunction()->getPosition().distanceTo(
+                                    (*i)->getFromJunction()->getPosition());
+                        double repairDist = 0;
+                        for (auto it2 = (newEdges.begin() + numEdgesBefore + 1); it2 != newEdges.end() && it2 != newEdges.end() - 1; it2++) {
+                            repairDist += (*it2)->getLength();
+                        }
+                        const double detourFactor = repairDist / MAX2(airDist, 1.0);
+                        const double detour = MAX2(0.0, repairDist - airDist);
+                        const double maxDetourFactor = OptionsCont::getOptions().getFloat("repair.max-detour-factor");
+                        WRITE_MESSAGEF("    Taking detour of %m to avoid gap of %m)", detour, airDist);
                     }
-
                 }
             }
             if (*i == *nextMandatory) {
