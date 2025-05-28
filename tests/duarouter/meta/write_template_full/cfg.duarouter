@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-23 23:10:40 by Eclipse SUMO duarouter Version v1_22_0+1676-989a5715aeb
+<!-- generated on 2025-05-28 12:22:22 by Eclipse SUMO duarouter Version v1_23_1+0337-5cf15d51313
 -->
 
 <duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -60,6 +60,7 @@
         <repair value="false" type="BOOL" help="Tries to correct a false route"/>
         <repair.from value="false" type="BOOL" help="Tries to correct an invalid starting edge by using the first usable edge instead"/>
         <repair.to value="false" type="BOOL" help="Tries to correct an invalid destination edge by using the last usable edge instead"/>
+        <repair.max-detour-factor value="10" type="FLOAT" help="Backtrack on route if the detour is longer than the gap by FACTOR"/>
         <mapmatch.distance value="100" type="FLOAT" help="Maximum distance when mapping input coordinates (fromXY etc.) to the road network"/>
         <mapmatch.junctions value="false" type="BOOL" help="Match positions to junctions instead of edges"/>
         <mapmatch.taz value="false" type="BOOL" help="Match positions to taz instead of edges"/>

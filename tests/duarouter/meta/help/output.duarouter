@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_22_0+1676-989a5715aeb
+Eclipse SUMO duarouter Version v1_23_1+0337-5cf15d51313
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -93,6 +93,8 @@ Processing Options:
   --repair.to                         Tries to correct an invalid destination
                                        edge by using the last usable edge
                                        instead
+  --repair.max-detour-factor FLOAT    Backtrack on route if the detour is
+                                       longer than the gap by FACTOR
   --mapmatch.distance FLOAT           Maximum distance when mapping input
                                        coordinates (fromXY etc.) to the road
                                        network
