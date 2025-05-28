@@ -2,6 +2,7 @@ Loading net ... done.
 Skipped until: 0.00
 Removing invalid edge 'left' for from route for vehicle '0_0'.
 Edge 'middle' not connected to edge 'absEnd' for vehicle '0_0'.
+    Taking detour of 0.00m to avoid gap of 500.00m)
 DijkstraRouter answered 1 queries and explored 3.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Success.
