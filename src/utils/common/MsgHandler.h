@@ -161,6 +161,14 @@ public:
         return *this;
     }
 
+    void setAggregationThreshold(const int thresh) {
+        myAggregationThreshold = thresh;
+    }
+
+    int getAggregationThreshold() const {
+        return myAggregationThreshold;
+    }
+
 protected:
 
     std::string buildTimestampPrefix(void) const;
@@ -200,10 +208,6 @@ protected:
 
     virtual bool aggregationThresholdReached(const std::string& format) {
         return myAggregationThreshold >= 0 && myAggregationCount[format]++ >= myAggregationThreshold;
-    }
-
-    void setAggregationThreshold(const int thresh) {
-        myAggregationThreshold = thresh;
     }
 
     /// @brief standard constructor

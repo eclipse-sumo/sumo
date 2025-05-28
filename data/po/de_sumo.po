@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-05-20 18:34+0200\n"
-"PO-Revision-Date: 2025-05-19 13:34+0000\n"
+"PO-Revision-Date: 2025-05-22 09:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -745,6 +745,8 @@ msgid ""
 "Only use the intended public transport line rather than any alternative line "
 "that stops at the destination"
 msgstr ""
+"Allein die beabsichtigte ÖV-Linie nutzen und nicht alternative Linien, "
+"welche auch am Ziel halten"
 
 #: src/duarouter/RODUAFrame.cpp:189 src/microsim/MSFrame.cpp:683
 msgid ""
@@ -2403,6 +2405,8 @@ msgid ""
 "List vehicle classes that uses block-based insertion checks even when the "
 "network has no rail signals for them"
 msgstr ""
+"Fahrzeugklassen auflisten, welche auch in Netzen ohne Bahnsignale die "
+"Einsetzung ins Netz blockbasiert prüfen"
 
 #: src/microsim/MSFrame.cpp:516
 msgid ""
@@ -3177,7 +3181,7 @@ msgstr "Fahrzeug '%' wird teleportiert"
 #: src/microsim/MSLane.cpp:2198
 #, c-format
 msgid "Removing vehicle '%' after"
-msgstr "Fahrzeug '% wird entfernt"
+msgstr "Fahrzeug '%' wird entfernt"
 
 #: src/microsim/MSLane.cpp:2202
 #, c-format
@@ -3523,7 +3527,7 @@ msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:1463
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
-msgstr "Haltekante '% fehlt im 'via'-Attribut von % '%'."
+msgstr "Haltekante '%' fehlt im 'via'-Attribut von % '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1484 src/router/RORouteHandler.cpp:1169
 #: src/router/RORouteHandler.cpp:1288
@@ -6312,7 +6316,7 @@ msgid ""
 "Intersecting left turns at junction '%' from lane '%' and lane '%' (increase "
 "junction radius to avoid this)."
 msgstr ""
-"Überschneidendes Linksabbiegen am Knotenpunkt '%' von Fahrstreifen '% und "
+"Überschneidendes Linksabbiegen am Knotenpunkt '%' von Fahrstreifen '%' und "
 "Fahrstreifen '%' (Vergrößern Sie den Kreuzungsradius, um dies zu vermeiden)."
 
 #: src/netbuild/NBEdge.cpp:1951

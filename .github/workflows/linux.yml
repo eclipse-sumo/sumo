@@ -46,7 +46,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install libunwind-dev  # to work around https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
         sudo apt-get install $(cat sumo/build_config/build_req_deb.txt)
-        pipx install texttest
 
     - name: Validate CITATION.cff
       if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
@@ -115,18 +114,27 @@ jobs:
         make -j4
         sudo make install
 
-    - name: Building Examples and Tests
+    - name: Installing Test Environment
       if: matrix.build_type == 'full'
-      # the pipdeptree below is also just for debugging but often comes handy so keep it enabled
+      # the pipdeptree below is just for debugging but often comes handy so keep it enabled
       run: |
         sudo apt-get install $(cat sumo/build_config/tools_req_deb.txt)
         python3 -m venv testenv --system-site-packages
         source testenv/bin/activate
-        python3 -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
-        python3 -m pip install pipdeptree
+        python3 -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt texttest pipdeptree
         pipdeptree
+
+    - name: Building Examples and Unit Tests
+      if: matrix.build_type == 'full'
+      run: |
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
+
+    - name: Plain tests
+      if: matrix.build_type == 'full'
+      run: |
+        source testenv/bin/activate
+        sumo/tests/runTests.sh -b ci -v ci
 
     - name: Extra tests
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'

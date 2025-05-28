@@ -31,20 +31,8 @@ import copy
 import random
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from sumolib.miscutils import parseTime, getFlowNumber  # noqa
+from sumolib.miscutils import parseTime, getFlowNumber, intIfPossible  # noqa
 import sumolib  # noqa
-
-
-class SimObject:
-    def __init__(self, obj_id, depart, objfrom, objto, edges, vtype):
-        self.objid = obj_id
-        self.depart = depart
-        self.objfrom = objfrom
-        self.objto = objto
-        self.edges = edges
-        self.vtype = vtype
-        self.fromTaz = None
-        self.toTaz = None
 
 
 def get_options(args=None):
@@ -58,7 +46,7 @@ def get_options(args=None):
                     # multiplied by 10 (suitable for using with peak-hour-traffic and tools/route/route_1htoday.py
                     default="3600,8,5,4,3,4,12,45,74,66,52,50,50,52,53,56,67,84,86,74,50,39,30,21,16",
                     help="Define the interval duration and then the scaled percentage for each interval; "
-                    "e.g. 200% of the current demand")
+                    "e.g. 200 percent of the current demand")
     ap.add_argument("--timeline-pair", dest="timelinepair", type=str,
                     help="Define the timeline pairs (duration, scacled percentage)")
     ap.add_argument("--random", action="store_true", dest="random", category="random",
@@ -173,6 +161,7 @@ def scaleRoutes(options, outf):
                 outf.write(elem.toXML(' ' * 4))
             else:
                 depart = parseTime(elem.depart)
+                elem.depart = intIfPossible(depart)
                 if depart < lastDepart:
                     sys.stderr.write("Unsorted departure %s for %s '%s'" % (
                         depart, elem.tag, elem.id))
