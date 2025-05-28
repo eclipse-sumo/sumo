@@ -134,7 +134,7 @@ jobs:
       if: matrix.build_type == 'full'
       run: |
         source testenv/bin/activate
-        sumo/tests/runTests.sh -b ci
+        sumo/tests/runTests.sh -b ci -v ci
 
     - name: Extra tests
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
