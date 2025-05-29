@@ -17,6 +17,7 @@
 ///
 // Class used for internal tests
 /****************************************************************************/
+#include <config.h>
 
 #include <fstream>
 #include <utils/common/MsgHandler.h>
