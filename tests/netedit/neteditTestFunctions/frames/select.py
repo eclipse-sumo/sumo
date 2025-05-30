@@ -11,12 +11,13 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    selectMode.py
+# @file    select.py
 # @author  Pablo Alvarez Lopez
 # @date    28-05-25
 
 # imports
 from ..general.functions import *
+
 
 def abortSelection():
     """
