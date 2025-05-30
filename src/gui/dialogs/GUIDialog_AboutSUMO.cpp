@@ -58,7 +58,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
 #endif
     new FXLabel(descriptionFrame, HAVE_ENABLED, nullptr, GUIDesignLabelAboutInfo);
     // SUMO_HOME
-    new FXLabel(descriptionFrame, std::string("SUMO_HOME: " + std::string(getenv("SUMO_HOME"))).c_str(), nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(descriptionFrame, std::string("SUMO_HOME: " + std::string(getenv("SUMO_HOME") ? getenv("SUMO_HOME") : "not set")).c_str(), nullptr, GUIDesignLabelAboutInfo);
     // copyright notice
     new FXLabel(this, "Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(this, TL("This application is based on code provided by the Eclipse SUMO project."), nullptr, GUIDesignLabelAboutInfo);
@@ -66,7 +66,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     (new MFXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
 
     // link to homepage
-    (new MFXLinkLabel(this, "https://www.eclipse.dev/sumo", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.dev/sumo");
+    (new MFXLinkLabel(this, "https://eclipse.dev/sumo", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://eclipse.dev/sumo");
 
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
