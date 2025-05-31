@@ -15,7 +15,8 @@
 # @file    mapDetectors.py
 # @author  Jakob Erdmann
 # @author  Mirko Barthauer
-# @date    2022-04-25
+# @author  Davide Guastella
+# @date    2025-05-31
 
 """
 Create detector definitions by map-matching coordinates to a .net.xml file
@@ -26,6 +27,7 @@ from __future__ import absolute_import
 import os
 import sys
 import csv
+
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
@@ -59,6 +61,8 @@ def get_options(args=None):
                            help="Define the aggregation interval of generated detectors")
     optParser.add_argument("--write-params", action="store_true", dest="writeParams", default=False,
                            help="Write additional columns as detector parameters")
+    optParser.add_argument('--to-lane', dest='to_lane', action='store_true',
+                           help='If set, an induction loop is placed on each lane of the target edges.')
     optParser.add_argument("-v", "--verbose", action="store_true", default=False,
                            help="tell me what you are doing")
     options = optParser.parse_args(args=args)
@@ -88,7 +92,7 @@ def main():
                     colName = getattr(options, attr)
                     if colName not in row:
                         sys.exit("Required column %s not found. Available columns are %s" % (
-                                 colName, ",".join(row.keys())))
+                            colName, ",".join(row.keys())))
                     elif extraCols:
                         extraCols.remove(colName)
 
@@ -97,20 +101,20 @@ def main():
             lat = float(row[options.lat])
             x, y = net.convertLonLat2XY(lon, lat)
 
-            lanes = []
+            edges = []
             radius = 0.1
-            factor = 10
-            while not lanes and radius <= options.maxRadius:
-                lanes = net.getNeighboringLanes(x, y, radius, True)
-                lanes = [(d, lane) for lane, d in lanes if lane.allows(options.vclass)]
-                radius *= factor
-            if not lanes:
-                sys.stderr.write("Could not find road for detector %s within %sm radius\n" % (detID, options.maxRadius))
+            while not edges and radius <= options.maxRadius:
+                edges = net.getNeighboringEdges(x, y, radius, True)
+                edges = [(d, edge) for edge, d in edges if edge.allows(options.vclass)]
+                radius *= 10
+            if not edges:
+                sys.stderr.write("Could not find road for detector %s within %sm radius\n" % (detID, radius))
                 continue
-            lanes.sort(key=lambda x: x[0])
-            best = lanes[0][1]
+            edges.sort(key=lambda x: x[0])
+            best = edges[0][1]
             pos = min(best.getLength(),
                       sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint((x, y), best.getShape()))
+
             commentStart, commentEnd = "", ""
             if detID in seenIDs:
                 commentStart = "!--"
@@ -118,18 +122,33 @@ def main():
             endTag = "/" + commentEnd
             if extraCols:
                 endTag = ""
-            outf.write(' ' * 4 + '<%sinductionLoop id="%s" lane="%s" pos="%.2f" file="%s" freq="%s"%s>\n' % (
-                       commentStart,
-                       detID, best.getID(), pos, options.detOut,
-                       options.interval,
-                       endTag))
-            if extraCols:
-                for col in extraCols:
-                    outf.write(' ' * 8 + '<param key="%s" value="%s"/>\n' % (
-                        sumolib.xml.xmlescape(col),
-                        sumolib.xml.xmlescape(row[col])))
-                outf.write(' ' * 4 + '</inductionLoop%s>\n' % commentEnd)
 
+            if options.to_lane:
+                for index, lane in enumerate(best.getLanes()):
+                    outf.write(' ' * 4 + '<%sinductionLoop id="%s_%d" lane="%s" pos="%.2f" file="%s" freq="%s"%s>\n' % (
+                        commentStart,
+                        detID, index,
+                        lane.getID(), pos, options.detOut,
+                        options.interval,
+                        endTag))
+                    if extraCols:
+                        for col in extraCols:
+                            outf.write(' ' * 8 + '<param key="%s" value="%s"/>\n' % (
+                                sumolib.xml.xmlescape(col),
+                                sumolib.xml.xmlescape(row[col])))
+                        outf.write(' ' * 4 + '</inductionLoop%s>\n' % commentEnd)
+            else:
+                outf.write(' ' * 4 + '<%sinductionLoop id="%s" lane="%s" pos="%.2f" file="%s" freq="%s"%s>\n' % (
+                    commentStart,
+                    detID, best.getLanes[0].getID(), pos, options.detOut,
+                    options.interval,
+                    endTag))
+                if extraCols:
+                    for col in extraCols:
+                        outf.write(' ' * 8 + '<param key="%s" value="%s"/>\n' % (
+                            sumolib.xml.xmlescape(col),
+                            sumolib.xml.xmlescape(row[col])))
+                    outf.write(' ' * 4 + '</inductionLoop%s>\n' % commentEnd)
             seenIDs.add(detID)
 
         outf.write('</additional>\n')
