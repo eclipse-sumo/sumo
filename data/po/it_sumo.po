@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-05-20 18:34+0200\n"
+"POT-Creation-Date: 2025-06-01 11:33+0000\n"
 "PO-Revision-Date: 2025-05-22 09:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -349,32 +349,32 @@ msgid "Scale factor for flows"
 msgstr "Fattore di scala per flussi"
 
 #: src/dfrouter/RODFFrame.cpp:209 src/marouter/ROMAFrame.cpp:123
-#: src/od2trips_main.cpp:167 src/router/ROFrame.cpp:208
+#: src/od2trips_main.cpp:167 src/router/ROFrame.cpp:211
 msgid "Assigns a default depart lane"
 msgstr "Assegna una corsia di partenza standard"
 
 #: src/dfrouter/RODFFrame.cpp:212 src/marouter/ROMAFrame.cpp:127
-#: src/od2trips_main.cpp:170 src/router/ROFrame.cpp:211
+#: src/od2trips_main.cpp:170 src/router/ROFrame.cpp:214
 msgid "Assigns a default depart position"
 msgstr "Assegna una posizione di partenza standard"
 
 #: src/dfrouter/RODFFrame.cpp:215 src/marouter/ROMAFrame.cpp:131
-#: src/od2trips_main.cpp:173 src/router/ROFrame.cpp:214
+#: src/od2trips_main.cpp:173 src/router/ROFrame.cpp:217
 msgid "Assigns a default depart speed"
 msgstr "Assegna una velocità di partenza standard"
 
 #: src/dfrouter/RODFFrame.cpp:218 src/marouter/ROMAFrame.cpp:135
-#: src/od2trips_main.cpp:176 src/router/ROFrame.cpp:217
+#: src/od2trips_main.cpp:176 src/router/ROFrame.cpp:220
 msgid "Assigns a default arrival lane"
 msgstr "Assegna una corsia di arrivo standard"
 
 #: src/dfrouter/RODFFrame.cpp:221 src/marouter/ROMAFrame.cpp:139
-#: src/od2trips_main.cpp:179 src/router/ROFrame.cpp:220
+#: src/od2trips_main.cpp:179 src/router/ROFrame.cpp:223
 msgid "Assigns a default arrival position"
 msgstr "Assegna una posizione di arrivo standard"
 
 #: src/dfrouter/RODFFrame.cpp:224 src/marouter/ROMAFrame.cpp:143
-#: src/od2trips_main.cpp:182 src/router/ROFrame.cpp:223
+#: src/od2trips_main.cpp:182 src/router/ROFrame.cpp:226
 msgid "Assigns a default arrival speed"
 msgstr "Assegna una velocità di arrivo standard"
 
@@ -400,7 +400,7 @@ msgstr "Elenca rivelatori senra flusso (attiva con -v)"
 msgid "Prints aggregated detector flows"
 msgstr "Stampa i flussi di rivelatori aggregati"
 
-#: src/dfrouter/RODFFrame.cpp:246 src/router/ROFrame.cpp:234
+#: src/dfrouter/RODFFrame.cpp:246 src/router/ROFrame.cpp:237
 msgid "Disable console output of route parsing step"
 msgstr "Disattiva uscita della lettura degli itinerari nella console"
 
@@ -2650,7 +2650,7 @@ msgstr ""
 "Tolleranza tra posizioni di pedoni e veicoli nella salita a fermate "
 "individuali"
 
-#: src/microsim/MSFrame.cpp:620 src/router/ROFrame.cpp:163
+#: src/microsim/MSFrame.cpp:620 src/router/ROFrame.cpp:166
 msgid ""
 "Maximum distance when mapping input coordinates (fromXY etc.) to the road "
 "network"
@@ -2658,11 +2658,11 @@ msgstr ""
 "Distanza massima nella proiezione di coordinate di ingresso (fromXY etc.) "
 "sulla rete stradale"
 
-#: src/microsim/MSFrame.cpp:623 src/router/ROFrame.cpp:166
+#: src/microsim/MSFrame.cpp:623 src/router/ROFrame.cpp:169
 msgid "Match positions to junctions instead of edges"
 msgstr "Assegna posizioni a incroci invece di archi"
 
-#: src/microsim/MSFrame.cpp:626 src/router/ROFrame.cpp:169
+#: src/microsim/MSFrame.cpp:626 src/router/ROFrame.cpp:172
 msgid "Match positions to taz instead of edges"
 msgstr "Assegna posizioni a zone di assegnazione del traffico invece di archi"
 
@@ -2682,7 +2682,7 @@ msgstr ""
 "Applica penalità di tempo di percorrenza basate su quote di verde per corsie "
 "interne regolate con semafori nel calcolo p dei costi minimi degli itinerari"
 
-#: src/microsim/MSFrame.cpp:643 src/router/ROFrame.cpp:203
+#: src/microsim/MSFrame.cpp:643 src/router/ROFrame.cpp:206
 msgid ""
 "Apply the given time penalty when computing routing costs for turnaround "
 "internal lanes"
@@ -3658,8 +3658,8 @@ msgstr "Regolazione attuata indisponibile nella simulazione mesoscopica."
 msgid ""
 "Lane change model did not provide a reason for changing (state=%, time=%\n"
 msgstr ""
-"Il modello di cambio corsia non ha provveduto una ragione del cambio (stato="
-"%, ora=%\n"
+"Il modello di cambio corsia non ha provveduto una ragione del cambio "
+"(stato=%, ora=%\n"
 
 #: src/microsim/MSVehicle.cpp:779 src/utils/common/UtilExceptions.h:171
 msgid "should not happen"
@@ -3700,8 +3700,8 @@ msgstr " per motivi sconosciuti"
 
 #: src/microsim/MSVehicle.cpp:4661
 msgid ""
-"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
-"%), time=%."
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
+"offset=%), time=%."
 msgstr ""
 "Il veicolo '%' effettua una frenata d'urgenza alle fine della corsia '%'% "
 "(decel=%, offset=%) alle ore %."
@@ -4348,7 +4348,7 @@ msgid ""
 "The value for device.rerouting.adaptation-weight must be between 0 and 1!"
 msgstr "Il valore di device.rerouting.adaptation-weight deve essere tra 0 e 1!"
 
-#: src/microsim/devices/MSDevice_Routing.cpp:122 src/router/ROFrame.cpp:252
+#: src/microsim/devices/MSDevice_Routing.cpp:122 src/router/ROFrame.cpp:255
 msgid "Parallel routing is only possible when compiled with Fox."
 msgstr "L'instradamento parallelo é possibile unicamente se compilato con Fox."
 
@@ -5545,7 +5545,13 @@ msgstr ""
 "Fase di verde mancante nella logica semaforica '%', programma '%' per "
 "l'indice semaforico %."
 
-#: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:292
+#: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:243
+msgid ""
+"Unsafe green phase % in tlLogic '%', program '%'. Lane '%' is targeted by % "
+"'G'-links. (use 'g' instead)"
+msgstr ""
+
+#: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:314
 msgid ""
 "Program '%' at tlLogic '%' is incompatible with logic at junction "
 "'%' (mutual conflict between link indices %,% tl indices %,% phase %).\n"
@@ -5555,13 +5561,13 @@ msgid ""
 "include the program when building."
 msgstr ""
 
-#: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:493
+#: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:515
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
 msgstr ""
 "La frazione di verde amonta a solamente 1% per il collegamento % nella "
 "logica di semaforo '%', programma '%'."
 
-#: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:498
+#: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:520
 #, c-format
 msgid ""
 "Edge '%' is shorter than %m (%m) and will cause incorrect flow reduction "
@@ -5601,11 +5607,11 @@ msgstr ""
 msgid "I am starting in the coordinated phases"
 msgstr "Si parte con le fasi coordinate"
 
-#: src/microsim/transportables/MSPModel.h:186
+#: src/microsim/transportables/MSPModel.h:190
 msgid "moveTo is ignored by the current movement model"
 msgstr "moveTo viene ignorato dal modello di movimento attuale"
 
-#: src/microsim/transportables/MSPModel.h:202
+#: src/microsim/transportables/MSPModel.h:206
 msgid "moveToXY is ignored by the current movement model"
 msgstr "moveToXY viene ignorato dal modello di movimento attuale"
 
@@ -5777,8 +5783,8 @@ msgstr "La persona '%' è bloccata sull'arco '%' alle ore %."
 
 #: src/microsim/transportables/MSStageDriving.cpp:248
 msgid ""
-"Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
-"%"
+"Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
+"time=%"
 msgstr ""
 "Il veicolo '%' eccede la capacità di persone % nel caricare la persona "
 "generata '%' alle ore %"
@@ -5985,8 +5991,8 @@ msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:496
 msgid ""
-"Invalid distance computation for vehicle '%' from stopping place '%' at time="
-"%."
+"Invalid distance computation for vehicle '%' from stopping place '%' at "
+"time=%."
 msgstr ""
 "Calcolo di distanza invalido per veicolo '%' dal punto di fermata '%' alle "
 "ore %."
@@ -9040,7 +9046,7 @@ msgstr ""
 "WGS84."
 
 #: src/netimport/NIImporter_ArcView.cpp:276
-#: src/netimport/NIImporter_OpenDrive.cpp:1594
+#: src/netimport/NIImporter_OpenDrive.cpp:1596
 #: src/netimport/NIXMLEdgesHandler.cpp:600
 #: src/netimport/vissim/tempstructs/NIVissimAbstractEdge.cpp:44
 #: src/polyconvert/PCLoaderVisum.cpp:171
@@ -9146,10 +9152,10 @@ msgstr "Le coordinate del nodo % non potevano essere proiettate."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:240
 #: src/netimport/NIImporter_DlrNavteq.cpp:242
-#: src/netimport/NIImporter_OpenDrive.cpp:275
-#: src/netimport/NIImporter_OpenDrive.cpp:394
-#: src/netimport/NIImporter_OpenDrive.cpp:489
-#: src/netimport/NIImporter_OpenDrive.cpp:1456
+#: src/netimport/NIImporter_OpenDrive.cpp:277
+#: src/netimport/NIImporter_OpenDrive.cpp:396
+#: src/netimport/NIImporter_OpenDrive.cpp:491
+#: src/netimport/NIImporter_OpenDrive.cpp:1458
 msgid "Could not add node '%'."
 msgstr "Non ho potuto aggiungere il nodo '%'."
 
@@ -9178,8 +9184,8 @@ msgid "Non-numerical value for the number of lanes of link '%'."
 msgstr "Valore non numerico del numero di corsie per il collegamento '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:420
-#: src/netimport/NIImporter_OpenDrive.cpp:553
-#: src/netimport/NIImporter_OpenDrive.cpp:611
+#: src/netimport/NIImporter_OpenDrive.cpp:555
+#: src/netimport/NIImporter_OpenDrive.cpp:613
 #: src/netimport/NIImporter_OpenStreetMap.cpp:855
 msgid "Could not add edge '%'."
 msgstr "Non ho potuto aggiungere l'arco '%'."
@@ -9314,44 +9320,44 @@ msgid "Could not add intermediate node to split loop edge '%'."
 msgstr ""
 "Non ho potuto aggiungere il nodo intermedio per separare l'arco ciclico '%'."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:225
+#: src/netimport/NIImporter_OpenDrive.cpp:227
 msgid "Could not find signal reference '%'."
 msgstr "Non ho incontrato la referenza del segnale '%'."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:289
-#: src/netimport/NIImporter_OpenDrive.cpp:327
+#: src/netimport/NIImporter_OpenDrive.cpp:291
+#: src/netimport/NIImporter_OpenDrive.cpp:329
 msgid "Could not build node '%'."
 msgstr "Non ho potuto costruire il nodo '%'."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:426
+#: src/netimport/NIImporter_OpenDrive.cpp:428
 msgid "Ignoring road '%' without geometry."
 msgstr "La via '%' senza geometria viene ignorata."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:450
+#: src/netimport/NIImporter_OpenDrive.cpp:452
 msgid "Could not apply laneOffsets for edge '%'"
 msgstr "I spostamenti di corsie non potevano essere applicati all'arco '%'"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:641
+#: src/netimport/NIImporter_OpenDrive.cpp:643
 #, c-format
 msgid "Edge '%' has no lanes."
 msgstr "L'arco '%' non tiene corsie."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:682
+#: src/netimport/NIImporter_OpenDrive.cpp:684
 #, c-format
 msgid "While setting connections: from-edge '%' is not known."
 msgstr "Nel mettere collegamenti: l'arco di partenza '%' è sconosciuto."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:692
+#: src/netimport/NIImporter_OpenDrive.cpp:694
 #, c-format
 msgid "While setting connections: to-edge '%' is not known."
 msgstr "Nel mettere collegamenti: l'arco di arrivo '%' è sconosciuto."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:718
-#: src/netimport/NIImporter_OpenDrive.cpp:721
+#: src/netimport/NIImporter_OpenDrive.cpp:720
+#: src/netimport/NIImporter_OpenDrive.cpp:723
 msgid "Could not find fromEdge representation of '%' in connection '%'."
 msgstr ""
 
-#: src/netimport/NIImporter_OpenDrive.cpp:774
+#: src/netimport/NIImporter_OpenDrive.cpp:776
 #, c-format
 msgid ""
 "Controlling multiple junctions by the same controller '%' is currently not "
@@ -9360,38 +9366,38 @@ msgstr ""
 "Controllare più incroci dalla stessa centralina '%' attualmente non è "
 "implementato."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:795
+#: src/netimport/NIImporter_OpenDrive.cpp:797
 #, c-format
 msgid "Edge '%' has signals but no lane sections."
 msgstr "L'arco '%' tiene segnali ma nessuna sezione di corsie."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:817
+#: src/netimport/NIImporter_OpenDrive.cpp:819
 msgid "Ambiguous start of connection."
 msgstr "Inizio ambiguo del collegamento."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:834
+#: src/netimport/NIImporter_OpenDrive.cpp:836
 msgid "Ambiguous end of connection."
 msgstr "Termine ambiguo del collegamento."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:847
-#: src/netimport/NIImporter_OpenDrive.cpp:862
-#: src/netimport/NIImporter_OpenDrive.cpp:909
+#: src/netimport/NIImporter_OpenDrive.cpp:849
+#: src/netimport/NIImporter_OpenDrive.cpp:864
+#: src/netimport/NIImporter_OpenDrive.cpp:911
 msgid "Could not find edge '%' for signal '%'."
 msgstr "Non ho incontrato l'arco '%' per il segnale '%'."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:883
+#: src/netimport/NIImporter_OpenDrive.cpp:885
 msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten signal '%' and with controller '%'."
 msgstr ""
 
-#: src/netimport/NIImporter_OpenDrive.cpp:898
+#: src/netimport/NIImporter_OpenDrive.cpp:900
 msgid "Found a traffic light signal on an unknown edge (original edge id='%')."
 msgstr ""
 "Un segnale è stato trovato su un arco sconosciuto (codice identificativo "
 "dell'arco originale='%')."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:929
+#: src/netimport/NIImporter_OpenDrive.cpp:931
 msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten with signal '%' and controller '%'."
@@ -9399,27 +9405,27 @@ msgstr ""
 "La segnalazione del collegamento da '%' a '%' (centralina '%') è ambigua "
 "perché sovrascritta con lo segnale '%' e la centralina '%'."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1394
-#: src/netimport/NIImporter_OpenDrive.cpp:1427
+#: src/netimport/NIImporter_OpenDrive.cpp:1396
+#: src/netimport/NIImporter_OpenDrive.cpp:1429
 #, c-format
 msgid "While setting connections: incoming road '%' is not known."
 msgstr "Nel impostare i collegamenti: la via entrante '%' è sconosciuta."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1468
+#: src/netimport/NIImporter_OpenDrive.cpp:1470
 msgid "Could not find node '%'."
 msgstr "Non ho potuto trovare il nodo '%'."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1560
+#: src/netimport/NIImporter_OpenDrive.cpp:1562
 msgid "Mismatched geometry for edge '%' between geometry segments % and %."
 msgstr ""
 "La geometria dell'arco '%' non coincide tra i segmento geometrici % e %."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1742
+#: src/netimport/NIImporter_OpenDrive.cpp:1744
 #, c-format
 msgid "The sections of edge '%' are not sorted properly."
 msgstr "Le sezioni dell'arco '%' non sono ordinate correttamente."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1752
+#: src/netimport/NIImporter_OpenDrive.cpp:1754
 msgid ""
 "Almost duplicate s-value '%' for lane sections occurred at edge '%'; first "
 "entry was removed."
@@ -9427,17 +9433,17 @@ msgstr ""
 "Valori s quasi identici incontrati nelle sezioni di corsia dell'arco '%'; il "
 "primo valore è stato omesso."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1796
+#: src/netimport/NIImporter_OpenDrive.cpp:1798
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
 msgstr ""
 "Non ho potuto calcolare la geometria spirale per l'arco '%' (cDot=% "
 "lunghezza=%)."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1845
+#: src/netimport/NIImporter_OpenDrive.cpp:1847
 msgid "Could not compute spiral geometry for edge '%' (%)."
 msgstr "Non ho potuto calcolare la geometria a elica per l'arco '%' (%)."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2117
+#: src/netimport/NIImporter_OpenDrive.cpp:2119
 msgid ""
 "Will discard access settings as both denied and allowed classes have been "
 "specified."
@@ -9445,44 +9451,44 @@ msgstr ""
 "L'autorizazzione verrà scartata perché sia classi vietate che autorizzate "
 "sono state specificate."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2433
+#: src/netimport/NIImporter_OpenDrive.cpp:2435
 msgid "Ignoring invalid pRange value '%' for road '%'."
 msgstr "Il valore invalido di pRange '%' per l'arco '%' viene ignorato."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2512
+#: src/netimport/NIImporter_OpenDrive.cpp:2514
 msgid "Ignoring missing signal '%' in controller '%'."
 msgstr "Il segnale mancante '%' nella centraline '%' viene ignorato."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2550
-#: src/netimport/NIImporter_OpenDrive.cpp:2755
+#: src/netimport/NIImporter_OpenDrive.cpp:2561
+#: src/netimport/NIImporter_OpenDrive.cpp:2766
 #, c-format
 msgid "In laneLink-element: incoming road '%' is not known."
 msgstr ""
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2645
+#: src/netimport/NIImporter_OpenDrive.cpp:2656
 msgid "Ignoring object without id at edge '%'."
 msgstr "Un oggetto senza codice identificativo sull'arco '%' viene ignorato."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2663
+#: src/netimport/NIImporter_OpenDrive.cpp:2674
 msgid "Repeat without object at edge '%'."
 msgstr "Ripetizione senza oggetto all'arco '%'."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2726
+#: src/netimport/NIImporter_OpenDrive.cpp:2737
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
 msgstr ""
 "Non ho potuto impostare la proiezione (%). Questo può essere ignorato con --"
 "ignore-errors."
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2730
+#: src/netimport/NIImporter_OpenDrive.cpp:2741
 #, c-format
 msgid "geoReference format '%' currently not supported"
 msgstr "Il formato geoReference '%' tuttora risulta incompatibile"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2845
+#: src/netimport/NIImporter_OpenDrive.cpp:2856
 msgid "Mismatching parenthesis in geometry definition for road '%'"
 msgstr "Parentesi non coincidenti nella definizione di geometria della via '%'"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2849
+#: src/netimport/NIImporter_OpenDrive.cpp:2860
 msgid "Double geometry information for road '%'"
 msgstr "Informazione geometrica raddoppiata per la via '%'"
 
@@ -11209,6 +11215,130 @@ msgstr ""
 "L'opzione \"proj.plain-geo\" viene ignorata perché non è stato definito "
 "nessuna conversione geografica"
 
+#: src/od/ODAmitranHandler.cpp:48
+msgid "Invalid duration for timeSlice starting %."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:57
+#, c-format
+msgid "District '%' does not provide any valid source."
+msgstr "Il distretto '%' non fornisce una sorgente valida."
+
+#: src/od/ODDistrictCont.cpp:73
+#, c-format
+msgid "District '%' does not provide any valid sink."
+msgstr "Il distretto '%' non fornisce uno scarico valido."
+
+#: src/od/ODDistrictCont.cpp:84
+#, c-format
+msgid "Could not access network file '%' to load."
+msgstr "Non è stato possibile accedere al file di rete '%' da caricare."
+
+#: src/od/ODDistrictHandler.cpp:130
+msgid "'probability' must be positive (in definition of % '%')."
+msgstr ""
+"'probability' deve assumere un valore positivo (nella definizione di % '%')."
+
+#: src/od/ODMatrix.cpp:84
+msgid "Missing origin '%' and destination '%' (% vehicles)."
+msgstr "Mancano origine '%' e destinazione '%' (% veicoli)."
+
+#: src/od/ODMatrix.cpp:90
+msgid "Missing origin '%' (% vehicles)."
+msgstr "Manca l'origine '%' (% veicoli)."
+
+#: src/od/ODMatrix.cpp:95
+msgid "Missing destination '%' (% vehicles)."
+msgstr "Manca la destinazione '%' (% veicoli)."
+
+#: src/od/ODMatrix.cpp:101
+#, c-format
+msgid "District '%' has no source."
+msgstr "Il distretto '%' non ha nessuna origine."
+
+#: src/od/ODMatrix.cpp:105
+#, c-format
+msgid "District '%' has no sink."
+msgstr "Il distretto '%' non ha nessun scarico."
+
+#: src/od/ODMatrix.cpp:197
+msgid ""
+"Cannot find different source and sink edge for origin '%' and destination "
+"'%'."
+msgstr ""
+"Non si trovano archi di sorgente e di scarico differenti per l'origine '%' e "
+"la destinazione '%'."
+
+#: src/od/ODMatrix.cpp:372 src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
+msgid ""
+"Flow density of % vehicles per second, cannot be represented with a simple "
+"probability. Falling back to even spacing."
+msgstr ""
+"La densità di flusso di % veicoli al secondo non può essere rappresentata da "
+"una semplice probabilità. Invece verrà usato la distanza uniforme."
+
+#: src/od/ODMatrix.cpp:442
+msgid "End of file while reading %."
+msgstr "Fine dell'archivio incontrato nella lettura di %."
+
+#: src/od/ODMatrix.cpp:469
+msgid "Broken period definition '%'."
+msgstr "Definizione di intervallo invalida '%'."
+
+#: src/od/ODMatrix.cpp:483
+msgid "Broken factor: '%'."
+msgstr "Fattore invalido: '%'."
+
+#: src/od/ODMatrix.cpp:517
+#, c-format
+msgid "Missing line with % district names."
+msgstr "Manca una linea con % nomi di distretti."
+
+#: src/od/ODMatrix.cpp:527
+msgid "Missing line for district %."
+msgstr "Manca la linea del distretto %."
+
+#: src/od/ODMatrix.cpp:541
+msgid "More entries than districts found."
+msgstr "Sono stati trovati più voci che distretti."
+
+#: src/od/ODMatrix.cpp:546 src/od/ODMatrix.cpp:594
+msgid "Not numeric vehicle number in line '%'."
+msgstr "Numero di veicolo invalido in linea '%'."
+
+#: src/od/ODMatrix.cpp:592
+msgid "Missing at least one information in line '%'."
+msgstr "Manca almeno una informazione in linea '%'."
+
+#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
+msgid "Could not open '%'."
+msgstr "Non ho potuto aprile '%'."
+
+#: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
+#, c-format
+msgid "'%' does not contain the needed information about the time described."
+msgstr "'%' non contiene l'informazione necessaria relativa all'ora descritta."
+
+#: src/od/ODMatrix.cpp:682 src/od/ODMatrix.cpp:695
+#, c-format
+msgid "Could not access matrix file '%' to load."
+msgstr "Non ho potuto accedere al file di matrice '%' da caricare."
+
+#: src/od/ODMatrix.cpp:722
+#, c-format
+msgid "Could not access route file '%' to load."
+msgstr "Non ho potuto accedere al file di itinerari '%' da caricare."
+
+#: src/od/ODMatrix.cpp:739
+msgid "Assuming 24 entries for a day timeline, but got %."
+msgstr ""
+"Sono stati trovati % appunti per la curva cronologica invece dei 24 "
+"aspettati per un giorno intero."
+
+#: src/od/ODMatrix.cpp:749
+msgid "Broken time line definition: missing a value in '%'."
+msgstr "Definizione di sequenza temporale invalida: manca un valore in '%'."
+
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
 msgstr ""
@@ -11316,130 +11446,6 @@ msgstr "Nessun distretto è stato caricato."
 msgid "No vehicles loaded."
 msgstr "Nessun veicolo è stato caricato."
 
-#: src/od/ODAmitranHandler.cpp:48
-msgid "Invalid duration for timeSlice starting %."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:57
-#, c-format
-msgid "District '%' does not provide any valid source."
-msgstr "Il distretto '%' non fornisce una sorgente valida."
-
-#: src/od/ODDistrictCont.cpp:73
-#, c-format
-msgid "District '%' does not provide any valid sink."
-msgstr "Il distretto '%' non fornisce uno scarico valido."
-
-#: src/od/ODDistrictCont.cpp:84
-#, c-format
-msgid "Could not access network file '%' to load."
-msgstr "Non è stato possibile accedere al file di rete '%' da caricare."
-
-#: src/od/ODDistrictHandler.cpp:130
-msgid "'probability' must be positive (in definition of % '%')."
-msgstr ""
-"'probability' deve assumere un valore positivo (nella definizione di % '%')."
-
-#: src/od/ODMatrix.cpp:84
-msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr "Mancano origine '%' e destinazione '%' (% veicoli)."
-
-#: src/od/ODMatrix.cpp:90
-msgid "Missing origin '%' (% vehicles)."
-msgstr "Manca l'origine '%' (% veicoli)."
-
-#: src/od/ODMatrix.cpp:95
-msgid "Missing destination '%' (% vehicles)."
-msgstr "Manca la destinazione '%' (% veicoli)."
-
-#: src/od/ODMatrix.cpp:101
-#, c-format
-msgid "District '%' has no source."
-msgstr "Il distretto '%' non ha nessuna origine."
-
-#: src/od/ODMatrix.cpp:105
-#, c-format
-msgid "District '%' has no sink."
-msgstr "Il distretto '%' non ha nessun scarico."
-
-#: src/od/ODMatrix.cpp:197
-msgid ""
-"Cannot find different source and sink edge for origin '%' and destination "
-"'%'."
-msgstr ""
-"Non si trovano archi di sorgente e di scarico differenti per l'origine '%' e "
-"la destinazione '%'."
-
-#: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
-msgid ""
-"Flow density of % vehicles per second, cannot be represented with a simple "
-"probability. Falling back to even spacing."
-msgstr ""
-"La densità di flusso di % veicoli al secondo non può essere rappresentata da "
-"una semplice probabilità. Invece verrà usato la distanza uniforme."
-
-#: src/od/ODMatrix.cpp:442
-msgid "End of file while reading %."
-msgstr "Fine dell'archivio incontrato nella lettura di %."
-
-#: src/od/ODMatrix.cpp:469
-msgid "Broken period definition '%'."
-msgstr "Definizione di intervallo invalida '%'."
-
-#: src/od/ODMatrix.cpp:483
-msgid "Broken factor: '%'."
-msgstr "Fattore invalido: '%'."
-
-#: src/od/ODMatrix.cpp:517
-#, c-format
-msgid "Missing line with % district names."
-msgstr "Manca una linea con % nomi di distretti."
-
-#: src/od/ODMatrix.cpp:527
-msgid "Missing line for district %."
-msgstr "Manca la linea del distretto %."
-
-#: src/od/ODMatrix.cpp:541
-msgid "More entries than districts found."
-msgstr "Sono stati trovati più voci che distretti."
-
-#: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
-msgid "Not numeric vehicle number in line '%'."
-msgstr "Numero di veicolo invalido in linea '%'."
-
-#: src/od/ODMatrix.cpp:592
-msgid "Missing at least one information in line '%'."
-msgstr "Manca almeno una informazione in linea '%'."
-
-#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
-msgid "Could not open '%'."
-msgstr "Non ho potuto aprile '%'."
-
-#: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
-#, c-format
-msgid "'%' does not contain the needed information about the time described."
-msgstr "'%' non contiene l'informazione necessaria relativa all'ora descritta."
-
-#: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
-#, c-format
-msgid "Could not access matrix file '%' to load."
-msgstr "Non ho potuto accedere al file di matrice '%' da caricare."
-
-#: src/od/ODMatrix.cpp:722
-#, c-format
-msgid "Could not access route file '%' to load."
-msgstr "Non ho potuto accedere al file di itinerari '%' da caricare."
-
-#: src/od/ODMatrix.cpp:739
-msgid "Assuming 24 entries for a day timeline, but got %."
-msgstr ""
-"Sono stati trovati % appunti per la curva cronologica invece dei 24 "
-"aspettati per un giorno intero."
-
-#: src/od/ODMatrix.cpp:749
-msgid "Broken time line definition: missing a value in '%'."
-msgstr "Definizione di sequenza temporale invalida: manca un valore in '%'."
-
 #: src/osgview/GUIOSGBuilder.cpp:560 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
 msgstr "Non ho potuto caricare '%'."
@@ -11472,11 +11478,11 @@ msgstr "Indice di collegamento invalido in '%'."
 msgid "Unknown traffic light in '%'."
 msgstr "Semaforo sconosciuto in '%'."
 
-#: src/osgview/GUIOSGView.cpp:981
+#: src/osgview/GUIOSGView.cpp:986
 msgid "(No projection defined)"
 msgstr "(nessuna proiezione definita)"
 
-#: src/osgview/GUIOSGView.cpp:985 src/osgview/GUIOSGView.cpp:986
+#: src/osgview/GUIOSGView.cpp:990 src/osgview/GUIOSGView.cpp:991
 msgid "N/A"
 msgstr "non disponibile"
 
@@ -11880,37 +11886,41 @@ msgstr ""
 "Prova a corregere un arco di destinazione sbagliato con l'ultimo arco "
 "utilizzabile"
 
-#: src/router/ROFrame.cpp:172
+#: src/router/ROFrame.cpp:163
+msgid "Backtrack on route if the detour is longer than the gap by FACTOR"
+msgstr ""
+
+#: src/router/ROFrame.cpp:175
 msgid "Aggregate routing queries with the same origin"
 msgstr "Aggrega richieste di itinerari con la stessa origine"
 
-#: src/router/ROFrame.cpp:176
+#: src/router/ROFrame.cpp:179
 msgid "The number of parallel execution threads used for routing"
 msgstr "Il numero massimo di thread paralleli usati per l'instradamento"
 
-#: src/router/ROFrame.cpp:180
+#: src/router/ROFrame.cpp:183
 msgid ""
 "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"
 msgstr ""
 "Scegli tra gli algoritmi di instradamento ['dijkstra', 'astar', 'CH', "
 "'CHWrapper']"
 
-#: src/router/ROFrame.cpp:184
+#: src/router/ROFrame.cpp:187
 msgid ""
 "Comma separated list of param keys to compare for additional restrictions"
 msgstr ""
 "Elenco di chiavi di parametri separati da comma per compararli al riguardo "
 "di restrizioni addizionali"
 
-#: src/router/ROFrame.cpp:189
+#: src/router/ROFrame.cpp:192
 msgid "Interpolate edge weights at interval boundaries"
 msgstr "Interpola pesi degli archi tra cambi di intervalli"
 
-#: src/router/ROFrame.cpp:193
+#: src/router/ROFrame.cpp:196
 msgid "Expand the end of the last loaded weight interval to infinity"
 msgstr "Imposta la fine dell'ultimo intervallo di pesi caricato all'infinità"
 
-#: src/router/ROFrame.cpp:197
+#: src/router/ROFrame.cpp:200
 msgid ""
 "Apply the given time penalty when computing routing costs for minor-link "
 "internal lanes"
@@ -11918,7 +11928,7 @@ msgstr ""
 "Applica la pena di tempo data quando si calcola il costo di itinerario per "
 "corsie interne su collegamenti minori"
 
-#: src/router/ROFrame.cpp:200
+#: src/router/ROFrame.cpp:203
 msgid ""
 "Apply the given time penalty when computing routing costs across a traffic "
 "light"
@@ -11926,19 +11936,19 @@ msgstr ""
 "Applica la pena di tempo data quando si calcola il costo di itinerario "
 "attraverso un semaforo"
 
-#: src/router/ROFrame.cpp:227
+#: src/router/ROFrame.cpp:230
 msgid "Defaults will override given values"
 msgstr "I valori standard avranno la priorità sui valori dati"
 
-#: src/router/ROFrame.cpp:231
+#: src/router/ROFrame.cpp:234
 msgid "Defines how often statistics shall be printed"
 msgstr "Definisce con quale frequenza le statistiche verranno impresse"
 
-#: src/router/ROFrame.cpp:242
+#: src/router/ROFrame.cpp:245
 msgid "No output specified."
 msgstr "Nessun'uscita è stata specificata."
 
-#: src/router/ROFrame.cpp:247
+#: src/router/ROFrame.cpp:250
 msgid "A positive number of alternatives must be enabled."
 msgstr "il numero di alternative deve essere positivo."
 
@@ -12066,7 +12076,11 @@ msgstr "L'accesso invalido dall'arco '%' vietato ai pedoni viene ignorato."
 msgid "Repaired route of vehicle '%'."
 msgstr "L'itinerario del veicolo '%' è stato corretto."
 
-#: src/router/RORouteDef.cpp:227
+#: src/router/RORouteDef.cpp:221
+msgid "Removing invalid edge '%' for from route for vehicle '%'."
+msgstr ""
+
+#: src/router/RORouteDef.cpp:229
 msgid ""
 "There are stop edges which were not part of the original route for vehicle "
 "'%'."
@@ -12074,7 +12088,7 @@ msgstr ""
 "Ci sono archi di fermate che non facevano parte dell'itinerario originale "
 "del veicolo '%'."
 
-#: src/router/RORouteDef.cpp:242
+#: src/router/RORouteDef.cpp:244
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
 msgstr "L'arco '%' è sconnesso dall'arco '%' del veicolo '%'."
 
@@ -12149,7 +12163,7 @@ msgstr ""
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "Una simulazione microscopica e multimodale del traffico."
 
-#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr "Uscita (dopo un errore)."
 
@@ -13408,15 +13422,15 @@ msgstr ""
 msgid "Arrival edge '%' not found in intermodal network."
 msgstr ""
 
-#: src/utils/router/IntermodalNetwork.h:657
+#: src/utils/router/IntermodalNetwork.h:661
 msgid "Ignoring unordered stop at '%' until % for vehicle '%'."
 msgstr ""
 
-#: src/utils/router/IntermodalNetwork.h:669
+#: src/utils/router/IntermodalNetwork.h:673
 msgid "Ignoring stop at '%' until % for vehicle '%'."
 msgstr ""
 
-#: src/utils/router/IntermodalNetwork.h:674
+#: src/utils/router/IntermodalNetwork.h:678
 #, c-format
 msgid ""
 "Not using public transport line '%' for routing persons. It has less than "
@@ -13497,6 +13511,29 @@ msgstr "Il poligono '%' esiste già."
 #: src/utils/shapes/ShapeHandler.cpp:287
 #, c-format
 msgid "Loading of shapes from % failed."
+msgstr ""
+
+#: src/utils/tests/InternalTest.cpp:47
+msgid "Could not open test file '%'."
+msgstr ""
+
+#: src/utils/tests/InternalTest.cpp:81 src/utils/tests/InternalTest.cpp:112
+msgid "Could not open internal test data file '%'."
+msgstr ""
+
+#: src/utils/tests/InternalTest.cpp:95
+#, c-format
+msgid "In internal test file, value '%' cannot be parsed to int."
+msgstr ""
+
+#: src/utils/tests/InternalTest.cpp:128
+#, c-format
+msgid "In internal test file, x value '%' cannot be parsed to int."
+msgstr ""
+
+#: src/utils/tests/InternalTest.cpp:130
+#, c-format
+msgid "In internal test file, y value '%' cannot be parsed to int."
 msgstr ""
 
 #: src/utils/traction_wire/Circuit.cpp:44
@@ -13640,11 +13677,11 @@ msgstr "Valore booleano invalido '%' per parametro '%' in % '%'."
 msgid "Invalid time value '%' for parameter '%' in % '%'."
 msgstr "Indicazione temporale '%' invalida per parametro '%' in % '%'."
 
-#: src/utils/vehicle/SUMOVTypeParameter.cpp:671
+#: src/utils/vehicle/SUMOVTypeParameter.cpp:672
 msgid "Invalid size of % table for vType '%' (at least 2 values are required)."
 msgstr ""
 
-#: src/utils/vehicle/SUMOVTypeParameter.cpp:673
+#: src/utils/vehicle/SUMOVTypeParameter.cpp:674
 msgid "Mismatching size of speedTable (%) and % table (%) for vType '%'."
 msgstr ""
 
