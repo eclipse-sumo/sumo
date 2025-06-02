@@ -51,22 +51,22 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacing, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacing, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacing, "probability", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacing, "probability")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacingOption, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacingOption, "dummy")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacingOption, "12.5", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacingOption, "12.5")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacingOption, "26", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacingOption, "26")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacingOption, "0.3", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacingOption, "0.3")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

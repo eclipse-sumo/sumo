@@ -48,19 +48,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.route.inspect.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.route.inspect.colorButton, 5)
 
 # Change parameter color with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.route.inspect.color, "", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.color, "")
 
 # Change parameter color with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.route.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.color, "dummyColor")
 
 # Change parameter color with a valid value
 netedit.modifyAttribute(netedit.attrs.route.inspect.color, "12,15,30", False)
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(netedit.attrs.route.inspect.color, "red", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.color, "red")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

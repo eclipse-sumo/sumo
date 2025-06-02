@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.actType, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.actType, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.actType, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.actType, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.actType, "singing", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.actType, "singing")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

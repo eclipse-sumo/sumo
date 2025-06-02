@@ -35,7 +35,7 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # change radio
-netedit.modifyAttribute(netedit.attrs.junction.inspect.radius, "400", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.radius, "400")
 
 # rebuild network
 netedit.computeJunctions()

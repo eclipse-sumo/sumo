@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.id, "poi_1", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.id, "poi_1")
 
 # Change parameter 0 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.id, "")
 
 # Change parameter 0 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.id, "ID with spaces", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.id, "ID with spaces")
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.id, "newID", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.id, "newID")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

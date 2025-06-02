@@ -50,19 +50,19 @@ netedit.modifyBoolAttribute(netedit.attrs.waypointTrainStop.inspectSelection.ext
 netedit.modifyBoolAttribute(netedit.attrs.waypointTrainStop.inspectSelection.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.extension, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.extension, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.extension, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.extension, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.extension, "-5", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.extension, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.extension, "0", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.extension, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.extension, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspectSelection.extension, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

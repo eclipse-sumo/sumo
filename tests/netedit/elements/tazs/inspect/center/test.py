@@ -41,10 +41,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "dummyTAZ", False)
+netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "dummyTAZ")
 
 # Change parameter 1 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "", False)
+netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "")
 
 # Change parameter 1 with a valid value (single point)
 netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "12.00,8.00", False)

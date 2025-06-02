@@ -50,10 +50,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set invalid value
-netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.type, "dummyType", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.type, "dummyType")
 
 # change type of junction
-netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.type, "allway_stop", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.type, "allway_stop")
 
 # rebuild network
 netedit.computeJunctions()

@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.permitted, "permitA permitB", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.permitted, "permitA permitB")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

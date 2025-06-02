@@ -50,19 +50,19 @@ netedit.modifyBoolAttribute(netedit.attrs.waypointChargingStation.inspectSelecti
 netedit.modifyBoolAttribute(netedit.attrs.waypointChargingStation.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.duration, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.duration, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.duration, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.duration, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.duration, "-5", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.duration, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.duration, "0", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.duration, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.duration, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.duration, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

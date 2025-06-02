@@ -35,7 +35,7 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # change type of junction (should not be possible due is a dead_end)
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.type, "traffic_light", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.type, "traffic_light")
 
 # rebuild network
 netedit.computeJunctions()

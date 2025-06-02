@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.split, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.split, ";;;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.split, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.split, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.split, "customSplit", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.split, "customSplit")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -35,10 +35,10 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set invalid value
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.tlLayout, "dummyTLS", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.tlLayout, "dummyTLS")
 
 # change type of junction
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.tlLayout, "default", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.tlLayout, "default")
 
 # rebuild network
 netedit.computeJunctions()

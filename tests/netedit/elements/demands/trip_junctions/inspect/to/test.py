@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.type, "bicycle", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.type, "bicycle")
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.toJunction, "", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.toJunction, "")
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.toJunction, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.toJunction, "dummyEdge")
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.toJunction, "gneJ9", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.toJunction, "gneJ9")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

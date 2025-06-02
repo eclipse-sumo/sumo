@@ -51,7 +51,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.type, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.type, "custom_vType")
 
 # inspect vtype
 netedit.modifyBoolAttribute(netedit.attrs.flowTAZ.inspect.typeButton, False)

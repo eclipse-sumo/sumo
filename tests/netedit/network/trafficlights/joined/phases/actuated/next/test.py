@@ -35,13 +35,13 @@ netedit.changeMode("TLS")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.nxt, "dummyNext", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.nxt, "dummyNext")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.nxt, "", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.nxt, "")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.nxt, "1", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.nxt, "1")
 
 # type enter to save changes
 netedit.typeKey('enter')

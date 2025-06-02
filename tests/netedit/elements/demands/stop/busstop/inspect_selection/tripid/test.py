@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.tripID, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.tripID, ";;;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.tripID, "", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.tripID, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.tripID, "customTripID", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.tripID, "customTripID")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge2Ped)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walk.junction.edge.inspectSelection.arrivalPos, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.walk.junction.edge.inspectSelection.arrivalPos, "dummy")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walk.junction.edge.inspectSelection.arrivalPos, "", False)
+netedit.modifyAttribute(netedit.attrs.walk.junction.edge.inspectSelection.arrivalPos, "")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walk.junction.edge.inspectSelection.arrivalPos, "-6", False)
+netedit.modifyAttribute(netedit.attrs.walk.junction.edge.inspectSelection.arrivalPos, "-6")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walk.junction.edge.inspectSelection.arrivalPos, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.walk.junction.edge.inspectSelection.arrivalPos, "2.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -35,16 +35,16 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.desiredMaxSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.desiredMaxSpeed, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.desiredMaxSpeed + 1, "dummyMaxSpeed", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.desiredMaxSpeed + 1, "dummyMaxSpeed")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.desiredMaxSpeed + 1, "-30", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.desiredMaxSpeed + 1, "-30")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.desiredMaxSpeed + 1, "20.5", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.desiredMaxSpeed + 1, "20.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

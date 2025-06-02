@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.speed, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.speed, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.speed, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.speed, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.speed, "-12", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.speed, "-12")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.speed, "7.1", False)
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.speed, "7.1")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

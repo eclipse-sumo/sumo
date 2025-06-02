@@ -41,25 +41,25 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 12 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "4", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "4")
 
 # Change parameter 7 with an non valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffsetException, "DummyDisallowed", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffsetException, "DummyDisallowed")
 
 # Change parameter 7 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffsetException, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffsetException, "")
 
 # Change parameter 7 with a valid value (different separators)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffsetException,
                         "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 7 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffsetException, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffsetException, "")
 
 # Change parameter 7 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffsetException,
                         "passenger authority army vip passenger hov bus coach tram rail_urban rail " +
-                        "rail_electric motorcycle moped pedestrian custom1", False)
+                        "rail_electric motorcycle moped pedestrian custom1")
 
 # Check undos
 netedit.undo(referencePosition, 3)

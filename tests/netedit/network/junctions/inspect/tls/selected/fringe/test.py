@@ -50,13 +50,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set invalidvalid fringe
-netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.fringe, "dummyFringe", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.fringe, "dummyFringe")
 
 # set valid fringe
-netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.fringe, "outer", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.fringe, "outer")
 
 # set valid fringe
-netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.fringe, "inner", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.fringe, "inner")
 
 # rebuild network
 netedit.computeJunctions()

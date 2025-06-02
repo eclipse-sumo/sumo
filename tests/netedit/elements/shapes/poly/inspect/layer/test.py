@@ -45,13 +45,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 6 with a non valid value
-netedit.modifyAttribute(netedit.attrs.poly.inspect.layer, "dummyLayer", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.layer, "dummyLayer")
 
 # Change parameter 6 with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.layer, "-2", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.layer, "-2")
 
 # Change parameter 6 with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.layer, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.layer, "2.5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

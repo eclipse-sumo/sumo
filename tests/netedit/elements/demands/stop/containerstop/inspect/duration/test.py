@@ -53,19 +53,19 @@ netedit.modifyBoolAttribute(netedit.attrs.stopContainerStop.inspect.durationEnab
 netedit.modifyBoolAttribute(netedit.attrs.stopContainerStop.inspect.durationEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.duration, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.duration, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.duration, "", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.duration, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.duration, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.duration, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.duration, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.duration, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.duration, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.duration, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vaporizer)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "dummy")
 
 # Change parameter 2 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "-10", False)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "-10")
 
 # Change parameter 2 with a non valid value (minor than startTime)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "2", False)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "2")
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "20", False)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "20")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

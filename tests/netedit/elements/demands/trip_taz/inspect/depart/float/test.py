@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.depart, "", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.depart, "")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.depart, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.depart, "dummyDepart")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.depart, "-3", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.depart, "-3")
 
 # change depart with an valid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.depart, "10.2", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.depart, "10.2")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

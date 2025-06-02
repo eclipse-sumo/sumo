@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.personFlow.inspectSelection.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.personFlow.inspectSelection.colorButton, 5)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.color, "", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.color, "")
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.color, "dummyColor")
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.color, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.color, "cyan")
 
 # change color with a valid value
 netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.color, "12,13,14", False)

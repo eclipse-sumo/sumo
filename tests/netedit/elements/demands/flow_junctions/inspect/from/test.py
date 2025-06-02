@@ -51,13 +51,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.fromJunction, "", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.fromJunction, "")
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.fromJunction, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.fromJunction, "dummyEdge")
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.fromJunction, "Junction2", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.fromJunction, "Junction2")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

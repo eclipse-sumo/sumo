@@ -48,7 +48,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.person.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.person.inspect.parameters)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

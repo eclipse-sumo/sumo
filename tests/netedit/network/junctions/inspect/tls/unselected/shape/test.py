@@ -35,7 +35,7 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set dummy shape
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.shape, "dummy shape", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.shape, "dummy shape")
 
 # change shape of junction
 netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.shape,

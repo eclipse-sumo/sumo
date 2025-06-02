@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.poiGeo.inspect.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.poiGeo.inspect.colorButton, 5)
 
 # Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.color, "dummyColor")
 
 # Change parameter 4 with a non valid value (invalid format)
 netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.color, "255,255,500", False)
 
 # Change parameter 4 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.color, "blue", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.color, "blue")
 
 # Change parameter 4 with a valid value (valid format)
 netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.color, "125,60,200", False)

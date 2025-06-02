@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.departSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.departSpeed, "")
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.departSpeed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.departSpeed, "dummySpeed")
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.departSpeed, "random", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.departSpeed, "random")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

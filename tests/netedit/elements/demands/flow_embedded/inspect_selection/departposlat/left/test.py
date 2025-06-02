@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departPosLat, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departPosLat, "")
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departPosLat, "dummyPosLat", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departPosLat, "dummyPosLat")
 
 # change departPosLat with an valid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departPosLat, "left", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departPosLat, "left")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

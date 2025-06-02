@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "-42", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "-42")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "1.15", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "1.15")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

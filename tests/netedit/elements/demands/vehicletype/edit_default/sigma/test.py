@@ -35,19 +35,19 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "dummySigma", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "dummySigma")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "-30", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "-30")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "20.5", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "20.5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "0.52", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "0.52")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

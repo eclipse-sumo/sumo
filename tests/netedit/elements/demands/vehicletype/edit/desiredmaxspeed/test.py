@@ -38,16 +38,16 @@ netedit.changeMode("type")
 netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.desiredMaxSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.desiredMaxSpeed, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.desiredMaxSpeed, "dummyMaxSpeed", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.desiredMaxSpeed, "dummyMaxSpeed")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.desiredMaxSpeed, "-30", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.desiredMaxSpeed, "-30")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.desiredMaxSpeed, "20.5", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.desiredMaxSpeed, "20.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.poiGeo.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.poiGeo.inspect.parameters)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

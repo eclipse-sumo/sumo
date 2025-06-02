@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "container", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "container")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.expected, "containerA containerB", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.expected, "containerA containerB")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

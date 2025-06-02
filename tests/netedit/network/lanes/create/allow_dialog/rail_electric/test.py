@@ -33,7 +33,7 @@ netedit.changeMode("createEdge")
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyAttributeVClassDialog(netedit.attrs.lane.create.allowButton,
-                                    netedit.attrs.dialog.allowVClass.rail_electric, False)
+                                    netedit.attrs.dialog.allowVClass.rail_electric)
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)

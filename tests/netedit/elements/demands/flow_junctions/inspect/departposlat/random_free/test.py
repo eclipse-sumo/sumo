@@ -51,13 +51,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departPosLat, "", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departPosLat, "")
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departPosLat, "dummyPosLat", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departPosLat, "dummyPosLat")
 
 # change departPosLat with an valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departPosLat, "random_free", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.departPosLat, "random_free")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

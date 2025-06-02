@@ -35,13 +35,13 @@ netedit.changeMode("TLS")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.earlyEnd, "dummyDur", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.earlyEnd, "dummyDur")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.earlyEnd, "-20", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.earlyEnd, "-20")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.earlyEnd, "13.15", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.actuatedPhase.earlyEnd, "13.15")
 
 # type enter to save changes
 netedit.typeKey('enter')

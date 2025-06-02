@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.triggered, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.triggered, "join", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.triggered, "join")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.join, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.join, ";;;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.join, "customJoin", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.join, "customJoin")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

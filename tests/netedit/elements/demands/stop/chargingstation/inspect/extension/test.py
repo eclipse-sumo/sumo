@@ -53,19 +53,19 @@ netedit.modifyBoolAttribute(netedit.attrs.stopChargingStation.inspect.durationEn
 netedit.modifyBoolAttribute(netedit.attrs.stopChargingStation.inspect.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.extension, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.extension, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.extension, "", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.extension, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.extension, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.extension, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.extension, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.extension, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.extension, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.extension, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

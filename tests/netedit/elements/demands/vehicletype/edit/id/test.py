@@ -39,19 +39,19 @@ netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
 netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.edit.id, "", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.id, "")
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.edit.id, ";;;", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.id, ";;;")
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.edit.id, "t_0", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.id, "t_0")
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.edit.id, "t_1", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.id, "t_1")
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.edit.id, "customID", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.id, "customID")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

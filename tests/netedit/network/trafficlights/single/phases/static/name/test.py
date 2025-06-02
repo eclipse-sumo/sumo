@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 netedit.createTLS()
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.single.staticPhase.name, "custom name", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.staticPhase.name, "custom name")
 
 # type enter to save changes
 netedit.typeKey('enter')

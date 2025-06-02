@@ -50,22 +50,22 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ri
 netedit.typeKey('enter')
 
 # set invalid type
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "", False)
+netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "")
 
 # set invalid type
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, ";;;%%;;;", False)
+netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, ";;;%%;;;")
 
 # set set valid
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated", False)
+netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated")
 
 # set set valid
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
+netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based")
 
 # set set valid
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA", False)
+netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA")
 
 # set set valid
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "static", False)
+netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "static")
 
 # type enter to save changes
 netedit.typeKey('enter')

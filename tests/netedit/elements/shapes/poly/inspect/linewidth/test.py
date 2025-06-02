@@ -45,13 +45,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 5 with a non valid value
-netedit.modifyAttribute(netedit.attrs.poly.inspect.lineWidth, "dummyLineWidth", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.lineWidth, "dummyLineWidth")
 
 # Change parameter 5 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.lineWidth, "-2", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.lineWidth, "-2")
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(netedit.attrs.poly.inspect.lineWidth, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.lineWidth, "2.5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

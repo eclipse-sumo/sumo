@@ -35,13 +35,13 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set dummy value
-netedit.modifyAttribute(netedit.attrs.junction.inspect.fringe, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.fringe, "dummyValue")
 
 # set valid value
-netedit.modifyAttribute(netedit.attrs.junction.inspect.fringe, "outer", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.fringe, "outer")
 
 # set valid value
-netedit.modifyAttribute(netedit.attrs.junction.inspect.fringe, "inner", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.fringe, "inner")
 
 # rebuild network
 netedit.computeJunctions()

@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.parking, "true", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.parking, "true")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.parking, "false", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.parking, "false")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.parking, "opportunistic", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.parking, "opportunistic")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

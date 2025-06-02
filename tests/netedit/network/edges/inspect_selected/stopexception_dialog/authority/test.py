@@ -41,11 +41,11 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 16 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "4", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "4")
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyAttributeVClassDialog(netedit.attrs.edge.inspectSelection.stopOffsetExceptionButton,
-                                    netedit.attrs.dialog.allowVClass.authority, False)
+                                    netedit.attrs.dialog.allowVClass.authority)
 
 # Check undos
 netedit.undo(referencePosition, 4)

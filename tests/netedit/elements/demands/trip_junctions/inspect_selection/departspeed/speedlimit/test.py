@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departSpeed, "")
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departSpeed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departSpeed, "dummySpeed")
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departSpeed, "speedLimit", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departSpeed, "speedLimit")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

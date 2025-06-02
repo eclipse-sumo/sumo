@@ -35,13 +35,13 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # change ID (Duplicated)
-netedit.modifyAttribute(netedit.attrs.junction.inspect.id, "JunctionTop", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.id, "JunctionTop")
 
 # change ID empty)
-netedit.modifyAttribute(netedit.attrs.junction.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.id, "")
 
 # change ID
-netedit.modifyAttribute(netedit.attrs.junction.inspect.id, "OwnID", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.id, "OwnID")
 
 # rebuild network
 netedit.computeJunctions()

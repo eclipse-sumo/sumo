@@ -38,13 +38,13 @@ netedit.changeMode("type")
 netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.edit.vClass, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.vClass, "dummy")
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.edit.vClass, "", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.vClass, "")
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.edit.vClassEdited, "pedestrian", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.vClassEdited, "pedestrian")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

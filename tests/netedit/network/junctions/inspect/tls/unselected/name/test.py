@@ -35,10 +35,10 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set invalid radius
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.name, "%%%%;;;;;", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.name, "%%%%;;;;;")
 
 # set invalid radius
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.name, "customName", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.name, "customName")
 
 # rebuild network
 netedit.computeJunctions()

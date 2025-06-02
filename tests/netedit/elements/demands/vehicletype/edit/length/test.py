@@ -38,16 +38,16 @@ netedit.changeMode("type")
 netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.length, "", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.length, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.length, "dummyLength", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.length, "dummyLength")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.length, "-30", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.length, "-30")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.length, "20.5", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.length, "20.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

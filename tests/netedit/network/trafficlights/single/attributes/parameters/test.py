@@ -38,14 +38,14 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 netedit.createTLS()
 
 # Change generic parameters with an invalid value (dummy)
-netedit.modifyAttribute(netedit.attrs.TLS.single.attributes.parameters, "dummyGenericParameters", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.attributes.parameters, "dummyGenericParameters")
 
 # Change generic parameters with an invalid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.TLS.single.attributes.parameters, "key1|key2|key3", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.attributes.parameters, "key1|key2|key3")
 
 # Change generic parameters with a valid value
 netedit.modifyAttribute(netedit.attrs.TLS.single.attributes.parameters,
-                        "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", False)
+                        "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3")
 
 # type enter to save changes
 netedit.typeKey('enter')

@@ -35,16 +35,16 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.decel, "", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.decel, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.decel, "dummyAcel", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.decel, "dummyAcel")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.decel, "-30", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.decel, "-30")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.decel + 1, "20.5", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.decel + 1, "20.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

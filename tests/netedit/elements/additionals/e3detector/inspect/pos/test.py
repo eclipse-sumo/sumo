@@ -57,10 +57,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Change parameter position with a non valid value (dummy position)
-netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "dummy position", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "dummy position")
 
 # Change parameter position with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "")
 
 # Change parameter position with a valid value (different position)
 netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "25, 25", False)

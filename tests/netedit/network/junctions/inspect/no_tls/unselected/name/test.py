@@ -35,10 +35,10 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set invalid radius
-netedit.modifyAttribute(netedit.attrs.junction.inspect.name, "&&&&%%%%", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.name, "&&&&%%%%")
 
 # set invalid radius
-netedit.modifyAttribute(netedit.attrs.junction.inspect.radius, "customName", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.radius, "customName")
 
 # rebuild network
 netedit.computeJunctions()

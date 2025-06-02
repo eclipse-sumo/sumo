@@ -120,7 +120,7 @@ def modifyAttributeVClassDialog(attribute, vClass, overlapped=False, disallowAll
         typeKey('space')
 
 
-def modifyAdditionalFileDialog(attributeIndex, overlapped, waitTime=2):
+def modifyAdditionalFileDialog(attributeIndex, overlapped=False, waitTime=2):
     """
     @brief modify default additional file using dialog
     """
@@ -145,7 +145,7 @@ def modifyAdditionalFileDialog(attributeIndex, overlapped, waitTime=2):
     typeKey('enter')
 
 
-def modifyAdditionalFile(attributeIndex, overlapped):
+def modifyAdditionalFile(attributeIndex, overlapped=False):
     """
     @brief modify default additional file
     """
@@ -162,7 +162,7 @@ def checkUndoRedo(referencePosition, offsetX=0, offsetY=0):
     redo(referencePosition, 9, offsetY)
 
 
-def checkParameters(referencePosition, attributeIndex, overlapped, offsetX=0, offsetY=0):
+def checkParameters(referencePosition, attributeIndex, overlapped=False, offsetX=0, offsetY=0):
     """
     @brief Check generic parameters
     """
@@ -190,7 +190,7 @@ def checkParameters(referencePosition, attributeIndex, overlapped, offsetX=0, of
     checkUndoRedo(referencePosition, offsetX, offsetY)
 
 
-def checkDoubleParameters(referencePosition, attributeIndex, overlapped, offsetX=0, offsetY=0):
+def checkDoubleParameters(referencePosition, attributeIndex, overlapped=False, offsetX=0, offsetY=0):
     """
     @brief Check generic parameters
     """

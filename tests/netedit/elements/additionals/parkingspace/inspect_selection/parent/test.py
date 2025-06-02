@@ -41,13 +41,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace)
 
 # Change parameter parent with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.parent, "dummyParent", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.parent, "dummyParent")
 
 # Change parameter parent with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.parent, "", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.parent, "")
 
 # Change parameter parent with a valid value
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.parent, "parkingArea_B", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.parent, "parkingArea_B")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

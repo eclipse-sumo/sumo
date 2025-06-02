@@ -35,7 +35,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.move.top)
 
 # Change length
-netedit.modifyAttribute(netedit.attrs.edge.inspect.length, "1", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.length, "1")
 
 # Check undos
 netedit.undo(referencePosition, 1)

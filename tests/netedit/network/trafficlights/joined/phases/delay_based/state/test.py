@@ -35,13 +35,13 @@ netedit.changeMode("TLS")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "dummyDur", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "dummyDur")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "ryryryryryryryryryryryry", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "ryryryryryryryryryryryry")
 
 # type enter to save changes
 netedit.typeKey('enter')

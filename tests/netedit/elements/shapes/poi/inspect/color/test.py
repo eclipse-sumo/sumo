@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.poi.inspect.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.poi.inspect.colorButton, 5)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poi.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.poi.inspect.color, "dummyColor")
 
 # Change parameter 2 with a non valid value (invalid format)
 netedit.modifyAttribute(netedit.attrs.poi.inspect.color, "255,255,500", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.poi.inspect.color, "blue", False)
+netedit.modifyAttribute(netedit.attrs.poi.inspect.color, "blue")
 
 # Change parameter 2 with a valid value (valid format)
 netedit.modifyAttribute(netedit.attrs.poi.inspect.color, "125,60,200", False)

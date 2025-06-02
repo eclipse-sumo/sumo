@@ -51,7 +51,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "custom_vType")
 
 # inspect vtype
 netedit.modifyBoolAttribute(netedit.attrs.personFlow.inspect.typeButton, False)

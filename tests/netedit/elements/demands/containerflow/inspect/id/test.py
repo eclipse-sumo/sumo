@@ -58,19 +58,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, ";;;;;;;;", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, ";;;;;;;;")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "id with spaces", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "id with spaces")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "pf_1", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "pf_1")
 
 # change ID with an invalid value (empty)
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "customID", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "customID")
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

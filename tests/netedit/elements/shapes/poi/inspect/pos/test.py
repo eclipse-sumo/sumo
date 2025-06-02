@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poi.inspect.pos, "dummyPosition", False)
+netedit.modifyAttribute(netedit.attrs.poi.inspect.pos, "dummyPosition")
 
 # Change parameter 1 with a valid value
 netedit.modifyAttribute(netedit.attrs.poi.inspect.pos, "20.40,7.50", False)

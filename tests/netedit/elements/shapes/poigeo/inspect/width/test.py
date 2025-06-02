@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 8 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.width, "dummyWidth", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.width, "dummyWidth")
 
 # Change parameter 8 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.width, "-2", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.width, "-2")
 
 # Change parameter 8 with a valid value
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.width, "5", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.width, "5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

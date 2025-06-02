@@ -47,7 +47,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge2Ped)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.transport.edge.edge.inspectSelection.lines, "custom line", False)
+netedit.modifyAttribute(netedit.attrs.transport.edge.edge.inspectSelection.lines, "custom line")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

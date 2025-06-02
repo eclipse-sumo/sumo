@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "join", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "join")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.join, ";;;", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.join, ";;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.join, "customJoin", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.join, "customJoin")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

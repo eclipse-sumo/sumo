@@ -52,16 +52,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.data.TAZRelBot)
 
 # Change parameter 3 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "", False)
+netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "")
 
 # Change parameter 3 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "dummyTAZ", False)
+netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "dummyTAZ")
 
 # Change parameter 3 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "taz_red", False)
+netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "taz_red")
 
 # Change parameter 3 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "taz_orange", False)
+netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "taz_orange")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

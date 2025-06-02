@@ -44,19 +44,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.jump, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.jump, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.jump, "", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.jump, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.jump, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.jump, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.jump, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.jump, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.jump, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.jump, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

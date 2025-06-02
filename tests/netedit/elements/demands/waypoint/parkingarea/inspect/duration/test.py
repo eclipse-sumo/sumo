@@ -53,19 +53,19 @@ netedit.modifyBoolAttribute(netedit.attrs.waypointParking.inspect.durationEnable
 netedit.modifyBoolAttribute(netedit.attrs.waypointParking.inspect.durationEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.duration, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.duration, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.duration, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.duration, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.duration, "-5", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.duration, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.duration, "0", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.duration, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.duration, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.duration, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

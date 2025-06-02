@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.line, ";;;", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.line, ";;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.line, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.line, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.line, "customLine", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.line, "customLine")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

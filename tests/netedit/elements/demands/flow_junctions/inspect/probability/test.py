@@ -51,22 +51,22 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacing, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacing, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacing, "probability", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacing, "probability")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacingOption, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacingOption, "dummy")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacingOption, "12.5", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacingOption, "12.5")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacingOption, "26", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacingOption, "26")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacingOption, "0.3", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacingOption, "0.3")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

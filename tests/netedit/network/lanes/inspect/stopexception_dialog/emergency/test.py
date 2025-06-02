@@ -38,11 +38,11 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 16 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "4", False)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "4")
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyAttributeVClassDialog(netedit.attrs.lane.inspect.stopOffsetExceptionButton,
-                                    netedit.attrs.dialog.allowVClass.emergency, False)
+                                    netedit.attrs.dialog.allowVClass.emergency)
 
 # Check undos
 netedit.undo(referencePosition, 4)

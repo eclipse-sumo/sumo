@@ -51,13 +51,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # change begin with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.begin, "", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.begin, "")
 
 # change begin with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.begin, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.begin, "dummyDepart")
 
 # change begin with an valid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.begin, "triggered", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.begin, "triggered")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

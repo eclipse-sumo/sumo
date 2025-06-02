@@ -51,13 +51,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change begin with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.begin, "", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.begin, "")
 
 # change begin with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.begin, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.begin, "dummyDepart")
 
 # change begin with an valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.begin, "containerTriggered", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.begin, "containerTriggered")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

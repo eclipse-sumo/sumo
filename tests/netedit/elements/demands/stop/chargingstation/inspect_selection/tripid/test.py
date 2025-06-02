@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.tripID, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.tripID, ";;;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.tripID, "", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.tripID, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.tripID, "customTripID", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.tripID, "customTripID")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

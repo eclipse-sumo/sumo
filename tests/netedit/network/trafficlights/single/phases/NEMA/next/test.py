@@ -38,19 +38,19 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 netedit.createTLS()
 
 # change type
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA", False)
+netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA")
 
 # type enter to save changes
 netedit.typeKey('enter')
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.nxt, "dummyNext", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.nxt, "dummyNext")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.nxt, "", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.nxt, "")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.nxt, "1", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.nxt, "1")
 
 # type enter to save changes
 netedit.typeKey('enter')

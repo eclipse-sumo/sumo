@@ -36,22 +36,22 @@ netedit.changeMode("inspect")
 
 # select first left edge and change their junction
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "J0", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "J0")
 netedit.computeJunctions()
 
 # select second left edge and change their junction
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "J3", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "J3")
 netedit.computeJunctions()
 
 # select first right edge and change their junction
 netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "J0", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "J0")
 netedit.computeJunctions()
 
 # select second right edge and change their junction
 netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "J3", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "J3")
 netedit.computeJunctions()
 
 # Check undo redo

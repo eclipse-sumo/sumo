@@ -57,13 +57,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Change parameter period with a non valid value (non numeral)
-netedit.modifyAttribute(netedit.attrs.E3.inspect.period, "dummyFrequency", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.period, "dummyFrequency")
 
 # Change parameter period with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.E3.inspect.period, "-100", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.period, "-100")
 
 # Change parameter period with a valid value
-netedit.modifyAttribute(netedit.attrs.E3.inspect.period, "120", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.period, "120")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

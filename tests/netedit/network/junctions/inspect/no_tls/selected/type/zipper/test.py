@@ -49,10 +49,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set invalid value
-netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "dummyType", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "dummyType")
 
 # change type of junction
-netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "zipper", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "zipper")
 
 # rebuild network
 netedit.computeJunctions()

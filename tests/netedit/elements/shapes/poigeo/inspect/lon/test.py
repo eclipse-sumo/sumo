@@ -44,10 +44,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.lon, "dummyLon", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.lon, "dummyLon")
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.lat, "20.40", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.lat, "20.40")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

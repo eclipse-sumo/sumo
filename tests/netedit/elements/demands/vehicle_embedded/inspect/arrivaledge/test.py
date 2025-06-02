@@ -51,13 +51,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change edge
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.arrivalEdge, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.arrivalEdge, "dummyEdge")
 
 # change edge
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.arrivalEdge, "50", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.arrivalEdge, "50")
 
 # change edge
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.arrivalEdge, "1", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.arrivalEdge, "1")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

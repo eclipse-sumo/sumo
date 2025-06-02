@@ -35,10 +35,10 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set dummy value
-netedit.modifyAttribute(netedit.attrs.junction.inspect.rightOfWay, "dummyRightOfWay", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.rightOfWay, "dummyRightOfWay")
 
 # change shape of junction
-netedit.modifyAttribute(netedit.attrs.junction.inspect.rightOfWay, "edgePriority", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.rightOfWay, "edgePriority")
 
 # rebuild network
 netedit.computeJunctions()

@@ -35,13 +35,13 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.editDefault.vClass, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.vClass, "dummy")
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.editDefault.vClass, "", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.vClass, "")
 
 # modify attribute
-netedit.modifyAttribute(netedit.attrs.type.editDefault.vClassEdited, "pedestrian", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.vClassEdited, "pedestrian")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

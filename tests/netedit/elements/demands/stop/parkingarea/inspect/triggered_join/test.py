@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.triggered, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.triggered, "join", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.triggered, "join")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.join, ";;;", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.join, ";;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.join, "customJoin", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.join, "customJoin")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

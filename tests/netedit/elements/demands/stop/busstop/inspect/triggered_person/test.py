@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "person", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "person")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.expected, "personA personB", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.expected, "personA personB")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

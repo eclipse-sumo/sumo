@@ -51,19 +51,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.containerNumber, "", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.containerNumber, "")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.containerNumber, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.containerNumber, "dummyNumber")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.containerNumber, "-5", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.containerNumber, "-5")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.containerNumber, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.containerNumber, "2.5")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.containerNumber, "3", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.containerNumber, "3")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

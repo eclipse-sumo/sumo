@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.triggered, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.triggered, "container", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.triggered, "container")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.expected, "containerA containerB", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.expected, "containerA containerB")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

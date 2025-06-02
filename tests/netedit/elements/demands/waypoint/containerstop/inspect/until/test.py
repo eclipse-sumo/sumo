@@ -53,19 +53,19 @@ netedit.modifyBoolAttribute(netedit.attrs.waypointContainerStop.inspect.duration
 netedit.modifyBoolAttribute(netedit.attrs.waypointContainerStop.inspect.untilEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "-5", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "0", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.until, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

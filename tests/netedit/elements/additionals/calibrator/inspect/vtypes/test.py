@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibrator)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "dummyJam", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "dummyJam")
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "-5", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "-5")
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "7.7", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "7.7")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

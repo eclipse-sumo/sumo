@@ -50,7 +50,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.junction.inspectSelection.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.junction.inspectSelection.parameters)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

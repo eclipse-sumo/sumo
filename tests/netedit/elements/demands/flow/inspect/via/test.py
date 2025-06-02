@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "")
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "dummyEdge")
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "EdgeCenter0", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "EdgeCenter0")
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "Edge2", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "Edge2")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
