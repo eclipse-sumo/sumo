@@ -17,6 +17,7 @@
 ///
 // Single operation used in InternalTests
 /****************************************************************************/
+#include <config.h>
 
 #include <fxkeys.h>
 

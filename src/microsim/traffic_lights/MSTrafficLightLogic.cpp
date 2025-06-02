@@ -241,7 +241,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         for (auto item : greenLanes) {
             if (item.second > 1) {
                 WRITE_WARNINGF(TL("Unsafe green phase % in tlLogic '%', program '%'. Lane '%' is targeted by % 'G'-links. (use 'g' instead)"),
-                        i, getID(), getProgramID(), item.first->getID(), item.second);
+                               i, getID(), getProgramID(), item.first->getID(), item.second);
             }
         }
     }
@@ -263,7 +263,6 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
     if (mustCheck && phases.size() > 0) {
         // see NBNode::tlsConflict
         std::set<const MSJunction*> controlledJunctions;
-        const int numLinks = (int)myLinks.size();
         for (int j = 0; j < numLinks; ++j) {
             for (int k = 0; k < (int)myLinks[j].size(); ++k) {
                 MSLink* link = myLinks[j][k];

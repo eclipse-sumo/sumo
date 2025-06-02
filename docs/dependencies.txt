@@ -13,7 +13,7 @@ pkg:generic/vc_redist?download_url=https://aka.ms/vs/17/release/vc_redist.x64.ex
 pkg:github/apache/xerces-c@v3.3.0
 pkg:generic/fox@1.6.59?download_url=http://fox-toolkit.org/ftp/fox-1.6.59.zip&checksum=sha256:73d16c2bbd32f432bd6f07212d4eb83cfdb7005e0386640a5996752d1a6e3281
 pkg:github/osgeo/proj@9.5.0
-pkg:github/osgeo/gdal@3.9.3
+pkg:github/osgeo/gdal@v3.9.3
 pkg:generic/gl2ps@1.4.2?download_url=https://geuz.org/gl2ps/src/gl2ps-1.4.2.tgz
 pkg:generic/gettext@v0.21?download_url=https://ftp.gnu.org/pub/gnu/gettext/gettext-0.21.tar.gz
 pkg:github/PedestrianDynamics/jupedsim@v1.3.0
@@ -42,7 +42,7 @@ pkg:github/libexpat/libexpat@R_2_6_3
 pkg:generic/libiconv@1.17?download_url=https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.17.tar.gz
 pkg:github/pnggroup/libpng@v1.6.44
 pkg:generic/librttopo@1.1.0?download_url=https://gitlab.com/rttopo/rttopo/-/archive/librttopo-1.1.0/rttopo-librttopo-1.1.0.zip
-pkg:github/libssh2/libssh2@1.11.1
+pkg:github/libssh2/libssh2@libssh2-1.11.1
 pkg:generic/libxml2@2.13.4?download_url=https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.4.tar.xz
 pkg:github/zlib-ng/minizip-ng@4.0.7
 pkg:github/openssl/openssl@openssl-3.3.2

@@ -1,4 +1,4 @@
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
@@ -18,6 +18,12 @@
 # imports
 from ..imports import *
 from ..constants import *
+
+# Define the mapping from English to German keyboard layout
+EN_KEYS = r"""y[];'\z/Y{}:"|Z<>?@#^&*()-_=+"""
+DE_KEYS = u"""zÃ¼+Ã¶Ã¤#y-ZÃœ*Ã–Ã„Â§Y,._"'^&()=ÃŸ?Â´Â¨"""
+TRANS_TABLE = str.maketrans(EN_KEYS, DE_KEYS)
+
 
 def typeKey(key):
     """
@@ -81,13 +87,9 @@ def translateKeys(value, layout="de"):
     """
     @brief translate keys between different keyboards
     """
-    tr = {}
     if layout == "de":
-        en = r"""y[];'\z/Y{}:"|Z<>?@#^&*()-_=+§"""
-        de = u"""zü+öä#y-ZÜ*ÖÄ'Y;:_"§&/()=ß?´`^"""
-        # join as keys and values
-        tr.update(dict(zip(en, de)))
-    return "".join(map(lambda x: tr.get(x, x), value))
+        return value.translate(TRANS_TABLE).encode("latin-1")
+    return value
 
 
 def updateText(newText, removePreviousContents=True, useClipboard=True, layout="de"):
