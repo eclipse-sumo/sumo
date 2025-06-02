@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to shape mode
-netedit.changeElement("poiLane")
+netedit.changeElement("shapeFrame", "poiLane")
 
 # change height (invalid, dummy)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.height, "dummyHeight")

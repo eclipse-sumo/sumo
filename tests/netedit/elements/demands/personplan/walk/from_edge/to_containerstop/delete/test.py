@@ -47,7 +47,7 @@ netedit.typeKey('enter')
 netedit.changeMode("personPlan")
 
 # go to walk.edge.containerStop mode
-netedit.changePersonPlanMode("walk")
+netedit.changeElement("personPlanFrame", "walk")
 
 # create walk.edge.containerStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)

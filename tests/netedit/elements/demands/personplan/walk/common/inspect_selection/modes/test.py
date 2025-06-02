@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge2Ped)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTrip.edge.edge.inspectSelection.modes, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.personTrip.edge.edge.inspectSelection.modes, "dummy")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTrip.edge.edge.inspectSelection.modes, "", False)
+netedit.modifyAttribute(netedit.attrs.personTrip.edge.edge.inspectSelection.modes, "")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTrip.edge.edge.inspectSelection.modes, "car", False)
+netedit.modifyAttribute(netedit.attrs.personTrip.edge.edge.inspectSelection.modes, "car")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

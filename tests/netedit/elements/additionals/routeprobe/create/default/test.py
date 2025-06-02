@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select routeProbe
-netedit.changeElement("routeProbe")
+netedit.changeElement("additionalFrame", "routeProbe")
 
 # create routeProbe (camera will be moved)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)

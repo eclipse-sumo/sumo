@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (from-to edges)")
+netedit.changeElement("vehicleFrame", "flow (from-to edges)")
 
 # create flow using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.flow.inspect.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.flow.inspect.colorButton, 5)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.color, "", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.color, "")
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.color, "dummyColor")
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.color, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.color, "cyan")
 
 # change color with a valid value
 netedit.modifyAttribute(netedit.attrs.flow.inspect.color, "12,13,14", False)

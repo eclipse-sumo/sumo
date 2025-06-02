@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select flow with embedded route
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("vehicleFrame", "flow (from-to junctions)")
 
 # set invalid arrival pos
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacing, "dummySpacing")

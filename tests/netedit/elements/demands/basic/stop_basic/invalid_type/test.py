@@ -35,13 +35,13 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change stop type with an invalid value
-netedit.changeStopType("dummyType")
+netedit.changeElement("stopFrame", "dummyType")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # change stop type with a valid value
-netedit.changeStopType("stopLane")
+netedit.changeElement("stopFrame", "stopLane")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

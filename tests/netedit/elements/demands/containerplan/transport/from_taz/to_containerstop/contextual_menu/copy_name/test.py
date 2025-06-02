@@ -48,7 +48,7 @@ netedit.typeKey('enter')
 netedit.changeMode("containerPlan")
 
 # go to transport.junction.containerStop mode
-netedit.changeContainerPlanMode("transport")
+netedit.changeElement("containerPlanFrame", "transport")
 
 # create transport.junction.containerStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)

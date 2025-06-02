@@ -41,13 +41,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Set invalid period
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "%%%;:..&&%$%$", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "%%%;:..&&%$%$")
 
 # Set invalid period
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "-30", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "-30")
 
 # Set valid period
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "50", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "50")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

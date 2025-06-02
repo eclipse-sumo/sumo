@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # select POI in list of shapes
-netedit.changeElement("poiGeo")
+netedit.changeElement("shapeFrame", "poiGeo")
 
 # create first POI
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 9 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.height, "dummyHeight", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.height, "dummyHeight")
 
 # Change parameter 9 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.height, "-3", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.height, "-3")
 
 # Change parameter 9 with a valid value
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.height, "5", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.height, "5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

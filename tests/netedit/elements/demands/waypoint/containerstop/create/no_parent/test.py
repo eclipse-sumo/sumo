@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointContainerStop")
+netedit.changeElement("stopFrame", "waypointContainerStop")
 
 # try to create waypoint (don't click over busStop)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

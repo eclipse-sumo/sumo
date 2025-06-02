@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("route")
 
 # set valid vclass
-netedit.changeRouteVClass("bus")
+netedit.changeParentElement("routeFrame", "bus")
 
 # create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter repeat with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "")
 
 # Change parameter repeat with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "dummyRepeat", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "dummyRepeat")
 
 # Change parameter repeat with a valid value
-netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "-12.5", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "-12.5")
 
 # Change parameter repeat with a valid value
-netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "13", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "13")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

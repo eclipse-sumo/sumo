@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("container")
 
 # change Container
-netedit.changeElement("containerFlow")
+netedit.changeElement("containerFrame", "containerFlow")
 
 # create container using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,19 +51,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacing, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacing, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacing, "containersPerHour", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacing, "containersPerHour")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacingOption, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacingOption, "dummy")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacingOption, "12.5", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacingOption, "12.5")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacingOption, "26", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacingOption, "26")
 
 
 # Check undo

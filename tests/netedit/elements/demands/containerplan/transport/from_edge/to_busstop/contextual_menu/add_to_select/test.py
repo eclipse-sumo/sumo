@@ -47,7 +47,7 @@ netedit.typeKey('enter')
 netedit.changeMode("containerPlan")
 
 # go to transport.edge.busStop mode
-netedit.changeContainerPlanMode("transport")
+netedit.changeElement("containerPlanFrame", "transport")
 
 # create transport.edge.busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)

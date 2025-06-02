@@ -50,19 +50,19 @@ netedit.modifyBoolAttribute(netedit.attrs.stopTrainStop.inspectSelection.duratio
 netedit.modifyBoolAttribute(netedit.attrs.stopTrainStop.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.duration, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.duration, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.duration, "", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.duration, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.duration, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.duration, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.duration, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.duration, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.duration, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.duration, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

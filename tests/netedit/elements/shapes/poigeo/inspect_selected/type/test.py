@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspectSelection.type, "<<myOwnType>>", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspectSelection.type, "<<myOwnType>>")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

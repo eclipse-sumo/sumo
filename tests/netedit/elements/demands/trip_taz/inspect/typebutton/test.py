@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("trip (from-to TAZs)")
+netedit.changeElement("vehicleFrame", "trip (from-to TAZs)")
 
 # create trip using two TAZs
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -51,7 +51,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.type, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.type, "custom_vType")
 
 # inspect vtype
 netedit.modifyBoolAttribute(netedit.attrs.tripTAZ.inspect.typeButton, False)

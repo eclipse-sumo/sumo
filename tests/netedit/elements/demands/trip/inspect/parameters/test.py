@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-# netedit.changeElement("trip")
+# netedit.changeElement("vehicleFrame", "trip")
 
 # create trip using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,7 +51,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.trip.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.trip.inspect.parameters)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

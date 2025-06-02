@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select E2
-netedit.changeElement("laneAreaDetector")
+netedit.changeElement("additionalFrame", "laneAreaDetector")
 
 # set invalid name
 netedit.changeDefaultValue(netedit.attrs.E2.create.name, ";;;;$$$")

@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select flow
-netedit.changeElement("flow (from-to edges)")
+netedit.changeElement("vehicleFrame", "flow (from-to edges)")
 
 # set color using dialog
 netedit.changeColorUsingDialog(netedit.attrs.flow.create.colorButton, 5)

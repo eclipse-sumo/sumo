@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-05-20 18:34+0200\n"
+"POT-Creation-Date: 2025-06-01 11:33+0000\n"
 "PO-Revision-Date: 2023-05-11 18:10+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,118 +17,126 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: tools/game/runner.py:66
+#: tools/game/runner.py:67
 msgid "Interactive Traffic Light"
 msgstr ""
 
-#: tools/game/runner.py:67
-msgid "Research intersection Ingolstadt"
-msgstr ""
-
 #: tools/game/runner.py:68
-msgid "Simple Junction"
+msgid "Railway Control"
 msgstr ""
 
 #: tools/game/runner.py:69
-msgid "Simple Junction (Demo)"
+msgid "Railway Control Demo"
 msgstr ""
 
 #: tools/game/runner.py:70
-msgid "Four Junctions"
+msgid "Research intersection Ingolstadt"
 msgstr ""
 
 #: tools/game/runner.py:71
-msgid "Six Junctions"
+msgid "Simple Junction"
 msgstr ""
 
 #: tools/game/runner.py:72
-msgid "Prof. Kühne"
+msgid "Simple Junction (Demo)"
 msgstr ""
 
 #: tools/game/runner.py:73
-msgid "3D Junction Virtual World"
+msgid "Four Junctions"
 msgstr ""
 
 #: tools/game/runner.py:74
-msgid "3D Junction OpenStreetMap"
+msgid "Six Junctions"
 msgstr ""
 
 #: tools/game/runner.py:75
-msgid "Highway Ramp"
+msgid "Prof. Kühne"
 msgstr ""
 
 #: tools/game/runner.py:76
-msgid "Combined Highway On and Off Ramp"
+msgid "3D Junction Virtual World"
 msgstr ""
 
 #: tools/game/runner.py:77
-msgid "Corridor"
+msgid "3D Junction OpenStreetMap"
 msgstr ""
 
 #: tools/game/runner.py:78
-msgid "Highway Ramp A10"
+msgid "Highway Ramp"
 msgstr ""
 
 #: tools/game/runner.py:79
-msgid "Demand Responsive Transport (new)"
+msgid "Combined Highway On and Off Ramp"
 msgstr ""
 
 #: tools/game/runner.py:80
-msgid "DRT - Advanced (new)"
+msgid "Corridor"
 msgstr ""
 
 #: tools/game/runner.py:81
-msgid "DRT - Demo"
+msgid "Highway Ramp A10"
 msgstr ""
 
-#: tools/game/runner.py:82 /tools/game/runner.py:92
-msgid "Highscore"
+#: tools/game/runner.py:82
+msgid "Demand Responsive Transport (new)"
 msgstr ""
 
 #: tools/game/runner.py:83
-msgid "Reset Highscore"
+msgid "DRT - Advanced (new)"
 msgstr ""
 
 #: tools/game/runner.py:84
-msgid "German"
+msgid "DRT - Demo"
 msgstr ""
 
-#: tools/game/runner.py:85
-msgid "English"
+#: tools/game/runner.py:85 tools/game/runner.py:95
+msgid "Highscore"
 msgstr ""
 
 #: tools/game/runner.py:86
-msgid "Italian"
+msgid "Reset Highscore"
 msgstr ""
 
 #: tools/game/runner.py:87
-msgid "Spanish"
+msgid "German"
 msgstr ""
 
 #: tools/game/runner.py:88
-msgid "French"
+msgid "English"
 msgstr ""
 
 #: tools/game/runner.py:89
-msgid "Chinese (simplified)"
+msgid "Italian"
 msgstr ""
 
 #: tools/game/runner.py:90
-msgid "Chinese (traditional)"
+msgid "Spanish"
 msgstr ""
 
 #: tools/game/runner.py:91
-msgid "Quit"
+msgid "French"
+msgstr ""
+
+#: tools/game/runner.py:92
+msgid "Chinese (simplified)"
 msgstr ""
 
 #: tools/game/runner.py:93
-msgid "Congratulations!"
+msgid "Chinese (traditional)"
 msgstr ""
 
 #: tools/game/runner.py:94
+msgid "Quit"
+msgstr ""
+
+#: tools/game/runner.py:96
+msgid "Congratulations!"
+msgstr ""
+
+#: tools/game/runner.py:97
 msgid "Your Score"
 msgstr ""
 
-#: tools/game/runner.py:95
+#: tools/game/runner.py:98
 msgid "Continue"
 msgstr ""

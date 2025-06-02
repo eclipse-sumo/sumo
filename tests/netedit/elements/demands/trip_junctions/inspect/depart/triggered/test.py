@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("trip (from-to junctions)")
+netedit.changeElement("vehicleFrame", "trip (from-to junctions)")
 
 # create trip using two junctions
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -51,13 +51,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.depart, "", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.depart, "")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.depart, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.depart, "dummyDepart")
 
 # change depart with an valid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.depart, "triggered", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.depart, "triggered")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

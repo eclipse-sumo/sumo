@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change stop type with a valid value
-netedit.changeStopType("stopTrainStop")
+netedit.changeElement("stopFrame", "stopTrainStop")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
@@ -53,19 +53,19 @@ netedit.modifyBoolAttribute(netedit.attrs.stopTrainStop.inspect.durationEnable, 
 netedit.modifyBoolAttribute(netedit.attrs.stopTrainStop.inspect.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.extension, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

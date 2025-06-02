@@ -18,7 +18,8 @@
 # imports
 from ..general.functions import *
 
-def modifyAttribute(attributeIndex, value, overlapped):
+
+def modifyAttribute(attributeIndex, value, overlapped=False):
     """
     @brief modify attribute of type int/float/string
     """
@@ -26,10 +27,10 @@ def modifyAttribute(attributeIndex, value, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeIndex + 1 + attrs.editElements.overlapped):
+        for _ in range(attributeIndex + attrs.editElements.overlapped):
             typeKey('tab')
     else:
-        for _ in range(attributeIndex + 1):
+        for _ in range(attributeIndex):
             typeKey('tab')
     # paste the new value
     updateText(value)
@@ -37,7 +38,7 @@ def modifyAttribute(attributeIndex, value, overlapped):
     typeKey('enter')
 
 
-def modifyBoolAttribute(attributeIndex, overlapped):
+def modifyBoolAttribute(attributeIndex, overlapped=False):
     """
     @brief modify boolean attribute
     """
@@ -45,16 +46,16 @@ def modifyBoolAttribute(attributeIndex, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeIndex + 1 + attrs.editElements.overlapped):
+        for _ in range(attributeIndex + attrs.editElements.overlapped):
             typeKey('tab')
     else:
-        for _ in range(attributeIndex + 1):
+        for _ in range(attributeIndex):
             typeKey('tab')
     # type SPACE to change value
     typeKey('space')
 
 
-def modifyColorAttribute(attributeIndex, color, overlapped):
+def modifyColorAttribute(attributeIndex, color, overlapped=False):
     """
     @brief modify color using dialog
     """
@@ -62,10 +63,10 @@ def modifyColorAttribute(attributeIndex, color, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeIndex + 1 + attrs.editElements.overlapped):
+        for _ in range(attributeIndex + attrs.editElements.overlapped):
             typeKey('tab')
     else:
-        for _ in range(attributeIndex + 1):
+        for _ in range(attributeIndex):
             typeKey('tab')
     typeKey('space')
     # go to list of colors TextField
@@ -79,7 +80,7 @@ def modifyColorAttribute(attributeIndex, color, overlapped):
     typeKey('space')
 
 
-def modifyAttributeVClassDialog(attribute, vClass, overlapped, disallowAll=True, cancel=False, reset=False):
+def modifyAttributeVClassDialog(attribute, vClass, overlapped=False, disallowAll=True, cancel=False, reset=False):
     """
     @brief modify vclass attribute using dialog
     """
@@ -119,7 +120,7 @@ def modifyAttributeVClassDialog(attribute, vClass, overlapped, disallowAll=True,
         typeKey('space')
 
 
-def modifyAdditionalFileDialog(attributeIndex, overlapped, waitTime=2):
+def modifyAdditionalFileDialog(attributeIndex, overlapped=False, waitTime=2):
     """
     @brief modify default additional file using dialog
     """
@@ -127,10 +128,10 @@ def modifyAdditionalFileDialog(attributeIndex, overlapped, waitTime=2):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeIndex + 1 + attrs.editElements.overlapped):
+        for _ in range(attributeIndex + attrs.editElements.overlapped):
             typeKey('tab')
     else:
-        for _ in range(attributeIndex + 1):
+        for _ in range(attributeIndex):
             typeKey('tab')
     # Change current value
     typeKey('space')
@@ -144,7 +145,7 @@ def modifyAdditionalFileDialog(attributeIndex, overlapped, waitTime=2):
     typeKey('enter')
 
 
-def modifyAdditionalFile(attributeIndex, overlapped):
+def modifyAdditionalFile(attributeIndex, overlapped=False):
     """
     @brief modify default additional file
     """
@@ -161,7 +162,7 @@ def checkUndoRedo(referencePosition, offsetX=0, offsetY=0):
     redo(referencePosition, 9, offsetY)
 
 
-def checkParameters(referencePosition, attributeIndex, overlapped, offsetX=0, offsetY=0):
+def checkParameters(referencePosition, attributeIndex, overlapped=False, offsetX=0, offsetY=0):
     """
     @brief Check generic parameters
     """
@@ -189,7 +190,7 @@ def checkParameters(referencePosition, attributeIndex, overlapped, offsetX=0, of
     checkUndoRedo(referencePosition, offsetX, offsetY)
 
 
-def checkDoubleParameters(referencePosition, attributeIndex, overlapped, offsetX=0, offsetY=0):
+def checkDoubleParameters(referencePosition, attributeIndex, overlapped=False, offsetX=0, offsetY=0):
     """
     @brief Check generic parameters
     """

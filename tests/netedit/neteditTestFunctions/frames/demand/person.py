@@ -18,34 +18,6 @@
 # imports
 from ...general.functions import *
 
-def changePersonMode(value):
-    """
-    @brief change person mode
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to person mode
-    typeKey('tab')
-    # paste the new value
-    updateText(value)
-    # type enter to save change
-    typeKey('enter')
-
-
-def changePersonVClass(value):
-    """
-    @brief change vClass mode
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to vClass
-    for _ in range(3):
-        typeKey('tab')
-    # paste the new value
-    updateText(value)
-    # type enter to save change
-    typeKey('enter')
-
 
 def changePersonPlan(personPlan, flow):
     """

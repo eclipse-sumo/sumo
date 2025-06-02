@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.split, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.split, ";;;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.split, "", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.split, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.split, "customSplit", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.split, "customSplit")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (embedded route)")
+netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # create flow with embedded route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,19 +51,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.personNumber, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.personNumber, "")
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.personNumber, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.personNumber, "dummyNumber")
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.personNumber, "-5", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.personNumber, "-5")
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.personNumber, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.personNumber, "2.5")
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.personNumber, "3", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.personNumber, "3")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

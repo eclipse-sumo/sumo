@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select trip over junctions
-netedit.changeElement("trip (from-to junctions)")
+netedit.changeElement("vehicleFrame", "trip (from-to junctions)")
 
 # set color using dialog color
 netedit.changeColorUsingDialog(netedit.attrs.tripJunction.create.colorButton, 5)

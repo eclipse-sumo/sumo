@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select vehicle with embedded route
-netedit.changeElement("vehicle (embedded route)")
+netedit.changeElement("vehicleFrame", "vehicle (embedded route)")
 
 # set invalid person number
 netedit.changeColorUsingDialog(netedit.attrs.vehicleEmbedded.create.colorButton, 5)

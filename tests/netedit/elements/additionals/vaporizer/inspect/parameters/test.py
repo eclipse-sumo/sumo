@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select vaporizer
-netedit.changeElement("vaporizer")
+netedit.changeElement("additionalFrame", "vaporizer")
 
 # disable center view
 netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
@@ -47,7 +47,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vaporizer)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.vaporizer.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.vaporizer.inspect.parameters)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

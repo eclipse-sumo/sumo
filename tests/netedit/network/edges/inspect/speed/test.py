@@ -35,16 +35,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 3 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "")
 
 # Change parameter 3 with a non valid value (dummy speed)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "dummySpeed")
 
 # Change parameter 3 with a non valid value (negative speed)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "-13", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "-13")
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "120.5", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.speed, "120.5")
 
 # Check undo
 netedit.undo(referencePosition, 1)

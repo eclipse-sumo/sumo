@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select trainStop
-netedit.changeElement("trainStop")
+netedit.changeElement("additionalFrame", "trainStop")
 
 # set own lines
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.parameters, "dummy")

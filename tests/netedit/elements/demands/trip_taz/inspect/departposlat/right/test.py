@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("trip (from-to TAZs)")
+netedit.changeElement("vehicleFrame", "trip (from-to TAZs)")
 
 # create trip using two TAZs
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -51,13 +51,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.departPosLat, "", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.departPosLat, "")
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.departPosLat, "dummyPosLat", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.departPosLat, "dummyPosLat")
 
 # change departPosLat with an valid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.departPosLat, "right", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.departPosLat, "right")
 
 
 # Check undo redo

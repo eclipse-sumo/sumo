@@ -48,7 +48,7 @@ netedit.typeKey('enter')
 netedit.changeMode("containerPlan")
 
 # go to tranship.junction.trainStop mode
-netedit.changeContainerPlanMode("tranship")
+netedit.changeElement("containerPlanFrame", "tranship")
 
 # create tranship.junction.trainStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)

@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointParkingArea")
+netedit.changeElement("stopFrame", "waypointParkingArea")
 
 # create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
@@ -53,19 +53,19 @@ netedit.modifyBoolAttribute(netedit.attrs.waypointParking.inspect.durationEnable
 netedit.modifyBoolAttribute(netedit.attrs.waypointParking.inspect.untilEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.until, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.until, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.until, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.until, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.until, "-5", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.until, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.until, "0", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.until, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.until, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.until, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

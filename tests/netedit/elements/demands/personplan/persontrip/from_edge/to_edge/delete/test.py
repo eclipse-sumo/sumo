@@ -47,7 +47,7 @@ netedit.typeKey('enter')
 netedit.changeMode("personPlan")
 
 # go to personTrip.edge.edge mode
-netedit.changePersonPlanMode("personTrip")
+netedit.changeElement("personPlanFrame", "personTrip")
 
 # create personTrip.edge.edge
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

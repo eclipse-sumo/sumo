@@ -38,10 +38,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 6 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "dummyShape", False)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "dummyShape")
 
 # Change parameter 6 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "", False)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "")
 
 # inspect edge again after recomputing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)

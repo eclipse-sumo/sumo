@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vaporizer)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.vaporizer.inspectSelection.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.vaporizer.inspectSelection.parameters)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

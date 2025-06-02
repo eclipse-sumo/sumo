@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change stop type with a valid value
-netedit.changeStopType("stopTrainStop")
+netedit.changeElement("stopFrame", "stopTrainStop")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.actType, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.actType, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.actType, "", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.actType, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.actType, "singing", False)
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.actType, "singing")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -47,7 +47,7 @@ netedit.typeKey('enter')
 netedit.changeMode("containerPlan")
 
 # go to container plan mode
-netedit.changeContainerPlanMode("transport")
+netedit.changeElement("containerPlanFrame", "transport")
 
 # create containerTripEdgeEdge
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

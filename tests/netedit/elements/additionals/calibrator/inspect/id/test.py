@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select calibrator
-netedit.changeElement("calibrator")
+netedit.changeElement("additionalFrame", "calibrator")
 
 # change center view
 netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
@@ -50,13 +50,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibrator)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "ca_0", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "ca_0")
 
 # Change parameter id with a non valid value (Invalid ID)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "Id with spaces", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "Id with spaces")
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "correctID", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "correctID")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

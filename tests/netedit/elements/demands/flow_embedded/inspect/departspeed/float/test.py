@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (embedded route)")
+netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # create flow with embedded route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,19 +51,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departSpeed, "")
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departSpeed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departSpeed, "dummySpeed")
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departSpeed, "500", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departSpeed, "500")
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departSpeed, "-10", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departSpeed, "-10")
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departSpeed, "20", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departSpeed, "20")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

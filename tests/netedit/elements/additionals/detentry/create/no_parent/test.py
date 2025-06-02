@@ -32,13 +32,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select entry detector
-netedit.changeElement("detEntry")
+netedit.changeElement("additionalFrame", "detEntry")
 
 # Create entry detector with default value
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # select exit detector
-netedit.changeElement("detExit")
+netedit.changeElement("additionalFrame", "detExit")
 
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 

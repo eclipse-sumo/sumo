@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select containerStop
-netedit.changeElement("containerStop")
+netedit.changeElement("additionalFrame", "containerStop")
 
 # set name
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.name, "custom bus stop name")

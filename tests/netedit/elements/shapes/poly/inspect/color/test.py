@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to poly mode and select poly
-netedit.changeElement("poly")
+netedit.changeElement("shapeFrame", "poly")
 
 # create first polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
@@ -45,16 +45,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.poly.inspect.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.poly.inspect.colorButton, 5)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.color, "dummyColor")
 
 # Change parameter 2 with a non valid value (invalid format)
 netedit.modifyAttribute(netedit.attrs.poly.inspect.color, "255,255,500", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.color, "blue", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.color, "blue")
 
 # Change parameter 2 with a valid value (valid format)
 netedit.modifyAttribute(netedit.attrs.poly.inspect.color, "125,60,200", False)

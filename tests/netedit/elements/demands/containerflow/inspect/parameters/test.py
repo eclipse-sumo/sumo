@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("container")
 
 # change Container
-netedit.changeElement("containerFlow")
+netedit.changeElement("containerFrame", "containerFlow")
 
 # create container using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,7 +51,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.containerFlow.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.containerFlow.inspect.parameters)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

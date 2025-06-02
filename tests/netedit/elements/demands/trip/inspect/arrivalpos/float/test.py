@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-# netedit.changeElement("trip")
+# netedit.changeElement("vehicleFrame", "trip")
 
 # create trip using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,19 +51,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.arrivalPos, "", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.arrivalPos, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.arrivalPos, "dummyPos", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.arrivalPos, "dummyPos")
 
 # change departColor with a valid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.arrivalPos, "500", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.arrivalPos, "500")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.arrivalPos, "-10", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.arrivalPos, "-10")
 
 # change arrivalPos with a valid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.arrivalPos, "15.5", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.arrivalPos, "15.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

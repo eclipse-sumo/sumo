@@ -32,13 +32,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select parkingArea
-netedit.changeElement("parkingArea")
+netedit.changeElement("additionalFrame", "parkingArea")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # select space
-netedit.changeElement("space")
+netedit.changeElement("additionalFrame", "space")
 
 # create space
 netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace)
 
 # Change parameter width with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.width, "dummyWidth", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.width, "dummyWidth")
 
 # Change parameter width with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.width, "-5", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.width, "-5")
 
 # Change parameter width with a non valid value (0)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.width, "0", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.width, "0")
 
 # Change parameter width with a valid value
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.width, "2.3", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.width, "2.3")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

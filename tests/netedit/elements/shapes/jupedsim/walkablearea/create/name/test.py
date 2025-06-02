@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to shape mode
-netedit.changeElement("jupedsim.walkable_area")
+netedit.changeElement("shapeFrame", "jupedsim.walkable_area")
 
 # change layer (invalid)
 netedit.changeDefaultValue(netedit.attrs.jpsWalkableArea.create.name, "%%%%%%$$$$")

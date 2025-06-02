@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-# netedit.changeElement("trip")
+# netedit.changeElement("vehicleFrame", "trip")
 
 # create trip using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,10 +51,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.insertionChecks, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.insertionChecks, "dummy")
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.insertionChecks, "leaderGap junction speedLimit pedestrian", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.insertionChecks, "leaderGap junction speedLimit pedestrian")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

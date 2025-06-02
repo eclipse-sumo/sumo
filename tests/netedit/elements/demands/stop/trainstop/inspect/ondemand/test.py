@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change stop type with a valid value
-netedit.changeStopType("stopTrainStop")
+netedit.changeElement("stopFrame", "stopTrainStop")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)

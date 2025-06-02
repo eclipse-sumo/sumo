@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departLane, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departLane, "")
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departLane, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departLane, "dummyDepart")
 
 # change departLane with a valid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departLane, "first", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.departLane, "first")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

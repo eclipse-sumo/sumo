@@ -32,20 +32,20 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select E3
-netedit.changeElement("entryExitDetector")
+netedit.changeElement("additionalFrame", "entryExitDetector")
 
 # create E3 with default parameters
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # select entry detector
-netedit.changeElement("detExit")
+netedit.changeElement("additionalFrame", "detExit")
 
 # Create entry detector with default value
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # select exit detector
-netedit.changeElement("detEntry")
+netedit.changeElement("additionalFrame", "detEntry")
 
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
@@ -57,10 +57,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Change parameter name with an non valid value
-netedit.modifyAttribute(netedit.attrs.E3.inspect.name, "%%%;:..&&%$%$", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.name, "%%%;:..&&%$%$")
 
 # Change parameter name with a duplicated value
-netedit.modifyAttribute(netedit.attrs.E3.inspect.name, "customName", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.name, "customName")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

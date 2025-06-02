@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select E1Instant
-netedit.changeElement("instantInductionLoop")
+netedit.changeElement("additionalFrame", "instantInductionLoop")
 
 # set invalid filename
 netedit.changeDefaultValue(netedit.attrs.E1Instant.create.file, "&&&&&&&&")

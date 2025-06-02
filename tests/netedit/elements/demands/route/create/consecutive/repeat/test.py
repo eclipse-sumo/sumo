@@ -35,10 +35,10 @@ netedit.changeSupermode("demand")
 netedit.changeMode("route")
 
 # change to non consecutive mode
-netedit.changeRouteMode("non consecutive edges")
+netedit.changeElement("routeFrame", "non consecutive edges")
 
 # set valid vclass
-netedit.changeRouteVClass("bus")
+netedit.changeParentElement("routeFrame", "bus")
 
 # set invalid repeat
 netedit.changeDefaultValue(netedit.attrs.route.create.repeat, "dummyrepeat")

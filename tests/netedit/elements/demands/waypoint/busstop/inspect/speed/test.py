@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointBusStop")
+netedit.changeElement("stopFrame", "waypointBusStop")
 
 # create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.speed, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.speed, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.speed, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.speed, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.speed, "-12", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.speed, "-12")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.speed, "7.1", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.speed, "7.1")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

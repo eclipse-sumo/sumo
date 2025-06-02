@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("person")
 
 # change Person
-netedit.changeElement("personFlow")
+netedit.changeElement("personFrame", "personFlow")
 
 # create person using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,7 +51,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "custom_vType")
 
 # inspect vtype
 netedit.modifyBoolAttribute(netedit.attrs.personFlow.inspect.typeButton, False)

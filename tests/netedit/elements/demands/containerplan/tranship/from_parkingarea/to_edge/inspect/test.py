@@ -48,7 +48,7 @@ netedit.typeKey('enter')
 netedit.changeMode("containerPlan")
 
 # go to tranship.busStop.edge mode
-netedit.changeContainerPlanMode("tranship")
+netedit.changeElement("containerPlanFrame", "tranship")
 
 # create tranship.busStop.edge
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
@@ -63,16 +63,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdgeBike0Ped)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.tranship.busStop.edge.inspect.arrivalPos, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.tranship.busStop.edge.inspect.arrivalPos, "dummy")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.tranship.busStop.edge.inspect.arrivalPos, "", False)
+netedit.modifyAttribute(netedit.attrs.tranship.busStop.edge.inspect.arrivalPos, "")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.tranship.busStop.edge.inspect.arrivalPos, "-6", False)
+netedit.modifyAttribute(netedit.attrs.tranship.busStop.edge.inspect.arrivalPos, "-6")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.tranship.busStop.edge.inspect.arrivalPos, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.tranship.busStop.edge.inspect.arrivalPos, "2.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

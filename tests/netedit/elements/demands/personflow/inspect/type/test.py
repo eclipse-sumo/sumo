@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("person")
 
 # change Person
-netedit.changeElement("personFlow")
+netedit.changeElement("personFrame", "personFlow")
 
 # create person using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, ";;;;;", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, ";;;;;")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "dummyType", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "dummyType")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.type, "custom_vType")
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.le
 netedit.changeMode("additional")
 
 # select busStop
-netedit.changeElement("busStop")
+netedit.changeElement("additionalFrame", "busStop")
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)

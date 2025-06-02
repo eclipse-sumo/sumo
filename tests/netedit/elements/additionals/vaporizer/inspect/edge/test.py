@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select vaporizer
-netedit.changeElement("vaporizer")
+netedit.changeElement("additionalFrame", "vaporizer")
 
 # disable center view
 netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
@@ -50,13 +50,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vaporizer)
 
 # Change parameter 0 with a non valid value (dummy edge)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "dummyEdge")
 
 # Change parameter 0 with a valid value (different edge)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "Edge1", False)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "Edge1")
 
 # Change parameter 0 with a valid value (different edge)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "Edge2", False)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "Edge2")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

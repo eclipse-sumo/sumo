@@ -35,19 +35,19 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.createVType()
+netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.decel, "", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.decel, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.decel, "dummyAcel", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.decel, "dummyAcel")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.decel, "-30", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.decel, "-30")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.edit.decel, "20.5", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.decel, "20.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

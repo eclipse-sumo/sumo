@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to shape mode
-netedit.changeElement("poi")
+netedit.changeElement("shapeFrame", "poi")
 
 # change layer (invalid)
 netedit.changeDefaultValue(netedit.attrs.poi.create.layer, "dummyLayer")

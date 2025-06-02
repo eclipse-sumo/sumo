@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to poly mode and select poly
-netedit.changeElement("jupedsim.walkable_area")
+netedit.changeElement("shapeFrame", "jupedsim.walkable_area")
 
 # create first polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
@@ -45,10 +45,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 6 with a non valid value
-netedit.modifyAttribute(netedit.attrs.jpsWalkableArea.inspect.name, "%%%$$$;;", False)
+netedit.modifyAttribute(netedit.attrs.jpsWalkableArea.inspect.name, "%%%$$$;;")
 
 # Change parameter 6 with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.jpsWalkableArea.inspect.name, "customName", False)
+netedit.modifyAttribute(netedit.attrs.jpsWalkableArea.inspect.name, "customName")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

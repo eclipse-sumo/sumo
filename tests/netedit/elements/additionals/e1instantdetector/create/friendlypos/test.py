@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select E1Instant
-netedit.changeElement("instantInductionLoop")
+netedit.changeElement("additionalFrame", "instantInductionLoop")
 
 # Change friendlyPos
 netedit.changeDefaultBoolValue(netedit.attrs.E1Instant.create.friendlyPos)

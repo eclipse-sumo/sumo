@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to shape mode
-netedit.changeElement("poly")
+netedit.changeElement("shapeFrame", "poly")
 
 # change fill
 netedit.changeDefaultBoolValue(netedit.attrs.poly.create.fill)

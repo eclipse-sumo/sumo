@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "-14", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "-14")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "12.3", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "12.3")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

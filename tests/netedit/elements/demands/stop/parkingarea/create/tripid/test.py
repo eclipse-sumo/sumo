@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change stop type with a valid value
-netedit.changeStopType("stopParkingArea")
+netedit.changeElement("stopFrame", "stopParkingArea")
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.tripID, ";;;;;;;;;;")

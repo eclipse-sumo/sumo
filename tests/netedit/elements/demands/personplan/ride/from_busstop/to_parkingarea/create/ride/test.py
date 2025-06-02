@@ -48,7 +48,7 @@ netedit.typeKey('enter')
 netedit.changeMode("personPlan")
 
 # go to ride.parkingArea.parkingArea mode
-netedit.changePersonPlanMode("ride")
+netedit.changeElement("personPlanFrame", "ride")
 
 # create ride.parkingArea.parkingArea
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingAreaB)

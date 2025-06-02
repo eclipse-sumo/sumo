@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("vehicleFrame", "flow (from-to junctions)")
 
 # create trip using two junctions
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -51,13 +51,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.arrivalPosLat, "", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.arrivalPosLat, "")
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.arrivalPosLat, "dummyPosLat", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.arrivalPosLat, "dummyPosLat")
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.arrivalPosLat, "left", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.arrivalPosLat, "left")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

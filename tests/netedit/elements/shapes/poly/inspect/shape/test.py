@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to poly mode and select poly
-netedit.changeElement("poly")
+netedit.changeElement("shapeFrame", "poly")
 
 # create first polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
@@ -44,10 +44,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "dummyShape", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "dummyShape")
 
 # Change parameter 1 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "")
 
 # Change parameter 1 with a valid value (single point)
 netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "12.00,8.00", False)

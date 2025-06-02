@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointParkingArea")
+netedit.changeElement("stopFrame", "waypointParkingArea")
 
 # create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)

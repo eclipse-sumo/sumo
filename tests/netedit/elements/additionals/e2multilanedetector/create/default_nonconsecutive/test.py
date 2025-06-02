@@ -35,7 +35,7 @@ netedit.computeJunctions()
 netedit.changeMode("additional")
 
 # select E2
-netedit.changeElement("multiLaneAreaDetector")
+netedit.changeElement("additionalFrame", "multiLaneAreaDetector")
 
 # try to create E2 with default parameters but with non consecutive lanes
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to shape mode
-netedit.changeElement("poiLane")
+netedit.changeElement("shapeFrame", "poiLane")
 
 # change color using dialog
 netedit.changeColorUsingDialog(netedit.attrs.poiLane.create.colorButton, 5)

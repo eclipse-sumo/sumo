@@ -18,44 +18,6 @@
 # imports
 from ...general.functions import *
 
-def createVType():
-    """
-    @brief create vType
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to stop type
-    for _ in range(attrs.type.buttons.create):
-        typeKey('tab')
-    # type space
-    typeKey('space')
-
-
-def deleteVType():
-    """
-    @brief delete vType
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to stop type
-    for _ in range(attrs.type.buttons.delete):
-        typeKey('tab')
-    # type space
-    typeKey('space')
-
-
-def copyVType():
-    """
-    @brief copy vType
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to stop type
-    for _ in range(attrs.type.buttons.copy):
-        typeKey('tab')
-    # type space
-    typeKey('space')
-
 
 def openVTypeDialog():
     """
@@ -70,13 +32,6 @@ def openVTypeDialog():
     typeKey('space')
     # wait some second to question dialog
     time.sleep(DELAY_QUESTION)
-
-
-def closeVTypeDialog():
-    """
-    @brief close vType dialog saving elements
-    """
-    typeTwoKeys('alt', 'a')
 
 
 def modifyVTypeAttribute(attributeIndex, value):

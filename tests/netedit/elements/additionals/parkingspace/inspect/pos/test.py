@@ -32,13 +32,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select parkingArea
-netedit.changeElement("parkingArea")
+netedit.changeElement("additionalFrame", "parkingArea")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # select space
-netedit.changeElement("space")
+netedit.changeElement("additionalFrame", "space")
 
 # create space
 netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
@@ -51,10 +51,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace)
 
 # Change parameter 0 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "dummyPosition", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "dummyPosition")
 
 # Change parameter 0 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "")
 
 # Change parameter 0 with a valid value (-negative)
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "-3.5,-3", False)

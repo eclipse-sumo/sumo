@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select routeProbe
-netedit.changeElement("routeProbe")
+netedit.changeElement("additionalFrame", "routeProbe")
 
 # disable center view
 netedit.changeDefaultBoolValue(netedit.attrs.routeProbe.create.center)
@@ -47,10 +47,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.routeProbe)
 
 # Change parameter 3 with an non valid value
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.name, "%%%;:..&&%$%$", False)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.name, "%%%;:..&&%$%$")
 
 # Change parameter 3 with a duplicated value
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.name, "customName", False)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.name, "customName")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

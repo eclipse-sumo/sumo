@@ -35,13 +35,13 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set invalid radius
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.radius, "dummyRadius", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.radius, "dummyRadius")
 
 # set invalid radius
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.radius, "-7", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.radius, "-7")
 
 # change radio
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.radius, "2.3", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.radius, "2.3")
 
 # rebuild network
 netedit.computeJunctions()

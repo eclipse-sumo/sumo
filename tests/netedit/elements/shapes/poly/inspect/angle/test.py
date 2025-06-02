@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to poly mode and select poly
-netedit.changeElement("poly")
+netedit.changeElement("shapeFrame", "poly")
 
 # create first polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 11 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.angle, "dummyAngle", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.angle, "dummyAngle")
 
 # Change parameter 11 with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.angle, "-5", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.angle, "-5")
 
 # Change parameter 11 with a valid value (> 360)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.angle, "365", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.angle, "365")
 
 # Change parameter 11 with a valid value
-netedit.modifyAttribute(netedit.attrs.poly.inspect.angle, "10", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.angle, "10")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

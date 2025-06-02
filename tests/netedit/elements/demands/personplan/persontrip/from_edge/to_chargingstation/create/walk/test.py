@@ -47,7 +47,7 @@ netedit.typeKey('enter')
 netedit.changeMode("personPlan")
 
 # go to personTrip.chargingStation.chargingStation mode
-netedit.changePersonPlanMode("personTrip")
+netedit.changeElement("personPlanFrame", "personTrip")
 
 # create personTrip.chargingStation.chargingStation
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStationB)

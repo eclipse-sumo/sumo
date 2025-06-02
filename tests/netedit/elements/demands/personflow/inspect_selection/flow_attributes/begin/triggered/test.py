@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.begin, "", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.begin, "")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.begin, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.begin, "dummyDepart")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.begin, "triggered", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.begin, "triggered")
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

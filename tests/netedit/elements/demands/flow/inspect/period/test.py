@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (from-to edges)")
+netedit.changeElement("vehicleFrame", "flow (from-to edges)")
 
 # create flow using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,19 +51,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.spacing, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.spacing, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.spacing, "period", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.spacing, "period")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.spacingOption, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.spacingOption, "dummy")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.spacingOption, "12.5", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.spacingOption, "12.5")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.spacingOption, "26", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.spacingOption, "26")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -41,19 +41,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 12 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.width, "dummyWidth", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.width, "dummyWidth")
 
 # Change parameter 12 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.width, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.width, "")
 
 # Change parameter 12 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.width, "-2", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.width, "-2")
 
 # Change parameter 12 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.width, "default", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.width, "default")
 
 # Change parameter 12 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.width, "4", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.width, "4")
 
 # Check undos
 netedit.undo(referencePosition, 1)

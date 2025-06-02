@@ -35,13 +35,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 0 with a non valid value (empty ID)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "")
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "E1", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "E1")
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "correct_ID", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "correct_ID")
 
 # Check undo
 netedit.undo(referencePosition, 1)

@@ -38,21 +38,21 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 2 with an non valid value
-netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "DummyDisallowed", False)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "DummyDisallowed")
 
 # Change parameter 2 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "", False)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "")
 
 # Change parameter 2 with a valid value (different separators)
 netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 2 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "", False)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "")
 
 # Change parameter 2 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow,
                         "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
-                        "rail_electric motorcycle moped pedestrian custom1", False)
+                        "rail_electric motorcycle moped pedestrian custom1")
 
 # Check undos
 netedit.undo(referencePosition, 3)

@@ -35,7 +35,7 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # change type of junction
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.type, "unregulated", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.type, "unregulated")
 
 # rebuild network
 netedit.computeJunctions()

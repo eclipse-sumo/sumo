@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (embedded route)")
+netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # create flow with embedded route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.flowEmbedded.inspect.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.flowEmbedded.inspect.colorButton, 5)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.color, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.color, "")
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.color, "dummyColor")
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.color, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.color, "cyan")
 
 # change color with a valid value
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.color, "12,13,14", False)

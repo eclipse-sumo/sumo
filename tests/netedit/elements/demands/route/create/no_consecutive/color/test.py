@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("route")
 
 # change to non consecutive mode
-netedit.changeRouteMode("non consecutive edges")
+netedit.changeElement("routeFrame", "non consecutive edges")
 
 # set color using dialog
 netedit.changeColorUsingDialog(netedit.attrs.route.create.colorButton, 5)
