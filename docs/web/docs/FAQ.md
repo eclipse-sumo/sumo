@@ -941,10 +941,10 @@ There are several reasons why a counter-lane-change-deadlock can happen:
   The main reason is usually that only the lanes they use allow them to continue their route. You should check the downstream junction
   whether the connections are correct. If the number of lanes is reduced without further streets being involved
   (not a proper junction) make sure to use the [zipper type](Networks/PlainXML.md#node_types). If you want to change the way vehicles behave
-  for the whole scenario, lower their [lcStrategic](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane_changing_models) value.
+  for the whole scenario, lower their [lcStrategic](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models) value.
 
   In cases where one lane has multiple target lanes on the next edge, vehicles will prefer the rightmost continuation lane by default.
-  This can be changed with vType-attribute [lcContRight](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane_changing_models).
+  This can be changed with vType-attribute [lcContRight](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models).
   Also the eagerness to use the rightmost lane can be configured using the vType-attribute lcKeepRight.
 
 ### How do I get high flows/vehicle densities?
