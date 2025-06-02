@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.arrivalPos, "", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.arrivalPos, "")
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.arrivalPos, "dummyPos", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.arrivalPos, "dummyPos")
 
 # change departColor with a valid value
-netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.arrivalPos, "500", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.arrivalPos, "500")
 
 # change arrivalPos with a valid value
-netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.arrivalPos, "random", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.arrivalPos, "random")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

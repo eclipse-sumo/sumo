@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (embedded route)")
+netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # create flow with embedded route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.begin, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.begin, "")
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.begin, "dummmyBegin", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.begin, "dummmyBegin")
 
 # change arrivalPosLat with an valid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.begin, "-30", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.begin, "-30")
 
 # change arrivalPosLat with an valid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.begin, "12.3", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.begin, "12.3")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

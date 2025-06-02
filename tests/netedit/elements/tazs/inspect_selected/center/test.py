@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "dummyColor")
 
 # Change parameter 2 with a non valid value (invalid format)
 netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "23,24", False)

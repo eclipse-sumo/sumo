@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("person")
 
 # change Person
-netedit.changeElement("personFlow")
+netedit.changeElement("personFrame", "personFlow")
 
 # create person using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,19 +51,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacing, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacing, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacing, "period", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacing, "period")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacingOption, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacingOption, "dummy")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacingOption, "12.5", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacingOption, "12.5")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacingOption, "26", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacingOption, "26")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

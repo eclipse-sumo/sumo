@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.arrivalPos, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.arrivalPos, "")
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.arrivalPos, "dummyPos", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.arrivalPos, "dummyPos")
 
 # change arrivalPos with a valid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.arrivalPos, "max", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.arrivalPos, "max")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

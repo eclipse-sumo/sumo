@@ -48,16 +48,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdgeBike0Ped)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspectSelection.arrivalPos, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspectSelection.arrivalPos, "dummy")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspectSelection.arrivalPos, "", False)
+netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspectSelection.arrivalPos, "")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspectSelection.arrivalPos, "-6", False)
+netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspectSelection.arrivalPos, "-6")
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspectSelection.arrivalPos, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.ride.busStop.edge.inspectSelection.arrivalPos, "2.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

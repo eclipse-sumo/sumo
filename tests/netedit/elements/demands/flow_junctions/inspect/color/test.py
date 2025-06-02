@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (from-to junctions)")
+netedit.changeElement("vehicleFrame", "flow (from-to junctions)")
 
 # create trip using two junctions
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.flowJunction.inspect.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.flowJunction.inspect.colorButton, 5)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.color, "", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.color, "")
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.color, "dummyColor")
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.color, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.color, "cyan")
 
 # change color with a valid value
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.color, "12,13,14", False)

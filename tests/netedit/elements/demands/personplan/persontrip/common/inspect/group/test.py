@@ -47,7 +47,7 @@ netedit.typeKey('enter')
 netedit.changeMode("personPlan")
 
 # go to personTrip.edge.edge mode
-netedit.changePersonPlanMode("personTrip")
+netedit.changeElement("personPlanFrame", "personTrip")
 
 # create personTrip.edge.edge
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
@@ -62,7 +62,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge2Ped)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTrip.edge.edge.inspect.group, "custom group", False)
+netedit.modifyAttribute(netedit.attrs.personTrip.edge.edge.inspect.group, "custom group")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

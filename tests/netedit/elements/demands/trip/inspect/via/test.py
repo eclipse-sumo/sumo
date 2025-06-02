@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-# netedit.changeElement("trip")
+# netedit.changeElement("vehicleFrame", "trip")
 
 # create trip using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "")
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "dummyEdge")
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "Edge5", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "Edge5")
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "Edge1", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.via, "Edge1")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

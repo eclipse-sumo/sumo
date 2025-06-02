@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select flow with embedded route
-netedit.changeElement("flow (from-to TAZs)")
+netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # set invalid arrival pos
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacing, "dummySpacing")

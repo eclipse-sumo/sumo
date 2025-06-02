@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change stop type with a valid value
-netedit.changeStopType("stopContainerStop")
+netedit.changeElement("stopFrame", "stopContainerStop")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.triggered, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.triggered, "person", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.triggered, "person")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.expected, "personA personB", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.expected, "personA personB")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

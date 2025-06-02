@@ -46,7 +46,7 @@ netedit.typeKey('enter')
 netedit.changeMode("vehicle")
 
 # select flow over route
-netedit.changeElement("flow (over route)")
+netedit.changeElement("vehicleFrame", "flow (over route)")
 
 # set invalid arrival pos
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalPosLat, "dummyPos")

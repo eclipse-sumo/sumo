@@ -36,7 +36,7 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # change position with a non valid value
-netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "dummy position", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "dummy position")
 
 # change position with a non valid value (another junction in the same position)
 netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-25.00,0.00", False)

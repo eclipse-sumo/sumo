@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (embedded route)")
+netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # create flow with embedded route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,19 +51,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.containerNumber, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.containerNumber, "")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.containerNumber, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.containerNumber, "dummyNumber")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.containerNumber, "-5", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.containerNumber, "-5")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.containerNumber, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.containerNumber, "2.5")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.containerNumber, "3", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.containerNumber, "3")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

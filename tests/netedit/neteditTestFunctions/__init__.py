@@ -30,11 +30,7 @@ from .files.save import *
 from .frames.data.data import *
 from .frames.data.meanData import *
 from .frames.demand.container import *
-from .frames.demand.containerPlan import *
 from .frames.demand.person import *
-from .frames.demand.personPlan import *
-from .frames.demand.route import *
-from .frames.demand.stop import *
 from .frames.demand.type import *
 from .frames.network.additional import *
 from .frames.network.connection import *

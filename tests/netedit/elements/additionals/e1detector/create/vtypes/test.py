@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select E1
-netedit.changeElement("inductionLoop")
+netedit.changeElement("additionalFrame", "inductionLoop")
 
 # set invalid vehicle types (invalid IDs)
 netedit.changeDefaultValue(netedit.attrs.E1.create.vTypes, "%%;$$$ %%$$ type.3")

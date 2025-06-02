@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.routeProbe)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.routeProbe.inspectSelection.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.routeProbe.inspectSelection.parameters)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

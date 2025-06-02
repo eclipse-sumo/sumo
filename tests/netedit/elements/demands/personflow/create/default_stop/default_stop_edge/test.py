@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("person")
 
 # change Person
-netedit.changeElement("personFlow")
+netedit.changeElement("personFrame", "personFlow")
 
 # change person plan
 netedit.changePersonPlan("stop", True)

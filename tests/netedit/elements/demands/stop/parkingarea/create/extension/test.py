@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change stop type with a valid value
-netedit.changeStopType("stopParkingArea")
+netedit.changeElement("stopFrame", "stopParkingArea")
 
 # disable duration
 netedit.changeDefaultBoolValue(netedit.attrs.stopParkingArea.create.durationEnable)

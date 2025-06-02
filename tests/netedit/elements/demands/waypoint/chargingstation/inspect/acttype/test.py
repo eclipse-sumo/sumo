@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointChargingStation")
+netedit.changeElement("stopFrame", "waypointChargingStation")
 
 # create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.actType, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.actType, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.actType, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.actType, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.actType, "singing", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.actType, "singing")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

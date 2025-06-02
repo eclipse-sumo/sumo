@@ -41,10 +41,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Change parameter vtypes with a invalid value
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.vTypes, "Typ**e%%%%%1 T;;yp$2 Type3", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.vTypes, "Typ**e%%%%%1 T;;yp$2 Type3")
 
 # Change parameter vtypes with a valid value
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.vTypes, "Type1 Type2 Type3", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.vTypes, "Type1 Type2 Type3")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.container.inspectSelection.type, ";;;;;", False)
+netedit.modifyAttribute(netedit.attrs.container.inspectSelection.type, ";;;;;")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.container.inspectSelection.type, "", False)
+netedit.modifyAttribute(netedit.attrs.container.inspectSelection.type, "")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.container.inspectSelection.type, "dummyType", False)
+netedit.modifyAttribute(netedit.attrs.container.inspectSelection.type, "dummyType")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.container.inspectSelection.type, "typeC", False)
+netedit.modifyAttribute(netedit.attrs.container.inspectSelection.type, "typeC")
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

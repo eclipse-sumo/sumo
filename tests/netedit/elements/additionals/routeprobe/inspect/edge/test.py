@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select routeProbe
-netedit.changeElement("routeProbe")
+netedit.changeElement("additionalFrame", "routeProbe")
 
 # disable center view
 netedit.changeDefaultBoolValue(netedit.attrs.routeProbe.create.center)
@@ -47,10 +47,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.routeProbe)
 
 # Change parameter 1 with a non valid value (dummy edge)
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.edge, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.edge, "dummyEdge")
 
 # Change parameter 1 with a valid value (different edge)
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.edge, "bot", False)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.edge, "bot")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

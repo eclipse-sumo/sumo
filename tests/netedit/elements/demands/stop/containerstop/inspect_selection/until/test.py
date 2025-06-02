@@ -50,19 +50,19 @@ netedit.modifyBoolAttribute(netedit.attrs.stopContainerStop.inspectSelection.unt
 netedit.modifyBoolAttribute(netedit.attrs.stopContainerStop.inspectSelection.untilEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.until, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.until, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.until, "", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.until, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.until, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.until, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.until, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.until, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.until, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.until, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

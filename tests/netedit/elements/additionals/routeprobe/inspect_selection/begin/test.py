@@ -41,10 +41,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.routeProbe)
 
 # Set invalid begin
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.begin, "-5", False)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.begin, "-5")
 
 # Set valid begin
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.begin, "11.3", False)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.begin, "11.3")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

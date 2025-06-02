@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select calibrator
-netedit.changeElement("calibrator")
+netedit.changeElement("additionalFrame", "calibrator")
 
 # change center view
 netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
@@ -47,7 +47,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibrator)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.calibrator.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.calibrator.inspect.parameters)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

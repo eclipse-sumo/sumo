@@ -41,10 +41,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 11 with a non valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.name, "%%%$$$$$%", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.name, "%%%$$$$$%")
 
 # Change parameter 11 with a valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.name, "my own name", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.name, "my own name")
 
 # Check undos
 netedit.undo(referencePosition, 1)

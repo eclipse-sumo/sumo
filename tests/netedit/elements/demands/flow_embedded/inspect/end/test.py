@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (embedded route)")
+netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # create flow with embedded route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,19 +51,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminate, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminate, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminate, "end", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminate, "end")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminateOption, "dummyEnd", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminateOption, "dummyEnd")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminateOption, "12.5", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminateOption, "12.5")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminateOption, "23", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminateOption, "23")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

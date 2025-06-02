@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("trip (from-to junctions)")
+netedit.changeElement("vehicleFrame", "trip (from-to junctions)")
 
 # create trip using two junctions
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -51,7 +51,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.type, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.type, "custom_vType")
 
 # inspect vtype
 netedit.modifyBoolAttribute(netedit.attrs.tripJunction.inspect.typeButton, False)

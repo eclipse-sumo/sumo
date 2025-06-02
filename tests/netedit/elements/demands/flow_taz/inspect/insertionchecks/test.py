@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (from-to TAZs)")
+netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # create trip using two TAZs
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
@@ -51,11 +51,11 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.insertionChecks, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.insertionChecks, "dummy")
 
 # change personNumber with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.insertionChecks,
-                        "leaderGap junction speedLimit pedestrian", False)
+                        "leaderGap junction speedLimit pedestrian")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

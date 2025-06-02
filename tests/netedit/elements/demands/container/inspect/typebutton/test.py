@@ -34,9 +34,6 @@ netedit.changeSupermode("demand")
 # go to container mode
 netedit.changeMode("container")
 
-# change Container
-netedit.changeElement("containerFlow")
-
 # create container using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
@@ -51,7 +48,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.container.inspect.type, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.container.inspect.type, "custom_vType")
 
 # inspect vtype
 netedit.modifyBoolAttribute(netedit.attrs.container.inspect.typeButton, False)

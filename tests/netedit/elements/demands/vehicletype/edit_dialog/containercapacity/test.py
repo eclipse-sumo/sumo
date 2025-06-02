@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.createVType()
+netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
 
 # open dialog
 netedit.openVTypeDialog()
@@ -56,7 +56,7 @@ netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.containerCapacity, "5
 netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.containerCapacity, "3")
 
 # close dialog
-netedit.closeVTypeDialog()
+netedit.typeTwoKeys('alt', 'a')
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

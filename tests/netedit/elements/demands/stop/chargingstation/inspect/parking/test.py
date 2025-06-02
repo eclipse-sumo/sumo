@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change stop type with a valid value
-netedit.changeStopType("stopChargingStation")
+netedit.changeElement("stopFrame", "stopChargingStation")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.parking, 'true', False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.parking, 'true')
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.parking, 'false', False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.parking, 'false')
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.parking, 'opportunistic', False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.parking, 'opportunistic')
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

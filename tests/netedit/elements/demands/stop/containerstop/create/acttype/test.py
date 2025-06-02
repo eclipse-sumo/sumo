@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change stop type with a valid value
-netedit.changeStopType("stopContainerStop")
+netedit.changeElement("stopFrame", "stopContainerStop")
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.actType, ";;;;;;;;;;")

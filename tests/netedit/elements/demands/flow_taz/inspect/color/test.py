@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (from-to TAZs)")
+netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # create trip using two TAZs
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.flowTAZ.inspect.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.flowTAZ.inspect.colorButton, 5)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "")
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "dummyColor")
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "cyan")
 
 # change color with a valid value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.color, "12,13,14", False)

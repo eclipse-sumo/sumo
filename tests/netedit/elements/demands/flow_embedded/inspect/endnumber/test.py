@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (embedded route)")
+netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # create flow with embedded route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,28 +51,28 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminate, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminate, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminate, "end-number", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminate, "end-number")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.spacing, "dummyEnd", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.spacing, "dummyEnd")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.spacing, "23", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.spacing, "23")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.end, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.end, "dummyNumber")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.end, "12.3", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.end, "12.3")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.end, "-30", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.end, "-30")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.end, "81", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.end, "81")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

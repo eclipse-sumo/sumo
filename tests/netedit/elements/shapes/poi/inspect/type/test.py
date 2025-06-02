@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # select POI in list of shapes
-netedit.changeElement("poi")
+netedit.changeElement("shapeFrame", "poi")
 
 # create first POI
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(netedit.attrs.poi.inspect.type, "<<myOwnType>>", False)
+netedit.modifyAttribute(netedit.attrs.poi.inspect.type, "<<myOwnType>>")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

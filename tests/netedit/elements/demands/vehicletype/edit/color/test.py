@@ -35,19 +35,19 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.createVType()
+netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.type.edit.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.type.edit.colorButton, 5)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.type.edit.color, "", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.color, "")
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.type.edit.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.color, "dummyColor")
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.type.edit.color, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.color, "cyan")
 
 # change color with a valid value
 netedit.modifyAttribute(netedit.attrs.type.edit.color, "12,13,14", False)

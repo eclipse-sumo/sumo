@@ -52,16 +52,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)
 
 # Change parameter 3 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "", False)
+netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "")
 
 # Change parameter 3 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "dummyEdge")
 
 # Change parameter 3 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "gneE14", False)
+netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "gneE14")
 
 # Change parameter 3 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "-gneE16", False)
+netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "-gneE16")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

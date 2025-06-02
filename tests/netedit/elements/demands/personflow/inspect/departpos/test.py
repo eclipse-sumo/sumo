@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("person")
 
 # change Person
-netedit.changeElement("personFlow")
+netedit.changeElement("personFrame", "personFlow")
 
 # create person using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,16 +51,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.departPos, "", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.departPos, "")
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.departPos, "dummyPos", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.departPos, "dummyPos")
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.departPos, "500", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.departPos, "500")
 
 # change departLane with a valid value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspect.departPos, "20", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspect.departPos, "20")
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

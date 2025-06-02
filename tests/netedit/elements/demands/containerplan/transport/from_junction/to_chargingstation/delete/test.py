@@ -48,7 +48,7 @@ netedit.typeKey('enter')
 netedit.changeMode("containerPlan")
 
 # go to transport.junction.chargingStation mode
-netedit.changeContainerPlanMode("transport")
+netedit.changeElement("containerPlanFrame", "transport")
 
 # create transport.junction.chargingStation
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)

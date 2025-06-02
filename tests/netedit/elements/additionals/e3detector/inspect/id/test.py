@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select E3
-netedit.changeElement("entryExitDetector")
+netedit.changeElement("additionalFrame", "entryExitDetector")
 
 # create E3 with default parameters
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squa
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
 
 # select entry detector
-netedit.changeElement("detExit")
+netedit.changeElement("additionalFrame", "detExit")
 
 # Create entry detector with default value
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
@@ -52,7 +52,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squa
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # select exit detector
-netedit.changeElement("detEntry")
+netedit.changeElement("additionalFrame", "detEntry")
 
 # Create exit detector with default value
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
@@ -69,16 +69,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "e3_1", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "e3_1")
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.E3.inspect.id, ";;;;;;;;;;;;;;;;;", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.id, ";;;;;;;;;;;;;;;;;")
 
 # Change parameter id with a valid value (with spaces)
-netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "Id with spaces", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "Id with spaces")
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "correctID", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "correctID")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

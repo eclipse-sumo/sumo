@@ -41,10 +41,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # set invalid filename
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "&&&&&&&&", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "&&&&&&&&")
 
 # set valid filename
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "myOwnFilename.txt", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "myOwnFilename.txt")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

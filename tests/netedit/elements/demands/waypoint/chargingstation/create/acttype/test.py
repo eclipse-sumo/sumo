@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointChargingStation")
+netedit.changeElement("stopFrame", "waypointChargingStation")
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.actType, ";;;;;;;;;;")

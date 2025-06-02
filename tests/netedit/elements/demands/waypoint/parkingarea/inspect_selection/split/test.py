@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.split, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.split, ";;;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.split, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.split, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.split, "customSplit", False)
+netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.split, "customSplit")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

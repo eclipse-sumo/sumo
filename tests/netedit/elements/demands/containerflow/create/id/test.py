@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("container")
 
 # change Container
-netedit.changeElement("containerFlow")
+netedit.changeElement("containerFrame", "containerFlow")
 
 # change container plan
 netedit.changeContainerPlan("tranship", True)

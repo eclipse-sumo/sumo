@@ -43,7 +43,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.jpsObstacle.inspectSelection.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.jpsObstacle.inspectSelection.parameters)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

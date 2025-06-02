@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change stop type with a valid value
-netedit.changeStopType("stopBusStop")
+netedit.changeElement("stopFrame", "stopBusStop")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "join", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "join")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.join, ";;;", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.join, ";;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.join, "customJoin", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.join, "customJoin")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -35,11 +35,11 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set dummy shape
-netedit.modifyAttribute(netedit.attrs.junction.inspect.shape, "dummy shape", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.shape, "dummy shape")
 
 # change shape of junction
 s = "50.73,53.24 53.96,51.11 52.86,47.49 51.11,45.34 47.75,44.61 43.91,47.30 44.23,50.67 47.44,52.88"
-netedit.modifyAttribute(netedit.attrs.junction.inspect.shape, s, False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.shape, s)
 
 # rebuild network
 netedit.computeJunctions()

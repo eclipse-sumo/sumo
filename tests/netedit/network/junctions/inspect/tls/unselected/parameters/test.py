@@ -35,7 +35,7 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.junction.inspectTLS.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.junction.inspectTLS.parameters)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

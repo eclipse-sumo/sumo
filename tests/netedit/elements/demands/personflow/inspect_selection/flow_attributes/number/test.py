@@ -44,19 +44,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminate, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminate, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminate, "number", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminate, "number")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminateOption, "dummyEnd", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminateOption, "dummyEnd")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminateOption, "12.5", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminateOption, "12.5")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminateOption, "26", False)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminateOption, "26")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

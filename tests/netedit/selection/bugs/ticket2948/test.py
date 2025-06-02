@@ -66,7 +66,7 @@ netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "traffic_l
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA, offsetX=100)
 
 # change all speed of edges
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.speed, "20", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.speed, "20")
 
 # rebuild network
 netedit.computeJunctions()

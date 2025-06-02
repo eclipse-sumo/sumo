@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.arrivalPosLat, "", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.arrivalPosLat, "")
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.arrivalPosLat, "dummyPosLat", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.arrivalPosLat, "dummyPosLat")
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.arrivalPosLat, "left", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.arrivalPosLat, "left")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

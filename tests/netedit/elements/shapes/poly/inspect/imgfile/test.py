@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to poly mode and select poly
-netedit.changeElement("poly")
+netedit.changeElement("shapeFrame", "poly")
 
 # create first polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
@@ -45,13 +45,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 8 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.imgFile, "%$$%%%%%", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.imgFile, "%$$%%%%%")
 
 # Change parameter 8 with a non valid value (non exist)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.imgFile, "paris.ico", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.imgFile, "paris.ico")
 
 # Change parameter 8 with a valid value (valid)
-netedit.modifyAttribute(netedit.attrs.poly.inspect.imgFile, "berlin_icon.ico", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspect.imgFile, "berlin_icon.ico")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

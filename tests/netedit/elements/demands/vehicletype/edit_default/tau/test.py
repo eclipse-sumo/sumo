@@ -35,16 +35,16 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.tau, "", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.tau, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.tau, "dummyTau", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.tau, "dummyTau")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.tau, "-30", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.tau, "-30")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.tau + 1, "20.5", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.tau + 1, "20.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

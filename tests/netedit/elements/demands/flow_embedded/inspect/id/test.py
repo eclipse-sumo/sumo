@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (embedded route)")
+netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # create flow with embedded route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,19 +51,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.id, "")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.id, ";;;;;;;;", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.id, ";;;;;;;;")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.id, "id with spaces", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.id, "id with spaces")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.id, "duplicatedVehicle", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.id, "duplicatedVehicle")
 
 # change ID with an invalid value (empty)
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.id, "customID", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.id, "customID")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -35,7 +35,7 @@ netedit.computeJunctions()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # change type of junction
-netedit.modifyAttribute(netedit.attrs.junction.inspect.type, "right_before_left", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.type, "right_before_left")
 
 # rebuild network
 netedit.computeJunctions()

@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.acceleration, "true", False)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.acceleration, "true")
 
 # Check undos
 netedit.undo(referencePosition, 1)

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select routeProbe
-netedit.changeElement("routeProbe")
+netedit.changeElement("additionalFrame", "routeProbe")
 
 # disable center view
 netedit.changeDefaultBoolValue(netedit.attrs.routeProbe.create.center)
@@ -47,10 +47,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.routeProbe)
 
 # Change parameter 4 with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.file, "$$$$$$$$", False)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.file, "$$$$$$$$")
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.file, "fileA.txt", False)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.file, "fileA.txt")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

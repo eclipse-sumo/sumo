@@ -54,19 +54,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter id with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.route.inspect.id, "", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.id, "")
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.route.inspect.id, "<><><><>$%%%", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.id, "<><><><>$%%%")
 
 # Change parameter id with a non valid value (spaces)
-netedit.modifyAttribute(netedit.attrs.route.inspect.id, "route with spaces", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.id, "route with spaces")
 
 # Change parameter id with a non valid value (duplicated)
-netedit.modifyAttribute(netedit.attrs.route.inspect.id, "r_1", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.id, "r_1")
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.route.inspect.id, "custom_route", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.id, "custom_route")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

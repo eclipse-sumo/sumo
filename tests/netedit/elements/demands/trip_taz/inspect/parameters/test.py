@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("trip (from-to TAZs)")
+netedit.changeElement("vehicleFrame", "trip (from-to TAZs)")
 
 # create trip using two TAZs
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -51,7 +51,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.tripTAZ.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.tripTAZ.inspect.parameters)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

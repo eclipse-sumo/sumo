@@ -50,13 +50,13 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ri
 netedit.typeKey('enter')
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "dummyOffset", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "dummyOffset")
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "-20", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "-20")
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "13", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "13")
 
 # type enter to save changes
 netedit.typeKey('enter')

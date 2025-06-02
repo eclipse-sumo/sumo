@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 7 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.imgFile, "%$$%%%%%", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.imgFile, "%$$%%%%%")
 
 # Change parameter 7 with a non valid value (non exist)
-netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.imgFile, "paris.ico", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.imgFile, "paris.ico")
 
 # Change parameter 7 with a valid value (valid)
-netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.imgFile, "berlin_icon.ico", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.imgFile, "berlin_icon.ico")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

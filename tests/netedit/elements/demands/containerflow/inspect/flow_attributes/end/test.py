@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("container")
 
 # change Container
-netedit.changeElement("containerFlow")
+netedit.changeElement("containerFrame", "containerFlow")
 
 # create container using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,19 +51,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.terminate, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.terminate, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.terminate, "end", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.terminate, "end")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.terminateOption, "dummyEnd", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.terminateOption, "dummyEnd")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.terminateOption, "12.5", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.terminateOption, "12.5")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.terminateOption, "23", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.terminateOption, "23")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
