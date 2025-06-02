@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select trip over TAZs
-netedit.changeElement("flow (from-to TAZs)")
+netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # set color using dialog
 netedit.changeColorUsingDialog(netedit.attrs.flowTAZ.create.colorButton, 5)

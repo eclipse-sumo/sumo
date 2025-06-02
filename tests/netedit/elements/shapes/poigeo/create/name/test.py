@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to shape mode
-netedit.changeElement("poiGeo")
+netedit.changeElement("shapeFrame", "poiGeo")
 
 # change angle (invalid)
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.name, "%%%%;;;%%%")

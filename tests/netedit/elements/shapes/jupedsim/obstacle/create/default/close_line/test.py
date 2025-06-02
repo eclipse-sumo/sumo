@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to shape mode
-netedit.changeElement("jupedsim.obstacle")
+netedit.changeElement("shapeFrame", "jupedsim.obstacle")
 
 # create close line polygon (area 0)
 netedit.createLineShape(referencePosition, netedit.positions.elements.additionals.shapeA,

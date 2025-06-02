@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select chargingStation
-netedit.changeElement("chargingStation")
+netedit.changeElement("additionalFrame", "chargingStation")
 
 # set invalid chargeDelay (dummy)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.chargeDelay, "dummyChargeDelay")

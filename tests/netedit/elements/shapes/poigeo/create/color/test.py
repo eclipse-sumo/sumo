@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to shape mode
-netedit.changeElement("poiGeo")
+netedit.changeElement("shapeFrame", "poiGeo")
 
 # change color using dialog
 netedit.changeColorUsingDialog(netedit.attrs.poiGeo.create.colorButton, 5)

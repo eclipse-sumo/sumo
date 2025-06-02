@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select parkingArea
-netedit.changeElement("parkingArea")
+netedit.changeElement("additionalFrame", "parkingArea")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # select space
-netedit.changeElement("space")
+netedit.changeElement("additionalFrame", "space")
 
 # create first space
 netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to shape mode
-netedit.changeElement("poly")
+netedit.changeElement("shapeFrame", "poly")
 
 # change type with invalid XML characters (but the are allowed)
 netedit.changeDefaultValue(netedit.attrs.poly.create.type, "<<poly_test>>")

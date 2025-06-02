@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select trainStop
-netedit.changeElement("containerStop")
+netedit.changeElement("additionalFrame", "containerStop")
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

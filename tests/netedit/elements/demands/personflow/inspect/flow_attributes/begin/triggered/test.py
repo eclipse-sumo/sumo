@@ -38,7 +38,7 @@ netedit.changeMode("person")
 netedit.changePersonPlan("ride", False)
 
 # change Person
-netedit.changeElement("personFlow")
+netedit.changeElement("personFrame", "personFlow")
 
 # create person using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

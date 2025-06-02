@@ -32,20 +32,20 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select E3
-netedit.changeElement("entryExitDetector")
+netedit.changeElement("additionalFrame", "entryExitDetector")
 
 # create E3 with valid frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
 
 # select entry detector
-netedit.changeElement("detEntry")
+netedit.changeElement("additionalFrame", "detEntry")
 
 # Create entry detector with default value
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # select exit detector
-netedit.changeElement("detExit")
+netedit.changeElement("additionalFrame", "detExit")
 
 # Create entry detector with default value
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)

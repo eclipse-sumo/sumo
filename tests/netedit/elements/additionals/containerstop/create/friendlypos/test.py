@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select containerStop
-netedit.changeElement("containerStop")
+netedit.changeElement("additionalFrame", "containerStop")
 
 # set friendlyPos
 netedit.changeDefaultBoolValue(netedit.attrs.containerStop.create.friendlyPos)

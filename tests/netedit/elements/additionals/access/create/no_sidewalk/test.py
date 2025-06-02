@@ -32,13 +32,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select BusStop
-netedit.changeElement("busStop")
+netedit.changeElement("additionalFrame", "busStop")
 
 # create BusStop with default parameters
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # select detector
-netedit.changeElement("access")
+netedit.changeElement("additionalFrame", "access")
 
 # Create detector
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)

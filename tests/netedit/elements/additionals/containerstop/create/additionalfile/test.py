@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select containerStop
-netedit.changeElement("containerStop")
+netedit.changeElement("additionalFrame", "containerStop")
 
 # try to create containerStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

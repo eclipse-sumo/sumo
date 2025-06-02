@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select flow
-netedit.changeElement("flow (from-to edges)")
+netedit.changeElement("vehicleFrame", "flow (from-to edges)")
 
 # set invalid arrival pos
 netedit.changeDefaultValue(netedit.attrs.flow.create.begin, "dummyBegin")

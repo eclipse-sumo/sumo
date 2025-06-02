@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select chargingStation
-netedit.changeElement("chargingStation")
+netedit.changeElement("additionalFrame", "chargingStation")
 
 # set charge in transit
 netedit.changeDefaultBoolValue(netedit.attrs.chargingStation.create.chargeInTransit)

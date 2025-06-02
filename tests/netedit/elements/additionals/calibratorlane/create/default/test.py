@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select calibratorLane
-netedit.changeElement("calibratorLane")
+netedit.changeElement("additionalFrame", "calibratorLane")
 
 # create calibratorLane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

@@ -164,6 +164,13 @@ class modes:
 
 
 class frames:
+    class changeElement:
+        additional = 2
+        shape = 2
+        vehicle = 2
+        person = 2
+        container = 2
+
     class route:
         create = 15
         abort = 16
@@ -736,11 +743,6 @@ class TLS:
 # --------------------------------
 # ADDITIONALS
 # --------------------------------
-
-# additionals
-
-class additionals:
-    changeElement = 2
 
 # busStop
 

@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # disable select trip due this is the first vehicle in the list
-# netedit.changeElement("trip")
+# netedit.changeElement("vehicleFrame", "trip")
 
 # set invalid arrival lane
 netedit.changeDefaultValue(netedit.attrs.trip.create.arrivalSpeed, "dummySpeed")

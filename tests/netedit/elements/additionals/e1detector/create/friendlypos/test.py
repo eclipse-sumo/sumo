@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select E1
-netedit.changeElement("inductionLoop")
+netedit.changeElement("additionalFrame", "inductionLoop")
 
 # Change friendlyPos
 netedit.changeDefaultBoolValue(netedit.attrs.E1.create.friendlyPos)

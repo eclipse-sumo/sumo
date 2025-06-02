@@ -34,9 +34,6 @@ netedit.changeSupermode("demand")
 # go to person mode
 netedit.changeMode("person")
 
-# change Person
-netedit.changeElement("personFlow")
-
 # create person using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

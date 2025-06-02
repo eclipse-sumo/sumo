@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to shape mode
-netedit.changeElement("poly")
+netedit.changeElement("shapeFrame", "poly")
 
 # create open polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,

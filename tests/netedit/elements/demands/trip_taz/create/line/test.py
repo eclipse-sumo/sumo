@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select trip over TAZs
-netedit.changeElement("trip (from-to TAZs)")
+netedit.changeElement("vehicleFrame", "trip (from-to TAZs)")
 
 # set invalid line
 netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.line, "%%%%%%")

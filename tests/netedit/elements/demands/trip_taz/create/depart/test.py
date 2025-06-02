@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select trip over TAZs
-netedit.changeElement("trip (from-to TAZs)")
+netedit.changeElement("vehicleFrame", "trip (from-to TAZs)")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

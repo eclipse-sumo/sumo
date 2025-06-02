@@ -46,7 +46,7 @@ netedit.typeKey('enter')
 netedit.changeMode("person")
 
 # change Person
-netedit.changeElement("personFlow")
+netedit.changeElement("personFrame", "personFlow")
 
 # change person plan
 netedit.changePersonPlan("walk (route)", True)

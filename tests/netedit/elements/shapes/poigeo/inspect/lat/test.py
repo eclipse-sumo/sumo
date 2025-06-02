@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # select POI in list of shapes
-netedit.changeElement("poiGeo")
+netedit.changeElement("shapeFrame", "poiGeo")
 
 # create first POI
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)

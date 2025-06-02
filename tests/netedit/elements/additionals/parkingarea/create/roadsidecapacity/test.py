@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select parkingArea
-netedit.changeElement("parkingArea")
+netedit.changeElement("additionalFrame", "parkingArea")
 
 # set invalid roadSideCapacity (dummy)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "dummyRoadSideCapacity")

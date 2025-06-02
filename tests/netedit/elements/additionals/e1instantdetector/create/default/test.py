@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select E1Instant
-netedit.changeElement("instantInductionLoop")
+netedit.changeElement("additionalFrame", "instantInductionLoop")
 
 # create E1 with default parameters
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

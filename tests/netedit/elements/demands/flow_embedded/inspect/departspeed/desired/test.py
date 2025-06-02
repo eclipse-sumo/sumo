@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (embedded route)")
+netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # create flow with embedded route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

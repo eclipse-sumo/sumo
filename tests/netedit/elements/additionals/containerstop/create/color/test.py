@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select containerStop
-netedit.changeElement("containerStop")
+netedit.changeElement("additionalFrame", "containerStop")
 
 # set invalid person number
 netedit.changeColorUsingDialog(netedit.attrs.containerStop.create.colorButton, 5)

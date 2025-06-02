@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select flow with embedded route
-netedit.changeElement("flow (embedded route)")
+netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # set invalid person number
 netedit.changeColorUsingDialog(netedit.attrs.flowEmbedded.create.colorButton, 5)

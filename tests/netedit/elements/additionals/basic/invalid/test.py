@@ -32,13 +32,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select invalid additional (dummy)
-netedit.changeElement("dummyAdditional")
+netedit.changeElement("additionalFrame", "dummyAdditional")
 
 # try to create an dummy additional
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # select valid additional (busStop)
-netedit.changeElement("busStop")
+netedit.changeElement("additionalFrame", "busStop")
 
 # create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)

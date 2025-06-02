@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("flow (from-to TAZs)")
+netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # create flow with embedded route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)

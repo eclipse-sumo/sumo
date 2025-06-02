@@ -38,7 +38,7 @@ netedit.changeMode("container")
 netedit.changeContainerPlan("transport", False)
 
 # change Container
-netedit.changeElement("containerFlow")
+netedit.changeElement("containerFrame", "containerFlow")
 
 # create container using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # change vehicle
-netedit.changeElement("trip (from-to junctions)")
+netedit.changeElement("vehicleFrame", "trip (from-to junctions)")
 
 # create trip using two junctions
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)

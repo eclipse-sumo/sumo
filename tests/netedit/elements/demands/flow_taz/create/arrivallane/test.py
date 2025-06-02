@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select trip over TAZs
-netedit.changeElement("flow (from-to TAZs)")
+netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # set invalid arrival lane
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.arrivalLane, "dummyLane")

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select busStop
-netedit.changeElement("busStop")
+netedit.changeElement("additionalFrame", "busStop")
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.busStop.create.parkingLength, "dummyLenght")

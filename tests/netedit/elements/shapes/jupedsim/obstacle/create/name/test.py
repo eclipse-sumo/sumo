@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to shape mode
-netedit.changeElement("jupedsim.obstacle")
+netedit.changeElement("shapeFrame", "jupedsim.obstacle")
 
 # change layer (invalid)
 netedit.changeDefaultValue(netedit.attrs.jpsObstacle.create.name, "%%%%%%$$$$")

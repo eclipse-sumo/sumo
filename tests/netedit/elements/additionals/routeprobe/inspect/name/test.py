@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select routeProbe
-netedit.changeElement("routeProbe")
+netedit.changeElement("additionalFrame", "routeProbe")
 
 # disable center view
 netedit.changeDefaultBoolValue(netedit.attrs.routeProbe.create.center)

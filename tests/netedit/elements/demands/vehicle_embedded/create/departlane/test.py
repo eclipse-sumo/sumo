@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("vehicle")
 
 # select vehicle with embedded route
-netedit.changeElement("vehicle (embedded route)")
+netedit.changeElement("vehicleFrame", "vehicle (embedded route)")
 
 # set invalid depart lane
 netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.departLane, "dummyLane")

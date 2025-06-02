@@ -18,15 +18,29 @@
 # imports
 from ..general.functions import *
 
-def changeElement(element):
+
+def changeElement(frame, element):
     """
-    @brief change element (Additional, shape, vehicle...)
+    @brief change element in the given frame (Additional, shape, vehicle...)
     """
     # focus current frame
     focusOnFrame()
     # go to first editable element of frame
-    for _ in range(attrs.additionals.changeElement):
-        typeKey('tab')
+    if (frame == "additionalFrame"):
+        for _ in range(attrs.frames.changeElement.additional):
+            typeKey('tab')
+    elif (frame == "shapeFrame"):
+        for _ in range(attrs.frames.changeElement.shape):
+            typeKey('tab')
+    elif (frame == "vehicleFrame"):
+        for _ in range(attrs.frames.changeElement.vehicle):
+            typeKey('tab')
+    elif (frame == "personFrame"):
+        for _ in range(attrs.frames.changeElement.person):
+            typeKey('tab')
+    elif (frame == "containerFrame"):
+        for _ in range(attrs.frames.changeElement.container):
+            typeKey('tab')
     # paste the new value
     updateText(element)
     # type enter to save change

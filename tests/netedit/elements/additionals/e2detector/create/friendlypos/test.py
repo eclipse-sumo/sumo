@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select E2
-netedit.changeElement("laneAreaDetector")
+netedit.changeElement("additionalFrame", "laneAreaDetector")
 
 # Change friendlyPos
 netedit.changeDefaultBoolValue(netedit.attrs.E2.create.friendlyPos)

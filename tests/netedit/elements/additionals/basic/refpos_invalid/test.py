@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select busStop
-netedit.changeElement("busStop")
+netedit.changeElement("additionalFrame", "busStop")
 
 # set invalid reference (dummy)
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "dummy reference")

@@ -46,7 +46,7 @@ netedit.typeKey('enter')
 netedit.changeMode("vehicle")
 
 # select vehicle
-netedit.changeElement("vehicle (over route)")
+netedit.changeElement("vehicleFrame", "vehicle (over route)")
 
 # set invalid depart pos
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.departPos, "dummyPos")

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("shape")
 
 # go to poly mode and select poly
-netedit.changeElement("jupedsim.obstacle")
+netedit.changeElement("shapeFrame", "jupedsim.obstacle")
 
 # create first polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,

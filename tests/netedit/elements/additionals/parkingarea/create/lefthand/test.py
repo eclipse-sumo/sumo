@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("additional")
 
 # select parkingArea
-netedit.changeElement("parkingArea")
+netedit.changeElement("additionalFrame", "parkingArea")
 
 # set friendlyPos
 netedit.changeDefaultBoolValue(netedit.attrs.parkingArea.create.lefthand)
