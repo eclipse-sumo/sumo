@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("route")
 
 # set valid vclass
-netedit.changeRouteVClass("bus")
+netedit.changeParentElement("routeFrame", "bus")
 
 # set invalid repeat
 netedit.changeDefaultValue(netedit.attrs.route.create.repeat, "dummyrepeat")

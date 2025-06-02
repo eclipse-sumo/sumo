@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("route")
 
 # set invalid vclass
-netedit.changeRouteVClass("dummyVClass")
+netedit.changeParentElement("routeFrame", "dummyVClass")
 
 # create route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 netedit.typeKey('enter')
 
 # set valid vclass
-netedit.changeRouteVClass("bus")
+netedit.changeParentElement("routeFrame", "bus")
 
 # create route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

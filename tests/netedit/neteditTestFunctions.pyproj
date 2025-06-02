@@ -26,11 +26,7 @@
     <Compile Include="neteditTestFunctions\constants.py" />
     <Compile Include="neteditTestFunctions\files\reload.py" />
     <Compile Include="neteditTestFunctions\files\quit.py" />
-    <Compile Include="neteditTestFunctions\frames\demand\containerPlan.py" />
     <Compile Include="neteditTestFunctions\frames\demand\container.py" />
-    <Compile Include="neteditTestFunctions\frames\demand\route.py" />
-    <Compile Include="neteditTestFunctions\frames\demand\stop.py" />
-    <Compile Include="neteditTestFunctions\frames\demand\personPlan.py" />
     <Compile Include="neteditTestFunctions\frames\demand\type.py" />
     <Compile Include="neteditTestFunctions\frames\demand\person.py" />
     <Compile Include="neteditTestFunctions\frames\data\data.py" />

@@ -35,11 +35,42 @@ def changeElement(frame, element):
     elif (frame == "vehicleFrame"):
         for _ in range(attrs.frames.changeElement.vehicle):
             typeKey('tab')
+    elif (frame == "routeFrame"):
+        for _ in range(attrs.frames.changeElement.route):
+            typeKey('tab')
     elif (frame == "personFrame"):
         for _ in range(attrs.frames.changeElement.person):
             typeKey('tab')
     elif (frame == "containerFrame"):
         for _ in range(attrs.frames.changeElement.container):
+            typeKey('tab')
+    elif (frame == "personPlanFrame"):
+        for _ in range(attrs.frames.changeElement.personPlan):
+            typeKey('tab')
+    elif (frame == "containerPlanFrame"):
+        for _ in range(attrs.frames.changeElement.containerPlan):
+            typeKey('tab')
+    elif (frame == "stopFrameFrame"):
+        for _ in range(attrs.frames.changeElement.stop):
+            typeKey('tab')
+    # paste the new value
+    updateText(element)
+    # type enter to save change
+    typeKey('enter')
+
+
+def changeParentElement(frame, element):
+    """
+    @brief change parent element in the given frame (stop...)
+    """
+    # focus current frame
+    focusOnFrame()
+    # go to first editable element of frame
+    if (frame == "routeFrame"):
+        for _ in range(attrs.frames.changeParentElement.route):
+            typeKey('tab')
+    elif (frame == "stopFrame"):
+        for _ in range(attrs.frames.changeParentElement.stop):
             typeKey('tab')
     # paste the new value
     updateText(element)

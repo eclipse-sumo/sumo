@@ -47,7 +47,7 @@ netedit.typeKey('enter')
 netedit.changeMode("personPlan")
 
 # go to walk.edge.trainStop mode
-netedit.changePersonPlanMode("walk")
+netedit.changeElement("personPlanFrame", "walk")
 
 # create walk.edge.trainStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)

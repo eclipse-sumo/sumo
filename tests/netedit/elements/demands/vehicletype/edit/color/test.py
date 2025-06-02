@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.createVType()
+netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.type.edit.colorButton, 5, False)

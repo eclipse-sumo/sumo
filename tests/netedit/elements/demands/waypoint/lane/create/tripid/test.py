@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change waypoint type with a valid value
-netedit.changeStopType("waypointLane")
+netedit.changeElement("stopFrame", "waypointLane")
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.tripID, ";;;;;;;;;;")

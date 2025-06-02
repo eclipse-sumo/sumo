@@ -48,7 +48,7 @@ netedit.typeKey('enter')
 netedit.changeMode("personPlan")
 
 # go to personTrip.trainStop.trainStop mode
-netedit.changePersonPlanMode("personTrip")
+netedit.changeElement("personPlanFrame", "personTrip")
 
 # create personTrip.trainStop.trainStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)

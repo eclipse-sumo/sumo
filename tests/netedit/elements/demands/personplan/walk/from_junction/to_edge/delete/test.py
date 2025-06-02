@@ -48,7 +48,7 @@ netedit.typeKey('enter')
 netedit.changeMode("personPlan")
 
 # go to walk.junction.edge mode
-netedit.changePersonPlanMode("walk")
+netedit.changeElement("personPlanFrame", "walk")
 
 # create walk.junction.edge
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

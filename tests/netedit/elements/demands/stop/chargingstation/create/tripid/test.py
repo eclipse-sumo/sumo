@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("stop")
 
 # change stop type with a valid value
-netedit.changeStopType("stopChargingStation")
+netedit.changeElement("stopFrame", "stopChargingStation")
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.tripID, ";;;;;;;;;;")

@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("route")
 
 # change to non consecutive mode
-netedit.changeRouteMode("non consecutive edges")
+netedit.changeElement("routeFrame", "non consecutive edges")
 
 # create route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

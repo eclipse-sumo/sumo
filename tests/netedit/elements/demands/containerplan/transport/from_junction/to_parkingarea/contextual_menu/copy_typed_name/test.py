@@ -48,7 +48,7 @@ netedit.typeKey('enter')
 netedit.changeMode("containerPlan")
 
 # go to transport.junction.parkingArea mode
-netedit.changeContainerPlanMode("transport")
+netedit.changeElement("containerPlanFrame", "transport")
 
 # create transport.junction.parkingArea
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)

@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.createVType()
+netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
 
 # modify attribute
 netedit.modifyAttribute(netedit.attrs.type.edit.vClass, "dummy", False)

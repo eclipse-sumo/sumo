@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.createVType()
+netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
 
 # open dialog
 netedit.openVTypeDialog()
@@ -53,7 +53,7 @@ netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "-8"
 netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "4.4")
 
 # close dialog
-netedit.closeVTypeDialog()
+netedit.typeTwoKeys('alt', 'a')
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

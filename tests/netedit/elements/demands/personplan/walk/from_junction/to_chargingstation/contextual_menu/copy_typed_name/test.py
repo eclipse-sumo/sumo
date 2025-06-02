@@ -48,7 +48,7 @@ netedit.typeKey('enter')
 netedit.changeMode("personPlan")
 
 # go to walk.junction.chargingStation mode
-netedit.changePersonPlanMode("walk")
+netedit.changeElement("personPlanFrame", "walk")
 
 # create walk.junction.chargingStation
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)

@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # copy vType
-netedit.copyVType()
+netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.copy)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

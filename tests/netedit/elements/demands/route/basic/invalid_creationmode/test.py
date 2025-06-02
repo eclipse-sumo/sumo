@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("route")
 
 # set invalid mode
-netedit.changeRouteMode("dummyMode")
+netedit.changeElement("routeFrame", "dummyMode")
 
 # create route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.typeKey('enter')
 
 # set valid mode
-netedit.changeRouteMode("consecutive edges")
+netedit.changeElement("routeFrame", "consecutive edges")
 
 # create route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
