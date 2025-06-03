@@ -1,2 +1,2 @@
-Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Error: Invalid queue index '1' on segment 'E0:0'. Check for consistency of lane numbers and queue options.
+Quitting (on error).
