@@ -1,0 +1,4 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Error: Unknown segment 'E1:1' for vehicle '0' in loaded state.
+Quitting (on error).
