@@ -38,6 +38,8 @@ stop is an area on a lane. The parameters have the following meanings:
 !!! note
     The alias `<trainStop>` may be used anywhere instead of `<busStop>` and has the exact same functionality.
 
+The [generic parameter](GenericParameters.md) `<param key="waitingWidth" value="FLOAT"/>` can be used to define the visual spacing of waiting persons at the busStop. 
+
 ## Access Lanes
 
 Each bus or train stop may have additional child elements to model access from
