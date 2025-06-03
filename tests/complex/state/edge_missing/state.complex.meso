@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-06-03 10:29:26 by Eclipse SUMO sumo Version v1_23_1+0377-2cc86301760
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="4"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_23_1+0377-2cc86301760" time="4.00" type="meso">
+    <route id="!0" state="0" edges="E0 E1"/>
+    <route id="!1" state="0" edges="E1"/>
+    <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="0" depart="0.00" departSpeed="10.00" route="!0" distance="0 0" speedFactor="1.0600" state="16 0 0 0 0 0 6792 0 9223372036854774807"/>
+    <vehicle id="1" depart="0.00" departSpeed="10.00" route="!1" distance="0 0" speedFactor="0.9383" state="16 0 0 0 0 0 7673 0 9223372036854774807"/>
+    <segment id="E0:0">
+        <vehicles time="-1" value="0"/>
+    </segment>
+    <segment id="E1:0">
+        <vehicles time="-1" value="1"/>
+    </segment>
+</snapshot>

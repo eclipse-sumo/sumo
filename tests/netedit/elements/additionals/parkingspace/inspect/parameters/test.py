@@ -54,7 +54,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.park
 netedit.checkParameters(referencePosition, netedit.attrs.parkingSpace.inspect.parameters)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -53,7 +53,7 @@ netedit.modifyAttribute(netedit.attrs.poiGeo.inspectSelection.width, "5")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

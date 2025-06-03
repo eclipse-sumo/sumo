@@ -54,13 +54,13 @@ netedit.redo(referencePosition, 1)
 netedit.computeJunctions()
 
 # save routes
-netedit.saveDemandElements(True, referencePosition)
+netedit.saveExistentShortcut("demands")
 
 # remove invalid trips
 netedit.typeKey('space')
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

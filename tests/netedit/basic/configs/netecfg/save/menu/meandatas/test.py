@@ -41,10 +41,10 @@ netedit.createMeanData()
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # save mean datas
-netedit.saveMeanDatas(referencePosition)
+netedit.saveExistent("meanDatas")
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

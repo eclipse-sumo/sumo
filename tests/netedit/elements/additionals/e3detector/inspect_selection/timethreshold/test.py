@@ -53,7 +53,7 @@ netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "11.3")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

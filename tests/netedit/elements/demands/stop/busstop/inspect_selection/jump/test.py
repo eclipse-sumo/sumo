@@ -62,7 +62,7 @@ netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.jump, "3.5")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

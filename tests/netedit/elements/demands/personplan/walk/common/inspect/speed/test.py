@@ -74,7 +74,7 @@ netedit.modifyAttribute(netedit.attrs.walk.edge.edge.inspect.speed, "7.12")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -263,6 +263,7 @@ output:function .* finished after .*
 output:optional arguments:{REPLACE options:}
 output:succeeded after .*{REPLACE succeeded after TIME}
 output:usage: {LINES 1000}
+output:^load.*dll...
 dualog:uration:.*ms
 dualog:uration:.*s
 dualog:Real time factor
@@ -316,6 +317,7 @@ errors:= opt.linprog(
 errors:return sp.linalg.solve
 errors:usage: {[->}error:
 errors:\(choose from .*\){REPLACE (choose wisely)}
+errors:DeprecationWarning: builtin type .*wig.* has no __module__ attribute
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]
@@ -361,10 +363,12 @@ image-600:<g id="matplotlib.axis
 image-600:<dc:date>
 image-600:\)scale\({REPLACE ) scale(}
 image-600:\)translate\({REPLACE ) translate(}
+image-600:<image xlink:href="data:image/png;base64,${LINES 2}
 image-800:<g id="matplotlib.axis
 image-800:<dc:date>
 image-800:\)scale\({REPLACE ) scale(}
 image-800:\)translate\({REPLACE ) translate(}
+image-800:<image xlink:href="data:image/png;base64,${LINES 2}
 csv:\r$
 diff_con:<!-- generated on{[->]}-->
 diff_edg:<!-- generated on{[->]}-->

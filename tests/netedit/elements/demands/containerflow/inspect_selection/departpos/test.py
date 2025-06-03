@@ -59,7 +59,7 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspectSelection.departPos, 
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # save containers
 # quit netedit

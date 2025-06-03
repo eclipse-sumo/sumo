@@ -53,7 +53,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.edgeMeanData.inspect.begin, "7.5
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -35,7 +35,7 @@ netedit.changeMode("move")
 netedit.changeEditMode(netedit.attrs.modes.network.showBubbles)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

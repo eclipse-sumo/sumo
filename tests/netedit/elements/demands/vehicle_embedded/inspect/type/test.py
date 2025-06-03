@@ -66,7 +66,7 @@ netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.type, "custom_vTyp
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

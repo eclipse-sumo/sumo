@@ -65,7 +65,7 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspectSelection.spacingOpti
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # save containers
 # quit netedit

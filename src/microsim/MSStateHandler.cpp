@@ -281,8 +281,11 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             const MSEdge* const edge = MSEdge::dictionary(segmentID.substr(0, segmentID.rfind(":")));
             int idx = StringUtils::toInt(segmentID.substr(segmentID.rfind(":") + 1));
             mySegment = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
-            while (idx-- > 0) {
+            while (idx-- > 0 && mySegment != nullptr) {
                 mySegment = mySegment->getNextSegment();
+            }
+            if (mySegment == nullptr) {
+                throw ProcessError(TLF("Unknown segment '%' in loaded state.", segmentID));
             }
             myQueIndex = 0;
             break;
@@ -309,6 +312,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 }
             }
             if (MSGlobals::gUseMesoSim) {
+                if (myQueIndex >= mySegment->numQueues()) {
+                    throw ProcessError(TLF("Invalid queue index '%' on segment '%'. Check for consistency of lane numbers and queue options.", myQueIndex, mySegment->getID()));
+                }
                 mySegment->loadState(vehs, StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex);
                 myQueIndex++;
             } else {

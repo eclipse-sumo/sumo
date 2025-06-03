@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.route.inspect.cycletime, "56.12")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

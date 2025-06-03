@@ -118,3 +118,9 @@ arrivalPos_random
 
 # ensure that insertionChecks are loaded
 insertionChecks
+
+# loading state with a different network
+edge_missing
+
+# loading state with a different network
+edge_length_different

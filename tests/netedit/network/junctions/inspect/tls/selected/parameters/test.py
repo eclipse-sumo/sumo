@@ -53,7 +53,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 netedit.checkParameters(referencePosition, netedit.attrs.junction.inspectSelectionTLS.parameters)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

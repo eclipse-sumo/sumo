@@ -35,7 +35,7 @@ netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 netedit.loadNetwork(False)
 
 # save Netedit config
-netedit.saveNeteditConfigNew()
+netedit.saveNewShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

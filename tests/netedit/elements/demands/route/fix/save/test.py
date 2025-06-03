@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # fix
 netedit.fixDemandElement(netedit.attrs.fix.demandElements.routes.saveInvalidRoutes)

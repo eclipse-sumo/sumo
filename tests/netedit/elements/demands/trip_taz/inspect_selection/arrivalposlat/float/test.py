@@ -62,7 +62,7 @@ netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.arrivalSpeed, "15
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -62,7 +62,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspect.color, "125,60
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

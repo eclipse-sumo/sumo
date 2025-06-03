@@ -75,7 +75,7 @@ netedit.redo(referencePosition, 5)
 netedit.computeJunctions()
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # type space
 netedit.typeKey('space')

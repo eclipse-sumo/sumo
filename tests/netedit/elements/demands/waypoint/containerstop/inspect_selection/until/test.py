@@ -68,7 +68,7 @@ netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.unt
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

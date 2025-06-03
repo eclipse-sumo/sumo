@@ -56,7 +56,7 @@ netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.file, "fileA.txt")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

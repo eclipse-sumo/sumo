@@ -44,7 +44,7 @@ netedit.changeElement("shapeFrame", "poi")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

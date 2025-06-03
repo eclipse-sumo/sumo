@@ -66,7 +66,7 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.begin, "10.2")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # save containers
 # quit netedit

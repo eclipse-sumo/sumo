@@ -69,7 +69,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacingOption, "26")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # save persons
 # quit netedit

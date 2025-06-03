@@ -20,6 +20,8 @@ import warnings
 SUMO_WHEEL_HOME = None
 try:
     import sumo
+    if not hasattr(sumo, "SUMO_HOME"):  # maybe it is not the correct module
+        raise ImportError()
     SUMO_WHEEL_HOME = sumo.SUMO_HOME
     if "SUMO_HOME" not in os.environ:
         os.environ["SUMO_HOME"] = SUMO_WHEEL_HOME
@@ -32,6 +34,8 @@ if hasattr(os, "add_dll_directory"):
         os.add_dll_directory(os.path.abspath(os.path.join(SUMO_WHEEL_HOME, "bin")))
     elif "SUMO_HOME" in os.environ and os.path.exists(os.path.join(os.environ["SUMO_HOME"], "bin", "zlib.dll")):
         os.add_dll_directory(os.path.join(os.environ["SUMO_HOME"], "bin"))
+    elif os.path.exists(os.path.join(os.path.dirname(__file__), "..", "..", "bin", "zlib.dll")):
+        os.add_dll_directory(os.path.join(os.path.dirname(__file__), "..", "..", "bin"))
 
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
 from traci.step import StepManager, StepListener  # noqa

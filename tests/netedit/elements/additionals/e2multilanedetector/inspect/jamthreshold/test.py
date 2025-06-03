@@ -61,7 +61,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.jamThreshold
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

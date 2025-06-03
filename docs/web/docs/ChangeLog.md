@@ -12,41 +12,77 @@ title: ChangeLog
   - Vehicles no longer drive onto forbidden internal lanes when option **--ignore-route-errors** is set #16635
   - Fixed bug where junction collision was not detected #16695
   - Fixed collision on junction due to unsafe lane changing #16643
+  - Fixed invalid waitingTime for walking stage in tripinfo-output (not accumulating) #16729
 
 - netedit
+  - link-direction arrows for spread bidi-rail are drawn in the correct spot #16718 (regression in 1.20.0)
+  - bidi-rail connections are drawn large enough for comfortable clicking #16701 (regression in 1.22.0)
+  - bidi-rail connections are drawn on the correct side again #16700 (regression in 1.23.0)
   - Changing connection attribute 'uncontrolled' to `False` and a traffic light, now makes that connection controlled by the traffic light #16705
   - Fixed crash after using tls-mode "reset single" when loaded programs had non-standard programIDs. #16702
+
+- sumo-gui
+  - carriageImages are now loaded relative to the file in which they are defined #16725
+  - game mode rail switches now always switch on the first click #16726
+  - Fixed UI freeze when loading edgeData for unknown edges on windows #16742
+  - Fixed various parameter window quirks #11033
+  - Fixed crash in "About Dialog" if SUMO_HOME is not set #16749
+  - Fixed orientation of parking lots to be in line with the documentation #16593
+
+- mesosim
+  - Fixed crash when loading state with different network #16758
 
 - netconvert
   - Fixed bug where option **--tls.rebuild** creates invalid signal plan when using custom crossing traffic light indices. #16653
   - Fixed unsafe signal plan when crossings use linkIndex2 #16657
   - Fixed missing yellow phase when crossing re-uses vehicular link index #16658
 
+- TraCI
+  - Fixed bug where vehicles would not change on their current lane after modifying permissions #16721
+
 - tools
   - gtfs2pt.py: Fixed bug where option **--repair** did not fix broken **--osm-routes**. #16632 (regression in 1.17.0)
+  - gtfs2pt.py: Fixed invalid vehicle departure when running with options **--osm-routes --bbox** #16731
   - gtfs2pt.py: Fixed obsolete config header when using **--osm-routes** #16680
+  - createVehTypeDistribution.py: no longer crashes when output file already exists #16728 (regression in 1.21.0)  
   - osmWebWizard.py: Fixed bug where the wizard wouldn't open properly on Linux #16086
-  - net2geojson.py: Fixed bug that was causing invalid shapes with option **--boundary** #16295  
+  - net2geojson.py: Fixed bug that was causing invalid shapes with option **--boundary** #16295
+  - tlsCycleAdaptation.py: Fixed invalid error #14015
+  - scaleTimeLine.py: Fixed invalid sorting of output #16744
   - sumolib.net.connection: No longer ignores connection permissions #16633
+  - sumolib.xml.toXML: custom indent is now passed on #16734  
 
 ### Enhancements
 
 - sumo
   - A warning is now issued for traffic light programs where a link never gets a green phase even when the program has only a single phase. #16652
+  - Added waitingTime to personinfo walk output #16737
  
 - meso
   - `<tlLogic>` with `<param key="meso.tls.control" value="true"/>` is now excempt from options **--meso-tls-penalty** and **--meso-tls-flow-penalty** and runs with full control #16674
 
+- sumo-gui
+  - Various improvement to visual placement of rerouter objects #16716
+  - In game mode, right-click can now toggle switches (rerouters) #16717
+  - The 3D-view can now render vehicles in their 3D-model color #12683
+  - busStop now support `<param key="waitingWidth" value="FLOAT"/>` to customize spacing of waiting transportables #16724
+
+- duarouter
+  - Added option **--repair.max-detour-factor** to give more control over repairing routes. Vehicles will backtrack rather than take large detours. #16746
+
+
 - tools
   - plotXMLAttributes.py: The options **--xticks-file** and **--yticks-file** now support giving a column for name aliases to group the respective values #16683
   - [plotStops.py](Tools/Railways.md#plotstopspy): New tool to simplify drawing a train schedule diagram along a specified route. #16683
+  - generateContinuousRerouters.py: Added option **--stop-file** to add stops at loaded busStops when rerouting #16719
 
  
 ### Miscellaneous
 
 - sumo-gui: swapped color semantics of stopping place occupancy indicator (red means used and green now means empty) #16668
 - Shift-click no longer switches traffic lights or starts tracking vehicles in gaming mode #16703, #16704
-
+- Added railway game #13446
+- setting the python root dir now compiles libsumo against the selected python #16755
 
 ## Version 1.23.1 (08.05.2025)
 

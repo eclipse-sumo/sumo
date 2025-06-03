@@ -47,10 +47,10 @@ netedit.typeKey('enter')
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # save additionals
-netedit.saveDemandElements(False, referencePosition)
+netedit.saveExistent("demands")
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)
