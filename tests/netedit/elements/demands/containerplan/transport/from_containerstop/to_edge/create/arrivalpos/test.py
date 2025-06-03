@@ -54,13 +54,13 @@ netedit.changeElement("containerPlanFrame", "transport")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.transport.busStop.edge.create.arrivalPos, "dummy")
+netedit.modifyAttribute(netedit.attrs.transport.busStop.edge.create.arrivalPos, "dummy")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.transport.busStop.edge.create.arrivalPos, "12.5")
+netedit.modifyAttribute(netedit.attrs.transport.busStop.edge.create.arrivalPos, "12.5")
 
 # press enter to create route
 netedit.typeKey('enter')

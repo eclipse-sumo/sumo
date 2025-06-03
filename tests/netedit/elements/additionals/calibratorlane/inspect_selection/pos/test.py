@@ -41,16 +41,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibratorLane)
 
 # Change parameter id with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.pos, "dummyPos", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectSelection.pos, "dummyPos")
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.pos, "-12", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectSelection.pos, "-12")
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.pos, "5000", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectSelection.pos, "5000")
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.pos, "10", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectSelection.pos, "10")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

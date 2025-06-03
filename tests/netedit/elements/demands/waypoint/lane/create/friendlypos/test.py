@@ -38,7 +38,7 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "waypointLane")
 
 # change friendlyPos
-netedit.changeDefaultBoolValue(netedit.attrs.waypointLane.create.friendlyPos)
+netedit.modifyBoolAttribute(netedit.attrs.waypointLane.create.friendlyPos)
 
 # create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

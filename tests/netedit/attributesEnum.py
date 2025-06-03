@@ -171,6 +171,7 @@ class frames:
         route = 2
         person = 2
         container = 2
+        meanData = 2
         personPlan = 5
         containerPlan = 5
         stop = 5

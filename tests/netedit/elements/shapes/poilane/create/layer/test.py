@@ -35,19 +35,19 @@ netedit.changeMode("shape")
 netedit.changeElement("shapeFrame", "poiLane")
 
 # change layer (invalid)
-netedit.changeDefaultValue(netedit.attrs.poiLane.create.layer, "dummyLayer")
+netedit.modifyAttribute(netedit.attrs.poiLane.create.layer, "dummyLayer")
 
 # try to create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # change layer (valid, negative)
-netedit.changeDefaultValue(netedit.attrs.poiLane.create.layer, "-2")
+netedit.modifyAttribute(netedit.attrs.poiLane.create.layer, "-2")
 
 # create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # change layer (valid, positive)
-netedit.changeDefaultValue(netedit.attrs.poiLane.create.layer, "6.5")
+netedit.modifyAttribute(netedit.attrs.poiLane.create.layer, "6.5")
 
 # create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

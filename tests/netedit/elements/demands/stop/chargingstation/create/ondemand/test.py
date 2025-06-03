@@ -38,7 +38,7 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopChargingStation")
 
 # set invalid value
-netedit.changeDefaultBoolValue(netedit.attrs.stopChargingStation.create.onDemand)
+netedit.modifyBoolAttribute(netedit.attrs.stopChargingStation.create.onDemand)
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)

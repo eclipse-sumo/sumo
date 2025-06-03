@@ -53,13 +53,13 @@ netedit.changeElement("containerPlanFrame", "tranship")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.tranship.edge.edge.create.arrivalPos, "dummy")
+netedit.modifyAttribute(netedit.attrs.tranship.edge.edge.create.arrivalPos, "dummy")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.tranship.edge.edge.create.arrivalPos, "12.5")
+netedit.modifyAttribute(netedit.attrs.tranship.edge.edge.create.arrivalPos, "12.5")
 
 # press enter to create route
 netedit.typeKey('enter')

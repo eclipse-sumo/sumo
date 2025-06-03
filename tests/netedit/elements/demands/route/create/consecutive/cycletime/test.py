@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("route")
 
 # set invalid color
-netedit.changeDefaultValue(netedit.attrs.route.create.cycletime, "dummyCycle")
+netedit.modifyAttribute(netedit.attrs.route.create.cycletime, "dummyCycle")
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -46,13 +46,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.route.create.cycletime, "-12.4")
+netedit.modifyAttribute(netedit.attrs.route.create.cycletime, "-12.4")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.route.create.cycletime, "5.7")
+netedit.modifyAttribute(netedit.attrs.route.create.cycletime, "5.7")
 
 # press enter to create route
 netedit.typeKey('enter')

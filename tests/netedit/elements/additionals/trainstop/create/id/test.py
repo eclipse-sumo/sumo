@@ -44,25 +44,25 @@ netedit.changeElement("additionalFrame", "trainStop")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, ";;;;;;;;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.id, ";;;;;;;;;;;;;;;;")
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "ts_0")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.id, "ts_0")
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "ts_0")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.id, "ts_0")
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "custom_ID")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.id, "custom_ID")
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge3)

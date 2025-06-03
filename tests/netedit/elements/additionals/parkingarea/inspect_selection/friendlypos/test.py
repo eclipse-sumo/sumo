@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # Change parameter friendlyPos with a different value
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.friendlyPos, "true", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspectSelection.friendlyPos, "true")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

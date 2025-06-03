@@ -35,19 +35,19 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "laneAreaDetector")
 
 # set invalid speed threshold (dummy)
-netedit.changeDefaultValue(netedit.attrs.E2.create.speedThreshold, "dummySpeedTreshold")
+netedit.modifyAttribute(netedit.attrs.E2.create.speedThreshold, "dummySpeedTreshold")
 
 # try to create E2 with invalid speed threshold
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid speed threshold (negative)
-netedit.changeDefaultValue(netedit.attrs.E2.create.speedThreshold, "-14")
+netedit.modifyAttribute(netedit.attrs.E2.create.speedThreshold, "-14")
 
 # try to create E2 with invalid speed threshold
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set valid speed threshold
-netedit.changeDefaultValue(netedit.attrs.E2.create.speedThreshold, "2.5")
+netedit.modifyAttribute(netedit.attrs.E2.create.speedThreshold, "2.5")
 
 # create E2 with valid speed threshold
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

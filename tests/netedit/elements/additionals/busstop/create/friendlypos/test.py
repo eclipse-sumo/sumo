@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "busStop")
 
 # set friendlyPos
-netedit.changeDefaultBoolValue(netedit.attrs.busStop.create.friendlyPos)
+netedit.modifyBoolAttribute(netedit.attrs.busStop.create.friendlyPos)
 
 # create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

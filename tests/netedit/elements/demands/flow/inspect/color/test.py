@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.flow.inspect.color, "dummyColor")
 netedit.modifyAttribute(netedit.attrs.flow.inspect.color, "cyan")
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.flow.inspect.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.color, "12,13,14")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

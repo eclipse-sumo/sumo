@@ -54,7 +54,7 @@ netedit.changeElement("personPlanFrame", "personTrip")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStopB)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTrip.busStop.busStop.create.vTypes, "customType")
+netedit.modifyAttribute(netedit.attrs.personTrip.busStop.busStop.create.vTypes, "customType")
 
 # press enter to create route
 netedit.typeKey('enter')

@@ -18,6 +18,7 @@
 # imports
 from ...general.functions import *
 
+
 def createCrossing(hasTLS):
     """
     @brief create crossing
@@ -33,6 +34,7 @@ def createCrossing(hasTLS):
             typeKey('tab')
     # type space to create crossing
     typeKey('space')
+
 
 def modifyCrossingDefaultValue(numtabs, value):
     """

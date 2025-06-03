@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector)
 
 # Change parameter SpeedTreshold with a non valid value
-netedit.modifyAttribute(netedit.attrs.E2.inspect.speedThreshold, "dummySpeedTreshold", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspect.speedThreshold, "dummySpeedTreshold")
 
 # Change parameter SpeedTreshold with a non valid value
-netedit.modifyAttribute(netedit.attrs.E2.inspect.speedThreshold, "-12.1", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspect.speedThreshold, "-12.1")
 
 # Change parameter SpeedTreshold with a valid value
-netedit.modifyAttribute(netedit.attrs.E2.inspect.speedThreshold, "6.3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspect.speedThreshold, "6.3")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

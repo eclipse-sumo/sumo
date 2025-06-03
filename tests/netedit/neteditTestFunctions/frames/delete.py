@@ -18,7 +18,8 @@
 # imports
 from ..general.functions import *
 
-def deleteUsingSuprKey():
+
+def deleteUsingShortcut():
     """
     @brief delete using SUPR key
     """
@@ -27,19 +28,7 @@ def deleteUsingSuprKey():
     time.sleep(DELAY_REMOVESELECTION)
 
 
-def changeRemoveOnlyGeometryPoint(referencePosition):
-    """
-    @brief Enable or disable 'Remove only geometry point'
-    """
-    # select delete mode again to set mode
-    changeMode("delete")
-    # jump to checkbox
-    typeKey('tab')
-    # type SPACE to change value
-    typeKey('space')
-
-
-def protectElements(referencePosition):
+def protectElements():
     """
     @brief Protect or unprotect delete elements
     """

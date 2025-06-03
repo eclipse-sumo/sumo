@@ -18,7 +18,8 @@
 # imports
 from ..imports import *
 from ..constants import *
-from ..input.keyboard import*
+from ..input.keyboard import *
+
 
 def loadViewPort():
     """

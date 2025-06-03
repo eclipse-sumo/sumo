@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopLane)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.speed, "dummy", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspect.speed, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.speed, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspect.speed, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.speed, "-4", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspect.speed, "-4")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.speed, "6.3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspect.speed, "6.3")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

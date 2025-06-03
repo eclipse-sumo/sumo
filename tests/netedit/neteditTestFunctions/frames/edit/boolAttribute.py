@@ -11,16 +11,35 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    createEdge.py
+# @file    boolAttribute.py
 # @author  Pablo Alvarez Lopez
 # @date    28-05-25
 
 # imports
 from ...general.functions import *
 
-def cancelEdge():
+
+def modifyBoolAttribute(attributeIndex):
     """
-    @brief Cancel current created edge (used in chain mode)
+    @brief modify boolean attribute
     """
-    # type ESC to cancel current edge
-    typeKey('esc')
+    # focus current frame
+    focusOnFrame()
+    # jump to attribute
+    for _ in range(attributeIndex):
+        typeKey('tab')
+    # type SPACE to change value
+    typeKey('space')
+
+
+def modifyBoolAttributeOverlapped(attributeIndex):
+    """
+    @brief modify boolean attribute
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to attribute
+    for _ in range(attributeIndex + attrs.editElements.overlapped):
+        typeKey('tab')
+    # type SPACE to change value
+    typeKey('space')

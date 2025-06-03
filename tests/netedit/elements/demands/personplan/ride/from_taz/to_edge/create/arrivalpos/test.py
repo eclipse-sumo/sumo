@@ -54,13 +54,13 @@ netedit.changeElement("personPlanFrame", "ride")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.ride.junction.edge.create.arrivalPos, "dummy")
+netedit.modifyAttribute(netedit.attrs.ride.junction.edge.create.arrivalPos, "dummy")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.ride.junction.edge.create.arrivalPos, "12.5")
+netedit.modifyAttribute(netedit.attrs.ride.junction.edge.create.arrivalPos, "12.5")
 
 # press enter to create route
 netedit.typeKey('enter')

@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter Position with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspect.pos, "dummyPosition", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspect.pos, "dummyPosition")
 
 # Change parameter Position with a non valid value (< lane length)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspect.pos, "-100", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspect.pos, "-100")
 
 # Change parameter Position with a non valid value (> lane length)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspect.pos, "200", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspect.pos, "200")
 
 # Change parameter Position with a valid value
-netedit.modifyAttribute(netedit.attrs.poiLane.inspect.pos, "30.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspect.pos, "30.5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

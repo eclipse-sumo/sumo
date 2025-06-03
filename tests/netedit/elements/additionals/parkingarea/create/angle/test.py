@@ -35,31 +35,31 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "parkingArea")
 
 # set invalid angle (dummy)
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.angle, "dummyHeight")
+netedit.modifyAttribute(netedit.attrs.parkingArea.create.angle, "dummyHeight")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid angle (empty)
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.angle, "")
+netedit.modifyAttribute(netedit.attrs.parkingArea.create.angle, "")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set valid angle (negative)
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.angle, "-4")
+netedit.modifyAttribute(netedit.attrs.parkingArea.create.angle, "-4")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set valid angle (>360)
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.angle, "500")
+netedit.modifyAttribute(netedit.attrs.parkingArea.create.angle, "500")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set valid angle
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.angle, "120")
+netedit.modifyAttribute(netedit.attrs.parkingArea.create.angle, "120")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

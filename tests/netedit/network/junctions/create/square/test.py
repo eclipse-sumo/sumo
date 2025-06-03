@@ -40,7 +40,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
-netedit.cancelEdge()
+netedit.typeKey('esc')
 
 # rebuild network
 netedit.computeJunctions()

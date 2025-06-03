@@ -58,7 +58,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.line, "custom Line", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.line, "custom Line")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

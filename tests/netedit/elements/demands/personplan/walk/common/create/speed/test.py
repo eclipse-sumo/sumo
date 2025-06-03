@@ -54,19 +54,19 @@ netedit.changeElement("personPlanFrame", "walk")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStopB)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.walk.busStop.busStop.create.speed, "dummy")
+netedit.modifyAttribute(netedit.attrs.walk.busStop.busStop.create.speed, "dummy")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.walk.busStop.busStop.create.speed, "-12")
+netedit.modifyAttribute(netedit.attrs.walk.busStop.busStop.create.speed, "-12")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.walk.busStop.busStop.create.speed, "14.15")
+netedit.modifyAttribute(netedit.attrs.walk.busStop.busStop.create.speed, "14.15")
 
 # press enter to create route
 netedit.typeKey('enter')

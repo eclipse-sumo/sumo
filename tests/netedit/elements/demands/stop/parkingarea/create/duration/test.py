@@ -38,37 +38,37 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopParkingArea")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stopParkingArea.create.durationEnable)
+netedit.modifyBoolAttribute(netedit.attrs.stopParkingArea.create.durationEnable)
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # enable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stopParkingArea.create.durationEnable)
+netedit.modifyBoolAttribute(netedit.attrs.stopParkingArea.create.durationEnable)
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.duration, "dummyValue")
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.create.duration, "dummyValue")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.duration, "-20")
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.create.duration, "-20")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.duration, "0")
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.create.duration, "0")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.duration, "22.33")
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.create.duration, "22.33")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)

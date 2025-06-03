@@ -12401,7 +12401,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:86
 msgid "Reset attributes"
-msgstr ""
+msgstr "Resetta attributi"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:94
 msgid "Edit extended attributes"
@@ -12414,7 +12414,7 @@ msgstr "Apri il dialogo %"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:306
 msgid "Invalid value '%' in attribute %"
-msgstr ""
+msgstr "Valore invalido '%' nell'attributo %"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:460
 #: src/netedit/frames/GNEAttributesEditorType.cpp:493
@@ -12651,7 +12651,7 @@ msgstr "Attributo di ricerca"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:69
 msgid "Only common"
-msgstr ""
+msgstr "Solo quelli in comune"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:77
 msgid "Apply selection"
@@ -12973,7 +12973,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEPlanCreator.cpp:887
 msgid "Double stoppingPlaces aren't allowed"
-msgstr ""
+msgstr "Luoghi di fermata raddoppiati non sono permessi"
 
 #: src/netedit/frames/GNEPlanCreatorLegend.cpp:36
 msgid " Valid element"
@@ -13159,7 +13159,7 @@ msgstr "Usa selezione"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:54
 msgid "Selected elements"
-msgstr ""
+msgstr "Elementi selezionati"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:84
 msgid ""
@@ -13167,30 +13167,33 @@ msgid ""
 " select at least\n"
 " one element"
 msgstr ""
+"-Questo elemento addizionale richiede\n"
+" che selezioni almeno\n"
+" un elemento"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:85
 #, c-format
 msgid "-Click over % to select"
-msgstr ""
+msgstr "-Clicca su % per selezionarlo/la"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:86
 msgid "-ESC to clear elements"
-msgstr ""
+msgstr "-ESC per svuotare la selezione"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:87
 #, c-format
 msgid "Use selected %s"
-msgstr ""
+msgstr "Usa % selezionati"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:89
 #, c-format
 msgid "% selector"
-msgstr ""
+msgstr "Selezionatore %"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:150
 #, c-format
 msgid "List of % cannot be empty"
-msgstr ""
+msgstr "L'elenco di % non può essere vuoto"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:60
 msgid "Delete geometry points"
@@ -13283,15 +13286,15 @@ msgstr "Disegnare i punti geometrici per forza"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:106
 msgid "Move only junction center"
-msgstr ""
+msgstr "Muovi solamente il centro dell'incrocio"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:172
 msgid "Demand move options"
-msgstr ""
+msgstr "Opzioni di spostamenti di domanda"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:175
 msgid "Leave stopPersons connected"
-msgstr ""
+msgstr "Lascia le fermate di persone collegate tra loro"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:211
 msgid "Shift selected edges geometry"
@@ -14044,7 +14047,7 @@ msgstr ""
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:423
 #: src/netedit/frames/network/GNEWireFrame.cpp:201
 msgid "A % must be selected before insertion of %."
-msgstr ""
+msgstr "Si deve selezionare un/a % prima di inserire un/a %."
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:67
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:77
@@ -14142,7 +14145,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:167
 msgid "Clear Selected"
-msgstr ""
+msgstr "Svuota selezione"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:167
 msgid "Clears all connections of all selected objects"

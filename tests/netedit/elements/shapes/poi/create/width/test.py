@@ -35,19 +35,19 @@ netedit.changeMode("shape")
 netedit.changeElement("shapeFrame", "poi")
 
 # change width (invalid, dummy)
-netedit.changeDefaultValue(netedit.attrs.poi.create.width, "dummyWidth")
+netedit.modifyAttribute(netedit.attrs.poi.create.width, "dummyWidth")
 
 # try to create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # change width (invalid, negative)
-netedit.changeDefaultValue(netedit.attrs.poi.create.width, "-2")
+netedit.modifyAttribute(netedit.attrs.poi.create.width, "-2")
 
 # try to create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB)
 
 # change width (valid)
-netedit.changeDefaultValue(netedit.attrs.poi.create.width, "2.5")
+netedit.modifyAttribute(netedit.attrs.poi.create.width, "2.5")
 
 # create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)

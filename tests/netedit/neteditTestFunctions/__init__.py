@@ -27,27 +27,32 @@ from .files.reload import *
 from .files.save import *
 
 # frames folder
+from .frames.elements import *
 from .frames.data.data import *
 from .frames.data.meanData import *
+from .frames.delete import *
 from .frames.demand.container import *
 from .frames.demand.person import *
 from .frames.demand.type import *
+from .frames.edit.basicAttribute import *
+from .frames.edit.boolAttribute import *
+from .frames.edit.colorAttribute import *
+from .frames.edit.files import *
+from .frames.edit.parameters import *
+from .frames.edit.vClassDialog import *
+from .frames.move import *
 from .frames.network.additional import *
 from .frames.network.connection import *
-from .frames.network.createEdge import *
 from .frames.network.crossing import *
 from .frames.network.shape import *
 from .frames.network.tls import *
-from .frames.common import *
-from .frames.delete import *
-from .frames.inspect import *
-from .frames.move import *
 from .frames.select import *
 
 # general folder
 from .general.contextualMenu import *
 from .general.functions import *
 from .general.modes import *
+from .general.undoRedo import *
 from .general.viewport import *
 
 # input folder

@@ -35,19 +35,19 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "busStop")
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.busStop.create.parkingLength, "dummyLenght")
+netedit.modifyAttribute(netedit.attrs.busStop.create.parkingLength, "dummyLenght")
 
 # try to create busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.busStop.create.parkingLength, "-7.5")
+netedit.modifyAttribute(netedit.attrs.busStop.create.parkingLength, "-7.5")
 
 # try to create busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.busStop.create.parkingLength, "3")
+netedit.modifyAttribute(netedit.attrs.busStop.create.parkingLength, "3")
 
 # create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

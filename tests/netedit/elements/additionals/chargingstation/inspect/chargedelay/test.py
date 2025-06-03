@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change parameter chargeDelay with a non valid value
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.chargeDelay, "dummyChargeDelay", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.chargeDelay, "dummyChargeDelay")
 
 # Change parameter chargeDelay with a non valid value
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.chargeDelay, "-100", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.chargeDelay, "-100")
 
 # Change parameter chargeDelay with a valid value
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.chargeDelay, "30.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.chargeDelay, "30.5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

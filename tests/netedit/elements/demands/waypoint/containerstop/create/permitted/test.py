@@ -38,19 +38,19 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "waypointContainerStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.permitted, ";;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.create.permitted, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.permitted, "")
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.create.permitted, "")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.permitted, "ID1 ID2 ID3")
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.create.permitted, "ID1 ID2 ID3")
 
 # create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.containerStop)

@@ -54,7 +54,7 @@ netedit.computeJunctions()
 netedit.changeMode("delete")
 
 # disable 'protect elements'
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # remove center edge
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)

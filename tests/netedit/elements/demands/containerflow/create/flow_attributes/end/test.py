@@ -41,7 +41,7 @@ netedit.changeElement("containerFrame", "containerFlow")
 netedit.changeContainerPlan("tranship", True)
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminate, "dummyTerminate")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminate, "dummyTerminate")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,7 +51,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.typeKey('enter')
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminate, "end")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminate, "end")
 
 # press enter to create route
 netedit.typeKey('enter')
@@ -61,25 +61,25 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminateOption, "dummy")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminateOption, "dummy")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminateOption, "-30")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminateOption, "-30")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminateOption, "20.5")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminateOption, "20.5")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminateOption, "22")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminateOption, "22")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

@@ -35,10 +35,10 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "vaporizer")
 
 # disable center view
-netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
+netedit.modifyBoolAttribute(netedit.attrs.vaporizer.create.center)
 
 # set valid name
-netedit.changeDefaultValue(netedit.attrs.vaporizer.create.name, "customName")
+netedit.modifyAttribute(netedit.attrs.vaporizer.create.name, "customName")
 
 # create vaporizer
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

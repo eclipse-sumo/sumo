@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change boolean parameter 15
-netedit.modifyBoolAttribute(netedit.attrs.poly.inspectSelection.closeShape, False)
+netedit.modifyBoolAttribute(netedit.attrs.poly.inspectSelection.closeShape)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Set name
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.name, "commonName", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspectSelection.name, "commonName")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

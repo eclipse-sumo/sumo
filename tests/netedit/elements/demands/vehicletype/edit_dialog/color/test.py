@@ -35,22 +35,22 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # open dialog
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.color, "dummy")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.color, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.color, "")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.color, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.color, "blue")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.color, "blue")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.color, "12,13,14")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.color, "12,13,14")
 
 # close dialog
 netedit.typeTwoKeys('alt', 'a')

@@ -49,25 +49,25 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (over route)")
 
 # set invalid arrival speed
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalSpeed, "dummySpeed")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.arrivalSpeed, "dummySpeed")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set invalid arrival speed
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalSpeed, "-12")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.arrivalSpeed, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid arrival speed
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalSpeed, "max")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.arrivalSpeed, "max")
 
 # create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid arrival speed
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalSpeed, "20")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.arrivalSpeed, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

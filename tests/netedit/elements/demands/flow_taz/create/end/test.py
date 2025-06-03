@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminate, "dummyTerminate")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.terminate, "dummyTerminate")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminate, "end")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.terminate, "end")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminateOption, "dummy")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.terminateOption, "dummy")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminateOption, "-30")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.terminateOption, "-30")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminateOption, "20.5")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.terminateOption, "20.5")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -88,7 +88,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminateOption, "22")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.terminateOption, "22")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

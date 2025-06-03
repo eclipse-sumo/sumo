@@ -38,19 +38,19 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopContainerStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.permitted, ";;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.create.permitted, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.permitted, "")
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.create.permitted, "")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.permitted, "ID1 ID2 ID3")
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.create.permitted, "ID1 ID2 ID3")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.containerStop)

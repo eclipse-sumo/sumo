@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.crossing.left)
 
 # Change linkindex1 with a non valid value
-netedit.modifyAttribute(netedit.attrs.crossing.inspectSelectionTLS.linkIndex, "dummylinkIndex", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.crossing.inspectSelectionTLS.linkIndex, "dummylinkIndex")
 
 # Change linkindex1 with a non valid value
-netedit.modifyAttribute(netedit.attrs.crossing.inspectSelectionTLS.linkIndex, "-3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.crossing.inspectSelectionTLS.linkIndex, "-3")
 
 # Change linkindex1 with a valid value
-netedit.modifyAttribute(netedit.attrs.crossing.inspectSelectionTLS.linkIndex, "1", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.crossing.inspectSelectionTLS.linkIndex, "1")
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

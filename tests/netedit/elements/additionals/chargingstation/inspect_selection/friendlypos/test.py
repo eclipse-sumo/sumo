@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Set charge in transit
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.friendlyPos, "true", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspectSelection.friendlyPos, "true")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

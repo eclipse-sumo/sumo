@@ -44,10 +44,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change parameter name with a non valid value
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.name, "%%%;:..&&%$%$", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.name, "%%%;:..&&%$%$")
 
 # Change parameter name with a non valid value
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.name, "charging station name", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.name, "charging station name")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

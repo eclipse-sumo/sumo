@@ -41,7 +41,7 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.allow, "DummyAllowed")
 netedit.modifyAttribute(netedit.attrs.edge.inspect.allow, "")
 
 # Change parameter 8 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.allow, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.allow, "authority  army, passenger; taxi. tram")
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.allow, "")

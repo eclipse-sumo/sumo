@@ -41,7 +41,7 @@ netedit.changeElement("personFrame", "personFlow")
 netedit.changePersonPlan("walk", True)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.departPos, "dummy")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.departPos, "dummy")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,13 +51,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.typeKey('enter')
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.departPos, "-20")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.departPos, "-20")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.departPos, "7.8")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.departPos, "7.8")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

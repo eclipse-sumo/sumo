@@ -38,19 +38,19 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopBusStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.split, ";;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.stopBusStop.create.split, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.split, "")
+netedit.modifyAttribute(netedit.attrs.stopBusStop.create.split, "")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.split, "customSplit")
+netedit.modifyAttribute(netedit.attrs.stopBusStop.create.split, "customSplit")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.busStop)

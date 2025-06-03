@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.changeLeft, "DummyAl
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.changeLeft, "")
 
 # Change parameter 1 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.changeLeft, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.changeLeft, "authority  army, passenger; taxi. tram")
 
 # Change parameter 1 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.changeLeft, "")

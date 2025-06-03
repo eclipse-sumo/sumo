@@ -32,21 +32,21 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("createEdge")
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.speed, "dummy")
+netedit.modifyAttribute(netedit.attrs.edge.create.speed, "dummy")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.speed, "-2")
+netedit.modifyAttribute(netedit.attrs.edge.create.speed, "-2")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.speed, "5.5")
+netedit.modifyAttribute(netedit.attrs.edge.create.speed, "5.5")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)

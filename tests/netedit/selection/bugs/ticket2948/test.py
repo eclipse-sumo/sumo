@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
-netedit.cancelEdge()
+netedit.typeKey('esc')
 
 # rebuild network
 netedit.computeJunctions()
@@ -60,7 +60,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 
 # Set all Junctions as traffic lighs
-netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "traffic_light", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.junction.inspectSelection.type, "traffic_light")
 
 # inspect set of edges
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA, offsetX=100)

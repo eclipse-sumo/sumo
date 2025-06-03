@@ -18,6 +18,7 @@
 # imports
 from ...general.functions import *
 
+
 def createMeanData():
     """
     @brief create mean data
@@ -55,18 +56,3 @@ def copyMeanData():
         typeKey('tab')
     # copy mean data
     typeKey('space')
-
-
-def changeMeanData(meanData):
-    """
-    @brief change mean data
-    """
-    # focus current frame
-    focusOnFrame()
-    # go to delete mean data
-    for _ in range(2):
-        typeKey('tab')
-    # set mean data
-    updateText(meanData)
-    # delete mean data
-    typeKey('tab')

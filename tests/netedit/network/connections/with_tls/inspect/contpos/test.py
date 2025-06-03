@@ -38,16 +38,16 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change constPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.contPos, "dummyContPos", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.contPos, "dummyContPos")
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.contPos, "-3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.contPos, "-3")
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.contPos, "0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.contPos, "0")
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.contPos, "12", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.contPos, "12")
 
 # rebuild
 netedit.computeJunctions()

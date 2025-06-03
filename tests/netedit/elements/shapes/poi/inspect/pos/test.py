@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shap
 netedit.modifyAttribute(netedit.attrs.poi.inspect.pos, "dummyPosition")
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(netedit.attrs.poi.inspect.pos, "20.40,7.50", False)
+netedit.modifyAttribute(netedit.attrs.poi.inspect.pos, "20.40,7.50")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

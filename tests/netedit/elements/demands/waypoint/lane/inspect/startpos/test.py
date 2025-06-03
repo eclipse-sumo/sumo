@@ -47,19 +47,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopLane)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.startPos, "dummy", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspect.startPos, "dummy")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.startPos, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspect.startPos, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.startPos, "500", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspect.startPos, "500")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.startPos, "-600", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspect.startPos, "-600")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.startPos, "16", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspect.startPos, "16")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

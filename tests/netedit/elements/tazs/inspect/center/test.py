@@ -47,7 +47,7 @@ netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "dummyTAZ")
 netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "")
 
 # Change parameter 1 with a valid value (single point)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "12.00,8.00", False)
+netedit.modifyAttribute(netedit.attrs.TAZ.inspect.center, "12.00,8.00")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

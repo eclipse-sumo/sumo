@@ -44,7 +44,7 @@ netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "DummyDisallowed")
 netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "")
 
 # Change parameter 2 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "authority  army, passenger; taxi. tram")
 
 # Change parameter 2 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "")

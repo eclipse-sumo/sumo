@@ -35,22 +35,22 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "calibratorLane")
 
 # change center view
-netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+netedit.modifyBoolAttribute(netedit.attrs.calibrator.create.center)
 
 # change output with an invalid value
-netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "dummyJam")
+netedit.modifyAttribute(netedit.attrs.calibrator.create.jamTreshold, "dummyJam")
 
 # create calibratorLane with a valid parameter in other lane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # change output with an invalid value
-netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "-5")
+netedit.modifyAttribute(netedit.attrs.calibrator.create.jamTreshold, "-5")
 
 # create calibratorLane with a valid parameter in other lane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # change output with an valid value
-netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "12.3")
+netedit.modifyAttribute(netedit.attrs.calibrator.create.jamTreshold, "12.3")
 
 # create calibratorLane with a valid parameter in other lane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

@@ -38,19 +38,19 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change linkIndex with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.linkIndex, "dummyLinkIndex", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.linkIndex, "dummyLinkIndex")
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.linkIndex, "-2", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.linkIndex, "-2")
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.linkIndex, "0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.linkIndex, "0")
 
 # Change linkIndex with an valid value (but big)
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.linkIndex, "600", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.linkIndex, "600")
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.linkIndex, "12", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.linkIndex, "12")
 
 # rebuild
 netedit.computeJunctions()

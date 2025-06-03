@@ -38,7 +38,7 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopTrainStop")
 
 # set invalid value
-netedit.changeDefaultBoolValue(netedit.attrs.stopTrainStop.create.onDemand)
+netedit.modifyBoolAttribute(netedit.attrs.stopTrainStop.create.onDemand)
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)

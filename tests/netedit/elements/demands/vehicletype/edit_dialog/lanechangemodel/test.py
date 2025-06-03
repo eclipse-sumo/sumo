@@ -35,19 +35,19 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # open dialog
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.laneChangeModel, "dummy")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.laneChangeModel, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.laneChangeModel, "")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.laneChangeModel, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.laneChangeModel, "SL2015")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.laneChangeModel, "SL2015")
 
 # close dialog
 netedit.typeTwoKeys('alt', 'a')

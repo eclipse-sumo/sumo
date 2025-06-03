@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departSpeed, "dummySpeed")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.departSpeed, "dummySpeed")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departSpeed, "-12")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.departSpeed, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departSpeed, "max")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.departSpeed, "max")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departSpeed, "20")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.departSpeed, "20")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

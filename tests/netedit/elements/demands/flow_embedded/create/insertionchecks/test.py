@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.insertionChecks, "dummy")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.insertionChecks, "dummy")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -48,8 +48,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.insertionChecks,
-                           "leaderGap junction speedLimit pedestrian")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.insertionChecks,
+                        "leaderGap junction speedLimit pedestrian")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

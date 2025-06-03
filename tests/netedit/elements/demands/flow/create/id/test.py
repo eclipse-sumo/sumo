@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid id
-netedit.changeDefaultValue(netedit.attrs.flow.create.id, ";;;;;;%%")
+netedit.modifyAttribute(netedit.attrs.flow.create.id, ";;;;;;%%")
 
 # try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.flow.create.id, "")
+netedit.modifyAttribute(netedit.attrs.flow.create.id, "")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.flow.create.id, "f_0")
+netedit.modifyAttribute(netedit.attrs.flow.create.id, "f_0")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -75,7 +75,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.flow.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.flow.create.id, "customID")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

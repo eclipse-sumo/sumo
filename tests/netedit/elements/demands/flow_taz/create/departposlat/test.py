@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departPosLat, "dummyPos")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.departPosLat, "dummyPos")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departPosLat, "-12")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.departPosLat, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departPosLat, "random_free")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.departPosLat, "random_free")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.departPosLat, "20")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.departPosLat, "20")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

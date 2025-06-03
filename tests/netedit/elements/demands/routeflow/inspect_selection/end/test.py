@@ -44,19 +44,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.terminate, "dummyTerminate", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspectSelection.terminate, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.terminate, "end", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspectSelection.terminate, "end")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.terminateOption, "dummyEnd", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspectSelection.terminateOption, "dummyEnd")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.terminateOption, "12.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspectSelection.terminateOption, "12.5")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.terminateOption, "23", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspectSelection.terminateOption, "23")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

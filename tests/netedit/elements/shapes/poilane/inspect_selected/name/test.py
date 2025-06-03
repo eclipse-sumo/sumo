@@ -41,10 +41,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter file with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.name, "%$$%%%%%", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.name, "%$$%%%%%")
 
 # Change parameter file with a non valid value (no exist)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.name, "customName", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.name, "customName")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

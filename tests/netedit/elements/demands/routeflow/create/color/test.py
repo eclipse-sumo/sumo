@@ -55,19 +55,19 @@ netedit.changeColorUsingDialog(netedit.attrs.routeFlow.create.colorButton, 5)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set invalid color
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.color, "dummyColor")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.color, "dummyColor")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.color, "cyan")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.color, "cyan")
 
 # create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.color, "12,13,14")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.color, "12,13,14")
 
 # create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

@@ -38,16 +38,16 @@ netedit.changeElement("shapeFrame", "poi")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)
 
 # change color to white (To see icon)
-netedit.changeDefaultValue(netedit.attrs.poi.create.color, "white")
+netedit.modifyAttribute(netedit.attrs.poi.create.color, "white")
 
 # Change parameter width with a valid value (To see icon)
-netedit.changeDefaultValue(netedit.attrs.poi.create.width, "10")
+netedit.modifyAttribute(netedit.attrs.poi.create.width, "10")
 
 # Change parameter height with a valid value (To see icon)
-netedit.changeDefaultValue(netedit.attrs.poi.create.height, "10")
+netedit.modifyAttribute(netedit.attrs.poi.create.height, "10")
 
 # change imgfile (valid)
-netedit.changeDefaultValue(netedit.attrs.poi.create.imgFile, "berlin_icon.ico")
+netedit.modifyAttribute(netedit.attrs.poi.create.imgFile, "berlin_icon.ico")
 
 # create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD)

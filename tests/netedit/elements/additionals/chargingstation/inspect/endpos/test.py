@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change parameter endpos with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.endPos, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.endPos, "")
 
 # Change parameter endpos with a valid value (> lanelength)
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.endPos, "5000", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.endPos, "5000")
 
 # Change parameter endpos with a non valid value (< startPos)
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.endPos, "2", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.endPos, "2")
 
 # Change parameter endpos with a valid value
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.endPos, "30", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspect.endPos, "30")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

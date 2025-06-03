@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopLane)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.parking, "true", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.stopLane.inspectSelection.parking, "true")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.parking, "false", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.stopLane.inspectSelection.parking, "false")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.parking, "opportunistic", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.stopLane.inspectSelection.parking, "opportunistic")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

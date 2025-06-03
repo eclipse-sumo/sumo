@@ -38,25 +38,25 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "waypointTrainStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.actType, ";;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.create.actType, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.actType, "")
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.create.actType, "")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.actType, "dummy Act")
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.create.actType, "dummy Act")
 
 # create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.actType, "singing")
+netedit.modifyAttribute(netedit.attrs.waypointTrainStop.create.actType, "singing")
 
 # create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)

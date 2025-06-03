@@ -36,13 +36,13 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.numLanes, "3")
+netedit.modifyAttribute(netedit.attrs.edge.create.numLanes, "3")
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.priority, "15")
+netedit.modifyAttribute(netedit.attrs.edge.create.priority, "15")
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "pedestrian bus")
+netedit.modifyAttribute(netedit.attrs.edge.create.allow, "pedestrian bus")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
@@ -55,13 +55,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.centerB)
 
 # create template
-netedit.changeDefaultBoolValue(netedit.attrs.edge.template.create)
+netedit.modifyBoolAttribute(netedit.attrs.edge.template.create)
 
 # inspect other edge
 netedit.leftClick(referencePosition, netedit.positions.network.edge.centerA)
 
 # copy template template
-netedit.changeDefaultBoolValue(netedit.attrs.edge.template.copy)
+netedit.modifyBoolAttribute(netedit.attrs.edge.template.copy)
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)

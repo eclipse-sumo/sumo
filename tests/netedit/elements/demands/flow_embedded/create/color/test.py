@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid color
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.color, "dummyColor")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.color, "dummyColor")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.color, "cyan")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.color, "cyan")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.color, "12,13,14")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.color, "12,13,14")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

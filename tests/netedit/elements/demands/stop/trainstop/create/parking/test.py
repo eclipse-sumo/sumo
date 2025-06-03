@@ -41,7 +41,7 @@ netedit.changeElement("stopFrame", "stopTrainStop")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # change parking
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.parking, "true")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.parking, "true")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)

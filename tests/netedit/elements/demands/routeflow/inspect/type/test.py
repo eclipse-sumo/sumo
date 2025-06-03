@@ -58,16 +58,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change vType with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.type, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.type, "")
 
 # change vType with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.type, ";;;;", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.type, ";;;;")
 
 # change vType with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.type, "dummyVType", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.type, "dummyVType")
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.type, "custom_vType", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.type, "custom_vType")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

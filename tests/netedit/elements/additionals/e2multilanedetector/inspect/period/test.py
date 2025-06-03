@@ -49,13 +49,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2MultilaneDetector)
 
 # Change parameter frequency with a non valid value (non numeral)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.period, "dummyFrequency", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.period, "dummyFrequency")
 
 # Change parameter frequency with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.period, "-100", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.period, "-100")
 
 # Change parameter frequency with a valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.period, "120", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.period, "120")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

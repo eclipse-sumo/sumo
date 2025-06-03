@@ -41,19 +41,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector)
 
 # Change parameter length with a non valid value(dummy)
-netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.length, "dummyLength", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspectSelection.length, "dummyLength")
 
 # Change parameter length with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.length, "-5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspectSelection.length, "-5")
 
 # Change parameter length with a non valid value (0)
-netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.length, "0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspectSelection.length, "0")
 
 # Change parameter length with a valid value (> lane length)
-netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.length, "500", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspectSelection.length, "500")
 
 # Change parameter length with a valid value
-netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.length, "5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspectSelection.length, "5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

@@ -41,7 +41,7 @@ netedit.changeElement("containerFrame", "containerFlow")
 netedit.changeContainerPlan("tranship", True)
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminate, "dummyTerminate")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminate, "dummyTerminate")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,13 +51,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.typeKey('enter')
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminate, "end-number")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminate, "end-number")
 
 # press enter to create flow with embedded route
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.end, "dummy")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.end, "dummy")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -67,19 +67,19 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.end, "-30")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.end, "-30")
 
 # press enter to create flow with embedded route
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.end, "20.5")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.end, "20.5")
 
 # press enter to create flow with embedded route
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.number, "51")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.number, "51")
 
 # press enter to create flow with embedded route
 netedit.typeKey('enter')

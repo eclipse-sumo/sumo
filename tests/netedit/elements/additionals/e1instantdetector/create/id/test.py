@@ -38,19 +38,19 @@ netedit.changeElement("additionalFrame", "instantInductionLoop")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set a invalid  id (duplicated)
-netedit.changeDefaultValue(netedit.attrs.E1Instant.create.id, "e1i_0")
+netedit.modifyAttribute(netedit.attrs.E1Instant.create.id, "e1i_0")
 
 # try to create E1 with invalid id
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set a invalid  id
-netedit.changeDefaultValue(netedit.attrs.E1Instant.create.id, ";;;")
+netedit.modifyAttribute(netedit.attrs.E1Instant.create.id, ";;;")
 
 # try to create E1 with invalid id
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set a valid id
-netedit.changeDefaultValue(netedit.attrs.E1Instant.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.E1Instant.create.id, "customID")
 
 # create E1 with valid id
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)

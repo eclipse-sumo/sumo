@@ -57,10 +57,10 @@ netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "dummyPosition")
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "")
 
 # Change parameter 0 with a valid value (-negative)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "-3.5,-3", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "-3.5,-3")
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "3,2.5,15", False)
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "3,2.5,15")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

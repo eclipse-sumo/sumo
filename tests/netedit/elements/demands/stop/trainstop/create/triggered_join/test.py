@@ -38,19 +38,19 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopTrainStop")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.triggered, "join")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.triggered, "join")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.join, ";;;")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.join, ";;;")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.join, "customJoin")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.join, "customJoin")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)

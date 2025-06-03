@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change constPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.contPos, "dummyContPos", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelection.contPos, "dummyContPos")
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.contPos, "-3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelection.contPos, "-3")
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.contPos, "0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelection.contPos, "0")
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.contPos, "12", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelection.contPos, "12")
 
 # rebuild
 netedit.computeJunctions()

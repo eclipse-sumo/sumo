@@ -35,14 +35,14 @@ netedit.changeMode("shape")
 netedit.changeElement("shapeFrame", "jupedsim.obstacle")
 
 # change layer (invalid)
-netedit.changeDefaultValue(netedit.attrs.jpsObstacle.create.name, "%%%%%%$$$$")
+netedit.modifyAttribute(netedit.attrs.jpsObstacle.create.name, "%%%%%%$$$$")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # change layer (valid, negative)
-netedit.changeDefaultValue(netedit.attrs.jpsObstacle.create.name, "customName")
+netedit.modifyAttribute(netedit.attrs.jpsObstacle.create.name, "customName")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,

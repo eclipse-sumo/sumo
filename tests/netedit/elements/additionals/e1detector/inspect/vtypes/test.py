@@ -44,10 +44,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change parameter vtypes with a invalid value
-netedit.modifyAttribute(netedit.attrs.E1.inspect.vTypes, "Type%%%%%1 T;;yp$2 Type3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E1.inspect.vTypes, "Type%%%%%1 T;;yp$2 Type3")
 
 # Change parameter vtypes with a valid value
-netedit.modifyAttribute(netedit.attrs.E1.inspect.vTypes, "Type1 Type2 Type3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E1.inspect.vTypes, "Type1 Type2 Type3")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

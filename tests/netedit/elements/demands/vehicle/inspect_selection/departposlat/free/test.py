@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.departPosLat, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspectSelection.departPosLat, "")
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.departPosLat, "dummyPosLat", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspectSelection.departPosLat, "dummyPosLat")
 
 # change departPosLat with an valid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.departPosLat, "free", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspectSelection.departPosLat, "free")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

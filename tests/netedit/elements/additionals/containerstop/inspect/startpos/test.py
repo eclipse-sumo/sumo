@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop)
 
 # Change parameter startPos with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.startPos, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.containerStop.inspect.startPos, "")
 
 # Change parameter startPos with a valid value (< 0)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.startPos, "-5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.containerStop.inspect.startPos, "-5")
 
 # Change parameter startPos with a non valid value (> endPos)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.startPos, "400", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.containerStop.inspect.startPos, "400")
 
 # Change parameter startPos with a valid value
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.startPos, "20", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.containerStop.inspect.startPos, "20")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

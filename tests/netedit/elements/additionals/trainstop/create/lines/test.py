@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "trainStop")
 
 # set own lines
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.lines, "lineA lineB")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.lines, "lineA lineB")
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

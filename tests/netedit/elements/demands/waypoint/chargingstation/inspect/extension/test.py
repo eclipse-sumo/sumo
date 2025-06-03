@@ -47,10 +47,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypointChargingStation.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointChargingStation.inspect.durationEnable)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypointChargingStation.inspect.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointChargingStation.inspect.extensionEnable)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.extension, "dummyValue")
