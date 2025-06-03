@@ -116,6 +116,15 @@ jobs:
         $env:TEXTTEST_CI_APPS = "-a sumo"
         tests\runCiTests.bat texttest.exe
 
+    - name: Running dependency checker
+      if: matrix.build_type == 'extra'
+      run: |
+          Invoke-WebRequest -Uri https://github.com/lucasg/Dependencies/releases/download/v1.11.1/Dependencies_x64_Release_.without.peview.exe.zip -OutFile Dependencies.zip
+          7z x -oDependencies Dependencies.zip
+          $env:PATH += ";$pwd\bin"
+          dir tools\libsumo
+          Dependencies\Dependencies.exe -modules -depth 2 tools\libsumo\_libsumo.pyd
+
     - name: complex, traci and tools tests
       if: matrix.build_type == 'extra'
       run: |
