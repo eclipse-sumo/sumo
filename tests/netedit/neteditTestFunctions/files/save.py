@@ -21,6 +21,7 @@ from ..constants import *
 from ..input.keyboard import *
 from ..input.mouse import *
 
+
 def saveNeteditConfigNew(waitTime=2):
     """
     @brief save netedit config after opening a new network
@@ -34,7 +35,7 @@ def saveNeteditConfigNew(waitTime=2):
     typeKey('enter')
     typeKey('enter')
     # wait for saving
-    time.sleep(DELAY_SAVING)
+    time.sleep(waitTime)
 
 
 def saveNeteditConfigAs(referencePosition, waitTime=2):
@@ -127,26 +128,6 @@ def saveNetwork(referencePosition, useShortcut, clickOverReference=False, offset
     time.sleep(waitTime)
 
 
-def saveNetworkAs(waitTime=2):
-    """
-    @brief save network as
-    """
-    typeTwoKeys('alt', 'f')
-    for _ in range(attrs.toolbar.file.saveNetworkAs):
-        typeKey('down')
-    typeKey('space')
-    # wait for saving
-    time.sleep(waitTime)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("netAs.net.xml")
-    typeKey('enter')
-    # wait for saving
-    time.sleep(waitTime)
-
-
 def saveAdditionalElements(useShortcut, referencePosition, clickOverReference=False, waitTime=2):
     """
     @brief save additionals
@@ -165,29 +146,6 @@ def saveAdditionalElements(useShortcut, referencePosition, clickOverReference=Fa
         for _ in range(attrs.toolbar.file.aditionalElements.save):
             typeKey('down')
         typeKey('space')
-    # wait for saving
-    time.sleep(waitTime)
-
-
-def saveAdditionalElementsAs(waitTime=2):
-    """
-    @brief save additional as
-    """
-    typeTwoKeys('alt', 'f')
-    for _ in range(attrs.toolbar.file.aditionalElements.menu):
-        typeKey('down')
-    typeKey('space')
-    for _ in range(attrs.toolbar.file.aditionalElements.saveAs):
-        typeKey('down')
-    typeKey('space')
-    # wait for saving
-    time.sleep(waitTime)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("additionalsAs.add.xml")
-    typeKey('enter')
     # wait for saving
     time.sleep(waitTime)
 
@@ -214,29 +172,6 @@ def saveDemandElements(useShortcut, referencePosition, clickOverReference=False,
     time.sleep(waitTime)
 
 
-def saveDemandElementsAs(waitTime=2):
-    """
-    @brief save demand element as
-    """
-    typeTwoKeys('alt', 'f')
-    for _ in range(attrs.toolbar.file.demandElements.menu):
-        typeKey('down')
-    typeKey('space')
-    for _ in range(attrs.toolbar.file.demandElements.saveAs):
-        typeKey('down')
-    typeKey('space')
-    # wait for saving
-    time.sleep(waitTime)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("routesAs.rou.xml")
-    typeKey('enter')
-    # wait for saving
-    time.sleep(waitTime)
-
-    
 def saveDataElements(useShortcut, referencePosition, clickOverReference=False, offsetX=0, offsetY=0, waitTime=2):
     """
     @brief save datas
@@ -259,29 +194,6 @@ def saveDataElements(useShortcut, referencePosition, clickOverReference=False, o
     time.sleep(waitTime)
 
 
-def saveDataElementsAs(waitTime=2):
-    """
-    @brief save data element as
-    """
-    typeTwoKeys('alt', 'f')
-    for _ in range(attrs.toolbar.file.dataElements.menu):
-        typeKey('down')
-    typeKey('space')
-    for _ in range(attrs.toolbar.file.dataElements.saveAs):
-        typeKey('down')
-    typeKey('space')
-    # wait for saving
-    time.sleep(waitTime)
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    updateText(TEXTTEST_SANDBOX)
-    typeKey('enter')
-    updateText("datasAs.dat.xml")
-    typeKey('enter')
-    # wait for saving
-    time.sleep(waitTime)
-
-
 def saveMeanDatas(referencePosition, clickOverReference=False, offsetX=0, offsetY=0):
     """
     @brief save mean datas
@@ -294,24 +206,50 @@ def saveMeanDatas(referencePosition, clickOverReference=False, offsetX=0, offset
     typeThreeKeys('ctrl', 'shift', 'm')
 
 
-def saveMeanDatasAs(waitTime=2):
+def saveAs(element):
     """
-    @brief save data element as
+    @brief save the given element type as
     """
+    # first obstain numberOfJumps and filename
+    menuJumps = 0
+    subMenuJumps = 0
+    filename = ""
+    if (element == "network"):
+        menuJumps = attrs.toolbar.file.saveNetworkAs
+        filename = "netAs.net.xml"
+    elif (element == "additionals"):
+        menuJumps = attrs.toolbar.file.aditionalElements.menu
+        subMenuJumps = attrs.toolbar.file.aditionalElements.saveAs
+        filename = "additionalsAs.add.xml"
+    elif (element == "demands"):
+        menuJumps = attrs.toolbar.file.demandElements.menu
+        subMenuJumps = attrs.toolbar.file.demandElements.saveAs
+        filename = "routesAs.rou.xml"
+    elif (element == "datas"):
+        menuJumps = attrs.toolbar.file.dataElements.menu
+        subMenuJumps = attrs.toolbar.file.dataElements.saveAs
+        filename = "datasAs.dat.xml"
+    elif (element == "meanDatas"):
+        menuJumps = attrs.toolbar.file.meanDataElements.menu
+        subMenuJumps = attrs.toolbar.file.meanDataElements.saveAs
+        filename = "datasAs.med.add.xml"
+    # go to menu command
     typeTwoKeys('alt', 'f')
-    for _ in range(attrs.toolbar.file.meanDataElements.menu):
+    for _ in range(menuJumps):
         typeKey('down')
     typeKey('space')
-    for _ in range(attrs.toolbar.file.meanDataElements.saveAs):
+    for _ in range(subMenuJumps):
         typeKey('down')
     typeKey('space')
-    # wait for saving
-    time.sleep(waitTime)
+    # wait for open dialog
+    time.sleep(1)
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
+    # go to sandbox folder
     updateText(TEXTTEST_SANDBOX)
     typeKey('enter')
-    updateText("datasAs.med.add.xml")
+    # set filename
+    updateText(filename)
     typeKey('enter')
     # wait for saving
-    time.sleep(waitTime)
+    time.sleep(2)

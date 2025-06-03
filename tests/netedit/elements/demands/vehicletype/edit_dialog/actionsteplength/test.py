@@ -41,16 +41,16 @@ netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.actionStepLength, "dummy")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.actionStepLength, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.actionStepLength, "")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.actionStepLength, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.actionStepLength, "-12")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.actionStepLength, "-12")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.actionStepLength, "7.5")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.actionStepLength, "7.5")
 
 # close dialog
 netedit.typeTwoKeys('alt', 'a')

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # save network
-netedit.saveNetworkAs()
+netedit.saveAs("network")
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

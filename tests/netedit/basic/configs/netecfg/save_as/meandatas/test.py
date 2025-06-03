@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # save meanDatas
-netedit.saveMeanDatasAs()
+netedit.saveAs("meanDatas")
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

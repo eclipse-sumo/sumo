@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # save additionals
-netedit.saveDataElementsAs()
+netedit.saveAs("datas")
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
