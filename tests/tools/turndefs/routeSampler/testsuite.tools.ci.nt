@@ -1,0 +1,106 @@
+# test output style options
+#
+output-styles
+
+# write stops that are found in the input
+#
+stops
+
+#
+#
+output-styles_pedestrians
+
+# test loading data with multiple intervals
+intervals
+
+# sample routes by probabilites or counts
+weighted
+
+# make use of turn-ratios in addition to counts
+ratios
+
+# test option total-count
+totalCount
+
+# test origin destination inputs
+OD
+
+# load a custom  distribution for depart times
+departtime_dist
+
+# Use the input as a starting point for sampling
+keep_input
+verbose
+
+# save configuration file
+save_config
+
+# save configuration file template
+save_template
+
+# using edgedata as input
+edgedata
+
+# read multiple attributes from the same edge
+edgedata_entered_departed
+
+# using edgedata as input to specify departure counts
+edgedata_departures
+
+# using edgedata as input to specify arrival counts
+edgedata_arrivals
+
+# load candidate routes from walk elements (needed for reverse walking)
+walk_input
+
+# using another GEH threshold
+geh
+
+# test additional vehicle attributes
+attrs
+mismatch-output
+
+# change scaling for estimating hourly traffic
+gehScale
+
+# use linear programming to optimize route usage
+optimize_full
+
+# use linear programming to optimize route usage (limit 1)
+optimize_1
+
+# use linear programming to optimize route usage (limit 2)
+optimize_2
+
+# read routes that do not cover all detectors
+# use linear programming to optimize route usage
+#small_input_optimize
+
+# read routes that do not cover all detectors.
+# Skip the sampling step and direclty optimize input routes
+# use linear programming to optimize route usage
+small_input_noSampling_optimize
+
+# input contains duplicate routes. optimize it.
+small_input_duplicates_noSampling
+
+# use linear programming to optimize route usage
+# Many routes do not pass any counting locations and should not appear in the result
+optimize_few_detectors
+
+# use linear programming to optimize route usage , prefer fewer vehicles
+optimize_minimize-vehs
+
+# define multi-edge sequence restrictions
+via
+
+# define sequence restriction with gap
+turn-max-gap
+
+# set minimum number of visited counting locations per route
+min_count
+min_count2
+
+# set minimum number of visited counting locations per route
+min_count_optimize
+errors
