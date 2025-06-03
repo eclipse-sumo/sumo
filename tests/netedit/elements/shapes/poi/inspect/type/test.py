@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.poi.inspect.type, "<<myOwnType>>")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

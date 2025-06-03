@@ -47,7 +47,7 @@ netedit.modifyAttribute(netedit.attrs.busStop.create.references, "Reference Righ
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

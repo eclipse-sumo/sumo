@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 netedit.createCrossing(True)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

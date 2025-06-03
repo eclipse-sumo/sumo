@@ -48,7 +48,7 @@ for _ in range(netedit.attrs.frames.route.abort):
 netedit.typeKey('space')
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

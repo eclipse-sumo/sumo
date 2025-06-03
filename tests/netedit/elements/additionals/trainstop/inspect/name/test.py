@@ -50,7 +50,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspect.name, "Bus Sto
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

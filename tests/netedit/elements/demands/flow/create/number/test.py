@@ -94,7 +94,7 @@ netedit.modifyAttribute(netedit.attrs.flow.create.terminateOption, "22")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

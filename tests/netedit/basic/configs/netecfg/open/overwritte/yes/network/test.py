@@ -38,7 +38,7 @@ netedit.loadNetwork(False)
 netedit.overwritte("yes")
 
 # save Netedit config
-netedit.saveNeteditConfigNew()
+netedit.saveNewShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

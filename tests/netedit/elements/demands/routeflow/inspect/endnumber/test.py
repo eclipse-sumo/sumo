@@ -85,7 +85,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.end, "81")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

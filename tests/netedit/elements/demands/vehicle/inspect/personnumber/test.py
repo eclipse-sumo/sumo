@@ -76,7 +76,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.personNumber, "3
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

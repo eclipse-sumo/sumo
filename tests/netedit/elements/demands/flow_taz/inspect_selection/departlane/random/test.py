@@ -56,7 +56,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspectSelection.departLane, "rand
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

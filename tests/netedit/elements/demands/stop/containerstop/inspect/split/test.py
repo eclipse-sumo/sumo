@@ -59,7 +59,7 @@ netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.split, "customSp
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

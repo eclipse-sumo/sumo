@@ -60,7 +60,7 @@ netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "12.00,8.00 9.00,13.00
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

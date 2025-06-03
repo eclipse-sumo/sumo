@@ -66,7 +66,7 @@ netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "3,2.5,15")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

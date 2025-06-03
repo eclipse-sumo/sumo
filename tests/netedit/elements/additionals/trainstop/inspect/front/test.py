@@ -50,7 +50,7 @@ netedit.modifyBoolAttributeOverlapped(netedit.attrs.trainStop.inspect.frontButto
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

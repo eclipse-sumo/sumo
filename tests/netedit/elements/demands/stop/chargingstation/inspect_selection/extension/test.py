@@ -68,7 +68,7 @@ netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.exten
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

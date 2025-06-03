@@ -61,6 +61,6 @@ if not traci.isLibsumo():
         try:
             traci.vehicle.setParameter(oID="horiz", param="blub", value="blubber")
         except TypeError as e:
-            print(e)
+            print(str(e).replace("Domain.", ""))
     finally:
         traci.close()

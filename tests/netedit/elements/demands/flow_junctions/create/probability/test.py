@@ -94,7 +94,7 @@ netedit.modifyAttribute(netedit.attrs.flowJunction.create.spacingOption, "0.6")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

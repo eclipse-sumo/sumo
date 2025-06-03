@@ -59,7 +59,7 @@ netedit.modifyAttribute(netedit.attrs.waypointParking.inspectSelection.speed, "1
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

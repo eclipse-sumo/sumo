@@ -69,7 +69,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.spacingOption, "2.6")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

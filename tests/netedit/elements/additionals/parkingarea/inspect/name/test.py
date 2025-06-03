@@ -53,7 +53,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspect.name, "new P
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

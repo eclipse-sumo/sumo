@@ -36,7 +36,7 @@ netedit.computeJunctionsVolatileOptions()
 netedit.typeKey('space')
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

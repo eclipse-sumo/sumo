@@ -59,7 +59,7 @@ netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.line, "cus
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -41,10 +41,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 netedit.checkUndoRedo(referencePosition)
 
 # save additionals
-netedit.saveAdditionalElements(True, referencePosition)
+netedit.saveExistentShortcut("additionals")
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

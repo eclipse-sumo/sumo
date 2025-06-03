@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.name, "customName")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

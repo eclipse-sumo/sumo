@@ -50,7 +50,7 @@ netedit.changeMode("select")
 netedit.selectionClear()
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # select invalids
 netedit.fixStoppingPlace("selectInvalids")
@@ -59,7 +59,7 @@ netedit.fixStoppingPlace("selectInvalids")
 netedit.deleteUsingShortcut()
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

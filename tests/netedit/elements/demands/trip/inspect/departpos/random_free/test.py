@@ -66,7 +66,7 @@ netedit.modifyAttribute(netedit.attrs.trip.inspect.departPos, "random_free")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

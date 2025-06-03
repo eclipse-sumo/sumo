@@ -41,10 +41,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # save additionals
-netedit.saveAdditionalElements(False, referencePosition)
+netedit.saveExistent("additionals")
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

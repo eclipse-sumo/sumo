@@ -66,7 +66,7 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.type, "custom_vType"
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # save containers
 # quit netedit

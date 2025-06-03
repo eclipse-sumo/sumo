@@ -38,7 +38,7 @@ netedit.loadAdditionalElements(False)
 netedit.overwritte("yes")
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)
