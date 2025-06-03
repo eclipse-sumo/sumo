@@ -45,6 +45,7 @@ for f in sys.argv[1:]:
             fob.write(filedata.replace('Libtraci', 'Libsumo'))
     files.append(f + ".cs")
 files += [f[5:].replace("\\", "/") for f in glob.glob("data/*/*.cs")]
+os.environ["PATH"] += os.pathsep + os.path.join(os.environ['SUMO_HOME'], "bin")
 if os.name == "nt":
     with open("data/CMakeLists.txt", "w") as cmakelists:
         print("""cmake_minimum_required(VERSION 3.8)
@@ -53,7 +54,6 @@ if os.name == "nt":
         %s)""" % "\n        ".join(files), file=cmakelists)
     subprocess.check_call(["cmake", "-B", "build", "data"])
     subprocess.check_call(["cmake", "--build", "build", "--config", "Release"])
-    os.environ["PATH"] += os.pathsep + os.path.join(os.environ['SUMO_HOME'], "bin")
     subprocess.check_call([os.path.join("build", "Release", "TraCITestCS.exe")])
 else:
     subprocess.check_call(["mcs"] + files, cwd="data")
