@@ -88,3 +88,5 @@ stops_looped
 
 # vehicle passes an edge twice but stops on the second pass
 stops_looped2
+
+edge_missing
