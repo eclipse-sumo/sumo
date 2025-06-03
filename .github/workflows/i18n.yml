@@ -2,8 +2,6 @@ name: i18n
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron:  '30 11 1 * *'
 
 jobs:
   run_i18n_script:
