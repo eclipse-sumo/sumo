@@ -625,7 +625,9 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
             MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(**myCurrEdge);
             while (seg->getIndex() != (int)segIndex) {
                 seg = seg->getNextSegment();
-                assert(seg != 0);
+                if (seg == nullptr) {
+                    throw ProcessError(TLF("Unknown segment '%:%' for vehicle '%' in loaded state.", (*myCurrEdge)->getID(), segIndex, getID()));
+                }
             }
             setSegment(seg, queIndex);
             if (queIndex == MESegment::PARKING_QUEUE) {
