@@ -93,9 +93,10 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set (CLANG_COMPILER True)
 endif ()
 
+# C++17 is needed by std::filesystem and parquet
 # C++14 is needed by Google Test >= 1.13, for all the other parts C++11 should be enough.
 # This will silently fall back to C++11 if 14 is not supported by the compiler.
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # compiler specific flags
 if (GNU_COMPILER OR CLANG_COMPILER)
