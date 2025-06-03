@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 # netedit.changeElement("vehicleFrame", "trip")
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.trip.create.arrivalLane, "dummyLane")
+netedit.modifyAttribute(netedit.attrs.trip.create.arrivalLane, "dummyLane")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.trip.create.arrivalLane, "-12")
+netedit.modifyAttribute(netedit.attrs.trip.create.arrivalLane, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.trip.create.arrivalLane, "random")
+netedit.modifyAttribute(netedit.attrs.trip.create.arrivalLane, "random")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.trip.create.arrivalLane, "20")
+netedit.modifyAttribute(netedit.attrs.trip.create.arrivalLane, "20")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

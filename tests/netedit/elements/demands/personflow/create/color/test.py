@@ -51,7 +51,7 @@ netedit.changeColorUsingDialog(netedit.attrs.personFlow.create.colorButton, 5)
 netedit.typeKey('enter')
 
 # set invalid personFlow number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.color, "Vlue")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.color, "Vlue")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -61,7 +61,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.typeKey('enter')
 
 # set invalid personFlow number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.color, "red")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.color, "red")
 
 # press enter to create route
 netedit.typeKey('enter')

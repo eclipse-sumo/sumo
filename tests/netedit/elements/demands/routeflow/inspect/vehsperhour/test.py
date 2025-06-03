@@ -58,19 +58,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.spacing, "dummyTerminate", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.spacing, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.spacing, "vehsPerHour", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.spacing, "vehsPerHour")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.spacingOption, "dummy", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.spacingOption, "dummy")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.spacingOption, "12.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.spacingOption, "12.5")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.spacingOption, "26", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.spacingOption, "26")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

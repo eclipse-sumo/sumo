@@ -48,7 +48,7 @@ netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffset, "4")
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyAttributeVClassDialog(netedit.attrs.lane.inspectSelection.stopOffsetExceptionButton,
-                                    netedit.attrs.dialog.allowVClass.pedestrian, False, reset=True)
+                                    netedit.attrs.dialog.allowVClass.pedestrian, reset=True)
 
 # Check undos
 netedit.undo(referencePosition, 4)

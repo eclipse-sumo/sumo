@@ -57,13 +57,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change parameter position with a non valid value (dummy position X)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspect.pos, "dummy position", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.entryExit.inspect.pos, "dummy position")
 
 # Change parameter position with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspect.pos, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.entryExit.inspect.pos, "")
 
 # Change parameter position with a valid value (different position X)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspect.pos, "25", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.entryExit.inspect.pos, "25")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

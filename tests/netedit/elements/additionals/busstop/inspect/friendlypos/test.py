@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop)
 
 # Change parameter friendly pos
-netedit.modifyBoolAttribute(netedit.attrs.busStop.inspect.friendlyPos, True)
+netedit.modifyBoolAttributeOverlapped(netedit.attrs.busStop.inspect.friendlyPos)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

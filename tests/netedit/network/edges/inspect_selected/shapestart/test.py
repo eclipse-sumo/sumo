@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeStart, "34")
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeStart, "")
 
 # Change parameter 14 with a valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeStart, "14,15.5", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeStart, "14,15.5")
 
 # Check undos
 netedit.undo(referencePosition, 1)

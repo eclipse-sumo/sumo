@@ -35,13 +35,13 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "instantInductionLoop")
 
 # set invalid filename
-netedit.changeDefaultValue(netedit.attrs.E1Instant.create.file, "&&&&&&&&")
+netedit.modifyAttribute(netedit.attrs.E1Instant.create.file, "&&&&&&&&")
 
 # try to create E1 with invalid filename
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set valid filename
-netedit.changeDefaultValue(netedit.attrs.E1Instant.create.file, "myOwnFilename.txt")
+netedit.modifyAttribute(netedit.attrs.E1Instant.create.file, "myOwnFilename.txt")
 
 # try to create E1 with invalid filename
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)

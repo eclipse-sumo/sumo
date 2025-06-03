@@ -50,7 +50,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # change keep clear
-netedit.modifyBoolAttribute(netedit.attrs.junction.inspectSelection.keepClear, False)
+netedit.modifyBoolAttribute(netedit.attrs.junction.inspectSelection.keepClear)
 
 # rebuild network
 netedit.computeJunctions()

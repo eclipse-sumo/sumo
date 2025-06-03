@@ -49,19 +49,19 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.container.create.id, ";;;;")
+netedit.modifyAttribute(netedit.attrs.container.create.id, ";;;;")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.container.create.id, "p_0")
+netedit.modifyAttribute(netedit.attrs.container.create.id, "p_0")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.container.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.container.create.id, "customID")
 
 # press enter to create route
 netedit.typeKey('enter')

@@ -49,16 +49,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2MultilaneDetector)
 
 # Change parameter pos with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.pos, "dummyPos", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.pos, "dummyPos")
 
 # Change parameter pos with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.pos, "-5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.pos, "-5")
 
 # Change parameter pos with a non valid value (> endPos)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.pos, "400", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.pos, "400")
 
 # Change parameter pos with a valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.pos, "20", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.pos, "20")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

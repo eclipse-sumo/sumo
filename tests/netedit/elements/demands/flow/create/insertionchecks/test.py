@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (from-to edges)")
 
 # set invalid insertionChecks
-netedit.changeDefaultValue(netedit.attrs.flow.create.insertionChecks, "%%%%%%")
+netedit.modifyAttribute(netedit.attrs.flow.create.insertionChecks, "%%%%%%")
 
 # try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid Line
-netedit.changeDefaultValue(netedit.attrs.flow.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
+netedit.modifyAttribute(netedit.attrs.flow.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

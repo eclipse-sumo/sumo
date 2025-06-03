@@ -41,13 +41,13 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "dummyShapeEnd")
 netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "24")
 
 # Change parameter 19 with a duplicated value (See #3157)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "-30.00,0.00", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "-30.00,0.00")
 
 # Change parameter 19 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "")
 
 # Change parameter 19 with a valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "20.00,-5.00", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "20.00,-5.00")
 
 # Check undos
 netedit.undo(referencePosition, 1)

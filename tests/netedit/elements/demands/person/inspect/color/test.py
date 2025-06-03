@@ -60,7 +60,7 @@ netedit.modifyAttribute(netedit.attrs.person.inspect.color, "dummyColor")
 netedit.modifyAttribute(netedit.attrs.person.inspect.color, "cyan")
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.person.inspect.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.person.inspect.color, "12,13,14")
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

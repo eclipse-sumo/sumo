@@ -41,7 +41,7 @@ netedit.changeElement("stopFrame", "stopLane")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # change parking
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.parking, "true")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.parking, "true")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)

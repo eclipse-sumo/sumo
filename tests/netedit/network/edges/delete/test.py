@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot)
 netedit.typeKey('space')
 
 # enable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # delete edge
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)

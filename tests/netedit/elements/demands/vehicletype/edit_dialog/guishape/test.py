@@ -35,22 +35,22 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # open dialog
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "emergency")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.vClass, "emergency")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.guiShape, "dummy")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.guiShape, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.guiShape, "")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.guiShape, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.guiShape, "passenger/wagon")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.guiShape, "passenger/wagon")
 
 # close dialog
 netedit.typeTwoKeys('alt', 'a')

@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "containerStop")
 
 # set own lines
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.lines, "lineA lineB")
+netedit.modifyAttribute(netedit.attrs.containerStop.create.lines, "lineA lineB")
 
 # create containerStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

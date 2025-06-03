@@ -35,25 +35,25 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "chargingStation")
 
 # set invalid efficiency (dummy)
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.efficiency, "dummyEfficiency")
+netedit.modifyAttribute(netedit.attrs.chargingStation.create.efficiency, "dummyEfficiency")
 
 # try to create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid efficiency (negative)
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.efficiency, "-50")
+netedit.modifyAttribute(netedit.attrs.chargingStation.create.efficiency, "-50")
 
 # try to create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid efficiency (> 1)
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.efficiency, "30")
+netedit.modifyAttribute(netedit.attrs.chargingStation.create.efficiency, "30")
 
 # try to create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set valid efficiency
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.efficiency, "0.5")
+netedit.modifyAttribute(netedit.attrs.chargingStation.create.efficiency, "0.5")
 
 # create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)

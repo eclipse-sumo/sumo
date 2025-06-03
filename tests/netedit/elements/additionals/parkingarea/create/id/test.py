@@ -38,25 +38,25 @@ netedit.changeElement("additionalFrame", "parkingArea")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set invalid id (duplicated)
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "pa_0")
+netedit.modifyAttribute(netedit.attrs.parkingArea.create.id, "pa_0")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "")
+netedit.modifyAttribute(netedit.attrs.parkingArea.create.id, "")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, ";;;;")
+netedit.modifyAttribute(netedit.attrs.parkingArea.create.id, ";;;;")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "custom_id")
+netedit.modifyAttribute(netedit.attrs.parkingArea.create.id, "custom_id")
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge4)

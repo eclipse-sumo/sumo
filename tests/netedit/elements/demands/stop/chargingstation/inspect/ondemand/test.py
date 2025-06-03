@@ -47,7 +47,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopChargingStation.inspect.onDemand, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopChargingStation.inspect.onDemand)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -47,7 +47,7 @@ netedit.modifyAttribute(netedit.attrs.type.editDefault.color + 1, "dummyColor")
 netedit.modifyAttribute(netedit.attrs.type.editDefault.color + 1, "cyan")
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.color + 1, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.type.editDefault.color + 1, "12,13,14")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

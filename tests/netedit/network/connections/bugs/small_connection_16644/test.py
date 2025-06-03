@@ -38,13 +38,13 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA, 100)
 
 # Change type with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.type, "%%%;;;;%%", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.type, "%%%;;;;%%")
 
 # Change type with an valid value (empty)
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.type, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.type, "")
 
 # Change type with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.type, "customType", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.type, "customType")
 
 # rebuild
 netedit.computeJunctions()

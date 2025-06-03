@@ -35,19 +35,19 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "containerStop")
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.containerCapacity, "-2")
+netedit.modifyAttribute(netedit.attrs.containerStop.create.containerCapacity, "-2")
 
 # try to create containerStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.containerCapacity, "7.5")
+netedit.modifyAttribute(netedit.attrs.containerStop.create.containerCapacity, "7.5")
 
 # try to create containerStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.containerCapacity, "3")
+netedit.modifyAttribute(netedit.attrs.containerStop.create.containerCapacity, "3")
 
 # create containerStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

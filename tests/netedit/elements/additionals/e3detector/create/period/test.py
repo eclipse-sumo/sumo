@@ -35,19 +35,19 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "entryExitDetector")
 
 # set invalid frequency
-netedit.changeDefaultValue(netedit.attrs.E3.create.period, "dummyFreq")
+netedit.modifyAttribute(netedit.attrs.E3.create.period, "dummyFreq")
 
 # try to create E3 with invalid frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # set invalid frequency (negative)
-netedit.changeDefaultValue(netedit.attrs.E3.create.period, "-30")
+netedit.modifyAttribute(netedit.attrs.E3.create.period, "-30")
 
 # try to create E3 with different frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # set valid frequency
-netedit.changeDefaultValue(netedit.attrs.E3.create.period, "150.5")
+netedit.modifyAttribute(netedit.attrs.E3.create.period, "150.5")
 
 # create E3 with valid frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)

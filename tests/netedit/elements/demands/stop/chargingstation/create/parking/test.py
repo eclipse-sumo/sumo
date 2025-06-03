@@ -41,7 +41,7 @@ netedit.changeElement("stopFrame", "stopChargingStation")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change parking
-netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.parking, "true")
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.create.parking, "true")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)

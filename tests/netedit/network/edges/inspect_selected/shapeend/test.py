@@ -47,13 +47,13 @@ netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeEnd, "dummyShap
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeEnd, "24")
 
 # Change parameter 15 with a duplicated value (See #3157)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeEnd, "14,15.5", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeEnd, "14,15.5")
 
 # Change parameter 15 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeEnd, "")
 
 # Change parameter 15 with a valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeEnd, "34,15.5", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.shapeEnd, "34,15.5")
 
 # Check undos
 netedit.undo(referencePosition, 1)

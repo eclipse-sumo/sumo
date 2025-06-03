@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2MultilaneDetector)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.E2Multilane.inspectSelection.parameters, True)
+netedit.checkParametersOverlapped(referencePosition, netedit.attrs.E2Multilane.inspectSelection.parameters)
 
 
 # save netedit config

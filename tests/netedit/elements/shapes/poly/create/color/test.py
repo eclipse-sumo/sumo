@@ -42,14 +42,14 @@ netedit.createSquaredShape(referencePosition, netedit.positions.elements.additio
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # change color manually (invalid)
-netedit.changeDefaultValue(netedit.attrs.poly.create.color, "Vlue")
+netedit.modifyAttribute(netedit.attrs.poly.create.color, "Vlue")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # change color manually (valid)
-netedit.changeDefaultValue(netedit.attrs.poly.create.color, "red")
+netedit.modifyAttribute(netedit.attrs.poly.create.color, "red")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,

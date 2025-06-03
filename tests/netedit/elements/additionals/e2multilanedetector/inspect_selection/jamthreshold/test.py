@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2MultilaneDetector)
 
 # Change parameter JamThreshold with a non valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.jamThreshold, "dummyJamThreshold", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspectSelection.jamThreshold, "dummyJamThreshold")
 
 # Change parameter JamThreshold with a non valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.jamThreshold, "-11.1", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspectSelection.jamThreshold, "-11.1")
 
 # Change parameter JamThreshold with a valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.jamThreshold, "7.3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspectSelection.jamThreshold, "7.3")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -35,16 +35,16 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "routeProbe")
 
 # disable center view
-netedit.changeDefaultBoolValue(netedit.attrs.routeProbe.create.center)
+netedit.modifyBoolAttribute(netedit.attrs.routeProbe.create.center)
 
 # set invalid filename
-netedit.changeDefaultValue(netedit.attrs.routeProbe.create.id, "&&&&&&&&")
+netedit.modifyAttribute(netedit.attrs.routeProbe.create.id, "&&&&&&&&")
 
 # try to create RouteProbe with invalid filename
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid filename
-netedit.changeDefaultValue(netedit.attrs.routeProbe.create.id, "custom_id")
+netedit.modifyAttribute(netedit.attrs.routeProbe.create.id, "custom_id")
 
 # create routeProbe (camera will be moved)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)

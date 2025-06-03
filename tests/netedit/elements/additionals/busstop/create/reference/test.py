@@ -35,25 +35,25 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "busStop")
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.busStop.create.reference, "dummy")
+netedit.modifyAttribute(netedit.attrs.busStop.create.reference, "dummy")
 
 # try to create busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.busStop.create.reference, "center")
+netedit.modifyAttribute(netedit.attrs.busStop.create.reference, "center")
 
 # try to create busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.busStop.create.reference, "left")
+netedit.modifyAttribute(netedit.attrs.busStop.create.reference, "left")
 
 # try to create busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.busStop.create.reference, "right")
+netedit.modifyAttribute(netedit.attrs.busStop.create.reference, "right")
 
 # create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge3)

@@ -47,7 +47,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change uncontrolled
-netedit.modifyBoolAttribute(netedit.attrs.connection.inspectSelection.uncontrolled, True)
+netedit.modifyBoolAttributeOverlapped(netedit.attrs.connection.inspectSelection.uncontrolled)
 
 # rebuild
 netedit.computeJunctions()

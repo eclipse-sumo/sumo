@@ -47,13 +47,13 @@ netedit.modifyColorAttribute(netedit.attrs.poiGeo.inspectSelection.colorButton, 
 netedit.modifyAttribute(netedit.attrs.poiGeo.inspectSelection.color, "dummyColor")
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspectSelection.color, "255,255,500", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspectSelection.color, "255,255,500")
 
 # Change parameter 2 with a valid value (valid format)
 netedit.modifyAttribute(netedit.attrs.poiGeo.inspectSelection.color, "blue")
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.poiGeo.inspectSelection.color, "125,60,200", False)
+netedit.modifyAttribute(netedit.attrs.poiGeo.inspectSelection.color, "125,60,200")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

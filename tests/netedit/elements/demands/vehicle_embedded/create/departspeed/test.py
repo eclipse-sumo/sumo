@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "vehicle (embedded route)")
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.departSpeed, "dummySpeed")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.departSpeed, "dummySpeed")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.departSpeed, "-12")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.departSpeed, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.departSpeed, "max")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.departSpeed, "max")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.departSpeed, "20")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.departSpeed, "20")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

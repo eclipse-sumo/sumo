@@ -44,19 +44,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.vehicle.inspectSelection.colorButton, 5, True)
+netedit.modifyColorAttributeOverlapped(netedit.attrs.vehicle.inspectSelection.colorButton, 5)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.color, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspectSelection.color, "")
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.color, "dummyColor", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspectSelection.color, "dummyColor")
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.color, "cyan", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspectSelection.color, "cyan")
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.color, "12,13,14", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspectSelection.color, "12,13,14")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

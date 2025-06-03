@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.id, ";;;;&&&")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.id, ";;;;&&&")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.id, "v_0")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.id, "v_0")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid ID
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.id, "customID")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

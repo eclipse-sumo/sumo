@@ -49,13 +49,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2MultilaneDetector)
 
 # Change parameter TimeTreshold with a non valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.timeThreshold, "dummyTimeTreshold", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.timeThreshold, "dummyTimeTreshold")
 
 # Change parameter TimeTreshold with a non valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.timeThreshold, "-5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.timeThreshold, "-5")
 
 # Change parameter TimeTreshold with a valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.timeThreshold, "4", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.timeThreshold, "4")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

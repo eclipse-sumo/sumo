@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid depart
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.depart, "-12")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.depart, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid depart
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.depart, "30")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.depart, "30")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid depart (output will be changed)
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.depart, "20")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.depart, "20")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

@@ -54,19 +54,19 @@ netedit.changeElement("containerPlanFrame", "tranship")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStopB)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.tranship.busStop.busStop.create.duration, "dummy")
+netedit.modifyAttribute(netedit.attrs.tranship.busStop.busStop.create.duration, "dummy")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.tranship.busStop.busStop.create.duration, "-12")
+netedit.modifyAttribute(netedit.attrs.tranship.busStop.busStop.create.duration, "-12")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.tranship.busStop.busStop.create.duration, "7.5")
+netedit.modifyAttribute(netedit.attrs.tranship.busStop.busStop.create.duration, "7.5")
 
 # press enter to create route
 netedit.typeKey('enter')

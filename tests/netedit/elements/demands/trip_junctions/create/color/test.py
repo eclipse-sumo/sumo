@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set invalid color
-netedit.changeDefaultValue(netedit.attrs.tripJunction.create.color, "dummyColor")
+netedit.modifyAttribute(netedit.attrs.tripJunction.create.color, "dummyColor")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.tripJunction.create.color, "cyan")
+netedit.modifyAttribute(netedit.attrs.tripJunction.create.color, "cyan")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.tripJunction.create.color, "12,13,14")
+netedit.modifyAttribute(netedit.attrs.tripJunction.create.color, "12,13,14")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)

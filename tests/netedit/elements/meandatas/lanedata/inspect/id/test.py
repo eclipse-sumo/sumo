@@ -35,20 +35,20 @@ netedit.changeSupermode("data")
 netedit.changeMode("meanData")
 
 # change to lane mean data
-netedit.changeMeanData("laneData")
+netedit.changeElement("meanDataFrame", "laneData")
 
 # create two mean datas
 netedit.createMeanData()
 netedit.createMeanData()
 
 # modify meanData
-netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.id, "%%%%%", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.edgeMeanData.inspect.id, "%%%%%")
 
 # modify meanData
-netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.id, "ld_0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.edgeMeanData.inspect.id, "ld_0")
 
 # modify meanData
-netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.id, "customID", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.edgeMeanData.inspect.id, "customID")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

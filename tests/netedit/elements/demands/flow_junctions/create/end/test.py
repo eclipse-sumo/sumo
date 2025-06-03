@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (from-to junctions)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminate, "dummyTerminate")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminate, "dummyTerminate")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminate, "end")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminate, "end")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "dummy")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "dummy")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "-30")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "-30")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "20.5")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "20.5")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -88,7 +88,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.terminateOption, "22")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "22")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

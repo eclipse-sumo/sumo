@@ -47,21 +47,21 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change parameter 8 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.disallow, "DummyAllowed", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelectionTLS.disallow, "DummyAllowed")
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.disallow, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelectionTLS.disallow, "")
 
 # Change parameter 8 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.disallow,
-                        "authority  army, passenger; taxi. tram", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelectionTLS.disallow,
+                                  "authority  army, passenger; taxi. tram")
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.disallow, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelectionTLS.disallow, "")
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.disallow,
-                        "authority army vip passenger hov taxi bus coach tram bicycle", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelectionTLS.disallow,
+                                  "authority army vip passenger hov taxi bus coach tram bicycle")
 
 # rebuild
 netedit.computeJunctions()

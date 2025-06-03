@@ -41,7 +41,7 @@ netedit.changeElement("containerFrame", "containerFlow")
 netedit.changeContainerPlan("tranship", True)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.departPos, "dummy")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.departPos, "dummy")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,13 +51,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.typeKey('enter')
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.departPos, "-20")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.departPos, "-20")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.departPos, "7.8")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.departPos, "7.8")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

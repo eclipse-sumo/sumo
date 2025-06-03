@@ -35,10 +35,10 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # ... and delete
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.delete)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.delete)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

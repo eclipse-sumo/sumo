@@ -41,10 +41,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # Change parameter Name with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.name, "%%%$$$$%$", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspectSelection.name, "%%%$$$$%$")
 
 # Change parameter Name with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.name, "new Parking Area Name", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspectSelection.name, "new Parking Area Name")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

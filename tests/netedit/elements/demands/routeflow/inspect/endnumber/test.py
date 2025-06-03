@@ -58,28 +58,28 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.terminate, "dummyTerminate", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.terminate, "dummyTerminate")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.terminate, "end-number", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.terminate, "end-number")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.spacing, "dummyEnd", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.spacing, "dummyEnd")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.spacing, "23", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.spacing, "23")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.end, "dummyNumber", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.end, "dummyNumber")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.end, "12.3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.end, "12.3")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.end, "-30", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.end, "-30")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.end, "81", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.end, "81")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

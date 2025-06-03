@@ -35,16 +35,16 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # open dialog
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.imgFile, ";;;;")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.imgFile, ";;;;")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.imgFile, "")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.imgFile, "")
 
 # close dialog
 netedit.typeTwoKeys('alt', 'a')

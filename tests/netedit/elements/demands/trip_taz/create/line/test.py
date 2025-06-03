@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "trip (from-to TAZs)")
 
 # set invalid line
-netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.line, "%%%%%%")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.line, "%%%%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid Line
-netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.line, "ownLine")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.line, "ownLine")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set empty line
-netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.line, "")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.line, "")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

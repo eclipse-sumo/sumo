@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.spacing, "dummySpacing")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.spacing, "dummySpacing")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.spacing, "vehsPerHour")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.spacing, "vehsPerHour")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.spacingOption, "dummy")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.spacingOption, "dummy")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.spacingOption, "-30")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.spacingOption, "-30")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.spacingOption, "20.5")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.spacingOption, "20.5")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -88,7 +88,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.spacingOption, "22")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.spacingOption, "22")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

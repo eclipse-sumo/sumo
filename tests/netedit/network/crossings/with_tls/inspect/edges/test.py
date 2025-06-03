@@ -52,16 +52,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.crossing.left)
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "dummy Edges", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.crossing.inspectTLS.edges, "dummy Edges")
 
 # Change set
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "E2 -E2", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.crossing.inspectTLS.edges, "E2 -E2")
 
 # Change Edges adding a new edge
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "E0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.crossing.inspectTLS.edges, "E0")
 
 # Change Edges adding a new edge
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "E0 -E0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.crossing.inspectTLS.edges, "E0 -E0")
 
 # Check undos
 netedit.undo(referencePosition, 3)

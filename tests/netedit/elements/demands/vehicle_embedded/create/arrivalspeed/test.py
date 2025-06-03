@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "vehicle (embedded route)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "dummyPos")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "dummyPos")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "-12")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "center")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "center")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "20")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "20")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

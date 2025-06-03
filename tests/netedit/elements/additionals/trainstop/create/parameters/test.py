@@ -35,13 +35,13 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "trainStop")
 
 # set own lines
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.parameters, "dummy")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.parameters, "dummy")
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set own lines
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.parameters, "key1=value1|key2=value2|key3=value3")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.parameters, "key1=value1|key2=value2|key3=value3")
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

@@ -42,13 +42,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.person.create.departPos, "dummy")
+netedit.modifyAttribute(netedit.attrs.person.create.departPos, "dummy")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.person.create.departPos, "-20")
+netedit.modifyAttribute(netedit.attrs.person.create.departPos, "-20")
 
 # press enter to create route
 netedit.typeKey('enter')
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.person.create.departPos, "7.8")
+netedit.modifyAttribute(netedit.attrs.person.create.departPos, "7.8")
 
 # press enter to create route
 netedit.typeKey('enter')

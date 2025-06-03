@@ -16,7 +16,8 @@
 # @date    28-05-25
 
 # imports
-from ..input.keyboard import *
+from .functions import *
+
 
 def fixDemandElement(value):
     """
@@ -31,6 +32,7 @@ def fixDemandElement(value):
     typeKey('space')
     # accept
     typeTwoKeys('alt', 'a')
+
 
 def fixDemandElements(solution):
     """
@@ -66,6 +68,7 @@ def fixDemandElements(solution):
         # press cancel
         typeKey('tab')
         typeKey('space')
+
 
 def fixStoppingPlace(solution):
     """

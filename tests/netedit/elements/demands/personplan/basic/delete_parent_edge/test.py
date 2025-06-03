@@ -63,7 +63,7 @@ netedit.changeSupermode("network")
 netedit.changeMode("delete")
 
 # disable 'Automatically delete demand elements'
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # create personTripEdgeEdge
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

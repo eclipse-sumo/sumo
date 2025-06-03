@@ -35,13 +35,13 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "entryExitDetector")
 
 # set invalid file
-netedit.changeDefaultValue(netedit.attrs.E3.create.file, "%%%$$%%$%")
+netedit.modifyAttribute(netedit.attrs.E3.create.file, "%%%$$%%$%")
 
 # try to create E3 with invalid file
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # set valid file
-netedit.changeDefaultValue(netedit.attrs.E3.create.file, "myOwnFile.txt")
+netedit.modifyAttribute(netedit.attrs.E3.create.file, "myOwnFile.txt")
 
 # create E3 with valid file
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)

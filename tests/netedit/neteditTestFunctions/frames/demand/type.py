@@ -34,7 +34,7 @@ def openVTypeDialog():
     time.sleep(DELAY_QUESTION)
 
 
-def modifyVTypeAttribute(attributeIndex, value):
+def modifyVTypeDialogAttribute(attributeIndex, value):
     """
     @brief modify VType attribute of type int/float/string
     """

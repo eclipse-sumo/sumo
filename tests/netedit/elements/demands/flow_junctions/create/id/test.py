@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set invalid id
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.id, "%%;;%%%%")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.id, "%%;;%%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.id, "")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.id, "")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.id, "f_0")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.id, "f_0")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -75,7 +75,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.id, "customID")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)

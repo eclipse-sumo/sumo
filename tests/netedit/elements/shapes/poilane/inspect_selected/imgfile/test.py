@@ -41,13 +41,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter file with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.imgFile, "%$$%%%%%", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.imgFile, "%$$%%%%%")
 
 # Change parameter file with a non valid value (no exist)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.imgFile, "paris.ico", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.imgFile, "paris.ico")
 
 # Change parameter file with a valid value (valid)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.imgFile, "berlin_icon.ico", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.imgFile, "berlin_icon.ico")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

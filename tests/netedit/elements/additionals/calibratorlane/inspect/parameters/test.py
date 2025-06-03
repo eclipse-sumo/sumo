@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "calibratorLane")
 
 # change center view
-netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+netedit.modifyBoolAttribute(netedit.attrs.calibrator.create.center)
 
 # create calibratorLane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -47,7 +47,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibratorLane)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.calibrator.inspectLane.parameters, True)
+netedit.checkParametersOverlapped(referencePosition, netedit.attrs.calibrator.inspectLane.parameters)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

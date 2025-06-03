@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop)
 
 # Change parameter name with a valid value
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.name, "Bus Stop Name", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.containerStop.inspect.name, "Bus Stop Name")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

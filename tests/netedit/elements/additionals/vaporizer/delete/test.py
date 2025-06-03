@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "vaporizer")
 
 # disable center view
-netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
+netedit.modifyBoolAttribute(netedit.attrs.vaporizer.create.center)
 
 # create vaporizer
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
@@ -53,7 +53,7 @@ netedit.undo(referencePosition, 2)
 netedit.changeMode("delete")
 
 # enable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # try to delete lane with the second loaded vaporizer (doesn't allowed)
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)

@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "vehicle (embedded route)")
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.personNumber, "dummycontainerNumber")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.personNumber, "dummycontainerNumber")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.personNumber, "-12")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.personNumber, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.personNumber, "3.5")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.personNumber, "3.5")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid personNumber
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.personNumber, "13")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.personNumber, "13")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # set invalid vType
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.type, "blue")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.type, "blue")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid vType
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.type, "custom_vType")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.type, "custom_vType")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

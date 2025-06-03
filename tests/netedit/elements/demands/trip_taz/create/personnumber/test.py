@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "trip (from-to TAZs)")
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.personNumber, "dummypersonNumber")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.personNumber, "dummypersonNumber")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.personNumber, "-12")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.personNumber, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.personNumber, "3.5")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.personNumber, "3.5")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.personNumber, "13")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.personNumber, "13")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

@@ -44,10 +44,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop)
 
 # Change parameter 5 with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.trainStop.inspect.lines, "line1, line2", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspect.lines, "line1, line2")
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(netedit.attrs.trainStop.inspect.lines, "line1 line2", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspect.lines, "line1 line2")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

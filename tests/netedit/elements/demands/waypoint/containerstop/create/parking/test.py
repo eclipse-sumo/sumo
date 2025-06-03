@@ -41,7 +41,7 @@ netedit.changeElement("stopFrame", "waypointContainerStop")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # change parking
-netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.parking, "true")
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.create.parking, "true")
 
 # create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.containerStop)
