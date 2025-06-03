@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-01 11:33+0000\n"
-"PO-Revision-Date: 2025-05-22 09:02+0000\n"
+"PO-Revision-Date: 2025-06-04 10:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -12483,6 +12483,8 @@ msgstr ""
 #: src/utils/common/MapMatcher.h:51
 msgid "Cannot convert geo-positions because the network has no geo-reference"
 msgstr ""
+"Le posizioni geografiche non possono essere convertite perché la rete non è "
+"georeferenziata"
 
 #: src/utils/common/MsgHandler.cpp:170
 #, c-format
@@ -12608,11 +12610,11 @@ msgstr "Aggiunge commenti al modello, al schema o alla configurazione salvata"
 
 #: src/utils/common/SystemFrame.cpp:71
 msgid "Switches to verbose output"
-msgstr ""
+msgstr "Attiva l'uscita dettagliata"
 
 #: src/utils/common/SystemFrame.cpp:74
 msgid "Prints option values before processing"
-msgstr ""
+msgstr "Emette i valori delle opzioni prima di processarle"
 
 #: src/utils/common/SystemFrame.cpp:77
 msgid "Prints this screen or selected topics"
@@ -12744,6 +12746,8 @@ msgid ""
 "maximum value % and minimum value % too close for distribution with mean % "
 "and deviation %"
 msgstr ""
+"il valore massimo % e il valore minimo % sono troppo vicini per una "
+"distribuzione con media % e deviazione %"
 
 #: src/utils/emissions/EnergyParams.cpp:88
 msgid ""
@@ -12751,6 +12755,10 @@ msgid ""
 "defaults for its vehicle class. Please use a different emission model or "
 "complete the vType definition with further parameters."
 msgstr ""
+"Il tipo di veicolo '%' usa la classe di emission '%' che non provvede valori "
+"standard sensati per la sua classe di veicolo. Per favore usa un modello di "
+"emissioni differente oppure completa la definizione del tipo di veicolo con "
+"parametri ulteriori."
 
 #: src/utils/emissions/EnergyParams.cpp:91
 msgid " And also set a vehicle mass!"
@@ -12969,11 +12977,11 @@ msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:57
 msgid "Parameters must be defined within an object"
-msgstr ""
+msgstr "I parametri devono essere definiti all'interno di un oggetto"
 
 #: src/utils/handlers/CommonHandler.cpp:59
 msgid "Parameters cannot be defined within another parameter."
-msgstr ""
+msgstr "Non si possono definire parametri all'interno di un altro parametro."
 
 #: src/utils/handlers/CommonHandler.cpp:67
 #, c-format
