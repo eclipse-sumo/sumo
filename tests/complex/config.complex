@@ -190,6 +190,7 @@ errors:MESA: error: ZINK: {LINES 2}
 errors:\\{REPLACE /}
 errors:Fontconfig warning:
 errors:Unable to revert mtime:
+errors:DeprecationWarning: builtin type .*wig.* has no __module__ attribute
 ps:%%CreationDate
 gtfs_additional:<!-- generated on{[->]}-->
 gtfs_routes:<!-- generated on{[->]}-->
