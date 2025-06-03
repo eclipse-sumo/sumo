@@ -50,19 +50,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2MultilaneDetector)
 
 # Change parameter lanes with a non valid value (dummy
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "dummyLane1 dummyLane2", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.lanes, "dummyLane1 dummyLane2")
 
 # Change parameter lanes with a non valid value (Invalid ID)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "Id with spaces", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.lanes, "Id with spaces")
 
 # Change parameter lanes with a non valid value (single lane)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "top_0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.lanes, "top_0")
 
 # Change parameter lanes with a non valid value (non consecutive lanes)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "EdgeCenter1_1 bot_0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.lanes, "EdgeCenter1_1 bot_0")
 
 # Change parameter lanes with a valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "EdgeCenter0_1 EdgeCenter1_1", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.lanes, "EdgeCenter0_1 EdgeCenter1_1")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

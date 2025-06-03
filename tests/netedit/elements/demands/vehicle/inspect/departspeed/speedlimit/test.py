@@ -58,13 +58,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departSpeed, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.departSpeed, "")
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departSpeed, "dummySpeed", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.departSpeed, "dummySpeed")
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departSpeed, "speedLimit", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.departSpeed, "speedLimit")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

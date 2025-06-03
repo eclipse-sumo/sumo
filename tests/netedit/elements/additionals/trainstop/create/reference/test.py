@@ -35,25 +35,25 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "trainStop")
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.reference, "dummy")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.reference, "dummy")
 
 # try to create trainStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.reference, "center")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.reference, "center")
 
 # try to create trainStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.reference, "left")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.reference, "left")
 
 # try to create trainStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.reference, "right")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.reference, "right")
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge3)

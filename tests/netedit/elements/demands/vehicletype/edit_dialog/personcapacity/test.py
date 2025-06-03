@@ -35,25 +35,25 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # open dialog
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.personCapacity, "dummy")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.personCapacity, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.personCapacity, "")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.personCapacity, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.personCapacity, "-7")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.personCapacity, "-7")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.personCapacity, "4.2")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.personCapacity, "4.2")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.personCapacity, "5")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.personCapacity, "5")
 
 # close dialog
 netedit.typeTwoKeys('alt', 'a')

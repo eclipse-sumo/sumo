@@ -41,7 +41,7 @@ netedit.changeElement("routeFrame", "non consecutive edges")
 netedit.changeParentElement("routeFrame", "bus")
 
 # set invalid repeat
-netedit.changeDefaultValue(netedit.attrs.route.create.repeat, "dummyrepeat")
+netedit.modifyAttribute(netedit.attrs.route.create.repeat, "dummyrepeat")
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -59,13 +59,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 netedit.typeKey('enter')
 
 # set valid repeat
-netedit.changeDefaultValue(netedit.attrs.route.create.repeat, "15.6")
+netedit.modifyAttribute(netedit.attrs.route.create.repeat, "15.6")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set valid repeat
-netedit.changeDefaultValue(netedit.attrs.route.create.repeat, "13")
+netedit.modifyAttribute(netedit.attrs.route.create.repeat, "13")
 
 # press enter to create route
 netedit.typeKey('enter')

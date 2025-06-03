@@ -35,21 +35,21 @@ netedit.changeMode("shape")
 netedit.changeElement("shapeFrame", "poly")
 
 # change line width (invalid)
-netedit.changeDefaultValue(netedit.attrs.poly.create.lineWidth, "dummyLineWidth")
+netedit.modifyAttribute(netedit.attrs.poly.create.lineWidth, "dummyLineWidth")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # change line width (invalid, negative)
-netedit.changeDefaultValue(netedit.attrs.poly.create.lineWidth, "-2.5")
+netedit.modifyAttribute(netedit.attrs.poly.create.lineWidth, "-2.5")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # change line width (valid)
-netedit.changeDefaultValue(netedit.attrs.poly.create.lineWidth, "3.2")
+netedit.modifyAttribute(netedit.attrs.poly.create.lineWidth, "3.2")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,

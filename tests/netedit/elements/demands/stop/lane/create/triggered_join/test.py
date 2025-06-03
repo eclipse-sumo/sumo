@@ -38,25 +38,25 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopLane")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.triggered, "join")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.triggered, "join")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.join, ";;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.join, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.join, "")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.join, "")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.join, "customJoin")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.join, "customJoin")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)

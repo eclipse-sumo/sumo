@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop)
 
 # set invalid person number
-netedit.modifyAdditionalFileDialog(netedit.attrs.busStop.inspect.additionalFileButton, True)
+netedit.modifyAdditionalFileDialogOverlapped(netedit.attrs.busStop.inspect.additionalFileButton)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

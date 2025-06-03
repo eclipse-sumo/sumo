@@ -41,13 +41,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Try to set invalid efficiency
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.efficiency, "dummyEfficiency", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspectSelection.efficiency, "dummyEfficiency")
 
 # Try to set invalid efficiency
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.efficiency, "2", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspectSelection.efficiency, "2")
 
 # set efficiency
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.efficiency, "0.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspectSelection.efficiency, "0.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

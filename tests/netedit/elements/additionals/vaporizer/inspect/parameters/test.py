@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "vaporizer")
 
 # disable center view
-netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
+netedit.modifyBoolAttribute(netedit.attrs.vaporizer.create.center)
 
 # create vaporizer (camera will be moved)
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

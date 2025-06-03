@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("createEdge")
 
 # add lane
-netedit.changeDefaultBoolValue(netedit.attrs.lane.create.add)
+netedit.modifyBoolAttribute(netedit.attrs.lane.create.add)
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)

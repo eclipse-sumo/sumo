@@ -49,37 +49,37 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (over route)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminate, "dummyTerminate")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.terminate, "dummyTerminate")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminate, "end")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.terminate, "end")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminateOption, "dummy")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.terminateOption, "dummy")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminateOption, "-30")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.terminateOption, "-30")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminateOption, "20.5")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.terminateOption, "20.5")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminateOption, "22")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.terminateOption, "22")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

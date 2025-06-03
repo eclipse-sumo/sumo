@@ -32,21 +32,21 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("createEdge")
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.priority, "dummy")
+netedit.modifyAttribute(netedit.attrs.edge.create.priority, "dummy")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.priority, "-50")
+netedit.modifyAttribute(netedit.attrs.edge.create.priority, "-50")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.priority, "23.5")
+netedit.modifyAttribute(netedit.attrs.edge.create.priority, "23.5")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)

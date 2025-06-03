@@ -63,7 +63,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.waitDeleteWarning()
 
 # disable protect demand elemnts
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # now delete edge with their person
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

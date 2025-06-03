@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "calibratorLane")
 
 # change center view
-netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+netedit.modifyBoolAttribute(netedit.attrs.calibrator.create.center)
 
 # create calibratorLane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibratorLane)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.jamTreshold, "dummyJam", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectLane.jamTreshold, "dummyJam")
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.jamTreshold, "-5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectLane.jamTreshold, "-5")
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.jamTreshold, "7.7", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectLane.jamTreshold, "7.7")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

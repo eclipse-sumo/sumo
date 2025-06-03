@@ -51,7 +51,7 @@ netedit.changeColorUsingDialog(netedit.attrs.containerFlow.create.colorButton, 5
 netedit.typeKey('enter')
 
 # set invalid containerFlow number
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.color, "Vlue")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.color, "Vlue")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -61,7 +61,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.typeKey('enter')
 
 # set invalid containerFlow number
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.color, "red")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.color, "red")
 
 # press enter to create route
 netedit.typeKey('enter')

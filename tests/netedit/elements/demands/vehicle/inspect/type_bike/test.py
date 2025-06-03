@@ -58,7 +58,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.type, "DEFAULT_BIKETYPE", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.type, "DEFAULT_BIKETYPE")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

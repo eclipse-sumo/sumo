@@ -17,7 +17,8 @@
 
 # imports
 from ...general.functions import *
-from ..common import *
+from ..edit.basicAttribute import *
+
 
 def changeAdditionalFileDialog(attributeIndex, waitTime=2):
     """
@@ -43,7 +44,7 @@ def changeAdditionalFile(attributeIndex):
     """
     @brief modify default additional file
     """
-    changeDefaultValue(attributeIndex, TEXTTEST_SANDBOX + "/additional.thirdFile.add.xml")
+    modifyAttribute(attributeIndex, TEXTTEST_SANDBOX + "/additional.thirdFile.add.xml")
 
 
 def selectAdditionalChild(attributeIndex, childNumber):
@@ -53,7 +54,7 @@ def selectAdditionalChild(attributeIndex, childNumber):
     # focus current frame
     focusOnFrame()
     # place cursor in the list of childs
-    for _ in range(attributeIndex + 1):
+    for _ in range(attributeIndex):
         typeKey('tab')
     # select child
     for _ in range(childNumber):

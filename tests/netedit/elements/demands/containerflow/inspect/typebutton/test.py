@@ -54,10 +54,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.containe
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.type, "custom_vType")
 
 # inspect vtype
-netedit.modifyBoolAttribute(netedit.attrs.containerFlow.inspect.typeButton, False)
+netedit.modifyBoolAttribute(netedit.attrs.containerFlow.inspect.typeButton)
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.type.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.type.color, "12,13,14")
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (from-to junctions)")
 
 # set invalid line
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.line, "%%%%%%")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.line, "%%%%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set valid Line
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.line, "ownLine")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.line, "ownLine")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey('enter')
 
 # set empty line
-netedit.changeDefaultValue(netedit.attrs.flowJunction.create.line, "")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.line, "")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)

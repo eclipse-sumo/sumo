@@ -26,6 +26,12 @@
     <Compile Include="neteditTestFunctions\constants.py" />
     <Compile Include="neteditTestFunctions\files\reload.py" />
     <Compile Include="neteditTestFunctions\files\quit.py" />
+    <Compile Include="neteditTestFunctions\frames\edit\files.py" />
+    <Compile Include="neteditTestFunctions\frames\edit\parameters.py" />
+    <Compile Include="neteditTestFunctions\frames\edit\boolAttribute.py" />
+    <Compile Include="neteditTestFunctions\frames\edit\colorAttribute.py" />
+    <Compile Include="neteditTestFunctions\frames\edit\basicAttribute.py" />
+    <Compile Include="neteditTestFunctions\frames\edit\vClassDialog.py" />
     <Compile Include="neteditTestFunctions\frames\demand\container.py" />
     <Compile Include="neteditTestFunctions\frames\demand\type.py" />
     <Compile Include="neteditTestFunctions\frames\demand\person.py" />
@@ -36,11 +42,12 @@
     <Compile Include="neteditTestFunctions\frames\network\tls.py" />
     <Compile Include="neteditTestFunctions\frames\select.py" />
     <Compile Include="neteditTestFunctions\frames\delete.py" />
-    <Compile Include="neteditTestFunctions\frames\common.py" />
+    <Compile Include="neteditTestFunctions\frames\elements.py" />
     <Compile Include="neteditTestFunctions\frames\network\additional.py" />
     <Compile Include="neteditTestFunctions\frames\network\connection.py" />
     <Compile Include="neteditTestFunctions\frames\network\crossing.py" />
     <Compile Include="neteditTestFunctions\general\fixElements.py" />
+    <Compile Include="neteditTestFunctions\general\undoRedo.py" />
     <Compile Include="neteditTestFunctions\general\functions.py" />
     <Compile Include="neteditTestFunctions\general\contextualMenu.py" />
     <Compile Include="neteditTestFunctions\imports.py" />
@@ -61,12 +68,9 @@
     <Folder Include="neteditTestFunctions\frames\network\" />
     <Folder Include="neteditTestFunctions\frames\demand\" />
     <Folder Include="neteditTestFunctions\frames\data\" />
+    <Folder Include="neteditTestFunctions\frames\edit\" />
     <Folder Include="neteditTestFunctions\input\" />
     <Folder Include="neteditTestFunctions\general\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="neteditTestFunctions\frames\network\createEdge.py" />
-    <Content Include="neteditTestFunctions\frames\inspect.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>

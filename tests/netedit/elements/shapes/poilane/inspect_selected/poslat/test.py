@@ -41,13 +41,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter LatPosition with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.posLat, "dummyLatPosition", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.posLat, "dummyLatPosition")
 
 # Change parameter LatPosition with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.posLat, "-20", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.posLat, "-20")
 
 # Change parameter LatPosition with a valid value
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.posLat, "15", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.posLat, "15")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

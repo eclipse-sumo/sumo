@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change length with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.length, "dummyLength", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelection.length, "dummyLength")
 
 # Change length with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.length, "-4", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelection.length, "-4")
 
 # Change length with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.length, "0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelection.length, "0")
 
 # Change length with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.length, "11", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelection.length, "11")
 
 # rebuild
 netedit.computeJunctions()

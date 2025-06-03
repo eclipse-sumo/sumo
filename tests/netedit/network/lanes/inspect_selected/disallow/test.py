@@ -51,7 +51,7 @@ netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "")
 
 # Change parameter 2 with a valid value (different separators)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow,
-                        "authority  army, passenger; taxi. tram", False)
+                        "authority  army, passenger; taxi. tram")
 
 # Change parameter 2 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "")

@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid id
-netedit.changeDefaultValue(netedit.attrs.route.create.id, "%%%;;;;")
+netedit.modifyAttribute(netedit.attrs.route.create.id, "%%%;;;;")
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -55,13 +55,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.route.create.id, "r_0")
+netedit.modifyAttribute(netedit.attrs.route.create.id, "r_0")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set valid ID
-netedit.changeDefaultValue(netedit.attrs.route.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.route.create.id, "customID")
 
 # press enter to create route
 netedit.typeKey('enter')

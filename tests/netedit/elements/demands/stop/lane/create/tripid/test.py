@@ -38,19 +38,19 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopLane")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.tripID, ";;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.tripID, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.tripID, "")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.tripID, "")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.tripID, "tripID")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.tripID, "tripID")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)

@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 netedit.changeElement("additionalFrame", "access")
 
 # change friendly position
-netedit.changeDefaultBoolValue(netedit.attrs.access.create.friendlyPos)
+netedit.modifyBoolAttribute(netedit.attrs.access.create.friendlyPos)
 
 # Create access
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)

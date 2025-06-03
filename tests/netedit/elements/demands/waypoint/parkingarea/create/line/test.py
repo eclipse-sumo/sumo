@@ -38,19 +38,19 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "waypointParkingArea")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointParking.create.line, ";;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.waypointParking.create.line, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointParking.create.line, "")
+netedit.modifyAttribute(netedit.attrs.waypointParking.create.line, "")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointParking.create.line, "customLine")
+netedit.modifyAttribute(netedit.attrs.waypointParking.create.line, "customLine")
 
 # create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)

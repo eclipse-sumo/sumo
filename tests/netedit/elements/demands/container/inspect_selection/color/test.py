@@ -56,7 +56,7 @@ netedit.modifyAttribute(netedit.attrs.container.inspectSelection.color, "dummyCo
 netedit.modifyAttribute(netedit.attrs.container.inspectSelection.color, "cyan")
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.container.inspectSelection.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.container.inspectSelection.color, "12,13,14")
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

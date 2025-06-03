@@ -56,7 +56,7 @@ netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.color, "dummyColo
 netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.color, "cyan")
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.color, "12,13,14")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

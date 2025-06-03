@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "entryExitDetector")
 
 # Change friendlyPos
-netedit.changeDefaultBoolValue(netedit.attrs.E3.create.expectArrival)
+netedit.modifyBoolAttribute(netedit.attrs.E3.create.expectArrival)
 
 # try to create E3 with invalid timeTreshold
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)

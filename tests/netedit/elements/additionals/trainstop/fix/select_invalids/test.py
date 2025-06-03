@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop)
 
 # disable friendlyPos
-netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.friendlyPos, "false", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspectSelection.friendlyPos, "false")
 
 # go to select mode
 netedit.changeMode("select")
@@ -56,7 +56,7 @@ netedit.saveNeteditConfig(referencePosition)
 netedit.fixStoppingPlace("selectInvalids")
 
 # remove it using DEL key
-netedit.deleteUsingSuprKey()
+netedit.deleteUsingShortcut()
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

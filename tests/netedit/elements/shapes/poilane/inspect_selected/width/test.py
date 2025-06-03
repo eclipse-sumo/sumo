@@ -41,13 +41,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter Width with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.width, "dummyWidth", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.width, "dummyWidth")
 
 # Change parameter Width with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.width, "-2", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.width, "-2")
 
 # Change parameter Width with a valid value
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.width, "5.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.width, "5.5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

@@ -18,6 +18,7 @@
 # imports
 from ...general.functions import *
 
+
 def createSquaredShape(referencePosition, position, size, close):
     """
     @brief Create squared Polygon in position with a certain size

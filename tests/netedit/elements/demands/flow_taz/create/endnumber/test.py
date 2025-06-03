@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminate, "dummyTerminate")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.terminate, "dummyTerminate")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.terminate, "end-number")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.terminate, "end-number")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.end, "dummy")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.end, "dummy")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.end, "-30")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.end, "-30")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.end, "20.5")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.end, "20.5")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -88,10 +88,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.end, "22")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.end, "22")
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.number, "dummy")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.number, "dummy")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -101,7 +101,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.number, "-30")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.number, "-30")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -111,7 +111,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.number, "20.5")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.number, "20.5")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -121,7 +121,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.number, "51")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.number, "51")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

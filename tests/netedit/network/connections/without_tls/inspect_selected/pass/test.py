@@ -47,7 +47,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change pass
-netedit.modifyBoolAttribute(netedit.attrs.connection.inspectSelection.passC, True)
+netedit.modifyBoolAttributeOverlapped(netedit.attrs.connection.inspectSelection.passC)
 
 # rebuild
 netedit.computeJunctions()

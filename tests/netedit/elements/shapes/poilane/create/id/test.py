@@ -38,19 +38,19 @@ netedit.changeElement("shapeFrame", "poiLane")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.poiLane.create.id, ";;;;;;")
+netedit.modifyAttribute(netedit.attrs.poiLane.create.id, ";;;;;;")
 
 # try to create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.poiLane.create.id, "poi_0")
+netedit.modifyAttribute(netedit.attrs.poiLane.create.id, "poi_0")
 
 # try to create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid ID
-netedit.changeDefaultValue(netedit.attrs.poiLane.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.poiLane.create.id, "customID")
 
 # create POI
 netedit.leftClick(referencePosition, netedit.positions.elements.edge3)

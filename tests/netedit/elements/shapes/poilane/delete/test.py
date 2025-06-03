@@ -59,7 +59,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
 netedit.waitDeleteWarning()
 
 # disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # try to delete lane with the second loaded E1 (doesn't allowed)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)

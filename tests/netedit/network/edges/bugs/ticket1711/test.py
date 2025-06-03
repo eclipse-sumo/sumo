@@ -35,7 +35,7 @@ netedit.computeJunctions()
 netedit.changeMode("delete")
 
 # disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # remove two left edges
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)

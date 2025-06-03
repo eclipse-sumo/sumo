@@ -47,10 +47,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopParkingArea.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopParkingArea.inspect.durationEnable)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopParkingArea.inspect.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopParkingArea.inspect.extensionEnable)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.extension, "dummyValue")

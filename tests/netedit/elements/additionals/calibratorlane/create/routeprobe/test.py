@@ -35,22 +35,22 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "calibratorLane")
 
 # disable center view
-netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+netedit.modifyBoolAttribute(netedit.attrs.calibrator.create.center)
 
 # change routeprobe with a invalid routeProbe ID
-netedit.changeDefaultValue(netedit.attrs.calibrator.create.routeProbe, ";;;;;%%;;;;")
+netedit.modifyAttribute(netedit.attrs.calibrator.create.routeProbe, ";;;;;%%;;;;")
 
 # create calibratorLane with a different routeProbe in other lane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # change frequency with a different routeProbe (Valid, empty)
-netedit.changeDefaultValue(netedit.attrs.calibrator.create.routeProbe, "")
+netedit.modifyAttribute(netedit.attrs.calibrator.create.routeProbe, "")
 
 # create calibratorLane with a valid parameter in other lane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # change routeprobe with a different routeProbe
-netedit.changeDefaultValue(netedit.attrs.calibrator.create.routeProbe, "routeProbe_0")
+netedit.modifyAttribute(netedit.attrs.calibrator.create.routeProbe, "routeProbe_0")
 
 # create calibratorLane with a valid parameter in other lane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

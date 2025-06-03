@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop)
 
 # disable friendlyPos
-netedit.modifyAttribute(netedit.attrs.busStop.inspectSelection.friendlyPos, "false", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.busStop.inspectSelection.friendlyPos, "false")
 
 # go to select mode
 netedit.changeMode("select")

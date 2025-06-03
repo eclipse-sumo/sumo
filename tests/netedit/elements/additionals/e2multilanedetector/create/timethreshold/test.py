@@ -43,7 +43,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid time threshold
-netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.timeThreshold, "-12")
+netedit.modifyAttribute(netedit.attrs.E2Multilane.create.timeThreshold, "-12")
 
 # create E2 with default parameters
 netedit.typeKey('enter')
@@ -54,7 +54,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 
 # set valid time threshold
-netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.timeThreshold, "0.7")
+netedit.modifyAttribute(netedit.attrs.E2Multilane.create.timeThreshold, "0.7")
 
 # create E2 with default parameters
 netedit.typeKey('enter')

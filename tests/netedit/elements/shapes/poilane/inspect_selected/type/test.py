@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter type with a valid value
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.type, "<<myOwnType>>", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.type, "<<myOwnType>>")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

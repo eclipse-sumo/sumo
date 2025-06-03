@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop)
 
 # Set lines
-netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.lines, "commonLine1 commonLine2", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspectSelection.lines, "commonLine1 commonLine2")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -35,7 +35,7 @@ netedit.changeSupermode("data")
 netedit.changeMode("meanData")
 
 # change to lane mean data
-netedit.changeMeanData("laneData")
+netedit.changeElement("meanDataFrame", "laneData")
 
 # create mean data
 netedit.createMeanData()

@@ -58,13 +58,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.type, "custom_vType", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.type, "custom_vType")
 
 # inspect vtype
-netedit.modifyBoolAttribute(netedit.attrs.vehicle.inspect.typeButton, True)
+netedit.modifyBoolAttributeOverlapped(netedit.attrs.vehicle.inspect.typeButton)
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.type.color, "12,13,14", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.type.color, "12,13,14")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

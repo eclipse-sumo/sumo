@@ -35,13 +35,13 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "containerStop")
 
 # set own lines
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.parameters, "dummy")
+netedit.modifyAttribute(netedit.attrs.containerStop.create.parameters, "dummy")
 
 # create containerStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set own lines
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.parameters, "key1=value1|key2=value2|key3=value3")
+netedit.modifyAttribute(netedit.attrs.containerStop.create.parameters, "key1=value1|key2=value2|key3=value3")
 
 # create containerStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

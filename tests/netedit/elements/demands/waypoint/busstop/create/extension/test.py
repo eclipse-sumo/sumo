@@ -38,34 +38,34 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "waypointBusStop")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.waypointBusStop.create.durationEnable)
+netedit.modifyBoolAttribute(netedit.attrs.waypointBusStop.create.durationEnable)
 
 # enable until
-netedit.changeDefaultBoolValue(netedit.attrs.waypointBusStop.create.extensionEnable)
+netedit.modifyBoolAttribute(netedit.attrs.waypointBusStop.create.extensionEnable)
 
 # create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "dummyValue")
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.create.extension, "dummyValue")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "-20")
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.create.extension, "-20")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "0")
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.create.extension, "0")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "22.33")
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.create.extension, "22.33")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.busStop)

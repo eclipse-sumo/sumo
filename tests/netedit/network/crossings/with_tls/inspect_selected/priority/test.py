@@ -47,7 +47,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.crossing.left)
 
 # Change priority
-netedit.modifyBoolAttribute(netedit.attrs.crossing.inspectSelectionTLS.priority, True)
+netedit.modifyBoolAttributeOverlapped(netedit.attrs.crossing.inspectSelectionTLS.priority)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

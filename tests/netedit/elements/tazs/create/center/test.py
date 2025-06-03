@@ -32,14 +32,14 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("TAZ")
 
 # change invalid center
-netedit.changeDefaultValue(netedit.attrs.TAZ.create.center, "dummyCenter")
+netedit.modifyAttribute(netedit.attrs.TAZ.create.center, "dummyCenter")
 
 # try to create TAZ
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # change center manually (valid)
-netedit.changeDefaultValue(netedit.attrs.TAZ.create.center, "20,30")
+netedit.modifyAttribute(netedit.attrs.TAZ.create.center, "20,30")
 
 # create TAZ
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,

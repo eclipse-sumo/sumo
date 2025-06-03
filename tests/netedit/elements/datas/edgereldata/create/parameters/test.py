@@ -41,7 +41,7 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # set invalid parameters
-netedit.changeDefaultValue(netedit.attrs.edgeRelData.create.parameters, "dummyValues")
+netedit.modifyAttribute(netedit.attrs.edgeRelData.create.parameters, "dummyValues")
 
 # create edgeRelData
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)
@@ -49,7 +49,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1_dataMode)
 netedit.typeKey('enter')
 
 # set valid parameters
-netedit.changeDefaultValue(netedit.attrs.edgeRelData.create.parameters, "param1=value2|param3=value4")
+netedit.modifyAttribute(netedit.attrs.edgeRelData.create.parameters, "param1=value2|param3=value4")
 
 # create edgeRelData
 netedit.typeKey('enter')

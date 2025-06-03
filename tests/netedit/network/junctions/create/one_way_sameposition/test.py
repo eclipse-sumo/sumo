@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 # try to create an edge with the same start and end (musn't be allowed)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
-netedit.cancelEdge()
+netedit.typeKey('esc')
 
 # rebuild network
 netedit.computeJunctions()

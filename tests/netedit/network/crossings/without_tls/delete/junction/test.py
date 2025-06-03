@@ -36,7 +36,7 @@ netedit.computeJunctions()
 netedit.changeMode("delete")
 
 # disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # delete junction
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)

@@ -47,7 +47,7 @@ netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow, "DummyDisa
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow, "")
 
 # Change parameter 7 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow, "authority  army, passenger; taxi. tram")
 
 # Change parameter 7 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow, "")

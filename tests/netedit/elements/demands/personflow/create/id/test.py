@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.typeKey('enter')
 
 # set invalid personFlow number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.id, ";;;;")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.id, ";;;;")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -58,13 +58,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.typeKey('enter')
 
 # set invalid personFlow number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.id, "pf_0")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.id, "pf_0")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid personFlow number
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.id, "customID")
 
 # press enter to create route
 netedit.typeKey('enter')

@@ -38,19 +38,19 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "waypointChargingStation")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.permitted, ";;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.create.permitted, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.permitted, "")
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.create.permitted, "")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.permitted, "ID1 ID2 ID3")
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.create.permitted, "ID1 ID2 ID3")
 
 # create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)

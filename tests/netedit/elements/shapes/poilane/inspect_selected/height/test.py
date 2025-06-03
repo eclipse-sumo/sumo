@@ -41,13 +41,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter Height with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.height, "dummyHeight", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.height, "dummyHeight")
 
 # Change parameter Height with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.height, "-3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.height, "-3")
 
 # Change parameter Height with a valid value
-netedit.modifyAttribute(netedit.attrs.poiLane.inspectSelection.height, "6.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspectSelection.height, "6.5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

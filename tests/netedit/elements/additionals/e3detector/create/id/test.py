@@ -38,19 +38,19 @@ netedit.changeElement("additionalFrame", "entryExitDetector")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # set invalid id
-netedit.changeDefaultValue(netedit.attrs.E3.create.id, ";;;;;;")
+netedit.modifyAttribute(netedit.attrs.E3.create.id, ";;;;;;")
 
 # create E3 with valid frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.E3.create.id, "e3_0")
+netedit.modifyAttribute(netedit.attrs.E3.create.id, "e3_0")
 
 # create E3 with valid frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.E3.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.E3.create.id, "customID")
 
 # create E3 with valid frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)

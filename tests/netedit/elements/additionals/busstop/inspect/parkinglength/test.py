@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop)
 
 # Change parameter length with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.busStop.inspect.parkingLength, "dummylength", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.busStop.inspect.parkingLength, "dummylength")
 
 # Change parameter length with a valid value
-netedit.modifyAttribute(netedit.attrs.busStop.inspect.parkingLength, "-7", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.busStop.inspect.parkingLength, "-7")
 
 # Change parameter length with a valid value
-netedit.modifyAttribute(netedit.attrs.busStop.inspect.parkingLength, "2.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.busStop.inspect.parkingLength, "2.5")
 
 # Change parameter length with a valid value
-netedit.modifyAttribute(netedit.attrs.busStop.inspect.parkingLength, "10", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.busStop.inspect.parkingLength, "10")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

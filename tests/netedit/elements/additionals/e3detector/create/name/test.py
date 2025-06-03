@@ -35,13 +35,13 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "entryExitDetector")
 
 # set invalid name
-netedit.changeDefaultValue(netedit.attrs.E3.create.name, "\"\"\";;")
+netedit.modifyAttribute(netedit.attrs.E3.create.name, "\"\"\";;")
 
 # try to create E3 with invalid frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # set valid name
-netedit.changeDefaultValue(netedit.attrs.E3.create.name, "customName")
+netedit.modifyAttribute(netedit.attrs.E3.create.name, "customName")
 
 # create E3 with valid frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)

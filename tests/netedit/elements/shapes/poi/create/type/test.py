@@ -35,10 +35,10 @@ netedit.changeMode("shape")
 netedit.changeElement("shapeFrame", "poi")
 
 # change type
-netedit.changeDefaultValue(netedit.attrs.poi.create.type, "<<poi_test>>")
+netedit.modifyAttribute(netedit.attrs.poi.create.type, "<<poi_test>>")
 
 # change type
-netedit.changeDefaultValue(netedit.attrs.poi.create.type, "custom type")
+netedit.modifyAttribute(netedit.attrs.poi.create.type, "custom type")
 
 # create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)

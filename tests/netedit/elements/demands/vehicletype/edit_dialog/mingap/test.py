@@ -35,22 +35,22 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # open dialog
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.minGap, "dummy")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.minGap, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.minGap, "")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.minGap, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.minGap, "-7")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.minGap, "-7")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.minGap, "2.2")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.minGap, "2.2")
 
 # close dialog
 netedit.typeTwoKeys('alt', 'a')

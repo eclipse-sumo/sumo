@@ -47,13 +47,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopLane)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.line, ";;;;", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.stopLane.inspect.line, ";;;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.line, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.stopLane.inspect.line, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.line, "customLine", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.stopLane.inspect.line, "customLine")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

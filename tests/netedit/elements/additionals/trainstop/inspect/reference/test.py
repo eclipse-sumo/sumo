@@ -44,19 +44,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop)
 
 # Change parameter name with a valid value
-netedit.modifyAttribute(netedit.attrs.trainStop.inspect.reference, "dummy", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspect.reference, "dummy")
 
 # Change parameter name with a valid value
-netedit.modifyAttribute(netedit.attrs.trainStop.inspect.reference, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspect.reference, "")
 
 # Change parameter name with a valid value
-netedit.modifyAttribute(netedit.attrs.trainStop.inspect.reference, "left", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspect.reference, "left")
 
 # Change parameter name with a valid value
-netedit.modifyAttribute(netedit.attrs.trainStop.inspect.reference, "center", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspect.reference, "center")
 
 # Change parameter name with a valid value
-netedit.modifyAttribute(netedit.attrs.trainStop.inspect.reference, "right", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspect.reference, "right")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

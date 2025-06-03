@@ -32,28 +32,28 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("createEdge")
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "dummy")
+netedit.modifyAttribute(netedit.attrs.edge.create.allow, "dummy")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "pedestrian; vus")
+netedit.modifyAttribute(netedit.attrs.edge.create.allow, "pedestrian; vus")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "all")
+netedit.modifyAttribute(netedit.attrs.edge.create.allow, "all")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 
 # set attribute
-netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "pedestrian bus drone")
+netedit.modifyAttribute(netedit.attrs.edge.create.allow, "pedestrian bus drone")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)

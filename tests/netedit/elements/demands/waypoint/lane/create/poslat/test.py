@@ -38,25 +38,25 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "waypointLane")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointLane.create.posLat, "dummyPosLat")
+netedit.modifyAttribute(netedit.attrs.waypointLane.create.posLat, "dummyPosLat")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointLane.create.posLat, "-15")
+netedit.modifyAttribute(netedit.attrs.waypointLane.create.posLat, "-15")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointLane.create.posLat, "7")
+netedit.modifyAttribute(netedit.attrs.waypointLane.create.posLat, "7")
 
 # create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointLane.create.posLat, "2.3")
+netedit.modifyAttribute(netedit.attrs.waypointLane.create.posLat, "2.3")
 
 # create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)

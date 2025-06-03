@@ -51,7 +51,7 @@ netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffsetException,
 
 # Change parameter 7 with a valid value (different separators)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffsetException,
-                        "authority  army, passenger; taxi. tram", False)
+                        "authority  army, passenger; taxi. tram")
 
 # Change parameter 7 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffsetException, "")

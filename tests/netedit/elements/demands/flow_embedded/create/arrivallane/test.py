@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.arrivalLane, "dummyLane")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.arrivalLane, "dummyLane")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.arrivalLane, "-12")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.arrivalLane, "-12")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.arrivalLane, "random")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.arrivalLane, "random")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.arrivalLane, "20")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.arrivalLane, "20")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

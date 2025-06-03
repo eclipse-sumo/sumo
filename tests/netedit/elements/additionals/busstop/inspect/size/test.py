@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop)
 
 # Change parameter 5 with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.busStop.inspect.size, "dummy", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.busStop.inspect.size, "dummy")
 
 # Change parameter 5 with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.busStop.inspect.size, "-12", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.busStop.inspect.size, "-12")
 
 # Change parameter 5 with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.busStop.inspect.size, "60000", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.busStop.inspect.size, "60000")
 
 # Change parameter 5 with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.busStop.inspect.size, "7.12", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.busStop.inspect.size, "7.12")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

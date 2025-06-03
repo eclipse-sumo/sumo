@@ -38,34 +38,34 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "waypointChargingStation")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.waypointChargingStation.create.durationEnable)
+netedit.modifyBoolAttribute(netedit.attrs.waypointChargingStation.create.durationEnable)
 
 # enable until
-netedit.changeDefaultBoolValue(netedit.attrs.waypointChargingStation.create.extensionEnable)
+netedit.modifyBoolAttribute(netedit.attrs.waypointChargingStation.create.extensionEnable)
 
 # create waypoint
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.extension, "dummyValue")
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.create.extension, "dummyValue")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.extension, "-20")
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.create.extension, "-20")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.extension, "0")
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.create.extension, "0")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.extension, "22.33")
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.create.extension, "22.33")
 
 # try to create waypoint
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)

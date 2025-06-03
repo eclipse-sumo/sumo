@@ -36,7 +36,7 @@ netedit.createSquaredShape(referencePosition, netedit.positions.elements.additio
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # change fill
-netedit.changeDefaultBoolValue(netedit.attrs.TAZ.create.fill)
+netedit.modifyBoolAttribute(netedit.attrs.TAZ.create.fill)
 
 # create TAZ with default values
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,

@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squa
 netedit.changeMode("delete")
 
 # disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # delete created parkingArea
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)

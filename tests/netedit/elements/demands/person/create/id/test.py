@@ -49,19 +49,19 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.person.create.id, ";;;;")
+netedit.modifyAttribute(netedit.attrs.person.create.id, ";;;;")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.person.create.id, "p_0")
+netedit.modifyAttribute(netedit.attrs.person.create.id, "p_0")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.person.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.person.create.id, "customID")
 
 # press enter to create route
 netedit.typeKey('enter')

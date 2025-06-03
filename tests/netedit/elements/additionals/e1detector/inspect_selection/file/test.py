@@ -41,10 +41,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change parameter file with an non valid value
-netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.file, "%%%;:..&&%$%$", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E1.inspectSelection.file, "%%%;:..&&%$%$")
 
 # Change parameter file with a valid value
-netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.file, "myOwnOutput.txt", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E1.inspectSelection.file, "myOwnOutput.txt")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

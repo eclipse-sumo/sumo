@@ -35,22 +35,22 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # open dialog
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "dummy")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "-8")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "-8")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "4.4")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "4.4")
 
 # close dialog
 netedit.typeTwoKeys('alt', 'a')

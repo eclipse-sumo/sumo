@@ -38,7 +38,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change keepclear
-netedit.modifyBoolAttribute(netedit.attrs.connection.inspectTLS.indirect, True)
+netedit.modifyBoolAttributeOverlapped(netedit.attrs.connection.inspectTLS.indirect)
 
 # rebuild
 netedit.computeJunctions()

@@ -62,10 +62,10 @@ netedit.changeSupermode("network")
 netedit.changeMode("delete")
 
 # disable 'Automatically delete demand elements'
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # create containerTripEdgeEdge
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

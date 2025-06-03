@@ -51,19 +51,19 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 
 # set other name
-netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.id, ";;;;")
+netedit.modifyAttribute(netedit.attrs.E2Multilane.create.id, ";;;;")
 
 # create E2 with default parameters
 netedit.typeKey('enter')
 
 # set other name
-netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.id, "e2_0")
+netedit.modifyAttribute(netedit.attrs.E2Multilane.create.id, "e2_0")
 
 # create E2 with default parameters
 netedit.typeKey('enter')
 
 # set other name
-netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.E2Multilane.create.id, "customID")
 
 # create E2 with default parameters
 netedit.typeKey('enter')

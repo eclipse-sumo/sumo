@@ -44,10 +44,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2MultilaneDetector)
 
 # Change parameter vtypes with a invalid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.vTypes, "Type%%%%%1 T;;yp$2 Type3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspectSelection.vTypes, "Type%%%%%1 T;;yp$2 Type3")
 
 # Change parameter vtypes with a valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.vTypes, "Type1 Type2 Type3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspectSelection.vTypes, "Type1 Type2 Type3")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

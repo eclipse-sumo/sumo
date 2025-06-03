@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter layer with a non valid value
-netedit.modifyAttribute(netedit.attrs.poiLane.inspect.layer, "dummyLayer", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspect.layer, "dummyLayer")
 
 # Change parameter layer with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspect.layer, "-2", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspect.layer, "-2")
 
 # Change parameter layer with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.poiLane.inspect.layer, "2.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspect.layer, "2.5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

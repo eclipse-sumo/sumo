@@ -54,19 +54,19 @@ netedit.changeElement("personPlanFrame", "personTrip")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStopB)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTrip.busStop.busStop.create.walkFactor, "dummy")
+netedit.modifyAttribute(netedit.attrs.personTrip.busStop.busStop.create.walkFactor, "dummy")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTrip.busStop.busStop.create.walkFactor, "-12")
+netedit.modifyAttribute(netedit.attrs.personTrip.busStop.busStop.create.walkFactor, "-12")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTrip.busStop.busStop.create.walkFactor, "7.5")
+netedit.modifyAttribute(netedit.attrs.personTrip.busStop.busStop.create.walkFactor, "7.5")
 
 # press enter to create route
 netedit.typeKey('enter')

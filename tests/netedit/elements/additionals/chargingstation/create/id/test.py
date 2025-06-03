@@ -38,19 +38,19 @@ netedit.changeElement("additionalFrame", "chargingStation")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.id, ";;;;;;;;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.chargingStation.create.id, ";;;;;;;;;;;;;;;;")
 
 # create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.id, "cs_0")
+netedit.modifyAttribute(netedit.attrs.chargingStation.create.id, "cs_0")
 
 # create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.id, "custom_ID")
+netedit.modifyAttribute(netedit.attrs.chargingStation.create.id, "custom_ID")
 
 # create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)

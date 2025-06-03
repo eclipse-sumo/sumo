@@ -35,7 +35,7 @@ netedit.changeMode("shape")
 netedit.changeElement("shapeFrame", "poiLane")
 
 # change save friendlyPos path
-netedit.changeDefaultBoolValue(netedit.attrs.poiLane.create.friendlyPos)
+netedit.modifyBoolAttribute(netedit.attrs.poiLane.create.friendlyPos)
 
 # create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

@@ -35,7 +35,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.type.edit.colorButton, 5)
@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.type.edit.color, "dummyColor")
 netedit.modifyAttribute(netedit.attrs.type.edit.color, "cyan")
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.type.edit.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.type.edit.color, "12,13,14")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

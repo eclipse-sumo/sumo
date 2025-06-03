@@ -38,16 +38,16 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change visibility with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.visibility, "dummyVisibility", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspect.visibility, "dummyVisibility")
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.visibility, "-4", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspect.visibility, "-4")
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.visibility, "0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspect.visibility, "0")
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.visibility, "11", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspect.visibility, "11")
 
 # rebuild
 netedit.computeJunctions()

@@ -63,10 +63,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change Netedit parameter 1 with a non valid value (Invalid E3 ID)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspect.parent, "invalidE3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.entryExit.inspect.parent, "invalidE3")
 
 # Change Netedit parameter 2 with a non valid value (Invalid E3 ID)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspect.parent, "e3_1", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.entryExit.inspect.parent, "e3_1")
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

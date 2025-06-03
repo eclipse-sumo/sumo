@@ -38,34 +38,34 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopTrainStop")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stopTrainStop.create.durationEnable)
+netedit.modifyBoolAttribute(netedit.attrs.stopTrainStop.create.durationEnable)
 
 # enable until
-netedit.changeDefaultBoolValue(netedit.attrs.stopTrainStop.create.extensionEnable)
+netedit.modifyBoolAttribute(netedit.attrs.stopTrainStop.create.extensionEnable)
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.extension, "dummyValue")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.extension, "dummyValue")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.extension, "-20")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.extension, "-20")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.extension, "0")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.extension, "0")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.extension, "22.33")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.extension, "22.33")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)

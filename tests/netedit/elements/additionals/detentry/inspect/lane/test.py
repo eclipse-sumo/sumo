@@ -57,13 +57,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change parameter lane with a non valid value (dummy Lane)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "dummyLane", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.entryExit.inspect.lane, "dummyLane")
 
 # Change parameter lane with a non valid value (Empty lane)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.entryExit.inspect.lane, "")
 
 # Change parameter lane with a valid value (other lane)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "EdgeCenter0_1", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.entryExit.inspect.lane, "EdgeCenter0_1")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

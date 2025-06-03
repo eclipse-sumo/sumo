@@ -58,19 +58,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.id, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.id, "")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.id, ";;;;;;;;", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.id, ";;;;;;;;")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.id, "id with spaces", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.id, "id with spaces")
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.id, "duplicatedVehicle", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.id, "duplicatedVehicle")
 
 # change ID with an invalid value (empty)
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.id, "customID", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.id, "customID")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

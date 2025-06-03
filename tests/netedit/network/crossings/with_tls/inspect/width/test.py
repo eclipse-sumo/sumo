@@ -52,13 +52,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.crossing.left)
 
 # Change shape with a non valid value
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.width, "dummyWidth", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.crossing.inspectTLS.width, "dummyWidth")
 
 # Change shape with a non valid value
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.width, "-5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.crossing.inspectTLS.width, "-5")
 
 # Change shape with a valid value
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.width, "8.1", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.crossing.inspectTLS.width, "8.1")
 
 # Check undos
 netedit.undo(referencePosition, 2)

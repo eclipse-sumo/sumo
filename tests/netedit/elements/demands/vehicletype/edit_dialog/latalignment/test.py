@@ -35,22 +35,22 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # open dialog
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.latAlignment, "dummy")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.latAlignment, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.latAlignment, "")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.latAlignment, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.latAlignment, "-12")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.latAlignment, "-12")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.latAlignment, "7.3")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.latAlignment, "7.3")
 
 # close dialog
 netedit.typeTwoKeys('alt', 'a')

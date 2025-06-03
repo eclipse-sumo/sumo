@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shap
 netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "dummyColor")
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "23,24", False)
+netedit.modifyAttribute(netedit.attrs.TAZ.inspectSelection.center, "23,24")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

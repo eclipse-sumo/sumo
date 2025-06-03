@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "calibrator")
 
 # change center view
-netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+netedit.modifyBoolAttribute(netedit.attrs.calibrator.create.center)
 
 # create first calibratorLane
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
@@ -56,16 +56,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibratorLane)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.id, "ca_0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectLane.id, "ca_0")
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.id, "ca_1", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectLane.id, "ca_1")
 
 # Change parameter id with a non valid value (Invalid ID)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.id, "Id with spaces", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectLane.id, "Id with spaces")
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.id, "correctID", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectLane.id, "correctID")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

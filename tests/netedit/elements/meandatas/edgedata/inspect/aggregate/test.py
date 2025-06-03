@@ -38,7 +38,7 @@ netedit.changeMode("meanData")
 netedit.createMeanData()
 
 # modify meanData
-netedit.modifyBoolAttribute(netedit.attrs.edgeMeanData.inspect.aggregate, True)
+netedit.modifyBoolAttributeOverlapped(netedit.attrs.edgeMeanData.inspect.aggregate)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

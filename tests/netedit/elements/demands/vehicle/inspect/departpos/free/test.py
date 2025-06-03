@@ -58,13 +58,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departPos, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.departPos, "")
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departPos, "dummyPos", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.departPos, "dummyPos")
 
 # change departLane with a valid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departPos, "free", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.departPos, "free")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

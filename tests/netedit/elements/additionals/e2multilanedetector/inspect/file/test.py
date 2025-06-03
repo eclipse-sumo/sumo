@@ -49,13 +49,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2MultilaneDetector)
 
 # Change parameter file with an non valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.file, "%;;%%&%%%&&", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.file, "%;;%%&%%%&&")
 
 # Change parameter file with an empty value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.file, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.file, "")
 
 # Change parameter file with a valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.file, "myOwnOutput.txt", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2Multilane.inspect.file, "myOwnOutput.txt")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

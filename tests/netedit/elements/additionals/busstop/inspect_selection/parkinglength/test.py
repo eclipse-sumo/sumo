@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop)
 
 # Set person capacity
-netedit.modifyAttribute(netedit.attrs.busStop.inspectSelection.parkingLength, "50", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.busStop.inspectSelection.parkingLength, "50")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

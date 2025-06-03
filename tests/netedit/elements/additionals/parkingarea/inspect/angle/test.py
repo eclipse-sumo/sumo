@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # Change parameter Angle with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.angle, "dummyAngle", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspect.angle, "dummyAngle")
 
 # Change parameter Angle with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.angle, "-6", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspect.angle, "-6")
 
 # Change parameter Angle with a valid value >360
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.angle, "500", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspect.angle, "500")
 
 # Change parameter Angle with a valid value
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.angle, "32.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspect.angle, "32.5")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

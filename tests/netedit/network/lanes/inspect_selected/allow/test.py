@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "DummyAllowed
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "")
 
 # Change parameter 1 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "authority  army, passenger; taxi. tram")
 
 # Change parameter 1 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.allow, "")

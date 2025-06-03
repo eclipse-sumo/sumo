@@ -41,13 +41,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Set invalid Power
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.power, "dummyPower", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspectSelection.power, "dummyPower")
 
 # Set invalid Power
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.power, "-1000", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspectSelection.power, "-1000")
 
 # Set Power
-netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.power, "11000", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.chargingStation.inspectSelection.power, "11000")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

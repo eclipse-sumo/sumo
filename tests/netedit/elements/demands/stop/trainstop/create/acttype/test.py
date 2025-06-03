@@ -38,25 +38,25 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopTrainStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.actType, ";;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.actType, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.actType, "")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.actType, "")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.actType, "dummy Act")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.actType, "dummy Act")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.actType, "singing")
+netedit.modifyAttribute(netedit.attrs.stopTrainStop.create.actType, "singing")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)

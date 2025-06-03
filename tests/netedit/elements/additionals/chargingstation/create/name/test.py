@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "chargingStation")
 
 # set name
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.name, "custom stopping place name")
+netedit.modifyAttribute(netedit.attrs.chargingStation.create.name, "custom stopping place name")
 
 # create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

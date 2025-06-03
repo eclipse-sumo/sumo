@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop)
 
 # Set name
-netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.name, "common ContainerStop Name", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.containerStop.inspectSelection.name, "common ContainerStop Name")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

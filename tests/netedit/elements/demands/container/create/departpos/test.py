@@ -42,13 +42,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.container.create.departPos, "dummy")
+netedit.modifyAttribute(netedit.attrs.container.create.departPos, "dummy")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.container.create.departPos, "-20")
+netedit.modifyAttribute(netedit.attrs.container.create.departPos, "-20")
 
 # press enter to create route
 netedit.typeKey('enter')
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.container.create.departPos, "7.8")
+netedit.modifyAttribute(netedit.attrs.container.create.departPos, "7.8")
 
 # press enter to create route
 netedit.typeKey('enter')

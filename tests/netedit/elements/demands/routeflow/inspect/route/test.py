@@ -58,16 +58,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change route with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.route, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.route, "")
 
 # change route with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.route, ";;;;", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.route, ";;;;")
 
 # change route with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.route, "dummyRoute", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.route, "dummyRoute")
 
 # change route with a valid value
-netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.route, "secondRoute", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.routeFlow.inspect.route, "secondRoute")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -41,7 +41,7 @@ netedit.changeElement("containerFrame", "containerFlow")
 netedit.changeContainerPlan("tranship", True)
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminate, "dummyTerminate")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminate, "dummyTerminate")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,13 +51,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.typeKey('enter')
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminate, "number")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminate, "number")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminateOption, "dummy")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminateOption, "dummy")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -67,19 +67,19 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminateOption, "-30")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminateOption, "-30")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminateOption, "20.5")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminateOption, "20.5")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminateOption, "22")
+netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminateOption, "22")
 
 # press enter to create route
 netedit.typeKey('enter')

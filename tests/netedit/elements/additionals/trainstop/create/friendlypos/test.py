@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "trainStop")
 
 # set friendlyPos
-netedit.changeDefaultBoolValue(netedit.attrs.trainStop.create.friendlyPos)
+netedit.modifyBoolAttribute(netedit.attrs.trainStop.create.friendlyPos)
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

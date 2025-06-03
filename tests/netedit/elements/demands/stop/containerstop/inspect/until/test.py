@@ -47,10 +47,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopContainerStop.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopContainerStop.inspect.durationEnable)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopContainerStop.inspect.untilEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopContainerStop.inspect.untilEnable)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.until, "dummyValue")

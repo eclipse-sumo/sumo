@@ -47,16 +47,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change visibility with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "dummyVisibility", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelectionTLS.visibility, "dummyVisibility")
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "-4", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelectionTLS.visibility, "-4")
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelectionTLS.visibility, "0")
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "11", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectSelectionTLS.visibility, "11")
 
 # rebuild
 netedit.computeJunctions()

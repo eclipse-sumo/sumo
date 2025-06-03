@@ -38,19 +38,19 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopChargingStation")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.tripID, ";;;;;;;;;;")
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.create.tripID, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.tripID, "")
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.create.tripID, "")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.tripID, "tripID")
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.create.tripID, "tripID")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)

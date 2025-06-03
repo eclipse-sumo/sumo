@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (from-to edges)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flow.create.spacing, "dummySpacing")
+netedit.modifyAttribute(netedit.attrs.flow.create.spacing, "dummySpacing")
 
 # try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flow.create.spacing, "probability")
+netedit.modifyAttribute(netedit.attrs.flow.create.spacing, "probability")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "dummy")
+netedit.modifyAttribute(netedit.attrs.flow.create.spacingOption, "dummy")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "-30")
+netedit.modifyAttribute(netedit.attrs.flow.create.spacingOption, "-30")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "20.5")
+netedit.modifyAttribute(netedit.attrs.flow.create.spacingOption, "20.5")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -88,7 +88,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "0.6")
+netedit.modifyAttribute(netedit.attrs.flow.create.spacingOption, "0.6")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

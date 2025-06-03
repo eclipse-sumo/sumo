@@ -41,16 +41,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
 
 # Change length (invalid, empty)
-netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.access.inspectSelection.length, "")
 
 # Change length (invalid, dummy)
-netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "dummyLenght", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.access.inspectSelection.length, "dummyLenght")
 
 # Change length (invalid, negative)
-netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "-7", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.access.inspectSelection.length, "-7")
 
 # Change length (valid)
-netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "5.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.access.inspectSelection.length, "5.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

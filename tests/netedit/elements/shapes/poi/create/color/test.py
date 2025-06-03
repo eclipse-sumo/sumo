@@ -41,13 +41,13 @@ netedit.changeColorUsingDialog(netedit.attrs.poi.create.colorButton, 5)
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # change color manually (invalid)
-netedit.changeDefaultValue(netedit.attrs.poi.create.color, "Vlue")
+netedit.modifyAttribute(netedit.attrs.poi.create.color, "Vlue")
 
 # try to create POI
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB)
 
 # change color manually (valid)
-netedit.changeDefaultValue(netedit.attrs.poi.create.color, "blue")
+netedit.modifyAttribute(netedit.attrs.poi.create.color, "blue")
 
 # create POI
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)

@@ -57,7 +57,7 @@ netedit.modifyAttribute(netedit.attrs.route.inspect.color, "")
 netedit.modifyAttribute(netedit.attrs.route.inspect.color, "dummyColor")
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(netedit.attrs.route.inspect.color, "12,15,30", False)
+netedit.modifyAttribute(netedit.attrs.route.inspect.color, "12,15,30")
 
 # Change parameter color with a valid value
 netedit.modifyAttribute(netedit.attrs.route.inspect.color, "red")

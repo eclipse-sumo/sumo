@@ -72,7 +72,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.waitDeleteWarning()
 
 # disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
+netedit.protectElements()
 
 # delete Access
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

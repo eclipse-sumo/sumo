@@ -35,7 +35,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "trainStop")
 
 # set name
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.name, "custom bus stop name")
+netedit.modifyAttribute(netedit.attrs.trainStop.create.name, "custom bus stop name")
 
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

@@ -41,7 +41,7 @@ netedit.changeElement("personFrame", "personFlow")
 netedit.changePersonPlan("walk", True)
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacing, "dummySpacing")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.spacing, "dummySpacing")
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,13 +51,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.typeKey('enter')
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacing, "poisson")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.spacing, "poisson")
 
 # press enter to create flow
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "dummy")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.spacingOption, "dummy")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -67,13 +67,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "-30")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.spacingOption, "-30")
 
 # press enter to create route
 netedit.typeKey('enter')
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "1.2")
+netedit.modifyAttribute(netedit.attrs.personFlow.create.spacingOption, "1.2")
 
 # press enter to create route
 netedit.typeKey('enter')

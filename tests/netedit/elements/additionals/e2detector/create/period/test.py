@@ -35,19 +35,19 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "laneAreaDetector")
 
 # set invalid frequency (dummy)
-netedit.changeDefaultValue(netedit.attrs.E2.create.period, "dummyFreq")
+netedit.modifyAttribute(netedit.attrs.E2.create.period, "dummyFreq")
 
 # try to create a E2 with invalid frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid frequency (negative)
-netedit.changeDefaultValue(netedit.attrs.E2.create.period, "-30")
+netedit.modifyAttribute(netedit.attrs.E2.create.period, "-30")
 
 # try to create a E2 with invalid frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set valid frequency
-netedit.changeDefaultValue(netedit.attrs.E2.create.period, "120.5")
+netedit.modifyAttribute(netedit.attrs.E2.create.period, "120.5")
 
 # create E2 with valid frequency
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

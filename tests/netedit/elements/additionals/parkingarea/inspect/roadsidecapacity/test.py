@@ -44,16 +44,16 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # Change parameter RoadSideCapacity with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.roadSideCapacity, "dummyRoadSideCapacity", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspect.roadSideCapacity, "dummyRoadSideCapacity")
 
 # Change parameter RoadSideCapacity with a non valid value (double)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.roadSideCapacity, "2.3", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspect.roadSideCapacity, "2.3")
 
 # Change parameter RoadSideCapacity with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.roadSideCapacity, "-5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspect.roadSideCapacity, "-5")
 
 # Change parameter RoadSideCapacity with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.roadSideCapacity, "7", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspect.roadSideCapacity, "7")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

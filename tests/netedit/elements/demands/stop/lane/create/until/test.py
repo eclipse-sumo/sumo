@@ -38,34 +38,34 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopLane")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.durationEnable)
+netedit.modifyBoolAttribute(netedit.attrs.stopLane.create.durationEnable)
 
 # enable until
-netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.untilEnable)
+netedit.modifyBoolAttribute(netedit.attrs.stopLane.create.untilEnable)
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.until, "dummyValue")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.until, "dummyValue")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.until, "-20")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.until, "-20")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.until, "0")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.until, "0")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopLane.create.until, "22.33")
+netedit.modifyAttribute(netedit.attrs.stopLane.create.until, "22.33")
 
 # try to create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)

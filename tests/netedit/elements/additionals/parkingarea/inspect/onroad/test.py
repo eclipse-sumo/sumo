@@ -44,7 +44,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # Change parameter onRoad with a different value
-netedit.modifyBoolAttribute(netedit.attrs.parkingArea.inspect.onRoad, True)
+netedit.modifyBoolAttributeOverlapped(netedit.attrs.parkingArea.inspect.onRoad)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

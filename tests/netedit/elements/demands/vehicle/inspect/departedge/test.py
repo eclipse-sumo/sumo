@@ -58,19 +58,19 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departEdge, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.departEdge, "")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departEdge, "dummy", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.departEdge, "dummy")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departEdge, "500", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.departEdge, "500")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departEdge, "-30", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.departEdge, "-30")
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.vehicle.inspect.departEdge, "1", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.vehicle.inspect.departEdge, "1")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

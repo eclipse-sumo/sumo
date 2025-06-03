@@ -22,6 +22,7 @@ from ..input.mouse import *
 from ..constants import *
 from .modes import *
 
+
 def computeJunctions():
     """
     @brief compute junctions (rebuild network)
@@ -58,40 +59,6 @@ def focusOnFrame():
     """
     typeTwoKeys('shift', 'F12')
     time.sleep(1)
-
-
-def undo(referencePosition, number, offsetX=0, offsetY=0):
-    """
-    @brief undo last operation
-    """
-    # first wait
-    time.sleep(DELAY_UNDOREDO)
-    # focus current frame
-    focusOnFrame()
-    # needed to avoid errors with undo/redo (Provisionally)
-    typeKey('i')
-    # click over referencePosition
-    leftClick(referencePosition, positions.reference, offsetX, offsetY)
-    for _ in range(number):
-        typeTwoKeys('ctrl', 'z')
-        time.sleep(DELAY_UNDOREDO)
-
-
-def redo(referencePosition, number, offsetX=0, offsetY=0):
-    """
-    @brief undo last operation
-    """
-    # first wait
-    time.sleep(DELAY_UNDOREDO)
-    # focus current frame
-    focusOnFrame()
-    # needed to avoid errors with undo/redo (Provisionally)
-    typeKey('i')
-    # click over referencePosition
-    leftClick(referencePosition, positions.reference, offsetX, offsetY)
-    for _ in range(number):
-        typeTwoKeys('ctrl', 'y')
-        time.sleep(DELAY_UNDOREDO)
 
 
 def waitQuestion(answer):

@@ -47,7 +47,7 @@ netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 6 with a valid value
-netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "13.112,16.22 34.19,16.11", False)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "13.112,16.22 34.19,16.11")
 
 # Check undos
 netedit.undo(referencePosition, 1)

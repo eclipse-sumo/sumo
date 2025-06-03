@@ -35,22 +35,22 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # create vType
-netedit.changeDefaultBoolValue(netedit.attrs.type.buttons.create)
+netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # open dialog
 netedit.openVTypeDialog()
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.probability, "dummy")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.probability, "dummy")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.probability, "")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.probability, "")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.probability, "-5")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.probability, "-5")
 
 # modify attribute
-netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.probability, "12.3")
+netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.probability, "12.3")
 
 # close dialog
 netedit.typeTwoKeys('alt', 'a')

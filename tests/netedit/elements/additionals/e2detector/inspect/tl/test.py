@@ -44,10 +44,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector)
 
 # Change parameter tl with an non valid value
-netedit.modifyAttribute(netedit.attrs.E2.inspect.tl, "%%%;:..&&%$%$", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspect.tl, "%%%;:..&&%$%$")
 
 # Change parameter tl with a duplicated value
-netedit.modifyAttribute(netedit.attrs.E2.inspect.tl, "Junction2", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.E2.inspect.tl, "Junction2")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

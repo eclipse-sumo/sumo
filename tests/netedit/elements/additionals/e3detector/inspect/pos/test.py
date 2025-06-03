@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "dummy position")
 netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "")
 
 # Change parameter position with a valid value (different position)
-netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "25, 25", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "25, 25")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

@@ -35,19 +35,19 @@ netedit.changeMode("shape")
 netedit.changeElement("shapeFrame", "poi")
 
 # change imgfile (invalid)
-netedit.changeDefaultValue(netedit.attrs.poi.create.imgFile, "%%$%$&$%$%$")
+netedit.modifyAttribute(netedit.attrs.poi.create.imgFile, "%%$%$&$%$%$")
 
 # try to create POI
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # change imgfile (non exist)
-netedit.changeDefaultValue(netedit.attrs.poi.create.imgFile, "paris.ico")
+netedit.modifyAttribute(netedit.attrs.poi.create.imgFile, "paris.ico")
 
 # try to create POI
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB)
 
 # change imgfile (valid)
-netedit.changeDefaultValue(netedit.attrs.poi.create.imgFile, "berlin_icon.ico")
+netedit.modifyAttribute(netedit.attrs.poi.create.imgFile, "berlin_icon.ico")
 
 # create POI
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)

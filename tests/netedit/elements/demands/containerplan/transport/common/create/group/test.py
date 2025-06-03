@@ -54,7 +54,7 @@ netedit.changeElement("containerPlanFrame", "transport")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStopB)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.transport.busStop.busStop.create.group, "custom group")
+netedit.modifyAttribute(netedit.attrs.transport.busStop.busStop.create.group, "custom group")
 
 # press enter to create route
 netedit.typeKey('enter')

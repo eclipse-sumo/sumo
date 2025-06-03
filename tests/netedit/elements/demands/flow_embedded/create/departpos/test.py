@@ -38,7 +38,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.departPos, "dummyPos")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.departPos, "dummyPos")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.departPos, "-12")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.departPos, "-12")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.departPos, "random_free")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.departPos, "random_free")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey('enter')
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.departPos, "20")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.departPos, "20")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

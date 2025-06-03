@@ -52,25 +52,25 @@ netedit.changeElement("vehicleFrame", "vehicle (over route)")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set invalid id
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "%%%%;;%%")
+netedit.modifyAttribute(netedit.attrs.vehicle.create.id, "%%%%;;%%")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "")
+netedit.modifyAttribute(netedit.attrs.vehicle.create.id, "")
 
 # create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "v_0")
+netedit.modifyAttribute(netedit.attrs.vehicle.create.id, "v_0")
 
 # create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "customID")
+netedit.modifyAttribute(netedit.attrs.vehicle.create.id, "customID")
 
 # create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

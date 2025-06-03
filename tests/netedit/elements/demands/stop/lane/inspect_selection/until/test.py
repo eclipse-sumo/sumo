@@ -44,25 +44,25 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopLane)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopLane.inspectSelection.untilEnable, True)
+netedit.modifyBoolAttributeOverlapped(netedit.attrs.stopLane.inspectSelection.untilEnable)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopLane.inspectSelection.untilEnable, True)
+netedit.modifyBoolAttributeOverlapped(netedit.attrs.stopLane.inspectSelection.untilEnable)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.until, "dummyValue", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.stopLane.inspectSelection.until, "dummyValue")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.until, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.stopLane.inspectSelection.until, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.until, "-5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.stopLane.inspectSelection.until, "-5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.until, "0", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.stopLane.inspectSelection.until, "0")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.until, "3.5", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.stopLane.inspectSelection.until, "3.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

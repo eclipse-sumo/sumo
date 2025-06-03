@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopLane)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.split, ";;;;;", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspectSelection.split, ";;;;;")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.split, "", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspectSelection.split, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspectSelection.split, "customSplit", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.waypointLane.inspectSelection.split, "customSplit")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

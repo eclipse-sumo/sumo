@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop)
 
 # Set name
-netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.name, "common TrainStop Name", True)
+netedit.modifyAttributeOverlapped(netedit.attrs.trainStop.inspectSelection.name, "common TrainStop Name")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

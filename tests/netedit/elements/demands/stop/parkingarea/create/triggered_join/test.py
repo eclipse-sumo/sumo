@@ -38,19 +38,19 @@ netedit.changeMode("stop")
 netedit.changeElement("stopFrame", "stopParkingArea")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.triggered, "join")
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.create.triggered, "join")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.join, ";;;")
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.create.join, ";;;")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.join, "customJoin")
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.create.join, "customJoin")
 
 # create stop
 netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)

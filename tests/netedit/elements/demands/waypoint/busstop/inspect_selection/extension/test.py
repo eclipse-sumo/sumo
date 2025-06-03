@@ -44,10 +44,10 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypointBusStop.inspectSelection.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointBusStop.inspectSelection.extensionEnable)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypointBusStop.inspectSelection.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointBusStop.inspectSelection.extensionEnable)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.extension, "dummyValue")
