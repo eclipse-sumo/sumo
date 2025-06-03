@@ -62,7 +62,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.color, "12,13,
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # save persons
 # quit netedit

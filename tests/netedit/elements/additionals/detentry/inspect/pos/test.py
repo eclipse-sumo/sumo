@@ -69,7 +69,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.entryExit.inspect.pos, "25")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

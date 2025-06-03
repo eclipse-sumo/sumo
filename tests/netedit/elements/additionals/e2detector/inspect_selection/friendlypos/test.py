@@ -47,7 +47,7 @@ netedit.modifyBoolAttributeOverlapped(netedit.attrs.E2.inspectSelection.friendly
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

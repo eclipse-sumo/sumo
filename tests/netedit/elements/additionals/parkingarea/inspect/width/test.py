@@ -59,7 +59,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspect.width, "2.3"
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -69,7 +69,7 @@ netedit.modifyAttribute(netedit.attrs.E3.inspect.file, "myOwnOutput.txt")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

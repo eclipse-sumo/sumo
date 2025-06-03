@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.rout
 netedit.checkParameters(referencePosition, netedit.attrs.routeProbe.inspectSelection.parameters)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

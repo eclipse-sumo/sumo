@@ -36,7 +36,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 netedit.computeJunctionsVolatileOptions()
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

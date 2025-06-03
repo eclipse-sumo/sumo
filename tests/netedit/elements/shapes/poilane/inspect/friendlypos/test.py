@@ -50,7 +50,7 @@ netedit.modifyBoolAttributeOverlapped(netedit.attrs.poiLane.inspect.friendlyPos)
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

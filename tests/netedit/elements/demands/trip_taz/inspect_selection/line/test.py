@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.line, "custom Lin
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

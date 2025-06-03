@@ -59,7 +59,7 @@ netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "150")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

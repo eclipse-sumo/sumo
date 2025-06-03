@@ -59,7 +59,7 @@ netedit.modifyAttribute(netedit.attrs.person.inspectSelection.departPos, "20")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # save persons
 # quit netedit

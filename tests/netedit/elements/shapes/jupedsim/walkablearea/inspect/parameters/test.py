@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shap
 netedit.checkParameters(referencePosition, netedit.attrs.jpsWalkableArea.inspect.parameters)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

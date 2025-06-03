@@ -56,7 +56,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.poiLane.inspect.lane, "bot_0")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

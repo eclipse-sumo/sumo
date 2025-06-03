@@ -53,7 +53,7 @@ netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspect.permitted, "perm
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

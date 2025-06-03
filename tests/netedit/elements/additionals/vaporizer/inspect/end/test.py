@@ -62,7 +62,7 @@ netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "20")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

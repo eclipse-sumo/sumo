@@ -59,7 +59,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspect.lane, "EdgeC
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

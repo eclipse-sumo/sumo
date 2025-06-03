@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.loadNetwork(True)
 
 # save Netedit config
-netedit.saveNeteditConfigNew()
+netedit.saveNewShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

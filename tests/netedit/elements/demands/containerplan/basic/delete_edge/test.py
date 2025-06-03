@@ -85,7 +85,7 @@ netedit.redo(referencePosition, 2)
 netedit.typeKey('enter')
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJ
 netedit.checkParameters(referencePosition, netedit.attrs.tripJunction.inspectSelection.parameters)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

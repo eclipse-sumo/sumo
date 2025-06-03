@@ -50,7 +50,7 @@ netedit.modifyAdditionalFileDialogOverlapped(netedit.attrs.busStop.inspect.addit
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

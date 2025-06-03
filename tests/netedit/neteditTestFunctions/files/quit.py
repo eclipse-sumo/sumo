@@ -20,6 +20,7 @@ from ..imports import *
 from ..input.keyboard import *
 from ..general.functions import *
 
+
 def quit(NeteditProcess, openNetDialog=False, saveNet=False,
          openAdditionalDialog=False, saveAdditionalElements=False,
          openDemandDialog=False, saveDemandElements=False,
@@ -92,7 +93,7 @@ def quit(NeteditProcess, openNetDialog=False, saveNet=False,
                 return
         # error closing NETEDIT then make a screenshot
         errorScreenshot = pyautogui.screenshot()
-        errorScreenshot.save("errorScreenshot.png")
+        errorScreenshot.saveExistent("errorScreenshot.png")
         # kill netedit
         NeteditProcess.kill()
         print("TestFunctions: Error closing Netedit")

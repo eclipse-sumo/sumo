@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

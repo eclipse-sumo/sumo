@@ -66,7 +66,7 @@ netedit.modifyAttribute(netedit.attrs.route.inspect.edges, "Edge0")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

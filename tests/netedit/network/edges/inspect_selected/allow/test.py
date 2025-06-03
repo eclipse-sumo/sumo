@@ -63,7 +63,7 @@ netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # fix routes
 netedit.typeKey('space')

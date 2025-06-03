@@ -59,7 +59,7 @@ netedit.modifyAttribute(netedit.attrs.calibrator.inspect.vTypes, "type1 type2")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

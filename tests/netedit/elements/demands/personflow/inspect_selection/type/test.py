@@ -59,7 +59,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.type, "typeC")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # save persons
 # quit netedit

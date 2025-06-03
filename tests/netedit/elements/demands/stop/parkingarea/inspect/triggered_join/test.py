@@ -62,7 +62,7 @@ netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.join, "customJoin"
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

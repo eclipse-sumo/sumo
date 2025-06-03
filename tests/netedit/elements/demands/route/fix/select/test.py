@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # fix
 netedit.fixDemandElement(netedit.attrs.fix.demandElements.routes.selectInvalidRoutes)
@@ -41,7 +41,7 @@ netedit.changeSupermode("demand")
 netedit.deleteUsingShortcut()
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

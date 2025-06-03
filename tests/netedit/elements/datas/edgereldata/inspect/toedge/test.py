@@ -67,7 +67,7 @@ netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.toEdge, "gneE16")
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

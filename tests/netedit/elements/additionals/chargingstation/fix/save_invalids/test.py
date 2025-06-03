@@ -50,7 +50,7 @@ netedit.changeMode("select")
 netedit.selectionClear()
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # save invalids
 netedit.fixStoppingPlace("saveInvalids")

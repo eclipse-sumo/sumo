@@ -47,10 +47,10 @@ netedit.typeKey('enter')
 netedit.checkUndoRedo(referencePosition)
 
 # save additionals
-netedit.saveDemandElements(True, referencePosition)
+netedit.saveExistentShortcut("demands")
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

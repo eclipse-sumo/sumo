@@ -48,10 +48,10 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 
 # save network
-netedit.saveNetwork(referencePosition, False)
+netedit.saveExistent("network")
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

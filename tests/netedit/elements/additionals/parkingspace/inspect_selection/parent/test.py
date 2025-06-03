@@ -53,7 +53,7 @@ netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.parent, "par
 netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

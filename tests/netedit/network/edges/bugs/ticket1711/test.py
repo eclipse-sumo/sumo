@@ -75,7 +75,7 @@ netedit.computeJunctions()
 netedit.redo(referencePosition, 8)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

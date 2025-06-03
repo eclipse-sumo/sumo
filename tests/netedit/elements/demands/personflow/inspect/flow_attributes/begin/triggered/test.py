@@ -66,7 +66,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspect.begin, "triggered")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # save persons
 # quit netedit

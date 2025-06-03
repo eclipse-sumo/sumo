@@ -35,7 +35,7 @@ netedit.changeSupermode("data")
 netedit.changeEditMode(netedit.attrs.modes.data.showShapes)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

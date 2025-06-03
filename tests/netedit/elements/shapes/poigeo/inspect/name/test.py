@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.name, "customName")
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNeteditConfig(referencePosition)
+netedit.saveExistentShortcut("neteditConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

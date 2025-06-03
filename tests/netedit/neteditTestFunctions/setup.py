@@ -18,7 +18,8 @@
 # imports
 from .imports import *
 from .constants import *
-from .input.keyboard import*
+from .input.keyboard import *
+
 
 def Popen(extraParameters):
     """
@@ -81,7 +82,7 @@ def getReferenceMatch(neProcess, makeScrenshot):
         return referencePosition
     # referente not found, then write screenshot
     if (makeScrenshot):
-        errorScreenshot.save("errorScreenshot.png")
+        errorScreenshot.saveExistent("errorScreenshot.png")
     # kill netedit process
     neProcess.kill()
     # print debug information
