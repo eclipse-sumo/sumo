@@ -312,6 +312,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 }
             }
             if (MSGlobals::gUseMesoSim) {
+                if (myQueIndex >= mySegment->numQueues()) {
+                    throw ProcessError(TLF("Invalid queue index '%' on segment '%'. Check for consistency of lane numbers and queue options.", myQueIndex, mySegment->getID()));
+                }
                 mySegment->loadState(vehs, StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex);
                 myQueIndex++;
             } else {
