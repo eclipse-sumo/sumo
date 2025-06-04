@@ -28,8 +28,14 @@
 #include <string>
 #include <ctime>
 #include <memory>
-#if __cplusplus >= 201703L
+#include <version>
+#ifdef __cpp_lib_filesystem
 #include <filesystem>
+namespace fs = std::filesystem;
+#endif
+#ifdef __cpp_lib_experimental_filesystem
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 #endif
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
@@ -218,7 +224,7 @@ main(int argc, char** argv) {
             }
             for (const std::string& p : phemPath) {
                 std::error_code ec;
-                for (const auto& entry : std::filesystem::directory_iterator(p, ec)) {
+                for (const auto& entry : fs::directory_iterator(p, ec)) {
                     if (entry.path().extension() == ".veh") {
                         if (entry.path().parent_path().filename().string().back() == '5') {
                             PollutantsInterface::getClassByName("PHEMlight5/" + entry.path().filename().stem().stem().string());
