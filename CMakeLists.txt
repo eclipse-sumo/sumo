@@ -4,7 +4,7 @@ cmake_policy(SET CMP0048 NEW)
 cmake_policy(SET CMP0054 NEW)
 # find python by path
 set(Python_FIND_STRATEGY LOCATION)
-set(Python_FIND_REGISTRY NEVER)
+set(Python_FIND_REGISTRY LAST)
 # Options
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use only EPL clean libraries, if set to false)" ON)
 option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" ON)
@@ -93,9 +93,10 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set (CLANG_COMPILER True)
 endif ()
 
+# C++17 is needed by std::filesystem and parquet
 # C++14 is needed by Google Test >= 1.13, for all the other parts C++11 should be enough.
 # This will silently fall back to C++11 if 14 is not supported by the compiler.
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # compiler specific flags
 if (GNU_COMPILER OR CLANG_COMPILER)

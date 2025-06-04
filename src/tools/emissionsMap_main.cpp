@@ -28,6 +28,13 @@
 #include <string>
 #include <ctime>
 #include <memory>
+#if __has_include(<filesystem>)
+#include <filesystem>
+namespace fs = std::filesystem;
+#elif __has_include(<experimental/filesystem>)
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+#endif
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/Option.h>
@@ -203,6 +210,29 @@ main(int argc, char** argv) {
             if (!oc.isSet("output-file")) {
                 oc.set("output-file", "./");
             }
+#if __cplusplus >= 201703L
+            std::vector<std::string> phemPath;
+            phemPath.push_back(OptionsCont::getOptions().getString("phemlight-path") + "/");
+            if (getenv("PHEMLIGHT_PATH") != nullptr) {
+                phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
+            }
+            if (getenv("SUMO_HOME") != nullptr) {
+                phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight/");
+                phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight5/");
+            }
+            for (const std::string& p : phemPath) {
+                std::error_code ec;
+                for (const auto& entry : fs::directory_iterator(p, ec)) {
+                    if (entry.path().extension() == ".veh") {
+                        if (entry.path().parent_path().filename().string().back() == '5') {
+                            PollutantsInterface::getClassByName("PHEMlight5/" + entry.path().filename().stem().stem().string());
+                        } else {
+                            PollutantsInterface::getClassByName("PHEMlight/" + entry.path().filename().stem().stem().string());
+                        }
+                    }
+                }
+            }
+#endif
             const std::vector<SUMOEmissionClass> classes = PollutantsInterface::getAllClasses();
             for (std::vector<SUMOEmissionClass>::const_iterator ci = classes.begin(); ci != classes.end(); ++ci) {
                 SUMOEmissionClass c = *ci;
