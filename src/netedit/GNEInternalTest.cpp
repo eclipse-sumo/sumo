@@ -42,6 +42,7 @@ GNEInternalTest::runNeteditTests(GNEApplicationWindow* applicationWindow) {
     // run rest only once
     if (myTestStarted == false) {
         myTestStarted = true;
+        bool writeClosedSucessfully = false;
         // process every step
         for (const auto& testStep : myTestSteps) {
             // check if we have to process it in main windows, abstract view or specific view
@@ -49,11 +50,17 @@ GNEInternalTest::runNeteditTests(GNEApplicationWindow* applicationWindow) {
                 applicationWindow->handle(this, testStep->getSelector(), testStep->getEvent());
             } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
                 applicationWindow->getViewNet()->handle(this, testStep->getSelector(), testStep->getEvent());
+            } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
+                writeClosedSucessfully = true;
             }
             // check if update view after execute step
             if (testStep->updateView()) {
                 applicationWindow->getViewNet()->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
             }
+        }
+        // check if print netedit closed sucessfully
+        if (writeClosedSucessfully) {
+            std::cout << "TestFunctions: Netedit closed successfully" << std::endl;
         }
         // mark test as finished
         myTestFinished = true;
