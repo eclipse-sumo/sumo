@@ -64,7 +64,7 @@ mismatch-output
 gehScale
 
 # use linear programming to optimize route usage
-optimize_full
+#optimize_full
 
 # use linear programming to optimize route usage (limit 1)
 optimize_1
