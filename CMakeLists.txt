@@ -4,7 +4,7 @@ cmake_policy(SET CMP0048 NEW)
 cmake_policy(SET CMP0054 NEW)
 # find python by path
 set(Python_FIND_STRATEGY LOCATION)
-set(Python_FIND_REGISTRY NEVER)
+set(Python_FIND_REGISTRY LAST)
 # Options
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use only EPL clean libraries, if set to false)" ON)
 option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" ON)
