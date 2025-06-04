@@ -50,7 +50,7 @@ InternalTest::InternalTest(const std::string& testFile) {
         // read full lines until end of file
         while (std::getline(strm, line)) {
             // ignore comments (#) and all lines that doesn't start with netedit.
-            if (!line.empty() && (line[0] != '#') && (line.compare(0, 8, "netedit.") == 0)) {
+            if (!line.empty() && (line[0] != '#')) {
                 new InternalTestStep(this, line);
             }
         }

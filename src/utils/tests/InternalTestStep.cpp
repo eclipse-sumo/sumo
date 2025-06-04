@@ -30,6 +30,8 @@
 // this offsets corresponds to the offset of the test magenta square
 constexpr int MOUSE_OFFSET_X = 24;
 constexpr int MOUSE_OFFSET_Y = 25;
+constexpr int MOUSE_REFERENCE_X = 304;
+constexpr int MOUSE_REFERENCE_Y = 168;
 
 // ===========================================================================
 // member method definitions
@@ -42,20 +44,30 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     // first parse step
     const auto function = parseStep(step);
     // continue depending of function
-    if (function == "leftClick") {
+    if (function == "setupAndStart") {
+        processSetupAndStartFunction();
+    } else if (function == "leftClick") {
         processLeftClickFunction();
     } else if (function == "modifyAttribute") {
-        processModifyAttribute();
+        processModifyAttributeFunction();
+    } else if (function == "modifyAttributeOverlapped") {
+        processModifyAttributeOverlappedFunction();
     } else if (function == "supermode") {
         processSupermodeFunction();
     } else if (function == "changeMode") {
         processChangeModeFunction();
-    } else if (function == "selectAdditional") {
-        processSelectAdditionalArgument();
+    } else if (function == "changeElement") {
+        processChangeElementArgument();
     } else if (function == "compute") {
         processComputeFunction();
-    } else if (function == "save") {
-        processSaveFunction();
+    } else if (function == "saveExistentShortcut") {
+        processSaveExistentShortcutFunction();
+    } else if (function == "checkUndoRedo") {
+        processCheckUndoRedoFunction();
+    } else if (function == "undo") {
+        processUndoFunction();
+    } else if (function == "redo") {
+        processRedoFunction();
     } else if (function == "quit") {
         processQuitFunction();
     }
@@ -231,37 +243,45 @@ InternalTestStep::buildKeyReleaseEvent(const char key) const {
 
 std::string
 InternalTestStep::parseStep(const std::string& rowText) {
-    std::string functionName;
-    // make a copy to help editing row
-    std::string rowStr = rowText;
-    // every function has the format <function>(<argument1>, <argument2>,....,)
-    if ((rowText.size() < 3) || (rowText.front() == '(') || (rowText.back() != ')')) {
-        writeError("parseStep", "function(arguments)");
+    // first check if this is the netedit.setupAndStart function
+    if (rowText.find("netedit.setupAndStart") != std::string::npos) {
+        return "setupAndStart";
+    } else if (rowText.compare(0, 8, "netedit.") != 0) {
+        // proces only lines that start with "netedit."
         return "";
-    }
-    // first extract function
-    while (rowStr.size() > 0) {
-        if (rowStr.front() == '(') {
-            break;
-        } else {
-            functionName.push_back(rowStr.front());
-            rowStr.erase(rowStr.begin());
+    } else {
+        std::string functionName;
+        // make a copy to help editing row
+        std::string rowStr = rowText;
+        // every function has the format <function>(<argument1>, <argument2>,....,)
+        if (rowText.empty() || (rowText.front() == '(') || (rowText.back() != ')')) {
+            writeError("parseStep", "function(arguments)");
+            return "";
         }
-    }
-    // remove prefix "netedit." (size 8) from function
-    functionName = functionName.substr(8);
-    // check if there are at least two characters (to avoid cases like 'function)')
-    if (rowStr.size() < 2) {
-        writeError("parseStep", "function(arguments)");
+        // first extract function
+        while (rowStr.size() > 0) {
+            if (rowStr.front() == '(') {
+                break;
+            } else {
+                functionName.push_back(rowStr.front());
+                rowStr.erase(rowStr.begin());
+            }
+        }
+        // remove prefix "netedit." (size 8) from function
+        functionName = functionName.substr(8);
+        // check if there are at least two characters (to avoid cases like 'function)')
+        if (rowStr.size() < 2) {
+            writeError("parseStep", "function(arguments)");
+            return functionName;
+        }
+        // remove both pharentesis
+        rowStr.erase(rowStr.begin());
+        rowStr.pop_back();
+        // now parse arguments
+        parseArguments(rowStr);
+        // remove "netedit." from frunction
         return functionName;
     }
-    // remove both pharentesis
-    rowStr.erase(rowStr.begin());
-    rowStr.pop_back();
-    // now parse arguments
-    parseArguments(rowStr);
-    // remove "netedit." from frunction
-    return functionName;
 }
 
 
@@ -382,6 +402,18 @@ InternalTestStep::translateKey(const std::string& key) const {
 
 
 void
+InternalTestStep::processSetupAndStartFunction() {
+    myCategory = Category::INIT;
+    // print in console the following lines
+    std::cout << "TestFunctions: Netedit opened successfully" << std::endl;
+    std::cout << "Finding reference" << std::endl;
+    std::cout << "TestFunctions: 'reference.png' found. Position: " <<
+        toString(MOUSE_REFERENCE_X) << " - " << 
+        toString(MOUSE_REFERENCE_Y) << std::endl;
+}
+
+
+void
 InternalTestStep::processLeftClickFunction() const {
     if ((myArguments.size() != 2) || (myTestSystem->myViewPositions.count(myArguments[1]) == 0)) {
         writeError("leftClick", "<reference, position>");
@@ -389,6 +421,10 @@ InternalTestStep::processLeftClickFunction() const {
         // parse arguments
         const int posX = myTestSystem->myViewPositions.at(myArguments[1]).first;
         const int posY = myTestSystem->myViewPositions.at(myArguments[1]).second;
+        // print info
+        std::cout << "TestFunctions: Clicked over position " <<
+            toString(posX + MOUSE_REFERENCE_X) << " - " <<
+            toString(posY + MOUSE_REFERENCE_Y) << std::endl;
         // add move, left button press and left button release
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(posX, posY), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(posX, posY), true);
@@ -398,31 +434,23 @@ InternalTestStep::processLeftClickFunction() const {
 
 
 void
-InternalTestStep::processModifyAttribute() const {
-    if ((myArguments.size() != 3) ||
+InternalTestStep::processModifyAttributeFunction() const {
+    if ((myArguments.size() != 2) ||
             !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum) ||
-            !checkStringArgument(myArguments[1]) ||
-            !checkBoolArgument(myArguments[2])) {
-        writeError("modifyAttribute", "<int/attributeEnum, \"string\", bool>");
+            !checkStringArgument(myArguments[1])) {
+        writeError("modifyAttribute", "<int/attributeEnum, \"string\">");
     } else {
         const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
         const std::string value = getStringArgument(myArguments[1]);
-        const bool overlapped = getBoolArgument(myArguments[2]);
+        // print info
+        std::cout << value << std::endl;
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
-        if (overlapped) {
-            for (int i = 0; i < (numTabs + 1 + myTestSystem->myAttributesEnum.at("netedit.attrs.editElements.overlapped")); i++) {
-                new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
-                new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
-            }
-        } else {
-            for (int i = 0; i < numTabs; i++) {
-                new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
-                new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
-            }
+        for (int i = 0; i < numTabs; i++) {
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
+            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
         }
-
         // write attribute character by character
         for (const char c : value) {
             new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(c), false);
@@ -435,21 +463,26 @@ InternalTestStep::processModifyAttribute() const {
 
 
 void
-InternalTestStep::processSelectAdditionalArgument() const {
-    if ((myArguments.size() != 1) ||
-            !checkStringArgument(myArguments[0])) {
-        writeError("selectAdditional", "<\"string\">");
+InternalTestStep::processModifyAttributeOverlappedFunction() const {
+    if ((myArguments.size() != 2) ||
+            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum) ||
+            !checkStringArgument(myArguments[1])) {
+        writeError("modifyAttributeOverlapped", "<int/attributeEnum, \"string\">");
     } else {
-        const std::string additional = getStringArgument(myArguments[0]);
+        const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
+        const std::string value = getStringArgument(myArguments[1]);
+        const int overlappedTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.editElements.overlapped");
+        // print info
+        std::cout << value << std::endl;
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to select additional argument
-        for (int i = 0; i < 2; i++) {
+        // jump to the element
+        for (int i = 0; i < (numTabs + overlappedTabs); i++) {
             new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
             new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
         }
-        // write additional character by character
-        for (const char c : additional) {
+        // write attribute character by character
+        for (const char c : value) {
             new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(c), false);
             new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(c), false);
         }
@@ -460,7 +493,7 @@ InternalTestStep::processSelectAdditionalArgument() const {
 
 
 void
-InternalTestStep::processSaveFunction() {
+InternalTestStep::processSaveExistentShortcutFunction() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
         writeError("save", "<\"string\">");
@@ -471,6 +504,102 @@ InternalTestStep::processSaveFunction() {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG;
         } else {
             writeError("save", "<neteditConfig>");
+        }
+    }
+}
+
+
+void
+InternalTestStep::processCheckUndoRedoFunction() const {
+    if (myArguments.size() != 1) {
+        writeError("checkUndoRedo", "<referencePosition>");
+    } else {
+        const int numUndoRedos = 9;
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // go to inspect mode
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
+        // click over reference
+        std::cout << "TestFunctions: Clicked over position " <<
+            toString(MOUSE_REFERENCE_X) << " - " <<
+            toString(MOUSE_REFERENCE_Y) << std::endl;
+        // add move, left button press and left button release
+        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(0, 0), true);
+        // undo
+        for (int i = 0; i < numUndoRedos; i++) {
+                new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO, Category::APP);
+        }
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // go to inspect mode
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
+        // click over reference
+        std::cout << "TestFunctions: Clicked over position " <<
+            toString(MOUSE_REFERENCE_X) << " - " <<
+            toString(MOUSE_REFERENCE_Y) << std::endl;
+        // add move, left button press and left button release
+        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(0, 0), true);
+        // undo
+        for (int i = 0; i < numUndoRedos; i++) {
+            new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Y_REDO, Category::APP);
+        }
+    }
+}
+
+
+void
+InternalTestStep::processUndoFunction() const {
+    if ((myArguments.size() != 2) ||
+            !checkStringArgument(myArguments[0])) {
+        writeError("undo", "<referencePosition, int>");
+    } else {
+        const int numUndoRedos = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // go to inspect mode
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
+        // click over reference
+        std::cout << "TestFunctions: Clicked over position " <<
+            toString(MOUSE_REFERENCE_X) << " - " <<
+            toString(MOUSE_REFERENCE_Y) << std::endl;
+        // add move, left button press and left button release
+        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(0, 0), true);
+        // undo
+        for (int i = 0; i < numUndoRedos; i++) {
+            new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO, Category::APP);
+        }
+    }
+}
+
+
+void
+InternalTestStep::processRedoFunction() const {
+    if ((myArguments.size() != 2) ||
+            !checkStringArgument(myArguments[0])) {
+        writeError("redo", "<referencePosition, int>");
+    } else {
+        const int numUndoRedos = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // go to inspect mode
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
+        // click over reference
+        std::cout << "TestFunctions: Clicked over position " <<
+            toString(MOUSE_REFERENCE_X) << " - " <<
+            toString(MOUSE_REFERENCE_Y) << std::endl;
+        // add move, left button press and left button release
+        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(0, 0), true);
+        // undo
+        for (int i = 0; i < numUndoRedos; i++) {
+            new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Y_REDO, Category::APP);
         }
     }
 }
@@ -541,6 +670,61 @@ InternalTestStep::processChangeModeFunction() {
 
 
 void
+InternalTestStep::processChangeElementArgument() const {
+    if ((myArguments.size() != 2) ||
+            !checkStringArgument(myArguments[0])) {
+        writeError("selectAdditional", "<\"frame\", \"string\">");
+    } else {
+        const std::string frame = getStringArgument(myArguments[0]);
+        const std::string element = getStringArgument(myArguments[1]);
+        int numTabs = -1;
+        // continue depending of frame
+        if (frame == "additionalFrame") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.additional");
+        } else if (frame == "shapeFrame") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.shape");
+        } else if (frame == "vehicleFrame") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.vehicle");
+        } else if (frame == "routeFrame") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.route");
+        } else if (frame == "personFrame") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.person");
+        } else if (frame == "containerFrame") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.netedit.attrs.frames.changeElement.container");
+        } else if (frame == "personPlanFrame") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.personPlan");
+        } else if (frame == "containerPlanFrame") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.netedit.attrs.frames.changeElement.containerPlan");
+        } else if (frame == "stopFrameFrame") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.stop");
+        } else if (frame == "meanDataFrame") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.meanData");
+        } else {
+            WRITE_ERRORF("Invalid frame '%' used in function processChangeElementArgument", frame);
+        }
+        if (numTabs >= 0) {
+            // show info
+            std::cout << element << std::endl;
+            // focus frame
+            new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+            // jump to select additional argument
+            for (int i = 0; i < numTabs; i++) {
+                new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
+                new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
+            }
+            // write additional character by character
+            for (const char c : element) {
+                new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(c), false);
+                new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(c), false);
+            }
+            // press enter to confirm changes (updating view)
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), true);
+        }
+    }
+}
+
+
+void
 InternalTestStep::processComputeFunction() {
     if (myArguments.size() > 0) {
         writeError("compute", "<>");
@@ -553,8 +737,8 @@ InternalTestStep::processComputeFunction() {
 
 void
 InternalTestStep::processQuitFunction() {
-    if (myArguments.size() > 0) {
-        writeError("quit", "<>");
+    if (myArguments.size() == 0) {
+        writeError("quit", "<neteditProcess>");
     } else {
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_CTRL_Q_CLOSE;
