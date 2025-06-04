@@ -140,7 +140,7 @@ def main():
             else:
                 outf.write(' ' * 4 + '<%sinductionLoop id="%s" lane="%s" pos="%.2f" file="%s" freq="%s"%s>\n' % (
                     commentStart,
-                    detID, best.getLanes[0].getID(), pos, options.detOut,
+                    detID, best.getLanes()[0].getID(), pos, options.detOut,
                     options.interval,
                     endTag))
                 if extraCols:
