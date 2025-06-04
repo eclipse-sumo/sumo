@@ -79,10 +79,10 @@ optimize_1
 # read routes that do not cover all detectors.
 # Skip the sampling step and direclty optimize input routes
 # use linear programming to optimize route usage
-small_input_noSampling_optimize
+#small_input_noSampling_optimize
 
 # input contains duplicate routes. optimize it.
-small_input_duplicates_noSampling
+#small_input_duplicates_noSampling
 
 # use linear programming to optimize route usage
 # Many routes do not pass any counting locations and should not appear in the result
