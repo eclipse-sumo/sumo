@@ -108,7 +108,8 @@ def main():
                 edges = [(d, edge) for edge, d in edges if edge.allows(options.vclass)]
                 radius *= 10
             if not edges:
-                sys.stderr.write("Could not find road for detector %s within %sm radius\n" % (detID, radius))
+                sys.stderr.write("Could not find road for detector %s within %sm radius\n" % (
+                    detID, options.maxRadius))
                 continue
             edges.sort(key=lambda x: x[0])
             best = edges[0][1]
