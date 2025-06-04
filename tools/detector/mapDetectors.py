@@ -101,18 +101,18 @@ def main():
             lat = float(row[options.lat])
             x, y = net.convertLonLat2XY(lon, lat)
 
-            edges = []
+            lanes = []
             radius = 0.1
-            while not edges and radius <= options.maxRadius:
-                edges = net.getNeighboringEdges(x, y, radius, True)
-                edges = [(d, edge) for edge, d in edges if edge.allows(options.vclass)]
+            while not lanes and radius <= options.maxRadius:
+                lanes = net.getNeighboringLanes(x, y, radius, True)
+                lanes = [(d, lane) for lane, d in lanes if lane.allows(options.vclass)]
                 radius *= 10
-            if not edges:
+            if not lanes:
                 sys.stderr.write("Could not find road for detector %s within %sm radius\n" % (
                     detID, options.maxRadius))
                 continue
-            edges.sort(key=lambda x: x[0])
-            best = edges[0][1]
+            lanes.sort(key=lambda x: x[0])
+            best = lanes[0][1]
             pos = min(best.getLength(),
                       sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint((x, y), best.getShape()))
 
@@ -124,24 +124,15 @@ def main():
             if extraCols:
                 endTag = ""
 
+            usedLanes = [(best, '')]
             if options.allLanes:
-                for index, lane in enumerate(best.getLanes()):
-                    outf.write(' ' * 4 + '<%sinductionLoop id="%s_%d" lane="%s" pos="%.2f" file="%s" freq="%s"%s>\n' % (
-                        commentStart,
-                        detID, index,
-                        lane.getID(), pos, options.detOut,
-                        options.interval,
-                        endTag))
-                    if extraCols:
-                        for col in extraCols:
-                            outf.write(' ' * 8 + '<param key="%s" value="%s"/>\n' % (
-                                sumolib.xml.xmlescape(col),
-                                sumolib.xml.xmlescape(row[col])))
-                        outf.write(' ' * 4 + '</inductionLoop%s>\n' % commentEnd)
-            else:
-                outf.write(' ' * 4 + '<%sinductionLoop id="%s" lane="%s" pos="%.2f" file="%s" freq="%s"%s>\n' % (
+                usedLanes = [(lane, '_%i' % index) for index, lane in enumerate(best.getEdge().getLanes())]
+
+            for lane, suffix in usedLanes:
+                outf.write(' ' * 4 + '<%sinductionLoop id="%s%s" lane="%s" pos="%.2f" file="%s" freq="%s"%s>\n' % (
                     commentStart,
-                    detID, best.getLanes()[0].getID(), pos, options.detOut,
+                    detID, suffix,
+                    lane.getID(), pos, options.detOut,
                     options.interval,
                     endTag))
                 if extraCols:
