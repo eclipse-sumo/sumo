@@ -70,7 +70,7 @@ optimize_full
 optimize_1
 
 # use linear programming to optimize route usage (limit 2)
-optimize_2
+#optimize_2
 
 # read routes that do not cover all detectors
 # use linear programming to optimize route usage
