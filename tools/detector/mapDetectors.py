@@ -61,7 +61,7 @@ def get_options(args=None):
                            help="Define the aggregation interval of generated detectors")
     optParser.add_argument("--write-params", action="store_true", dest="writeParams", default=False,
                            help="Write additional columns as detector parameters")
-    optParser.add_argument('--to-lane', dest='to_lane', action='store_true',
+    optParser.add_argument('--all-lanes', dest='allLanes', action='store_true',
                            help='If set, an induction loop is placed on each lane of the target edges.')
     optParser.add_argument("-v", "--verbose", action="store_true", default=False,
                            help="tell me what you are doing")
@@ -124,7 +124,7 @@ def main():
             if extraCols:
                 endTag = ""
 
-            if options.to_lane:
+            if options.allLanes:
                 for index, lane in enumerate(best.getLanes()):
                     outf.write(' ' * 4 + '<%sinductionLoop id="%s_%d" lane="%s" pos="%.2f" file="%s" freq="%s"%s>\n' % (
                         commentStart,
