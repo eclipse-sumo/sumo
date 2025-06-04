@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 12:27:15.056652 by mapDetectors.py v1_20_0+0908-b17ac6a6cb4
+<!-- generated on 2025-06-04 12:39:06.024128 by mapDetectors.py v1_23_1+0408-8f143fe40f8
 <configuration>
     <net-file value="input_net.net.xml"/>
     <detector-file value="data.txt"/>
@@ -12,8 +12,8 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <inductionLoop id="8032" lane="323916051#2_0" pos="44.24" file="detector.out.xml" freq="3600"/>
+    <inductionLoop id="8032" lane="323916051#2_0" pos="44.29" file="detector.out.xml" freq="3600"/>
     <inductionLoop id="8026" lane="323916051#2_0" pos="12.21" file="detector.out.xml" freq="3600"/>
-    <inductionLoop id="64464" lane="-323916051#1_0" pos="57.54" file="detector.out.xml" freq="3600"/>
+    <inductionLoop id="64464" lane="-323916051#1_0" pos="57.60" file="detector.out.xml" freq="3600"/>
     <inductionLoop id="17547" lane="323916051#0_0" pos="0.00" file="detector.out.xml" freq="3600"/>
 </additional>
