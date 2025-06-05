@@ -44,20 +44,20 @@ title: ChangeLog
   - gtfs2pt.py: Fixed bug where option **--repair** did not fix broken **--osm-routes**. #16632 (regression in 1.17.0)
   - gtfs2pt.py: Fixed invalid vehicle departure when running with options **--osm-routes --bbox** #16731
   - gtfs2pt.py: Fixed obsolete config header when using **--osm-routes** #16680
-  - createVehTypeDistribution.py: no longer crashes when output file already exists #16728 (regression in 1.21.0)  
+  - createVehTypeDistribution.py: no longer crashes when output file already exists #16728 (regression in 1.21.0)
   - osmWebWizard.py: Fixed bug where the wizard wouldn't open properly on Linux #16086
   - net2geojson.py: Fixed bug that was causing invalid shapes with option **--boundary** #16295
   - tlsCycleAdaptation.py: Fixed invalid error #14015
   - scaleTimeLine.py: Fixed invalid sorting of output #16744
   - sumolib.net.connection: No longer ignores connection permissions #16633
-  - sumolib.xml.toXML: custom indent is now passed on #16734  
+  - sumolib.xml.toXML: custom indent is now passed on #16734
 
 ### Enhancements
 
 - sumo
   - A warning is now issued for traffic light programs where a link never gets a green phase even when the program has only a single phase. #16652
   - Added waitingTime to personinfo walk output #16737
- 
+
 - meso
   - `<tlLogic>` with `<param key="meso.tls.control" value="true"/>` is now excempt from options **--meso-tls-penalty** and **--meso-tls-flow-penalty** and runs with full control #16674
 
@@ -76,13 +76,16 @@ title: ChangeLog
   - [plotStops.py](Tools/Railways.md#plotstopspy): New tool to simplify drawing a train schedule diagram along a specified route. #16683
   - generateContinuousRerouters.py: Added option **--stop-file** to add stops at loaded busStops when rerouting #16719
 
- 
+
 ### Miscellaneous
 
 - sumo-gui: swapped color semantics of stopping place occupancy indicator (red means used and green now means empty) #16668
 - Shift-click no longer switches traffic lights or starts tracking vehicles in gaming mode #16703, #16704
 - Added railway game #13446
 - setting the python root dir now compiles libsumo against the selected python #16755
+- It is recommended to use a compiler which supports C++17 (e.g. MSVC 2017 or later, g++ 7 or later)
+  - MSVC 2015 is no longer supported (mainly due to updates in SUMOLibraries)
+
 
 ## Version 1.23.1 (08.05.2025)
 

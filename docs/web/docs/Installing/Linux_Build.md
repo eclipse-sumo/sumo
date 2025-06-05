@@ -34,7 +34,9 @@ alternatives below.
 ## Installing required tools and libraries
 
 - For the build infrastructure you will need cmake together with a moderately
-  recent g++ (4.8 will do) or clang++ (or any other C++11 enabled compiler).
+  recent g++ (7 will do) or clang++ (or any other C++17 enabled compiler).
+- It is possible to build SUMO with older compilers too (at least gcc 4.8) but
+  it is not recommended since some features will be disabled.
 - The library Xerces-C is always needed. To use
   [sumo-gui](../sumo-gui.md) you also need Fox Toolkit in version
   1.6.x. It is highly recommended to also install Proj to have support
