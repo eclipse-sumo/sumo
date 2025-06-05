@@ -40,7 +40,7 @@
 // class declarations
 // ===========================================================================
 class MSTransportable;
-
+class SUMOSAXAttributes;
 
 // ===========================================================================
 // class definitions
@@ -143,6 +143,18 @@ public:
 
     /// @brief record actual travel time for an edge
     static void addEdgeTravelTime(const MSEdge& edge, const SUMOTime travelTime);
+
+    /** @brief Saves the state (i.e. recorded speeds)
+     *
+     * @param[in] out The OutputDevice to write the information into
+     */
+    static void saveState(OutputDevice& out);
+
+    /** @brief Loads the state
+     *
+     * @param[in] attrs XML attributes describing the current state
+     */
+    static void loadState(const SUMOSAXAttributes& attrs);
 
 #ifdef HAVE_FOX
     static void waitForAll();

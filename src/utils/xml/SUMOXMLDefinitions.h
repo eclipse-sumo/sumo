@@ -205,6 +205,8 @@ enum SumoXMLTag {
     SUMO_TAG_FUNCTION,
     /// @brief the internal state for edge control
     SUMO_TAG_EDGECONTROL,
+    /// @brief the internal state for MSRoutingEngine
+    SUMO_TAG_ROUTINGENGINE,
     /// @brief a relation between two edges
     SUMO_TAG_EDGEREL,
     /// @brief a relation between two TAZs
@@ -1929,6 +1931,13 @@ enum SumoXMLAttr {
     SUMO_ATTR_RNG_DEVICE_BT,
     SUMO_ATTR_RNG_DEVICE_TOC,
     SUMO_ATTR_RNG_DRIVERSTATE,
+    // @}
+
+    //@name further state saving attributes
+    // @{
+    SUMO_ATTR_BIKESPEED,
+    SUMO_ATTR_PASTSPEED,
+    SUMO_ATTR_PASTBIKESPEED,
     // @}
 
     //@name meso edge type attributes
