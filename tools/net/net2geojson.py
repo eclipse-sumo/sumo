@@ -46,7 +46,8 @@ def parse_args():
                     help="The geojson output file name")
     # processing
     op.add_argument("-l", "--lanes", action="store_true", default=False,
-                    help="Export lane geometries instead of edge geometries")
+                    help="Export lane geometries")
+    op.add_argument("-e", "--edges", action="store_true", default=False, help="Export edge geometries")
     op.add_argument("--junctions", action="store_true", default=False,
                     help="Export junction geometries")
     op.add_argument("-i", "--internal", action="store_true", default=False,
@@ -63,7 +64,11 @@ def parse_args():
                     help="Exports extra attributes from edge and lane "
                          "(such as max speed, number of lanes and allowed vehicles)")
 
-    return op.parse_args()
+    options = op.parse_args()
+    if not options.edges and not options.lanes:
+        options.edges = True
+
+    return options
 
 
 def shape2json(net, geometry, isBoundary):
@@ -75,6 +80,46 @@ def shape2json(net, geometry, isBoundary):
         "type": "Polygon" if isBoundary else "LineString",
         "coordinates": coords
     }
+
+
+def addFeature(options, features, addLanes):
+    geomType = 'lane' if addLanes else 'edge'
+    for id, geometry, width in net.getGeometries(addLanes, options.junctionCoords):
+        feature = {"type": "Feature"}
+        feature["properties"] = {
+            "element": geomType,
+            "id": id,
+        }
+        edgeID = net.getLane(id).getEdge().getID() if addLanes else id
+        if edgeID in edgeData:
+            if options.edgedataTimeline:
+                feature["properties"]["edgeData"] = edgeData[edgeID]
+            else:
+                feature["properties"].update(edgeData[edgeID][0])
+
+        if edgeID in ptLines:
+            for ptType, lines in ptLines[edgeID].items():
+                feature["properties"][ptType] = " ".join(sorted(lines))
+
+        if not addLanes or not options.edges:
+            feature["properties"]["name"] = net.getEdge(edgeID).getName()
+        if options.extraAttributes:
+            feature["properties"]["maxSpeed"] = net.getEdge(edgeID).getSpeed()
+            if geomType == 'lane':
+                feature["properties"]["allow"] = ','.join(sorted(net.getLane(id).getPermissions()))
+                feature["properties"]["index"] = net.getLane(id).getIndex()
+            else:
+                feature["properties"]["numLanes"] = net.getEdge(edgeID).getLaneNumber()
+                permissions_union = set()
+                for lane in net.getEdge(edgeID).getLanes():
+                    permissions_union.update(lane.getPermissions())
+                feature["properties"]["allow"] = ",".join(sorted(permissions_union))
+
+        if options.boundary:
+            geometry = gh.line2boundary(geometry, width)
+        feature["geometry"] = shape2json(net, geometry, options.boundary)
+        features.append(feature)
+
 
 
 if __name__ == "__main__":
@@ -105,41 +150,10 @@ if __name__ == "__main__":
 
     features = []
 
-    geomType = 'lane' if options.lanes else 'edge'
-    for id, geometry, width in net.getGeometries(options.lanes, options.junctionCoords):
-        feature = {"type": "Feature"}
-        feature["properties"] = {
-            "element": geomType,
-            "id": id,
-        }
-        edgeID = net.getLane(id).getEdge().getID() if options.lanes else id
-        if edgeID in edgeData:
-            if options.edgedataTimeline:
-                feature["properties"]["edgeData"] = edgeData[edgeID]
-            else:
-                feature["properties"].update(edgeData[edgeID][0])
-
-        if edgeID in ptLines:
-            for ptType, lines in ptLines[edgeID].items():
-                feature["properties"][ptType] = " ".join(sorted(lines))
-
-        feature["properties"]["name"] = net.getEdge(edgeID).getName()
-        if options.extraAttributes:
-            feature["properties"]["maxSpeed"] = net.getEdge(edgeID).getSpeed()
-            if geomType == 'lane':
-                feature["properties"]["allow"] = ','.join(sorted(net.getLane(id).getPermissions()))
-                feature["properties"]["index"] = net.getLane(id).getIndex()
-            else:
-                feature["properties"]["numLanes"] = net.getEdge(edgeID).getLaneNumber()
-                permissions_union = set()
-                for lane in net.getEdge(edgeID).getLanes():
-                    permissions_union.update(lane.getPermissions())
-                feature["properties"]["allow"] = ",".join(sorted(permissions_union))
-
-        if options.boundary:
-            geometry = gh.line2boundary(geometry, width)
-        feature["geometry"] = shape2json(net, geometry, options.boundary)
-        features.append(feature)
+    if options.edges:
+        addFeature(options, features, False)
+    if options.lanes:
+        addFeature(options, features, True)
 
     if options.junctions:
         for junction in net.getNodes():
