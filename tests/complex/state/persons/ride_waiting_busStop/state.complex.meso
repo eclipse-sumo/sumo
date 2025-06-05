@@ -6,14 +6,21 @@
     <input>
         <net-file value="input_net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
+        <fcd-output value="fcd.xml"/>
         <vehroute-output value="vehroutes.xml"/>
-        <save-state.times value="10"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <save-state.times value="3"/>
         <save-state.files value="state.xml"/>
         <save-state.transportables value="true"/>
     </output>
+
+    <time>
+        <end value="10"/>
+    </time>
 
     <report>
         <duration-log.disable value="true"/>
@@ -27,7 +34,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_23_1+0428-8ca0c18379a" time="10.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_23_1+0428-8ca0c18379a" time="3.00" type="meso">
     <route id="!v0!var#1" state="0" edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
@@ -37,27 +44,28 @@
         <device id="vehroute_v0" state="0.00 0.00 1 !NULL 0 !v0 device.rerouting -1 0"/>
         <device id="routing_v0" state="0"/>
     </vehicle>
-    <transportables type="person" state="1 1 0 0 0 0 0 1 0 0">
-        <person id="persontrip_car" type="DEFAULT_PEDTYPE" depart="2.00" departPos="10.00" speedFactor="0.9383" state="8 1 2000 -1 -1 0">
+    <transportables type="person" state="1 1 0 0 0 0 0 1 0 1">
+        <person id="persontrip_car" type="DEFAULT_PEDTYPE" depart="2.00" departPos="10.00" speedFactor="0.9383" state="8 2 2000 -1 -1 0">
+            <stop busStop="bs0" duration="0.00"/>
             <ride from="3/1to2/1" to="1/1to0/1" lines="v0"/>
         </person>
     </transportables>
     <segment id="3/1to2/1:0">
         <vehicles time="-1" blockTime="-9223372036854775808" value="v0"/>
     </segment>
-    <tlLogic id="0/0" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="0/1" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="0/2" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="1/0" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="1/1" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="1/2" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="2/0" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="2/1" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="2/2" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="3/0" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="3/1" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="3/2" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="4/0" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="4/1" programID="0" phase="0" duration="10000"/>
-    <tlLogic id="4/2" programID="0" phase="0" duration="10000"/>
+    <tlLogic id="0/0" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="0/1" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="0/2" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="1/0" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="1/1" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="1/2" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="2/0" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="2/1" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="2/2" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="3/0" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="3/1" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="3/2" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="4/0" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="4/1" programID="0" phase="0" duration="3000"/>
+    <tlLogic id="4/2" programID="0" phase="0" duration="3000"/>
 </snapshot>

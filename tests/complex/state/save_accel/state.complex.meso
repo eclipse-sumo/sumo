@@ -9,7 +9,8 @@
     </input>
 
     <output>
-        <tripinfo-output value="tripinfo.xml"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.acceleration value="true"/>
         <save-state.times value="10"/>
         <save-state.files value="state.xml"/>
     </output>
@@ -38,12 +39,9 @@
     <delay number="2" begin="4" end="0" depart="7.00" time="0.00"/>
     <vType id="t0" sigma="0"/>
     <vehicle id="flowFromTo.0" type="t0" depart="0.00" route="!flowFromTo.0!var#1" distance="0 1" speedFactor="1.0000" reroute="1" state="262242 7000 0 0 0 0 15630 7000 9223372036854774807">
-        <device id="tripinfo_flowFromTo.0" state="beg_0 0.811124 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_flowFromTo.0" state="0"/>
     </vehicle>
-    <vehicle id="flowNumber.0" type="t0" depart="0.00" route="r0" distance="7 0" speedFactor="1.0000" state="2146 0 1 0 0 0 14199 7000 9223372036854774807">
-        <device id="tripinfo_flowNumber.0" state="beg_0 1 7 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
-    </vehicle>
+    <vehicle id="flowNumber.0" type="t0" depart="0.00" route="r0" distance="7 0" speedFactor="1.0000" state="2146 0 1 0 0 0 14199 7000 9223372036854774807"/>
     <vehicle id="flowNumber.1" type="t0" depart="8.00" route="r0" distance="0 0" speedFactor="1.0000" state="2146 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807"/>
     <vehicle id="flowPeriod.0" type="t0" depart="5.00" route="r0" distance="0 0" speedFactor="1.0000" state="2146 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807"/>
     <flowState id="flowNumber" type="t0" begin="0.00" period="8.00" next="16.00" end="40.00" route="r0" done="2" index="2"/>
