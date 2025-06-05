@@ -3,7 +3,8 @@
     <edgedata-file value="None" type="edgedata_file" help="Optional edgeData to include in the output" category="input"/>
     <ptline-file value="None" type="file" help="Optional ptline information to include in the output" category="input"/>
     <output-file value="None" type="file" help="The geojson output file name" category="output" required="true"/>
-    <lanes value="False" type="bool" help="Export lane geometries instead of edge geometries" category="processing"/>
+    <lanes value="False" type="bool" help="Export lane geometries" category="processing"/>
+    <edges value="False" type="bool" help="Export edge geometries" category="processing"/>
     <junctions value="False" type="bool" help="Export junction geometries" category="processing"/>
     <internal value="False" type="bool" help="Export internal geometries" category="processing"/>
     <junction-coordinates value="False" type="bool" help="Append junction coordinates to edge shapes" category="processing"/>

@@ -4,6 +4,9 @@ edges
 # write kml lane geometries
 lanes
 
+# write edges and lanes
+edges_lanes
+
 # write kml edge geometries including junction coordinates
 junctionCoordinates
 
