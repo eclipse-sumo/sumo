@@ -1,0 +1,5 @@
+# Internal tests used netedit as binary
+binary:netedit
+
+# copy test file
+copy_test_path:test.py
