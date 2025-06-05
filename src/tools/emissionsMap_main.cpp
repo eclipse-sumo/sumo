@@ -28,12 +28,14 @@
 #include <string>
 #include <ctime>
 #include <memory>
+#if __cplusplus >= 201703L
 #if __has_include(<filesystem>)
 #include <filesystem>
 namespace fs = std::filesystem;
 #elif __has_include(<experimental/filesystem>)
 #include <experimental/filesystem>
 namespace fs = std::experimental::filesystem;
+#endif
 #endif
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>

@@ -38,7 +38,8 @@ public:
     /// @name category step
     enum class Category {
         META,   // Meta step (used for packing set of steps like click or write)
-        APP,    // sen signal to APP (Either GUIAppWindows or GNEApplicationWindow)
+        INIT,   // Setup and start step
+        APP,    // send signal to APP (Either GUIAppWindows or GNEApplicationWindow)
         VIEW,   // send signal to view (either GUIView or GNEViewNet)
     };
 
@@ -127,23 +128,38 @@ private:
     /// @brief translate key
     std::pair<FXint, FXString> translateKey(const std::string& key) const;
 
+    /// @brief process setupAndStart function
+    void processSetupAndStartFunction();
+
     /// @brief process left click function
     void processLeftClickFunction() const;
 
     /// @brief process modifyAttribute function
-    void processModifyAttribute() const;
+    void processModifyAttributeFunction() const;
 
-    /// @brief process selectAdditional function
-    void processSelectAdditionalArgument() const;
+    /// @brief process modifyAttributeOverlapped function
+    void processModifyAttributeOverlappedFunction() const;
 
     /// @brief process save function
-    void processSaveFunction();
+    void processSaveExistentShortcutFunction();
+
+    /// @brief process check undo-redo function
+    void processCheckUndoRedoFunction() const ;
+
+    /// @brief process check undo function
+    void processUndoFunction() const ;
+
+    /// @brief process check redo function
+    void processRedoFunction() const ;
 
     /// @brief process supermode function
     void processSupermodeFunction();
 
     /// @brief process change mode function
     void processChangeModeFunction();
+
+    /// @brief process change element function
+    void processChangeElementArgument() const;
 
     /// @brief process compute function
     void processComputeFunction();
