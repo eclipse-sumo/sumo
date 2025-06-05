@@ -67,7 +67,7 @@ gehScale
 #optimize_full
 
 # use linear programming to optimize route usage (limit 1)
-optimize_1
+#optimize_1
 
 # use linear programming to optimize route usage (limit 2)
 #optimize_2
@@ -86,10 +86,10 @@ optimize_1
 
 # use linear programming to optimize route usage
 # Many routes do not pass any counting locations and should not appear in the result
-optimize_few_detectors
+#optimize_few_detectors
 
 # use linear programming to optimize route usage , prefer fewer vehicles
-optimize_minimize-vehs
+#optimize_minimize-vehs
 
 # define multi-edge sequence restrictions
 via
