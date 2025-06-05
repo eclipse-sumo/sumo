@@ -315,7 +315,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 if (myQueIndex >= mySegment->numQueues()) {
                     throw ProcessError(TLF("Invalid queue index '%' on segment '%'. Check for consistency of lane numbers and queue options.", myQueIndex, mySegment->getID()));
                 }
-                mySegment->loadState(vehs, StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex);
+                const SUMOTime blockTime = StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME));
+                const SUMOTime entryBlockTime = StringUtils::toLong(attrs.getString(SUMO_ATTR_BLOCKTIME));
+                mySegment->loadState(vehs, blockTime - myOffset, entryBlockTime - myOffset, myQueIndex);
                 myQueIndex++;
             } else {
                 myCurrentLane->loadState(vehs);
