@@ -1,15 +1,3 @@
-if (${CMAKE_VERSION} VERSION_GREATER 3.13.0)
-    # UseSWIG generates standard target names
-    cmake_policy(SET CMP0078 NEW)
-endif()
-if (${CMAKE_VERSION} VERSION_GREATER 3.14.0)
-    # pass module name to swig compiler
-    cmake_policy(SET CMP0086 NEW)
-endif()
-if (${CMAKE_VERSION} VERSION_GREATER 3.21.0)
-    # use library name conventions for C#
-    cmake_policy(SET CMP0122 NEW)
-endif ()
 set(libsumostatic_STAT_SRCS
     Edge.cpp
     Edge.h

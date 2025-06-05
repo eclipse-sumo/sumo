@@ -1,9 +1,4 @@
-# set VERSION to empty string
-cmake_policy(SET CMP0048 NEW)
-# do not expand quoted variables in if statements
-cmake_policy(SET CMP0054 NEW)
 # find python by path
-set(Python_FIND_STRATEGY LOCATION)
 set(Python_FIND_REGISTRY LAST)
 # Options
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use only EPL clean libraries, if set to false)" ON)
@@ -38,7 +33,8 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo")
 endif ()
 
-cmake_minimum_required(VERSION 3.5)
+# the part after ... sets all cmake policies to "new" which have been introduced up to that cmake version
+cmake_minimum_required(VERSION 3.5...3.21 FATAL_ERROR)
 project("${PROJECT_NAME}" CXX C)
 set(PACKAGE_VERSION "git")
 
@@ -93,10 +89,13 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set (CLANG_COMPILER True)
 endif ()
 
-# C++17 is needed by std::filesystem and parquet
+# C++17 is needed by std::filesystem and parquet.
 # C++14 is needed by Google Test >= 1.13, for all the other parts C++11 should be enough.
-# This will silently fall back to C++11 if 14 is not supported by the compiler.
+# This will silently fall back to C++14 or even C++11, whatever is supported by the compiler.
 set(CMAKE_CXX_STANDARD 17)
+if (NOT "cxx_std_17" IN_LIST CMAKE_CXX_COMPILE_FEATURES)
+    message(WARNING "Your compiler does not support C++17. Please consider upgrading your compiler toolchain.")
+endif()
 
 # compiler specific flags
 if (GNU_COMPILER OR CLANG_COMPILER)
