@@ -28,7 +28,7 @@ fi
 popd
 export NETEDIT_BINARY="$SUMO_HOME/bin/netedit"
 
-for f in $TEXTTEST_HOME/netedit/testsuite.netedit.daily.*; do
+for f in $TEXTTEST_HOME/netedit/testsuite.netedit.external.daily.*; do
   base=`basename $f`
   texttest -a ${base:10} "$@" &
 done
