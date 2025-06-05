@@ -1,1 +1,2 @@
 Warning: Missing yellow phase in tlLogic 'J0', program '0' for tl-index 4 when switching to phase 0.
+Warning: Unsafe green phase 3 in tlLogic 'J0', program '0'. Lane 'E0_2' is targeted by 2 'G'-links. (use 'g' instead)

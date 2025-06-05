@@ -1,3 +1,5 @@
+Warning: Phase 0 only loops backs to itself in tlLogic 'J0', program '0'.
+Warning: Phase 1 only loops backs to itself in tlLogic 'J0', program '0'.
 Warning: Teleporting vehicle 'trip_1'; waited too long (yield), lane='E3_2', time=311.00.
 Warning: Vehicle 'trip_1' ends teleporting on edge '-E3', time=311.00.
 Warning: Teleporting vehicle 'trip_4'; waited too long (yield), lane='E1_2', time=313.00.
