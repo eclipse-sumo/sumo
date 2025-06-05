@@ -6,45 +6,36 @@ skip_commits:
 
 environment:
     matrix:
-        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-          ver: 2015
-          generator: "Visual Studio 14 2015 Win64"
-          configuration: Release
-          PYTHON: C:\Python38-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
           ver: 2017
           generator: "Visual Studio 15 2017 Win64"
           configuration: Release
-          PYTHON: C:\Python38-x64
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0 -A x64"
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
           ver: 2019
           generator: "Visual Studio 16 2019"
           configuration: Release
-          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0 -DCHECK_OPTIONAL_LIBS=0 -DNETEDIT=0 -A x64"
-          PYTHON: C:\Python38-x64
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0 -A x64"
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
           ver: 2022
           generator: "Visual Studio 17 2022"
           configuration: Release
-          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0 -DCHECK_OPTIONAL_LIBS=0 -DNETEDIT=0 -A x64"
-          PYTHON: C:\Python38-x64
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0 -A x64"
         # - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
         #   ver: 2022
         #   generator: "Ninja"
         #   configuration: Release
         #   cmake_opts: "-DENABLE_JAVA_BINDINGS=0"
-        #   PYTHON: C:\Python38-x64
 
 install:
     - git clone --depth 1 https://github.com/DLR-TS/SUMOLibraries
     - set SUMO_LIBRARIES=%CD%\SUMOLibraries
-    - "%PYTHON%\\python.exe -m pip install wheel"
+    - python -m pip install wheel build
 
 build_script:
     - cd %APPVEYOR_BUILD_FOLDER%
-    - cmake -B build_msvc%ver% -G"%generator%" -DPYTHON_EXECUTABLE=%PYTHON%\python.exe %cmake_opts% &&
-      cmake --build build_msvc%ver% --config %configuration% -j 4 &&
-      %PYTHON%\python.exe tools\build_config\setup-libsumo.py bdist_wheel
+    - cmake -B build_msvc%ver% -G"%generator%" %cmake_opts% &&
+      cmake --build build_msvc%ver% --config %configuration% -j 4
 
 
 matrix:
