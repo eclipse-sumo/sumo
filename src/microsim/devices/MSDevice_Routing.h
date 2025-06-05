@@ -212,7 +212,7 @@ private:
     SUMOTime wrappedRerouteCommandExecute(SUMOTime currentTime);
 
     /// @brief rebuild reroute command according to period
-    void rebuildRerouteCommand();
+    void rebuildRerouteCommand(SUMOTime start);
 
 private:
     /// @brief The period with which a vehicle shall be rerouted

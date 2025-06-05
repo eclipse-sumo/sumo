@@ -195,7 +195,7 @@ MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifi
                              false, MSRoutingEngine::withTaz(), false);
         }
         // build repetition trigger if routing shall be done more often
-        rebuildRerouteCommand();
+        rebuildRerouteCommand(SIMSTEP + myPeriod);
     }
     if (MSGlobals::gWeightsSeparateTurns > 0) {
         if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
@@ -223,18 +223,17 @@ MSDevice_Routing::notifyStopEnded() {
 
 
 void
-MSDevice_Routing::rebuildRerouteCommand() {
+MSDevice_Routing::rebuildRerouteCommand(SUMOTime start) {
     if (myRerouteCommand != nullptr) {
         myRerouteCommand->deschedule();
         myRerouteCommand = nullptr;
     }
     if (myPeriod > 0) {
         myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::wrappedRerouteCommandExecute);
-        SUMOTime start = MSNet::getInstance()->getCurrentTimeStep();
         if (OptionsCont::getOptions().getBool("device.rerouting.synchronize")) {
             start -= start % myPeriod;
         }
-        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myRerouteCommand, myPeriod + start);
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myRerouteCommand, start);
     }
 }
 
@@ -333,7 +332,7 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
     } else if (key == "period") {
         myPeriod = TIME2STEPS(doubleValue);
         // re-schedule routing command
-        rebuildRerouteCommand();
+        rebuildRerouteCommand(SIMSTEP + myPeriod);
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
@@ -355,8 +354,12 @@ void
 MSDevice_Routing::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myPeriod;
-    if (myHolder.hasDeparted()) {
-        rebuildRerouteCommand();
+    if (myHolder.hasDeparted() && myPeriod > 0) {
+        SUMOTime offset = ((SIMSTEP - myHolder.getDeparture()) % myPeriod);
+        if (offset != 0) {
+            offset = myPeriod - offset;
+        }
+        rebuildRerouteCommand(SIMSTEP + offset);
     }
 }
 
