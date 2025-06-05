@@ -91,14 +91,14 @@ def parsePositionFile(inputFolder, outputFolder, file, prefix):
 
 # main
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        sys.exit("Arguments: <pathToSumoSrcFolder>")
-    inputFolder = sys.argv[1] + "/../../../../tests/netedit"
-    outputFolder = sys.argv[1] + "/../../../../data/tests"
+    if len(sys.argv) != 3:
+        sys.exit("Arguments: <pathToSumoToolsFolder> <pathToCurrentCompilationDir>")
+    inputFolder = sys.argv[1] + "/../tests/netedit"
+    outputFolder = sys.argv[1] + "/../data/tests"
     # calculate files for src folder (we need it to avoid visual studio warnings)
-    parseIntFile(inputFolder, sys.argv[1], "attributesEnum", "attrs")
-    parseIntFile(inputFolder, sys.argv[1], "contextualMenuOperations", "contextualMenu")
-    parsePositionFile(inputFolder, sys.argv[1], "viewPositions", "positions")
+    parseIntFile(inputFolder, sys.argv[2], "attributesEnum", "attrs")
+    parseIntFile(inputFolder, sys.argv[2], "contextualMenuOperations", "contextualMenu")
+    parsePositionFile(inputFolder, sys.argv[2], "viewPositions", "positions")
     # check if create folder
     if not os.path.exists(outputFolder):
         os.mkdir(outputFolder)

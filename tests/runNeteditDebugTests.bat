@@ -12,4 +12,4 @@ REM https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 REM SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 call %~dp0\testEnv.bat D
-start %TEXTTESTPY% -a netedit.gui -gui -v debug
+start %TEXTTESTPY% -a netedit -gui -v debug

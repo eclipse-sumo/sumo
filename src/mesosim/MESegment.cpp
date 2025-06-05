@@ -780,7 +780,9 @@ MESegment::saveState(OutputDevice& out) const {
     if (write) {
         out.openTag(SUMO_TAG_SEGMENT).writeAttr(SUMO_ATTR_ID, getID());
         for (const Queue& q : myQueues) {
-            out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES).writeAttr(SUMO_ATTR_TIME, toString<SUMOTime>(q.getBlockTime()));
+            out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
+            out.writeAttr(SUMO_ATTR_TIME, toString<SUMOTime>(q.getBlockTime()));
+            out.writeAttr(SUMO_ATTR_BLOCKTIME, toString<SUMOTime>(q.getEntryBlockTime()));
             out.writeAttr(SUMO_ATTR_VALUE, q.getVehicles());
             out.closeTag();
         }
@@ -797,7 +799,7 @@ MESegment::clearState() {
 }
 
 void
-MESegment::loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime blockTime, const int queIdx) {
+MESegment::loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime blockTime, const SUMOTime entryBlockTime, const int queIdx) {
     Queue& q = myQueues[queIdx];
     for (SUMOVehicle* veh : vehs) {
         MEVehicle* v = static_cast<MEVehicle*>(veh);
@@ -813,6 +815,7 @@ MESegment::loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime block
         MSGlobals::gMesoNet->addLeaderCar(veh, getLink(veh));
     }
     q.setBlockTime(blockTime);
+    q.setEntryBlockTime(entryBlockTime);
     q.setOccupancy(MIN2(q.getOccupancy(), myQueueCapacity));
 }
 

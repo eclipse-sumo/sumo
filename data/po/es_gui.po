@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-01 11:33+0000\n"
-"PO-Revision-Date: 2025-05-21 06:41+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2025-06-05 09:14+0000\n"
+"Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -4415,7 +4415,7 @@ msgstr "Abrir selección de elementos"
 
 #: src/netedit/GNELoadThread.cpp:305
 msgid "Test file"
-msgstr ""
+msgstr "Archivo de prueba"
 
 #: src/netedit/GNELoadThread.cpp:310
 msgid "File in which TLS Programs must be saved"
@@ -11407,7 +11407,7 @@ msgstr "' requiere al menos una arista"
 #: src/netedit/elements/additional/GNEStoppingPlace.cpp:792
 #, c-format
 msgid " %'s length"
-msgstr ""
+msgstr " longitud de %"
 
 #: src/netedit/elements/additional/GNETAZ.cpp:286
 #: src/netedit/elements/network/GNELane.cpp:575
@@ -12322,12 +12322,12 @@ msgstr "Mover elemento un carril hacia abajo"
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:452
 #, c-format
 msgid "Select existent o create new file for % attribute"
-msgstr ""
+msgstr "Seleccionar archivo existente o crear uno nuevo para el atributo %"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:453
 #, c-format
 msgid "Select existent file for % attribute"
-msgstr ""
+msgstr "Seleccionar archivo existente para el atributo %"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:648
 msgid "Reparent"
@@ -12340,7 +12340,7 @@ msgstr ""
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:669
 #, c-format
 msgid "Inspect % parent"
-msgstr ""
+msgstr "Inspeccionar % elemento padre"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:689
 msgid "Open dialog for editing vClasses"
@@ -12622,7 +12622,7 @@ msgstr "Corresponder atributo"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:69
 msgid "Only common"
-msgstr ""
+msgstr "Solo en común"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:77
 msgid "Apply selection"
@@ -15534,15 +15534,15 @@ msgstr "No se pudo decodificar el punto de interrupción '%'."
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:198
 msgid "by param (numerical, streetwise)"
-msgstr ""
+msgstr "por parámetro (numérico, por calle)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:199
 msgid "by param (numerical, lanewise)"
-msgstr ""
+msgstr "por parámetro (numérico, por carril)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:200
 msgid "by param (numerical)"
-msgstr ""
+msgstr "por parámetro (numérico)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:201
 msgid "by edgeData (numerical, streetwise)"
@@ -15550,15 +15550,15 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:202
 msgid "by attribute (numerical)"
-msgstr ""
+msgstr "por atributo (numérico)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:203
 msgid "by selection"
-msgstr "por seleccion"
+msgstr "por selección"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:204
 msgid "by type"
-msgstr ""
+msgstr "por tipo"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:205
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1845
