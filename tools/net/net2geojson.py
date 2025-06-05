@@ -45,12 +45,10 @@ def parse_args():
     op.add_argument("-o", "--output-file", dest="outFile", category="output", required=True, type=op.file,
                     help="The geojson output file name")
     # processing
-    op.add_argument("-l", "--lanes", action="store_true", default=False,
-                    help="Export lane geometries instead of edge geometries")
-    op.add_argument("--junctions", action="store_true", default=False,
-                    help="Export junction geometries")
-    op.add_argument("-i", "--internal", action="store_true", default=False,
-                    help="Export internal geometries")
+    op.add_argument("-l", "--lanes", action="store_true", default=False, help="Export lane geometries")
+    op.add_argument("-e", "--edges", action="store_true", default=False, help="Export edge geometries")
+    op.add_argument("--junctions", action="store_true", default=False, help="Export junction geometries")
+    op.add_argument("-i", "--internal", action="store_true", default=False, help="Export internal geometries")
     op.add_argument("-j", "--junction-coordinates", dest="junctionCoords", action="store_true", default=False,
                     help="Append junction coordinates to edge shapes")
     op.add_argument("-b", "--boundary", dest="boundary", action="store_true", default=False,
@@ -105,41 +103,85 @@ if __name__ == "__main__":
 
     features = []
 
-    geomType = 'lane' if options.lanes else 'edge'
-    for id, geometry, width in net.getGeometries(options.lanes, options.junctionCoords):
-        feature = {"type": "Feature"}
-        feature["properties"] = {
-            "element": geomType,
-            "id": id,
-        }
-        edgeID = net.getLane(id).getEdge().getID() if options.lanes else id
-        if edgeID in edgeData:
-            if options.edgedataTimeline:
-                feature["properties"]["edgeData"] = edgeData[edgeID]
-            else:
-                feature["properties"].update(edgeData[edgeID][0])
+    if options.edges:
+        for edgeId, geometry, width in net.getGeometries(False, options.junctionCoords):
+            if options.boundary:
+                geometry = gh.line2boundary(geometry, width)
+            edge = net.getEdge(edgeId)
+            feature = {
+                "type": "Feature",
+                "geometry": shape2json(net, geometry, options.boundary),
+                "properties": {
+                    "element": "edge",
+                    "id": edgeId,
+                    "name": edge.getName()
+                }
+            }
 
-        if edgeID in ptLines:
-            for ptType, lines in ptLines[edgeID].items():
-                feature["properties"][ptType] = " ".join(sorted(lines))
+            # Add extra edgeData
+            if edgeId in edgeData:
+                if options.edgedataTimeline:
+                    feature["properties"]["edgeData"] = edgeData[edgeId]
+                else:
+                    feature["properties"].update(edgeData[edgeId][0])
 
-        feature["properties"]["name"] = net.getEdge(edgeID).getName()
-        if options.extraAttributes:
-            feature["properties"]["maxSpeed"] = net.getEdge(edgeID).getSpeed()
-            if geomType == 'lane':
-                feature["properties"]["allow"] = ','.join(sorted(net.getLane(id).getPermissions()))
-                feature["properties"]["index"] = net.getLane(id).getIndex()
-            else:
-                feature["properties"]["numLanes"] = net.getEdge(edgeID).getLaneNumber()
+            # Add ptLines
+            if edgeId in ptLines:
+                for ptType, lines in ptLines[edgeId].items():
+                    feature["properties"][ptType] = " ".join(sorted(lines))
+
+            # Extra attributes
+            if options.extraAttributes:
+                feature["properties"]["maxSpeed"] = edge.getSpeed()
+                feature["properties"]["numLanes"] = edge.getLaneNumber()
                 permissions_union = set()
-                for lane in net.getEdge(edgeID).getLanes():
+                for lane in edge.getLanes():
                     permissions_union.update(lane.getPermissions())
                 feature["properties"]["allow"] = ",".join(sorted(permissions_union))
 
-        if options.boundary:
-            geometry = gh.line2boundary(geometry, width)
-        feature["geometry"] = shape2json(net, geometry, options.boundary)
-        features.append(feature)
+            features.append(feature)
+
+    # Lane features
+    if options.lanes:
+        for laneId, geometry, width in net.getGeometries(True, options.junctionCoords):
+            if options.boundary:
+                geometry = gh.line2boundary(geometry, width)
+            lane = net.getLane(laneId)
+            edge = lane.getEdge()
+            edgeId = edge.getID()
+
+            properties = {
+                "element": "lane",
+                "id": laneId,
+                "edgeId": edgeId
+            }
+            if not options.edges:
+                properties["name"] = edge.getName()
+            feature = {
+                "type": "Feature",
+                "geometry": shape2json(net, geometry, options.boundary),
+                "properties": properties
+            }
+
+            # Add edgeData
+            if edgeId in edgeData:
+                if options.edgedataTimeline:
+                    feature["properties"]["edgeData"] = edgeData[edgeId]
+                else:
+                    feature["properties"].update(edgeData[edgeId][0])
+
+            # Add ptLines
+            if edgeId in ptLines:
+                for ptType, lines in ptLines[edgeId].items():
+                    feature["properties"][ptType] = " ".join(sorted(lines))
+
+            # Extra attributes
+            if options.extraAttributes:
+                feature["properties"]["maxSpeed"] = edge.getSpeed()
+                feature["properties"]["index"] = lane.getIndex()
+                feature["properties"]["allow"] = ",".join(sorted(lane.getPermissions()))
+
+            features.append(feature)
 
     if options.junctions:
         for junction in net.getNodes():
