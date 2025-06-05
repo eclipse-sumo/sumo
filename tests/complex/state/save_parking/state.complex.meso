@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 14:28:52 by Eclipse SUMO sumo Version v1_20_0+1714-5abd9d647c6
+<!-- generated on 2025-06-05 10:46:53 by Eclipse SUMO sumo Version v1_23_1+0428-8ca0c18379a
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,7 +30,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1714-5abd9d647c6" time="20.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_23_1+0428-8ca0c18379a" time="20.00" type="meso">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="t0" sigma="0"/>
@@ -40,6 +40,6 @@
         <stop lane="middle_0" startPos="149.80" endPos="150.00" duration="20.00" parking="1"/>
     </vehicle>
     <segment id="beg:0">
-        <vehicles time="15630" value=""/>
+        <vehicles time="15630" blockTime="-9223372036854775808" value=""/>
     </segment>
 </snapshot>

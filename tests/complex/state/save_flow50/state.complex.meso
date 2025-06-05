@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 15:59:41 by Eclipse SUMO sumo Version v1_20_0+1726-b296604fe17
+<!-- generated on 2025-06-05 10:46:52 by Eclipse SUMO sumo Version v1_23_1+0428-8ca0c18379a
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -33,7 +33,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1726-b296604fe17" time="50.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_23_1+0428-8ca0c18379a" time="50.00" type="meso">
     <rngState default="0" routeHandler="0" insertionControl="30" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -134,15 +134,15 @@
     <flowState id="flowPeriod" type="t0" begin="5.00" period="5.00" next="45.00" end="55.00" route="r0" done="9" index="9"/>
     <flowState id="flowProb" type="t0" begin="20.00" probability="0.10" end="100.00" route="r0" done="5" index="5"/>
     <segment id="beg:0">
-        <vehicles time="50150" value="flowPeriod.1"/>
+        <vehicles time="50150" blockTime="-9223372036854775808" value="flowPeriod.1"/>
     </segment>
     <segment id="end:0">
-        <vehicles time="45857" value="flowNumber.1"/>
+        <vehicles time="45857" blockTime="48956" value="flowNumber.1"/>
     </segment>
     <segment id="middle:0">
-        <vehicles time="50388" value=""/>
+        <vehicles time="50388" blockTime="43188" value=""/>
     </segment>
     <segment id="middle:1">
-        <vehicles time="48957" value="flowFromTo.1"/>
+        <vehicles time="48957" blockTime="50387" value="flowFromTo.1"/>
     </segment>
 </snapshot>

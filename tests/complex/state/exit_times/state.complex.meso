@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-02 15:48:05 by Eclipse SUMO sumo Version v1_21_0+1635-bee1c8eab2a
+<!-- generated on 2025-06-05 10:46:53 by Eclipse SUMO sumo Version v1_23_1+0428-8ca0c18379a
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,7 +27,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_21_0+1635-bee1c8eab2a" time="100.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_23_1+0428-8ca0c18379a" time="100.00" type="meso">
     <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="3" begin="3" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" impatience="0.50" accel="0.8" decel="4.5" sigma="0"/>
@@ -42,34 +42,34 @@
         <device id="vehroute_2" state="10.00 0.00 0" exitTimes="89000" edge="4/1to3/1"/>
     </vehicle>
     <segment id="2/1to1/1:0">
-        <vehicles time="91630" value="1"/>
+        <vehicles time="91630" blockTime="96629" value="1"/>
     </segment>
     <segment id="2/1to1/1:1">
-        <vehicles time="-1" value="0"/>
+        <vehicles time="-1" blockTime="91629" value="0"/>
     </segment>
     <segment id="3/1to2/1:0">
-        <vehicles time="100630" value=""/>
+        <vehicles time="100630" blockTime="90629" value=""/>
     </segment>
     <segment id="3/1to2/1:1">
-        <vehicles time="66630" value="2"/>
+        <vehicles time="66630" blockTime="100629" value="2"/>
     </segment>
     <segment id="3/1to2/1:2">
-        <vehicles time="76630" value=""/>
+        <vehicles time="76630" blockTime="66629" value=""/>
     </segment>
     <segment id="3/1to2/1:3">
-        <vehicles time="96630" value=""/>
+        <vehicles time="96630" blockTime="76629" value=""/>
     </segment>
     <segment id="4/1to3/1:0">
-        <vehicles time="60630" value=""/>
+        <vehicles time="60630" blockTime="-9223372036854775808" value=""/>
     </segment>
     <segment id="4/1to3/1:1">
-        <vehicles time="70630" value=""/>
+        <vehicles time="70630" blockTime="60629" value=""/>
     </segment>
     <segment id="4/1to3/1:2">
-        <vehicles time="80630" value=""/>
+        <vehicles time="80630" blockTime="70629" value=""/>
     </segment>
     <segment id="4/1to3/1:3">
-        <vehicles time="90630" value=""/>
+        <vehicles time="90630" blockTime="80629" value=""/>
     </segment>
     <tlLogic id="0/0" programID="0" phase="1" duration="1000"/>
     <tlLogic id="0/1" programID="0" phase="0" duration="23000"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 14:28:52 by Eclipse SUMO sumo Version v1_20_0+1714-5abd9d647c6
+<!-- generated on 2025-06-05 10:46:52 by Eclipse SUMO sumo Version v1_23_1+0428-8ca0c18379a
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -38,7 +38,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1714-5abd9d647c6" time="50.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_23_1+0428-8ca0c18379a" time="50.00" type="meso">
     <route id="always_right" state="1" edges="3si 2o"/>
     <route id="horizontal" state="1" edges="1si 2o"/>
     <delay number="100" begin="100" end="0" depart="0.000" time="0.000"/>
@@ -146,38 +146,38 @@
     <flowState id="always_right" type="SUMO_DEFAULT_TYPE" begin="0.00" period="1.000" next="50.000" end="10000.000" route="always_right" done="50" index="50"/>
     <flowState id="horizontal" type="SUMO_DEFAULT_TYPE" begin="0.00" period="1.000" next="50.000" end="10000.000" route="horizontal" done="50" index="50"/>
     <segment id="1si:0">
-        <vehicles time="49495" value="horizontal.49 horizontal.48 horizontal.47 horizontal.46 horizontal.45 horizontal.44"/>
+        <vehicles time="49495" blockTime="-9223372036854775808" value="horizontal.49 horizontal.48 horizontal.47 horizontal.46 horizontal.45 horizontal.44"/>
     </segment>
     <segment id="1si:1">
-        <vehicles time="52867" value="horizontal.43 horizontal.42 horizontal.41 horizontal.40 horizontal.39 horizontal.38 horizontal.37 horizontal.36 horizontal.35 horizontal.34 horizontal.33 horizontal.32 horizontal.31 horizontal.30 horizontal.29 horizontal.28 horizontal.27 horizontal.26 horizontal.25 horizontal.24"/>
+        <vehicles time="52867" blockTime="49494" value="horizontal.43 horizontal.42 horizontal.41 horizontal.40 horizontal.39 horizontal.38 horizontal.37 horizontal.36 horizontal.35 horizontal.34 horizontal.33 horizontal.32 horizontal.31 horizontal.30 horizontal.29 horizontal.28 horizontal.27 horizontal.26 horizontal.25 horizontal.24"/>
     </segment>
     <segment id="1si:2">
-        <vehicles time="-1" value=""/>
-        <vehicles time="50090" value="horizontal.23 horizontal.22 horizontal.21 horizontal.20 horizontal.19 horizontal.18 horizontal.17 horizontal.16 horizontal.15 horizontal.14 horizontal.13 horizontal.12 horizontal.11 horizontal.10"/>
-        <vehicles time="-1" value=""/>
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
+        <vehicles time="50090" blockTime="47712" value="horizontal.23 horizontal.22 horizontal.21 horizontal.20 horizontal.19 horizontal.18 horizontal.17 horizontal.16 horizontal.15 horizontal.14 horizontal.13 horizontal.12 horizontal.11 horizontal.10"/>
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
     </segment>
     <segment id="2o:0">
-        <vehicles time="49121" value="horizontal.9 always_right.9 horizontal.8 always_right.8 horizontal.7 always_right.7"/>
+        <vehicles time="49121" blockTime="49580" value="horizontal.9 always_right.9 horizontal.8 always_right.8 horizontal.7 always_right.7"/>
     </segment>
     <segment id="2o:1">
-        <vehicles time="50222" value="horizontal.6 always_right.6 horizontal.5 always_right.5 horizontal.4"/>
+        <vehicles time="50222" blockTime="49120" value="horizontal.6 always_right.6 horizontal.5 always_right.5 horizontal.4"/>
     </segment>
     <segment id="2o:2">
-        <vehicles time="49743" value="always_right.4 horizontal.3 always_right.3 horizontal.2 always_right.2 horizontal.1"/>
+        <vehicles time="49743" blockTime="50221" value="always_right.4 horizontal.3 always_right.3 horizontal.2 always_right.2 horizontal.1"/>
     </segment>
     <segment id="2o:3">
-        <vehicles time="-1" value="always_right.1 horizontal.0 always_right.0"/>
+        <vehicles time="-1" blockTime="49742" value="always_right.1 horizontal.0 always_right.0"/>
     </segment>
     <segment id="3si:0">
-        <vehicles time="49495" value="always_right.49 always_right.48 always_right.47 always_right.46 always_right.45 always_right.44"/>
+        <vehicles time="49495" blockTime="-9223372036854775808" value="always_right.49 always_right.48 always_right.47 always_right.46 always_right.45 always_right.44"/>
     </segment>
     <segment id="3si:1">
-        <vehicles time="52867" value="always_right.43 always_right.42 always_right.41 always_right.40 always_right.39 always_right.38 always_right.37 always_right.36 always_right.35 always_right.34 always_right.33 always_right.32 always_right.31 always_right.30 always_right.29 always_right.28 always_right.27 always_right.26 always_right.25 always_right.24"/>
+        <vehicles time="52867" blockTime="49494" value="always_right.43 always_right.42 always_right.41 always_right.40 always_right.39 always_right.38 always_right.37 always_right.36 always_right.35 always_right.34 always_right.33 always_right.32 always_right.31 always_right.30 always_right.29 always_right.28 always_right.27 always_right.26 always_right.25 always_right.24"/>
     </segment>
     <segment id="3si:2">
-        <vehicles time="48511" value="always_right.23 always_right.22 always_right.21 always_right.20 always_right.19 always_right.18 always_right.17 always_right.16 always_right.15 always_right.14 always_right.13 always_right.12 always_right.11 always_right.10"/>
-        <vehicles time="-1" value=""/>
-        <vehicles time="-1" value=""/>
+        <vehicles time="48511" blockTime="47712" value="always_right.23 always_right.22 always_right.21 always_right.20 always_right.19 always_right.18 always_right.17 always_right.16 always_right.15 always_right.14 always_right.13 always_right.12 always_right.11 always_right.10"/>
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
     </segment>
     <tlLogic id="0" programID="0" phase="4" duration="5000"/>
     <tlLogic id="0" programID="freaky" phase="0" duration="50000"/>

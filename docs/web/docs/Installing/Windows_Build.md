@@ -7,11 +7,11 @@ freely available (this does **not** mean "open source") tools.
 Instructions on how to build SUMO on Windows using an Open Source
 toolchain are included in our [building on
 Linux](../Installing/Linux_Build.md) page. Please note that you
-may also [download pre-build Windows binaries](../Downloads.md).
+may also [download pre-built Windows binaries](../Downloads.md).
 
 ## Prerequisites
 
-- A [Visual Studio Community, Professional or Enterprise 2015 or later](https://www.visualstudio.com) installation
+- A [Visual Studio Community, Professional or Enterprise 2017 or later](https://www.visualstudio.com) installation
 - [CMake for Windows](https://cmake.org/download)
 - Python 3.X
 - SUMO sources (either an unpacked src zip or a git clone, see

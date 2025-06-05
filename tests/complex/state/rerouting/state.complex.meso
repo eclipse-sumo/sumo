@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 14:28:52 by Eclipse SUMO sumo Version v1_20_0+1714-5abd9d647c6
+<!-- generated on 2025-06-05 10:46:53 by Eclipse SUMO sumo Version v1_23_1+0428-8ca0c18379a
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,7 +26,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1714-5abd9d647c6" time="500.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_23_1+0428-8ca0c18379a" time="500.00" type="meso">
     <route id="!veh276!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh277!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh278!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
@@ -1675,21 +1675,21 @@
         <device id="routing_veh604" state="0"/>
     </vehicle>
     <segment id="gneE0:0">
-        <vehicles time="499493" value="veh289 veh288 veh287 veh286 veh285"/>
+        <vehicles time="499493" blockTime="-9223372036854775808" value="veh289 veh288 veh287 veh286 veh285"/>
     </segment>
     <segment id="gneE1:0">
-        <vehicles time="491753" value=""/>
+        <vehicles time="491753" blockTime="487809" value=""/>
     </segment>
     <segment id="gneE2:0">
-        <vehicles time="497011" value=""/>
+        <vehicles time="497011" blockTime="491752" value=""/>
     </segment>
     <segment id="gneE3:0">
-        <vehicles time="498895" value="veh280 veh279 veh277 veh278 veh276"/>
+        <vehicles time="498895" blockTime="500347" value="veh280 veh279 veh277 veh278 veh276"/>
     </segment>
     <segment id="gneE4:0">
-        <vehicles time="499700" value="veh284 veh283"/>
+        <vehicles time="499700" blockTime="499492" value="veh284 veh283"/>
     </segment>
     <segment id="gneE5:0">
-        <vehicles time="500348" value="veh282 veh281"/>
+        <vehicles time="500348" blockTime="499699" value="veh282 veh281"/>
     </segment>
 </snapshot>
