@@ -184,10 +184,15 @@ def main(args=None):
             maxColorValue = options.colorMax
         if options.colorMin is not None:
             minColorValue = options.colorMin
+        if options.colormapCenter is not None:
+            colors[None] = options.colormapCenter
         if options.logColors:
             helpers.logNormalise(colors, maxColorValue)
         else:
             helpers.linNormalise(colors, minColorValue, maxColorValue)
+        if options.colormapCenter is not None:
+            options.colormapCenter = colors[None]
+            del colors[None]
         for e in colors:
             colors[e] = helpers.getColor(options, colors[e], 1.)
         if options.verbose:
@@ -232,9 +237,15 @@ def main(args=None):
         helpers.plotNet(net, colors, widths, options)
 
         # drawing the legend, at least for the colors
-        norm = matplotlib.colors.LogNorm if options.logColors else matplotlib.colors.Normalize
-        sm = plt.cm.ScalarMappable(cmap=helpers.getColorMap(options),
-                                   norm=norm(vmin=minColorValue, vmax=maxColorValue))
+        if options.colormapCenter is not None:
+            norm = matplotlib.colors.TwoSlopeNorm(
+                    vmin=minColorValue, vcenter=options.colormapCenter,
+                    vmax=maxColorValue)
+        elif options.logColors:
+            norm = matplotlib.colors.LogNorm(vmin=minColorValue, vmax=maxColorValue)
+        else:
+            norm = matplotlib.colors.Normalize(vmin=minColorValue, vmax=maxColorValue)
+        sm = plt.cm.ScalarMappable(cmap=helpers.getColorMap(options), norm=norm)
 
         if sys.version_info.major < 3:
             # "fake up the array of the scalar mappable. Urgh..."

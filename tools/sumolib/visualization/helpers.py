@@ -55,6 +55,8 @@ def addPlotOptions(ap):
                     default=None, help="Defines the colors to use")
     ap.add_argument("--colormap", dest="colormap", category="visualization",
                     default="nipy_spectral", help="Defines the colormap to use")
+    ap.add_argument("--colormap.center", dest="colormapCenter", type=float, category="visualization",
+                    help="centers colors at the given value")
     ap.add_argument("-l", "--labels", dest="labels", category="visualization",
                     default=None, help="Defines the labels to use")
     ap.add_argument("--xlim", dest="xlim", category="visualization",
@@ -266,7 +268,10 @@ def getColor(options, i, a):
         else:
             matplotlib.colormaps.register(name="CUSTOM", cmap=colormap)
         options.colormap = "CUSTOM"
-    cNorm = matplotlib.colors.Normalize(vmin=0, vmax=a)
+    if options.colormapCenter:
+        cNorm = matplotlib.colors.TwoSlopeNorm(vmin=0, vcenter=options.colormapCenter, vmax=a)
+    else:
+        cNorm = matplotlib.colors.Normalize(vmin=0, vmax=a)
     scalarMap = matplotlib.cm.ScalarMappable(norm=cNorm, cmap=getColorMap(options))
     return scalarMap.to_rgba(i)
 
