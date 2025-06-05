@@ -94,6 +94,9 @@ All scenarios should be fixed by now.
   - in the [ChangeLog](../ChangeLog.md)
   - commit the changes
 - recheck whether submodules changed by doing `git submodule update --remote` and commit the changes after careful inspection
+- check IP due diligence
+  - every library in [SUMOLibraries](https://github.com/DLR-TS/SUMOLibraries/), in src/foreign and in tools/contributed needs an entry in the [Libraries list](../Libraries_Licenses.md) and in <https://github.com/eclipse-sumo/sumo/blob/main/docs/dependencies.txt>
+  - the [iplab](https://gitlab.eclipse.org/eclipsefdn/emo-team/iplab) should have a closed issue for each entry
 - check the documentation
 - check presence of RPMs on <https://build.opensuse.org/package/show/science:dlr/sumo_nightly>
 - add a new version tag

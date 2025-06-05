@@ -6,6 +6,7 @@ This page lists all licenses of code SUMO depends on directly for
 compiling. There may be secondary references (like the C++ standard
 library or a particular OpenGL implementation) which are not mentioned
 here except for the cases where we deliver binaries for that code.
+There is also a [machine readable version](https://github.com/eclipse-sumo/sumo/blob/main/docs/dependencies.txt) of that list in [Package URL](https://github.com/package-url/purl-spec) format.
 
 ## Code in the repository
 
