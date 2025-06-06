@@ -32,8 +32,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("select")
 
 # select edges with speed < 10 and delete it (only one)
-netedit.selectDefault()
-netedit.deleteSelectedItems()
+netedit.selection("default")
+netedit.delete()
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")

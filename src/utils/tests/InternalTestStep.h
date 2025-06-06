@@ -144,13 +144,19 @@ private:
     void processSaveExistentShortcutFunction();
 
     /// @brief process check undo-redo function
-    void processCheckUndoRedoFunction() const ;
+    void processCheckUndoRedoFunction() const;
+    
+    /// @brief process delete function
+    void processDeleteFunction() const;
+    
+    /// @brief process selection function
+    void processSelectionFunction() const;
 
     /// @brief process check undo function
-    void processUndoFunction() const ;
+    void processUndoFunction() const;
 
     /// @brief process check redo function
-    void processRedoFunction() const ;
+    void processRedoFunction() const;
 
     /// @brief process supermode function
     void processSupermodeFunction();

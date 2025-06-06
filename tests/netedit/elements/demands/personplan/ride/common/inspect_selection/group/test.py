@@ -38,7 +38,7 @@ netedit.changeEditMode(netedit.attrs.modes.demand.showPersonPlans)
 netedit.changeMode("select")
 
 # select all using invert
-netedit.selectionInvert()
+netedit.selection("invert")
 
 # go to inspect mode
 netedit.changeMode("inspect")

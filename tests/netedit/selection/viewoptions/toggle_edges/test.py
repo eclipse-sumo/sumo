@@ -35,7 +35,7 @@ netedit.changeMode("select")
 netedit.leftClick(referencePosition, netedit.positions.selection.edge)
 
 # this should not delete anything
-netedit.deleteSelectedItems()
+netedit.delete()
 
 # toggle edges selection
 netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
@@ -44,7 +44,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.leftClick(referencePosition, netedit.positions.selection.lane)
 
 # this should not delete anything
-netedit.deleteSelectedItems()
+netedit.delete()
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")

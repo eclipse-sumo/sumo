@@ -175,7 +175,9 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix
         }
     }
     MSNet::getInstance()->getTLSControl().saveState(out);
+#ifdef HAVE_FOX
     MSRoutingEngine::saveState(out);
+#endif
     out.close();
 }
 
@@ -253,7 +255,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_EDGE: {
+#ifdef HAVE_FOX
             MSRoutingEngine::loadState(attrs);
+#endif
             break;
         }
         case SUMO_TAG_DELAY: {

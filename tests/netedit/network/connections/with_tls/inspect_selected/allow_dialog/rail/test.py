@@ -35,7 +35,7 @@ netedit.computeJunctions()
 netedit.changeMode("select")
 
 # select all using invert
-netedit.selectionInvert()
+netedit.selection("invert")
 
 # go to inspect mode again
 netedit.changeMode("inspect")
