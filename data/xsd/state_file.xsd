@@ -25,6 +25,7 @@
                 <xsd:element name="tlLogic" type="tlStateType" minOccurs="0"/>
                 <xsd:element name="driveWay" type="driveWayStateType" minOccurs="0"/>
                 <xsd:element name="subDriveWay" type="driveWayStateType" minOccurs="0"/>
+                <xsd:element name="routingEngine" type="routingEngineType" minOccurs="0"/>
             </xsd:choice>
             <xsd:attribute name="version" type="xsd:string"/>
             <xsd:attribute name="time" type="timeType"/>
@@ -244,6 +245,20 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="required"/>
         <xsd:attribute name="vehicles" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="routingEngineType">
+        <xsd:sequence>
+            <xsd:element name="edge" type="routingEngineEdgeType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="routingEngineEdgeType">
+        <xsd:attribute name="id" type="idType" use="required"/>
+        <xsd:attribute name="speed" type="floatType" use="required"/>
+        <xsd:attribute name="pastSpeed" type="xsd:string" use="optional"/>
+        <xsd:attribute name="bikeSpeed" type="floatType" use="optional"/>
+        <xsd:attribute name="pastBikeSpeed" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>
