@@ -597,6 +597,9 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
             myLastSavedAt = MSEdge::dictionary(attrs.getString(SUMO_ATTR_EDGE));
         }
     }
+    if (myHolder.hasDeparted()) {
+        myLastRouteIndex = myHolder.getRoutePosition();
+    }
 }
 
 

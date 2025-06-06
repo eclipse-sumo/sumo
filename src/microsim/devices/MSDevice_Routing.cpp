@@ -357,7 +357,7 @@ MSDevice_Routing::loadState(const SUMOSAXAttributes& attrs) {
     if (myHolder.hasDeparted()) {
         SUMOTime offset = myPeriod;
         if (myPeriod > 0) {
-            SUMOTime offset = ((SIMSTEP - myHolder.getDeparture()) % myPeriod);
+            offset = ((SIMSTEP - myHolder.getDeparture()) % myPeriod);
             if (offset != 0) {
                 offset = myPeriod - offset;
             }
