@@ -1,5 +1,9 @@
 # Internal tests used netedit as binary
 binary:$NETEDIT_BINARY
+# virtual display configuration
+use_case_record_mode:GUI
+virtual_display_wm_executable:fluxbox
+virtual_display_extra_args:-dpi 100 -shmem
 
 # copy test file
 copy_test_path:test.py
