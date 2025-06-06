@@ -354,10 +354,13 @@ void
 MSDevice_Routing::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myPeriod;
-    if (myHolder.hasDeparted() && myPeriod > 0) {
-        SUMOTime offset = ((SIMSTEP - myHolder.getDeparture()) % myPeriod);
-        if (offset != 0) {
-            offset = myPeriod - offset;
+    if (myHolder.hasDeparted()) {
+        SUMOTime offset = myPeriod;
+        if (myPeriod > 0) {
+            SUMOTime offset = ((SIMSTEP - myHolder.getDeparture()) % myPeriod);
+            if (offset != 0) {
+                offset = myPeriod - offset;
+            }
         }
         rebuildRerouteCommand(SIMSTEP + offset);
     }
