@@ -19,12 +19,65 @@
 from ..general.functions import *
 
 
-def abortSelection():
+def selection(selectionType):
     """
-    @brief abort current selection
+    @brief do a selection 
     """
-    # type ESC to abort current selection
-    typeKey('esc')
+    # focus current frame
+    focusOnFrame()
+    if (selectionType == "default"):
+        for _ in range(attrs.frames.selection.default):
+            typeKey('tab')
+    elif (selectionType == "save"):
+        # jump to save
+        for _ in range(attrs.frames.selection.save):
+            typeKey('tab')
+        typeKey('space')
+        # jump to filename TextField
+        typeTwoKeys('alt', 'f')
+        filename = os.path.join(TEXTTEST_SANDBOX, "selection.txt")
+        updateText(filename)
+    elif (selectionType == "load"):
+        # jump to save
+        for _ in range(attrs.frames.selection.load):
+            typeKey('tab')
+        typeKey('space')
+        # jump to filename TextField
+        typeTwoKeys('alt', 'f')
+        filename = os.path.join(TEXTTEST_SANDBOX, "selection.txt")
+        updateText(filename)
+    elif (selectionType == "add"):
+        # jump to mode "add"
+        for _ in range(attrs.frames.selection.add):
+            typeKey('tab')
+    elif (selectionType == "remove"):
+        # jump to mode "remove"
+        for _ in range(attrs.frames.selection.remove):
+            typeKey('tab')
+    elif (selectionType == "keep"):
+        # jump to mode "keep"
+        for _ in range(attrs.frames.selection.keep):
+            typeKey('tab')
+    elif (selectionType == "replace"):
+        # jump to mode "replace"
+        for _ in range(attrs.frames.selection.replace):
+            typeKey('tab')
+    elif (selectionType == "clear"):
+        for _ in range(attrs.frames.selection.clear):
+            typeKey('tab')
+    elif (selectionType == "invert"):
+        for _ in range(attrs.frames.selection.invert):
+            typeKey('tab')
+    elif (selectionType == "invertData"):
+        for _ in range(attrs.frames.selection.invertData):
+            typeKey('tab')
+    elif (selectionType == "delete"):
+        for _ in range(attrs.frames.selection.delete):
+            typeKey('tab')
+    # type enter to select it
+    typeKey('enter')
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
 
 
 def lockSelection(glType):
@@ -42,54 +95,6 @@ def lockSelection(glType):
         typeKey("down")
     # type enter to save change
     typeKey('space')
-
-
-def selectDefault():
-    """
-    @brief select elements with default frame values
-    """
-    # focus current frame
-    focusOnFrame()
-    for _ in range(15):
-        typeKey('tab')
-    # type enter to select it
-    typeKey('enter')
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
-
-
-def saveSelection():
-    """
-    @brief save selection
-    """
-    focusOnFrame()
-    # jump to save
-    for _ in range(22):
-        typeKey('tab')
-    typeKey('space')
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    filename = os.path.join(TEXTTEST_SANDBOX, "selection.txt")
-    updateText(filename)
-    typeKey('enter')
-
-
-def loadSelection():
-    """
-    @brief save selection
-    """
-    focusOnFrame()
-    # jump to save
-    for _ in range(25):
-        typeKey('tab')
-    typeKey('space')
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    filename = os.path.join(TEXTTEST_SANDBOX, "selection.txt")
-    updateText(filename)
-    typeKey('enter')
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
 
 
 def selectItems(elementClass, elementType, attribute, value):
@@ -161,67 +166,6 @@ def selectStoppingPlaceItems(elementClass, stoppingPlace, elementType, attribute
     time.sleep(DELAY_SELECT)
 
 
-def deleteSelectedItems():
-    """
-    @brief delete selected items
-    """
-    typeKey('del')
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
-
-
-def modificationModeAdd():
-    """
-    @brief set modification mode "add"
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to mode "add"
-    for _ in range(3):
-        typeKey('tab')
-    # select it
-    typeKey('space')
-
-
-def modificationModeRemove():
-    """
-    @brief set modification mode "remove"
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to mode "remove"
-    for _ in range(4):
-        typeKey('tab')
-    # select it
-    typeKey('space')
-
-
-def modificationModeKeep():
-    """
-    @brief set modification mode "keep"
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to mode "keep"
-    for _ in range(5):
-        typeKey('tab')
-    # select it
-    typeKey('space')
-
-
-def modificationModeReplace():
-    """
-    @brief set modification mode "replace"
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to mode "replace"
-    for _ in range(6):
-        typeKey('tab')
-    # select it
-    typeKey('space')
-
-
 def selectionRectangle(referencePosition, positionA, positionB):
     """
     @brief select using an rectangle
@@ -234,47 +178,5 @@ def selectionRectangle(referencePosition, positionA, positionB):
     time.sleep(DELAY_KEY)
     # Release Shift key
     keyRelease('shift')
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
-
-
-def selectionClear():
-    """
-    @brief clear selection
-    """
-    # focus current frame
-    focusOnFrame()
-    for _ in range(21):
-        typeKey('tab')
-    # type space to select clear option
-    typeKey('space')
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
-
-
-def selectionInvert():
-    """
-    @brief invert selection
-    """
-    # focus current frame
-    focusOnFrame()
-    for _ in range(24):
-        typeKey('tab')
-    # type space to select invert operation
-    typeKey('space')
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
-
-
-def selectionInvertData():
-    """
-    @brief invert selection
-    """
-    # focus current frame
-    focusOnFrame()
-    for _ in range(27):
-        typeKey('tab')
-    # type space to select invert operation
-    typeKey('space')
     # wait for gl debug
     time.sleep(DELAY_SELECT)

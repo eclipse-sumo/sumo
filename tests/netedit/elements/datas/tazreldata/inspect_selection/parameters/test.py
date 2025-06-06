@@ -54,7 +54,7 @@ netedit.typeKey('enter')
 netedit.changeMode("select")
 
 # select all using invert
-netedit.selectionInvertData()
+netedit.selection("invertData")
 
 # go to inspect mode
 netedit.changeMode("inspect")

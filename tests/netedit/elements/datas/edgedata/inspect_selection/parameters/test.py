@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1_dataMode)
 netedit.changeMode("select")
 
 # select all using invert
-netedit.selectionInvertData()
+netedit.selection("invertData")
 
 # go to inspect mode
 netedit.changeMode("inspect")

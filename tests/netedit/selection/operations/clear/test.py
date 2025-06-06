@@ -39,10 +39,10 @@ netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectan
                            netedit.positions.selection.rectangleMediumB)
 
 # clear selected elements
-netedit.selectionClear()
+netedit.selection("clear")
 
 # delete selected elements
-netedit.deleteSelectedItems()
+netedit.delete()
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")
