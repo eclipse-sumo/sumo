@@ -140,15 +140,18 @@ private:
     /// @brief process modifyAttributeOverlapped function
     void processModifyAttributeOverlappedFunction() const;
 
+    /// @brief process modifyBoolAttributeOverlapped function
+    void processModifyBoolAttributeOverlappedFunction() const;
+
     /// @brief process save function
     void processSaveExistentShortcutFunction();
 
     /// @brief process check undo-redo function
     void processCheckUndoRedoFunction() const;
-    
+
     /// @brief process delete function
     void processDeleteFunction() const;
-    
+
     /// @brief process selection function
     void processSelectionFunction() const;
 

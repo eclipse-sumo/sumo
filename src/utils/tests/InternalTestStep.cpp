@@ -52,6 +52,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         processModifyAttributeFunction();
     } else if (function == "modifyAttributeOverlapped") {
         processModifyAttributeOverlappedFunction();
+    } else if (function == "modifyBoolAttributeOverlapped") {
+        processModifyBoolAttributeOverlappedFunction();
     } else if (function == "supermode") {
         processSupermodeFunction();
     } else if (function == "changeMode") {
@@ -464,6 +466,7 @@ InternalTestStep::processModifyAttributeFunction() const {
         }
         // press enter to confirm changes (updating view)
         new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), true);
+        new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
     }
 }
 
@@ -494,6 +497,29 @@ InternalTestStep::processModifyAttributeOverlappedFunction() const {
         }
         // press enter to confirm changes (updating view)
         new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), true);
+        new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
+    }
+}
+
+
+void
+InternalTestStep::processModifyBoolAttributeOverlappedFunction() const {
+    if ((myArguments.size() != 1) ||
+            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum)) {
+        writeError("modifyBoolAttributeOverlapped", "<int/attributeEnum>");
+    } else {
+        const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
+        const int overlappedTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.editElements.overlapped");
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to the element
+        for (int i = 0; i < (numTabs + overlappedTabs); i++) {
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
+            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
+        }
+        // toogle attribute
+        new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("space"), false);
+        new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("space"), false);
     }
 }
 
@@ -569,7 +595,7 @@ InternalTestStep::processDeleteFunction() const {
 
 void
 InternalTestStep::processSelectionFunction() const {
-    if (myArguments.size() != 1) {
+    if (myArguments.size() != 1 || !checkStringArgument(myArguments[0])) {
         writeError("selection", "<selection operation>");
     } else {
         const std::string selectionType = getStringArgument(myArguments[0]);
@@ -789,6 +815,7 @@ InternalTestStep::processChangeElementArgument() const {
             }
             // press enter to confirm changes (updating view)
             new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), true);
+            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
         }
     }
 }
