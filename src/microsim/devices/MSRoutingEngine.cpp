@@ -36,6 +36,7 @@
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>
 #include <utils/common/StringUtils.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/router/DijkstraRouter.h>
 #include <utils/router/AStarRouter.h>
 #include <utils/router/CHRouter.h>
@@ -608,6 +609,67 @@ MSRoutingEngine::waitForAll() {
 #endif
 }
 
+void
+MSRoutingEngine::saveState(OutputDevice& out) {
+    if (myEdgeSpeeds.size() == 0) {
+        return;
+    }
+    out.openTag(SUMO_TAG_ROUTINGENGINE);
+    const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
+    for (const MSEdge* const e : edges) {
+        if (e->isDelayed()) {
+            const int id = e->getNumericalID();
+            out.openTag(SUMO_TAG_EDGE);
+            out.writeAttr(SUMO_ATTR_ID, e->getID());
+            out.writeAttr(SUMO_ATTR_SPEED, myEdgeSpeeds[id]);
+            if (myAdaptationSteps > 0) {
+                out.writeAttr(SUMO_ATTR_PASTSPEED, myPastEdgeSpeeds[id]);
+            }
+            if (myBikeSpeeds) {
+                out.writeAttr(SUMO_ATTR_BIKESPEED, myEdgeBikeSpeeds[id]);
+                if (myAdaptationSteps > 0) {
+                    out.writeAttr(SUMO_ATTR_PASTBIKESPEED, myPastEdgeBikeSpeeds[id]);
+                }
+            }
+            out.closeTag();
+        }
+    }
+    out.closeTag();
+}
+
+
+void
+MSRoutingEngine::loadState(const SUMOSAXAttributes& attrs) {
+    const MSEdge* const e = MSEdge::dictionary(attrs.getString(SUMO_ATTR_ID));
+    const int id = e->getNumericalID();
+    bool checkedSteps = false;
+    bool checkedBikeSpeeds = false;
+    bool ok = true;
+    if ((int)myEdgeSpeeds.size() > id) {
+        myEdgeSpeeds[id] = attrs.get<double>(SUMO_ATTR_SPEED, nullptr, ok);
+        if (myBikeSpeeds) {
+            if (attrs.hasAttribute(SUMO_ATTR_BIKESPEED)) {
+                myEdgeBikeSpeeds[id] = attrs.get<double>(SUMO_ATTR_BIKESPEED, nullptr, ok);
+            } else if (!checkedBikeSpeeds) {
+                checkedBikeSpeeds = true;
+                WRITE_WARNING("Bike speeds missing in loaded state");
+            }
+        }
+        if (myAdaptationSteps > 0) {
+            const std::vector<double> speeds = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PASTSPEED, nullptr, ok);
+            if ((int)speeds.size() == myAdaptationSteps) {
+                myPastEdgeSpeeds[id] = speeds;
+                if (myBikeSpeeds && attrs.hasAttribute(SUMO_ATTR_PASTBIKESPEED)) {
+                    const std::vector<double> speeds = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PASTBIKESPEED, nullptr, ok);
+                    myPastEdgeBikeSpeeds[id] = speeds;
+                }
+            } else if (!checkedSteps) {
+                checkedSteps = true;
+                WRITE_WARNING("Number of adaptation speeds in loaded state doesn't match option --device.rerouting.adaptation-steps");
+            }
+        }
+    }
+}
 
 // ---------------------------------------------------------------------------
 // MSRoutingEngine::RoutingTask-methods

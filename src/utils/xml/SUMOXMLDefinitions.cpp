@@ -119,6 +119,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "assignment",                             SUMO_TAG_ASSIGNMENT },
     { "function",                               SUMO_TAG_FUNCTION },
     { "edgeControl",                            SUMO_TAG_EDGECONTROL },
+    { "routingEngine",                          SUMO_TAG_ROUTINGENGINE },
 
     { "edgeRelation",                           SUMO_TAG_EDGEREL },
     { "tazRelation",                            SUMO_TAG_TAZREL },
@@ -1450,6 +1451,13 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "device.btreceiver", SUMO_ATTR_RNG_DEVICE_BT },
     { "device.toc",        SUMO_ATTR_RNG_DEVICE_TOC },
     { "driverState",       SUMO_ATTR_RNG_DRIVERSTATE },
+    // @}
+
+    // @name further state saving attributes
+    // @{
+    { "bikeSpeed",         SUMO_ATTR_BIKESPEED },
+    { "pastSpeed",         SUMO_ATTR_PASTSPEED },
+    { "pastBikeSpeed",     SUMO_ATTR_PASTBIKESPEED },
     // @}
 
     //@name meso edge type attributes
