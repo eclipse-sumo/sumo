@@ -64,6 +64,10 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         processSaveExistentShortcutFunction();
     } else if (function == "checkUndoRedo") {
         processCheckUndoRedoFunction();
+    } else if (function == "delete") {
+        processDeleteFunction();
+    } else if (function == "selection") {
+        processSelectionFunction();
     } else if (function == "undo") {
         processUndoFunction();
     } else if (function == "redo") {
@@ -546,6 +550,68 @@ InternalTestStep::processCheckUndoRedoFunction() const {
         // undo
         for (int i = 0; i < numUndoRedos; i++) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Y_REDO, Category::APP);
+        }
+    }
+}
+
+
+void
+InternalTestStep::processDeleteFunction() const {
+    if (myArguments.size() != 0) {
+        writeError("delete", "<>");
+    } else {
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_DEL, Category::APP);
+    }
+}
+
+
+void
+InternalTestStep::processSelectionFunction() const {
+    if (myArguments.size() != 1) {
+        writeError("selection", "<selection operation>");
+    } else {
+        const std::string selectionType = myArguments[0];
+        // get number of tabls
+        int numTabs = 0;
+        if (selectionType == "default") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.default");
+        } else if (selectionType == "save") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.save");
+        } else if (selectionType == "load") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.load");
+        } else if (selectionType == "add") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.add");
+        } else if (selectionType == "remove") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.remove");
+        } else if (selectionType == "keep") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.keep");
+        } else if (selectionType == "replace") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.replace");
+        } else if (selectionType == "clear") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.clear");
+        } else if (selectionType == "invert") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.invert");
+        } else if (selectionType == "invertData") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.invertData");
+        } else if (selectionType == "delete") {
+            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.delete");
+        }
+        // jump to the element
+        for (int i = 0; i < numTabs; i++) {
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
+            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
+        }
+        if (selectionType == "save") {
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), false);
+            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
+            // complete
+        } else if (selectionType == "load") {
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), false);
+            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
+            // complete
+        } else {
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), false);
+            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
         }
     }
 }
