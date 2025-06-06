@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-01 11:33+0000\n"
-"PO-Revision-Date: 2025-06-04 10:01+0000\n"
+"PO-Revision-Date: 2025-06-07 16:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -12924,6 +12924,8 @@ msgid ""
 "'pos', 'endPos' and 'length' cannot be defined together in a single lane "
 "area detector."
 msgstr ""
+"'pos', 'endPos' e 'length' non possono essere definiti insieme in un singolo "
+"rivelatore multi-corsie."
 
 #: src/utils/handlers/AdditionalHandler.cpp:1128
 msgid ""
@@ -12964,6 +12966,8 @@ msgstr ""
 #: src/utils/shapes/ShapeHandler.cpp:127
 msgid "Invalid icon % for POI '%', using default"
 msgstr ""
+"Icona invalida % per il punto di interesse '%', perciò viene usato quella "
+"standard"
 
 #: src/utils/handlers/AdditionalHandler.cpp:2050
 msgid "Calibrator Flows have to be defined within a %."
@@ -12974,6 +12978,8 @@ msgid ""
 "Attribute '%' defined in % with id '%' doesn't have a valid value (given "
 "'%')."
 msgstr ""
+"L'attributo '%' definito in % con il codice identificativo '%' non ha un "
+"valore valido (dato come '%')."
 
 #: src/utils/handlers/CommonHandler.cpp:57
 msgid "Parameters must be defined within an object"
