@@ -1,0 +1,24 @@
+# all test check also the undo-redo of modifications and save the poly into a file
+# create poly
+create
+
+# delete poly
+delete
+
+# inspect shape
+inspect
+
+# inspect selection
+inspect_selected
+
+# load shape
+load
+
+# move shape (blocked and undblocked)
+move
+
+# volatile recomputing
+volatilerecomputing
+
+#edit shape
+#edit_shape
