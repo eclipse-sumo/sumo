@@ -175,9 +175,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix
         }
     }
     MSNet::getInstance()->getTLSControl().saveState(out);
-#ifdef HAVE_FOX
     MSRoutingEngine::saveState(out);
-#endif
     out.close();
 }
 

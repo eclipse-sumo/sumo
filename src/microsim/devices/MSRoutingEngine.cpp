@@ -598,17 +598,6 @@ MSRoutingEngine::cleanup() {
 }
 
 
-#ifdef HAVE_FOX
-void
-MSRoutingEngine::waitForAll() {
-#ifndef THREAD_POOL
-    MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
-    if (threadPool.size() > 0) {
-        threadPool.waitAll();
-    }
-#endif
-}
-
 void
 MSRoutingEngine::saveState(OutputDevice& out) {
     if (myEdgeSpeeds.size() == 0) {
@@ -670,6 +659,19 @@ MSRoutingEngine::loadState(const SUMOSAXAttributes& attrs) {
         }
     }
 }
+
+
+#ifdef HAVE_FOX
+void
+MSRoutingEngine::waitForAll() {
+#ifndef THREAD_POOL
+    MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        threadPool.waitAll();
+    }
+#endif
+}
+
 
 // ---------------------------------------------------------------------------
 // MSRoutingEngine::RoutingTask-methods
