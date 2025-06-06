@@ -333,6 +333,8 @@ InternalTestStep::translateKey(const std::string& key) const {
     if (key == "backspace") {
         solution.first = KEY_BackSpace;
         solution.second = "\b";
+    } else if (key == "space") {
+        solution.first = KEY_space;
     } else if (key == "tab") {
         solution.first = KEY_Tab;
         solution.second = "\t";
@@ -412,8 +414,8 @@ InternalTestStep::processSetupAndStartFunction() {
     std::cout << "TestFunctions: Netedit opened successfully" << std::endl;
     std::cout << "Finding reference" << std::endl;
     std::cout << "TestFunctions: 'reference.png' found. Position: " <<
-        toString(MOUSE_REFERENCE_X) << " - " << 
-        toString(MOUSE_REFERENCE_Y) << std::endl;
+              toString(MOUSE_REFERENCE_X) << " - " <<
+              toString(MOUSE_REFERENCE_Y) << std::endl;
 }
 
 
@@ -427,8 +429,8 @@ InternalTestStep::processLeftClickFunction() const {
         const int posY = myTestSystem->myViewPositions.at(myArguments[1]).second;
         // print info
         std::cout << "TestFunctions: Clicked over position " <<
-            toString(posX + MOUSE_REFERENCE_X) << " - " <<
-            toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+                  toString(posX + MOUSE_REFERENCE_X) << " - " <<
+                  toString(posY + MOUSE_REFERENCE_Y) << std::endl;
         // add move, left button press and left button release
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(posX, posY), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(posX, posY), true);
@@ -525,15 +527,15 @@ InternalTestStep::processCheckUndoRedoFunction() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
         // click over reference
         std::cout << "TestFunctions: Clicked over position " <<
-            toString(MOUSE_REFERENCE_X) << " - " <<
-            toString(MOUSE_REFERENCE_Y) << std::endl;
+                  toString(MOUSE_REFERENCE_X) << " - " <<
+                  toString(MOUSE_REFERENCE_Y) << std::endl;
         // add move, left button press and left button release
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(0, 0), true);
         // undo
         for (int i = 0; i < numUndoRedos; i++) {
-                new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO, Category::APP);
+            new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO, Category::APP);
         }
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
@@ -541,8 +543,8 @@ InternalTestStep::processCheckUndoRedoFunction() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
         // click over reference
         std::cout << "TestFunctions: Clicked over position " <<
-            toString(MOUSE_REFERENCE_X) << " - " <<
-            toString(MOUSE_REFERENCE_Y) << std::endl;
+                  toString(MOUSE_REFERENCE_X) << " - " <<
+                  toString(MOUSE_REFERENCE_Y) << std::endl;
         // add move, left button press and left button release
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
@@ -570,7 +572,7 @@ InternalTestStep::processSelectionFunction() const {
     if (myArguments.size() != 1) {
         writeError("selection", "<selection operation>");
     } else {
-        const std::string selectionType = myArguments[0];
+        const std::string selectionType = getStringArgument(myArguments[0]);
         // get number of tabls
         int numTabs = 0;
         if (selectionType == "default") {
@@ -596,6 +598,8 @@ InternalTestStep::processSelectionFunction() const {
         } else if (selectionType == "delete") {
             numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.delete");
         }
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
         for (int i = 0; i < numTabs; i++) {
             new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
@@ -610,8 +614,8 @@ InternalTestStep::processSelectionFunction() const {
             new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
             // complete
         } else {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), false);
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("space"), false);
+            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("space"), false);
         }
     }
 }
@@ -630,8 +634,8 @@ InternalTestStep::processUndoFunction() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
         // click over reference
         std::cout << "TestFunctions: Clicked over position " <<
-            toString(MOUSE_REFERENCE_X) << " - " <<
-            toString(MOUSE_REFERENCE_Y) << std::endl;
+                  toString(MOUSE_REFERENCE_X) << " - " <<
+                  toString(MOUSE_REFERENCE_Y) << std::endl;
         // add move, left button press and left button release
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
@@ -657,8 +661,8 @@ InternalTestStep::processRedoFunction() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
         // click over reference
         std::cout << "TestFunctions: Clicked over position " <<
-            toString(MOUSE_REFERENCE_X) << " - " <<
-            toString(MOUSE_REFERENCE_Y) << std::endl;
+                  toString(MOUSE_REFERENCE_X) << " - " <<
+                  toString(MOUSE_REFERENCE_Y) << std::endl;
         // add move, left button press and left button release
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
