@@ -32,10 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("select")
 
 # save selection
-netedit.loadSelection()
+netedit.selection("load")
 
 # delete selected elements
-netedit.deleteSelectedItems()
+netedit.delete()
 
 # check undo-redo
 netedit.undo(referencePosition, 1)

@@ -19,7 +19,7 @@
 from ..general.functions import *
 
 
-def deleteUsingShortcut():
+def delete():
     """
     @brief delete using SUPR key
     """

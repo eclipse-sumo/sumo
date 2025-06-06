@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("select")
 
 # select all using invert
-netedit.selectionInvert()
+netedit.selection("invert")
 
 # go to inspect mode
 netedit.changeMode("inspect")
@@ -47,7 +47,7 @@ netedit.modifyAttributeOverlapped(netedit.attrs.busStop.inspectSelection.friendl
 netedit.changeMode("select")
 
 # clear selection
-netedit.selectionClear()
+netedit.selection("clear")
 
 # save netedit config
 netedit.saveExistentShortcut("neteditConfig")

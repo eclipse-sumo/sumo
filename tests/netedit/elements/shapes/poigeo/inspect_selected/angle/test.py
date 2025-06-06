@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.changeMode("select")
 
 # invert selection
-netedit.selectionInvert()
+netedit.selection("invert")
 
 # go to inspect mode
 netedit.changeMode("inspect")

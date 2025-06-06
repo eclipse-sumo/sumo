@@ -87,7 +87,7 @@ netedit.typeKey('enter')
 
 # try to select node gneJ0 and delete it (Error in type of element)
 netedit.selectItems("Network elements", "junction", "id", "J0")
-netedit.deleteSelectedItems()
+netedit.delete()
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")

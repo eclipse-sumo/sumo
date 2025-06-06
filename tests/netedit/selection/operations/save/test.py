@@ -36,7 +36,7 @@ netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectan
                            netedit.positions.selection.rectangleMediumB)
 
 # save selection
-netedit.saveSelection()
+netedit.selection("save")
 
 # check undo-redo
 netedit.undo(referencePosition, 1)

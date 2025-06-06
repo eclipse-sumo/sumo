@@ -35,7 +35,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.changeMode("select")
 
 # select all using invert
-netedit.selectionInvert()
+netedit.selection("invert")
 
 # go to inspect mode
 netedit.changeMode("inspect")

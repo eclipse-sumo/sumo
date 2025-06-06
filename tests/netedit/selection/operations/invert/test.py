@@ -39,10 +39,10 @@ netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectan
                            netedit.positions.selection.rectangleMediumB)
 
 # invert selected elements
-netedit.selectionInvert()
+netedit.selection("invert")
 
 # delete selected elements
-netedit.deleteSelectedItems()
+netedit.delete()
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")

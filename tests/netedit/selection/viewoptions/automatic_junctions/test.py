@@ -42,7 +42,7 @@ netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectan
                            netedit.positions.selection.rectangleMediumB)
 
 # remove elements
-netedit.deleteSelectedItems()
+netedit.delete()
 
 # check undo redo
 netedit.undo(referencePosition, 2)
