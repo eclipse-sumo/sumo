@@ -52,6 +52,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         processModifyAttributeFunction();
     } else if (function == "modifyAttributeOverlapped") {
         processModifyAttributeOverlappedFunction();
+    } else if (function == "modifyBoolAttribute") {
+        processModifyBoolAttributeFunction();
     } else if (function == "modifyBoolAttributeOverlapped") {
         processModifyBoolAttributeOverlappedFunction();
     } else if (function == "modifyColorAttribute") {
@@ -472,7 +474,7 @@ InternalTestStep::processModifyAttributeFunction() const {
         }
         // write attribute character by character
         for (const char c : value) {
-            buildKeyReleaseEvent(c);
+            buildPressKeyEvent(c, false);
         }
         // press enter to confirm changes (updating view)
         buildPressKeyEvent("enter", true);
@@ -500,10 +502,29 @@ InternalTestStep::processModifyAttributeOverlappedFunction() const {
         }
         // write attribute character by character
         for (const char c : value) {
-            buildKeyReleaseEvent(c);
+            buildPressKeyEvent(c, false);
         }
         // press enter to confirm changes (updating view)
         buildPressKeyEvent("enter", true);
+    }
+}
+
+
+void
+InternalTestStep::processModifyBoolAttributeFunction() const {
+    if ((myArguments.size() != 1) ||
+            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum)) {
+        writeError("modifyBoolAttribute", "<int/attributeEnum>");
+    } else {
+        const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to the element
+        for (int i = 0; i < numTabs; i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // toogle attribute
+        buildPressKeyEvent("space", true);
     }
 }
 
@@ -876,7 +897,7 @@ InternalTestStep::processChangeElementArgument() const {
             }
             // write additional character by character
             for (const char c : element) {
-                buildKeyReleaseEvent(c);
+                buildPressKeyEvent(c, false);
             }
             // press enter to confirm changes (updating view)
             buildPressKeyEvent("enter", true);

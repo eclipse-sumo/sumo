@@ -140,6 +140,9 @@ private:
     /// @brief process modifyAttributeOverlapped function
     void processModifyAttributeOverlappedFunction() const;
 
+    /// @brief process modifyBoolAttribute function
+    void processModifyBoolAttributeFunction() const;
+
     /// @brief process modifyBoolAttributeOverlapped function
     void processModifyBoolAttributeOverlappedFunction() const;
 
