@@ -143,6 +143,12 @@ private:
     /// @brief process modifyBoolAttributeOverlapped function
     void processModifyBoolAttributeOverlappedFunction() const;
 
+    /// @brief process modifyColorAttribute function
+    void processModifyColorAttributeFunction() const;
+
+    /// @brief process modifyColorAttributeOverlapped function
+    void processModifyColorAttributeOverlappedFunction() const;
+
     /// @brief process save function
     void processSaveExistentShortcutFunction();
 
@@ -199,6 +205,15 @@ private:
 
     /// @brief write error
     void writeError(const std::string& function, const std::string& expected) const;
+
+    /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
+    void buildPressKeyEvent(const std::string& key, const bool updateView) const;
+
+    /// @brief build a key press and key release (used for single keys)
+    void buildPressKeyEvent(const char key, const bool updateView) const;
+
+    /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
+    void buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const;
 
     /// @brief invalidate default constructor
     InternalTestStep() = delete;

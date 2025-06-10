@@ -54,6 +54,10 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         processModifyAttributeOverlappedFunction();
     } else if (function == "modifyBoolAttributeOverlapped") {
         processModifyBoolAttributeOverlappedFunction();
+    } else if (function == "modifyColorAttribute") {
+        processModifyColorAttributeFunction();
+    } else if (function == "modifyColorAttributeOverlapped") {
+        processModifyColorAttributeOverlappedFunction();
     } else if (function == "supermode") {
         processSupermodeFunction();
     } else if (function == "changeMode") {
@@ -360,6 +364,11 @@ InternalTestStep::translateKey(const std::string& key) const {
         solution.second = "\x7F";
     } else if (key == "multi_key") {
         solution.first = KEY_Multi_key;
+        // function
+    } else if (key == "shift") {
+        solution.first = KEY_Shift_L;
+    } else if (key == "control") {
+        solution.first = KEY_Control_L;
         // Cursor
     } else if (key == "home") {
         solution.first = KEY_Home;
@@ -459,17 +468,14 @@ InternalTestStep::processModifyAttributeFunction() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
         for (int i = 0; i < numTabs; i++) {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
+            buildPressKeyEvent("tab", false);
         }
         // write attribute character by character
         for (const char c : value) {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(c), false);
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(c), false);
+            buildKeyReleaseEvent(c);
         }
         // press enter to confirm changes (updating view)
-        new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), true);
-        new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
+        buildPressKeyEvent("enter", true);
     }
 }
 
@@ -490,17 +496,14 @@ InternalTestStep::processModifyAttributeOverlappedFunction() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
         for (int i = 0; i < (numTabs + overlappedTabs); i++) {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
+            buildPressKeyEvent("tab", false);
         }
         // write attribute character by character
         for (const char c : value) {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(c), false);
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(c), false);
+            buildKeyReleaseEvent(c);
         }
         // press enter to confirm changes (updating view)
-        new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), true);
-        new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
+        buildPressKeyEvent("enter", true);
     }
 }
 
@@ -517,12 +520,77 @@ InternalTestStep::processModifyBoolAttributeOverlappedFunction() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
         for (int i = 0; i < (numTabs + overlappedTabs); i++) {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
+            buildPressKeyEvent("tab", false);
         }
         // toogle attribute
-        new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("space"), false);
-        new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("space"), false);
+        buildPressKeyEvent("space", true);
+    }
+}
+
+
+void
+InternalTestStep::processModifyColorAttributeFunction() const {
+    if ((myArguments.size() != 2) ||
+            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum) ||
+            !checkIntArgument(myArguments[1], myTestSystem->myAttributesEnum)) {
+        writeError("processModifyColorAttributeFunction", "<int/attributeEnum, int>");
+    } else {
+        const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
+        const int colorIndex = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
+        const int overlappedTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.editElements.overlapped");
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to the element
+        for (int i = 0; i < (numTabs + overlappedTabs); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        buildPressKeyEvent("space", false);
+        // go to the list of colors
+        for (int i = 0; i < 2; i++) {
+            buildTwoPressKeyEvent("shift", "tab", false);
+        }
+        // select color
+        for (int i = 0; i < (1 + colorIndex); i++) {
+            buildPressKeyEvent("down", false);
+        }
+        // go to button
+        buildPressKeyEvent("tab", false);
+        // press button
+        buildPressKeyEvent("space", true);
+    }
+}
+
+
+void
+InternalTestStep::processModifyColorAttributeOverlappedFunction() const {
+    if ((myArguments.size() != 2) ||
+            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum) ||
+            !checkIntArgument(myArguments[1], myTestSystem->myAttributesEnum)) {
+        writeError("processModifyColorAttributeOverlappedFunction", "<int/attributeEnum, int>");
+    } else {
+        const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
+        const int colorIndex = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to the element
+        for (int i = 0; i < numTabs; i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        buildPressKeyEvent("space", false);
+        // go to the list of colors
+        for (int i = 0; i < 2; i++) {
+            buildTwoPressKeyEvent("shift", "tab", false);
+        }
+        // select color
+        for (int i = 0; i < (1 + colorIndex); i++) {
+            buildPressKeyEvent("down", false);
+        }
+        // go to button
+        buildPressKeyEvent("tab", false);
+        // press button
+        buildPressKeyEvent("space", true);
     }
 }
 
@@ -631,20 +699,16 @@ InternalTestStep::processSelectionFunction() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
         for (int i = 0; i < numTabs; i++) {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
+            buildPressKeyEvent("tab", false);
         }
         if (selectionType == "save") {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), false);
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
+            buildPressKeyEvent("enter", false);
             // complete
         } else if (selectionType == "load") {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), false);
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
+            buildPressKeyEvent("enter", false);
             // complete
         } else {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("space"), false);
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("space"), false);
+            buildPressKeyEvent("space", true);
         }
     }
 }
@@ -808,17 +872,14 @@ InternalTestStep::processChangeElementArgument() const {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
             // jump to select additional argument
             for (int i = 0; i < numTabs; i++) {
-                new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("tab"), false);
-                new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("tab"), false);
+                buildPressKeyEvent("tab", false);
             }
             // write additional character by character
             for (const char c : element) {
-                new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(c), false);
-                new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(c), false);
+                buildKeyReleaseEvent(c);
             }
             // press enter to confirm changes (updating view)
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent("enter"), true);
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent("enter"), false);
+            buildPressKeyEvent("enter", true);
         }
     }
 }
@@ -929,6 +990,29 @@ InternalTestStep::stripSpaces(const std::string& str) const {
 void
 InternalTestStep::writeError(const std::string& function, const std::string& expected) const {
     WRITE_ERRORF("Invalid internal testStep function '%', requires '%' arguments ", function, expected);
+}
+
+
+void
+InternalTestStep::buildPressKeyEvent(const std::string& key, const bool updateView) const {
+    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(key), updateView);
+    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
+}
+
+
+void
+InternalTestStep::buildPressKeyEvent(const char key, const bool updateView) const {
+    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(key), updateView);
+    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
+}
+
+
+void
+InternalTestStep::buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const {
+    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(keyA), updateView);
+    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(keyB), updateView);
+    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(keyB), updateView);
+    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(keyA), updateView);
 }
 
 /****************************************************************************/
