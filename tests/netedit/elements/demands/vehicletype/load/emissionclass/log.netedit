@@ -1,4 +1,7 @@
+Warning: Emission classes should always use the model as a prefix, please recheck 'dummyEmissionClass'. Starting with SUMO 1.24 this will be an error.
 Error: emissionClass with name 'dummyEmissionClass' doesn't exist.
 Error: Attribute 'emissionClass' in definition of vType 'vType1' is empty.
+Warning: Emission classes should always use the model as a prefix, please recheck ''. Starting with SUMO 1.24 this will be an error.
 Error: emissionClass with name '' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140518.2759/netedit.gui/elements/demands/vehicletype/load/emissionclass/routes.rou.xml failed.
+Warning: Emission classes should always use the model as a prefix, please recheck 'HDV_12_1'. Starting with SUMO 1.24 this will be an error.
+Error: Loading of routes.rou.xml failed.

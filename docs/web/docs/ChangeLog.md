@@ -13,6 +13,8 @@ title: ChangeLog
   - Fixed bug where junction collision was not detected #16695
   - Fixed collision on junction due to unsafe lane changing #16643
   - Fixed invalid waitingTime for walking stage in tripinfo-output (not accumulating) #16729
+  - Previously recorded travel speeds are now preserved when loading state #16775
+
 
 - netedit
   - link-direction arrows for spread bidi-rail are drawn in the correct spot #16718 (regression in 1.20.0)
@@ -31,6 +33,9 @@ title: ChangeLog
 
 - mesosim
   - Fixed crash when loading state with different network #16758
+  - Fixed crash when loading state with different values of **--meso-lane-queue** #16757
+  - Queue entry block time is now preserved when saving/loading state #16770
+  - Vehroute-output no longer contains invalid route edges when loading state and rerouting #16776
 
 - netconvert
   - Fixed bug where option **--tls.rebuild** creates invalid signal plan when using custom crossing traffic light indices. #16653
@@ -75,6 +80,9 @@ title: ChangeLog
   - plotXMLAttributes.py: The options **--xticks-file** and **--yticks-file** now support giving a column for name aliases to group the respective values #16683
   - [plotStops.py](Tools/Railways.md#plotstopspy): New tool to simplify drawing a train schedule diagram along a specified route. #16683
   - generateContinuousRerouters.py: Added option **--stop-file** to add stops at loaded busStops when rerouting #16719
+  - mapDetectors.py: Added option **--all-lanes** to place detectors on all lanes of an edge based on a single input coordinate #16751
+  - plot_net_dump.py: Added opion **--colormap.center** two permit plotting colors with `TwoSlopeNorm` #16778
+
 
 
 ### Miscellaneous
