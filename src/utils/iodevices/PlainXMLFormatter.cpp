@@ -34,10 +34,16 @@ PlainXMLFormatter::PlainXMLFormatter(const int defaultIndentation)
 
 
 bool
-PlainXMLFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElement) {
+PlainXMLFormatter::writeHeader(StreamDevice& into, const SumoXMLTag& rootElement) {
     if (myXMLStack.empty()) {
-        OptionsCont::getOptions().writeXMLHeader(into);
-        openTag(into, rootElement);
+        if (auto* ostream = into.getUnderlyingOStream()) {
+            OptionsCont::getOptions().writeXMLHeader(*ostream);
+        }
+        else {
+            std::ostringstream temp;
+            OptionsCont::getOptions().writeXMLHeader(temp);
+            into << temp.str();
+        }        openTag(into, rootElement);
         return true;
     }
     return false;
@@ -45,10 +51,17 @@ PlainXMLFormatter::writeHeader(std::ostream& into, const SumoXMLTag& rootElement
 
 
 bool
-PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                                  const std::map<SumoXMLAttr, std::string>& attrs, bool includeConfig) {
+PlainXMLFormatter::writeXMLHeader(StreamDevice& into, const std::string& rootElement,
+    const std::map<SumoXMLAttr, std::string>& attrs, bool includeConfig) {
     if (myXMLStack.empty()) {
-        OptionsCont::getOptions().writeXMLHeader(into, includeConfig);
+        if (auto* ostream = into.getUnderlyingOStream()) {
+            OptionsCont::getOptions().writeXMLHeader(*ostream, includeConfig);
+        }
+        else {
+            std::ostringstream temp;
+            OptionsCont::getOptions().writeXMLHeader(temp, includeConfig);
+            into << temp.str();
+        }
         openTag(into, rootElement);
         for (std::map<SumoXMLAttr, std::string>::const_iterator it = attrs.begin(); it != attrs.end(); ++it) {
             writeAttr(into, it->first, it->second);
@@ -62,7 +75,7 @@ PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootEle
 
 
 void
-PlainXMLFormatter::openTag(std::ostream& into, const std::string& xmlElement) {
+PlainXMLFormatter::openTag(StreamDevice& into, const std::string& xmlElement) {
     if (myHavePendingOpener) {
         into << ">\n";
     }
@@ -73,18 +86,19 @@ PlainXMLFormatter::openTag(std::ostream& into, const std::string& xmlElement) {
 
 
 void
-PlainXMLFormatter::openTag(std::ostream& into, const SumoXMLTag& xmlElement) {
+PlainXMLFormatter::openTag(StreamDevice& into, const SumoXMLTag& xmlElement) {
     openTag(into, toString(xmlElement));
 }
 
 
 bool
-PlainXMLFormatter::closeTag(std::ostream& into, const std::string& comment) {
+PlainXMLFormatter::closeTag(StreamDevice& into, const std::string& comment) {
     if (!myXMLStack.empty()) {
         if (myHavePendingOpener) {
             into << "/>" << comment << "\n";
             myHavePendingOpener = false;
-        } else {
+        }
+        else {
             const std::string indent(4 * (myXMLStack.size() + myDefaultIndentation - 1), ' ');
             into << indent << "</" << myXMLStack.back() << ">" << comment << "\n";
         }
@@ -96,7 +110,7 @@ PlainXMLFormatter::closeTag(std::ostream& into, const std::string& comment) {
 
 
 void
-PlainXMLFormatter::writePreformattedTag(std::ostream& into, const std::string& val) {
+PlainXMLFormatter::writePreformattedTag(StreamDevice& into, const std::string& val) {
     if (myHavePendingOpener) {
         into << ">\n";
         myHavePendingOpener = false;
@@ -105,7 +119,7 @@ PlainXMLFormatter::writePreformattedTag(std::ostream& into, const std::string& v
 }
 
 void
-PlainXMLFormatter::writePadding(std::ostream& into, const std::string& val) {
+PlainXMLFormatter::writePadding(StreamDevice& into, const std::string& val) {
     into << val;
 }
 

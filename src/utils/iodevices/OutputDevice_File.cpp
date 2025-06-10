@@ -37,14 +37,16 @@
 // ===========================================================================
 OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool compressed)
     : OutputDevice(0, fullName) {
+    std::unique_ptr<std::ostream> fileStream;
+    
     if (fullName == "/dev/null") {
         myAmNull = true;
 #ifdef WIN32
-        myFileStream = new std::ofstream("NUL");
-        if (!myFileStream->good()) {
-            delete myFileStream;
+        fileStream = std::make_unique<std::ofstream>("NUL");
+        if (!fileStream->good()) {
             throw IOError(TLF("Could not redirect to NUL device (%).", std::string(std::strerror(errno))));
         }
+        myStreamDevice = std::make_unique<StreamDevice>(std::move(fileStream));
         return;
 #endif
     }
@@ -52,34 +54,31 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
 #ifdef HAVE_ZLIB
     if (compressed) {
         try {
-            myFileStream = new zstr::ofstream(localName.c_str(), std::ios_base::out);
+            fileStream = std::make_unique<zstr::ofstream>(localName.c_str(), std::ios_base::out);
         } catch (strict_fstream::Exception& e) {
             throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         } catch (zstr::Exception& e) {
             throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         }
     } else {
-        myFileStream = new std::ofstream(localName.c_str(), std::ios_base::out);
+        fileStream = std::make_unique<std::ofstream>(localName.c_str(), std::ios_base::out);
     }
 #else
     UNUSED_PARAMETER(compressed);
-    myFileStream = new std::ofstream(localName.c_str(), std::ios_base::out);
+    fileStream = std::make_unique<std::ofstream>(localName.c_str(), std::ios_base::out);
 #endif
-    if (!myFileStream->good()) {
-        delete myFileStream;
+    if (!fileStream->good()) {
         throw IOError("Could not build output file '" + fullName + "' (" + std::strerror(errno) + ").");
     }
+    
+    // Create StreamDevice with the file stream
+    myStreamDevice = std::make_unique<StreamDevice>(std::move(fileStream));
 }
 
 
-OutputDevice_File::~OutputDevice_File() {
-    delete myFileStream;
-}
-
-
-std::ostream&
-OutputDevice_File::getOStream() {
-    return *myFileStream;
+StreamDevice&
+OutputDevice_File::getStreamDevice() {
+    return *myStreamDevice;
 }
 
 

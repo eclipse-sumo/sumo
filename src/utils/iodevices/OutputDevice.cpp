@@ -106,7 +106,7 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
         dev = new OutputDevice_File(name2, len > 3 && name.substr(len - 3) == ".gz");
     }
     dev->setPrecision();
-    dev->getOStream() << std::setiosflags(std::ios::fixed);
+    dev->getStreamDevice() << std::setiosflags(std::ios::fixed);
     myOutputDevices[name] = dev;
     return *dev;
 }
@@ -215,7 +215,7 @@ OutputDevice::~OutputDevice() {
 
 bool
 OutputDevice::ok() {
-    return getOStream().good();
+    return getStreamDevice().good();
 }
 
 
@@ -240,13 +240,13 @@ OutputDevice::close() {
 
 void
 OutputDevice::setPrecision(int precision) {
-    getOStream() << std::setprecision(precision);
+    getStreamDevice() << std::setprecision(precision);
 }
 
 
 int
 OutputDevice::precision() {
-    return (int)getOStream().precision();
+    return (int)getStreamDevice().precision();
 }
 
 
@@ -259,27 +259,27 @@ OutputDevice::writeXMLHeader(const std::string& rootElement,
         attrs[SUMO_ATTR_XMLNS] = "http://www.w3.org/2001/XMLSchema-instance";
         attrs[SUMO_ATTR_SCHEMA_LOCATION] = "http://sumo.dlr.de/xsd/" + schemaFile;
     }
-    return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs, includeConfig);
+    return myFormatter->writeXMLHeader(getStreamDevice(), rootElement, attrs, includeConfig);
 }
 
 
 OutputDevice&
 OutputDevice::openTag(const std::string& xmlElement) {
-    myFormatter->openTag(getOStream(), xmlElement);
+    myFormatter->openTag(getStreamDevice(), xmlElement);
     return *this;
 }
 
 
 OutputDevice&
 OutputDevice::openTag(const SumoXMLTag& xmlElement) {
-    myFormatter->openTag(getOStream(), xmlElement);
+    myFormatter->openTag(getStreamDevice(), xmlElement);
     return *this;
 }
 
 
 bool
 OutputDevice::closeTag(const std::string& comment) {
-    if (myFormatter->closeTag(getOStream(), comment)) {
+    if (myFormatter->closeTag(getStreamDevice(), comment)) {
         postWriteHook();
         return true;
     }
@@ -294,9 +294,9 @@ OutputDevice::postWriteHook() {}
 void
 OutputDevice::inform(const std::string& msg, const bool progress) {
     if (progress) {
-        getOStream() << msg;
+        getStreamDevice() << msg;
     } else {
-        getOStream() << msg << '\n';
+        getStreamDevice() << msg << '\n';
     }
     postWriteHook();
 }

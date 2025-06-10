@@ -22,7 +22,9 @@
 #include <config.h>
 
 #include <iostream>
+#include <memory>
 #include "OutputDevice.h"
+#include "StreamDevices.h"
 
 
 // ===========================================================================
@@ -46,7 +48,7 @@ public:
 
 
     /// @brief Destructor
-    ~OutputDevice_File();
+    ~OutputDevice_File() = default;
 
     /** @brief returns the information whether the device will discard all output
      * @return Whether the device redirects to /dev/null
@@ -60,16 +62,16 @@ protected:
     /// @name Methods that override/implement OutputDevice-methods
     /// @{
 
-    /** @brief Returns the associated ostream
-     * @return The used stream
+    /** @brief Returns the associated StreamDevice
+     * @return The StreamDevice wrapping the file stream
      */
-    std::ostream& getOStream() override;
+    StreamDevice& getStreamDevice() override;
     /// @}
 
 
 private:
-    /// The wrapped ofstream
-    std::ostream* myFileStream = nullptr;
+    /// The StreamDevice wrapping the file stream
+    std::unique_ptr<StreamDevice> myStreamDevice;
 
     /// am I redirecting to /dev/null
     bool myAmNull = false;

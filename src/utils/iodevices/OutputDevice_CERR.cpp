@@ -16,7 +16,7 @@
 /// @author  Michael Behrisch
 /// @date    2004
 ///
-// An output device that encapsulates cout
+// An output device that encapsulates cerr
 /****************************************************************************/
 #include <config.h>
 
@@ -47,6 +47,8 @@ OutputDevice_CERR::getDevice() {
 // method definitions
 // ===========================================================================
 OutputDevice_CERR::OutputDevice_CERR() : OutputDevice(0, "CERR") {
+    // Initialize the StreamDevice with cerr
+    myStreamDevice = StreamFactory::createCERR();
 }
 
 
@@ -55,15 +57,15 @@ OutputDevice_CERR::~OutputDevice_CERR() {
 }
 
 
-std::ostream&
-OutputDevice_CERR::getOStream() {
-    return std::cerr;
+StreamDevice&
+OutputDevice_CERR::getStreamDevice() {
+    return *myStreamDevice;
 }
 
 
 void
 OutputDevice_CERR::postWriteHook() {
-    std::cerr.flush();
+    myStreamDevice->flush();
 }
 
 

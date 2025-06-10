@@ -23,7 +23,6 @@
 #include <iostream>
 #include "OutputDevice_COUT.h"
 
-
 // ===========================================================================
 // static member definitions
 // ===========================================================================
@@ -47,24 +46,24 @@ OutputDevice_COUT::getDevice() {
 // method definitions
 // ===========================================================================
 OutputDevice_COUT::OutputDevice_COUT() : OutputDevice(0, "COUT") {
+    // Initialize the StreamDevice with cout
+    myStreamDevice = StreamFactory::createConsole();
 }
 
 
 OutputDevice_COUT::~OutputDevice_COUT() {
     myInstance = nullptr;
+    // myStreamDevice will be automatically destroyed via unique_ptr
 }
 
 
-std::ostream&
-OutputDevice_COUT::getOStream() {
-    return std::cout;
+StreamDevice&
+OutputDevice_COUT::getStreamDevice() {
+    return *myStreamDevice;
 }
 
 
 void
 OutputDevice_COUT::postWriteHook() {
-    std::cout.flush();
+    myStreamDevice->flush();
 }
-
-
-/****************************************************************************/

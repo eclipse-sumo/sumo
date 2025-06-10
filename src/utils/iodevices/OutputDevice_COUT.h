@@ -22,7 +22,8 @@
 #include <config.h>
 
 #include "OutputDevice.h"
-
+#include <memory>
+#include "StreamDevices.h"
 
 // ===========================================================================
 // class definitions
@@ -44,15 +45,15 @@ protected:
     /// @name Methods that override/implement OutputDevice-methods
     /// @{
 
-    /** @brief Returns the associated ostream
-     * @return cout
+    /** @brief Returns the associated StreamDevice
+     * @return StreamDevice wrapping cout
      */
-    std::ostream& getOStream();
+    StreamDevice& getStreamDevice();
 
 
     /** @brief Called after every write access.
      *
-     * Calls flush on stdout.
+     * Calls flush on the StreamDevice.
      */
     virtual void postWriteHook();
     /// @}
@@ -72,6 +73,9 @@ private:
 private:
     /// @brief my singular instance
     static OutputDevice* myInstance;
+
+    /// @brief The StreamDevice wrapping cout
+    std::unique_ptr<StreamDevice> myStreamDevice;
 
 
 };

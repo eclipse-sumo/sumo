@@ -29,6 +29,9 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <memory>
+
+#include "StreamDevices.h"
 
 
 // ==========================================================================
@@ -64,15 +67,15 @@ protected:
     /// @name Methods that override/implement OutputDevice-methods
     /// @{
 
-    /** @brief Returns the associated ostream
+    /** @brief Returns the associated StreamDevice
      *
      * The stream is an ostringstream, actually, into which the message
      *  is written. It is sent when postWriteHook is called.
      *
-     * @return The used stream
+     * @return The StreamDevice wrapping the string stream
      * @see postWriteHook
      */
-    std::ostream& getOStream();
+    StreamDevice& getStreamDevice();
 
 
     /** @brief Sends the data which was written to the string stream over the socket.
@@ -84,8 +87,11 @@ protected:
     /// @}
 
 private:
-    /// @brief packet buffer
-    std::ostringstream myMessage;
+    /// @brief packet buffer (raw pointer for postWriteHook access)
+    std::stringstream* myMessage;
+
+    /// @brief The StreamDevice wrapping the string stream
+    std::unique_ptr<StreamDevice> myStreamDevice;
 
     /// @brief the socket to transfer the data
     tcpip::Socket* mySocket;

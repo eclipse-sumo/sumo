@@ -29,7 +29,7 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "PlainXMLFormatter.h"
-
+#include "StreamDevices.h"
 
 // ===========================================================================
 // class definitions
@@ -53,7 +53,7 @@
  *  to an OutputDevice, there is special support for XML tags (remembering
  *  all open tags to close them at the end). OutputDevices are still lacking
  *  support for function pointers with the '<<' operator (no endl, use '\n').
- *  The most important method to implement in subclasses is getOStream,
+ *  The most important method to implement in subclasses is getStreamDevice,
  *  the most used part of the interface is the '<<' operator.
  *
  * The Boolean markers are used rarely and might get removed in future versions.
@@ -175,7 +175,7 @@ public:
     /** @brief Returns the precision of the underlying stream
      */
     int getPrecision() {
-        return (int)getOStream().precision();
+        return (int)getStreamDevice().precision();
     }
 
     /** @brief Writes an XML header with optional configuration
@@ -197,7 +197,7 @@ public:
 
     template <typename E>
     bool writeHeader(const SumoXMLTag& rootElement) {
-        return static_cast<PlainXMLFormatter*>(myFormatter)->writeHeader(getOStream(), rootElement);
+        return static_cast<PlainXMLFormatter*>(myFormatter)->writeHeader(getStreamDevice(), rootElement);
     }
 
 
@@ -240,7 +240,7 @@ public:
     /** @brief writes a line feed if applicable
      */
     void lf() {
-        getOStream() << "\n";
+        getStreamDevice() << "\n";
     }
 
 
@@ -252,7 +252,7 @@ public:
      */
     template <typename T>
     OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
-        PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        PlainXMLFormatter::writeAttr(getStreamDevice(), attr, val);
         return *this;
     }
 
@@ -271,7 +271,7 @@ public:
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, long long int attributeMask) {
         assert((int)attr <= 63);
         if (attributeMask == 0 || useAttribute(attr, attributeMask)) {
-            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+            PlainXMLFormatter::writeAttr(getStreamDevice(), attr, val);
         }
         return *this;
     }
@@ -279,7 +279,7 @@ public:
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, SumoXMLAttrMask attributeMask) {
         assert((int)attr <= (int)attributeMask.size());
         if (attributeMask.none() || useAttribute(attr, attributeMask)) {
-            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+            PlainXMLFormatter::writeAttr(getStreamDevice(), attr, val);
         }
         return *this;
     }
@@ -293,7 +293,7 @@ public:
      */
     template <typename T>
     OutputDevice& writeAttr(const std::string& attr, const T& val) {
-        PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        PlainXMLFormatter::writeAttr(getStreamDevice(), attr, val);
         return *this;
     }
 
@@ -317,13 +317,13 @@ public:
      * @return The OutputDevice for further processing
      */
     OutputDevice& writePreformattedTag(const std::string& val) {
-        myFormatter->writePreformattedTag(getOStream(), val);
+        myFormatter->writePreformattedTag(getStreamDevice(), val);
         return *this;
     }
 
     /// @brief writes padding (ignored for binary output)
     OutputDevice& writePadding(const std::string& val) {
-        myFormatter->writePadding(getOStream(), val);
+        myFormatter->writePadding(getStreamDevice(), val);
         return *this;
     }
 
@@ -341,13 +341,13 @@ public:
      */
     template <class T>
     OutputDevice& operator<<(const T& t) {
-        getOStream() << t;
+        getStreamDevice() << t;
         postWriteHook();
         return *this;
     }
 
     void flush() {
-        getOStream().flush();
+        getStreamDevice().flush();
     }
 
     bool wroteHeader() const {
@@ -356,7 +356,7 @@ public:
 
 protected:
     /// @brief Returns the associated ostream
-    virtual std::ostream& getOStream() = 0;
+    virtual StreamDevice& getStreamDevice() = 0;
 
 
     /** @brief Called after every write access.

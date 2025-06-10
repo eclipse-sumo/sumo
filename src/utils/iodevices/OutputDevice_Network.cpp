@@ -30,6 +30,7 @@
 #include <chrono>
 #include <vector>
 #include "OutputDevice_Network.h"
+#include "StreamDevices.h"
 #include "foreign/tcpip/socket.h"
 #include "utils/common/ToString.h"
 
@@ -51,6 +52,11 @@ OutputDevice_Network::OutputDevice_Network(const std::string& host,
             std::this_thread::sleep_for(std::chrono::seconds(wait));
         }
     }
+    
+    // Create StreamDevice with the message stringstream
+    auto messageStream = std::make_unique<std::stringstream>();
+    myMessage = messageStream.get(); // Keep reference for postWriteHook
+    myStreamDevice = std::make_unique<StreamDevice>(std::move(messageStream));
 }
 
 
@@ -60,16 +66,16 @@ OutputDevice_Network::~OutputDevice_Network() {
 }
 
 
-std::ostream&
-OutputDevice_Network::getOStream() {
-    return myMessage;
+StreamDevice&
+OutputDevice_Network::getStreamDevice() {
+    return *myStreamDevice;
 }
 
 
 void
 OutputDevice_Network::postWriteHook() {
-    const std::string toSend = myMessage.str();
-    myMessage.str("");
+    const std::string toSend = myMessage->str();
+    myMessage->str("");
     if (toSend.empty() || !mySocket->has_client_connection()) {
         return;
     }

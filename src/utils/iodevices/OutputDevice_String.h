@@ -22,17 +22,18 @@
 
 #include <fstream>
 #include "OutputDevice.h"
-
+#include <memory>
+#include "StreamDevices.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class OutputDevice_String
- * @brief An output device that encapsulates an ofstream
+ * @brief An output device that encapsulates a stringstream
  *
- * Please note that the device gots responsible for the stream and deletes
- *  it (it should not be deleted elsewhere).
+ * The device manages the underlying string stream through a StreamDevice wrapper
+ * and provides access to the string content.
  */
 class OutputDevice_String : public OutputDevice {
 public:
@@ -43,7 +44,7 @@ public:
 
 
     /// @brief Destructor
-    ~OutputDevice_String();
+    ~OutputDevice_String() = default;
 
 
     /** @brief Returns the current content as a string
@@ -55,15 +56,18 @@ protected:
     /// @name Methods that override/implement OutputDevice-methods
     /// @{
 
-    /** @brief Returns the associated ostream
-     * @return The used stream
+    /** @brief Returns the associated StreamDevice
+     * @return The StreamDevice wrapping the string stream
      */
-    std::ostream& getOStream();
+    StreamDevice& getStreamDevice();
     /// @}
 
 
 private:
-    /// The wrapped ofstream
-    std::ostringstream myStream;
+    /// The wrapped stringstream (raw pointer for getString() access)
+    std::ostringstream* myStream;
+
+    /// The StreamDevice wrapping the string stream
+    std::unique_ptr<StreamDevice> myStreamDevice;
 
 };

@@ -23,30 +23,29 @@
 #include <string>
 #include "OutputDevice_String.h"
 
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
 OutputDevice_String::OutputDevice_String(const int defaultIndentation)
     : OutputDevice(defaultIndentation) {
+    // Create stringstream and wrap it in StreamDevice
+    auto stringStream = std::make_unique<std::ostringstream>();
+    myStream = stringStream.get(); // Keep reference for getString()
+    myStreamDevice = std::make_unique<StreamDevice>(std::move(stringStream));
+    
     setPrecision();
-    myStream << std::setiosflags(std::ios::fixed);
+    *myStream << std::setiosflags(std::ios::fixed);
 }
-
-
-OutputDevice_String::~OutputDevice_String() {
-}
-
 
 std::string
 OutputDevice_String::getString() const {
-    return myStream.str();
+    return myStream->str();
 }
 
 
-std::ostream&
-OutputDevice_String::getOStream() {
-    return myStream;
+StreamDevice&
+OutputDevice_String::getStreamDevice() {
+    return *myStreamDevice;
 }
 
 
