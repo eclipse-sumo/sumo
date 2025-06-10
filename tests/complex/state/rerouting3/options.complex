@@ -1,0 +1,4 @@
+--no-step-log --no-duration-log --vehroute-output vehroutes.xml -n input_net.net.xml -r input_routes.rou.xml --device.rerouting.period 10 --device.rerouting.probability 1.0 --save-state.times 100 --save-state.files state.xml --device.rerouting.adaptation-steps 10
+:
+-r input_routes.rou.xml --device.rerouting.adaptation-steps 10 --no-step-log --no-duration-log --vehroute-output vehroutes2.xml -n input_net.net.xml --load-state state.xml --device.rerouting.period 10 --device.rerouting.probability 1.0 
+tests/complex/state/runner.py
