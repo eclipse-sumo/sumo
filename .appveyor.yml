@@ -10,7 +10,7 @@ environment:
           ver: 2017
           generator: "Visual Studio 15 2017 Win64"
           configuration: Release
-          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0 -A x64"
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DENABLE_CS_BINDINGS=0"
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
           ver: 2019
           generator: "Visual Studio 16 2019"
@@ -44,4 +44,3 @@ matrix:
 artifacts:
     - path: bin
       type: zip
-    - path: dist\*

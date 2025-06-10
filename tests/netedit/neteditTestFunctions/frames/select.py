@@ -21,13 +21,15 @@ from ..general.functions import *
 
 def selection(selectionType):
     """
-    @brief do a selection 
+    @brief do a selection
     """
     # focus current frame
     focusOnFrame()
     if (selectionType == "default"):
         for _ in range(attrs.frames.selection.default):
             typeKey('tab')
+        # type space to select it
+        typeKey('space')
     elif (selectionType == "save"):
         # jump to save
         for _ in range(attrs.frames.selection.save):
@@ -37,6 +39,8 @@ def selection(selectionType):
         typeTwoKeys('alt', 'f')
         filename = os.path.join(TEXTTEST_SANDBOX, "selection.txt")
         updateText(filename)
+        # type enter to select it
+        typeKey('enter')
     elif (selectionType == "load"):
         # jump to save
         for _ in range(attrs.frames.selection.load):
@@ -46,36 +50,52 @@ def selection(selectionType):
         typeTwoKeys('alt', 'f')
         filename = os.path.join(TEXTTEST_SANDBOX, "selection.txt")
         updateText(filename)
+        # type enter to select it
+        typeKey('enter')
     elif (selectionType == "add"):
         # jump to mode "add"
         for _ in range(attrs.frames.selection.add):
             typeKey('tab')
+        # type space to select it
+        typeKey('space')
     elif (selectionType == "remove"):
         # jump to mode "remove"
         for _ in range(attrs.frames.selection.remove):
             typeKey('tab')
+        # type space to select it
+        typeKey('space')
     elif (selectionType == "keep"):
         # jump to mode "keep"
         for _ in range(attrs.frames.selection.keep):
             typeKey('tab')
+        # type space to select it
+        typeKey('space')
     elif (selectionType == "replace"):
         # jump to mode "replace"
         for _ in range(attrs.frames.selection.replace):
             typeKey('tab')
+        # type space to select it
+        typeKey('space')
     elif (selectionType == "clear"):
         for _ in range(attrs.frames.selection.clear):
             typeKey('tab')
+        # type space to select it
+        typeKey('space')
     elif (selectionType == "invert"):
         for _ in range(attrs.frames.selection.invert):
             typeKey('tab')
+        # type space to select it
+        typeKey('space')
     elif (selectionType == "invertData"):
         for _ in range(attrs.frames.selection.invertData):
             typeKey('tab')
+        # type space to select it
+        typeKey('space')
     elif (selectionType == "delete"):
         for _ in range(attrs.frames.selection.delete):
             typeKey('tab')
-    # type enter to select it
-    typeKey('enter')
+        # type space to select it
+        typeKey('space')
     # wait for gl debug
     time.sleep(DELAY_SELECT)
 
