@@ -76,6 +76,9 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         processRedoFunction();
     } else if (function == "quit") {
         processQuitFunction();
+    } else if (function.size() > 0) {
+        std::cout << function << std::endl;
+        throw ProcessError("Function " + function + " not implemented in InternalTestStep");
     }
 }
 
