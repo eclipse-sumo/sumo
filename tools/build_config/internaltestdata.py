@@ -26,7 +26,6 @@ import os
 import sys
 
 
-# flatten class tree
 def flattenClassTree(node, scope=None, result=None):
     if scope is None:
         scope = []
@@ -52,8 +51,6 @@ def flattenClassTree(node, scope=None, result=None):
                         result[key] = -value_node.operand.value
     return result
 
-# parse int file
-
 
 def parseIntFile(inputFolder, outputFolder, file, prefix):
     # read python file
@@ -66,9 +63,7 @@ def parseIntFile(inputFolder, outputFolder, file, prefix):
     headerFile = outputFolder + "/" + file + ".txt"
     with open(headerFile, "w", encoding="utf-8") as f:
         for key, value in sorted(data.items()):
-            f.write(f'netedit.{prefix}.{key} {value}\n')
-
-# parse position file
+            f.write('netedit.%s.%s %s\n' % (prefix, key, value))
 
 
 def parsePositionFile(inputFolder, outputFolder, file, prefix):
@@ -86,7 +81,7 @@ def parsePositionFile(inputFolder, outputFolder, file, prefix):
                 keyShorted = key[:-2]
                 x = data[keyShorted + ".x"]
                 y = data[keyShorted + ".y"]
-                f.write(f'netedit.{prefix}.{keyShorted} {x} {y}\n')
+                f.write('netedit.%s.%s %s %s\n' % (prefix, keyShorted, x, y))
 
 
 # main
