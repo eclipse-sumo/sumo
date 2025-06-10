@@ -120,7 +120,7 @@ public:
     /// @brief Returns the vehicle's maximum speed
     inline double getMaxSpeed() const {
         return MIN2(getType()->maxSpeed,
-                    getType()->desiredMaxSpeed * getType()->speedFactor.getParameter()[0]);
+                    getType()->desiredMaxSpeed * getType()->speedFactor.getParameter(0));
     }
 
     virtual const ROEdge* getDepartEdge() const = 0;
@@ -178,7 +178,7 @@ protected:
      * @param[in] options to find out about defaults and whether exit times for the edges shall be written
      * @exception IOError If something fails (not yet implemented)
      */
-    virtual void saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options, int cloneIndex=0) const = 0;
+    virtual void saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options, int cloneIndex = 0) const = 0;
 
 
 private:

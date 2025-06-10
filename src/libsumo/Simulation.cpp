@@ -626,7 +626,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
             throw TraCIException("Invalid departure edge for vehicle type '" + type->getID() + "' (" + msg + ")");
         }
         // we need to fix the speed factor here for deterministic results
-        vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter()[0]);
+        vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter(0));
         vehicle->setRoutingMode(routingMode);
     } catch (ProcessError& e) {
         throw TraCIException("Invalid departure edge for vehicle type '" + type->getID() + "' (" + e.what() + ")");
@@ -745,7 +745,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
                 ConstMSRoutePtr const routeDummy = std::make_shared<MSRoute>(vehPar->id, ConstMSEdgeVector({ fromEdge }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
                 vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
                 // we need to fix the speed factor here for deterministic results
-                vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter()[0]);
+                vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter(0));
             }
         }
         std::vector<MSTransportableRouter::TripItem> items;

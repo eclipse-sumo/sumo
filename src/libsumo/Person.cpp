@@ -454,7 +454,7 @@ Person::getImperfection(const std::string& personID) {
 
 double
 Person::getSpeedDeviation(const std::string& personID) {
-    return getPerson(personID)->getVehicleType().getSpeedFactor().getParameter()[1];
+    return getPerson(personID)->getVehicleType().getSpeedFactor().getParameter(1);
 }
 
 

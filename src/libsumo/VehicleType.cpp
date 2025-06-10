@@ -74,13 +74,13 @@ VehicleType::getActionStepLength(const std::string& typeID) {
 
 double
 VehicleType::getSpeedFactor(const std::string& typeID) {
-    return getVType(typeID)->getSpeedFactor().getParameter()[0];
+    return getVType(typeID)->getSpeedFactor().getParameter(0);
 }
 
 
 double
 VehicleType::getSpeedDeviation(const std::string& typeID) {
-    return getVType(typeID)->getSpeedFactor().getParameter()[1];
+    return getVType(typeID)->getSpeedFactor().getParameter(1);
 }
 
 

@@ -47,10 +47,10 @@ public:
     *
     * A random sample is drawn according to the assigned probabilities.
     *
-    * @param[in] which The random number generator to use; the static one will be used if 0 is passed
+    * @param[in] which The random number generator to use; the static one will be used if nullptr is passed
     * @return the drawn member
     */
-    double sample(SumoRNG* which = 0) const {
+    double sample(SumoRNG* which = nullptr) const {
         return get(which);
     }
 

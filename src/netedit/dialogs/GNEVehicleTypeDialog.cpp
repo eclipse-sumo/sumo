@@ -106,7 +106,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::setVariable() {
                 myVTypeAttributesParent->myDesiredMaxSpeed->updateValue(toString(defaultVTypeParameters.desiredMaxSpeed));
             }
             if (!myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_SPEEDFACTOR)) {
-                myVTypeAttributesParent->mySpeedFactor->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
+                myVTypeAttributesParent->mySpeedFactor->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter(0)));
             }
             if (!myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeEnabled(SUMO_ATTR_EMISSIONCLASS)) {
                 myVTypeAttributesParent->myEmissionClass->updateValue(toString(defaultVTypeParameters.emissionClass));
@@ -1104,7 +1104,7 @@ GNEVehicleTypeDialog::VTypeAttributes::updateValues() {
     myMinGap->updateValue(toString(defaultVTypeParameters.minGap));
     myMaxSpeed->updateValue(toString(defaultVTypeParameters.maxSpeed));
     myDesiredMaxSpeed->updateValue(toString(defaultVTypeParameters.desiredMaxSpeed));
-    mySpeedFactor->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
+    mySpeedFactor->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter(0)));
     myEmissionClass->updateValue(toString(defaultVTypeParameters.emissionClass));
     myWidth->updateValue(toString(defaultVTypeParameters.width));
     myHeight->updateValue(toString(defaultVTypeParameters.height));
@@ -1189,7 +1189,7 @@ GNEVehicleTypeDialog::VTypeAttributes::onCmdSetAttribute(FXObject*, FXSelector, 
     myMinGap->setVariable(toString(defaultVTypeParameters.minGap));
     myMaxSpeed->setVariable(toString(defaultVTypeParameters.maxSpeed));
     myDesiredMaxSpeed->setVariable(toString(defaultVTypeParameters.desiredMaxSpeed));
-    mySpeedFactor->setVariable(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
+    mySpeedFactor->setVariable(toString(defaultVTypeParameters.speedFactor.getParameter(0)));
     myEmissionClass->setVariable(toString(defaultVTypeParameters.emissionClass));
     myWidth->setVariable(toString(defaultVTypeParameters.width));
     myHeight->setVariable(toString(defaultVTypeParameters.height));
@@ -1200,7 +1200,7 @@ GNEVehicleTypeDialog::VTypeAttributes::onCmdSetAttribute(FXObject*, FXSelector, 
     myLength->setVariable(toString(defaultVTypeParameters.length));
     myMinGap->setVariable(toString(defaultVTypeParameters.minGap));
     myMaxSpeed->setVariable(toString(defaultVTypeParameters.maxSpeed));
-    mySpeedFactor->setVariable(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
+    mySpeedFactor->setVariable(toString(defaultVTypeParameters.speedFactor.getParameter(0)));
     myEmissionClass->setVariable(toString(defaultVTypeParameters.emissionClass));
     myWidth->setVariable(toString(defaultVTypeParameters.width));
     myHeight->setVariable(toString(defaultVTypeParameters.height));

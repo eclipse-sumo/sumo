@@ -843,7 +843,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             } else if (speedDev < 0) {
                 return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_SPEEDDEV) + " must be equal or greater than 0");
             } else {
-                vType->speedFactor.getParameter()[1] = speedDev;
+                vType->speedFactor.setParameter(1, speedDev);
                 vType->parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
             }
         }
@@ -1682,13 +1682,13 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAt
                         return false;
                     }
                 } else if (JMAttribute < 0
-                        && it != SUMO_ATTR_JM_TIMEGAP_MINOR
-                        && it != SUMO_ATTR_JM_EXTRA_GAP) {
+                           && it != SUMO_ATTR_JM_TIMEGAP_MINOR
+                           && it != SUMO_ATTR_JM_EXTRA_GAP) {
                     // attributes with error value
                     if (JMAttribute != -1 || (it != SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME
-                                           && it != SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME
-                                           && it != SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME)) {
-                    // check attributes of type "nonNegativeFloatType" (>= 0)
+                                              && it != SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME
+                                              && it != SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME)) {
+                        // check attributes of type "nonNegativeFloatType" (>= 0)
                         WRITE_ERRORF(TL("Invalid Junction-Model Attribute %. Must be equal or greater than 0"), toString(it));
                         return false;
                     }

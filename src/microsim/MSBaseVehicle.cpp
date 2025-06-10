@@ -2484,8 +2484,8 @@ void
 MSBaseVehicle::replaceVehicleType(MSVehicleType* type) {
     assert(type != nullptr);
     // save old parameters before possible type deletion
-    const double oldMu = myType->getSpeedFactor().getParameter()[0];
-    const double oldDev = myType->getSpeedFactor().getParameter()[1];
+    const double oldMu = myType->getSpeedFactor().getParameter(0);
+    const double oldDev = myType->getSpeedFactor().getParameter(1);
     if (myType->isVehicleSpecific() && type != myType) {
         MSNet::getInstance()->getVehicleControl().removeVType(myType);
     }
@@ -2496,8 +2496,8 @@ MSBaseVehicle::replaceVehicleType(MSVehicleType* type) {
     } else {
         // map old speedFactor onto new distribution
         const double distPoint = (myChosenSpeedFactor - oldMu) / oldDev;
-        const double newMu = type->getSpeedFactor().getParameter()[0];
-        const double newDev = type->getSpeedFactor().getParameter()[1];
+        const double newMu = type->getSpeedFactor().getParameter(0);
+        const double newDev = type->getSpeedFactor().getParameter(1);
         myChosenSpeedFactor = newMu + distPoint * newDev;
         // respect distribution limits
         myChosenSpeedFactor = MIN2(myChosenSpeedFactor, type->getSpeedFactor().getMax());

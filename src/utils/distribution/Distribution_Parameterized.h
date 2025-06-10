@@ -55,14 +55,14 @@ public:
     /// @brief Overwrite by parsable distribution description
     void parse(const std::string& description, const bool hardFail);
 
-    /** @brief Draw a sample of the distribution.
+    /** @brief Draw a sample of the distribution using the given RNG.
     *
     * A random sample is drawn according to the assigned probabilities.
     *
-    * @param[in] which The random number generator to use; the static one will be used if 0 is passed
+    * @param[in] which The random number generator to use; the static one will be used if nullptr is passed
     * @return the drawn member
     */
-    double sample(SumoRNG* which = 0) const;
+    double sample(SumoRNG* which = nullptr) const;
 
     /// @brief Returns the maximum value of this distribution
     double getMax() const;
@@ -70,11 +70,13 @@ public:
     /// @brief Returns the minimum value of this distribution
     double getMin() const;
 
-    /// @brief Returns the parameters of this distribution
-    std::vector<double>& getParameter();
+    /// @brief Returns the nth parameter of this distribution
+    inline double getParameter(const int index) const {
+        return myParameter[index];
+    }
 
-    /// @brief Returns the unmodifiable parameters of this distribution
-    const std::vector<double>& getParameter() const;
+    /// @brief Set a parameter of this distribution
+    void setParameter(const int index, const double value);
 
     /// @brief check whether the distribution is valid
     const std::string isValid() const;
