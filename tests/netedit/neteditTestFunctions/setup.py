@@ -30,13 +30,13 @@ def Popen(extraParameters):
 
     # check if a netedit config must be loaded
     if os.path.exists(os.path.join(TEXTTEST_SANDBOX, "netedit.netecfg")):
-        neteditCall += ['-c', os.path.join(TEXTTEST_SANDBOX, "netedit.netecfg")]
+        neteditCall += ['-c netedit.netecfg')]
 
     # add extra parameters
     neteditCall += extraParameters
 
     # return a subprocess with Netedit
-    return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
+    return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr, cwd=TEXTTEST_SANDBOX)
 
 
 def getReferenceMatch(neProcess, makeScrenshot):
