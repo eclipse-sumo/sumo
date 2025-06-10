@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-10 12:53:11 by Eclipse SUMO sumo Version v1_23_1+0475-785babee09a
+<!-- generated on 2025-06-10 12:53:52 by Eclipse SUMO sumo Version v1_23_1+0476-1916f8dcf46
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -324,8 +324,8 @@
 
     <vehicle id="80" depart="80.00" arrival="164.00">
         <routeDistribution>
-            <route replacedOnEdge="A1B1" reason="device.rerouting" replacedAtTime="100.00" probability="0" edges="A2A1 A1B1 B1C1 C1D1 D1D0 D0D1"/>
-            <route edges="A2A1 A1B1 B1C1 C1D1 D1D0 D0D1 A1B1 B1B0 B0C0 C0D0 D0D1"/>
+            <route replacedOnEdge="A1B1" replacedOnIndex="1" reason="device.rerouting" replacedAtTime="100.00" probability="0" edges="A2A1 A1B1 B1C1 C1D1 D1D0 D0D1"/>
+            <route edges="A2A1 A1B1 B1B0 B0C0 C0D0 D0D1"/>
         </routeDistribution>
     </vehicle>
 
@@ -434,10 +434,10 @@
 
     <vehicle id="82" depart="82.00" arrival="183.00">
         <routeDistribution>
-            <route replacedOnEdge="E1D1" reason="device.rerouting" replacedAtTime="102.00" probability="0" edges="E0E1 E1D1 D1C1 C1C2 C2B2 B2A2 A2A1"/>
-            <route replacedOnEdge="E1D1" replacedOnIndex="1" reason="device.rerouting" replacedAtTime="112.00" probability="0" edges="E0E1 E1D1 D1C1 C1C2 C2B2 B2A2 A2A1 E1D1 D1D2 D2C2 C2B2 B2A2 A2A1"/>
-            <route replacedOnEdge="D1C1" replacedOnIndex="2" reason="device.rerouting" replacedAtTime="122.00" probability="0" edges="E0E1 E1D1 D1C1 C1C2 C2B2 B2A2 A2A1 E1D1 D1C1 C1B1 B1B2 B2A2 A2A1"/>
-            <route edges="E0E1 E1D1 D1C1 C1C2 C2B2 B2A2 A2A1 E1D1 D1C1 C1C2 C2B2 B2A2 A2A1"/>
+            <route replacedOnEdge="E1D1" replacedOnIndex="1" reason="device.rerouting" replacedAtTime="102.00" probability="0" edges="E0E1 E1D1 D1C1 C1C2 C2B2 B2A2 A2A1"/>
+            <route replacedOnEdge="E1D1" replacedOnIndex="1" reason="device.rerouting" replacedAtTime="112.00" probability="0" edges="E0E1 E1D1 D1D2 D2C2 C2B2 B2A2 A2A1"/>
+            <route replacedOnEdge="D1C1" replacedOnIndex="2" reason="device.rerouting" replacedAtTime="122.00" probability="0" edges="E0E1 E1D1 D1C1 C1B1 B1B2 B2A2 A2A1"/>
+            <route edges="E0E1 E1D1 D1C1 C1C2 C2B2 B2A2 A2A1"/>
         </routeDistribution>
     </vehicle>
 
