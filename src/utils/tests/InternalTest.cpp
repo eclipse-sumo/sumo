@@ -37,9 +37,9 @@
 InternalTest::InternalTest(const std::string& testFile) {
     const auto sumoHome = std::string(getenv("SUMO_HOME"));
     // load data files
-    myAttributesEnum = parseIntTestDataFile(sumoHome + "\\data\\tests\\attributesEnum.txt");
-    myContextualMenuOperations = parseIntTestDataFile(sumoHome + "\\data\\tests\\contextualMenuOperations.txt");
-    myViewPositions = parsePositionTestDataFile(sumoHome + "\\data\\tests\\viewPositions.txt");
+    myAttributesEnum = parseIntTestDataFile(sumoHome + "/data/tests/attributesEnum.txt");
+    myContextualMenuOperations = parseIntTestDataFile(sumoHome + "/data/tests/contextualMenuOperations.txt");
+    myViewPositions = parsePositionTestDataFile(sumoHome + "/data/tests/viewPositions.txt");
     // open file
     std::ifstream strm(testFile);
     // check if file can be opened
