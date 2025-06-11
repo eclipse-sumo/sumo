@@ -35,5 +35,8 @@ internal_speed
 # see #16787
 double_roundabout
 
+# see #16787
+left_before_right
+
 # network topologies that should not be classified as a roundabout
 no_roundabout

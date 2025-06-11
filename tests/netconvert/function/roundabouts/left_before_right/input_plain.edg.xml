@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-06-11 08:06:24 by Eclipse SUMO netconvert Version v1_23_1+0491-30eb08d3e63
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="small.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <numerical-ids.node-start value="0"/>
+        <numerical-ids.edge-start value="100"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.internal-link-detail value="8"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</netconvertConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-388091.80,-5257586.90" convBoundary="-103336.83,-137803.93,-103104.83,-137641.58" origBoundary="7.512361,47.463210,7.757939,47.611960" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="100" from="4" to="3" priority="0" numLanes="1" speed="8.30" shape="-103104.83,-137714.68,424.25 -103161.65,-137717.51,424.36 -103167.40,-137717.40,424.39 -103171.03,-137716.45,424.43 -103174.67,-137714.34,424.51" width="2.30" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_2025"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="101" from="2" to="5" priority="0" numLanes="1" speed="8.30" shape="-103109.36,-137641.58,424.52 -103137.51,-137665.38,424.30 -103160.42,-137684.03,424.34 -103167.99,-137689.68,424.36 -103174.52,-137693.78,424.45" width="3.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_2943"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="102" from="7" to="6" priority="0" numLanes="1" speed="8.30" shape="-103256.61,-137748.77,423.37 -103262.73,-137753.66,423.34 -103270.55,-137759.03,423.30 -103277.14,-137762.59,423.22 -103283.90,-137766.31,423.06 -103293.77,-137771.37,422.97 -103306.86,-137777.65,422.88 -103336.83,-137790.86,422.75" width="3.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_3163"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="103" from="9" to="8" priority="0" numLanes="1" speed="13.00" shape="-103202.92,-137710.64,424.74 -103206.38,-137715.13,424.75 -103210.22,-137719.43,424.77 -103218.32,-137725.95,424.82 -103224.36,-137729.38,424.84 -103231.43,-137732.86,424.86" width="2.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_4721"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="104" from="1" to="0" priority="0" numLanes="1" speed="8.30" shape="-103238.97,-137803.93,423.31 -103234.57,-137773.34,423.83 -103233.37,-137764.55,423.86 -103232.62,-137760.14,423.88 -103232.32,-137755.84,423.92" width="3.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_8926"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="105" from="3" to="4" priority="0" numLanes="1" speed="8.30" shape="-103177.58,-137717.38,424.51 -103170.67,-137717.94,424.43 -103165.45,-137717.81,424.39 -103161.71,-137717.51,424.36 -103104.83,-137714.68,424.25" width="2.30" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_2025"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="106" from="5" to="2" priority="0" numLanes="1" speed="8.30" shape="-103171.05,-137695.76,424.53 -103159.73,-137685.70,424.34 -103137.14,-137665.63,424.30 -103109.36,-137641.58,424.52" width="3.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_2943"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="107" from="6" to="7" priority="0" numLanes="1" speed="8.30" shape="-103336.83,-137790.86,422.75 -103306.86,-137777.65,422.88 -103283.53,-137767.61,423.06 -103271.78,-137761.94,423.10 -103264.42,-137758.53,423.14 -103257.99,-137756.05,423.22 -103252.76,-137754.47,423.37" width="3.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_3163"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="108" from="8" to="9" priority="0" numLanes="1" speed="13.00" shape="-103226.81,-137739.13,424.86 -103222.36,-137734.44,424.84 -103216.59,-137730.08,424.82 -103207.38,-137723.89,424.77 -103202.41,-137721.57,424.75 -103195.65,-137719.45,424.74" width="2.50" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_4721"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="109" from="9" to="3" priority="0" numLanes="1" speed="8.30" shape="-103190.80,-137716.82,424.82 -103186.72,-137716.65,424.79 -103182.54,-137715.79,424.77" width="4.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_7240"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="110" from="3" to="5" priority="0" numLanes="1" speed="8.30" shape="-103181.12,-137712.97,424.76 -103178.92,-137709.10,424.69 -103178.69,-137705.70,424.65 -103179.89,-137700.46,424.61" width="4.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_7241"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="111" from="5" to="9" priority="0" numLanes="1" speed="8.30" shape="-103179.89,-137700.46,424.61 -103184.54,-137698.32,424.75 -103189.32,-137698.25,424.82 -103193.02,-137699.41,424.86 -103195.47,-137702.05,424.87 -103196.69,-137705.08,424.88" width="4.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_7243"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="112" from="7" to="0" priority="0" numLanes="1" speed="8.30" shape="-103243.61,-137752.48,424.12 -103240.29,-137753.13,424.12" width="4.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_7244"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="113" from="0" to="8" priority="0" numLanes="1" speed="8.30" shape="-103233.05,-137748.40,424.27 -103231.45,-137744.24,424.30" width="4.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_7245"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="114" from="8" to="7" priority="0" numLanes="1" speed="8.30" shape="-103235.59,-137736.91,424.30 -103238.34,-137734.60,424.25 -103242.06,-137734.21,424.21 -103245.93,-137735.24,424.15 -103249.04,-137738.11,424.13 -103250.33,-137741.59,424.12 -103249.94,-137744.79,424.10" width="4.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_7246"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+    <edge id="115" from="0" to="1" priority="0" numLanes="1" speed="8.30" shape="-103236.71,-137758.91,423.92 -103235.53,-137762.01,423.88 -103234.32,-137766.25,423.86 -103234.57,-137773.34,423.83 -103238.97,-137803.93,423.31" width="3.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair drone">
+        <lane index="0">
+            <param key="origId" value="gen_road_8926"/>
+        </lane>
+        <param key="level" value="0"/>
+        <param key="roadtype" value="road"/>
+        <param key="spreadtype" value="right"/>
+    </edge>
+</edges>
