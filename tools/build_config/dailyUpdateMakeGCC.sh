@@ -141,7 +141,8 @@ echo "--" >> $STATUSLOG
 if test -e $SUMO_BINDIR/netedit && test $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Makefile; then
   if test "$FILEPREFIX" == "gcc4_64" || test "$FILEPREFIX" == "extraNetedit"; then
     killall -9 -q fluxbox
-    tests/runNeteditDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
+    tests/runNeteditInternalTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
+    tests/runNeteditExternalDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
     tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
   fi
 fi
