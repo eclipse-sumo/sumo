@@ -133,14 +133,36 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // draw the area depending if the vehicle is charging
     glTranslated(0, 0, getType());
 
+
+
     // set color depending if charging station is charging
-    if (myChargingVehicle) {
-        GLHelper::setColor(s.colorSettings.chargingStationColorCharge);
-    } else {
-        GLHelper::setColor(s.colorSettings.chargingStationColor);
-    }
+    RGBColor csColor = (myChargingVehicle)? s.colorSettings.chargingStationColorCharge : s.colorSettings.chargingStationColor;
+    GLHelper::setColor(csColor);
+
     const double exaggeration = getExaggeration(s);
-    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, MIN2(1.0, exaggeration));
+
+    if(myParkingArea != nullptr) {
+        // draw space background with charging station colors
+        const std::vector<MSParkingArea::LotSpaceDefinition>& spaces = myParkingArea->getSpaceOccupancies();
+        for(const auto& space : spaces) {
+            // draw box lines
+            GLHelper::drawBoxLine(space.position, space.rotation - 180., space.length, 0.5 * space.width);
+        }
+
+        // redraw spaces from parking area
+        GLHelper::pushMatrix();
+        glTranslated(0, 0, .1);
+        for(const auto& space : spaces) {
+            GLHelper::drawSpaceOccupancies(exaggeration, space.position, space.rotation,
+                    space.width, space.length, space.vehicle ? true : false);
+        }
+        GLHelper::popMatrix();
+    } else {
+        GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, MIN2(1.0, exaggeration));
+    }
+
+    // reset color because it may have changed due to redrawing occupied spaces
+    GLHelper::setColor(csColor);
 
     // draw details unless zoomed out to far
     if (s.drawDetail(10, exaggeration)) {
@@ -149,7 +171,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // translate and rotate
         const double rotSign = MSGlobals::gLefthand ? 1 : -1;
         const double lineAngle = s.getTextAngle(myFGSignRot);
-        glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
+        glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0.2);
         glRotated(-lineAngle, 0, 0, 1);
         // draw charging power
         const double textOffset = s.flippedTextAngle(rotSign * myFGSignRot) ? -0.5 : -0.1;
@@ -159,7 +181,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
         GLHelper::pushMatrix();
         // draw the sign
-        glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
+        glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0.2);
         int noPoints = 9;
         if (s.scale * exaggeration > 25) {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
@@ -173,7 +195,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         GLHelper::drawText("C", Position(), .1, 1.6, s.colorSettings.chargingStationColor, myFGSignRot);
 
-        glTranslated(5, 0, 0);
+        //glTranslated(5, 0, 0);
         GLHelper::popMatrix();
 
     }
@@ -201,13 +223,14 @@ GUIChargingStation::initAppearance(MSLane& lane, double frompos, double topos) {
         myFGShapeLengths.push_back(f.distanceTo(s));
         myFGShapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
     }
-    PositionVector tmp = myFGShape;
+    PositionVector tmp = (myParkingArea != nullptr) ? myParkingArea->getShape() : myFGShape;
     const double rotSign = MSGlobals::gLefthand ? -1 : 1;
-    tmp.move2side(1.5 * rotSign);
+    const double offset = (myParkingArea != nullptr)? lane.getWidth() : 1.5;
+    tmp.move2side(offset * rotSign);
     myFGSignPos = tmp.getLineCenter();
     myFGSignRot = 0;
     if (tmp.length() != 0) {
-        myFGSignRot = myFGShape.rotationDegreeAtOffset(double((myFGShape.length() / 2.)));
+        myFGSignRot = myFGShape.rotationDegreeAtOffset(double((tmp.length() / 2.)));
         myFGSignRot -= 90 * rotSign;
     }
 }

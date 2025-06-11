@@ -641,6 +641,18 @@ MSParkingArea::setAcceptedBadges(const std::vector<std::string>& badges) {
 }
 
 
+const std::vector<MSParkingArea::LotSpaceDefinition>&
+MSParkingArea::getSpaceOccupancies() const {
+    return mySpaceOccupancies;
+}
+
+
+const PositionVector&
+MSParkingArea::getShape() const {
+    return myShape;
+}
+
+
 void
 MSParkingArea::setRoadsideCapacity(int capacity) {
     // reinit parking lot generation process
