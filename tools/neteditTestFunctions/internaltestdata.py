@@ -51,9 +51,9 @@ def flattenClassTree(node, scope=None, result=None):
     return result
 
 
-def parseIntFile(inputFolder, outputFolder, file, prefix):
+def parseIntFile(outputFolder, file):
     # read python file
-    pythonFile = inputFolder + "/" + file + ".py"
+    pythonFile = "./enums/" + file + ".py"
     with open(pythonFile, "r", encoding="utf-8") as f:
         tree = ast.parse(f.read(), filename=pythonFile)
     # flatten data
@@ -62,12 +62,12 @@ def parseIntFile(inputFolder, outputFolder, file, prefix):
     outputFile = outputFolder + "/" + file + ".txt"
     with open(outputFile, "w", encoding="utf-8") as f:
         for key, value in sorted(data.items()):
-            f.write('netedit.%s.%s %s\n' % (prefix, key, value))
+            f.write('netedit.%s %s\n' % (key, value))
 
 
-def parsePositionFile(inputFolder, outputFolder, file, prefix):
+def parsePositionFile(outputFolder, file):
     # read python file
-    pythonFile = inputFolder + "/" + file + ".py"
+    pythonFile = "./enums/" + file + ".py"
     with open(pythonFile, "r", encoding="utf-8") as f:
         tree = ast.parse(f.read(), filename=pythonFile)
     # flatten data
@@ -80,21 +80,16 @@ def parsePositionFile(inputFolder, outputFolder, file, prefix):
                 keyShorted = key[:-2]
                 x = data[keyShorted + ".x"]
                 y = data[keyShorted + ".y"]
-                f.write('netedit.%s.%s %s %s\n' % (prefix, keyShorted, x, y))
+                f.write('netedit.%s %s %s\n' % (keyShorted, x, y))
 
 
 # main
 if __name__ == "__main__":
-    inputFolder = "./../../tests/netedit/enums"
     outputFolder = "./../../data/tests"
-    # calculate files for src folder (we need it to avoid visual studio warnings)
-    parseIntFile(inputFolder, outputFolder, "attributesEnum", "attrs")
-    parseIntFile(inputFolder, outputFolder, "contextualMenuOperations", "contextualMenu")
-    parsePositionFile(inputFolder, outputFolder, "viewPositions", "positions")
     # check if create folder
     if not os.path.exists(outputFolder):
         os.mkdir(outputFolder)
     # calculate files for data folder
-    parseIntFile(inputFolder, outputFolder, "attributesEnum", "attrs")
-    parseIntFile(inputFolder, outputFolder, "contextualMenuOperations", "contextualMenu")
-    parsePositionFile(inputFolder, outputFolder, "viewPositions", "positions")
+    parseIntFile(outputFolder, "attributesEnum")
+    parseIntFile(outputFolder, "contextualMenuOperations")
+    parsePositionFile(outputFolder, "viewPositions")
