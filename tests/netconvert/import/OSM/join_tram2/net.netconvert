@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-11 11:13:34 by Eclipse SUMO netconvert Version v1_23_1+0496-55e007ef6bb
+<!-- generated on 2025-06-11 12:20:47 by Eclipse SUMO netconvert Version v1_23_1+0498-a01d940de87
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,6 +56,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
     <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
     <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
+    <type id="highway.service|psv" priority="1" numLanes="1" speed="13.89" allow="pedestrian bus delivery bicycle" oneway="0"/>
     <type id="highway.service|railway.tram" priority="17" numLanes="1" speed="13.89" allow="pedestrian delivery bicycle tram" oneway="0"/>
     <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
     <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
@@ -729,13 +730,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="171266144"/>
         </lane>
     </edge>
-    <edge id="171266164#0" from="272856917" to="1859355733" priority="1" type="highway.service" spreadType="center">
-        <lane id="171266164#0_0" index="0" allow="bus bicycle" speed="5.56" length="23.84" shape="2009.62,1058.61 2032.67,1063.38">
+    <edge id="171266164#0" from="272856917" to="1859355733" priority="1" type="highway.service|psv" spreadType="center">
+        <lane id="171266164#0_0" index="0" allow="bus bicycle" speed="13.89" length="23.84" shape="2009.62,1058.61 2032.67,1063.38">
             <param key="origId" value="171266164"/>
         </lane>
     </edge>
-    <edge id="171266164#1" from="1859355733" to="5416395270" priority="1" type="highway.service" spreadType="center" shape="2032.82,1063.41 2036.42,1064.19 2051.04,1067.78 2066.01,1070.66 2073.79,1071.44 2084.08,1072.36 2099.97,1072.62 2103.93,1072.56">
-        <lane id="171266164#1_0" index="0" allow="bus bicycle" speed="5.56" length="71.98" shape="2032.96,1063.44 2036.42,1064.19 2051.04,1067.78 2066.01,1070.66 2073.79,1071.44 2084.08,1072.36 2099.97,1072.62 2103.93,1072.56">
+    <edge id="171266164#1" from="1859355733" to="5416395270" priority="1" type="highway.service|psv" spreadType="center" shape="2032.82,1063.41 2036.42,1064.19 2051.04,1067.78 2066.01,1070.66 2073.79,1071.44 2084.08,1072.36 2099.97,1072.62 2103.93,1072.56">
+        <lane id="171266164#1_0" index="0" allow="bus bicycle" speed="13.89" length="71.98" shape="2032.96,1063.44 2036.42,1064.19 2051.04,1067.78 2066.01,1070.66 2073.79,1071.44 2084.08,1072.36 2099.97,1072.62 2103.93,1072.56">
             <param key="origId" value="171266164"/>
         </lane>
     </edge>
@@ -2621,28 +2622,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="315425129"/>
         </lane>
     </edge>
-    <edge id="316682907" from="3228386971" to="3144381700" priority="1" type="highway.service" spreadType="center" shape="1740.69,1059.35 1755.89,1060.60 1762.67,1059.65 1770.76,1057.68">
-        <lane id="316682907_0" index="0" allow="bus bicycle" speed="5.56" length="11.02" shape="1769.27,1058.04 1769.47,1057.99">
+    <edge id="316682907" from="3228386971" to="3144381700" priority="1" type="highway.service|psv" spreadType="center" shape="1740.69,1059.35 1755.89,1060.60 1762.67,1059.65 1770.76,1057.68">
+        <lane id="316682907_0" index="0" allow="bus bicycle" speed="13.89" length="11.02" shape="1769.27,1058.04 1769.47,1057.99">
             <param key="origId" value="316682907"/>
         </lane>
     </edge>
-    <edge id="316682908#0" from="1755789393" to="3228386966" priority="1" type="highway.service" spreadType="center" shape="1908.07,965.08 1912.89,963.62 1915.98,963.64">
-        <lane id="316682908#0_0" index="0" allow="bus bicycle" speed="5.56" length="12.09" shape="1917.82,963.66 1918.02,963.66">
+    <edge id="316682908#0" from="1755789393" to="3228386966" priority="1" type="highway.service|psv" spreadType="center" shape="1908.07,965.08 1912.89,963.62 1915.98,963.64">
+        <lane id="316682908#0_0" index="0" allow="bus bicycle" speed="13.89" length="12.09" shape="1917.82,963.66 1918.02,963.66">
             <param key="origId" value="316682908"/>
         </lane>
     </edge>
-    <edge id="316682908#1" from="3228386966" to="7347481750" priority="1" type="highway.service" spreadType="center">
-        <lane id="316682908#1_0" index="0" allow="bus bicycle" speed="5.56" length="9.06" shape="1921.64,964.91 1921.84,964.96">
+    <edge id="316682908#1" from="3228386966" to="7347481750" priority="1" type="highway.service|psv" spreadType="center">
+        <lane id="316682908#1_0" index="0" allow="bus bicycle" speed="13.89" length="9.06" shape="1921.64,964.91 1921.84,964.96">
             <param key="origId" value="316682908"/>
         </lane>
     </edge>
-    <edge id="316682908#2" from="7347481750" to="3144373884" priority="1" type="highway.service" spreadType="center" shape="1924.82,965.62 1927.10,966.14 1928.96,967.15">
-        <lane id="316682908#2_0" index="0" allow="bus bicycle" speed="5.56" length="4.47" shape="1926.67,965.91 1926.85,966.00">
+    <edge id="316682908#2" from="7347481750" to="3144373884" priority="1" type="highway.service|psv" spreadType="center" shape="1924.82,965.62 1927.10,966.14 1928.96,967.15">
+        <lane id="316682908#2_0" index="0" allow="bus bicycle" speed="13.89" length="4.47" shape="1926.67,965.91 1926.85,966.00">
             <param key="origId" value="316682908"/>
         </lane>
     </edge>
-    <edge id="316682908#3" from="3144373884" to="26193612" priority="1" type="highway.service" spreadType="center" shape="1928.96,967.15 1937.07,971.53 1943.92,978.60">
-        <lane id="316682908#3_0" index="0" allow="bus bicycle" speed="5.56" length="18.91" shape="1932.21,968.90 1932.39,969.00">
+    <edge id="316682908#3" from="3144373884" to="26193612" priority="1" type="highway.service|psv" spreadType="center" shape="1928.96,967.15 1937.07,971.53 1943.92,978.60">
+        <lane id="316682908#3_0" index="0" allow="bus bicycle" speed="13.89" length="18.91" shape="1932.21,968.90 1932.39,969.00">
             <param key="origId" value="316682908"/>
         </lane>
     </edge>
@@ -3474,8 +3475,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="384876528"/>
         </lane>
     </edge>
-    <edge id="384876529" from="3882310984" to="3882310980" priority="1" type="highway.service" spreadType="center">
-        <lane id="384876529_0" index="0" allow="bus delivery bicycle" speed="5.56" length="11.69" shape="1184.11,1033.14 1184.15,1032.94">
+    <edge id="384876529" from="3882310984" to="3882310980" priority="1" type="highway.service|psv" spreadType="center">
+        <lane id="384876529_0" index="0" allow="bus delivery bicycle" speed="13.89" length="11.69" shape="1184.11,1033.14 1184.15,1032.94">
             <param key="origId" value="384876529"/>
         </lane>
     </edge>
@@ -3564,18 +3565,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="42821103"/>
         </lane>
     </edge>
-    <edge id="43328051#0" from="28114808" to="5416395262" priority="1" type="highway.service" spreadType="center" shape="1956.06,1026.54 1966.33,1042.06 1969.07,1044.53">
-        <lane id="43328051#0_0" index="0" allow="bus bicycle" speed="5.56" length="22.30" shape="1966.48,1042.20 1968.96,1044.43">
+    <edge id="43328051#0" from="28114808" to="5416395262" priority="1" type="highway.service|psv" spreadType="center" shape="1956.06,1026.54 1966.33,1042.06 1969.07,1044.53">
+        <lane id="43328051#0_0" index="0" allow="bus bicycle" speed="13.89" length="22.30" shape="1966.48,1042.20 1968.96,1044.43">
             <param key="origId" value="43328051"/>
         </lane>
     </edge>
-    <edge id="43328051#1" from="5416395262" to="544547241" priority="1" type="highway.service" spreadType="center">
-        <lane id="43328051#1_0" index="0" allow="bus bicycle" speed="5.56" length="5.51" shape="1969.18,1044.63 1973.02,1048.08">
+    <edge id="43328051#1" from="5416395262" to="544547241" priority="1" type="highway.service|psv" spreadType="center">
+        <lane id="43328051#1_0" index="0" allow="bus bicycle" speed="13.89" length="5.51" shape="1969.18,1044.63 1973.02,1048.08">
             <param key="origId" value="43328051"/>
         </lane>
     </edge>
-    <edge id="43328051#2" from="544547241" to="272856917" priority="1" type="highway.service" spreadType="center" shape="1973.17,1048.21 1973.99,1048.64 1978.52,1050.85 1984.49,1053.11 2009.47,1058.58">
-        <lane id="43328051#2_0" index="0" allow="bus bicycle" speed="5.56" length="37.92" shape="1973.35,1048.31 1973.99,1048.64 1978.52,1050.85 1984.49,1053.11 2009.33,1058.55">
+    <edge id="43328051#2" from="544547241" to="272856917" priority="1" type="highway.service|psv" spreadType="center" shape="1973.17,1048.21 1973.99,1048.64 1978.52,1050.85 1984.49,1053.11 2009.47,1058.58">
+        <lane id="43328051#2_0" index="0" allow="bus bicycle" speed="13.89" length="37.92" shape="1973.35,1048.31 1973.99,1048.64 1978.52,1050.85 1984.49,1053.11 2009.33,1058.55">
             <param key="origId" value="43328051"/>
         </lane>
     </edge>
@@ -3680,18 +3681,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="5134791"/>
         </lane>
     </edge>
-    <edge id="51353826#0" from="28090300" to="5424571242" priority="1" type="highway.service" spreadType="center" shape="1949.66,1078.42 1945.43,1081.82 1939.34,1088.92 1935.22,1096.15 1935.03,1096.57">
-        <lane id="51353826#0_0" index="0" allow="pedestrian bus delivery bicycle" speed="5.56" length="23.50" shape="1939.81,1088.38 1939.34,1088.92 1935.22,1096.15 1935.03,1096.57">
+    <edge id="51353826#0" from="28090300" to="5424571242" priority="1" type="highway.service|psv" spreadType="center" shape="1949.66,1078.42 1945.43,1081.82 1939.34,1088.92 1935.22,1096.15 1935.03,1096.57">
+        <lane id="51353826#0_0" index="0" allow="pedestrian bus delivery bicycle" speed="13.89" length="23.50" shape="1939.81,1088.38 1939.34,1088.92 1935.22,1096.15 1935.03,1096.57">
             <param key="origId" value="51353826"/>
         </lane>
     </edge>
-    <edge id="51353826#1" from="5424571242" to="655318916" priority="1" type="highway.service" spreadType="center">
-        <lane id="51353826#1_0" index="0" allow="pedestrian bus delivery bicycle" speed="5.56" length="4.41" shape="1935.03,1096.57 1933.41,1100.67">
+    <edge id="51353826#1" from="5424571242" to="655318916" priority="1" type="highway.service|psv" spreadType="center">
+        <lane id="51353826#1_0" index="0" allow="pedestrian bus delivery bicycle" speed="13.89" length="4.41" shape="1935.03,1096.57 1933.41,1100.67">
             <param key="origId" value="51353826"/>
         </lane>
     </edge>
-    <edge id="51353826#2" from="655318916" to="655312136" priority="1" type="highway.service" spreadType="center" shape="1933.41,1100.67 1923.51,1122.09 1920.80,1129.97 1918.70,1137.85 1916.43,1147.77 1914.67,1157.43 1914.09,1164.81">
-        <lane id="51353826#2_0" index="0" allow="pedestrian bus delivery bicycle" speed="5.56" length="67.44" shape="1933.41,1100.67 1923.51,1122.09 1920.80,1129.97 1918.70,1137.85 1917.75,1142.02">
+    <edge id="51353826#2" from="655318916" to="655312136" priority="1" type="highway.service|psv" spreadType="center" shape="1933.41,1100.67 1923.51,1122.09 1920.80,1129.97 1918.70,1137.85 1916.43,1147.77 1914.67,1157.43 1914.09,1164.81">
+        <lane id="51353826#2_0" index="0" allow="pedestrian bus delivery bicycle" speed="13.89" length="67.44" shape="1933.41,1100.67 1923.51,1122.09 1920.80,1129.97 1918.70,1137.85 1917.75,1142.02">
             <param key="origId" value="51353826"/>
         </lane>
     </edge>

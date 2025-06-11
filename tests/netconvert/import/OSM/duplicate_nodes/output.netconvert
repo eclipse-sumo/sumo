@@ -2,11 +2,11 @@ Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
 Parsing nodes from osm-file 'osm.xml' ...
 Found and substituted 1 osm nodes.
  done (0ms).
-Parsing edges from osm-file 'osm.xml' ... done (0ms).
+Parsing edges from osm-file 'osm.xml' ... done (1ms).
 Removing duplicate edges ... done.
  Import done:
    14 nodes loaded.
-   36 types loaded.
+   38 types loaded.
    26 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
@@ -29,7 +29,7 @@ Computing approaching lanes ... done (0ms).
 Dividing of lanes on approached lanes ... done (0ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
-Joining traffic light nodes ... done (1ms).
+Joining traffic light nodes ... done (0ms).
 Computing traffic light control information ... done (0ms).
 Computing node logics ... done (0ms).
 Computing traffic light logics ... done (0ms).
@@ -47,5 +47,5 @@ Summary:
   Applied offset     : -662333.88,-5415139.00
   Converted boundary : 0.00,0.00,1048.06,902.40
 -----------------------------------------------------
-Writing network ... done (19ms).
+Writing network ... done (1ms).
 Success.

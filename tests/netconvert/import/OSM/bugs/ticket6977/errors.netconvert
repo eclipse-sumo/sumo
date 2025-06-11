@@ -1,4 +1,3 @@
-Warning: Discarding unknown compound 'psv' in type 'highway.service|psv' (first occurrence for edge '20429655').
 Warning: Removing pt stop '1135629312' on non existing edge '20429655'.
 Warning: Removing pt stop '1135629321' on non existing edge '673222183#1'.
 Warning: Removing pt stop '262253942' on non existing edge '24221008'.

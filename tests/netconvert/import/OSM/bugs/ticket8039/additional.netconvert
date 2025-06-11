@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-28 22:49:39 by Eclipse SUMO netconvert Version v1_19_0+1959-e51fd22bc0f
+<!-- generated on 2025-06-11 12:34:15 by Eclipse SUMO netconvert Version v1_23_1+0498-a01d940de87
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -45,16 +45,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="2078032882" name="Heideblick" lane="24803131#0_0" startPos="29.84" endPos="44.84" friendlyPos="true"/>
+    <busStop id="250749715" name="Heideblick" lane="23187673#1_0" startPos="109.31" endPos="124.31" friendlyPos="true" lines="112 434 191 111 414"/>
     <busStop id="4539420388" name="Veltenhöfer Straße" lane="4747816#1_0" startPos="39.86" endPos="54.86" friendlyPos="true"/>
     <busStop id="4539421789" name="Brandenburgstraße" lane="4747816#7_0" startPos="110.00" endPos="125.00" friendlyPos="true"/>
+    <busStop id="4539421794" name="Heideblick" lane="23187673#1_0" startPos="57.64" endPos="72.64" friendlyPos="true" lines="464"/>
     <busStop id="54142977" name="Heideblick" lane="859066434#3_0" startPos="44.98" endPos="69.98" friendlyPos="true" lines="1">
-        <access lane="172186756#0_0" pos="0.00" length="17.11" friendlyPos="1"/>
         <access lane="177846735#0_0" pos="1.99" length="12.61" friendlyPos="1"/>
         <access lane="177846735#1_0" pos="0.00" length="13.34" friendlyPos="1"/>
+        <access lane="23187673#1_0" pos="60.94" length="16.47" friendlyPos="1"/>
         <access lane="595002498#0_0" pos="0.00" length="12.74" friendlyPos="1"/>
         <access lane="595002498#1_0" pos="0.00" length="15.10" friendlyPos="1"/>
     </busStop>
@@ -72,10 +75,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="388933682#1_0" pos="64.82" length="19.89" friendlyPos="1"/>
         <access lane="4747816#1_0" pos="63.76" length="26.37" friendlyPos="1"/>
     </busStop>
-    <busStop id="5672130288" name="Heideblick" lane="40020450#0_0" startPos="127.52" endPos="152.52" friendlyPos="true">
-        <access lane="172186756#0_0" pos="0.00" length="25.10" friendlyPos="1"/>
+    <busStop id="5672130288" name="Heideblick" lane="40020450#1_0" startPos="71.57" endPos="96.57" friendlyPos="true">
         <access lane="177846735#0_0" pos="1.99" length="20.18" friendlyPos="1"/>
         <access lane="177846735#1_0" pos="3.33" length="18.75" friendlyPos="1"/>
+        <access lane="23187673#1_0" pos="65.06" length="22.78" friendlyPos="1"/>
         <access lane="595002498#0_0" pos="0.00" length="20.47" friendlyPos="1"/>
         <access lane="595002498#1_0" pos="0.00" length="23.57" friendlyPos="1"/>
     </busStop>
