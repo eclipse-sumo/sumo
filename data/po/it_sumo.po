@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-01 11:33+0000\n"
-"PO-Revision-Date: 2025-06-07 16:03+0000\n"
+"PO-Revision-Date: 2025-06-11 12:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8004,12 +8004,16 @@ msgid ""
 "Custom crossing linkIndex % conflicts with vehicular connections at tlLogic "
 "'%'"
 msgstr ""
+"L'indice principale (linkIndex) personalizzato % di un passaggio pedonale "
+"entra in conflitto con i collegamenti per veicoli della logica semaforica '%'"
 
 #: src/netbuild/NBOwnTLDef.cpp:983
 msgid ""
 "Custom crossing linkIndex2 % conflicts with vehicular connections at tlLogic "
 "'%'"
 msgstr ""
+"L'indice secondario (linkIndex2) personalizzato % di un passaggio pedonale "
+"entra in conflitto con i collegamenti per veicoli della logica semaforica '%'"
 
 #: src/netbuild/NBPTLine.cpp:208
 msgid "Could not retrieve edge '%' for first stop of line '%'."
@@ -9566,7 +9570,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1015
 msgid "Tag element on wrong XML hierarchy level."
-msgstr ""
+msgstr "Elemento XML al livello gerarchico sbagliato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1076
 msgid "Value of key '%' is invalid ('%') in node '%'."
@@ -11136,6 +11140,7 @@ msgstr ""
 #: src/netwrite/NWFrame.cpp:156
 msgid "OpenDRIVE export needs internal links computation."
 msgstr ""
+"Per esportare in formato OpenDRIVE bisogna aver calcolato gli archi interni."
 
 #: src/netwrite/NWFrame.cpp:166
 msgid ""
@@ -12294,7 +12299,7 @@ msgstr "Definisce l'ora terminale in secondi;"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:151
 msgid "Not writing anything."
-msgstr ""
+msgstr "Nessuna uscita."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:168
 msgid "Either a timeline or a netstate / amitran file must be given."
@@ -12302,7 +12307,7 @@ msgstr ""
 
 #: src/tools/emissionsDrivingCycle_main.cpp:171
 msgid "The output file must be given."
-msgstr ""
+msgstr "Si deve indicare il percorso del file di uscita."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:184
 #, c-format
@@ -13002,15 +13007,19 @@ msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:107
 msgid "'%' must be defined within the definition of a %."
-msgstr ""
+msgstr "'%' deve essere definito/a all'interno della definizione di un/a %."
 
 #: src/utils/handlers/CommonHandler.cpp:110
 msgid "'%' must be defined within the definition of a '%' (found % '%')."
 msgstr ""
+"'%' deve essere definito/a all'interno della definizione di un/a % ("
+"incontrato % '%')."
 
 #: src/utils/handlers/CommonHandler.cpp:113
 msgid "'%' must be defined within the definition of a '%' (found %)."
 msgstr ""
+"'%' deve essere definito/a all'interno della definizione di un/a % ("
+"incontrato %)."
 
 #: src/utils/handlers/CommonHandler.cpp:125
 msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
