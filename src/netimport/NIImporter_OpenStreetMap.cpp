@@ -173,7 +173,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 
     // load edges, then
-    EdgesHandler edgesHandler(myOSMNodes, myEdges, myPlatformShapes);
+    EdgesHandler edgesHandler(myOSMNodes, myEdges, myPlatformShapes, nb.getTypeCont());
     int idx = 0;
     for (const std::string& file : files) {
         edgesHandler.setFileName(file);
@@ -238,7 +238,9 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     NBTrafficLightLogicCont& tlsc = nb.getTLLogicCont();
     for (const auto& edgeIt : myEdges) {
         Edge* const e = edgeIt.second;
-        assert(e->myCurrentIsRoad);
+        if (!e->myCurrentIsRoad) {
+            continue;
+        }
         if (e->myCurrentNodes.size() < 2) {
             WRITE_WARNINGF(TL("Discarding way '%' because it has only % node(s)"), e->id, e->myCurrentNodes.size());
             continue;
@@ -1116,12 +1118,15 @@ NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) {
 // definitions of NIImporter_OpenStreetMap::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
-    const std::map<long long int, NIOSMNode*>& osmNodes,
-    std::map<long long int, Edge*>& toFill, std::map<long long int, Edge*>& platformShapes):
+        const std::map<long long int, NIOSMNode*>& osmNodes,
+        std::map<long long int, Edge*>& toFill, std::map<long long int, Edge*>& platformShapes,
+        const NBTypeCont& tc):
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
     myEdgeMap(toFill),
-    myPlatformShapesMap(platformShapes) {
+    myPlatformShapesMap(platformShapes),
+    myTypeCont(tc)
+{
 
     const double unlimitedSpeed = OptionsCont::getOptions().getFloat("osm.speedlimit-none");
 
@@ -1314,11 +1319,13 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
         }
         const std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
-        if ((key == "highway" && value != "platform") || key == "railway" || key == "waterway" || StringUtils::startsWith(key, "cycleway")
+        if (key == "highway" || key == "railway" || key == "waterway" || StringUtils::startsWith(key, "cycleway")
                 || key == "busway" || key == "route" || StringUtils::startsWith(key, "sidewalk") || key == "highspeed"
                 || key == "aeroway" || key == "aerialway" || key == "usage" || key == "service") {
             // build type id
-            myCurrentEdge->myCurrentIsRoad = true;
+            if (key != "highway" || myTypeCont.knows(key + "." + value)) {
+                myCurrentEdge->myCurrentIsRoad = true;
+            }
             // special cycleway stuff https://wiki.openstreetmap.org/wiki/Key:cycleway
             if (key == "cycleway") {
                 if (value == "no" || value == "none" || value == "separate") {
@@ -1438,16 +1445,19 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 singleTypeID = "railway.highspeed";
             }
             addType(singleTypeID);
+
         } else if (key == "bus" || key == "psv") {
             // 'psv' includes taxi in the UK but not in germany
             try {
                 if (StringUtils::toBool(value)) {
                     myCurrentEdge->myExtraAllowed |= SVC_BUS;
+                    addType(key);
                 } else {
                     myCurrentEdge->myExtraDisallowed |= SVC_BUS;
                 }
             } catch (const BoolFormatException&) {
                 myCurrentEdge->myExtraAllowed |= SVC_BUS;
+                addType(key);
             }
         } else if (key == "emergency") {
             try {
