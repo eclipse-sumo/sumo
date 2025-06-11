@@ -544,6 +544,8 @@ protected:
 
         void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, const bool forward) const;
 
+        void addType(const std::string& singleTypeID);
+
 
     private:
         /// @brief The previously parsed nodes

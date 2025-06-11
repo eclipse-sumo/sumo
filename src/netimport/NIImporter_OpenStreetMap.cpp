@@ -1437,20 +1437,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 }
                 singleTypeID = "railway.highspeed";
             }
-            // special case: never build compound type for highspeed rail
-            if (!myCurrentEdge->myHighWayType.empty() && singleTypeID != "railway.highspeed") {
-                if (myCurrentEdge->myHighWayType == "railway.highspeed") {
-                    return;
-                }
-                // osm-ways may be used by more than one mode (eg railway.tram + highway.residential. this is relevant for multimodal traffic)
-                // we create a new type for this kind of situation which must then be resolved in insertEdge()
-                std::vector<std::string> types = StringTokenizer(myCurrentEdge->myHighWayType,
-                                                 compoundTypeSeparator).getVector();
-                types.push_back(singleTypeID);
-                myCurrentEdge->myHighWayType = joinToStringSorting(types, compoundTypeSeparator);
-            } else {
-                myCurrentEdge->myHighWayType = singleTypeID;
-            }
+            addType(singleTypeID);
         } else if (key == "bus" || key == "psv") {
             // 'psv' includes taxi in the UK but not in germany
             try {
@@ -1701,6 +1688,25 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 mergeTurnSigns(myCurrentEdge->myTurnSignsBackward, turnCodes);
             }
         }
+    }
+}
+
+
+void
+NIImporter_OpenStreetMap::EdgesHandler::addType(const std::string& singleTypeID) {
+    // special case: never build compound type for highspeed rail
+    if (!myCurrentEdge->myHighWayType.empty() && singleTypeID != "railway.highspeed") {
+        if (myCurrentEdge->myHighWayType == "railway.highspeed") {
+            return;
+        }
+        // osm-ways may be used by more than one mode (eg railway.tram + highway.residential. this is relevant for multimodal traffic)
+        // we create a new type for this kind of situation which must then be resolved in insertEdge()
+        std::vector<std::string> types = StringTokenizer(myCurrentEdge->myHighWayType,
+                                         compoundTypeSeparator).getVector();
+        types.push_back(singleTypeID);
+        myCurrentEdge->myHighWayType = joinToStringSorting(types, compoundTypeSeparator);
+    } else {
+        myCurrentEdge->myHighWayType = singleTypeID;
     }
 }
 
