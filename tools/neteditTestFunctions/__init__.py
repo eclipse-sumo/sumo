@@ -15,10 +15,16 @@
 # @author  Pablo Alvarez Lopez
 # @date    28-05-25
 
-# imports
+
+# basic
 from .imports import *
 from .constants import *
 from .setup import *
+
+# enums
+from .enums.attributesEnum import *
+from .enums.viewPositions import *
+from .enums.contextualMenuOperations import *
 
 # files folder
 from .files.load import *

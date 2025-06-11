@@ -89,7 +89,7 @@ def getReferenceMatch(neProcess, makeScrenshot):
     sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
 
 
-def setupAndStart(testRoot, extraParameters=[], makeScrenshot=True):
+def setupAndStart(extraParameters=[], makeScrenshot=True):
     """
     @brief setup and start netedit
     """

@@ -16,6 +16,9 @@
 # @date    28-05-25
 
 # imports
+from ..enums.attributesEnum import *
+from ..enums.contextualMenuOperations import *
+from ..enums.viewPositions import *
 from ..imports import *
 from ..input.keyboard import *
 from ..input.mouse import *

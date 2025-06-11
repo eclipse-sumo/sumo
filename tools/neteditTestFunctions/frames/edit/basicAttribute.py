@@ -18,7 +18,6 @@
 # imports
 from ...general.functions import *
 
-
 def modifyAttribute(attributeIndex, value):
     """
     @brief modify attribute of type int/float/string

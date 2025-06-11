@@ -26,6 +26,3 @@ except ImportError:
 import pyautogui
 import time
 import pyperclip
-import attributesEnum as attrs  # noqa
-import viewPositions as positions  # noqa
-import contextualMenuOperations as contextualMenu  # noqa
