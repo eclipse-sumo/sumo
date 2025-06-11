@@ -46,12 +46,13 @@ public:
      * @param[in] chargeDelay delay in timeSteps in the charge
      * @param[in] chargeType charge type (fuel or electric)
      * @param[in] waitingTime waiting time until start charging
+     * @param[in] parkingAreaID parking area the charging station is located at
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     GNEChargingStation(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
-                       const std::string& chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters);
+                       const std::string& chargeType, const SUMOTime waitingTime, const std::string& parkingAreaID, bool friendlyPosition, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEChargingStation();

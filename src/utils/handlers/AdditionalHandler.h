@@ -134,6 +134,7 @@ public:
      * @param[in] chargeType charge type (normal, electric or fuel)
      * @param[in] waitingTime waiting time until start charging
      * @param[in] friendlyPos enable or disable friendly position
+     * @param[in] parkingAreaID the parking area the charging sttaion is located on
      * @param[in] parameters generic parameters
      */
     virtual bool buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
