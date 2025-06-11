@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.62.7 375dc00a">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2025-06-11T08:07:59Z"/>
+
+  <node id="28114808" lat="52.2578668" lon="10.5280665"/>
+  <node id="272856917" lat="52.2581446" lon="10.5288587">
+    <tag k="bus" v="yes"/>
+    <tag k="local_ref" v="G"/>
+    <tag k="name" v="John-F.-Kennedy-Platz"/>
+    <tag k="network" v="Verkehrsverbund Region Braunschweig"/>
+    <tag k="operator" v="Braunschweiger Verkehrs-GmbH;Kraftverkehrsgesellschaft Braunschweig mbH"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="ref_name" v="John-F.-Kennedy-Platz, Braunschweig"/>
+    <tag k="uic_ref" v="885770"/>
+  </node>
+  <node id="544547237" lat="52.2580043" lon="10.5282217"/>
+  <node id="544547241" lat="52.2580583" lon="10.5283238">
+    <tag k="button_operated" v="no"/>
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="no"/>
+    <tag k="traffic_signals:sound" v="yes"/>
+    <tag k="traffic_signals:vibration" v="yes"/>
+  </node>
+  <node id="544547246" lat="52.2580620" lon="10.5283360"/>
+  <node id="1755789460" lat="52.2580810" lon="10.5284030"/>
+  <node id="1755789462" lat="52.2581002" lon="10.5284912"/>
+  <node id="5416395262" lat="52.2580260" lon="10.5282627">
+    <tag k="bicycle" v="yes"/>
+    <tag k="button_operated" v="no"/>
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="foot" v="no"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="no"/>
+    <tag k="traffic_signals:sound" v="no"/>
+    <tag k="traffic_signals:vibration" v="no"/>
+  </node>
+  <way id="43328051">
+    <nd ref="28114808"/>
+    <nd ref="544547237"/>
+    <nd ref="5416395262"/>
+    <nd ref="544547241"/>
+    <nd ref="544547246"/>
+    <nd ref="1755789460"/>
+    <nd ref="1755789462"/>
+    <nd ref="272856917"/>
+    <tag k="access" v="no"/>
+    <tag k="highway" v="service"/>
+    <tag k="lit" v="yes"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="psv" v="yes"/>
+    <tag k="surface" v="concrete"/>
+  </way>
+
+</osm>

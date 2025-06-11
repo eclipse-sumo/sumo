@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-06-11 10:10:18 by Eclipse SUMO netconvert Version v1_23_1+0494-295e2b2f54b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-604295.68,-5790819.42" convBoundary="0.00,0.00,53.42,32.04" origBoundary="10.528066,52.257867,10.528859,52.258145" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
+
+    <edge id="43328051#0" from="28114808" to="5416395262" priority="1" type="highway.service" spreadType="center" shape="0.00,0.00 10.27,15.52 13.02,17.99">
+        <lane id="43328051#0_0" index="0" allow="bus bicycle" speed="5.56" length="22.30" shape="0.00,0.00 10.27,15.52 12.91,17.89"/>
+    </edge>
+    <edge id="43328051#1" from="5416395262" to="544547241" priority="1" type="highway.service" spreadType="center">
+        <lane id="43328051#1_0" index="0" allow="bus bicycle" speed="5.56" length="5.51" shape="13.13,18.09 16.96,21.53"/>
+    </edge>
+    <edge id="43328051#2" from="544547241" to="272856917" priority="1" type="highway.service" spreadType="center" shape="17.11,21.67 17.94,22.10 22.46,24.31 28.44,26.57 53.42,32.04">
+        <lane id="43328051#2_0" index="0" allow="bus bicycle" speed="5.56" length="37.92" shape="17.29,21.76 17.94,22.10 22.46,24.31 28.44,26.57 53.42,32.04"/>
+    </edge>
+
+    <tlLogic id="5416395262" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+    <tlLogic id="544547241" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+
+    <junction id="272856917" type="dead_end" x="53.42" y="32.04" incLanes="43328051#2_0" intLanes="" shape="53.76,30.47 53.07,33.60"/>
+    <junction id="28114808" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-1.33,0.88 1.33,-0.88"/>
+    <junction id="5416395262" type="traffic_light" x="13.02" y="17.99" incLanes="43328051#0_0" intLanes="" shape="12.06,19.28 14.20,16.90 13.98,16.70 11.84,19.08">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="544547241" type="traffic_light" x="17.11" y="21.67" incLanes="43328051#1_0" intLanes="" shape="16.55,23.18 18.03,20.34 15.89,22.72 16.12,22.92 16.20,22.98 16.29,23.04 16.40,23.10">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+
+    <connection from="43328051#0" to="43328051#1" fromLane="0" toLane="0" tl="5416395262" linkIndex="0" dir="s" state="O"/>
+    <connection from="43328051#1" to="43328051#2" fromLane="0" toLane="0" tl="544547241" linkIndex="0" dir="s" state="O"/>
+
+</net>
