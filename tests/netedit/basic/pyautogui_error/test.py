@@ -19,14 +19,11 @@
 import os
 import sys
 
-testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
-neteditTestRoot = os.path.join(
-    os.environ.get('TEXTTEST_HOME', testRoot), 'netedit')
-sys.path.append(neteditTestRoot)
+sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit waiting 2 seconds to reference (will not be found)
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, [], makeScrenshot=False)
+neteditProcess, referencePosition = netedit.setupAndStart([], makeScrenshot=False)
 
 # quit netedit
 netedit.quit(neteditProcess)
