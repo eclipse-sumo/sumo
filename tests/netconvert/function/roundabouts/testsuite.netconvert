@@ -32,5 +32,8 @@ legacy_visibility
 # test internal speed within roundabout (#11342)
 internal_speed
 
+# see #16787
+double_roundabout
+
 # network topologies that should not be classified as a roundabout
 no_roundabout
