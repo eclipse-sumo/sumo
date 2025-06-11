@@ -60,8 +60,8 @@ def parseIntFile(inputFolder, outputFolder, file, prefix):
     # flatten data
     data = flattenClassTree(tree)
     # write header file
-    headerFile = outputFolder + "/" + file + ".txt"
-    with open(headerFile, "w", encoding="utf-8") as f:
+    outputFile = outputFolder + "/" + file + ".txt"
+    with open(outputFile, "w", encoding="utf-8") as f:
         for key, value in sorted(data.items()):
             f.write('netedit.%s.%s %s\n' % (prefix, key, value))
 
@@ -74,8 +74,8 @@ def parsePositionFile(inputFolder, outputFolder, file, prefix):
     # flatten data
     data = flattenClassTree(tree)
     # write header file
-    headerFile = outputFolder + "/" + file + ".txt"
-    with open(headerFile, "w", encoding="utf-8") as f:
+    outputFile = outputFolder + "/" + file + ".txt"
+    with open(outputFile, "w", encoding="utf-8") as f:
         for key in sorted(data.keys()):
             if key.endswith(".x"):
                 keyShorted = key[:-2]
@@ -86,14 +86,12 @@ def parsePositionFile(inputFolder, outputFolder, file, prefix):
 
 # main
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        sys.exit("Arguments: <pathToSumoToolsFolder> <pathToCurrentCompilationDir>")
-    inputFolder = sys.argv[1] + "/../tests/netedit"
-    outputFolder = sys.argv[1] + "/../data/tests"
+    inputFolder = "./../../tests/netedit"
+    outputFolder = "./../../data/tests"
     # calculate files for src folder (we need it to avoid visual studio warnings)
-    parseIntFile(inputFolder, sys.argv[2], "attributesEnum", "attrs")
-    parseIntFile(inputFolder, sys.argv[2], "contextualMenuOperations", "contextualMenu")
-    parsePositionFile(inputFolder, sys.argv[2], "viewPositions", "positions")
+    parseIntFile(inputFolder, outputFolder, "attributesEnum", "attrs")
+    parseIntFile(inputFolder, outputFolder, "contextualMenuOperations", "contextualMenu")
+    parsePositionFile(inputFolder, outputFolder, "viewPositions", "positions")
     # check if create folder
     if not os.path.exists(outputFolder):
         os.mkdir(outputFolder)
