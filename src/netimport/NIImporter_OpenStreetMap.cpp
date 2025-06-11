@@ -396,6 +396,9 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 }
 
+// ---------------------------------------------------------------------------
+// definitions of NIImporter_OpenStreetMap-methods
+// ---------------------------------------------------------------------------
 
 NBNode*
 NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, NBTrafficLightLogicCont& tlsc) {
@@ -936,6 +939,517 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
     }
     return newIndex;
+}
+
+
+void
+NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation, NBNetBuilder& nb) {
+    NBNodeCont& nc = nb.getNodeCont();
+    NBEdgeCont& ec = nb.getEdgeCont();
+    // reconstruct elevation from layer info
+    // build a map of raising and lowering forces (attractor and distance)
+    // for all nodes unknownElevation
+    std::map<NBNode*, std::vector<std::pair<double, double> > > layerForces;
+
+    // collect all nodes that belong to a way with layer information
+    std::set<NBNode*> knownElevation;
+    for (auto& myEdge : myEdges) {
+        Edge* e = myEdge.second;
+        if (e->myLayer != 0) {
+            for (auto j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
+                NBNode* node = nc.retrieve(toString(*j));
+                if (node != nullptr) {
+                    knownElevation.insert(node);
+                    layerForces[node].emplace_back(e->myLayer * layerElevation, POSITION_EPS);
+                }
+            }
+        }
+    }
+#ifdef DEBUG_LAYER_ELEVATION
+    std::cout << "known elevations:\n";
+    for (std::set<NBNode*>::iterator it = knownElevation.begin(); it != knownElevation.end(); ++it) {
+        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[*it];
+        std::cout << "  node=" << (*it)->getID() << " ele=";
+        for (std::vector<std::pair<double, double> >::const_iterator it_ele = primaryLayers.begin(); it_ele != primaryLayers.end(); ++it_ele) {
+            std::cout << it_ele->first << " ";
+        }
+        std::cout << "\n";
+    }
+#endif
+    // layer data only provides a lower bound on elevation since it is used to
+    // resolve the relation among overlapping ways.
+    // Perform a sanity check for steep inclines and raise the knownElevation if necessary
+    std::map<NBNode*, double> knownEleMax;
+    for (auto it : knownElevation) {
+        double eleMax = -std::numeric_limits<double>::max();
+        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[it];
+        for (const auto& primaryLayer : primaryLayers) {
+            eleMax = MAX2(eleMax, primaryLayer.first);
+        }
+        knownEleMax[it] = eleMax;
+    }
+    const double gradeThreshold = OptionsCont::getOptions().getFloat("osm.layer-elevation.max-grade") / 100;
+    bool changed = true;
+    while (changed) {
+        changed = false;
+        for (auto it = knownElevation.begin(); it != knownElevation.end(); ++it) {
+            std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it,
+                    knownEleMax[*it]
+                    / gradeThreshold * 3,
+                    knownElevation);
+            for (auto& neighbor : neighbors) {
+                if (knownElevation.count(neighbor.first) != 0) {
+                    const double grade = fabs(knownEleMax[*it] - knownEleMax[neighbor.first])
+                                         / MAX2(POSITION_EPS, neighbor.second.first);
+#ifdef DEBUG_LAYER_ELEVATION
+                    std::cout << "   grade at node=" << (*it)->getID() << " ele=" << knownEleMax[*it] << " neigh=" << it_neigh->first->getID() << " neighEle=" << knownEleMax[it_neigh->first] << " grade=" << grade << " dist=" << it_neigh->second.first << " speed=" << it_neigh->second.second << "\n";
+#endif
+                    if (grade > gradeThreshold * 50 / 3.6 / neighbor.second.second) {
+                        // raise the lower node to the higher level
+                        const double eleMax = MAX2(knownEleMax[*it], knownEleMax[neighbor.first]);
+                        if (knownEleMax[*it] < eleMax) {
+                            knownEleMax[*it] = eleMax;
+                        } else {
+                            knownEleMax[neighbor.first] = eleMax;
+                        }
+                        changed = true;
+                    }
+                }
+            }
+        }
+    }
+
+    // collect all nodes within a grade-dependent range around knownElevation-nodes and apply knowElevation forces
+    std::set<NBNode*> unknownElevation;
+    for (auto it = knownElevation.begin(); it != knownElevation.end(); ++it) {
+        const double eleMax = knownEleMax[*it];
+        const double maxDist = fabs(eleMax) * 100 / layerElevation;
+        std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
+        for (auto& neighbor : neighbors) {
+            if (knownElevation.count(neighbor.first) == 0) {
+                unknownElevation.insert(neighbor.first);
+                layerForces[neighbor.first].emplace_back(eleMax, neighbor.second.first);
+            }
+        }
+    }
+
+    // apply forces to ground-level nodes (neither in knownElevation nor unknownElevation)
+    for (auto it = unknownElevation.begin(); it != unknownElevation.end(); ++it) {
+        double eleMax = -std::numeric_limits<double>::max();
+        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[*it];
+        for (const auto& primaryLayer : primaryLayers) {
+            eleMax = MAX2(eleMax, primaryLayer.first);
+        }
+        const double maxDist = fabs(eleMax) * 100 / layerElevation;
+        std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
+        for (auto& neighbor : neighbors) {
+            if (knownElevation.count(neighbor.first) == 0 && unknownElevation.count(neighbor.first) == 0) {
+                layerForces[*it].emplace_back(0, neighbor.second.first);
+            }
+        }
+    }
+    // compute the elevation for each node as the weighted average of all forces
+#ifdef DEBUG_LAYER_ELEVATION
+    std::cout << "summation of forces\n";
+#endif
+    std::map<NBNode*, double> nodeElevation;
+    for (auto& layerForce : layerForces) {
+        const std::vector<std::pair<double, double> >& forces = layerForce.second;
+        if (knownElevation.count(layerForce.first) != 0) {
+            // use the maximum value
+            /*
+            double eleMax = -std::numeric_limits<double>::max();
+            for (std::vector<std::pair<double, double> >::const_iterator it_force = forces.begin(); it_force != forces.end(); ++it_force) {
+                eleMax = MAX2(eleMax, it_force->first);
+            }
+            */
+#ifdef DEBUG_LAYER_ELEVATION
+            std::cout << "   node=" << it->first->getID() << " knownElevation=" << knownEleMax[it->first] << "\n";
+#endif
+            nodeElevation[layerForce.first] = knownEleMax[layerForce.first];
+        } else if (forces.size() == 1) {
+            nodeElevation[layerForce.first] = forces.front().first;
+        } else {
+            // use the weighted sum
+            double distSum = 0;
+            for (const auto& force : forces) {
+                distSum += force.second;
+            }
+            double weightSum = 0;
+            double elevation = 0;
+#ifdef DEBUG_LAYER_ELEVATION
+            std::cout << "   node=" << it->first->getID() << "  distSum=" << distSum << "\n";
+#endif
+            for (const auto& force : forces) {
+                const double weight = (distSum - force.second) / distSum;
+                weightSum += weight;
+                elevation += force.first * weight;
+
+#ifdef DEBUG_LAYER_ELEVATION
+                std::cout << "       force=" << it_force->first << " dist=" << it_force->second << "  weight=" << weight << " ele=" << elevation << "\n";
+#endif
+            }
+            nodeElevation[layerForce.first] = elevation / weightSum;
+        }
+    }
+#ifdef DEBUG_LAYER_ELEVATION
+    std::cout << "final elevations:\n";
+    for (std::map<NBNode*, double>::iterator it = nodeElevation.begin(); it != nodeElevation.end(); ++it) {
+        std::cout << "  node=" << (it->first)->getID() << " ele=" << it->second << "\n";
+    }
+#endif
+    // apply node elevations
+    for (auto& it : nodeElevation) {
+        NBNode* n = it.first;
+        n->reinit(n->getPosition() + Position(0, 0, it.second), n->getType());
+    }
+
+    // apply way elevation to all edges that had layer information
+    for (const auto& it : ec) {
+        NBEdge* edge = it.second;
+        const PositionVector& geom = edge->getGeometry();
+        const double length = geom.length2D();
+        const double zFrom = nodeElevation[edge->getFromNode()];
+        const double zTo = nodeElevation[edge->getToNode()];
+        // XXX if the from- or to-node was part of multiple ways with
+        // different layers, reconstruct the layer value from origID
+        double dist = 0;
+        PositionVector newGeom;
+        for (auto it_pos = geom.begin(); it_pos != geom.end(); ++it_pos) {
+            if (it_pos != geom.begin()) {
+                dist += (*it_pos).distanceTo2D(*(it_pos - 1));
+            }
+            newGeom.push_back((*it_pos) + Position(0, 0, zFrom + (zTo - zFrom) * dist / length));
+        }
+        edge->setGeometry(newGeom);
+    }
+}
+
+std::map<NBNode*, std::pair<double, double> >
+NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, double maxDist, const std::set<NBNode*>& knownElevation) {
+    std::map<NBNode*, std::pair<double, double> > result;
+    std::set<NBNode*> visited;
+    std::vector<NBNode*> open;
+    open.push_back(node);
+    result[node] = std::make_pair(0, 0);
+    while (!open.empty()) {
+        NBNode* n = open.back();
+        open.pop_back();
+        if (visited.count(n) != 0) {
+            continue;
+        }
+        visited.insert(n);
+        const EdgeVector& edges = n->getEdges();
+        for (auto e : edges) {
+            NBNode* s = nullptr;
+            if (n->hasIncoming(e)) {
+                s = e->getFromNode();
+            } else {
+                s = e->getToNode();
+            }
+            const double dist = result[n].first + e->getGeometry().length2D();
+            const double speed = MAX2(e->getSpeed(), result[n].second);
+            if (result.count(s) == 0) {
+                result[s] = std::make_pair(dist, speed);
+            } else {
+                result[s] = std::make_pair(MIN2(dist, result[s].first), MAX2(speed, result[s].second));
+            }
+            if (dist < maxDist && knownElevation.count(s) == 0) {
+                open.push_back(s);
+            }
+        }
+    }
+    result.erase(node);
+    return result;
+}
+
+
+std::string
+NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string& id, NBTypeCont& tc) {
+    if (tc.knows(type)) {
+        return type;
+    }
+    if (myUnusableTypes.count(type) > 0) {
+        return "";
+    }
+    if (myKnownCompoundTypes.count(type) > 0) {
+        return myKnownCompoundTypes[type];
+    }
+    // this edge has a type which does not yet exist in the TypeContainer
+    StringTokenizer tok = StringTokenizer(type, compoundTypeSeparator);
+    std::vector<std::string> types;
+    while (tok.hasNext()) {
+        std::string t = tok.next();
+        if (tc.knows(t)) {
+            if (std::find(types.begin(), types.end(), t) == types.end()) {
+                types.push_back(t);
+            }
+        } else if (tok.size() > 1) {
+            if (!StringUtils::startsWith(t, "service.")) {
+                WRITE_WARNINGF(TL("Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."), t, type, id);
+            }
+        }
+    }
+    if (types.empty()) {
+        if (!StringUtils::startsWith(type, "service.")) {
+            WRITE_WARNINGF(TL("Discarding unusable type '%' (first occurrence for edge '%')."), type, id);
+        }
+        myUnusableTypes.insert(type);
+        return "";
+    }
+    const std::string newType = joinToString(types, "|");
+    if (tc.knows(newType)) {
+        myKnownCompoundTypes[type] = newType;
+        return newType;
+    } else if (myKnownCompoundTypes.count(newType) > 0) {
+        return myKnownCompoundTypes[newType];
+    } else {
+        // build a new type by merging all values
+        int numLanes = 0;
+        double maxSpeed = 0;
+        int prio = 0;
+        double width = NBEdge::UNSPECIFIED_WIDTH;
+        double sidewalkWidth = NBEdge::UNSPECIFIED_WIDTH;
+        double bikelaneWidth = NBEdge::UNSPECIFIED_WIDTH;
+        bool defaultIsOneWay = true;
+        SVCPermissions permissions = 0;
+        LaneSpreadFunction spreadType = LaneSpreadFunction::RIGHT;
+        bool discard = true;
+        bool hadDiscard = false;
+        for (auto& type2 : types) {
+            if (!tc.getEdgeTypeShallBeDiscarded(type2)) {
+                numLanes = MAX2(numLanes, tc.getEdgeTypeNumLanes(type2));
+                maxSpeed = MAX2(maxSpeed, tc.getEdgeTypeSpeed(type2));
+                prio = MAX2(prio, tc.getEdgeTypePriority(type2));
+                defaultIsOneWay &= tc.getEdgeTypeIsOneWay(type2);
+                //std::cout << "merging component " << type2 << " into type " << newType << " allows=" << getVehicleClassNames(tc.getPermissions(type2)) << " oneway=" << defaultIsOneWay << "\n";
+                permissions |= tc.getEdgeTypePermissions(type2);
+                spreadType = tc.getEdgeTypeSpreadType(type2);
+                width = MAX2(width, tc.getEdgeTypeWidth(type2));
+                sidewalkWidth = MAX2(sidewalkWidth, tc.getEdgeTypeSidewalkWidth(type2));
+                bikelaneWidth = MAX2(bikelaneWidth, tc.getEdgeTypeBikeLaneWidth(type2));
+                discard = false;
+            } else {
+                hadDiscard = true;
+            }
+        }
+        if (hadDiscard && permissions == 0) {
+            discard = true;
+        }
+        if (discard) {
+            WRITE_WARNINGF(TL("Discarding compound type '%' (first occurrence for edge '%')."), newType, id);
+            myUnusableTypes.insert(newType);
+            return "";
+        }
+        if (width != NBEdge::UNSPECIFIED_WIDTH) {
+            width = MAX2(width, SUMO_const_laneWidth);
+        }
+        // ensure pedestrians don't run into trains
+        if (sidewalkWidth == NBEdge::UNSPECIFIED_WIDTH
+                && (permissions & SVC_PEDESTRIAN) != 0
+                && (permissions & SVC_RAIL_CLASSES) != 0) {
+            //std::cout << "patching sidewalk for type '" << newType << "' which allows=" << getVehicleClassNames(permissions) << "\n";
+            sidewalkWidth = OptionsCont::getOptions().getFloat("default.sidewalk-width");
+        }
+
+        WRITE_MESSAGEF(TL("Adding new type '%' (first occurrence for edge '%')."), type, id);
+        tc.insertEdgeType(newType, numLanes, maxSpeed, prio, permissions, spreadType, width,
+                          defaultIsOneWay, sidewalkWidth, bikelaneWidth, 0, 0, 0);
+        for (auto& type3 : types) {
+            if (!tc.getEdgeTypeShallBeDiscarded(type3)) {
+                tc.copyEdgeTypeRestrictionsAndAttrs(type3, newType);
+            }
+        }
+        myKnownCompoundTypes[type] = newType;
+        return newType;
+    }
+}
+
+void
+NIImporter_OpenStreetMap::extendRailwayDistances(Edge* e, NBTypeCont& tc) {
+    const std::string id = toString(e->id);
+    std::string type = usableType(e->myHighWayType, id, tc);
+    if (type != "" && isRailway(tc.getEdgeTypePermissions(type))) {
+        std::vector<NIOSMNode*> nodes;
+        std::vector<double> usablePositions;
+        std::vector<int> usableIndex;
+        for (long long int n : e->myCurrentNodes) {
+            NIOSMNode* node = myOSMNodes[n];
+            node->positionMeters = interpretDistance(node);
+            if (node->positionMeters != std::numeric_limits<double>::max()) {
+                usablePositions.push_back(node->positionMeters);
+                usableIndex.push_back((int)nodes.size());
+            }
+            nodes.push_back(node);
+        }
+        if (usablePositions.size() == 0) {
+            return;
+        } else {
+            bool forward = true;
+            if (usablePositions.size() == 1) {
+                WRITE_WARNINGF(TL("Ambiguous railway kilometrage direction for way '%' (assuming forward)"), id);
+            } else {
+                forward = usablePositions.front() < usablePositions.back();
+            }
+            // check for consistency
+            for (int i = 1; i < (int)usablePositions.size(); i++) {
+                if ((usablePositions[i - 1] < usablePositions[i]) != forward) {
+                    WRITE_WARNINGF(TL("Inconsistent railway kilometrage direction for way '%': % (skipping)"), id, toString(usablePositions));
+                    return;
+                }
+            }
+            if (nodes.size() > usablePositions.size()) {
+                // complete missing values
+                PositionVector shape;
+                for (NIOSMNode* node : nodes) {
+                    shape.push_back(Position(node->lon, node->lat, 0));
+                }
+                if (!NBNetBuilder::transformCoordinates(shape)) {
+                    return; // error will be given later
+                }
+                double sign = forward ? 1 : -1;
+                // extend backward before first usable value
+                for (int i = usableIndex.front() - 1; i >= 0; i--) {
+                    nodes[i]->positionMeters = nodes[i + 1]->positionMeters - sign * shape[i].distanceTo2D(shape[i + 1]);
+                }
+                // extend forward
+                for (int i = usableIndex.front() + 1; i < (int)nodes.size(); i++) {
+                    if (nodes[i]->positionMeters == std::numeric_limits<double>::max()) {
+                        nodes[i]->positionMeters = nodes[i - 1]->positionMeters + sign * shape[i].distanceTo2D(shape[i - 1]);
+                    }
+                }
+                //std::cout << " way=" << id << " usable=" << toString(usablePositions) << "\n indices=" << toString(usableIndex)
+                //    << " final:\n";
+                //for (auto n : nodes) {
+                //    std::cout << "    " << n->id << " " << n->positionMeters << " " << n->position<< "\n";
+                //}
+            }
+        }
+    }
+}
+
+
+double
+NIImporter_OpenStreetMap::interpretDistance(NIOSMNode* node) {
+    if (node->position.size() > 0) {
+        try {
+            if (StringUtils::startsWith(node->position, "mi:")) {
+                return StringUtils::toDouble(node->position.substr(3)) * 1609.344; // meters per mile
+            } else {
+                return StringUtils::toDouble(node->position) * 1000;
+            }
+        } catch (...) {
+            WRITE_WARNINGF(TL("Value of railway:position is not numeric ('%') in node '%'."), node->position, toString(node->id));
+        }
+    }
+    return std::numeric_limits<double>::max();
+}
+
+SUMOVehicleClass
+NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMNode* toSet) {
+    SUMOVehicleClass result = SVC_IGNORING;
+    if (type == "train") {
+        result = SVC_RAIL;
+    } else if (type == "subway") {
+        result = SVC_SUBWAY;
+    } else if (type == "aerialway") {
+        result = SVC_CABLE_CAR;
+    } else if (type == "light_rail" || type == "monorail") {
+        result = SVC_RAIL_URBAN;
+    } else if (type == "share_taxi") {
+        result = SVC_TAXI;
+    } else if (type == "minibus") {
+        result = SVC_BUS;
+    } else if (type == "trolleybus") {
+        result = SVC_BUS;
+    } else if (SumoVehicleClassStrings.hasString(type)) {
+        result = SumoVehicleClassStrings.get(type);
+    }
+    std::string stop = "";
+    if (result == SVC_TRAM) {
+        stop = ".tram";
+    } else if (result == SVC_BUS) {
+        stop = ".bus";
+    } else if (isRailway(result)) {
+        stop = ".train";
+    }
+    if (toSet != nullptr && result != SVC_IGNORING) {
+        toSet->permissions |= result;
+        toSet->ptStopLength = OptionsCont::getOptions().getFloat("osm.stop-output.length" + stop);
+    }
+    return result;
+}
+
+
+void
+NIImporter_OpenStreetMap::applyChangeProhibition(NBEdge* e, int changeProhibition) {
+    bool multiLane = changeProhibition > 3;
+    //std::cout << "applyChangeProhibition e=" << e->getID() << " changeProhibition=" << std::bitset<32>(changeProhibition) << " val=" << changeProhibition << "\n";
+    for (int lane = 0; changeProhibition > 0 && lane < e->getNumLanes(); lane++) {
+        int code = changeProhibition % 4; // only look at the last 2 bits
+        SVCPermissions changeLeft = (code & CHANGE_NO_LEFT) == 0 ? SVCAll : (SVCPermissions)SVC_AUTHORITY;
+        SVCPermissions changeRight = (code & CHANGE_NO_RIGHT) == 0 ? SVCAll : (SVCPermissions)SVC_AUTHORITY;
+        e->setPermittedChanging(lane, changeLeft, changeRight);
+        if (multiLane) {
+            changeProhibition = changeProhibition >> 2;
+        }
+    }
+}
+
+
+void
+NIImporter_OpenStreetMap::applyLaneUse(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie, const bool forward) {
+    if (myImportLaneAccess) {
+        const int numLanes = e->getNumLanes();
+        const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+        const std::vector<bool>& designated = forward ? nie->myDesignatedLaneForward : nie->myDesignatedLaneBackward;
+        const std::vector<SVCPermissions>& allowed = forward ? nie->myAllowedLaneForward : nie->myAllowedLaneBackward;
+        const std::vector<SVCPermissions>& disallowed = forward ? nie->myDisallowedLaneForward : nie->myDisallowedLaneBackward;
+        for (int lane = 0; lane < numLanes; lane++) {
+            // laneUse stores from left to right
+            const int i = lefthand ? lane : numLanes - 1 - lane;
+            // Extra allowed SVCs for this lane or none if no info was present for the lane
+            const SVCPermissions extraAllowed = i < (int)allowed.size() ? allowed[i] : (SVCPermissions)SVC_IGNORING;
+            // Extra disallowed SVCs for this lane or none if no info was present for the lane
+            const SVCPermissions extraDisallowed = i < (int)disallowed.size() ? disallowed[i] : (SVCPermissions)SVC_IGNORING;
+            if (i < (int)designated.size() && designated[i]) {
+                // if designated, delete all permissions
+                e->setPermissions(SVC_IGNORING, lane);
+                e->preferVehicleClass(lane, extraAllowed);
+            }
+            e->setPermissions((e->getPermissions(lane) | extraAllowed) & (~extraDisallowed), lane);
+        }
+    }
+}
+
+void
+NIImporter_OpenStreetMap::mergeTurnSigns(std::vector<int>& signs, std::vector<int> signs2) {
+    if (signs.empty()) {
+        signs.insert(signs.begin(), signs2.begin(), signs2.end());
+    } else {
+        for (int i = 0; i < (int)MIN2(signs.size(), signs2.size()); i++) {
+            signs[i] |= signs2[i];
+        }
+    }
+}
+
+
+void
+NIImporter_OpenStreetMap::applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns) {
+    if (myImportTurnSigns && turnSigns.size() > 0) {
+        // no sidewalks and bike lanes have been added yet
+        if ((int)turnSigns.size() == e->getNumLanes()) {
+            //std::cout << "apply turnSigns for " << e->getID() << " turnSigns=" << toString(turnSigns) << "\n";
+            for (int i = 0; i < (int)turnSigns.size(); i++) {
+                // laneUse stores from left to right
+                const int laneIndex = e->getNumLanes() - 1 - i;
+                NBEdge::Lane& lane = e->getLaneStruct(laneIndex);
+                lane.turnSigns = turnSigns[i];
+            }
+        } else {
+            WRITE_WARNINGF(TL("Ignoring turn sign information for % lanes on edge % with % driving lanes"), turnSigns.size(), e->getID(), e->getNumLanes());
+        }
+    }
 }
 
 
@@ -2274,517 +2788,6 @@ NIImporter_OpenStreetMap::RelationHandler::findEdgeRef(long long int wayRef,
         result = nullptr;
     }
     return result;
-}
-
-
-void
-NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation, NBNetBuilder& nb) {
-    NBNodeCont& nc = nb.getNodeCont();
-    NBEdgeCont& ec = nb.getEdgeCont();
-    // reconstruct elevation from layer info
-    // build a map of raising and lowering forces (attractor and distance)
-    // for all nodes unknownElevation
-    std::map<NBNode*, std::vector<std::pair<double, double> > > layerForces;
-
-    // collect all nodes that belong to a way with layer information
-    std::set<NBNode*> knownElevation;
-    for (auto& myEdge : myEdges) {
-        Edge* e = myEdge.second;
-        if (e->myLayer != 0) {
-            for (auto j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
-                NBNode* node = nc.retrieve(toString(*j));
-                if (node != nullptr) {
-                    knownElevation.insert(node);
-                    layerForces[node].emplace_back(e->myLayer * layerElevation, POSITION_EPS);
-                }
-            }
-        }
-    }
-#ifdef DEBUG_LAYER_ELEVATION
-    std::cout << "known elevations:\n";
-    for (std::set<NBNode*>::iterator it = knownElevation.begin(); it != knownElevation.end(); ++it) {
-        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[*it];
-        std::cout << "  node=" << (*it)->getID() << " ele=";
-        for (std::vector<std::pair<double, double> >::const_iterator it_ele = primaryLayers.begin(); it_ele != primaryLayers.end(); ++it_ele) {
-            std::cout << it_ele->first << " ";
-        }
-        std::cout << "\n";
-    }
-#endif
-    // layer data only provides a lower bound on elevation since it is used to
-    // resolve the relation among overlapping ways.
-    // Perform a sanity check for steep inclines and raise the knownElevation if necessary
-    std::map<NBNode*, double> knownEleMax;
-    for (auto it : knownElevation) {
-        double eleMax = -std::numeric_limits<double>::max();
-        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[it];
-        for (const auto& primaryLayer : primaryLayers) {
-            eleMax = MAX2(eleMax, primaryLayer.first);
-        }
-        knownEleMax[it] = eleMax;
-    }
-    const double gradeThreshold = OptionsCont::getOptions().getFloat("osm.layer-elevation.max-grade") / 100;
-    bool changed = true;
-    while (changed) {
-        changed = false;
-        for (auto it = knownElevation.begin(); it != knownElevation.end(); ++it) {
-            std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it,
-                    knownEleMax[*it]
-                    / gradeThreshold * 3,
-                    knownElevation);
-            for (auto& neighbor : neighbors) {
-                if (knownElevation.count(neighbor.first) != 0) {
-                    const double grade = fabs(knownEleMax[*it] - knownEleMax[neighbor.first])
-                                         / MAX2(POSITION_EPS, neighbor.second.first);
-#ifdef DEBUG_LAYER_ELEVATION
-                    std::cout << "   grade at node=" << (*it)->getID() << " ele=" << knownEleMax[*it] << " neigh=" << it_neigh->first->getID() << " neighEle=" << knownEleMax[it_neigh->first] << " grade=" << grade << " dist=" << it_neigh->second.first << " speed=" << it_neigh->second.second << "\n";
-#endif
-                    if (grade > gradeThreshold * 50 / 3.6 / neighbor.second.second) {
-                        // raise the lower node to the higher level
-                        const double eleMax = MAX2(knownEleMax[*it], knownEleMax[neighbor.first]);
-                        if (knownEleMax[*it] < eleMax) {
-                            knownEleMax[*it] = eleMax;
-                        } else {
-                            knownEleMax[neighbor.first] = eleMax;
-                        }
-                        changed = true;
-                    }
-                }
-            }
-        }
-    }
-
-    // collect all nodes within a grade-dependent range around knownElevation-nodes and apply knowElevation forces
-    std::set<NBNode*> unknownElevation;
-    for (auto it = knownElevation.begin(); it != knownElevation.end(); ++it) {
-        const double eleMax = knownEleMax[*it];
-        const double maxDist = fabs(eleMax) * 100 / layerElevation;
-        std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
-        for (auto& neighbor : neighbors) {
-            if (knownElevation.count(neighbor.first) == 0) {
-                unknownElevation.insert(neighbor.first);
-                layerForces[neighbor.first].emplace_back(eleMax, neighbor.second.first);
-            }
-        }
-    }
-
-    // apply forces to ground-level nodes (neither in knownElevation nor unknownElevation)
-    for (auto it = unknownElevation.begin(); it != unknownElevation.end(); ++it) {
-        double eleMax = -std::numeric_limits<double>::max();
-        const std::vector<std::pair<double, double> >& primaryLayers = layerForces[*it];
-        for (const auto& primaryLayer : primaryLayers) {
-            eleMax = MAX2(eleMax, primaryLayer.first);
-        }
-        const double maxDist = fabs(eleMax) * 100 / layerElevation;
-        std::map<NBNode*, std::pair<double, double> > neighbors = getNeighboringNodes(*it, maxDist, knownElevation);
-        for (auto& neighbor : neighbors) {
-            if (knownElevation.count(neighbor.first) == 0 && unknownElevation.count(neighbor.first) == 0) {
-                layerForces[*it].emplace_back(0, neighbor.second.first);
-            }
-        }
-    }
-    // compute the elevation for each node as the weighted average of all forces
-#ifdef DEBUG_LAYER_ELEVATION
-    std::cout << "summation of forces\n";
-#endif
-    std::map<NBNode*, double> nodeElevation;
-    for (auto& layerForce : layerForces) {
-        const std::vector<std::pair<double, double> >& forces = layerForce.second;
-        if (knownElevation.count(layerForce.first) != 0) {
-            // use the maximum value
-            /*
-            double eleMax = -std::numeric_limits<double>::max();
-            for (std::vector<std::pair<double, double> >::const_iterator it_force = forces.begin(); it_force != forces.end(); ++it_force) {
-                eleMax = MAX2(eleMax, it_force->first);
-            }
-            */
-#ifdef DEBUG_LAYER_ELEVATION
-            std::cout << "   node=" << it->first->getID() << " knownElevation=" << knownEleMax[it->first] << "\n";
-#endif
-            nodeElevation[layerForce.first] = knownEleMax[layerForce.first];
-        } else if (forces.size() == 1) {
-            nodeElevation[layerForce.first] = forces.front().first;
-        } else {
-            // use the weighted sum
-            double distSum = 0;
-            for (const auto& force : forces) {
-                distSum += force.second;
-            }
-            double weightSum = 0;
-            double elevation = 0;
-#ifdef DEBUG_LAYER_ELEVATION
-            std::cout << "   node=" << it->first->getID() << "  distSum=" << distSum << "\n";
-#endif
-            for (const auto& force : forces) {
-                const double weight = (distSum - force.second) / distSum;
-                weightSum += weight;
-                elevation += force.first * weight;
-
-#ifdef DEBUG_LAYER_ELEVATION
-                std::cout << "       force=" << it_force->first << " dist=" << it_force->second << "  weight=" << weight << " ele=" << elevation << "\n";
-#endif
-            }
-            nodeElevation[layerForce.first] = elevation / weightSum;
-        }
-    }
-#ifdef DEBUG_LAYER_ELEVATION
-    std::cout << "final elevations:\n";
-    for (std::map<NBNode*, double>::iterator it = nodeElevation.begin(); it != nodeElevation.end(); ++it) {
-        std::cout << "  node=" << (it->first)->getID() << " ele=" << it->second << "\n";
-    }
-#endif
-    // apply node elevations
-    for (auto& it : nodeElevation) {
-        NBNode* n = it.first;
-        n->reinit(n->getPosition() + Position(0, 0, it.second), n->getType());
-    }
-
-    // apply way elevation to all edges that had layer information
-    for (const auto& it : ec) {
-        NBEdge* edge = it.second;
-        const PositionVector& geom = edge->getGeometry();
-        const double length = geom.length2D();
-        const double zFrom = nodeElevation[edge->getFromNode()];
-        const double zTo = nodeElevation[edge->getToNode()];
-        // XXX if the from- or to-node was part of multiple ways with
-        // different layers, reconstruct the layer value from origID
-        double dist = 0;
-        PositionVector newGeom;
-        for (auto it_pos = geom.begin(); it_pos != geom.end(); ++it_pos) {
-            if (it_pos != geom.begin()) {
-                dist += (*it_pos).distanceTo2D(*(it_pos - 1));
-            }
-            newGeom.push_back((*it_pos) + Position(0, 0, zFrom + (zTo - zFrom) * dist / length));
-        }
-        edge->setGeometry(newGeom);
-    }
-}
-
-std::map<NBNode*, std::pair<double, double> >
-NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, double maxDist, const std::set<NBNode*>& knownElevation) {
-    std::map<NBNode*, std::pair<double, double> > result;
-    std::set<NBNode*> visited;
-    std::vector<NBNode*> open;
-    open.push_back(node);
-    result[node] = std::make_pair(0, 0);
-    while (!open.empty()) {
-        NBNode* n = open.back();
-        open.pop_back();
-        if (visited.count(n) != 0) {
-            continue;
-        }
-        visited.insert(n);
-        const EdgeVector& edges = n->getEdges();
-        for (auto e : edges) {
-            NBNode* s = nullptr;
-            if (n->hasIncoming(e)) {
-                s = e->getFromNode();
-            } else {
-                s = e->getToNode();
-            }
-            const double dist = result[n].first + e->getGeometry().length2D();
-            const double speed = MAX2(e->getSpeed(), result[n].second);
-            if (result.count(s) == 0) {
-                result[s] = std::make_pair(dist, speed);
-            } else {
-                result[s] = std::make_pair(MIN2(dist, result[s].first), MAX2(speed, result[s].second));
-            }
-            if (dist < maxDist && knownElevation.count(s) == 0) {
-                open.push_back(s);
-            }
-        }
-    }
-    result.erase(node);
-    return result;
-}
-
-
-std::string
-NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string& id, NBTypeCont& tc) {
-    if (tc.knows(type)) {
-        return type;
-    }
-    if (myUnusableTypes.count(type) > 0) {
-        return "";
-    }
-    if (myKnownCompoundTypes.count(type) > 0) {
-        return myKnownCompoundTypes[type];
-    }
-    // this edge has a type which does not yet exist in the TypeContainer
-    StringTokenizer tok = StringTokenizer(type, compoundTypeSeparator);
-    std::vector<std::string> types;
-    while (tok.hasNext()) {
-        std::string t = tok.next();
-        if (tc.knows(t)) {
-            if (std::find(types.begin(), types.end(), t) == types.end()) {
-                types.push_back(t);
-            }
-        } else if (tok.size() > 1) {
-            if (!StringUtils::startsWith(t, "service.")) {
-                WRITE_WARNINGF(TL("Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."), t, type, id);
-            }
-        }
-    }
-    if (types.empty()) {
-        if (!StringUtils::startsWith(type, "service.")) {
-            WRITE_WARNINGF(TL("Discarding unusable type '%' (first occurrence for edge '%')."), type, id);
-        }
-        myUnusableTypes.insert(type);
-        return "";
-    }
-    const std::string newType = joinToString(types, "|");
-    if (tc.knows(newType)) {
-        myKnownCompoundTypes[type] = newType;
-        return newType;
-    } else if (myKnownCompoundTypes.count(newType) > 0) {
-        return myKnownCompoundTypes[newType];
-    } else {
-        // build a new type by merging all values
-        int numLanes = 0;
-        double maxSpeed = 0;
-        int prio = 0;
-        double width = NBEdge::UNSPECIFIED_WIDTH;
-        double sidewalkWidth = NBEdge::UNSPECIFIED_WIDTH;
-        double bikelaneWidth = NBEdge::UNSPECIFIED_WIDTH;
-        bool defaultIsOneWay = true;
-        SVCPermissions permissions = 0;
-        LaneSpreadFunction spreadType = LaneSpreadFunction::RIGHT;
-        bool discard = true;
-        bool hadDiscard = false;
-        for (auto& type2 : types) {
-            if (!tc.getEdgeTypeShallBeDiscarded(type2)) {
-                numLanes = MAX2(numLanes, tc.getEdgeTypeNumLanes(type2));
-                maxSpeed = MAX2(maxSpeed, tc.getEdgeTypeSpeed(type2));
-                prio = MAX2(prio, tc.getEdgeTypePriority(type2));
-                defaultIsOneWay &= tc.getEdgeTypeIsOneWay(type2);
-                //std::cout << "merging component " << type2 << " into type " << newType << " allows=" << getVehicleClassNames(tc.getPermissions(type2)) << " oneway=" << defaultIsOneWay << "\n";
-                permissions |= tc.getEdgeTypePermissions(type2);
-                spreadType = tc.getEdgeTypeSpreadType(type2);
-                width = MAX2(width, tc.getEdgeTypeWidth(type2));
-                sidewalkWidth = MAX2(sidewalkWidth, tc.getEdgeTypeSidewalkWidth(type2));
-                bikelaneWidth = MAX2(bikelaneWidth, tc.getEdgeTypeBikeLaneWidth(type2));
-                discard = false;
-            } else {
-                hadDiscard = true;
-            }
-        }
-        if (hadDiscard && permissions == 0) {
-            discard = true;
-        }
-        if (discard) {
-            WRITE_WARNINGF(TL("Discarding compound type '%' (first occurrence for edge '%')."), newType, id);
-            myUnusableTypes.insert(newType);
-            return "";
-        }
-        if (width != NBEdge::UNSPECIFIED_WIDTH) {
-            width = MAX2(width, SUMO_const_laneWidth);
-        }
-        // ensure pedestrians don't run into trains
-        if (sidewalkWidth == NBEdge::UNSPECIFIED_WIDTH
-                && (permissions & SVC_PEDESTRIAN) != 0
-                && (permissions & SVC_RAIL_CLASSES) != 0) {
-            //std::cout << "patching sidewalk for type '" << newType << "' which allows=" << getVehicleClassNames(permissions) << "\n";
-            sidewalkWidth = OptionsCont::getOptions().getFloat("default.sidewalk-width");
-        }
-
-        WRITE_MESSAGEF(TL("Adding new type '%' (first occurrence for edge '%')."), type, id);
-        tc.insertEdgeType(newType, numLanes, maxSpeed, prio, permissions, spreadType, width,
-                          defaultIsOneWay, sidewalkWidth, bikelaneWidth, 0, 0, 0);
-        for (auto& type3 : types) {
-            if (!tc.getEdgeTypeShallBeDiscarded(type3)) {
-                tc.copyEdgeTypeRestrictionsAndAttrs(type3, newType);
-            }
-        }
-        myKnownCompoundTypes[type] = newType;
-        return newType;
-    }
-}
-
-void
-NIImporter_OpenStreetMap::extendRailwayDistances(Edge* e, NBTypeCont& tc) {
-    const std::string id = toString(e->id);
-    std::string type = usableType(e->myHighWayType, id, tc);
-    if (type != "" && isRailway(tc.getEdgeTypePermissions(type))) {
-        std::vector<NIOSMNode*> nodes;
-        std::vector<double> usablePositions;
-        std::vector<int> usableIndex;
-        for (long long int n : e->myCurrentNodes) {
-            NIOSMNode* node = myOSMNodes[n];
-            node->positionMeters = interpretDistance(node);
-            if (node->positionMeters != std::numeric_limits<double>::max()) {
-                usablePositions.push_back(node->positionMeters);
-                usableIndex.push_back((int)nodes.size());
-            }
-            nodes.push_back(node);
-        }
-        if (usablePositions.size() == 0) {
-            return;
-        } else {
-            bool forward = true;
-            if (usablePositions.size() == 1) {
-                WRITE_WARNINGF(TL("Ambiguous railway kilometrage direction for way '%' (assuming forward)"), id);
-            } else {
-                forward = usablePositions.front() < usablePositions.back();
-            }
-            // check for consistency
-            for (int i = 1; i < (int)usablePositions.size(); i++) {
-                if ((usablePositions[i - 1] < usablePositions[i]) != forward) {
-                    WRITE_WARNINGF(TL("Inconsistent railway kilometrage direction for way '%': % (skipping)"), id, toString(usablePositions));
-                    return;
-                }
-            }
-            if (nodes.size() > usablePositions.size()) {
-                // complete missing values
-                PositionVector shape;
-                for (NIOSMNode* node : nodes) {
-                    shape.push_back(Position(node->lon, node->lat, 0));
-                }
-                if (!NBNetBuilder::transformCoordinates(shape)) {
-                    return; // error will be given later
-                }
-                double sign = forward ? 1 : -1;
-                // extend backward before first usable value
-                for (int i = usableIndex.front() - 1; i >= 0; i--) {
-                    nodes[i]->positionMeters = nodes[i + 1]->positionMeters - sign * shape[i].distanceTo2D(shape[i + 1]);
-                }
-                // extend forward
-                for (int i = usableIndex.front() + 1; i < (int)nodes.size(); i++) {
-                    if (nodes[i]->positionMeters == std::numeric_limits<double>::max()) {
-                        nodes[i]->positionMeters = nodes[i - 1]->positionMeters + sign * shape[i].distanceTo2D(shape[i - 1]);
-                    }
-                }
-                //std::cout << " way=" << id << " usable=" << toString(usablePositions) << "\n indices=" << toString(usableIndex)
-                //    << " final:\n";
-                //for (auto n : nodes) {
-                //    std::cout << "    " << n->id << " " << n->positionMeters << " " << n->position<< "\n";
-                //}
-            }
-        }
-    }
-}
-
-
-double
-NIImporter_OpenStreetMap::interpretDistance(NIOSMNode* node) {
-    if (node->position.size() > 0) {
-        try {
-            if (StringUtils::startsWith(node->position, "mi:")) {
-                return StringUtils::toDouble(node->position.substr(3)) * 1609.344; // meters per mile
-            } else {
-                return StringUtils::toDouble(node->position) * 1000;
-            }
-        } catch (...) {
-            WRITE_WARNINGF(TL("Value of railway:position is not numeric ('%') in node '%'."), node->position, toString(node->id));
-        }
-    }
-    return std::numeric_limits<double>::max();
-}
-
-SUMOVehicleClass
-NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMNode* toSet) {
-    SUMOVehicleClass result = SVC_IGNORING;
-    if (type == "train") {
-        result = SVC_RAIL;
-    } else if (type == "subway") {
-        result = SVC_SUBWAY;
-    } else if (type == "aerialway") {
-        result = SVC_CABLE_CAR;
-    } else if (type == "light_rail" || type == "monorail") {
-        result = SVC_RAIL_URBAN;
-    } else if (type == "share_taxi") {
-        result = SVC_TAXI;
-    } else if (type == "minibus") {
-        result = SVC_BUS;
-    } else if (type == "trolleybus") {
-        result = SVC_BUS;
-    } else if (SumoVehicleClassStrings.hasString(type)) {
-        result = SumoVehicleClassStrings.get(type);
-    }
-    std::string stop = "";
-    if (result == SVC_TRAM) {
-        stop = ".tram";
-    } else if (result == SVC_BUS) {
-        stop = ".bus";
-    } else if (isRailway(result)) {
-        stop = ".train";
-    }
-    if (toSet != nullptr && result != SVC_IGNORING) {
-        toSet->permissions |= result;
-        toSet->ptStopLength = OptionsCont::getOptions().getFloat("osm.stop-output.length" + stop);
-    }
-    return result;
-}
-
-
-void
-NIImporter_OpenStreetMap::applyChangeProhibition(NBEdge* e, int changeProhibition) {
-    bool multiLane = changeProhibition > 3;
-    //std::cout << "applyChangeProhibition e=" << e->getID() << " changeProhibition=" << std::bitset<32>(changeProhibition) << " val=" << changeProhibition << "\n";
-    for (int lane = 0; changeProhibition > 0 && lane < e->getNumLanes(); lane++) {
-        int code = changeProhibition % 4; // only look at the last 2 bits
-        SVCPermissions changeLeft = (code & CHANGE_NO_LEFT) == 0 ? SVCAll : (SVCPermissions)SVC_AUTHORITY;
-        SVCPermissions changeRight = (code & CHANGE_NO_RIGHT) == 0 ? SVCAll : (SVCPermissions)SVC_AUTHORITY;
-        e->setPermittedChanging(lane, changeLeft, changeRight);
-        if (multiLane) {
-            changeProhibition = changeProhibition >> 2;
-        }
-    }
-}
-
-
-void
-NIImporter_OpenStreetMap::applyLaneUse(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie, const bool forward) {
-    if (myImportLaneAccess) {
-        const int numLanes = e->getNumLanes();
-        const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-        const std::vector<bool>& designated = forward ? nie->myDesignatedLaneForward : nie->myDesignatedLaneBackward;
-        const std::vector<SVCPermissions>& allowed = forward ? nie->myAllowedLaneForward : nie->myAllowedLaneBackward;
-        const std::vector<SVCPermissions>& disallowed = forward ? nie->myDisallowedLaneForward : nie->myDisallowedLaneBackward;
-        for (int lane = 0; lane < numLanes; lane++) {
-            // laneUse stores from left to right
-            const int i = lefthand ? lane : numLanes - 1 - lane;
-            // Extra allowed SVCs for this lane or none if no info was present for the lane
-            const SVCPermissions extraAllowed = i < (int)allowed.size() ? allowed[i] : (SVCPermissions)SVC_IGNORING;
-            // Extra disallowed SVCs for this lane or none if no info was present for the lane
-            const SVCPermissions extraDisallowed = i < (int)disallowed.size() ? disallowed[i] : (SVCPermissions)SVC_IGNORING;
-            if (i < (int)designated.size() && designated[i]) {
-                // if designated, delete all permissions
-                e->setPermissions(SVC_IGNORING, lane);
-                e->preferVehicleClass(lane, extraAllowed);
-            }
-            e->setPermissions((e->getPermissions(lane) | extraAllowed) & (~extraDisallowed), lane);
-        }
-    }
-}
-
-void
-NIImporter_OpenStreetMap::mergeTurnSigns(std::vector<int>& signs, std::vector<int> signs2) {
-    if (signs.empty()) {
-        signs.insert(signs.begin(), signs2.begin(), signs2.end());
-    } else {
-        for (int i = 0; i < (int)MIN2(signs.size(), signs2.size()); i++) {
-            signs[i] |= signs2[i];
-        }
-    }
-}
-
-
-void
-NIImporter_OpenStreetMap::applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns) {
-    if (myImportTurnSigns && turnSigns.size() > 0) {
-        // no sidewalks and bike lanes have been added yet
-        if ((int)turnSigns.size() == e->getNumLanes()) {
-            //std::cout << "apply turnSigns for " << e->getID() << " turnSigns=" << toString(turnSigns) << "\n";
-            for (int i = 0; i < (int)turnSigns.size(); i++) {
-                // laneUse stores from left to right
-                const int laneIndex = e->getNumLanes() - 1 - i;
-                NBEdge::Lane& lane = e->getLaneStruct(laneIndex);
-                lane.turnSigns = turnSigns[i];
-            }
-        } else {
-            WRITE_WARNINGF(TL("Ignoring turn sign information for % lanes on edge % with % driving lanes"), turnSigns.size(), e->getID(), e->getNumLanes());
-        }
-    }
 }
 
 
