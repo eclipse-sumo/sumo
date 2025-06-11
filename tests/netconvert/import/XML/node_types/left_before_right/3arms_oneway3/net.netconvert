@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-11 14:24:30 by Eclipse SUMO netconvert Version v1_23_1+0505-dc3f9e008a4
+<!-- generated on 2025-06-12 00:21:08 by Eclipse SUMO netconvert Version v1_23_1+0514-ec38a240294
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -62,17 +62,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <junction id="C" type="left_before_right" x="100.00" y="100.00" incLanes="SC_0 WC_0" intLanes=":C_0_0 :C_1_0 :C_2_0" shape="103.77,103.77 106.03,101.50 104.46,99.28 103.91,97.91 103.51,96.38 103.28,94.67 103.20,92.80 96.80,92.80 96.36,95.02 95.80,95.80 95.02,96.36 94.02,96.69 92.80,96.80 92.80,100.00 95.10,100.10 97.22,100.42 99.14,100.94 100.87,101.67 102.42,102.62">
-        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="0" response="100" foes="100" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="001" foes="001" cont="0"/>
+        <request index="2" response="000" foes="001" cont="0"/>
     </junction>
     <junction id="N" type="dead_end" x="200.00" y="200.00" incLanes="CN_0" intLanes="" shape="202.26,197.74 200.00,200.00"/>
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0" intLanes="" shape="100.00,0.00 96.80,0.00 100.00,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 0.00,96.80"/>
 
-    <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="M"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="="/>
     <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_1_0" dir="r" state="M"/>
-    <connection from="WC" to="CN" fromLane="0" toLane="0" via=":C_2_0" dir="l" state="="/>
+    <connection from="WC" to="CN" fromLane="0" toLane="0" via=":C_2_0" dir="l" state="M"/>
 
     <connection from=":C_0" to="CN" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_1" to="CS" fromLane="0" toLane="0" dir="r" state="M"/>
