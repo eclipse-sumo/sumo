@@ -1,2 +1,3 @@
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '108842671').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.trunk' (first occurrence for edge '365415331').
+Warning: Discarding unknown compound 'psv' in type 'highway.service|psv' (first occurrence for edge '519432809').

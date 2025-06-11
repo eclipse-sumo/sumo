@@ -91,8 +91,8 @@ Warning: Speed of turning connection '27080261_0->177195505#1_0' reduced by 24.9
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 16 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
-Warning: 13 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
-Warning: 15 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
+Warning: 20 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 14 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 15 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 9 total messages of type: PT stop '%' has been moved to edge '%'.

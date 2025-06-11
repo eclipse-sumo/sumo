@@ -6,6 +6,7 @@ Warning: Discarding way '536837425' because it has only 1 node(s)
 Warning: Discarding way '546792877' because it has only 1 node(s)
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycleway.lane|highway.tertiary' (first occurrence for edge '596514118').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycleway.lane|highway.tertiary' (first occurrence for edge '596514118').
+Warning: Discarding unknown compound 'bus' in type 'bus|highway.service' (first occurrence for edge '596514121').
 Warning: Ignoring restriction relation '1205706' with unknown from-way.
 Warning: Ignoring restriction relation '1205706' with unknown via.
 Warning: Ignoring restriction relation '7892483' with unknown to-way.

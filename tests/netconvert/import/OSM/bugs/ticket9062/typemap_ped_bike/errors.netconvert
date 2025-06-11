@@ -1,3 +1,5 @@
+Warning: Discarding unknown compound 'psv' in type 'highway.service|psv|service.driveway' (first occurrence for edge '140295392').
+Warning: Discarding unknown compound 'psv' in type 'highway.service|psv|railway.tram|service.driveway' (first occurrence for edge '158236381').
 Warning: Converting invalid rail_crossing to priority junction '1704693673'.
 Warning: Converting invalid rail_crossing to priority junction '1704693699'.
 Warning: Converting invalid rail_crossing to priority junction '2293276823'.

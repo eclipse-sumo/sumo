@@ -11,6 +11,7 @@ Warning: Discarding way '61579356' because it has only 1 node(s)
 Warning: Discarding way '100944802' because it has only 1 node(s)
 Warning: Discarding way '112128417' because it has only 1 node(s)
 Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '165416919').
+Warning: Discarding unknown compound 'bus' in type 'bus|highway.service|service.bus' (first occurrence for edge '523630412').
 Warning: Converting invalid rail_crossing to priority junction '1828018031'.
 Warning: Edge '4791000#1' is not connected to outgoing edges at junction 'cluster_1840326416_1840326419'.
 Warning: The rail crossing 'cluster_1828018084_1828018088' does not have any roads.
