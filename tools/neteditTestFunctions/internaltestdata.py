@@ -23,7 +23,6 @@ from __future__ import print_function
 
 import ast
 import os
-import sys
 
 
 def flattenClassTree(node, scope=None, result=None):
@@ -86,7 +85,7 @@ def parsePositionFile(inputFolder, outputFolder, file, prefix):
 
 # main
 if __name__ == "__main__":
-    inputFolder = "./../../tests/netedit"
+    inputFolder = "./../../tests/netedit/enums"
     outputFolder = "./../../data/tests"
     # calculate files for src folder (we need it to avoid visual studio warnings)
     parseIntFile(inputFolder, outputFolder, "attributesEnum", "attrs")

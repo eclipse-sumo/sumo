@@ -125,7 +125,7 @@
 # extracted tests
 /tests/_*
 # netedit test
-/tests/netedit/.vs
+/tools/neteditTestFunctions/.vs
 /tests/netedit/filter_files
 # global patterns
 Makefile

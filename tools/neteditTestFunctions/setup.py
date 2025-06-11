@@ -30,7 +30,7 @@ def Popen(extraParameters):
 
     # check if a netedit config must be loaded
     if os.path.exists(os.path.join(TEXTTEST_SANDBOX, "netedit.netecfg")):
-        neteditCall += ['-c netedit.netecfg')]
+        neteditCall += ['-c netedit.netecfg']
 
     # add extra parameters
     neteditCall += extraParameters
