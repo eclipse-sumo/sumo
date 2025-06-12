@@ -422,9 +422,11 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
         colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
     }
     // execute dialog to get a new color in the text field
+    myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->setModalWindow(&colordialog);
     if (colordialog.execute()) {
         myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str(), TRUE);
     }
+    myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->setModalWindow(nullptr);
     return 1;
 }
 

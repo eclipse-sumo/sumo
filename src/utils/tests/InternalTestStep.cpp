@@ -558,11 +558,10 @@ InternalTestStep::processModifyColorAttributeFunction() const {
     } else {
         const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
         const int colorIndex = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
-        const int overlappedTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.editElements.overlapped");
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
-        for (int i = 0; i < (numTabs + overlappedTabs); i++) {
+        for (int i = 0; i < numTabs; i++) {
             buildPressKeyEvent("tab", false);
         }
         // open dialog
@@ -592,10 +591,11 @@ InternalTestStep::processModifyColorAttributeOverlappedFunction() const {
     } else {
         const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
         const int colorIndex = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
+        const int overlappedTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.editElements.overlapped");
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
-        for (int i = 0; i < numTabs; i++) {
+        for (int i = 0; i < (numTabs + overlappedTabs); i++) {
             buildPressKeyEvent("tab", false);
         }
         // open dialog
