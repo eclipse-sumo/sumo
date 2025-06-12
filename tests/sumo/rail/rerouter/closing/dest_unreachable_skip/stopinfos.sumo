@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-12 10:04:00 by Eclipse SUMO sumo Version v1_23_1+0523-4e791cb6b45
+<!-- generated on 2025-06-12 10:03:17 by Eclipse SUMO sumo Version v1_23_1+0523-4e791cb6b45
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,22 +41,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-    <mesoscopic>
-        <mesosim value="true"/>
-        <meso-junction-control value="true"/>
-    </mesoscopic>
-
 </sumoConfiguration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v_0" type="train" depart="0.00" arrival="208.00">
-        <routeDistribution>
-            <route replacedOnEdge="E0" reason="rr_0" replacedAtTime="0.00" probability="0" edges="E0 E1 E2 E3 E4"/>
-            <route edges="E0 E5 E6 E7 E4"/>
-        </routeDistribution>
-        <stop edge="E0" startPos="130.00" endPos="150.00" duration="10.00" until="20.00" priority="2.00"/>
-        <stop edge="E4" startPos="130.00" endPos="150.00" duration="10.00" until="200.00" priority="2.00"/>
-    </vehicle>
-
-</routes>
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="v_0" type="train" lane="E0_0" pos="150.00" parking="0" started="31.00" ended="41.00" delay="21.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="v_0" type="train" lane="E2_0" pos="50.00" parking="0" started="84.00" ended="100.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="v_0" type="train" lane="E4_0" pos="150.00" parking="0" started="443.00" ended="453.00" delay="253.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+</stops>

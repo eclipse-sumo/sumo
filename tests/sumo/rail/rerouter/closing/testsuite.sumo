@@ -14,3 +14,6 @@ unreachable_default
 
 # see #16421
 unreachable_skip
+
+# see #16421
+dest_unreachable_skip

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-12 10:04:00 by Eclipse SUMO sumo Version v1_23_1+0523-4e791cb6b45
+<!-- generated on 2025-06-12 10:03:17 by Eclipse SUMO sumo Version v1_23_1+0523-4e791cb6b45
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,22 +41,26 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-    <mesoscopic>
-        <mesosim value="true"/>
-        <meso-junction-control value="true"/>
-    </mesoscopic>
-
 </sumoConfiguration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v_0" type="train" depart="0.00" arrival="208.00">
-        <routeDistribution>
-            <route replacedOnEdge="E0" reason="rr_0" replacedAtTime="0.00" probability="0" edges="E0 E1 E2 E3 E4"/>
-            <route edges="E0 E5 E6 E7 E4"/>
-        </routeDistribution>
-        <stop edge="E0" startPos="130.00" endPos="150.00" duration="10.00" until="20.00" priority="2.00"/>
-        <stop edge="E4" startPos="130.00" endPos="150.00" duration="10.00" until="200.00" priority="2.00"/>
-    </vehicle>
-
-</routes>
+<railsignal-block-output>
+    <departJunction id="J0">
+        <driveWay id="J0.d0" vehicle="v_0" edges="E0 E1 E2">
+            <forward lanes="E0_0 E1_0 E2_0"/>
+            <bidi lanes="-E0_0 -E1_0 -E2_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="J0.d0"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="J4">
+        <driveWay id="J4.d0" vehicle="v_0" edges="E4">
+            <forward lanes="E4_0"/>
+            <bidi lanes="-E4_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="J4.d0"/>
+        </driveWay>
+    </departJunction>
+</railsignal-block-output>
