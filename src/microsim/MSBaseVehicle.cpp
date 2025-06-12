@@ -374,15 +374,15 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             }
             startTime += TIME2STEPS(router.recomputeCostsPos(into, this, sourcePos, stopPos, startTime));
             if (stopIt != myStops.end()) {
-                if (stopIt->pars.priority >= 0) {
+                if (stopIt->pars.priority >= 0 && info != "device.rerouting") {
                     // consider skipping this stop if it cannot be reached in a timely manner
                     if (stopIt != myStops.end()) {
                         SUMOTime arrival = stopIt->getArrivalFallback();
                         if (arrival > 0) {
                             SUMOTime delay = startTime - arrival;
-                            // std::cout << " t=" << time2string(t) << " stopIndex=" << stopIndex
-                            //    << " into=" << toString(into) << " sourcePos=" << sourcePos << " stopPos=" << stopPos
-                            //    << " startTime=" << time2string(startTime) << " arrival=" << time2string(arrival) << " delay=" << time2string(delay) << "\n";
+                            //std::cout << " t=" << time2string(t) << " veh=" << getID() << " info=" << info << " stopIndex=" << stopIndex
+                            //   << " into=" << toString(into) << " sourcePos=" << sourcePos << " stopPos=" << stopPos
+                            //   << " startTime=" << time2string(startTime) << " arrival=" << time2string(arrival) << " delay=" << time2string(delay) << "\n";
                             if (delay > 0) {
                                 const SUMOTime maxDelay = TIME2STEPS(getFloatParam(toString(SUMO_TAG_CLOSING_REROUTE) + ".maxDelay", false, MSTriggeredRerouter::DEFAULT_MAXDELAY, false));
                                 if (delay > maxDelay) {
