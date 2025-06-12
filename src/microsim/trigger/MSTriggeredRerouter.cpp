@@ -70,13 +70,13 @@
 /// assume that a faster train has more priority and a slower train doesn't matter
 #define DEFAULT_PRIO_OVERTAKER 1
 #define DEFAULT_PRIO_OVERTAKEN 0
-#define DEFAULT_MAXDELAY 7200
 
 // ===========================================================================
 // static member definition
 // ===========================================================================
 MSEdge MSTriggeredRerouter::mySpecialDest_keepDestination("MSTriggeredRerouter_keepDestination", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
 MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_terminateRoute", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
+const double MSTriggeredRerouter::DEFAULT_MAXDELAY(7200);
 std::map<std::string, MSTriggeredRerouter*> MSTriggeredRerouter::myInstances;
 
 

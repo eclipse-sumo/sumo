@@ -119,6 +119,9 @@ public:
     /// @brief return arrival / started time
     SUMOTime getArrival() const;
 
+    /// @brief return arrival / started time or estimated arrival from until/duration
+    SUMOTime getArrivalFallback() const;
+
     /// @brief return speed for passing waypoint / skipping on-demand stop
     double getSpeed() const;
 

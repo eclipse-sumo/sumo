@@ -45,6 +45,7 @@
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSStoppingPlaceRerouter.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include "MSEventControl.h"
@@ -283,12 +284,12 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     std::vector<double> priorities;
     double sinkPriority = -1;
     bool stopAtSink = false;
+    double sourcePos = onInit ? 0 : getPositionOnLane();
     if (myParameter->via.size() == 0) {
         double firstPos = INVALID_DOUBLE;
         double lastPos = INVALID_DOUBLE;
         stops = getStopEdges(firstPos, lastPos, jumps, priorities);
         if (stops.size() > 0) {
-            double sourcePos = onInit ? 0 : getPositionOnLane();
             if (MSGlobals::gUseMesoSim && isStopped()) {
                 sourcePos = getNextStop().pars.endPos;
             }
@@ -349,18 +350,52 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     }
 
     int stopIndex = -1;
+    auto stopIt = myStops.begin();
+    SUMOTime startTime = t;
     for (const MSEdge* const stopEdge : stops) {
         stopIndex++;
-        // !!! need to adapt t here
         ConstMSEdgeVector into;
         if (jumps.count(stopIndex) != 0) {
             edges.push_back(source);
             source = stopEdge;
             continue;
         }
+        // !!! need to adapt t here
         router.computeLooped(source, stopEdge, this, t, into, silent);
         //std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " target=" << (*s)->getID() << " edges=" << toString(into) << "\n";
         if (into.size() > 0) {
+            while (stopIt != myStops.end() && stopIt->pars.edge != stopEdge->getID()) {
+                stopIt++;
+            }
+
+            double stopPos = stopEdge->getLength();
+            if (stopIt != myStops.end()) {
+                stopPos += stopIt->getEndPos(*this);
+            }
+            startTime += TIME2STEPS(router.recomputeCostsPos(into, this, sourcePos, stopPos, startTime));
+            if (stopIt != myStops.end()) {
+                if (stopIt->pars.priority >= 0) {
+                    // consider skipping this stop if it cannot be reached in a timely manner
+                    if (stopIt != myStops.end()) {
+                        SUMOTime arrival = stopIt->getArrivalFallback();
+                        if (arrival > 0) {
+                            SUMOTime delay = startTime - arrival;
+                            // std::cout << " t=" << time2string(t) << " stopIndex=" << stopIndex
+                            //    << " into=" << toString(into) << " sourcePos=" << sourcePos << " stopPos=" << stopPos
+                            //    << " startTime=" << time2string(startTime) << " arrival=" << time2string(arrival) << " delay=" << time2string(delay) << "\n";
+                            if (delay > 0) {
+                                const SUMOTime maxDelay = TIME2STEPS(getFloatParam(toString(SUMO_TAG_CLOSING_REROUTE) + ".maxDelay", false, MSTriggeredRerouter::DEFAULT_MAXDELAY, false));
+                                if (delay > maxDelay) {
+                                    WRITE_WARNING(TLF("Vehicle '%' skips stop on edge '%' with delay %.", getID(), stopEdge->getID(), time2string(delay)));
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                }
+                sourcePos = stopPos;
+                startTime += stopIt->getMinDuration(startTime);
+            }
             into.pop_back();
             edges.insert(edges.end(), into.begin(), into.end());
             if (stopEdge->isTazConnector()) {

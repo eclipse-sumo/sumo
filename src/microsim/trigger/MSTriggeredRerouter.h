@@ -269,6 +269,8 @@ public:
         return 0.;
     }
 
+    static const double DEFAULT_MAXDELAY;
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
