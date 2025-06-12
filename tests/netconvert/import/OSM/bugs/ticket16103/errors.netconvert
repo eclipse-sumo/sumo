@@ -1,1 +1,2 @@
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '579887368').
+Warning: Discarding unknown compound 'bus' in type 'bus|highway.service' (first occurrence for edge '1296577187').

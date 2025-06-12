@@ -325,6 +325,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
             if (DEBUGCOND) std::cout << "setBlocking1"
                                          << " 1:" << from1->getID() << "->" << to1->getID()
                                          << " 2:" << from2->getID() << "->" << to2->getID();
+                                         << " relAngle=" << NBHelpers::relAngle(from1->getAngleAtNode(myJunction), from2->getAngleAtNode(myJunction))
 #endif
 
     // compute the yielding due to the right-before-left rule
@@ -337,7 +338,11 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         if (*c1 == to2) {
             // if we encounter to2 the second one prohibits the first
             if (myJunction->getType() == SumoXMLNodeType::LEFT_BEFORE_RIGHT
-                    && (ld1 != LinkDirection::LEFT || ld2 == LinkDirection::LEFT || (from1->getTurnDestination(true) != to2 && ld2 != LinkDirection::RIGHT))) {
+                    && (ld1 != LinkDirection::LEFT || ld2 == LinkDirection::LEFT || (from1->getTurnDestination(true) != to2 &&
+                            (ld2 != LinkDirection::RIGHT ||
+                             fabs(NBHelpers::relAngle(from1->getAngleAtNode(myJunction),
+                                 from2->getAngleAtNode(myJunction))) < 150))
+                       )) {
                 myForbids[idx1][idx2] = true;
 #ifdef DEBUG_SETBLOCKING
                 if (DEBUGCOND) std::cout << " case1: 2 yields\n";
@@ -360,7 +365,11 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         if (*c2 == to1) {
             // if we encounter to1 the second one prohibits the first
             if (myJunction->getType() == SumoXMLNodeType::LEFT_BEFORE_RIGHT
-                    && (ld2 != LinkDirection::LEFT || ld1 == LinkDirection::LEFT || (from2->getTurnDestination(true) != to1 && ld1 != LinkDirection::RIGHT))) {
+                    && (ld2 != LinkDirection::LEFT || ld1 == LinkDirection::LEFT || (from2->getTurnDestination(true) != to1 &&
+                            (ld1 != LinkDirection::RIGHT ||
+                             fabs(NBHelpers::relAngle(from1->getAngleAtNode(myJunction),
+                                 from2->getAngleAtNode(myJunction))) < 150))
+                        )) {
                 myForbids[idx2][idx1] = true;
 #ifdef DEBUG_SETBLOCKING
                 if (DEBUGCOND) std::cout << " case2: 1 yields\n";

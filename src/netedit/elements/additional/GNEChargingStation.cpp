@@ -37,14 +37,15 @@ GNEChargingStation::GNEChargingStation(GNENet* net) :
 
 GNEChargingStation::GNEChargingStation(const std::string& id, GNENet* net, const std::string& filename, GNELane* lane, const double startPos, const double endPos,
                                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
-                                       const std::string& chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters) :
+                                       const std::string& chargeType, const SUMOTime waitingTime,  const std::string& parkingAreaID, bool friendlyPosition, const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, filename, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, name, friendlyPosition, RGBColor::INVISIBLE, parameters),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),
     myChargeDelay(chargeDelay),
     myChargeType(chargeType),
-    myWaitingTime(waitingTime) {
+    myWaitingTime(waitingTime),
+    myParkingAreaID(parkingAreaID) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

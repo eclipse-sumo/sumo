@@ -508,7 +508,8 @@ protected:
          * @param[in, out] toFill The edges container to fill with read edges
          */
         EdgesHandler(const std::map<long long int, NIOSMNode*>& osmNodes,
-                     std::map<long long int, Edge*>& toFill, std::map<long long int, Edge*>& platformShapes);
+                     std::map<long long int, Edge*>& toFill, std::map<long long int, Edge*>& platformShapes,
+                     const NBTypeCont& tc);
 
 
         /// @brief Destructor
@@ -544,6 +545,8 @@ protected:
 
         void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, const bool forward) const;
 
+        void addType(const std::string& singleTypeID);
+
 
     private:
         /// @brief The previously parsed nodes
@@ -560,6 +563,8 @@ protected:
 
         /// @brief A map of non-numeric speed descriptions to their numeric values
         std::map<std::string, double> mySpeedMap;
+
+        const NBTypeCont& myTypeCont;
 
     private:
         /** @brief invalidated copy constructor */

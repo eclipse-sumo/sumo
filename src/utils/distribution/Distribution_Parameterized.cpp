@@ -138,15 +138,9 @@ Distribution_Parameterized::getMin() const {
 }
 
 
-std::vector<double>&
-Distribution_Parameterized::getParameter() {
-    return myParameter;
-}
-
-
-const std::vector<double>&
-Distribution_Parameterized::getParameter() const {
-    return myParameter;
+void
+Distribution_Parameterized::setParameter(const int index, const double value) {
+    myParameter[index] = value;
 }
 
 

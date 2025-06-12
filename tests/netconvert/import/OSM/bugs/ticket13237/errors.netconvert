@@ -1,3 +1,5 @@
+Warning: Discarding unknown compound 'bus' in type 'bus|highway.service|psv' (first occurrence for edge '436358018').
+Warning: Discarding unknown compound 'psv' in type 'bus|highway.service|psv' (first occurrence for edge '436358018').
 Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '496108586').
 Warning: Removing pt stop '300386936' on non existing edge '27361387'.
 Warning: Removing pt stop '4333534663' on non existing edge '436358018#2'.

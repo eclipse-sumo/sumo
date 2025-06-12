@@ -164,7 +164,7 @@ inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr a
 #ifdef HAVE_FMT
     fmt::print(into, " {}=\"{:.{}f}\"", toString(attr), val, into.precision());
 #else
-    into << " " << toString(attr) << "=\"" << val << "\"";
+    into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
 #endif
 }
 
