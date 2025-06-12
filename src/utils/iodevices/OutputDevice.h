@@ -28,6 +28,7 @@
 #include <cassert>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include "CSVFormatter.h"
 #include "PlainXMLFormatter.h"
 
 
@@ -163,14 +164,15 @@ public:
      */
     void close();
 
+    void setFormatter(OutputFormatter* formatter) {
+        delete myFormatter;
+        myFormatter = formatter;
+    }
 
     /** @brief Sets the precision or resets it to default
      * @param[in] precision The accuracy (number of digits behind '.') to set
      */
     void setPrecision(int precision = gPrecision);
-
-    /// @brief return precision set on the device
-    int precision();
 
     /** @brief Returns the precision of the underlying stream
      */
@@ -252,7 +254,11 @@ public:
      */
     template <typename T>
     OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
-        PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        if (myFormatter->getType() == OutputFormatterType::XML) {
+            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        } else {
+            static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+        }
         return *this;
     }
 
@@ -271,7 +277,11 @@ public:
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, long long int attributeMask) {
         assert((int)attr <= 63);
         if (attributeMask == 0 || useAttribute(attr, attributeMask)) {
-            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+            if (myFormatter->getType() == OutputFormatterType::XML) {
+                PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+            } else {
+                static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+            }
         }
         return *this;
     }
@@ -279,7 +289,11 @@ public:
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, SumoXMLAttrMask attributeMask) {
         assert((int)attr <= (int)attributeMask.size());
         if (attributeMask.none() || useAttribute(attr, attributeMask)) {
-            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+            if (myFormatter->getType() == OutputFormatterType::XML) {
+                PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+            } else {
+                static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+            }
         }
         return *this;
     }
@@ -293,7 +307,11 @@ public:
      */
     template <typename T>
     OutputDevice& writeAttr(const std::string& attr, const T& val) {
-        PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        if (myFormatter->getType() == OutputFormatterType::XML) {
+            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        } else {
+            static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+        }
         return *this;
     }
 
@@ -378,7 +396,7 @@ protected:
 
 private:
     /// @brief The formatter for XML
-    OutputFormatter* const myFormatter;
+    OutputFormatter* myFormatter;
 
 private:
     /// @brief Invalidated copy constructor.

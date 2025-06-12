@@ -1,4 +1,6 @@
 set(utils_iodevices_STAT_SRCS
+   CSVFormatter.cpp
+   CSVFormatter.h
    OutputDevice.cpp
    OutputDevice.h
    OutputDevice_CERR.cpp

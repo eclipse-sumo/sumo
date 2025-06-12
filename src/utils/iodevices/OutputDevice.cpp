@@ -104,6 +104,9 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
         name2 = StringUtils::substituteEnvironment(name2, &OptionsIO::getLoadTime());
         const int len = (int)name.length();
         dev = new OutputDevice_File(name2, len > 3 && name.substr(len - 3) == ".gz");
+        if ((len > 4 && name.substr(len - 4) == ".csv") || (len > 7 && name.substr(len - 7) == ".csv.gz")) {
+            dev->setFormatter(new CSVFormatter());
+        }
     }
     dev->setPrecision();
     dev->getOStream() << std::setiosflags(std::ios::fixed);
@@ -241,12 +244,6 @@ OutputDevice::close() {
 void
 OutputDevice::setPrecision(int precision) {
     getOStream() << std::setprecision(precision);
-}
-
-
-int
-OutputDevice::precision() {
-    return (int)getOStream().precision();
 }
 
 

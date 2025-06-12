@@ -1071,7 +1071,7 @@ MSBaseVehicle::saveState(OutputDevice& out) {
         out.writeAttr(SUMO_ATTR_ARRIVALPOS_RANDOMIZED, myArrivalPos);
     }
     if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET)) {
-        const int precision = out.precision();
+        const int precision = out.getPrecision();
         out.setPrecision(MAX2(gPrecisionRandom, precision));
         out.writeAttr(SUMO_ATTR_SPEEDFACTOR, myChosenSpeedFactor);
         out.setPrecision(precision);

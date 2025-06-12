@@ -11,12 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    PlainXMLFormatter.h
-/// @author  Daniel Krajzewicz
+/// @file    CSVFormatter.h
 /// @author  Michael Behrisch
-/// @date    2012
+/// @date    2025-06-12
 ///
-// Output formatter for plain XML output
+// Output formatter for CSV output
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -32,69 +31,37 @@
 // class definitions
 // ===========================================================================
 /**
- * @class PlainXMLFormatter
- * @brief Output formatter for plain XML output
- *
- * PlainXMLFormatter format XML like output into the output stream.
+ * @class CSVFormatter
+ * @brief Output formatter for CSV output
  */
-class PlainXMLFormatter : public OutputFormatter {
+class CSVFormatter : public OutputFormatter {
 public:
     /// @brief Constructor
-    PlainXMLFormatter(const int defaultIndentation = 0);
-
+    CSVFormatter(const char separator = ';');
 
     /// @brief Destructor
-    virtual ~PlainXMLFormatter() { }
+    virtual ~CSVFormatter() { }
 
-
-    /** @brief Writes an XML header with optional configuration
-     *
-     * If something has been written (myXMLStack is not empty), nothing
-     *  is written and false returned.
-     *
-     * @param[in] into The output stream to use
-     * @param[in] rootElement The root element to use
-     * @param[in] attrs Additional attributes to save within the rootElement
-     * @todo Describe what is saved
+    /** @brief This is not an xml format so it does nothing
      */
     bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
                         const std::map<SumoXMLAttr, std::string>& attrs,
                         bool includeConfig = true);
 
-
-    /** @brief Writes an XML header with optional configuration
+    /** @brief Keeps track of an open XML tag by adding a new element to the stack
      *
-     * If something has been written (myXMLStack is not empty), nothing
-     *  is written and false returned.
-     *
-     * @param[in] into The output stream to use
-     * @param[in] rootElement The root element to use
-     */
-    bool writeHeader(std::ostream& into, const SumoXMLTag& rootElement);
-
-
-    /** @brief Opens an XML tag
-     *
-     * An indentation, depending on the current xml-element-stack size, is written followed
-     *  by the given xml element ("<" + xmlElement)
-     * The xml element is added to the stack, then.
-     *
-     * @param[in] into The output stream to use
-     * @param[in] xmlElement Name of element to open
+     * @param[in] into The output stream to use (unused)
+     * @param[in] xmlElement Name of element to open (unused)
      * @return The OutputDevice for further processing
      */
     void openTag(std::ostream& into, const std::string& xmlElement);
 
-
-    /** @brief Opens an XML tag
+    /** @brief Keeps track of an open XML tag by adding a new element to the stack
      *
-     * Helper method which finds the correct string before calling openTag.
-     *
-     * @param[in] into The output stream to use
-     * @param[in] xmlElement Id of the element to open
+     * @param[in] into The output stream to use (unused)
+     * @param[in] xmlElement Name of element to open (unused)
      */
     void openTag(std::ostream& into, const SumoXMLTag& xmlElement);
-
 
     /** @brief Closes the most recently opened tag
      *
@@ -110,12 +77,20 @@ public:
      * @param[in] into The output stream to use
      * @param[in] val The preformatted data
      */
-    void writePreformattedTag(std::ostream& into, const std::string& val);
+    void writePreformattedTag(std::ostream& /* into */, const std::string& /* val */) {}
 
     /** @brief writes arbitrary padding
      */
-    void writePadding(std::ostream& into, const std::string& val);
+    void writePadding(std::ostream& /* into */, const std::string& /* val */) {}
 
+    inline void checkHeader(const SumoXMLAttr attr) {
+        if (myMaxDepth == 0) {
+            if (myHeader != "") {
+                myHeader += mySeparator;
+            }
+            myHeader += toString(attr);
+        }
+    }
 
     /** @brief writes an arbitrary attribute
      *
@@ -124,10 +99,15 @@ public:
      * @param[in] val The attribute value
      */
     template <class T>
-    static void writeAttr(std::ostream& into, const std::string& attr, const T& val) {
-        into << " " << attr << "=\"" << toString(val, into.precision()) << "\"";
+    void writeAttr(std::ostream& into, const std::string& attr, const T& val) {
+        if (myMaxDepth == 0) {
+            if (myHeader != "") {
+                myHeader += mySeparator;
+            }
+            myHeader += attr;
+        }
+        myXMLStack.back() << toString(val, into.precision()) << mySeparator;
     }
-
 
     /** @brief writes a named attribute
      *
@@ -136,23 +116,27 @@ public:
      * @param[in] val The attribute value
      */
     template <class T>
-    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
-        into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
+    void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
+        checkHeader(attr);
+        myXMLStack.back() << toString(val, into.precision()) << mySeparator;
     }
 
     bool wroteHeader() const {
-        return !myXMLStack.empty();
+        return myMaxDepth != 0;
     }
 
 private:
+    /// @brief the CSV header
+    std::string myHeader;
+
     /// @brief The stack of begun xml elements
-    std::vector<std::string> myXMLStack;
+    std::vector<std::ostringstream> myXMLStack;
 
-    /// @brief The initial indentation level
-    int myDefaultIndentation;
+    /// @brief The value separator
+    const char mySeparator;
 
-    /// @brief whether a closing ">" might be missing
-    bool myHavePendingOpener;
+    /// @brief the maximum depth of the XML hierarchy
+    int myMaxDepth;
 };
 
 
@@ -160,16 +144,18 @@ private:
 // specialized template implementations (for speedup)
 // ===========================================================================
 template <>
-inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val) {
+inline void CSVFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val) {
+    checkHeader(attr);
 #ifdef HAVE_FMT
-    fmt::print(into, " {}=\"{:.{}f}\"", toString(attr), val, into.precision());
+    fmt::print(myXMLStack.back(), "{:.{}f}{}", val, into.precision(), mySeparator);
 #else
-    into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
+    myXMLStack.back() << toString(val, into.precision()) << mySeparator;
 #endif
 }
 
 
 template <>
-inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::string& val) {
-    into << " " << toString(attr) << "=\"" << val << "\"";
+inline void CSVFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const std::string& val) {
+    checkHeader(attr);
+    myXMLStack.back() << val << mySeparator;
 }
