@@ -1,2 +1,2 @@
 Warning: No connection between edge 'E2' and edge 'E4' found.
-Warning: No route for vehicle 'v_0' found.
+Warning: Vehicle 'v_0' skips unreachable destination stop on edge 'E4' with priority 2.00.
