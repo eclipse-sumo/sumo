@@ -27,6 +27,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/foxtools/MFXColorDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -669,7 +670,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::getButton() const {
 void
 GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
     // create FXColorDialog
-    FXColorDialog colordialog(this, TL("Color Dialog"));
+    MFXColorDialog colordialog(this, TL("Color Dialog"));
     colordialog.setTarget(this);
     colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     // If previous attribute wasn't correct, set black as default color
@@ -679,7 +680,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
         colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
     }
     // execute dialog to get a new color
-    if (colordialog.execute()) {
+    if (colordialog.openDialog()) {
         std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
         myTextField->setText(newValue.c_str());
         if (myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, newValue)) {
