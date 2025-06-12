@@ -5,7 +5,9 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <vType id="train" vClass="rail" length="50"/>
+    <vType id="train" vClass="rail" length="50">
+        <param key="closingReroute.maxDelay" value="1000"/>
+    </vType>
     <vehicle id="v_0" type="train" depart="0.00">
         <route edges="E0 E1 E2 E3 E4"/>
         <stop edge="E0" startPos="130" endPos="150" until="020" duration="10.00" priority="2"/>
