@@ -9,6 +9,11 @@ detour_default
 # see #16421
 detour_skip
 
+# do not skip on initial routing (only when triggered by rerouter)
+# 
+# see #16421
+detour_onInit
+
 # see #16421
 unreachable_default
 
