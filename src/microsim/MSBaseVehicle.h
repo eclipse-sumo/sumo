@@ -710,7 +710,7 @@ public:
     /** @brief Returns the list of still pending stop edges
      * also returns the first and last stop position
      */
-    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps) const;
+    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps, std::vector<double>& priorities) const;
 
     /// @brief return list of route indices for the remaining stops
     std::vector<std::pair<int, double> > getStopIndices() const;
