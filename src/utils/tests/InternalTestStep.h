@@ -41,6 +41,7 @@ public:
         INIT,   // Setup and start step
         APP,    // send signal to APP (Either GUIAppWindows or GNEApplicationWindow)
         VIEW,   // send signal to view (either GUIView or GNEViewNet)
+        COLOR,  // send signal to color dialog
     };
 
     /// @brief constructor for parsing step in strin format

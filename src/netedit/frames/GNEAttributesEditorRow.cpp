@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
@@ -423,11 +424,9 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
         colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
     }
     // execute dialog to get a new color in the text field
-    myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->setModalWindow(&colordialog);
-    if (colordialog.openDialog()) {
+    if (colordialog.openDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getNeteditTestSystem())) {
         myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str(), TRUE);
     }
-    myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->setModalWindow(nullptr);
     return 1;
 }
 

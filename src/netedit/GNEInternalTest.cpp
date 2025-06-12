@@ -48,7 +48,7 @@ GNEInternalTest::runNeteditTests(GNEApplicationWindow* applicationWindow) {
             // check if we have to process it in main windows, abstract view or specific view
             if (testStep->getCategory() == InternalTestStep::Category::APP) {
                 // send the signal to current windows (due modals)
-                applicationWindow->getCurrentWindow()->handle(this, testStep->getSelector(), testStep->getEvent());
+                applicationWindow->handle(this, testStep->getSelector(), testStep->getEvent());
             } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
                 applicationWindow->getViewNet()->handle(this, testStep->getSelector(), testStep->getEvent());
             } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {

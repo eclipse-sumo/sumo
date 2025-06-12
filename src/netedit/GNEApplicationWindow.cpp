@@ -1837,22 +1837,6 @@ GNEApplicationWindow::consoleOptionsLoaded() {
 }
 
 
-FXWindow*
-GNEApplicationWindow::getCurrentWindow() {
-    if (myModalWindow) {
-        return myModalWindow;
-    } else {
-        return this;
-    }
-}
-
-
-void
-GNEApplicationWindow::setModalWindow(FXWindow* modalWindow) {
-    myModalWindow = modalWindow;
-}
-
-
 long
 GNEApplicationWindow::onCmdSetSuperMode(FXObject* sender, FXSelector sel, void* ptr) {
     // check that currently there is a View

@@ -31,6 +31,13 @@ MFXColorDialog::~MFXColorDialog() {
 
 
 FXuint
-MFXColorDialog::openDialog(FXuint placement) {
-    return execute(placement);
+MFXColorDialog::openDialog(const InternalTest* internalTest, FXuint placement) {
+    if (internalTest) {
+        create();
+        show(placement);
+        getApp()->refresh();
+        return getApp()->runModalFor(this);
+    } else {
+        return execute(placement);
+    }
 }

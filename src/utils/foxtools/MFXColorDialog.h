@@ -22,7 +22,16 @@
 
 #include "fxheader.h"
 
-/// @brief color dialog
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class InternalTest;
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
 class MFXColorDialog : public FXColorDialog {
 
 public:
@@ -33,7 +42,7 @@ public:
     virtual ~MFXColorDialog();
 
     /// @brief open dialog
-    FXuint openDialog(FXuint placement = PLACEMENT_CURSOR);
+    FXuint openDialog(const InternalTest* internalTest, const FXuint placement = PLACEMENT_CURSOR);
 
 private:
     /// @brief disable copy constructor

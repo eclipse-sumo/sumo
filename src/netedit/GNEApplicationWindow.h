@@ -92,12 +92,6 @@ public:
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
 
-    /// @brief get current window (usually this app, except if we have a modal window
-    FXWindow* getCurrentWindow();
-
-    /// @brief set current modal window
-    void setModalWindow(FXWindow* modalWindow);
-
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occurred
@@ -809,9 +803,6 @@ private:
 
     /// @brief pointer to current view net
     GNEViewNet* myViewNet = nullptr;
-
-    /// @brief current modal window
-    FXWindow* myModalWindow = nullptr;
 
     /// @brief the prefix for the window title
     const FXString myTitlePrefix;

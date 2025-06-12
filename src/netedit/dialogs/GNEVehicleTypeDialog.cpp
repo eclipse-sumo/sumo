@@ -18,10 +18,13 @@
 // Dialog for edit vehicleTypes
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <utils/common/MsgHandler.h>
@@ -669,6 +672,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::getButton() const {
 
 void
 GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
+    const auto editedDemandElement = myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement;
     // create FXColorDialog
     MFXColorDialog colordialog(this, TL("Color Dialog"));
     colordialog.setTarget(this);
@@ -680,11 +684,11 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
         colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
     }
     // execute dialog to get a new color
-    if (colordialog.openDialog()) {
+    if (colordialog.openDialog(editedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getNeteditTestSystem())) {
         std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
         myTextField->setText(newValue.c_str());
-        if (myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, newValue)) {
-            myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, newValue, myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
+        if (editedDemandElement->isValid(myAttr, newValue)) {
+            editedDemandElement->setAttribute(myAttr, newValue, editedDemandElement->getNet()->getViewNet()->getUndoList());
             // If previously value was incorrect, change font color to black
             myTextField->setTextColor(FXRGB(0, 0, 0));
             myTextField->killFocus();
