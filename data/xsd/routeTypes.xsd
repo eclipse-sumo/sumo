@@ -865,6 +865,7 @@
         <xsd:attribute name="onDemand" type="boolType"/>
         <xsd:attribute name="jump" type="timeTypeWithErrorValue"/>
         <xsd:attribute name="jumpUntil" type="timeTypeWithErrorValue"/>
+        <xsd:attribute name="priority" type="xsd:float"/>
         <!-- save-state backward compatibility -->
         <xsd:attribute name="actualArrival" type="timeType"/>
         <xsd:attribute name="depart" type="timeType"/>
