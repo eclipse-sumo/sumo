@@ -1,2 +1,16 @@
 # see #16431
 reroute_after_signal
+
+# see #16421
+detour_default
+
+# skip stops with priority if the detour is too high
+# 
+# see #16421
+detour_skip
+
+# see #16421
+unreachable_default
+
+# see #16421
+unreachable_skip
