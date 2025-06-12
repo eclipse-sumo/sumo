@@ -273,7 +273,7 @@ public:
      * @param[in] vClass The vehicle class for which the connectivity is checked
      * @return Whether the given edge is a direct successor to this one
      */
-    bool isConnectedTo(const ROEdge& e, const SUMOVehicleClass vClass) const;
+    bool isConnectedTo(const ROEdge& e, const SUMOVehicleClass vClass, bool ignoreTransientPermissions = false) const;
 
 
     /** @brief Returns whether this edge prohibits the given vehicle to pass it

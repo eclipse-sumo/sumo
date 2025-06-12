@@ -240,8 +240,8 @@ public:
      */
     const std::vector<MSLane*>* allowedLanes(SUMOVehicleClass vclass = SVC_IGNORING) const;
 
-    inline bool isConnectedTo(const MSEdge& destination, SUMOVehicleClass vclass) const {
-        const std::vector<MSLane*>* const lanes = allowedLanes(destination, vclass);
+    inline bool isConnectedTo(const MSEdge& destination, SUMOVehicleClass vclass, bool ignoreTransientPermissions = false) const {
+        const std::vector<MSLane*>* const lanes = allowedLanes(destination, vclass, ignoreTransientPermissions);
         return lanes != nullptr && !lanes->empty();
     }
     /// @}
