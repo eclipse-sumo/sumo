@@ -1297,25 +1297,39 @@ NBEdgeCont::guessRoundabouts() {
                 std::cout << "   e=" << e->getID() << " left=" << left->getID() << " nextLeft=" << nextLeft->getID() << " angle=" << angle << " nextAngle=" << nextAngle << " eLength=" << e->getLength() << " lLength=" << left->getLength() << " dist=" << e->getLaneShape(0).back().distanceTo2D(left->getLaneShape(0).front()) << "\n";
             }
 #endif
-            if (angle >= 120
-                    || (angle >= 90 &&
-                        // if the edges are long or the junction shape is small we should expect roundness (low angles)
-                        (MAX2(e->getLength(), left->getLength()) > 5
-                         || e->getLaneShape(0).back().distanceTo2D(left->getLaneShape(0).front()) < 10
-                         // there should be no straigher edge further left
-                         || (nextAngle < 45)
-                        ))) {
-                // roundabouts do not have sharp turns (or they wouldn't be called 'round')
-                // however, if the roundabout is very small then most of the roundness may be in the junction so the angle may be as high as 120
+            // there should be no straigher edge further left
+            if (angle >= 90 && nextAngle < 45) {
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
                 if (gDebugFlag1) {
-                    std::cout << "     failed angle=" << angle << "\n";
+                    std::cout << "     failed nextAngle=" << nextAngle << "\n";
                 }
                 gDebugFlag1 = false;
 #endif
                 break;
             }
+            // roundabouts do not have sharp turns (or they wouldn't be called 'round')
+            // however, if the roundabout is very small then most of the roundness may be in the junction so the angle may be as high as 180 (for smooth attachments at a joined junction)
+            if (angle >= 90) {
+                double edgeAngle = fabs(NBHelpers::relAngle(e->getStartAngle(), e->getEndAngle()));
+                double edgeAngle2 = fabs(NBHelpers::relAngle(left->getStartAngle(), left->getEndAngle()));
+                double edgeRadius = e->getGeometry().length2D() / DEG2RAD(edgeAngle);
+                double edgeRadius2 = left->getGeometry().length2D() / DEG2RAD(edgeAngle2);
+                const double avgRadius = 0.5 * (edgeRadius + edgeRadius2);
+                double junctionRadius = e->getLaneShape(0).back().distanceTo2D(left->getLaneShape(0).front()) / DEG2RAD(angle);
+                //std::cout << "     junction=" << e->getToNode()->getID() << " e=" << e->getID() << " left=" << left->getID() << " angle=" << angle << " eRadius=" << edgeRadius << " eRadius2=" << edgeRadius2 << " jRadius3=" << junctionRadius << "\n";
+                if (junctionRadius < 0.8 * avgRadius) {
+                    doLoop = false;
+#ifdef DEBUG_GUESS_ROUNDABOUT
+                    if (gDebugFlag1) {
+                        std::cout << "     failed angle=" << angle << " eRadius=" << edgeRadius << " eRadius2=" << edgeRadius2 << " jRadius3=" << junctionRadius << "\n";
+                    }
+                    gDebugFlag1 = false;
+#endif
+                break;
+                }
+            }
+
             EdgeVector::const_iterator loopClosed = std::find(loopEdges.begin(), loopEdges.end(), left);
             const int loopSize = (int)(loopEdges.end() - loopClosed);
             if (loopSize > 0) {
