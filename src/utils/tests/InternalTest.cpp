@@ -73,6 +73,16 @@ InternalTest::isTestFinished() const {
 }
 
 
+const InternalTestStep*
+InternalTest::getCurrentStep() const {
+    if (myCurrentStep < myTestSteps.size()) {
+        return myTestSteps.at(myCurrentStep);
+    } else {
+        return nullptr;
+    }
+}
+
+
 std::map<std::string, int>
 InternalTest::parseIntTestDataFile(const std::string filePath) const {
     std::map<std::string, int> solution;

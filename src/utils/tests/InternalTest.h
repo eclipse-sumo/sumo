@@ -22,6 +22,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include <utils/foxtools/fxheader.h>
 
@@ -50,6 +51,9 @@ public:
     /// @brief check if test are finised
     bool isTestFinished() const;
 
+    /// @brief get current step
+    const InternalTestStep* getCurrentStep() const;
+
 protected:
     /// @brief vector with attributesEnum jump steps
     std::map<std::string, int> myAttributesEnum;
@@ -59,6 +63,9 @@ protected:
 
     /// @brief vector with view position pairs
     std::map<std::string, std::pair<int, int> > myViewPositions;
+
+    /// @brief current step index
+    size_t myCurrentStep = 0;
 
     /// @brief test steps
     std::vector<const InternalTestStep*> myTestSteps;

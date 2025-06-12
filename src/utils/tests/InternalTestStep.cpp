@@ -112,10 +112,24 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
 }
 
 
+InternalTestStep::InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event) :
+    myTestSystem(parent->myTestSystem),
+    myMessageType(messageType),
+    myEvent(event) {
+    // add this testStep to parent key steps
+    parent->myKeySteps.push_back(this);
+}
+
+
 InternalTestStep::~InternalTestStep() {
     if (myEvent) {
         delete myEvent;
     }
+    // remove all key steps
+    for (auto keyStep : myKeySteps) {
+        delete keyStep;
+    }
+    myKeySteps.clear();
 }
 
 
@@ -152,6 +166,12 @@ InternalTestStep::getCategory() const {
 void*
 InternalTestStep::getEvent() const {
     return myEvent;
+}
+
+
+const std::vector<const InternalTestStep*>&
+InternalTestStep::getKeySteps() const {
+    return myKeySteps;
 }
 
 
@@ -565,19 +585,19 @@ InternalTestStep::processModifyColorAttributeFunction() const {
             buildPressKeyEvent("tab", false);
         }
         // open dialog
-        buildPressKeyEvent("space", false);
+        auto spaceEvent = buildPressKeyEvent("space", false);
         // go to the list of colors
         for (int i = 0; i < 2; i++) {
-            buildTwoPressKeyEvent("shift", "tab", false);
+            buildTwoPressKeyEvent(spaceEvent, "shift", "tab");
         }
         // select color
         for (int i = 0; i < (1 + colorIndex); i++) {
-            buildPressKeyEvent("down", false);
+            buildPressKeyEvent(spaceEvent, "down");
         }
         // go to button
-        buildPressKeyEvent("tab", false);
+        buildPressKeyEvent(spaceEvent, "tab");
         // press button
-        buildPressKeyEvent("space", true);
+        buildPressKeyEvent(spaceEvent, "space");
     }
 }
 
@@ -599,19 +619,19 @@ InternalTestStep::processModifyColorAttributeOverlappedFunction() const {
             buildPressKeyEvent("tab", false);
         }
         // open dialog
-        buildPressKeyEvent("space", false);
+        auto spaceEvent = buildPressKeyEvent("space", false);
         // go to the list of colors
         for (int i = 0; i < 2; i++) {
-            buildTwoPressKeyEvent("shift", "tab", false);
+            buildTwoPressKeyEvent(spaceEvent, "shift", "tab");
         }
         // select color
         for (int i = 0; i < (1 + colorIndex); i++) {
-            buildPressKeyEvent("down", false);
+            buildPressKeyEvent(spaceEvent, "down");
         }
         // go to button
-        buildPressKeyEvent("tab", false);
+        buildPressKeyEvent(spaceEvent, "tab");
         // press button
-        buildPressKeyEvent("space", true);
+        //buildPressKeyEvent(spaceEvent, "space");
     }
 }
 
@@ -1014,26 +1034,42 @@ InternalTestStep::writeError(const std::string& function, const std::string& exp
 }
 
 
-void
+InternalTestStep*
 InternalTestStep::buildPressKeyEvent(const std::string& key, const bool updateView) const {
     new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(key), updateView);
-    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
+    return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
 }
 
 
 void
+InternalTestStep::buildPressKeyEvent(InternalTestStep* parent, const std::string& key) const {
+    new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(key));
+    new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(key));
+}
+
+
+InternalTestStep*
 InternalTestStep::buildPressKeyEvent(const char key, const bool updateView) const {
     new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(key), updateView);
-    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
+    return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
 }
 
 
-void
+InternalTestStep*
 InternalTestStep::buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const {
     new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(keyA), updateView);
     new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(keyB), updateView);
     new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(keyB), updateView);
-    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(keyA), updateView);
+    return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(keyA), updateView);
+}
+
+
+void
+InternalTestStep::buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string& keyB) const {
+    new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(keyA));
+    new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(keyB));
+    new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(keyB));
+    new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(keyA));
 }
 
 /****************************************************************************/

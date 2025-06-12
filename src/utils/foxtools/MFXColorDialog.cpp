@@ -18,7 +18,11 @@
 // reimplementation of MFXColorDialog, which allow to test it using internal test
 /****************************************************************************/
 
+#include <utils/tests/InternalTest.h>
+#include <utils/tests/InternalTestStep.h>
+
 #include "MFXColorDialog.h"
+
 
 MFXColorDialog::MFXColorDialog(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
     FXColorDialog(owner, name, opts, x, y, w, h) {
@@ -33,10 +37,7 @@ MFXColorDialog::~MFXColorDialog() {
 FXuint
 MFXColorDialog::openDialog(const InternalTest* internalTest, FXuint placement) {
     if (internalTest) {
-        create();
-        show(placement);
-        getApp()->refresh();
-        return getApp()->runModalFor(this);
+        return 1;
     } else {
         return execute(placement);
     }
