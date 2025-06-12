@@ -281,6 +281,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     ConstMSEdgeVector stops;
     std::set<int> jumps;
     std::vector<double> priorities;
+    double sinkPriority = -1;
     bool stopAtSink = false;
     if (myParameter->via.size() == 0) {
         double firstPos = INVALID_DOUBLE;
@@ -297,6 +298,9 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                                    && myArrivalPos >= lastPos
                                    && (stops.size() < 2 || stops.back() != stops[stops.size() - 2])
                                    && (stops.size() > 1 || skipFirst));
+            if (stops.back() == sink && myArrivalPos >= lastPos) {
+                sinkPriority = priorities.back();
+            }
 #ifdef DEBUG_REROUTE
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " reroute " << info << " veh=" << getID() << " lane=" << Named::getIDSecure(getLane())
@@ -390,10 +394,14 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         router.computeLooped(source, sink, this, t, edges, silent);
     } else {
         if (!router.compute(source, sink, this, t, edges, silent)) {
-            edges.clear();
+            if (sinkPriority >= 0) {
+                WRITE_WARNING(TLF("Vehicle '%' skips unreachable destination stop on edge '%' with priority %.", getID(), sink->getID(), sinkPriority));
+                edges.push_back(source);
+            } else {
+                edges.clear();
+            }
         }
     }
-
     // router.setHint(myCurrEdge, myRoute->end(), this, t);
     if (edges.empty() && silent) {
         return false;
