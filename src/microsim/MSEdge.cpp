@@ -752,10 +752,9 @@ MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
                 // additive term must come after multiplication!
                 vMax += SPEED_EPS;
                 if (pars.departSpeed > vMax) {
-                    const std::vector<double>& speedFactorParams = type.getSpeedFactor().getParameter();
-                    if (speedFactorParams[1] > 0.) {
+                    if (type.getSpeedFactor().getParameter(1) > 0.) {
                         v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / MIN2(getSpeedLimit(), type.getDesiredMaxSpeed() - SPEED_EPS)));
-                        if (v.getChosenSpeedFactor() > speedFactorParams[0] + 2 * speedFactorParams[1]) {
+                        if (v.getChosenSpeedFactor() > type.getSpeedFactor().getParameter(0) + 2 * type.getSpeedFactor().getParameter(1)) {
                             // only warn for significant deviation
                             WRITE_WARNINGF(TL("Choosing new speed factor % for vehicle '%' to match departure speed % (max %)."),
                                            toString(v.getChosenSpeedFactor()), pars.id, pars.departSpeed, vMax);

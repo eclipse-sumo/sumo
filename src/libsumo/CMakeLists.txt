@@ -174,10 +174,10 @@ if (SWIG_FOUND)
     if (ENABLE_PYTHON_BINDINGS AND PYTHON_INCLUDE_DIRS)
         include_directories(${PYTHON_INCLUDE_DIRS})
         set(CMAKE_SWIG_FLAGS -keyword) # is necessary for using keyword args
+        # other options which should be evaluated: -builtin, -modern, -extranative
         if (FOX_FOUND)
             set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS} -DHAVE_LIBSUMOGUI)
         endif()
-        # other options which should be evaluated: -builtin, -modern, -extranative
         set(SWIG_OUTFILE_DIR ${CMAKE_CURRENT_BINARY_DIR})
         set(CMAKE_SWIG_OUTDIR ${CMAKE_SOURCE_DIR}/tools/libsumo)
         set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/tools/libsumo)

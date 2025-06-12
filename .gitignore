@@ -61,7 +61,6 @@
 /data/templates
 /data/po/*.pot
 /data/proj
-/data/tests
 # docs dir, make artifacts
 /docs/doxygen
 /docs/examples
@@ -126,7 +125,7 @@
 # extracted tests
 /tests/_*
 # netedit test
-/tests/netedit/.vs
+/tools/neteditTestFunctions/.vs
 /tests/netedit/filter_files
 # global patterns
 Makefile

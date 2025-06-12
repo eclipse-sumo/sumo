@@ -93,6 +93,7 @@ title: ChangeLog
 - setting the python root dir now compiles libsumo against the selected python #16755
 - It is recommended to use a compiler which supports C++17 (e.g. MSVC 2017 or later, g++ 7 or later)
   - MSVC 2015 is no longer supported (mainly due to updates in SUMOLibraries)
+- netconvert: OSM-imported edges with type "highway.service" now have type "highway.service|psv" when used by public transport vehicles. This may require adaptations when using option **--keep-edges.by-type** or **--remove-edges.by-type** and when using edge-type specific [restrictions](Networks/PlainXML.md#vehicle-class_specific_speed_limits) or [meso-settings](Simulation/Meso.md#configuration_by_edge_type)  #16763
 
 
 ## Version 1.23.1 (08.05.2025)

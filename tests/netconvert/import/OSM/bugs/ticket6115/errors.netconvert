@@ -1,3 +1,2 @@
-Warning: Discarding unusable type 'highway.service' (first occurrence for edge '61733047').
-Warning: Discarding unusable type 'highway.steps' (first occurrence for edge '164556115').
-Warning: Discarding unusable type 'highway.path' (first occurrence for edge '295732291').
+Warning: Discarding unknown compound 'bus' in type 'bus|highway.unclassified|psv' (first occurrence for edge '72323137').
+Warning: Discarding unknown compound 'psv' in type 'bus|highway.unclassified|psv' (first occurrence for edge '72323137').

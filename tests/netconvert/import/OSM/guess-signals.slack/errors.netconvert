@@ -9,6 +9,7 @@ Warning: Discarding way '28384346' because it has only 1 node(s)
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '35162947').
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '92142136').
 Warning: Discarding way '136617339' because it has only 1 node(s)
+Warning: Discarding unknown compound 'bus' in type 'bus|highway.residential' (first occurrence for edge '143722134').
 Warning: Discarding way '291221105' because it has only 1 node(s)
 Warning: Discarding way '332455395' because it has only 1 node(s)
 Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '503589432').

@@ -509,8 +509,26 @@ MSStateHandler::closeVehicle() {
     // make a copy because myVehicleParameter is reset in closeVehicle()
     const std::string vehID = myVehicleParameter->id;
     if (myVehiclesToRemove.count(vehID) == 0) {
+
+        // devices that influence simulation behavior must replicate stochastic assignment
+        std::vector<std::string> addedParams;
+        for (auto attrs : myDeviceAttrs) {
+            const std::string attrID = attrs->getString(SUMO_ATTR_ID);
+            if (StringUtils::startsWith(attrID, "routing_")) {
+                const std::string key = "has.rerouting.device";
+                if (!myVehicleParameter->hasParameter(key)) {
+                    myVehicleParameter->setParameter(key, "true");
+                    addedParams.push_back(key);
+                }
+            }
+        }
         MSRouteHandler::closeVehicle();
         SUMOVehicle* v = vc.getVehicle(vehID);
+        // clean up added params after initializing devices in closeVehicle
+        for (std::string& key : addedParams) {
+            ((SUMOVehicleParameter&)v->getParameter()).unsetParameter(key);
+        }
+
         if (v == nullptr) {
             throw ProcessError(TLF("Could not load vehicle '%' from state", vehID));
         }

@@ -195,17 +195,9 @@ template<class DEVICEHOLDER> bool
 MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, DEVICEHOLDER& v, bool outputOptionSet, const bool isPerson) {
     const std::string prefix = (isPerson ? "person-device." : "device.") + deviceName;
     // assignment by number
-    bool haveByNumber = false;
-    bool numberGiven = false;
-    if (oc.exists(prefix + ".deterministic") && oc.getBool(prefix + ".deterministic")) {
-        numberGiven = true;
-        haveByNumber = MSNet::getInstance()->getVehicleControl().getQuota(oc.getFloat(prefix + ".probability")) == 1;
-    } else {
-        if (oc.exists(prefix + ".probability") && oc.getFloat(prefix + ".probability") >= 0.) {
-            numberGiven = true;
-            haveByNumber = RandHelper::rand(&myEquipmentRNG) < oc.getFloat(prefix + ".probability");
-        }
-    }
+    bool numberGiven = ((oc.exists(prefix + ".deterministic") && oc.getBool(prefix + ".deterministic"))
+            || (oc.exists(prefix + ".probability") && oc.getFloat(prefix + ".probability") >= 0.));
+    double probability = numberGiven ? oc.getFloat(prefix + ".probability") : 0;
     // assignment by name
     bool haveByName = false;
     bool nameGiven = false;
@@ -231,7 +223,7 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     } else if (v.getVehicleType().getParameter().hasParameter(prefix + ".probability")) {
         // override global options
         numberGiven = true;
-        haveByNumber = RandHelper::rand(&myEquipmentRNG) < StringUtils::toDouble(v.getVehicleType().getParameter().getParameter(prefix + ".probability", "0"));
+        probability = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter(prefix + ".probability", "0"));
     }
     //std::cout << " deviceName=" << deviceName << " holder=" << v.getID()
     //    << " nameGiven=" << nameGiven << " haveByName=" << haveByName
@@ -243,7 +235,13 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     } else if (parameterGiven) {
         return haveByParameter;
     } else if (numberGiven) {
-        return haveByNumber;
+        if (oc.exists(prefix + ".deterministic") && oc.getBool(prefix + ".deterministic")) {
+            return MSNet::getInstance()->getVehicleControl().getQuota(probability) == 1;
+        } else if (probability > 0) {
+            return RandHelper::rand(&myEquipmentRNG) < probability;
+        } else {
+            return false;
+        }
     } else {
         return !nameGiven && outputOptionSet;
     }

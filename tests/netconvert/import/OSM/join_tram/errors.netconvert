@@ -7,7 +7,7 @@ Warning: Discarding unusable type 'railway.platform' (first occurrence for edge 
 Warning: Discarding unusable type 'railway.abandoned|service.spur|usage.industrial' (first occurrence for edge '320969260').
 Warning: Discarding unusable type 'railway.abandoned' (first occurrence for edge '326192135').
 Warning: Discarding unusable type 'railway.razed|service.spur|usage.industrial' (first occurrence for edge '326192141').
-Warning: Discarding unusable type 'railway.razed' (first occurrence for edge '485690627').
+Warning: Discarding unusable type 'bus|railway.platform' (first occurrence for edge '386836729').
 Warning: PT line 'Bus N56: U Magdalenenstraße → Wartenberg, Hagenower Ring → U Magdalenenstraße' in relation 2341762 seems to be split, only keeping first part.
 Warning: direction of restriction relation could not be determined
 Warning: Ignoring restriction relation '5317204'.
@@ -31,4 +31,5 @@ Warning: The rail crossing '1828327715' does not have any roads.
 Warning: The rail crossing '1828327717' does not have any roads.
 Warning: The rail crossing '30695381' does not have any roads.
 Warning: 8 total messages of type: Converting invalid rail_crossing to priority junction '%'.
-Warning: 11 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 13 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 6 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').

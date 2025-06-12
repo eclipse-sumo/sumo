@@ -2,7 +2,10 @@ Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|hi
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '10855571').
 Warning: Discarding unusable type 'waterway.river' (first occurrence for edge '50664988').
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '79523627').
+Warning: Discarding unknown compound 'psv' in type 'psv|railway.tram' (first occurrence for edge '107509089').
 Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '170955809').
+Warning: Discarding unknown compound 'bus' in type 'bus|railway.platform' (first occurrence for edge '170955810').
+Warning: Discarding unusable type 'bus|railway.platform' (first occurrence for edge '170955810').
 Warning: Discarding unusable type 'waterway.stream' (first occurrence for edge '492576991').
 Warning: direction of restriction relation could not be determined
 Warning: Ignoring restriction relation '6413098'.
@@ -24,5 +27,6 @@ Warning: Converting invalid rail_crossing to priority junction '1863122991'.
 Warning: Converting invalid rail_crossing to priority junction '1863122992'.
 Warning: Converting invalid rail_crossing to priority junction '1882685597'.
 Warning: 7 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 7 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 26 total messages of type: No way found for reference '%' in relation '%'
 Warning: 23 total messages of type: Not joining tram edge '%' with % lanes.

@@ -198,9 +198,9 @@ MSVehicleType::setDefaultProbability(const double& prob) {
 void
 MSVehicleType::setSpeedFactor(const double& factor) {
     if (myOriginalType != nullptr && factor < 0) {
-        myParameter.speedFactor.getParameter()[0] = myOriginalType->myParameter.speedFactor.getParameter()[0];
+        myParameter.speedFactor.setParameter(0, myOriginalType->myParameter.speedFactor.getParameter(0));
     } else {
-        myParameter.speedFactor.getParameter()[0] = factor;
+        myParameter.speedFactor.setParameter(0, factor);
     }
     myParameter.parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
 }
@@ -209,9 +209,9 @@ MSVehicleType::setSpeedFactor(const double& factor) {
 void
 MSVehicleType::setSpeedDeviation(const double& dev) {
     if (myOriginalType != nullptr && dev < 0) {
-        myParameter.speedFactor.getParameter()[1] = myOriginalType->myParameter.speedFactor.getParameter()[1];
+        myParameter.speedFactor.setParameter(1, myOriginalType->myParameter.speedFactor.getParameter(1));
     } else {
-        myParameter.speedFactor.getParameter()[1] = dev;
+        myParameter.speedFactor.setParameter(1, dev);
     }
     myParameter.parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
 }

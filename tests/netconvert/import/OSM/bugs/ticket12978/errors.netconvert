@@ -12,10 +12,10 @@ Warning: Discarding way '12516315' because it has only 1 node(s)
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '23167504').
 Warning: Discarding way '26850365' because it has only 1 node(s)
 Warning: Discarding way '37071275' because it has only 1 node(s)
+Warning: Discarding unknown compound 'bus' in type 'bus|highway.service' (first occurrence for edge '170032540').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '170045672').
-Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '221965672').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '371732298').
-Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.opposite_lane|highway.residential' (first occurrence for edge '519007143').
+Warning: Discarding unknown compound 'highway.platform' in type 'highway.platform|railway.platform' (first occurrence for edge '221965672').
+Warning: Discarding unusable type 'highway.platform|railway.platform' (first occurrence for edge '221965672').
 Warning: Ignoring turn sign information for 4 lanes on edge -672153089 with 3 driving lanes
 Warning: Ignoring turn sign information for 2 lanes on edge 1121159178 with 1 driving lanes
 Warning: Removing pt stop '1811884593' on non existing edge '170032548#0'.
@@ -43,6 +43,6 @@ Warning: Could not build program '0' for traffic light '5176233944'
 Warning: Speed of straight connection '32391477#1_1->4730804_1' reduced by 7.95 due to turning radius of 6.42 (length=1.58, angle=31.11).
 Warning: Speed of straight connection '4310918#1_0->30581192#0_0' reduced by 5.37 due to turning radius of 13.19 (length=3.88, angle=32.93).
 Warning: 6 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
-Warning: 6 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 10 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 30 total messages of type: Discarding way '%' because it has only % node(s)
 Warning: 14 total messages of type: Unknown lane use specifier '%' ignored for way '%'

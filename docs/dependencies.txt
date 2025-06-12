@@ -15,7 +15,7 @@ pkg:generic/fox@1.6.59?download_url=http://fox-toolkit.org/ftp/fox-1.6.59.zip&ch
 pkg:github/osgeo/proj@9.5.0
 pkg:github/osgeo/gdal@v3.9.3
 pkg:generic/gl2ps@1.4.2?download_url=https://geuz.org/gl2ps/src/gl2ps-1.4.2.tgz
-pkg:generic/gettext@v0.21?download_url=https://ftp.gnu.org/pub/gnu/gettext/gettext-0.21.tar.gz
+pkg:generic/gettext@v0.21?download_url=https://ftp.gnu.org/pub/gnu/gettext/gettext-0.21.tar.gz#gettext-runtime/intl
 pkg:github/PedestrianDynamics/jupedsim@v1.3.0
 pkg:github/google/googletest@v1.15.2
 pkg:generic/eigen@3.4.0?download_url=https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.zip

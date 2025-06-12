@@ -1062,7 +1062,7 @@ Vehicle::getImperfection(const std::string& vehID) {
 
 double
 Vehicle::getSpeedDeviation(const std::string& vehID) {
-    return Helper::getVehicleType(vehID).getSpeedFactor().getParameter()[1];
+    return Helper::getVehicleType(vehID).getSpeedFactor().getParameter(1);
 }
 
 

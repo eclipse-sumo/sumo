@@ -7,6 +7,7 @@ Warning: Discarding way '28955761' because it has only 1 node(s)
 Warning: Discarding way '81552981' because it has only 1 node(s)
 Warning: Discarding way '107363811' because it has only 1 node(s)
 Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '221965677').
+Warning: Discarding unknown compound 'bus' in type 'bus|highway.service' (first occurrence for edge '596514121').
 Warning: PT line in relation 54868 with no stops ignored. Probably OSM file is incomplete.
 Warning: Ignoring restriction relation '86976' with unknown to-way.
 Warning: Ignoring restriction relation '86976' with unknown via.

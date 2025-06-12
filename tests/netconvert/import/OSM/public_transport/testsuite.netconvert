@@ -55,3 +55,9 @@ ferry
 
 # Zurich trolleybus
 trolleybus
+
+# see ticket #16763
+highway.service_speed
+
+# see ticket #16764
+highway.service_route
