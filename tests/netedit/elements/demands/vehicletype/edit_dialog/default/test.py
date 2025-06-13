@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -38,7 +38,7 @@ netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 netedit.openVTypeDialog()
 
 # close dialog
-netedit.typeTwoKeys('alt', 'a')
+netedit.typeTwoKeys("alt", "a")
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")

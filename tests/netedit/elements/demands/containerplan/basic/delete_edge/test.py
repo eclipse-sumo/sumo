@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -38,7 +38,7 @@ netedit.changeContainerPlan("tranship", False)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to container plan mode
 netedit.changeMode("containerPlan")
@@ -50,7 +50,7 @@ netedit.changeElement("containerPlanFrame", "transport")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to network mode
 netedit.changeSupermode("network")
@@ -58,28 +58,28 @@ netedit.changeSupermode("network")
 # go to delete mode
 netedit.changeMode("delete")
 
-# disable 'Automatically delete demand elements'
+# disable "Automatically delete demand elements"
 netedit.protectElements()
 
-# disable 'Automatically delete additionals'
+# disable "Automatically delete additionals"
 netedit.protectElements()
 
 # create containerTripEdgeEdge
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 netedit.redo(referencePosition, 2)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")

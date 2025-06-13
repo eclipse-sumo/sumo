@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -37,7 +37,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to vehicle mode
 netedit.changeMode("vehicle")

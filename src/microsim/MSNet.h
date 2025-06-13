@@ -129,6 +129,7 @@ public:
     };
 
     typedef std::map<std::string, std::vector<Collision> > CollisionMap;
+    typedef std::map<const MSEdge*, double> Prohibitions;
 
 public:
     /** @brief Returns the pointer to the unique instance of MSNet (singleton).
@@ -773,10 +774,10 @@ public:
     /* @brief get the router, initialize on first use
      * @param[in] prohibited The vector of forbidden edges (optional)
      */
-    MSVehicleRouter& getRouterTT(int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSVehicleRouter& getRouterEffort(int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSPedestrianRouter& getPedestrianRouter(int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSTransportableRouter& getIntermodalRouter(int rngIndex, const int routingMode = 0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSVehicleRouter& getRouterTT(int rngIndex, const Prohibitions& prohibited = {}) const;
+    MSVehicleRouter& getRouterEffort(int rngIndex, const Prohibitions& prohibited = {}) const;
+    MSPedestrianRouter& getPedestrianRouter(int rngIndex, const Prohibitions& prohibited = {}) const;
+    MSTransportableRouter& getIntermodalRouter(int rngIndex, const int routingMode = 0, const Prohibitions& prohibited = {}) const;
 
     static void adaptIntermodalRouter(MSTransportableRouter& router);
 

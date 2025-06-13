@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -43,13 +43,13 @@ netedit.modifyAttribute(netedit.attrs.edgeRelData.create.parameters, "dummyValue
 # create edgeRelData
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1_dataMode)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid parameters
 netedit.modifyAttribute(netedit.attrs.edgeRelData.create.parameters, "param1=value2|param3=value4")
 
 # create edgeRelData
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

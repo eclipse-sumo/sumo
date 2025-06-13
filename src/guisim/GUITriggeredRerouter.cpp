@@ -260,9 +260,9 @@ GUITriggeredRerouter::myEndElement(int element) {
     if (element == SUMO_TAG_INTERVAL) {
         // add visualisation objects for closed edges
         const RerouteInterval& ri = myIntervals.back();
-        MSEdgeVector closed = ri.getClosed();
-        for (MSEdgeVector::const_iterator it = closed.begin(); it != closed.end(); ++it) {
-            myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(dynamic_cast<GUIEdge*>(*it), this, REROUTER_CLOSED_EDGE));
+        for (auto item : ri.getClosed()) {
+            const GUIEdge* edge = dynamic_cast<const GUIEdge*>(item.first);
+            myEdgeVisualizations.push_back(new GUITriggeredRerouterEdge(const_cast<GUIEdge*>(edge), this, REROUTER_CLOSED_EDGE));
             dynamic_cast<GUINet*>(GUINet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(myEdgeVisualizations.back());
             myBoundary.add(myEdgeVisualizations.back()->getCenteringBoundary());
         }
@@ -462,8 +462,8 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 myParent->getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
             if (ri != nullptr && prob > 0) {
                 // draw only if the edge is closed at this time
-                MSEdgeVector closedEdges = ri->getClosed();
-                if (std::find(closedEdges.begin(), closedEdges.end(), myEdge) != closedEdges.end()) {
+                const auto& closedEdges = ri->getClosed();
+                if (closedEdges.find(myEdge) != closedEdges.end()) {
                     const int noLanes = (int)myFGPositions.size();
                     for (int j = 0; j < noLanes; ++j) {
                         Position pos = myFGPositions[j];

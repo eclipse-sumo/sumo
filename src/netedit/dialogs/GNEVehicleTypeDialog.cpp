@@ -18,15 +18,19 @@
 // Dialog for edit vehicleTypes
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/foxtools/MFXColorDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -668,8 +672,9 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::getButton() const {
 
 void
 GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
+    const auto editedDemandElement = myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement;
     // create FXColorDialog
-    FXColorDialog colordialog(this, TL("Color Dialog"));
+    MFXColorDialog colordialog(this, TL("Color Dialog"));
     colordialog.setTarget(this);
     colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     // If previous attribute wasn't correct, set black as default color
@@ -679,11 +684,11 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
         colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
     }
     // execute dialog to get a new color
-    if (colordialog.execute()) {
+    if (colordialog.openDialog(editedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getNeteditTestSystem())) {
         std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
         myTextField->setText(newValue.c_str());
-        if (myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, newValue)) {
-            myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, newValue, myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
+        if (editedDemandElement->isValid(myAttr, newValue)) {
+            editedDemandElement->setAttribute(myAttr, newValue, editedDemandElement->getNet()->getViewNet()->getUndoList());
             // If previously value was incorrect, change font color to black
             myTextField->setTextColor(FXRGB(0, 0, 0));
             myTextField->killFocus();

@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.changeColorUsingDialog(netedit.attrs.personFlow.create.colorButton, 5)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set invalid personFlow number
 netedit.modifyAttribute(netedit.attrs.personFlow.create.color, "Vlue")
@@ -55,13 +55,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set invalid personFlow number
 netedit.modifyAttribute(netedit.attrs.personFlow.create.color, "red")
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

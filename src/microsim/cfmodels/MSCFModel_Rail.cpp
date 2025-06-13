@@ -218,7 +218,7 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
 
 //    std::cout << veh->getID() << " speed: " << (speed*3.6) << std::endl;
 
-    return maxNextSpeed;
+    return MIN2(myTrainParams.vmax, maxNextSpeed);
 }
 
 

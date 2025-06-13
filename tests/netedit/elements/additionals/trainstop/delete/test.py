@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -46,16 +46,16 @@ netedit.undo(referencePosition, 2)
 # Change to delete
 netedit.changeMode("delete")
 
-# try to delete lane with the second loaded trainStop (doesn't allowed)
+# try to delete lane with the second loaded trainStop (doesn"t allowed)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # wait warning
 netedit.waitDeleteWarning()
 
-# disable 'Automatically delete additionals'
+# disable "Automatically delete additionals"
 netedit.protectElements()
 
-# try to delete lane with the second loaded trainStop (doesn't allowed)
+# try to delete lane with the second loaded trainStop (doesn"t allowed)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # check redo

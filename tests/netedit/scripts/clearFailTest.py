@@ -43,11 +43,11 @@ with open("failTests.txt", "w") as fp:
             lineStrip = lineStrip.replace("output different", "")
             lineStrip = lineStrip.replace("additionals different", "")
             lineStrip = lineStrip.replace("output new", "")
-            while (lineStrip.find('  ') > 0):
+            while (lineStrip.find("  ") > 0):
                 lineStrip = lineStrip.replace("  ", "")
             lineStrip = lineStrip.replace(" /n", "/n")
             lineStrip = lineStrip.replace(" ", "/")
-            if ((len(lineStrip) > 0) and (lineStrip[-1] == '/')):
+            if ((len(lineStrip) > 0) and (lineStrip[-1] == "/")):
                 lineStrip = lineStrip[:-1]
         # write line
             fp.write(lineStrip)

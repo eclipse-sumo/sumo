@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.le
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.right)
 
 # join tls
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # copy TLS
 netedit.copyTLS(True)
 
 # type ESC (for undo-redo)
-netedit.typeKey('esc')
+netedit.typeKey("esc")
 
 # Check undo
 netedit.undo(referencePosition, 1)

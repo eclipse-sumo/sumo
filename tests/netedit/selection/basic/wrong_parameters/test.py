@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -31,56 +31,56 @@ netedit.changeMode("select")
 # try to select node gneJ0 and delete it (Error in element set)
 netedit.focusOnFrame()
 for x in range(0, 8):
-    netedit.typeKey('tab')
+    netedit.typeKey("tab")
 
 # paste the new elementClass
 netedit.updateText("dummyElement")
 
 # set elementClass
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # try to select node gneJ0 and delete it (Error in element type)
 netedit.focusOnFrame()
 for x in range(0, 8):
-    netedit.typeKey('tab')
+    netedit.typeKey("tab")
 
 # paste the new elementClass
 netedit.updateText("Network")
 
 # jump to element
 for x in range(0, 3):
-    netedit.typeKey('tab')
+    netedit.typeKey("tab")
 
 # paste the new elementType
 netedit.updateText("dummyType")
 
 # type tab to set elementType
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # try to select node gneJ0 and delete it (Error in set)
 netedit.focusOnFrame()
 for x in range(0, 8):
-    netedit.typeKey('tab')
+    netedit.typeKey("tab")
 
 # paste the new elementClass
 netedit.updateText("Network")
 
 # jump to element
 for x in range(0, 3):
-    netedit.typeKey('tab')
+    netedit.typeKey("tab")
 
 # paste the new elementType
 netedit.updateText("junction")
 
 # jump to attribute
 for x in range(0, 2):
-    netedit.typeKey('tab')
+    netedit.typeKey("tab")
 
 # paste the new attribute
 netedit.updateText("dummyAttribute")
 
 # type enter to set attribute
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # try to select node gneJ0 and delete it (Error in type of element)
 netedit.selectItems("Network elements", "junction", "id", "J0")

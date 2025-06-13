@@ -234,7 +234,6 @@ public:
     }
 
     const ConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const {
-        UNUSED_PARAMETER(ignoreTransientPermissions); // @todo this should be changed (somewhat hidden by #14756)
         if (vClass == SVC_IGNORING || myOriginal == nullptr || myOriginal->isTazConnector()) { // || !MSNet::getInstance()->hasPermissions()) {
             return myViaSuccessors;
         }
@@ -252,7 +251,7 @@ public:
         for (const auto& viaPair : myViaSuccessors) {
             if (viaPair.first->myOriginal == nullptr
                     || viaPair.first->myOriginal->isTazConnector()
-                    || myOriginal->isConnectedTo(*viaPair.first->myOriginal, vClass)) {
+                    || myOriginal->isConnectedTo(*viaPair.first->myOriginal, vClass, ignoreTransientPermissions)) {
                 result.push_back(viaPair);
             }
         }
