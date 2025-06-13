@@ -75,6 +75,7 @@
                                 <xsd:attribute name="id" type="idType" use="required"/>
                                 <xsd:attribute name="allow" type="xsd:string" use="optional"/>
                                 <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
+                                <xsd:attribute name="until" type="timeType" use="optional"/>
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="closingLaneReroute">
@@ -346,6 +347,7 @@
                                 <xsd:attribute name="id" type="idType" use="required"/>
                                 <xsd:attribute name="allow" type="xsd:string" use="optional"/>
                                 <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
+                                <xsd:attribute name="until" type="timeType" use="optional"/>
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="closingLaneReroute">
