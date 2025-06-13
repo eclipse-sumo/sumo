@@ -48,6 +48,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         processSetupAndStartFunction();
     } else if (function == "leftClick") {
         processLeftClickFunction();
+    } else if (function == "typeKey") {
+        processTypeKeyFunction();
     } else if (function == "modifyAttribute") {
         processModifyAttributeFunction();
     } else if (function == "modifyAttributeOverlapped") {
@@ -62,8 +64,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         processModifyColorAttributeOverlappedFunction();
     } else if (function == "changeEditMode") {
         processChangeEditModeFunction();
-    } else if (function == "supermode") {
-        processSupermodeFunction();
+    } else if (function == "changeSupermode") {
+        processChangeSupermodeFunction();
     } else if (function == "changeMode") {
         processChangeModeFunction();
     } else if (function == "changeElement") {
@@ -341,6 +343,16 @@ InternalTestStep::processLeftClickFunction() const {
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(posX, posY), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(posX, posY), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(posX, posY), true);
+    }
+}
+
+
+void
+InternalTestStep::processTypeKeyFunction() const {
+    if (myArguments.size() != 1) {
+        writeError("typeKey", "<key>");
+    } else {
+        buildPressKeyEvent(myArguments[0], true);
     }
 }
 
@@ -767,7 +779,7 @@ InternalTestStep::processRedoFunction() const {
 
 
 void
-InternalTestStep::processSupermodeFunction() {
+InternalTestStep::processChangeSupermodeFunction() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
         writeError("supermode", "<\"string\">");

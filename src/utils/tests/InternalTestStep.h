@@ -129,6 +129,9 @@ private:
     /// @brief process left click function
     void processLeftClickFunction() const;
 
+    /// @brief process typeKey function
+    void processTypeKeyFunction() const;
+
     /// @brief process modifyAttribute function
     void processModifyAttributeFunction() const;
 
@@ -169,7 +172,7 @@ private:
     void processRedoFunction() const;
 
     /// @brief process supermode function
-    void processSupermodeFunction();
+    void processChangeSupermodeFunction();
 
     /// @brief process change mode function
     void processChangeModeFunction();
