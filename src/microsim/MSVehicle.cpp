@@ -1125,7 +1125,7 @@ bool
 MSVehicle::hasArrivedInternal(bool oppositeTransformed) const {
     return ((myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge))
             && (myStops.empty() || myStops.front().edge != myCurrEdge || myStops.front().getSpeed() > 0)
-            && ((myLaneChangeModel->isOpposite() && !oppositeTransformed) ? myLane->getLength() - myState.myPos : myState.myPos) > myArrivalPos - POSITION_EPS
+            && ((myLaneChangeModel->isOpposite() && !oppositeTransformed) ? myLane->getLength() - myState.myPos : myState.myPos) > MIN2(myLane->getLength(), myArrivalPos) - POSITION_EPS
             && !isRemoteControlled());
 }
 
@@ -7724,6 +7724,8 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         if (myParameter->wasSet(VEHPARS_FORCE_REROUTE)) {
             calculateArrivalParams(true);
         }
+        // a (tentative lane is needed for calling hasArrivedInternal
+        myLane = (*myCurrEdge)->getLanes()[0];
     }
     if (getActionStepLength() == DELTA_T && !isActionStep(SIMSTEP)) {
         myLastActionTime -= (myLastActionTime - SIMSTEP) % DELTA_T;
