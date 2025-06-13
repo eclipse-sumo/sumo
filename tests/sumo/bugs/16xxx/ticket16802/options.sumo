@@ -1,0 +1,5 @@
+--no-step-log --net-file=net.net.xml
+-r input_routes.rou.xml
+--time-to-teleport 10
+-e 300
+-t
