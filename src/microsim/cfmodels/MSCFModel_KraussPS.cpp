@@ -44,9 +44,11 @@ double
 MSCFModel_KraussPS::maxNextSpeed(double speed, const MSVehicle* const veh) const {
     const double aBound = getCurrentAccel(speed);
     const double aMax = MAX2(0., aBound - GRAVITY * sin(DEG2RAD(veh->getSlope())));
+    // special case for bicycles where getMaxSpeed() is not a a technical but a rather an individual power limit
+    const double typeMax = myType->getMaxSpeed() * (veh->getVClass() == SVC_BICYCLE ? veh->getChosenSpeedFactor() : 1);
     // assuming drag force is proportional to the square of speed
     const double vMax = MAX2(
-                            sqrt(aMax / getMaxAccel()) * myType->getMaxSpeed(),
+                            sqrt(aMax / getMaxAccel()) * typeMax,
                             // prevent emergency braking when inclination changes suddenly (momentum)
                             speed - ACCEL2SPEED(getMaxDecel()));
     return MAX2(
