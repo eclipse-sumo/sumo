@@ -585,6 +585,10 @@ public:
         return myChosenSpeedFactor;
     }
 
+    inline double getDesiredMaxSpeed() const {
+        return myType->getDesiredMaxSpeed() * myChosenSpeedFactor;
+    }
+
     /** @brief Returns the precomputed factor by which the driver wants to be faster than the speed limit
      * @return Speed limit factor
      */
