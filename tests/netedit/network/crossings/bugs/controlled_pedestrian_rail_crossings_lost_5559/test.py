@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -37,7 +37,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 # select two left edges and create crossing in edges 3 and 7
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 netedit.computeJunctions()
 
 # save Netedit config

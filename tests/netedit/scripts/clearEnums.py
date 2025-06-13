@@ -17,10 +17,10 @@
 # @date    2022-03-21
 
 
-# remove '=' until end
+# remove "=" until end
 def removeEqual(line):
     solution = ""
-    while ((len(line) > 0) and (line[0] != '=')):
+    while ((len(line) > 0) and (line[0] != "=")):
         solution += line[0]
         line = line[1:]
     return solution
@@ -39,31 +39,31 @@ for line in lines:
         line = line.replace("    ", "\t")
         line = line.replace(":", "")
         line = line.replace("\n", "")
-        if ("='" in line):
+        if ("="" in line):
             line = line[0:-4]
         if ("=" in line):
             line = line[0:-3]
         if ("=" in line):
             line = line[0:-2]
         if (len(line) > 1):
-            if (line.count('\t') == 0):
+            if (line.count("\t") == 0):
                 matrix.append([line])
-            elif (line.count('\t') == 1):
+            elif (line.count("\t") == 1):
                 line = line.replace("\t", "")
                 matrix.append([[], line])
-            elif (line.count('\t') == 2):
+            elif (line.count("\t") == 2):
                 line = line.replace("\t", "")
                 matrix.append([[], [], line])
-            elif (line.count('\t') == 3):
+            elif (line.count("\t") == 3):
                 line = line.replace("\t", "")
                 matrix.append([[], [], [], line])
-            elif (line.count('\t') == 4):
+            elif (line.count("\t") == 4):
                 line = line.replace("\t", "")
                 matrix.append([[], [], [], [], line])
-            elif (line.count('\t') == 5):
+            elif (line.count("\t") == 5):
                 line = line.replace("\t", "")
                 matrix.append([[], [], [], [], [], line])
-            elif (line.count('\t') == 6):
+            elif (line.count("\t") == 6):
                 line = line.replace("\t", "")
                 matrix.append([[], [], [], [], [], [], line])
 
@@ -82,31 +82,31 @@ for line in lines:
         line = line.replace("    ", "\t")
         line = line.replace(":", "")
         line = line.replace("\n", "")
-        if ("='" in line):
+        if ("="" in line):
             line = line[0:-4]
         if ("=" in line):
             line = line[0:-3]
         if ("=" in line):
             line = line[0:-2]
         if (len(line) > 1):
-            if (line.count('\t') == 0):
+            if (line.count("\t") == 0):
                 matrixClass.append([line])
-            elif (line.count('\t') == 1):
+            elif (line.count("\t") == 1):
                 line = line.replace("\t", "")
                 matrixClass.append([[], line])
-            elif (line.count('\t') == 2):
+            elif (line.count("\t") == 2):
                 line = line.replace("\t", "")
                 matrixClass.append([[], [], line])
-            elif (line.count('\t') == 3):
+            elif (line.count("\t") == 3):
                 line = line.replace("\t", "")
                 matrixClass.append([[], [], [], line])
-            elif (line.count('\t') == 4):
+            elif (line.count("\t") == 4):
                 line = line.replace("\t", "")
                 matrixClass.append([[], [], [], [], line])
-            elif (line.count('\t') == 5):
+            elif (line.count("\t") == 5):
                 line = line.replace("\t", "")
                 matrixClass.append([[], [], [], [], [], line])
-            elif (line.count('\t') == 6):
+            elif (line.count("\t") == 6):
                 line = line.replace("\t", "")
                 matrixClass.append([[], [], [], [], [], [], line])
 
@@ -125,7 +125,7 @@ for i in range(len(matrixClass)):
         if (len(matrixClass[i]) > j):
             line += str(matrixClass[i][j]) + "."
     line = line[:-1]
-    line += '\n'
+    line += "\n"
     linesClass.append(line)
 
 # save
@@ -136,6 +136,6 @@ with open("enumsXML.txt", "w") as fp:
             if (len(matrix[i]) > j):
                 line += str(matrix[i][j]) + "."
         line = line[:-1]
-        line += '\n'
+        line += "\n"
         if (line not in linesClass):
             fp.write(line)

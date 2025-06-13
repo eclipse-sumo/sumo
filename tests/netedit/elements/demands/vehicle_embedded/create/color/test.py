@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set invalid color
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.color, "dummyColor")
@@ -52,7 +52,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid color
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.color, "cyan")
@@ -62,7 +62,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid color
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.color, "12,13,14")
@@ -72,7 +72,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -38,7 +38,7 @@ netedit.changePersonPlan("ride", False)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to personTrip.busStop.busStop mode
 netedit.changeMode("personPlan")
@@ -50,7 +50,7 @@ netedit.changeElement("personPlanFrame", "personTrip")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

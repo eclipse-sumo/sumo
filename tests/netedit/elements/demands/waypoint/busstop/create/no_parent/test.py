@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -34,7 +34,7 @@ netedit.changeMode("stop")
 # change waypoint type with a valid value
 netedit.changeElement("stopFrame", "waypointBusStop")
 
-# try to create waypoint (don't click over busStop)
+# try to create waypoint (don"t click over busStop)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo redo

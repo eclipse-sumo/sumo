@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -39,7 +39,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set invalid depart
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.depart, "-12")
@@ -49,7 +49,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid depart
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.depart, "30")
@@ -59,7 +59,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid depart (output will be changed)
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.depart, "20")
@@ -69,7 +69,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -49,10 +49,10 @@ netedit.undo(referencePosition, 2)
 # Change to delete
 netedit.changeMode("delete")
 
-# enable 'Automatically delete additionals'
+# enable "Automatically delete additionals"
 netedit.protectElements()
 
-# try to delete lane with the second loaded routeProbe (doesn't allowed)
+# try to delete lane with the second loaded routeProbe (doesn"t allowed)
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # wait warning

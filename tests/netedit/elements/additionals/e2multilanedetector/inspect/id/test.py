@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -37,12 +37,12 @@ netedit.changeElement("additionalFrame", "multiLaneAreaDetector")
 # create E2 with default parameters
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # create second  with default parameters (for ID)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to additional mode
 netedit.changeMode("inspect")

@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -35,7 +35,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 netedit.addRedPhase(netedit.attrs.TLS.join.NEMAPhase.addButton)
 
 # type enter to save changes
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to inspect mode
 netedit.changeMode("inspect")

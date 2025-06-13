@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -39,7 +39,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create flow with embedded route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set invalid id
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.id, ";;;;;;%%")
@@ -49,7 +49,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create flow with embedded route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid id
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.id, "")
@@ -59,7 +59,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create flow with embedded route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid id
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.id, "f_0")
@@ -69,7 +69,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create flow with embedded route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set empty id
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.id, "customID")
@@ -79,7 +79,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create flow with embedded route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -45,13 +45,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.personFlow.create.spacing, "personsPerHour")
 
 # press enter to create flow
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.personFlow.create.spacingOption, "dummy")
@@ -61,19 +61,19 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.personFlow.create.spacingOption, "-30")
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.personFlow.create.spacingOption, "20.5")
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.personFlow.create.spacingOption, "22")
@@ -83,7 +83,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

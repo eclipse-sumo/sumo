@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.le
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.right)
 
 # join tls
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set invalid edge
 netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "dummyOffset")
@@ -56,10 +56,10 @@ netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "-20")
 netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "13")
 
 # type enter to save changes
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # type ESC (for undo-redo)
-netedit.typeKey('esc')
+netedit.typeKey("esc")
 
 # Check undo
 netedit.undo(referencePosition, 1)

@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -36,7 +36,7 @@ netedit.contextualMenuOperation(referencePosition, netedit.positions.network.jun
                                 netedit.contextualMenu.addToSelected)
 
 # delete junction
-netedit.typeKey('delete')
+netedit.typeKey("delete")
 
 # recompute
 netedit.computeJunctions()

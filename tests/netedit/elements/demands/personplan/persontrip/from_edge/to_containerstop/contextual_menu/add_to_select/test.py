@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -38,7 +38,7 @@ netedit.changePersonPlan("walk", False)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to personTrip.edge.containerStop mode
 netedit.changeMode("personPlan")
@@ -50,7 +50,7 @@ netedit.changeElement("personPlanFrame", "personTrip")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to inspect mode
 netedit.changeMode("inspect")
@@ -60,7 +60,7 @@ netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.de
                                 netedit.contextualMenu.addToSelected)
 
 # delete junction
-netedit.typeKey('delete')
+netedit.typeKey("delete")
 
 # Check undos
 netedit.undo(referencePosition, 2)

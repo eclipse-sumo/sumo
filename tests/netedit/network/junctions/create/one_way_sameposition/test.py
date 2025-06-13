@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -32,10 +32,10 @@ netedit.changeMode("createEdge")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 
-# try to create an edge with the same start and end (musn't be allowed)
+# try to create an edge with the same start and end (musn"t be allowed)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
-netedit.typeKey('esc')
+netedit.typeKey("esc")
 
 # rebuild network
 netedit.computeJunctions()

@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -53,7 +53,7 @@ netedit.changeMode("route")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Go to data supermode
 netedit.changeSupermode("data")

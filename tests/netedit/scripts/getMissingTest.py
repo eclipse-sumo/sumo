@@ -21,7 +21,7 @@ import scandir
 
 
 def removeFrom(line):
-    index = line.find('netedit.attrs.')
+    index = line.find("netedit.attrs.")
     if index != -1:
         return line[index:]
     else:
@@ -30,7 +30,7 @@ def removeFrom(line):
 
 def removeTo(line):
     solution = ""
-    while ((len(line) > 0) and ((line[0] == '.') or line[0].isalpha() or line[0].isnumeric())):
+    while ((len(line) > 0) and ((line[0] == ".") or line[0].isalpha() or line[0].isnumeric())):
         solution += line[0]
         line = line[1:]
     return solution
@@ -40,7 +40,7 @@ def removeTo(line):
 fileList = []
 
 # get all test.py
-for paths, dirs, files in scandir.walk('D:/SUMO/tests/netedit'):
+for paths, dirs, files in scandir.walk("D:/SUMO/tests/netedit"):
     for file in files:
         if file.endswith("test.py") or file.endswith("neteditTestFunctions.py"):
             fileList.append(os.path.join(paths, file))
@@ -56,7 +56,7 @@ for file in fileList:
         if ("netedit.attrs." in line):
             references.append(line)
         elif ("attrs." in line):
-            line = line.replace('attrs.', 'netedit.attrs.')
+            line = line.replace("attrs.", "netedit.attrs.")
             references.append(line)
 
 """
@@ -71,17 +71,17 @@ cleanedReferences = []
 
 # iterate over lines
 for reference in references:
-    if ('.' in line):
+    if ("." in line):
         # remove first element all until (
         reference = removeFrom(reference)
     # remove last element until ,
         reference = removeTo(reference)
     # replace extra characters
-        reference = reference.replace('netedit.attrs.', '')
+        reference = reference.replace("netedit.attrs.", "")
         if (len(reference) > 0):
             # add endline
-            if (reference[-1] != '\n'):
-                reference += '\n'
+            if (reference[-1] != "\n"):
+                reference += "\n"
         # add into cleanedReferences
             cleanedReferences.append(reference)
 
@@ -107,16 +107,16 @@ with open("cleanedReferencesAndEnums.txt", "w") as fp:
 """
 
 # dictionary
-dic = {'dummy': 1000}
+dic = {"dummy": 1000}
 
 # get number of
 for reference in cleanedReferences:
     # remove all spaces
-    reference = reference.replace(' ', '')
+    reference = reference.replace(" ", "")
 # remove all spaces
-    reference = reference.replace('+1', '')
+    reference = reference.replace("+1", "")
 # check number of dots
-    if (reference.count('.') > 1):
+    if (reference.count(".") > 1):
         found = False
         for key in dic:
             if (key == reference):

@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminate, "end")
@@ -52,7 +52,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "dummy")
@@ -62,7 +62,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "-30")
@@ -72,7 +72,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "20.5")
@@ -82,7 +82,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "22")

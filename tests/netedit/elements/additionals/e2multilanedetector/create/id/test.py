@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -40,7 +40,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # create E2 with default parameters
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # select lanes
 netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
@@ -51,19 +51,19 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 netedit.modifyAttribute(netedit.attrs.E2Multilane.create.id, ";;;;")
 
 # create E2 with default parameters
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set other name
 netedit.modifyAttribute(netedit.attrs.E2Multilane.create.id, "e2_0")
 
 # create E2 with default parameters
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set other name
 netedit.modifyAttribute(netedit.attrs.E2Multilane.create.id, "customID")
 
 # create E2 with default parameters
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -28,7 +28,7 @@ neteditProcess, referencePosition = netedit.setupAndStart()
 # go to delete mode
 netedit.changeMode("delete")
 
-# disable 'Automatically delete additionals'
+# disable "Automatically delete additionals"
 netedit.protectElements()
 
 # delete junction
@@ -40,7 +40,7 @@ netedit.undo(referencePosition, 1)
 # Change to delete
 netedit.changeMode("delete")
 
-# disable 'Automatically delete additionals'
+# disable "Automatically delete additionals"
 netedit.protectElements()
 
 # try to delete junction

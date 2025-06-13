@@ -21,7 +21,7 @@ import sys
 import pyautogui
 import time
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -44,10 +44,10 @@ for _ in range(7):
     # wait before every down
     time.sleep(0.3)
 # type down keys
-    pyautogui.hotkey('down')
+    pyautogui.hotkey("down")
 
 # type right key for the second menu
-netedit.typeKey('space')
+netedit.typeKey("space")
 
 # focus on frame
 netedit.focusOnFrame()
@@ -57,10 +57,10 @@ for _ in range(3):
     # wait before every down
     time.sleep(0.3)
 # type down keys
-    netedit.typeKey('tab')
+    netedit.typeKey("tab")
 
 # type right key for the second menu
-netedit.typeKey('space')
+netedit.typeKey("space")
 
 # create TLS
 netedit.changeMode("inspect")

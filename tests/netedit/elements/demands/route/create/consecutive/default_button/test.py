@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -39,8 +39,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 # press button to create route
 netedit.focusOnFrame()
 for _ in range(netedit.attrs.frames.route.create):
-    netedit.typeKey('tab')
-netedit.typeKey('space')
+    netedit.typeKey("tab")
+netedit.typeKey("space")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -20,7 +20,7 @@ import os
 import sys
 import time
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -36,13 +36,13 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ri
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
 
 # try to quit and abort
-netedit.typeTwoKeys('ctrl', 'q')
+netedit.typeTwoKeys("ctrl", "q")
 
 # wait after question
 time.sleep(1)
 
 # type abort
-netedit.typeTwoKeys('alt', 'a')
+netedit.typeTwoKeys("alt", "a")
 
 # wait after question
 time.sleep(1)

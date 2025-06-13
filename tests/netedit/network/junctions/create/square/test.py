@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -37,7 +37,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
-netedit.typeKey('esc')
+netedit.typeKey("esc")
 
 # rebuild network
 netedit.computeJunctions()

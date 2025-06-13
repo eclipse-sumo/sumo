@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid Line
 netedit.modifyAttribute(netedit.attrs.tripTAZ.create.line, "ownLine")
@@ -52,7 +52,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set empty line
 netedit.modifyAttribute(netedit.attrs.tripTAZ.create.line, "")
@@ -62,7 +62,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

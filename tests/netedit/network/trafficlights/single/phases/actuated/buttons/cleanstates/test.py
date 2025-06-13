@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -38,16 +38,16 @@ netedit.createTLS()
 netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated")
 
 # type enter to save changes
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # move down
 netedit.pressTLSPhaseButton(netedit.attrs.TLS.single.actuatedPhase.cleanStates)
 
 # type enter to save changes
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # type ESC (for undo-redo)
-netedit.typeKey('esc')
+netedit.typeKey("esc")
 
 # Check undo
 netedit.undo(referencePosition, 1)

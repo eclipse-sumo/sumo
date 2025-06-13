@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -41,7 +41,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.dur, "-20")
 netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.dur, "13.15")
 
 # type enter to save changes
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to inspect mode
 netedit.changeMode("inspect")

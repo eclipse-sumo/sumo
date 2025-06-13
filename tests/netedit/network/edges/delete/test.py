@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -35,9 +35,9 @@ netedit.changeMode("delete")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot)
 
 # press space
-netedit.typeKey('space')
+netedit.typeKey("space")
 
-# enable 'Automatically delete additionals'
+# enable "Automatically delete additionals"
 netedit.protectElements()
 
 # delete edge

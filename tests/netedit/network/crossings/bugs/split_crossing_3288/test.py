@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -36,42 +36,42 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.topLeft)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.topRight)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.botLeft)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 netedit.computeJunctions()
 
 # select a single edge edges and create a split crossing
 netedit.leftClick(referencePosition, netedit.positions.network.edge.botRight)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 netedit.computeJunctions()
 
 # Check undo redo
@@ -85,7 +85,7 @@ netedit.redo(referencePosition, 8)
 netedit.saveExistentShortcut("network")
 
 # press space to fix crossings
-netedit.typeKey('space')
+netedit.typeKey("space")
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")

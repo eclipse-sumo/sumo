@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -43,13 +43,13 @@ netedit.modifyAttribute(netedit.attrs.TAZRelData.create.parameters, "dummyValues
 # create TAZRelData
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid parameters
 netedit.modifyAttribute(netedit.attrs.TAZRelData.create.parameters, "param1=value2|param3=value4")
 
 # create TAZRelData
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

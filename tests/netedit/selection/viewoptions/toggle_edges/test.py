@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -47,7 +47,7 @@ netedit.delete()
 netedit.saveExistentShortcut("neteditConfig")
 
 # clear invalid crossings
-netedit.typeKey('space')
+netedit.typeKey("space")
 
 # quit netedit
 netedit.quit(neteditProcess)
