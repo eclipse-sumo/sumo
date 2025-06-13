@@ -22,3 +22,6 @@ unreachable_skip
 
 # see #16421
 dest_unreachable_skip
+
+# see #16421
+short_closing_wait
