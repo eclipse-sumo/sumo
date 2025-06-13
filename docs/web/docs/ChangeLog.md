@@ -14,7 +14,8 @@ title: ChangeLog
   - Fixed collision on junction due to unsafe lane changing #16643
   - Fixed invalid waitingTime for walking stage in tripinfo-output (not accumulating) #16729
   - Previously recorded travel speeds are now preserved when loading state #16775
-
+  - Stochastic assignment of rerouting device is now reproduced when loading state #16784
+  - railway routing now ignores temporary road closings when option **--device.rerouting.mode 8** is set #16799
 
 - netedit
   - link-direction arrows for spread bidi-rail are drawn in the correct spot #16718 (regression in 1.20.0)
@@ -22,6 +23,7 @@ title: ChangeLog
   - bidi-rail connections are drawn on the correct side again #16700 (regression in 1.23.0)
   - Changing connection attribute 'uncontrolled' to `False` and a traffic light, now makes that connection controlled by the traffic light #16705
   - Fixed crash after using tls-mode "reset single" when loaded programs had non-standard programIDs. #16702
+  - parkingArea reference in chargingStation is now loaded #16789
 
 - sumo-gui
   - carriageImages are now loaded relative to the file in which they are defined #16725
@@ -38,9 +40,12 @@ title: ChangeLog
   - Vehroute-output no longer contains invalid route edges when loading state and rerouting #16776
 
 - netconvert
+  - invalid right of way at left_before_right junction at specific angles #16793 (regression in 1.23.0)
   - Fixed bug where option **--tls.rebuild** creates invalid signal plan when using custom crossing traffic light indices. #16653
   - Fixed unsafe signal plan when crossings use linkIndex2 #16657
   - Fixed missing yellow phase when crossing re-uses vehicular link index #16658
+  - OSM import: fixed low default speed for edge type *highway.service* when used by public transport #16763
+  - Fixed bug where small roundabouts where sometimes not detected #16787
 
 - TraCI
   - Fixed bug where vehicles would not change on their current lane after modifying permissions #16721
@@ -62,9 +67,10 @@ title: ChangeLog
 - sumo
   - A warning is now issued for traffic light programs where a link never gets a green phase even when the program has only a single phase. #16652
   - Added waitingTime to personinfo walk output #16737
+  - closingReroute now supports optional attribute `until` for setting the estimated duration of closing. Vehicle may wait at the closed edge if a detour would take longer. #16804
 
 - meso
-  - `<tlLogic>` with `<param key="meso.tls.control" value="true"/>` is now excempt from options **--meso-tls-penalty** and **--meso-tls-flow-penalty** and runs with full control #16674
+  - `<tlLogic>` with `<param key="meso.tls.control" value="true"/>` is now exempt from options **--meso-tls-penalty** and **--meso-tls-flow-penalty** and runs with full control #16674
 
 - sumo-gui
   - Various improvement to visual placement of rerouter objects #16716
@@ -74,7 +80,6 @@ title: ChangeLog
 
 - duarouter
   - Added option **--repair.max-detour-factor** to give more control over repairing routes. Vehicles will backtrack rather than take large detours. #16746
-
 
 - tools
   - plotXMLAttributes.py: The options **--xticks-file** and **--yticks-file** now support giving a column for name aliases to group the respective values #16683
