@@ -113,6 +113,7 @@ The attributes used within such definitions are:
 | **id**         | id (string)             | The id of the closed edge; the id must be the id of an edge within the network                                                                                                                                             |
 | allow          | list of vehicle classes | The (optional) ' '-separated list of [vehicle classes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) which are still allowed to drive on the closed edge. All others are forbidden. |
 | disallow       | list of vehicle classes | The (optional) ' '-separated list of [vehicle classes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) which are forbidden from driving on the closed edge. All others are allowed.   |
+| until       | time | optional estimated end time of the closing. Vehicles will stay on their old route and wait if a detour would take more time than waiting for the closing to end. |
 
 When using a `<closingReroute>` without attributes `allow` and `disallow`, vehicles that cannot reach their
 destination by an alternative route simply continue on their old route
