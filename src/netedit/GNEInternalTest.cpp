@@ -44,7 +44,7 @@ GNEInternalTest::runNeteditTests(GNEApplicationWindow* applicationWindow) {
         myTestStarted = true;
         bool writeClosedSucessfully = false;
         // process every step
-        while (myCurrentStep < (int)myTestSteps.size()) {
+        while (myCurrentStep < myTestSteps.size()) {
             const auto testStep = myTestSteps.at(myCurrentStep);
             // check if we have to process it in main windows, abstract view or specific view
             if (testStep->getCategory() == InternalTestStep::Category::APP) {
