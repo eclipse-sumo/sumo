@@ -815,26 +815,30 @@ InternalTestStep::processChangeModeFunction() {
             myMessageID = MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT;
         } else if (networkMode == "move") {
             myMessageID = MID_HOTKEY_M_MODE_MOVE_MEANDATA;
-        } else if (networkMode == "edge") {
+        } else if ((networkMode == "edge") || (networkMode == "edgeData")) {
             myMessageID = MID_HOTKEY_E_MODE_EDGE_EDGEDATA;
-        } else if (networkMode == "trafficLight") {
+        } else if ((networkMode == "trafficLight") || (networkMode == "type")) {
             myMessageID = MID_HOTKEY_T_MODE_TLS_TYPE;
-        } else if (networkMode == "connection") {
+        } else if ((networkMode == "connection") || (networkMode == "container")) {
             myMessageID = MID_HOTKEY_C_MODE_CONNECT_CONTAINER;
-        } else if (networkMode == "prohibition") {
+        } else if ((networkMode == "prohibition") || (networkMode == "containerPlan")) {
             myMessageID = MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN;
-        } else if (networkMode == "crossing") {
+        } else if ((networkMode == "crossing") || (networkMode == "edgeRelData")) {
             myMessageID = MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA;
-        } else if (networkMode == "additional") {
+        } else if ((networkMode == "additional") || (networkMode == "stop")) {
             myMessageID = MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS;
-        } else if (networkMode == "wire") {
+        } else if ((networkMode == "wire") || (networkMode == "routeDistribution")) {
             myMessageID = MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION;
-        } else if (networkMode == "taz") {
+        } else if ((networkMode == "taz") || (networkMode == "tazRel")) {
             myMessageID = MID_HOTKEY_Z_MODE_TAZ_TAZREL;
-        } else if (networkMode == "shape") {
+        } else if ((networkMode == "shape") || (networkMode == "person")) {
             myMessageID = MID_HOTKEY_P_MODE_POLYGON_PERSON;
-        } else if (networkMode == "decal") {
+        } else if ((networkMode == "decal") || (networkMode == "typeDistribution")) {
             myMessageID = MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION;
+        } else if (networkMode == "personPlan") {
+            myMessageID = MID_HOTKEY_L_MODE_PERSONPLAN;
+        } else if (networkMode == "vehicle") {
+            myMessageID = MID_HOTKEY_V_MODE_VEHICLE;
         } else {
             writeError("changeMode", "<inspect/delete/select/move...>");
         }
