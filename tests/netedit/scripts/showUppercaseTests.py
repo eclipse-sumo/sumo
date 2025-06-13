@@ -22,8 +22,8 @@ import scandir
 fileList = []
 
 # get all test.py
-for paths, dirs, files in scandir.walk('D:/SUMO/tests/netedit'):
-    directory = paths.replace('D:/SUMO/tests/netedit', '')
+for paths, dirs, files in scandir.walk("D:/SUMO/tests/netedit"):
+    directory = paths.replace("D:/SUMO/tests/netedit", "")
     directoryLower = directory.lower()
     if (directory != directoryLower):
         print(directory)

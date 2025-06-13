@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -35,7 +35,7 @@ netedit.checkUndoRedo(referencePosition)
 netedit.saveExistentShortcut("demands")
 
 # remove invalid routes
-netedit.typeKey('space')
+netedit.typeKey("space")
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")

@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEViewNet.h>
@@ -26,6 +27,7 @@
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/common/Translation.h>
+#include <utils/foxtools/MFXColorDialog.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -411,7 +413,7 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
 long
 GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
     // create FXColorDialog
-    FXColorDialog colordialog(myAttributeTable->getFrameParent()->getViewNet(), TL("Color Dialog"));
+    MFXColorDialog colordialog(myAttributeTable->getFrameParent()->getViewNet(), TL("Color Dialog"));
     colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     // If previous attribute wasn't correct, set black as default color
     if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
@@ -422,7 +424,7 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
         colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
     }
     // execute dialog to get a new color in the text field
-    if (colordialog.execute()) {
+    if (colordialog.openDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getNeteditTestSystem())) {
         myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str(), TRUE);
     }
     return 1;

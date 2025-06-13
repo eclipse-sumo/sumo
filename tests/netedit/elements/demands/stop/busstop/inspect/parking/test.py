@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -44,13 +44,13 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.parking, 'true')
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.parking, "true")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.parking, 'false')
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.parking, "false")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.parking, 'opportunistic')
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.parking, "opportunistic")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

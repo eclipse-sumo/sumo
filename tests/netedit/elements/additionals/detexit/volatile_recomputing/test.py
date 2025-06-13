@@ -19,18 +19,18 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(
-    neteditTestRoot, ['--sidewalks.guess', '--crossings.guess'])
+    neteditTestRoot, ["--sidewalks.guess", "--crossings.guess"])
 
 # Recompute with volatile options
 netedit.computeJunctionsVolatileOptions()
 
 # fix positions
-netedit.typeKey('space')
+netedit.typeKey("space")
 
 # save netedit config
 netedit.saveExistentShortcut("neteditConfig")

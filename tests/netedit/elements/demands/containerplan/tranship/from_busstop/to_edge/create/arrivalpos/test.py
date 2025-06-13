@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -39,7 +39,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to tranship.busStop.edge mode
 netedit.changeMode("containerPlan")
@@ -54,13 +54,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 netedit.modifyAttribute(netedit.attrs.tranship.busStop.edge.create.arrivalPos, "dummy")
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set invalid container number
 netedit.modifyAttribute(netedit.attrs.tranship.busStop.edge.create.arrivalPos, "12.5")
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -50,7 +50,7 @@ netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.loadingDuration
 netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.loadingDuration, "5.4")
 
 # close dialog
-netedit.typeTwoKeys('alt', 'a')
+netedit.typeTwoKeys("alt", "a")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

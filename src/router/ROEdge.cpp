@@ -458,7 +458,9 @@ ROEdge::getViaSuccessors(SUMOVehicleClass vClass, bool /*ignoreTransientPermissi
 
 
 bool
-ROEdge::isConnectedTo(const ROEdge& e, const SUMOVehicleClass vClass) const {
+ROEdge::isConnectedTo(const ROEdge& e, const SUMOVehicleClass vClass, bool ignoreTransientPermissions) const {
+    // @todo needs to be used with #12501
+    UNUSED_PARAMETER(ignoreTransientPermissions);
     const ROEdgeVector& followers = getSuccessors(vClass);
     return std::find(followers.begin(), followers.end(), &e) != followers.end();
 }

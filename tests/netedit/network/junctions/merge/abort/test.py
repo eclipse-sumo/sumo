@@ -20,7 +20,7 @@ import os
 import sys
 import time
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -41,7 +41,7 @@ netedit.dragDrop(referencePosition,
 time.sleep(2)
 
 # press ESC
-netedit.typeKey('esc')
+netedit.typeKey("esc")
 
 # rebuild network
 netedit.computeJunctions()

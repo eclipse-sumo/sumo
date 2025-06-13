@@ -2213,14 +2213,16 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     const MSCFModel& cfModel = getCarFollowModel();
     const double vehicleLength = getVehicleType().getLength();
     const double maxV = cfModel.maxNextSpeed(myState.mySpeed, this);
+    const double maxVD = MAX2(getMaxSpeed(), MIN2(maxV, getDesiredMaxSpeed()));
     const bool opposite = myLaneChangeModel->isOpposite();
-    double laneMaxV = myLane->getVehicleMaxSpeed(this);
+    // maxVD is possibly higher than vType-maxSpeed and in this case laneMaxV may be higher as well
+    double laneMaxV = myLane->getVehicleMaxSpeed(this, maxVD);
     const double vMinComfortable = cfModel.minNextSpeed(getSpeed(), this);
     double lateralShift = 0;
     if (isRail()) {
         // speed limits must hold for the whole length of the train
         for (MSLane* l : myFurtherLanes) {
-            laneMaxV = MIN2(laneMaxV, l->getVehicleMaxSpeed(this));
+            laneMaxV = MIN2(laneMaxV, l->getVehicleMaxSpeed(this, maxVD));
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
                 std::cout << "   laneMaxV=" << laneMaxV << " lane=" << l->getID() << "\n";
@@ -2937,7 +2939,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // estimate leave speed for passing time computation
         // l=linkLength, a=accel, t=continuousTime, v=vLeave
         // l=v*t + 0.5*a*t^2, solve for t and multiply with a, then add v
-        const double estimatedLeaveSpeed = MIN2((*link)->getViaLaneOrLane()->getVehicleMaxSpeed(this),
+        const double estimatedLeaveSpeed = MIN2((*link)->getViaLaneOrLane()->getVehicleMaxSpeed(this, maxVD),
                                                 getCarFollowModel().estimateSpeedAfterDistance((*link)->getLength(), arrivalSpeed, getVehicleType().getCarFollowModel().getMaxAccel()));
         lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, setRequest,
                                            arrivalTime, arrivalSpeed,
@@ -2960,7 +2962,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
         // get the following lane
         lane = (*link)->getViaLaneOrLane();
-        laneMaxV = lane->getVehicleMaxSpeed(this);
+        laneMaxV = lane->getVehicleMaxSpeed(this, maxVD);
         if (myInfluencer && !myInfluencer->considerSpeedLimit()) {
             laneMaxV = std::numeric_limits<double>::max();
         }

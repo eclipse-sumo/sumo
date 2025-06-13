@@ -688,13 +688,7 @@ GLHelper::drawSpaceOccupancies(const double exaggeration, const Position& pos, c
     geom.push_back(Position(+w, +h, 0.));
     geom.push_back(Position(-w, +h, 0.));
     geom.push_back(Position(-w, +0, 0.));
-    /*
-    geom.push_back(Position(pos.x(), pos.y(), pos.z()));
-    geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y(), pos.z()));
-    geom.push_back(Position(pos.x() + (*l).second.myWidth, pos.y() - (*l).second.myLength, pos.z()));
-    geom.push_back(Position(pos.x(), pos.y() - (*l).second.myLength, pos.z()));
-    geom.push_back(Position(pos.x(), pos.y(), pos.z()));
-    */
+
     // push matrix
     GLHelper::pushMatrix();
     // translate

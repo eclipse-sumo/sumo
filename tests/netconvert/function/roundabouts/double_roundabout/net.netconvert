@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-11 13:40:02 by Eclipse SUMO netconvert Version v1_23_1+0505-dc3f9e008a4
+<!-- generated on 2025-06-12 07:33:23 by Eclipse SUMO netconvert Version v1_23_1+0516-9bf4c30314c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -167,11 +167,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="spreadtype" value="right"/>
     </edge>
 
-    <junction id="0" type="right_before_left" x="99.74" y="52.06" z="424.14" incLanes="104_0 112_0" intLanes="" shape="103.53,57.12,424.14 109.16,55.10,424.14 107.93,50.60,424.14 108.04,47.77,424.14 104.01,48.06,424.14 101.02,46.38,424.14 95.62,44.88,424.14 95.86,51.73,424.14 98.93,52.03,424.14 101.97,53.99,424.14" radius="5.00" customShape="1">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+    <junction id="0" type="priority" x="99.74" y="52.06" z="424.14" incLanes="104_0 112_0" intLanes="" shape="103.53,57.12,424.14 109.16,55.10,424.14 107.93,50.60,424.14 108.04,47.77,424.14 104.01,48.06,424.14 101.02,46.38,424.14 95.62,44.88,424.14 95.86,51.73,424.14 98.93,52.03,424.14 101.97,53.99,424.14" radius="5.00" customShape="1">
+        <request index="0" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="001"/>
     </junction>
     <junction id="1" type="priority" x="97.86" y="0.00" z="423.31" incLanes="115_0" intLanes="" shape="97.86,-0.00,423.31 94.89,0.43,423.31 97.86,-0.00,423.31" radius="5.00">
         <request index="0" response="0" foes="0"/>
@@ -179,70 +178,62 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="2" type="priority" x="227.47" y="162.35" z="424.52" incLanes="106_0" intLanes="" shape="227.47,162.35,424.52 225.53,164.64,424.52 229.43,160.08,424.52" radius="5.00">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="3" type="right_before_left" x="155.71" y="90.96" z="424.76" incLanes="100_0 109_0" intLanes="" shape="163.21,94.01,424.76 163.72,91.80,424.76 165.65,90.23,424.76 164.49,88.24,424.76 162.51,86.64,424.76 158.56,83.70,424.76 155.03,83.62,424.76 152.42,88.75,424.76 155.47,90.45,424.76 156.83,92.38,424.76 158.50,94.97,424.76" radius="5.00" customShape="1">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+    <junction id="3" type="priority" x="155.71" y="90.96" z="424.76" incLanes="100_0 109_0" intLanes="" shape="163.21,94.01,424.76 163.72,91.80,424.76 165.65,90.23,424.76 164.49,88.24,424.76 162.51,86.64,424.76 158.56,83.70,424.76 155.03,83.62,424.76 152.42,88.75,424.76 155.47,90.45,424.76 156.83,92.38,424.76 158.50,94.97,424.76" radius="5.00" customShape="1">
+        <request index="0" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="001"/>
     </junction>
     <junction id="4" type="priority" x="232.00" y="89.25" z="424.25" incLanes="105_0" intLanes="" shape="232.00,89.25,424.25 232.11,86.95,424.25 232.00,89.25,424.25" radius="5.00">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="5" type="right_before_left" x="156.94" y="103.47" z="424.61" incLanes="101_0 110_0" intLanes="" shape="161.02,113.48,424.61 168.51,105.00,424.61 166.70,103.65,424.61 164.95,102.13,424.61 163.48,100.03,424.61 163.15,97.34,424.61 157.75,98.28,424.61 157.14,101.00,424.61 155.45,103.77,424.61 152.27,105.50,424.61 151.52,111.19,424.61 154.17,111.49,424.61 158.50,112.43,424.61" radius="5.00" customShape="1">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+    <junction id="5" type="priority" x="156.94" y="103.47" z="424.61" incLanes="101_0 110_0" intLanes="" shape="161.02,113.48,424.61 168.51,105.00,424.61 166.70,103.65,424.61 164.95,102.13,424.61 163.48,100.03,424.61 163.15,97.34,424.61 157.75,98.28,424.61 157.14,101.00,424.61 155.45,103.77,424.61 152.27,105.50,424.61 151.52,111.19,424.61 154.17,111.49,424.61 158.50,112.43,424.61" radius="5.00" customShape="1">
+        <request index="0" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="001"/>
     </junction>
     <junction id="6" type="priority" x="0.00" y="13.07" z="422.75" incLanes="102_0" intLanes="" shape="-0.00,13.07,422.75 -1.21,15.82,422.75 0.00,13.07,422.75" radius="5.00">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="7" type="right_before_left" x="87.16" y="55.70" z="424.08" incLanes="114_0 107_0" intLanes="" shape="89.21,54.56,424.08 92.17,52.35,424.08 94.99,52.06,424.08 94.11,46.05,424.08 90.73,46.23,424.08 87.73,46.14,424.08 84.94,45.89,424.08 84.07,49.46,424.08 80.22,55.16,424.08 78.35,57.50,424.08 79.93,58.85,424.08 80.80,61.63,424.08 81.26,63.90,424.08 88.06,66.06,424.08" radius="5.00" customShape="1">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+    <junction id="7" type="priority" x="87.16" y="55.70" z="424.08" incLanes="114_0 107_0" intLanes="" shape="89.21,54.56,424.08 92.17,52.35,424.08 94.99,52.06,424.08 94.11,46.05,424.08 90.73,46.23,424.08 87.73,46.14,424.08 84.94,45.89,424.08 84.07,49.46,424.08 80.22,55.16,424.08 78.35,57.50,424.08 79.93,58.85,424.08 80.80,61.63,424.08 81.26,63.90,424.08 88.06,66.06,424.08" radius="5.00" customShape="1">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="100"/>
+        <request index="2" response="010" foes="010"/>
     </junction>
     <junction id="8" type="priority" x="104.30" y="65.55" z="424.40" incLanes="103_0 113_0" intLanes="" shape="107.61,69.96,424.40 110.91,65.74,424.40 112.73,64.02,424.40 111.42,61.49,424.40 110.34,59.58,424.40 109.73,57.39,424.40 104.38,59.21,424.40 104.60,61.38,424.40 103.00,65.65,424.40 99.96,68.38,424.40 98.43,69.84,424.40 94.19,69.57,424.40 96.40,74.24,424.40 99.90,74.10,424.40 103.27,73.90,424.40" radius="5.00" customShape="1">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="001"/>
     </junction>
     <junction id="9" type="priority" x="141.90" y="91.11" z="424.89" incLanes="111_0 108_0" intLanes="" shape="143.44,91.18,424.89 145.97,89.23,424.89 149.92,88.62,424.89 149.86,82.69,424.89 146.20,82.41,424.89 142.06,81.85,424.89 139.04,85.03,424.89 136.56,87.84,424.89 133.88,91.63,424.89 131.89,95.90,424.89 133.80,99.51,424.89 135.04,103.07,424.89 141.52,101.31,424.89 140.44,98.39,424.89 140.61,96.12,424.89 141.85,92.38,424.89" radius="5.00" customShape="1">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="100"/>
+        <request index="2" response="010" foes="010"/>
     </junction>
 
-    <connection from="100" to="110" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="100" to="105" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="101" to="111" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="101" to="106" fromLane="0" toLane="0" dir="t" state="="/>
+    <connection from="100" to="110" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
+    <connection from="101" to="111" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
     <connection from="102" to="107" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="103" to="114" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="103" to="108" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="104" to="113" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="104" to="115" fromLane="0" toLane="0" dir="t" state="="/>
+    <connection from="103" to="114" fromLane="0" toLane="0" dir="s" state="m" visibility="9.00"/>
+    <connection from="104" to="113" fromLane="0" toLane="0" dir="s" state="m" visibility="9.00"/>
     <connection from="105" to="100" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="106" to="101" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="107" to="112" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="107" to="102" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="108" to="109" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="108" to="103" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="109" to="105" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="109" to="110" fromLane="0" toLane="0" dir="l" state="="/>
+    <connection from="107" to="112" fromLane="0" toLane="0" dir="s" state="m" visibility="9.00"/>
+    <connection from="108" to="109" fromLane="0" toLane="0" dir="s" state="m" visibility="9.00"/>
+    <connection from="109" to="105" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="109" to="110" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="110" to="106" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="110" to="111" fromLane="0" toLane="0" dir="l" state="="/>
-    <connection from="111" to="103" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="111" to="109" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="110" to="111" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="111" to="103" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="111" to="109" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="112" to="115" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="112" to="113" fromLane="0" toLane="0" dir="l" state="="/>
-    <connection from="113" to="108" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="113" to="114" fromLane="0" toLane="0" dir="l" state="m"/>
-    <connection from="114" to="102" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="114" to="112" fromLane="0" toLane="0" dir="l" state="="/>
+    <connection from="112" to="113" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="113" to="108" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="113" to="114" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="114" to="102" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="114" to="112" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="115" to="104" fromLane="0" toLane="0" dir="t" state="M"/>
+
+    <roundabout nodes="3 5 9" edges="109 110 111"/>
+    <roundabout nodes="0 7 8" edges="112 113 114"/>
 
 </net>

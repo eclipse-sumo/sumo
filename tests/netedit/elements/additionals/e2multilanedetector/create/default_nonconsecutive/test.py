@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -37,7 +37,7 @@ netedit.changeElement("additionalFrame", "multiLaneAreaDetector")
 # try to create E2 with default parameters but with non consecutive lanes
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # save netedit config
 netedit.saveExistentShortcut("neteditConfig")

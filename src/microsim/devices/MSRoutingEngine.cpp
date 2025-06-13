@@ -446,7 +446,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
 
 void
 MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
-                         const bool onInit, const bool silent, const MSEdgeVector& prohibited) {
+                         const bool onInit, const bool silent, const Prohibitions& prohibited) {
     if (myRouterProvider == nullptr) {
         initRouter(&vehicle);
     }
@@ -468,20 +468,20 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
     } catch (ProcessError&) {
         if (!silent) {
             if (!prohibited.empty()) {
-                router.prohibit(MSEdgeVector());
+                router.prohibit(Prohibitions());
             }
             throw;
         }
     }
     if (!prohibited.empty()) {
-        router.prohibit(MSEdgeVector());
+        router.prohibit(Prohibitions());
     }
 }
 
 
 void
 MSRoutingEngine::reroute(MSTransportable& t, const SUMOTime currentTime, const std::string& info,
-                         const bool onInit, const bool silent, const MSEdgeVector& prohibited) {
+                         const bool onInit, const bool silent, const Prohibitions& prohibited) {
     MSTransportableRouter& router = getIntermodalRouterTT(t.getRNGIndex(), prohibited);
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
@@ -500,13 +500,13 @@ MSRoutingEngine::reroute(MSTransportable& t, const SUMOTime currentTime, const s
     } catch (ProcessError&) {
         if (!silent) {
             if (!prohibited.empty()) {
-                router.prohibit(MSEdgeVector());
+                router.prohibit(Prohibitions());
             }
             throw;
         }
     }
     if (!prohibited.empty()) {
-        router.prohibit(MSEdgeVector());
+        router.prohibit(Prohibitions());
     }
 }
 
@@ -525,7 +525,7 @@ MSRoutingEngine::addEdgeTravelTime(const MSEdge& edge, const SUMOTime travelTime
 
 
 MSVehicleRouter&
-MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const MSEdgeVector& prohibited) {
+MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const Prohibitions& prohibited) {
     if (myRouterProvider == nullptr) {
         initWeightUpdate();
         initEdgeWeights(svc);
@@ -549,7 +549,7 @@ MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const MSE
 
 
 MSTransportableRouter&
-MSRoutingEngine::getIntermodalRouterTT(const int rngIndex, const MSEdgeVector& prohibited) {
+MSRoutingEngine::getIntermodalRouterTT(const int rngIndex, const Prohibitions& prohibited) {
     if (myRouterProvider == nullptr) {
         initWeightUpdate();
         initEdgeWeights(SVC_PEDESTRIAN);
@@ -687,13 +687,13 @@ MSRoutingEngine::RoutingTask::run(MFXWorkerThread* context) {
     } catch (ProcessError&) {
         if (!mySilent) {
             if (!myProhibited.empty()) {
-                router.prohibit(MSEdgeVector());
+                router.prohibit(Prohibitions());
             }
             throw;
         }
     }
     if (!myProhibited.empty()) {
-        router.prohibit(MSEdgeVector());
+        router.prohibit(Prohibitions());
     }
     const MSEdge* source = *myVehicle.getRoute().begin();
     const MSEdge* dest = myVehicle.getRoute().getLastEdge();

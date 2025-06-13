@@ -1528,7 +1528,7 @@ MSNet::existTractionSubstation(const std::string& substationId) {
 
 
 MSVehicleRouter&
-MSNet::getRouterTT(int rngIndex, const MSEdgeVector& prohibited) const {
+MSNet::getRouterTT(int rngIndex, const Prohibitions& prohibited) const {
     if (MSGlobals::gNumSimThreads == 1) {
         rngIndex = 0;
     }
@@ -1549,7 +1549,7 @@ MSNet::getRouterTT(int rngIndex, const MSEdgeVector& prohibited) const {
 
 
 MSVehicleRouter&
-MSNet::getRouterEffort(int rngIndex, const MSEdgeVector& prohibited) const {
+MSNet::getRouterEffort(int rngIndex, const Prohibitions& prohibited) const {
     if (MSGlobals::gNumSimThreads == 1) {
         rngIndex = 0;
     }
@@ -1562,7 +1562,7 @@ MSNet::getRouterEffort(int rngIndex, const MSEdgeVector& prohibited) const {
 
 
 MSPedestrianRouter&
-MSNet::getPedestrianRouter(int rngIndex, const MSEdgeVector& prohibited) const {
+MSNet::getPedestrianRouter(int rngIndex, const Prohibitions& prohibited) const {
     if (MSGlobals::gNumSimThreads == 1) {
         rngIndex = 0;
     }
@@ -1575,7 +1575,7 @@ MSNet::getPedestrianRouter(int rngIndex, const MSEdgeVector& prohibited) const {
 
 
 MSTransportableRouter&
-MSNet::getIntermodalRouter(int rngIndex, const int routingMode, const MSEdgeVector& prohibited) const {
+MSNet::getIntermodalRouter(int rngIndex, const int routingMode, const Prohibitions& prohibited) const {
     if (MSGlobals::gNumSimThreads == 1) {
         rngIndex = 0;
     }

@@ -20,11 +20,11 @@ import os
 import sys
 import time
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(['--crossings.guess'])
+neteditProcess, referencePosition = netedit.setupAndStart(["--crossings.guess"])
 
 # Recompute with volatile options
 netedit.computeJunctionsVolatileOptions()

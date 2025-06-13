@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -32,7 +32,7 @@ netedit.moveMouse(referencePosition, netedit.positions.downLeft)
 netedit.loadNetwork(False)
 
 # cancel using ESC
-netedit.typeKey('esc')
+netedit.typeKey("esc")
 
 # save Netedit config
 netedit.saveNewShortcut("neteditConfig")

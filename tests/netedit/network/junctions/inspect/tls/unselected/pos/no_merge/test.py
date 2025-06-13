@@ -20,7 +20,7 @@ import os
 import sys
 import time
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -42,7 +42,7 @@ netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-25.00,0.00")
 time.sleep(2)
 
 # avoid merging
-netedit.typeTwoKeys('alt', 'n')
+netedit.typeTwoKeys("alt", "n")
 
 # wait for output
 time.sleep(2)
@@ -75,7 +75,7 @@ netedit.computeJunctions()
 netedit.saveExistentShortcut("neteditConfig")
 
 # type space
-netedit.typeKey('space')
+netedit.typeKey("space")
 
 # quit netedit
 netedit.quit(neteditProcess)

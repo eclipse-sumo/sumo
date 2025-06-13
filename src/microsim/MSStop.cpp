@@ -159,6 +159,19 @@ MSStop::getArrival() const {
 }
 
 
+SUMOTime
+MSStop::getArrivalFallback() const {
+    SUMOTime result = getArrival();
+    if (result < 0) {
+        result = getUntil();
+        if (result >= 0 && pars.duration >= 0) {
+            result -= pars.duration;
+        }
+    }
+    return result;
+}
+
+
 double
 MSStop::getSpeed() const {
     return skipOnDemand ? std::numeric_limits<double>::max() : pars.speed;

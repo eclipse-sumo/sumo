@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -39,7 +39,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to person plan mode
 netedit.changeMode("personPlan")
@@ -51,7 +51,7 @@ netedit.changeElement("personPlanFrame", "personTrip")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # go to network mode
 netedit.changeSupermode("network")
@@ -59,7 +59,7 @@ netedit.changeSupermode("network")
 # go to delete mode
 netedit.changeMode("delete")
 
-# disable 'Automatically delete demand elements'
+# disable "Automatically delete demand elements"
 netedit.protectElements()
 
 # create personTripEdgeEdge

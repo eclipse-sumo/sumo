@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -41,10 +41,10 @@ netedit.changeMode("delete")
 # delete created polygon
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
-# try to delete second polygon (not possible due isn't fill)
+# try to delete second polygon (not possible due isn"t fill)
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD)
 
-# try to delete second polygon (not possible due isn't fill)
+# try to delete second polygon (not possible due isn"t fill)
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD)
 
 # Check undos and redos

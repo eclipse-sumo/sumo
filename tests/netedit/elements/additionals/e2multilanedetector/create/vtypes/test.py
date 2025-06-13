@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -43,13 +43,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.modifyAttribute(netedit.attrs.E2Multilane.create.vTypes, "%%;$$$ %%$$ type.3")
 
 # create E2 with default parameters
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # set valid vehicle type
 netedit.modifyAttribute(netedit.attrs.E2Multilane.create.vTypes, "private passenger taxi bus")
 
 # create E2 with default parameters
-netedit.typeKey('enter')
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

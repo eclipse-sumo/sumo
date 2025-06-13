@@ -19,7 +19,7 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.environ.get('SUMO_HOME', '.'), 'tools'))
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
@@ -50,7 +50,7 @@ netedit.computeJunctions()
 # Change to delete mode
 netedit.changeMode("delete")
 
-# disable 'protect elements'
+# disable "protect elements"
 netedit.protectElements()
 
 # remove center edge
