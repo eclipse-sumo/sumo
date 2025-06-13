@@ -82,6 +82,12 @@ protected:
     /// @brief parse test data position file
     std::map<std::string, std::pair<int, int> > parsePositionTestDataFile(const std::string filePath) const;
 
+    /// @brief clear lines
+    std::vector<std::string> cleanLines(const std::vector<std::pair<bool, std::string> >& linesRaw) const;
+
+    /// @brief check if the given string start with
+    bool startWith(const std::string& str, const std::string& prefix) const;
+
     /// @brief invalidate default constructor
     InternalTest() = delete;
 

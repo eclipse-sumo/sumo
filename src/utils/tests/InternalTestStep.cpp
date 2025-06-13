@@ -1087,6 +1087,7 @@ template <> std::pair<FXint, FXString>
 InternalTestStep::translateKey(const char key) const {
     std::pair<FXint, FXString> solution;
     solution.first = FXint(key);
+    solution.second.append(key);
     return solution;
 }
 

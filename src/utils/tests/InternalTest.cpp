@@ -49,12 +49,20 @@ InternalTest::InternalTest(const std::string& testFile) {
         throw ProcessError("Error loading test data files");
     } else {
         std::string line;
+        std::vector<std::pair<bool, std::string> > linesRaw;
         // read full lines until end of file
         while (std::getline(strm, line)) {
             // ignore comments (#) and all lines that doesn't start with netedit.
             if (!line.empty() && (line[0] != '#')) {
-                new InternalTestStep(this, line);
+                linesRaw.push_back(std::make_pair(startWith(line, "netedit."), line));
             }
+        }
+        // clean lines
+        const auto lines = cleanLines(linesRaw);
+        // create steps
+        new InternalTestStep(this, "netedit.setupAndStart");
+        for (const auto& clearLine : lines) {
+            new InternalTestStep(this, clearLine);
         }
     }
 }
@@ -146,6 +154,35 @@ InternalTest::parsePositionTestDataFile(const std::string filePath) const {
         }
     }
     return solution;
+}
+
+
+std::vector<std::string>
+InternalTest::cleanLines(const std::vector<std::pair<bool, std::string> >& linesRaw) const {
+    std::vector<std::string> results;
+    for (const auto& lineRaw : linesRaw) {
+        if (lineRaw.first) {
+            results.push_back(lineRaw.second);
+        } else if (results.size() > 0) {
+            results.back().append(lineRaw.second);
+        }
+    }
+    return results;
+}
+
+
+bool
+InternalTest::startWith(const std::string& str, const std::string& prefix) const {
+    if (prefix.size() > str.size()) {
+        return false;
+    } else {
+        for (int i = 0; i < (int)prefix.size(); i++) {
+            if (str[i] != prefix[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 /****************************************************************************/
