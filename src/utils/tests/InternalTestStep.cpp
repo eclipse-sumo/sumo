@@ -60,6 +60,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         processModifyColorAttributeFunction();
     } else if (function == "modifyColorAttributeOverlapped") {
         processModifyColorAttributeOverlappedFunction();
+    } else if (function == "changeEditMode") {
+        processChangeEditModeFunction();
     } else if (function == "supermode") {
         processSupermodeFunction();
     } else if (function == "changeMode") {
@@ -230,52 +232,6 @@ InternalTestStep::buildMouseLeftClickReleaseEvent(const int posX, const int posY
 }
 
 
-FXEvent*
-InternalTestStep::buildKeyPressEvent(const std::string& key) const {
-    const auto keyValues = translateKey(key);
-    FXEvent* keyPressEvent = new FXEvent();
-    // set event values
-    keyPressEvent->type = SEL_KEYPRESS;
-    keyPressEvent->code = keyValues.first;
-    keyPressEvent->text = keyValues.second;
-    return keyPressEvent;
-}
-
-
-FXEvent*
-InternalTestStep::buildKeyPressEvent(const char key) const {
-    FXEvent* keyPressEvent = new FXEvent();
-    // set event values
-    keyPressEvent->type = SEL_KEYPRESS;
-    keyPressEvent->code = (FXint)key;
-    keyPressEvent->text.append(key);
-    return keyPressEvent;
-}
-
-
-FXEvent*
-InternalTestStep::buildKeyReleaseEvent(const std::string& key) const {
-    const auto keyValues = translateKey(key);
-    FXEvent* keyReleaseEvent = new FXEvent();
-    // set event values
-    keyReleaseEvent->type = SEL_KEYRELEASE;
-    keyReleaseEvent->code = keyValues.first;
-    keyReleaseEvent->text = keyValues.second;
-    return keyReleaseEvent;
-}
-
-
-FXEvent*
-InternalTestStep::buildKeyReleaseEvent(const char key) const {
-    FXEvent* keyReleaseEvent = new FXEvent();
-    // set event values
-    keyReleaseEvent->type = SEL_KEYRELEASE;
-    keyReleaseEvent->code = (FXint)key;
-    keyReleaseEvent->text.append(key);
-    return keyReleaseEvent;
-}
-
-
 std::string
 InternalTestStep::parseStep(const std::string& rowText) {
     // first check if this is the netedit.setupAndStart function
@@ -354,92 +310,6 @@ InternalTestStep::parseArguments(const std::string& arguments) {
         writeError("parseArguments", "<\"argument\", \"argument\">");
         myArguments.clear();
     }
-}
-
-
-std::pair<FXint, FXString>
-InternalTestStep::translateKey(const std::string& key) const {
-    std::pair<FXint, FXString> solution;
-    // continue depending of key
-    if (key == "backspace") {
-        solution.first = KEY_BackSpace;
-        solution.second = "\b";
-    } else if (key == "space") {
-        solution.first = KEY_space;
-    } else if (key == "tab") {
-        solution.first = KEY_Tab;
-        solution.second = "\t";
-    } else if (key == "clear") {
-        solution.first = KEY_Clear;
-    } else if (key == "enter" || key == "return") {
-        solution.first = KEY_Return;
-        solution.second = "\n";
-    } else if (key == "pause") {
-        solution.first = KEY_Pause;
-    } else if (key == "sys_req") {
-        solution.first = KEY_Sys_Req;
-    } else if (key == "esc" || key == "escape") {
-        solution.first = KEY_Escape;
-        solution.second = "\x1B";
-    } else if (key == "delete") {
-        solution.first = KEY_Delete;
-        solution.second = "\x7F";
-    } else if (key == "multi_key") {
-        solution.first = KEY_Multi_key;
-        // function
-    } else if (key == "shift") {
-        solution.first = KEY_Shift_L;
-    } else if (key == "control") {
-        solution.first = KEY_Control_L;
-        // Cursor
-    } else if (key == "home") {
-        solution.first = KEY_Home;
-    } else if (key == "left") {
-        solution.first = KEY_Left;
-    } else if (key == "up") {
-        solution.first = KEY_Up;
-    } else if (key == "right") {
-        solution.first = KEY_Right;
-    } else if (key == "down") {
-        solution.first = KEY_Down;
-    } else if (key == "prior" || key == "page_up") {
-        solution.first = KEY_Page_Up;
-    } else if (key == "next" || key == "page_down") {
-        solution.first = KEY_Page_Down;
-    } else if (key == "end") {
-        solution.first = KEY_End;
-    } else if (key == "begin") {
-        solution.first = KEY_Begin;
-        // Function keys
-    } else if (key == "f1") {
-        solution.first = KEY_F1;
-    } else if (key == "f2") {
-        solution.first = KEY_F2;
-    } else if (key == "f3") {
-        solution.first = KEY_F3;
-    } else if (key == "f4") {
-        solution.first = KEY_F4;
-    } else if (key == "f5") {
-        solution.first = KEY_F5;
-    } else if (key == "f6") {
-        solution.first = KEY_F6;
-    } else if (key == "f7") {
-        solution.first = KEY_F7;
-    } else if (key == "f8") {
-        solution.first = KEY_F8;
-    } else if (key == "f9") {
-        solution.first = KEY_F9;
-    } else if (key == "f10") {
-        solution.first = KEY_F10;
-    } else if (key == "f11" || key == "l1") {
-        solution.first = KEY_F11;
-    } else if (key == "f12" || key == "l2") {
-        solution.first = KEY_F12;
-    } else {
-        writeError("translateKey", "<key>");
-        solution.first = KEY_VoidSymbol;
-    }
-    return solution;
 }
 
 
@@ -631,7 +501,94 @@ InternalTestStep::processModifyColorAttributeOverlappedFunction() const {
         // go to button
         buildPressKeyEvent(spaceEvent, "tab");
         // press button
-        //buildPressKeyEvent(spaceEvent, "space");
+        buildPressKeyEvent(spaceEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::processChangeEditModeFunction() {
+    if ((myArguments.size() != 1) ||
+            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum)) {
+        writeError("processChangeEditModeFunction", "<int/attributeEnum>");
+    } else {
+        myCategory = Category::APP;
+        // network
+        if (myArguments[0] == "netedit.attrs.modes.network.grid") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.junctionShape") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.spreadVehicle") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.showDemandElements") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.selectLane") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.showConnections") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.hideConnetions") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.showSubAdditionals") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.showTAZElements") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.automaticSelectJunctions") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.applyAllPhases") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.mergingJunction") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_MERGEAUTOMATICALLY;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.showBubbles") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.moveElevation") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.chainMode") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES;
+        } else if (myArguments[0] == "netedit.attrs.modes.network.twoWayMode") {
+            myMessageID = MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES;
+            // demand
+        } else if (myArguments[0] == "netedit.attrs.modes.demand.grid") {
+            myMessageID = MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID;
+        } else if (myArguments[0] == "netedit.attrs.modes.demand.junctionShape") {
+            myMessageID = MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE;
+        } else if (myArguments[0] == "netedit.attrs.modes.demand.spreadVehicle") {
+            myMessageID = MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES;
+        } else if (myArguments[0] == "netedit.attrs.modes.demand.showNonInspected") {
+            myMessageID = MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED;
+        } else if (myArguments[0] == "netedit.attrs.modes.demand.showShapes") {
+            myMessageID = MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES;
+        } else if (myArguments[0] == "netedit.attrs.modes.demand.showAllTrips") {
+            myMessageID = MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS;
+        } else if (myArguments[0] == "netedit.attrs.modes.demand.showPersonPlans") {
+            myMessageID = MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS;
+        } else if (myArguments[0] == "netedit.attrs.modes.demand.lockPerson") {
+            myMessageID = MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON;
+        } else if (myArguments[0] == "netedit.attrs.modes.demand.showContainerPlans") {
+            myMessageID = MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS;
+        } else if (myArguments[0] == "netedit.attrs.modes.demand.lockContainer") {
+            myMessageID = MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER;
+        } else if (myArguments[0] == "netedit.attrs.modes.demand.showOverlappedRoutes") {
+            myMessageID = MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES;
+            // data
+        } else if (myArguments[0] == "netedit.attrs.modes.data.junctionShape") {
+            myMessageID = MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE;
+        } else if (myArguments[0] == "netedit.attrs.modes.data.showAdditionals") {
+            myMessageID = MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS;
+        } else if (myArguments[0] == "netedit.attrs.modes.data.showShapes") {
+            myMessageID = MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES;
+        } else if (myArguments[0] == "netedit.attrs.modes.data.showDemandElements") {
+            myMessageID = MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS;
+        } else if (myArguments[0] == "netedit.attrs.modes.data.TAZRelDrawingMode") {
+            myMessageID = MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING;
+        } else if (myArguments[0] == "netedit.attrs.modes.data.TAZFill") {
+            myMessageID = MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL;
+        } else if (myArguments[0] == "netedit.attrs.modes.data.TAZRelOnlyFrom") {
+            myMessageID = MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM;
+        } else if (myArguments[0] == "netedit.attrs.modes.data.TAZRelOnlyTo") {
+            myMessageID = MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO;
+        } else {
+            writeError("changeEditMode", "<enum>");
+        }
     }
 }
 
@@ -758,7 +715,7 @@ InternalTestStep::processSelectionFunction() const {
 void
 InternalTestStep::processUndoFunction() const {
     if ((myArguments.size() != 2) ||
-            !checkStringArgument(myArguments[0])) {
+            !checkIntArgument(myArguments[1], myTestSystem->myAttributesEnum)) {
         writeError("undo", "<referencePosition, int>");
     } else {
         const int numUndoRedos = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
@@ -785,7 +742,7 @@ InternalTestStep::processUndoFunction() const {
 void
 InternalTestStep::processRedoFunction() const {
     if ((myArguments.size() != 2) ||
-            !checkStringArgument(myArguments[0])) {
+            !checkIntArgument(myArguments[1], myTestSystem->myAttributesEnum)) {
         writeError("redo", "<referencePosition, int>");
     } else {
         const int numUndoRedos = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
@@ -1034,42 +991,103 @@ InternalTestStep::writeError(const std::string& function, const std::string& exp
 }
 
 
-InternalTestStep*
-InternalTestStep::buildPressKeyEvent(const std::string& key, const bool updateView) const {
-    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(key), updateView);
-    return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
+template <> std::pair<FXint, FXString>
+InternalTestStep::translateKey(const std::string key) const {
+    std::pair<FXint, FXString> solution;
+    // continue depending of key
+    if (key == "backspace") {
+        solution.first = KEY_BackSpace;
+        solution.second = "\b";
+    } else if (key == "space") {
+        solution.first = KEY_space;
+    } else if (key == "tab") {
+        solution.first = KEY_Tab;
+        solution.second = "\t";
+    } else if (key == "clear") {
+        solution.first = KEY_Clear;
+    } else if (key == "enter" || key == "return") {
+        solution.first = KEY_Return;
+        solution.second = "\n";
+    } else if (key == "pause") {
+        solution.first = KEY_Pause;
+    } else if (key == "sys_req") {
+        solution.first = KEY_Sys_Req;
+    } else if (key == "esc" || key == "escape") {
+        solution.first = KEY_Escape;
+        solution.second = "\x1B";
+    } else if (key == "delete") {
+        solution.first = KEY_Delete;
+        solution.second = "\x7F";
+    } else if (key == "multi_key") {
+        solution.first = KEY_Multi_key;
+        // function
+    } else if (key == "shift") {
+        solution.first = KEY_Shift_L;
+    } else if (key == "control") {
+        solution.first = KEY_Control_L;
+        // Cursor
+    } else if (key == "home") {
+        solution.first = KEY_Home;
+    } else if (key == "left") {
+        solution.first = KEY_Left;
+    } else if (key == "up") {
+        solution.first = KEY_Up;
+    } else if (key == "right") {
+        solution.first = KEY_Right;
+    } else if (key == "down") {
+        solution.first = KEY_Down;
+    } else if (key == "prior" || key == "page_up") {
+        solution.first = KEY_Page_Up;
+    } else if (key == "next" || key == "page_down") {
+        solution.first = KEY_Page_Down;
+    } else if (key == "end") {
+        solution.first = KEY_End;
+    } else if (key == "begin") {
+        solution.first = KEY_Begin;
+        // Function keys
+    } else if (key == "f1") {
+        solution.first = KEY_F1;
+    } else if (key == "f2") {
+        solution.first = KEY_F2;
+    } else if (key == "f3") {
+        solution.first = KEY_F3;
+    } else if (key == "f4") {
+        solution.first = KEY_F4;
+    } else if (key == "f5") {
+        solution.first = KEY_F5;
+    } else if (key == "f6") {
+        solution.first = KEY_F6;
+    } else if (key == "f7") {
+        solution.first = KEY_F7;
+    } else if (key == "f8") {
+        solution.first = KEY_F8;
+    } else if (key == "f9") {
+        solution.first = KEY_F9;
+    } else if (key == "f10") {
+        solution.first = KEY_F10;
+    } else if (key == "f11" || key == "l1") {
+        solution.first = KEY_F11;
+    } else if (key == "f12" || key == "l2") {
+        solution.first = KEY_F12;
+    } else {
+        writeError("translateKey", "<key>");
+        solution.first = KEY_VoidSymbol;
+    }
+    return solution;
 }
 
 
-void
-InternalTestStep::buildPressKeyEvent(InternalTestStep* parent, const std::string& key) const {
-    new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(key));
-    new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(key));
+template <> std::pair<FXint, FXString>
+InternalTestStep::translateKey(const char* key) const {
+    return translateKey(std::string(key));
 }
 
 
-InternalTestStep*
-InternalTestStep::buildPressKeyEvent(const char key, const bool updateView) const {
-    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(key), updateView);
-    return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
-}
-
-
-InternalTestStep*
-InternalTestStep::buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const {
-    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(keyA), updateView);
-    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(keyB), updateView);
-    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(keyB), updateView);
-    return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(keyA), updateView);
-}
-
-
-void
-InternalTestStep::buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string& keyB) const {
-    new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(keyA));
-    new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(keyB));
-    new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(keyB));
-    new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(keyA));
+template <> std::pair<FXint, FXString>
+InternalTestStep::translateKey(const char key) const {
+    std::pair<FXint, FXString> solution;
+    solution.first = FXint(key);
+    return solution;
 }
 
 /****************************************************************************/
