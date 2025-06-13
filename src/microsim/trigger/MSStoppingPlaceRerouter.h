@@ -131,6 +131,7 @@ public:
     typedef std::map<std::string, bool> StoppingPlaceParamSwitchMap_t;
     typedef std::map<MSStoppingPlace*, StoppingPlaceParamMap_t, ComparatorIdLess> StoppingPlaceMap_t;
     typedef std::pair<MSStoppingPlace*, bool> StoppingPlaceVisible;
+    typedef std::map<const MSEdge*, double> Prohibitions;
 
     ///@brief Constructor
     MSStoppingPlaceRerouter(std::string paramPrefix = "", bool checkValidity = false, StoppingPlaceParamMap_t addEvalParams = {}, StoppingPlaceParamSwitchMap_t addInvertParams = {});
@@ -152,7 +153,7 @@ public:
      * @return the best stopping place according to the target function or nullptr
      */
     MSStoppingPlace* rerouteStoppingPlace(MSStoppingPlace* destStoppingPlace, const std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh,
-                             bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores, const MSEdgeVector& closedEdges = {},
+                             bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores, const Prohibitions& closedEdges = {},
                              const int insertStopIndex = 0, const bool keepCurrentStop = true);
     /** @brief compute the target function for a single alternative
      *
@@ -212,7 +213,7 @@ public:
     virtual bool useStoppingPlace(MSStoppingPlace* stoppingPlace);
 
     /// @brief Provide the router to use (MSNet::getRouterTT or MSRoutingEngine)
-    virtual SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter(SUMOVehicle& veh, const MSEdgeVector& prohibited = {});
+    virtual SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter(SUMOVehicle& veh, const Prohibitions& prohibited = {});
 
     /// @brief Return the number of occupied places of the StoppingPlace
     virtual double getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) = 0;

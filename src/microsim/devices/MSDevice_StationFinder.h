@@ -218,7 +218,7 @@ public:
     bool useStoppingPlace(MSStoppingPlace* stoppingPlace) override;
 
     /// @brief Provide the router to use (MSNet::getRouterTT or MSRoutingEngine)
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter(SUMOVehicle& veh, const MSEdgeVector& prohibited) override;
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter(SUMOVehicle& veh, const Prohibitions& prohibited) override;
 
     /// @brief Return the number of occupied places of the StoppingPlace
     double getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) override;

@@ -81,6 +81,8 @@ public:
     /** @brief Destructor */
     virtual ~MSTriggeredRerouter();
 
+    typedef std::map<const MSEdge*, double> Prohibitions;
+
     /**
      * @struct RerouteInterval
      * Describes the rerouting definitions valid for an interval
@@ -92,8 +94,8 @@ public:
         SUMOTime begin;
         /// The end time these definitions are valid
         SUMOTime end;
-        /// The map of closed edges to their permissions
-        std::map<MSEdge*, SVCPermissions> closed;
+        /// The map of closed edges to their permissions and expected end of closing
+        std::map<MSEdge*, std::pair<SVCPermissions, double> > closed;
         /// The list of closed lanes to their permissions
         std::map<MSLane*, SVCPermissions> closedLanes;
         /// The list of edges that are affected by closed lanes
@@ -130,7 +132,15 @@ public:
         std::vector<MSStoppingPlaceRerouter::StoppingPlaceVisible> stopAlternatives;
         //}
 
-        MSEdgeVector getClosed() const {
+        Prohibitions getClosed() const {
+            Prohibitions v;
+            for (const auto& settings : closed) {
+                v[settings.first] = settings.second.second;
+            }
+            return v;
+        }
+
+        MSEdgeVector getClosedEdges() const {
             MSEdgeVector v;
             for (const auto& settings : closed) {
                 v.push_back(settings.first);

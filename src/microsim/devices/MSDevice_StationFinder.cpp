@@ -836,7 +836,7 @@ MSDevice_StationFinder::useStoppingPlace(MSStoppingPlace* /* stoppingPlace */) {
 }
 
 
-SUMOAbstractRouter<MSEdge, SUMOVehicle>& MSDevice_StationFinder::getRouter(SUMOVehicle& veh, const MSEdgeVector& prohibited) {
+SUMOAbstractRouter<MSEdge, SUMOVehicle>& MSDevice_StationFinder::getRouter(SUMOVehicle& veh, const Prohibitions& prohibited) {
     return MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), prohibited);
 }
 

@@ -180,8 +180,9 @@ MSTriggeredRerouter::myStartElement(int element,
         bool ok;
         const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, getID().c_str(), ok, "", false);
         const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, getID().c_str(), ok, "");
+        const SUMOTime until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
         SVCPermissions permissions = parseVehicleClasses(allow, disallow);
-        myParsedRerouteInterval.closed[closedEdge] = permissions;
+        myParsedRerouteInterval.closed[closedEdge] = std::make_pair(permissions, STEPS2TIME(until));
     }
 
     if (element == SUMO_TAG_CLOSING_LANE_REROUTE) {
@@ -325,7 +326,7 @@ MSTriggeredRerouter::myEndElement(int element) {
         // precompute permissionsAllowAll
         bool allowAll = true;
         for (const auto& entry : myParsedRerouteInterval.closed) {
-            allowAll = allowAll && entry.second == SVCAll;
+            allowAll = allowAll && entry.second.first == SVCAll;
             if (!allowAll) {
                 break;
             }
@@ -371,7 +372,7 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
             for (const auto& settings : i.closed) {
                 for (MSLane* lane : settings.first->getLanes()) {
                     //std::cout << SIMTIME << " closing: intervalID=" << i.id << " lane=" << lane->getID() << " prevPerm=" << getVehicleClassNames(lane->getPermissions()) << " new=" << getVehicleClassNames(i.permissions) << "\n";
-                    lane->setPermissions(settings.second, i.id);
+                    lane->setPermissions(settings.second.first, i.id);
                 }
                 settings.first->rebuildAllowedLanes();
                 updateVehicles = true;
@@ -385,7 +386,7 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
                 new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), i.end);
         }
         if (i.end == currentTime && !(i.closed.empty() && i.closedLanes.empty()) /*&& i.permissions != SVCAll*/) {
-            for (std::pair<MSEdge*, SVCPermissions> settings : i.closed) {
+            for (auto settings : i.closed) {
                 for (MSLane* lane : settings.first->getLanes()) {
                     lane->resetPermissions(i.id);
                     //std::cout << SIMTIME << " opening: intervalID=" << i.id << " lane=" << lane->getID() << " restore prevPerm=" << getVehicleClassNames(lane->getPermissions()) << "\n";
@@ -428,7 +429,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, SUMOTrafficObject& obj) co
             }
             if (!ri.closed.empty() || !ri.closedLanesAffected.empty() || !ri.main.empty()) {
                 const std::set<SUMOTrafficObject::NumericalID>& edgeIndices = obj.getUpcomingEdgeIDs();
-                if (affected(edgeIndices, ri.getClosed())
+                if (affected(edgeIndices, ri.getClosedEdges())
                         || affected(edgeIndices, ri.closedLanesAffected)
                         || affected(edgeIndices, ri.main)) {
                     return &ri;
@@ -623,7 +624,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     const MSEdge* newEdge = lastEdge;
     // ok, try using a new destination
     double newArrivalPos = -1;
-    const MSEdgeVector closedEdges = rerouteDef->getClosed();
+    const MSEdgeVector closedEdges = rerouteDef->getClosedEdges();
     const bool destUnreachable = std::find(closedEdges.begin(), closedEdges.end(), lastEdge) != closedEdges.end();
     bool keepDestination = false;
     // if we have a closingReroute, only assign new destinations to vehicles which cannot reach their original destination
@@ -650,14 +651,15 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     ConstMSEdgeVector edges;
     std::vector<MSTransportableRouter::TripItem> items;
     // we have a new destination, let's replace the route (if it is affected)
-    MSEdgeVector closed = rerouteDef->getClosed();
+    MSEdgeVector closed = rerouteDef->getClosedEdges();
+    Prohibitions prohibited = rerouteDef->getClosed();
     if (rerouteDef->closed.empty() || destUnreachable || rerouteDef->isVia || affected(tObject.getUpcomingEdgeIDs(), closed)) {
         if (tObject.isVehicle()) {
             SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
             const bool canChangeDest = rerouteDef->edgeProbs.getOverallProb() > 0;
             MSVehicleRouter& router = hasReroutingDevice
-                                      ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), closed)
-                                      : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), closed);
+                                      ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), prohibited)
+                                      : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), prohibited);
             bool ok = veh.reroute(now, getID(), router, false, false, canChangeDest, newEdge);
             if (!ok && !keepDestination && canChangeDest) {
                 // destination unreachable due to closed intermediate edges. pick among alternative targets
@@ -694,8 +696,8 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
         } else {
             // person rerouting here
             MSTransportableRouter& router = hasReroutingDevice
-                                            ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), closed)
-                                            : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, closed);
+                                            ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), prohibited)
+                                            : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, prohibited);
             const bool success = router.compute(tObject.getEdge(), newEdge, tObject.getPositionOnLane(), "",
                                                 rerouteDef->isVia ? newEdge->getLength() / 2. : tObject.getParameter().arrivalPos, "",
                                                 tObject.getMaxSpeed(), nullptr, 0, now, items);
@@ -725,8 +727,8 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 edges.pop_back();
             }
             MSVehicleRouter& router = hasReroutingDevice
-                                      ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), closed)
-                                      : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), closed);
+                                      ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), prohibited)
+                                      : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), prohibited);
             router.compute(newEdge, lastEdge, &veh, now, edges);
             const double routeCost = router.recomputeCosts(edges, &veh, now);
             hasReroutingDevice
@@ -748,8 +750,8 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             bool success = !items.empty();
             if (success) {
                 MSTransportableRouter& router = hasReroutingDevice
-                                                ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), closed)
-                                                : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, closed);
+                                                ? MSRoutingEngine::getIntermodalRouterTT(tObject.getRNGIndex(), prohibited)
+                                                : MSNet::getInstance()->getIntermodalRouter(tObject.getRNGIndex(), 0, prohibited);
                 success = router.compute(newEdge, lastEdge, newEdge->getLength() / 2., "",
                                          tObject.getParameter().arrivalPos, "",
                                          tObject.getMaxSpeed(), nullptr, 0, now, items);

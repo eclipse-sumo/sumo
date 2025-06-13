@@ -126,11 +126,11 @@ public:
         throw ProcessError(TL("Do not use this method"));
     }
 
-    void prohibit(const std::vector<E*>& toProhibit) {
-        std::vector<_IntermodalEdge*> toProhibitPE;
-        for (typename std::vector<E*>::const_iterator it = toProhibit.begin(); it != toProhibit.end(); ++it) {
-            toProhibitPE.push_back(myPedNet->getBothDirections(*it).first);
-            toProhibitPE.push_back(myPedNet->getBothDirections(*it).second);
+    void prohibit(const std::map<const E*, double>& toProhibit) {
+        std::map<const _IntermodalEdge*, double> toProhibitPE;
+        for (auto item : toProhibit) {
+            toProhibitPE[myPedNet->getBothDirections(item.first).first] = item.second;
+            toProhibitPE[myPedNet->getBothDirections(item.first).second] = item.second;
         }
         myInternalRouter->prohibit(toProhibitPE);
     }

@@ -51,7 +51,7 @@ MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(std::string paramPrefix, bool c
 
 MSStoppingPlace*
 MSStoppingPlaceRerouter::rerouteStoppingPlace(MSStoppingPlace* destStoppingPlace, const std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores,
-                                 const MSEdgeVector& closedEdges, const int insertStopIndex, const bool keepCurrentStop) {
+                                 const Prohibitions& closedEdges, const int insertStopIndex, const bool keepCurrentStop) {
     // Reroute destination from initial stopping place to an alternative stopping place
     // if the following conditions are met:
     // - next stop target is a stopping place of the right type
@@ -547,7 +547,7 @@ MSStoppingPlaceRerouter::useStoppingPlace(MSStoppingPlace* /* stoppingPlace */) 
 
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSStoppingPlaceRerouter::getRouter(SUMOVehicle& veh, const MSEdgeVector& prohibited) {
+MSStoppingPlaceRerouter::getRouter(SUMOVehicle& veh, const Prohibitions& prohibited) {
     return MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), prohibited);
 }
 

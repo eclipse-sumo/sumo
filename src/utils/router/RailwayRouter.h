@@ -72,6 +72,7 @@ private:
     typedef RailEdge<E, V> _RailEdge;
     typedef SUMOAbstractRouter<_RailEdge, V> _InternalRouter;
     typedef DijkstraRouter<_RailEdge, V> _InternalDijkstra;
+    typedef std::map<const E*, double> Prohibitions;
 
 public:
 
@@ -108,11 +109,11 @@ public:
         return _compute(from, to, vehicle, msTime, into, silent, false);
     }
 
-    void prohibit(const std::vector<E*>& toProhibit) {
+    void prohibit(const Prohibitions& toProhibit) {
         ensureInternalRouter();
-        std::vector<_RailEdge*> railEdges;
-        for (E* edge : toProhibit) {
-            railEdges.push_back(edge->getRailwayRoutingEdge());
+        std::map<const _RailEdge*, double> railEdges;
+        for (auto item : toProhibit) {
+            railEdges[item.first->getRailwayRoutingEdge()] = item.second;
         }
         myInternalRouter->prohibit(railEdges);
         this->myProhibited = toProhibit;
@@ -240,7 +241,7 @@ private:
             if (this->myProhibited.size() > 0) {
                 // make sure that turnarounds don't use prohibited edges
                 for (const E* e : into) {
-                    if (std::find(this->myProhibited.begin(), this->myProhibited.end(), e) != this->myProhibited.end()) {
+                    if (this->myProhibited.find(e) != this->myProhibited.end()) {
                         into.clear();
                         success = false;
                         break;

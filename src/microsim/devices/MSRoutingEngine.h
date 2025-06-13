@@ -65,6 +65,8 @@ class SUMOSAXAttributes;
  */
 class MSRoutingEngine {
 public:
+    typedef std::map<const MSEdge*, double> Prohibitions;
+
     /// @brief intialize period edge weight update
     static void initWeightUpdate();
 
@@ -88,11 +90,11 @@ public:
 
     /// @brief initiate the rerouting, create router / thread pool on first use
     static void reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
-                        const bool onInit = false, const bool silent = false, const MSEdgeVector& prohibited = MSEdgeVector());
+                        const bool onInit = false, const bool silent = false, const Prohibitions& prohibited = {});
 
     /// @brief initiate the person rerouting, create router / thread pool on first use
     static void reroute(MSTransportable& t, const SUMOTime currentTime, const std::string& info,
-                        const bool onInit = false, const bool silent = false, const MSEdgeVector& prohibited = MSEdgeVector());
+                        const bool onInit = false, const bool silent = false, const Prohibitions& prohibited = {});
 
     /// @brief adapt the known travel time for an edge
     static void setEdgeTravelTime(const MSEdge* const edge, const double travelTime);
@@ -108,11 +110,11 @@ public:
     /// @brief return the vehicle router instance
     static MSVehicleRouter& getRouterTT(const int rngIndex,
                                         SUMOVehicleClass svc,
-                                        const MSEdgeVector& prohibited = MSEdgeVector());
+                                        const Prohibitions& prohibited = {});
 
     /// @brief return the person router instance
     static MSTransportableRouter& getIntermodalRouterTT(const int rngIndex,
-            const MSEdgeVector& prohibited = MSEdgeVector());
+            const Prohibitions& prohibited = {});
 
     /** @brief Returns the effort to pass an edge
     *
@@ -170,7 +172,7 @@ private:
     class RoutingTask : public MFXWorkerThread::Task {
     public:
         RoutingTask(SUMOVehicle& v, const SUMOTime time, const std::string& info,
-                    const bool onInit, const bool silent, const MSEdgeVector& prohibited)
+                    const bool onInit, const bool silent, const Prohibitions& prohibited)
             : myVehicle(v), myTime(time), myInfo(info), myOnInit(onInit), mySilent(silent), myProhibited(prohibited) {}
         void run(MFXWorkerThread* context);
     private:
@@ -179,7 +181,7 @@ private:
         const std::string myInfo;
         const bool myOnInit;
         const bool mySilent;
-        const MSEdgeVector myProhibited;
+        const Prohibitions myProhibited;
     private:
         /// @brief Invalidated assignment operator.
         RoutingTask& operator=(const RoutingTask&) = delete;

@@ -80,7 +80,7 @@ public:
         }
     }
 
-    virtual void prohibit(const std::vector<E*>& toProhibit) {
+    virtual void prohibit(const std::map<const E*, double>& toProhibit) {
         if (toProhibit.size() > 0) {
             WRITE_WARNINGF(TL("Routing algorithm CHWrapper does not support dynamic closing of edges%"), "");
         }

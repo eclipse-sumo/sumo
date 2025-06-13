@@ -234,13 +234,13 @@ public:
         }
     }
 
-    void prohibit(const std::vector<E*>& toProhibit) {
+    void prohibit(const std::map<const E*, double>& toProhibit) {
         createNet();
-        std::vector<_IntermodalEdge*> toProhibitPE;
-        for (typename std::vector<E*>::const_iterator it = toProhibit.begin(); it != toProhibit.end(); ++it) {
-            toProhibitPE.push_back(myIntermodalNet->getBothDirections(*it).first);
-            toProhibitPE.push_back(myIntermodalNet->getBothDirections(*it).second);
-            toProhibitPE.push_back(myIntermodalNet->getCarEdge(*it));
+        std::map<const _IntermodalEdge*, double> toProhibitPE;
+        for (auto item : toProhibit) {
+            toProhibitPE[myIntermodalNet->getBothDirections(item.first).first] = item.second;
+            toProhibitPE[myIntermodalNet->getBothDirections(item.first).second] = item.second;
+            toProhibitPE[myIntermodalNet->getCarEdge(item.first)] = item.second;
         }
         myInternalRouter->prohibit(toProhibitPE);
     }

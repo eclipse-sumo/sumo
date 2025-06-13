@@ -56,7 +56,7 @@ public:
         EdgeInfo(const E* const e)
             : edge(e), effort(std::numeric_limits<double>::max()),
               heuristicEffort(std::numeric_limits<double>::max()),
-              leaveTime(0.), prev(nullptr), visited(false), prohibited(false) {}
+              leaveTime(0.), prev(nullptr), visited(false), prohibited(false), prohibitionEnd(0) {}
 
         /// The current edge
         const E* const edge;
@@ -80,6 +80,9 @@ public:
         /// whether the edge is currently not allowed
         bool prohibited;
 
+        /// the time at which a temporary prohibitione ends
+        double prohibitionEnd;
+
         inline void reset() {
             effort = std::numeric_limits<double>::max();
             heuristicEffort = std::numeric_limits<double>::max();
@@ -90,6 +93,9 @@ public:
 
     /// Type of the function that is used to retrieve the edge effort.
     typedef double(* Operation)(const E* const, const V* const, double);
+
+    /// Prohibitions and their estimated end time
+    typedef std::map<const E*, double> Prohibitions;
 
     /// Constructor
     SUMOAbstractRouter(const std::string& type, bool unbuildIsWarning, Operation operation, Operation ttOperation,
@@ -328,7 +334,12 @@ public:
 
 
     inline double getEffort(const E* const e, const V* const v, double t) const {
-        return (*myOperation)(e, v, t);
+        if (this->myProhibited.size() > 0 && myEdgeInfos.size() > 0 && myEdgeInfos[e->getNumericalID()].prohibitionEnd > 0) {
+            // pass edge after prohibition ends
+            return (myEdgeInfos[e->getNumericalID()].prohibitionEnd - t) + (*myOperation)(e, v, myEdgeInfos[e->getNumericalID()].prohibitionEnd);
+        } else {
+            return (*myOperation)(e, v, t);
+        }
     }
 
     inline void startQuery() {
@@ -349,12 +360,17 @@ public:
         myAutoBulkMode = mode;
     }
 
-    virtual void prohibit(const std::vector<E*>& toProhibit) {
-        for (E* const edge : this->myProhibited) {
-            myEdgeInfos[edge->getNumericalID()].prohibited = false;
+    virtual void prohibit(const Prohibitions& toProhibit) {
+        for (auto item : this->myProhibited) {
+            myEdgeInfos[item.first->getNumericalID()].prohibited = false;
+            myEdgeInfos[item.first->getNumericalID()].prohibitionEnd = 0;
         }
-        for (E* const edge : toProhibit) {
-            myEdgeInfos[edge->getNumericalID()].prohibited = true;
+        for (auto item : toProhibit) {
+            if (item.second >= 0 && item.second != std::numeric_limits<double>::max()) {
+                myEdgeInfos[item.first->getNumericalID()].prohibitionEnd = item.second;
+            } else {
+                myEdgeInfos[item.first->getNumericalID()].prohibited = true;
+            }
         }
         this->myProhibited = toProhibit;
     }
@@ -395,8 +411,8 @@ protected:
     /// @brief whether edge restrictions need to be considered
     const bool myHaveRestrictions;
 
-    /// The list of explicitly prohibited edges
-    std::vector<E*> myProhibited;
+    /// The list of explicitly prohibited edges and estimated end time of prohibition
+    Prohibitions myProhibited;
 
     /// The container of edge information
     std::vector<typename SUMOAbstractRouter<E, V>::EdgeInfo> myEdgeInfos;

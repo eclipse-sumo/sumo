@@ -566,7 +566,12 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
             std::cout << SIMTIME << " reroute veh=" << veh->getID() << " rs=" << getID() << " occupied=" << toString(occupied) << "\n";
         }
 #endif
-        MSRoutingEngine::reroute(*veh, now, "railSignal:" + getID(), false, true, occupied);
+        std::map<const MSEdge*, double> prohibited;
+        for (MSEdge* e : occupied) {
+            // indefinite occupation because vehicles might be in deadlock on their current routes
+            prohibited[e] = -1;
+        }
+        MSRoutingEngine::reroute(*veh, now, "railSignal:" + getID(), false, true, prohibited);
 #ifdef DEBUG_REROUTE
         // attention this works only if we are not parallel!
         if (DEBUG_COND_LINKINFO) {
