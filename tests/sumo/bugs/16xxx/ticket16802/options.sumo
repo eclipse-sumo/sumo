@@ -3,3 +3,4 @@
 --time-to-teleport 10
 -e 300
 -t
+--tripinfo-output tripinfos.xml
