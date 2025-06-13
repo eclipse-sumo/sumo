@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-13 16:31:47 by Eclipse SUMO sumo Version v1_23_1+0553-8550f059a99
+<!-- generated on 2025-06-13 16:43:16 by Eclipse SUMO sumo Version v1_23_1+0556-26657706a38
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -69,121 +69,121 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" speed="2.39" lane="E0_0" acceleration="0.22"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.01"/>
+        <vehicle id="ego" speed="2.62" lane="E0_0" acceleration="0.22"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="2.84" lane="E0_0" acceleration="0.22"/>
     </timestep>
     <timestep time="12.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.04"/>
     </timestep>
     <timestep time="13.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="14.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="17.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="-0.00"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="20.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="-0.00"/>
     </timestep>
     <timestep time="21.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="22.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="23.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="24.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="-0.00"/>
     </timestep>
     <timestep time="25.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="26.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="27.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="-0.00"/>
     </timestep>
     <timestep time="28.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="29.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="30.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="-0.00"/>
     </timestep>
     <timestep time="31.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="32.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="33.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="34.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="35.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="-0.00"/>
     </timestep>
     <timestep time="36.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="37.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="38.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E0_0" acceleration="0.00"/>
     </timestep>
     <timestep time="39.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="2.88" lane="E1_0" acceleration="0.00"/>
     </timestep>
     <timestep time="40.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="3.62" lane="E1_0" acceleration="0.73"/>
     </timestep>
     <timestep time="41.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="4.82" lane="E1_0" acceleration="1.20"/>
     </timestep>
     <timestep time="42.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.74"/>
     </timestep>
     <timestep time="43.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
     </timestep>
     <timestep time="44.00">
-        <vehicle id="ego" speed="2.40" lane="E0_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
     </timestep>
     <timestep time="45.00">
-        <vehicle id="ego" speed="2.40" lane="E1_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
     </timestep>
     <timestep time="46.00">
-        <vehicle id="ego" speed="3.34" lane="E1_0" acceleration="0.93"/>
+        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
     </timestep>
     <timestep time="47.00">
-        <vehicle id="ego" speed="4.54" lane="E1_0" acceleration="1.20"/>
+        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
     </timestep>
     <timestep time="48.00">
-        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="1.02"/>
+        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
     </timestep>
     <timestep time="49.00">
         <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
@@ -213,61 +213,37 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
     </timestep>
     <timestep time="58.00">
-        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="59.00">
-        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="60.00">
-        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="61.00">
-        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="62.00">
-        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="63.00">
-        <vehicle id="ego" speed="5.56" lane="E1_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="64.00">
         <vehicle id="ego" speed="5.56" lane="E2_0" acceleration="0.00"/>
     </timestep>
+    <timestep time="59.00">
+        <vehicle id="ego" speed="7.74" lane="E2_0" acceleration="2.18"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="ego" speed="8.98" lane="E2_0" acceleration="1.25"/>
+    </timestep>
+    <timestep time="61.00">
+        <vehicle id="ego" speed="8.98" lane="E2_0" acceleration="-0.00"/>
+    </timestep>
+    <timestep time="62.00">
+        <vehicle id="ego" speed="8.98" lane="E2_0" acceleration="0.00"/>
+    </timestep>
+    <timestep time="63.00">
+        <vehicle id="ego" speed="8.98" lane="E2_0" acceleration="-0.00"/>
+    </timestep>
+    <timestep time="64.00">
+        <vehicle id="ego" speed="8.98" lane="E2_0" acceleration="-0.00"/>
+    </timestep>
     <timestep time="65.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="1.93"/>
+        <vehicle id="ego" speed="8.98" lane="E2_0" acceleration="0.00"/>
     </timestep>
     <timestep time="66.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="8.98" lane="E2_0" acceleration="-0.00"/>
     </timestep>
     <timestep time="67.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="-0.00"/>
+        <vehicle id="ego" speed="8.98" lane="E2_0" acceleration="-0.00"/>
     </timestep>
     <timestep time="68.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="0.00"/>
+        <vehicle id="ego" speed="8.98" lane="E2_0" acceleration="0.00"/>
     </timestep>
-    <timestep time="69.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="-0.00"/>
-    </timestep>
-    <timestep time="70.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="71.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="72.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="73.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="74.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="-0.00"/>
-    </timestep>
-    <timestep time="75.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="76.00">
-        <vehicle id="ego" speed="7.49" lane="E2_0" acceleration="0.00"/>
-    </timestep>
-    <timestep time="77.00"/>
+    <timestep time="69.00"/>
 </fcd-export>
