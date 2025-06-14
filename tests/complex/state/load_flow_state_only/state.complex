@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-05 15:35:10 by Eclipse SUMO sumo Version v1_23_1+0433-86314c1a416
+<!-- generated on 2025-06-14 14:49:57 by Eclipse SUMO sumo Version v1_23_1+0571-0c0912eecef
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,7 +27,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_23_1+0433-86314c1a416" time="10.00" type="micro">
+<snapshot type="micro" version="v1_23_1+0571-0c0912eecef" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!flowFromTo" state="0" edges="beg end"/>
     <route id="!flowFromTo.0!var#1" state="0" edges="beg middle end"/>
     <route id="r0" state="1" edges="beg middle end"/>

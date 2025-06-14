@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-05 15:35:09 by Eclipse SUMO sumo Version v1_23_1+0433-86314c1a416
+<!-- generated on 2025-06-14 14:49:52 by Eclipse SUMO sumo Version v1_23_1+0571-0c0912eecef
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,7 +28,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_23_1+0433-86314c1a416" time="180.00" type="micro" rail="1">
+<snapshot type="micro" version="v1_23_1+0571-0c0912eecef" time="180.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!t0!var#1" state="0" edges="a b c"/>
     <delay number="1" begin="3" end="2" depart="9.00" time="156.00"/>
     <vType id="train" length="50.00" vClass="rail"/>

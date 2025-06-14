@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-20 14:28:51 by Eclipse SUMO marouter Version v1_11_0+1326-900074debd9
+<!-- generated on 2025-06-14 14:41:57 by Eclipse SUMO marouter Version v1_23_1+0571-0c0912eecef
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -16,16 +21,16 @@ SPDX-License-Identifier: EPL-2.0
 
     <output>
         <output-file value="routes.rou.xml"/>
-        <netload-output value="blub/aggregated.xml"/>
         <write-license value="true"/>
+        <netload-output value="blub/aggregated.xml"/>
     </output>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
     </report>
 
-</configuration>
+</marouterConfiguration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd"/>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+</routes>
