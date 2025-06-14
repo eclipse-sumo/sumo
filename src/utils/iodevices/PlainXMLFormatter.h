@@ -42,10 +42,8 @@ public:
     /// @brief Constructor
     PlainXMLFormatter(const int defaultIndentation = 0);
 
-
     /// @brief Destructor
     virtual ~PlainXMLFormatter() { }
-
 
     /** @brief Writes an XML header with optional configuration
      *
@@ -61,18 +59,6 @@ public:
                         const std::map<SumoXMLAttr, std::string>& attrs,
                         bool includeConfig = true);
 
-
-    /** @brief Writes an XML header with optional configuration
-     *
-     * If something has been written (myXMLStack is not empty), nothing
-     *  is written and false returned.
-     *
-     * @param[in] into The output stream to use
-     * @param[in] rootElement The root element to use
-     */
-    bool writeHeader(std::ostream& into, const SumoXMLTag& rootElement);
-
-
     /** @brief Opens an XML tag
      *
      * An indentation, depending on the current xml-element-stack size, is written followed
@@ -85,7 +71,6 @@ public:
      */
     void openTag(std::ostream& into, const std::string& xmlElement);
 
-
     /** @brief Opens an XML tag
      *
      * Helper method which finds the correct string before calling openTag.
@@ -95,7 +80,6 @@ public:
      */
     void openTag(std::ostream& into, const SumoXMLTag& xmlElement);
 
-
     /** @brief Closes the most recently opened tag
      *
      * @param[in] into The output stream to use
@@ -103,7 +87,6 @@ public:
      * @todo it is not verified that the topmost element was closed
      */
     bool closeTag(std::ostream& into, const std::string& comment = "");
-
 
     /** @brief writes a preformatted tag to the device but ensures that any
      * pending tags are closed
@@ -116,7 +99,6 @@ public:
      */
     void writePadding(std::ostream& into, const std::string& val);
 
-
     /** @brief writes an arbitrary attribute
      *
      * @param[in] into The output stream to use
@@ -127,7 +109,6 @@ public:
     static void writeAttr(std::ostream& into, const std::string& attr, const T& val) {
         into << " " << attr << "=\"" << toString(val, into.precision()) << "\"";
     }
-
 
     /** @brief writes a named attribute
      *

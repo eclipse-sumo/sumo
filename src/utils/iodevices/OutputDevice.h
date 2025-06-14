@@ -196,13 +196,6 @@ public:
                         std::map<SumoXMLAttr, std::string> attrs = std::map<SumoXMLAttr, std::string>(),
                         bool includeConfig = true);
 
-
-    template <typename E>
-    bool writeHeader(const SumoXMLTag& rootElement) {
-        return static_cast<PlainXMLFormatter*>(myFormatter)->writeHeader(getOStream(), rootElement);
-    }
-
-
     /** @brief Opens an XML tag
      *
      * An indentation, depending on the current xml-element-stack size, is written followed
@@ -214,7 +207,6 @@ public:
      */
     OutputDevice& openTag(const std::string& xmlElement);
 
-
     /** @brief Opens an XML tag
      *
      * Helper method which finds the correct string before calling openTag.
@@ -223,7 +215,6 @@ public:
      * @return The OutputDevice for further processing
      */
     OutputDevice& openTag(const SumoXMLTag& xmlElement);
-
 
     /** @brief Closes the most recently opened tag and optionally adds a comment
      *
