@@ -107,6 +107,9 @@ MSDevice_FCD::getDefaultMask() {
     mask.reset(SUMO_ATTR_ENTRYTIME);
     mask.reset(SUMO_ATTR_EVENTTIME);
     mask.reset(SUMO_ATTR_BLOCKTIME);
+    mask.reset(SUMO_ATTR_SIGNALS);
+    mask.reset(SUMO_ATTR_ACCELERATION);
+    mask.reset(SUMO_ATTR_DISTANCE);
     return mask;
 }
 
@@ -173,19 +176,16 @@ MSDevice_FCD::initOnce() {
         }
     }
     if (oc.isSet("fcd-output.attributes")) {
-        myWrittenAttributes.reset();
-        for (std::string attrName : oc.getStringVector("fcd-output.attributes")) {
-            if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
-                if (attrName == "all") {
-                    myWrittenAttributes.set();
-                } else {
-                    WRITE_ERRORF(TL("Unknown attribute '%' to write in fcd output."), attrName);
-                }
-                continue;
-            }
-            int attr = SUMOXMLDefinitions::Attrs.get(attrName);
-            myWrittenAttributes.set(attr);
-        }
+        myWrittenAttributes = OutputDevice::parseWrittenAttributes(oc.getStringVector("fcd-output.attributes"), "fcd output");
+    }
+    if (oc.getBool("fcd-output.signals")) {
+        myWrittenAttributes.set(SUMO_ATTR_SIGNALS);
+    }
+    if (oc.getBool("fcd-output.acceleration")) {
+        myWrittenAttributes.set(SUMO_ATTR_ACCELERATION);
+    }
+    if (oc.getBool("fcd-output.distance")) {
+        myWrittenAttributes.set(SUMO_ATTR_DISTANCE);
     }
 
     if (oc.isSet("fcd-output.filter-shapes")) {
@@ -193,7 +193,6 @@ MSDevice_FCD::initOnce() {
         myShapeFilterDesired = true;
         buildShapeFilter();
     }
-    //std::cout << "mask=" << myWrittenAttributes << " binary=" << std::bitset<64>(myWrittenAttributes) << "\n";
 }
 
 

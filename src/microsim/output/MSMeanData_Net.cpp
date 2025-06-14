@@ -251,7 +251,7 @@ MSMeanData_Net::MSLaneMeanDataValues::getOccupancy(SUMOTime period, int numLanes
 }
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
+MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, SumoXMLAttrMask attributeMask, const SUMOTime period,
         const int numLanes, const double speedLimit, const double defaultTravelTime, const int numVehicles) const {
 
     double density = sampleSeconds / STEPS2TIME(period) * 1000. / myLaneLength;

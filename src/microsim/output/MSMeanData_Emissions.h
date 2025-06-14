@@ -89,7 +89,7 @@ public:
          * @param[in] length The length of the object for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
+        void write(OutputDevice& dev, SumoXMLAttrMask attributeMask, const SUMOTime period,
                    const int numLanes, const double speedLimit, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 

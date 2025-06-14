@@ -141,7 +141,7 @@ public:
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        virtual void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
+        virtual void write(OutputDevice& dev, SumoXMLAttrMask attributeMask, const SUMOTime period,
                            const int numLanes, const double speedLimit, const double defaultTravelTime,
                            const int numVehicles = -1) const = 0;
 
@@ -262,7 +262,7 @@ public:
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
+        void write(OutputDevice& dev, SumoXMLAttrMask attributeMask, const SUMOTime period,
                    const int numLanes, const double speedLimit, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
@@ -488,8 +488,6 @@ protected:
     const bool myAmEdgeBased;
 
 private:
-    static long long int initWrittenAttributes(const std::string writeAttributes, const std::string& id);
-
     /// @brief The first and the last time step to write information (-1 indicates always)
     const SUMOTime myDumpBegin, myDumpEnd;
 
@@ -512,7 +510,7 @@ private:
     const bool myTrackVehicles;
 
     /// @brief bit mask for checking attributes to be written
-    const long long int myWrittenAttributes;
+    const SumoXMLAttrMask myWrittenAttributes;
 
     /// @brief whether the data for all edges shall be aggregated
     const bool myAggregate;

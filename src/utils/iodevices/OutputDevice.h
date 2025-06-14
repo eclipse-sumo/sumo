@@ -237,14 +237,11 @@ public:
      */
     bool closeTag(const std::string& comment = "");
 
-
-
     /** @brief writes a line feed if applicable
      */
     void lf() {
         getOStream() << "\n";
     }
-
 
     /** @brief writes a named attribute
      *
@@ -262,9 +259,7 @@ public:
         return *this;
     }
 
-    inline bool useAttribute(const SumoXMLAttr attr, SumoXMLAttrMask attributeMask) const {
-        return attributeMask.test(attr);
-    }
+    static SumoXMLAttrMask parseWrittenAttributes(const std::vector<std::string>& attrList, const std::string& desc);
 
     /** @brief writes a named attribute unless filtered
      *
@@ -274,21 +269,9 @@ public:
      * @return The OutputDevice for further processing
      */
     template <typename T>
-    OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, long long int attributeMask) {
-        assert((int)attr <= 63);
-        if (attributeMask == 0 || useAttribute(attr, attributeMask)) {
-            if (myFormatter->getType() == OutputFormatterType::XML) {
-                PlainXMLFormatter::writeAttr(getOStream(), attr, val);
-            } else {
-                static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
-            }
-        }
-        return *this;
-    }
-    template <typename T>
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, SumoXMLAttrMask attributeMask) {
         assert((int)attr <= (int)attributeMask.size());
-        if (attributeMask.none() || useAttribute(attr, attributeMask)) {
+        if (attributeMask.none() || attributeMask.test(attr)) {
             if (myFormatter->getType() == OutputFormatterType::XML) {
                 PlainXMLFormatter::writeAttr(getOStream(), attr, val);
             } else {
@@ -297,7 +280,6 @@ public:
         }
         return *this;
     }
-
 
     /** @brief writes an arbitrary attribute
      *

@@ -56,11 +56,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         return;
     }
     const SumoXMLAttrMask mask = MSDevice_FCD::getWrittenAttributes();
-    const bool maskSet = oc.isSet("fcd-output.attributes");
     const bool useGeo = oc.getBool("fcd-output.geo");
-    const bool signals = oc.getBool("fcd-output.signals") || (maskSet && of.useAttribute(SUMO_ATTR_SIGNALS, mask));
-    const bool writeAccel = oc.getBool("fcd-output.acceleration") || (maskSet && of.useAttribute(SUMO_ATTR_ACCELERATION, mask));
-    const bool writeDistance = oc.getBool("fcd-output.distance") || (maskSet && of.useAttribute(SUMO_ATTR_DISTANCE, mask));
     const double maxLeaderDistance = oc.getFloat("fcd-output.max-leader-distance");
     std::vector<std::string> params = oc.getStringVector("fcd-output.params");
     MSNet* net = MSNet::getInstance();
@@ -114,17 +110,17 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 }
                 of.writeOptionalAttr(SUMO_ATTR_SLOPE, veh->getSlope(), mask);
                 if (microVeh != nullptr) {
-                    if (signals) {
+                    if (mask.test(SUMO_ATTR_SIGNALS)) {
                         of.writeOptionalAttr(SUMO_ATTR_SIGNALS, toString(microVeh->getSignals()), mask);
                     }
-                    if (writeAccel) {
+                    if (mask.test(SUMO_ATTR_ACCELERATION)) {
                         of.writeOptionalAttr(SUMO_ATTR_ACCELERATION, toString(microVeh->getAcceleration()), mask);
                         if (MSGlobals::gSublane) {
                             of.writeOptionalAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat(), mask);
                         }
                     }
                 }
-                if (writeDistance) {
+                if (mask.test(SUMO_ATTR_DISTANCE)) {
                     double lanePos = veh->getPositionOnLane();
                     if (microVeh != nullptr && microVeh->getLane()->isInternal()) {
                         lanePos = microVeh->getRoute().getDistanceBetween(0., lanePos, microVeh->getEdge()->getLanes()[0], microVeh->getLane(),
@@ -156,7 +152,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                         of.writeAttr(StringUtils::escapeXML(key), StringUtils::escapeXML(value));
                     }
                 }
-                if (of.useAttribute(SUMO_ATTR_ARRIVALDELAY, mask)) {
+                if (mask.test(SUMO_ATTR_ARRIVALDELAY)) {
                     double arrivalDelay = baseVeh->getStopArrivalDelay();
                     if (arrivalDelay == INVALID_DOUBLE) {
                         // no upcoming stop also means that there is no delay
