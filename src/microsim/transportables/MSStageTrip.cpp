@@ -206,7 +206,7 @@ MSStageTrip::reroute(const SUMOTime time, MSTransportableRouter& router, MSTrans
         bool carUsed = false;
         for (std::vector<MSTransportableRouter::TripItem>::iterator it = minResult.begin(); it != minResult.end(); ++it) {
             if (!it->edges.empty()) {
-                MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
+                MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop);
                 double localArrivalPos = bs != nullptr ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
                 const MSEdge* const first = it->edges.front();
                 const MSEdge* const rideOrigin = origin->isTazConnector() && stages.empty() ? first : nullptr;
