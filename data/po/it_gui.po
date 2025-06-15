@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-01 11:33+0000\n"
-"PO-Revision-Date: 2025-05-27 08:11+0000\n"
+"PO-Revision-Date: 2025-06-16 05:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11436,15 +11436,15 @@ msgstr "' ha bisogno di almeno una corsia"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:67
 msgid "add data set"
-msgstr ""
+msgstr "aggiungi insieme di dati"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:91
 msgid "add data set and data interval"
-msgstr ""
+msgstr "aggiungi insieme di dati e periodo di dati"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:107
 msgid "add data interval"
-msgstr ""
+msgstr "aggiungi periodo di dati"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:138
 #: src/netedit/elements/data/GNEDataHandler.cpp:184
@@ -11617,11 +11617,11 @@ msgstr "Parcheggio di destinazione invalido '%' utilizzato in % di % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:164
 msgid "Invalid from route '%' used in % of % '%'"
-msgstr ""
+msgstr "Itinerario originario '%' utilizzato in % di % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:167
 msgid "Invalid to route '%' used in % of % '%'"
-msgstr ""
+msgstr "Itinerario di destinazione invalido '%' utilizzato in % di % '%'"
 
 #: src/netedit/elements/demand/GNERoute.cpp:274
 msgid "Cannot repeat in routes with only one edge"
@@ -12369,7 +12369,7 @@ msgstr "Cambia elemento padre a questo elemento"
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:669
 #, c-format
 msgid "Inspect % parent"
-msgstr ""
+msgstr "Ispeziona elemento padre %"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:689
 msgid "Open dialog for editing vClasses"
@@ -12381,11 +12381,11 @@ msgstr "Apri finestra per modificare il colore"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:730
 msgid "Open dialog to select an existent file"
-msgstr ""
+msgstr "Apri dialogo per selezionare un file esistente"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:732
 msgid "Open dialog to select or create an existent file"
-msgstr ""
+msgstr "Apri dialogo per selezionare o creare un file"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:78
 msgid "Front element"
@@ -12397,7 +12397,7 @@ msgstr "Apri dialogo dell'elemento"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:84
 msgid "Open help attributes dialog"
-msgstr ""
+msgstr "Apri dialogo di aiuto per gli attributi"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:86
 msgid "Reset attributes"
