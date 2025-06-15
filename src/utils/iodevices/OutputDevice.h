@@ -345,10 +345,13 @@ public:
         return myFormatter->wroteHeader();
     }
 
+    void setExpectedAttributes(const SumoXMLAttrMask& expected, const SumoXMLAttrMask& nullable) {
+        myFormatter->setExpectedAttributes(expected, nullable);
+    }
+
 protected:
     /// @brief Returns the associated ostream
     virtual std::ostream& getOStream() = 0;
-
 
     /** @brief Called after every write access.
      *

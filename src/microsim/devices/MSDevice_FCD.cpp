@@ -43,7 +43,8 @@ std::vector<PositionVector> MSDevice_FCD::myShape4Filters;
 bool MSDevice_FCD::myEdgeFilterInitialized(false);
 bool MSDevice_FCD::myShapeFilterInitialized(false);
 bool MSDevice_FCD::myShapeFilterDesired(false);
-SumoXMLAttrMask MSDevice_FCD::myWrittenAttributes(getDefaultMask());
+SumoXMLAttrMask MSDevice_FCD::myWrittenAttributes;
+
 
 // ===========================================================================
 // method definitions
@@ -93,23 +94,23 @@ MSDevice_FCD::~MSDevice_FCD() {
 SumoXMLAttrMask
 MSDevice_FCD::getDefaultMask() {
     SumoXMLAttrMask mask;
-    // set all bits to 1
-    mask.set();
-    // some attributes are not written by default and must be enabled via option fcd-output.attributes
-    // (or with an explicit attribute list)
-    mask.reset(SUMO_ATTR_VEHICLE);
-    mask.reset(SUMO_ATTR_ODOMETER);
-    mask.reset(SUMO_ATTR_SPEED_LAT);
-    mask.reset(SUMO_ATTR_POSITION_LAT);
-    mask.reset(SUMO_ATTR_ARRIVALDELAY);
-    mask.reset(SUMO_ATTR_SEGMENT);
-    mask.reset(SUMO_ATTR_QUEUE);
-    mask.reset(SUMO_ATTR_ENTRYTIME);
-    mask.reset(SUMO_ATTR_EVENTTIME);
-    mask.reset(SUMO_ATTR_BLOCKTIME);
-    mask.reset(SUMO_ATTR_SIGNALS);
-    mask.reset(SUMO_ATTR_ACCELERATION);
-    mask.reset(SUMO_ATTR_DISTANCE);
+    mask.set(SUMO_ATTR_X);
+    mask.set(SUMO_ATTR_Y);
+    if (MSNet::getInstance()->hasElevation()) {
+        mask.set(SUMO_ATTR_Z);
+    }
+    mask.set(SUMO_ATTR_ANGLE);
+    mask.set(SUMO_ATTR_TYPE);
+    mask.set(SUMO_ATTR_SPEED);
+    mask.set(SUMO_ATTR_POSITION);
+    mask.set(SUMO_ATTR_LANE); // for micro vehicles only
+    mask.set(SUMO_ATTR_EDGE); // for persons and meso vehicles
+    mask.set(SUMO_ATTR_SLOPE);
+    if (!MSGlobals::gUseMesoSim && OptionsCont::getOptions().getFloat("fcd-output.max-leader-distance") > 0.) {
+        mask.set(SUMO_ATTR_LEADER_ID);
+        mask.set(SUMO_ATTR_LEADER_SPEED);
+        mask.set(SUMO_ATTR_LEADER_GAP);
+    }
     return mask;
 }
 
@@ -177,6 +178,8 @@ MSDevice_FCD::initOnce() {
     }
     if (oc.isSet("fcd-output.attributes")) {
         myWrittenAttributes = OutputDevice::parseWrittenAttributes(oc.getStringVector("fcd-output.attributes"), "fcd output");
+    } else {
+        myWrittenAttributes = getDefaultMask();
     }
     if (oc.getBool("fcd-output.signals")) {
         myWrittenAttributes.set(SUMO_ATTR_SIGNALS);
@@ -184,6 +187,7 @@ MSDevice_FCD::initOnce() {
     if (oc.getBool("fcd-output.acceleration")) {
         myWrittenAttributes.set(SUMO_ATTR_ACCELERATION);
     }
+    myWrittenAttributes.set(SUMO_ATTR_ACCELERATION_LAT, myWrittenAttributes.test(SUMO_ATTR_ACCELERATION) && MSGlobals::gSublane);
     if (oc.getBool("fcd-output.distance")) {
         myWrittenAttributes.set(SUMO_ATTR_DISTANCE);
     }
@@ -193,6 +197,11 @@ MSDevice_FCD::initOnce() {
         myShapeFilterDesired = true;
         buildShapeFilter();
     }
+    OutputDevice& of = OutputDevice::getDeviceByOption("fcd-output");
+    SumoXMLAttrMask nullable;
+    nullable.set(SUMO_ATTR_EDGE);
+    nullable.set(SUMO_ATTR_LANE);
+    of.setExpectedAttributes(myWrittenAttributes, nullable);
 }
 
 

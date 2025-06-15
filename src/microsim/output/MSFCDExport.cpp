@@ -110,15 +110,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 }
                 of.writeOptionalAttr(SUMO_ATTR_SLOPE, veh->getSlope(), mask);
                 if (microVeh != nullptr) {
-                    if (mask.test(SUMO_ATTR_SIGNALS)) {
-                        of.writeOptionalAttr(SUMO_ATTR_SIGNALS, toString(microVeh->getSignals()), mask);
-                    }
-                    if (mask.test(SUMO_ATTR_ACCELERATION)) {
-                        of.writeOptionalAttr(SUMO_ATTR_ACCELERATION, toString(microVeh->getAcceleration()), mask);
-                        if (MSGlobals::gSublane) {
-                            of.writeOptionalAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat(), mask);
-                        }
-                    }
+                    of.writeOptionalAttr(SUMO_ATTR_SIGNALS, microVeh->getSignals(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_ACCELERATION, microVeh->getAcceleration(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat(), mask);
                 }
                 if (mask.test(SUMO_ATTR_DISTANCE)) {
                     double lanePos = veh->getPositionOnLane();
@@ -136,9 +130,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 if (maxLeaderDistance >= 0 && microVeh != nullptr) {
                     std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
                     if (leader.first != nullptr) {
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, toString(leader.first->getID()), mask);
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, toString(leader.first->getSpeed()), mask);
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, toString(leader.second + microVeh->getVehicleType().getMinGap()), mask);
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, leader.first->getID(), mask);
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, leader.first->getSpeed(), mask);
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, leader.second + microVeh->getVehicleType().getMinGap(), mask);
                     } else {
                         of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, "", mask);
                         of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, -1, mask);

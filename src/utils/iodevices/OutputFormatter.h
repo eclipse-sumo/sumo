@@ -117,6 +117,11 @@ public:
         return myType;
     }
 
+    virtual void setExpectedAttributes(const SumoXMLAttrMask& expected, const SumoXMLAttrMask& nullable) {
+        UNUSED_PARAMETER(expected);
+        UNUSED_PARAMETER(nullable);
+    }
+
 private:
     const OutputFormatterType myType;
 };

@@ -125,8 +125,9 @@ public:
         return myMaxDepth != 0;
     }
 
-    void setExpectedAttrs(SumoXMLAttrMask expectedAttrs) {
-        myExpectedAttrs = expectedAttrs;
+    void setExpectedAttributes(const SumoXMLAttrMask& expected, const SumoXMLAttrMask& nullable) {
+        myExpectedAttrs = expected;
+        myNullableAttrs = nullable;
     }
 
 private:
@@ -143,6 +144,7 @@ private:
     int myMaxDepth;
 
     SumoXMLAttrMask myExpectedAttrs;
+    SumoXMLAttrMask myNullableAttrs;
     SumoXMLAttrMask mySeenAttrs;
 };
 
