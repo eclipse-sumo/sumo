@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-01 11:33+0000\n"
-"PO-Revision-Date: 2025-05-21 06:41+0000\n"
+"PO-Revision-Date: 2025-06-16 05:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12396,11 +12396,11 @@ msgstr "Öffne Dialog zur Farbwahl"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:730
 msgid "Open dialog to select an existent file"
-msgstr ""
+msgstr "Dialog zur Auswahl einer existierenden Datei öffnen"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:732
 msgid "Open dialog to select or create an existent file"
-msgstr ""
+msgstr "Dialog zur Dateiauswahl öffnen"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:78
 msgid "Front element"
@@ -12412,11 +12412,11 @@ msgstr "Elementdialog öffnen"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:84
 msgid "Open help attributes dialog"
-msgstr ""
+msgstr "Hilfsdialog für Attribute öffnen"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:86
 msgid "Reset attributes"
-msgstr ""
+msgstr "Attribute zurücksetzen"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:94
 msgid "Edit extended attributes"
@@ -12429,7 +12429,7 @@ msgstr "%-Dialog öffnen"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:306
 msgid "Invalid value '%' in attribute %"
-msgstr ""
+msgstr "Ungültiger Wert '%' in Attribut %"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:460
 #: src/netedit/frames/GNEAttributesEditorType.cpp:493
