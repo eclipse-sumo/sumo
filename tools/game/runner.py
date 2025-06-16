@@ -626,9 +626,9 @@ def main():
             os.environ.get("SUMO_HOME", ""), "data", "3D")
 
     root = Tkinter.Tk()
-    IMAGE.dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
-    IMAGE.sumoLogo = Tkinter.PhotoImage(file='sumo_logo.gif')
-    IMAGE.qrCode = Tkinter.PhotoImage(file='qr_sumo.dlr.de.gif')
+    IMAGE.dlrLogo = Tkinter.PhotoImage(file=os.path.join(BASE, 'dlr.gif'))
+    IMAGE.sumoLogo = Tkinter.PhotoImage(file=os.path.join(BASE, 'sumo_logo.gif'))
+    IMAGE.qrCode = Tkinter.PhotoImage(file=os.path.join(BASE, 'qr_sumo.dlr.de.gif'))
     StartDialog(root, _LANGUAGE_CAPTIONS, options.language)
     root.mainloop()
 
