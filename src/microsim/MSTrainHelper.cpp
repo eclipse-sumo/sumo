@@ -25,7 +25,7 @@
 #include <microsim/MSEdge.h>
 #include "MSTrainHelper.h"
 
-#define MIN_SCALED_CARRIAGE_LENGTH 5
+#define MIN_SCALED_CARRIAGE_LENGTH 5.
 
 const double MSTrainHelper::PEDESTRIAN_RADIUS_EXTRA_TOLERANCE = 0.01;
 
@@ -47,9 +47,10 @@ MSTrainHelper::computeTrainDimensions(double exaggeration, bool secondaryShape, 
         myLocomotiveLength = myDefaultLength;
     }
     const double minLength = MIN2(myLocomotiveLength, myDefaultLength);
+    const double minScaledLength = MIN2(MIN_SCALED_CARRIAGE_LENGTH, minLength);
     myUnscale = geometryScale == 1 && laneFactor != 1;
-    if (geometryScale < 1 && minLength * geometryScale < MIN_SCALED_CARRIAGE_LENGTH) {
-        const double rescaleSmall = MIN_SCALED_CARRIAGE_LENGTH / (minLength * geometryScale);
+    if (geometryScale < 1 && minLength * geometryScale < minScaledLength) {
+        const double rescaleSmall = minScaledLength / (minLength * geometryScale);
         myLocomotiveLength *= rescaleSmall;
         myDefaultLength *= rescaleSmall;
     }
