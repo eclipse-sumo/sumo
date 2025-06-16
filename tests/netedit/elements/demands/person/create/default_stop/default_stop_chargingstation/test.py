@@ -32,7 +32,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("person")
 
 # change person plan
-netedit.changePersonPlan("Person Stop", False)
+netedit.changePlan("person", "Person Stop", False)
 
 # create route clicking over busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)

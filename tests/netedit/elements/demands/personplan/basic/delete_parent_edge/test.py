@@ -32,7 +32,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("person")
 
 # change person plan
-netedit.changePersonPlan("walk", False)
+netedit.changePlan("person", "walk", False)
 
 # create route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

@@ -32,7 +32,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("person")
 
 # change person plan
-netedit.changePersonPlan("stop", False)
+netedit.changePlan("person", "stop", False)
 
 # create stop clicking over lane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

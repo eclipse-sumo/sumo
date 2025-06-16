@@ -35,7 +35,7 @@ netedit.changeMode("person")
 netedit.changeElement("personFrame", "personFlow")
 
 # change person plan
-netedit.changePersonPlan("walk (edges)", True)
+netedit.changePlan("person", "walk (edges)", True)
 
 # create person
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
