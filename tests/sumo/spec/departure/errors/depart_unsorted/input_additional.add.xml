@@ -1,0 +1,17 @@
+<routes>
+
+	<vehicle id="a" depart="1" route="1"/>
+	<vehicle id="b" depart="0" route="1"/>
+    <!-- create a teleport warning in the simulation to check the warning order -->
+	<vehicle id="c" depart="5" route="1">
+        <stop lane="beg_0" endPos="200" duration="100"/>
+    </vehicle>
+	<vehicle id="c2" depart="5" route="1">
+        <stop lane="beg_1" endPos="200" duration="100" departLane="1"/>
+    </vehicle>
+	<vehicle id="c3" depart="5" route="1">
+        <stop lane="beg_2" endPos="200" duration="100" departLane="2"/>
+    </vehicle>
+	<vehicle id="d" depart="6" route="1"/>
+
+</routes>

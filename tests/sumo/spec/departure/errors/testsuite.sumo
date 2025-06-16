@@ -33,3 +33,4 @@ slow_lane_ahead
 
 # checks using fast insertion before a slow lane
 slow_lane_ahead_ignore
+depart_unsorted
