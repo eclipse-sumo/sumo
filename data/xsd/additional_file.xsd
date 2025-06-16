@@ -447,9 +447,10 @@
     </xsd:complexType>
 
     <xsd:complexType name="containerStopType">
-        <xsd:sequence>
+        <xsd:choice  minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
-        </xsd:sequence>
+            <xsd:element name="access" type="accessType" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="color" type="colorType" use="optional"/>
