@@ -74,7 +74,7 @@ public:
                SumoXMLTag element,
                const std::vector<std::string>& lines, MSLane& lane,
                double frompos, double topos, const std::string name,
-               int personCapacity, double parkingLength, const RGBColor& color);
+               int personCapacity, double parkingLength, const RGBColor& color, double angle);
 
 
     /// @brief Destructor

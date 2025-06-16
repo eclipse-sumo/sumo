@@ -316,7 +316,7 @@ protected:
      */
     virtual void buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
                                     double frompos, double topos, const SumoXMLTag element, std::string string,
-                                    int personCapacity, double parkingLength, RGBColor& color);
+                                    int personCapacity, double parkingLength, RGBColor& color, double angle);
 
     /** @brief Builds a charging station
      *
