@@ -127,7 +127,7 @@ private:
     void processSetupAndStartFunction();
 
     /// @brief process left click function
-    void processLeftClickFunction() const;
+    void processLeftClickFunction(const std::string& modifier) const;
 
     /// @brief process typeKey function
     void processTypeKeyFunction() const;

@@ -47,7 +47,11 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     if (function == "setupAndStart") {
         processSetupAndStartFunction();
     } else if (function == "leftClick") {
-        processLeftClickFunction();
+        processLeftClickFunction("");
+    } else if (function == "leftClickControl") {
+        processLeftClickFunction("control");
+    } else if (function == "leftClickShift") {
+        processLeftClickFunction("shift");
     } else if (function == "typeKey") {
         processTypeKeyFunction();
     } else if (function == "modifyAttribute") {
@@ -328,21 +332,41 @@ InternalTestStep::processSetupAndStartFunction() {
 
 
 void
-InternalTestStep::processLeftClickFunction() const {
+InternalTestStep::processLeftClickFunction(const std::string& modifier) const {
     if ((myArguments.size() != 2) || (myTestSystem->myViewPositions.count(myArguments[1]) == 0)) {
         writeError("leftClick", "<reference, position>");
     } else {
         // parse arguments
         const int posX = myTestSystem->myViewPositions.at(myArguments[1]).first;
         const int posY = myTestSystem->myViewPositions.at(myArguments[1]).second;
-        // print info
-        std::cout << "TestFunctions: Clicked over position " <<
-                  toString(posX + MOUSE_REFERENCE_X) << " - " <<
-                  toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+
+        // check if add key modifier
+        if (modifier == "control") {
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(modifier), false);
+            // print info
+            std::cout << "TestFunctions: Clicked with Control key pressed over position " <<
+                      toString(posX + MOUSE_REFERENCE_X) << " - " <<
+                      toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+        } else if (modifier == "shift") {
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(modifier), false);
+            // print info
+            std::cout << "TestFunctions: Clicked with Shift key pressed over position " <<
+                      toString(posX + MOUSE_REFERENCE_X) << " - " <<
+                      toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+        } else {
+            // print info
+            std::cout << "TestFunctions: Clicked over position " <<
+                      toString(posX + MOUSE_REFERENCE_X) << " - " <<
+                      toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+        }
         // add move, left button press and left button release
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(posX, posY), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(posX, posY), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(posX, posY), true);
+        // check if add key modifier
+        if (!modifier.empty()) {
+            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(modifier), true);
+        }
     }
 }
 
@@ -375,8 +399,12 @@ InternalTestStep::processModifyAttributeFunction() const {
             buildPressKeyEvent("tab", false);
         }
         // write attribute character by character
-        for (const char c : value) {
-            buildPressKeyEvent(c, false);
+        if (value.empty()) {
+            buildPressKeyEvent("delete", false);
+        } else {
+            for (const char c : value) {
+                buildPressKeyEvent(c, false);
+            }
         }
         // press enter to confirm changes (updating view)
         buildPressKeyEvent("enter", true);
@@ -872,7 +900,7 @@ InternalTestStep::processChangeElementArgument() const {
             numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.personPlan");
         } else if (frame == "containerPlanFrame") {
             numTabs = myTestSystem->myAttributesEnum.at("netedit.netedit.attrs.frames.changeElement.containerPlan");
-        } else if (frame == "stopFrameFrame") {
+        } else if (frame == "stopFrame") {
             numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.stop");
         } else if (frame == "meanDataFrame") {
             numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.meanData");
