@@ -32,6 +32,12 @@ jobs:
         ref: ${{ matrix.jps_version }}
         path: jupedsim
 
+    - name: Configuring Python
+      # mainly to avoid the automated choice of the free-threaded version
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
     - name: Cloning SUMO
       # this does not a full clone to speed up the build, version number will be incorrect
       uses: actions/checkout@v4
