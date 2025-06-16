@@ -44,7 +44,7 @@ InternalTest::InternalTest(const std::string& testFile) {
     std::ifstream strm(testFile);
     // check if file can be opened
     if (!strm.good()) {
-        WRITE_ERRORF(TL("Could not open test file '%'."), testFile);
+        throw ProcessError("Could not open test file '" + testFile + "'.");
     } else if (myAttributesEnum.empty() || myContextualMenuOperations.empty() || myViewPositions.empty()) {
         throw ProcessError("Error loading test data files");
     } else {
