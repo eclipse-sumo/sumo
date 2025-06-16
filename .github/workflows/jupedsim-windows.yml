@@ -36,7 +36,7 @@ jobs:
       # mainly to avoid the automated choice of the free-threaded version
       uses: actions/setup-python@v5
       with:
-        python-version: '3.13'
+        python-version: '3.12'
 
     - name: Cloning SUMO
       # this does not a full clone to speed up the build, version number will be incorrect
