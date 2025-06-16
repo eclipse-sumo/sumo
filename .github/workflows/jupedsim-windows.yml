@@ -33,7 +33,7 @@ jobs:
         path: jupedsim
 
     - name: Configuring Python
-      # mainly to avoid the automated choice of the free-threaded version
+      # to avoid issues similar to https://github.com/saghul/pycares/issues/234
       uses: actions/setup-python@v5
       with:
         python-version: '3.12'
@@ -59,10 +59,7 @@ jobs:
         variant: sccache
 
     - name: Building jupedsim
-      # the virtualenv is mainly to avoid the automated choice of the free-threaded version
       run: |
-        python -m venv jupedsim_build_env
-        jupedsim_build_env\Scripts\activate
         cmake -B jupedsim-build-${{ matrix.build_config }} -DCMAKE_INSTALL_PREFIX=jupedsim-install-${{ matrix.build_config }} jupedsim
         cmake --build jupedsim-build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }}
         cmake --install jupedsim-build-${{ matrix.build_config }} --config ${{ matrix.build_config }}
