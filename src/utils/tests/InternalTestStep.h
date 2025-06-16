@@ -180,6 +180,9 @@ private:
     /// @brief process change element function
     void processChangeElementArgument() const;
 
+    /// @bief process change plan function
+    void processChangePlanArgument() const;
+
     /// @brief process compute function
     void processComputeFunction();
 

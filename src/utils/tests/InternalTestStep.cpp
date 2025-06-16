@@ -74,6 +74,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         processChangeModeFunction();
     } else if (function == "changeElement") {
         processChangeElementArgument();
+    } else if (function == "changePlan") {
+        processChangePlanArgument();
     } else if (function == "compute") {
         processComputeFunction();
     } else if (function == "saveExistentShortcut") {
@@ -339,7 +341,6 @@ InternalTestStep::processLeftClickFunction(const std::string& modifier) const {
         // parse arguments
         const int posX = myTestSystem->myViewPositions.at(myArguments[1]).first;
         const int posY = myTestSystem->myViewPositions.at(myArguments[1]).second;
-
         // check if add key modifier
         if (modifier == "control") {
             new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(modifier), false);
@@ -376,7 +377,7 @@ InternalTestStep::processTypeKeyFunction() const {
     if (myArguments.size() != 1) {
         writeError("typeKey", "<key>");
     } else {
-        buildPressKeyEvent(myArguments[0], true);
+        buildPressKeyEvent(getStringArgument(myArguments[0]), true);
     }
 }
 
@@ -920,6 +921,48 @@ InternalTestStep::processChangeElementArgument() const {
             for (const char c : element) {
                 buildPressKeyEvent(c, false);
             }
+            // press enter to confirm changes (updating view)
+            buildPressKeyEvent("enter", true);
+        }
+    }
+}
+
+
+void
+InternalTestStep::processChangePlanArgument()  const {
+    if ((myArguments.size() != 3) ||
+            !checkStringArgument(myArguments[0]) ||
+            !checkStringArgument(myArguments[1]) ||
+            !checkBoolArgument(myArguments[2])) {
+        writeError("changePlan", "<\"type\", \"plan\", true/false>");
+    } else {
+        // get arguments
+        const std::string type = getStringArgument(myArguments[0]);
+        const std::string plan = getStringArgument(myArguments[1]);
+        const bool flow = getBoolArgument(myArguments[2]);
+        // check plan
+        if ((type != "person") && (type != "container")) {
+            WRITE_ERRORF("invalid plan type '%' used in processChangePlanArgument()", type);
+        } else {
+            // calculate num tabs
+            int numTabs = 0;
+            if (flow) {
+                numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changePlan." + type + "Flow");
+            } else {
+                numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changePlan." + type);
+            }
+            // focus frame
+            new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+            // jump to select additional argument
+            for (int i = 0; i < numTabs; i++) {
+                buildPressKeyEvent("tab", false);
+            }
+            // write additional character by character
+            for (const char c : plan) {
+                buildPressKeyEvent(c, false);
+            }
+            // print info
+            std::cout << plan << std::endl;
             // press enter to confirm changes (updating view)
             buildPressKeyEvent("enter", true);
         }
