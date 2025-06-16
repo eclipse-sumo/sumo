@@ -44,6 +44,27 @@ public:
         COLOR,  // send signal to color dialog
     };
 
+    /// @brief extra arguments (used for certain functions that opens modal dialogs)
+    struct ModalArguments {
+
+        /// @brief constructor
+        ModalArguments(std::vector<FXuint> values_) :
+            values(values_) {
+        }
+
+        /// @brief yes value
+        static const FXuint yes = 1;
+
+        /// @brief no value
+        static const FXuint no = 2;
+
+        /// @brief ESC or cancel value
+        static const FXuint esc = 4;
+
+        /// @brief used if we have multiple modal dialogs
+        const std::vector<FXuint> values;
+    };
+
     /// @brief constructor for parsing step in strin format
     InternalTestStep(InternalTest* testSystem, const std::string& step);
 
@@ -66,6 +87,9 @@ public:
 
     /// @brief get message ID
     FXSelector getMessageID() const;
+
+    /// @brief get modal arguments
+    ModalArguments* getModalArguments() const;
 
     /// @brief get selector (based in messageType and messageID)
     FXSelector getSelector() const;
@@ -113,6 +137,9 @@ private:
 
     /// @brief list of events associated with this step
     FXEvent* myEvent = nullptr;
+
+    /// @brief extra arguments
+    ModalArguments* myModalArguments = nullptr;
 
     /// @brief key events used in certain dialogs (color, allowDialog, etc.)
     std::vector<const InternalTestStep*> myKeySteps;
@@ -178,13 +205,16 @@ private:
     void processChangeModeFunction();
 
     /// @brief process change element function
-    void processChangeElementArgument() const;
+    void processChangeElementFunction() const;
 
     /// @bief process change plan function
-    void processChangePlanArgument() const;
+    void processChangePlanFunction() const;
 
-    /// @brief process compute function
-    void processComputeFunction();
+    /// @brief process compute junctions function
+    void processComputeJunctionsFunction();
+
+    /// @brief process compute junctions with volatile options function
+    void processComputeJunctionsVolatileOptionsFunction();
 
     /// @brief process quit function
     void processQuitFunction();

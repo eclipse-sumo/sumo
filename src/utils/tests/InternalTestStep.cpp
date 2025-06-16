@@ -73,11 +73,13 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     } else if (function == "changeMode") {
         processChangeModeFunction();
     } else if (function == "changeElement") {
-        processChangeElementArgument();
+        processChangeElementFunction();
     } else if (function == "changePlan") {
-        processChangePlanArgument();
-    } else if (function == "compute") {
-        processComputeFunction();
+        processChangePlanFunction();
+    } else if (function == "computeJunctions") {
+        processComputeJunctionsFunction();
+    } else if (function == "computeJunctionsVolatileOptions") {
+        processComputeJunctionsVolatileOptionsFunction();
     } else if (function == "saveExistentShortcut") {
         processSaveExistentShortcutFunction();
     } else if (function == "checkUndoRedo") {
@@ -135,6 +137,9 @@ InternalTestStep::~InternalTestStep() {
     if (myEvent) {
         delete myEvent;
     }
+    if (myModalArguments) {
+        delete myModalArguments;
+    }
     // remove all key steps
     for (auto keyStep : myKeySteps) {
         delete keyStep;
@@ -152,6 +157,12 @@ InternalTestStep::getMessageType() const {
 FXSelector
 InternalTestStep::getMessageID() const {
     return myMessageID;
+}
+
+
+InternalTestStep::ModalArguments*
+InternalTestStep::getModalArguments() const {
+    return myModalArguments;
 }
 
 
@@ -876,7 +887,7 @@ InternalTestStep::processChangeModeFunction() {
 
 
 void
-InternalTestStep::processChangeElementArgument() const {
+InternalTestStep::processChangeElementFunction() const {
     if ((myArguments.size() != 2) ||
             !checkStringArgument(myArguments[0])) {
         writeError("selectAdditional", "<\"frame\", \"string\">");
@@ -906,7 +917,7 @@ InternalTestStep::processChangeElementArgument() const {
         } else if (frame == "meanDataFrame") {
             numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.meanData");
         } else {
-            WRITE_ERRORF("Invalid frame '%' used in function processChangeElementArgument", frame);
+            WRITE_ERRORF("Invalid frame '%' used in function processChangeElementFunction", frame);
         }
         if (numTabs >= 0) {
             // show info
@@ -929,7 +940,7 @@ InternalTestStep::processChangeElementArgument() const {
 
 
 void
-InternalTestStep::processChangePlanArgument()  const {
+InternalTestStep::processChangePlanFunction()  const {
     if ((myArguments.size() != 3) ||
             !checkStringArgument(myArguments[0]) ||
             !checkStringArgument(myArguments[1]) ||
@@ -942,7 +953,7 @@ InternalTestStep::processChangePlanArgument()  const {
         const bool flow = getBoolArgument(myArguments[2]);
         // check plan
         if ((type != "person") && (type != "container")) {
-            WRITE_ERRORF("invalid plan type '%' used in processChangePlanArgument()", type);
+            WRITE_ERRORF("invalid plan type '%' used in processChangePlanFunction()", type);
         } else {
             // calculate num tabs
             int numTabs = 0;
@@ -971,12 +982,28 @@ InternalTestStep::processChangePlanArgument()  const {
 
 
 void
-InternalTestStep::processComputeFunction() {
+InternalTestStep::processComputeJunctionsFunction() {
     if (myArguments.size() > 0) {
-        writeError("compute", "<>");
+        writeError("computeJunctions", "<>");
     } else {
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND;
+    }
+}
+
+
+void
+InternalTestStep::processComputeJunctionsVolatileOptionsFunction() {
+    if (myArguments.size() > 1) {
+        writeError("computeJunctionsVolatileOptions", "<True/False>");
+    } else {
+        FXuint result = ModalArguments::yes;
+        if ((myArguments.size() == 1) && (myArguments[0] == "False")) {
+            result = ModalArguments::no;
+        }
+        myCategory = Category::APP;
+        myMessageID = MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE;
+        myModalArguments = new ModalArguments({result});
     }
 }
 

@@ -30,6 +30,7 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/shapes/ShapeHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/tests/InternalTestStep.h>
 
 #include "GNEViewNetHelper.h"
 
