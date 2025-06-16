@@ -21,7 +21,7 @@
 #include <utils/tests/InternalTest.h>
 #include <utils/tests/InternalTestStep.h>
 
-#include "MFXColorDialog.cpp"
+#include "MFXColorDialog.h"
 
 
 MFXColorDialog::MFXColorDialog(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
