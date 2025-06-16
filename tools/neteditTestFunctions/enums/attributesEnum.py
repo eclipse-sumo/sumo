@@ -90,14 +90,11 @@ class attrs:
                 saveAs = 2
                 reload = 3
 
-
     class editElements:
         overlapped = 5
 
-
     class move:
         moveWholePolygon = 5
-
 
     class selection:
         class lockSelectionNetwork:
@@ -117,7 +114,6 @@ class attrs:
             selected = 14
             lockAll = 15
             unlockAll = 16
-
 
     class modes:
         class network:
@@ -163,7 +159,6 @@ class attrs:
             TAZRelOnlyFrom = '7'
             TAZRelOnlyTo = '8'
 
-
     class frames:
         class changeElement:
             additional = 2
@@ -190,16 +185,21 @@ class attrs:
             load = 25
             reduce = 26
             invertData = 27
-        
+
         class changeParentElement:
             route = 4
             stop = 2
+
+        class changePlan:
+            person = 22
+            personFlow = 29
+            container = 22
+            containerFlow = 29
 
         class route:
             create = 15
             abort = 16
             removeLastInsertedEdge = 17
-
 
     class fix:
         class demandElements:
@@ -213,7 +213,6 @@ class attrs:
     # --------------------------------
 
     # junction
-
 
     class junction:
         class inspect:
@@ -281,7 +280,6 @@ class attrs:
             reset = 19
 
     # edge
-
 
     class edge:
         class create:
@@ -363,7 +361,6 @@ class attrs:
 
     # lane
 
-
     class lane:
         class create:
             add = 24
@@ -423,7 +420,6 @@ class attrs:
             reset = 23
 
     # connection
-
 
     class connection:
         class inspect:
@@ -528,7 +524,6 @@ class attrs:
 
     # crossing
 
-
     class crossing:
         class create:
             edges = 2
@@ -588,7 +583,6 @@ class attrs:
         clearEdges = 3
         useSelectedEdges = 3
         firstField = 3
-
 
     # TLS
 
@@ -763,13 +757,11 @@ class attrs:
         resetPhaseJoined = 12
         resetAllJoined = 13
 
-
     # --------------------------------
     # ADDITIONALS
     # --------------------------------
 
     # busStop
-
 
     class busStop:
         class create:
@@ -834,9 +826,7 @@ class attrs:
             helpDialog = 20
             reset = 21
 
-
     # trainStop
-
 
     class trainStop:
         class create:
@@ -902,7 +892,6 @@ class attrs:
             reset = 21
 
     # containerStop
-
 
     class containerStop:
         class create:
@@ -970,7 +959,6 @@ class attrs:
     # until here
 
     # chargingStation
-
 
     class chargingStation:
         class create:
@@ -1041,7 +1029,6 @@ class attrs:
 
     # access
 
-
     class access:
         class create:
             friendlyPos = 5
@@ -1077,7 +1064,6 @@ class attrs:
             reset = 12
 
     # parkingArea
-
 
     class parkingArea:
         class create:
@@ -1151,9 +1137,7 @@ class attrs:
             helpDialog = 23
             reset = 24
 
-
     # parkingSpace
-
 
     class parkingSpace:
         class create:
@@ -1198,7 +1182,6 @@ class attrs:
             reset = 15
 
     # E1
-
 
     class E1:
         class create:
@@ -1257,7 +1240,6 @@ class attrs:
             reset = 18
 
     # E2
-
 
     class E2:
         class create:
@@ -1335,7 +1317,6 @@ class attrs:
 
     # E2Multilane
 
-
     class E2Multilane:
         class create:
             id = 5
@@ -1407,9 +1388,7 @@ class attrs:
             helpDialog = 23
             reset = 24
 
-
     # E3
-
 
     class E3:
         class create:
@@ -1476,7 +1455,6 @@ class attrs:
 
     # entryExit
 
-
     class entryExit:
         class create:
             friendlyPos = 5
@@ -1508,7 +1486,6 @@ class attrs:
             reset = 11
 
     # E1Instant
-
 
     class E1Instant:
         class create:
@@ -1565,7 +1542,6 @@ class attrs:
 
     # calibrator (FALTA CENTER XXXX)
 
-
     class calibrator:
         class create:
             id = 5
@@ -1614,7 +1590,6 @@ class attrs:
 
     # routeProbe (FALTA CENTER XXXX)
 
-
     class routeProbe:
         class create:
             id = 5
@@ -1645,7 +1620,6 @@ class attrs:
 
     # vaporizer (FALTA CENTER XXXX)
 
-
     class vaporizer:
         class create:
             begin = 5
@@ -1672,7 +1646,6 @@ class attrs:
     # --------------------------------
 
     # Poly
-
 
     class poly:
         class create:
@@ -1743,7 +1716,6 @@ class attrs:
 
     # POI
 
-
     class poi:
         class create:
             id = 5
@@ -1808,7 +1780,6 @@ class attrs:
             reset = 22
 
     # POIGEO
-
 
     class poiGeo:
         class create:
@@ -1880,7 +1851,6 @@ class attrs:
             reset = 22
 
     # POILane
-
 
     class poiLane:
         class create:
@@ -1955,7 +1925,6 @@ class attrs:
 
     # jps walkableArea
 
-
     class jpsWalkableArea:
         class create:
             id = 5
@@ -1990,7 +1959,6 @@ class attrs:
             reset = 11
 
     # jps obstacle
-
 
     class jpsObstacle:
         class create:
@@ -2030,7 +1998,6 @@ class attrs:
     # --------------------------------
 
     # TAZ
-
 
     class TAZ:
         class create:
@@ -2083,7 +2050,6 @@ class attrs:
     # --------------------------------
 
     # type
-
 
     class type:
 
@@ -2173,7 +2139,6 @@ class attrs:
 
     # route
 
-
     class route:
         class create:
             id = 7
@@ -2215,7 +2180,6 @@ class attrs:
             reset = 13
 
     # trip (from-to edges)
-
 
     class trip:
         class create:
@@ -2299,7 +2263,6 @@ class attrs:
 
     # trip (from-to junctions)
 
-
     class tripJunction:
         class create:
             type = 5
@@ -2381,7 +2344,6 @@ class attrs:
 
     # trip (from-to TAZs)
 
-
     class tripTAZ:
         class create:
             type = 5
@@ -2462,7 +2424,6 @@ class attrs:
             reset = 27
 
     # vehicle (over route)
-
 
     class vehicle:
         class create:
@@ -2546,7 +2507,6 @@ class attrs:
 
     # vehicle (embedded route)
 
-
     class vehicleEmbedded:
         class create:
             type = 5
@@ -2627,7 +2587,6 @@ class attrs:
             reset = 27
 
     # flow (from-to edges)
-
 
     class flow:
         class create:
@@ -2729,7 +2688,6 @@ class attrs:
 
     # flow (from-to junctions)
 
-
     class flowJunction:
         class create:
             type = 5
@@ -2830,7 +2788,6 @@ class attrs:
 
     # flow (from-to TAZs)
 
-
     class flowTAZ:
         class create:
             type = 5
@@ -2929,7 +2886,6 @@ class attrs:
             reset = 34
 
     # flow (over route)
-
 
     class routeFlow:
         class create:
@@ -3031,7 +2987,6 @@ class attrs:
 
     # flow (embedded route)
 
-
     class flowEmbedded:
         class create:
             type = 5
@@ -3131,7 +3086,6 @@ class attrs:
 
     # stop over bus stop
 
-
     class stopBusStop:
         class create:
             durationEnable = 8
@@ -3191,7 +3145,6 @@ class attrs:
             split = 18
 
     # stop over train stop
-
 
     class stopTrainStop:
         class create:
@@ -3253,7 +3206,6 @@ class attrs:
 
     # stop over container stop
 
-
     class stopContainerStop:
         class create:
             durationEnable = 8
@@ -3313,7 +3265,6 @@ class attrs:
             split = 18
 
     # stop over charging station
-
 
     class stopChargingStation:
         class create:
@@ -3375,7 +3326,6 @@ class attrs:
 
     # stop over parkings
 
-
     class stopParkingArea:
         class create:
             durationEnable = 8
@@ -3432,7 +3382,6 @@ class attrs:
             split = 16
 
     # stop over lane
-
 
     class stopLane:
         class create:
@@ -3504,7 +3453,6 @@ class attrs:
 
     # waypoint over bus stops
 
-
     class waypointBusStop:
         class create:
             durationEnable = 8
@@ -3555,7 +3503,6 @@ class attrs:
             split = 16
 
     # waypoint over train stops
-
 
     class waypointTrainStop:
         class create:
@@ -3608,7 +3555,6 @@ class attrs:
 
     # waypoint over container stops
 
-
     class waypointContainerStop:
         class create:
             durationEnable = 8
@@ -3659,7 +3605,6 @@ class attrs:
             split = 16
 
     # waypoint over charging stations
-
 
     class waypointChargingStation:
         class create:
@@ -3712,7 +3657,6 @@ class attrs:
 
     # waypoint over parkings
 
-
     class waypointParking:
         class create:
             durationEnable = 8
@@ -3760,7 +3704,6 @@ class attrs:
             split = 14
 
     # waypoint (over lane)
-
 
     class waypointLane:
         class create:
@@ -3823,7 +3766,6 @@ class attrs:
 
     # Person
 
-
     class person:
         class create:
             id = 8
@@ -3850,7 +3792,6 @@ class attrs:
             departPos = 7
             depart = 8
             parameters = 10
-
 
     class personFlow:
         class create:
@@ -3895,7 +3836,6 @@ class attrs:
             parameters = 17
 
     # PersonPlans
-
 
     class personTrip:
         class edge:
@@ -4114,7 +4054,6 @@ class attrs:
                     walkFactor = 5
                     group = 6
 
-
     class ride:
         class edge:
             class edge:
@@ -4262,7 +4201,6 @@ class attrs:
                     arrivalPos = 2
                     lines = 3
                     group = 4
-
 
     class walk:
         class edge:
@@ -4412,7 +4350,6 @@ class attrs:
                     speed = 3
                     duration = 4
 
-
     class walkEdges:
         class create:
             arrivalPos = 8
@@ -4422,7 +4359,6 @@ class attrs:
 
         class inspectSelection:
             arrivalPos = 2
-
 
     class walkRoute:
         class create:
@@ -4435,7 +4371,6 @@ class attrs:
             arrivalPos = 2
 
     # Container
-
 
     class container:
         class create:
@@ -4463,7 +4398,6 @@ class attrs:
             departPos = 7
             depart = 8
             parameters = 10
-
 
     class containerFlow:
         class create:
@@ -4508,7 +4442,6 @@ class attrs:
             parameters = 17
 
     # PersonPlans
-
 
     class transport:
         class edge:
@@ -4645,7 +4578,6 @@ class attrs:
                 class inspectSelection:
                     lines = 2
                     group = 3
-
 
     class tranship:
         class edge:
@@ -4784,7 +4716,6 @@ class attrs:
 
     # stop plans
 
-
     class stopPlan:
         class edge:
             class create:
@@ -4834,13 +4765,11 @@ class attrs:
                 until = 5
                 actType = 5
 
-
     # --------------------------------
     # DATA ELEMENTS
     # --------------------------------
 
     # edgeData
-
 
     class edgeData:
         class create:
@@ -4853,7 +4782,6 @@ class attrs:
             parameters = 2
 
     # edgeRelData
-
 
     class edgeRelData:
         class create:
@@ -4869,7 +4797,6 @@ class attrs:
 
     # TAZRelData
 
-
     class TAZRelData:
         class create:
             parameters = 12
@@ -4883,7 +4810,6 @@ class attrs:
             parameters = 2
 
     # edge mean data
-
 
     class edgeMeanData:
 
@@ -4907,7 +4833,6 @@ class attrs:
             aggregate = 24
 
     # lane mean data
-
 
     class laneMeanData:
 
@@ -4933,7 +4858,6 @@ class attrs:
     # --------------------------------
     # Dialogs
     # --------------------------------
-
 
     class dialog:
 

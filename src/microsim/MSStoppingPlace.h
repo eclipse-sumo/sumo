@@ -88,7 +88,8 @@ public:
                     const std::string name = "",
                     int capacity = 0,
                     double parkingLength = 0,
-                    const RGBColor& color = RGBColor::INVISIBLE);
+                    const RGBColor& color = RGBColor::INVISIBLE,
+                    double angle = 90);
 
 
 
@@ -115,6 +116,10 @@ public:
      * @return The position the stop ends at
      */
     double getEndLanePosition() const;
+
+    double getAngle() const {
+        return myAngle;
+    }
 
     /// @brief the position in the middle of the stop shape
     Position getCenterPos() const;
@@ -307,6 +312,9 @@ protected:
 
     /// @brief The color of the stopping place
     const RGBColor myColor;
+
+    /// @brief The angle offset for waiting transportables
+    double myAngle;
 
     /// @brief row depth of waiting transportables
     const double myTransportableDepth;

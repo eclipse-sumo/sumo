@@ -109,7 +109,7 @@ protected:
      */
     void buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
                             double frompos, double topos, const SumoXMLTag element, std::string string,
-                            int personCapacity, double parkingLength, RGBColor& color) override;
+                            int personCapacity, double parkingLength, RGBColor& color, double angle) override;
 
 
     /** @brief Builds a parking area

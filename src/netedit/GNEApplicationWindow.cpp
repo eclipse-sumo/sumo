@@ -1803,12 +1803,17 @@ GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
 
 
 long
-GNEApplicationWindow::computeJunctionWithVolatileOptions() {
+GNEApplicationWindow::computeJunctionWithVolatileOptions(const InternalTestStep::ModalArguments* modalArguments) {
     // declare variable to save FXMessageBox outputs.
     FXuint answer = 0;
-    // open question dialog box
-    answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Recompute with volatile options"),
-                                    TL("Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?"));
+    // check if open dialog or obtain the argument trought input (used in tests)
+    if (modalArguments) {
+        answer = modalArguments->values[0];
+    } else {
+        // open question dialog box
+        answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Recompute with volatile options"),
+                                        TL("Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?"));
+    }
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // abort recompute with volatile options
         return 0;
@@ -1936,7 +1941,9 @@ GNEApplicationWindow::onUpdLockMenuTitle(FXObject*, FXSelector, void*) {
 }
 
 long
-GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
+GNEApplicationWindow::onCmdProcessButton(FXObject* sender, FXSelector sel, void* arg) {
+    // obtain modal arguments from internal tests
+    auto modalArguments = (sender == myInternalTest) ? static_cast<InternalTestStep::ModalArguments*>(arg) : nullptr;
     // first check if there is a view
     if (myViewNet) {
         // process depending of supermode
@@ -1948,7 +1955,7 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
                     updateControls();
                     break;
                 case MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE:
-                    computeJunctionWithVolatileOptions();
+                    computeJunctionWithVolatileOptions(modalArguments);
                     break;
                 case MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES:
                     myNet->removeSolitaryJunctions(myUndoList);

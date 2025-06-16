@@ -1313,6 +1313,10 @@ netedit.attrs.frames.changeElement.stop 5
 netedit.attrs.frames.changeElement.vehicle 2
 netedit.attrs.frames.changeParentElement.route 4
 netedit.attrs.frames.changeParentElement.stop 2
+netedit.attrs.frames.changePlan.container 22
+netedit.attrs.frames.changePlan.containerFlow 29
+netedit.attrs.frames.changePlan.person 22
+netedit.attrs.frames.changePlan.personFlow 29
 netedit.attrs.frames.route.abort 16
 netedit.attrs.frames.route.create 15
 netedit.attrs.frames.route.removeLastInsertedEdge 17

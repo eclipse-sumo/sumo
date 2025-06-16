@@ -35,7 +35,7 @@ netedit.changeMode("person")
 netedit.changeElement("personFrame", "personFlow")
 
 # change person plan
-netedit.changePersonPlan("personTrip", True)
+netedit.changePlan("person", "personTrip", True)
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)

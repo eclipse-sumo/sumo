@@ -32,7 +32,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("container")
 
 # change container plan
-netedit.changeContainerPlan("tranship (edges)", False)
+netedit.changePlan("container", "tranship (edges)", False)
 
 # create container
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

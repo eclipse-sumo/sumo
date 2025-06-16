@@ -69,8 +69,8 @@ GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
 void
 GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
                                       double frompos, double topos, const SumoXMLTag element, std::string name,
-                                      int personCapacity, double parkingLength, RGBColor& color) {
-    myCurrentStop = new GUIBusStop(id, element, lines, *lane, frompos, topos, name, personCapacity, parkingLength, color);
+                                      int personCapacity, double parkingLength, RGBColor& color, double angle) {
+    myCurrentStop = new GUIBusStop(id, element, lines, *lane, frompos, topos, name, personCapacity, parkingLength, color, angle);
     if (!net.addStoppingPlace(element, myCurrentStop)) {
         delete myCurrentStop;
         myCurrentStop = nullptr;

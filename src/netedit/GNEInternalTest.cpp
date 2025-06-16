@@ -46,11 +46,19 @@ GNEInternalTest::runNeteditTests(GNEApplicationWindow* applicationWindow) {
         // process every step
         while (myCurrentStep < myTestSteps.size()) {
             const auto testStep = myTestSteps.at(myCurrentStep);
+            // get argument (either event or modalDialogArgument or nullptr)
+            void* argument = nullptr;
+            if (testStep->getEvent()) {
+                argument = testStep->getEvent();
+            }
+            if (testStep->getModalArguments()) {
+                argument = testStep->getModalArguments();
+            }
             // check if we have to process it in main windows, abstract view or specific view
             if (testStep->getCategory() == InternalTestStep::Category::APP) {
-                applicationWindow->handle(this, testStep->getSelector(), testStep->getEvent());
+                applicationWindow->handle(this, testStep->getSelector(), argument);
             } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
-                applicationWindow->getViewNet()->handle(this, testStep->getSelector(), testStep->getEvent());
+                applicationWindow->getViewNet()->handle(this, testStep->getSelector(), argument);
             } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
                 writeClosedSucessfully = true;
             }

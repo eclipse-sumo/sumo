@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-28 12:01:38 by Eclipse SUMO sumo Version v1_22_0+0580-601ed0b1c21
+<!-- generated on 2025-06-16 13:58:45 by Eclipse SUMO sumo Version v1_23_1+0585-24e5b338460
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,8 +38,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="7522.00" id="DEFAULT_EDGEDATA">
-        <edge id="E0" sampledSeconds="141304.72" traveltime="1834.65" overlapTraveltime="1858.01" density="93.93" laneDensity="46.96" occupancy="32.67" waitingTime="128130.00" timeLoss="140017.03" speed="0.11" speedRelative="0.01" departed="0" arrived="77" entered="231" left="154" laneChangedFrom="33" laneChangedTo="33"/>
-        <edge id="E1" sampledSeconds="78268.55" traveltime="916.42" overlapTraveltime="1016.47" density="104.05" laneDensity="52.03" occupancy="33.76" waitingTime="72626.15" timeLoss="77674.83" speed="0.11" speedRelative="0.01" departed="77" arrived="0" entered="0" left="77" laneChangedFrom="25" laneChangedTo="25"/>
+    <interval begin="0.00" end="7529.00" id="DEFAULT_EDGEDATA">
+        <edge id="E0" sampledSeconds="140615.87" traveltime="1825.69" overlapTraveltime="1848.74" density="93.38" laneDensity="46.69" occupancy="32.25" waitingTime="128043.99" timeLoss="139328.06" speed="0.11" speedRelative="0.01" departed="0" arrived="77" entered="231" left="154" laneChangedFrom="34" laneChangedTo="34"/>
+        <edge id="E1" sampledSeconds="79666.98" traveltime="922.62" overlapTraveltime="1034.64" density="105.81" laneDensity="52.91" occupancy="34.46" waitingTime="73824.07" timeLoss="79073.27" speed="0.10" speedRelative="0.01" departed="77" arrived="0" entered="0" left="77" laneChangedFrom="20" laneChangedTo="20"/>
     </interval>
 </meandata>

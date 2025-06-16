@@ -1,0 +1,3 @@
+Warning: Route file should be sorted by departure time, ignoring 'b'!
+Warning: Teleporting vehicle 'd'; waited too long (blocked), lane='beg_2', time=78.00.
+Warning: Vehicle 'd' ends teleporting on edge 'end', time=78.00.

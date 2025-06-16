@@ -15,5 +15,6 @@ SET SUFFIX=
 IF "%2" == "Debug" SET SUFFIX=D
 call %~dp0\testEnv.bat %SUFFIX%
 SET TEXTTEST_INTERPRETER=
-IF "%~x1" == ".py" SET TEXTTEST_INTERPRETER=python 
+IF "%1" == "" SET TEXTTEST_INTERPRETER=texttest.exe
+IF "%~x1" == ".py" SET TEXTTEST_INTERPRETER=python
 %TEXTTEST_INTERPRETER% %1 -b ci -v ci %TEXTTEST_CI_APPS%

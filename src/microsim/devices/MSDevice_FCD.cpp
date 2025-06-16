@@ -212,7 +212,7 @@ MSDevice_FCD::cleanup() {
     myEdgeFilterInitialized = false;
     myShapeFilterInitialized = false;
     myShapeFilterDesired = false;
-    myWrittenAttributes = getDefaultMask();
+    myWrittenAttributes.reset();
 }
 
 

@@ -80,3 +80,32 @@ def changeParentElement(frame, element):
     updateText(element)
     # type enter to save change
     typeKey('enter')
+
+
+def changePlan(type, plan, flow):
+    """
+    @brief change plan (in person or container frame)
+    """
+    # focus current frame
+    focusOnFrame()
+    # continue depending of type
+    if (type == "person"):
+        # jump to person plan
+        if (flow):
+            for _ in range(attrs.frames.changePlan.personFlow):
+                typeKey('tab')
+        else:
+            for _ in range(attrs.frames.changePlan.person):
+                typeKey('tab')
+    elif (type == "container"):
+        # jump to container plan
+        if (flow):
+            for _ in range(attrs.frames.changePlan.containerFlow):
+                typeKey('tab')
+        else:
+            for _ in range(attrs.frames.changePlan.container):
+                typeKey('tab')
+    # paste the new plan
+    updateText(plan)
+    # type enter to save change
+    typeKey('enter')

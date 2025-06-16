@@ -35,7 +35,7 @@ netedit.changeMode("container")
 netedit.changeElement("containerFrame", "containerFlow")
 
 # change container plan
-netedit.changeContainerPlan("tranship", True)
+netedit.changePlan("container", "tranship", True)
 
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.containerFlow.create.terminate, "dummyTerminate")

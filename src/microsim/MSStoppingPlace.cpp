@@ -25,6 +25,7 @@
 #include <map>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/geom/Position.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/common/RGBColor.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/MSGlobals.h>
@@ -44,7 +45,8 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
                                  double begPos, double endPos, const std::string name,
                                  int capacity,
                                  double parkingLength,
-                                 const RGBColor& color) :
+                                 const RGBColor& color,
+                                 double angle) :
     Named(id),
     myElement(element),
     myLines(lines), myLane(lane),
@@ -55,6 +57,7 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
     myTransportableCapacity(capacity),
     myParkingFactor(parkingLength <= 0 ? 1 : (endPos - begPos) / parkingLength),
     myColor(color),
+    myAngle(DEG2RAD(angle)),
     // see MSVehicleControl defContainerType
     myTransportableDepth(element == SUMO_TAG_CONTAINER_STOP ? SUMO_const_waitingContainerDepth : SUMO_const_waitingPersonDepth),
     myTransportableWidth(getDefaultTransportableWidth(myElement))
@@ -127,7 +130,7 @@ double
 MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle, double /*brakePos*/) const {
     if (getStoppedVehicleNumber() > 0) {
         const double vehGap = forVehicle.getVehicleType().getMinGap();
-        double pos = myLastFreePos - vehGap;
+        double pos = myLastFreePos - vehGap - NUMERICAL_EPS;
         if (myParkingFactor < 1 && myLastParking != nullptr && forVehicle.hasStops() && (forVehicle.getStops().front().pars.parking == ParkingType::ONROAD)
                 && myLastParking->remainingStopDuration() < forVehicle.getStops().front().getMinDuration(SIMSTEP)) {
             // stop far back enough so that the previous parking vehicle can leave (even if this vehicle fits, it will

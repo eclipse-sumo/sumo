@@ -32,7 +32,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("container")
 
 # change container plan
-netedit.changeContainerPlan("Container Stop", False)
+netedit.changePlan("container", "Container Stop", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

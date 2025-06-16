@@ -292,7 +292,9 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             speedFactor.setParameter(1, 0.1);
             break;
         case SVC_CONTAINER:
-            width = 2.5908;
+            // ISO Container TEU
+            width = 2.438;
+            height = 2.591;
             break;
         case SVC_DRONE:
             width = 0.5;

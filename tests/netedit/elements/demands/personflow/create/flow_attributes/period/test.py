@@ -35,7 +35,7 @@ netedit.changeMode("person")
 netedit.changeElement("personFrame", "personFlow")
 
 # change person plan
-netedit.changePersonPlan("walk", True)
+netedit.changePlan("person", "walk", True)
 
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.personFlow.create.spacing, "dummySpacing")

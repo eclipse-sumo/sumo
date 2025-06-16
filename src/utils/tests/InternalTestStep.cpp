@@ -47,7 +47,11 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     if (function == "setupAndStart") {
         processSetupAndStartFunction();
     } else if (function == "leftClick") {
-        processLeftClickFunction();
+        processLeftClickFunction("");
+    } else if (function == "leftClickControl") {
+        processLeftClickFunction("control");
+    } else if (function == "leftClickShift") {
+        processLeftClickFunction("shift");
     } else if (function == "typeKey") {
         processTypeKeyFunction();
     } else if (function == "modifyAttribute") {
@@ -69,9 +73,13 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     } else if (function == "changeMode") {
         processChangeModeFunction();
     } else if (function == "changeElement") {
-        processChangeElementArgument();
-    } else if (function == "compute") {
-        processComputeFunction();
+        processChangeElementFunction();
+    } else if (function == "changePlan") {
+        processChangePlanFunction();
+    } else if (function == "computeJunctions") {
+        processComputeJunctionsFunction();
+    } else if (function == "computeJunctionsVolatileOptions") {
+        processComputeJunctionsVolatileOptionsFunction();
     } else if (function == "saveExistentShortcut") {
         processSaveExistentShortcutFunction();
     } else if (function == "checkUndoRedo") {
@@ -129,6 +137,9 @@ InternalTestStep::~InternalTestStep() {
     if (myEvent) {
         delete myEvent;
     }
+    if (myModalArguments) {
+        delete myModalArguments;
+    }
     // remove all key steps
     for (auto keyStep : myKeySteps) {
         delete keyStep;
@@ -146,6 +157,12 @@ InternalTestStep::getMessageType() const {
 FXSelector
 InternalTestStep::getMessageID() const {
     return myMessageID;
+}
+
+
+InternalTestStep::ModalArguments*
+InternalTestStep::getModalArguments() const {
+    return myModalArguments;
 }
 
 
@@ -328,21 +345,40 @@ InternalTestStep::processSetupAndStartFunction() {
 
 
 void
-InternalTestStep::processLeftClickFunction() const {
+InternalTestStep::processLeftClickFunction(const std::string& modifier) const {
     if ((myArguments.size() != 2) || (myTestSystem->myViewPositions.count(myArguments[1]) == 0)) {
         writeError("leftClick", "<reference, position>");
     } else {
         // parse arguments
         const int posX = myTestSystem->myViewPositions.at(myArguments[1]).first;
         const int posY = myTestSystem->myViewPositions.at(myArguments[1]).second;
-        // print info
-        std::cout << "TestFunctions: Clicked over position " <<
-                  toString(posX + MOUSE_REFERENCE_X) << " - " <<
-                  toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+        // check if add key modifier
+        if (modifier == "control") {
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(modifier), false);
+            // print info
+            std::cout << "TestFunctions: Clicked with Control key pressed over position " <<
+                      toString(posX + MOUSE_REFERENCE_X) << " - " <<
+                      toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+        } else if (modifier == "shift") {
+            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(modifier), false);
+            // print info
+            std::cout << "TestFunctions: Clicked with Shift key pressed over position " <<
+                      toString(posX + MOUSE_REFERENCE_X) << " - " <<
+                      toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+        } else {
+            // print info
+            std::cout << "TestFunctions: Clicked over position " <<
+                      toString(posX + MOUSE_REFERENCE_X) << " - " <<
+                      toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+        }
         // add move, left button press and left button release
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(posX, posY), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(posX, posY), true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(posX, posY), true);
+        // check if add key modifier
+        if (!modifier.empty()) {
+            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(modifier), true);
+        }
     }
 }
 
@@ -352,7 +388,7 @@ InternalTestStep::processTypeKeyFunction() const {
     if (myArguments.size() != 1) {
         writeError("typeKey", "<key>");
     } else {
-        buildPressKeyEvent(myArguments[0], true);
+        buildPressKeyEvent(getStringArgument(myArguments[0]), true);
     }
 }
 
@@ -375,8 +411,12 @@ InternalTestStep::processModifyAttributeFunction() const {
             buildPressKeyEvent("tab", false);
         }
         // write attribute character by character
-        for (const char c : value) {
-            buildPressKeyEvent(c, false);
+        if (value.empty()) {
+            buildPressKeyEvent("delete", false);
+        } else {
+            for (const char c : value) {
+                buildPressKeyEvent(c, false);
+            }
         }
         // press enter to confirm changes (updating view)
         buildPressKeyEvent("enter", true);
@@ -847,7 +887,7 @@ InternalTestStep::processChangeModeFunction() {
 
 
 void
-InternalTestStep::processChangeElementArgument() const {
+InternalTestStep::processChangeElementFunction() const {
     if ((myArguments.size() != 2) ||
             !checkStringArgument(myArguments[0])) {
         writeError("selectAdditional", "<\"frame\", \"string\">");
@@ -872,12 +912,12 @@ InternalTestStep::processChangeElementArgument() const {
             numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.personPlan");
         } else if (frame == "containerPlanFrame") {
             numTabs = myTestSystem->myAttributesEnum.at("netedit.netedit.attrs.frames.changeElement.containerPlan");
-        } else if (frame == "stopFrameFrame") {
+        } else if (frame == "stopFrame") {
             numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.stop");
         } else if (frame == "meanDataFrame") {
             numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.meanData");
         } else {
-            WRITE_ERRORF("Invalid frame '%' used in function processChangeElementArgument", frame);
+            WRITE_ERRORF("Invalid frame '%' used in function processChangeElementFunction", frame);
         }
         if (numTabs >= 0) {
             // show info
@@ -900,12 +940,70 @@ InternalTestStep::processChangeElementArgument() const {
 
 
 void
-InternalTestStep::processComputeFunction() {
+InternalTestStep::processChangePlanFunction()  const {
+    if ((myArguments.size() != 3) ||
+            !checkStringArgument(myArguments[0]) ||
+            !checkStringArgument(myArguments[1]) ||
+            !checkBoolArgument(myArguments[2])) {
+        writeError("changePlan", "<\"type\", \"plan\", true/false>");
+    } else {
+        // get arguments
+        const std::string type = getStringArgument(myArguments[0]);
+        const std::string plan = getStringArgument(myArguments[1]);
+        const bool flow = getBoolArgument(myArguments[2]);
+        // check plan
+        if ((type != "person") && (type != "container")) {
+            WRITE_ERRORF("invalid plan type '%' used in processChangePlanFunction()", type);
+        } else {
+            // calculate num tabs
+            int numTabs = 0;
+            if (flow) {
+                numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changePlan." + type + "Flow");
+            } else {
+                numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changePlan." + type);
+            }
+            // focus frame
+            new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+            // jump to select additional argument
+            for (int i = 0; i < numTabs; i++) {
+                buildPressKeyEvent("tab", false);
+            }
+            // write additional character by character
+            for (const char c : plan) {
+                buildPressKeyEvent(c, false);
+            }
+            // print info
+            std::cout << plan << std::endl;
+            // press enter to confirm changes (updating view)
+            buildPressKeyEvent("enter", true);
+        }
+    }
+}
+
+
+void
+InternalTestStep::processComputeJunctionsFunction() {
     if (myArguments.size() > 0) {
-        writeError("compute", "<>");
+        writeError("computeJunctions", "<>");
     } else {
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND;
+    }
+}
+
+
+void
+InternalTestStep::processComputeJunctionsVolatileOptionsFunction() {
+    if (myArguments.size() > 1) {
+        writeError("computeJunctionsVolatileOptions", "<True/False>");
+    } else {
+        FXuint result = ModalArguments::yes;
+        if ((myArguments.size() == 1) && (myArguments[0] == "False")) {
+            result = ModalArguments::no;
+        }
+        myCategory = Category::APP;
+        myMessageID = MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE;
+        myModalArguments = new ModalArguments({result});
     }
 }
 

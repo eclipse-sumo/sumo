@@ -35,7 +35,7 @@ netedit.changeMode("person")
 netedit.changeElement("personFrame", "personFlow")
 
 # change person plan
-netedit.changePersonPlan("stop", True)
+netedit.changePlan("person", "stop", True)
 
 # create stop clicking over lane
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

@@ -31,8 +31,6 @@
     <Compile Include="frames\data\data.py" />
     <Compile Include="frames\data\meanData.py" />
     <Compile Include="frames\delete.py" />
-    <Compile Include="frames\demand\container.py" />
-    <Compile Include="frames\demand\person.py" />
     <Compile Include="frames\demand\type.py" />
     <Compile Include="frames\edit\basicAttribute.py" />
     <Compile Include="frames\edit\boolAttribute.py" />

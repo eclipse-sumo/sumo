@@ -32,7 +32,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("container")
 
 # change container plan
-netedit.changeContainerPlan("Container Stop", False)
+netedit.changePlan("container", "Container Stop", False)
 
 # create route clicking over busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)

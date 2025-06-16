@@ -140,10 +140,7 @@ jobs:
 
     - name: Compressing test results
       if: failure()
-      run: |
-        dir d:\texttest
-        Compress-Archive -Path D:/texttest -DestinationPath D:/texttest/tt.zip
-        dir d:\texttest
+      run: Compress-Archive -Path D:/texttest -DestinationPath D:/texttest/tt.zip
 
     - name: Uploading test results
       if: failure()

@@ -32,7 +32,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("person")
 
 # change person plan
-netedit.changePersonPlan("walk (edges)", False)
+netedit.changePlan("person", "walk (edges)", False)
 
 # create person
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
