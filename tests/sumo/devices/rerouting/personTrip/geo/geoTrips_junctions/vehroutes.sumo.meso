@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-19 10:24:10 by Eclipse SUMO sumo Version v1_21_0+0859-2b1fcc0f170
+<!-- generated on 2025-06-14 11:34:11 by Eclipse SUMO sumo Version v1_23_1+0570-960373e9433
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <walk edges="beg middle end rend"/>
     </person>
 
-    <person id="0" depart="0.00" arrival="2170.00">
+    <person id="0" depart="0.00" arrival="1811.00">
         <walk edges="beg middle"/>
         <stop lane="middle_0" endPos="0.00" duration="10.00"/>
         <walk edges="middle end rend"/>

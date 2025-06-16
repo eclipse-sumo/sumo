@@ -107,7 +107,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::isEmpty() const {
 
 
 void
-MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime /* period */,
+MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, SumoXMLAttrMask attributeMask, const SUMOTime /* period */,
         const int /* numLanes */, const double /*speedLimit*/, const double defaultTravelTime, const int /* numVehicles */) const {
     int averageSpeed;
     if (sampleSeconds > 0) {

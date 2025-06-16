@@ -85,7 +85,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(const SUMOTraffi
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
+MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, SumoXMLAttrMask attributeMask, const SUMOTime period,
         const int /*numLanes*/, const double /*speedLimit*/, const double defaultTravelTime, const int /*numVehicles*/) const {
     const double noise = meanNTemp != 0 ? (double)(10. * log10(meanNTemp * TS / STEPS2TIME(period))) : (double) 0.;
     dev.writeOptionalAttr(SUMO_ATTR_NOISE, noise, attributeMask);

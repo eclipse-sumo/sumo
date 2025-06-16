@@ -249,6 +249,10 @@ public:
     /// @brief get IDs of persons waiting at this stop
     void getWaitingPersonIDs(std::vector<std::string>& into) const;
 
+    bool checkPersonCapacity() const {
+        return myElement == SUMO_TAG_BUS_STOP || myElement == SUMO_TAG_TRAIN_STOP;;
+    }
+
     /// @brief perform extra processing after element has been loaded
     virtual void finishedLoading();
 

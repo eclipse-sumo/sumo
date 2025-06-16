@@ -125,6 +125,11 @@ public:
         return myMaxDepth != 0;
     }
 
+    void setExpectedAttributes(const SumoXMLAttrMask& expected, const SumoXMLAttrMask& nullable) {
+        myExpectedAttrs = expected;
+        myNullableAttrs = nullable;
+    }
+
 private:
     /// @brief the CSV header
     std::string myHeader;
@@ -137,6 +142,10 @@ private:
 
     /// @brief the maximum depth of the XML hierarchy
     int myMaxDepth;
+
+    SumoXMLAttrMask myExpectedAttrs;
+    SumoXMLAttrMask myNullableAttrs;
+    SumoXMLAttrMask mySeenAttrs;
 };
 
 

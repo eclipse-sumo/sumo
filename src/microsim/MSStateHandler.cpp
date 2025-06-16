@@ -130,17 +130,17 @@ void
 MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix) {
     OutputDevice& out = OutputDevice::getDevice(file, usePrefix);
     out.setPrecision(OptionsCont::getOptions().getInt("save-state.precision"));
-    out.writeHeader<MSEdge>(SUMO_TAG_SNAPSHOT);
-    out.writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/state_file.xsd");
-    out.writeAttr(SUMO_ATTR_VERSION, VERSION_STRING);
-    out.writeAttr(SUMO_ATTR_TIME, time2string(step));
-    out.writeAttr(SUMO_ATTR_TYPE, MSGlobals::gUseMesoSim ? "meso" : "micro");
+    std::map<SumoXMLAttr, std::string> attrs;
+    attrs[SUMO_ATTR_VERSION] = VERSION_STRING;
+    attrs[SUMO_ATTR_TIME] = time2string(step);
+    attrs[SUMO_ATTR_TYPE] = MSGlobals::gUseMesoSim ? "meso" : "micro";
     if (OptionsCont::getOptions().getBool("save-state.constraints")) {
-        out.writeAttr(SUMO_ATTR_CONSTRAINTS, true);
+        attrs[SUMO_ATTR_CONSTRAINTS] = "1";
     }
     if (MSDriveWay::haveDriveWays()) {
-        out.writeAttr(SUMO_ATTR_RAIL, true);
+        attrs[SUMO_ATTR_RAIL] = "1";
     }
+    out.writeXMLHeader("snapshot", "state_file.xsd", attrs);
     if (OptionsCont::getOptions().getBool("save-state.rng")) {
         saveRNGs(out);
         if (!MSGlobals::gUseMesoSim) {

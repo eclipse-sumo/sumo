@@ -375,7 +375,7 @@ MSMeanData::MeanDataValueTracker::isEmpty() const {
 
 void
 MSMeanData::MeanDataValueTracker::write(OutputDevice& dev,
-                                        long long int attributeMask,
+                                        SumoXMLAttrMask attributeMask,
                                         const SUMOTime period,
                                         const int numLanes,
                                         const double speedLimit,
@@ -434,7 +434,7 @@ MSMeanData::MSMeanData(const std::string& id,
     myPrintDefaults(printDefaults),
     myDumpInternal(withInternal),
     myTrackVehicles(trackVehicles),
-    myWrittenAttributes(initWrittenAttributes(writeAttributes, id)),
+    myWrittenAttributes(OutputDevice::parseWrittenAttributes(StringTokenizer(writeAttributes).getVector(), "meandata '" + id + "'")),
     myAggregate(aggregate)
 { }
 
@@ -758,21 +758,6 @@ MSMeanData::detectorUpdate(const SUMOTime step) {
 }
 
 
-long long int
-MSMeanData::initWrittenAttributes(const std::string writeAttributes, const std::string& id) {
-    long long int result = 0;
-    for (std::string attrName : StringTokenizer(writeAttributes).getVector()) {
-        if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
-            WRITE_ERRORF(TL("Unknown attribute '%' to write in meanData '%'."), attrName, id);
-            continue;
-        }
-        int attr = SUMOXMLDefinitions::Attrs.get(attrName);
-        assert(attr < 63);
-        result |= ((long long int)1 << attr);
-    }
-    return result;
-}
-
 const std::vector<MSMeanData::MeanDataValues*>*
 MSMeanData::getEdgeValues(const MSEdge* edge) const {
     auto it = myEdgeIndex.find(edge);
@@ -782,5 +767,6 @@ MSMeanData::getEdgeValues(const MSEdge* edge) const {
         return nullptr;
     }
 }
+
 
 /****************************************************************************/

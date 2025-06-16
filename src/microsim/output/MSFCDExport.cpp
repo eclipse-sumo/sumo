@@ -56,11 +56,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         return;
     }
     const SumoXMLAttrMask mask = MSDevice_FCD::getWrittenAttributes();
-    const bool maskSet = oc.isSet("fcd-output.attributes");
     const bool useGeo = oc.getBool("fcd-output.geo");
-    const bool signals = oc.getBool("fcd-output.signals") || (maskSet && of.useAttribute(SUMO_ATTR_SIGNALS, mask));
-    const bool writeAccel = oc.getBool("fcd-output.acceleration") || (maskSet && of.useAttribute(SUMO_ATTR_ACCELERATION, mask));
-    const bool writeDistance = oc.getBool("fcd-output.distance") || (maskSet && of.useAttribute(SUMO_ATTR_DISTANCE, mask));
     const double maxLeaderDistance = oc.getFloat("fcd-output.max-leader-distance");
     std::vector<std::string> params = oc.getStringVector("fcd-output.params");
     MSNet* net = MSNet::getInstance();
@@ -114,17 +110,11 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 }
                 of.writeOptionalAttr(SUMO_ATTR_SLOPE, veh->getSlope(), mask);
                 if (microVeh != nullptr) {
-                    if (signals) {
-                        of.writeOptionalAttr(SUMO_ATTR_SIGNALS, toString(microVeh->getSignals()), mask);
-                    }
-                    if (writeAccel) {
-                        of.writeOptionalAttr(SUMO_ATTR_ACCELERATION, toString(microVeh->getAcceleration()), mask);
-                        if (MSGlobals::gSublane) {
-                            of.writeOptionalAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat(), mask);
-                        }
-                    }
+                    of.writeOptionalAttr(SUMO_ATTR_SIGNALS, microVeh->getSignals(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_ACCELERATION, microVeh->getAcceleration(), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat(), mask);
                 }
-                if (writeDistance) {
+                if (mask.test(SUMO_ATTR_DISTANCE)) {
                     double lanePos = veh->getPositionOnLane();
                     if (microVeh != nullptr && microVeh->getLane()->isInternal()) {
                         lanePos = microVeh->getRoute().getDistanceBetween(0., lanePos, microVeh->getEdge()->getLanes()[0], microVeh->getLane(),
@@ -140,9 +130,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 if (maxLeaderDistance >= 0 && microVeh != nullptr) {
                     std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
                     if (leader.first != nullptr) {
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, toString(leader.first->getID()), mask);
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, toString(leader.first->getSpeed()), mask);
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, toString(leader.second + microVeh->getVehicleType().getMinGap()), mask);
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, leader.first->getID(), mask);
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, leader.first->getSpeed(), mask);
+                        of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, leader.second + microVeh->getVehicleType().getMinGap(), mask);
                     } else {
                         of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, "", mask);
                         of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, -1, mask);
@@ -156,7 +146,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                         of.writeAttr(StringUtils::escapeXML(key), StringUtils::escapeXML(value));
                     }
                 }
-                if (of.useAttribute(SUMO_ATTR_ARRIVALDELAY, mask)) {
+                if (mask.test(SUMO_ATTR_ARRIVALDELAY)) {
                     double arrivalDelay = baseVeh->getStopArrivalDelay();
                     if (arrivalDelay == INVALID_DOUBLE) {
                         // no upcoming stop also means that there is no delay

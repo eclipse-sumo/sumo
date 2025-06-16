@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-05 15:37:34 by Eclipse SUMO sumo Version v1_23_1+0433-86314c1a416
+<!-- generated on 2025-06-14 14:49:59 by Eclipse SUMO sumo Version v1_23_1+0571-0c0912eecef
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,7 +30,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_23_1+0433-86314c1a416" time="10800.00" type="micro">
+<snapshot type="micro" version="v1_23_1+0571-0c0912eecef" time="10800.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!0_0_0!var#2" state="0" edges="D4D3 D3D2 D2D1 D1E1 E1E0 E0D0 D0C0 C0C1 C1C2 C2B2 B2B3 B3C3 C3C2 C2C1 C1D1 D1D0 D0C0 C0B0 B0A0 A0A1 A1B1 B1C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2E3 E3D3 D3C3 C3C2 C2B2 B2B1 B1B0 B0A0 A0A1 A1B1 B1C1 C1B1 B1B2 B2C2 C2C1 C1B1 B1B2 B2B1 B1B0 B0A0 A0A1 A1A2 A2A3 A3A4 A4B4 B4B3 B3A3 A3A2 A2A1 A1A0 A0B0 B0C0 C0C1 C1D1 D1D2 D2D3 D3C3 C3C4 C4C3 C3C2 C2C1 C1C0 C0B0 B0A0 A0A1 A1A2 A2A3 A3B3 B3C3 C3C2 C2D2 D2D3 D3C3 C3B3 B3B2 B2B1"/>
     <route id="!100_0_0!var#1" state="0" edges="E3D3 D3D4 D4C4 C4B4 B4B3 B3B2 B2B1 B1C1 C1C0 C0B0 B0B1 B1B2 B2B3 B3B4 B4A4 A4A3 A3B3 B3C3 C3C4 C4D4 D4C4 C4C3 C3C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2A3 A3A4 A4B4 B4C4 C4D4 D4D3 D3D2 D2D1 D1D0 D0C0 C0C1 C1C2 C2D2 D2E2 E2E1 E1E0 E0D0 D0C0 C0B0 B0A0 A0A1 A1A2 A2B2 B2C2 C2D2 D2D1 D1C1 C1C2 C2C3 C3C4 C4B4 B4A4 A4A3 A3B3 B3C3 C3D3 D3C3 C3C2 C2B2"/>
     <route id="!101_0_0!var#1" state="0" edges="D1D0 D0C0 C0C1 C1B1 B1B2 B2B3 B3A3 A3A2 A2B2 B2C2 C2D2 D2D3 D3D2 D2D3 D3D4 D4C4 C4C3 C3C2 C2B2 B2A2 A2B2 B2B3 B3B4 B4C4 C4D4 D4E4 E4E3 E3E2 E2E3 E3E2 E2D2 D2C2 C2C1 C1D1 D1C1 C1B1 B1B2 B2A2 A2A1 A1B1 B1B2 B2B3 B3B4 B4B3"/>
