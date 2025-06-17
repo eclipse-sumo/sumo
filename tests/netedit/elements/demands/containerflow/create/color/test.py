@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid containerFlow number
-netedit.changeColorUsingDialog(netedit.attrs.containerFlow.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.containerFlow.create.colorButton)
 
 # press enter to create route
 netedit.typeKey("enter")

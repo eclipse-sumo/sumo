@@ -32,7 +32,7 @@ netedit.changeMode("shape")
 netedit.changeElement("shapeFrame", "poly")
 
 # change color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.poly.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.poly.create.colorButton)
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,

@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.flow.inspectSelection.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.flow.inspectSelection.colorButton)
 
 # change color with an invalid value
 netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.color, "")

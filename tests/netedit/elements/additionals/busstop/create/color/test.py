@@ -32,7 +32,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "busStop")
 
 # set invalid person number
-netedit.changeColorUsingDialog(netedit.attrs.busStop.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.busStop.create.colorButton)
 
 # try to create busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

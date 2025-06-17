@@ -32,7 +32,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("route")
 
 # set color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.route.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.route.create.colorButton)
 
 # create edge
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

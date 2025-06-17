@@ -32,7 +32,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "containerStop")
 
 # set invalid person number
-netedit.changeColorUsingDialog(netedit.attrs.containerStop.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.containerStop.create.colorButton)
 
 # try to create containerStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

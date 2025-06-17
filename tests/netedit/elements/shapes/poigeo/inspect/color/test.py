@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.poiGeo.inspect.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.poiGeo.inspect.colorButton)
 
 # Change parameter 4 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.color, "dummyColor")

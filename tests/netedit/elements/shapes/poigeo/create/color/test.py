@@ -32,7 +32,7 @@ netedit.changeMode("shape")
 netedit.changeElement("shapeFrame", "poiGeo")
 
 # change color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.poiGeo.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.poiGeo.create.colorButton)
 
 # create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)

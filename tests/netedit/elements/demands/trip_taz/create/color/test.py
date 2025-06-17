@@ -35,7 +35,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "trip (from-to TAZs)")
 
 # set color using dialog color
-netedit.changeColorUsingDialog(netedit.attrs.tripTAZ.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.tripTAZ.create.colorButton)
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

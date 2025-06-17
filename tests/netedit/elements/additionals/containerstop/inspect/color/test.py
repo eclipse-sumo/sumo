@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop)
 
 # change color using dialog
-netedit.modifyColorAttributeOverlapped(netedit.attrs.containerStop.inspect.colorButton, 5)
+netedit.modifyColorAttributeOverlapped(netedit.attrs.containerStop.inspect.colorButton)
 
 # Change parameter 2 with a non valid value (dummy)
 netedit.modifyAttributeOverlapped(netedit.attrs.containerStop.inspect.color, "dummyColor")

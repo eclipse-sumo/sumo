@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart()
 netedit.changeMode("TAZ")
 
 # change color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.TAZ.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.TAZ.create.colorButton)
 
 # create TAZ
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,

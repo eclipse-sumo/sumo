@@ -32,7 +32,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("type")
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.type.editDefault.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.type.editDefault.colorButton)
 
 # change color with an invalid value
 netedit.modifyAttribute(netedit.attrs.type.editDefault.color + 1, "")

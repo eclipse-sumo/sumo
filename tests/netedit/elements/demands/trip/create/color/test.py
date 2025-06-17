@@ -35,7 +35,7 @@ netedit.changeMode("vehicle")
 # netedit.changeElement("vehicleFrame", "trip")
 
 # set color using dialog color
-netedit.changeColorUsingDialog(netedit.attrs.trip.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.trip.create.colorButton)
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

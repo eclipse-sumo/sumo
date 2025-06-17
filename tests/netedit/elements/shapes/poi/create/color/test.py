@@ -32,7 +32,7 @@ netedit.changeMode("shape")
 netedit.changeElement("shapeFrame", "poi")
 
 # change color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.poi.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.poi.create.colorButton)
 
 # create poi
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
