@@ -37,8 +37,6 @@ from .frames.elements import *
 from .frames.data.data import *
 from .frames.data.meanData import *
 from .frames.delete import *
-from .frames.demand.container import *
-from .frames.demand.person import *
 from .frames.demand.type import *
 from .frames.edit.basicAttribute import *
 from .frames.edit.boolAttribute import *
