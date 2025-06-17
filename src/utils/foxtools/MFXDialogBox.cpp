@@ -1,0 +1,101 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2006-2025 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    MFXDialogBox.cpp
+/// @author  Pablo Alvarez Lopez
+/// @date    Jun 2025
+///
+// Custom FXDialogBox that supports internal tests
+/****************************************************************************/
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+
+#include "fxkeys.h"
+#include "MFXDialogBox.h"
+
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(MFXDialogBox) MFXDialogBoxMap[] = {
+    FXMAPFUNC(SEL_KEYPRESS,     0,                      MFXDialogBox::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,   0,                      MFXDialogBox::onKeyRelease),
+    FXMAPFUNC(SEL_CLOSE,        0,                      MFXDialogBox::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,      FXDialogBox::ID_ACCEPT, MFXDialogBox::onCmdAccept),
+    FXMAPFUNC(SEL_CHORE,        FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
+    FXMAPFUNC(SEL_TIMEOUT,      FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,      FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
+};
+
+// Object implementation
+FXIMPLEMENT(MFXDialogBox, FXTopWindow, MFXDialogBoxMap, ARRAYNUMBER(MFXDialogBoxMap))
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+
+MFXDialogBox::MFXDialogBox(FXApp* a, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs):
+    FXTopWindow(a, name, NULL, NULL, opts, x, y, w, h, pl, pr, pt, pb, hs, vs) {
+}
+
+
+MFXDialogBox::MFXDialogBox(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs):
+    FXTopWindow(owner, name, NULL, NULL, opts, x, y, w, h, pl, pr, pt, pb, hs, vs) {
+}
+
+
+long MFXDialogBox::onCmdAccept(FXObject*, FXSelector, void*) {
+    getApp()->stopModal(this, TRUE);
+    hide();
+    return 1;
+}
+
+
+long MFXDialogBox::onCmdCancel(FXObject*, FXSelector, void*) {
+    getApp()->stopModal(this, FALSE);
+    hide();
+    return 1;
+}
+
+
+long MFXDialogBox::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
+    if (FXTopWindow::onKeyPress(sender, sel, ptr)) {
+        return 1;
+    } else if (((FXEvent*)ptr)->code == KEY_Escape) {
+        handle(this, FXSEL(SEL_COMMAND, FXDialogBox::ID_CANCEL), NULL);
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+long MFXDialogBox::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
+    if (FXTopWindow::onKeyRelease(sender, sel, ptr)) {
+        return 1;
+    } else if (((FXEvent*)ptr)->code == KEY_Escape) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+FXuint MFXDialogBox::execute(FXuint placement) {
+    create();
+    show(placement);
+    getApp()->refresh();
+    return getApp()->runModalFor(this);
+}
