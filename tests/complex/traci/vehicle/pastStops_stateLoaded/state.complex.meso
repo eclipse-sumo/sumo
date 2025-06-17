@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-23 12:03:09 by Eclipse SUMO sumo Version v1_10_0+0129-6ada7b0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2025-06-17 09:01:30 by Eclipse SUMO sumo Version v1_23_1+0606-06b23075d04
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net2.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
     </input>
 
-    <processing>
-        <pedestrian.model value="nonInteracting"/>
-    </processing>
-
     <report>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="38172"/>
+        <remote-port value="35675"/>
     </traci_server>
 
     <mesoscopic>
@@ -25,40 +21,53 @@
         <meso-junction-control value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_10_0+0129-6ada7b0" time="500.00" type="meso">
-    <route id="r1" state="1" edges="CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC"/>
+<snapshot type="meso" version="v1_23_1+0606-06b23075d04" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <route id="r1" state="1" edges="CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC">
+        <stop lane="NC_0" duration="10.00" until="20.00"/>
+        <stop lane="SC_0" duration="8.00" until="80.00"/>
+        <stop lane="NC_0" duration="10.00" until="140.00"/>
+        <stop lane="SC_0" duration="8.00" until="200.00"/>
+        <stop lane="NC_0" duration="10.00" until="260.00"/>
+        <stop lane="SC_0" duration="8.00" until="320.00"/>
+        <stop lane="NC_0" duration="10.00" until="380.00"/>
+        <stop lane="SC_0" duration="8.00" until="440.00"/>
+        <stop lane="NC_0" duration="10.00" until="500.00"/>
+        <stop lane="SC_0" duration="8.00" until="560.00"/>
+        <stop lane="NC_0" duration="10.00" until="620.00"/>
+        <stop lane="SC_0" duration="8.00" until="680.00"/>
+    </route>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="bus" vClass="bus"/>
-    <vehicle id="bus" type="bus" depart="0.00" line="B7" route="r1" distance="1563.15 0" speedFactor="1.00" state="0 17 0 0 0 506620 456240 9223372036854775807">
-        <stop lane="NC_0" duration="10.00" until="20.00" started="6.62" ended="-0.00"/>
-        <stop lane="SC_0" duration="8.00" until="80.00" started="33.24" ended="-0.00"/>
-        <stop lane="NC_0" duration="10.00" until="140.00" started="96.24" ended="-0.00"/>
-        <stop lane="SC_0" duration="8.00" until="200.00" started="186.24" ended="-0.00"/>
-        <stop lane="NC_0" duration="10.00" until="260.00" started="213.24" ended="-0.00"/>
-        <stop lane="SC_0" duration="8.00" until="320.00" started="276.24" ended="-0.00"/>
-        <stop lane="NC_0" duration="10.00" until="380.00" started="366.24" ended="-0.00"/>
-        <stop lane="SC_0" duration="8.00" until="440.00" started="393.24" ended="-0.00"/>
+    <vehicle id="bus" type="bus" depart="0.00" line="B7" route="r1" distance="1563.15 0" speedFactor="1.0000" state="34818 0 17 0 0 0 506620 456240 9223372036854774807">
+        <stop lane="NC_0" duration="10.00" until="20.00" started="6.62" ended="27.00"/>
+        <stop lane="SC_0" duration="8.00" until="80.00" started="33.24" ended="90.00"/>
+        <stop lane="NC_0" duration="10.00" until="140.00" started="96.24" ended="180.00"/>
+        <stop lane="SC_0" duration="8.00" until="200.00" started="186.24" ended="207.00"/>
+        <stop lane="NC_0" duration="10.00" until="260.00" started="213.24" ended="270.00"/>
+        <stop lane="SC_0" duration="8.00" until="320.00" started="276.24" ended="360.00"/>
+        <stop lane="NC_0" duration="10.00" until="380.00" started="366.24" ended="387.00"/>
+        <stop lane="SC_0" duration="8.00" until="440.00" started="393.24" ended="450.00"/>
         <stop lane="NC_0" startPos="91.75" endPos="91.95" duration="10.00" until="500.00" started="456.24"/>
         <stop lane="SC_0" startPos="91.75" endPos="91.95" duration="8.00" until="560.00"/>
         <stop lane="NC_0" startPos="91.75" endPos="91.95" duration="10.00" until="620.00"/>
         <stop lane="SC_0" startPos="91.75" endPos="91.95" duration="8.00" until="680.00"/>
     </vehicle>
     <segment id="CN:0">
-        <vehicles time="457326" value=""/>
+        <vehicles time="457326" blockTime="450705" value=""/>
     </segment>
     <segment id="CS:0">
-        <vehicles time="394326" value=""/>
+        <vehicles time="394326" blockTime="387705" value=""/>
     </segment>
     <segment id="NC:0">
-        <vehicles time="388793" value="bus"/>
-        <vehicles time="-1" value=""/>
+        <vehicles time="388793" blockTime="458412" value="bus"/>
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
     </segment>
     <segment id="SC:0">
-        <vehicles time="451793" value=""/>
-        <vehicles time="-1" value=""/>
+        <vehicles time="451793" blockTime="395412" value=""/>
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
     </segment>
     <tlLogic id="C" programID="0" phase="4" duration="5000"/>
 </snapshot>

@@ -2,13 +2,18 @@ Loading net-file from 'net.net.xml' ... done (0ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
 Simulation version v1_23_1+0606-06b23075d04 started with time: 0.00.
-Simulation ended at time: 19.00.
+Simulation ended at time: 34.00.
 Reason: All vehicles have left the simulation.
-DijkstraRouter answered 1 queries and explored 2.00 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-Loading net-file from 'net.net.xml' ... done (1ms).
-Loading state from 'state.xml' ... done (10ms).
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading state from 'state.xml' ... done (6ms).
 Loading done.
 Simulation version v1_23_1+0606-06b23075d04 started with time: 6.00.
-Simulation ended at time: 19.00.
+Simulation ended at time: 36.00.
 Reason: All vehicles have left the simulation.
+Statistics (avg of 1):
+ RouteLength: 426.37
+ Speed: 13.32
+ Duration: 32.00
+ WaitingTime: 0.00
+ TimeLoss: 0.00
+ DepartDelay: 0.00

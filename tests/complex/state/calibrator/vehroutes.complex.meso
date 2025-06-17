@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-25 07:32:44 by Eclipse SUMO sumo Version v1_12_0+0861-d8492c4
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2025-06-17 08:47:25 by Eclipse SUMO sumo Version v1_23_1+0606-06b23075d04
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
-        <load-state value="state.xml"/>
     </input>
 
     <output>
         <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="30"/>
+        <save-state.files value="state.xml"/>
     </output>
 
-    <processing>
-        <pedestrian.model value="nonInteracting"/>
-    </processing>
+    <time>
+        <end value="60"/>
+    </time>
 
     <report>
         <duration-log.disable value="true"/>
@@ -26,17 +28,20 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0600" arrival="160.00">
-        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+    <vehicle id="cali.0.0" type="car" depart="18.00" departPos="0.00" departSpeed="35.3246" speedFactor="1.0600" arrival="27.00">
+        <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="5.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0600" arrival="175.00">
-        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
-        <stop lane="3/1to2/1_0" startPos="399.80" endPos="400.00" duration="10.00"/>
+    <vehicle id="cali.0.2" type="car" depart="24.00" departPos="0.00" departSpeed="33.6766" speedFactor="1.0104" arrival="34.00">
+        <route edges="SC CN"/>
+    </vehicle>
+
+    <vehicle id="cali.0.1" type="car" depart="24.00" departPos="0.00" departSpeed="31.2735" speedFactor="0.9383" arrival="35.00">
+        <route edges="SC CN"/>
     </vehicle>
 
 </routes>
