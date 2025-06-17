@@ -33,7 +33,7 @@
 // method definitions
 // ===========================================================================
 GNEAbout::GNEAbout(FXWindow* parent) :
-    FXDialogBox(parent, TL("About Eclipse SUMO netedit"), GUIDesignDialogBox) {
+    MFXDialogBox(parent, TL("About Eclipse SUMO netedit"), GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
 
@@ -71,7 +71,7 @@ GNEAbout::GNEAbout(FXWindow* parent) :
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXButton* OKButton = GUIDesigns::buildFXButton(buttonFrame, TL("&OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    FXButton* OKButton = GUIDesigns::buildFXButton(buttonFrame, TL("&OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
 
     // focus OK button
@@ -81,7 +81,7 @@ GNEAbout::GNEAbout(FXWindow* parent) :
 
 void
 GNEAbout::create() {
-    FXDialogBox::create();
+    MFXDialogBox::create();
 }
 
 

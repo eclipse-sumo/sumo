@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
 // ===========================================================================
@@ -35,11 +36,7 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEMultipleParametersDialog
- * @brief Dialog for edit  parameters
- */
-class GNEMultipleParametersDialog : public FXDialogBox {
+class GNEMultipleParametersDialog : public MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEMultipleParametersDialog)
 

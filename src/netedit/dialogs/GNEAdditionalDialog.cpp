@@ -106,7 +106,7 @@ GNEAdditionalDialog::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
 
 void
 GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string& newHeader) {
-    // change FXDialogBox title
+    // change MFXDialogBox title
     setTitle(newHeader.c_str());
 }
 

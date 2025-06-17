@@ -19,21 +19,22 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include <utils/common/SUMOVehicleClass.h>
 
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/foxtools/MFXDialogBox.h>
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
 class GNEAttributeCarrier;
 class GNEViewNet;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEAllowVClassesDialog : public FXDialogBox {
+class GNEAllowVClassesDialog : public MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEAllowVClassesDialog)
 
@@ -68,10 +69,10 @@ public:
     long onCmdSelectOnlyRail(FXObject*, FXSelector, void*);
 
     /// @brief event after press accept button
-    long onCmdAccept(FXObject*, FXSelector, void*);
+    long onCmdAccept(FXObject* sender, FXSelector sel, void* arg);
 
     /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
+    long onCmdCancel(FXObject* sender, FXSelector sel, void* arg);
 
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);

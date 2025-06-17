@@ -25,6 +25,7 @@
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <utils/foxtools/MFXComboBoxAttrProperty.h>
 #include <utils/foxtools/MFXComboBoxTagProperty.h>
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -309,7 +310,7 @@ GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
 long
 GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
-    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getCollapsableFrame(), TL("Netedit Parameters Help"), GUIDesignDialogBox);
+    MFXDialogBox* additionalNeteditAttributesHelpDialog = new MFXDialogBox(getCollapsableFrame(), TL("Netedit Parameters Help"), GUIDesignDialogBox);
     additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;

@@ -48,14 +48,14 @@ FXDEFMAP(GNERunNetgenerateDialog) GNERunNetgenerateDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNERunNetgenerateDialog, FXDialogBox, GNERunNetgenerateDialogMap, ARRAYNUMBER(GNERunNetgenerateDialogMap))
+FXIMPLEMENT(GNERunNetgenerateDialog, MFXDialogBox, GNERunNetgenerateDialogMap, ARRAYNUMBER(GNERunNetgenerateDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
 GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    FXDialogBox(GNEApp->getApp(), "", GUIDesignDialogBoxExplicit(0, 0)),
+    MFXDialogBox(GNEApp->getApp(), "", GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp) {
     // build the thread - io
     myThreadEvent.setTarget(this);
@@ -121,7 +121,7 @@ GNERunNetgenerateDialog::run(const OptionsCont* netgenerateOptions) {
     // clear text
     myText->setText("");
     // show dialog
-    FXDialogBox::show(PLACEMENT_SCREEN);
+    MFXDialogBox::show(PLACEMENT_SCREEN);
     // set netgenerate options
     myNetgenerateOptions = netgenerateOptions;
     // reset error flag
@@ -146,7 +146,7 @@ GNERunNetgenerateDialog::updateDialog() {
         myCloseButton->enable();
     }
     // update dialog
-    FXDialogBox::update();
+    MFXDialogBox::update();
 }
 
 

@@ -21,6 +21,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -42,14 +43,14 @@ FXDEFMAP(GNEAllowVClassesDialog) GNEAllowVClassesDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAllowVClassesDialog, FXDialogBox, GNEAllowVClassesDialogMap, ARRAYNUMBER(GNEAllowVClassesDialogMap))
+FXIMPLEMENT(GNEAllowVClassesDialog, MFXDialogBox, GNEAllowVClassesDialogMap, ARRAYNUMBER(GNEAllowVClassesDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEViewNet* viewNet) :
-    FXDialogBox(viewNet->getApp(), "", GUIDesignDialogBox),
+    MFXDialogBox(viewNet->getApp(), "", GUIDesignDialogBox),
     myViewNet(viewNet) {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
@@ -212,7 +213,7 @@ GNEAllowVClassesDialog::onCmdSelectOnlyRail(FXObject*, FXSelector, void*) {
 
 
 long
-GNEAllowVClassesDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+GNEAllowVClassesDialog::onCmdAccept(FXObject* sender, FXSelector sel, void* arg) {
     bool allSelected = true;
     // clear allow and disallow VClasses
     std::vector<std::string> allowedVehicles;
@@ -231,25 +232,19 @@ GNEAllowVClassesDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     }
     // Stop Modal if we have a different  classes from original
     if (myEditedVClasses != myOriginalVClasses) {
-        getApp()->stopModal(this, TRUE);
+        return MFXDialogBox::onCmdAccept(sender, sel, arg);
     } else {
-        getApp()->stopModal(this, FALSE);
+        return MFXDialogBox::onCmdCancel(sender, sel, arg);
     }
-    // hide dialog
-    hide();
-    return 1;
 }
 
 
 long
-GNEAllowVClassesDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+GNEAllowVClassesDialog::onCmdCancel(FXObject* sender, FXSelector sel, void* arg) {
     // reset vClasses
     myEditedVClasses = myOriginalVClasses;
-    // Stop Modal
-    getApp()->stopModal(this, FALSE);
-    // hide dialog
-    hide();
-    return 1;
+    // cancel
+    return MFXDialogBox::onCmdCancel(sender, sel, arg);
 }
 
 

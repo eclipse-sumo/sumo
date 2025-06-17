@@ -20,11 +20,13 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNENetworkElement;
 class GNEViewNet;
 
@@ -32,11 +34,7 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEFixNetworkElements
- * @brief Dialog fix network elements
- */
-class GNEFixNetworkElements : public FXDialogBox {
+class GNEFixNetworkElements : public MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEFixNetworkElements)
 

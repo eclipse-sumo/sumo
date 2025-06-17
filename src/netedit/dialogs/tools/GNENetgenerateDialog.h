@@ -22,6 +22,7 @@
 
 #include <utils/options/OptionsCont.h>
 #include <utils/foxtools/MFXCheckableButton.h>
+#include <utils/foxtools/MFXDialogBox.h>
 
 // ===========================================================================
 // class declarations
@@ -33,11 +34,7 @@ class GNEApplicationWindow;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNENetgenerateDialog
- * @brief Dialog for netgenerate tool dialog
- */
-class GNENetgenerateDialog : protected FXDialogBox {
+class GNENetgenerateDialog : protected MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNENetgenerateDialog)
 

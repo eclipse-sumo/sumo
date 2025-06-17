@@ -38,7 +38,7 @@ FXDEFMAP(GNEFixNetworkElements) GNEFixNetworkElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFixNetworkElements, FXDialogBox, GNEFixNetworkElementsMap, ARRAYNUMBER(GNEFixNetworkElementsMap))
+FXIMPLEMENT(GNEFixNetworkElements, MFXDialogBox, GNEFixNetworkElementsMap, ARRAYNUMBER(GNEFixNetworkElementsMap))
 
 // ===========================================================================
 // member method definitions
@@ -49,7 +49,7 @@ FXIMPLEMENT(GNEFixNetworkElements, FXDialogBox, GNEFixNetworkElementsMap, ARRAYN
 // ---------------------------------------------------------------------------
 
 GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet, const std::vector<GNENetworkElement*>& invalidNetworkElements) :
-    FXDialogBox(viewNet->getApp(), TL("Fix network elements problems"), GUIDesignDialogBoxExplicitStretchable(600, 620)),
+    MFXDialogBox(viewNet->getApp(), TL("Fix network elements problems"), GUIDesignDialogBoxExplicitStretchable(600, 620)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));

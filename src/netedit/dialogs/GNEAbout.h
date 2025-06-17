@@ -20,17 +20,15 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/foxtools/fxheader.h>
-
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEAbout
- * @brief The application's "About" - dialog
- */
-class GNEAbout : public FXDialogBox {
+
+class GNEAbout : public MFXDialogBox {
+
 public:
     /**@brief Constructor
      * @param[in] parent The parent window
