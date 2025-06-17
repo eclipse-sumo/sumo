@@ -51,14 +51,14 @@ FXDEFMAP(GNENetgenerateDialog) GNENetgenerateDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNENetgenerateDialog, FXDialogBox, GNENetgenerateDialogMap, ARRAYNUMBER(GNENetgenerateDialogMap))
+FXIMPLEMENT(GNENetgenerateDialog, MFXDialogBox, GNENetgenerateDialogMap, ARRAYNUMBER(GNENetgenerateDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
 GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    FXDialogBox(GNEApp->getApp(), "Netgenerate", GUIDesignDialogBox),
+    MFXDialogBox(GNEApp->getApp(), "Netgenerate", GUIDesignDialogBox),
     myGNEApp(GNEApp) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETGENERATE));
@@ -126,7 +126,7 @@ GNENetgenerateDialog::openDialog() {
     // set output
     myOutputTextField->setText(generateOptions.getValueString("output-file").c_str());
     // show dialog
-    FXDialogBox::show(PLACEMENT_SCREEN);
+    MFXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
 }

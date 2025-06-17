@@ -23,6 +23,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/dialogs/GNEGeometryPointDialog.h>
+#include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
@@ -292,6 +293,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     buildEditModeControls();
     // set this net in Net
     myNet->setViewNet(this);
+    // create allow VClasses dialog
+    myAllowVClassesDialog = new GNEAllowVClassesDialog(this);
     // set drag delay
     ((GUIDanielPerspectiveChanger*)myChanger)->setDragDelay(100000000); // 100 milliseconds
     // Reset textures
@@ -313,6 +316,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
 
 
 GNEViewNet::~GNEViewNet() {
+    delete myAllowVClassesDialog;
 }
 
 
@@ -797,6 +801,12 @@ GNEViewNet::getMouseButtonKeyPressed() const {
 const GNEViewNetHelper::EditNetworkElementShapes&
 GNEViewNet::getEditNetworkElementShapes() const {
     return myEditNetworkElementShapes;
+}
+
+
+GNEAllowVClassesDialog*
+GNEViewNet::getAllowVClassesDialog() const {
+    return myAllowVClassesDialog;
 }
 
 

@@ -23,8 +23,7 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", "."), "tools"))
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(
-    neteditTestRoot, ["--sidewalks.guess", "--crossings.guess"])
+neteditProcess, referencePosition = netedit.setupAndStart(["--sidewalks.guess", "--crossings.guess"])
 
 # rebuild before recomputing with volatile options
 netedit.computeJunctions()

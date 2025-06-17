@@ -54,7 +54,7 @@ FXDEFMAP(GNEVTypeDistributionsDialog::ParametersOperations) ParametersOperations
 };
 
 // Object implementation
-FXIMPLEMENT(GNEVTypeDistributionsDialog,                          FXDialogBox,    GNEVTypeDistributionsDialogMap,   ARRAYNUMBER(GNEVTypeDistributionsDialogMap))
+FXIMPLEMENT(GNEVTypeDistributionsDialog,                          MFXDialogBox,   GNEVTypeDistributionsDialogMap,   ARRAYNUMBER(GNEVTypeDistributionsDialogMap))
 FXIMPLEMENT(GNEVTypeDistributionsDialog::ParametersValues,        FXGroupBox,     ParametersValuesMap,              ARRAYNUMBER(ParametersValuesMap))
 FXIMPLEMENT(GNEVTypeDistributionsDialog::ParametersOperations,    FXGroupBox,     ParametersOperationsMap,          ARRAYNUMBER(ParametersOperationsMap))
 
@@ -386,7 +386,7 @@ GNEVTypeDistributionsDialog::ParametersOperations::onCmdSortParameters(FXObject*
 long
 GNEVTypeDistributionsDialog::ParametersOperations::onCmdHelpParameter(FXObject*, FXSelector, void*) {
     // Create dialog box
-    FXDialogBox* ParameterHelpDialog = new FXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
+    MFXDialogBox* ParameterHelpDialog = new MFXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
     ParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // set help text
     std::ostringstream help;
@@ -468,7 +468,7 @@ GNEVTypeDistributionsDialog::ParametersOperations::GNEParameterHandler::myStartE
 // ---------------------------------------------------------------------------
 
 GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(GNETypeFrame* typeFrameParent) :
-    FXDialogBox(typeFrameParent->getViewNet()->getApp(), "Edit attributes", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    MFXDialogBox(typeFrameParent->getViewNet()->getApp(), "Edit attributes", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myTypeFrameParent(typeFrameParent) {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));

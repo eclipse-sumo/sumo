@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # change color using dialog
-netedit.modifyColorAttributeOverlapped(netedit.attrs.route.inspectSelection.colorButton, 5)
+netedit.modifyColorAttributeOverlapped(netedit.attrs.route.inspectSelection.colorButton)
 
 # Change parameter color with a non valid value (empty)
 netedit.modifyAttributeOverlapped(netedit.attrs.route.inspectSelection.color, "")

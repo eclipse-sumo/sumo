@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -186,7 +187,7 @@ GNEFrame::getScrollBarWidth() const {
 
 void
 GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
-    FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, (TL("Parameters of ") + AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
+    MFXDialogBox* attributesHelpDialog = new MFXDialogBox(myScrollWindowsContents, (TL("Parameters of ") + AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
     attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT));

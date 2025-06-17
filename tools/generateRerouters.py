@@ -121,7 +121,7 @@ def main(options):
                    ' '.join(rerouterEdgeIDs)))
         outf.write('      <interval begin="%s" end="%s">\n' % (options.begin, options.end))
         for e in closedEdges:
-            outf.write('          <closingReroute id="%s"%s>\n' % (e.getID(), allowDisallow))
+            outf.write('          <closingReroute id="%s"%s/>\n' % (e.getID(), allowDisallow))
 
         outf.write('       </interval>\n')
         outf.write('   </rerouter>\n')

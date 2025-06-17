@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid personFlow number
-netedit.changeColorUsingDialog(netedit.attrs.personFlow.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.personFlow.create.colorButton)
 
 # press enter to create route
 netedit.typeKey("enter")

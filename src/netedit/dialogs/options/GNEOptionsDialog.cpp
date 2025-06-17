@@ -60,7 +60,7 @@ FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEOptionsDialog,   FXDialogBox,    GUIDialogOptionsMap,    ARRAYNUMBER(GUIDialogOptionsMap))
+FXIMPLEMENT(GNEOptionsDialog, MFXDialogBox, GUIDialogOptionsMap, ARRAYNUMBER(GUIDialogOptionsMap))
 
 // ===========================================================================
 // method definitions
@@ -94,7 +94,7 @@ GNEOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
         entry->onCmdResetOption(nullptr, 0, nullptr);
     }
     // close dialog canceling changes
-    return handle(this, FXSEL(SEL_COMMAND, ID_CANCEL), nullptr);
+    return handle(this, FXSEL(SEL_COMMAND, FXDialogBox::ID_CANCEL), nullptr);
 }
 
 
@@ -111,7 +111,7 @@ GNEOptionsDialog::onCmdReset(FXObject*, FXSelector, void*) {
 long
 GNEOptionsDialog::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
     // close dialog accepting changes
-    handle(this, FXSEL(SEL_COMMAND, ID_ACCEPT), nullptr);
+    handle(this, FXSEL(SEL_COMMAND, FXDialogBox::ID_ACCEPT), nullptr);
     // run tool in mainWindow
     return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_RUNNETGENERATE), nullptr);
 }
@@ -282,7 +282,7 @@ GNEOptionsDialog::loadConfiguration(const std::string& file) {
 
 GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
                                    const OptionsCont& originalOptionsContainer, const char* titleName, const bool runDialog) :
-    FXDialogBox(GNEApp, titleName, GUIDesignDialogBoxExplicitStretchable(800, 600)),
+    MFXDialogBox(GNEApp, titleName, GUIDesignDialogBoxExplicitStretchable(800, 600)),
     myGNEApp(GNEApp),
     myOptionsContainer(optionsContainer),
     myOriginalOptionsContainer(originalOptionsContainer) {
@@ -377,7 +377,7 @@ GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, O
     if (runDialog) {
         GUIDesigns::buildFXButton(buttonsFrame, TL("Run"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_RUNNETGENERATE, GUIDesignButtonOK);
     } else {
-        GUIDesigns::buildFXButton(buttonsFrame, TL("OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+        GUIDesigns::buildFXButton(buttonsFrame, TL("OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     }
     GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButtonOK);
     GUIDesigns::buildFXButton(buttonsFrame, TL("Reset"), "", "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonOK);

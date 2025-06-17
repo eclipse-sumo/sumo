@@ -1808,7 +1808,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions(const InternalTestStep:
     FXuint answer = 0;
     // check if open dialog or obtain the argument trought input (used in tests)
     if (modalArguments) {
-        answer = modalArguments->values[0];
+        answer = modalArguments->questionDialogValues[0];
     } else {
         // open question dialog box
         answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Recompute with volatile options"),

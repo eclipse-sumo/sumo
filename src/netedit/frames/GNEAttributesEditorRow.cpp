@@ -27,7 +27,6 @@
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/common/Translation.h>
-#include <utils/foxtools/MFXColorDialog.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -412,20 +411,25 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
 
 long
 GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
-    // create FXColorDialog
-    MFXColorDialog colordialog(myAttributeTable->getFrameParent()->getViewNet(), TL("Color Dialog"));
-    colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
-    // If previous attribute wasn't correct, set black as default color
-    if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
-        colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
-    } else if (myAttrProperty->hasDefaultValue()) {
-        colordialog.setRGBA(MFXUtils::getFXColor(myAttrProperty->getDefaultColorValue()));
+    // check if get the value of the modal arguments
+    if (myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getNeteditTestSystem()) {
+        myValueTextField->setText(InternalTestStep::ModalArguments::colorValue.c_str(), TRUE);
     } else {
-        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
-    }
-    // execute dialog to get a new color in the text field
-    if (colordialog.openDialog(myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getNeteditTestSystem())) {
-        myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str(), TRUE);
+        // create FXColorDialog
+        FXColorDialog colordialog(myAttributeTable->getFrameParent()->getViewNet(), TL("Color Dialog"));
+        colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
+        // If previous attribute wasn't correct, set black as default color
+        if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
+            colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
+        } else if (myAttrProperty->hasDefaultValue()) {
+            colordialog.setRGBA(MFXUtils::getFXColor(myAttrProperty->getDefaultColorValue()));
+        } else {
+            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
+        }
+        // execute dialog to get a new color in the text field
+        if (colordialog.execute() == 1) {
+            myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str(), TRUE);
+        }
     }
     return 1;
 }
@@ -433,15 +437,10 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEAttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
-    // declare values to be modified
-    std::string allowedVehicles = myValueTextField->getText().text();
-    // declare accept changes
-    bool acceptChanges = false;
-    // open GNEAllowVClassesDialog (also used to modify SUMO_ATTR_CHANGE_LEFT etc)
-    GNEAllowVClassesDialog(myAttributeTable->getFrameParent()->getViewNet(), myAttrProperty->getAttr(), &allowedVehicles, &acceptChanges).execute();
-    // continue depending of acceptChanges
-    if (acceptChanges) {
-        myValueTextField->setText(allowedVehicles.c_str(), TRUE);
+    const auto allowVClassesDialog = myAttributeTable->getFrameParent()->getViewNet()->getAllowVClassesDialog();
+    // open dialog
+    if (allowVClassesDialog->openDialog(myAttrProperty->getAttr(), myValueTextField->getText().text()) == 1) {
+        myValueTextField->setText(allowVClassesDialog->getModifiedVClasses().c_str(), TRUE);
     }
     return 1;
 }

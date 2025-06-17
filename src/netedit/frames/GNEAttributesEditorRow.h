@@ -76,7 +76,7 @@ public:
     long onCmdToggleEnableAttribute(FXObject*, FXSelector, void*);
 
     /// @brief called when user press "edit color" dialog
-    long onCmdOpenColorDialog(FXObject*, FXSelector, void*);
+    long onCmdOpenColorDialog(FXObject* sender, FXSelector, void* arg);
 
     /// @brief called when user press "open allow" dialog
     long onCmdOpenAllowDialog(FXObject*, FXSelector, void*);

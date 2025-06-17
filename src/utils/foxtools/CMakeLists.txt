@@ -9,8 +9,6 @@ set(utils_foxtools_STAT_SRCS
    MFXCheckButtonTooltip.h
    MFXCheckableButton.cpp
    MFXCheckableButton.h
-   MFXColorDialog.cpp
-   MFXColorDialog.h
    MFXComboBoxAttrProperty.cpp
    MFXComboBoxAttrProperty.h
    MFXComboBoxIcon.cpp
@@ -19,6 +17,8 @@ set(utils_foxtools_STAT_SRCS
    MFXComboBoxTagProperty.h
    MFXDecalsTable.cpp
    MFXDecalsTable.h
+   MFXDialogBox.cpp
+   MFXDialogBox.h
    MFXDynamicLabel.cpp
    MFXDynamicLabel.h
    MFXGroupBoxModule.cpp

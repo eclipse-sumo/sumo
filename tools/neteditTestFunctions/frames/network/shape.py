@@ -65,27 +65,6 @@ def createLineShape(referencePosition, position, sizex, sizey, close):
     typeKey('enter')
 
 
-def changeColorUsingDialog(attributeIndex, color):
-    """
-    @brief modify default color using dialog
-    """
-    # focus current frame
-    focusOnFrame()
-    # go to length TextField
-    for _ in range(attributeIndex):
-        typeKey('tab')
-    typeKey('space')
-    # go to list of colors TextField
-    for _ in range(2):
-        typeTwoKeys('shift', 'tab')
-    # select color
-    for _ in range(1 + color):
-        typeKey('down')
-    # go to accept button and press it
-    typeKey('tab')
-    typeKey('space')
-
-
 def createGEOPOI():
     """
     @brief create GEO POI

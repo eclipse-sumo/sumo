@@ -56,7 +56,7 @@ FXDEFMAP(GNEMultipleParametersDialog::ParametersOperations) ParametersOperations
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMultipleParametersDialog,                        FXDialogBox,    GNEMultipleParametersDialogMap, ARRAYNUMBER(GNEMultipleParametersDialogMap))
+FXIMPLEMENT(GNEMultipleParametersDialog,                        MFXDialogBox,   GNEMultipleParametersDialogMap, ARRAYNUMBER(GNEMultipleParametersDialogMap))
 FXIMPLEMENT(GNEMultipleParametersDialog::ParametersValues,      FXGroupBox,     ParametersValuesMap,            ARRAYNUMBER(ParametersValuesMap))
 FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOperations,  FXGroupBox,     ParametersOperationsMap,        ARRAYNUMBER(ParametersOperationsMap))
 
@@ -396,7 +396,7 @@ GNEMultipleParametersDialog::ParametersOperations::onCmdSortParameters(FXObject*
 long
 GNEMultipleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, FXSelector, void*) {
     // Create dialog box
-    FXDialogBox* ParameterHelpDialog = new FXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
+    MFXDialogBox* ParameterHelpDialog = new MFXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
     ParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // set help text
     std::ostringstream help;
@@ -489,7 +489,7 @@ GNEMultipleParametersDialog::ParametersOptions::onlyForExistentKeys() const {
 // ---------------------------------------------------------------------------
 
 GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEAttributesEditorType* attributesEditor) :
-    FXDialogBox(attributesEditor->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(430, 300)),
+    MFXDialogBox(attributesEditor->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(430, 300)),
     myAttributesEditor(attributesEditor) {
     // call auxiliar constructor
     constructor();

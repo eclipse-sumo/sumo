@@ -37,14 +37,14 @@ FXDEFMAP(GNEFixAdditionalElements) GNEFixAdditionalElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFixAdditionalElements, FXDialogBox, GNEFixAdditionalElementsMap, ARRAYNUMBER(GNEFixAdditionalElementsMap))
+FXIMPLEMENT(GNEFixAdditionalElements, MFXDialogBox, GNEFixAdditionalElementsMap, ARRAYNUMBER(GNEFixAdditionalElementsMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEFixAdditionalElements::GNEFixAdditionalElements(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) :
-    FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicitStretchable(500, 380)),
+    MFXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicitStretchable(500, 380)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::BUSSTOP));

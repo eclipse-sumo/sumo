@@ -19,7 +19,7 @@
 from ...general.functions import *
 
 
-def modifyColorAttribute(attributeIndex, color):
+def modifyColorAttribute(attributeIndex):
     """
     @brief modify color using dialog
     """
@@ -33,14 +33,14 @@ def modifyColorAttribute(attributeIndex, color):
     for _ in range(2):
         typeTwoKeys('shift', 'tab')
     # select color
-    for _ in range(1 + color):
+    for _ in range(6):
         typeKey('down')
     # go to accept button and press it
     typeKey('tab')
     typeKey('space')
 
 
-def modifyColorAttributeOverlapped(attributeIndex, color):
+def modifyColorAttributeOverlapped(attributeIndex):
     """
     @brief modify color using dialog
     """
@@ -54,7 +54,7 @@ def modifyColorAttributeOverlapped(attributeIndex, color):
     for _ in range(2):
         typeTwoKeys('shift', 'tab')
     # select color
-    for _ in range(1 + color):
+    for _ in range(6):
         typeKey('down')
     # go to accept button and press it
     typeKey('tab')

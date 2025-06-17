@@ -35,7 +35,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (from-to edges)")
 
 # set color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.flow.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.flow.create.colorButton)
 
 # try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

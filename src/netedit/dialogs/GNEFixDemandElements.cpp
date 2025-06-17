@@ -38,7 +38,7 @@ FXDEFMAP(GNEFixDemandElements) GNEFixDemandElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFixDemandElements, FXDialogBox, GNEFixDemandElementsMap, ARRAYNUMBER(GNEFixDemandElementsMap))
+FXIMPLEMENT(GNEFixDemandElements, MFXDialogBox, GNEFixDemandElementsMap, ARRAYNUMBER(GNEFixDemandElementsMap))
 
 // ===========================================================================
 // member method definitions
@@ -49,7 +49,7 @@ FXIMPLEMENT(GNEFixDemandElements, FXDialogBox, GNEFixDemandElementsMap, ARRAYNUM
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements) :
-    FXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicitStretchable(800, 620)),
+    MFXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicitStretchable(800, 620)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));

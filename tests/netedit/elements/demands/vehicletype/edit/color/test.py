@@ -35,7 +35,7 @@ netedit.changeMode("type")
 netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.type.edit.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.type.edit.colorButton)
 
 # change color with an invalid value
 netedit.modifyAttribute(netedit.attrs.type.edit.color, "")

@@ -24,6 +24,7 @@
 #include <utils/gui/images/GUIIcons.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXCheckButtonTooltip.h>
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/foxtools/MFXTextFieldSearch.h>
 
 #include "GNEOptionsDialogElements.h"
@@ -42,7 +43,7 @@ class OptionsCont;
  * @class GNEOptionsDialog
  * @briefA Dialog for setting options (see OptionsCont)
  */
-class GNEOptionsDialog : public FXDialogBox {
+class GNEOptionsDialog : public MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEOptionsDialog)
 

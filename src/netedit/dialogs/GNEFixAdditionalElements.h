@@ -20,11 +20,13 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEStoppingPlace;
 class GNEDetector;
 class GNEViewNet;
@@ -33,11 +35,7 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEFixAdditionalElements
- * @brief Dialog for edit rerouters
- */
-class GNEFixAdditionalElements : public FXDialogBox {
+class GNEFixAdditionalElements : public MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEFixAdditionalElements)
 

@@ -30,7 +30,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
-#include <utils/foxtools/MFXColorDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -673,25 +672,30 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::getButton() const {
 void
 GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
     const auto editedDemandElement = myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement;
-    // create FXColorDialog
-    MFXColorDialog colordialog(this, TL("Color Dialog"));
-    colordialog.setTarget(this);
-    colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
-    // If previous attribute wasn't correct, set black as default color
-    if (GNEAttributeCarrier::canParse<RGBColor>(myTextField->getText().text())) {
-        colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myTextField->getText().text())));
+    // check if get the value of the modal arguments
+    if (editedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getNeteditTestSystem()) {
+        myTextField->setText(InternalTestStep::ModalArguments::colorValue.c_str(), TRUE);
     } else {
-        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
-    }
-    // execute dialog to get a new color
-    if (colordialog.openDialog(editedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getNeteditTestSystem())) {
-        std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
-        myTextField->setText(newValue.c_str());
-        if (editedDemandElement->isValid(myAttr, newValue)) {
-            editedDemandElement->setAttribute(myAttr, newValue, editedDemandElement->getNet()->getViewNet()->getUndoList());
-            // If previously value was incorrect, change font color to black
-            myTextField->setTextColor(FXRGB(0, 0, 0));
-            myTextField->killFocus();
+        // create FXColorDialog
+        FXColorDialog colordialog(this, TL("Color Dialog"));
+        colordialog.setTarget(this);
+        colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
+        // If previous attribute wasn't correct, set black as default color
+        if (GNEAttributeCarrier::canParse<RGBColor>(myTextField->getText().text())) {
+            colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myTextField->getText().text())));
+        } else {
+            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
+        }
+        // execute dialog to get a new color
+        if (colordialog.execute() == 1) {
+            std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
+            myTextField->setText(newValue.c_str());
+            if (editedDemandElement->isValid(myAttr, newValue)) {
+                editedDemandElement->setAttribute(myAttr, newValue, editedDemandElement->getNet()->getViewNet()->getUndoList());
+                // If previously value was incorrect, change font color to black
+                myTextField->setTextColor(FXRGB(0, 0, 0));
+                myTextField->killFocus();
+            }
         }
     }
 }

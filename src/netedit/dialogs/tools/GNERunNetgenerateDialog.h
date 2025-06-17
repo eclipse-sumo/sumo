@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/foxtools/MFXSynchQue.h>
 #include <utils/foxtools/MFXThreadEvent.h>
 #include <utils/options/OptionsCont.h>
@@ -42,7 +43,7 @@ class GUIEvent;
  * @class GNERunNetgenerateDialog
  * @brief Abstract dialog for tools
  */
-class GNERunNetgenerateDialog : protected FXDialogBox {
+class GNERunNetgenerateDialog : protected MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNERunNetgenerateDialog)
 

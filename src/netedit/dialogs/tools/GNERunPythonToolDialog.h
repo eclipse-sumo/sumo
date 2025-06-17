@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/foxtools/MFXSynchQue.h>
 #include <utils/foxtools/MFXThreadEvent.h>
 
@@ -37,11 +38,7 @@ class GUIEvent;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNERunPythonToolDialog
- * @brief Abstract dialog for tools
- */
-class GNERunPythonToolDialog : protected FXDialogBox {
+class GNERunPythonToolDialog : protected MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNERunPythonToolDialog)
 

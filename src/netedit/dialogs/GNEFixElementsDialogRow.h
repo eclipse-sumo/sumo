@@ -31,7 +31,7 @@
  * @class GNEFixElementsDialogRow
  * @brief Dialog for edit rerouters
  */
-class GNEFixElementsDialogRow : public FXDialogBox {
+class GNEFixElementsDialogRow : public MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEFixElementsDialogRow)
 

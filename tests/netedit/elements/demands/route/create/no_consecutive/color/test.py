@@ -35,7 +35,7 @@ netedit.changeMode("route")
 netedit.changeElement("routeFrame", "non consecutive edges")
 
 # set color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.route.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.route.create.colorButton)
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

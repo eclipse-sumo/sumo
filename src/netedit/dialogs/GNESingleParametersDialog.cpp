@@ -61,7 +61,7 @@ FXDEFMAP(GNESingleParametersDialog::ParametersOperations) ParametersOperationsMa
 };
 
 // Object implementation
-FXIMPLEMENT(GNESingleParametersDialog,                          FXDialogBox,    GNESingleParametersDialogMap,   ARRAYNUMBER(GNESingleParametersDialogMap))
+FXIMPLEMENT(GNESingleParametersDialog,                          MFXDialogBox,   GNESingleParametersDialogMap,   ARRAYNUMBER(GNESingleParametersDialogMap))
 FXIMPLEMENT(GNESingleParametersDialog::ParametersValues,        FXGroupBox,     ParametersValuesMap,            ARRAYNUMBER(ParametersValuesMap))
 FXIMPLEMENT(GNESingleParametersDialog::ParametersOperations,    FXGroupBox,     ParametersOperationsMap,        ARRAYNUMBER(ParametersOperationsMap))
 
@@ -395,7 +395,7 @@ GNESingleParametersDialog::ParametersOperations::onCmdSortParameters(FXObject*, 
 long
 GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, FXSelector, void*) {
     // Create dialog box
-    FXDialogBox* ParameterHelpDialog = new FXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
+    MFXDialogBox* ParameterHelpDialog = new MFXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
     ParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // set help text
     std::ostringstream help;
@@ -477,7 +477,7 @@ GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartEle
 // ---------------------------------------------------------------------------
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditorType* attributesEditor) :
-    FXDialogBox(attributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    MFXDialogBox(attributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myAttributesEditor(attributesEditor) {
     // call auxiliar constructor
     constructor("Parameters");
@@ -487,7 +487,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditorType* at
 
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet) :
-    FXDialogBox(viewNet->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    MFXDialogBox(viewNet->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     VTypeAttributeRow(VTypeAttributeRow) {
     // call auxiliar constructor
     constructor("Parameters");
@@ -497,7 +497,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VType
 
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attributeCarrier) :
-    FXDialogBox(attributeCarrier->getNet()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    MFXDialogBox(attributeCarrier->getNet()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myAttributeCarrier(attributeCarrier) {
     // call auxiliar constructor
     constructor("Parameters");
@@ -507,7 +507,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attrib
 
 
 GNESingleParametersDialog::GNESingleParametersDialog(FXApp* app, NBLoadedSUMOTLDef* TLDef) :
-    FXDialogBox(app, "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    MFXDialogBox(app, "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myTLDef(TLDef) {
     // call auxiliar constructor
     constructor("Parameters");

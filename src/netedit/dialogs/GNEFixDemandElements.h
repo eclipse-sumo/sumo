@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
@@ -36,7 +37,7 @@ class GNEViewNet;
  * @class GNEFixDemandElements
  * @brief Dialog for edit rerouters
  */
-class GNEFixDemandElements : public FXDialogBox {
+class GNEFixDemandElements : public MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEFixDemandElements)
 

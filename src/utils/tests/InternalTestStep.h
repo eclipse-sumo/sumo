@@ -47,9 +47,9 @@ public:
     /// @brief extra arguments (used for certain functions that opens modal dialogs)
     struct ModalArguments {
 
-        /// @brief constructor
-        ModalArguments(std::vector<FXuint> values_) :
-            values(values_) {
+        /// @brief constructor for question dialogs
+        ModalArguments(const std::vector<FXuint> values) :
+            questionDialogValues(values) {
         }
 
         /// @brief yes value
@@ -61,8 +61,11 @@ public:
         /// @brief ESC or cancel value
         static const FXuint esc = 4;
 
+        /// @brief color dialog value
+        static const std::string colorValue;
+
         /// @brief used if we have multiple modal dialogs
-        const std::vector<FXuint> values;
+        const std::vector<FXuint> questionDialogValues;
     };
 
     /// @brief constructor for parsing step in strin format

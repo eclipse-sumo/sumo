@@ -45,7 +45,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.route.inspect.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.route.inspect.colorButton)
 
 # Change parameter color with a non valid value (empty)
 netedit.modifyAttribute(netedit.attrs.route.inspect.color, "")

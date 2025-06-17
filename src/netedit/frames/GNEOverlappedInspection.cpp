@@ -22,6 +22,7 @@
 #include <netedit/GNETagProperties.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -230,7 +231,7 @@ GNEOverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(getCollapsableFrame(), TL("GEO attributes Help"), GUIDesignDialogBox);
+    MFXDialogBox* helpDialog = new MFXDialogBox(getCollapsableFrame(), TL("GEO attributes Help"), GUIDesignDialogBox);
     std::ostringstream help;
     help
             << TL(" - Click in the same position") << "\n"

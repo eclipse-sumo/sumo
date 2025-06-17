@@ -20,22 +20,20 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEApplicationWindow;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEKeepElementsDialog
- * @brief Dialog for edit rerouters
- */
-class GNEKeepElementsDialog : public FXDialogBox {
+class GNEKeepElementsDialog : public MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEKeepElementsDialog)
 

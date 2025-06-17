@@ -46,7 +46,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "flow (over route)")
 
 # set invalid person number
-netedit.changeColorUsingDialog(netedit.attrs.routeFlow.create.colorButton, 5)
+netedit.modifyColorAttribute(netedit.attrs.routeFlow.create.colorButton)
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
