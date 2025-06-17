@@ -1,10 +1,3 @@
 # external tests use python as interpreter and the test.py as binary
 interpreter:python
 binary:test.py
-# virtual display configuration
-use_case_record_mode:GUI
-virtual_display_wm_executable:fluxbox
-virtual_display_extra_args:-dpi 100 -shmem
-
-# copy test file
-copy_test_path:test.py
