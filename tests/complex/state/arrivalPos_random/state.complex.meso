@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 14:28:51 by Eclipse SUMO sumo Version v1_20_0+1714-5abd9d647c6
+<!-- generated on 2025-06-17 08:46:15 by Eclipse SUMO sumo Version v1_23_1+0606-06b23075d04
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
+        <net-file value="input_net2.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
+        <tripinfo-output value="tripinfo.xml"/>
         <vehroute-output value="vehroutes.xml"/>
-        <save-state.times value="50"/>
+        <save-state.times value="20"/>
         <save-state.files value="state.xml"/>
     </output>
 
@@ -26,45 +27,48 @@
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1714-5abd9d647c6" time="50.00" type="meso">
-    <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
-    <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
-    <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" impatience="0.50" accel="0.8" decel="4.5" sigma="0"/>
-    <vehicle id="0" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2072 0 1 0 0 0 50000 40000 9223372036854774807">
-        <device id="vehroute_0" state="10.00 0.00 0"/>
+<snapshot type="meso" version="v1_23_1+0606-06b23075d04" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <route id="r0" state="1" edges="SC"/>
+    <delay number="8" begin="10" end="1" depart="3.00" time="19.00"/>
+    <vType id="DEFAULT_VEHTYPE" maxSpeed="5.00" sigma="0"/>
+    <vehicle id="f.1" depart="2.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="65.51" speedFactor="0.9383" state="10432 2000 0 0 0 1 20390 2000 9223372036854774807">
+        <device id="vehroute_f.1" state="5.00 0.00 0"/>
+        <device id="tripinfo_f.1" state="SC_0 5 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
     </vehicle>
-    <vehicle id="1" depart="5.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2072 5000 1 0 0 0 55000 45000 9223372036854774807">
-        <stop lane="3/1to2/1_0" startPos="399.80" endPos="400.00" duration="10.00"/>
-        <device id="vehroute_1" state="10.00 0.00 0"/>
+    <vehicle id="f.2" depart="4.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="4.18" speedFactor="1.0104" state="10432 4000 0 0 0 0 22390 4000 9223372036854774807">
+        <device id="vehroute_f.2" state="5.00 0.00 0"/>
+        <device id="tripinfo_f.2" state="SC_0 5 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
     </vehicle>
-    <segment id="3/1to2/1:0">
-        <vehicles time="-1" value="1 0"/>
+    <vehicle id="f.3" depart="6.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="45.19" speedFactor="1.0827" state="10432 6000 0 0 0 1 24390 6000 9223372036854774807">
+        <device id="vehroute_f.3" state="5.00 0.00 0"/>
+        <device id="tripinfo_f.3" state="SC_0 5 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+    </vehicle>
+    <vehicle id="f.4" depart="8.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="54.25" speedFactor="1.0303" state="10432 8000 0 0 0 0 26390 8000 9223372036854774807">
+        <device id="vehroute_f.4" state="5.00 0.00 0"/>
+        <device id="tripinfo_f.4" state="SC_0 5 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+    </vehicle>
+    <vehicle id="f.5" depart="10.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="4.01" speedFactor="0.8310" state="10432 10000 0 0 0 1 28390 10000 9223372036854774807">
+        <device id="vehroute_f.5" state="5.00 0.00 0"/>
+        <device id="tripinfo_f.5" state="SC_0 5 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+    </vehicle>
+    <vehicle id="f.6" depart="12.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="68.34" speedFactor="1.0458" state="10432 12000 0 0 0 0 30390 12000 9223372036854774807">
+        <device id="vehroute_f.6" state="5.00 0.00 0"/>
+        <device id="tripinfo_f.6" state="SC_0 5 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+    </vehicle>
+    <vehicle id="f.7" depart="14.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="22.76" speedFactor="0.8860" state="10432 14000 0 0 0 1 32390 14000 9223372036854774807">
+        <device id="vehroute_f.7" state="5.00 0.00 0"/>
+        <device id="tripinfo_f.7" state="SC_0 5 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+    </vehicle>
+    <vehicle id="f.8" depart="16.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="50.14" speedFactor="0.9379" state="10432 19000 0 0 0 0 37390 19000 9223372036854774807">
+        <device id="vehroute_f.8" state="5.00 0.00 0"/>
+        <device id="tripinfo_f.8" state="SC_0 5 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+    </vehicle>
+    <vehicle id="f.9" depart="18.00" arrivalPos="random" route="r0" distance="0 0" arrivalPosRandomized="68.51" speedFactor="0.8569" state="10432 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807">
+        <device id="vehroute_f.9" state="-1.00 -1.00 0"/>
+    </vehicle>
+    <segment id="SC:0">
+        <vehicles time="18390" blockTime="-9223372036854775808" value="f.8 f.6 f.4 f.2"/>
+        <vehicles time="-1" blockTime="-9223372036854775808" value="f.7 f.5 f.3 f.1"/>
     </segment>
-    <segment id="4/1to3/1:0">
-        <vehicles time="16630" value=""/>
-    </segment>
-    <segment id="4/1to3/1:1">
-        <vehicles time="26630" value=""/>
-    </segment>
-    <segment id="4/1to3/1:2">
-        <vehicles time="36630" value=""/>
-    </segment>
-    <segment id="4/1to3/1:3">
-        <vehicles time="46630" value=""/>
-    </segment>
-    <tlLogic id="0/0" programID="0" phase="2" duration="16000"/>
-    <tlLogic id="0/1" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="0/2" programID="0" phase="2" duration="16000"/>
-    <tlLogic id="1/0" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="1/1" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="1/2" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="2/0" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="2/1" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="2/2" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="3/0" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="3/1" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="3/2" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="4/0" programID="0" phase="2" duration="16000"/>
-    <tlLogic id="4/1" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="4/2" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="C" programID="0" phase="0" duration="20000"/>
 </snapshot>

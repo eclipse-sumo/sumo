@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 14:28:52 by Eclipse SUMO sumo Version v1_20_0+1714-5abd9d647c6
+<!-- generated on 2025-06-17 08:54:22 by Eclipse SUMO sumo Version v1_23_1+0606-06b23075d04
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,7 +30,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1714-5abd9d647c6" time="116.00" type="meso">
+<snapshot type="meso" version="v1_23_1+0606-06b23075d04" time="116.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!train2" state="0" edges="-e -b -d"/>
     <route id="!train3" state="0" edges="-e -b -d"/>
     <delay number="2" begin="3" end="1" depart="0.00" time="31.00"/>
@@ -40,21 +40,23 @@
     </vehicle>
     <vehicle id="train3" type="train" depart="110.00" departSpeed="max" route="!train3" distance="0 0" speedFactor="1.0000" state="18 110000 0 0 0 0 119796 110000 9223372036854774807"/>
     <segment id="-b:0">
-        <vehicles time="-1" value="train2"/>
+        <vehicles time="-1" blockTime="112724" value="train2"/>
     </segment>
     <segment id="-e:0">
-        <vehicles time="112725" value="train3"/>
+        <vehicles time="112725" blockTime="-9223372036854775808" value="train3"/>
     </segment>
     <segment id="a:0">
-        <vehicles time="9743" value=""/>
+        <vehicles time="9743" blockTime="-9223372036854775808" value=""/>
     </segment>
     <segment id="b:0">
-        <vehicles time="16787" value=""/>
+        <vehicles time="16787" blockTime="9742" value=""/>
     </segment>
     <segment id="b:1">
-        <vehicles time="23831" value=""/>
+        <vehicles time="23831" blockTime="16786" value=""/>
     </segment>
     <segment id="e:0">
-        <vehicles time="30698" value=""/>
+        <vehicles time="30698" blockTime="23830" value=""/>
     </segment>
+    <driveWay id="B.0" edges="-b -d" vehicles="train2"/>
+    <driveWay id="gneJ7.d0" edges="-e -b -d" vehicles="train3"/>
 </snapshot>

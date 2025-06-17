@@ -1,6 +1,9 @@
 # test state saving with persons
 persons
 
+# railway specific tests
+rail
+
 # two vehicles saved and reloaded
 plain
 
@@ -22,18 +25,33 @@ disconnected
 # two vehicles saved and reloaded with xml output
 xml
 
+# ensure correct exitTimes after loading state
+vehroute_exit_times
+
 # include route and vtype dists with xml output
 dists_xml
 
 # lots of vehicles with rerouting, insertion backlog and vehroute output
 rerouting
 
+# vehicles partially equipped for rerouting
+rerouting2
+
 # lots of vehicles with rerouting, insertion backlog and vehroute output.
 # See ticket 16776
 rerouting3
 
+# vehicles skip stop edges along looped routes (require stop attribute index) and reroute after finishing the stop (which affects the index value).
+rerouting_looped_stops
+
 # flow saved and loaded
 flow
+
+# flow saved and loaded
+flow_stops
+
+# flow saved and loaded
+flow_poisson
 
 # multique saved and loaded, tests also human readable time
 multique
@@ -51,6 +69,9 @@ save_parking
 save_parking_busStop
 save_rng
 save_routeDistribution
+
+# input contains routeDistribution embedded within a vehicle. See #13449
+save_routeDistribution2
 save_stopped
 save_stopped_until
 
@@ -92,6 +113,13 @@ stops_looped
 
 # vehicle passes an edge twice but stops on the second pass
 stops_looped2
+
+# see #13110
+arrivalPos_random
+
+# ensure that insertionChecks are loaded
+insertionChecks
+
 edge_missing
 edge_length_different
 meso_lane_queue_differs
