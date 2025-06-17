@@ -33,20 +33,22 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEAllowVClassesDialog
- * @brief Dialog for edit rerouters
- */
 class GNEAllowVClassesDialog : public FXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEAllowVClassesDialog)
 
 public:
     /// @brief Constructor
-    GNEAllowVClassesDialog(GNEViewNet* viewNet, SumoXMLAttr attr, std::string* allow, bool* acceptChanges);
+    GNEAllowVClassesDialog(GNEViewNet* viewNet);
 
     /// @brief destructor
     ~GNEAllowVClassesDialog();
+
+    /// @brief open dialog
+    int openDialog(SumoXMLAttr attr, const std::string originalVClasses);
+
+    /// @brief get vClasses modified by this dialog
+    std::string getModifiedVClasses() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -83,14 +85,11 @@ protected:
     /// @pointer to viewNet
     GNEViewNet* myViewNet;
 
-    /// @brief the attribute being edited
-    SumoXMLAttr myEditedAttr;
+    /// @brief original vClasses
+    std::string myOriginalVClasses;
 
-    /// @brief reference for mark that the new set of VClasses was accepted
-    bool* myAcceptChanges;
-
-    /// @brief reference to allow vehicles. Will be modified with the new allowed vehicles
-    std::string* myAllow;
+    /// @brief edited vClasses
+    std::string myEditedVClasses;
 
     /// @brief accept button
     FXButton* myKeepOldButton;
@@ -105,9 +104,6 @@ protected:
     std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*> > myVClassMap;
 
 private:
-    /// @brief constructor
-    void constructor();
-
     /// @brief build VClass
     void buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description);
 

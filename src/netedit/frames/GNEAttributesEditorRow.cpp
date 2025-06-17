@@ -437,15 +437,10 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEAttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
-    // declare values to be modified
-    std::string allowedVehicles = myValueTextField->getText().text();
-    // declare accept changes
-    bool acceptChanges = false;
-    // open GNEAllowVClassesDialog (also used to modify SUMO_ATTR_CHANGE_LEFT etc)
-    GNEAllowVClassesDialog(myAttributeTable->getFrameParent()->getViewNet(), myAttrProperty->getAttr(), &allowedVehicles, &acceptChanges).execute();
-    // continue depending of acceptChanges
-    if (acceptChanges) {
-        myValueTextField->setText(allowedVehicles.c_str(), TRUE);
+    const auto allowVClassesDialog = myAttributeTable->getFrameParent()->getViewNet()->getAllowVClassesDialog();
+    // open dialog
+    if (allowVClassesDialog->openDialog(myAttrProperty->getAttr(), myValueTextField->getText().text()) == 1) {
+        myValueTextField->setText(allowVClassesDialog->getModifiedVClasses().c_str(), TRUE);
     }
     return 1;
 }

@@ -144,6 +144,8 @@ class GNETagPropertiesDatabase;
 class GNEUndoList;
 class GNEViewNet;
 class GNEViewParent;
+// dialogs
+class GNEAllowVClassesDialog;
 // network elements
 class GNENetworkElement;
 class GNEJunction;

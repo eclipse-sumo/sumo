@@ -144,6 +144,9 @@ public:
     /// @brief get Edit Shape module
     const GNEViewNetHelper::EditNetworkElementShapes& getEditNetworkElementShapes() const;
 
+    /// @brief get allow vClasses dialog
+    GNEAllowVClassesDialog* getAllowVClassesDialog() const;
+
     /// @name overloaded handlers
     /// @{
     /// @brief called when user press mouse's left button
@@ -690,6 +693,14 @@ private:
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
 
     // @}
+
+    /// @name dialogs
+    /// @{
+
+    /// @brief allowVClasses dialog
+    GNEAllowVClassesDialog* myAllowVClassesDialog = nullptr;
+
+    /// @}
 
     /// @brief variable used for grouping all variables related with salve elements
     GNEViewNetHelper::SaveElements mySaveElements;
