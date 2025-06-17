@@ -24,4 +24,8 @@ unreachable_skip
 dest_unreachable_skip
 
 # see #16421
+# destination is not a stop edge
+dest_unreachable2
+
+# see #16421
 short_closing_wait
