@@ -17,7 +17,6 @@
 ///
 // Custom FXDialogBox that supports internal tests
 /****************************************************************************/
-
 #pragma once
 #include <config.h>
 
@@ -28,30 +27,33 @@
 // class definitions
 // ===========================================================================
 
-class MFXDialogBox : public FXTopWindow {
+class MFXDialogBox : public FXDialogBox {
     FXDECLARE(MFXDialogBox)
 
-protected:
-    MFXDialogBox() {}
-
-private:
-    MFXDialogBox(const MFXDialogBox&);
-    MFXDialogBox& operator=(const MFXDialogBox&);
-
 public:
-    long onKeyPress(FXObject*, FXSelector, void*);
-    long onKeyRelease(FXObject*, FXSelector, void*);
-    long onCmdAccept(FXObject*, FXSelector, void*);
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-public:
-
-    /// Construct free-floating dialog
+    /// @brief Construct free-floating dialog
     MFXDialogBox(FXApp* a, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
 
-    /// Construct dialog which will always float over the owner window
+    /// @brief Construct dialog which will always float over the owner window
     MFXDialogBox(FXWindow* owner, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
 
     /// Run modal invocation of the dialog
     virtual FXuint execute(FXuint placement = PLACEMENT_CURSOR);
+
+    /// @brief called when accept button is pressed
+    long onCmdAccept(FXObject*, FXSelector, void*);
+
+    /// @brief called when cancel button is pressed (or dialog is closed)
+    long onCmdCancel(FXObject*, FXSelector, void*);
+
+protected:
+    /// @brief FOX needs this
+    MFXDialogBox() {}
+
+private:
+    /// @brief Invalidated copy constructor.
+    MFXDialogBox(const MFXDialogBox&) = delete;
+
+    /// @brief Invalidated assignment operator
+    MFXDialogBox& operator=(const MFXDialogBox& src) = delete;
 };

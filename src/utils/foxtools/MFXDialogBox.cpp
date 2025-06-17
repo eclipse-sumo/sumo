@@ -22,7 +22,6 @@
 // included modules
 // ===========================================================================
 
-#include "fxkeys.h"
 #include "MFXDialogBox.h"
 
 // ===========================================================================
@@ -30,70 +29,50 @@
 // ===========================================================================
 
 FXDEFMAP(MFXDialogBox) MFXDialogBoxMap[] = {
-    FXMAPFUNC(SEL_KEYPRESS,     0,                      MFXDialogBox::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,   0,                      MFXDialogBox::onKeyRelease),
-    FXMAPFUNC(SEL_CLOSE,        0,                      MFXDialogBox::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,      FXDialogBox::ID_ACCEPT, MFXDialogBox::onCmdAccept),
-    FXMAPFUNC(SEL_CHORE,        FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
-    FXMAPFUNC(SEL_TIMEOUT,      FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,      FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
+    FXMAPFUNC(SEL_CLOSE,    0,                      MFXDialogBox::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_ACCEPT, MFXDialogBox::onCmdAccept),
+    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
+    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
 };
 
 // Object implementation
-FXIMPLEMENT(MFXDialogBox, FXTopWindow, MFXDialogBoxMap, ARRAYNUMBER(MFXDialogBoxMap))
+FXIMPLEMENT(MFXDialogBox, FXDialogBox, MFXDialogBoxMap, ARRAYNUMBER(MFXDialogBoxMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-MFXDialogBox::MFXDialogBox(FXApp* a, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs):
-    FXTopWindow(a, name, NULL, NULL, opts, x, y, w, h, pl, pr, pt, pb, hs, vs) {
+MFXDialogBox::MFXDialogBox(FXApp* a, const FXString& name, FXuint opts, FXint x, FXint y,
+                           FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs):
+    FXDialogBox(a, name, opts, x, y, w, h, pl, pr, pt, pb, hs, vs) {
 }
 
 
-MFXDialogBox::MFXDialogBox(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs):
-    FXTopWindow(owner, name, NULL, NULL, opts, x, y, w, h, pl, pr, pt, pb, hs, vs) {
+MFXDialogBox::MFXDialogBox(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y,
+                           FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs):
+    FXDialogBox(owner, name, opts, x, y, w, h, pl, pr, pt, pb, hs, vs) {
 }
 
 
-long MFXDialogBox::onCmdAccept(FXObject*, FXSelector, void*) {
+long
+MFXDialogBox::onCmdAccept(FXObject*, FXSelector, void*) {
     getApp()->stopModal(this, TRUE);
     hide();
     return 1;
 }
 
 
-long MFXDialogBox::onCmdCancel(FXObject*, FXSelector, void*) {
+long
+MFXDialogBox::onCmdCancel(FXObject*, FXSelector, void*) {
     getApp()->stopModal(this, FALSE);
     hide();
     return 1;
 }
 
 
-long MFXDialogBox::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
-    if (FXTopWindow::onKeyPress(sender, sel, ptr)) {
-        return 1;
-    } else if (((FXEvent*)ptr)->code == KEY_Escape) {
-        handle(this, FXSEL(SEL_COMMAND, FXDialogBox::ID_CANCEL), NULL);
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-
-long MFXDialogBox::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
-    if (FXTopWindow::onKeyRelease(sender, sel, ptr)) {
-        return 1;
-    } else if (((FXEvent*)ptr)->code == KEY_Escape) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-
-FXuint MFXDialogBox::execute(FXuint placement) {
+FXuint
+MFXDialogBox::execute(FXuint placement) {
     create();
     show(placement);
     getApp()->refresh();
