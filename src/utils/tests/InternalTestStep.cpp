@@ -499,13 +499,11 @@ InternalTestStep::processModifyBoolAttributeOverlappedFunction() const {
 
 void
 InternalTestStep::processModifyColorAttributeFunction() const {
-    if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum) ||
-            !checkIntArgument(myArguments[1], myTestSystem->myAttributesEnum)) {
-        writeError("processModifyColorAttributeFunction", "<int/attributeEnum, int>");
+    if ((myArguments.size() != 1) ||
+            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum)) {
+        writeError("processModifyColorAttributeFunction", "<int/attributeEnum>");
     } else {
         const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
-        const int colorIndex = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
@@ -519,7 +517,7 @@ InternalTestStep::processModifyColorAttributeFunction() const {
             buildTwoPressKeyEvent(spaceEvent, "shift", "tab");
         }
         // select color
-        for (int i = 0; i < (1 + colorIndex); i++) {
+        for (int i = 0; i < 6; i++) {
             buildPressKeyEvent(spaceEvent, "down");
         }
         // go to button
@@ -532,13 +530,11 @@ InternalTestStep::processModifyColorAttributeFunction() const {
 
 void
 InternalTestStep::processModifyColorAttributeOverlappedFunction() const {
-    if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum) ||
-            !checkIntArgument(myArguments[1], myTestSystem->myAttributesEnum)) {
-        writeError("processModifyColorAttributeOverlappedFunction", "<int/attributeEnum, int>");
+    if ((myArguments.size() != 1) ||
+            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum)) {
+        writeError("processModifyColorAttributeOverlappedFunction", "<int/attributeEnum>");
     } else {
         const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
-        const int colorIndex = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
         const int overlappedTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.editElements.overlapped");
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
@@ -553,7 +549,7 @@ InternalTestStep::processModifyColorAttributeOverlappedFunction() const {
             buildTwoPressKeyEvent(spaceEvent, "shift", "tab");
         }
         // select color
-        for (int i = 0; i < (1 + colorIndex); i++) {
+        for (int i = 0; i < 6; i++) {
             buildPressKeyEvent(spaceEvent, "down");
         }
         // go to button
