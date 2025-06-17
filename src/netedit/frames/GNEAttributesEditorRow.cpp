@@ -411,20 +411,25 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
 
 long
 GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
-    // create FXColorDialog
-    FXColorDialog colordialog(myAttributeTable->getFrameParent()->getViewNet(), TL("Color Dialog"));
-    colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
-    // If previous attribute wasn't correct, set black as default color
-    if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
-        colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
-    } else if (myAttrProperty->hasDefaultValue()) {
-        colordialog.setRGBA(MFXUtils::getFXColor(myAttrProperty->getDefaultColorValue()));
+    // check if get the value of the modal arguments
+    if (myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getNeteditTestSystem()) {
+        myValueTextField->setText(InternalTestStep::ModalArguments::colorValue.c_str(), TRUE);
     } else {
-        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
-    }
-    // execute dialog to get a new color in the text field
-    if (colordialog.execute() == 1) {
-        myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str(), TRUE);
+        // create FXColorDialog
+        FXColorDialog colordialog(myAttributeTable->getFrameParent()->getViewNet(), TL("Color Dialog"));
+        colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
+        // If previous attribute wasn't correct, set black as default color
+        if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
+            colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
+        } else if (myAttrProperty->hasDefaultValue()) {
+            colordialog.setRGBA(MFXUtils::getFXColor(myAttrProperty->getDefaultColorValue()));
+        } else {
+            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
+        }
+        // execute dialog to get a new color in the text field
+        if (colordialog.execute() == 1) {
+            myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str(), TRUE);
+        }
     }
     return 1;
 }
