@@ -104,11 +104,11 @@ def main(options):
             sys.exit("Unknown closed edge '%s'" % closedID)
         closedEdges.append(net.getEdge(closedID))
 
-    allowDisallow = ""
+    allowDisallow = "/"
     if options.disallow is not None:
-        allowDisallow = ' disallow="%s"' % options.disallow
+        allowDisallow = ' disallow="%s"/' % options.disallow
     elif options.allow != "":
-        allowDisallow = ' allow="%s"' % options.allow
+        allowDisallow = ' allow="%s"/' % options.allow
 
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
