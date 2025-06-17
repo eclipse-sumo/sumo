@@ -59,7 +59,6 @@ public:
     /// @brief Destructor
     virtual ~OutputFormatter() { }
 
-
     /** @brief Writes an XML header with optional configuration
      *
      * If something has been written (myXMLStack is not empty), nothing
@@ -75,7 +74,6 @@ public:
                                 const std::map<SumoXMLAttr, std::string>& attrs,
                                 bool includeConfig = true) = 0;
 
-
     /** @brief Opens an XML tag
      *
      * An indentation, depending on the current xml-element-stack size, is written followed
@@ -88,7 +86,6 @@ public:
      */
     virtual void openTag(std::ostream& into, const std::string& xmlElement) = 0;
 
-
     /** @brief Opens an XML tag
      *
      * Helper method which finds the correct string before calling openTag.
@@ -97,7 +94,6 @@ public:
      * @param[in] xmlElement Id of the element to open
      */
     virtual void openTag(std::ostream& into, const SumoXMLTag& xmlElement) = 0;
-
 
     /** @brief Closes the most recently opened tag and optinally add a comment
      *
@@ -109,7 +105,10 @@ public:
 
     virtual void writePreformattedTag(std::ostream& into, const std::string& val) = 0;
 
-    virtual void writePadding(std::ostream& into, const std::string& val) = 0;
+    virtual void writePadding(std::ostream& into, const std::string& val) {
+        UNUSED_PARAMETER(into);
+        UNUSED_PARAMETER(val);
+    }
 
     virtual bool wroteHeader() const = 0;
 
@@ -117,9 +116,9 @@ public:
         return myType;
     }
 
-    virtual void setExpectedAttributes(const SumoXMLAttrMask& expected, const SumoXMLAttrMask& nullable) {
+    virtual void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth = 2) {
         UNUSED_PARAMETER(expected);
-        UNUSED_PARAMETER(nullable);
+        UNUSED_PARAMETER(depth);
     }
 
 private:

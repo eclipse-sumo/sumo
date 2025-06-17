@@ -27,7 +27,7 @@
 // member method definitions
 // ===========================================================================
 CSVFormatter::CSVFormatter(const char separator)
-    : OutputFormatter(OutputFormatterType::CSV), mySeparator(separator), myMaxDepth(0) {
+    : OutputFormatter(OutputFormatterType::CSV), mySeparator(separator), myMaxDepth(0), myWroteHeader(false) {
 }
 
 
@@ -52,11 +52,18 @@ CSVFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& /* xmlElement 
 
 bool
 CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
-    if (myMaxDepth == 0) {
+    if (myMaxDepth == 0 || (myMaxDepth == (int)myXMLStack.size() && !myWroteHeader)) {
         into << myHeader << std::endl;
-        myMaxDepth = (int)myXMLStack.size();
+        if (myMaxDepth == 0) {
+            myMaxDepth = (int)myXMLStack.size();
+            myExpectedAttrs = mySeenAttrs;
+        }
+        myWroteHeader = true;
     }
     if ((int)myXMLStack.size() == myMaxDepth) {
+        if (myExpectedAttrs != mySeenAttrs) {
+            throw ProcessError(TLF("Incomplete attribute set '%', this file format does not support CSV output yet.", toString(mySeenAttrs)));
+        }
         for (auto it = myXMLStack.begin(); it != myXMLStack.end() - 1; ++it) {
             into << it->str();
         }
@@ -64,6 +71,7 @@ CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
         std::string final = myXMLStack.back().str();
         final.pop_back();
         into << final << std::endl;
+        mySeenAttrs.reset();
     }
     if (!myXMLStack.empty()) {
         myXMLStack.pop_back();

@@ -260,13 +260,19 @@ public:
      * @return The OutputDevice for further processing
      */
     template <typename T>
-    OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, SumoXMLAttrMask attributeMask) {
+    OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, const SumoXMLAttrMask& attributeMask, const bool isNull = false) {
         assert((int)attr <= (int)attributeMask.size());
         if (attributeMask.none() || attributeMask.test(attr)) {
             if (myFormatter->getType() == OutputFormatterType::XML) {
-                PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+                if (!isNull) {
+                    PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+                }
             } else {
-                static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+                if (isNull) {
+                    static_cast<CSVFormatter*>(myFormatter)->writeNull(getOStream(), attr);
+                } else {
+                    static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+                }
             }
         }
         return *this;
@@ -283,7 +289,7 @@ public:
         if (myFormatter->getType() == OutputFormatterType::XML) {
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
         } else {
-            static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+            throw ProcessError("This file format does not support CSV output yet.");
         }
         return *this;
     }
@@ -345,8 +351,8 @@ public:
         return myFormatter->wroteHeader();
     }
 
-    void setExpectedAttributes(const SumoXMLAttrMask& expected, const SumoXMLAttrMask& nullable) {
-        myFormatter->setExpectedAttributes(expected, nullable);
+    void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth = 2) {
+        myFormatter->setExpectedAttributes(expected, depth);
     }
 
 protected:

@@ -103,11 +103,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 of.writeOptionalAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID(), mask);
                 of.writeOptionalAttr(SUMO_ATTR_SPEED, veh->getSpeed(), mask);
                 of.writeOptionalAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane(), mask);
-                if (microVeh != nullptr) {
-                    of.writeOptionalAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID(), mask);
-                } else {
-                    of.writeOptionalAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID(), mask);
-                }
+                of.writeOptionalAttr(SUMO_ATTR_LANE, microVeh == nullptr ? "" : microVeh->getLane()->getID(), mask, microVeh == nullptr);
+                of.writeOptionalAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID(), mask, microVeh != nullptr);
                 of.writeOptionalAttr(SUMO_ATTR_SLOPE, veh->getSlope(), mask);
                 if (microVeh != nullptr) {
                     of.writeOptionalAttr(SUMO_ATTR_SIGNALS, microVeh->getSignals(), mask);
@@ -162,6 +159,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                     of.writeOptionalAttr(SUMO_ATTR_EVENTTIME, mesoVeh->getEventTimeSeconds(), mask);
                     of.writeOptionalAttr(SUMO_ATTR_BLOCKTIME, mesoVeh->getBlockTime() == SUMOTime_MAX ? -1.0 : mesoVeh->getBlockTimeSeconds(), mask);
                 }
+                of.writeOptionalAttr(SUMO_ATTR_TAG, toString(SUMO_TAG_VEHICLE), mask);
                 of.closeTag();
             }
             // write persons and containers
@@ -253,6 +251,7 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportab
     of.writeOptionalAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()), mask);
     of.writeOptionalAttr(SUMO_ATTR_VEHICLE, v == nullptr ? "" : v->getID(), mask);
     of.writeOptionalAttr(SUMO_ATTR_TYPE, p->getVehicleType().getID(), mask);
+    of.writeOptionalAttr(SUMO_ATTR_TAG, toString(tag), mask);
     of.closeTag();
 }
 
