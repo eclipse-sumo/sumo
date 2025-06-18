@@ -476,6 +476,11 @@ public:
      */
     void setVClass(SUMOVehicleClass vclass);
 
+    /** @brief Set a new value for this type's gui shape
+     * @param[in] shapeClass The new shape class of this type
+     */
+    void setGUIShape(SUMOVehicleShape shape);
+
 
     /** @brief Set a new value for this type's default probability
      *
