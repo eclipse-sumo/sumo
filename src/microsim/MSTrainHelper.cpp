@@ -149,6 +149,7 @@ MSTrainHelper::computeCarriages(bool reversed, bool secondaryShape) {
         carriage->back = backLane->getShape(secondaryShape).positionAtOffset2D(carriageBackOffset * backLane->getLengthGeometryFactor(secondaryShape), lateralOffset, true);
         myCarriages.push_back(carriage);
         lane = backLane;
+        furtherIndex = backFurtherIndex;
         carriageOffset = carriageBackOffset - myCarriageGap;
         carriageBackOffset -= myCarriageLengthWithGap * unscale;
     }
