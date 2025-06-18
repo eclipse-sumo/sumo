@@ -81,7 +81,7 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
             std::shared_ptr<arrow::Array> column;
             const auto status = builder->Finish(&column);  // TODO evaluate status
             data.push_back(column);
-            builder.reset();
+            // builder.reset();
         }
         auto batch = arrow::RecordBatch::Make(mySchema, myBuilders.back()->length(), data);
         const auto status = myParquetWriter->WriteRecordBatch(*batch);  // TODO evaluate status

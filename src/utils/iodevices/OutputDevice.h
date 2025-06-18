@@ -390,8 +390,7 @@ private:
 protected:
     const std::string myFilename;
 
-private:
-    /// @brief The formatter for XML
+    /// @brief The formatter for XML, CSV or Parquet
     OutputFormatter* myFormatter;
 
 private:
