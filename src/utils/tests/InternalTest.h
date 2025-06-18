@@ -38,9 +38,6 @@ class InternalTestStep;
 
 class InternalTest : public FXObject {
 
-    /// @brief declare InternalTestStep as friend
-    friend class InternalTestStep;
-
 public:
     /// @brief constructor
     InternalTest(const std::string& testFile);
@@ -48,13 +45,28 @@ public:
     /// @brief destructor
     ~InternalTest();
 
-    /// @brief check if test are finised
-    bool isTestFinished() const;
+    /// @brief add test steps
+    void addTestSteps(const InternalTestStep* internalTestStep);
 
     /// @brief get current step
     const InternalTestStep* getCurrentStep() const;
 
+    /// @brief get map with attributesEnum jump steps
+    const std::map<std::string, int> &getAttributesEnum() const;
+
+    /// @brief get map with contextual menu operation jump steps
+    const std::map<std::string, int> &getContextualMenuOperations() const;
+
+    /// @brief get map with view position pairs
+    const std::map<std::string, std::pair<int, int> > &getViewPositions() const;
+
 protected:
+    /// @brief current step index
+    size_t myCurrentStep = 0;
+
+    /// @brief test steps
+    std::vector<const InternalTestStep*> myTestSteps;
+
     /// @brief vector with attributesEnum jump steps
     std::map<std::string, int> myAttributesEnum;
 
@@ -63,18 +75,6 @@ protected:
 
     /// @brief vector with view position pairs
     std::map<std::string, std::pair<int, int> > myViewPositions;
-
-    /// @brief current step index
-    size_t myCurrentStep = 0;
-
-    /// @brief test steps
-    std::vector<const InternalTestStep*> myTestSteps;
-
-    /// @brief flag to check if test are started
-    bool myTestStarted = false;
-
-    /// @brief flag to check if test are finished
-    bool myTestFinished = false;
 
     /// @brief parse test data int file
     std::map<std::string, int> parseIntTestDataFile(const std::string filePath) const;
@@ -88,6 +88,7 @@ protected:
     /// @brief check if the given string start with
     bool startWith(const std::string& str, const std::string& prefix) const;
 
+private:
     /// @brief invalidate default constructor
     InternalTest() = delete;
 

@@ -106,8 +106,8 @@ public:
     /// @brief get event associated with this step
     void* getEvent() const;
 
-    /// @brief get key events used in certain dialogs (color, allowDialog, etc.)
-    const std::vector<const InternalTestStep*>& getKeySteps() const;
+    /// @brief get key events used in certain dialogs (allowDialog, etc.)
+    const std::vector<const InternalTestStep*>& getModalDialogTestSteps() const;
 
 protected:
     /// @brief build mouse move event
@@ -144,8 +144,8 @@ private:
     /// @brief extra arguments
     ModalArguments* myModalArguments = nullptr;
 
-    /// @brief key events used in certain dialogs (color, allowDialog, etc.)
-    std::vector<const InternalTestStep*> myKeySteps;
+    /// @brief Test steps used in certain modal dialogs
+    std::vector<const InternalTestStep*> myModalDialogTestSteps;
 
     /// @brief parse function and arguments
     std::string parseStep(const std::string& rowText);
@@ -179,6 +179,9 @@ private:
 
     /// @brief process modifyColorAttributeOverlapped function
     void processModifyColorAttributeOverlappedFunction() const;
+
+    /// @brief process modifyAttributeVClassDialog function
+    void processModifyAttributeVClassDialogFunction() const;
 
     /// @brief process changeEditMode function
     void processChangeEditModeFunction();
