@@ -1,5 +1,5 @@
 <routes>
-    <vType id="loaded" vClass="rail" sigma="0" containerCapacity="1" length="13.5"/>
+    <vType id="loaded" vClass="rail" sigma="0" containerCapacity="1" length="13.5" mass="25000"/>
 
-    <vType id="orig" vClass="rail" sigma="0" loadingDuration="5" length="25" containerCapacity="10"/>
+    <vType id="orig" vClass="rail" sigma="0" loadingDuration="5" length="25" containerCapacity="10" carFollowModel="Rail" trainType="Freight" mass="80000"/>
 </routes>
