@@ -19,6 +19,7 @@ title: ChangeLog
   - Fixed bug where persons with a personTrip had the wrong arrivalPos when changing from `<ride>` to `<walk>` #16801
   - Fixed invalid emergency stop when vehicle is teleported beyond `arrivalEdge` attribute #16802
   - Fixed bug where parking outflow would be blocked due to numerical issues. #16809
+  - Fixed invalid rail signal state when departing before crossed tracks #16819
 
 - netedit
   - link-direction arrows for spread bidi-rail are drawn in the correct spot #16718 (regression in 1.20.0)
@@ -29,7 +30,7 @@ title: ChangeLog
   - parkingArea reference in chargingStation is now loaded #16789
 
 - sumo-gui
-  - Fixed bug where the trailer was occasiannly not drawn for guiShape truck/semitrailer #16808 (regression in 1.23.0)
+  - Fixed bug where the trailer was occasionally not drawn for guiShape truck/semitrailer #16808 (regression in 1.23.0)
   - Fixed bug where articulated trucks (i.e. guiShape=`truck/semitrailer`) had an exaggerated gap when zoomed out #16816
   - carriageImages are now loaded relative to the file in which they are defined #16725
   - game mode rail switches now always switch on the first click #16726
@@ -44,6 +45,7 @@ title: ChangeLog
   - Fixed crash when loading state with different values of **--meso-lane-queue** #16757
   - Queue entry block time is now preserved when saving/loading state #16770
   - Vehroute-output no longer contains invalid route edges when loading state and rerouting #16776
+  - Fixed bug where calibrators caused invalid traffic data output when removing vehicles #16821
 
 - netconvert
   - invalid right of way at left_before_right junction at specific angles #16793 (regression in 1.23.0)
@@ -77,6 +79,9 @@ title: ChangeLog
   - closingReroute now supports optional attribute `until` for setting the estimated duration of closing. Vehicle may wait at the closed edge if a detour would take longer. #16804
   - Vehicles may now exceed their vType-`maxSpeed` when using `carFollowModel="KraussPS"` and going downhill (up to their `desiredMaxSpeed`) #16805
   - containerStop now supports elemnt `<access>` #16811
+  - Vehroute output for persons and containers can now selectively be disalled via param key `"has.vehroute.person-device"`  #16820
+  - It is now possible to model [trailers / marshalling](Specification/Logistics.md#trailers_and_rail_cars) by changing vehicle properties upon loading/unloading of containers #8800
+
 
 - meso
   - `<tlLogic>` with `<param key="meso.tls.control" value="true"/>` is now exempt from options **--meso-tls-penalty** and **--meso-tls-flow-penalty** and runs with full control #16674
