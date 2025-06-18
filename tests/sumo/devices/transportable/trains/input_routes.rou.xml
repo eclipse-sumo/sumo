@@ -15,7 +15,7 @@
     <containerFlow id="c" begin="0" number="10" end="1">
         <stop containerStop="ct_0" duration="0"/>
         <transport containerStop="ct_1"/>
-        <param key="has.vehroute.device" value="false"/>
+        <param key="has.vehroute.person-device" value="false"/>
     </containerFlow>
 
     <trip id="t_1" type="orig" depart="1.00" from="E7" to="E4"/>
