@@ -72,6 +72,16 @@ python3 -m pip install texttest
 For the Python tools there are some more requirements depending on which tools you want to use. If you want to install
 everything using pip do `python3 -m pip install -r tools/requirements.txt -r tools/req_dev.txt`.
 
+### Parquet support
+
+see https://arrow.apache.org/install/
+```
+wget https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+sudo apt install -y -V ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+sudo apt update
+sudo apt install -y -V libarrow-dev libparquet-dev
+```
+
 ## Getting the source code
 
 For the correct setting of SUMO_HOME you have to remember the correct
