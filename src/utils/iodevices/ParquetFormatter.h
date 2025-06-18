@@ -150,12 +150,12 @@ public:
             mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(toString(attr), arrow::utf8()));
             myBuilders.push_back(std::make_shared<arrow::StringBuilder>());
         }
-        myValues.push_back(arrow::StringScalar(toString(val)));
+        myValues.push_back(std::make_shared<arrow::StringScalar>(toString(val)));
     }
 
     void writeNull(std::ostream& /* into */, const SumoXMLAttr attr) {
         checkAttr(attr);
-        myValues.push_back(arrow::NullScalar());
+        myValues.push_back(nullptr);
     }
 
     bool wroteHeader() const {
@@ -179,7 +179,7 @@ private:
     /// @brief The stack of begun xml elements
     std::vector<int> myXMLStack;
 
-    std::vector<arrow::Scalar> myValues;
+    std::vector<std::shared_ptr<arrow::Scalar> > myValues;
 
     /// @brief the maximum depth of the XML hierarchy
     int myMaxDepth;
@@ -201,7 +201,7 @@ inline void ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLA
         mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(toString(attr), arrow::float64()));
         myBuilders.push_back(std::make_shared<arrow::DoubleBuilder>());
     }
-    myValues.push_back(arrow::DoubleScalar(val));
+    myValues.push_back(std::make_shared<arrow::DoubleScalar>(val));
 }
 
 
@@ -212,5 +212,5 @@ inline void ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLA
         mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(toString(attr), arrow::utf8()));
         myBuilders.push_back(std::make_shared<arrow::StringBuilder>());
     }
-    myValues.push_back(arrow::StringScalar(val));
+    myValues.push_back(std::make_shared<arrow::StringScalar>(val));
 }

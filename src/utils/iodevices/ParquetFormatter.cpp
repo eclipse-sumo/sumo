@@ -70,21 +70,26 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
         }
         int index = 0;
         for (auto& builder : myBuilders) {
-            const auto status = builder->AppendScalar(myValues[index++]);  // TODO evaluate status
+            const auto val = myValues[index++];
+            if (val == nullptr) {
+                PARQUET_THROW_NOT_OK(builder->AppendNull());
+            } else {
+                PARQUET_THROW_NOT_OK(builder->AppendScalar(*val));
+            }
         }
-        writeBatch = myBuilders.back()->length() > myBatchSize;
+        writeBatch = myBuilders.back()->length() == myBatchSize;
         mySeenAttrs.reset();
     }
     if (writeBatch || myXMLStack.empty()) {
         std::vector<std::shared_ptr<arrow::Array> > data;
         for (auto& builder : myBuilders) {
             std::shared_ptr<arrow::Array> column;
-            const auto status = builder->Finish(&column);  // TODO evaluate status
+            PARQUET_THROW_NOT_OK(builder->Finish(&column));
             data.push_back(column);
             // builder.reset();
         }
-        auto batch = arrow::RecordBatch::Make(mySchema, myBuilders.back()->length(), data);
-        const auto status = myParquetWriter->WriteRecordBatch(*batch);  // TODO evaluate status
+        auto batch = arrow::RecordBatch::Make(mySchema, data.back()->length(), data);
+        PARQUET_THROW_NOT_OK(myParquetWriter->WriteRecordBatch(*batch));
     }
     if (!myXMLStack.empty()) {
         while ((int)myValues.size() > myXMLStack.back()) {
