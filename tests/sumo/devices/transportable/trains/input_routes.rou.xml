@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-06-18 12:21:32 by Eclipse SUMO netedit Version v1_23_1+0640-0bd9569aab2
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="t_0" type="orig" depart="0.00" from="E0" to="E2">
+        <stop containerStop="ct_0" triggered="container" parking="false"/>
+        <stop containerStop="ct_1" duration="60.00"/>
+    </trip>
+
+    <containerFlow id="c" begin="0" number="10" end="1">
+        <stop containerStop="ct_0" duration="0"/>
+        <transport containerStop="ct_1"/>
+        <param key="has.vehroute.person-device" value="false"/>
+    </containerFlow>
+
+    <trip id="t_1" type="orig" depart="1.00" from="E7" to="E4"/>
+    <trip id="t_2" type="orig" depart="1.00" from="E8" to="E6"/>
+
+</routes>

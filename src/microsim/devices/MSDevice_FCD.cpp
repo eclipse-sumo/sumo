@@ -94,6 +94,7 @@ MSDevice_FCD::~MSDevice_FCD() {
 SumoXMLAttrMask
 MSDevice_FCD::getDefaultMask() {
     SumoXMLAttrMask mask;
+    mask.set(SUMO_ATTR_ID);
     mask.set(SUMO_ATTR_X);
     mask.set(SUMO_ATTR_Y);
     if (MSNet::getInstance()->hasElevation()) {
@@ -198,10 +199,7 @@ MSDevice_FCD::initOnce() {
         buildShapeFilter();
     }
     OutputDevice& of = OutputDevice::getDeviceByOption("fcd-output");
-    SumoXMLAttrMask nullable;
-    nullable.set(SUMO_ATTR_EDGE);
-    nullable.set(SUMO_ATTR_LANE);
-    of.setExpectedAttributes(myWrittenAttributes, nullable);
+    of.setExpectedAttributes(myWrittenAttributes);
 }
 
 

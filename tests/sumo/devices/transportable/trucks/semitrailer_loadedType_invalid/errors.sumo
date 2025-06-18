@@ -1,0 +1,2 @@
+Error: Vehicle type 'dummy' in parameter 'device.container.loadedType' of vehicle 'veh0' is not known.
+Quitting (on error).

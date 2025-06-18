@@ -454,6 +454,9 @@ MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay) {
 
 
 void MSTrafficLightLogic::initMesoTLSPenalties() {
+    if (myLogicType == TrafficLightType::RAIL_SIGNAL) {
+        return;
+    }
     // set mesoscopic time penalties
     const Phases& phases = getPhases();
     const int numLinks = (int)myLinks.size();

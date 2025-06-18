@@ -106,8 +106,8 @@ public:
     /// @brief get event associated with this step
     void* getEvent() const;
 
-    /// @brief get key events used in certain dialogs (color, allowDialog, etc.)
-    const std::vector<const InternalTestStep*>& getKeySteps() const;
+    /// @brief get key events used in certain dialogs (allowDialog, etc.)
+    const std::vector<const InternalTestStep*>& getModalDialogTestSteps() const;
 
 protected:
     /// @brief build mouse move event
@@ -144,8 +144,8 @@ private:
     /// @brief extra arguments
     ModalArguments* myModalArguments = nullptr;
 
-    /// @brief key events used in certain dialogs (color, allowDialog, etc.)
-    std::vector<const InternalTestStep*> myKeySteps;
+    /// @brief Test steps used in certain modal dialogs
+    std::vector<const InternalTestStep*> myModalDialogTestSteps;
 
     /// @brief parse function and arguments
     std::string parseStep(const std::string& rowText);
@@ -154,73 +154,76 @@ private:
     void parseArguments(const std::string& arguments);
 
     /// @brief process setupAndStart function
-    void processSetupAndStartFunction();
+    void setupAndStart();
 
     /// @brief process left click function
-    void processLeftClickFunction(const std::string& modifier) const;
+    void leftClick(const std::string& modifier) const;
 
     /// @brief process typeKey function
-    void processTypeKeyFunction() const;
+    void typeKey() const;
 
     /// @brief process modifyAttribute function
-    void processModifyAttributeFunction() const;
-
-    /// @brief process modifyAttributeOverlapped function
-    void processModifyAttributeOverlappedFunction() const;
+    void modifyAttribute(const int overlappedTabs) const;
 
     /// @brief process modifyBoolAttribute function
-    void processModifyBoolAttributeFunction() const;
-
-    /// @brief process modifyBoolAttributeOverlapped function
-    void processModifyBoolAttributeOverlappedFunction() const;
+    void modifyBoolAttribute(const int overlappedTabs) const;
 
     /// @brief process modifyColorAttribute function
-    void processModifyColorAttributeFunction() const;
+    void modifyColorAttribute(const int overlappedTabs) const;
 
-    /// @brief process modifyColorAttributeOverlapped function
-    void processModifyColorAttributeOverlappedFunction() const;
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_NoDisallowAll(const int overlappedTabs) const;
+
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_DisallowAll(const int overlappedTabs) const;
+
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_Cancel(const int overlappedTabs) const;
+
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_Reset(const int overlappedTabs) const;
 
     /// @brief process changeEditMode function
-    void processChangeEditModeFunction();
+    void changeEditMode();
 
     /// @brief process save function
-    void processSaveExistentShortcutFunction();
+    void saveExistentShortcut();
 
     /// @brief process check undo-redo function
-    void processCheckUndoRedoFunction() const;
+    void checkUndoRedo() const;
 
     /// @brief process delete function
-    void processDeleteFunction() const;
+    void deleteFunction() const;
 
     /// @brief process selection function
-    void processSelectionFunction() const;
+    void selection() const;
 
     /// @brief process check undo function
-    void processUndoFunction() const;
+    void undo() const;
 
     /// @brief process check redo function
-    void processRedoFunction() const;
+    void redo() const;
 
     /// @brief process supermode function
-    void processChangeSupermodeFunction();
+    void changeSupermode();
 
     /// @brief process change mode function
-    void processChangeModeFunction();
+    void changeMode();
 
     /// @brief process change element function
-    void processChangeElementFunction() const;
+    void changeElement() const;
 
     /// @bief process change plan function
-    void processChangePlanFunction() const;
+    void changePlan() const;
 
     /// @brief process compute junctions function
-    void processComputeJunctionsFunction();
+    void computeJunctions();
 
     /// @brief process compute junctions with volatile options function
-    void processComputeJunctionsVolatileOptionsFunction();
+    void computeJunctionsVolatileOptions();
 
     /// @brief process quit function
-    void processQuitFunction();
+    void quit();
 
     /// @brief check int argument
     bool checkIntArgument(const std::string& argument, const std::map<std::string, int>& map) const;

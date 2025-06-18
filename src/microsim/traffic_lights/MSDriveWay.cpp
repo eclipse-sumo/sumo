@@ -1235,7 +1235,7 @@ MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, std::vector<cons
         // check for insertions
         if (myDepartureDriveways.count(&lane->getEdge()) != 0) {
             for (MSDriveWay* foe : myDepartureDriveways[&lane->getEdge()]) {
-                if (flankConflict(*foe)) {
+                if (flankConflict(*foe) || crossingConflict(*foe)) {
 #ifdef DEBUG_ADD_FOES
                     std::cout << "  foe " << foe->getID() << " departs on flank=" << lane->getID() << "\n";
 #endif

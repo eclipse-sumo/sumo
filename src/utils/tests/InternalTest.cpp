@@ -75,9 +75,9 @@ InternalTest::~InternalTest() {
 }
 
 
-bool
-InternalTest::isTestFinished() const {
-    return myTestFinished;
+void
+InternalTest::addTestSteps(const InternalTestStep* internalTestStep) {
+    myTestSteps.push_back(internalTestStep);
 }
 
 
@@ -88,6 +88,24 @@ InternalTest::getCurrentStep() const {
     } else {
         return nullptr;
     }
+}
+
+
+const std::map<std::string, int>&
+InternalTest::getAttributesEnum() const {
+    return myAttributesEnum;
+}
+
+
+const std::map<std::string, int>&
+InternalTest::getContextualMenuOperations() const {
+    return myContextualMenuOperations;
+}
+
+
+const std::map<std::string, std::pair<int, int> >&
+InternalTest::getViewPositions() const {
+    return myViewPositions;
 }
 
 

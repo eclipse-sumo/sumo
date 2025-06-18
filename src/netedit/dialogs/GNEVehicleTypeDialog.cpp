@@ -673,7 +673,7 @@ void
 GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
     const auto editedDemandElement = myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement;
     // check if get the value of the modal arguments
-    if (editedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getNeteditTestSystem()) {
+    if (editedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest()) {
         myTextField->setText(InternalTestStep::ModalArguments::colorValue.c_str(), TRUE);
     } else {
         // create FXColorDialog
@@ -1283,10 +1283,11 @@ GNEVehicleTypeDialog::VTypeAttributes::onCmdOpenAttributeDialog(FXObject* obj, F
 
 long
 GNEVehicleTypeDialog::VTypeAttributes::onCmdOpenParametersEditor(FXObject*, FXSelector, void*) {
+    const auto viewNet = myVehicleTypeDialog->getEditedDemandElement()->getNet()->getViewNet();
     // edit parameters using dialog
-    if (GNESingleParametersDialog(myParameters, myVehicleTypeDialog->getEditedDemandElement()->getNet()->getViewNet()).execute()) {
+    if (GNESingleParametersDialog(myParameters, viewNet).openModalDialog(viewNet->getViewParent()->getGNEAppWindows()->getInternalTest())) {
         // set values edited in Parameter dialog in Edited AC
-        myVehicleTypeDialog->getEditedDemandElement()->setAttribute(GNE_ATTR_PARAMETERS, myParameters->getParametersStr(), myVehicleTypeDialog->getEditedDemandElement()->getNet()->getViewNet()->getUndoList());
+        myVehicleTypeDialog->getEditedDemandElement()->setAttribute(GNE_ATTR_PARAMETERS, myParameters->getParametersStr(), viewNet->getUndoList());
     }
     return 1;
 }

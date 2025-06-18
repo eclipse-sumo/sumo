@@ -353,7 +353,7 @@ public:
     * @param[in] type The new vehicle type
     * @see MSTransportable::myVType
     */
-    void replaceVehicleType(MSVehicleType* type);
+    void replaceVehicleType(const MSVehicleType* type);
 
     /** @brief Replaces the current vehicle type with a new one used by this vehicle only
     *
@@ -415,7 +415,7 @@ protected:
 
     /// @brief This transportable's type. (mainly used for drawing related information
     /// Note sure if it is really necessary
-    MSVehicleType* myVType;
+    const MSVehicleType* myVType;
 
     /// @brief Whether events shall be written
     bool myWriteEvents;

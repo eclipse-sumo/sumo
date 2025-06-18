@@ -463,7 +463,7 @@ MEVehicle::updateDetectors(SUMOTime currentTime, const bool isLeave, const MSMov
     // segments of the same edge have the same reminder so no cleaning up must take place
     const bool cleanUp = isLeave && (reason != MSMoveReminder::NOTIFICATION_SEGMENT);
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
-        if (currentTime != getLastEntryTime()) {
+        if (currentTime != getLastEntryTime() && reason < MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR) {
             rem->first->updateDetector(*this, mySegment->getIndex() * mySegment->getLength(),
                                        (mySegment->getIndex() + 1) * mySegment->getLength(),
                                        getLastEntryTime(), currentTime, getEventTime(), cleanUp);

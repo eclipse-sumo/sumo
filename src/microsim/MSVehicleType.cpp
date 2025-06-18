@@ -166,6 +166,12 @@ MSVehicleType::setVClass(SUMOVehicleClass vclass) {
 
 
 void
+MSVehicleType::setGUIShape(SUMOVehicleShape shape) {
+    myParameter.shape = shape;
+    myParameter.parametersSet |= VTYPEPARS_SHAPE_SET;
+}
+
+void
 MSVehicleType::setPreferredLateralAlignment(const LatAlignmentDefinition& latAlignment, double latAlignmentOffset) {
     myParameter.latAlignmentProcedure = latAlignment;
     myParameter.latAlignmentOffset = latAlignmentOffset;

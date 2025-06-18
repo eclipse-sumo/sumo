@@ -941,6 +941,9 @@ enum SumoXMLAttr {
     SUMO_ATTR_EVENTTIME          = 78,
     SUMO_ATTR_BLOCKTIME          = 79,
 
+    // write the tag name
+    SUMO_ATTR_TAG                = 80,
+
     /// @}
 
     /// @name common attributes

@@ -1,0 +1,9 @@
+<routes>
+    <vType id="loaded" vClass="rail" sigma="0" containerCapacity="1" length="16" mass="25000">
+        <param key="carriageLength" value="16"/>
+    </vType>
+
+    <vType id="orig" vClass="rail" sigma="0" loadingDuration="5" length="25" containerCapacity="10" carFollowModel="Rail" trainType="Freight" mass="80000">
+        <param key="device.container.loadedType" value="loaded"/>
+    </vType>
+</routes>

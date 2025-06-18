@@ -168,6 +168,9 @@ protected:
                             const double travelledDistanceVehicleOnLane,
                             const double meanLengthOnLane);
 
+    /// @brief modifiy vehicle properties when loading/unloading (optional)
+    void changeAttached();
+
 private:
     /** @brief Constructor
      *
@@ -192,6 +195,11 @@ private:
     /// @brief unboarding positions of passengers if vehicle is a train
     std::vector<Position> myUnboardingPositions;
 
+    /// @brief the original type to set when nothing is being transported
+    const MSVehicleType* myOriginalType;
+
+    /// @brief the type to consult if loading/unloading changes vehicle properties
+    MSVehicleType* myLoadedType;
 
 private:
     /// @brief Invalidated copy constructor.

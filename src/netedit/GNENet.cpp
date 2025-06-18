@@ -73,6 +73,7 @@
 #include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNEViewParent.h"
+#include "GNEInternalTest.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -2243,7 +2244,7 @@ GNENet::saveAdditionals() {
         // 0 -> Canceled Saving, with or without selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
         GNEFixAdditionalElements fixAdditionalElementsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
-        if (fixAdditionalElementsDialog.execute() == 0) {
+        if (fixAdditionalElementsDialog.openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest()) == 0) {
             return false;
         } else {
             saveAdditionalsConfirmed();
@@ -2297,7 +2298,7 @@ GNENet::saveDemandElements() {
         // 0 -> Canceled Saving, with or without selecting invalid demand elements
         // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
         GNEFixDemandElements fixDemandElementsDialog(myViewNet, invalidSingleLaneDemandElements);
-        if (fixDemandElementsDialog.execute() == 0) {
+        if (fixDemandElementsDialog.openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest()) == 0) {
             return false;
         } else {
             saveDemandElementsConfirmed();

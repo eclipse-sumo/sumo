@@ -641,7 +641,7 @@ public:
     /// @{
 
     /// @brief get netedit test system
-    GNEInternalTest* getNeteditTestSystem() const;
+    GNEInternalTest* getInternalTest() const;
 
     /// @brief check if ignore input signal (using during netedit tests)
     bool allowInputSignals(FXObject* obj) const;

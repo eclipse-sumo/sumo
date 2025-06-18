@@ -24,6 +24,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/dialogs/GNECalibratorDialog.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
@@ -406,7 +407,9 @@ GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector
 
 long
 GNEAttributesEditorType::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
-    if (GNESingleParametersDialog(this).execute()) {
+    // get internal test (for code legibly)
+    const auto internalTest = myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest();
+    if (GNESingleParametersDialog(this).openModalDialog(internalTest)) {
         refreshAttributesEditor();
     }
     return 1;

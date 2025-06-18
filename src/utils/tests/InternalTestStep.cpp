@@ -46,60 +46,78 @@ constexpr int MOUSE_REFERENCE_Y = 168;
 InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& step) :
     myTestSystem(testSystem) {
     // add this testStep to test system
-    testSystem->myTestSteps.push_back(this);
-    // first parse step
+    testSystem->addTestSteps(this);
+    // get overlapped tabs
+    const int overlappedTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.editElements.overlapped");
+    // parse step
     const auto function = parseStep(step);
     // continue depending of function
     if (function == "setupAndStart") {
-        processSetupAndStartFunction();
+        setupAndStart();
     } else if (function == "leftClick") {
-        processLeftClickFunction("");
+        leftClick("");
     } else if (function == "leftClickControl") {
-        processLeftClickFunction("control");
+        leftClick("control");
     } else if (function == "leftClickShift") {
-        processLeftClickFunction("shift");
+        leftClick("shift");
     } else if (function == "typeKey") {
-        processTypeKeyFunction();
+        typeKey();
     } else if (function == "modifyAttribute") {
-        processModifyAttributeFunction();
+        modifyAttribute(0);
     } else if (function == "modifyAttributeOverlapped") {
-        processModifyAttributeOverlappedFunction();
+        modifyAttribute(overlappedTabs);
     } else if (function == "modifyBoolAttribute") {
-        processModifyBoolAttributeFunction();
+        modifyBoolAttribute(0);
     } else if (function == "modifyBoolAttributeOverlapped") {
-        processModifyBoolAttributeOverlappedFunction();
+        modifyBoolAttribute(overlappedTabs);
     } else if (function == "modifyColorAttribute") {
-        processModifyColorAttributeFunction();
+        modifyColorAttribute(0);
     } else if (function == "modifyColorAttributeOverlapped") {
-        processModifyColorAttributeOverlappedFunction();
+        modifyColorAttribute(overlappedTabs);
+    } else if (function == "modifyVClassDialog_NoDisallowAll") {
+        modifyVClassDialog_NoDisallowAll(0);
+    } else if (function == "modifyVClassDialogOverlapped_NoDisallowAll") {
+        modifyVClassDialog_NoDisallowAll(overlappedTabs);
+    } else if (function == "modifyVClassDialog_DisallowAll") {
+        modifyVClassDialog_DisallowAll(0);
+    } else if (function == "modifyVClassDialogOvelapped_DisallowAll") {
+        modifyVClassDialog_DisallowAll(overlappedTabs);
+    } else if (function == "modifyVClassDialog_Cancel") {
+        modifyVClassDialog_Cancel(0);
+    } else if (function == "modifyVClassDialogOverlapped_Cancel") {
+        modifyVClassDialog_Cancel(overlappedTabs);
+    } else if (function == "modifyVClassDialog_Reset") {
+        modifyVClassDialog_Reset(0);
+    } else if (function == "modifyVClassDialogOverlapped_Reset") {
+        modifyVClassDialog_Reset(overlappedTabs);
     } else if (function == "changeEditMode") {
-        processChangeEditModeFunction();
+        changeEditMode();
     } else if (function == "changeSupermode") {
-        processChangeSupermodeFunction();
+        changeSupermode();
     } else if (function == "changeMode") {
-        processChangeModeFunction();
+        changeMode();
     } else if (function == "changeElement") {
-        processChangeElementFunction();
+        changeElement();
     } else if (function == "changePlan") {
-        processChangePlanFunction();
+        changePlan();
     } else if (function == "computeJunctions") {
-        processComputeJunctionsFunction();
+        computeJunctions();
     } else if (function == "computeJunctionsVolatileOptions") {
-        processComputeJunctionsVolatileOptionsFunction();
+        computeJunctionsVolatileOptions();
     } else if (function == "saveExistentShortcut") {
-        processSaveExistentShortcutFunction();
+        saveExistentShortcut();
     } else if (function == "checkUndoRedo") {
-        processCheckUndoRedoFunction();
+        checkUndoRedo();
     } else if (function == "delete") {
-        processDeleteFunction();
+        deleteFunction();
     } else if (function == "selection") {
-        processSelectionFunction();
+        selection();
     } else if (function == "undo") {
-        processUndoFunction();
+        undo();
     } else if (function == "redo") {
-        processRedoFunction();
+        redo();
     } else if (function == "quit") {
-        processQuitFunction();
+        quit();
     } else if (function.size() > 0) {
         std::cout << function << std::endl;
         throw ProcessError("Function " + function + " not implemented in InternalTestStep");
@@ -114,7 +132,7 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
     myMessageID(messageID),
     myCategory(category) {
     // add this testStep to test system
-    testSystem->myTestSteps.push_back(this);
+    testSystem->addTestSteps(this);
 }
 
 
@@ -126,7 +144,7 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
     myUpdateView(updateView),
     myEvent(event) {
     // add this testStep to test system
-    testSystem->myTestSteps.push_back(this);
+    testSystem->addTestSteps(this);
 }
 
 
@@ -134,8 +152,8 @@ InternalTestStep::InternalTestStep(InternalTestStep* parent, FXSelector messageT
     myTestSystem(parent->myTestSystem),
     myMessageType(messageType),
     myEvent(event) {
-    // add this testStep to parent key steps
-    parent->myKeySteps.push_back(this);
+    // add this testStep to parent modal dialgo testSteps
+    parent->myModalDialogTestSteps.push_back(this);
 }
 
 
@@ -147,10 +165,10 @@ InternalTestStep::~InternalTestStep() {
         delete myModalArguments;
     }
     // remove all key steps
-    for (auto keyStep : myKeySteps) {
-        delete keyStep;
+    for (auto modalDialogTestStep : myModalDialogTestSteps) {
+        delete modalDialogTestStep;
     }
-    myKeySteps.clear();
+    myModalDialogTestSteps.clear();
 }
 
 
@@ -197,8 +215,8 @@ InternalTestStep::getEvent() const {
 
 
 const std::vector<const InternalTestStep*>&
-InternalTestStep::getKeySteps() const {
-    return myKeySteps;
+InternalTestStep::getModalDialogTestSteps() const {
+    return myModalDialogTestSteps;
 }
 
 
@@ -339,7 +357,7 @@ InternalTestStep::parseArguments(const std::string& arguments) {
 
 
 void
-InternalTestStep::processSetupAndStartFunction() {
+InternalTestStep::setupAndStart() {
     myCategory = Category::INIT;
     // print in console the following lines
     std::cout << "TestFunctions: Netedit opened successfully" << std::endl;
@@ -351,13 +369,13 @@ InternalTestStep::processSetupAndStartFunction() {
 
 
 void
-InternalTestStep::processLeftClickFunction(const std::string& modifier) const {
-    if ((myArguments.size() != 2) || (myTestSystem->myViewPositions.count(myArguments[1]) == 0)) {
+InternalTestStep::leftClick(const std::string& modifier) const {
+    if ((myArguments.size() != 2) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0)) {
         writeError("leftClick", "<reference, position>");
     } else {
         // parse arguments
-        const int posX = myTestSystem->myViewPositions.at(myArguments[1]).first;
-        const int posY = myTestSystem->myViewPositions.at(myArguments[1]).second;
+        const int posX = myTestSystem->getViewPositions().at(myArguments[1]).first;
+        const int posY = myTestSystem->getViewPositions().at(myArguments[1]).second;
         // check if add key modifier
         if (modifier == "control") {
             new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(modifier), false);
@@ -390,7 +408,7 @@ InternalTestStep::processLeftClickFunction(const std::string& modifier) const {
 
 
 void
-InternalTestStep::processTypeKeyFunction() const {
+InternalTestStep::typeKey() const {
     if (myArguments.size() != 1) {
         writeError("typeKey", "<key>");
     } else {
@@ -400,20 +418,20 @@ InternalTestStep::processTypeKeyFunction() const {
 
 
 void
-InternalTestStep::processModifyAttributeFunction() const {
+InternalTestStep::modifyAttribute(const int overlappedTabs) const {
     if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum) ||
+            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
             !checkStringArgument(myArguments[1])) {
         writeError("modifyAttribute", "<int/attributeEnum, \"string\">");
     } else {
-        const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
         const std::string value = getStringArgument(myArguments[1]);
         // print info
         std::cout << value << std::endl;
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
-        for (int i = 0; i < numTabs; i++) {
+        for (int i = 0; i < (attribute + overlappedTabs); i++) {
             buildPressKeyEvent("tab", false);
         }
         // write attribute character by character
@@ -431,44 +449,16 @@ InternalTestStep::processModifyAttributeFunction() const {
 
 
 void
-InternalTestStep::processModifyAttributeOverlappedFunction() const {
-    if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum) ||
-            !checkStringArgument(myArguments[1])) {
-        writeError("modifyAttributeOverlapped", "<int/attributeEnum, \"string\">");
-    } else {
-        const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
-        const std::string value = getStringArgument(myArguments[1]);
-        const int overlappedTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.editElements.overlapped");
-        // print info
-        std::cout << value << std::endl;
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to the element
-        for (int i = 0; i < (numTabs + overlappedTabs); i++) {
-            buildPressKeyEvent("tab", false);
-        }
-        // write attribute character by character
-        for (const char c : value) {
-            buildPressKeyEvent(c, false);
-        }
-        // press enter to confirm changes (updating view)
-        buildPressKeyEvent("enter", true);
-    }
-}
-
-
-void
-InternalTestStep::processModifyBoolAttributeFunction() const {
+InternalTestStep::modifyBoolAttribute(const int overlappedTabs) const {
     if ((myArguments.size() != 1) ||
-            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum)) {
+            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
         writeError("modifyBoolAttribute", "<int/attributeEnum>");
     } else {
-        const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
-        for (int i = 0; i < numTabs; i++) {
+        for (int i = 0; i < (attribute + overlappedTabs); i++) {
             buildPressKeyEvent("tab", false);
         }
         // toogle attribute
@@ -478,36 +468,16 @@ InternalTestStep::processModifyBoolAttributeFunction() const {
 
 
 void
-InternalTestStep::processModifyBoolAttributeOverlappedFunction() const {
+InternalTestStep::modifyColorAttribute(const int overlappedTabs) const {
     if ((myArguments.size() != 1) ||
-            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum)) {
-        writeError("modifyBoolAttributeOverlapped", "<int/attributeEnum>");
+            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
+        writeError("modifyColorAttribute", "<int/attributeEnum>");
     } else {
-        const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
-        const int overlappedTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.editElements.overlapped");
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
-        for (int i = 0; i < (numTabs + overlappedTabs); i++) {
-            buildPressKeyEvent("tab", false);
-        }
-        // toogle attribute
-        buildPressKeyEvent("space", true);
-    }
-}
-
-
-void
-InternalTestStep::processModifyColorAttributeFunction() const {
-    if ((myArguments.size() != 1) ||
-            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum)) {
-        writeError("processModifyColorAttributeFunction", "<int/attributeEnum>");
-    } else {
-        const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to the element
-        for (int i = 0; i < numTabs; i++) {
+        for (int i = 0; i < (attribute + overlappedTabs); i++) {
             buildPressKeyEvent("tab", false);
         }
         // open dialog
@@ -529,42 +499,170 @@ InternalTestStep::processModifyColorAttributeFunction() const {
 
 
 void
-InternalTestStep::processModifyColorAttributeOverlappedFunction() const {
-    if ((myArguments.size() != 1) ||
-            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum)) {
-        writeError("processModifyColorAttributeOverlappedFunction", "<int/attributeEnum>");
+InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) const {
+    if ((myArguments.size() != 2) ||
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyVClassDialog_NoDisallowAll", "<int/attributeEnum, int/attributeEnum>");
     } else {
-        const int numTabs = getIntArgument(myArguments[0], myTestSystem->myAttributesEnum);
-        const int overlappedTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.editElements.overlapped");
+        // parse input
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to the element
-        for (int i = 0; i < (numTabs + overlappedTabs); i++) {
+        // jump to open dialog button
+        for (int i = 0; i < (attribute + overlappedTabs); i++) {
             buildPressKeyEvent("tab", false);
         }
         // open dialog
-        auto spaceEvent = buildPressKeyEvent("space", false);
-        // go to the list of colors
-        for (int i = 0; i < 2; i++) {
-            buildTwoPressKeyEvent(spaceEvent, "shift", "tab");
+        auto openDialogEvent = buildPressKeyEvent("space", true);
+        // jump to vClass
+        for (int i = 0; i < vClass; i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
         }
-        // select color
-        for (int i = 0; i < 6; i++) {
-            buildPressKeyEvent(spaceEvent, "down");
+        // select vclass
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to accept button
+        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.accept") - vClass); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
         }
-        // go to button
-        buildPressKeyEvent(spaceEvent, "tab");
-        // press button
-        buildPressKeyEvent(spaceEvent, "space");
+        // press accept
+        buildPressKeyEvent(openDialogEvent, "space");
     }
 }
 
 
 void
-InternalTestStep::processChangeEditModeFunction() {
+InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const {
+    if ((myArguments.size() != 2) ||
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyVClassDialog_DisallowAll", "<int/attributeEnum, int/attributeEnum>");
+    } else {
+        // parse input
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to open dialog button
+        for (int i = 0; i < (attribute + overlappedTabs); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        auto openDialogEvent = buildPressKeyEvent("space", true);
+        // go to disallow all vehicles
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // disallow all vehicles
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to vClass
+        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // select vClass
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to accept button
+        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.accept") - vClass); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // press accept
+        buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
+    if ((myArguments.size() != 2) ||
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyVClassDialog_Cancel", "<int/attributeEnum, int/attributeEnum>");
+    } else {
+        // parse input
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to open dialog button
+        for (int i = 0; i < (attribute + overlappedTabs); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        auto openDialogEvent = buildPressKeyEvent("space", true);
+        // go to disallow all vehicles
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // disallow all vehicles
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to vClass
+        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // select vClass
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to cancel button
+        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.cancel") - vClass); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // press cancel
+        buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
+    if ((myArguments.size() != 2) ||
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyVClassDialog_Reset", "<int/attributeEnum, int/attributeEnum>");
+    } else {
+        // parse input
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to open dialog button
+        for (int i = 0; i < (attribute + overlappedTabs); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        auto openDialogEvent = buildPressKeyEvent("space", true);
+        // go to disallow all vehicles
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // disallow all vehicles
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to vClass
+        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // select vClass
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to reset button
+        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.reset") - vClass); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // press reset
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to accept button
+        for (int i = 0; i < 2; i++) {
+            buildTwoPressKeyEvent(openDialogEvent, "shift", "tab");
+        }
+        // press accept
+        buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::changeEditMode() {
     if ((myArguments.size() != 1) ||
-            !checkIntArgument(myArguments[0], myTestSystem->myAttributesEnum)) {
-        writeError("processChangeEditModeFunction", "<int/attributeEnum>");
+            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
+        writeError("changeEditMode", "<int/attributeEnum>");
     } else {
         myCategory = Category::APP;
         // network
@@ -648,7 +746,7 @@ InternalTestStep::processChangeEditModeFunction() {
 
 
 void
-InternalTestStep::processSaveExistentShortcutFunction() {
+InternalTestStep::saveExistentShortcut() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
         writeError("save", "<\"string\">");
@@ -665,7 +763,7 @@ InternalTestStep::processSaveExistentShortcutFunction() {
 
 
 void
-InternalTestStep::processCheckUndoRedoFunction() const {
+InternalTestStep::checkUndoRedo() const {
     if (myArguments.size() != 1) {
         writeError("checkUndoRedo", "<referencePosition>");
     } else {
@@ -707,7 +805,7 @@ InternalTestStep::processCheckUndoRedoFunction() const {
 
 
 void
-InternalTestStep::processDeleteFunction() const {
+InternalTestStep::deleteFunction() const {
     if (myArguments.size() != 0) {
         writeError("delete", "<>");
     } else {
@@ -717,7 +815,7 @@ InternalTestStep::processDeleteFunction() const {
 
 
 void
-InternalTestStep::processSelectionFunction() const {
+InternalTestStep::selection() const {
     if (myArguments.size() != 1 || !checkStringArgument(myArguments[0])) {
         writeError("selection", "<selection operation>");
     } else {
@@ -725,27 +823,27 @@ InternalTestStep::processSelectionFunction() const {
         // get number of tabls
         int numTabs = 0;
         if (selectionType == "default") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.default");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.default");
         } else if (selectionType == "save") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.save");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.save");
         } else if (selectionType == "load") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.load");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.load");
         } else if (selectionType == "add") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.add");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.add");
         } else if (selectionType == "remove") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.remove");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.remove");
         } else if (selectionType == "keep") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.keep");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.keep");
         } else if (selectionType == "replace") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.replace");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.replace");
         } else if (selectionType == "clear") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.clear");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.clear");
         } else if (selectionType == "invert") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.invert");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.invert");
         } else if (selectionType == "invertData") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.invertData");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.invertData");
         } else if (selectionType == "delete") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.selection.delete");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.delete");
         }
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
@@ -767,12 +865,12 @@ InternalTestStep::processSelectionFunction() const {
 
 
 void
-InternalTestStep::processUndoFunction() const {
+InternalTestStep::undo() const {
     if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[1], myTestSystem->myAttributesEnum)) {
+            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
         writeError("undo", "<referencePosition, int>");
     } else {
-        const int numUndoRedos = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
+        const int numUndoRedos = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // go to inspect mode
@@ -794,12 +892,12 @@ InternalTestStep::processUndoFunction() const {
 
 
 void
-InternalTestStep::processRedoFunction() const {
+InternalTestStep::redo() const {
     if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[1], myTestSystem->myAttributesEnum)) {
+            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
         writeError("redo", "<referencePosition, int>");
     } else {
-        const int numUndoRedos = getIntArgument(myArguments[1], myTestSystem->myAttributesEnum);
+        const int numUndoRedos = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // go to inspect mode
@@ -821,7 +919,7 @@ InternalTestStep::processRedoFunction() const {
 
 
 void
-InternalTestStep::processChangeSupermodeFunction() {
+InternalTestStep::changeSupermode() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
         writeError("supermode", "<\"string\">");
@@ -842,7 +940,7 @@ InternalTestStep::processChangeSupermodeFunction() {
 
 
 void
-InternalTestStep::processChangeModeFunction() {
+InternalTestStep::changeMode() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
         writeError("changeMode", "<\"string\">");
@@ -857,7 +955,7 @@ InternalTestStep::processChangeModeFunction() {
             myMessageID = MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT;
         } else if (networkMode == "move") {
             myMessageID = MID_HOTKEY_M_MODE_MOVE_MEANDATA;
-        } else if ((networkMode == "edge") || (networkMode == "edgeData")) {
+        } else if ((networkMode == "createEdge") || (networkMode == "edgeData")) {
             myMessageID = MID_HOTKEY_E_MODE_EDGE_EDGEDATA;
         } else if ((networkMode == "trafficLight") || (networkMode == "type")) {
             myMessageID = MID_HOTKEY_T_MODE_TLS_TYPE;
@@ -889,7 +987,7 @@ InternalTestStep::processChangeModeFunction() {
 
 
 void
-InternalTestStep::processChangeElementFunction() const {
+InternalTestStep::changeElement() const {
     if ((myArguments.size() != 2) ||
             !checkStringArgument(myArguments[0])) {
         writeError("selectAdditional", "<\"frame\", \"string\">");
@@ -899,27 +997,27 @@ InternalTestStep::processChangeElementFunction() const {
         int numTabs = -1;
         // continue depending of frame
         if (frame == "additionalFrame") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.additional");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.additional");
         } else if (frame == "shapeFrame") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.shape");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.shape");
         } else if (frame == "vehicleFrame") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.vehicle");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.vehicle");
         } else if (frame == "routeFrame") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.route");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.route");
         } else if (frame == "personFrame") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.person");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.person");
         } else if (frame == "containerFrame") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.netedit.attrs.frames.changeElement.container");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.netedit.attrs.frames.changeElement.container");
         } else if (frame == "personPlanFrame") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.personPlan");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.personPlan");
         } else if (frame == "containerPlanFrame") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.netedit.attrs.frames.changeElement.containerPlan");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.netedit.attrs.frames.changeElement.containerPlan");
         } else if (frame == "stopFrame") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.stop");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.stop");
         } else if (frame == "meanDataFrame") {
-            numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changeElement.meanData");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.meanData");
         } else {
-            WRITE_ERRORF("Invalid frame '%' used in function processChangeElementFunction", frame);
+            WRITE_ERRORF("Invalid frame '%' used in function changeElement", frame);
         }
         if (numTabs >= 0) {
             // show info
@@ -942,7 +1040,7 @@ InternalTestStep::processChangeElementFunction() const {
 
 
 void
-InternalTestStep::processChangePlanFunction()  const {
+InternalTestStep::changePlan()  const {
     if ((myArguments.size() != 3) ||
             !checkStringArgument(myArguments[0]) ||
             !checkStringArgument(myArguments[1]) ||
@@ -955,14 +1053,14 @@ InternalTestStep::processChangePlanFunction()  const {
         const bool flow = getBoolArgument(myArguments[2]);
         // check plan
         if ((type != "person") && (type != "container")) {
-            WRITE_ERRORF("invalid plan type '%' used in processChangePlanFunction()", type);
+            WRITE_ERRORF("invalid plan type '%' used in changePlan()", type);
         } else {
             // calculate num tabs
             int numTabs = 0;
             if (flow) {
-                numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changePlan." + type + "Flow");
+                numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changePlan." + type + "Flow");
             } else {
-                numTabs = myTestSystem->myAttributesEnum.at("netedit.attrs.frames.changePlan." + type);
+                numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changePlan." + type);
             }
             // focus frame
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
@@ -984,7 +1082,7 @@ InternalTestStep::processChangePlanFunction()  const {
 
 
 void
-InternalTestStep::processComputeJunctionsFunction() {
+InternalTestStep::computeJunctions() {
     if (myArguments.size() > 0) {
         writeError("computeJunctions", "<>");
     } else {
@@ -995,7 +1093,7 @@ InternalTestStep::processComputeJunctionsFunction() {
 
 
 void
-InternalTestStep::processComputeJunctionsVolatileOptionsFunction() {
+InternalTestStep::computeJunctionsVolatileOptions() {
     if (myArguments.size() > 1) {
         writeError("computeJunctionsVolatileOptions", "<True/False>");
     } else {
@@ -1011,7 +1109,7 @@ InternalTestStep::processComputeJunctionsVolatileOptionsFunction() {
 
 
 void
-InternalTestStep::processQuitFunction() {
+InternalTestStep::quit() {
     if (myArguments.size() == 0) {
         writeError("quit", "<neteditProcess>");
     } else {

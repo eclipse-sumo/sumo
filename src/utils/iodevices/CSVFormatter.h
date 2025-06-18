@@ -71,42 +71,28 @@ public:
      */
     bool closeTag(std::ostream& into, const std::string& comment = "");
 
-
     /** @brief writes a preformatted tag to the device but ensures that any
      * pending tags are closed
      * @param[in] into The output stream to use
      * @param[in] val The preformatted data
      */
-    void writePreformattedTag(std::ostream& /* into */, const std::string& /* val */) {}
+    void writePreformattedTag(std::ostream& /* into */, const std::string& /* val */) {
+        throw ProcessError("This file format does not support CSV output yet.");
+    }
 
-    /** @brief writes arbitrary padding
-     */
-    void writePadding(std::ostream& /* into */, const std::string& /* val */) {}
-
-    inline void checkHeader(const SumoXMLAttr attr) {
-        if (myMaxDepth == 0) {
+    inline void checkAttr(const SumoXMLAttr attr) {
+        if (myMaxDepth == (int)myXMLStack.size()) {
+            mySeenAttrs.set(attr);
+            if (!myExpectedAttrs.test(attr)) {
+                throw ProcessError(TLF("Unexpected attribute '%', this file format does not support CSV output yet.", toString(attr)));
+            }
+        }
+        if (!myWroteHeader) {
             if (myHeader != "") {
                 myHeader += mySeparator;
             }
             myHeader += toString(attr);
         }
-    }
-
-    /** @brief writes an arbitrary attribute
-     *
-     * @param[in] into The output stream to use
-     * @param[in] attr The attribute (name)
-     * @param[in] val The attribute value
-     */
-    template <class T>
-    void writeAttr(std::ostream& into, const std::string& attr, const T& val) {
-        if (myMaxDepth == 0) {
-            if (myHeader != "") {
-                myHeader += mySeparator;
-            }
-            myHeader += attr;
-        }
-        myXMLStack.back() << toString(val, into.precision()) << mySeparator;
     }
 
     /** @brief writes a named attribute
@@ -117,17 +103,22 @@ public:
      */
     template <class T>
     void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
-        checkHeader(attr);
+        checkAttr(attr);
         myXMLStack.back() << toString(val, into.precision()) << mySeparator;
     }
 
-    bool wroteHeader() const {
-        return myMaxDepth != 0;
+    void writeNull(std::ostream& /* into */, const SumoXMLAttr attr) {
+        checkAttr(attr);
+        myXMLStack.back() << mySeparator;
     }
 
-    void setExpectedAttributes(const SumoXMLAttrMask& expected, const SumoXMLAttrMask& nullable) {
+    bool wroteHeader() const {
+        return myWroteHeader;
+    }
+
+    void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth = 2) {
         myExpectedAttrs = expected;
-        myNullableAttrs = nullable;
+        myMaxDepth = depth;
     }
 
 private:
@@ -143,8 +134,9 @@ private:
     /// @brief the maximum depth of the XML hierarchy
     int myMaxDepth;
 
+    bool myWroteHeader;
+
     SumoXMLAttrMask myExpectedAttrs;
-    SumoXMLAttrMask myNullableAttrs;
     SumoXMLAttrMask mySeenAttrs;
 };
 
@@ -154,7 +146,7 @@ private:
 // ===========================================================================
 template <>
 inline void CSVFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val) {
-    checkHeader(attr);
+    checkAttr(attr);
 #ifdef HAVE_FMT
     fmt::print(myXMLStack.back(), "{:.{}f}{}", val, into.precision(), mySeparator);
 #else
@@ -165,6 +157,6 @@ inline void CSVFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, 
 
 template <>
 inline void CSVFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const std::string& val) {
-    checkHeader(attr);
+    checkAttr(attr);
     myXMLStack.back() << val << mySeparator;
 }

@@ -747,6 +747,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "entryTime",              SUMO_ATTR_ENTRYTIME },
     { "eventTime",              SUMO_ATTR_EVENTTIME },
     { "blockTime",              SUMO_ATTR_BLOCKTIME },
+    { "tag",                    SUMO_ATTR_TAG },
     // Edge
     { "id",                     SUMO_ATTR_ID },
     { "refId",                  SUMO_ATTR_REFID },

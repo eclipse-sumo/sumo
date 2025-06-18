@@ -1,0 +1,5 @@
+<routes>
+    <vType id="orig" vClass="truck" sigma="0" loadingDuration="5" length="2.5">
+        <param key="device.container.loadedType" value="dummy"/>
+    </vType>
+</routes>

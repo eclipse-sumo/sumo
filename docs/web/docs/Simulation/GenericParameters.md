@@ -49,7 +49,7 @@ Some parameters are *special* and affect (or reflect) simulation behavior in the
 - retrieving [parameters of carFollowModel and laneChangeModel via TraCI](../TraCI/Vehicle_Value_Retrieval.md#supported_lanechangemodel_parameters)
 - configuring [device parameters via TraCI](../TraCI/Change_Vehicle_State.md#supported_device_parameters)
 - retrieving [device parameters via TraCI](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters) (some devices have read-only parameters)
-
+- modeling dynamic mass,length,shape and vClass when [attaching trailers or railcars during simulation](../Specification/Logistics.md#trailers_and_rail_cars)
 
 Parameters are always defined as child elements of the respective
 object:

@@ -38,7 +38,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttributeVClassDialogOverlapped(
+netedit.modifyVClassDialogOverlapped_DisallowAll(
     netedit.attrs.connection.inspectTLS.changeRightButton, netedit.attrs.dialog.allowVClass.private)
 
 # Check undos

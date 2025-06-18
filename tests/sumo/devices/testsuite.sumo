@@ -34,3 +34,6 @@ stationfinder
 
 # testing replay of fcd trajectories
 fcd-replay
+
+# tests functions of MSDevice_transportable
+transportable

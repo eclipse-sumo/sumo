@@ -28,6 +28,7 @@
 // ===========================================================================
 
 class GNEAttributeCarrier;
+class GNEInternalTest;
 class GNEViewNet;
 
 // ===========================================================================
@@ -46,7 +47,7 @@ public:
     ~GNEAllowVClassesDialog();
 
     /// @brief open dialog
-    int openDialog(SumoXMLAttr attr, const std::string originalVClasses);
+    int openDialog(SumoXMLAttr attr, const std::string originalVClasses, GNEInternalTest* internalTests);
 
     /// @brief get vClasses modified by this dialog
     std::string getModifiedVClasses() const;

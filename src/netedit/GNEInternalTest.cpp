@@ -38,43 +38,44 @@ GNEInternalTest::~GNEInternalTest() {}
 
 
 void
-GNEInternalTest::runNeteditTests(GNEApplicationWindow* applicationWindow) {
-    // run rest only once
-    if (myTestStarted == false) {
-        myTestStarted = true;
-        bool writeClosedSucessfully = false;
-        // process every step
-        while (myCurrentStep < myTestSteps.size()) {
-            const auto testStep = myTestSteps.at(myCurrentStep);
-            // get argument (either event or modalDialogArgument or nullptr)
-            void* argument = nullptr;
-            if (testStep->getEvent()) {
-                argument = testStep->getEvent();
-            }
-            if (testStep->getModalArguments()) {
-                argument = testStep->getModalArguments();
-            }
-            // check if we have to process it in main windows, abstract view or specific view
-            if (testStep->getCategory() == InternalTestStep::Category::APP) {
-                applicationWindow->handle(this, testStep->getSelector(), argument);
-            } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
-                applicationWindow->getViewNet()->handle(this, testStep->getSelector(), argument);
-            } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
-                writeClosedSucessfully = true;
-            }
-            // check if update view after execute step
-            if (testStep->updateView()) {
-                applicationWindow->getViewNet()->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
-            }
-            myCurrentStep++;
+GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow) {
+    bool writeClosedSucessfully = false;
+    myRunning = true;
+    // process every step
+    while (myCurrentStep < myTestSteps.size()) {
+        const auto testStep = myTestSteps.at(myCurrentStep);
+        // get argument (either event or modalDialogArgument or nullptr)
+        void* argument = nullptr;
+        if (testStep->getEvent()) {
+            argument = testStep->getEvent();
         }
-        // check if print netedit closed sucessfully
-        if (writeClosedSucessfully) {
-            std::cout << "TestFunctions: Netedit closed successfully" << std::endl;
+        if (testStep->getModalArguments()) {
+            argument = testStep->getModalArguments();
         }
-        // mark test as finished
-        myTestFinished = true;
+        // check if we have to process it in main windows, abstract view or specific view
+        if (testStep->getCategory() == InternalTestStep::Category::APP) {
+            applicationWindow->handle(this, testStep->getSelector(), argument);
+        } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
+            applicationWindow->getViewNet()->handle(this, testStep->getSelector(), argument);
+        } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
+            writeClosedSucessfully = true;
+        }
+        // check if update view after execute step
+        if (testStep->updateView()) {
+            applicationWindow->getViewNet()->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
+        }
+        myCurrentStep++;
     }
+    // check if print netedit closed sucessfully
+    if (writeClosedSucessfully) {
+        std::cout << "TestFunctions: Netedit closed successfully" << std::endl;
+    }
+}
+
+
+bool
+GNEInternalTest::isRunning() const {
+    return myRunning;
 }
 
 /****************************************************************************/

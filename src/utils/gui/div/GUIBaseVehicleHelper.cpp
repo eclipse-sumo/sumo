@@ -280,8 +280,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SUMOVehicleShape::TRUCK_SEMITRAILER:
         case SUMOVehicleShape::TRUCK_1TRAILER:
             if (carriageIndex < 1) {
-                // shapes are hard-coded to an assumed front-body length of 2.5m
-                glScaled(1. / 2.5, 1, 1.);
+                glScaled(1. / length, 1, 1.);
                 drawPoly(vehiclePoly_TransportBody, 4);
                 glColor3d(0, 0, 0);
                 drawPoly(vehiclePoly_TransportFrontGlass, 4.5);

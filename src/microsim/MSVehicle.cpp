@@ -4904,7 +4904,7 @@ MSVehicle::updateParkingState() {
 
 
 void
-MSVehicle::replaceVehicleType(MSVehicleType* type) {
+MSVehicle::replaceVehicleType(const MSVehicleType* type) {
     MSBaseVehicle::replaceVehicleType(type);
     delete myCFVariables;
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
