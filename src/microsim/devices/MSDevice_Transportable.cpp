@@ -327,9 +327,11 @@ MSDevice_Transportable::changeAttached() {
     if (myLoadedType != nullptr) {
         int perAttached = myAmContainer ? myLoadedType->getContainerCapacity() : myLoadedType->getPersonCapacity();
         if (perAttached > 0) {
+            MSBaseVehicle& veh = dynamic_cast<MSBaseVehicle&>(myHolder);
+            SUMOVehicleClass oldVC = myHolder.getVClass();
             int numAttached = ceil(myTransportables.size() / perAttached);
             if (numAttached > 0) {
-                MSVehicleType* stype = &dynamic_cast<MSBaseVehicle&>(myHolder).getSingularType();
+                MSVehicleType* stype = &veh.getSingularType();
                 stype->setVClass(myLoadedType->getVehicleClass());
                 stype->setGUIShape(myLoadedType->getGuiShape());
                 stype->setLength(myOriginalType->getLength() + numAttached * myLoadedType->getLength());
@@ -339,6 +341,10 @@ MSDevice_Transportable::changeAttached() {
                 sparam.carriageGap = myLoadedType->getParameter().carriageGap;
             } else {
                 myHolder.replaceVehicleType(myOriginalType);
+            }
+            SUMOVehicleClass newVC = myHolder.getVClass();
+            if (oldVC != newVC) {
+                veh.reroute(SIMSTEP, "device." + deviceName() + ".loadedType", veh.getRouterTT());
             }
         }
     }
