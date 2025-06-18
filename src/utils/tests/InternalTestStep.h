@@ -181,7 +181,28 @@ private:
     void processModifyColorAttributeOverlappedFunction() const;
 
     /// @brief process modifyAttributeVClassDialog function
+    void processModifyAttributeVClassNoDisallowAllDialogFunction() const;
+
+    /// @brief process modifyAttributeVClassDialog function
+    void processModifyAttributeVClassNoDisallowAllDialogOverlappedFunction() const;
+
+    /// @brief process modifyAttributeVClassDialog function
     void processModifyAttributeVClassDialogFunction() const;
+
+    /// @brief process modifyAttributeVClassDialog function
+    void processModifyAttributeVClassDialogOverlappedFunction() const;
+
+    /// @brief process modifyAttributeVClassDialog function
+    void processModifyAttributeVClassDialogCancelFunction() const;
+
+    /// @brief process modifyAttributeVClassDialog function
+    void processModifyAttributeVClassDialogCancelOverlappedFunction() const;
+
+    /// @brief process modifyAttributeVClassDialog function
+    void processModifyAttributeVClassDialogResetFunction() const;
+
+    /// @brief process modifyAttributeVClassDialog function
+    void processModifyAttributeVClassDialogResetOverlappedFunction() const;
 
     /// @brief process changeEditMode function
     void processChangeEditModeFunction();

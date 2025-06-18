@@ -72,8 +72,25 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         processModifyColorAttributeFunction();
     } else if (function == "modifyColorAttributeOverlapped") {
         processModifyColorAttributeOverlappedFunction();
+
+
+    } else if (function == "modifyAttributeVClassNoDisallowAllDialog") {
+        processModifyAttributeVClassNoDisallowAllDialogFunction();
+    } else if (function == "modifyAttributeVClassNoDisallowAllDialogOverlapped") {
+        processModifyAttributeVClassNoDisallowAllDialogOverlappedFunction();
     } else if (function == "modifyAttributeVClassDialog") {
         processModifyAttributeVClassDialogFunction();
+    } else if (function == "modifyAttributeVClassDialogCancel") {
+        processModifyAttributeVClassDialogCancelFunction();
+    } else if (function == "modifyAttributeVClassDialogCancelOverlapped") {
+        processModifyAttributeVClassDialogCancelOverlappedFunction();
+    } else if (function == "modifyAttributeVClassDialogReset") {
+        processModifyAttributeVClassDialogResetFunction();
+    } else if (function == "modifyAttributeVClassDialogResetOverlapped") {
+        processModifyAttributeVClassDialogResetOverlappedFunction();
+
+
+
     } else if (function == "changeEditMode") {
         processChangeEditModeFunction();
     } else if (function == "changeSupermode") {
@@ -503,7 +520,7 @@ void
 InternalTestStep::processModifyColorAttributeFunction() const {
     if ((myArguments.size() != 1) ||
             !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
-        writeError("processModifyColorAttributeFunction", "<int/attributeEnum>");
+        writeError("modifyColorAttribute", "<int/attributeEnum>");
     } else {
         const int numTabs = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
         // focus frame
@@ -534,7 +551,7 @@ void
 InternalTestStep::processModifyColorAttributeOverlappedFunction() const {
     if ((myArguments.size() != 1) ||
             !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
-        writeError("processModifyColorAttributeOverlappedFunction", "<int/attributeEnum>");
+        writeError("modifyColorAttributeOverlapped", "<int/attributeEnum>");
     } else {
         const int numTabs = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
         const int overlappedTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.editElements.overlapped");
@@ -563,11 +580,11 @@ InternalTestStep::processModifyColorAttributeOverlappedFunction() const {
 
 
 void
-InternalTestStep::processModifyAttributeVClassDialogFunction() const {
+InternalTestStep::processModifyAttributeVClassNoDisallowAllDialogFunction() const {
     if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
-            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
-        writeError("modifyAttributeVClassDialog", "<int/attributeEnum, int/attributeEnum>");
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyAttributeVClassNoDisallowAllDialog", "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
         const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
@@ -597,10 +614,300 @@ InternalTestStep::processModifyAttributeVClassDialogFunction() const {
 
 
 void
+InternalTestStep::processModifyAttributeVClassNoDisallowAllDialogOverlappedFunction() const {
+    if ((myArguments.size() != 2) ||
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyAttributeVClassNoDisallowAllDialogOverlapped", "<int/attributeEnum, int/attributeEnum>");
+    } else {
+        // parse input
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        const int overlappedTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.editElements.overlapped");
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to open dialog button
+        for (int i = 0; i < (attribute + overlappedTabs); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        auto openDialogEvent = buildPressKeyEvent("space", true);
+        // jump to vClass
+        for (int i = 0; i < vClass; i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // select vclass
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to accept button
+        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.accept") - vClass); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // press accept
+        buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::processModifyAttributeVClassDialogFunction() const {
+    if ((myArguments.size() != 2) ||
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyAttributeVClassDialog", "<int/attributeEnum, int/attributeEnum>");
+    } else {
+        // parse input
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to open dialog button
+        for (int i = 0; i < attribute; i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        auto openDialogEvent = buildPressKeyEvent("space", true);
+        // go to disallow all vehicles
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // disallow all vehicles
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to vClass
+        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // select vClass
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to accept button
+        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.accept") - vClass); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // press accept
+        buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::processModifyAttributeVClassDialogOverlappedFunction() const {
+    if ((myArguments.size() != 2) ||
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyAttributeVClassDialogOverlapped", "<int/attributeEnum, int/attributeEnum>");
+    } else {
+        // parse input
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        const int overlappedTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.editElements.overlapped");
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to open dialog button
+        for (int i = 0; i < (attribute + overlappedTabs); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        auto openDialogEvent = buildPressKeyEvent("space", true);
+        // go to disallow all vehicles
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // disallow all vehicles
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to vClass
+        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // select vClass
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to accept button
+        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.accept") - vClass); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // press accept
+        buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::processModifyAttributeVClassDialogCancelFunction() const {
+    if ((myArguments.size() != 2) ||
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyAttributeVClassDialogCancel", "<int/attributeEnum, int/attributeEnum>");
+    } else {
+        // parse input
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to open dialog button
+        for (int i = 0; i < attribute; i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        auto openDialogEvent = buildPressKeyEvent("space", true);
+        // go to disallow all vehicles
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // disallow all vehicles
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to vClass
+        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // select vClass
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to cancel button
+        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.cancel") - vClass); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // press cancel
+        buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::processModifyAttributeVClassDialogCancelOverlappedFunction() const {
+    if ((myArguments.size() != 2) ||
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyAttributeVClassDialogCancelOverlapped", "<int/attributeEnum, int/attributeEnum>");
+    } else {
+        // parse input
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        const int overlappedTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.editElements.overlapped");
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to open dialog button
+        for (int i = 0; i < (attribute + overlappedTabs); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        auto openDialogEvent = buildPressKeyEvent("space", true);
+        // go to disallow all vehicles
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // disallow all vehicles
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to vClass
+        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // select vClass
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to cancel button
+        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.cancel") - vClass); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // press cancel
+        buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::processModifyAttributeVClassDialogResetFunction() const {
+    if ((myArguments.size() != 2) ||
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyAttributeVClassDialogReset", "<int/attributeEnum, int/attributeEnum>");
+    } else {
+        // parse input
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to open dialog button
+        for (int i = 0; i < attribute; i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        auto openDialogEvent = buildPressKeyEvent("space", true);
+        // go to disallow all vehicles
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // disallow all vehicles
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to vClass
+        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // select vClass
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to reset button
+        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.reset") - vClass); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // press reset
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to accept button
+        for (int i = 0; i < 2; i++) {
+            buildTwoPressKeyEvent(openDialogEvent, "shift", "tab");
+        }
+        // press accept
+        buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::processModifyAttributeVClassDialogResetOverlappedFunction() const {
+    if ((myArguments.size() != 2) ||
+        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+        writeError("modifyAttributeVClassDialogResetOverlapped", "<int/attributeEnum, int/attributeEnum>");
+    } else {
+        // parse input
+        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        const int overlappedTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.editElements.overlapped");
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to open dialog button
+        for (int i = 0; i < (attribute + overlappedTabs); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // open dialog
+        auto openDialogEvent = buildPressKeyEvent("space", true);
+        // go to disallow all vehicles
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // disallow all vehicles
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to vClass
+        for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // select vClass
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to reset button
+        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.reset") - vClass); i++) {
+            buildPressKeyEvent(openDialogEvent, "tab");
+        }
+        // press reset
+        buildPressKeyEvent(openDialogEvent, "space");
+        // go to accept button
+        for (int i = 0; i < 2; i++) {
+            buildTwoPressKeyEvent(openDialogEvent, "shift", "tab");
+        }
+        // press accept
+        buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
 InternalTestStep::processChangeEditModeFunction() {
     if ((myArguments.size() != 1) ||
             !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
-        writeError("processChangeEditModeFunction", "<int/attributeEnum>");
+        writeError("changeEditMode", "<int/attributeEnum>");
     } else {
         myCategory = Category::APP;
         // network
