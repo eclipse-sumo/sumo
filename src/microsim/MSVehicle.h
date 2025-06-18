@@ -1716,7 +1716,7 @@ public:
      * @param[in] type The new vehicle type
      * @see MSBaseVehicle::replaceVehicleType
      */
-    void replaceVehicleType(MSVehicleType* type);
+    void replaceVehicleType(const MSVehicleType* type);
 
     /// @brief get distance for coming to a stop (used for rerouting checks)
     double getBrakeGap(bool delayed = false) const;

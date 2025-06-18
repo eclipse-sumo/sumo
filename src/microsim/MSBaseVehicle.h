@@ -608,7 +608,7 @@ public:
      * @param[in] type The new vehicle type
      * @see MSBaseVehicle::myType
      */
-    virtual void replaceVehicleType(MSVehicleType* type);
+    virtual void replaceVehicleType(const MSVehicleType* type);
 
 
     /** @brief Replaces the current vehicle type with a new one used by this vehicle only
@@ -1054,7 +1054,7 @@ protected:
     ConstMSRoutePtr myRoute;
 
     /// @brief This vehicle's type.
-    MSVehicleType* myType;
+    const MSVehicleType* myType;
 
     /// @brief Iterator to current route-edge
     MSRouteIterator myCurrEdge;
