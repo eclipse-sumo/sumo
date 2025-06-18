@@ -410,6 +410,9 @@ PositionVector::positionAtOffset2D(const Position& p1, const Position& p2, doubl
     if ((pos < 0 || dist < pos) && !extrapolateBeyond) {
         return Position::INVALID;
     }
+    if (dist == 0) {
+        return p1;
+    }
     if (lateralOffset != 0) {
         const Position offset = sideOffset(p1, p2, -lateralOffset); // move in the same direction as Position::move2side
         if (pos == 0.) {
