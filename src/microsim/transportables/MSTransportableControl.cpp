@@ -156,14 +156,17 @@ MSTransportableControl::erase(MSTransportable* transportable) {
     }
     if (oc.isSet("vehroute-output") || oc.isSet("personroute-output")) {
         if (transportable->hasArrived() || oc.getBool("vehroute-output.write-unfinished")) {
-            if (oc.getBool("vehroute-output.sorted")) {
-                const SUMOTime departure = oc.getBool("vehroute-output.intended-depart") ? transportable->getParameter().depart : transportable->getDeparture();
-                OutputDevice_String od(1);
-                transportable->routeOutput(od, oc.getBool("vehroute-output.route-length"));
-                MSDevice_Vehroutes::writeSortedOutput(&myRouteInfos,
-                                                      departure, transportable->getID(), od.getString());
-            } else {
-                transportable->routeOutput(*myRouteInfos.routeOut, oc.getBool("vehroute-output.route-length"));
+            // @todo: adapt this if we ever introduce person-device.vehroute
+            if (transportable->getBoolParam("has.vehroute.person-device", false, true)) {
+                if (oc.getBool("vehroute-output.sorted")) {
+                    const SUMOTime departure = oc.getBool("vehroute-output.intended-depart") ? transportable->getParameter().depart : transportable->getDeparture();
+                    OutputDevice_String od(1);
+                    transportable->routeOutput(od, oc.getBool("vehroute-output.route-length"));
+                    MSDevice_Vehroutes::writeSortedOutput(&myRouteInfos,
+                            departure, transportable->getID(), od.getString());
+                } else {
+                    transportable->routeOutput(*myRouteInfos.routeOut, oc.getBool("vehroute-output.route-length"));
+                }
             }
         }
     }
