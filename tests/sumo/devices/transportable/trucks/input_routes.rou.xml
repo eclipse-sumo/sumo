@@ -1,7 +1,4 @@
 <routes>
-    <vType id="orig" vClass="truck" sigma="0" loadingDuration="5" length="2.5">
-        <param key="device.container.loadedType" value="dummy"/>
-    </vType>
     <vType id="loaded" vClass="trailer" sigma="0" containerCapacity="1" length="13.5"/>
 
     <trip id="veh0" depart="0" type="orig">
