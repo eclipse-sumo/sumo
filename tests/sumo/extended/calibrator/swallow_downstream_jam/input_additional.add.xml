@@ -11,4 +11,5 @@
     </variableSpeedSign>
 
     <edgeData id="expect_2500_vehs"  begin="0"       end="3600"  file="aggregated_25.xml"/>
+    <edgeData id="emissions" type="emissions" begin="0"       end="3600"  file="aggregated.xml"/>
 </additional>
