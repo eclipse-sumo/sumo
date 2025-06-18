@@ -20,7 +20,7 @@ from ...general.functions import *
 from .boolAttribute import *
 
 
-def modifyAttributeVClassDialog_NoDisallowAll(attribute, vClass):
+def modifyVClassDialog_NoDisallowAll(attribute, vClass):
     """
     @brief modify vclass attribute using dialog
     """
@@ -37,7 +37,7 @@ def modifyAttributeVClassDialog_NoDisallowAll(attribute, vClass):
     typeKey('space')
 
 
-def modifyAttributeVClassDialogOverlapped_NoDisallowAll(attribute, vClass):
+def modifyVClassDialogOverlapped_NoDisallowAll(attribute, vClass):
     """
     @brief modify vclass attribute using dialog
     """
@@ -54,7 +54,7 @@ def modifyAttributeVClassDialogOverlapped_NoDisallowAll(attribute, vClass):
     typeKey('space')
 
 
-def modifyAttributeVClassDialog_DisallowAll(attribute, vClass, cancel=False, reset=False):
+def modifyVClassDialog_DisallowAll(attribute, vClass, cancel=False, reset=False):
     """
     @brief modify vclass attribute using dialog (this disallow all other vClasses)
     """
@@ -87,7 +87,7 @@ def modifyAttributeVClassDialog_DisallowAll(attribute, vClass, cancel=False, res
         typeKey('space')
 
 
-def modifyAttributeVClassDialogOverlapped_DisallowAll(attribute, vClass):
+def modifyVClassDialogOverlapped_DisallowAll(attribute, vClass):
     """
     @brief modify vclass attribute using dialog (this disallow all other vClasses)
     """
@@ -108,7 +108,7 @@ def modifyAttributeVClassDialogOverlapped_DisallowAll(attribute, vClass):
     typeKey('space')
 
 
-def modifyAttributeVClassDialog_Cancel(attribute, vClass):
+def modifyVClassDialog_Cancel(attribute, vClass):
     """
     @brief modify vclass attribute and cancel
     """
@@ -129,7 +129,7 @@ def modifyAttributeVClassDialog_Cancel(attribute, vClass):
     typeKey('space')
 
 
-def modifyAttributeVClassDialogOverlapped_Cancel(attribute, vClass):
+def modifyVClassDialogOverlapped_Cancel(attribute, vClass):
     """
     @brief modify vclass attribute and cancel (overlapped)
     """
@@ -151,7 +151,7 @@ def modifyAttributeVClassDialogOverlapped_Cancel(attribute, vClass):
 
 
 
-def modifyAttributeVClassDialog_Reset(attribute, vClass):
+def modifyVClassDialog_Reset(attribute, vClass):
     """
     @brief modify vclass attribute and reset
     """
@@ -175,7 +175,7 @@ def modifyAttributeVClassDialog_Reset(attribute, vClass):
     typeKey('space')
 
 
-def modifyAttributeVClassDialogOverlapped_Reset(attribute, vClass):
+def modifyVClassDialogOverlapped_Reset(attribute, vClass):
     """
     @brief modify vclass attribute and reset (overlapped)
     """

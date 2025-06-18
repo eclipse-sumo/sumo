@@ -35,7 +35,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttributeVClassDialog_NoDisallowAll(netedit.attrs.lane.inspect.allowButton,
+netedit.modifyVClassDialog_NoDisallowAll(netedit.attrs.lane.inspect.allowButton,
                                     netedit.attrs.dialog.allowVClass.onlyRoadVehicles)
 
 # Check undos

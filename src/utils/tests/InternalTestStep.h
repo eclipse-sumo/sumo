@@ -171,17 +171,17 @@ private:
     /// @brief process modifyColorAttribute function
     void modifyColorAttribute(const int overlappedTabs) const;
 
-    /// @brief process modifyAttributeVClassDialog_DisallowAll function
-    void modifyAttributeVClassDialog_NoDisallowAll(const int overlappedTabs) const;
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_NoDisallowAll(const int overlappedTabs) const;
 
-    /// @brief process modifyAttributeVClassDialog_DisallowAll function
-    void modifyAttributeVClassDialog_DisallowAll(const int overlappedTabs) const;
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_DisallowAll(const int overlappedTabs) const;
 
-    /// @brief process modifyAttributeVClassDialog_DisallowAll function
-    void modifyAttributeVClassDialog_Cancel(const int overlappedTabs) const;
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_Cancel(const int overlappedTabs) const;
 
-    /// @brief process modifyAttributeVClassDialog_DisallowAll function
-    void modifyAttributeVClassDialog_Reset(const int overlappedTabs) const;
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_Reset(const int overlappedTabs) const;
 
     /// @brief process changeEditMode function
     void changeEditMode();

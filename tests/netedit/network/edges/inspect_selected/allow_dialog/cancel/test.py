@@ -38,7 +38,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttributeVClassDialog_Cancel(netedit.attrs.edge.inspectSelection.allowButton,
+netedit.modifyVClassDialog_Cancel(netedit.attrs.edge.inspectSelection.allowButton,
                                     netedit.attrs.dialog.allowVClass.pedestrian)
 
 # Check undos
