@@ -41,7 +41,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttributeVClassNoDisallowAllDialogOverlapped(netedit.attrs.lane.inspectSelection.allowButton,
+netedit.modifyAttributeVClassDialogOverlapped_NoDisallowAll(netedit.attrs.lane.inspectSelection.allowButton,
                                     netedit.attrs.dialog.allowVClass.disallowAll)
 
 # Check undos

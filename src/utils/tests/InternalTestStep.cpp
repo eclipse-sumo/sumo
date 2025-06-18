@@ -74,22 +74,22 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         modifyColorAttribute(0);
     } else if (function == "modifyColorAttributeOverlapped") {
         modifyColorAttribute(overlappedTabs);
-    } else if (function == "modifyAttributeVClassNoDisallowAllDialog") {
-        modifyAttributeVClassNoDisallowAllDialog(0);
-    } else if (function == "modifyAttributeVClassNoDisallowAllDialogOverlapped") {
-        modifyAttributeVClassNoDisallowAllDialog(overlappedTabs);
-    } else if (function == "modifyAttributeVClassDialog") {
-        modifyAttributeVClassDialog(0);
-    } else if (function == "modifyAttributeVClassDialogOverlapped") {
-        modifyAttributeVClassDialog(overlappedTabs);
-    } else if (function == "modifyAttributeVClassDialogCancel") {
-        modifyAttributeVClassDialogCancel(0);
-    } else if (function == "modifyAttributeVClassDialogCancelOverlapped") {
-        modifyAttributeVClassDialogCancel(overlappedTabs);
-    } else if (function == "modifyAttributeVClassDialogReset") {
-        modifyAttributeVClassDialogReset(0);
-    } else if (function == "modifyAttributeVClassDialogResetOverlapped") {
-        modifyAttributeVClassDialogReset(overlappedTabs);
+    } else if (function == "modifyAttributeVClassDialog_NoDisallowAll") {
+        modifyAttributeVClassDialog_NoDisallowAll(0);
+    } else if (function == "modifyAttributeVClassDialogOverlapped_NoDisallowAll") {
+        modifyAttributeVClassDialog_NoDisallowAll(overlappedTabs);
+    } else if (function == "modifyAttributeVClassDialog_DisallowAll") {
+        modifyAttributeVClassDialog_DisallowAll(0);
+    } else if (function == "modifyAttributeVClassDialogOvelapped_DisallowAll") {
+        modifyAttributeVClassDialog_DisallowAll(overlappedTabs);
+    } else if (function == "modifyAttributeVClassDialog_Cancel") {
+        modifyAttributeVClassDialog_Cancel(0);
+    } else if (function == "modifyAttributeVClassDialogOverlapped_Cancel") {
+        modifyAttributeVClassDialog_Cancel(overlappedTabs);
+    } else if (function == "modifyAttributeVClassDialog_Reset") {
+        modifyAttributeVClassDialog_Reset(0);
+    } else if (function == "modifyAttributeVClassDialogOverlapped_Reset") {
+        modifyAttributeVClassDialog_Reset(overlappedTabs);
     } else if (function == "changeEditMode") {
         changeEditMode();
     } else if (function == "changeSupermode") {
@@ -499,11 +499,11 @@ InternalTestStep::modifyColorAttribute(const int overlappedTabs) const {
 
 
 void
-InternalTestStep::modifyAttributeVClassNoDisallowAllDialog(const int overlappedTabs) const {
+InternalTestStep::modifyAttributeVClassDialog_NoDisallowAll(const int overlappedTabs) const {
     if ((myArguments.size() != 2) ||
         !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
         !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
-        writeError("modifyAttributeVClassNoDisallowAllDialog", "<int/attributeEnum, int/attributeEnum>");
+        writeError("modifyAttributeVClassDialog_NoDisallowAll", "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
         const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
@@ -533,11 +533,11 @@ InternalTestStep::modifyAttributeVClassNoDisallowAllDialog(const int overlappedT
 
 
 void
-InternalTestStep::modifyAttributeVClassDialog(const int overlappedTabs) const {
+InternalTestStep::modifyAttributeVClassDialog_DisallowAll(const int overlappedTabs) const {
     if ((myArguments.size() != 2) ||
         !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
         !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
-        writeError("modifyAttributeVClassDialog", "<int/attributeEnum, int/attributeEnum>");
+        writeError("modifyAttributeVClassDialog_DisallowAll", "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
         const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
@@ -573,11 +573,11 @@ InternalTestStep::modifyAttributeVClassDialog(const int overlappedTabs) const {
 
 
 void
-InternalTestStep::modifyAttributeVClassDialogCancel(const int overlappedTabs) const {
+InternalTestStep::modifyAttributeVClassDialog_Cancel(const int overlappedTabs) const {
     if ((myArguments.size() != 2) ||
         !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
         !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
-        writeError("modifyAttributeVClassDialogCancel", "<int/attributeEnum, int/attributeEnum>");
+        writeError("modifyAttributeVClassDialog_Cancel", "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
         const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
@@ -613,11 +613,11 @@ InternalTestStep::modifyAttributeVClassDialogCancel(const int overlappedTabs) co
 
 
 void
-InternalTestStep::modifyAttributeVClassDialogReset(const int overlappedTabs) const {
+InternalTestStep::modifyAttributeVClassDialog_Reset(const int overlappedTabs) const {
     if ((myArguments.size() != 2) ||
         !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
         !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
-        writeError("modifyAttributeVClassDialogReset", "<int/attributeEnum, int/attributeEnum>");
+        writeError("modifyAttributeVClassDialog_Reset", "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
         const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());

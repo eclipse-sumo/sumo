@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart()
 netedit.changeMode("createEdge")
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttributeVClassDialog(netedit.attrs.edge.create.allowButton,
+netedit.modifyAttributeVClassDialog_DisallowAll(netedit.attrs.edge.create.allowButton,
                                     netedit.attrs.dialog.allowVClass.passenger)
 
 # Create two nodes

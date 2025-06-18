@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart()
 netedit.changeMode("createEdge")
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttributeVClassNoDisallowAllDialogOverlapped(netedit.attrs.edge.create.allowButton,
+netedit.modifyAttributeVClassDialogOverlapped_NoDisallowAll(netedit.attrs.edge.create.allowButton,
                                     netedit.attrs.dialog.allowVClass.allVehicles)
 
 # Create two nodes
