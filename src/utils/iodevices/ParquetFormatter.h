@@ -34,47 +34,43 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class OstreamOutputStream : public arrow::io::OutputStream {
+class ArrowOStreamWrapper : public arrow::io::OutputStream {
 public:
-    explicit OstreamOutputStream(std::ostream& out)
-        : out_(out), position_(0), is_open_(true) {}
+    ArrowOStreamWrapper(std::ostream& out)
+        : myOStream(out), myAmOpen(true) {}
 
     arrow::Status Close() override {
-        is_open_ = false;
+        myAmOpen = false;
         return arrow::Status::OK();
     }
 
     arrow::Status Flush() override {
-        out_.flush();
+        myOStream.flush();
         return arrow::Status::OK();
     }
 
     arrow::Result<int64_t> Tell() const override {
-        return position_;
+        return myOStream.tellp();
     }
 
     bool closed() const override {
-        return !is_open_;
+        return !myAmOpen;
     }
 
     arrow::Status Write(const void* data, int64_t nbytes) override {
-        if (!is_open_) {
+        if (!myAmOpen) {
             return arrow::Status::IOError("Write on closed stream");
         }
-
-        out_.write(reinterpret_cast<const char*>(data), nbytes);
-        if (!out_) {
+        myOStream.write(reinterpret_cast<const char*>(data), nbytes);
+        if (!myOStream) {
             return arrow::Status::IOError("Failed to write to ostream");
         }
-
-        position_ += nbytes;
         return arrow::Status::OK();
     }
 
 private:
-    std::ostream& out_;
-    int64_t position_;
-    bool is_open_;
+    std::ostream& myOStream;
+    bool myAmOpen;
 };
 
 
@@ -139,23 +135,18 @@ public:
 
     /** @brief writes a named attribute
      *
-     * @param[in] into The output stream to use
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
+     * @param[in] isNull The given value is not set
      */
     template <class T>
-    void writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const T& val) {
+    void writeAttr(const SumoXMLAttr attr, const T& val, const bool isNull = false) {
         checkAttr(attr);
         if (!myWroteHeader) {
             mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(toString(attr), arrow::utf8()));
             myBuilders.push_back(std::make_shared<arrow::StringBuilder>());
         }
-        myValues.push_back(std::make_shared<arrow::StringScalar>(toString(val)));
-    }
-
-    void writeNull(std::ostream& /* into */, const SumoXMLAttr attr) {
-        checkAttr(attr);
-        myValues.push_back(nullptr);
+        myValues.push_back(isNull ? nullptr : std::make_shared<arrow::StringScalar>(toString(val)));
     }
 
     bool wroteHeader() const {
@@ -168,25 +159,34 @@ public:
     }
 
 private:
+    /// @brief the number of rows to write per batch
     const int myBatchSize;
+
     /// @brief the table schema
     std::shared_ptr<arrow::Schema> mySchema = arrow::schema({});
+
+    /// @brief the output stream writer
     std::unique_ptr<parquet::arrow::FileWriter> myParquetWriter;
 
     /// @brief the content array builders for the table
     std::vector<std::shared_ptr<arrow::ArrayBuilder> > myBuilders;
 
-    /// @brief The stack of begun xml elements
+    /// @brief The number of attributes in the currently open XML elements
     std::vector<int> myXMLStack;
 
+    /// @brief the current attribute / column values
     std::vector<std::shared_ptr<arrow::Scalar> > myValues;
 
     /// @brief the maximum depth of the XML hierarchy
     int myMaxDepth;
 
+    /// @brief whether the schema has been constructed completely
     bool myWroteHeader;
 
+    /// @brief the attributes which are expected for a complete row (including null values)
     SumoXMLAttrMask myExpectedAttrs;
+
+    /// @brief the attributes already seen (including null values)
     SumoXMLAttrMask mySeenAttrs;
 };
 
@@ -195,22 +195,11 @@ private:
 // specialized template implementations
 // ===========================================================================
 template <>
-inline void ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const double& val) {
+inline void ParquetFormatter::writeAttr(const SumoXMLAttr attr, const double& val, const bool isNull) {
     checkAttr(attr);
     if (!myWroteHeader) {
         mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(toString(attr), arrow::float64()));
         myBuilders.push_back(std::make_shared<arrow::DoubleBuilder>());
     }
-    myValues.push_back(std::make_shared<arrow::DoubleScalar>(val));
-}
-
-
-template <>
-inline void ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const std::string& val) {
-    checkAttr(attr);
-    if (!myWroteHeader) {
-        mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(toString(attr), arrow::utf8()));
-        myBuilders.push_back(std::make_shared<arrow::StringBuilder>());
-    }
-    myValues.push_back(std::make_shared<arrow::StringScalar>(val));
+    myValues.push_back(isNull ? nullptr : std::make_shared<arrow::DoubleScalar>(val));
 }

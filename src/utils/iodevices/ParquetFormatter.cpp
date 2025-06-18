@@ -55,7 +55,7 @@ ParquetFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& /* xmlElem
 bool
 ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
     if (myMaxDepth == 0 || (myMaxDepth == (int)myXMLStack.size() && !myWroteHeader)) {
-        auto arrow_stream = std::make_shared<OstreamOutputStream>(into);
+        auto arrow_stream = std::make_shared<ArrowOStreamWrapper>(into);
         myParquetWriter = *parquet::arrow::FileWriter::Open(*mySchema, arrow::default_memory_pool(), arrow_stream);
         if (myMaxDepth == 0) {
             myMaxDepth = (int)myXMLStack.size();

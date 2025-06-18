@@ -248,7 +248,7 @@ public:
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
 #ifdef HAVE_PARQUET
         } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
-            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(attr, val);
 #endif
         } else {
             static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
@@ -275,11 +275,7 @@ public:
                 }
 #ifdef HAVE_PARQUET
             } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
-                if (isNull) {
-                    static_cast<ParquetFormatter*>(myFormatter)->writeNull(getOStream(), attr);
-                } else {
-                    static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
-                }
+                static_cast<ParquetFormatter*>(myFormatter)->writeAttr(attr, val, isNull);
 #endif
             } else {
                 if (isNull) {
