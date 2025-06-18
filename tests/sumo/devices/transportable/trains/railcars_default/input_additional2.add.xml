@@ -1,3 +1,5 @@
 <routes>
+    <vType id="loaded" vClass="rail" sigma="0" containerCapacity="1" length="13.5"/>
+
     <vType id="orig" vClass="rail" sigma="0" loadingDuration="5" length="25" containerCapacity="10"/>
 </routes>

@@ -5,8 +5,6 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <vType id="loaded" vClass="rail" sigma="0" containerCapacity="1" length="13.5"/>
-
     <trip id="t_0" type="orig" depart="0.00" from="E0" to="E2">
         <stop containerStop="ct_0" triggered="container" parking="false"/>
         <stop containerStop="ct_1" duration="60.00"/>
