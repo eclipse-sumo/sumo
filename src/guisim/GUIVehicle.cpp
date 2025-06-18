@@ -401,7 +401,11 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, doub
                 case SUMOVehicleShape::TRUCK_SEMITRAILER:
                 case SUMOVehicleShape::TRUCK_1TRAILER:
                     if (i == trainHelper.getFirstCarriageNo()) {  // at the moment amReversed is only ever set for rail - so has no impact in this call
+                        GLHelper::pushMatrix();
+                        // default drawing uses a fixed cab length but we want to scale here
+                        glScaled(1, curCLength / 2.5, 1);
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, 0, false, reversed);
+                        GLHelper::popMatrix();
                     } else {
                         GLHelper::setColor(current);
                         GLHelper::drawBoxLine(Position(0, 0), 180, curCLength, halfWidth);
