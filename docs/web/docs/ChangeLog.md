@@ -16,6 +16,9 @@ title: ChangeLog
   - Previously recorded travel speeds are now preserved when loading state #16775
   - Stochastic assignment of rerouting device is now reproduced when loading state #16784
   - railway routing now ignores temporary road closings when option **--device.rerouting.mode 8** is set #16799
+  - Fixed bug where persons with a personTrip had the wrong arrivalPos when changing from `<ride>` to `<walk>` #16801
+  - Fixed invalid emergency stop when vehicle is teleported beyond `arrivalEdge` attribute #16802
+  - Fixed bug where parking outflow would be blocked due to numerical issues. #16809
 
 - netedit
   - link-direction arrows for spread bidi-rail are drawn in the correct spot #16718 (regression in 1.20.0)
@@ -26,12 +29,15 @@ title: ChangeLog
   - parkingArea reference in chargingStation is now loaded #16789
 
 - sumo-gui
+  - Fixed bug where the trailer was occasiannly not drawn for guiShape truck/semitrailer #16808 (regression in 1.23.0)
+  - Fixed bug where articulated trucks (i.e. guiShape=`truck/semitrailer`) had an exaggerated gap when zoomed out #16816
   - carriageImages are now loaded relative to the file in which they are defined #16725
   - game mode rail switches now always switch on the first click #16726
   - Fixed UI freeze when loading edgeData for unknown edges on windows #16742
   - Fixed various parameter window quirks #11033
   - Fixed crash in "About Dialog" if SUMO_HOME is not set #16749
   - Fixed orientation of parking lots to be in line with the documentation #16593
+  - Fixed rendering glitches for train carriages #16761
 
 - mesosim
   - Fixed crash when loading state with different network #16758
@@ -61,6 +67,7 @@ title: ChangeLog
   - scaleTimeLine.py: Fixed invalid sorting of output #16744
   - sumolib.net.connection: No longer ignores connection permissions #16633
   - sumolib.xml.toXML: custom indent is now passed on #16734
+  - generateRerouters.py: fixed missing character in XML output #16815 
 
 ### Enhancements
 
@@ -68,6 +75,8 @@ title: ChangeLog
   - A warning is now issued for traffic light programs where a link never gets a green phase even when the program has only a single phase. #16652
   - Added waitingTime to personinfo walk output #16737
   - closingReroute now supports optional attribute `until` for setting the estimated duration of closing. Vehicle may wait at the closed edge if a detour would take longer. #16804
+  - Vehicles may now exceed their vType-`maxSpeed` when using `carFollowModel="KraussPS"` and going downhill (up to their `desiredMaxSpeed`) #16805
+  - containerStop now supports elemnt `<access>` #16811
 
 - meso
   - `<tlLogic>` with `<param key="meso.tls.control" value="true"/>` is now exempt from options **--meso-tls-penalty** and **--meso-tls-flow-penalty** and runs with full control #16674
@@ -76,7 +85,10 @@ title: ChangeLog
   - Various improvement to visual placement of rerouter objects #16716
   - In game mode, right-click can now toggle switches (rerouters) #16717
   - The 3D-view can now render vehicles in their 3D-model color #12683
+  - The 3D-view now shows POIs and polygons #13991
   - busStop now support `<param key="waitingWidth" value="FLOAT"/>` to customize spacing of waiting transportables #16724
+  - ChargingStations that have an associated parkingArea are now drawn at the parking space rather than on the road #16670
+  - containerStop now supports attribute `angle` to draw stationed containers at an angle #16813
 
 - duarouter
   - Added option **--repair.max-detour-factor** to give more control over repairing routes. Vehicles will backtrack rather than take large detours. #16746
