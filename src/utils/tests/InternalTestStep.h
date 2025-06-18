@@ -163,46 +163,25 @@ private:
     void typeKey() const;
 
     /// @brief process modifyAttribute function
-    void modifyAttribute() const;
-
-    /// @brief process modifyAttributeOverlapped function
-    void modifyAttributeOverlapped() const;
+    void modifyAttribute(const int overlappedTabs) const;
 
     /// @brief process modifyBoolAttribute function
-    void modifyBoolAttribute() const;
-
-    /// @brief process modifyBoolAttributeOverlapped function
-    void modifyBoolAttributeOverlapped() const;
+    void modifyBoolAttribute(const int overlappedTabs) const;
 
     /// @brief process modifyColorAttribute function
-    void modifyColorAttribute() const;
-
-    /// @brief process modifyColorAttributeOverlapped function
-    void modifyColorAttributeOverlapped() const;
+    void modifyColorAttribute(const int overlappedTabs) const;
 
     /// @brief process modifyAttributeVClassDialog function
-    void modifyAttributeVClassNoDisallowAllDialog() const;
+    void modifyAttributeVClassNoDisallowAllDialog(const int overlappedTabs) const;
 
     /// @brief process modifyAttributeVClassDialog function
-    void modifyAttributeVClassNoDisallowAllDialogOverlapped() const;
+    void modifyAttributeVClassDialog(const int overlappedTabs) const;
 
     /// @brief process modifyAttributeVClassDialog function
-    void modifyAttributeVClassDialog() const;
+    void modifyAttributeVClassDialogCancel(const int overlappedTabs) const;
 
     /// @brief process modifyAttributeVClassDialog function
-    void processModifyAttributeVClassDialogOverlappedFunction() const;
-
-    /// @brief process modifyAttributeVClassDialog function
-    void modifyAttributeVClassDialogCancel() const;
-
-    /// @brief process modifyAttributeVClassDialog function
-    void modifyAttributeVClassDialogCancelOverlapped() const;
-
-    /// @brief process modifyAttributeVClassDialog function
-    void modifyAttributeVClassDialogReset() const;
-
-    /// @brief process modifyAttributeVClassDialog function
-    void modifyAttributeVClassDialogResetOverlapped() const;
+    void modifyAttributeVClassDialogReset(const int overlappedTabs) const;
 
     /// @brief process changeEditMode function
     void changeEditMode();
