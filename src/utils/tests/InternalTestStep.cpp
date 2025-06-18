@@ -51,74 +51,69 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     const auto function = parseStep(step);
     // continue depending of function
     if (function == "setupAndStart") {
-        processSetupAndStartFunction();
+        setupAndStart();
     } else if (function == "leftClick") {
-        processLeftClickFunction("");
+        leftClick("");
     } else if (function == "leftClickControl") {
-        processLeftClickFunction("control");
+        leftClick("control");
     } else if (function == "leftClickShift") {
-        processLeftClickFunction("shift");
+        leftClick("shift");
     } else if (function == "typeKey") {
-        processTypeKeyFunction();
+        typeKey();
     } else if (function == "modifyAttribute") {
-        processModifyAttributeFunction();
+        modifyAttribute();
     } else if (function == "modifyAttributeOverlapped") {
-        processModifyAttributeOverlappedFunction();
+        modifyAttributeOverlapped();
     } else if (function == "modifyBoolAttribute") {
-        processModifyBoolAttributeFunction();
+        modifyBoolAttribute();
     } else if (function == "modifyBoolAttributeOverlapped") {
-        processModifyBoolAttributeOverlappedFunction();
+        modifyBoolAttributeOverlapped();
     } else if (function == "modifyColorAttribute") {
-        processModifyColorAttributeFunction();
+        modifyColorAttribute();
     } else if (function == "modifyColorAttributeOverlapped") {
-        processModifyColorAttributeOverlappedFunction();
-
-
+        modifyColorAttributeOverlapped();
     } else if (function == "modifyAttributeVClassNoDisallowAllDialog") {
-        processModifyAttributeVClassNoDisallowAllDialogFunction();
+        modifyAttributeVClassNoDisallowAllDialog();
     } else if (function == "modifyAttributeVClassNoDisallowAllDialogOverlapped") {
-        processModifyAttributeVClassNoDisallowAllDialogOverlappedFunction();
+        modifyAttributeVClassNoDisallowAllDialogOverlapped();
     } else if (function == "modifyAttributeVClassDialog") {
-        processModifyAttributeVClassDialogFunction();
+        modifyAttributeVClassDialog();
     } else if (function == "modifyAttributeVClassDialogCancel") {
-        processModifyAttributeVClassDialogCancelFunction();
+        modifyAttributeVClassDialogCancel();
     } else if (function == "modifyAttributeVClassDialogCancelOverlapped") {
-        processModifyAttributeVClassDialogCancelOverlappedFunction();
+        modifyAttributeVClassDialogCancelOverlapped();
     } else if (function == "modifyAttributeVClassDialogReset") {
-        processModifyAttributeVClassDialogResetFunction();
+        modifyAttributeVClassDialogReset();
     } else if (function == "modifyAttributeVClassDialogResetOverlapped") {
-        processModifyAttributeVClassDialogResetOverlappedFunction();
-
-
-
+        modifyAttributeVClassDialogResetOverlapped();
     } else if (function == "changeEditMode") {
-        processChangeEditModeFunction();
+        changeEditMode();
     } else if (function == "changeSupermode") {
-        processChangeSupermodeFunction();
+        changeSupermode();
     } else if (function == "changeMode") {
-        processChangeModeFunction();
+        changeMode();
     } else if (function == "changeElement") {
-        processChangeElementFunction();
+        changeElement();
     } else if (function == "changePlan") {
-        processChangePlanFunction();
+        changePlan();
     } else if (function == "computeJunctions") {
-        processComputeJunctionsFunction();
+        computeJunctions();
     } else if (function == "computeJunctionsVolatileOptions") {
-        processComputeJunctionsVolatileOptionsFunction();
+        computeJunctionsVolatileOptions();
     } else if (function == "saveExistentShortcut") {
-        processSaveExistentShortcutFunction();
+        saveExistentShortcut();
     } else if (function == "checkUndoRedo") {
-        processCheckUndoRedoFunction();
+        checkUndoRedo();
     } else if (function == "delete") {
-        processDeleteFunction();
+        deleteFunction();
     } else if (function == "selection") {
-        processSelectionFunction();
+        selection();
     } else if (function == "undo") {
-        processUndoFunction();
+        undo();
     } else if (function == "redo") {
-        processRedoFunction();
+        redo();
     } else if (function == "quit") {
-        processQuitFunction();
+        quit();
     } else if (function.size() > 0) {
         std::cout << function << std::endl;
         throw ProcessError("Function " + function + " not implemented in InternalTestStep");
@@ -358,7 +353,7 @@ InternalTestStep::parseArguments(const std::string& arguments) {
 
 
 void
-InternalTestStep::processSetupAndStartFunction() {
+InternalTestStep::setupAndStart() {
     myCategory = Category::INIT;
     // print in console the following lines
     std::cout << "TestFunctions: Netedit opened successfully" << std::endl;
@@ -370,7 +365,7 @@ InternalTestStep::processSetupAndStartFunction() {
 
 
 void
-InternalTestStep::processLeftClickFunction(const std::string& modifier) const {
+InternalTestStep::leftClick(const std::string& modifier) const {
     if ((myArguments.size() != 2) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0)) {
         writeError("leftClick", "<reference, position>");
     } else {
@@ -409,7 +404,7 @@ InternalTestStep::processLeftClickFunction(const std::string& modifier) const {
 
 
 void
-InternalTestStep::processTypeKeyFunction() const {
+InternalTestStep::typeKey() const {
     if (myArguments.size() != 1) {
         writeError("typeKey", "<key>");
     } else {
@@ -419,7 +414,7 @@ InternalTestStep::processTypeKeyFunction() const {
 
 
 void
-InternalTestStep::processModifyAttributeFunction() const {
+InternalTestStep::modifyAttribute() const {
     if ((myArguments.size() != 2) ||
             !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
             !checkStringArgument(myArguments[1])) {
@@ -450,7 +445,7 @@ InternalTestStep::processModifyAttributeFunction() const {
 
 
 void
-InternalTestStep::processModifyAttributeOverlappedFunction() const {
+InternalTestStep::modifyAttributeOverlapped() const {
     if ((myArguments.size() != 2) ||
             !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
             !checkStringArgument(myArguments[1])) {
@@ -478,7 +473,7 @@ InternalTestStep::processModifyAttributeOverlappedFunction() const {
 
 
 void
-InternalTestStep::processModifyBoolAttributeFunction() const {
+InternalTestStep::modifyBoolAttribute() const {
     if ((myArguments.size() != 1) ||
             !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
         writeError("modifyBoolAttribute", "<int/attributeEnum>");
@@ -497,7 +492,7 @@ InternalTestStep::processModifyBoolAttributeFunction() const {
 
 
 void
-InternalTestStep::processModifyBoolAttributeOverlappedFunction() const {
+InternalTestStep::modifyBoolAttributeOverlapped() const {
     if ((myArguments.size() != 1) ||
             !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
         writeError("modifyBoolAttributeOverlapped", "<int/attributeEnum>");
@@ -517,7 +512,7 @@ InternalTestStep::processModifyBoolAttributeOverlappedFunction() const {
 
 
 void
-InternalTestStep::processModifyColorAttributeFunction() const {
+InternalTestStep::modifyColorAttribute() const {
     if ((myArguments.size() != 1) ||
             !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
         writeError("modifyColorAttribute", "<int/attributeEnum>");
@@ -548,7 +543,7 @@ InternalTestStep::processModifyColorAttributeFunction() const {
 
 
 void
-InternalTestStep::processModifyColorAttributeOverlappedFunction() const {
+InternalTestStep::modifyColorAttributeOverlapped() const {
     if ((myArguments.size() != 1) ||
             !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
         writeError("modifyColorAttributeOverlapped", "<int/attributeEnum>");
@@ -580,7 +575,7 @@ InternalTestStep::processModifyColorAttributeOverlappedFunction() const {
 
 
 void
-InternalTestStep::processModifyAttributeVClassNoDisallowAllDialogFunction() const {
+InternalTestStep::modifyAttributeVClassNoDisallowAllDialog() const {
     if ((myArguments.size() != 2) ||
         !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
         !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
@@ -614,7 +609,7 @@ InternalTestStep::processModifyAttributeVClassNoDisallowAllDialogFunction() cons
 
 
 void
-InternalTestStep::processModifyAttributeVClassNoDisallowAllDialogOverlappedFunction() const {
+InternalTestStep::modifyAttributeVClassNoDisallowAllDialogOverlapped() const {
     if ((myArguments.size() != 2) ||
         !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
         !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
@@ -649,7 +644,7 @@ InternalTestStep::processModifyAttributeVClassNoDisallowAllDialogOverlappedFunct
 
 
 void
-InternalTestStep::processModifyAttributeVClassDialogFunction() const {
+InternalTestStep::modifyAttributeVClassDialog() const {
     if ((myArguments.size() != 2) ||
         !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
         !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
@@ -730,7 +725,7 @@ InternalTestStep::processModifyAttributeVClassDialogOverlappedFunction() const {
 
 
 void
-InternalTestStep::processModifyAttributeVClassDialogCancelFunction() const {
+InternalTestStep::modifyAttributeVClassDialogCancel() const {
     if ((myArguments.size() != 2) ||
         !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
         !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
@@ -770,7 +765,7 @@ InternalTestStep::processModifyAttributeVClassDialogCancelFunction() const {
 
 
 void
-InternalTestStep::processModifyAttributeVClassDialogCancelOverlappedFunction() const {
+InternalTestStep::modifyAttributeVClassDialogCancelOverlapped() const {
     if ((myArguments.size() != 2) ||
         !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
         !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
@@ -811,7 +806,7 @@ InternalTestStep::processModifyAttributeVClassDialogCancelOverlappedFunction() c
 
 
 void
-InternalTestStep::processModifyAttributeVClassDialogResetFunction() const {
+InternalTestStep::modifyAttributeVClassDialogReset() const {
     if ((myArguments.size() != 2) ||
         !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
         !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
@@ -857,7 +852,7 @@ InternalTestStep::processModifyAttributeVClassDialogResetFunction() const {
 
 
 void
-InternalTestStep::processModifyAttributeVClassDialogResetOverlappedFunction() const {
+InternalTestStep::modifyAttributeVClassDialogResetOverlapped() const {
     if ((myArguments.size() != 2) ||
         !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
         !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
@@ -904,7 +899,7 @@ InternalTestStep::processModifyAttributeVClassDialogResetOverlappedFunction() co
 
 
 void
-InternalTestStep::processChangeEditModeFunction() {
+InternalTestStep::changeEditMode() {
     if ((myArguments.size() != 1) ||
             !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
         writeError("changeEditMode", "<int/attributeEnum>");
@@ -991,7 +986,7 @@ InternalTestStep::processChangeEditModeFunction() {
 
 
 void
-InternalTestStep::processSaveExistentShortcutFunction() {
+InternalTestStep::saveExistentShortcut() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
         writeError("save", "<\"string\">");
@@ -1008,7 +1003,7 @@ InternalTestStep::processSaveExistentShortcutFunction() {
 
 
 void
-InternalTestStep::processCheckUndoRedoFunction() const {
+InternalTestStep::checkUndoRedo() const {
     if (myArguments.size() != 1) {
         writeError("checkUndoRedo", "<referencePosition>");
     } else {
@@ -1050,7 +1045,7 @@ InternalTestStep::processCheckUndoRedoFunction() const {
 
 
 void
-InternalTestStep::processDeleteFunction() const {
+InternalTestStep::deleteFunction() const {
     if (myArguments.size() != 0) {
         writeError("delete", "<>");
     } else {
@@ -1060,7 +1055,7 @@ InternalTestStep::processDeleteFunction() const {
 
 
 void
-InternalTestStep::processSelectionFunction() const {
+InternalTestStep::selection() const {
     if (myArguments.size() != 1 || !checkStringArgument(myArguments[0])) {
         writeError("selection", "<selection operation>");
     } else {
@@ -1110,7 +1105,7 @@ InternalTestStep::processSelectionFunction() const {
 
 
 void
-InternalTestStep::processUndoFunction() const {
+InternalTestStep::undo() const {
     if ((myArguments.size() != 2) ||
             !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
         writeError("undo", "<referencePosition, int>");
@@ -1137,7 +1132,7 @@ InternalTestStep::processUndoFunction() const {
 
 
 void
-InternalTestStep::processRedoFunction() const {
+InternalTestStep::redo() const {
     if ((myArguments.size() != 2) ||
             !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
         writeError("redo", "<referencePosition, int>");
@@ -1164,7 +1159,7 @@ InternalTestStep::processRedoFunction() const {
 
 
 void
-InternalTestStep::processChangeSupermodeFunction() {
+InternalTestStep::changeSupermode() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
         writeError("supermode", "<\"string\">");
@@ -1185,7 +1180,7 @@ InternalTestStep::processChangeSupermodeFunction() {
 
 
 void
-InternalTestStep::processChangeModeFunction() {
+InternalTestStep::changeMode() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
         writeError("changeMode", "<\"string\">");
@@ -1232,7 +1227,7 @@ InternalTestStep::processChangeModeFunction() {
 
 
 void
-InternalTestStep::processChangeElementFunction() const {
+InternalTestStep::changeElement() const {
     if ((myArguments.size() != 2) ||
             !checkStringArgument(myArguments[0])) {
         writeError("selectAdditional", "<\"frame\", \"string\">");
@@ -1262,7 +1257,7 @@ InternalTestStep::processChangeElementFunction() const {
         } else if (frame == "meanDataFrame") {
             numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.meanData");
         } else {
-            WRITE_ERRORF("Invalid frame '%' used in function processChangeElementFunction", frame);
+            WRITE_ERRORF("Invalid frame '%' used in function changeElement", frame);
         }
         if (numTabs >= 0) {
             // show info
@@ -1285,7 +1280,7 @@ InternalTestStep::processChangeElementFunction() const {
 
 
 void
-InternalTestStep::processChangePlanFunction()  const {
+InternalTestStep::changePlan()  const {
     if ((myArguments.size() != 3) ||
             !checkStringArgument(myArguments[0]) ||
             !checkStringArgument(myArguments[1]) ||
@@ -1298,7 +1293,7 @@ InternalTestStep::processChangePlanFunction()  const {
         const bool flow = getBoolArgument(myArguments[2]);
         // check plan
         if ((type != "person") && (type != "container")) {
-            WRITE_ERRORF("invalid plan type '%' used in processChangePlanFunction()", type);
+            WRITE_ERRORF("invalid plan type '%' used in changePlan()", type);
         } else {
             // calculate num tabs
             int numTabs = 0;
@@ -1327,7 +1322,7 @@ InternalTestStep::processChangePlanFunction()  const {
 
 
 void
-InternalTestStep::processComputeJunctionsFunction() {
+InternalTestStep::computeJunctions() {
     if (myArguments.size() > 0) {
         writeError("computeJunctions", "<>");
     } else {
@@ -1338,7 +1333,7 @@ InternalTestStep::processComputeJunctionsFunction() {
 
 
 void
-InternalTestStep::processComputeJunctionsVolatileOptionsFunction() {
+InternalTestStep::computeJunctionsVolatileOptions() {
     if (myArguments.size() > 1) {
         writeError("computeJunctionsVolatileOptions", "<True/False>");
     } else {
@@ -1354,7 +1349,7 @@ InternalTestStep::processComputeJunctionsVolatileOptionsFunction() {
 
 
 void
-InternalTestStep::processQuitFunction() {
+InternalTestStep::quit() {
     if (myArguments.size() == 0) {
         writeError("quit", "<neteditProcess>");
     } else {
