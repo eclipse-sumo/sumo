@@ -335,6 +335,7 @@ MSDevice_Transportable::changeAttached() {
                 stype->setVClass(myLoadedType->getVehicleClass());
                 stype->setGUIShape(myLoadedType->getGuiShape());
                 stype->setLength(myOriginalType->getLength() + numAttached * myLoadedType->getLength());
+                stype->setMass(myOriginalType->getMass() + numAttached * myLoadedType->getMass());
                 SUMOVTypeParameter& sparam = const_cast<SUMOVTypeParameter&>(stype->getParameter());
                 sparam.carriageLength = myLoadedType->getParameter().carriageLength;
                 sparam.locomotiveLength = myLoadedType->getParameter().locomotiveLength;
