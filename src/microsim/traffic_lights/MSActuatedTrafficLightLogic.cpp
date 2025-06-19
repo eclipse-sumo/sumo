@@ -1177,7 +1177,7 @@ MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
 #ifdef DEBUG_PHASE_SELECTION_CUSTOM
         if (DEBUG_COND) {
             std::cout << SIMTIME << " mustSwitch=" << mustSwitch << " cur=" << myStep << " next=" << next << " condition=" << condition
-                << " eval=" << (condition == "" ? NAN : evalExpression(condition)) << "\n";
+                      << " eval=" << (condition == "" ? NAN : evalExpression(condition)) << "\n";
         }
 #endif
         if (condition != "") {

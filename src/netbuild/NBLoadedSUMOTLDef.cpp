@@ -434,7 +434,7 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
                             }
                             if (isFoes && (state[i1] == 's' || (!hasContRel && state[i2] == 'G' && !indirectLeft))) {
                                 myExtraConflicts.insert(std::make_pair(i1, i2));
-                                //std::cout << getID() << " prog=" << getProgramID() << " phase=" << (it - phases.begin()) << " extraConflict i1=" << i1 << " i2=" << i2 
+                                //std::cout << getID() << " prog=" << getProgramID() << " phase=" << (it - phases.begin()) << " extraConflict i1=" << i1 << " i2=" << i2
                                 //    << " c1=" << c1 << " c2=" << c2 << "\n";
                             }
                             //std::cout << getID() << " p=" << (it - phases.begin()) << " i1=" << i1 << " i2=" << i2 << " rightTurnConflict=" << rightTurnConflict << " forbidden=" << forbidden << " isFoes=" << isFoes << "\n";

@@ -1632,15 +1632,14 @@ NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) {
 // definitions of NIImporter_OpenStreetMap::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
-        const std::map<long long int, NIOSMNode*>& osmNodes,
-        std::map<long long int, Edge*>& toFill, std::map<long long int, Edge*>& platformShapes,
-        const NBTypeCont& tc):
+    const std::map<long long int, NIOSMNode*>& osmNodes,
+    std::map<long long int, Edge*>& toFill, std::map<long long int, Edge*>& platformShapes,
+    const NBTypeCont& tc):
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
     myEdgeMap(toFill),
     myPlatformShapesMap(platformShapes),
-    myTypeCont(tc)
-{
+    myTypeCont(tc) {
 
     const double unlimitedSpeed = OptionsCont::getOptions().getFloat("osm.speedlimit-none");
 

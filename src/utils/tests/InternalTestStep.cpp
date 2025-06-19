@@ -501,8 +501,8 @@ InternalTestStep::modifyColorAttribute(const int overlappedTabs) const {
 void
 InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) const {
     if ((myArguments.size() != 2) ||
-        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
-        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
         writeError("modifyVClassDialog_NoDisallowAll", "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
@@ -535,8 +535,8 @@ InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) con
 void
 InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const {
     if ((myArguments.size() != 2) ||
-        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
-        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
         writeError("modifyVClassDialog_DisallowAll", "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
@@ -575,8 +575,8 @@ InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const
 void
 InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
     if ((myArguments.size() != 2) ||
-        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
-        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
         writeError("modifyVClassDialog_Cancel", "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
@@ -615,8 +615,8 @@ InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
 void
 InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
     if ((myArguments.size() != 2) ||
-        !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
-        !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
+            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
+            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
         writeError("modifyVClassDialog_Reset", "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input

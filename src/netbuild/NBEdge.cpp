@@ -1826,7 +1826,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     const bool rightTurnConflict = NBNode::rightTurnConflict(
                                                        this, con.toEdge, con.fromLane, i2, k2.toEdge, k2.fromLane);
                     const bool indirectTurnConflit = con.indirectLeft && this == i2 && (dir2 == LinkDirection::STRAIGHT ||
-                            (con.fromLane < k2.fromLane && (dir2 == LinkDirection::RIGHT || dir2 == LinkDirection::PARTRIGHT)));
+                                                     (con.fromLane < k2.fromLane && (dir2 == LinkDirection::RIGHT || dir2 == LinkDirection::PARTRIGHT)));
                     const bool mergeConflict = myTo->mergeConflict(this, con, i2, k2, true);
                     const bool mergeResponse = myTo->mergeConflict(this, con, i2, k2, false);
                     const bool bidiConflict = myTo->bidiConflict(this, con, i2, k2, true);
@@ -3203,13 +3203,13 @@ void NBEdge::recheckOpposite(const NBEdgeCont& ec, bool fixOppositeLengths) {
                 if (fixOppositeLengths) {
                     const double avgLength = 0.5 * (getFinalLength() + oppEdge->getFinalLength());
                     WRITE_WARNINGF(TL("Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."),
-                            oppositeID, oppEdge->getLoadedLength(), getID(), getLoadedLength());
+                                   oppositeID, oppEdge->getLoadedLength(), getID(), getLoadedLength());
                     setLoadedLength(avgLength);
                     oppEdge->setLoadedLength(avgLength);
                 } else {
                     WRITE_ERROR("Opposite lane '" + oppositeID + "' (length " + toString(oppEdge->getLoadedLength()) +
-                            ") differs in length from edge '" + getID() + "' (length " +
-                            toString(getLoadedLength()) + "). Set --opposites.guess.fix-lengths to fix this.");
+                                ") differs in length from edge '" + getID() + "' (length " +
+                                toString(getLoadedLength()) + "). Set --opposites.guess.fix-lengths to fix this.");
                     getLaneStruct(getNumLanes() - 1).oppositeID = "";
                 }
             }
@@ -3230,7 +3230,7 @@ void NBEdge::recheckOpposite(const NBEdgeCont& ec, bool fixOppositeLengths) {
     for (const NBEdge::Lane& l : getLanes()) {
         if (startOffset + l.endOffset > getLength()) {
             WRITE_WARNINGF(TL("Invalid endOffset % at lane '%' with length % (startOffset %)."),
-                    toString(l.endOffset), getLaneID(i), toString(l.shape.length()), toString(startOffset));
+                           toString(l.endOffset), getLaneID(i), toString(l.shape.length()), toString(startOffset));
         } else if (l.speed < 0.) {
             WRITE_WARNINGF(TL("Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."), toString(l.speed), getLaneID(i));
         } else if (l.speed == 0.) {

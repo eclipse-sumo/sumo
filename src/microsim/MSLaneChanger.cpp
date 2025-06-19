@@ -87,8 +87,7 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
     lastStopped(nullptr),
     ahead(_lane->getWidth()),
     aheadNext(_lane->getWidth(), nullptr, 0.),
-    zipperDist(0)
-{
+    zipperDist(0) {
     if (lane->isInternal()) {
         for (auto ili : lane->getIncomingLanes()) {
             if (ili.viaLink->getState() == LINKSTATE_ZIPPER) {

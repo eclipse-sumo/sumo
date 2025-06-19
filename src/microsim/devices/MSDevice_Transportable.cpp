@@ -60,8 +60,7 @@ MSDevice_Transportable::MSDevice_Transportable(SUMOVehicle& holder, const std::s
     myTransportables(),
     myStopped(holder.isStopped()),
     myOriginalType(&holder.getVehicleType()),
-    myLoadedType(nullptr)
-{
+    myLoadedType(nullptr) {
     const std::string key = "device." + deviceName() + ".loadedType";
     const std::string loadedTypeID = holder.getStringParam(key);
     if (loadedTypeID != "") {

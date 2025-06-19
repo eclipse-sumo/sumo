@@ -52,13 +52,13 @@ public:
     const InternalTestStep* getCurrentStep() const;
 
     /// @brief get map with attributesEnum jump steps
-    const std::map<std::string, int> &getAttributesEnum() const;
+    const std::map<std::string, int>& getAttributesEnum() const;
 
     /// @brief get map with contextual menu operation jump steps
-    const std::map<std::string, int> &getContextualMenuOperations() const;
+    const std::map<std::string, int>& getContextualMenuOperations() const;
 
     /// @brief get map with view position pairs
-    const std::map<std::string, std::pair<int, int> > &getViewPositions() const;
+    const std::map<std::string, std::pair<int, int> >& getViewPositions() const;
 
 protected:
     /// @brief current step index

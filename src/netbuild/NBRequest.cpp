@@ -322,16 +322,16 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     }
     */
 #ifdef DEBUG_SETBLOCKING
-            if (DEBUGCOND) std::cout << "setBlocking1"
-                                         << " 1:" << from1->getID() << "->" << to1->getID()
-                                         << " 2:" << from2->getID() << "->" << to2->getID();
-                                         << " relAngle=" << NBHelpers::relAngle(from1->getAngleAtNode(myJunction), from2->getAngleAtNode(myJunction))
+    if (DEBUGCOND) std::cout << "setBlocking1"
+                                 << " 1:" << from1->getID() << "->" << to1->getID()
+                                 << " 2:" << from2->getID() << "->" << to2->getID();
+            << " relAngle=" << NBHelpers::relAngle(from1->getAngleAtNode(myJunction), from2->getAngleAtNode(myJunction))
 #endif
 
-    // compute the yielding due to the right-before-left rule
-    // (or left-before-right rule)
-    // get the position of the incoming lanes in the junction-wheel
-    EdgeVector::const_iterator c1 = std::find(myAll.begin(), myAll.end(), from1);
+            // compute the yielding due to the right-before-left rule
+            // (or left-before-right rule)
+            // get the position of the incoming lanes in the junction-wheel
+            EdgeVector::const_iterator c1 = std::find(myAll.begin(), myAll.end(), from1);
     NBContHelper::nextCW(myAll, c1);
     // go through next edges clockwise...
     while (*c1 != from1 && *c1 != from2) {
@@ -341,16 +341,20 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                     && (ld1 != LinkDirection::LEFT || ld2 == LinkDirection::LEFT || (from1->getTurnDestination(true) != to2 &&
                             (ld2 != LinkDirection::RIGHT ||
                              fabs(NBHelpers::relAngle(from1->getAngleAtNode(myJunction),
-                                 from2->getAngleAtNode(myJunction))) < 150))
+                                     from2->getAngleAtNode(myJunction))) < 150))
                        )) {
                 myForbids[idx1][idx2] = true;
 #ifdef DEBUG_SETBLOCKING
-                if (DEBUGCOND) std::cout << " case1: 2 yields\n";
+                if (DEBUGCOND) {
+                    std::cout << " case1: 2 yields\n";
+                }
 #endif
             } else {
                 myForbids[idx2][idx1] = true;
 #ifdef DEBUG_SETBLOCKING
-                if (DEBUGCOND) std::cout << " case1: 1 yields\n";
+                if (DEBUGCOND) {
+                    std::cout << " case1: 1 yields\n";
+                }
 #endif
             }
             return;
@@ -368,16 +372,20 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                     && (ld2 != LinkDirection::LEFT || ld1 == LinkDirection::LEFT || (from2->getTurnDestination(true) != to1 &&
                             (ld1 != LinkDirection::RIGHT ||
                              fabs(NBHelpers::relAngle(from1->getAngleAtNode(myJunction),
-                                 from2->getAngleAtNode(myJunction))) < 150))
-                        )) {
+                                     from2->getAngleAtNode(myJunction))) < 150))
+                       )) {
                 myForbids[idx2][idx1] = true;
 #ifdef DEBUG_SETBLOCKING
-                if (DEBUGCOND) std::cout << " case2: 1 yields\n";
+                if (DEBUGCOND) {
+                    std::cout << " case2: 1 yields\n";
+                }
 #endif
             } else {
                 myForbids[idx1][idx2] = true;
 #ifdef DEBUG_SETBLOCKING
-                if (DEBUGCOND) std::cout << " case2: 2 yields\n";
+                if (DEBUGCOND) {
+                    std::cout << " case2: 2 yields\n";
+                }
 #endif
             }
             return;
@@ -385,7 +393,9 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         NBContHelper::nextCW(myAll, c2);
     }
 #ifdef DEBUG_SETBLOCKING
-    if (DEBUGCOND) std::cout << " noDecision\n";
+    if (DEBUGCOND) {
+        std::cout << " noDecision\n";
+    }
 #endif
 }
 
@@ -736,7 +746,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                             || oppositeLeftTurnConflict(from, c, *i, connected[k], zipper)
                             || indirectLeftTurnConflict(from, c, *i, connected[k], zipper)
                             || bidiConflict(from, c, *i, connected[k], false)
-                               // the extra conflict could be specific to another connection within the same signal group
+                            // the extra conflict could be specific to another connection within the same signal group
                             || (myJunction->extraConflict(c.tlLinkIndex, connected[k].tlLinkIndex) && (myForbids[idx2][idx] || myForbids[idx][idx2]))
                             || (myJunction->tlsContConflict(from, c, *i, connected[k]) && hasLaneConflict
                                 && !OptionsCont::getOptions().getBool("tls.ignore-internal-junction-jam"))
