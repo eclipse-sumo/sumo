@@ -62,6 +62,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         leftClick("shift");
     } else if (function == "typeKey") {
         typeKey();
+    } else if (function == "contextualMenuOperation") {
+        contextualMenuOperation();
     } else if (function == "modifyAttribute") {
         modifyAttribute(0);
     } else if (function == "modifyAttributeOverlapped") {
@@ -289,7 +291,7 @@ InternalTestStep::parseStep(const std::string& rowText) {
         std::string rowStr = rowText;
         // every function has the format <function>(<argument1>, <argument2>,....,)
         if (rowText.empty() || (rowText.front() == '(') || (rowText.back() != ')')) {
-            writeError("parseStep", "function(arguments)");
+            writeError("parseStep", 0, "function(arguments)");
             return "";
         }
         // first extract function
@@ -305,7 +307,7 @@ InternalTestStep::parseStep(const std::string& rowText) {
         functionName = functionName.substr(8);
         // check if there are at least two characters (to avoid cases like 'function)')
         if (rowStr.size() < 2) {
-            writeError("parseStep", "function(arguments)");
+            writeError("parseStep", 0, "function(arguments)");
             return functionName;
         }
         // remove both pharentesis
@@ -350,7 +352,7 @@ InternalTestStep::parseArguments(const std::string& arguments) {
     }
     // inQuotes MUST be false, in other case we have a case like < "argument1", argument2, "argument3 >
     if (inQuotes) {
-        writeError("parseArguments", "<\"argument\", \"argument\">");
+        writeError("parseArguments", 0, "<\"argument\", \"argument\">");
         myArguments.clear();
     }
 }
@@ -371,7 +373,7 @@ InternalTestStep::setupAndStart() {
 void
 InternalTestStep::leftClick(const std::string& modifier) const {
     if ((myArguments.size() != 2) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0)) {
-        writeError("leftClick", "<reference, position>");
+        writeError("leftClick", 0, "<reference, position>");
     } else {
         // parse arguments
         const int posX = myTestSystem->getViewPositions().at(myArguments[1]).first;
@@ -410,7 +412,7 @@ InternalTestStep::leftClick(const std::string& modifier) const {
 void
 InternalTestStep::typeKey() const {
     if (myArguments.size() != 1) {
-        writeError("typeKey", "<key>");
+        writeError("typeKey", 0, "<key>");
     } else {
         buildPressKeyEvent(getStringArgument(myArguments[0]), true);
     }
@@ -418,13 +420,26 @@ InternalTestStep::typeKey() const {
 
 
 void
-InternalTestStep::modifyAttribute(const int overlappedTabs) const {
-    if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
-            !checkStringArgument(myArguments[1])) {
-        writeError("modifyAttribute", "<int/attributeEnum, \"string\">");
+InternalTestStep::contextualMenuOperation() const {
+    if ((myArguments.size() != 3) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
+            !checkIntArgument(myArguments[2])) {
+        writeError("contextualMenuOperation", 0, "<reference, position, int/contextualMenuOperations>");
     } else {
-        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        // parse arguments
+        const int posX = myTestSystem->getViewPositions().at(myArguments[1]).first;
+        const int posY = myTestSystem->getViewPositions().at(myArguments[1]).second;
+        //const int attribute = getIntArgument(myArguments[0]);
+    }
+}
+
+
+void
+InternalTestStep::modifyAttribute(const int overlappedTabs) const {
+    if ((myArguments.size() != 2) || !checkIntArgument(myArguments[0]) ||
+            !checkStringArgument(myArguments[1])) {
+        writeError("modifyAttribute", overlappedTabs, "<int/attributeEnum, \"string\">");
+    } else {
+        const int attribute = getIntArgument(myArguments[0]);
         const std::string value = getStringArgument(myArguments[1]);
         // print info
         std::cout << value << std::endl;
@@ -450,11 +465,10 @@ InternalTestStep::modifyAttribute(const int overlappedTabs) const {
 
 void
 InternalTestStep::modifyBoolAttribute(const int overlappedTabs) const {
-    if ((myArguments.size() != 1) ||
-            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
-        writeError("modifyBoolAttribute", "<int/attributeEnum>");
+    if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
+        writeError("modifyBoolAttribute", overlappedTabs, "<int/attributeEnum>");
     } else {
-        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int attribute = getIntArgument(myArguments[0]);
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
@@ -469,11 +483,10 @@ InternalTestStep::modifyBoolAttribute(const int overlappedTabs) const {
 
 void
 InternalTestStep::modifyColorAttribute(const int overlappedTabs) const {
-    if ((myArguments.size() != 1) ||
-            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
-        writeError("modifyColorAttribute", "<int/attributeEnum>");
+    if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
+        writeError("modifyColorAttribute", overlappedTabs, "<int/attributeEnum>");
     } else {
-        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
+        const int attribute = getIntArgument(myArguments[0]);
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to the element
@@ -500,14 +513,13 @@ InternalTestStep::modifyColorAttribute(const int overlappedTabs) const {
 
 void
 InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) const {
-    if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
-            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
-        writeError("modifyVClassDialog_NoDisallowAll", "<int/attributeEnum, int/attributeEnum>");
+    if ((myArguments.size() != 2) || !checkIntArgument(myArguments[0]) ||
+            !checkIntArgument(myArguments[1])) {
+        writeError("modifyVClassDialog_NoDisallowAll", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
-        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
-        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        const int attribute = getIntArgument(myArguments[0]);
+        const int vClass = getIntArgument(myArguments[1]);
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to open dialog button
@@ -534,14 +546,13 @@ InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) con
 
 void
 InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const {
-    if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
-            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
-        writeError("modifyVClassDialog_DisallowAll", "<int/attributeEnum, int/attributeEnum>");
+    if ((myArguments.size() != 2) || !checkIntArgument(myArguments[0]) ||
+            !checkIntArgument(myArguments[1])) {
+        writeError("modifyVClassDialog_DisallowAll", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
-        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
-        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        const int attribute = getIntArgument(myArguments[0]);
+        const int vClass = getIntArgument(myArguments[1]);
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to open dialog button
@@ -575,13 +586,13 @@ InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const
 void
 InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
     if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
-            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
-        writeError("modifyVClassDialog_Cancel", "<int/attributeEnum, int/attributeEnum>");
+            !checkIntArgument(myArguments[0]) ||
+            !checkIntArgument(myArguments[1])) {
+        writeError("modifyVClassDialog_Cancel", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
-        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
-        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        const int attribute = getIntArgument(myArguments[0]);
+        const int vClass = getIntArgument(myArguments[1]);
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to open dialog button
@@ -614,14 +625,13 @@ InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
 
 void
 InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
-    if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum()) ||
-            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
-        writeError("modifyVClassDialog_Reset", "<int/attributeEnum, int/attributeEnum>");
+    if ((myArguments.size() != 2) || !checkIntArgument(myArguments[0]) ||
+            !checkIntArgument(myArguments[1])) {
+        writeError("modifyVClassDialog_Reset", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // parse input
-        const int attribute = getIntArgument(myArguments[0], myTestSystem->getAttributesEnum());
-        const int vClass = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        const int attribute = getIntArgument(myArguments[0]);
+        const int vClass = getIntArgument(myArguments[1]);
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // jump to open dialog button
@@ -660,9 +670,8 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
 
 void
 InternalTestStep::changeEditMode() {
-    if ((myArguments.size() != 1) ||
-            !checkIntArgument(myArguments[0], myTestSystem->getAttributesEnum())) {
-        writeError("changeEditMode", "<int/attributeEnum>");
+    if ((myArguments.size() != 1) || (myTestSystem->getAttributesEnum().count(myArguments[0]) == 0)) {
+        writeError("changeEditMode", 0, "<int/attributeEnum>");
     } else {
         myCategory = Category::APP;
         // network
@@ -739,7 +748,7 @@ InternalTestStep::changeEditMode() {
         } else if (myArguments[0] == "netedit.attrs.modes.data.TAZRelOnlyTo") {
             myMessageID = MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO;
         } else {
-            writeError("changeEditMode", "<enum>");
+            writeError("changeEditMode", 0, "<enum>");
         }
     }
 }
@@ -749,14 +758,14 @@ void
 InternalTestStep::saveExistentShortcut() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
-        writeError("save", "<\"string\">");
+        writeError("save", 0, "<\"string\">");
     } else {
         myCategory = Category::APP;
         const auto savingType = getStringArgument(myArguments[0]);
         if (savingType == "neteditConfig") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG;
         } else {
-            writeError("save", "<neteditConfig>");
+            writeError("save", 0, "<neteditConfig>");
         }
     }
 }
@@ -765,7 +774,7 @@ InternalTestStep::saveExistentShortcut() {
 void
 InternalTestStep::checkUndoRedo() const {
     if (myArguments.size() != 1) {
-        writeError("checkUndoRedo", "<referencePosition>");
+        writeError("checkUndoRedo", 0, "<referencePosition>");
     } else {
         const int numUndoRedos = 9;
         // focus frame
@@ -807,7 +816,7 @@ InternalTestStep::checkUndoRedo() const {
 void
 InternalTestStep::deleteFunction() const {
     if (myArguments.size() != 0) {
-        writeError("delete", "<>");
+        writeError("delete", 0, "<>");
     } else {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_DEL, Category::APP);
     }
@@ -817,7 +826,7 @@ InternalTestStep::deleteFunction() const {
 void
 InternalTestStep::selection() const {
     if (myArguments.size() != 1 || !checkStringArgument(myArguments[0])) {
-        writeError("selection", "<selection operation>");
+        writeError("selection", 0, "<selection operation>");
     } else {
         const std::string selectionType = getStringArgument(myArguments[0]);
         // get number of tabls
@@ -866,11 +875,10 @@ InternalTestStep::selection() const {
 
 void
 InternalTestStep::undo() const {
-    if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
-        writeError("undo", "<referencePosition, int>");
+    if ((myArguments.size() != 2) || !checkIntArgument(myArguments[1])) {
+        writeError("undo", 0, "<referencePosition, int>");
     } else {
-        const int numUndoRedos = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        const int numUndoRedos = getIntArgument(myArguments[1]);
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // go to inspect mode
@@ -893,11 +901,10 @@ InternalTestStep::undo() const {
 
 void
 InternalTestStep::redo() const {
-    if ((myArguments.size() != 2) ||
-            !checkIntArgument(myArguments[1], myTestSystem->getAttributesEnum())) {
-        writeError("redo", "<referencePosition, int>");
+    if ((myArguments.size() != 2) || !checkIntArgument(myArguments[1])) {
+        writeError("redo", 0, "<referencePosition, int>");
     } else {
-        const int numUndoRedos = getIntArgument(myArguments[1], myTestSystem->getAttributesEnum());
+        const int numUndoRedos = getIntArgument(myArguments[1]);
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // go to inspect mode
@@ -922,7 +929,7 @@ void
 InternalTestStep::changeSupermode() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
-        writeError("supermode", "<\"string\">");
+        writeError("supermode", 0, "<\"string\">");
     } else {
         myCategory = Category::APP;
         const std::string supermode = getStringArgument(myArguments[0]);
@@ -933,7 +940,7 @@ InternalTestStep::changeSupermode() {
         } else if (supermode == "data") {
             myMessageID = MID_HOTKEY_F4_SUPERMODE_DATA;
         } else {
-            writeError("supermode", "<network/demand/data>");
+            writeError("supermode", 0, "<network/demand/data>");
         }
     }
 }
@@ -943,7 +950,7 @@ void
 InternalTestStep::changeMode() {
     if ((myArguments.size() != 1) ||
             !checkStringArgument(myArguments[0])) {
-        writeError("changeMode", "<\"string\">");
+        writeError("changeMode", 0, "<\"string\">");
     } else {
         myCategory = Category::APP;
         const std::string networkMode = getStringArgument(myArguments[0]);
@@ -980,7 +987,7 @@ InternalTestStep::changeMode() {
         } else if (networkMode == "vehicle") {
             myMessageID = MID_HOTKEY_V_MODE_VEHICLE;
         } else {
-            writeError("changeMode", "<inspect/delete/select/move...>");
+            writeError("changeMode", 0, "<inspect/delete/select/move...>");
         }
     }
 }
@@ -990,7 +997,7 @@ void
 InternalTestStep::changeElement() const {
     if ((myArguments.size() != 2) ||
             !checkStringArgument(myArguments[0])) {
-        writeError("selectAdditional", "<\"frame\", \"string\">");
+        writeError("selectAdditional", 0, "<\"frame\", \"string\">");
     } else {
         const std::string frame = getStringArgument(myArguments[0]);
         const std::string element = getStringArgument(myArguments[1]);
@@ -1045,7 +1052,7 @@ InternalTestStep::changePlan()  const {
             !checkStringArgument(myArguments[0]) ||
             !checkStringArgument(myArguments[1]) ||
             !checkBoolArgument(myArguments[2])) {
-        writeError("changePlan", "<\"type\", \"plan\", true/false>");
+        writeError("changePlan", 0, "<\"type\", \"plan\", true/false>");
     } else {
         // get arguments
         const std::string type = getStringArgument(myArguments[0]);
@@ -1084,7 +1091,7 @@ InternalTestStep::changePlan()  const {
 void
 InternalTestStep::computeJunctions() {
     if (myArguments.size() > 0) {
-        writeError("computeJunctions", "<>");
+        writeError("computeJunctions", 0, "<>");
     } else {
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND;
@@ -1095,7 +1102,7 @@ InternalTestStep::computeJunctions() {
 void
 InternalTestStep::computeJunctionsVolatileOptions() {
     if (myArguments.size() > 1) {
-        writeError("computeJunctionsVolatileOptions", "<True/False>");
+        writeError("computeJunctionsVolatileOptions", 0, "<True/False>");
     } else {
         FXuint result = ModalArguments::yes;
         if ((myArguments.size() == 1) && (myArguments[0] == "False")) {
@@ -1111,7 +1118,7 @@ InternalTestStep::computeJunctionsVolatileOptions() {
 void
 InternalTestStep::quit() {
     if (myArguments.size() == 0) {
-        writeError("quit", "<neteditProcess>");
+        writeError("quit", 0, "<neteditProcess>");
     } else {
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_CTRL_Q_CLOSE;
@@ -1122,10 +1129,10 @@ InternalTestStep::quit() {
 
 
 bool
-InternalTestStep::checkIntArgument(const std::string& argument, const std::map<std::string, int>& map) const {
+InternalTestStep::checkIntArgument(const std::string& argument) const {
     if (StringUtils::isInt(argument)) {
         return true;
-    } else if (map.count(argument) > 0) {
+    } else if (myTestSystem->getAttributesEnum().count(argument) > 0) {
         return true;
     } else {
         return false;
@@ -1134,11 +1141,11 @@ InternalTestStep::checkIntArgument(const std::string& argument, const std::map<s
 
 
 int
-InternalTestStep::getIntArgument(const std::string& argument, const std::map<std::string, int>& map) const {
+InternalTestStep::getIntArgument(const std::string& argument) const {
     if (StringUtils::isInt(argument)) {
         return StringUtils::toInt(argument);
     } else {
-        return map.at(argument);
+        return myTestSystem->getAttributesEnum().at(argument);
     }
 }
 
@@ -1200,8 +1207,12 @@ InternalTestStep::stripSpaces(const std::string& str) const {
 
 
 void
-InternalTestStep::writeError(const std::string& function, const std::string& expected) const {
-    WRITE_ERRORF("Invalid internal testStep function '%', requires '%' arguments ", function, expected);
+InternalTestStep::writeError(const std::string& function, const int overlapping, const std::string& expected) const {
+    if (overlapping > 0) {
+        WRITE_ERRORF("Invalid internal testStep function '%Ovelapped', requires '%' arguments ", function, expected);
+    } else {
+        WRITE_ERRORF("Invalid internal testStep function '%', requires '%' arguments ", function, expected);
+    }
 }
 
 
@@ -1284,7 +1295,7 @@ InternalTestStep::translateKey(const std::string key) const {
     } else if (key == "f12" || key == "l2") {
         solution.first = KEY_F12;
     } else {
-        writeError("translateKey", "<key>");
+        writeError("translateKey", 0, "<key>");
         solution.first = KEY_VoidSymbol;
     }
     return solution;

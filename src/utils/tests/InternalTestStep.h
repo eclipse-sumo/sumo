@@ -162,6 +162,9 @@ private:
     /// @brief process typeKey function
     void typeKey() const;
 
+    /// @brief contextual menu operation
+    void contextualMenuOperation() const;
+
     /// @brief process modifyAttribute function
     void modifyAttribute(const int overlappedTabs) const;
 
@@ -226,10 +229,10 @@ private:
     void quit();
 
     /// @brief check int argument
-    bool checkIntArgument(const std::string& argument, const std::map<std::string, int>& map) const;
+    bool checkIntArgument(const std::string& argument) const;
 
     /// @brief get int argument
-    int getIntArgument(const std::string& argument, const std::map<std::string, int>& map) const;
+    int getIntArgument(const std::string& argument) const;
 
     /// @brief check bool argument
     bool checkBoolArgument(const std::string& argument) const;
@@ -247,7 +250,7 @@ private:
     std::string stripSpaces(const std::string& str) const;
 
     /// @brief write error
-    void writeError(const std::string& function, const std::string& expected) const;
+    void writeError(const std::string& function, const int overlapping, const std::string& expected) const;
 
     /// @name key functions
     /// @{
