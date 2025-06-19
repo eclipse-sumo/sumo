@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyVClassDialog_DisallowAll(netedit.attrs.lane.inspectSelection.changeLeftButton,
-                                    netedit.attrs.dialog.allowVClass.bicycle)
+                                       netedit.attrs.dialog.allowVClass.bicycle)
 
 # Check undos
 netedit.undo(referencePosition, 4)

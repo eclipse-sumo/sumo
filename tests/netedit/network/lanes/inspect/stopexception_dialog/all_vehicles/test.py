@@ -39,7 +39,7 @@ netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "4")
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyVClassDialogOverlapped_NoDisallowAll(netedit.attrs.lane.inspect.stopOffsetExceptionButton,
-                                    netedit.attrs.dialog.allowVClass.allVehicles)
+                                                   netedit.attrs.dialog.allowVClass.allVehicles)
 
 # Check undos
 netedit.undo(referencePosition, 4)

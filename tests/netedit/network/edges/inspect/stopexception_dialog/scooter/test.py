@@ -36,7 +36,7 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.stopOffset, "4")
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyVClassDialog_DisallowAll(netedit.attrs.edge.inspect.stopOffsetExceptionButton,
-                                    netedit.attrs.dialog.allowVClass.scooter)
+                                       netedit.attrs.dialog.allowVClass.scooter)
 
 # Check undos
 netedit.undo(referencePosition, 4)
