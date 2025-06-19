@@ -22,11 +22,8 @@
 
 #include <utils/foxtools/fxheader.h>
 
-// ===========================================================================
-// class declaration
-// ===========================================================================
+#include "InternalTest.h"
 
-class InternalTest;
 
 // ===========================================================================
 // class definitions
@@ -109,16 +106,6 @@ public:
     /// @brief get key events used in certain dialogs (allowDialog, etc.)
     const std::vector<const InternalTestStep*>& getModalDialogTestSteps() const;
 
-protected:
-    /// @brief build mouse move event
-    FXEvent* buildMouseMoveEvent(const int posX, const int posY) const;
-
-    /// @brief build mouse left click press event
-    FXEvent* buildMouseLeftClickPressEvent(const int posX, const int posY) const;
-
-    /// @brief build mouse left click release event
-    FXEvent* buildMouseLeftClickReleaseEvent(const int posX, const int posY) const;
-
 private:
     /// @brief test system parent
     InternalTest* myTestSystem;
@@ -156,8 +143,8 @@ private:
     /// @brief process setupAndStart function
     void setupAndStart();
 
-    /// @brief process left click function
-    void leftClick(const std::string& modifier) const;
+    /// @brief process click function
+    void mouseClick(const std::string& button, const std::string& modifier) const;
 
     /// @brief process typeKey function
     void typeKey() const;
@@ -314,6 +301,20 @@ private:
         new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(keyB));
         new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(keyA));
     }
+
+    /// @}
+
+    /// @name mouse functions
+    /// @{
+
+    /// @brief build mouse click event
+    void buildMouseClick(const InternalTest::ViewPosition& viewPosition, const std::string& button, const bool move) const;
+
+    /// @brief build mouse move event
+    FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition) const;
+
+    /// @brief build mouse left click press event
+    FXEvent* buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition) const;
 
     /// @}
 

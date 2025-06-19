@@ -55,11 +55,17 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     if (function == "setupAndStart") {
         setupAndStart();
     } else if (function == "leftClick") {
-        leftClick("");
+        mouseClick("left", "");
     } else if (function == "leftClickControl") {
-        leftClick("control");
+        mouseClick("left", "control");
     } else if (function == "leftClickShift") {
-        leftClick("shift");
+        mouseClick("left", "shift");
+    } else if (function == "rightClick") {
+        mouseClick("right", "");
+    } else if (function == "rightClickControl") {
+        mouseClick("right", "control");
+    } else if (function == "rightClickShift") {
+        mouseClick("right", "shift");
     } else if (function == "typeKey") {
         typeKey();
     } else if (function == "contextualMenuOperation") {
@@ -222,61 +228,6 @@ InternalTestStep::getModalDialogTestSteps() const {
 }
 
 
-FXEvent*
-InternalTestStep::buildMouseMoveEvent(const int posX, const int posY) const {
-    FXEvent* moveEvent = new FXEvent();
-    // common values
-    moveEvent->synthetic = true;
-    // set event values
-    moveEvent->type = SEL_MOTION;
-    moveEvent->win_x = posX + MOUSE_OFFSET_X;
-    moveEvent->win_y = posY + MOUSE_OFFSET_Y;
-    moveEvent->moved = true;
-    moveEvent->rect = FXRectangle(0, 0, 0, 0);
-    return moveEvent;
-}
-
-
-FXEvent*
-InternalTestStep::buildMouseLeftClickPressEvent(const int posX, const int posY) const {
-    FXEvent* leftClickPressEvent = new FXEvent();
-    // common values
-    leftClickPressEvent->synthetic = true;
-    // set event values
-    leftClickPressEvent->win_x = posX + MOUSE_OFFSET_X;
-    leftClickPressEvent->win_y = posY + MOUSE_OFFSET_Y;
-    leftClickPressEvent->click_x = posX + MOUSE_OFFSET_X;
-    leftClickPressEvent->click_y = posY + MOUSE_OFFSET_Y;
-    leftClickPressEvent->type = SEL_LEFTBUTTONPRESS;
-    leftClickPressEvent->state = 256;
-    leftClickPressEvent->code = 1;
-    leftClickPressEvent->click_button = 1;
-    leftClickPressEvent->click_count = 1;
-    leftClickPressEvent->moved = false;
-    return leftClickPressEvent;
-}
-
-
-FXEvent*
-InternalTestStep::buildMouseLeftClickReleaseEvent(const int posX, const int posY) const {
-    FXEvent* leftClickReleaseEvent = new FXEvent();
-    // common values
-    leftClickReleaseEvent->synthetic = true;
-    // set event values
-    leftClickReleaseEvent->win_x = posX + MOUSE_OFFSET_X;
-    leftClickReleaseEvent->win_y = posY + MOUSE_OFFSET_Y;
-    leftClickReleaseEvent->click_x = posX + MOUSE_OFFSET_X;
-    leftClickReleaseEvent->click_y = posY + MOUSE_OFFSET_Y;
-    leftClickReleaseEvent->type = SEL_LEFTBUTTONRELEASE;
-    leftClickReleaseEvent->state = 256;
-    leftClickReleaseEvent->code = 1;
-    leftClickReleaseEvent->click_button = 1;
-    leftClickReleaseEvent->click_count = 1;
-    leftClickReleaseEvent->moved = false;
-    return leftClickReleaseEvent;
-}
-
-
 std::string
 InternalTestStep::parseStep(const std::string& rowText) {
     // first check if this is the netedit.setupAndStart function
@@ -371,36 +322,33 @@ InternalTestStep::setupAndStart() {
 
 
 void
-InternalTestStep::leftClick(const std::string& modifier) const {
+InternalTestStep::mouseClick(const std::string& button, const std::string& modifier) const {
     if ((myArguments.size() != 2) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0)) {
         writeError("leftClick", 0, "<reference, position>");
     } else {
-        // parse arguments
-        const int posX = myTestSystem->getViewPositions().at(myArguments[1]).x;
-        const int posY = myTestSystem->getViewPositions().at(myArguments[1]).y;
+        // parse view position
+        const auto& viewPosition = myTestSystem->getViewPositions().at(myArguments[1]);
         // check if add key modifier
         if (modifier == "control") {
             new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(modifier), false);
             // print info
             std::cout << "TestFunctions: Clicked with Control key pressed over position " <<
-                      toString(posX + MOUSE_REFERENCE_X) << " - " <<
-                      toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+                      toString(viewPosition.x + MOUSE_REFERENCE_X) << " - " <<
+                      toString(viewPosition.y + MOUSE_REFERENCE_Y) << std::endl;
         } else if (modifier == "shift") {
             new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(modifier), false);
             // print info
             std::cout << "TestFunctions: Clicked with Shift key pressed over position " <<
-                      toString(posX + MOUSE_REFERENCE_X) << " - " <<
-                      toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+                      toString(viewPosition.x + MOUSE_REFERENCE_X) << " - " <<
+                      toString(viewPosition.y + MOUSE_REFERENCE_Y) << std::endl;
         } else {
             // print info
             std::cout << "TestFunctions: Clicked over position " <<
-                      toString(posX + MOUSE_REFERENCE_X) << " - " <<
-                      toString(posY + MOUSE_REFERENCE_Y) << std::endl;
+                      toString(viewPosition.x + MOUSE_REFERENCE_X) << " - " <<
+                      toString(viewPosition.y + MOUSE_REFERENCE_Y) << std::endl;
         }
-        // add move, left button press and left button release
-        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(posX, posY), true);
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(posX, posY), true);
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(posX, posY), true);
+        // build mouse click
+        buildMouseClick(viewPosition, button, true);
         // check if add key modifier
         if (!modifier.empty()) {
             new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(modifier), true);
@@ -422,14 +370,59 @@ InternalTestStep::typeKey() const {
 void
 InternalTestStep::contextualMenuOperation() const {
     if ((myArguments.size() != 3) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
-            !checkIntArgument(myArguments[2])) {
-        writeError("contextualMenuOperation", 0, "<reference, position, int/contextualMenuOperations>");
+            (myTestSystem->getContextualMenuOperations().count(myArguments[2]) == 0)) {
+        writeError("contextualMenuOperation", 0, "<reference, position, contextualMenuOperations>");
     } else {
         // parse arguments
-        const int posX = myTestSystem->getViewPositions().at(myArguments[1]).x;
-        const int posY = myTestSystem->getViewPositions().at(myArguments[1]).y;
+        const auto viewPosition = myTestSystem->getViewPositions().at(myArguments[1]);
+        const auto contextualMenu = myTestSystem->getContextualMenuOperations().at(myArguments[2]);
         //const int attribute = getIntArgument(myArguments[0]);
     }
+
+
+
+    /*
+
+                # obtain clicked position
+        clickedPosition = [referencePosition[0] + position.x + offsetX,
+                           referencePosition[1] + position.y + offsetY]
+        # move mouse to position
+        pyautogui.moveTo(clickedPosition)
+        # wait after move
+        time.sleep(DELAY_MOUSE_MOVE)
+        # click over position
+        pyautogui.click(button='right')
+        # place cursor over first operation
+        for _ in range(contextualMenuOperation.mainMenuPosition):
+            # wait before every down
+            time.sleep(DELAY_KEY_TAB)
+            # type down keys
+            pyautogui.hotkey('down')
+        # type space for select
+        typeKey('space')
+        # check if go to submenu A
+        if contextualMenuOperation.subMenuAPosition > 0:
+            # place cursor over second operation
+            for _ in range(contextualMenuOperation.subMenuAPosition):
+                # wait before every down
+                time.sleep(DELAY_KEY_TAB)
+                # type down keys
+                pyautogui.hotkey('down')
+            # type space for select
+            typeKey('space')
+            # check if go to submenu B
+            if contextualMenuOperation.subMenuBPosition > 0:
+                # place cursor over second operation
+                for _ in range(contextualMenuOperation.subMenuBPosition):
+                    # wait before every down
+                    time.sleep(DELAY_KEY_TAB)
+                    # type down keys
+                    pyautogui.hotkey('down')
+                # type space for select
+                typeKey('space')
+
+        }
+    */
 }
 
 
@@ -777,6 +770,7 @@ InternalTestStep::checkUndoRedo() const {
         writeError("checkUndoRedo", 0, "<referencePosition>");
     } else {
         const int numUndoRedos = 9;
+        const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // go to inspect mode
@@ -785,10 +779,8 @@ InternalTestStep::checkUndoRedo() const {
         std::cout << "TestFunctions: Clicked over position " <<
                   toString(MOUSE_REFERENCE_X) << " - " <<
                   toString(MOUSE_REFERENCE_Y) << std::endl;
-        // add move, left button press and left button release
-        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(0, 0), true);
+        // build mouse click
+        buildMouseClick(referencePosition, "left", true);
         // undo
         for (int i = 0; i < numUndoRedos; i++) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO, Category::APP);
@@ -801,10 +793,8 @@ InternalTestStep::checkUndoRedo() const {
         std::cout << "TestFunctions: Clicked over position " <<
                   toString(MOUSE_REFERENCE_X) << " - " <<
                   toString(MOUSE_REFERENCE_Y) << std::endl;
-        // add move, left button press and left button release
-        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(0, 0), true);
+        // build mouse click
+        buildMouseClick(referencePosition, "left", true);
         // undo
         for (int i = 0; i < numUndoRedos; i++) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Y_REDO, Category::APP);
@@ -879,6 +869,7 @@ InternalTestStep::undo() const {
         writeError("undo", 0, "<referencePosition, int>");
     } else {
         const int numUndoRedos = getIntArgument(myArguments[1]);
+        const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // go to inspect mode
@@ -887,10 +878,8 @@ InternalTestStep::undo() const {
         std::cout << "TestFunctions: Clicked over position " <<
                   toString(MOUSE_REFERENCE_X) << " - " <<
                   toString(MOUSE_REFERENCE_Y) << std::endl;
-        // add move, left button press and left button release
-        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(0, 0), true);
+        // build mouse click
+        buildMouseClick(referencePosition, "left", true);
         // undo
         for (int i = 0; i < numUndoRedos; i++) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO, Category::APP);
@@ -905,6 +894,7 @@ InternalTestStep::redo() const {
         writeError("redo", 0, "<referencePosition, int>");
     } else {
         const int numUndoRedos = getIntArgument(myArguments[1]);
+        const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
         // go to inspect mode
@@ -913,10 +903,8 @@ InternalTestStep::redo() const {
         std::cout << "TestFunctions: Clicked over position " <<
                   toString(MOUSE_REFERENCE_X) << " - " <<
                   toString(MOUSE_REFERENCE_Y) << std::endl;
-        // add move, left button press and left button release
-        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(0, 0), true);
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseLeftClickPressEvent(0, 0), true);
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseLeftClickReleaseEvent(0, 0), true);
+        // build mouse click
+        buildMouseClick(referencePosition, "left", true);
         // undo
         for (int i = 0; i < numUndoRedos; i++) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Y_REDO, Category::APP);
@@ -1314,6 +1302,61 @@ InternalTestStep::translateKey(const char key) const {
     solution.first = FXint(key);
     solution.second.append(key);
     return solution;
+}
+
+
+void
+InternalTestStep::buildMouseClick(const InternalTest::ViewPosition& viewPosition, const std::string& button, const bool move) const {
+    // first check if move mouse
+    if (move) {
+        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(viewPosition), true);
+    }
+    // continue depending of mouse
+    if (button == "left") {
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW, buildMouseEvent(SEL_LEFTBUTTONPRESS, viewPosition), true);
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW, buildMouseEvent(SEL_LEFTBUTTONRELEASE, viewPosition), true);
+    } else if (button == "right") {
+        new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONPRESS, Category::VIEW, buildMouseEvent(SEL_RIGHTBUTTONPRESS, viewPosition), true);
+        new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONRELEASE, Category::VIEW, buildMouseEvent(SEL_RIGHTBUTTONRELEASE, viewPosition), true);
+    } else if (button == "center") {
+        new InternalTestStep(myTestSystem, SEL_MIDDLEBUTTONPRESS, Category::VIEW, buildMouseEvent(SEL_MIDDLEBUTTONPRESS, viewPosition), true);
+        new InternalTestStep(myTestSystem, SEL_MIDDLEBUTTONRELEASE, Category::VIEW, buildMouseEvent(SEL_MIDDLEBUTTONRELEASE, viewPosition), true);
+    }
+}
+
+
+FXEvent*
+InternalTestStep::buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition) const {
+    FXEvent* moveEvent = new FXEvent();
+    // common values
+    moveEvent->synthetic = true;
+    // set event values
+    moveEvent->type = SEL_MOTION;
+    moveEvent->win_x = viewPosition.x + MOUSE_OFFSET_X;
+    moveEvent->win_y = viewPosition.y + MOUSE_OFFSET_Y;
+    moveEvent->moved = true;
+    moveEvent->rect = FXRectangle(0, 0, 0, 0);
+    return moveEvent;
+}
+
+
+FXEvent*
+InternalTestStep::buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition) const {
+    FXEvent* leftClickPressEvent = new FXEvent();
+    // common values
+    leftClickPressEvent->synthetic = true;
+    // set event values
+    leftClickPressEvent->win_x = viewPosition.x + MOUSE_OFFSET_X;
+    leftClickPressEvent->win_y = viewPosition.y + MOUSE_OFFSET_Y;
+    leftClickPressEvent->click_x = viewPosition.x + MOUSE_OFFSET_X;
+    leftClickPressEvent->click_y = viewPosition.y + MOUSE_OFFSET_Y;
+    leftClickPressEvent->type = type;
+    leftClickPressEvent->state = 256;
+    leftClickPressEvent->code = 1;
+    leftClickPressEvent->click_button = 1;
+    leftClickPressEvent->click_count = 1;
+    leftClickPressEvent->moved = false;
+    return leftClickPressEvent;
 }
 
 /****************************************************************************/
