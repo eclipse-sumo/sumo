@@ -29,3 +29,8 @@ dest_unreachable2
 
 # see #16421
 short_closing_wait
+
+# stop is in cul-de-sack and a should be skipped to reach another higher-priority stop
+# 
+# see #16421
+backtrack
