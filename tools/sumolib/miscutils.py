@@ -86,6 +86,7 @@ class Benchmarker:
     - benchmarking a code block that isn't wrapped in a function
     - benchmarking a function only in some calls
     """
+
     def __init__(self, active, description):
         self.active = active
         self.description = description

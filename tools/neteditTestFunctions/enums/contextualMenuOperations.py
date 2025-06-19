@@ -24,14 +24,12 @@ class contextualMenu:
 
     # center element in view
 
-
     class center:
         mainMenuPosition = 3
         subMenuAPosition = 0
         subMenuBPosition = 0
 
     # copy name
-
 
     class copyName:
         mainMenuPosition = 4
@@ -40,14 +38,12 @@ class contextualMenu:
 
     # copy typed name
 
-
     class copyTypedName:
         mainMenuPosition = 5
         subMenuAPosition = 0
         subMenuBPosition = 0
 
     # add to selected
-
 
     class addToSelected:
         mainMenuPosition = 6
@@ -56,14 +52,12 @@ class contextualMenu:
 
     # copy cursor position
 
-
     class copyCursorPosition:
         mainMenuPosition = 7
         subMenuAPosition = 0
         subMenuBPosition = 0
 
     # copy cursor geo position
-
 
     class copyCursorGeoPosition:
         mainMenuPosition = 8
@@ -72,14 +66,12 @@ class contextualMenu:
 
     # show cursor geo position in geo hack
 
-
     class showCursorGeoPositionGeoHack:
         mainMenuPosition = 7
         subMenuAPosition = 1
         subMenuBPosition = 0
 
     # show cursor geo position in google maps
-
 
     class showCursorGeoPositionGoogleMaps:
         mainMenuPosition = 7
@@ -88,14 +80,12 @@ class contextualMenu:
 
     # show cursor geo position in OSM
 
-
     class showCursorGeoPositionOSM:
         mainMenuPosition = 7
         subMenuAPosition = 3
         subMenuBPosition = 0
 
     # junctions
-
 
     class junction:
 
@@ -166,7 +156,6 @@ class contextualMenu:
             subMenuBPosition = 0
 
     # lanes
-
 
     class edges:
 
@@ -373,7 +362,6 @@ class contextualMenu:
 
     # routes
 
-
     class routes:
 
         class reverse:
@@ -391,7 +379,6 @@ class contextualMenu:
                 subMenuBPosition = 0
 
     # vehicles
-
 
     class vehicles:
 

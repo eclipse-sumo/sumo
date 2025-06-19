@@ -121,7 +121,6 @@ def addFeature(options, features, addLanes):
         features.append(feature)
 
 
-
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.netFile, withInternal=options.internal)

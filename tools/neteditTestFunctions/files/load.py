@@ -21,6 +21,7 @@ from ..constants import *
 from ..input.keyboard import *
 from ..input.mouse import *
 
+
 def openNeteditConfigAs(waitTime=2):
     """
     @brief load netedit config using dialog
@@ -54,7 +55,7 @@ def openSumoConfigAs(referencePosition):
     # wait for saving
     time.sleep(DELAY_SAVING)
 
-    
+
 def loadNetwork(useShortcut, waitTime=2):
     """
     @brief load network using dialog
@@ -178,8 +179,8 @@ def loadMeanDataElements(waitTime=2):
     typeKey('enter')
     # wait for saving
     time.sleep(waitTime)
-    
-    
+
+
 def openNeteditConfigShortcut(waitTime=2):
     """
     @brief open configuration using shortcut

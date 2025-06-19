@@ -81,10 +81,12 @@ def main():
     net = None
     if options.edgesFile:
         edgeSet = set([e.id for e in sumolib.xml.parse_fast(options.edgesFile, 'edge', ['id'])])
+
         def attribute_retriever(vehicle):  # noqa
             return len([e for e in vehicle.route[0].edges.split() if e in edgeSet])
     elif options.attribute == "length":
         net = sumolib.net.readNet(options.network)
+
         def attribute_retriever(vehicle):  # noqa
             return sum([net.getEdge(e).getLength() for e in vehicle.route[0].edges.split()])
     elif options.attribute == "depart":

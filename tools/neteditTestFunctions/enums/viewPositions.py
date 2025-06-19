@@ -27,13 +27,11 @@ class positions:
 
     # reference position
 
-
     class reference:
         x = 0
         y = 0
 
     # down-left position (to avoid missclicks with toolbar menus)
-
 
     class downLeft:
         x = 950
@@ -41,25 +39,21 @@ class positions:
 
     # extern lane bot (common for all tests)
 
-
     class externLaneBot:
         x = 42
         y = 332
 
     # extern lane Top (common for all tests)
 
-
     class externLaneTop:
         x = 42
         y = 136
-
 
     class overlappedTest:
         x = 500
         y = 218
 
     # network
-
 
     class selection:
 
@@ -98,7 +92,6 @@ class positions:
         class rectangleLargeB:
             x = 867
             y = 463
-
 
     class network:
 
@@ -336,7 +329,6 @@ class positions:
             class edit:
                 x = 447
                 y = 225
-
 
     class elements:
 
@@ -713,7 +705,6 @@ class positions:
             class TAZRelBot:
                 x = 650
                 y = 255
-
 
     class bugs:
 
