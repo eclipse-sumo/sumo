@@ -376,8 +376,8 @@ InternalTestStep::leftClick(const std::string& modifier) const {
         writeError("leftClick", 0, "<reference, position>");
     } else {
         // parse arguments
-        const int posX = myTestSystem->getViewPositions().at(myArguments[1]).first;
-        const int posY = myTestSystem->getViewPositions().at(myArguments[1]).second;
+        const int posX = myTestSystem->getViewPositions().at(myArguments[1]).x;
+        const int posY = myTestSystem->getViewPositions().at(myArguments[1]).y;
         // check if add key modifier
         if (modifier == "control") {
             new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(modifier), false);
@@ -426,8 +426,8 @@ InternalTestStep::contextualMenuOperation() const {
         writeError("contextualMenuOperation", 0, "<reference, position, int/contextualMenuOperations>");
     } else {
         // parse arguments
-        const int posX = myTestSystem->getViewPositions().at(myArguments[1]).first;
-        const int posY = myTestSystem->getViewPositions().at(myArguments[1]).second;
+        const int posX = myTestSystem->getViewPositions().at(myArguments[1]).x;
+        const int posY = myTestSystem->getViewPositions().at(myArguments[1]).y;
         //const int attribute = getIntArgument(myArguments[0]);
     }
 }

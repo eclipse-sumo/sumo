@@ -34,12 +34,26 @@
 // member method definitions
 // ===========================================================================
 
+InternalTest::ViewPosition::ViewPosition(const std::string& xValue, const std::string& yValue) :
+    x(StringUtils::toInt(xValue)),
+    y(StringUtils::toInt(yValue)) {
+}
+
+
+InternalTest::ContextualMenu::ContextualMenu(const std::string& mainMenuValue, const std::string& subMenuAValue,
+        const std::string& subMenuBValue) :
+    mainMenu(StringUtils::toInt(mainMenuValue)),
+    subMenuA(StringUtils::toInt(subMenuAValue)),
+    subMenuB(StringUtils::toInt(subMenuBValue)) {
+}
+
+
 InternalTest::InternalTest(const std::string& testFile) {
     const auto sumoHome = std::string(getenv("SUMO_HOME"));
     // load data files
-    myAttributesEnum = parseIntTestDataFile(sumoHome + "/data/tests/attributesEnum.txt");
-    myContextualMenuOperations = parseIntTestDataFile(sumoHome + "/data/tests/contextualMenuOperations.txt");
-    myViewPositions = parsePositionTestDataFile(sumoHome + "/data/tests/viewPositions.txt");
+    myAttributesEnum = parseAttributesEnumFile(sumoHome + "/data/tests/attributesEnum.txt");
+    myContextualMenuOperations = parseContextualMenuOperationsFile(sumoHome + "/data/tests/contextualMenuOperations.txt");
+    myViewPositions = parseViewPositionsFile(sumoHome + "/data/tests/viewPositions.txt");
     // open file
     std::ifstream strm(testFile);
     // check if file can be opened
@@ -97,26 +111,26 @@ InternalTest::getAttributesEnum() const {
 }
 
 
-const std::map<std::string, int>&
+const std::map<std::string, InternalTest::ContextualMenu>&
 InternalTest::getContextualMenuOperations() const {
     return myContextualMenuOperations;
 }
 
 
-const std::map<std::string, std::pair<int, int> >&
+const std::map<std::string, InternalTest::ViewPosition>&
 InternalTest::getViewPositions() const {
     return myViewPositions;
 }
 
 
 std::map<std::string, int>
-InternalTest::parseIntTestDataFile(const std::string filePath) const {
+InternalTest::parseAttributesEnumFile(const std::string filePath) const {
     std::map<std::string, int> solution;
     // open file
     std::ifstream strm(filePath);
     // check if file can be opened
     if (!strm.good()) {
-        WRITE_ERRORF(TL("Could not open internal test data file '%'."), filePath);
+        WRITE_ERRORF(TL("Could not open attributes enum file '%'."), filePath);
     } else {
         std::string line;
         // read full lines until end of file
@@ -140,14 +154,63 @@ InternalTest::parseIntTestDataFile(const std::string filePath) const {
 }
 
 
-std::map<std::string, std::pair<int, int> >
-InternalTest::parsePositionTestDataFile(const std::string filePath) const {
-    std::map<std::string, std::pair<int, int> > solution;
+std::map<std::string, InternalTest::ContextualMenu>
+InternalTest::parseContextualMenuOperationsFile(const std::string filePath) const {
+    std::map<std::string, InternalTest::ContextualMenu> solution;
     // open file
     std::ifstream strm(filePath);
     // check if file can be opened
     if (!strm.good()) {
-        WRITE_ERRORF(TL("Could not open internal test data file '%'."), filePath);
+        WRITE_ERRORF(TL("Could not open view positions file '%'."), filePath);
+    } else {
+        std::string line;
+        // read full lines until end of file
+        while (std::getline(strm, line)) {
+            // read key and value
+            std::string mainMenuKey;
+            std::string mainMenuValue;
+            std::string subMenuAKey;
+            std::string subMenuAValue;
+            std::string subMenuBKey;
+            std::string subMenuBValue;
+            // parse first line
+            std::stringstream mainMenuSS(line);
+            std::getline(mainMenuSS, mainMenuKey, ' ');
+            std::getline(mainMenuSS, mainMenuValue, '\n');
+            // parse second line
+            std::getline(strm, line);
+            std::stringstream subMenuASS(line);
+            std::getline(subMenuASS, subMenuAKey, ' ');
+            std::getline(subMenuASS, subMenuAValue, '\n');
+            // parse third line
+            std::getline(strm, line);
+            std::stringstream subMenuBSS(line);
+            std::getline(subMenuBSS, subMenuBKey, ' ');
+            std::getline(subMenuBSS, subMenuBValue, '\n');
+            // check that int can be parsed
+            if (!StringUtils::isInt(mainMenuValue)) {
+                WRITE_ERRORF(TL("In internal test file, mainMenu value '%' cannot be parsed to int."), mainMenuValue);
+            } else if (!StringUtils::isInt(subMenuAValue)) {
+                WRITE_ERRORF(TL("In internal test file, subMenuA value '%' cannot be parsed to int."), subMenuAValue);
+            } else if (!StringUtils::isInt(subMenuBValue)) {
+                WRITE_ERRORF(TL("In internal test file, subMenuB value '%' cannot be parsed to int."), subMenuBValue);
+            } else {
+                solution[mainMenuKey] = InternalTest::ContextualMenu(mainMenuValue, subMenuAValue, subMenuBValue);
+            }
+        }
+    }
+    return solution;
+}
+
+
+std::map<std::string, InternalTest::ViewPosition>
+InternalTest::parseViewPositionsFile(const std::string filePath) const {
+    std::map<std::string, InternalTest::ViewPosition> solution;
+    // open file
+    std::ifstream strm(filePath);
+    // check if file can be opened
+    if (!strm.good()) {
+        WRITE_ERRORF(TL("Could not open view positions file '%'."), filePath);
     } else {
         std::string line;
         // read full lines until end of file
@@ -167,7 +230,7 @@ InternalTest::parsePositionTestDataFile(const std::string filePath) const {
             } else if (!StringUtils::isInt(yValue)) {
                 WRITE_ERRORF(TL("In internal test file, y value '%' cannot be parsed to int."), yValue);
             } else {
-                solution[key] = std::make_pair(StringUtils::toInt(xValue), StringUtils::toInt(yValue));
+                solution[key] = InternalTest::ViewPosition(xValue, yValue);
             }
         }
     }
