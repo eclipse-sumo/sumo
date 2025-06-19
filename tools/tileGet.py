@@ -187,9 +187,9 @@ def get_options(args=None):
                          help="restrict maximum zoom level")
     optParser.add_option("-j", "--parallel-jobs", type=int, default=0,
                          help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
-    optParser.add_option("-r", "--retina", type=bool, default=False,
+    optParser.add_option("-r", "--retina", action="store_true", default=False,
                          help="set 'true' for double resolution tiles (applies to cartodb only).")
-
+    
     URL_SHORTCUTS = {
         "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
         "mapquest": "https://www.mapquestapi.com/staticmap/v5/map",
