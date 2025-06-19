@@ -279,28 +279,27 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     }
     ConstMSEdgeVector oldEdgesRemaining(source == *myCurrEdge ? myCurrEdge : myCurrEdge + 1, myRoute->end());
     ConstMSEdgeVector edges;
-    ConstMSEdgeVector stops;
+    std::vector<StopEdgeInfo> stops;
     std::set<int> jumps;
-    std::vector<double> priorities;
     double sinkPriority = -1;
     bool stopAtSink = false;
     double sourcePos = onInit ? 0 : getPositionOnLane();
     if (myParameter->via.size() == 0) {
         double firstPos = INVALID_DOUBLE;
         double lastPos = INVALID_DOUBLE;
-        stops = getStopEdges(firstPos, lastPos, jumps, priorities);
+        stops = getStopEdges(firstPos, lastPos, jumps);
         if (stops.size() > 0) {
             if (MSGlobals::gUseMesoSim && isStopped()) {
                 sourcePos = getNextStop().pars.endPos;
             }
             // avoid superfluous waypoints for first and last edge
-            const bool skipFirst = stops.front() == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
-            const bool skipLast = (stops.back() == sink
+            const bool skipFirst = stops.front().edge == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
+            const bool skipLast = (stops.back().edge == sink
                                    && myArrivalPos >= lastPos
                                    && (stops.size() < 2 || stops.back() != stops[stops.size() - 2])
                                    && (stops.size() > 1 || skipFirst));
-            if (stops.back() == sink && myArrivalPos >= lastPos) {
-                sinkPriority = priorities.back();
+            if (stops.back().edge == sink && myArrivalPos >= lastPos) {
+                sinkPriority = stops.back().priority;
             }
 #ifdef DEBUG_REROUTE
             if (DEBUG_COND) {
@@ -314,19 +313,25 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             } else {
                 if (skipFirst) {
                     stops.erase(stops.begin());
-                    priorities.erase(priorities.begin());
                 }
                 if (skipLast) {
                     stops.erase(stops.end() - 1);
                 }
             }
-            stopAtSink = stops.size() > 0 && stops.back() == sink && jumps.size() == 0;
+            stopAtSink = stops.size() > 0 && stops.back().edge == sink && jumps.size() == 0;
         }
     } else {
         std::set<const MSEdge*> jumpEdges;
+        std::map<const MSEdge*, StopEdgeInfo> stopsOnVia;
         for (const MSStop& stop : myStops) {
             if (stop.pars.jump >= 0) {
                 jumpEdges.insert(*stop.edge);
+            }
+            auto itsov = stopsOnVia.find(*stop.edge);
+            if (itsov == stopsOnVia.end()) {
+                stopsOnVia.insert({*stop.edge, StopEdgeInfo(*stop.edge, stop.pars.priority)});
+            } else {
+                itsov->second.priority = addStopPriority(itsov->second.priority, stop.pars.priority);
             }
         }
         // via takes precedence over stop edges
@@ -340,9 +345,10 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             if (!viaEdge->isTazConnector() && viaEdge->allowedLanes(getVClass()) == nullptr) {
                 throw ProcessError(TLF("Vehicle '%' is not allowed on any lane of via edge '%'.", getID(), viaEdge->getID()));
             }
-            stops.push_back(viaEdge);
+            auto itsov = stopsOnVia.find(viaEdge);
+            const double priority = (itsov == stopsOnVia.end() ? -1 : itsov->second.priority);
+            stops.push_back(StopEdgeInfo(viaEdge, priority));
             // @todo determine wether the viaEdge is also used by a stop and then use the stop priority here
-            priorities.push_back(-1);
             if (jumpEdges.count(viaEdge) != 0) {
                 jumps.insert((int)stops.size());
             }
@@ -352,7 +358,9 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     int stopIndex = -1;
     auto stopIt = myStops.begin();
     SUMOTime startTime = t;
-    for (const MSEdge* const stopEdge : stops) {
+    for (auto stopEdgeInfo : stops) {
+        const MSEdge* const stopEdge = stopEdgeInfo.edge;
+        const double priority = stopEdgeInfo.priority;
         stopIndex++;
         ConstMSEdgeVector into;
         if (jumps.count(stopIndex) != 0) {
@@ -406,8 +414,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             }
         } else {
             if ((source != sink || !stopAtSink)) {
-                if (priorities[stopIndex] >= 0) {
-                    WRITE_WARNING(TLF("Vehicle '%' skips unreachable stop on edge '%' with priority %.", getID(), stopEdge->getID(), priorities[stopIndex]));
+                if (priority >= 0) {
+                    WRITE_WARNING(TLF("Vehicle '%' skips unreachable stop on edge '%' with priority %.", getID(), stopEdge->getID(), priority));
                     continue;
                 } else {
                     std::string error = TLF("Vehicle '%' has no valid route from edge '%' to stop edge '%'.", getID(), source->getID(), stopEdge->getID());
@@ -1722,10 +1730,10 @@ MSBaseVehicle::haveValidStopEdges(bool silent) const {
 }
 
 
-const ConstMSEdgeVector
-MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps, std::vector<double>& priorities) const {
+std::vector<MSBaseVehicle::StopEdgeInfo>
+MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps) const {
     assert(haveValidStopEdges());
-    ConstMSEdgeVector result;
+    std::vector<StopEdgeInfo> result;
     const MSStop* prev = nullptr;
     const MSEdge* internalSuccessor = nullptr;
     for (const MSStop& stop : myStops) {
@@ -1740,15 +1748,15 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& ju
                 || prev->edge != stop.edge
                 || (prev->lane == stop.lane && prev->getEndPos(*this) > stopPos))
                 && *stop.edge != internalSuccessor) {
-            result.push_back(*stop.edge);
-            priorities.push_back(stop.pars.priority);
+            result.push_back(StopEdgeInfo(*stop.edge, stop.pars.priority));
             if (stop.lane->isInternal()) {
                 internalSuccessor = stop.lane->getNextNormal();
-                result.push_back(internalSuccessor);
-                priorities.push_back(stop.pars.priority);
+                result.push_back(StopEdgeInfo(internalSuccessor, stop.pars.priority));
             } else {
                 internalSuccessor = nullptr;
             }
+        } else if (prev != nullptr && prev->edge == stop.edge) {
+            result.back().priority = addStopPriority(result.back().priority, stop.pars.priority);
         }
         prev = &stop;
         if (firstPos == INVALID_DOUBLE) {
@@ -1767,6 +1775,14 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& ju
     return result;
 }
 
+
+double
+MSBaseVehicle::addStopPriority(double p1, double p2) {
+    if (p1 < 0 || p2 < 0) {
+        return p1;
+    }
+    return p1 + p2;
+}
 
 std::vector<std::pair<int, double> >
 MSBaseVehicle::getStopIndices() const {

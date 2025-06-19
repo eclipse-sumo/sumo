@@ -711,11 +711,6 @@ public:
     /// @brief check whether all stop.edge MSRouteIterators are valid and in order
     bool haveValidStopEdges(bool silent = false) const;
 
-    /** @brief Returns the list of still pending stop edges
-     * also returns the first and last stop position
-     */
-    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps, std::vector<double>& priorities) const;
-
     /// @brief return list of route indices for the remaining stops
     std::vector<std::pair<int, double> > getStopIndices() const;
 
@@ -1045,6 +1040,28 @@ public:
 protected:
     /// @brief reset rail signal approach information
     virtual void resetApproachOnReroute() {};
+
+    struct StopEdgeInfo {
+        StopEdgeInfo(const MSEdge* _edge, double _priority):
+            edge(_edge), priority(_priority) {};
+        const MSEdge* edge;
+        double priority;
+
+        bool operator==(const StopEdgeInfo& o) const {
+            return edge == o.edge;
+        }
+        bool operator!=(const StopEdgeInfo& o) const {
+            return !(*this == o);
+        }
+
+    };
+
+    /** @brief Returns the list of still pending stop edges
+     * also returns the first and last stop position
+     */
+    std::vector<StopEdgeInfo> getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps) const;
+
+    static double addStopPriority(double p1, double p2);
 
 protected:
     /// @brief This vehicle's parameter.
