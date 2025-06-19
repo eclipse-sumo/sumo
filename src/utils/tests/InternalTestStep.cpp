@@ -374,55 +374,33 @@ InternalTestStep::contextualMenuOperation() const {
         writeError("contextualMenuOperation", 0, "<reference, position, contextualMenuOperations>");
     } else {
         // parse arguments
-        const auto viewPosition = myTestSystem->getViewPositions().at(myArguments[1]);
-        const auto contextualMenu = myTestSystem->getContextualMenuOperations().at(myArguments[2]);
-        //const int attribute = getIntArgument(myArguments[0]);
-    }
-
-
-
-    /*
-
-                # obtain clicked position
-        clickedPosition = [referencePosition[0] + position.x + offsetX,
-                           referencePosition[1] + position.y + offsetY]
-        # move mouse to position
-        pyautogui.moveTo(clickedPosition)
-        # wait after move
-        time.sleep(DELAY_MOUSE_MOVE)
-        # click over position
-        pyautogui.click(button='right')
-        # place cursor over first operation
-        for _ in range(contextualMenuOperation.mainMenuPosition):
-            # wait before every down
-            time.sleep(DELAY_KEY_TAB)
-            # type down keys
-            pyautogui.hotkey('down')
-        # type space for select
-        typeKey('space')
-        # check if go to submenu A
-        if contextualMenuOperation.subMenuAPosition > 0:
-            # place cursor over second operation
-            for _ in range(contextualMenuOperation.subMenuAPosition):
-                # wait before every down
-                time.sleep(DELAY_KEY_TAB)
-                # type down keys
-                pyautogui.hotkey('down')
-            # type space for select
-            typeKey('space')
-            # check if go to submenu B
-            if contextualMenuOperation.subMenuBPosition > 0:
-                # place cursor over second operation
-                for _ in range(contextualMenuOperation.subMenuBPosition):
-                    # wait before every down
-                    time.sleep(DELAY_KEY_TAB)
-                    # type down keys
-                    pyautogui.hotkey('down')
-                # type space for select
-                typeKey('space')
-
+        const auto& viewPosition = myTestSystem->getViewPositions().at(myArguments[1]);
+        const auto& contextualMenu = myTestSystem->getContextualMenuOperations().at(myArguments[2]);
+        // build mouse click
+        buildMouseClick(viewPosition, "right", true);
+        // jump to the element
+        for (int i = 0; i < contextualMenu.mainMenu; i++) {
+            buildPressKeyEvent("down", false);
         }
-    */
+        // type space for select
+        buildPressKeyEvent("space", false);
+        // jump to the subMenuA
+        if (contextualMenu.subMenuA > 0) {
+            for (int i = 0; i < contextualMenu.subMenuA; i++) {
+                buildPressKeyEvent("down", false);
+            }
+            // type space for select
+            buildPressKeyEvent("space", false);
+        }
+        // jump to the subMenuB
+        if (contextualMenu.subMenuB > 0) {
+            for (int i = 0; i < contextualMenu.subMenuB; i++) {
+                buildPressKeyEvent("down", false);
+            }
+            // type space for select
+            buildPressKeyEvent("space", false);
+        }
+    }
 }
 
 

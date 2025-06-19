@@ -195,7 +195,8 @@ InternalTest::parseContextualMenuOperationsFile(const std::string filePath) cons
             } else if (!StringUtils::isInt(subMenuBValue)) {
                 WRITE_ERRORF(TL("In internal test file, subMenuB value '%' cannot be parsed to int."), subMenuBValue);
             } else {
-                solution[mainMenuKey] = InternalTest::ContextualMenu(mainMenuValue, subMenuAValue, subMenuBValue);
+                // remove '.mainMenuPosition' from mainMenuKey
+                solution[mainMenuKey.erase(mainMenuKey.size() - 17)] = InternalTest::ContextualMenu(mainMenuValue, subMenuAValue, subMenuBValue);
             }
         }
     }
