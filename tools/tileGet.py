@@ -86,7 +86,7 @@ def worker(options, request, filename):
             raise ValueError("small file")
 
 
-def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net):
+def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net, is_retina):
     zoom = options.maxZoom + 1
     numTiles = options.tiles + 1
     while numTiles > options.tiles:
@@ -102,7 +102,9 @@ def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net):
 
     for x in range(sx, ex + 1):
         for y in range(sy, ey + 1):
-            request = "%s/%s/%s/%s.png" % (options.url, zoom, x, y)
+            scale = '@2x' if is_retina and "cartodb" in options.url else ''
+            request = "%s/%s/%s/%s%s.png" % (options.url, zoom, x, y, scale)
+            
             filename = os.path.join(options.output_dir, "%s%s_%s.png" % (options.prefix, x, y))
             worker(options, request, filename)
             if net is not None:
@@ -185,13 +187,23 @@ def get_options(args=None):
                          help="restrict maximum zoom level")
     optParser.add_option("-j", "--parallel-jobs", type=int, default=0,
                          help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
+    optParser.add_option("-r", "--retina", type=bool, default=False,
+                         help="set 'true' for double resolution tiles (applies to cartodb only).")
 
     URL_SHORTCUTS = {
         "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
         "mapquest": "https://www.mapquestapi.com/staticmap/v5/map",
         "google": "https://maps.googleapis.com/maps/api/staticmap",
-        "openstreetmap": "https://tile.openstreetmap.org",
-        "berlin2024": "https://tiles.codefor.de/berlin-2025-dop20rgbi"
+        "berlin2024": "https://tiles.codefor.de/berlin-2025-dop20rgbi",
+        "osm": "https://tile.openstreetmap.org",
+        "osm_hot":"https://a.tile.openstreetmap.fr/hot",
+        "cartodb_dark": "https://cartodb-basemaps-a.global.ssl.fastly.net/dark_nolabels/",
+        "cartodb_light_all":"https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/",
+        "cartodb_dark_all":"https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/",
+        "cartodb_light_nolabels":"https://cartodb-basemaps-a.global.ssl.fastly.net/light_nolabels/",
+        "cartodb_light_only_labels":"https://cartodb-basemaps-a.global.ssl.fastly.net/light_only_labels/",
+        "cartodb_dark_nolabels":"https://cartodb-basemaps-a.global.ssl.fastly.net/dark_nolabels/",
+        "cartodb_dark_only_labels":"https://cartodb-basemaps-a.global.ssl.fastly.net/dark_only_labels/"
     }
     options = optParser.parse_args(args=args)
     if not options.bbox and not options.net and not options.polygon:
@@ -238,8 +250,8 @@ def get(args=None):
         if "MapServer" in options.url or "berlin" in options.url:
             pattern = "/{z}/{x}/{y}.png" if "berlin" in options.url else "/{z}/{y}/{x}"
             retrieveMapServerTiles(options, west, south, east, north, decals, net, pattern)
-        elif "openstreetmap" in options.url or "geofabrik" in options.url:
-            retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net)
+        elif "openstreetmap" in options.url or "geofabrik" in options.url or "cartodb" in options.url:
+            retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net, options.retina)
         else:
             b = west
             for i in range(options.tiles):
