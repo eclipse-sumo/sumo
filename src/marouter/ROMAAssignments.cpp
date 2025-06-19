@@ -174,7 +174,7 @@ ROMAAssignments::addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>&
         }
     }
     if (p == paths.end()) {
-        paths.push_back(new RORoute(routeId, 0., prob, edges, nullptr, std::vector<SUMOVehicleParameter::Stop>()));
+        paths.push_back(new RORoute(routeId, 0., prob, edges, nullptr, StopParVector()));
         return true;
     }
     (*p)->addProbability(prob);

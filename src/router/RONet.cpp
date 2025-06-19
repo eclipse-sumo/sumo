@@ -555,7 +555,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                     SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
                     newPars->id = pars->id + "." + toString(pars->repetitionsDone);
                     newPars->depart = pars->depart;
-                    for (std::vector<SUMOVehicleParameter::Stop>::iterator stop = newPars->stops.begin(); stop != newPars->stops.end(); ++stop) {
+                    for (StopParVector::iterator stop = newPars->stops.begin(); stop != newPars->stops.end(); ++stop) {
                         if (stop->until >= 0) {
                             stop->until += pars->depart - origDepart;
                         }
@@ -594,7 +594,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
                 newPars->id = pars->id + "." + toString(pars->repetitionsDone);
                 newPars->depart = depart;
-                for (std::vector<SUMOVehicleParameter::Stop>::iterator stop = newPars->stops.begin(); stop != newPars->stops.end(); ++stop) {
+                for (StopParVector::iterator stop = newPars->stops.begin(); stop != newPars->stops.end(); ++stop) {
                     if (stop->until >= 0) {
                         stop->until += depart - pars->depart;
                     }
@@ -835,7 +835,7 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     for (const auto& i : myInstance->myFlows) {
         if (i.second->line != "") {
             const RORouteDef* const route = myInstance->getRouteDef(i.second->routeid);
-            const std::vector<SUMOVehicleParameter::Stop>* addStops = nullptr;
+            const StopParVector* addStops = nullptr;
             if (route != nullptr && route->getFirstRoute() != nullptr) {
                 addStops = &route->getFirstRoute()->getStops();
             }

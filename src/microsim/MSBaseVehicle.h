@@ -727,7 +727,7 @@ public:
         return myStops;
     }
 
-    inline const std::vector<SUMOVehicleParameter::Stop>& getPastStops() const {
+    inline const StopParVector& getPastStops() const {
         return myPastStops;
     }
 
@@ -1066,8 +1066,7 @@ protected:
     std::list<MSStop> myStops;
 
     /// @brief The list of stops that the vehicle has already reached
-    std::vector<SUMOVehicleParameter::Stop> myPastStops;
-
+    StopParVector myPastStops;
 
     /// @name Move reminder structures
     /// @{

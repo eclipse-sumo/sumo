@@ -508,7 +508,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
         return true;
     }
     const RGBColor& c = myRoute->getColor();
-    MSRoute* newRoute = new MSRoute(id, edges, false, &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), std::vector<SUMOVehicleParameter::Stop>());
+    MSRoute* newRoute = new MSRoute(id, edges, false, &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), StopParVector());
     newRoute->setCosts(cost);
     newRoute->setSavings(savings);
     ConstMSRoutePtr constRoute = std::shared_ptr<MSRoute>(newRoute);
@@ -623,7 +623,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
     }
 #endif
     // remove past stops which are not on the route anymore
-    for (std::vector<SUMOVehicleParameter::Stop>::iterator it = myPastStops.begin(); it != myPastStops.end();) {
+    for (StopParVector::iterator it = myPastStops.begin(); it != myPastStops.end();) {
         const MSEdge* stopEdge = (it->edge.empty()) ? &MSLane::dictionary(it->lane)->getEdge() : MSEdge::dictionary(it->edge);
         if (std::find(myRoute->begin(), myRoute->end(), stopEdge) == myRoute->end()) {
             it = myPastStops.erase(it);
@@ -682,7 +682,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
         }
         // add new stops
         if (addRouteStops) {
-            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = newRoute->getStops().begin(); i != newRoute->getStops().end(); ++i) {
+            for (StopParVector::const_iterator i = newRoute->getStops().begin(); i != newRoute->getStops().end(); ++i) {
                 std::string error;
                 addStop(*i, error, myParameter->depart + myStopUntilOffset);
                 if (error != "") {

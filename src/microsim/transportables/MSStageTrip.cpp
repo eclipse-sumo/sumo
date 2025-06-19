@@ -135,7 +135,7 @@ MSStageTrip::getVehicles(MSVehicleControl& vehControl, MSTransportable* transpor
             pars.back()->departProcedure = DepartDefinition::TRIGGERED;
         }
     }
-    ConstMSRoutePtr const routeDummy = std::make_shared<MSRoute>(transportable->getID() + "_0", ConstMSEdgeVector({ origin }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
+    ConstMSRoutePtr const routeDummy = std::make_shared<MSRoute>(transportable->getID() + "_0", ConstMSEdgeVector({ origin }), false, nullptr, StopParVector());
     std::vector<SUMOVehicle*> result;
     for (SUMOVehicleParameter* vehPar : pars) {
         const bool isTaxi = vehPar->vtypeid == DEFAULT_TAXITYPE_ID && vehPar->line == "taxi";

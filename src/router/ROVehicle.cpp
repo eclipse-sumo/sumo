@@ -54,11 +54,11 @@ ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
     myJumpTime(-1) {
     getParameter().stops.clear();
     if (route != nullptr && route->getFirstRoute() != nullptr) {
-        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {
+        for (StopParVector::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {
             addStop(*s, net, errorHandler);
         }
     }
-    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s) {
+    for (StopParVector::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s) {
         addStop(*s, net, errorHandler);
     }
     if (pars.via.size() != 0) {
@@ -84,7 +84,7 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
         return;
     }
     // where to insert the stop
-    std::vector<SUMOVehicleParameter::Stop>::iterator iter = getParameter().stops.begin();
+    StopParVector::iterator iter = getParameter().stops.begin();
     ConstROEdgeVector::iterator edgeIter = myStopEdges.begin();
     if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(getParameter().stops.size())) {
         if (getParameter().stops.size() > 0) {
@@ -375,7 +375,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
     } else {
         myRoute->writeXMLDefinition(os, this, asAlternatives, writeExit, writeCosts, writeLength);
     }
-    for (std::vector<SUMOVehicleParameter::Stop>::const_iterator stop = getParameter().stops.begin(); stop != getParameter().stops.end(); ++stop) {
+    for (StopParVector::const_iterator stop = getParameter().stops.begin(); stop != getParameter().stops.end(); ++stop) {
         stop->write(os);
     }
     getParameter().writeParams(os);
