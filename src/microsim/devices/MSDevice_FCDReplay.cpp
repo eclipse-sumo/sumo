@@ -375,7 +375,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                 device->setTrajectory(&t);
             } else {
                 const std::string dummyRouteID = "DUMMY_ROUTE_" + id;
-                const std::vector<SUMOVehicleParameter::Stop> stops;
+                const StopParVector stops;
                 ConstMSRoutePtr route = std::make_shared<MSRoute>(dummyRouteID, routeEdges, true, nullptr, stops);
                 if (!MSRoute::dictionary(dummyRouteID, route)) {
                     throw ProcessError("Could not add route '" + dummyRouteID + "'.");

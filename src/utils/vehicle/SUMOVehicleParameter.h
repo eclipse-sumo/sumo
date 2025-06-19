@@ -494,7 +494,6 @@ public:
         int getFlags() const;
     };
 
-
     /** @brief Returns whether the given parameter was set
      * @param[in] what The parameter which one asks for
      * @return Whether the given parameter was set
@@ -874,3 +873,5 @@ protected:
     bool areInsertionChecksValid(const std::string& value) const;
 
 };
+
+typedef std::vector<SUMOVehicleParameter::Stop> StopParVector;

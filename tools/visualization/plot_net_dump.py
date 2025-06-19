@@ -239,8 +239,8 @@ def main(args=None):
         # drawing the legend, at least for the colors
         if options.colormapCenter is not None:
             norm = matplotlib.colors.TwoSlopeNorm(
-                    vmin=minColorValue, vcenter=options.colormapCenter,
-                    vmax=maxColorValue)
+                vmin=minColorValue, vcenter=options.colormapCenter,
+                vmax=maxColorValue)
         elif options.logColors:
             norm = matplotlib.colors.LogNorm(vmin=minColorValue, vmax=maxColorValue)
         else:

@@ -175,7 +175,7 @@ GNETLSEditorFrame::editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, c
                 if (myOverlappedInspection->getNumberOfOverlappedACs() == 1) {
                     myOverlappedInspection->hiderOverlappedInspection();
                 }
-                for (const auto &junction : viewObjects.getJunctions()) {
+                for (const auto& junction : viewObjects.getJunctions()) {
                     if (junction == myOverlappedInspection->getCurrentAC()) {
                         editJunction(junction);
                     }

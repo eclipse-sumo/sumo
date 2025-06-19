@@ -19,6 +19,7 @@
 from .keyboard import *
 from ..constants import *
 
+
 def leftClick(referencePosition, position, offsetX=0, offsetY=0):
     """
     @brief do left click over a position relative to referencePosition (pink square)
@@ -147,7 +148,7 @@ def leftClickMultiElement(referencePosition, position, underElement, offsetX=0, 
     print("TestFunctions: Clicked over position",
           clickedPosition[0], '-', clickedPosition[1], "under element", underElement)
 
-    
+
 def moveMouse(referencePosition, position, offsetX=0, offsetY=0):
     """
     @brief move mouse to the given position
@@ -161,7 +162,7 @@ def moveMouse(referencePosition, position, offsetX=0, offsetY=0):
     # show debug
     print("TestFunctions: Moved to position", movePosition[0], '-', movePosition[1])
 
-    
+
 def dragDrop(referencePosition, x1, y1, x2, y2):
     """
     @brief drag and drop from position 1 to position 2

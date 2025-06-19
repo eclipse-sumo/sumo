@@ -97,7 +97,7 @@ Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) 
         }
         edges.push_back(edge);
     }
-    const std::vector<SUMOVehicleParameter::Stop> stops;
+    const StopParVector stops;
     ConstMSRoutePtr route = std::make_shared<MSRoute>(routeID, edges, true, nullptr, stops);
     if (!MSRoute::dictionary(routeID, route)) {
         throw TraCIException("Could not add route '" + routeID + "'.");

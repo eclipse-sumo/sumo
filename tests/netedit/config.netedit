@@ -3,11 +3,7 @@ import_config_file:../config_all
 
 # Internal tests use netedit as binary
 binary:$NETEDIT_BINARY
-
-# virtual display configuration
 use_case_record_mode:GUI
-virtual_display_wm_executable:fluxbox
-virtual_display_extra_args:-dpi 100 -shmem
 
 # Copy files to sandbox folder
 copy_test_path:test.py
@@ -52,8 +48,8 @@ copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
 copy_test_path:loadViewport.xml
 
-[collate_file]
 
+[collate_file]
 neteconfigas:configAs.netecfg
 sumoconfigas:configAs.sumo
 
@@ -104,8 +100,8 @@ selection:selection.txt
 errorScreenshot:errorScreenshot.png
 viewport:viewport.xml
 
-[run_dependent_text]
 
+[run_dependent_text]
 net:<!--{[->]}-->
 netas:<!--{[->]}-->
 
@@ -196,8 +192,8 @@ log:\\{REPLACE /}
 log:Discarding invalid crossing{LINES 1}
 log:Invalid pedestrian topology{LINES 1}
 
-[floating_point_tolerance]
 
+[floating_point_tolerance]
 net:0.0101
 output:0.0101
 errors:0.0101

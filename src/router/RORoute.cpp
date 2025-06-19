@@ -38,7 +38,7 @@
 RORoute::RORoute(const std::string& id, double costs, double prop,
                  const ConstROEdgeVector& route,
                  const RGBColor* const color,
-                 const std::vector<SUMOVehicleParameter::Stop>& stops)
+                 const StopParVector& stops)
     : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
       myProbability(prop), myRoute(route), myColor(color), myStops(stops) {}
 

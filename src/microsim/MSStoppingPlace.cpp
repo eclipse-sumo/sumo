@@ -60,8 +60,7 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
     myAngle(DEG2RAD(angle)),
     // see MSVehicleControl defContainerType
     myTransportableDepth(element == SUMO_TAG_CONTAINER_STOP ? SUMO_const_waitingContainerDepth : SUMO_const_waitingPersonDepth),
-    myTransportableWidth(getDefaultTransportableWidth(myElement))
-{
+    myTransportableWidth(getDefaultTransportableWidth(myElement)) {
     computeLastFreePos();
     for (int i = 0; i < capacity; i++) {
         myWaitingSpots.insert(i);
@@ -75,8 +74,8 @@ MSStoppingPlace::~MSStoppingPlace() {}
 double
 MSStoppingPlace::getDefaultTransportableWidth(SumoXMLTag element) {
     return element == SUMO_TAG_CONTAINER_STOP
-        ? SUMO_const_waitingContainerWidth
-        : SUMO_const_waitingPersonWidth;
+           ? SUMO_const_waitingContainerWidth
+           : SUMO_const_waitingPersonWidth;
 
 }
 

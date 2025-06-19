@@ -231,7 +231,7 @@ protected:
     double myCurrentCosts;
 
     /// @brief List of the stops on the parsed route
-    std::vector<SUMOVehicleParameter::Stop> myActiveRouteStops;
+    StopParVector myActiveRouteStops;
 
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;

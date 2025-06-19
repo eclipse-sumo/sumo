@@ -196,7 +196,7 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     const std::string prefix = (isPerson ? "person-device." : "device.") + deviceName;
     // assignment by number
     bool numberGiven = ((oc.exists(prefix + ".deterministic") && oc.getBool(prefix + ".deterministic"))
-            || (oc.exists(prefix + ".probability") && oc.getFloat(prefix + ".probability") >= 0.));
+                        || (oc.exists(prefix + ".probability") && oc.getFloat(prefix + ".probability") >= 0.));
     double probability = numberGiven ? oc.getFloat(prefix + ".probability") : 0;
     // assignment by name
     bool haveByName = false;

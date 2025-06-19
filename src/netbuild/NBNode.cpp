@@ -107,8 +107,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
     myApproaching(approaching),
     myCurrentOutgoing(currentOutgoing),
     myNumStraight(0),
-    myIsBikeEdge(currentOutgoing->getPermissions() == SVC_BICYCLE)
-{
+    myIsBikeEdge(currentOutgoing->getPermissions() == SVC_BICYCLE) {
     // collect lanes which are expliclity targeted
     std::set<int> approachedLanes;
     bool hasIncomingBusLane = false;
@@ -1609,7 +1608,7 @@ NBNode::recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVC
                         if ((currentOutgoing->getPermissions(i2) & svcSpecial) != 0) {
                             // possibly a double-connection
                             const bool allowDouble = (incoming->getPermissions(i) == svcSpecial
-                                    && (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT || dir == LinkDirection::STRAIGHT));
+                                                      && (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT || dir == LinkDirection::STRAIGHT));
                             incoming->setConnection(i, currentOutgoing, i2, NBEdge::Lane2LaneInfoType::COMPUTED, allowDouble);
 #ifdef DEBUG_CONNECTION_GUESSING
                             if (DEBUGCOND) {
@@ -1649,7 +1648,7 @@ NBNode::recheckSpecialConnections(NBEdge* incoming, NBEdge* currentOutgoing, SVC
 }
 
 
-bool 
+bool
 NBNode::avoidConfict(NBEdge* incoming, NBEdge* currentOutgoing, SVCPermissions svcSpecial, LinkDirection dir, int i) {
     for (const auto& c : incoming->getConnections()) {
         if (incoming->getPermissions(c.fromLane) == svcSpecial && c.toEdge == currentOutgoing) {

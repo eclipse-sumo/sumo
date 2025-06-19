@@ -50,8 +50,7 @@ public:
 
     MSTrainHelper(const MSVehicle* vehicle, double scaledLength = -1, bool reversed = false,
                   bool secondaryShape = false, double exaggeration = 1.0, int vehicleQuality = 3)
-        : myTrain(vehicle)
-    {
+        : myTrain(vehicle) {
         computeTrainDimensions(exaggeration, secondaryShape, scaledLength < 0 ? myTrain->getLength() : scaledLength, vehicleQuality);
         computeCarriages(reversed, secondaryShape);
     }

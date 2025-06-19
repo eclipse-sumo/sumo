@@ -1326,7 +1326,7 @@ NBEdgeCont::guessRoundabouts() {
                     }
                     gDebugFlag1 = false;
 #endif
-                break;
+                    break;
                 }
             }
 

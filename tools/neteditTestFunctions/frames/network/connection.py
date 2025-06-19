@@ -18,6 +18,7 @@
 # imports
 from ...general.functions import *
 
+
 def createConnection(referencePosition, fromLanePosition, toLanePosition, mode=""):
     """
     @brief create connection

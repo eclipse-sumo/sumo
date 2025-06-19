@@ -1580,9 +1580,9 @@ MSLCM_SL2015::_wantsChangeSublane(
             while (vMin > 0 && j < (int)sublaneSides.size() && sublaneSides[j] < sublaneSides[i] + vehWidth) {
                 vMin = MIN2(vMin, myExpectedSublaneSpeeds[j]);
 #ifdef DEBUG_WANTSCHANGE
-                    if (gDebugFlag2) {
-                        //std::cout << "     j=" << j << " vMin=" << vMin << " sublaneSides[j]=" << sublaneSides[j] << " leftVehSide=" << leftVehSide << " rightVehSide=" << rightVehSide << "\n";
-                    }
+                if (gDebugFlag2) {
+                    //std::cout << "     j=" << j << " vMin=" << vMin << " sublaneSides[j]=" << sublaneSides[j] << " leftVehSide=" << leftVehSide << " rightVehSide=" << rightVehSide << "\n";
+                }
 #endif
                 ++j;
             }
@@ -3021,9 +3021,9 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
 #ifdef DEBUG_STRATEGIC_CHANGE
                 if (DEBUG_COND) {
                     std::cout << "  overtakeDist=" << overtakeDist << " remaining=" << remaining
-                        << " minDistToStopped=" << neighLead.getMinDistToStopped()
-                        << " hasLaneBeyond=" << hasLaneBeyond
-                        << "\n";
+                              << " minDistToStopped=" << neighLead.getMinDistToStopped()
+                              << " hasLaneBeyond=" << hasLaneBeyond
+                              << "\n";
                 }
 #endif
                 if (// current destination leaves enough space to overtake the leader

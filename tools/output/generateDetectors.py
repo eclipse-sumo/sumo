@@ -28,11 +28,11 @@ from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import openz  # noqa
 
 SHORT_NAMES = {
-        'E1': 'inductionLoop',
-        'E1I': 'instantInductionLoop',
-        'E2': 'laneAreaDetector',
-        #  'E3': 'multiEntryExitDetector'
-        }
+    'E1': 'inductionLoop',
+    'E1I': 'instantInductionLoop',
+    'E2': 'laneAreaDetector',
+    #  'E3': 'multiEntryExitDetector'
+}
 
 NEED_EXTENT = ['laneAreaDetector',
                #  'multiEntryExitDetector'

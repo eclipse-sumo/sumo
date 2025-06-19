@@ -153,8 +153,8 @@ public:
      * @return the best stopping place according to the target function or nullptr
      */
     MSStoppingPlace* rerouteStoppingPlace(MSStoppingPlace* destStoppingPlace, const std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh,
-                             bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores, const Prohibitions& closedEdges = {},
-                             const int insertStopIndex = 0, const bool keepCurrentStop = true);
+                                          bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores, const Prohibitions& closedEdges = {},
+                                          const int insertStopIndex = 0, const bool keepCurrentStop = true);
     /** @brief compute the target function for a single alternative
      *
      * @param[in] veh the concerned vehicle

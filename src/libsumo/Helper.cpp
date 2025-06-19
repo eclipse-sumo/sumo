@@ -485,7 +485,7 @@ Helper::getDrivingDistance(std::pair<const MSLane*, double>& roadPos1, std::pair
     if (newRoute.empty()) {
         return libsumo::INVALID_DOUBLE_VALUE;
     }
-    MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
+    MSRoute route("", newRoute, false, nullptr, StopParVector());
     return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, roadPos1.first, roadPos2.first);
 }
 

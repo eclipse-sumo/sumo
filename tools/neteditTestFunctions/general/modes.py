@@ -18,6 +18,7 @@
 # imports
 from ..input.keyboard import *
 
+
 def changeSupermode(supermode):
     """
     @brief change supermode

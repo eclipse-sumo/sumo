@@ -39,7 +39,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.connection.connec
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyVClassDialogOverlapped_NoDisallowAll(netedit.attrs.connection.inspect.changeLeftButton,
-                                              netedit.attrs.dialog.allowVClass.disallowAll)
+                                                   netedit.attrs.dialog.allowVClass.disallowAll)
 
 # Check undos
 netedit.undo(referencePosition, 4)

@@ -21,6 +21,7 @@ from ..constants import *
 from ..input.keyboard import *
 from ..general.functions import *
 
+
 def reload(NeteditProcess, openNetDialog=False, saveNet=False,
            openAdditionalDialog=False, saveAdditionalElements=False,
            openDemandDialog=False, saveDemandElements=False,

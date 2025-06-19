@@ -325,7 +325,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
 #endif
     myLastDispatch = reservations;
     ConstMSEdgeVector tmpEdges;
-    std::vector<SUMOVehicleParameter::Stop> stops;
+    StopParVector stops;
     double lastPos = myHolder.getPositionOnLane();
     const MSEdge* rerouteOrigin = *myHolder.getRerouteOrigin();
     if (isEmpty()) {
@@ -621,7 +621,7 @@ MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
 
 void
 MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
-                           std::vector<SUMOVehicleParameter::Stop>& stops,
+                           StopParVector& stops,
                            double& lastPos, const MSEdge* stopEdge, double stopPos,
                            const MSStoppingPlace* stopPlace,
                            const std::string& action, const Reservation* res, const bool isPickup) {

@@ -484,7 +484,7 @@ void
 GNEAttributesEditorType::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
     const auto undoList = myFrameParent->getViewNet()->getUndoList();
     const auto tagProperty = myEditedACs.front()->getTagProperty();
-        // continue depending if we're creating or inspecting
+    // continue depending if we're creating or inspecting
     if (isEditorTypeCreator()) {
         // Set new value of attribute in all edited ACs without undo-redo
         for (const auto& editedAC : myEditedACs) {

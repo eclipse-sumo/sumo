@@ -30,7 +30,7 @@ netedit.changeMode("createEdge")
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyVClassDialog_DisallowAll(netedit.attrs.lane.create.allowButton,
-                                    netedit.attrs.dialog.allowVClass.rail_urban)
+                                       netedit.attrs.dialog.allowVClass.rail_urban)
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)

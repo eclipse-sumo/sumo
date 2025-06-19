@@ -651,7 +651,7 @@ Vehicle::getStops(const std::string& vehID, int limit) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     if (limit < 0) {
         // return past stops up to the given limit
-        const std::vector<SUMOVehicleParameter::Stop>& pastStops = vehicle->getPastStops();
+        const StopParVector& pastStops = vehicle->getPastStops();
         const int n = (int)pastStops.size();
         for (int i = MAX2(0, n + limit); i < n; i++) {
             result.push_back(Helper::buildStopData(pastStops[i]));

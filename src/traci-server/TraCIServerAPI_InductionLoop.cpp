@@ -42,8 +42,8 @@ TraCIServerAPI_InductionLoop::processGet(TraCIServer& server, tcpip::Storage& in
     try {
         if (!libsumo::InductionLoop::handleVariable(id, variable, &server, &inputStorage)) {
             return server.writeErrorStatusCmd(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE,
-                                                "Get Induction Loop Variable: unsupported variable " + toHex(variable, 2)
-                                                + " specified", outputStorage);
+                                              "Get Induction Loop Variable: unsupported variable " + toHex(variable, 2)
+                                              + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, e.what(), outputStorage);
