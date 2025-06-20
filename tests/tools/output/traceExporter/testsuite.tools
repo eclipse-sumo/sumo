@@ -13,6 +13,9 @@ poi
 # convert fcd traces to pois with gzipped input and output
 poi_gz
 
+# convert fcd traces to pois with option --shift
+poi_shift
+
 # convert fcd traces to KML
 kml
 
