@@ -2,5 +2,5 @@
     <poi id="v0_10.0" type="v0" color="107,0,255" layer="100" lon="900.0" lat="800.0"/>
     <poi id="v0_11.0" type="v0" color="107,0,255" layer="100" lon="880.0" lat="1010.0"/>
     <poi id="v0_12.0" type="v0" color="107,0,255" layer="100" lon="1030.0" lat="980.0"/>
-    <poi id="v0_13.0" type="v0" color="107,0,255" layer="100" lon="50.0" lat="150.0"/>
+    <poi id="v0_13.0" type="v0" color="107,0,255" layer="100" lon="1050.0" lat="1150.0"/>
 </pois>
