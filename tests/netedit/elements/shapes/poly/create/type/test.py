@@ -36,14 +36,14 @@ netedit.modifyAttribute(netedit.attrs.poly.create.type, "<<poly_test>>")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # change type
 netedit.modifyAttribute(netedit.attrs.poly.create.type, "poly_test")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

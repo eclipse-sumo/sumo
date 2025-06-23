@@ -42,21 +42,21 @@ netedit.modifyAttribute(netedit.attrs.poly.create.imgFile, "%%$%$&$%$%$")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # change imgfile (inexistent)
 netedit.modifyAttribute(netedit.attrs.poly.create.imgFile, "paris.ico")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # change imgfile (valid)
 netedit.modifyAttribute(netedit.attrs.poly.create.imgFile, "berlin_icon.ico")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
