@@ -797,27 +797,27 @@ InternalTestStep::selection() const {
         // get number of tabls
         int numTabs = 0;
         if (selectionType == "default") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.default");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.basic.default");
         } else if (selectionType == "save") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.save");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.basic.save");
         } else if (selectionType == "load") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.load");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.basic.load");
         } else if (selectionType == "add") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.add");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.basic.add");
         } else if (selectionType == "remove") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.remove");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.basic.remove");
         } else if (selectionType == "keep") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.keep");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.basic.keep");
         } else if (selectionType == "replace") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.replace");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.basic.replace");
         } else if (selectionType == "clear") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.clear");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.basic.clear");
         } else if (selectionType == "invert") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.invert");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.basic.invert");
         } else if (selectionType == "invertData") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.invertData");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.basic.invertData");
         } else if (selectionType == "delete") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.delete");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.basic.delete");
         }
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
