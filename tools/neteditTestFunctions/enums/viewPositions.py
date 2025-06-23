@@ -574,8 +574,6 @@ class positions:
                 x = 498
                 y = 332
 
-            shapeSize = 200
-
         # demand elements (for inspect, delete, etc.)
         class demands:
 

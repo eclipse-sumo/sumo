@@ -116,12 +116,10 @@ def lockSelection(glType):
     # type enter to save change
     typeKey('space')
 
-# def selectItems(elementClass, elementType, attribute, value):
-
 
 def selectNetworkItems(element, attribute, value):
     """
-    @brief select items
+    @brief select network items
     """
     # focus current frame
     focusOnFrame()

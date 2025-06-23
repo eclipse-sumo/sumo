@@ -96,6 +96,9 @@ class attrs:
     class move:
         moveWholePolygon = 5
 
+    class shape:
+        size = 200
+
     class selection:
         class lockSelectionNetwork:
             junctions = 1
