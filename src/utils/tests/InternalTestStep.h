@@ -188,6 +188,9 @@ private:
     /// @brief process selection function
     void selection() const;
 
+    /// @brief process selectNetworkItems function
+    void selectNetworkItems() const;
+
     /// @brief process check undo function
     void undo() const;
 

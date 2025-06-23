@@ -120,6 +120,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         deleteFunction();
     } else if (function == "selection") {
         selection();
+    } else if (function == "selectNetworkItems") {
+        selectNetworkItems();
     } else if (function == "undo") {
         undo();
     } else if (function == "redo") {
@@ -837,6 +839,63 @@ InternalTestStep::selection() const {
         } else {
             buildPressKeyEvent("space", true);
         }
+    }
+}
+
+
+void
+InternalTestStep::selectNetworkItems() const  {
+    if (myArguments.size() != 3 || !checkStringArgument(myArguments[0]) ||
+            !checkStringArgument(myArguments[1]) || !checkStringArgument(myArguments[2])) {
+        writeError("selectNetworkItems", 0, "<element/int, \"attribute\", \"value\">");
+    } else {
+        const std::string element = getStringArgument(myArguments[0]);
+        const std::string attribute = getStringArgument(myArguments[1]);
+        const std::string value = getStringArgument(myArguments[2]);
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // got to type
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.networkItem.type"); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // set network element
+        for (const char c : "Network elements") {
+            buildPressKeyEvent(c, false);
+        }
+        // show info
+        std::cout << "Network elements" << std::endl;
+        // got to type
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.networkItem.subType"); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // set network element
+        for (const char c : element) {
+            buildPressKeyEvent(c, false);
+        }
+        // show info
+        std::cout << element << std::endl;
+        // got to attribute
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.networkItem.attribute"); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // set attribute
+        for (const char c : attribute) {
+            buildPressKeyEvent(c, false);
+        }
+        // show info
+        std::cout << attribute << std::endl;
+        // got to value
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.frames.selection.networkItem.value"); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // set value
+        for (const char c : value) {
+            buildPressKeyEvent(c, false);
+        }
+        // show info
+        std::cout << value << std::endl;
+        // press enter to confirm changes (updating view)
+        buildPressKeyEvent("enter", true);
     }
 }
 
