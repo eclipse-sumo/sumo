@@ -88,7 +88,7 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         modifyVClassDialog_NoDisallowAll(overlappedTabs);
     } else if (function == "modifyVClassDialog_DisallowAll") {
         modifyVClassDialog_DisallowAll(0);
-    } else if (function == "modifyVClassDialogOvelapped_DisallowAll") {
+    } else if (function == "modifyVClassDialogOverlapped_DisallowAll") {
         modifyVClassDialog_DisallowAll(overlappedTabs);
     } else if (function == "modifyVClassDialog_Cancel") {
         modifyVClassDialog_Cancel(0);
