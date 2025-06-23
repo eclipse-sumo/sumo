@@ -995,7 +995,7 @@ InternalTestStep::changeMode() {
             myMessageID = MID_HOTKEY_C_MODE_CONNECT_CONTAINER;
         } else if ((networkMode == "prohibition") || (networkMode == "containerPlan")) {
             myMessageID = MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN;
-        } else if ((networkMode == "crossing") || (networkMode == "edgeRelData")) {
+        } else if ((networkMode == "crossing") || (networkMode == "route") || (networkMode == "edgeRelData")) {
             myMessageID = MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA;
         } else if ((networkMode == "additional") || (networkMode == "stop")) {
             myMessageID = MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS;
