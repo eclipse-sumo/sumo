@@ -215,6 +215,12 @@ private:
     /// @brief process compute junctions with volatile options function
     void computeJunctionsVolatileOptions();
 
+    /// @brief create rectangle shape
+    void createRectangledShape();
+
+    /// @brief create squared shape
+    void createSquaredShape();
+
     /// @brief process quit function
     void quit();
 
@@ -240,7 +246,12 @@ private:
     std::string stripSpaces(const std::string& str) const;
 
     /// @brief write error
-    void writeError(const std::string& function, const int overlapping, const std::string& expected) const;
+    void writeError(const std::string& function, const int overlapping,
+                    const std::string& expected) const;
+
+    /// @brief create shape
+    void createShape(const InternalTest::ViewPosition& viewPosition,
+                     const int sizeX, const int sizeY, const bool close) const;
 
     /// @name key functions
     /// @{
@@ -311,13 +322,22 @@ private:
     /// @{
 
     /// @brief build mouse click event
-    void buildMouseClick(const InternalTest::ViewPosition& viewPosition, const std::string& button, const bool move) const;
+    void buildMouseClick(const InternalTest::ViewPosition& viewPosition,
+                         const int offsetX, const int offsetY,
+                         const std::string& button, const bool move) const;
 
     /// @brief build mouse move event
-    FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition) const;
+    FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
+                                 const int offsetX, const int offsetY) const;
 
     /// @brief build mouse left click press event
-    FXEvent* buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition) const;
+    FXEvent* buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
+                             const int offsetX, const int offsetY) const;
+
+    /// @brief write click info
+    void writeClickInfo(const InternalTest::ViewPosition& viewPosition,
+                        const int offsetX, const int offsetY,
+                        const std::string modifier) const;
 
     /// @}
 
@@ -328,5 +348,5 @@ private:
     InternalTestStep(const InternalTestStep&) = delete;
 
     /// @brief Invalidated assignment operator
-    InternalTestStep& operator=(const InternalTestStep& src) = delete;
+    InternalTestStep& operator=(const InternalTestStep&) = delete;
 };
