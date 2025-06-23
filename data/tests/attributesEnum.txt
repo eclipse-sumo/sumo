@@ -2333,6 +2333,7 @@ netedit.attrs.selection.lockSelectionNetwork.unlockAll 16
 netedit.attrs.selection.lockSelectionNetwork.walkableAreas 12
 netedit.attrs.selection.lockSelectionNetwork.walkingAreas 6
 netedit.attrs.selection.lockSelectionNetwork.wires 9
+netedit.attrs.shape.size 200
 netedit.attrs.stopBusStop.create.actType 17
 netedit.attrs.stopBusStop.create.duration 9
 netedit.attrs.stopBusStop.create.durationEnable 8
