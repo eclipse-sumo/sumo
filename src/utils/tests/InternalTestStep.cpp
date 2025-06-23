@@ -116,6 +116,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         createRectangledShape();
     } else if (function == "createSquaredShape") {
         createSquaredShape();
+    } else if (function == "createLineShape") {
+        createLineShape();
     } else if (function == "saveExistentShortcut") {
         saveExistentShortcut();
     } else if (function == "checkUndoRedo") {
@@ -1146,7 +1148,8 @@ InternalTestStep::createRectangledShape() {
         createShape(myTestSystem->getViewPositions().at(myArguments[1]),
                     getIntArgument(myArguments[2]),
                     getIntArgument(myArguments[3]),
-                    getBoolArgument(myArguments[4]));
+                    getBoolArgument(myArguments[4]),
+                    false);
     }
 }
 
@@ -1163,7 +1166,27 @@ InternalTestStep::createSquaredShape() {
         createShape(myTestSystem->getViewPositions().at(myArguments[1]),
                     getIntArgument(myArguments[2]),
                     getIntArgument(myArguments[2]),
-                    getBoolArgument(myArguments[3]));
+                    getBoolArgument(myArguments[3]),
+                    false);
+    }
+}
+
+
+void
+InternalTestStep::createLineShape() {
+    if ((myArguments.size() != 5) ||
+            (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
+            !checkIntArgument(myArguments[2]) ||
+            !checkIntArgument(myArguments[3]) ||
+            !checkBoolArgument(myArguments[4])) {
+        writeError("createLineShape", 0, "<viewPosition, sizeX, sizeY, true/false>");
+    } else {
+        // create shape
+        createShape(myTestSystem->getViewPositions().at(myArguments[1]),
+                    getIntArgument(myArguments[2]),
+                    getIntArgument(myArguments[3]),
+                    getBoolArgument(myArguments[4]),
+                    true);
     }
 }
 
@@ -1271,7 +1294,8 @@ InternalTestStep::writeError(const std::string& function, const int overlapping,
 
 void
 InternalTestStep::createShape(const InternalTest::ViewPosition& viewPosition,
-                              const int sizeX, const int sizeY, const bool close) const {
+                              const int sizeX, const int sizeY, const bool close,
+                              const bool line) const {
     // calculate half-sizes
     const int halfSizeX = int(sizeX * -0.5);
     const int halfSizeY = int(sizeY * -0.5);
@@ -1284,17 +1308,21 @@ InternalTestStep::createShape(const InternalTest::ViewPosition& viewPosition,
     buildMouseClick(viewPosition, 0, 0, "left", true);
     writeClickInfo(viewPosition, 0, 0, "");
     // second edge
-    buildMouseMoveEvent(viewPosition, 0, halfSizeY);
-    buildMouseClick(viewPosition, 0, halfSizeY, "left", true);
-    writeClickInfo(viewPosition, 0, halfSizeY, "");
+    if (!line) {
+        buildMouseMoveEvent(viewPosition, 0, halfSizeY);
+        buildMouseClick(viewPosition, 0, halfSizeY, "left", true);
+        writeClickInfo(viewPosition, 0, halfSizeY, "");
+    }
     // third edge
     buildMouseMoveEvent(viewPosition, halfSizeX, halfSizeY);
     buildMouseClick(viewPosition, halfSizeX, halfSizeY, "left", true);
     writeClickInfo(viewPosition, halfSizeX, halfSizeY, "");
     // four edge
-    buildMouseMoveEvent(viewPosition, halfSizeX, 0);
-    buildMouseClick(viewPosition, halfSizeX, 0, "left", true);
-    writeClickInfo(viewPosition, halfSizeX, 0, "");
+    if (!line) {
+        buildMouseMoveEvent(viewPosition, halfSizeX, 0);
+        buildMouseClick(viewPosition, halfSizeX, 0, "left", true);
+        writeClickInfo(viewPosition, halfSizeX, 0, "");
+    }
     // check if close polygon
     if (close) {
         buildMouseMoveEvent(viewPosition, 0, 0);

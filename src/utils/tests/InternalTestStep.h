@@ -221,6 +221,9 @@ private:
     /// @brief create squared shape
     void createSquaredShape();
 
+    /// @brief create line shape
+    void createLineShape();
+
     /// @brief process quit function
     void quit();
 
@@ -251,7 +254,8 @@ private:
 
     /// @brief create shape
     void createShape(const InternalTest::ViewPosition& viewPosition,
-                     const int sizeX, const int sizeY, const bool close) const;
+                     const int sizeX, const int sizeY, const bool close,
+                     const bool line) const;
 
     /// @name key functions
     /// @{
