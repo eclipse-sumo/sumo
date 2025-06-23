@@ -76,12 +76,11 @@ def makeEntries(movables, chosen, options):
             chosen[v.id] = random.random() < options.penetration
         if chosen[v.id]:
             v.x, v.y = disturb_gps(float(v.x), float(v.y), options.blur)
+            if options.shift:
+                v.x = round(v.x + float(options.shift), 2)
+                v.y = round(v.y + float(options.shift), 2)
             if v.x < 0 or v.y < 0:
-                if options.shift:
-                    v.x = round(v.x + float(options.shift), 2)
-                    v.y = round(v.y + float(options.shift), 2)
-                else:
-                    negative = True
+                negative = True
             if not v.z:
                 v.z = 0
             if not options.boundary or (v.x >= xmin and v.x <= xmax and v.y >= ymin and v.y <= ymax):

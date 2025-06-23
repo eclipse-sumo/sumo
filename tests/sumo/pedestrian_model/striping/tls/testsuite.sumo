@@ -1,2 +1,5 @@
 # different directions of a crossing have different signal states
 tlIndex2
+
+# avoid pathing around a red crossing
+3arm

@@ -8,6 +8,7 @@
     <rerouter id="rr_0" edges="E0" pos="-212.18,-10.30">
         <interval begin="0.00" end="3600.00">
             <closingReroute id="E3" allow="authority"/>
+            <closingReroute id="E6" allow="authority"/>
         </interval>
     </rerouter>
 </additional>

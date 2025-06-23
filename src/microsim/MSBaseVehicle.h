@@ -1042,10 +1042,19 @@ protected:
     virtual void resetApproachOnReroute() {};
 
     struct StopEdgeInfo {
-        StopEdgeInfo(const MSEdge* _edge, double _priority):
-            edge(_edge), priority(_priority) {};
+
+        StopEdgeInfo(const MSEdge* _edge, double _priority, SUMOTime _arrival, double _pos):
+            edge(_edge), pos(_pos),
+            priority(_priority), arrival(_arrival) {};
         const MSEdge* edge;
+        double pos;
         double priority;
+        SUMOTime arrival;
+        /// @brief values set during routing and used during optimization
+        int routeIndex = -1;
+        bool skipped = false;
+        bool backtracked = false;
+        SUMOTime delay = 0;
 
         bool operator==(const StopEdgeInfo& o) const {
             return edge == o.edge;
@@ -1053,7 +1062,6 @@ protected:
         bool operator!=(const StopEdgeInfo& o) const {
             return !(*this == o);
         }
-
     };
 
     /** @brief Returns the list of still pending stop edges
@@ -1062,6 +1070,15 @@ protected:
     std::vector<StopEdgeInfo> getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps) const;
 
     static double addStopPriority(double p1, double p2);
+
+
+    ConstMSEdgeVector optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
+            const MSEdge* source, double sourcePos, std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges, SUMOTime maxDelay) const;
+
+    ConstMSEdgeVector routeAlongStops(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
+        std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
+        int originStop, SUMOTime maxDelay, double& skippedPrio2) const;
+
 
 protected:
     /// @brief This vehicle's parameter.

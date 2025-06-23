@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-05 14:40:50 by Eclipse SUMO sumo Version v1_17_0+0716-331573c
+<!-- generated on 2025-06-20 11:10:33 by Eclipse SUMO sumo Version v1_23_1+0690-25a0a2039b5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net3.net.xml"/>
@@ -35,18 +35,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
-    <performance clockBegin="1685968850.74" clockEnd="1685968850.77" clockDuration="0.02" traciDuration="0.00" realTimeFactor="19000.00" vehicleUpdatesPerSecond="0.00" personUpdatesPerSecond="0.00" begin="0.00" end="456.00" duration="456.00"/>
+    <performance clockBegin="1750410633.65" clockEnd="1750410633.66" clockDuration="0.01" traciDuration="0.00" realTimeFactor="50666.67" vehicleUpdatesPerSecond="0.00" personUpdatesPerSecond="0.00" begin="0.00" end="456.00" duration="456.00"/>
     <vehicles loaded="0" inserted="0" running="0" waiting="0"/>
     <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>
     <persons loaded="30" running="0" jammed="0"/>
     <personTeleports total="0" abortWait="0" wrongDest="0"/>
     <vehicleTripStatistics count="0" routeLength="0.00" speed="0.00" duration="0.00" waitingTime="0.00" timeLoss="0.00" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="0.00" totalDepartDelay="0.00"/>
-    <pedestrianStatistics number="30" routeLength="101.93" duration="98.23" timeLoss="24.85"/>
+    <pedestrianStatistics number="30" routeLength="102.36" duration="98.07" timeLoss="24.37"/>
     <rideStatistics number="0"/>
     <transportStatistics number="0"/>
 </statistics>
