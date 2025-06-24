@@ -107,11 +107,6 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
         if ((len > 4 && name.substr(len - 4) == ".csv") || (len > 7 && name.substr(len - 7) == ".csv.gz")) {
             dev->setFormatter(new CSVFormatter());
         }
-#ifdef HAVE_PARQUET
-        if (len > 8 && name.substr(len - 8) == ".parquet") {
-            dev->setFormatter(new ParquetFormatter());
-        }
-#endif
     }
     dev->setPrecision();
     dev->getOStream() << std::setiosflags(std::ios::fixed);
