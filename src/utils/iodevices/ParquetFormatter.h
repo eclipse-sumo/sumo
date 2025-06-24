@@ -81,7 +81,8 @@ private:
 class ParquetFormatter : public OutputFormatter {
 public:
     /// @brief Constructor
-    ParquetFormatter(const int batchSize = 100);
+    // for some motivation on the default batch size see https://stackoverflow.com/questions/76782018/what-is-actually-meant-when-referring-to-parquet-row-group-size
+    ParquetFormatter(const int batchSize = 1000000);
 
     /// @brief Destructor
     virtual ~ParquetFormatter() { }
