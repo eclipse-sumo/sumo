@@ -17,7 +17,7 @@ set(utils_iodevices_STAT_SRCS
    PlainXMLFormatter.cpp
    PlainXMLFormatter.h
 )
-if (PARQUET)
+if (HAVE_PARQUET)
    set(utils_iodevices_STAT_SRCS
       ${utils_iodevices_STAT_SRCS}
       ParquetFormatter.cpp
