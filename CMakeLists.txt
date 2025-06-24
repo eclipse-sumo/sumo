@@ -2,7 +2,7 @@
 set(Python_FIND_REGISTRY LAST)
 # Options
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use only EPL clean libraries, if set to false)" ON)
-option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" ON)
+option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" OFF)
 option(PROFILING "Enable output of profiling data (applies to gcc/clang builds only)")
 option(PPROF "Link the pprof profiler library (applies to gcc/clang builds only)")
 option(COVERAGE "Enable output of coverage data (applies to gcc/clang builds only)")
@@ -653,11 +653,13 @@ if (SUMO_LIBRARIES AND WIN32)
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin/${OSG_PLUGIN_DIR} ${CMAKE_SOURCE_DIR}/bin/${OSG_PLUGIN_DIR}
                            DEPENDS ${OSG_PLUGIN_DLL})
     endif (HAVE_OSG)
-    # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
-    set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
-    add_custom_command(OUTPUT ${PROJ_DATA}
-                       COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
-                       DEPENDS ${PROJ_PATH}/share/proj/proj.db)
+    if (PROJ_FOUND)
+        # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
+        set(PROJ_DATA ${CMAKE_SOURCE_DIR}/share/proj/proj.db)
+        add_custom_command(OUTPUT ${PROJ_DATA}
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_INCLUDE_DIR}/../share/proj ${CMAKE_SOURCE_DIR}/share/proj
+                           DEPENDS ${PROJ_INCLUDE_DIR}/../share/proj/proj.db)
+    endif ()
     install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
 endif()
 # set install dll targets, for non-Windows they depend on nothing
