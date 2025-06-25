@@ -18,6 +18,7 @@
 # imports
 from ...general.functions import *
 from .basicAttribute import *
+from ...general.undoRedo import *
 
 
 def checkParameters(referencePosition, attributeIndex, offsetX=0, offsetY=0):
