@@ -145,7 +145,10 @@ private:
 
     /// @brief process click function
     void mouseClick(const std::string& button, const std::string& modifier) const;
-
+    
+    /// @brief process click function
+    void leftClickOffset(const std::string& button) const;
+    
     /// @brief process typeKey function
     void typeKey() const;
 
@@ -172,6 +175,9 @@ private:
 
     /// @brief process modifyVClassDialog_DisallowAll function
     void modifyVClassDialog_Reset(const int overlappedTabs) const;
+
+    /// @brief process checkParameters function
+    void checkParameters(const int overlappedTabs) const;
 
     /// @brief process changeEditMode function
     void changeEditMode();
@@ -256,6 +262,15 @@ private:
     void createShape(const InternalTest::ViewPosition& viewPosition,
                      const int sizeX, const int sizeY, const bool close,
                      const bool line) const;
+
+    /// @brief modify attribute
+    void modifyStringAttribute(const int tabs, const int overlappedTabs, const std::string& value) const;
+
+    /// @brief process check undo function
+    void undo(const int number) const;
+
+    /// @brief process check redo function
+    void redo(const int number) const;
 
     /// @name key functions
     /// @{

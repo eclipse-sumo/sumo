@@ -66,6 +66,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         mouseClick("right", "control");
     } else if (function == "rightClickShift") {
         mouseClick("right", "shift");
+    } else if (function == "leftClickOffset") {
+        leftClickOffset("left");
     } else if (function == "typeKey") {
         typeKey();
     } else if (function == "contextualMenuOperation") {
@@ -98,6 +100,10 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         modifyVClassDialog_Reset(0);
     } else if (function == "modifyVClassDialogOverlapped_Reset") {
         modifyVClassDialog_Reset(overlappedTabs);
+    } else if (function == "checkParameters") {
+        checkParameters(0);
+    } else if (function == "checkParametersOverlapped") {
+        checkParameters(overlappedTabs);
     } else if (function == "changeEditMode") {
         changeEditMode();
     } else if (function == "changeSupermode") {
@@ -355,6 +361,24 @@ InternalTestStep::mouseClick(const std::string& button, const std::string& modif
 
 
 void
+InternalTestStep::leftClickOffset(const std::string& button) const {
+    if ((myArguments.size() != 4) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
+        !checkIntArgument(myArguments[2]) || !checkIntArgument(myArguments[3])) {
+        writeError("leftClickOffset", 0, "<reference, position, int, int>");
+    } else {
+        // parse view position
+        const auto& viewPosition = myTestSystem->getViewPositions().at(myArguments[1]);
+        const int x = getIntArgument(myArguments[2]);
+        const int y = getIntArgument(myArguments[3]);
+        // build mouse click
+        buildMouseClick(viewPosition, x, y, button, true);
+        // print info
+        writeClickInfo(viewPosition, x, y, button);
+    }
+}
+
+
+void
 InternalTestStep::typeKey() const {
     if (myArguments.size() != 1) {
         writeError("typeKey", 0, "<key>");
@@ -407,26 +431,8 @@ InternalTestStep::modifyAttribute(const int overlappedTabs) const {
             !checkStringArgument(myArguments[1])) {
         writeError("modifyAttribute", overlappedTabs, "<int/attributeEnum, \"string\">");
     } else {
-        const int attribute = getIntArgument(myArguments[0]);
-        const std::string value = getStringArgument(myArguments[1]);
-        // print info
-        std::cout << value << std::endl;
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to the element
-        for (int i = 0; i < (attribute + overlappedTabs); i++) {
-            buildPressKeyEvent("tab", false);
-        }
-        // write attribute character by character
-        if (value.empty()) {
-            buildPressKeyEvent("delete", false);
-        } else {
-            for (const char c : value) {
-                buildPressKeyEvent(c, false);
-            }
-        }
-        // press enter to confirm changes (updating view)
-        buildPressKeyEvent("enter", true);
+        // modify attribute
+        modifyStringAttribute(getIntArgument(myArguments[0]), overlappedTabs, getStringArgument(myArguments[1]));
     }
 }
 
@@ -637,6 +643,30 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
 
 
 void
+InternalTestStep::checkParameters(const int overlappedTabs) const {
+    if ((myArguments.size() != 2) || !checkIntArgument(myArguments[1])) {
+        writeError("checkParameters", 0, "<int/attributeEnum>");
+    } else {
+        const int tabs = getIntArgument(myArguments[1]);
+        // check different values
+        modifyStringAttribute(tabs, overlappedTabs, "dummyGenericParameters");
+        modifyStringAttribute(tabs, overlappedTabs, "key1|key2|key3");
+        modifyStringAttribute(tabs, overlappedTabs, "key1=value1|key2=value2|key3=value3");
+        modifyStringAttribute(tabs, overlappedTabs, "key1=|key2=|key3=");
+        modifyStringAttribute(tabs, overlappedTabs, "");
+        modifyStringAttribute(tabs, overlappedTabs, "key1duplicated=value1|key1duplicated=value2|key3=value3");
+        modifyStringAttribute(tabs, overlappedTabs, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated");
+        modifyStringAttribute(tabs, overlappedTabs, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3");
+        modifyStringAttribute(tabs, overlappedTabs, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3");
+        modifyStringAttribute(tabs, overlappedTabs, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3");
+        // check undo-redo
+        undo(9);
+        redo(9);
+    }
+}
+
+
+void
 InternalTestStep::changeEditMode() {
     if ((myArguments.size() != 1) || (myTestSystem->getAttributesEnum().count(myArguments[0]) == 0)) {
         writeError("changeEditMode", 0, "<int/attributeEnum>");
@@ -745,35 +775,8 @@ InternalTestStep::checkUndoRedo() const {
         writeError("checkUndoRedo", 0, "<referencePosition>");
     } else {
         const int numUndoRedos = 9;
-        const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // go to inspect mode
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
-        // click over reference
-        std::cout << "TestFunctions: Clicked over position " <<
-                  toString(MOUSE_REFERENCE_X) << " - " <<
-                  toString(MOUSE_REFERENCE_Y) << std::endl;
-        // build mouse click
-        buildMouseClick(referencePosition, 0, 0, "left", true);
-        // undo
-        for (int i = 0; i < numUndoRedos; i++) {
-            new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO, Category::APP);
-        }
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // go to inspect mode
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
-        // click over reference
-        std::cout << "TestFunctions: Clicked over position " <<
-                  toString(MOUSE_REFERENCE_X) << " - " <<
-                  toString(MOUSE_REFERENCE_Y) << std::endl;
-        // build mouse click
-        buildMouseClick(referencePosition, 0, 0, "left", true);
-        // undo
-        for (int i = 0; i < numUndoRedos; i++) {
-            new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Y_REDO, Category::APP);
-        }
+        undo(numUndoRedos);
+        redo(numUndoRedos);
     }
 }
 
@@ -900,22 +903,8 @@ InternalTestStep::undo() const {
     if ((myArguments.size() != 2) || !checkIntArgument(myArguments[1])) {
         writeError("undo", 0, "<referencePosition, int>");
     } else {
-        const int numUndoRedos = getIntArgument(myArguments[1]);
-        const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // go to inspect mode
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
-        // click over reference
-        std::cout << "TestFunctions: Clicked over position " <<
-                  toString(MOUSE_REFERENCE_X) << " - " <<
-                  toString(MOUSE_REFERENCE_Y) << std::endl;
-        // build mouse click
-        buildMouseClick(referencePosition, 0, 0, "left", true);
-        // undo
-        for (int i = 0; i < numUndoRedos; i++) {
-            new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO, Category::APP);
-        }
+        // do undo
+        undo(getIntArgument(myArguments[1]));
     }
 }
 
@@ -925,22 +914,8 @@ InternalTestStep::redo() const {
     if ((myArguments.size() != 2) || !checkIntArgument(myArguments[1])) {
         writeError("redo", 0, "<referencePosition, int>");
     } else {
-        const int numUndoRedos = getIntArgument(myArguments[1]);
-        const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // go to inspect mode
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
-        // click over reference
-        std::cout << "TestFunctions: Clicked over position " <<
-                  toString(MOUSE_REFERENCE_X) << " - " <<
-                  toString(MOUSE_REFERENCE_Y) << std::endl;
-        // build mouse click
-        buildMouseClick(referencePosition, 0, 0, "left", true);
-        // undo
-        for (int i = 0; i < numUndoRedos; i++) {
-            new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Y_REDO, Category::APP);
-        }
+        // do redo
+        redo(getIntArgument(myArguments[1]));
     }
 }
 
@@ -1034,11 +1009,11 @@ InternalTestStep::changeElement() const {
         } else if (frame == "personFrame") {
             numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.person");
         } else if (frame == "containerFrame") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.netedit.attrs.frames.changeElement.container");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.container");
         } else if (frame == "personPlanFrame") {
             numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.personPlan");
         } else if (frame == "containerPlanFrame") {
-            numTabs = myTestSystem->getAttributesEnum().at("netedit.netedit.attrs.frames.changeElement.containerPlan");
+            numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.containerPlan");
         } else if (frame == "stopFrame") {
             numTabs = myTestSystem->getAttributesEnum().at("netedit.attrs.frames.changeElement.stop");
         } else if (frame == "meanDataFrame") {
@@ -1331,6 +1306,71 @@ InternalTestStep::createShape(const InternalTest::ViewPosition& viewPosition,
     }
     // press enter to end drawing
     buildPressKeyEvent("enter", true);
+}
+
+
+void
+InternalTestStep::modifyStringAttribute(const int tabs, const int overlappedTabs, const std::string& value) const {
+    // print info
+    std::cout << value << std::endl;
+    // focus frame
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+    // jump to the element
+    for (int i = 0; i < (tabs + overlappedTabs); i++) {
+        buildPressKeyEvent("tab", false);
+    }
+    // write attribute character by character
+    if (value.empty()) {
+        buildPressKeyEvent("delete", false);
+    } else {
+        for (const char c : value) {
+            buildPressKeyEvent(c, false);
+        }
+    }
+    // press enter to confirm changes (updating view)
+    buildPressKeyEvent("enter", true);
+}
+
+
+void
+InternalTestStep::undo(const int number) const {
+    // get reference position
+    const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
+    // focus frame
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+    // go to inspect mode
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
+    // click over reference
+    std::cout << "TestFunctions: Clicked over position " <<
+                toString(MOUSE_REFERENCE_X) << " - " <<
+                toString(MOUSE_REFERENCE_Y) << std::endl;
+    // build mouse click
+    buildMouseClick(referencePosition, 0, 0, "left", true);
+    // undo
+    for (int i = 0; i < number; i++) {
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO, Category::APP);
+    }
+}
+
+
+void
+InternalTestStep::redo(const int number) const {
+    // get reference position
+    const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
+    // focus frame
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+    // go to inspect mode
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
+    // click over reference
+    std::cout << "TestFunctions: Clicked over position " <<
+                toString(MOUSE_REFERENCE_X) << " - " <<
+                toString(MOUSE_REFERENCE_Y) << std::endl;
+    // build mouse click
+    buildMouseClick(referencePosition, 0, 0, "left", true);
+    // undo
+    for (int i = 0; i < number; i++) {
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Y_REDO, Category::APP);
+    }
 }
 
 
