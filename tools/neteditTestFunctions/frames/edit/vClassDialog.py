@@ -20,68 +20,55 @@ from ...general.functions import *
 from .boolAttribute import *
 
 
-def modifyAttributeVClassDialog(attribute, vClass, disallowAll=True, cancel=False, reset=False):
+def modifyVClassDialog_NoDisallowAll(attribute, vClass):
     """
     @brief modify vclass attribute using dialog
     """
     # open dialog
     modifyBoolAttribute(attribute)
-    # first check if disallow all
-    if (disallowAll):
-        for _ in range(attrs.dialog.allowVClass.disallowAll):
-            typeKey('tab')
-        typeKey('space')
-        # go to vClass
-        for _ in range(vClass - attrs.dialog.allowVClass.disallowAll):
-            typeKey('tab')
-        # Change current value
-        typeKey('space')
-    else:
-        # go to vClass
-        for _ in range(vClass):
-            typeKey('tab')
-        # Change current value
-        typeKey('space')
-    # check if cancel
-    if (cancel):
-        for _ in range(attrs.dialog.allowVClass.cancel - vClass):
-            typeKey('tab')
-        typeKey('space')
-    elif (reset):
-        for _ in range(attrs.dialog.allowVClass.reset - vClass):
-            typeKey('tab')
-        typeKey('space')
-        for _ in range(2):
-            typeTwoKeys('shift', 'tab')
-        typeKey('space')
-    else:
-        for _ in range(attrs.dialog.allowVClass.accept - vClass):
-            typeKey('tab')
-        typeKey('space')
+    # go to vClass
+    for _ in range(vClass):
+        typeKey('tab')
+    # Change current value
+    typeKey('space')
+    # go to accept
+    for _ in range(attrs.dialog.allowVClass.accept - vClass):
+        typeKey('tab')
+    typeKey('space')
 
 
-def modifyAttributeVClassDialogOverlapped(attribute, vClass, disallowAll=True, cancel=False, reset=False):
+def modifyVClassDialogOverlapped_NoDisallowAll(attribute, vClass):
     """
     @brief modify vclass attribute using dialog
     """
     # open dialog
     modifyBoolAttributeOverlapped(attribute)
-    # first check if disallow all
-    if (disallowAll):
-        for _ in range(attrs.dialog.allowVClass.disallowAll):
-            typeKey('tab')
-        typeKey('space')
-        # go to vClass
-        for _ in range(vClass - attrs.dialog.allowVClass.disallowAll):
-            typeKey('tab')
-        # Change current value
-        typeKey('space')
-    else:
-        # go to vClass
-        for _ in range(vClass):
-            typeKey('tab')
-        # Change current value
-        typeKey('space')
+    # go to vClass
+    for _ in range(vClass):
+        typeKey('tab')
+    # Change current value
+    typeKey('space')
+    # go to accept
+    for _ in range(attrs.dialog.allowVClass.accept - vClass):
+        typeKey('tab')
+    typeKey('space')
+
+
+def modifyVClassDialog_DisallowAll(attribute, vClass, cancel=False, reset=False):
+    """
+    @brief modify vclass attribute using dialog (this disallow all other vClasses)
+    """
+    # open dialog
+    modifyBoolAttribute(attribute)
+    # disallow all
+    for _ in range(attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    typeKey('space')
+    # go to vClass
+    for _ in range(vClass - attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    # Change current value
+    typeKey('space')
     # check if cancel
     if (cancel):
         for _ in range(attrs.dialog.allowVClass.cancel - vClass):
@@ -98,3 +85,114 @@ def modifyAttributeVClassDialogOverlapped(attribute, vClass, disallowAll=True, c
         for _ in range(attrs.dialog.allowVClass.accept - vClass):
             typeKey('tab')
         typeKey('space')
+
+
+def modifyVClassDialogOverlapped_DisallowAll(attribute, vClass):
+    """
+    @brief modify vclass attribute using dialog (this disallow all other vClasses)
+    """
+    # open dialog
+    modifyBoolAttributeOverlapped(attribute)
+    # disallow all
+    for _ in range(attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    typeKey('space')
+    # go to vClass
+    for _ in range(vClass - attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    # Change current value
+    typeKey('space')
+    # press accept
+    for _ in range(attrs.dialog.allowVClass.accept - vClass):
+        typeKey('tab')
+    typeKey('space')
+
+
+def modifyVClassDialog_Cancel(attribute, vClass):
+    """
+    @brief modify vclass attribute and cancel
+    """
+    # open dialog
+    modifyBoolAttribute(attribute)
+    # disallow all
+    for _ in range(attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    typeKey('space')
+    # go to vClass
+    for _ in range(vClass - attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    # Change current value
+    typeKey('space')
+    # cancel
+    for _ in range(attrs.dialog.allowVClass.cancel - vClass):
+        typeKey('tab')
+    typeKey('space')
+
+
+def modifyVClassDialogOverlapped_Cancel(attribute, vClass):
+    """
+    @brief modify vclass attribute and cancel (overlapped)
+    """
+    # open dialog
+    modifyBoolAttributeOverlapped(attribute)
+    # disallow all
+    for _ in range(attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    typeKey('space')
+    # go to vClass
+    for _ in range(vClass - attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    # Change current value
+    typeKey('space')
+    # cancel
+    for _ in range(attrs.dialog.allowVClass.cancel - vClass):
+        typeKey('tab')
+    typeKey('space')
+
+
+def modifyVClassDialog_Reset(attribute, vClass):
+    """
+    @brief modify vclass attribute and reset
+    """
+    # open dialog
+    modifyBoolAttribute(attribute)
+    # disallow all
+    for _ in range(attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    typeKey('space')
+    # go to vClass
+    for _ in range(vClass - attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    # Change current value
+    typeKey('space')
+    # reset
+    for _ in range(attrs.dialog.allowVClass.reset - vClass):
+        typeKey('tab')
+    typeKey('space')
+    for _ in range(2):
+        typeTwoKeys('shift', 'tab')
+    typeKey('space')
+
+
+def modifyVClassDialogOverlapped_Reset(attribute, vClass):
+    """
+    @brief modify vclass attribute and reset (overlapped)
+    """
+    # open dialog
+    modifyBoolAttributeOverlapped(attribute)
+    # disallow all
+    for _ in range(attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    typeKey('space')
+    # go to vClass
+    for _ in range(vClass - attrs.dialog.allowVClass.disallowAll):
+        typeKey('tab')
+    # Change current value
+    typeKey('space')
+    # reset
+    for _ in range(attrs.dialog.allowVClass.reset - vClass):
+        typeKey('tab')
+    typeKey('space')
+    for _ in range(2):
+        typeTwoKeys('shift', 'tab')
+    typeKey('space')

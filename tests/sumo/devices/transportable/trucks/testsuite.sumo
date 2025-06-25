@@ -1,0 +1,8 @@
+# load and unload container on semitrailer
+semitrailer_default
+
+# load and unload container on semitrailer, change type on loading
+semitrailer_loadedType
+
+# load and unload container on semitrailer, change type on loading
+semitrailer_loadedType_invalid

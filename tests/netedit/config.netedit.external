@@ -1,3 +1,7 @@
 # external tests use python as interpreter and the test.py as binary
 interpreter:python
 binary:test.py
+
+# virtual display configuration
+virtual_display_wm_executable:fluxbox
+virtual_display_extra_args:-dpi 100 -shmem

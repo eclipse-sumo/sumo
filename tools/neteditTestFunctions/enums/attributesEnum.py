@@ -96,6 +96,9 @@ class attrs:
     class move:
         moveWholePolygon = 5
 
+    class shape:
+        size = 200
+
     class selection:
         class lockSelectionNetwork:
             junctions = 1
@@ -173,18 +176,25 @@ class attrs:
             stop = 5
 
         class selection:
-            add = 3
-            remove = 4
-            keep = 5
-            replace = 6
-            default = 15
-            clear = 21
-            save = 22
-            delete = 23
-            invert = 24
-            load = 25
-            reduce = 26
-            invertData = 27
+            class basic:
+                add = 3
+                remove = 4
+                keep = 5
+                replace = 6
+                default = 15
+                clear = 21
+                save = 22
+                delete = 23
+                invert = 24
+                load = 25
+                reduce = 26
+                invertData = 27
+
+            class networkItem:
+                type = 8
+                subType = 2
+                attribute = 3
+                value = 2
 
         class changeParentElement:
             route = 4

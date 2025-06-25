@@ -231,7 +231,7 @@ private:
 
     /// @brief prepare stop for the given action
     void prepareStop(ConstMSEdgeVector& edges,
-                     std::vector<SUMOVehicleParameter::Stop>& stops,
+                     StopParVector& stops,
                      double& lastPos, const MSEdge* stopEdge, double stopPos,
                      const MSStoppingPlace* stopPlace,
                      const std::string& action, const Reservation* res, const bool isPickup);

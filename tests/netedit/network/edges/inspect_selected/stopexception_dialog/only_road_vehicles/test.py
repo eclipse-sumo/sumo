@@ -41,8 +41,8 @@ netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopOffset, "4")
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttributeVClassDialog(netedit.attrs.edge.inspectSelection.stopOffsetExceptionButton,
-                                    netedit.attrs.dialog.allowVClass.onlyRoadVehicles, disallowAll=False)
+netedit.modifyVClassDialogOverlapped_NoDisallowAll(netedit.attrs.edge.inspectSelection.stopOffsetExceptionButton,
+                                                   netedit.attrs.dialog.allowVClass.onlyRoadVehicles)
 
 # Check undos
 netedit.undo(referencePosition, 4)

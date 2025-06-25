@@ -437,7 +437,7 @@ MSTransportable::reroute(SUMOTime t, const std::string& /* info */, MSTransporta
 
 
 void
-MSTransportable::replaceVehicleType(MSVehicleType* type) {
+MSTransportable::replaceVehicleType(const MSVehicleType* type) {
     const SUMOVehicleClass oldVClass = myVType->getVehicleClass();
     if (myVType->isVehicleSpecific()) {
         MSNet::getInstance()->getVehicleControl().removeVType(myVType);
@@ -455,7 +455,7 @@ MSTransportable::replaceVehicleType(MSVehicleType* type) {
 MSVehicleType&
 MSTransportable::getSingularType() {
     if (myVType->isVehicleSpecific()) {
-        return *myVType;
+        return *const_cast<MSVehicleType*>(myVType);
     }
     MSVehicleType* type = myVType->buildSingularType(myVType->getID() + "@" + getID());
     replaceVehicleType(type);

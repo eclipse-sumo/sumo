@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-06-01 11:33+0000\n"
+"POT-Creation-Date: 2025-06-20 08:20+0000\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -1044,7 +1044,7 @@ msgid ""
 msgstr ""
 "Araç '%' için kalkış saati geçmişte; bunun yerine mevcut saati kullanın."
 
-#: src/libsumo/Vehicle.cpp:2014 src/microsim/MSBaseVehicle.cpp:473
+#: src/libsumo/Vehicle.cpp:2014 src/microsim/MSBaseVehicle.cpp:558
 msgid "Invalid route replacement for vehicle '%'. %"
 msgstr "Araç '%' İçin Geçersiz Rota Değişimi. %"
 
@@ -1348,77 +1348,94 @@ msgstr ""
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
 msgstr "Hata oluştu: Durumdaki araçlar geçersiz (bir mikro durum olabilir)!"
 
-#: src/microsim/MSBaseVehicle.cpp:186
+#: src/mesosim/MEVehicle.cpp:629
+msgid "Unknown segment '%:%' for vehicle '%' in loaded state."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:190
 msgid "Changing a vehicle ID is not permitted"
 msgstr "Araç kimliğinin değiştirilmesine izin verilmez"
 
-#: src/microsim/MSBaseVehicle.cpp:334
+#: src/microsim/MSBaseVehicle.cpp:349
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
 msgstr "'%' Aracına '%' Kanal Kesiminin Herhangi Bir Şeridinde İzin Verilmez."
 
-#: src/microsim/MSBaseVehicle.cpp:366
+#: src/microsim/MSBaseVehicle.cpp:429
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
 msgstr ""
 "Araç '%', '%' Kesiminden '%' Durak Kesimine Kadar Geçerli Bir Rotaya Sahip "
 "Değil."
 
-#: src/microsim/MSBaseVehicle.cpp:411
+#: src/microsim/MSBaseVehicle.cpp:463
+msgid "Vehicle '%' skips stop on edge '%' with delay % at time %."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:465
+msgid "Vehicle '%' skips stop on edge '%' with priority % at time %."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:467
+msgid ""
+"Vehicle '%' skips unreachable stop on edge '%' with priority % at time %."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:496
 #, c-format
 msgid "Vehicle '%' has no valid route."
 msgstr "'%' Aracının Geçerli Bir Rotası Yok."
 
-#: src/microsim/MSBaseVehicle.cpp:413
+#: src/microsim/MSBaseVehicle.cpp:498
 msgid "Removing vehicle '%' which has no valid route."
 msgstr "Geçerli Rotası Olmayan '%' Aracı Kaldırılıyor."
 
-#: src/microsim/MSBaseVehicle.cpp:428
+#: src/microsim/MSBaseVehicle.cpp:513
 #, c-format
 msgid "No route for vehicle '%' found."
 msgstr "'%' Aracı İçin Rota Bulunamadı."
 
-#: src/microsim/MSBaseVehicle.cpp:498
+#: src/microsim/MSBaseVehicle.cpp:583
 #, c-format
 msgid "current edge '%' not found in new route"
 msgstr "Geçerli Kesim '%' Yeni Rotada Bulunamadı"
 
-#: src/microsim/MSBaseVehicle.cpp:511
+#: src/microsim/MSBaseVehicle.cpp:596
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr "Araç Başka Bir Yere Yönlenen Kavşağın İç Kenarında"
 
-#: src/microsim/MSBaseVehicle.cpp:524
+#: src/microsim/MSBaseVehicle.cpp:609
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr "Araç Kavşaktan Hareket Ediyor ve Başka Bir Ardıl Kesime Geçmeye İşli"
 
-#: src/microsim/MSBaseVehicle.cpp:620
+#: src/microsim/MSBaseVehicle.cpp:705
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr ""
 "Araç '%', % Zamanda Yeniden Rota Belirlendikten (%) Sonra '%' Durağını "
 "Atayamadı."
 
-#: src/microsim/MSBaseVehicle.cpp:771
+#: src/microsim/MSBaseVehicle.cpp:1035
 msgid "No connection between edge '%' and edge '%'."
 msgstr "'%' Kesimi ve '%' Kesimi Arasında Bağlantı Yok."
 
-#: src/microsim/MSBaseVehicle.cpp:781
+#: src/microsim/MSBaseVehicle.cpp:1045
 #, c-format
 msgid "Edge '%' prohibits."
 msgstr "Kesim '%' Yasaklar."
 
-#: src/microsim/MSBaseVehicle.cpp:793
+#: src/microsim/MSBaseVehicle.cpp:1057
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:802
+#: src/microsim/MSBaseVehicle.cpp:1066
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:832
+#: src/microsim/MSBaseVehicle.cpp:1096
 msgid "Vehicle '%' has no valid route. %"
 msgstr "'%' Aracının Geçerli Bir Rotası Yok. %"
 
-#: src/microsim/MSBaseVehicle.cpp:925
+#: src/microsim/MSBaseVehicle.cpp:1189
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
@@ -1426,139 +1443,139 @@ msgstr ""
 "'%' Aracı % Zamanda Yeniden Rotalama Yapıldıktan Sonra arrivalEdge=% "
 "Özniteliğini Yok Sayar (routeLength=%)"
 
-#: src/microsim/MSBaseVehicle.cpp:939
+#: src/microsim/MSBaseVehicle.cpp:1203
 msgid "Vehicle '%' will not be able to arrive at the given position!"
 msgstr "Araç '%' verilen konuma ulaşamayacaktır!"
 
-#: src/microsim/MSBaseVehicle.cpp:959
+#: src/microsim/MSBaseVehicle.cpp:1223
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr "Araç '%', verilen '%_%' şeridine varamayacaktır!"
 
-#: src/microsim/MSBaseVehicle.cpp:971 src/microsim/MSBaseVehicle.cpp:983
+#: src/microsim/MSBaseVehicle.cpp:1235 src/microsim/MSBaseVehicle.cpp:1247
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr "'%' aracının '%' kesiminde kullanılabilir bir varışŞeridi yok."
 
-#: src/microsim/MSBaseVehicle.cpp:995
+#: src/microsim/MSBaseVehicle.cpp:1259
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
 msgstr "Araç '%' verilen hız ile varamayacaktır!"
 
-#: src/microsim/MSBaseVehicle.cpp:1011
+#: src/microsim/MSBaseVehicle.cpp:1275
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr "Rota kesimleri % olan '%' aracı için kalkışKesimi % yok sayılıyor"
 
-#: src/microsim/MSBaseVehicle.cpp:1754
+#: src/microsim/MSBaseVehicle.cpp:2028
 msgid "Invalid stop index % (has % stops)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1834 src/microsim/MSBaseVehicle.cpp:1957
-#: src/microsim/MSBaseVehicle.cpp:2066
+#: src/microsim/MSBaseVehicle.cpp:2108 src/microsim/MSBaseVehicle.cpp:2231
+#: src/microsim/MSBaseVehicle.cpp:2340
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1838
+#: src/microsim/MSBaseVehicle.cpp:2112
 msgid "cannot replace reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1853
+#: src/microsim/MSBaseVehicle.cpp:2127
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1866 src/microsim/MSBaseVehicle.cpp:2078
+#: src/microsim/MSBaseVehicle.cpp:2140 src/microsim/MSBaseVehicle.cpp:2352
 msgid "disallowed stop lane '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1885 src/microsim/MSBaseVehicle.cpp:1979
-#: src/microsim/MSBaseVehicle.cpp:2106
+#: src/microsim/MSBaseVehicle.cpp:2159 src/microsim/MSBaseVehicle.cpp:2253
+#: src/microsim/MSBaseVehicle.cpp:2380
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1894 src/microsim/MSBaseVehicle.cpp:2115
+#: src/microsim/MSBaseVehicle.cpp:2168 src/microsim/MSBaseVehicle.cpp:2389
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1906 src/microsim/MSBaseVehicle.cpp:2129
+#: src/microsim/MSBaseVehicle.cpp:2180 src/microsim/MSBaseVehicle.cpp:2403
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1961
+#: src/microsim/MSBaseVehicle.cpp:2235
 msgid "cannot reroute towards reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2042
+#: src/microsim/MSBaseVehicle.cpp:2316
 msgid "unable to replace stop with teleporting"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2070
+#: src/microsim/MSBaseVehicle.cpp:2344
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2086
+#: src/microsim/MSBaseVehicle.cpp:2360
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2386
+#: src/microsim/MSBaseVehicle.cpp:2660
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2399 src/microsim/MSBaseVehicle.cpp:2411
+#: src/microsim/MSBaseVehicle.cpp:2673 src/microsim/MSBaseVehicle.cpp:2685
 #, c-format
 msgid "no device of type '%' exists"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2422
+#: src/microsim/MSBaseVehicle.cpp:2696
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2468
+#: src/microsim/MSBaseVehicle.cpp:2742
 msgid "could not interpret routing.mode '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2551
+#: src/microsim/MSBaseVehicle.cpp:2825
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2557
+#: src/microsim/MSBaseVehicle.cpp:2831
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2562
+#: src/microsim/MSBaseVehicle.cpp:2836
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2569
+#: src/microsim/MSBaseVehicle.cpp:2843
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2574
+#: src/microsim/MSBaseVehicle.cpp:2848
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2581
+#: src/microsim/MSBaseVehicle.cpp:2855
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2587
+#: src/microsim/MSBaseVehicle.cpp:2861
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2614
+#: src/microsim/MSBaseVehicle.cpp:2888
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.h:980
+#: src/microsim/MSBaseVehicle.h:979
 msgid "getLeader not yet implemented for meso"
 msgstr "getLeader meso için henüz uygulanmadı"
 
-#: src/microsim/MSBaseVehicle.h:994
+#: src/microsim/MSBaseVehicle.h:993
 msgid "getFollower not yet implemented for meso"
 msgstr "getFollower meso için henüz uygulanmadı"
 
-#: src/microsim/MSEdge.cpp:760
+#: src/microsim/MSEdge.cpp:759
 msgid ""
 "Choosing new speed factor % for vehicle '%' to match departure speed % (max "
 "%)."
@@ -1566,17 +1583,17 @@ msgstr ""
 "'%' Aracının % Kalkış Hızına (Maksimum %) Uyması İçin Yeni Hız Faktörü % "
 "Seçiliyor."
 
-#: src/microsim/MSEdge.cpp:1381
+#: src/microsim/MSEdge.cpp:1380
 #, c-format
 msgid "Bidi-edge '%' does not exist"
 msgstr "Bidi-kesim '%' mevcut değil"
 
-#: src/microsim/MSEdge.cpp:1394
+#: src/microsim/MSEdge.cpp:1393
 msgid "Ambiguous superposable edges between junction '%' and '%'."
 msgstr ""
 "'%' ve '%' kavşakları arasında belirsiz üst üste kullanılabilir kesimler."
 
-#: src/microsim/MSEdge.cpp:1425
+#: src/microsim/MSEdge.cpp:1424
 #, c-format
 msgid "Edge '%' and bidi edge '%' have no matching bidi lanes"
 msgstr ""
@@ -2577,26 +2594,26 @@ msgstr "araçrota-cıkış'tan tam yeniden yönlendirme sırasını yeniden oyna
 
 #: src/microsim/MSFrame.cpp:691 src/router/ROFrame.cpp:59
 #: src/tools/emissionsDrivingCycle_main.cpp:132
-#: src/tools/emissionsMap_main.cpp:158
+#: src/tools/emissionsMap_main.cpp:167
 msgid "Return fuel consumption values in (legacy) unit l instead of mg"
 msgstr "Yakıt tüketimi değerlerini mg yerine (eski) l biriminde döndürün"
 
 #: src/microsim/MSFrame.cpp:694 src/router/ROFrame.cpp:90
 #: src/tools/emissionsDrivingCycle_main.cpp:135
-#: src/tools/emissionsMap_main.cpp:161
+#: src/tools/emissionsMap_main.cpp:170
 msgid "Determines where to load PHEMlight definitions from"
 msgstr "PHEMlight tanımlarının nereden yükleneceğini belirler"
 
 #: src/microsim/MSFrame.cpp:697 src/router/ROFrame.cpp:93
 #: src/tools/emissionsDrivingCycle_main.cpp:138
-#: src/tools/emissionsMap_main.cpp:164
+#: src/tools/emissionsMap_main.cpp:173
 msgid "Enable fleet age modelling with the given reference year in PHEMlight5"
 msgstr ""
 "PHEMlight5'te verilen referans yıl ile filo yaşı modellemesini etkinleştirin"
 
 #: src/microsim/MSFrame.cpp:700 src/router/ROFrame.cpp:96
 #: src/tools/emissionsDrivingCycle_main.cpp:141
-#: src/tools/emissionsMap_main.cpp:167
+#: src/tools/emissionsMap_main.cpp:176
 msgid "Set ambient temperature to correct NOx emissions in PHEMlight5"
 msgstr ""
 "PHEMlight5'te NOx emisyonlarını düzeltmek için ortam sıcaklığını ayarlayın"
@@ -2907,7 +2924,7 @@ msgstr ""
 "Varsayılan Eylem Adımı Uzunluğu Belirtildiği İçin Entegrasyon Yöntemi "
 "'ballistic' Olarak Ayarlandı."
 
-#: src/microsim/MSInsertionControl.cpp:284 src/router/RONet.cpp:481
+#: src/microsim/MSInsertionControl.cpp:284 src/router/RONet.cpp:478
 #, c-format
 msgid "Another vehicle with the id '%' exists."
 msgstr "'%' kimliğine sahip başka bir araç mevcut."
@@ -3139,7 +3156,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:1701 src/netload/NLBuilder.cpp:440
 #: src/router/ROLoader.cpp:242 src/tools/emissionsDrivingCycle_main.cpp:221
-#: src/tools/emissionsMap_main.cpp:75
+#: src/tools/emissionsMap_main.cpp:84
 #, c-format
 msgid "Loading of % failed."
 msgstr "% Yüklemesi Başarısız."
@@ -3425,41 +3442,52 @@ msgstr ""
 msgid "No edges to tranship container '%'."
 msgstr "'%' konteynerini aktarmak için kesim yok."
 
-#: src/microsim/MSStateHandler.cpp:77
+#: src/microsim/MSStateHandler.cpp:78
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:85
 #: src/polyconvert/PCNetProjectionLoader.cpp:64
 #: src/utils/options/OptionsIO.cpp:164 src/utils/vehicle/SUMORouteLoader.cpp:36
 msgid "Can not read XML-file '%'."
 msgstr "XML dosyası '%' okunamıyor."
 
-#: src/microsim/MSStateHandler.cpp:88
+#: src/microsim/MSStateHandler.cpp:89
 msgid "Could not parse time from state file '%'"
 msgstr "'%' durum dosyasından zaman ayrıştırılamadı"
 
-#: src/microsim/MSStateHandler.cpp:190
+#: src/microsim/MSStateHandler.cpp:192
 msgid "State was written with sumo version % (present: %)!"
 msgstr "Durum % sumo sürümü ile yazılmıştır (mevcut: %)!"
 
-#: src/microsim/MSStateHandler.cpp:239 src/microsim/MSStateHandler.cpp:295
+#: src/microsim/MSStateHandler.cpp:241 src/microsim/MSStateHandler.cpp:313
 #: src/microsim/traffic_lights/MSRailSignalConstraint.cpp:154
 #, c-format
 msgid "Unknown lane '%' in loaded state."
 msgstr "Yüklü durumda bilinmeyen şerit '%'."
 
-#: src/microsim/MSStateHandler.cpp:413
+#: src/microsim/MSStateHandler.cpp:303
+#, c-format
+msgid "Unknown segment '%' in loaded state."
+msgstr ""
+
+#: src/microsim/MSStateHandler.cpp:331
+msgid ""
+"Invalid queue index '%' on segment '%'. Check for consistency of lane "
+"numbers and queue options."
+msgstr ""
+
+#: src/microsim/MSStateHandler.cpp:436
 #, c-format
 msgid "Ignoring program '%' for traffic light '%' in loaded state"
 msgstr "Yüklü durumdaki '%' trafik ışığı için '%' programını yok sayma"
 
-#: src/microsim/MSStateHandler.cpp:453
+#: src/microsim/MSStateHandler.cpp:476
 msgid "Could not load vehicle control state"
 msgstr "Araç kontrol durumu yüklenemedi"
 
-#: src/microsim/MSStateHandler.cpp:462
+#: src/microsim/MSStateHandler.cpp:485
 msgid "Removed % vehicles while loading state."
 msgstr "Yükleme durumundaki % araçlar kaldırıldı."
 
-#: src/microsim/MSStateHandler.cpp:492
+#: src/microsim/MSStateHandler.cpp:533
 #, c-format
 msgid "Could not load vehicle '%' from state"
 msgstr "'%' aracı durumdan yüklenemedi"
@@ -3503,15 +3531,15 @@ msgid ""
 msgstr ""
 "Uyumsuz rotalar nedeniyle araç '%' ile araç '%' birleştirilemiyor. time=%."
 
-#: src/microsim/MSVehicle.cpp:2893
+#: src/microsim/MSVehicle.cpp:2895
 msgid "Suspicious right_before_left junction '%'."
 msgstr "Şüpheli right_before_left junction '%'."
 
-#: src/microsim/MSVehicle.cpp:4659
+#: src/microsim/MSVehicle.cpp:4661
 msgid " for unknown reasons"
 msgstr " Bilinmeyen Nedenlerle"
 
-#: src/microsim/MSVehicle.cpp:4661
+#: src/microsim/MSVehicle.cpp:4663
 msgid ""
 "Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
 "offset=%), time=%."
@@ -3519,11 +3547,11 @@ msgstr ""
 "Araç '%', Şerit '%'% (Negatif İvme=%, Öteleme=%) Sonunda Acil Durdurma "
 "Gerçekleştirir, süre=% ."
 
-#: src/microsim/MSVehicle.cpp:4744
+#: src/microsim/MSVehicle.cpp:4746
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
 msgstr "'%' Aracı İçin Karşı Şeridin '%' Şeridinde Beklenmeyen Son, Zaman=%."
 
-#: src/microsim/MSVehicle.cpp:4862
+#: src/microsim/MSVehicle.cpp:4864
 msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
@@ -3531,24 +3559,24 @@ msgstr ""
 "'%' Araç '%' şeridinde Negatif İvme=%, Arzu Edilen=%, Şiddet=%, Zaman=% ile "
 "Acil Frenleme Geçrkleştirir."
 
-#: src/microsim/MSVehicle.cpp:5682 src/microsim/MSVehicle.cpp:5771
+#: src/microsim/MSVehicle.cpp:5684 src/microsim/MSVehicle.cpp:5773
 msgid "Vehicle '%' skips stop on lane '%' time=%."
 msgstr "Araç '%', '%' şeridinde durmayı atlar zaman=%."
 
-#: src/microsim/MSVehicle.cpp:5765
+#: src/microsim/MSVehicle.cpp:5767
 #, c-format
 msgid "Vehicle '%' aborts stop."
 msgstr "Araç '%' durmayı iptal eder."
 
-#: src/microsim/MSVehicle.cpp:7686
+#: src/microsim/MSVehicle.cpp:7688
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr "Hata oluştu: Durumda geçersiz araçlar (bir mezo durum olabilir)!"
 
-#: src/microsim/MSVehicle.cpp:7728
+#: src/microsim/MSVehicle.cpp:7732
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr "Yüklü araç '%' için eylem adımları senkronize değil."
 
-#: src/microsim/MSVehicleControl.cpp:526
+#: src/microsim/MSVehicleControl.cpp:522
 msgid "Vehicle '%' aborted waiting %."
 msgstr "Araç '%' bekleme %'sini iptal etti."
 
@@ -3556,14 +3584,14 @@ msgstr "Araç '%' bekleme %'sini iptal etti."
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
 msgstr "Araç '%', '%' Kesiminde Işınlanmayı Bitirir, Zaman=%."
 
-#: src/microsim/MSVehicleType.cpp:329
+#: src/microsim/MSVehicleType.cpp:335
 #, c-format
 msgid ""
 "The vType '%' has a 'mass' attribute and a 'vehicleMass' parameter. The "
 "'mass' attribute will take precedence."
 msgstr ""
 
-#: src/microsim/MSVehicleType.cpp:331
+#: src/microsim/MSVehicleType.cpp:337
 #, c-format
 msgid ""
 "The vType '%' has a 'vehicleMass' parameter, which is deprecated. Please use "
@@ -3571,7 +3599,7 @@ msgid ""
 "needed."
 msgstr ""
 
-#: src/microsim/MSVehicleType.cpp:343
+#: src/microsim/MSVehicleType.cpp:349
 msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
@@ -3579,7 +3607,7 @@ msgstr ""
 "'acilYavaşlama' (%) değeri vTürü '%' için 'yavaşlama' (%) değerinden yüksek "
 "olmalıdır."
 
-#: src/microsim/MSVehicleType.cpp:346
+#: src/microsim/MSVehicleType.cpp:352
 msgid ""
 "Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType "
 "'%' may cause collisions."
@@ -3587,7 +3615,7 @@ msgstr ""
 "'acilYavaşlama' (%) değerinin vTipi '%' için 'görünenYavaşlama' (%) "
 "değerinden düşük olması çarpışmalara neden olabilir."
 
-#: src/microsim/MSVehicleType.cpp:468
+#: src/microsim/MSVehicleType.cpp:474
 #, c-format
 msgid ""
 "Value of tau=% in vehicle type '%' lower than simulation step size may cause "
@@ -3596,7 +3624,7 @@ msgstr ""
 "'%' Araç Tipinde tau=% Değeri, Simülasyon Adım Boyutundan Daha Düşük "
 "Çarpışmalara Neden Olabilir."
 
-#: src/microsim/MSVehicleType.cpp:474
+#: src/microsim/MSVehicleType.cpp:480
 #, c-format
 msgid ""
 "Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-"
@@ -3608,7 +3636,7 @@ msgstr ""
 "Ayarlandı. Bölgesel Simülasyon İçin --meso-lane-queue for multi-modal "
 "Seçeneğini Ayarlayın"
 
-#: src/microsim/MSVehicleType.cpp:484
+#: src/microsim/MSVehicleType.cpp:490
 msgid ""
 "The battery device is active for vType '%' but no emission class is set. The "
 "emission class Energy/unknown will be used, please consider setting an "
@@ -3675,7 +3703,7 @@ msgid ""
 "with Rail model type '%'."
 msgstr ""
 
-#: src/microsim/cfmodels/MSCFModel_Rail.cpp:308
+#: src/microsim/cfmodels/MSCFModel_Rail.cpp:317
 msgid ""
 "Anything else than semi implicit euler update is not yet implemented. "
 "Exiting!"
@@ -3914,33 +3942,28 @@ msgstr "'örnek' araç parametresi için geçersiz '%' değeri"
 msgid "Invalid value '%' for vType parameter 'example'"
 msgstr "vTür parametresi 'örnek' için geçersiz '%' değeri"
 
-#: src/microsim/devices/MSDevice_FCD.cpp:60
+#: src/microsim/devices/MSDevice_FCD.cpp:61
 msgid "Recording begin time for FCD-data"
 msgstr "FCD verileri için kayıt başlangıç zamanı"
 
-#: src/microsim/devices/MSDevice_FCD.cpp:63
+#: src/microsim/devices/MSDevice_FCD.cpp:64
 #: src/microsim/devices/MSTransportableDevice_FCD.cpp:49
 msgid "Recording period for FCD-data"
 msgstr "FCD verileri için kayıt süresi"
 
-#: src/microsim/devices/MSDevice_FCD.cpp:66
+#: src/microsim/devices/MSDevice_FCD.cpp:67
 msgid "Record objects in a radius around equipped vehicles"
 msgstr ""
 "Donanımlı araçların etrafındaki bir yarıçap içindeki nesneleri kaydedin"
 
-#: src/microsim/devices/MSDevice_FCD.cpp:138
+#: src/microsim/devices/MSDevice_FCD.cpp:143
 #, c-format
 msgid "Specified shape '%' for filtering fcd-output could not be found."
 msgstr "fcd-çıktısını filtrelemek için belirtilen '%' şekli bulunamadı."
 
-#: src/microsim/devices/MSDevice_FCD.cpp:163
+#: src/microsim/devices/MSDevice_FCD.cpp:168
 msgid "Could not load names of edges for filtering fcd-output from '%'."
 msgstr "'%'den fcd çıktısını filtrelemek için kesim adları yüklenemedi."
-
-#: src/microsim/devices/MSDevice_FCD.cpp:182
-#, c-format
-msgid "Unknown attribute '%' to write in fcd output."
-msgstr "Fcd çıktısına yazılacak '%' özniteliği bilinmiyor."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:61
 msgid "FCD file to read"
@@ -4846,6 +4869,11 @@ msgstr ""
 msgid "Unknown ToCState '%'"
 msgstr "Bilinmeyen ToCState '%'"
 
+#: src/microsim/devices/MSDevice_Transportable.cpp:69
+#, c-format
+msgid "Vehicle type '%' in parameter '%' of vehicle '%' is not known."
+msgstr ""
+
 #: src/microsim/devices/MSDispatch.cpp:100
 msgid ""
 "Mixing reservations of persons and containers with the same group is not "
@@ -4880,15 +4908,15 @@ msgstr "Araç '%' çıkmaz sokakta rölantide çalışmaya son veriyor"
 msgid "Could not determine taxi stand for vehicle '%' at time=%"
 msgstr "Zaman=%'de '%' aracı için taksi durağı belirlenemedi"
 
-#: src/microsim/devices/MSRoutingEngine.cpp:98
+#: src/microsim/devices/MSRoutingEngine.cpp:99
 msgid "Rerouting is useless if the edge weights do not get updated!"
 msgstr "Kesim Ağırlıkları Güncellenmezse Yeniden Yönlendirme Kullanışsızdır!"
 
-#: src/microsim/devices/MSRoutingEngine.cpp:150
+#: src/microsim/devices/MSRoutingEngine.cpp:151
 msgid "weights.priority-factor cannot be negative."
 msgstr "ağırlıklar.öncelik faktörü negatif olamaz."
 
-#: src/microsim/devices/MSRoutingEngine.cpp:154
+#: src/microsim/devices/MSRoutingEngine.cpp:155
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority"
@@ -4896,7 +4924,7 @@ msgstr ""
 "Seçenek weights.priority-factor Etkili Olmaz Çünkü Tüm Kesimler Aynı "
 "Önceliğe Sahip"
 
-#: src/microsim/devices/MSRoutingEngine.cpp:412
+#: src/microsim/devices/MSRoutingEngine.cpp:413
 msgid "Unknown routing algorithm '%'!"
 msgstr "Bilinmeyen yönlendirme algoritması '%'!"
 
@@ -4954,10 +4982,6 @@ msgstr "'%' şeridinde '%' için negatif araç adım kesri."
 #: src/microsim/output/MSMeanData.cpp:554
 msgid "aggregated meanData output not yet implemented for trackVehicles"
 msgstr "toplanmış ortalamaVeri çıktısı takipAraçları için henüz uygulanmadı"
-
-#: src/microsim/output/MSMeanData.cpp:766
-msgid "Unknown attribute '%' to write in meanData '%'."
-msgstr "OrtalamaVeri '%' içine yazılacak '%' özniteliği bilinmiyor."
 
 #: src/microsim/output/MSStopOut.cpp:100
 msgid ""
@@ -5213,13 +5237,13 @@ msgstr ""
 "  veya '--tls.ignore-internal-junction-jam' seçeneği ile ağı yeniden "
 "oluşturun veya programı oluştururken dahil edin."
 
-#: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:515
+#: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:518
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
 msgstr ""
 "tlLogic '%', Program '%' İçindeki Bağlantı % İçin Yeşil Kısım Yalnızca "
 "%1'dir."
 
-#: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:520
+#: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:523
 #, c-format
 msgid ""
 "Edge '%' is shorter than %m (%m) and will cause incorrect flow reduction "
@@ -5388,29 +5412,29 @@ msgstr ""
 msgid "Invalid walkingarea '%' does not allow continuation."
 msgstr "Geçersiz yürüme alanı '%' devam etmeye izin vermiyor."
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1537
+#: src/microsim/transportables/MSPModel_Striping.cpp:1538
 msgid " between edge '%' and edge '%'"
 msgstr ""
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1539
+#: src/microsim/transportables/MSPModel_Striping.cpp:1540
 msgid "Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."
 msgstr ""
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1842
+#: src/microsim/transportables/MSPModel_Striping.cpp:1843
 msgid "Disconnected walk for person '%'."
 msgstr "'%' kişisi için bağlantısız yürüyüş."
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:2049
+#: src/microsim/transportables/MSPModel_Striping.cpp:2050
 msgid "Person '%' is jammed on edge '%', time=%."
 msgstr "Yolcu '%', '%' Kesiminde Sıkıştı, Zaman=%."
 
-#: src/microsim/transportables/MSStageDriving.cpp:248
+#: src/microsim/transportables/MSStageDriving.cpp:249
 msgid ""
 "Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
 "time=%"
 msgstr ""
 
-#: src/microsim/transportables/MSStageDriving.cpp:254
+#: src/microsim/transportables/MSStageDriving.cpp:255
 msgid ""
 "Vehicle '%' exceeds containerCapacity % when placing triggered container "
 "'%', time=%"
@@ -5606,60 +5630,60 @@ msgstr ""
 msgid "rerouter '%': Edge '%' to close is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:192
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:193
 msgid "rerouter '%': Lane '%' to close is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:209
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:210
 msgid "rerouter '%': routeProbReroute has no alternative route id."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:213
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:214
 msgid "rerouter '%': Alternative route '%' does not exist."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:223
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:224
 msgid ""
 "rerouter '%': Attribute 'probability' for alternative route '%' is negative "
 "(must not)."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:232
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:233
 msgid "rerouter '%': parkingAreaReroute requires a parkingArea id."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:236
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:237
 msgid "rerouter '%': parkingArea '%' is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:245
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:246
 msgid ""
 "rerouter '%': Attribute 'probability' for parkingArea '%' is negative (must "
 "not)."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:257
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:258
 msgid "rerouter '%': No via edge id given."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:261
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:262
 msgid "rerouter '%': Via Edge '%' is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:270
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:271
 msgid ""
 "rerouter '%': Attribute 'probability' for via '%' is negative (must not)."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:311
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:312
 msgid "rerouter '%': stationReroute requires a stopping place id."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:315
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:316
 msgid "rerouter '%': stopping place '%' is not known."
 msgstr ""
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:643
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:644
 #, c-format
 msgid ""
 "Cannot keep destination edge '%' for vehicle '%' due to closed edges. "
@@ -5668,7 +5692,7 @@ msgstr ""
 "Kapalı kesimler nedeniyle '%' aracı için '%' hedef kesimi tutulamıyor. Rota "
 "sonlandırılıyor."
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:1162
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:1164
 msgid ""
 "ParkingArea '%' is targeted by rerouter '%' but doesn't have its own "
 "rerouter. This may cause parking search to abort."
@@ -5691,7 +5715,7 @@ msgstr ""
 "(Trafik Işığı) Türüne Dönüştürülüyor."
 
 #: src/netbuild/NBAlgorithms.cpp:378 src/netbuild/NBNodeCont.cpp:1856
-#: src/netimport/NIImporter_OpenStreetMap.cpp:433
+#: src/netimport/NIImporter_OpenStreetMap.cpp:438
 #: src/netimport/NIXMLNodesHandler.cpp:360
 msgid "Could not allocate tls '%'."
 msgstr "tls '%' Tahsis Edilemedi."
@@ -6111,49 +6135,49 @@ msgstr "'%' kesimi '%' kesiminin bölünmesinden önce eklenemedi."
 msgid "Could not insert edge '%' after split of edge '%'."
 msgstr "'%' kesimi bölündükten sonra '%' kesimi eklenemedi."
 
-#: src/netbuild/NBEdgeCont.cpp:1374
+#: src/netbuild/NBEdgeCont.cpp:1388
 msgid "Replacing loaded roundabout '%' with '%'."
 msgstr "Yüklü Dönel Kavşak '%', '%' ile Değiştiriliyor."
 
-#: src/netbuild/NBEdgeCont.cpp:1776
+#: src/netbuild/NBEdgeCont.cpp:1790
 msgid "Edge '%' overlaps with edge '%' by %."
 msgstr "'%' Kesim, '%' Kesim ile % Oranında Örtüşüyor."
 
-#: src/netbuild/NBEdgeCont.cpp:1792
+#: src/netbuild/NBEdgeCont.cpp:1806
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
 msgstr "'%' Kesimi %m Dikey Sıçramaya Sahip."
 
-#: src/netbuild/NBEdgeCont.cpp:1794
+#: src/netbuild/NBEdgeCont.cpp:1808
 #, c-format
 msgid "Edge '%' has a grade of %%."
 msgstr "'%' Kesimi %% Eğime Sahip."
 
-#: src/netbuild/NBEdgeCont.cpp:1804
+#: src/netbuild/NBEdgeCont.cpp:1818
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
 msgstr "'%' Bağlantısı %m Dikey Sıçramaya Sahip."
 
-#: src/netbuild/NBEdgeCont.cpp:1806
+#: src/netbuild/NBEdgeCont.cpp:1820
 #, c-format
 msgid "Connection '%' has a grade of %%."
 msgstr "'%' Bağlantısı %% Eğime Sahip."
 
-#: src/netbuild/NBEdgeCont.cpp:1846
+#: src/netbuild/NBEdgeCont.cpp:1860
 msgid "Not joining tram edge '%' with % lanes."
 msgstr "Tram Kesimi '%' ile % Şeritleri Birleştirilmedi."
 
-#: src/netbuild/NBEdgeCont.cpp:1926
+#: src/netbuild/NBEdgeCont.cpp:1940
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr "'%' Şeridi İçin Belirsiz Tram '%' ve '%' Kesimleri."
 
-#: src/netbuild/NBEdgeCont.cpp:2081 src/netimport/NIImporter_SUMO.cpp:140
+#: src/netbuild/NBEdgeCont.cpp:2095 src/netimport/NIImporter_SUMO.cpp:140
 #: src/netimport/NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
 msgstr "Kesim'in '%' düğümünden '%' düğümü bilinmiyor."
 
-#: src/netbuild/NBEdgeCont.cpp:2085 src/netimport/NIImporter_SUMO.cpp:144
+#: src/netbuild/NBEdgeCont.cpp:2099 src/netimport/NIImporter_SUMO.cpp:144
 #: src/netimport/NIXMLEdgesHandler.cpp:566
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
@@ -7205,60 +7229,60 @@ msgstr ""
 msgid "Moving network to origin"
 msgstr "Ağın menşeine taşınması"
 
-#: src/netbuild/NBNode.cpp:313 src/netbuild/NBNode.cpp:335
+#: src/netbuild/NBNode.cpp:312 src/netbuild/NBNode.cpp:334
 msgid "Invalid node id '%'."
 msgstr "Geçersiz düğüm id'si '%'."
 
-#: src/netbuild/NBNode.cpp:489
+#: src/netbuild/NBNode.cpp:488
 msgid " Removing self-looping edge '%'"
 msgstr " Kendini Döndüren Kesim '%' Kaldırılıyor"
 
-#: src/netbuild/NBNode.cpp:797
+#: src/netbuild/NBNode.cpp:796
 msgid "Could not compute indirect left turn shape at node '%'"
 msgstr "'%' düğümünde dolaylı sola dönüş şekli hesaplanamadı"
 
-#: src/netbuild/NBNode.cpp:813
+#: src/netbuild/NBNode.cpp:812
 #, c-format
 msgid "Connection '%' starts at a non-existant lane."
 msgstr "Bağlantı '%' var olmayan bir şeritte başlar."
 
-#: src/netbuild/NBNode.cpp:816
+#: src/netbuild/NBNode.cpp:815
 #, c-format
 msgid "Connection '%' targets a non-existant lane."
 msgstr "Bağlantı '%' var olmayan bir şeridi hedefler."
 
-#: src/netbuild/NBNode.cpp:830 src/netbuild/NBNode.cpp:848
+#: src/netbuild/NBNode.cpp:829 src/netbuild/NBNode.cpp:847
 msgid "Could not use custom shape for connection %."
 msgstr "'%' Bağlantısı İçin Özel Şekil Kullanılamadı."
 
-#: src/netbuild/NBNode.cpp:839
+#: src/netbuild/NBNode.cpp:838
 msgid "Custom shape has distance % to incoming lane for connection %."
 msgstr "Özel Şeklin % Bağlantısı İçin Giriş Şeridine % Mesafesi Vardır."
 
-#: src/netbuild/NBNode.cpp:856
+#: src/netbuild/NBNode.cpp:855
 msgid "Custom shape has distance % to outgoing lane for connection %."
 msgstr "Özel Şeklin % Bağlantısı İçin Çıkış Şeridine % Mesafesi Vardır."
 
-#: src/netbuild/NBNode.cpp:1055
+#: src/netbuild/NBNode.cpp:1054
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
 msgstr ""
 "'%' Kavşağı Çok Karmaşık (% Bağlantılar, Maks. %); % Olarak Ayarlanacaktır."
 
-#: src/netbuild/NBNode.cpp:1196
+#: src/netbuild/NBNode.cpp:1195
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
 msgstr "'%' Kavşağın Şekli, Verilen Konumda % Mesafeye Sahiptir."
 
-#: src/netbuild/NBNode.cpp:1200
+#: src/netbuild/NBNode.cpp:1199
 msgid "For junction '%': could not compute shape."
 msgstr "'%' Kavşağı İçin: Şekil Hesaplanamadı."
 
-#: src/netbuild/NBNode.cpp:2006
+#: src/netbuild/NBNode.cpp:2005
 msgid "Something went wrong during the building of a connection..."
 msgstr "Bağlantı Oluşturulması Sırasında Bir Şeyler Ters Gitti..."
 
-#: src/netbuild/NBNode.cpp:3046
+#: src/netbuild/NBNode.cpp:3045
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
@@ -7266,7 +7290,7 @@ msgstr ""
 "[%] Kesimlerle '%' Kavşağında Geçersiz Geçit '%' Atılıyor (Yürüme Alanı "
 "Bulunamadı)."
 
-#: src/netbuild/NBNode.cpp:3212
+#: src/netbuild/NBNode.cpp:3211
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
@@ -7274,25 +7298,25 @@ msgstr ""
 "[%] Kesimlerle '%' Kavşağında Geçersiz Geçit '%' Atılıyor (Geçilecek Araç "
 "Şeridi Yok)."
 
-#: src/netbuild/NBNode.cpp:3233
+#: src/netbuild/NBNode.cpp:3232
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
 "[%] Kesimlerle '%' Kavşağında Geçersiz Geçit '%' Atılıyor (Geçersiz Şekil)."
 
-#: src/netbuild/NBNode.cpp:3357
+#: src/netbuild/NBNode.cpp:3356
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
 msgstr ""
 
-#: src/netbuild/NBNode.cpp:3473
+#: src/netbuild/NBNode.cpp:3472
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr "'%' Kavşağında Geçersiz Yaya Yapısı; '%' Geçidi '%' ve '%' Hedefliyor."
 
-#: src/netbuild/NBNode.cpp:3499
+#: src/netbuild/NBNode.cpp:3498
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
@@ -7300,7 +7324,7 @@ msgstr ""
 "'%' Kavşağında Geçersiz Yaya Yapısı; '%' Geçidi '%' ve '%' Tarafından "
 "Hedefleniyor."
 
-#: src/netbuild/NBNode.cpp:3504
+#: src/netbuild/NBNode.cpp:3503
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
@@ -7308,21 +7332,21 @@ msgstr ""
 "'%' Kavşağında Geçersiz Yaya Yapısı; '%' Geçidi walkingarea '%' Konumunda "
 "Başlayıp Bitiyor."
 
-#: src/netbuild/NBNode.cpp:3764
+#: src/netbuild/NBNode.cpp:3763
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr ""
 "'%' Kavşağında Geçersiz Yaya Yapısı; '%' Geçidi [%] Üzerinde Hedefe Sahip "
 "Değil."
 
-#: src/netbuild/NBNode.cpp:4103
+#: src/netbuild/NBNode.cpp:4102
 msgid "Request for unknown crossing '%'"
 msgstr "Bilinmeyen '%' geçişi için talep"
 
-#: src/netbuild/NBNode.cpp:4119
+#: src/netbuild/NBNode.cpp:4118
 msgid "Request for unknown crossing for the given Edges"
 msgstr "Verilen kesimler için bilinmeyen geçiş talebi"
 
-#: src/netbuild/NBNode.cpp:4144
+#: src/netbuild/NBNode.cpp:4143
 msgid "Request for unknown walkingarea '%'."
 msgstr ""
 
@@ -8601,7 +8625,7 @@ msgstr "'%' bağlantısının şerit sayısı için sayısal olmayan değer."
 #: src/netimport/NIImporter_DlrNavteq.cpp:420
 #: src/netimport/NIImporter_OpenDrive.cpp:555
 #: src/netimport/NIImporter_OpenDrive.cpp:613
-#: src/netimport/NIImporter_OpenStreetMap.cpp:855
+#: src/netimport/NIImporter_OpenStreetMap.cpp:860
 msgid "Could not add edge '%'."
 msgstr "'%' kenarı eklenemedi."
 
@@ -8919,33 +8943,33 @@ msgstr "Yinelenen kenarları kaldırma"
 msgid "Removed % duplicate osm edges."
 msgstr "Yinelenen % osm kenarları kaldırıldı."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:243
+#: src/netimport/NIImporter_OpenStreetMap.cpp:245
 msgid "Discarding way '%' because it has only % node(s)"
 msgstr "Yalnızca % Düğüm(ler)e Sahip Olduğu İçin '%' Yolu Çıkartılıyor"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:410
+#: src/netimport/NIImporter_OpenStreetMap.cpp:415
 msgid "Could not insert junction '%'."
 msgstr "'%' kavşağı eklenemedi."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:477
+#: src/netimport/NIImporter_OpenStreetMap.cpp:482
 msgid ""
 "Discarding edge '%' which connects two identical nodes without geometry."
 msgstr ""
 "İki Özdeş Düğümü Geometri Olmadan Birbirine Bağlayan '%' Kesimi Çıkartılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:629
+#: src/netimport/NIImporter_OpenStreetMap.cpp:634
 msgid "New value for oneway found: %"
 msgstr "Bulunan Tek Yön İçin Yeni Değer: %"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:664
+#: src/netimport/NIImporter_OpenStreetMap.cpp:669
 msgid "Skipping edge '%' because it has zero lanes."
 msgstr "'%' Kesimi Geçiliyor Çünkü Herhangi Bir Şeride Sahip Değil."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:715
+#: src/netimport/NIImporter_OpenStreetMap.cpp:720
 msgid "Skipping edge '%' because it has speed %."
 msgstr "'%' Kesimi Geçiliyor Çünkü Hızı %."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:842
+#: src/netimport/NIImporter_OpenStreetMap.cpp:847
 msgid ""
 "Forward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:forward key ('%'). Using default width values."
@@ -8954,7 +8978,7 @@ msgstr ""
 "('%') Tanımlanan Şerit Sayısıyla Eşleşmiyor. Varsayılan Genişlik Değerleri "
 "Kullanılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:895
+#: src/netimport/NIImporter_OpenStreetMap.cpp:900
 msgid ""
 "Backward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:backward key ('%'). Using default width values."
@@ -8963,109 +8987,152 @@ msgstr ""
 "('%') Tanımlanan Şerit Sayısıyla Eşleşmiyor. Varsayılan Genişlik Değerleri "
 "Kullanılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:908
+#: src/netimport/NIImporter_OpenStreetMap.cpp:913
 msgid "Could not add edge '-%'."
 msgstr "'-%' kenarı eklenemedi."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1009
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1189
+msgid ""
+"Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."
+msgstr ""
+"'%' Tipindeki Bilinmeyen Bileşik '%' Çıkarılıyor ('%' Kesimi İçin İlk "
+"Oluşum)."
+
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1195
+msgid "Discarding unusable type '%' (first occurrence for edge '%')."
+msgstr ""
+"'%' Tipindeki Kullanılamayan Bileşik '%' Çıkarılıyor ('%' Kesimi İçin İlk "
+"Oluşum)."
+
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1240
+msgid "Discarding compound type '%' (first occurrence for edge '%')."
+msgstr ""
+"'%' Tipindeki Bütünleşik Bileşik '%' Çıkarılıyor ('%' Kesimi İçin İlk "
+"Oluşum)."
+
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1255
+msgid "Adding new type '%' (first occurrence for edge '%')."
+msgstr "Yeni '%' tipi ekleniyor ('%' kenarı için ilk oluşum)."
+
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1290
+msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
+msgstr ""
+"'%' Yolu İçin Belirsiz Demiryolu Kilometraj Yönü (İleriye Doğru Varsayılarak)"
+
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1297
+msgid "Inconsistent railway kilometrage direction for way '%': % (skipping)"
+msgstr "'%' Yolu İçin Tutarsız Demiryolu Kilometraj Yönü: % (Geçiliyor)"
+
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1342
+msgid "Value of railway:position is not numeric ('%') in node '%'."
+msgstr "'%' Düğümünde railway:position Değeri Sayısal Değil (%')."
+
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1450
+msgid ""
+"Ignoring turn sign information for % lanes on edge % with % driving lanes"
+msgstr ""
+"% Sürüş Şeritleriyle % Kesiminde % Şeritleri İçin Dönüş Sinyali Bilgisi Yok "
+"Sayılıyor"
+
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1525
 msgid ""
 "Attribute 'id' in the definition of a node is not of type long long int."
 msgstr "Bir Düğümün Tanımındaki 'id' Özniteliği, long long int Türünde Değil."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1015
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1531
 msgid "Tag element on wrong XML hierarchy level."
 msgstr "Öğeyi Yanlış XML Hiyerarşisi Düzeyinde Etiketleyin."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1076
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1592
 msgid "Value of key '%' is invalid ('%') in node '%'."
 msgstr "'%' Anahtarının Değeri, '%' Düğümünde Geçersiz (%')."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1081
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1597
 msgid "Value of key '%' is not numeric ('%') in node '%'."
 msgstr "'%' Anahtarının Değeri, '%' Düğümünde Sayısal ('%') Değil."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1236
+#: src/netimport/NIImporter_OpenStreetMap.cpp:1754
 #: src/polyconvert/PCLoaderOSM.cpp:578
 msgid "The referenced geometry information (ref='%') is not known"
 msgstr "Başvurulan Geometri Bilgisi (ref='%') Bilinmiyor"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1491
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2001
 #, c-format
 msgid "Using default lane width for edge '%' as key '%' could not be parsed."
 msgstr ""
 "'%' Kesimi İçin '%' Anahtarı Olarak Varsayılan Şerit Genişliğinin "
 "Kullanılması Ayrıştırılamadı."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1494
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2004
 #, c-format
 msgid "Using default lane width for edge '%' as value '%' could not be parsed."
 msgstr ""
 "'%' Kesimi İçin '%' Değeri Olarak Varsayılan Şerit Genişliğinin Kullanılması "
 "Ayrıştırılamadı."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1500
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2010
 #, c-format
 msgid "Using default width for edge '%' as value '%' could not be parsed."
 msgstr ""
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1536
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2046
 msgid "Using minimum lane number from list (%) for edge '%'."
 msgstr "'%' Kesimi İçin Listeden (%) Minimum Şerit Numarası Kullanılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1538
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1542
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1553
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1565
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1591
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1601
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2048
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2052
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2063
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2075
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2101
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2111
 msgid "Value of key '%' is not numeric ('%') in edge '%'."
 msgstr "'%' Anahtarının Değeri, '%' Kesiminde Sayısal ('%') Değil."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1598
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2108
 msgid "Ignoring track count % for edge '%'."
 msgstr "'%' Kesimi İçin İz Sayısı % Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1776
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2305
 msgid "Unknown lane use specifier '%' ignored for way '%'"
 msgstr "Bilinmeyen şerit kullanım belirteci '%', '%' yolu için yok sayıldı"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1886
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2415
 msgid "No node found for reference '%' in relation '%'."
 msgstr "'%' İlişkisinde '%' Referansı İçin Düğüm Bulunamadı."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1957
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2486
 msgid "Found unknown restriction type '%' in relation '%'"
 msgstr "'%' İlişkisinde Bilinmeyen Kısıtlama Türü '%' Bulundu"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:1995
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2524
 msgid "Invalid color value '%' in relation %"
 msgstr "% İlişkisinde Geçersiz Renk Değeri '%'"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2013
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2542
 msgid "No way found for reference '%' in relation '%'"
 msgstr "'%' Referansı İçin '%' İlişkisinde Hiçbir Yol Bulunamadı"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2025
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2554
 msgid "Ignoring restriction relation '%' with unknown type."
 msgstr "Bilinmeyen Türde Kısıtlama İlişkisi '%' Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2029
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2558
 msgid "Ignoring restriction relation '%' with unknown from-way."
 msgstr "'%' Kısıtlama İlişkisi Bilinmeyen Giriş Yönü ile Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2033
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2562
 msgid "Ignoring restriction relation '%' with unknown to-way."
 msgstr "'%' Kısıtlama İlişkisi Bilinmeyen Çıkış Yönü ile Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2037
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2566
 msgid "Ignoring restriction relation '%' with unknown via."
 msgstr "'%' Kısıtlama İlişkisi Bilinmeyen Kanal Yön ile Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2041
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2570
 msgid "Ignoring restriction relation '%'."
 msgstr "'%' Kısıtlama İlişkisi Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2066
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2595
 #, c-format
 msgid ""
 "Platform '%' in relation: '%' is given as polygon, which currently is not "
@@ -9074,7 +9141,7 @@ msgstr ""
 "'%' İlişkideki '%' Platform '%' Şu Anda Desteklenmeyen Çokgen Olarak "
 "Verilmiştir."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2087
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2616
 #, c-format
 msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
@@ -9082,87 +9149,44 @@ msgid ""
 msgstr ""
 "'%' İlişkideki Başvurulan Platform '%' Bozuk. Muhtemelen OSM Dosyası Eksik."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2140
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2669
 #, c-format
 msgid "PT line '%' in relation % seems to be split, only keeping first part."
 msgstr ""
 "% İlişkideki TT Hattı '%' Bölünmüş Görünüyor. Sadece İlk Kısım Tutuluyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2175
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2704
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is incomplete."
 msgstr ""
 "% İlişkideki Duraksız TT Hattı Yok Sayılıyor. Muhtemelen OSM Dosyası Eksik."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2181
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2710
 msgid "Ignoring duplicate PT line '%'."
 msgstr "Yinelenen TT Hattı '%' Yok Sayılıyor."
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2196
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2725
 msgid "Via-node '%' was not instantiated"
 msgstr "Kanal Düğüm '%' Somutlaştırılamadı"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2202
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2731
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
 msgstr "Sınırlama İlişkisinin Giriş Kesimi '%' Belirlenemedi"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2206
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2735
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
 msgstr "Sınırlama İlişkisinin Çıkış Kesimi '%' Belirlenemedi"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2236
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2765
 msgid "direction of restriction relation could not be determined%"
 msgstr "Kısıtlama İlişkisinin Yönü Belirlenemedi %"
 
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2257
+#: src/netimport/NIImporter_OpenStreetMap.cpp:2786
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
 msgstr "Kısıtlama İlişkisinde Belirsiz Yol Referansı '%'"
-
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2508
-msgid ""
-"Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."
-msgstr ""
-"'%' Tipindeki Bilinmeyen Bileşik '%' Çıkarılıyor ('%' Kesimi İçin İlk "
-"Oluşum)."
-
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2514
-msgid "Discarding unusable type '%' (first occurrence for edge '%')."
-msgstr ""
-"'%' Tipindeki Kullanılamayan Bileşik '%' Çıkarılıyor ('%' Kesimi İçin İlk "
-"Oluşum)."
-
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2559
-msgid "Discarding compound type '%' (first occurrence for edge '%')."
-msgstr ""
-"'%' Tipindeki Bütünleşik Bileşik '%' Çıkarılıyor ('%' Kesimi İçin İlk "
-"Oluşum)."
-
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2574
-msgid "Adding new type '%' (first occurrence for edge '%')."
-msgstr "Yeni '%' tipi ekleniyor ('%' kenarı için ilk oluşum)."
-
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2609
-msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
-msgstr ""
-"'%' Yolu İçin Belirsiz Demiryolu Kilometraj Yönü (İleriye Doğru Varsayılarak)"
-
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2616
-msgid "Inconsistent railway kilometrage direction for way '%': % (skipping)"
-msgstr "'%' Yolu İçin Tutarsız Demiryolu Kilometraj Yönü: % (Geçiliyor)"
-
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2661
-msgid "Value of railway:position is not numeric ('%') in node '%'."
-msgstr "'%' Düğümünde railway:position Değeri Sayısal Değil (%')."
-
-#: src/netimport/NIImporter_OpenStreetMap.cpp:2769
-msgid ""
-"Ignoring turn sign information for % lanes on edge % with % driving lanes"
-msgstr ""
-"% Sürüş Şeritleriyle % Kesiminde % Şeritleri İçin Dönüş Sinyali Bilgisi Yok "
-"Sayılıyor"
 
 #: src/netimport/NIImporter_SUMO.cpp:120
 msgid "Could not open sumo-net-file '%'."
@@ -10365,12 +10389,12 @@ msgstr ""
 "Havai Hat Kelepçeleri Yok Sayılıyor, Bunlar Havai Hat Çevrim Çözücüsü "
 "Kapalıyken Anlamsızdır."
 
-#: src/netload/NLTriggerBuilder.cpp:533
+#: src/netload/NLTriggerBuilder.cpp:534
 msgid "Ignoring invalid access from non-pedestrian lane '%' in busStop '%'."
 msgstr ""
 "Otobüs Durağı '%'de yaya olmayan şerit '%'den geçersiz erişim yok sayılıyor."
 
-#: src/netload/NLTriggerBuilder.cpp:729
+#: src/netload/NLTriggerBuilder.cpp:730
 msgid ""
 "It is strongly advisable to give an explicit position when using radius in "
 "the definition of rerouter '%'."
@@ -11124,7 +11148,7 @@ msgstr ""
 "'%' Kesiminde time=% Geçen Aralık Eşleşmesi Yok\n"
 " Kesimin Uzunluğu/Hızı Kullanılıyor."
 
-#: src/router/ROEdge.cpp:476
+#: src/router/ROEdge.cpp:478
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority."
@@ -11342,28 +11366,28 @@ msgstr "'%' düğümü en az iki kez geçmektedir."
 msgid "The % '%' occurs at least twice."
 msgstr "'%' en az iki kez geçmektedir."
 
-#: src/router/RONet.cpp:446
+#: src/router/RONet.cpp:443
 #, c-format
 msgid "The vehicle type '%' occurs at least twice."
 msgstr "Araç tipi '%' en az iki kez geçmektedir."
 
-#: src/router/RONet.cpp:498
+#: src/router/RONet.cpp:495
 msgid "Requesting departure time for unknown vehicle '%'"
 msgstr "Bilinmeyen araç için kalkış zamanı talep ediliyor '%'"
 
-#: src/router/RONet.cpp:528
+#: src/router/RONet.cpp:525
 #, c-format
 msgid "Another person with the id '%' exists."
 msgstr "'%' id'sine sahip başka bir kişi var."
 
-#: src/router/RONet.cpp:637
+#: src/router/RONet.cpp:634
 msgid ""
 "Bulking different maximum speeds ('%' and '%') may lead to suboptimal routes."
 msgstr ""
 "Farklı maksimum hızların ('%' ve '%') bir araya getirilmesi optimal olmayan "
 "rotalara yol açabilir."
 
-#: src/router/RONet.cpp:640
+#: src/router/RONet.cpp:637
 msgid ""
 "Bulking different vehicle classes ('%' and '%') may lead to invalid routes."
 msgstr ""
@@ -11528,7 +11552,7 @@ msgstr ""
 "Sürüş döngülerinin okunacağı netstate, rota ve yörünge dosyalarını tanımlar."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:85
-#: src/tools/emissionsMap_main.cpp:127
+#: src/tools/emissionsMap_main.cpp:136
 msgid "Load emission parameters (vTypes) from FILE(s)"
 msgstr "DOSYA(lar)dan emisyon parametrelerini (vTipleri) yükleyin"
 
@@ -11537,7 +11561,7 @@ msgid "Defines for which emission class the emissions shall be generated. "
 msgstr "Emisyonların hangi emisyon sınıfı için üretileceğini tanımlar. "
 
 #: src/tools/emissionsDrivingCycle_main.cpp:91
-#: src/tools/emissionsMap_main.cpp:130
+#: src/tools/emissionsMap_main.cpp:139
 msgid "Defines the vehicle type to use for emission parameters."
 msgstr "Emisyon parametreleri için kullanılacak araç tipini tanımlar."
 
@@ -11624,7 +11648,7 @@ msgid "Unknown attribute '%' to write in output."
 msgstr "Çıktıya yazılacak '%' özniteliği bilinmiyor."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:213
-#: src/tools/emissionsMap_main.cpp:67
+#: src/tools/emissionsMap_main.cpp:76
 msgid ""
 "Option --vtype requires option --additional-files for loading vehicle types"
 msgstr ""
@@ -11632,12 +11656,12 @@ msgstr ""
 "gerektirir"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:225
-#: src/tools/emissionsMap_main.cpp:79
+#: src/tools/emissionsMap_main.cpp:88
 msgid "Vehicle type is not unique."
 msgstr ""
 
 #: src/tools/emissionsDrivingCycle_main.cpp:229
-#: src/tools/emissionsMap_main.cpp:83
+#: src/tools/emissionsMap_main.cpp:92
 #, c-format
 msgid "Vehicle type '%' is not defined."
 msgstr ""
@@ -11654,83 +11678,83 @@ msgstr "'%' satırında bir giriş eksik."
 msgid "Not numeric entry in line '%'."
 msgstr "'%' satırında sayısal giriş yok."
 
-#: src/tools/emissionsMap_main.cpp:56
+#: src/tools/emissionsMap_main.cpp:65
 msgid "Writing map of '%' into '%'."
 msgstr "'%' haritası '%' içine yazılıyor."
 
-#: src/tools/emissionsMap_main.cpp:60 src/utils/router/AStarLookupTable.h:341
+#: src/tools/emissionsMap_main.cpp:69 src/utils/router/AStarLookupTable.h:341
 #, c-format
 msgid "Could not open file '%' for writing."
 msgstr "'%' dosyası yazmak için açılamadı."
 
-#: src/tools/emissionsMap_main.cpp:114
+#: src/tools/emissionsMap_main.cpp:123
 msgid "Builds and writes an emissions map for SUMO's emission models."
 msgstr ""
 "SUMO'nun Emisyon Modelleri İçin Bir Emisyon Haritası Oluşturur ve Yazar."
 
-#: src/tools/emissionsMap_main.cpp:121
+#: src/tools/emissionsMap_main.cpp:130
 msgid "If set, maps for all available emissions are written."
 msgstr "Ayarlanırsa, mevcut tüm emisyonlar için haritalar yazılır."
 
-#: src/tools/emissionsMap_main.cpp:124
+#: src/tools/emissionsMap_main.cpp:133
 msgid "Defines the name of the emission class to generate the map for."
 msgstr "Haritası oluşturulacak emisyon sınıfının adını tanımlar."
 
-#: src/tools/emissionsMap_main.cpp:133
+#: src/tools/emissionsMap_main.cpp:142
 msgid "Defines the minimum velocity boundary of the map to generate (in m/s)."
 msgstr "Oluşturulacak haritanın minimum hız sınırını tanımlar (m/s cinsinden)."
 
-#: src/tools/emissionsMap_main.cpp:135
+#: src/tools/emissionsMap_main.cpp:144
 msgid "Defines the maximum velocity boundary of the map to generate (in m/s)."
 msgstr ""
 "Oluşturulacak haritanın maksimum hız sınırını tanımlar (m/s cinsinden)."
 
-#: src/tools/emissionsMap_main.cpp:137
+#: src/tools/emissionsMap_main.cpp:146
 msgid "Defines the velocity step size (in m/s)."
 msgstr "Hız adımı boyutunu tanımlar (m/sn cinsinden)."
 
-#: src/tools/emissionsMap_main.cpp:139
+#: src/tools/emissionsMap_main.cpp:148
 msgid ""
 "Defines the minimum acceleration boundary of the map to generate (in m/s^2)."
 msgstr ""
 "Oluşturulacak haritanın minimum ivme sınırını tanımlar (m/s^2 cinsinden)."
 
-#: src/tools/emissionsMap_main.cpp:141
+#: src/tools/emissionsMap_main.cpp:150
 msgid ""
 "Defines the maximum acceleration boundary of the map to generate (in m/s^2)."
 msgstr ""
 "Oluşturulacak haritanın maksimum ivme sınırını tanımlar (m/s^2 cinsinden)."
 
-#: src/tools/emissionsMap_main.cpp:143
+#: src/tools/emissionsMap_main.cpp:152
 msgid "Defines the acceleration step size (in m/s^2)."
 msgstr "Hızlanma adım boyutunu tanımlar (m/s^2 cinsinden)."
 
-#: src/tools/emissionsMap_main.cpp:145
+#: src/tools/emissionsMap_main.cpp:154
 msgid "Defines the minimum slope boundary of the map to generate (in deg)."
 msgstr ""
 "Oluşturulacak haritanın minimum eğim sınırını tanımlar (derece cinsinden)."
 
-#: src/tools/emissionsMap_main.cpp:147
+#: src/tools/emissionsMap_main.cpp:156
 msgid "Defines the maximum slope boundary of the map to generate (in deg)."
 msgstr ""
 "Oluşturulacak haritanın maksimum eğim sınırını tanımlar (derece cinsinden)."
 
-#: src/tools/emissionsMap_main.cpp:149
+#: src/tools/emissionsMap_main.cpp:158
 msgid "Defines the slope step size (in deg)."
 msgstr "Eğim adımı boyutunu (derece cinsinden) tanımlar."
 
-#: src/tools/emissionsMap_main.cpp:154
+#: src/tools/emissionsMap_main.cpp:163
 msgid ""
 "Defines the file (or the path if --iterate was set) to write the map(s) into."
 msgstr ""
 "Eşlem(ler)in içine yazılacağı dosyayı (veya --yineleme ayarlanmışsa yolu) "
 "tanımlar."
 
-#: src/tools/emissionsMap_main.cpp:194
+#: src/tools/emissionsMap_main.cpp:203
 msgid "The emission class (-e) must be given."
 msgstr "Emisyon sınıfı (-e) verilmelidir."
 
-#: src/tools/emissionsMap_main.cpp:197
+#: src/tools/emissionsMap_main.cpp:206
 msgid "The output file (-o) must be given."
 msgstr "Çıktı dosyası (-o) verilmelidir."
 
@@ -12018,19 +12042,19 @@ msgstr "Bilinmeyen Eleman"
 msgid "Invalid format of distribution parameterized"
 msgstr "Geçersiz Dağıtım Biçimi Parametreleştirildi"
 
-#: src/utils/distribution/Distribution_Parameterized.cpp:170
+#: src/utils/distribution/Distribution_Parameterized.cpp:164
 msgid "minimum value % larger than maximum %"
 msgstr ""
 
-#: src/utils/distribution/Distribution_Parameterized.cpp:173
+#: src/utils/distribution/Distribution_Parameterized.cpp:167
 msgid "minimum value % too large for distribution with mean % and deviation %"
 msgstr ""
 
-#: src/utils/distribution/Distribution_Parameterized.cpp:176
+#: src/utils/distribution/Distribution_Parameterized.cpp:170
 msgid "maximum value % too small for distribution with mean % and deviation %"
 msgstr ""
 
-#: src/utils/distribution/Distribution_Parameterized.cpp:179
+#: src/utils/distribution/Distribution_Parameterized.cpp:173
 msgid ""
 "maximum value % and minimum value % too close for distribution with mean % "
 "and deviation %"
@@ -12180,19 +12204,19 @@ msgstr ""
 "Orijinal konumun izlenmesi için yüklenen konum özniteliği nr. %'nin göz ardı "
 "edilmesi"
 
-#: src/utils/geom/GeomHelper.cpp:237
+#: src/utils/geom/GeomHelper.cpp:238
 msgid "GeomHelper::makeCircle() requires nPoints>=3"
 msgstr "GeomHelper::makeCircle() nPoints>=3 Gerektirir"
 
-#: src/utils/geom/PositionVector.cpp:611
+#: src/utils/geom/PositionVector.cpp:614
 msgid "Splitting vector close to end (pos: %, length: %)"
 msgstr "Ayırma Vektörü Sona Yakın (pos: %, length: %)"
 
-#: src/utils/geom/PositionVector.cpp:1539
+#: src/utils/geom/PositionVector.cpp:1542
 msgid "Trying to subtract PositionVectors of different lengths."
 msgstr "Farklı Uzunluklardaki PositionVectors Çıkarmaya Çalışılıyor."
 
-#: src/utils/geom/PositionVector.cpp:1553
+#: src/utils/geom/PositionVector.cpp:1556
 msgid "Trying to add PositionVectors of different lengths."
 msgstr ""
 
@@ -12464,13 +12488,28 @@ msgstr ""
 msgid "Could not load template '%'."
 msgstr "'%' şablonu yüklenemedi."
 
+#: src/utils/iodevices/CSVFormatter.cpp:65
+msgid ""
+"Incomplete attribute set '%', this file format does not support CSV output "
+"yet."
+msgstr ""
+
+#: src/utils/iodevices/CSVFormatter.h:87
+msgid ""
+"Unexpected attribute '%', this file format does not support CSV output yet."
+msgstr ""
+
 #: src/utils/iodevices/OutputDevice.cpp:88
 msgid "No port number given."
 msgstr "Port numarası verilmemiştir."
 
-#: src/utils/iodevices/OutputDevice.cpp:163
+#: src/utils/iodevices/OutputDevice.cpp:166
 msgid "Error on closing output devices."
 msgstr "Çıkış Cihazları Kapatılırken Hata Oluştu."
+
+#: src/utils/iodevices/OutputDevice.cpp:310
+msgid "Unknown attribute '%' to write in %."
+msgstr ""
 
 #: src/utils/iodevices/OutputDevice_File.cpp:46
 msgid "Could not redirect to NUL device (%)."
@@ -12684,7 +12723,7 @@ msgstr "Yeni matris '%' olarak kaydediliyor."
 
 #: src/utils/router/AStarRouter.h:275 src/utils/router/CHRouter.h:332
 #: src/utils/router/DijkstraRouter.h:239
-#: src/utils/router/SUMOAbstractRouter.h:222
+#: src/utils/router/SUMOAbstractRouter.h:228
 #, c-format
 msgid "No connection between edge '%' and edge '%' found."
 msgstr ""
@@ -12808,25 +12847,40 @@ msgstr "'%' poligonu zaten mevcut."
 msgid "Loading of shapes from % failed."
 msgstr "'den şekillerin yüklenmesi başarısız oldu."
 
-#: src/utils/tests/InternalTest.cpp:47
-msgid "Could not open test file '%'."
+#: src/utils/tests/InternalTest.cpp:133
+msgid "Could not open attributes enum file '%'."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:81 src/utils/tests/InternalTest.cpp:112
-msgid "Could not open internal test data file '%'."
-msgstr ""
-
-#: src/utils/tests/InternalTest.cpp:95
+#: src/utils/tests/InternalTest.cpp:147
 #, c-format
 msgid "In internal test file, value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:128
+#: src/utils/tests/InternalTest.cpp:164 src/utils/tests/InternalTest.cpp:214
+msgid "Could not open view positions file '%'."
+msgstr ""
+
+#: src/utils/tests/InternalTest.cpp:192
+#, c-format
+msgid "In internal test file, mainMenu value '%' cannot be parsed to int."
+msgstr ""
+
+#: src/utils/tests/InternalTest.cpp:194
+#, c-format
+msgid "In internal test file, subMenuA value '%' cannot be parsed to int."
+msgstr ""
+
+#: src/utils/tests/InternalTest.cpp:196
+#, c-format
+msgid "In internal test file, subMenuB value '%' cannot be parsed to int."
+msgstr ""
+
+#: src/utils/tests/InternalTest.cpp:230
 #, c-format
 msgid "In internal test file, x value '%' cannot be parsed to int."
 msgstr ""
 
-#: src/utils/tests/InternalTest.cpp:130
+#: src/utils/tests/InternalTest.cpp:232
 #, c-format
 msgid "In internal test file, y value '%' cannot be parsed to int."
 msgstr ""
@@ -12944,23 +12998,23 @@ msgstr "'%' için tanımlanmamış öğe türü."
 msgid "Route file should be sorted by departure time, ignoring '%'!"
 msgstr "Rota Dosyası, Kalkış Saatine Göre Sıralanmalıdır, '%' Yok Sayılıyor!"
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:490
+#: src/utils/vehicle/SUMORouteHandler.cpp:493
 msgid "Speed cannot be negative for stop%."
 msgstr "Durma yüzdesi için hız negatif olamaz."
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:506
+#: src/utils/vehicle/SUMORouteHandler.cpp:509
 msgid "Invalid duration or end time is given for a stop%."
 msgstr "Bir durma%'si için geçersiz süre veya bitiş zamanı verilmiştir."
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:510
+#: src/utils/vehicle/SUMORouteHandler.cpp:513
 msgid "Triggers and waypoints cannot be combined%."
 msgstr "Tetikleyiciler ve yol noktaları birleştirilemez%."
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:517
+#: src/utils/vehicle/SUMORouteHandler.cpp:520
 msgid "Stop at parkingArea overrides attribute 'parking' for stop%."
 msgstr "Dur at parkAlanı, dur% için 'park' niteliğini geçersiz kılar."
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:558
+#: src/utils/vehicle/SUMORouteHandler.cpp:561
 msgid "Invalid 'index' for stop%."
 msgstr "dur% için geçersiz 'dizin'."
 
@@ -12984,19 +13038,19 @@ msgstr ""
 msgid "Invalid time value '%' for parameter '%' in % '%'."
 msgstr ""
 
-#: src/utils/vehicle/SUMOVTypeParameter.cpp:672
+#: src/utils/vehicle/SUMOVTypeParameter.cpp:674
 msgid "Invalid size of % table for vType '%' (at least 2 values are required)."
 msgstr ""
 
-#: src/utils/vehicle/SUMOVTypeParameter.cpp:674
+#: src/utils/vehicle/SUMOVTypeParameter.cpp:676
 msgid "Mismatching size of speedTable (%) and % table (%) for vType '%'."
 msgstr ""
 
-#: src/utils/vehicle/SUMOVehicleParameter.cpp:692
+#: src/utils/vehicle/SUMOVehicleParameter.cpp:695
 msgid "Invalid % % given for %. Using edge end instead."
 msgstr "için geçersiz % % verildi. Bunun yerine kesim ucu kullanılıyor."
 
-#: src/utils/vehicle/SUMOVehicleParameter.cpp:742
+#: src/utils/vehicle/SUMOVehicleParameter.cpp:745
 msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
 "boolean"
@@ -13197,235 +13251,235 @@ msgstr "XML ayrıştırıcı başlatılmadı."
 msgid "The XML-parser could not be build."
 msgstr "XML ayrıştırıcı oluşturulamadı."
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1720
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1836
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1842
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1848
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1854
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1859
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1865
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1876
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1729
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1833
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1839
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1845
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1851
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1857
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1863
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1868
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1874
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1885
 msgid "XML files (*.xml, *.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1721
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1726
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1731
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1736
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1790
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1795
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1807
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1813
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1819
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1825
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1831
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1837
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1843
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1849
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1855
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1860
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1866
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1871
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1877
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1730
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1735
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1740
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1745
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1799
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1804
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1810
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1816
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1822
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1828
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1834
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1840
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1846
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1852
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1858
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1864
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1869
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1875
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1880
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1886
 msgid "All files (*)"
 msgstr "Tüm dosyalar (*)"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1725
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1789
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1734
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1798
 msgid "Plain text files (*.txt)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1730
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1739
 msgid "CSV files (*.txt)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1735
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1744
 msgid "Open scene graph  files (*.osg)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1740
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1749
 msgid ""
 "All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,"
 "*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1741
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1767
-msgid "GIF Image (*.gif)"
-msgstr ""
-
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1742
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1768
-msgid "BMP Image (*.bmp)"
-msgstr ""
-
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1743
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1769
-msgid "XPM Image (*.xpm)"
-msgstr ""
-
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1744
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1770
-msgid "PCX Image (*.pcx)"
-msgstr ""
-
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1745
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1771
-msgid "ICO Image (*.ico)"
-msgstr ""
-
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1746
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1772
-msgid "RGB Image (*.rgb)"
-msgstr ""
-
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1747
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1773
-msgid "XBM Image (*.xbm)"
-msgstr ""
-
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1748
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1774
-msgid "TARGA Image (*.tga)"
-msgstr ""
-
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1749
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1775
-msgid "PNG Image (*.png)"
-msgstr ""
-
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1750
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1776
-msgid "JPEG Image (*.jpg,*.jpeg)"
+msgid "GIF Image (*.gif)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1751
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
-msgid "TIFF Image (*.tif,*.tiff)"
+msgid "BMP Image (*.bmp)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1752
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1778
-msgid "Postscript (*.ps)"
+msgid "XPM Image (*.xpm)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1779
-msgid "Encapsulated Postscript (*.eps)"
+msgid "PCX Image (*.pcx)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1754
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1780
-msgid "Portable Document Format (*.pdf)"
+msgid "ICO Image (*.ico)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1755
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1781
-msgid "Scalable Vector Graphics (*.svg)"
+msgid "RGB Image (*.rgb)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1756
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1782
-msgid "LATEX text strings (*.tex)"
+msgid "XBM Image (*.xbm)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1757
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
-msgid "Portable LaTeX Graphics (*.pgf)"
+msgid "TARGA Image (*.tga)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1758
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1784
-msgid "All Files (*)"
+msgid "PNG Image (*.png)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1759
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1785
+msgid "JPEG Image (*.jpg,*.jpeg)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1760
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1786
+msgid "TIFF Image (*.tif,*.tiff)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1761
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1787
+msgid "Postscript (*.ps)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1762
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1788
+msgid "Encapsulated Postscript (*.eps)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1763
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1789
+msgid "Portable Document Format (*.pdf)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1764
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1790
+msgid "Scalable Vector Graphics (*.svg)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1765
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1791
+msgid "LATEX text strings (*.tex)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1766
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1792
+msgid "Portable LaTeX Graphics (*.pgf)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1767
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1793
+msgid "All Files (*)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1771
 msgid ""
 "All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*."
 "png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*."
 "hevc,*.mp4)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1763
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1772
 msgid "All Video Files (*.h264,*.hevc,*.mp4)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1764
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1773
 msgid "G264 Video (*.h264)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1765
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1774
 msgid "HEVC Video (*.hevc)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1766
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1775
 msgid "MP4 Video (*.mp4)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1788
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1806
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1797
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1809
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1815
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1821
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1827
 msgid "XML files (*.xml)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1794
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1803
 msgid "View settings files (*.xml, *.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1799
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1808
 msgid "State GZipped XML files (*.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1805
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1814
 msgid "Sumo config files (*.sumocfg)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1811
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1820
 msgid "Netedit config files (*.netecfg)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1817
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1826
 msgid "Netconvert config files (*.netccfg)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1823
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1832
 msgid "OSM network files (*.osm, *.osm.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1829
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1838
 msgid "SUMO network files (*.net.xml, *.net.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1835
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1844
 msgid "TLS files (*.ttl.xml, *.ttl.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1841
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1850
 msgid "Junction files (*.nod.xml, *.nod.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1847
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1856
 msgid "Edge type files (*.ttl.xml, *.ttl.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1853
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1862
 msgid "Additional files (*.add.xml, *.add.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1864
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1873
 msgid "Route files (*.rou.xml, *.rou.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1870
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1879
 msgid "Edge data files (*.xml, *.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1875
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1884
 msgid "Mean data files (*.add.xml, *.add.xml.gz)"
 msgstr ""
 
@@ -13476,6 +13530,13 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "'%' ayrıştırılırken belirtilmemiş bir hata oluştu"
+
+#, c-format
+#~ msgid "Unknown attribute '%' to write in fcd output."
+#~ msgstr "Fcd çıktısına yazılacak '%' özniteliği bilinmiyor."
+
+#~ msgid "Unknown attribute '%' to write in meanData '%'."
+#~ msgstr "OrtalamaVeri '%' içine yazılacak '%' özniteliği bilinmiyor."
 
 #~ msgid ""
 #~ "Could not build % with ID '%' in netedit; Distinct number of distribution "

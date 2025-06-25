@@ -69,7 +69,7 @@ public:
     /// Constructor
     MSRoute(const std::string& id, const ConstMSEdgeVector& edges,
             const bool isPermanent, const RGBColor* const c,
-            const std::vector<SUMOVehicleParameter::Stop>& stops,
+            const StopParVector& stops,
             SUMOTime replacedTime = -1,
             int replacedIndex = 0);
 
@@ -223,7 +223,7 @@ public:
     }
 
     /// Returns the stops
-    const std::vector<SUMOVehicleParameter::Stop>& getStops() const;
+    const StopParVector& getStops() const;
 
 public:
     /** @brief Adds a route to the dictionary.
@@ -302,7 +302,7 @@ private:
     bool myReroute;
 
     /// @brief List of the stops on the parsed route
-    std::vector<SUMOVehicleParameter::Stop> myStops;
+    StopParVector myStops;
 
     /// The time where this route was replaced with an alternative route (or -1)
     SUMOTime myReplacedTime;

@@ -2206,8 +2206,11 @@ GNEApplicationWindow::onUpdToggleTimeFormat(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdRunTests(FXObject*, FXSelector, void*) {
-    if (myInternalTest) {
-        myInternalTest->runNeteditTests(this);
+    if (myInternalTest && !myInternalTest->isRunning()) {
+        myInternalTest->runNeteditInternalTests(this);
+        // after running, remove internal tests
+        delete myInternalTest;
+        myInternalTest = nullptr;
     }
     return 1;
 }
@@ -3208,7 +3211,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
                 // 0 -> Canceled Saving, with or without selecting invalid network elements
                 // 1 -> Invalid network elements fixed, friendlyPos enabled, or saved with invalid positions
                 GNEFixNetworkElements fixNetworkElementsDialog(myViewNet, invalidNetworkElements);
-                if (fixNetworkElementsDialog.execute() == 0) {
+                if (fixNetworkElementsDialog.openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest()) == 0) {
                     // stop
                     return 0;
                 } else {
@@ -4859,7 +4862,7 @@ GNEApplicationWindow::loadMeanDataElements() {
 
 
 GNEInternalTest*
-GNEApplicationWindow::getNeteditTestSystem() const {
+GNEApplicationWindow::getInternalTest() const {
     return myInternalTest;
 }
 
@@ -4869,8 +4872,6 @@ GNEApplicationWindow::allowInputSignals(FXObject* obj) const {
     if (myInternalTest == nullptr) {
         return true;
     } else if (obj == myInternalTest) {
-        return true;
-    } else if (myInternalTest->isTestFinished()) {
         return true;
     } else {
         return false;

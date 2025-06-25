@@ -273,7 +273,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         }
                     } else if (!myMayBeDisconnected && !isTrip && last != (*i)) {
                         double airDist = last->getToJunction()->getPosition().distanceTo(
-                                    (*i)->getFromJunction()->getPosition());
+                                             (*i)->getFromJunction()->getPosition());
                         double repairDist = 0;
                         for (auto it2 = (newEdges.begin() + numEdgesBefore + 1); it2 != newEdges.end() && it2 != newEdges.end() - 1; it2++) {
                             repairDist += (*it2)->getLength();
@@ -302,8 +302,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
 
 bool
 RORouteDef::backTrack(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
-        ConstROEdgeVector::const_iterator& i, int lastMandatory, ConstROEdgeVector::iterator nextMandatory,
-        ConstROEdgeVector& newEdges, const ROVehicle& veh, SUMOTime begin) {
+                      ConstROEdgeVector::const_iterator& i, int lastMandatory, ConstROEdgeVector::iterator nextMandatory,
+                      ConstROEdgeVector& newEdges, const ROVehicle& veh, SUMOTime begin) {
     ConstROEdgeVector edges;
     bool ok = router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges);
     if (!ok) {

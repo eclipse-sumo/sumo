@@ -608,7 +608,7 @@ public:
      * @param[in] type The new vehicle type
      * @see MSBaseVehicle::myType
      */
-    virtual void replaceVehicleType(MSVehicleType* type);
+    virtual void replaceVehicleType(const MSVehicleType* type);
 
 
     /** @brief Replaces the current vehicle type with a new one used by this vehicle only
@@ -711,11 +711,6 @@ public:
     /// @brief check whether all stop.edge MSRouteIterators are valid and in order
     bool haveValidStopEdges(bool silent = false) const;
 
-    /** @brief Returns the list of still pending stop edges
-     * also returns the first and last stop position
-     */
-    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps, std::vector<double>& priorities) const;
-
     /// @brief return list of route indices for the remaining stops
     std::vector<std::pair<int, double> > getStopIndices() const;
 
@@ -727,7 +722,7 @@ public:
         return myStops;
     }
 
-    inline const std::vector<SUMOVehicleParameter::Stop>& getPastStops() const {
+    inline const StopParVector& getPastStops() const {
         return myPastStops;
     }
 
@@ -1046,6 +1041,45 @@ protected:
     /// @brief reset rail signal approach information
     virtual void resetApproachOnReroute() {};
 
+    struct StopEdgeInfo {
+
+        StopEdgeInfo(const MSEdge* _edge, double _priority, SUMOTime _arrival, double _pos):
+            edge(_edge), pos(_pos),
+            priority(_priority), arrival(_arrival) {};
+        const MSEdge* edge;
+        double pos;
+        double priority;
+        SUMOTime arrival;
+        /// @brief values set during routing and used during optimization
+        int routeIndex = -1;
+        bool skipped = false;
+        bool backtracked = false;
+        SUMOTime delay = 0;
+
+        bool operator==(const StopEdgeInfo& o) const {
+            return edge == o.edge;
+        }
+        bool operator!=(const StopEdgeInfo& o) const {
+            return !(*this == o);
+        }
+    };
+
+    /** @brief Returns the list of still pending stop edges
+     * also returns the first and last stop position
+     */
+    std::vector<StopEdgeInfo> getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps) const;
+
+    static double addStopPriority(double p1, double p2);
+
+
+    ConstMSEdgeVector optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
+            const MSEdge* source, double sourcePos, std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges, SUMOTime maxDelay) const;
+
+    ConstMSEdgeVector routeAlongStops(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
+        std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
+        int originStop, SUMOTime maxDelay, double& skippedPrio2) const;
+
+
 protected:
     /// @brief This vehicle's parameter.
     const SUMOVehicleParameter* myParameter;
@@ -1054,7 +1088,7 @@ protected:
     ConstMSRoutePtr myRoute;
 
     /// @brief This vehicle's type.
-    MSVehicleType* myType;
+    const MSVehicleType* myType;
 
     /// @brief Iterator to current route-edge
     MSRouteIterator myCurrEdge;
@@ -1066,8 +1100,7 @@ protected:
     std::list<MSStop> myStops;
 
     /// @brief The list of stops that the vehicle has already reached
-    std::vector<SUMOVehicleParameter::Stop> myPastStops;
-
+    StopParVector myPastStops;
 
     /// @name Move reminder structures
     /// @{

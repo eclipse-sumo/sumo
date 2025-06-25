@@ -22,6 +22,8 @@
 // included modules
 // ===========================================================================
 
+#include <utils/tests/InternalTest.h>
+#include <utils/tests/InternalTestStep.h>
 #include "MFXDialogBox.h"
 
 // ===========================================================================
@@ -57,7 +59,10 @@ MFXDialogBox::MFXDialogBox(FXWindow* owner, const FXString& name, FXuint opts, F
 
 long
 MFXDialogBox::onCmdAccept(FXObject*, FXSelector, void*) {
-    getApp()->stopModal(this, TRUE);
+    // only stop modal if we're not testing
+    if (myTesting == false) {
+        getApp()->stopModal(this, TRUE);
+    }
     hide();
     return 1;
 }
@@ -65,16 +70,36 @@ MFXDialogBox::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 MFXDialogBox::onCmdCancel(FXObject*, FXSelector, void*) {
-    getApp()->stopModal(this, FALSE);
+    // only stop modal if we're not testing
+    if (myTesting == false) {
+        getApp()->stopModal(this, FALSE);
+    }
     hide();
     return 1;
 }
 
 
 FXuint
-MFXDialogBox::execute(FXuint placement) {
+MFXDialogBox::openModalDialog(InternalTest* internalTests, FXuint placement) {
     create();
     show(placement);
     getApp()->refresh();
-    return getApp()->runModalFor(this);
+    if (internalTests) {
+        myTesting = true;
+        // execute every modal dialog test step
+        for (const auto& modalStep : internalTests->getCurrentStep()->getModalDialogTestSteps()) {
+            handle(internalTests, modalStep->getSelector(), modalStep->getEvent());
+        }
+        //internalTests->getCurrentStep()->
+        return 1;
+    } else {
+        myTesting = false;
+        return getApp()->runModalFor(this);
+    }
+}
+
+
+FXuint
+MFXDialogBox::execute(FXuint placement) {
+    return FXDialogBox::execute(placement);
 }

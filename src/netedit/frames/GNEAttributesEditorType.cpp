@@ -24,6 +24,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/dialogs/GNECalibratorDialog.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
@@ -406,7 +407,9 @@ GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector
 
 long
 GNEAttributesEditorType::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
-    if (GNESingleParametersDialog(this).execute()) {
+    // get internal test (for code legibly)
+    const auto internalTest = myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest();
+    if (GNESingleParametersDialog(this).openModalDialog(internalTest)) {
         refreshAttributesEditor();
     }
     return 1;
@@ -481,7 +484,7 @@ void
 GNEAttributesEditorType::toggleEnableAttribute(SumoXMLAttr attr, const bool value) {
     const auto undoList = myFrameParent->getViewNet()->getUndoList();
     const auto tagProperty = myEditedACs.front()->getTagProperty();
-        // continue depending if we're creating or inspecting
+    // continue depending if we're creating or inspecting
     if (isEditorTypeCreator()) {
         // Set new value of attribute in all edited ACs without undo-redo
         for (const auto& editedAC : myEditedACs) {

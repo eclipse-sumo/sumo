@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- generated on 03/11/13 22:01:22 by SUMO sumo Version dev-SVN-r13370
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<fcd-export>
+    <timestep time="10.00">
+        <vehicle id="v0" x="-100" y="-200" angle="90.00" type="passenger" speed="11.11" pos="5.10" lane="2o_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="v0" x="-120" y="10" angle="90.00" type="passenger" speed="11.11" pos="16.21" lane="2o_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="v0" x="30" y="-20" angle="90.00" type="passenger" speed="11.11" pos="16.21" lane="2o_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="v0" x="50" y="150" angle="90.00" type="passenger" speed="11.11" pos="16.21" lane="2o_0" slope="0.00"/>
+    </timestep>
+</fcd-export>

@@ -63,43 +63,43 @@ public:
     /** @struct LotSpaceDefinition
       * @brief Representation of a single lot space
       */
-     struct LotSpaceDefinition {
-         /// @brief default constructor
-         LotSpaceDefinition();
+    struct LotSpaceDefinition {
+        /// @brief default constructor
+        LotSpaceDefinition();
 
-         /// @brief parameter constructor
-         LotSpaceDefinition(int index, SUMOVehicle* vehicle, double x, double y, double z, double rotation, double slope, double width, double length);
+        /// @brief parameter constructor
+        LotSpaceDefinition(int index, SUMOVehicle* vehicle, double x, double y, double z, double rotation, double slope, double width, double length);
 
-         /// @brief the running index
-         const int index;
+        /// @brief the running index
+        const int index;
 
-         /// @brief The last parked vehicle or 0
-         const SUMOVehicle* vehicle;
+        /// @brief The last parked vehicle or 0
+        const SUMOVehicle* vehicle;
 
-         /// @brief The position of the vehicle when parking in this space
-         const Position position;
+        /// @brief The position of the vehicle when parking in this space
+        const Position position;
 
-         /// @brief The rotation
-         const double rotation;
+        /// @brief The rotation
+        const double rotation;
 
-         /// @brief The slope
-         const double slope;
+        /// @brief The slope
+        const double slope;
 
-         /// @brief The width
-         const double width;
+        /// @brief The width
+        const double width;
 
-         /// @brief The length
-         const double length;
+        /// @brief The length
+        const double length;
 
-         /// @brief The position along the lane that the vehicle needs to reach for entering this lot
-         double endPos;
+        /// @brief The position along the lane that the vehicle needs to reach for entering this lot
+        double endPos;
 
-         ///@brief The angle between lane and lot through which a vehicle must manoeuver to enter the lot
-         double manoeuverAngle;
+        ///@brief The angle between lane and lot through which a vehicle must manoeuver to enter the lot
+        double manoeuverAngle;
 
-         ///@brief Whether the lot is on the LHS of the lane relative to the lane direction
-         bool sideIsLHS;
-     };
+        ///@brief Whether the lot is on the LHS of the lane relative to the lane direction
+        bool sideIsLHS;
+    };
 
     /** @brief Constructor
      *

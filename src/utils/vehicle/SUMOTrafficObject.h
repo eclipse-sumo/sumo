@@ -105,7 +105,7 @@ public:
     * @param[in] type The new vehicle type
     * @see MSTransportable::myVType
     */
-    virtual void replaceVehicleType(MSVehicleType* type) = 0;
+    virtual void replaceVehicleType(const MSVehicleType* type) = 0;
 
 
     /** @brief Returns the vehicle's parameter (including departure definition)

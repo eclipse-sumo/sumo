@@ -644,9 +644,9 @@ public:
         }
     }
 
-    void addSchedule(const SUMOVehicleParameter& pars, const std::vector<SUMOVehicleParameter::Stop>* addStops = nullptr) {
+    void addSchedule(const SUMOVehicleParameter& pars, const StopParVector* addStops = nullptr) {
         SUMOTime lastUntil = 0;
-        std::vector<SUMOVehicleParameter::Stop> validStops;
+        StopParVector validStops;
         if (addStops != nullptr) {
             // stops are part of a stand-alone route. until times are offsets from vehicle departure
             for (const SUMOVehicleParameter::Stop& stop : *addStops) {
@@ -712,7 +712,7 @@ public:
                 return;
             }
             typename std::vector<_PTEdge*>::const_iterator lineEdge = lineEdges.begin();
-            typename std::vector<SUMOVehicleParameter::Stop>::const_iterator s = validStops.begin() + 1;
+            typename StopParVector::const_iterator s = validStops.begin() + 1;
             for (; s != validStops.end(); ++s, ++lineEdge) {
                 if ((*lineEdge)->getSuccessors(SVC_IGNORING)[0] != myStopConnections[s->busstop]) {
                     WRITE_WARNINGF("Different stop for '%' compared to earlier definitions, ignoring schedule.", pars.line);

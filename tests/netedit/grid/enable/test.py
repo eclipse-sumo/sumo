@@ -39,8 +39,8 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.changeEditMode(netedit.attrs.modes.network.grid)
 
 # Create two nodes with grid
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC, 20, 20)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD, -20, 20)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.positionC, 20, 20)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.positionD, -20, 20)
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)

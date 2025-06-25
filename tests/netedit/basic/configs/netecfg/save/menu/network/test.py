@@ -32,14 +32,14 @@ netedit.computeJunctions()
 netedit.changeMode("createEdge")
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA, 0, -30)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB, 0, -30)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.positionA, 0, -30)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.positionB, 0, -30)
 
 # select two-way mode
 netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC, 0, 30)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD, 0, 30)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.positionC, 0, 30)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.positionD, 0, 30)
 
 # move to down (to avoid invalid selection)
 netedit.moveMouse(referencePosition, netedit.positions.downLeft)

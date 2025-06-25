@@ -24,6 +24,7 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEInternalTest.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
@@ -69,7 +70,7 @@ FXIMPLEMENT(GNEOptionsDialog, MFXDialogBox, GUIDialogOptionsMap, ARRAYNUMBER(GUI
 std::pair<int, bool>
 GNEOptionsDialog::Options(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer, const char* titleName) {
     GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, false);
-    auto result = std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
+    auto result = std::make_pair(optionsDialog->openModalDialog(GNEApp->getInternalTest()), optionsDialog->myOptionsModified);
     delete optionsDialog;
     return result;
 }
@@ -78,7 +79,7 @@ GNEOptionsDialog::Options(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCon
 std::pair<int, bool>
 GNEOptionsDialog::Run(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer, const char* titleName) {
     GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, true);
-    auto result = std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
+    auto result = std::make_pair(optionsDialog->openModalDialog(GNEApp->getInternalTest()), optionsDialog->myOptionsModified);
     delete optionsDialog;
     return result;
 }

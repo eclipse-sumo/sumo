@@ -22,11 +22,8 @@
 
 #include <utils/foxtools/fxheader.h>
 
-// ===========================================================================
-// class declaration
-// ===========================================================================
+#include "InternalTest.h"
 
-class InternalTest;
 
 // ===========================================================================
 // class definitions
@@ -106,18 +103,8 @@ public:
     /// @brief get event associated with this step
     void* getEvent() const;
 
-    /// @brief get key events used in certain dialogs (color, allowDialog, etc.)
-    const std::vector<const InternalTestStep*>& getKeySteps() const;
-
-protected:
-    /// @brief build mouse move event
-    FXEvent* buildMouseMoveEvent(const int posX, const int posY) const;
-
-    /// @brief build mouse left click press event
-    FXEvent* buildMouseLeftClickPressEvent(const int posX, const int posY) const;
-
-    /// @brief build mouse left click release event
-    FXEvent* buildMouseLeftClickReleaseEvent(const int posX, const int posY) const;
+    /// @brief get key events used in certain dialogs (allowDialog, etc.)
+    const std::vector<const InternalTestStep*>& getModalDialogTestSteps() const;
 
 private:
     /// @brief test system parent
@@ -144,8 +131,8 @@ private:
     /// @brief extra arguments
     ModalArguments* myModalArguments = nullptr;
 
-    /// @brief key events used in certain dialogs (color, allowDialog, etc.)
-    std::vector<const InternalTestStep*> myKeySteps;
+    /// @brief Test steps used in certain modal dialogs
+    std::vector<const InternalTestStep*> myModalDialogTestSteps;
 
     /// @brief parse function and arguments
     std::string parseStep(const std::string& rowText);
@@ -154,79 +141,97 @@ private:
     void parseArguments(const std::string& arguments);
 
     /// @brief process setupAndStart function
-    void processSetupAndStartFunction();
+    void setupAndStart();
 
-    /// @brief process left click function
-    void processLeftClickFunction(const std::string& modifier) const;
+    /// @brief process click function
+    void mouseClick(const std::string& button, const std::string& modifier) const;
 
     /// @brief process typeKey function
-    void processTypeKeyFunction() const;
+    void typeKey() const;
+
+    /// @brief contextual menu operation
+    void contextualMenuOperation() const;
 
     /// @brief process modifyAttribute function
-    void processModifyAttributeFunction() const;
-
-    /// @brief process modifyAttributeOverlapped function
-    void processModifyAttributeOverlappedFunction() const;
+    void modifyAttribute(const int overlappedTabs) const;
 
     /// @brief process modifyBoolAttribute function
-    void processModifyBoolAttributeFunction() const;
-
-    /// @brief process modifyBoolAttributeOverlapped function
-    void processModifyBoolAttributeOverlappedFunction() const;
+    void modifyBoolAttribute(const int overlappedTabs) const;
 
     /// @brief process modifyColorAttribute function
-    void processModifyColorAttributeFunction() const;
+    void modifyColorAttribute(const int overlappedTabs) const;
 
-    /// @brief process modifyColorAttributeOverlapped function
-    void processModifyColorAttributeOverlappedFunction() const;
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_NoDisallowAll(const int overlappedTabs) const;
+
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_DisallowAll(const int overlappedTabs) const;
+
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_Cancel(const int overlappedTabs) const;
+
+    /// @brief process modifyVClassDialog_DisallowAll function
+    void modifyVClassDialog_Reset(const int overlappedTabs) const;
 
     /// @brief process changeEditMode function
-    void processChangeEditModeFunction();
+    void changeEditMode();
 
     /// @brief process save function
-    void processSaveExistentShortcutFunction();
+    void saveExistentShortcut();
 
     /// @brief process check undo-redo function
-    void processCheckUndoRedoFunction() const;
+    void checkUndoRedo() const;
 
     /// @brief process delete function
-    void processDeleteFunction() const;
+    void deleteFunction() const;
 
     /// @brief process selection function
-    void processSelectionFunction() const;
+    void selection() const;
+
+    /// @brief process selectNetworkItems function
+    void selectNetworkItems() const;
 
     /// @brief process check undo function
-    void processUndoFunction() const;
+    void undo() const;
 
     /// @brief process check redo function
-    void processRedoFunction() const;
+    void redo() const;
 
     /// @brief process supermode function
-    void processChangeSupermodeFunction();
+    void changeSupermode();
 
     /// @brief process change mode function
-    void processChangeModeFunction();
+    void changeMode();
 
     /// @brief process change element function
-    void processChangeElementFunction() const;
+    void changeElement() const;
 
     /// @bief process change plan function
-    void processChangePlanFunction() const;
+    void changePlan() const;
 
     /// @brief process compute junctions function
-    void processComputeJunctionsFunction();
+    void computeJunctions();
 
     /// @brief process compute junctions with volatile options function
-    void processComputeJunctionsVolatileOptionsFunction();
+    void computeJunctionsVolatileOptions();
+
+    /// @brief create rectangle shape
+    void createRectangledShape();
+
+    /// @brief create squared shape
+    void createSquaredShape();
+
+    /// @brief create line shape
+    void createLineShape();
 
     /// @brief process quit function
-    void processQuitFunction();
+    void quit();
 
     /// @brief check int argument
-    bool checkIntArgument(const std::string& argument, const std::map<std::string, int>& map) const;
+    bool checkIntArgument(const std::string& argument) const;
 
     /// @brief get int argument
-    int getIntArgument(const std::string& argument, const std::map<std::string, int>& map) const;
+    int getIntArgument(const std::string& argument) const;
 
     /// @brief check bool argument
     bool checkBoolArgument(const std::string& argument) const;
@@ -244,7 +249,13 @@ private:
     std::string stripSpaces(const std::string& str) const;
 
     /// @brief write error
-    void writeError(const std::string& function, const std::string& expected) const;
+    void writeError(const std::string& function, const int overlapping,
+                    const std::string& expected) const;
+
+    /// @brief create shape
+    void createShape(const InternalTest::ViewPosition& viewPosition,
+                     const int sizeX, const int sizeY, const bool close,
+                     const bool line) const;
 
     /// @name key functions
     /// @{
@@ -311,6 +322,29 @@ private:
 
     /// @}
 
+    /// @name mouse functions
+    /// @{
+
+    /// @brief build mouse click event
+    void buildMouseClick(const InternalTest::ViewPosition& viewPosition,
+                         const int offsetX, const int offsetY,
+                         const std::string& button, const bool move) const;
+
+    /// @brief build mouse move event
+    FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
+                                 const int offsetX, const int offsetY) const;
+
+    /// @brief build mouse left click press event
+    FXEvent* buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
+                             const int offsetX, const int offsetY) const;
+
+    /// @brief write click info
+    void writeClickInfo(const InternalTest::ViewPosition& viewPosition,
+                        const int offsetX, const int offsetY,
+                        const std::string modifier) const;
+
+    /// @}
+
     /// @brief invalidate default constructor
     InternalTestStep() = delete;
 
@@ -318,5 +352,5 @@ private:
     InternalTestStep(const InternalTestStep&) = delete;
 
     /// @brief Invalidated assignment operator
-    InternalTestStep& operator=(const InternalTestStep& src) = delete;
+    InternalTestStep& operator=(const InternalTestStep&) = delete;
 };

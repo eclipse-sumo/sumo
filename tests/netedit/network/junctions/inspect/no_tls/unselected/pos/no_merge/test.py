@@ -51,7 +51,7 @@ time.sleep(2)
 netedit.computeJunctions()
 
 # inspect central node in new position
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left, offsetX=80)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.cross.left, 80, 0)
 
 # change position with a valid value
 netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-15.00, 15.00")

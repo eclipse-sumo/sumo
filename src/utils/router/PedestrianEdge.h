@@ -89,11 +89,15 @@ public:
         const double length = getPartialLength(trip);
         double tlsDelay = 0;
         // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
-        if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
-            // red traffic lights occurring later in the route may be green by the time we arrive
-            tlsDelay += MAX2(double(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
-        }
         if (this->getEdge()->isCrossing()) {
+            double timeToCrossing = (time - STEPS2TIME(trip->departTime));
+            if (myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
+                // red traffic lights occurring later in the route may be green by the time we arrive
+                tlsDelay += MAX2(double(0), TL_RED_PENALTY - timeToCrossing);
+            } else if (myLane->getIncomingLinkState() == LINKSTATE_TL_GREEN_MAJOR && timeToCrossing > TL_RED_PENALTY / 2) {
+                // green traffic lights occurring later in the route may be red by the time we arrive
+                tlsDelay += TL_RED_PENALTY;
+            }
             tlsDelay += this->getEdge()->getTimePenalty();
         }
 #ifdef IntermodalRouter_DEBUG_EFFORTS

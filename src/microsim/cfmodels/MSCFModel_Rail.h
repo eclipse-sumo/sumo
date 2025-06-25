@@ -83,10 +83,6 @@ private:
         double resCoef_linear;  // kN / (km/h)
         double resCoef_quadratic; // kN / (km/h)^2
 
-        double getRotWeight() const {
-            return weight * mf;
-        }
-
         double getResistance(double speed) const;
         double getTraction(double speed) const;
     };
@@ -116,6 +112,15 @@ public:
 //
 //
 //    };
+
+protected:
+
+    // @return rotational weight in tons
+    double getRotWeight(const MSVehicle* const veh) const;
+
+    // @brief return weight in tons
+    double getWeight(const MSVehicle* const veh) const;
+
 
 private:
 

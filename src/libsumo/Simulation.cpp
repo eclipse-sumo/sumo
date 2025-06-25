@@ -617,7 +617,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     SUMOVehicleParameter* pars = new SUMOVehicleParameter();
     pars->id = "simulation.findRoute";
     try {
-        ConstMSRoutePtr const routeDummy = std::make_shared<MSRoute>("", ConstMSEdgeVector({ fromEdge }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
+        ConstMSRoutePtr const routeDummy = std::make_shared<MSRoute>("", ConstMSEdgeVector({ fromEdge }), false, nullptr, StopParVector());
         vehicle = dynamic_cast<MSBaseVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false));
         std::string msg;
         if (!vehicle->hasValidRouteStart(msg)) {
@@ -742,7 +742,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             if (type->getVehicleClass() != SVC_IGNORING && (fromEdge->getPermissions() & type->getVehicleClass()) == 0 && !isTaxi) {
                 WRITE_WARNINGF(TL("Ignoring vehicle type '%' when performing intermodal routing because it is not allowed on the start edge '%'."), type->getID(), from);
             } else {
-                ConstMSRoutePtr const routeDummy = std::make_shared<MSRoute>(vehPar->id, ConstMSEdgeVector({ fromEdge }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
+                ConstMSRoutePtr const routeDummy = std::make_shared<MSRoute>(vehPar->id, ConstMSEdgeVector({ fromEdge }), false, nullptr, StopParVector());
                 vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
                 // we need to fix the speed factor here for deterministic results
                 vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter(0));

@@ -199,11 +199,11 @@ def getPosAttrs(obj):
 
 
 IDS = {
-        'edge': remap_edge,
-        'lane': remap_lane,
-        'edges': remap_edges,
-        'lanes': remap_lanes,
-        }
+    'edge': remap_edge,
+    'lane': remap_lane,
+    'edges': remap_edges,
+    'lanes': remap_lanes,
+}
 
 
 def remap(options, obj, level=1):

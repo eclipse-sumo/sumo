@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXDialogBox.h>
@@ -129,14 +130,14 @@ GNEAllowVClassesDialog::~GNEAllowVClassesDialog() {
 
 
 int
-GNEAllowVClassesDialog::openDialog(SumoXMLAttr attr, const std::string originalVClasses) {
+GNEAllowVClassesDialog::openDialog(SumoXMLAttr attr, const std::string originalVClasses, GNEInternalTest* internalTests) {
     setTitle(TLF("Edit vClasses of attribute '%'", toString(attr)).c_str());
     myOriginalVClasses = originalVClasses;
     myEditedVClasses = originalVClasses;
     // reset dialog
     onCmdReset(nullptr, 0, nullptr);
     // run it as modal
-    return execute();
+    return openModalDialog(internalTests);
 }
 
 

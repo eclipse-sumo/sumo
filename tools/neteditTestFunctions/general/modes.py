@@ -18,6 +18,7 @@
 # imports
 from ..input.keyboard import *
 
+
 def changeSupermode(supermode):
     """
     @brief change supermode
@@ -59,6 +60,8 @@ def changeMode(mode):
             typeKey('c')
         case "additional":
             typeKey('a')
+        case "shape":
+            typeKey('p')
         case "TLS":
             typeKey('t')
         case "TAZ":

@@ -38,49 +38,87 @@ class InternalTestStep;
 
 class InternalTest : public FXObject {
 
-    /// @brief declare InternalTestStep as friend
-    friend class InternalTestStep;
-
 public:
+    /// @brief view position
+    struct ViewPosition {
+        /// @brief constructor
+        ViewPosition() {}
+
+        /// @brief constructor
+        ViewPosition(const std::string& xValue, const std::string& yValue);
+
+        /// @brief x value
+        int x = 0;
+
+        /// @brief y value
+        int y = 0;
+    };
+
+    /// @brief contextual menu
+    struct ContextualMenu {
+
+        /// @brief default constructor
+        ContextualMenu() {}
+
+        /// @brief constructor
+        ContextualMenu(const std::string& mainMenuValue, const std::string& subMenuAValue,
+                       const std::string& subMenuBValue);
+
+        /// @brief main manue
+        int mainMenu = 0;
+
+        /// @brief submenu A
+        int subMenuA = 0;
+
+        /// @brief submenu B
+        int subMenuB = 0;
+    };
+
     /// @brief constructor
     InternalTest(const std::string& testFile);
 
     /// @brief destructor
     ~InternalTest();
 
-    /// @brief check if test are finised
-    bool isTestFinished() const;
+    /// @brief add test steps
+    void addTestSteps(const InternalTestStep* internalTestStep);
 
     /// @brief get current step
     const InternalTestStep* getCurrentStep() const;
 
+    /// @brief get map with attributesEnum jump steps
+    const std::map<std::string, int>& getAttributesEnum() const;
+
+    /// @brief get map with contextual menu operation jump steps
+    const std::map<std::string, InternalTest::ContextualMenu>& getContextualMenuOperations() const;
+
+    /// @brief get map with view position pairs
+    const std::map<std::string, InternalTest::ViewPosition>& getViewPositions() const;
+
 protected:
-    /// @brief vector with attributesEnum jump steps
-    std::map<std::string, int> myAttributesEnum;
-
-    /// @brief vector with contextual menu operation jump steps
-    std::map<std::string, int> myContextualMenuOperations;
-
-    /// @brief vector with view position pairs
-    std::map<std::string, std::pair<int, int> > myViewPositions;
-
     /// @brief current step index
     size_t myCurrentStep = 0;
 
     /// @brief test steps
     std::vector<const InternalTestStep*> myTestSteps;
 
-    /// @brief flag to check if test are started
-    bool myTestStarted = false;
+    /// @brief vector with attributesEnum jump steps
+    std::map<std::string, int> myAttributesEnum;
 
-    /// @brief flag to check if test are finished
-    bool myTestFinished = false;
+    /// @brief vector with contextual menu operation jump steps
+    std::map<std::string, InternalTest::ContextualMenu> myContextualMenuOperations;
 
-    /// @brief parse test data int file
-    std::map<std::string, int> parseIntTestDataFile(const std::string filePath) const;
+    /// @brief vector with view position pairs
+    std::map<std::string, InternalTest::ViewPosition> myViewPositions;
 
-    /// @brief parse test data position file
-    std::map<std::string, std::pair<int, int> > parsePositionTestDataFile(const std::string filePath) const;
+    /// @brief parse attributesEnum file
+    std::map<std::string, int> parseAttributesEnumFile(const std::string filePath) const;
+
+    /// @brief parse attributesEnum file
+    std::map<std::string, InternalTest::ContextualMenu> parseContextualMenuOperationsFile(const std::string filePath) const;
+
+    /// @brief parse viewPosition file
+    std::map<std::string, InternalTest::ViewPosition> parseViewPositionsFile(const std::string filePath) const;
 
     /// @brief clear lines
     std::vector<std::string> cleanLines(const std::vector<std::pair<bool, std::string> >& linesRaw) const;
@@ -88,6 +126,7 @@ protected:
     /// @brief check if the given string start with
     bool startWith(const std::string& str, const std::string& prefix) const;
 
+private:
     /// @brief invalidate default constructor
     InternalTest() = delete;
 
