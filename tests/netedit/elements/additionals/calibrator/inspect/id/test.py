@@ -44,16 +44,16 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 netedit.changeMode("inspect")
 
 # inspect calibrator
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibrator)
+netedit.leftClickOffset(referencePosition, netedit.positions.elements.edge0, -30, 0)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "ca_0")
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspect.id, "ca_0")
 
 # Change parameter id with a non valid value (Invalid ID)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "Id with spaces")
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspect.id, "Id with spaces")
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "correctID")
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspect.id, "correctID")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

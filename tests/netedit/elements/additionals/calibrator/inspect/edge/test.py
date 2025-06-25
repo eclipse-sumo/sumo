@@ -41,13 +41,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.changeMode("inspect")
 
 # inspect calibrator
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibrator)
+netedit.leftClickOffset(referencePosition, netedit.positions.elements.edge0, -30, 0)
 
 # Change parameter id with a non valid value (non existent ID)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.edge, "dummyEdge")
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspect.edge, "dummyEdge")
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.edge, "Edge2")
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspect.edge, "Edge2")
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

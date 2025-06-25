@@ -38,7 +38,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibratorLane)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectSelection.name, "///")
+netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectSelection.name, ";;...$$$..")
 
 # Change parameter id with valid value
 netedit.modifyAttributeOverlapped(netedit.attrs.calibrator.inspectSelection.name, "customName")
