@@ -1550,7 +1550,7 @@ class attrs:
             helpDialog = 17
             reset = 18
 
-    # calibrator (FALTA CENTER XXXX)
+    # calibrator
 
     class calibrator:
         class create:
@@ -1562,41 +1562,70 @@ class attrs:
             output = 10
             jamTreshold = 11
             vTypes = 12
+            parameters = 14
+            parametersButton = 15
+            center = 17
+            additionalFileButton = 18
+            additionalFile = 19
+            helpDialog = 20
+            reset = 21
 
         class inspect:
             id = 2
             edge = 3
             pos = 4
-            frequency = 5
-            name = 6
+            name = 5
+            frequency = 6
             routeProbe = 7
-            output = 8
-            jamTreshold = 9
-            vTypes = 10
+            outputButton = 8
+            output = 9
+            jamTreshold = 10
+            vTypes = 11
             parameters = 13
+            parametersButton = 14
+            frontButton = 16
+            calibratorDialog=17
+            additionalFileButton = 18
+            additionalFile = 19
+            helpDialog = 20
+            reset = 21
 
         class inspectLane:
             id = 2
             lane = 3
             laneMoveUp = 4
-            pos = 5
-            frequency = 6
-            name = 7
+            pos = 5            
+            name = 6
+            frequency = 7
             routeProbe = 8
-            output = 9
-            jamTreshold = 10
-            vTypes = 11
+            outputButton = 9
+            output = 10
+            jamTreshold = 11
+            vTypes = 12
             parameters = 14
+            parametersButton = 15
+            frontButton = 17
+            calibratorDialog=18
+            additionalFileButton = 19
+            additionalFile = 20
+            helpDialog = 21
+            reset = 22
 
         class inspectSelection:
-            pos = 2
+            name = 2
             frequency = 3
-            name = 4
-            routeProbe = 5
+            routeProbe = 4
+            outputButton = 5
             output = 6
             jamTreshold = 7
             vTypes = 8
-            parameters = 11
+            parameters = 10
+            parametersButton = 11
+            frontButton = 13
+            additionalFileButton = 14
+            additionalFile = 15
+            helpDialog = 16
+            reset = 17
 
     # routeProbe (FALTA CENTER XXXX)
 
