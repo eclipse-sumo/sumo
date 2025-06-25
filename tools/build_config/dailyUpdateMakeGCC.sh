@@ -144,7 +144,8 @@ if test -e $SUMO_BINDIR/netedit && test $SUMO_BINDIR/netedit -nt build/$FILEPREF
     # send SIGTERM to the netedit tests after some time and SIGKILL sometime later
     # This will not work on macOS unless "brew install coreutils" has been executed
     timeout -k 90m 60m tests/runTests.sh -a netedit.internal -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
-    timeout -k 300m 270m tests/runNeteditExternalDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
+    tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
+    timeout -k 510m 480m tests/runNeteditExternalDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
     tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
   fi
 fi
