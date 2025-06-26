@@ -850,7 +850,7 @@ netedit.attrs.dialog.allowVClass.wheelchair 19
 netedit.attrs.edge.create.addBikelane 6
 netedit.attrs.edge.create.addSidewalk 5
 netedit.attrs.edge.create.allow 12
-netedit.attrs.edge.create.allowButton 10
+netedit.attrs.edge.create.allowButton 11
 netedit.attrs.edge.create.bikelaneWidth 19
 netedit.attrs.edge.create.defaultShort 3
 netedit.attrs.edge.create.disallow 13

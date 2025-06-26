@@ -300,7 +300,7 @@ class attrs:
             useTemplate = 7
             numLanes = 9
             speed = 10
-            allowButton = 10
+            allowButton = 11
             allow = 12
             disallow = 13
             spreadType = 14
@@ -1584,7 +1584,7 @@ class attrs:
             parameters = 13
             parametersButton = 14
             frontButton = 16
-            calibratorDialog=17
+            calibratorDialog = 17
             additionalFileButton = 18
             additionalFile = 19
             helpDialog = 20
@@ -1594,7 +1594,7 @@ class attrs:
             id = 2
             lane = 3
             laneMoveUp = 4
-            pos = 5            
+            pos = 5
             name = 6
             frequency = 7
             routeProbe = 8
@@ -1605,7 +1605,7 @@ class attrs:
             parameters = 14
             parametersButton = 15
             frontButton = 17
-            calibratorDialog=18
+            calibratorDialog = 18
             additionalFileButton = 19
             additionalFile = 20
             helpDialog = 21
