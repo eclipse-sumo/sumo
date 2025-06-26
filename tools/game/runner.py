@@ -524,7 +524,7 @@ class ScoreDialog:
                 Tkinter.Label(self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
                 self.name = Tkinter.Entry(self.root)
                 self.name.grid(row=idx, sticky=Tkinter.W, column=1)
-                self.scoreLabel = Tkinter.Label(self.root, text=str(score),
+                self.scoreLabel = Tkinter.Label(self.root, text="%.2f" % score,
                                                 bg="pale green").grid(row=idx, column=2)
                 self.idx = idx
                 haveHigh = True
