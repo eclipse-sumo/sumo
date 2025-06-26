@@ -324,6 +324,12 @@ netedit.attrs.TAZRelData.inspect.fromTAZ 2
 netedit.attrs.TAZRelData.inspect.parameters 6
 netedit.attrs.TAZRelData.inspect.toTAZ 3
 netedit.attrs.TAZRelData.inspectSelection.parameters 2
+netedit.attrs.TLS.addPhases.default 0
+netedit.attrs.TLS.addPhases.duplicate 1
+netedit.attrs.TLS.addPhases.green 4
+netedit.attrs.TLS.addPhases.priorityGreen 5
+netedit.attrs.TLS.addPhases.red 2
+netedit.attrs.TLS.addPhases.yellow 3
 netedit.attrs.TLS.common.TLID 1
 netedit.attrs.TLS.common.TLType 2
 netedit.attrs.TLS.copyJoined 10
