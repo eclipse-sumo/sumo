@@ -27,8 +27,8 @@ subprocess.call(["python", os.path.join(SPECPATH, "minwait.py")])
 
 datas=[('../../bin/sumo.exe', '.'), ('../../bin/sumo-gui.exe', '.'), ('../../bin/*.dll', '.'),
        ('A10KW', 'A10KW'), ('bs3d', 'bs3d'), ('corridor', 'corridor'), ('cross', 'cross'), ('DRT', 'DRT'),
-       ('fkk_in', 'fkk_in'), ('grid6', 'grid6'), ('highway', 'highway'), ('ramp', 'ramp'),
-       ('rail', 'rail'), ('rail_demo', 'rail_demo'),
+       ('fkk_in', 'fkk_in'), ('fokr_bs', 'fokr_bs'), ('grid6', 'grid6'), ('highway', 'highway'),
+       ('images', 'images'), ('ramp', 'ramp'), ('rail', 'rail'), ('rail_demo', 'rail_demo'),
        ('sounds', 'sounds'), ('square', 'square'),
        ('refscores.pkl', '.'), ('*.sumocfg', '.'), ('*.gif', '.'), ('*.xml', '.')]
 a = Analysis(['runner.py'],

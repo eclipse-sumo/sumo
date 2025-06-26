@@ -67,6 +67,7 @@ def updateLocalMessages():
     _LANGUAGE_CAPTIONS = {'title': TL('Interactive Traffic Light'),
                           'rail': TL('Railway Control'),
                           'rail_demo': TL('Railway Control Demo'),
+                          'fokr_bs': TL('Research intersection Braunschweig'),
                           'fkk_in': TL('Research intersection Ingolstadt'),
                           'cross': TL('Simple Junction'),
                           'cross_demo': TL('Simple Junction (Demo)'),
