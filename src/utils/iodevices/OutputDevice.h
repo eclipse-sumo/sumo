@@ -278,6 +278,25 @@ public:
         return *this;
     }
 
+    template <typename Func>
+    OutputDevice& writeFuncAttr(const SumoXMLAttr attr, const Func& valFunc, const SumoXMLAttrMask& attributeMask, const bool isNull = false) {
+        assert((int)attr <= (int)attributeMask.size());
+        if (attributeMask.none() || attributeMask.test(attr)) {
+            if (myFormatter->getType() == OutputFormatterType::XML) {
+                if (!isNull) {
+                    PlainXMLFormatter::writeAttr(getOStream(), attr, valFunc());
+                }
+            } else {
+                if (isNull) {
+                    static_cast<CSVFormatter*>(myFormatter)->writeNull(getOStream(), attr);
+                } else {
+                    static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, valFunc());
+                }
+            }
+        }
+        return *this;
+    }
+
     /** @brief writes an arbitrary attribute
      *
      * @param[in] attr The attribute (name)

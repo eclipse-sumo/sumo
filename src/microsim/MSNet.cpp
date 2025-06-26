@@ -1066,7 +1066,7 @@ MSNet::writeOutput() {
 
     // check fcd dumps
     if (OptionsCont::getOptions().isSet("fcd-output")) {
-        MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-output"), myStep, myHasElevation);
+        MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-output"), myStep);
     }
 
     // check emission dumps
