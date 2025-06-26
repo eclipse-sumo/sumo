@@ -101,7 +101,11 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     } else if (function == "modifyVClassDialogOverlapped_Reset") {
         modifyVClassDialog_Reset(overlappedTabs);
     } else if (function == "createConnection") {
-        createConnection();
+        createConnection("");
+    } else if (function == "createConnectionConflict") {
+        createConnection("control");
+    } else if (function == "createConnectionYield") {
+        createConnection("shift");
     } else if (function == "saveConnectionEdit") {
         saveConnectionEdit();
     } else if (function == "createTLS") {
@@ -376,18 +380,8 @@ InternalTestStep::mouseClick(const std::string& button, const std::string& modif
     } else {
         // parse view position
         const auto& viewPosition = myTestSystem->getViewPositions().at(myArguments[1]);
-        // check if add key modifier
-        if (modifier == "control") {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(modifier), false);
-        } else if (modifier == "shift") {
-            new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(modifier), false);
-        }
         // build mouse click
-        buildMouseClick(viewPosition, 0, 0, button, true);
-        // check if add key modifier
-        if (!modifier.empty()) {
-            new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(modifier), true);
-        }
+        buildMouseClick(viewPosition, 0, 0, button, modifier);
         // print info
         writeClickInfo(viewPosition, 0, 0, modifier);
     }
@@ -405,7 +399,7 @@ InternalTestStep::leftClickOffset(const std::string& button) const {
         const int x = getIntArgument(myArguments[2]);
         const int y = getIntArgument(myArguments[3]);
         // build mouse click
-        buildMouseClick(viewPosition, x, y, button, true);
+        buildMouseClick(viewPosition, x, y, button, "");
         // print info
         writeClickInfo(viewPosition, x, y, button);
     }
@@ -432,7 +426,7 @@ InternalTestStep::contextualMenuOperation() const {
         const auto& viewPosition = myTestSystem->getViewPositions().at(myArguments[1]);
         const auto& contextualMenu = myTestSystem->getContextualMenuOperations().at(myArguments[2]);
         // build mouse click
-        buildMouseClick(viewPosition, 0, 0, "right", true);
+        buildMouseClick(viewPosition, 0, 0, "right", "");
         // jump to the element
         for (int i = 0; i < contextualMenu.mainMenu; i++) {
             buildPressKeyEvent("down", false);
@@ -635,14 +629,32 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
 
 
 void
-InternalTestStep::createConnection() const {
-    // XXX
+InternalTestStep::createConnection(const std::string& keyModifier) const {
+    if ((myArguments.size() != 3) ||
+            (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
+            (myTestSystem->getViewPositions().count(myArguments[2]) == 0)) {
+        writeError("createConnection", 0, "<reference, position, position>");
+    } else {
+        // parse view position
+        const auto& fromLane = myTestSystem->getViewPositions().at(myArguments[1]);
+        const auto& toLane = myTestSystem->getViewPositions().at(myArguments[2]);
+        // build mouse click from
+        buildMouseClick(fromLane, 0, 0, "left", keyModifier);
+        writeClickInfo(fromLane, 0, 0, "");
+        // build mouse click from
+        buildMouseClick(toLane, 0, 0, "left", keyModifier);
+        writeClickInfo(toLane, 0, 0, "");
+    }
 }
 
 
 void
 InternalTestStep::saveConnectionEdit() const {
-    // XXX
+    if (myArguments.size() != 0) {
+        writeError("saveConnectionEdit", 0, "<>");
+    } else {
+        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.connection.saveConnections"), 0);
+    }
 }
 
 
@@ -1395,29 +1407,24 @@ InternalTestStep::createShape(const InternalTest::ViewPosition& viewPosition,
     // press enter to start drawing
     buildPressKeyEvent("enter", true);
     // first edge
-    buildMouseMoveEvent(viewPosition, 0, 0);
-    buildMouseClick(viewPosition, 0, 0, "left", true);
+    buildMouseClick(viewPosition, 0, 0, "left", "");
     writeClickInfo(viewPosition, 0, 0, "");
     // second edge
     if (!line) {
-        buildMouseMoveEvent(viewPosition, 0, halfSizeY);
-        buildMouseClick(viewPosition, 0, halfSizeY, "left", true);
+        buildMouseClick(viewPosition, 0, halfSizeY, "left", "");
         writeClickInfo(viewPosition, 0, halfSizeY, "");
     }
     // third edge
-    buildMouseMoveEvent(viewPosition, halfSizeX, halfSizeY);
-    buildMouseClick(viewPosition, halfSizeX, halfSizeY, "left", true);
+    buildMouseClick(viewPosition, halfSizeX, halfSizeY, "left", "");
     writeClickInfo(viewPosition, halfSizeX, halfSizeY, "");
     // four edge
     if (!line) {
-        buildMouseMoveEvent(viewPosition, halfSizeX, 0);
-        buildMouseClick(viewPosition, halfSizeX, 0, "left", true);
+        buildMouseClick(viewPosition, halfSizeX, 0, "left", "");
         writeClickInfo(viewPosition, halfSizeX, 0, "");
     }
     // check if close polygon
     if (close) {
-        buildMouseMoveEvent(viewPosition, 0, 0);
-        buildMouseClick(viewPosition, 0, 0, "left", true);
+        buildMouseClick(viewPosition, 0, 0, "left", "");
         writeClickInfo(viewPosition, 0, 0, "");
     }
     // press enter to end drawing
@@ -1474,7 +1481,7 @@ InternalTestStep::undo(const int number) const {
               toString(MOUSE_REFERENCE_X) << " - " <<
               toString(MOUSE_REFERENCE_Y) << std::endl;
     // build mouse click
-    buildMouseClick(referencePosition, 0, 0, "left", true);
+    buildMouseClick(referencePosition, 0, 0, "left", "");
     // undo
     for (int i = 0; i < number; i++) {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO, Category::APP);
@@ -1495,7 +1502,7 @@ InternalTestStep::redo(const int number) const {
               toString(MOUSE_REFERENCE_X) << " - " <<
               toString(MOUSE_REFERENCE_Y) << std::endl;
     // build mouse click
-    buildMouseClick(referencePosition, 0, 0, "left", true);
+    buildMouseClick(referencePosition, 0, 0, "left", "");
     // undo
     for (int i = 0; i < number; i++) {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_Y_REDO, Category::APP);
@@ -1607,28 +1614,33 @@ InternalTestStep::translateKey(const char key) const {
 void
 InternalTestStep::buildMouseClick(const InternalTest::ViewPosition& viewPosition,
                                   const int offsetX, const int offsetY,
-                                  const std::string& button, const bool move) const {
-    // first check if move mouse
-    if (move) {
-        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
-                             buildMouseMoveEvent(viewPosition, offsetX, offsetY), true);
-    }
+                                  const std::string& button,
+                                  const std::string& keyModifier) const {
+    // move mouse
+    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
+                         buildMouseMoveEvent(viewPosition, offsetX, offsetY), true);
     // continue depending of mouse
     if (button == "left") {
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW,
-                             buildMouseEvent(SEL_LEFTBUTTONPRESS, viewPosition, offsetX, offsetY), true);
+                             buildMouseEvent(SEL_LEFTBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW,
-                             buildMouseEvent(SEL_LEFTBUTTONRELEASE, viewPosition, offsetX, offsetY), true);
+                             buildMouseEvent(SEL_LEFTBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
     } else if (button == "right") {
         new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONPRESS, Category::VIEW,
-                             buildMouseEvent(SEL_RIGHTBUTTONPRESS, viewPosition, offsetX, offsetY), true);
+                             buildMouseEvent(SEL_RIGHTBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
         new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONRELEASE, Category::VIEW,
-                             buildMouseEvent(SEL_RIGHTBUTTONRELEASE, viewPosition, offsetX, offsetY), true);
+                             buildMouseEvent(SEL_RIGHTBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
     } else if (button == "center") {
         new InternalTestStep(myTestSystem, SEL_MIDDLEBUTTONPRESS, Category::VIEW,
-                             buildMouseEvent(SEL_MIDDLEBUTTONPRESS, viewPosition, offsetX, offsetY), true);
+                             buildMouseEvent(SEL_MIDDLEBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
         new InternalTestStep(myTestSystem, SEL_MIDDLEBUTTONRELEASE, Category::VIEW,
-                             buildMouseEvent(SEL_MIDDLEBUTTONRELEASE, viewPosition, offsetX, offsetY), true);
+                             buildMouseEvent(SEL_MIDDLEBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
     }
 }
 
@@ -1651,7 +1663,7 @@ InternalTestStep::buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosi
 
 FXEvent*
 InternalTestStep::buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
-                                  const int offsetX, const int offsetY) const {
+                                  const int offsetX, const int offsetY, const std::string& keyModifier) const {
     FXEvent* leftClickPressEvent = new FXEvent();
     // common values
     leftClickPressEvent->synthetic = true;
@@ -1661,11 +1673,18 @@ InternalTestStep::buildMouseEvent(FXSelType type, const InternalTest::ViewPositi
     leftClickPressEvent->click_x = viewPosition.x + MOUSE_OFFSET_X + offsetX;
     leftClickPressEvent->click_y = viewPosition.y + MOUSE_OFFSET_Y + offsetY;
     leftClickPressEvent->type = type;
-    leftClickPressEvent->state = 256;
     leftClickPressEvent->code = 1;
     leftClickPressEvent->click_button = 1;
     leftClickPressEvent->click_count = 1;
     leftClickPressEvent->moved = false;
+    // set modifier
+    if (keyModifier == "control") {
+        leftClickPressEvent->state = CONTROLMASK;
+    } else if (keyModifier == "shift") {
+        leftClickPressEvent->state = SHIFTMASK;
+    } else {
+        leftClickPressEvent->state = 256;
+    }
     return leftClickPressEvent;
 }
 

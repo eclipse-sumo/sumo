@@ -177,7 +177,7 @@ private:
     void modifyVClassDialog_Reset(const int overlappedTabs) const;
 
     /// @brief process createConnection function
-    void createConnection() const;
+    void createConnection(const std::string& keyModifier) const;
 
     /// @brief process createConnectionEdit function
     void saveConnectionEdit() const;
@@ -389,7 +389,8 @@ private:
     /// @brief build mouse click event
     void buildMouseClick(const InternalTest::ViewPosition& viewPosition,
                          const int offsetX, const int offsetY,
-                         const std::string& button, const bool move) const;
+                         const std::string& button,
+                         const std::string& keyModifier) const;
 
     /// @brief build mouse move event
     FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
@@ -397,7 +398,7 @@ private:
 
     /// @brief build mouse left click press event
     FXEvent* buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
-                             const int offsetX, const int offsetY) const;
+                             const int offsetX, const int offsetY, const std::string& keyModifier) const;
 
     /// @brief write click info
     void writeClickInfo(const InternalTest::ViewPosition& viewPosition,
