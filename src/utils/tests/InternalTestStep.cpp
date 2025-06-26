@@ -100,6 +100,10 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         modifyVClassDialog_Reset(0);
     } else if (function == "modifyVClassDialogOverlapped_Reset") {
         modifyVClassDialog_Reset(overlappedTabs);
+    } else if (function == "createConnection") {
+        createConnection();
+    } else if (function == "saveConnectionEdit") {
+        saveConnectionEdit();
     } else if (function == "createTLS") {
         createTLS(0);
     } else if (function == "createTLSOverlapped") {
@@ -631,6 +635,18 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
 
 
 void
+InternalTestStep::createConnection() const {
+    // XXX
+}
+
+
+void
+InternalTestStep::saveConnectionEdit() const {
+    // XXX
+}
+
+
+void
 InternalTestStep::createTLS(const int overlappedTabs) const {
     if (myArguments.size() != 0) {
         writeError("createTLS", overlappedTabs, "<>");
@@ -1059,7 +1075,7 @@ InternalTestStep::changeMode() {
             myMessageID = MID_HOTKEY_M_MODE_MOVE_MEANDATA;
         } else if ((networkMode == "createEdge") || (networkMode == "edgeData")) {
             myMessageID = MID_HOTKEY_E_MODE_EDGE_EDGEDATA;
-        } else if ((networkMode == "trafficLight") || (networkMode == "type")) {
+        } else if ((networkMode == "trafficLight") || (networkMode == "type") || (networkMode == "TLS")) {
             myMessageID = MID_HOTKEY_T_MODE_TLS_TYPE;
         } else if ((networkMode == "connection") || (networkMode == "container")) {
             myMessageID = MID_HOTKEY_C_MODE_CONNECT_CONTAINER;

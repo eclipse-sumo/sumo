@@ -176,6 +176,12 @@ private:
     /// @brief process modifyVClassDialog_DisallowAll function
     void modifyVClassDialog_Reset(const int overlappedTabs) const;
 
+    /// @brief process createConnection function
+    void createConnection() const;
+
+    /// @brief process createConnectionEdit function
+    void saveConnectionEdit() const;
+
     /// @brief process createTLS function
     void createTLS(const int overlappedTabs) const;
 
