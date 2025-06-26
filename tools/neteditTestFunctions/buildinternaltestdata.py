@@ -25,30 +25,77 @@ import ast
 import os
 
 
-def flattenClassTree(node, scope=None, result=None):
+def flattenClassTree(node, scope=None, result=None, local_vars=None):
     if scope is None:
         scope = []
     if result is None:
         result = {}
+    if local_vars is None:
+        local_vars = {}
+
     for item in node.body:
         if isinstance(item, ast.ClassDef):
             scope.append(item.name)
-            flattenClassTree(item, scope, result)
+            flattenClassTree(item, scope, result, local_vars)
             scope.pop()
+
         elif isinstance(item, ast.Assign):
             for target in item.targets:
                 if isinstance(target, ast.Name):
                     key = '.'.join(scope + [target.id])
                     value_node = item.value
-                    # simple constant (number, string, etc.)
-                    if isinstance(value_node, ast.Constant):
-                        result[key] = value_node.value
-                    # negative number -n
-                    elif (isinstance(value_node, ast.UnaryOp)
-                            and isinstance(value_node.op, ast.USub)
-                            and isinstance(value_node.operand, ast.Constant)):
-                        result[key] = -value_node.operand.value
+                    try:
+                        # evaluate if os possible
+                        value = eval_ast(value_node, local_vars)
+                        result[key] = value
+                        local_vars[target.id] = value
+                    except Exception:
+                        result[key] = None
     return result
+
+
+def eval_ast(node, local_vars):
+    if isinstance(node, ast.Constant):
+        return node.value
+    elif isinstance(node, ast.Name):
+        return local_vars.get(node.id)
+    elif isinstance(node, ast.BinOp):
+        left = eval_ast(node.left, local_vars)
+        right = eval_ast(node.right, local_vars)
+        return eval_binop(node.op, left, right)
+    elif isinstance(node, ast.UnaryOp):
+        operand = eval_ast(node.operand, local_vars)
+        return eval_unaryop(node.op, operand)
+    else:
+        raise ValueError("Unsupported AST node: %s" % ast.dump(node))
+
+
+def eval_binop(op, left, right):
+    if isinstance(op, ast.Add):
+        return left + right
+    elif isinstance(op, ast.Sub):
+        return left - right
+    elif isinstance(op, ast.Mult):
+        return left * right
+    elif isinstance(op, ast.Div):
+        return left / right
+    elif isinstance(op, ast.FloorDiv):
+        return left // right
+    elif isinstance(op, ast.Mod):
+        return left % right
+    elif isinstance(op, ast.Pow):
+        return left ** right
+    else:
+        raise ValueError("Unsupported binary operator: %s" % op)
+
+
+def eval_unaryop(op, operand):
+    if isinstance(op, ast.UAdd):
+        return +operand
+    elif isinstance(op, ast.USub):
+        return -operand
+    else:
+        raise ValueError("Unsupported unary operator: %s" % op)
 
 
 def parseIntFile(outputFolder, file):
