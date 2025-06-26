@@ -123,6 +123,10 @@
     #pragma warning(disable: 4582)
     /* Disable destructor is not implicitly called */
     #pragma warning(disable: 4583)
+    /* Disable "compiler may not enforce left-to-right evaluation order" (C++17 standard not fully implemented) */
+    #if _MSC_VER >= 1916
+        #pragma warning(disable: 4866)
+    #endif
     /* Disable "implicit copy constructor/assignment operator is deprecated because it has a user-provided destructor" */
     #if _MSC_VER >= 1930
         #pragma warning(disable: 5267)

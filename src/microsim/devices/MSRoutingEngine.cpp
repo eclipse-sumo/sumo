@@ -649,8 +649,7 @@ MSRoutingEngine::loadState(const SUMOSAXAttributes& attrs) {
             if ((int)speeds.size() == myAdaptationSteps) {
                 myPastEdgeSpeeds[id] = speeds;
                 if (myBikeSpeeds && attrs.hasAttribute(SUMO_ATTR_PASTBIKESPEED)) {
-                    const std::vector<double> speeds = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PASTBIKESPEED, nullptr, ok);
-                    myPastEdgeBikeSpeeds[id] = speeds;
+                    myPastEdgeBikeSpeeds[id] = attrs.getOpt<std::vector<double> >(SUMO_ATTR_PASTBIKESPEED, nullptr, ok);
                 }
             } else if (!checkedSteps) {
                 checkedSteps = true;
