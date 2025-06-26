@@ -642,9 +642,14 @@ InternalTestStep::createTLS(const int overlappedTabs) const {
 
 void
 InternalTestStep::copyTLS() const {
-    if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
-        writeError("copyTLS", 0, "<int>");
+    if ((myArguments.size() != 1) || !checkBoolArgument(myArguments[0])) {
+        writeError("copyTLS", 0, "<bool>");
     } else {
+        if (getBoolArgument(myArguments[0])) {
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.copyJoined"), 0);
+        } else {
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.copySingle"), 0);
+        }
     }
 }
 
@@ -662,7 +667,7 @@ InternalTestStep::joinTSL() const {
 void
 InternalTestStep::disJoinTLS() const {
     if (myArguments.size() != 0) {
-        writeError("joinTSL", 0, "<>");
+        writeError("disJoinTLS", 0, "<>");
     } else {
         modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.disjoinTLS"), 0);
     }
@@ -671,25 +676,53 @@ InternalTestStep::disJoinTLS() const {
 
 void
 InternalTestStep::deleteTLS() const {
-    // Finish
+    if ((myArguments.size() != 1) || !checkBoolArgument(myArguments[0])) {
+        writeError("deleteTLS", 0, "<bool>");
+    } else {
+        if (getBoolArgument(myArguments[0])) {
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.deleteJoined"), 0);
+        } else {
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.deleteSingle"), 0);
+        }
+    }
 }
 
 
 void
 InternalTestStep::resetSingleTLSPhases() const {
-    // Finish
+    if ((myArguments.size() != 1) || !checkBoolArgument(myArguments[0])) {
+        writeError("resetSingleTLSPhases", 0, "<bool>");
+    } else {
+        if (getBoolArgument(myArguments[0])) {
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetPhaseSingle"), 0);
+        } else {
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetPhaseJoined"), 0);
+        }
+    }
 }
 
 
 void
 InternalTestStep::resetAllTLSPhases() const {
-    // Finish
+    if ((myArguments.size() != 1) || !checkBoolArgument(myArguments[0])) {
+        writeError("resetAllTLSPhases", 0, "<bool>");
+    } else {
+        if (getBoolArgument(myArguments[0])) {
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetAllJoined"), 0);
+        } else {
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetAllSingle"), 0);
+        }
+    }
 }
 
 
 void
 InternalTestStep::pressTLSPhaseButton() const {
-    // Finish
+    if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
+        writeError("pressTLSPhaseButton", 0, "<int/attributeEnum>");
+    } else {
+        modifyBoolAttribute(getIntArgument(myArguments[0]), 0);
+    }
 }
 
 
@@ -698,16 +731,7 @@ InternalTestStep::addPhase(const int phaseTabs) const {
     if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
         writeError("addPhase", 0, "<int/attributeEnum>");
     } else {
-        // get tabs
-        const int tabs = getIntArgument(myArguments[1]);
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to create TLS button
-        for (int i = 0; i < tabs; i++) {
-            buildPressKeyEvent("tab", false);
-        }
-        // press button
-        buildPressKeyEvent("space", true);
+        modifyBoolAttribute(getIntArgument(myArguments[0]), 0);
         // jump to the element
         for (int i = 0; i < phaseTabs; i++) {
             buildPressKeyEvent("tab", false);
