@@ -122,7 +122,7 @@ else:
     print("Upload is disabled.")
 
 
-def computeScoreFromWaitingTime(gamename):
+def computeScoreFromWaitingTime(gamename, maxScore=10000):
     totalArrived = 0
     totalWaitingTime = 0
     complete = True
@@ -133,11 +133,11 @@ def computeScoreFromWaitingTime(gamename):
         else:
             totalWaitingTime = float(s.waitingTime) * float(s.count)
             totalArrived = float(s.count)
-    score = 10000 - totalWaitingTime
+    score = maxScore - totalWaitingTime
     return score, totalArrived, complete
 
 
-def computeScoreFromTimeLoss(gamename):
+def computeScoreFromTimeLoss(gamename, maxScore=10000):
     totalArrived = 0
     timeLoss = None
     departDelay = None
@@ -176,8 +176,8 @@ def computeScoreFromTimeLoss(gamename):
             print("timeLoss=%s departDelay=%s departDelayWaiting=%s inserted=%s running=%s waiting=%s" % (
                 timeLoss, departDelay, departDelayWaiting, inserted, running, waiting))
 
-        score = 10000 - int(100 * ((timeLoss + departDelay) * inserted +
-                                   departDelayWaiting * waiting) / (inserted + waiting))
+        score = maxScore - int(100 * ((timeLoss + departDelay) * inserted +
+                                      departDelayWaiting * waiting) / (inserted + waiting))
         return score, totalArrived, True
 
 
@@ -265,7 +265,7 @@ def computeScoreSquare(gamename):
 _SCORING_FUNCTION = defaultdict(lambda: computeScoreFromWaitingTime)
 _SCORING_FUNCTION.update({
     'A10KW': computeScoreFromTimeLoss,
-    'highway': computeScoreFromTimeLoss,
+    'highway': lambda name: computeScoreFromTimeLoss(name, 13000),
     'DRT': computeScoreDRT,
     'DRT2': computeScoreDRT,
     'DRT_demo': computeScoreDRT,
@@ -541,7 +541,7 @@ class ScoreDialog:
             if score is not None:  # not called from the main menue
                 Tkinter.Label(self.root, text=lang['your score'], padx=5,
                               bg="indian red").grid(row=idx, sticky=Tkinter.W, column=1)
-                Tkinter.Label(self.root, text=str(score),
+                Tkinter.Label(self.root, text="%.2f" % score,
                               bg="indian red").grid(row=idx, column=2)
                 idx += 1
         Tkinter.Button(self.root, text=lang["Continue"], command=self.save).grid(
