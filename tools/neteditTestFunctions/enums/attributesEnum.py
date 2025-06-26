@@ -601,6 +601,14 @@ class attrs:
             TLID = 1
             TLType = 2
 
+        class addPhases:
+            default = 0
+            duplicate = 1
+            red = 2
+            yellow = 3
+            green = 4
+            priorityGreen = 5
+
         class single:
 
             class attributes:
