@@ -100,6 +100,36 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         modifyVClassDialog_Reset(0);
     } else if (function == "modifyVClassDialogOverlapped_Reset") {
         modifyVClassDialog_Reset(overlappedTabs);
+    } else if (function == "createTLS") {
+        createTLS(0);
+    } else if (function == "createTLSOverlapped") {
+        createTLS(overlappedTabs);
+    } else if (function == "copyTLS") {
+        copyTLS();
+    } else if (function == "joinTSL") {
+        joinTSL();
+    } else if (function == "disJoinTLS") {
+        disJoinTLS();
+    } else if (function == "deleteTLS") {
+        deleteTLS();
+    } else if (function == "resetSingleTLSPhases") {
+        resetSingleTLSPhases();
+    } else if (function == "resetAllTLSPhases") {
+        resetAllTLSPhases();
+    } else if (function == "pressTLSPhaseButton") {
+        pressTLSPhaseButton();
+    } else if (function == "addDefaultPhase") {
+        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.default"));
+    } else if (function == "addDuplicatePhase") {
+        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.duplicate"));
+    } else if (function == "addRedPhase") {
+        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.red"));
+    } else if (function == "addYellowPhase") {
+        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.yellow"));
+    } else if (function == "addGreenPhase") {
+        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.green"));
+    } else if (function == "addGreenPriorityPhase") {
+        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.priorityGreen"));
     } else if (function == "checkParameters") {
         checkParameters(0);
     } else if (function == "checkParametersOverlapped") {
@@ -363,7 +393,7 @@ InternalTestStep::mouseClick(const std::string& button, const std::string& modif
 void
 InternalTestStep::leftClickOffset(const std::string& button) const {
     if ((myArguments.size() != 4) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
-        !checkIntArgument(myArguments[2]) || !checkIntArgument(myArguments[3])) {
+            !checkIntArgument(myArguments[2]) || !checkIntArgument(myArguments[3])) {
         writeError("leftClickOffset", 0, "<reference, position, int, int>");
     } else {
         // parse view position
@@ -442,15 +472,8 @@ InternalTestStep::modifyBoolAttribute(const int overlappedTabs) const {
     if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
         writeError("modifyBoolAttribute", overlappedTabs, "<int/attributeEnum>");
     } else {
-        const int attribute = getIntArgument(myArguments[0]);
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to the element
-        for (int i = 0; i < (attribute + overlappedTabs); i++) {
-            buildPressKeyEvent("tab", false);
-        }
-        // toogle attribute
-        buildPressKeyEvent("space", true);
+        // modify bool attribute
+        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
     }
 }
 
@@ -460,27 +483,20 @@ InternalTestStep::modifyColorAttribute(const int overlappedTabs) const {
     if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
         writeError("modifyColorAttribute", overlappedTabs, "<int/attributeEnum>");
     } else {
-        const int attribute = getIntArgument(myArguments[0]);
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to the element
-        for (int i = 0; i < (attribute + overlappedTabs); i++) {
-            buildPressKeyEvent("tab", false);
-        }
         // open dialog
-        auto spaceEvent = buildPressKeyEvent("space", false);
+        auto openDialogEvent = modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
         // go to the list of colors
         for (int i = 0; i < 2; i++) {
-            buildTwoPressKeyEvent(spaceEvent, "shift", "tab");
+            buildTwoPressKeyEvent(openDialogEvent, "shift", "tab");
         }
         // select color
         for (int i = 0; i < 6; i++) {
-            buildPressKeyEvent(spaceEvent, "down");
+            buildPressKeyEvent(openDialogEvent, "down");
         }
         // go to button
-        buildPressKeyEvent(spaceEvent, "tab");
+        buildPressKeyEvent(openDialogEvent, "tab");
         // press button
-        buildPressKeyEvent(spaceEvent, "space");
+        buildPressKeyEvent(openDialogEvent, "space");
     }
 }
 
@@ -491,17 +507,10 @@ InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) con
             !checkIntArgument(myArguments[1])) {
         writeError("modifyVClassDialog_NoDisallowAll", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
-        // parse input
-        const int attribute = getIntArgument(myArguments[0]);
-        const int vClass = getIntArgument(myArguments[1]);
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to open dialog button
-        for (int i = 0; i < (attribute + overlappedTabs); i++) {
-            buildPressKeyEvent("tab", false);
-        }
         // open dialog
-        auto openDialogEvent = buildPressKeyEvent("space", true);
+        auto openDialogEvent = modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        // get vClass
+        const int vClass = getIntArgument(myArguments[1]);
         // jump to vClass
         for (int i = 0; i < vClass; i++) {
             buildPressKeyEvent(openDialogEvent, "tab");
@@ -524,17 +533,10 @@ InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const
             !checkIntArgument(myArguments[1])) {
         writeError("modifyVClassDialog_DisallowAll", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
-        // parse input
-        const int attribute = getIntArgument(myArguments[0]);
-        const int vClass = getIntArgument(myArguments[1]);
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to open dialog button
-        for (int i = 0; i < (attribute + overlappedTabs); i++) {
-            buildPressKeyEvent("tab", false);
-        }
         // open dialog
-        auto openDialogEvent = buildPressKeyEvent("space", true);
+        auto openDialogEvent = modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        // get vClass
+        const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
             buildPressKeyEvent(openDialogEvent, "tab");
@@ -564,17 +566,10 @@ InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
             !checkIntArgument(myArguments[1])) {
         writeError("modifyVClassDialog_Cancel", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
-        // parse input
-        const int attribute = getIntArgument(myArguments[0]);
-        const int vClass = getIntArgument(myArguments[1]);
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to open dialog button
-        for (int i = 0; i < (attribute + overlappedTabs); i++) {
-            buildPressKeyEvent("tab", false);
-        }
         // open dialog
-        auto openDialogEvent = buildPressKeyEvent("space", true);
+        auto openDialogEvent = modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        // get vClass
+        const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
             buildPressKeyEvent(openDialogEvent, "tab");
@@ -603,17 +598,10 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
             !checkIntArgument(myArguments[1])) {
         writeError("modifyVClassDialog_Reset", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
-        // parse input
-        const int attribute = getIntArgument(myArguments[0]);
-        const int vClass = getIntArgument(myArguments[1]);
-        // focus frame
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-        // jump to open dialog button
-        for (int i = 0; i < (attribute + overlappedTabs); i++) {
-            buildPressKeyEvent("tab", false);
-        }
         // open dialog
-        auto openDialogEvent = buildPressKeyEvent("space", true);
+        auto openDialogEvent = modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        // get vClass
+        const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
             buildPressKeyEvent(openDialogEvent, "tab");
@@ -638,6 +626,94 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
         }
         // press accept
         buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::createTLS(const int overlappedTabs) const {
+    if (myArguments.size() != 0) {
+        writeError("createTLS", overlappedTabs, "<>");
+    } else {
+        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.create"), overlappedTabs);
+    }
+}
+
+
+void
+InternalTestStep::copyTLS() const {
+    if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
+        writeError("copyTLS", 0, "<int>");
+    } else {
+    }
+}
+
+
+void
+InternalTestStep::joinTSL() const {
+    if (myArguments.size() != 0) {
+        writeError("joinTSL", 0, "<>");
+    } else {
+        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.joinTLS"), 0);
+    }
+}
+
+
+void
+InternalTestStep::disJoinTLS() const {
+    if (myArguments.size() != 0) {
+        writeError("joinTSL", 0, "<>");
+    } else {
+        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.disjoinTLS"), 0);
+    }
+}
+
+
+void
+InternalTestStep::deleteTLS() const {
+    // Finish
+}
+
+
+void
+InternalTestStep::resetSingleTLSPhases() const {
+    // Finish
+}
+
+
+void
+InternalTestStep::resetAllTLSPhases() const {
+    // Finish
+}
+
+
+void
+InternalTestStep::pressTLSPhaseButton() const {
+    // Finish
+}
+
+
+void
+InternalTestStep::addPhase(const int phaseTabs) const {
+    if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
+        writeError("addPhase", 0, "<int/attributeEnum>");
+    } else {
+        // get tabs
+        const int tabs = getIntArgument(myArguments[1]);
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to create TLS button
+        for (int i = 0; i < tabs; i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // press button
+        buildPressKeyEvent("space", true);
+        // jump to the element
+        for (int i = 0; i < phaseTabs; i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // press button
+        buildPressKeyEvent("space", true);
     }
 }
 
@@ -1332,6 +1408,19 @@ InternalTestStep::modifyStringAttribute(const int tabs, const int overlappedTabs
 }
 
 
+InternalTestStep*
+InternalTestStep::modifyBoolAttribute(const int tabs, const int overlappedTabs) const {
+    // focus frame
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+    // jump to the element
+    for (int i = 0; i < (tabs + overlappedTabs); i++) {
+        buildPressKeyEvent("tab", false);
+    }
+    // toogle attribute
+    return buildPressKeyEvent("space", true);
+}
+
+
 void
 InternalTestStep::undo(const int number) const {
     // get reference position
@@ -1342,8 +1431,8 @@ InternalTestStep::undo(const int number) const {
     new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
     // click over reference
     std::cout << "TestFunctions: Clicked over position " <<
-                toString(MOUSE_REFERENCE_X) << " - " <<
-                toString(MOUSE_REFERENCE_Y) << std::endl;
+              toString(MOUSE_REFERENCE_X) << " - " <<
+              toString(MOUSE_REFERENCE_Y) << std::endl;
     // build mouse click
     buildMouseClick(referencePosition, 0, 0, "left", true);
     // undo
@@ -1363,8 +1452,8 @@ InternalTestStep::redo(const int number) const {
     new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT, Category::APP);
     // click over reference
     std::cout << "TestFunctions: Clicked over position " <<
-                toString(MOUSE_REFERENCE_X) << " - " <<
-                toString(MOUSE_REFERENCE_Y) << std::endl;
+              toString(MOUSE_REFERENCE_X) << " - " <<
+              toString(MOUSE_REFERENCE_Y) << std::endl;
     // build mouse click
     buildMouseClick(referencePosition, 0, 0, "left", true);
     // undo
