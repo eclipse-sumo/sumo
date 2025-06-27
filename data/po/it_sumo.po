@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-20 08:20+0000\n"
-"PO-Revision-Date: 2025-06-11 12:42+0000\n"
+"PO-Revision-Date: 2025-06-27 13:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1402,7 +1402,7 @@ msgstr ""
 
 #: src/mesosim/MEVehicle.cpp:629
 msgid "Unknown segment '%:%' for vehicle '%' in loaded state."
-msgstr ""
+msgstr "Segmento sconosciuto '%:%' per il veicolo '%' nello stato caricato."
 
 #: src/microsim/MSBaseVehicle.cpp:190
 msgid "Changing a vehicle ID is not permitted"
@@ -1423,15 +1423,20 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:463
 msgid "Vehicle '%' skips stop on edge '%' with delay % at time %."
 msgstr ""
+"Il veicolo '%' omette la fermata sull'arco '%' con un ritardo di % alle ore "
+"%."
 
 #: src/microsim/MSBaseVehicle.cpp:465
 msgid "Vehicle '%' skips stop on edge '%' with priority % at time %."
 msgstr ""
+"Il veicolo '%' omette la fermata sull'arco '%' con la priorità % alle ore %."
 
 #: src/microsim/MSBaseVehicle.cpp:467
 msgid ""
 "Vehicle '%' skips unreachable stop on edge '%' with priority % at time %."
 msgstr ""
+"Il veicolo '%' omette la fermata non raggiungibile sull'arco '%' con la "
+"priorità % alle ore %."
 
 #: src/microsim/MSBaseVehicle.cpp:496
 #, c-format
@@ -3652,13 +3657,15 @@ msgstr "Corsia sconosciuta '%' nello stato caricato."
 #: src/microsim/MSStateHandler.cpp:303
 #, c-format
 msgid "Unknown segment '%' in loaded state."
-msgstr ""
+msgstr "Segmento sconosciuto '%' nello stato caricato."
 
 #: src/microsim/MSStateHandler.cpp:331
 msgid ""
 "Invalid queue index '%' on segment '%'. Check for consistency of lane "
 "numbers and queue options."
 msgstr ""
+"Indice di coda '%' invalido nel segmento '%'. Controlla se i numeri di "
+"corsie e le opzioni di coda sono consistenti."
 
 #: src/microsim/MSStateHandler.cpp:436
 #, c-format
@@ -8603,6 +8610,8 @@ msgstr "Leggi file shape (ArcView, Tiger, ...) da file che iniziano con 'FILE'"
 msgid ""
 "Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE'"
 msgstr ""
+"Leggi dati Navteq GDF convertiti (rete Elmar non separata) dal percorso "
+"'FILE'"
 
 #: src/netimport/NIFrame.cpp:106
 msgid "Read OSM-network from path 'FILE(s)'"
@@ -13022,12 +13031,16 @@ msgstr "Non si possono definire parametri all'interno di un altro parametro."
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
+"Errore analizzando la chiave di un parametro generico di %. La chiave non "
+"deve essere vuota"
 
 #: src/utils/handlers/CommonHandler.cpp:69
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr ""
+"Errore analizzando la chiave di un parametro generico di %. La chiave "
+"contiene dei caratteri invalidi"
 
 #: src/utils/handlers/CommonHandler.cpp:107
 msgid "'%' must be defined within the definition of a %."
