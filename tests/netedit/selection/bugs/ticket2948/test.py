@@ -60,7 +60,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.modifyAttributeOverlapped(netedit.attrs.junction.inspectSelection.type, "traffic_light")
 
 # inspect set of edges
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA, offsetX=100)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.positionA, 100, 0)
 
 # change all speed of edges
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.speed, "20")

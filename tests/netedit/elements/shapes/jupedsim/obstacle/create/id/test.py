@@ -33,28 +33,28 @@ netedit.changeElement("shapeFrame", "jupedsim.obstacle")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # set invalid ID
 netedit.modifyAttribute(netedit.attrs.jpsObstacle.create.id, ";;;;;;")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # set invalid ID
 netedit.modifyAttribute(netedit.attrs.jpsObstacle.create.id, "jps.obstacle_0")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # set invalid ID
 netedit.modifyAttribute(netedit.attrs.jpsObstacle.create.id, "custom_ID")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

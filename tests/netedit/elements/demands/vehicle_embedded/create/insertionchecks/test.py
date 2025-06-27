@@ -34,23 +34,19 @@ netedit.changeMode("vehicle")
 # select vehicle with embedded route
 netedit.changeElement("vehicleFrame", "vehicle (embedded route)")
 
-# set valid Line
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.insertionChecks, "ownLine")
-
-# create trip
+# try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+
+# set valid Line
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.insertionChecks, "dummy")
 
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set empty insertionChecks
+# set valid Line
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.insertionChecks,
                         "leaderGap junction speedLimit pedestrian")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeKey("enter")

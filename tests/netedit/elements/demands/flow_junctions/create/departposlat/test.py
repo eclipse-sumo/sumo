@@ -47,10 +47,6 @@ netedit.typeKey("enter")
 # set invalid depart pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.departPosLat, "-12")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create trip
 netedit.typeKey("enter")
 

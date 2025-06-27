@@ -63,7 +63,9 @@ protected:
     /** @brief Returns the associated ostream
      * @return The used stream
      */
-    std::ostream& getOStream() override;
+    inline std::ostream& getOStream() override {
+        return *myFileStream;
+    }
     /// @}
 
 

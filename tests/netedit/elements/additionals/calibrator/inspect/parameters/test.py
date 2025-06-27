@@ -41,10 +41,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.changeMode("inspect")
 
 # inspect calibrator
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibrator)
+netedit.leftClickOffset(referencePosition, netedit.positions.elements.edge0, -30, 0)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.calibrator.inspect.parameters)
+netedit.checkParametersOverlapped(referencePosition, netedit.attrs.calibrator.inspect.parameters)
 
 # save netedit config
 netedit.saveExistentShortcut("neteditConfig")

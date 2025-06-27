@@ -5,10 +5,10 @@ trip (from-to TAZs)
 %%%%%%
 TestFunctions: Clicked over position 861 - 399
 TestFunctions: Clicked over position 1012 - 400
-ownLine
+
 TestFunctions: Clicked over position 861 - 399
 TestFunctions: Clicked over position 1012 - 400
-
+customLine
 TestFunctions: Clicked over position 861 - 399
 TestFunctions: Clicked over position 1012 - 400
 TestFunctions: Clicked over position 304 - 168

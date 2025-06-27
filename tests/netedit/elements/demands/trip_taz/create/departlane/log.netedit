@@ -1,0 +1,2 @@
+Warning: Invalid value 'dummyLane' in attribute departLane
+Error: Invalid departLane used in tripTAZs 't_1'. 20 is greater than number of lanes

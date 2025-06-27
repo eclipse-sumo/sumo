@@ -38,15 +38,8 @@ netedit.changeElement("vehicleFrame", "trip (from-to junctions)")
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
-# press enter to create trip
-netedit.typeKey("enter")
-
 # set invalid depart
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.depart, "-12")
-
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
 netedit.typeKey("enter")
@@ -54,15 +47,11 @@ netedit.typeKey("enter")
 # set valid depart
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.depart, "30")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid depart (output will be changed)
-netedit.modifyAttribute(netedit.attrs.tripJunction.create.depart, "20")
+netedit.modifyAttribute(netedit.attrs.tripJunction.create.depart, "20.5")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)

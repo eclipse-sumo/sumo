@@ -1,6 +1,1 @@
-Warning: Invalid value 'flow (from-to junctions)' in attribute departSpeed
-Warning: Only two junctions are allowed
-Warning: Double junctions aren't allowed
-Warning: Invalid value '-12' in attribute departSpeed
-Warning: Only two junctions are allowed
-Warning: Double junctions aren't allowed
+Warning: Invalid value 'dummySpeed' in attribute departSpeed

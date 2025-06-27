@@ -47,19 +47,11 @@ netedit.typeKey("enter")
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.arrivalPos, "-12")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.arrivalPos, "random_free")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
 netedit.typeKey("enter")

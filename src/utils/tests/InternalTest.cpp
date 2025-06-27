@@ -58,9 +58,11 @@ InternalTest::InternalTest(const std::string& testFile) {
     std::ifstream strm(testFile);
     // check if file can be opened
     if (!strm.good()) {
-        throw ProcessError("Could not open test file '" + testFile + "'.");
+        std::cout << "Could not open test file '" + testFile + "'." << std::endl;
+        throw ProcessError();
     } else if (myAttributesEnum.empty() || myContextualMenuOperations.empty() || myViewPositions.empty()) {
-        throw ProcessError("Error loading test data files");
+        std::cout << "Error loading test data files" << std::endl;
+        throw ProcessError();
     } else {
         std::string line;
         std::vector<std::pair<bool, std::string> > linesRaw;

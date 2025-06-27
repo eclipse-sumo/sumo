@@ -37,10 +37,6 @@ netedit.changeElement("vehicleFrame", "flow (from-to junctions)")
 # set invalid vType
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.type, "blue")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create trip
 netedit.typeKey("enter")
 

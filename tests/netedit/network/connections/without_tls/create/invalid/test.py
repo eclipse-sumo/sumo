@@ -35,8 +35,8 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.changeMode("connection")
 
 # create connection
-netedit.createConnection(referencePosition, netedit.positions.network.connection.laneLeftBot,
-                         netedit.positions.network.connection.laneDownLeft, "conflict")
+netedit.createConnectionConflict(referencePosition, netedit.positions.network.connection.laneLeftBot,
+                                 netedit.positions.network.connection.laneDownLeft)
 
 # save changes
 netedit.saveConnectionEdit()

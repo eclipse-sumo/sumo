@@ -47,29 +47,17 @@ netedit.typeKey("enter")
 # set invalid personNumber
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.personNumber, "-12")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set invalid personNumber
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.personNumber, "3.5")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid personNumber
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.personNumber, "13")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
 netedit.typeKey("enter")

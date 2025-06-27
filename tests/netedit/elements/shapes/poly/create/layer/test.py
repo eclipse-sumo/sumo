@@ -36,21 +36,21 @@ netedit.modifyAttribute(netedit.attrs.poly.create.layer, "dummyLayer")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # change layer (valid, negative)
 netedit.modifyAttribute(netedit.attrs.poly.create.layer, "-2.5")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # change layer (valid)
 netedit.modifyAttribute(netedit.attrs.poly.create.layer, "3")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

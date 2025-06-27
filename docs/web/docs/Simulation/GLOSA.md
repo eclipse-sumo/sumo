@@ -63,7 +63,7 @@ The behavior can be simulated by setting param `device.glosa.use-queue` to true.
 ```xml
     <vehicle id="v0" route="route0" depart="0">
         <param key="has.glosa.device" value="true"/>
-        <param key="has.glosa.use-queue" value="true"/>
+        <param key="device.glosa.use-queue" value="true"/>
     </vehicle>
 ```
 
@@ -120,7 +120,7 @@ The following parameters affect the operation of the glosa device.
   and this advice changes the speedFactor. Therefore, the speed of the vehicle in the next time step is dependent on the car-following model.
   By setting this boolean parameter to true, the device calculates a specific speed time line (default false). This is explicitly followed by the vehicle.
   This would somewhat mimic the behavior of an automated vehicle.
-- has.glosa.use-queue (v1.22): By setting this boolean parameter to true,
+- device.glosa.use-queue (v1.22): By setting this boolean parameter to true,
   the vehicle takes the queue length in front of the traffic light into account (default false).
 - jmDriveAfterYellowTime: This junction model parameter encodes willingness to
   continue driving at yellow depending on running duration of the yellow phase

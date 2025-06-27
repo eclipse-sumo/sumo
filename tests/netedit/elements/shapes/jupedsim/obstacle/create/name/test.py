@@ -36,14 +36,14 @@ netedit.modifyAttribute(netedit.attrs.jpsObstacle.create.name, "%%%%%%$$$$")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # change layer (valid, negative)
 netedit.modifyAttribute(netedit.attrs.jpsObstacle.create.name, "customName")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

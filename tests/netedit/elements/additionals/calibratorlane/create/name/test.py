@@ -35,7 +35,7 @@ netedit.changeElement("additionalFrame", "calibratorLane")
 netedit.modifyBoolAttribute(netedit.attrs.calibrator.create.center)
 
 # set invalid name
-netedit.modifyAttribute(netedit.attrs.calibrator.create.name, ";;\"\"\"")
+netedit.modifyAttribute(netedit.attrs.calibrator.create.name, ";;...$$$..")
 
 # try to create calibratorLane with invalid name
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

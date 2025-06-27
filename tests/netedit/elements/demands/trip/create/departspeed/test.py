@@ -31,9 +31,6 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# disable select trip due this is the first vehicle in the list
-# netedit.changeElement("vehicleFrame", "trip")
-
 # set invalid depart speed
 netedit.modifyAttribute(netedit.attrs.trip.create.departSpeed, "dummySpeed")
 
@@ -47,19 +44,11 @@ netedit.typeKey("enter")
 # set invalid depart speed
 netedit.modifyAttribute(netedit.attrs.trip.create.departSpeed, "-12")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid depart speed
 netedit.modifyAttribute(netedit.attrs.trip.create.departSpeed, "max")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeKey("enter")

@@ -328,8 +328,8 @@ MSDevice_Transportable::changeAttached() {
         if (perAttached > 0) {
             MSBaseVehicle& veh = dynamic_cast<MSBaseVehicle&>(myHolder);
             SUMOVehicleClass oldVC = myHolder.getVClass();
-            int numAttached = ceil(myTransportables.size() / perAttached);
-            if (numAttached > 0) {
+            const double numAttached = ceil(myTransportables.size() / perAttached);
+            if (numAttached > 0.) {
                 MSVehicleType* stype = &veh.getSingularType();
                 stype->setVClass(myLoadedType->getVehicleClass());
                 stype->setGUIShape(myLoadedType->getGuiShape());
@@ -342,8 +342,7 @@ MSDevice_Transportable::changeAttached() {
             } else {
                 myHolder.replaceVehicleType(myOriginalType);
             }
-            SUMOVehicleClass newVC = myHolder.getVClass();
-            if (oldVC != newVC) {
+            if (oldVC != myHolder.getVClass()) {
                 veh.reroute(SIMSTEP, "device." + deviceName() + ".loadedType", veh.getRouterTT());
             }
         }

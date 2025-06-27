@@ -47,7 +47,7 @@ netedit.typeKey("enter")
 # set valid vType
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.type, "custom_vType")
 
-# create trip
+# try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 

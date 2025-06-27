@@ -30,7 +30,7 @@ netedit.changeMode("TAZ")
 
 # create polygon with default values
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # go to delete mode
 netedit.changeMode("delete")

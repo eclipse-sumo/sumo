@@ -30,8 +30,8 @@ netedit.changeMode("TAZ")
 
 # create open line TAZ (area 0)
 netedit.createLineShape(referencePosition, netedit.positions.elements.additionals.shapeA,
-                        netedit.positions.elements.additionals.shapeSize,
-                        netedit.positions.elements.additionals.shapeSize, False)
+                        netedit.attrs.shape.size,
+                        netedit.attrs.shape.size, False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

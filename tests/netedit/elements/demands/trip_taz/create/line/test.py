@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey("enter")
 
 # set valid Line
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.line, "ownLine")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.line, "")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey("enter")
 
 # set empty line
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.line, "")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.line, "customLine")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

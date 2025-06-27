@@ -31,7 +31,7 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# select trip over TAZs
+# select trip over junctions
 netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # create trip

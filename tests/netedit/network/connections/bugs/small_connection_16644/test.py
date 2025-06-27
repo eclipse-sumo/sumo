@@ -32,7 +32,7 @@ netedit.computeJunctions()
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
 # inspect connection
-netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA, 100)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.connection.connectionA, 100, 0)
 
 # Change type with an invalid value
 netedit.modifyAttributeOverlapped(netedit.attrs.connection.inspectTLS.type, "%%%;;;;%%")

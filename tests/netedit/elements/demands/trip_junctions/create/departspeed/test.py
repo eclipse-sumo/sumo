@@ -47,25 +47,17 @@ netedit.typeKey("enter")
 # set invalid depart speed
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.departSpeed, "-12")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid depart speed
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.departSpeed, "max")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid depart speed
-netedit.modifyAttribute(netedit.attrs.tripJunction.create.departSpeed, "20")
+netedit.modifyAttribute(netedit.attrs.tripJunction.create.departSpeed, "20.2")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)

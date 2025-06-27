@@ -57,10 +57,6 @@ netedit.typeKey("enter")
 # set valid color
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.color, "cyan")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create trip
 netedit.typeKey("enter")
 

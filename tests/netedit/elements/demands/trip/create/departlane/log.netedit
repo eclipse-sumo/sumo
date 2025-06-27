@@ -1,1 +1,2 @@
+Warning: Invalid value 'dummyLane' in attribute departLane
 Error: Invalid departLane used in trip 't_1'. 20 is greater than number of lanes

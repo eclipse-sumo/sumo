@@ -47,10 +47,6 @@ netedit.typeKey("enter")
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowTAZ.create.spacing, "vehsPerHour")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
 # press enter to create flow with embedded route
 netedit.typeKey("enter")
 
@@ -67,25 +63,24 @@ netedit.typeKey("enter")
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowTAZ.create.spacingOption, "-30")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
 # press enter to create flow with embedded route
 netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowTAZ.create.spacingOption, "20.5")
 
+# press enter to create flow with embedded route
+netedit.typeKey("enter")
+
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
-# press enter to create flow with embedded route
-netedit.typeKey("enter")
-
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowTAZ.create.spacingOption, "22")
+
+# press enter to create flow with embedded route
+netedit.typeKey("enter")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -37,9 +37,9 @@ def createRectangledShape(referencePosition, position, sizex, sizey, close):
     typeKey('enter')
     # create polygon
     leftClick(referencePosition, position)
-    leftClick(referencePosition, position, 0, (sizey / -2))
-    leftClick(referencePosition, position, (sizex / -2), (sizey / -2))
-    leftClick(referencePosition, position, (sizex / -2), 0)
+    leftClickOffset(referencePosition, position, 0, int(float(sizey) / -2))
+    leftClickOffset(referencePosition, position, int(sizex / float(-2)), int(float(sizey) / -2))
+    leftClickOffset(referencePosition, position, int(sizex / float(-2)), 0)
     # check if polygon has to be closed
     if (close is True):
         leftClick(referencePosition, position)
@@ -57,7 +57,7 @@ def createLineShape(referencePosition, position, sizex, sizey, close):
     typeKey('enter')
     # create polygon
     leftClick(referencePosition, position)
-    leftClick(referencePosition, position, (sizex / -2), (sizey / -2))
+    leftClickOffset(referencePosition, position, (sizex / -2), (sizey / -2))
     # check if polygon has to be closed
     if (close is True):
         leftClick(referencePosition, position)

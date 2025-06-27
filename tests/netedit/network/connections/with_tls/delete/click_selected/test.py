@@ -35,7 +35,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.changeMode("select")
 
 # select all connections
-netedit.selectItems("Network elements", "connection", "speed", "")
+netedit.selectNetworkItems("connection", "speed", "")
 
 # set delete mode
 netedit.changeMode("delete")

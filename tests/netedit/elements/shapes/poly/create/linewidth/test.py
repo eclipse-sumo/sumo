@@ -36,21 +36,21 @@ netedit.modifyAttribute(netedit.attrs.poly.create.lineWidth, "dummyLineWidth")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # change line width (invalid, negative)
 netedit.modifyAttribute(netedit.attrs.poly.create.lineWidth, "-2.5")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # change line width (valid)
 netedit.modifyAttribute(netedit.attrs.poly.create.lineWidth, "3.2")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

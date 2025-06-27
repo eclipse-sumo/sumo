@@ -5,10 +5,8 @@ flow (from-to junctions)
 %%%%%%
 TestFunctions: Clicked over position 458 - 598
 TestFunctions: Clicked over position 459 - 213
-ownLine
-TestFunctions: Clicked over position 458 - 598
-TestFunctions: Clicked over position 459 - 213
 
+customLine
 TestFunctions: Clicked over position 458 - 598
 TestFunctions: Clicked over position 459 - 213
 TestFunctions: Clicked over position 304 - 168

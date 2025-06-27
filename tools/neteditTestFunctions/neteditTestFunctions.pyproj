@@ -55,7 +55,7 @@
     <Compile Include="imports.py" />
     <Compile Include="input\keyboard.py" />
     <Compile Include="input\mouse.py" />
-    <Compile Include="internaltestdata.py" />
+    <Compile Include="buildinternaltestdata.py" />
     <Compile Include="setup.py" />
     <Compile Include="enums\viewPositions.py" />
     <Compile Include="__init__.py" />

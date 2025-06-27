@@ -54,10 +54,6 @@ netedit.typeKey("enter")
 # set valid id
 netedit.modifyAttribute(netedit.attrs.tripTAZ.create.id, "")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
@@ -73,10 +69,6 @@ netedit.typeKey("enter")
 
 # set empty id
 netedit.modifyAttribute(netedit.attrs.tripTAZ.create.id, "customID")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
 netedit.typeKey("enter")

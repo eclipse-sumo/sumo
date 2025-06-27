@@ -31,7 +31,7 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# select trip over TAZs
+# select trip over junctions
 netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # set invalid line
@@ -45,17 +45,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey("enter")
 
 # set valid Line
-netedit.modifyAttribute(netedit.attrs.flowTAZ.create.line, "ownLine")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.line, "")
 
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set empty line
-netedit.modifyAttribute(netedit.attrs.flowTAZ.create.line, "")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.line, "customLine")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

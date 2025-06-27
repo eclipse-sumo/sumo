@@ -26,13 +26,13 @@ def selection(selectionType):
     # focus current frame
     focusOnFrame()
     if (selectionType == "default"):
-        for _ in range(attrs.frames.selection.default):
+        for _ in range(attrs.frames.selection.basic.default):
             typeKey('tab')
         # type space to select it
         typeKey('space')
     elif (selectionType == "save"):
         # jump to save
-        for _ in range(attrs.frames.selection.save):
+        for _ in range(attrs.frames.selection.basic.save):
             typeKey('tab')
         typeKey('space')
         # jump to filename TextField
@@ -43,7 +43,7 @@ def selection(selectionType):
         typeKey('enter')
     elif (selectionType == "load"):
         # jump to save
-        for _ in range(attrs.frames.selection.load):
+        for _ in range(attrs.frames.selection.basic.load):
             typeKey('tab')
         typeKey('space')
         # jump to filename TextField
@@ -54,45 +54,45 @@ def selection(selectionType):
         typeKey('enter')
     elif (selectionType == "add"):
         # jump to mode "add"
-        for _ in range(attrs.frames.selection.add):
+        for _ in range(attrs.frames.selection.basic.add):
             typeKey('tab')
         # type space to select it
         typeKey('space')
     elif (selectionType == "remove"):
         # jump to mode "remove"
-        for _ in range(attrs.frames.selection.remove):
+        for _ in range(attrs.frames.selection.basic.remove):
             typeKey('tab')
         # type space to select it
         typeKey('space')
     elif (selectionType == "keep"):
         # jump to mode "keep"
-        for _ in range(attrs.frames.selection.keep):
+        for _ in range(attrs.frames.selection.basic.keep):
             typeKey('tab')
         # type space to select it
         typeKey('space')
     elif (selectionType == "replace"):
         # jump to mode "replace"
-        for _ in range(attrs.frames.selection.replace):
+        for _ in range(attrs.frames.selection.basic.replace):
             typeKey('tab')
         # type space to select it
         typeKey('space')
     elif (selectionType == "clear"):
-        for _ in range(attrs.frames.selection.clear):
+        for _ in range(attrs.frames.selection.basic.clear):
             typeKey('tab')
         # type space to select it
         typeKey('space')
     elif (selectionType == "invert"):
-        for _ in range(attrs.frames.selection.invert):
+        for _ in range(attrs.frames.selection.basic.invert):
             typeKey('tab')
         # type space to select it
         typeKey('space')
     elif (selectionType == "invertData"):
-        for _ in range(attrs.frames.selection.invertData):
+        for _ in range(attrs.frames.selection.basic.invertData):
             typeKey('tab')
         # type space to select it
         typeKey('space')
     elif (selectionType == "delete"):
-        for _ in range(attrs.frames.selection.delete):
+        for _ in range(attrs.frames.selection.basic.delete):
             typeKey('tab')
         # type space to select it
         typeKey('space')
@@ -117,29 +117,29 @@ def lockSelection(glType):
     typeKey('space')
 
 
-def selectItems(elementClass, elementType, attribute, value):
+def selectNetworkItems(element, attribute, value):
     """
-    @brief select items
+    @brief select network items
     """
     # focus current frame
     focusOnFrame()
     # jump to elementClass
-    for _ in range(8):
+    for _ in range(attrs.frames.selection.networkItem.type):
         typeKey('tab')
     # paste the new elementClass
-    updateText(elementClass)
+    updateText("Network elements")
     # jump to element
-    for _ in range(2):
+    for _ in range(attrs.frames.selection.networkItem.subType):
         typeKey('tab')
     # paste the new elementType
-    updateText(elementType)
+    updateText(element)
     # jump to attribute
-    for _ in range(3):
+    for _ in range(attrs.frames.selection.networkItem.attribute):
         typeKey('tab')
     # paste the new attribute
     updateText(attribute)
     # jump to value
-    for _ in range(2):
+    for _ in range(attrs.frames.selection.networkItem.value):
         typeKey('tab')
     # paste the new value
     updateText(value)

@@ -20,6 +20,8 @@ from ..imports import *
 from ..constants import *
 from ..input.keyboard import *
 from ..input.mouse import *
+from ..enums.attributesEnum import *
+from ..enums.viewPositions import *
 
 
 def openNeteditConfigAs(waitTime=2):
@@ -43,7 +45,7 @@ def openSumoConfigAs(referencePosition):
     @brief load netedit config using dialog
     """
     # click over reference (to avoid problem with undo-redo)
-    leftClick(referencePosition, 0, 0)
+    leftClick(referencePosition, positions.reference)
     # open save network as dialog
     typeTwoKeys('ctrl', 'm')
     # jump to filename TextField

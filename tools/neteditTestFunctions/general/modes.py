@@ -60,6 +60,8 @@ def changeMode(mode):
             typeKey('c')
         case "additional":
             typeKey('a')
+        case "shape":
+            typeKey('p')
         case "TLS":
             typeKey('t')
         case "TAZ":

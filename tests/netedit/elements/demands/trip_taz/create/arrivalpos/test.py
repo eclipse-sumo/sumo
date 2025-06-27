@@ -47,10 +47,6 @@ netedit.typeKey("enter")
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalPos, "-12")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
 # press enter to create trip
 netedit.typeKey("enter")
 

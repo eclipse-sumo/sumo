@@ -20,7 +20,25 @@ from .keyboard import *
 from ..constants import *
 
 
-def leftClick(referencePosition, position, offsetX=0, offsetY=0):
+def leftClick(referencePosition, position):
+    """
+    @brief do left click over a position relative to referencePosition (pink square)
+    """
+    # obtain clicked position
+    clickedPosition = [referencePosition[0] + position.x, referencePosition[1] + position.y]
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
+    # click over position
+    pyautogui.click(button='left')
+    # wait after every operation
+    time.sleep(DELAY_MOUSE_CLICK)
+    # show debug
+    print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
+
+
+def leftClickOffset(referencePosition, position, offsetX, offsetY):
     """
     @brief do left click over a position relative to referencePosition (pink square)
     """

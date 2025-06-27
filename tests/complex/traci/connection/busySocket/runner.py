@@ -42,7 +42,7 @@ s.bind(('', PORT))
 sumoProc = subprocess.Popen([sumoBinary, "--remote-port", str(PORT)] + addOption,
                             stdout=sys.stdout)
 try:
-    traci.init(PORT)
+    traci.init(PORT, numRetries=5)
     traci.close()
 except traci.FatalTraCIError as e:
     print(e, file=sys.stderr)

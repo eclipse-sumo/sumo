@@ -47,25 +47,17 @@ netedit.typeKey("enter")
 # set invalid depart speed
 netedit.modifyAttribute(netedit.attrs.tripTAZ.create.departSpeed, "-12")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid depart speed
 netedit.modifyAttribute(netedit.attrs.tripTAZ.create.departSpeed, "max")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid depart speed
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.departSpeed, "20")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.departSpeed, "20.2")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

@@ -47,10 +47,6 @@ netedit.typeKey("enter")
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminate, "number")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create flow with embedded route
 netedit.typeKey("enter")
 
@@ -67,19 +63,11 @@ netedit.typeKey("enter")
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "-30")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create flow with embedded route
 netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "20.5")
-
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
 netedit.typeKey("enter")

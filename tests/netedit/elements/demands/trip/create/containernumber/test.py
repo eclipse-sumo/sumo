@@ -31,9 +31,6 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# disable select trip due this is the first vehicle in the list
-# netedit.changeElement("vehicleFrame", "trip")
-
 # set invalid containerNumber
 netedit.modifyAttribute(netedit.attrs.trip.create.containerNumber, "dummyContainerNumber")
 
@@ -47,29 +44,17 @@ netedit.typeKey("enter")
 # set invalid containerNumber
 netedit.modifyAttribute(netedit.attrs.trip.create.containerNumber, "-12")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set invalid containerNumber
 netedit.modifyAttribute(netedit.attrs.trip.create.containerNumber, "3.5")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid containerNumber
 netedit.modifyAttribute(netedit.attrs.trip.create.containerNumber, "13")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeKey("enter")

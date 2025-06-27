@@ -32,7 +32,7 @@ netedit.computeJunctions()
 netedit.changeMode("select")
 
 # select all junctions with name toJoin
-netedit.selectItems("Network elements", "junction", "name", "toJoin")
+netedit.selectNetworkItems("junction", "name", "toJoin")
 
 # join selected junctions
 netedit.joinSelectedJunctions()

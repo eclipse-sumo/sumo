@@ -48,20 +48,20 @@
 // method definitions
 // ===========================================================================
 void
-MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
-    const OptionsCont& oc = OptionsCont::getOptions();
-    const SUMOTime period = string2time(oc.getString("device.fcd.period"));
-    const SUMOTime begin = string2time(oc.getString("device.fcd.begin"));
+MSFCDExport::write(OutputDevice& of, const SUMOTime timestep) {
+    MSDevice_FCD::initOnce();
+    const SUMOTime period = MSDevice_FCD::getPeriod();
+    const SUMOTime begin = MSDevice_FCD::getBegin();
     if ((period > 0 && (timestep - begin) % period != 0) || timestep < begin) {
         return;
     }
-    const SumoXMLAttrMask mask = MSDevice_FCD::getWrittenAttributes();
-    const bool useGeo = oc.getBool("fcd-output.geo");
-    const double maxLeaderDistance = oc.getFloat("fcd-output.max-leader-distance");
-    std::vector<std::string> params = oc.getStringVector("fcd-output.params");
+    const SumoXMLAttrMask& mask = MSDevice_FCD::getWrittenAttributes();
+    const bool useGeo = MSDevice_FCD::useGeo();
+    const double maxLeaderDistance = MSDevice_FCD::getMaxLeaderDistance();
+    const std::vector<std::string>& params = MSDevice_FCD::getParamsToWrite();
     MSNet* net = MSNet::getInstance();
     MSVehicleControl& vc = net->getVehicleControl();
-    const double radius = oc.getFloat("device.fcd.radius");
+    const double radius = MSDevice_FCD::getRadius();
     const bool filter = MSDevice_FCD::getEdgeFilter().size() > 0;
     const bool shapeFilter = MSDevice_FCD::hasShapeFilter();
     std::set<const Named*> inRadius;
@@ -80,12 +80,11 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 
     of.openTag("timestep").writeAttr(SUMO_ATTR_TIME, time2string(timestep));
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
-        const SUMOVehicle* veh = it->second;
-        const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
-        const MSBaseVehicle* baseVeh = dynamic_cast<const MSBaseVehicle*>(veh);
+        const SUMOVehicle* const veh = it->second;
         if (isVisible(veh)) {
             const bool hasOutput = hasOwnOutput(veh, filter, shapeFilter, (radius > 0 && inRadius.count(veh) > 0));
             if (hasOutput) {
+                const MSVehicle* const microVeh = MSGlobals::gUseMesoSim ? nullptr : static_cast<const MSVehicle*>(veh);
                 Position pos = veh->getPosition();
                 if (useGeo) {
                     of.setPrecision(gPrecisionGeo);
@@ -93,123 +92,170 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 }
                 of.openTag(SUMO_TAG_VEHICLE);
                 of.writeAttr(SUMO_ATTR_ID, veh->getID());
-                of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
-                of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
+                of.writeFuncAttr(SUMO_ATTR_X, [ = ]() {
+                    return pos.x();
+                }, mask);
+                of.writeFuncAttr(SUMO_ATTR_Y, [ = ]() {
+                    return pos.y();
+                }, mask);
                 of.setPrecision(gPrecision);
-                if (elevation) {
-                    of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
+                of.writeFuncAttr(SUMO_ATTR_Z, [ = ]() {
+                    return pos.z();
+                }, mask);
+                of.writeFuncAttr(SUMO_ATTR_ANGLE, [ = ]() {
+                    return GeomHelper::naviDegree(veh->getAngle());
+                }, mask);
+                of.writeFuncAttr(SUMO_ATTR_TYPE, [ = ]() {
+                    return veh->getVehicleType().getID();
+                }, mask);
+                of.writeFuncAttr(SUMO_ATTR_SPEED, [ = ]() {
+                    return veh->getSpeed();
+                }, mask);
+                of.writeFuncAttr(SUMO_ATTR_POSITION, [ = ]() {
+                    return veh->getPositionOnLane();
+                }, mask);
+                of.writeFuncAttr(SUMO_ATTR_LANE, [ = ]() {
+                    return MSGlobals::gUseMesoSim ? "" : microVeh->getLane()->getID();
+                }, mask, MSGlobals::gUseMesoSim);
+                of.writeFuncAttr(SUMO_ATTR_EDGE, [ = ]() {
+                    return veh->getEdge()->getID();
+                }, mask, !MSGlobals::gUseMesoSim);
+                of.writeFuncAttr(SUMO_ATTR_SLOPE, [ = ]() {
+                    return veh->getSlope();
+                }, mask);
+                if (!MSGlobals::gUseMesoSim) {
+                    of.writeFuncAttr(SUMO_ATTR_SIGNALS, [ = ]() {
+                        return microVeh->getSignals();
+                    }, mask);
+                    of.writeFuncAttr(SUMO_ATTR_ACCELERATION, [ = ]() {
+                        return microVeh->getAcceleration();
+                    }, mask);
+                    of.writeFuncAttr(SUMO_ATTR_ACCELERATION_LAT, [ = ]() {
+                        return microVeh->getLaneChangeModel().getAccelerationLat();
+                    }, mask);
                 }
-                of.writeOptionalAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(veh->getAngle()), mask);
-                of.writeOptionalAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID(), mask);
-                of.writeOptionalAttr(SUMO_ATTR_SPEED, veh->getSpeed(), mask);
-                of.writeOptionalAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane(), mask);
-                of.writeOptionalAttr(SUMO_ATTR_LANE, microVeh == nullptr ? "" : microVeh->getLane()->getID(), mask, microVeh == nullptr);
-                of.writeOptionalAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID(), mask, microVeh != nullptr);
-                of.writeOptionalAttr(SUMO_ATTR_SLOPE, veh->getSlope(), mask);
-                if (microVeh != nullptr) {
-                    of.writeOptionalAttr(SUMO_ATTR_SIGNALS, microVeh->getSignals(), mask);
-                    of.writeOptionalAttr(SUMO_ATTR_ACCELERATION, microVeh->getAcceleration(), mask);
-                    of.writeOptionalAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat(), mask);
-                }
-                if (mask.test(SUMO_ATTR_DISTANCE)) {
+                of.writeFuncAttr(SUMO_ATTR_DISTANCE, [ = ]() {
                     double lanePos = veh->getPositionOnLane();
-                    if (microVeh != nullptr && microVeh->getLane()->isInternal()) {
+                    if (!MSGlobals::gUseMesoSim && microVeh->getLane()->isInternal()) {
                         lanePos = microVeh->getRoute().getDistanceBetween(0., lanePos, microVeh->getEdge()->getLanes()[0], microVeh->getLane(),
                                   microVeh->getRoutePosition());
                     }
-                    of.writeOptionalAttr(SUMO_ATTR_DISTANCE, veh->getEdge()->getDistanceAt(lanePos), mask);
+                    return veh->getEdge()->getDistanceAt(lanePos);
+                }, mask);
+                of.writeFuncAttr(SUMO_ATTR_ODOMETER, [ = ]() {
+                    return veh->getOdometer();
+                }, mask);
+                of.writeFuncAttr(SUMO_ATTR_POSITION_LAT, [ = ]() {
+                    return veh->getLateralPositionOnLane();
+                }, mask);
+                if (!MSGlobals::gUseMesoSim) {
+                    of.writeFuncAttr(SUMO_ATTR_SPEED_LAT, [ = ]() {
+                        return microVeh->getLaneChangeModel().getSpeedLat();
+                    }, mask);
                 }
-                of.writeOptionalAttr(SUMO_ATTR_ODOMETER, veh->getOdometer(), mask);
-                of.writeOptionalAttr(SUMO_ATTR_POSITION_LAT, veh->getLateralPositionOnLane(), mask);
-                if (microVeh != nullptr) {
-                    of.writeOptionalAttr(SUMO_ATTR_SPEED_LAT, microVeh->getLaneChangeModel().getSpeedLat(), mask);
-                }
-                if (maxLeaderDistance >= 0 && microVeh != nullptr) {
-                    std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
+                if (maxLeaderDistance >= 0 && !MSGlobals::gUseMesoSim) {
+                    const std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
                     if (leader.first != nullptr) {
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, leader.first->getID(), mask);
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, leader.first->getSpeed(), mask);
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, leader.second + microVeh->getVehicleType().getMinGap(), mask);
+                        of.writeFuncAttr(SUMO_ATTR_LEADER_ID, [ = ]() {
+                            return leader.first->getID();
+                        }, mask);
+                        of.writeFuncAttr(SUMO_ATTR_LEADER_SPEED, [ = ]() {
+                            return leader.first->getSpeed();
+                        }, mask);
+                        of.writeFuncAttr(SUMO_ATTR_LEADER_GAP, [ = ]() {
+                            return leader.second + microVeh->getVehicleType().getMinGap();
+                        }, mask);
                     } else {
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_ID, "", mask);
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_SPEED, -1, mask);
-                        of.writeOptionalAttr(SUMO_ATTR_LEADER_GAP, -1, mask);
+                        of.writeFuncAttr(SUMO_ATTR_LEADER_ID, [ = ]() {
+                            return "";
+                        }, mask);
+                        of.writeFuncAttr(SUMO_ATTR_LEADER_SPEED, [ = ]() {
+                            return -1;
+                        }, mask);
+                        of.writeFuncAttr(SUMO_ATTR_LEADER_GAP, [ = ]() {
+                            return -1;
+                        }, mask);
                     }
                 }
                 for (const std::string& key : params) {
                     std::string error;
-                    const std::string value = baseVeh->getPrefixedParameter(key, error);
+                    const std::string value = static_cast<const MSBaseVehicle*>(veh)->getPrefixedParameter(key, error);
                     if (value != "") {
                         of.writeAttr(StringUtils::escapeXML(key), StringUtils::escapeXML(value));
                     }
                 }
-                if (mask.test(SUMO_ATTR_ARRIVALDELAY)) {
-                    double arrivalDelay = baseVeh->getStopArrivalDelay();
+                of.writeFuncAttr(SUMO_ATTR_ARRIVALDELAY, [ = ]() {
+                    const double arrivalDelay = static_cast<const MSBaseVehicle*>(veh)->getStopArrivalDelay();
                     if (arrivalDelay == INVALID_DOUBLE) {
                         // no upcoming stop also means that there is no delay
-                        arrivalDelay = 0;
+                        return 0.;
                     }
-                    of.writeOptionalAttr(SUMO_ATTR_ARRIVALDELAY, arrivalDelay, mask);
-                }
+                    return arrivalDelay;
+                }, mask);
                 if (MSGlobals::gUseMesoSim) {
-                    const MEVehicle* mesoVeh = dynamic_cast<const MEVehicle*>(veh);
-                    of.writeOptionalAttr(SUMO_ATTR_SEGMENT, mesoVeh->getSegmentIndex(), mask);
-                    of.writeOptionalAttr(SUMO_ATTR_QUEUE, mesoVeh->getQueIndex(), mask);
-                    of.writeOptionalAttr(SUMO_ATTR_ENTRYTIME, mesoVeh->getLastEntryTimeSeconds(), mask);
-                    of.writeOptionalAttr(SUMO_ATTR_EVENTTIME, mesoVeh->getEventTimeSeconds(), mask);
-                    of.writeOptionalAttr(SUMO_ATTR_BLOCKTIME, mesoVeh->getBlockTime() == SUMOTime_MAX ? -1.0 : mesoVeh->getBlockTimeSeconds(), mask);
+                    const MEVehicle* mesoVeh = static_cast<const MEVehicle*>(veh);
+                    of.writeFuncAttr(SUMO_ATTR_SEGMENT, [ = ]() {
+                        return mesoVeh->getSegmentIndex();
+                    }, mask);
+                    of.writeFuncAttr(SUMO_ATTR_QUEUE, [ = ]() {
+                        return mesoVeh->getQueIndex();
+                    }, mask);
+                    of.writeFuncAttr(SUMO_ATTR_ENTRYTIME, [ = ]() {
+                        return mesoVeh->getLastEntryTimeSeconds();
+                    }, mask);
+                    of.writeFuncAttr(SUMO_ATTR_EVENTTIME, [ = ]() {
+                        return mesoVeh->getEventTimeSeconds();
+                    }, mask);
+                    of.writeFuncAttr(SUMO_ATTR_BLOCKTIME, [ = ]() {
+                        return mesoVeh->getBlockTime() == SUMOTime_MAX ? -1.0 : mesoVeh->getBlockTimeSeconds();
+                    }, mask);
                 }
-                of.writeOptionalAttr(SUMO_ATTR_TAG, toString(SUMO_TAG_VEHICLE), mask);
+                of.writeFuncAttr(SUMO_ATTR_TAG, [ = ]() {
+                    return toString(SUMO_TAG_VEHICLE);
+                }, mask);
                 of.closeTag();
             }
-            // write persons and containers
-            const MSEdge* edge = microVeh == nullptr ? veh->getEdge() : &veh->getLane()->getEdge();
-
-            const std::vector<MSTransportable*>& persons = veh->getPersons();
-            for (MSTransportable* person : persons) {
-                writeTransportable(of, edge, person, veh, filter, shapeFilter, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, elevation, mask);
+            // write persons and containers in the vehicle
+            const MSEdge* edge = MSGlobals::gUseMesoSim ? veh->getEdge() : &veh->getLane()->getEdge();
+            for (const MSTransportable* const person : veh->getPersons()) {
+                writeTransportable(of, edge, person, veh, filter, shapeFilter, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, mask);
             }
-            const std::vector<MSTransportable*>& containers = veh->getContainers();
-            for (MSTransportable* container : containers) {
-                writeTransportable(of, edge, container, veh, filter, shapeFilter, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, elevation, mask);
+            for (const MSTransportable* const container : veh->getContainers()) {
+                writeTransportable(of, edge, container, veh, filter, shapeFilter, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, mask);
             }
         }
     }
     if (net->hasPersons() && net->getPersonControl().hasTransportables()) {
-        // write persons
-        MSEdgeControl& ec = net->getEdgeControl();
-        const MSEdgeVector& edges = ec.getEdges();
-        for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-            if (filter && MSDevice_FCD::getEdgeFilter().count(*e) == 0) {
+        // write persons who are not in a vehicle
+        for (const MSEdge* const e : net->getEdgeControl().getEdges()) {
+            if (filter && MSDevice_FCD::getEdgeFilter().count(e) == 0) {
                 continue;
             }
-            const std::vector<MSTransportable*>& persons = (*e)->getSortedPersons(timestep);
-            for (MSTransportable* person : persons) {
-                writeTransportable(of, *e, person, nullptr, filter, shapeFilter, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, elevation, mask);
+            for (const MSTransportable* const person : e->getSortedPersons(timestep)) {
+                writeTransportable(of, e, person, nullptr, filter, shapeFilter, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, mask);
             }
         }
     }
     if (net->hasContainers() && net->getContainerControl().hasTransportables()) {
-        // write containers
-        MSEdgeControl& ec = net->getEdgeControl();
-        const std::vector<MSEdge*>& edges = ec.getEdges();
-        for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-            if (filter && MSDevice_FCD::getEdgeFilter().count(*e) == 0) {
+        // write containers which are not in a vehicle
+        for (const MSEdge* const e : net->getEdgeControl().getEdges()) {
+            if (filter && MSDevice_FCD::getEdgeFilter().count(e) == 0) {
                 continue;
             }
-            const std::vector<MSTransportable*>& containers = (*e)->getSortedContainers(timestep);
-            for (MSTransportable* container : containers) {
-                writeTransportable(of, *e, container, nullptr, filter, shapeFilter, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, elevation, mask);
+            for (MSTransportable* container : e->getSortedContainers(timestep)) {
+                writeTransportable(of, e, container, nullptr, filter, shapeFilter, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, mask);
             }
         }
     }
     of.closeTag();
 }
 
+
 bool
 MSFCDExport::isVisible(const SUMOVehicle* veh) {
     return veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled();
 }
+
 
 bool
 MSFCDExport::hasOwnOutput(const SUMOVehicle* veh, bool filter, bool shapeFilter, bool isInRadius) {
@@ -218,6 +264,7 @@ MSFCDExport::hasOwnOutput(const SUMOVehicle* veh, bool filter, bool shapeFilter,
             && ((veh->getDevice(typeid(MSDevice_FCD)) != nullptr) || isInRadius));
 }
 
+
 bool
 MSFCDExport::hasOwnOutput(const MSTransportable* p, bool filter, bool shapeFilter, bool isInRadius) {
     return ((!filter || MSDevice_FCD::getEdgeFilter().count(p->getEdge()) > 0)
@@ -225,10 +272,11 @@ MSFCDExport::hasOwnOutput(const MSTransportable* p, bool filter, bool shapeFilte
             && ((p->getDevice(typeid(MSTransportableDevice_FCD)) != nullptr) || isInRadius));
 }
 
+
 void
-MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, const SUMOVehicle* v,
-                                bool filter, bool shapeFilter, bool inRadius,
-                                SumoXMLTag tag, bool useGeo, bool elevation, SumoXMLAttrMask mask) {
+MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* const e, const MSTransportable* const p, const SUMOVehicle* const v,
+                                const bool filter, const bool shapeFilter, const bool inRadius,
+                                const SumoXMLTag tag, const bool useGeo, const SumoXMLAttrMask mask) {
     if (!hasOwnOutput(p, filter, shapeFilter, inRadius)) {
         return;
     }
@@ -241,9 +289,7 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportab
     of.writeAttr(SUMO_ATTR_ID, p->getID());
     of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
     of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
-    if (elevation) {
-        of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
-    }
+    of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
     of.writeOptionalAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()), mask);
     of.writeOptionalAttr(SUMO_ATTR_SPEED, p->getSpeed(), mask);
     of.writeOptionalAttr(SUMO_ATTR_POSITION, p->getEdgePos(), mask);

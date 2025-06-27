@@ -31,14 +31,14 @@ netedit.changeMode("createEdge")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionF)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE)
 
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE, offsetY=100)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionF, offsetY=100)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.positionE, 0, 100)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.positionF, 0, 100)
 
 # go to select mode
 netedit.changeMode("select")
 
 netedit.leftClick(referencePosition, netedit.positions.network.edge.move.top)
-netedit.leftClick(referencePosition, netedit.positions.network.edge.move.bot, offsetY=100)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.edge.move.bot, 0, 100)
 
 # rebuild network
 netedit.changeMode("move")

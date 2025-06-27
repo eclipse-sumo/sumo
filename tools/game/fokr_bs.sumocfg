@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="fokr_bs/fokr_bs.net.xml.gz"/>
+        <route-files value="fokr_bs/15_16_bicycle.trips.xml.gz,fokr_bs/15_16_ped.trips.xml.gz,fokr_bs/15_16_veh.trips.xml.gz"/>
+        <additional-files value="fokr_bs/vtypes_default.add.xml,fokr_bs/signalPlan.add.xml"/>
+    </input>
+
+    <process>
+        <begin value="15:0:0"/>
+        <step-length value="0.05"/>
+        <insertion-checks value="collision leaderGap followerGap stop arrivalSpeed speedLimit pedestrian"/>
+    </process>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="fokr_bs/setting.add.xml"/>
+    </gui_only>
+</sumoConfiguration>

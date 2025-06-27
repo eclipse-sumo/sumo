@@ -31,9 +31,6 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# disable select trip due this is the first vehicle in the list
-# netedit.changeElement("vehicleFrame", "trip")
-
 # set invalid vType
 netedit.modifyAttribute(netedit.attrs.trip.create.type, "blue")
 
@@ -47,7 +44,7 @@ netedit.typeKey("enter")
 # set valid vType
 netedit.modifyAttribute(netedit.attrs.trip.create.type, "custom_vType")
 
-# create trip
+# try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 

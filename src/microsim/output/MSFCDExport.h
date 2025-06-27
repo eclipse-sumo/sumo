@@ -55,13 +55,13 @@ public:
      * @param[in] elevation Whether elevation data shall be written
      * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    static void write(OutputDevice& of, SUMOTime timestep, bool elevation);
+    static void write(OutputDevice& of, const SUMOTime timestep);
 
 private:
     /// @brief write transportable
-    static void writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, const SUMOVehicle* v,
-                                   bool filter, bool shapeFilter, bool inRadius,
-                                   SumoXMLTag tag, bool useGeo, bool elevation, SumoXMLAttrMask mask);
+    static void writeTransportable(OutputDevice& of, const MSEdge* const e, const MSTransportable* const p, const SUMOVehicle* const v,
+                                   const bool filter, const bool shapeFilter, const bool inRadius,
+                                   const SumoXMLTag tag, const bool useGeo, const SumoXMLAttrMask mask);
 
     static bool isVisible(const SUMOVehicle* veh);
     static bool hasOwnOutput(const SUMOVehicle* veh, bool filter, bool shapeFilter, bool isInRadius = false);

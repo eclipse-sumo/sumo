@@ -34,8 +34,8 @@ netedit.changeMode("vehicle")
 # select trip over junctions
 netedit.changeElement("vehicleFrame", "trip (from-to junctions)")
 
-# set invalid arrival pos
-netedit.modifyAttribute(netedit.attrs.tripJunction.create.arrivalPosLat, "dummyPos")
+# set invalid arrival lane
+netedit.modifyAttribute(netedit.attrs.tripJunction.create.arrivalSpeed, "dummySpeed")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -44,28 +44,20 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set invalid arrival pos
-netedit.modifyAttribute(netedit.attrs.tripJunction.create.arrivalPosLat, "-12")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
+# set invalid arrival speed
+netedit.modifyAttribute(netedit.attrs.tripJunction.create.arrivalSpeed, "-12")
 
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set valid arrival pos
-netedit.modifyAttribute(netedit.attrs.tripJunction.create.arrivalPosLat, "center")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
+# set valid arrival speed
+netedit.modifyAttribute(netedit.attrs.tripJunction.create.arrivalSpeed, "current")
 
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set valid arrival pos
-netedit.modifyAttribute(netedit.attrs.tripJunction.create.arrivalPosLat, "20")
+# set valid arrival speed
+netedit.modifyAttribute(netedit.attrs.tripJunction.create.arrivalSpeed, "20")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)

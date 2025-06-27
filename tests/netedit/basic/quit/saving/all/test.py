@@ -41,7 +41,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "busStop")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.cross.center, 0, 20)
 
 # go to demand mode
 netedit.changeSupermode("demand")
@@ -50,7 +50,7 @@ netedit.changeSupermode("demand")
 netedit.changeMode("route")
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.cross.center, 0, 20)
 
 # press enter to create route
 netedit.typeKey("enter")
@@ -68,7 +68,7 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create edgeData
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center, offsetY=20)
+netedit.leftClickOffset(referencePosition, netedit.positions.network.junction.cross.center, 0, 20)
 
 # change to edgeData
 netedit.changeMode("meanData")

@@ -1,6 +1,6 @@
 # Code in the repo (src/foreign)
 # for PHEMlight see https://github.com/eclipse-sumo/sumo/issues/16678
-pkg:github/modelica/fmi-standard@v2.0.1
+pkg:github/modelica/fmi-standard@v2.0.1#headers
 pkg:github/memononen/fontstash@9cee1168ab9d79eb02e9efaa3623d2e1393fdd4a
 pkg:github/nlohmann/json@v3.10.5
 pkg:github/itm/shawn@45ff42d775dd72ab6819524988031719a75b206a#src/apps/tcpip

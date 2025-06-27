@@ -33,7 +33,7 @@ netedit.modifyBoolAttribute(netedit.attrs.poly.create.closeShape)
 
 # create open polygon that will be automatically closed
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
-                           netedit.positions.elements.additionals.shapeSize, False)
+                           netedit.attrs.shape.size, False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

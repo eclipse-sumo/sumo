@@ -45,11 +45,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey("enter")
 
 # set valid Line
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.insertionChecks,
+                        "leaderGap junction speedLimit pedestrian")
 
 # press enter to create trip
 netedit.typeKey("enter")

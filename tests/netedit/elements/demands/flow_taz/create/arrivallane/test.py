@@ -31,7 +31,7 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# select trip over TAZs
+# select trip over junctions
 netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
 
 # set invalid arrival lane
@@ -47,19 +47,11 @@ netedit.typeKey("enter")
 # set invalid arrival lane
 netedit.modifyAttribute(netedit.attrs.flowTAZ.create.arrivalLane, "-12")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid arrival lane
 netedit.modifyAttribute(netedit.attrs.flowTAZ.create.arrivalLane, "random")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
 netedit.typeKey("enter")

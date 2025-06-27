@@ -31,9 +31,6 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# disable select trip due this is the first vehicle in the list
-# netedit.changeElement("vehicleFrame", "trip")
-
 # set invalid arrival lane
 netedit.modifyAttribute(netedit.attrs.trip.create.arrivalLane, "dummyLane")
 
@@ -47,19 +44,11 @@ netedit.typeKey("enter")
 # set invalid arrival lane
 netedit.modifyAttribute(netedit.attrs.trip.create.arrivalLane, "-12")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid arrival lane
 netedit.modifyAttribute(netedit.attrs.trip.create.arrivalLane, "random")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeKey("enter")

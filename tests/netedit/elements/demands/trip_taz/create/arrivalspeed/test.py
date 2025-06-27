@@ -34,8 +34,8 @@ netedit.changeMode("vehicle")
 # select trip over TAZs
 netedit.changeElement("vehicleFrame", "trip (from-to TAZs)")
 
-# set invalid arrival pos
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalPosLat, "dummyPos")
+# set invalid arrival lane
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalSpeed, "dummySpeed")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -44,28 +44,20 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set invalid arrival pos
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalPosLat, "-12")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
+# set invalid arrival speed
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalSpeed, "-12")
 
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set valid arrival pos
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalPosLat, "center")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
+# set valid arrival speed
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalSpeed, "current")
 
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set valid arrival pos
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalPosLat, "20")
+# set valid arrival speed
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalSpeed, "20")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

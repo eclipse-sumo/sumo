@@ -47,29 +47,17 @@ netedit.typeKey("enter")
 # set invalid containerNumber
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.containerNumber, "-12")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set invalid containerNumber
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.containerNumber, "3.5")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid containerNumber
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.containerNumber, "13")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeKey("enter")

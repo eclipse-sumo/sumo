@@ -30,7 +30,7 @@ netedit.changeMode("TAZ")
 
 # create first TAZ
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
-                           netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.attrs.shape.size, True)
 
 # go to inspect mode
 netedit.changeMode("inspect")
