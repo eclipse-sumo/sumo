@@ -1099,7 +1099,7 @@ InternalTestStep::changeMode() {
             myMessageID = MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS;
         } else if ((networkMode == "wire") || (networkMode == "routeDistribution")) {
             myMessageID = MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION;
-        } else if ((networkMode == "taz") || (networkMode == "tazRel")) {
+        } else if ((networkMode == "taz") || (networkMode == "TAZ") || (networkMode == "tazRel")) {
             myMessageID = MID_HOTKEY_Z_MODE_TAZ_TAZREL;
         } else if ((networkMode == "shape") || (networkMode == "person")) {
             myMessageID = MID_HOTKEY_P_MODE_POLYGON_PERSON;
