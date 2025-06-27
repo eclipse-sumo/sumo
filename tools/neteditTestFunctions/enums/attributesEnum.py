@@ -374,14 +374,14 @@ class attrs:
     class lane:
         class create:
             add = 24
-            remove = 24
-            speed = 25
-            allowButton = 26
-            allow = 27
-            disallow = 282
-            width = 29
-            parameters = 31
-            parametersButton = 32
+            remove = 25
+            speed = 26
+            allowButton = 27
+            allow = 28
+            disallow = 29
+            width = 30
+            parameters = 32
+            parametersButton = 33
 
         class inspect:
             speed = 2
