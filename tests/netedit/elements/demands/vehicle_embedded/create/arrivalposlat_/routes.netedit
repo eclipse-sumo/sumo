@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-27 10:15:09 by Eclipse SUMO netedit Version v1_23_1+0753-185c14b7fc4
+<!-- generated on 2025-06-27 12:21:30 by Eclipse SUMO netedit Version v1_23_1+0760-045befb7385
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,7 +15,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="t_0" depart="0.00" line="%%%%%%" from="Edge0" to="Edge2"/>
-    <trip id="t_1" depart="0.00" from="Edge0" to="Edge2"/>
-    <trip id="t_2" depart="0.00" line="customLine" from="Edge0" to="Edge2"/>
+    <vehicle id="v_0" depart="0.00" arrivalPosLat="-12.00">
+        <route edges="Edge0 Edge1 Edge2"/>
+    </vehicle>
+    <vehicle id="v_1" depart="0.00">
+        <route edges="Edge0 Edge1 Edge2"/>
+    </vehicle>
+    <vehicle id="v_2" depart="0.00" arrivalPosLat="left">
+        <route edges="Edge0 Edge1 Edge2"/>
+    </vehicle>
+    <vehicle id="v_3" depart="0.00" arrivalPosLat="20.15">
+        <route edges="Edge0 Edge1 Edge2"/>
+    </vehicle>
 </routes>

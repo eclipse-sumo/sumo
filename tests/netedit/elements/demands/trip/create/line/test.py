@@ -31,9 +31,6 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# disable select trip due this is the first vehicle in the list
-# netedit.changeElement("vehicleFrame", "trip")
-
 # set invalid line
 netedit.modifyAttribute(netedit.attrs.trip.create.line, "%%%%%%")
 
@@ -45,9 +42,9 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("enter")
 
 # set valid Line
-netedit.modifyAttribute(netedit.attrs.trip.create.line, "ownLine")
+netedit.modifyAttribute(netedit.attrs.trip.create.line, "")
 
-# create trip
+# try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
@@ -55,7 +52,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("enter")
 
 # set empty line
-netedit.modifyAttribute(netedit.attrs.trip.create.line, "")
+netedit.modifyAttribute(netedit.attrs.trip.create.line, "customLine")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

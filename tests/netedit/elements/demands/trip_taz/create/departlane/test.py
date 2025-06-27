@@ -47,25 +47,17 @@ netedit.typeKey("enter")
 # set invalid depart lane
 netedit.modifyAttribute(netedit.attrs.tripTAZ.create.departLane, "-12")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid depart lane
 netedit.modifyAttribute(netedit.attrs.tripTAZ.create.departLane, "random")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid depart lane
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.departLane, "0")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.departLane, "20")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

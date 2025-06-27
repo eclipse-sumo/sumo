@@ -45,9 +45,9 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("enter")
 
 # set valid Line
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.line, "ownLine")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.line, "")
 
-# create trip
+# try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("enter")
 
 # set empty line
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.line, "")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.line, "customLine")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

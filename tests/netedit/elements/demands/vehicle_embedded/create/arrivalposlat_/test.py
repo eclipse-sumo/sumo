@@ -35,7 +35,7 @@ netedit.changeMode("vehicle")
 netedit.changeElement("vehicleFrame", "vehicle (embedded route)")
 
 # set invalid arrival lane
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalSpeed, "dummySpeed")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "dummyArrivalSpeed")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -45,9 +45,15 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("enter")
 
 # set invalid arrival speed
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalSpeed, "-12")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "-12")
 
-# create trip
+# press enter to create trip
+netedit.typeKey("enter")
+
+# set valid arrival speed
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "center")
+
+# try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
@@ -55,9 +61,9 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("enter")
 
 # set valid arrival speed
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalSpeed, "max")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "left")
 
-# create trip
+# try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
@@ -65,7 +71,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("enter")
 
 # set valid arrival speed
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalSpeed, "20")
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.arrivalPosLat, "20.15")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -73,6 +79,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeKey("enter")
+
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
 

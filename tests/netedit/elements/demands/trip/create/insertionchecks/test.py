@@ -31,9 +31,6 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# disable select trip due this is the first vehicle in the list
-# netedit.changeElement("vehicleFrame", "trip")
-
 # set invalid line
 netedit.modifyAttribute(netedit.attrs.trip.create.insertionChecks, "dummy")
 
@@ -41,15 +38,14 @@ netedit.modifyAttribute(netedit.attrs.trip.create.insertionChecks, "dummy")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
+# set valid Line
+netedit.modifyAttribute(netedit.attrs.trip.create.insertionChecks, "dummy")
+
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid Line
 netedit.modifyAttribute(netedit.attrs.trip.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeKey("enter")

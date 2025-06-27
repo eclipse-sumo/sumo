@@ -34,13 +34,6 @@ netedit.changeMode("vehicle")
 # select vehicle with embedded route
 netedit.changeElement("vehicleFrame", "vehicle (embedded route)")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
-# press enter to create trip
-netedit.typeKey("enter")
-
 # set invalid depart
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.depart, "-12")
 
@@ -52,11 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("enter")
 
 # set valid depart
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.depart, "30")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.depart, "30.15")
 
 # press enter to create trip
 netedit.typeKey("enter")

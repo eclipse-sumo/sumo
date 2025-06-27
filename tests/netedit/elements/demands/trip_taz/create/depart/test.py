@@ -38,15 +38,8 @@ netedit.changeElement("vehicleFrame", "trip (from-to TAZs)")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
-# press enter to create trip
-netedit.typeKey("enter")
-
 # set invalid depart
 netedit.modifyAttribute(netedit.attrs.tripTAZ.create.depart, "-12")
-
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
 netedit.typeKey("enter")
@@ -54,15 +47,11 @@ netedit.typeKey("enter")
 # set valid depart
 netedit.modifyAttribute(netedit.attrs.tripTAZ.create.depart, "30")
 
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid depart (output will be changed)
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.depart, "20")
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.depart, "20.5")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

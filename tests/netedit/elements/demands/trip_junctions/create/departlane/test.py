@@ -47,19 +47,11 @@ netedit.typeKey("enter")
 # set invalid depart lane
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.departLane, "-12")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
 # set valid depart lane
 netedit.modifyAttribute(netedit.attrs.tripJunction.create.departLane, "random")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
 netedit.typeKey("enter")

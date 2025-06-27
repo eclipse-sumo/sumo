@@ -34,8 +34,8 @@ netedit.changeMode("vehicle")
 # select trip over TAZs
 netedit.changeElement("vehicleFrame", "trip (from-to TAZs)")
 
-# set invalid arrival lane
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalSpeed, "dummySpeed")
+# set invalid arrival pos
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalPosLat, "dummyPos")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -44,8 +44,20 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set invalid arrival speed
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalSpeed, "-12")
+# set invalid arrival pos
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalPosLat, "-12")
+
+# press enter to create trip
+netedit.typeKey("enter")
+
+# set valid arrival pos
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalPosLat, "current")
+
+# press enter to create trip
+netedit.typeKey("enter")
+
+# set valid arrival pos
+netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalPosLat, "20")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
@@ -54,25 +66,6 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set valid arrival speed
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalSpeed, "max")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
-# press enter to create trip
-netedit.typeKey("enter")
-
-# set valid arrival speed
-netedit.modifyAttribute(netedit.attrs.tripTAZ.create.arrivalSpeed, "20")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
-
-# press enter to create trip
-netedit.typeKey("enter")
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
 
