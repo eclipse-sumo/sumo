@@ -34,10 +34,6 @@ netedit.changeMode("vehicle")
 # select trip over junctions
 netedit.changeElement("vehicleFrame", "flow (from-to junctions)")
 
-# try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create trip
 netedit.typeKey("enter")
 
@@ -54,6 +50,9 @@ netedit.typeKey("enter")
 # set valid depart
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.begin, "30")
 
+# press enter to create trip
+netedit.typeKey("enter")
+
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
@@ -62,7 +61,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey("enter")
 
 # set valid depart (output will be changed)
-netedit.modifyAttribute(netedit.attrs.flowJunction.create.begin, "20")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.begin, "20.5")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)

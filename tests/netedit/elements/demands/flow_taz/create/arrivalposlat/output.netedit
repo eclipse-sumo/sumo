@@ -2,15 +2,11 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to TAZs)
-dummySpeed
+dummyPos
 TestFunctions: Clicked over position 861 - 399
 TestFunctions: Clicked over position 1012 - 400
 -12
-TestFunctions: Clicked over position 861 - 399
-TestFunctions: Clicked over position 1012 - 400
-max
-TestFunctions: Clicked over position 861 - 399
-TestFunctions: Clicked over position 1012 - 400
+center
 20
 TestFunctions: Clicked over position 861 - 399
 TestFunctions: Clicked over position 1012 - 400

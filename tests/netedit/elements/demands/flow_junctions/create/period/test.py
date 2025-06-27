@@ -47,10 +47,6 @@ netedit.typeKey("enter")
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.spacing, "period")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create flow with embedded route
 netedit.typeKey("enter")
 
@@ -61,15 +57,8 @@ netedit.modifyAttribute(netedit.attrs.flowJunction.create.spacingOption, "dummy"
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
-# press enter to create flow with embedded route
-netedit.typeKey("enter")
-
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.spacingOption, "-30")
-
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
 netedit.typeKey("enter")
@@ -77,15 +66,18 @@ netedit.typeKey("enter")
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.spacingOption, "20.5")
 
+# press enter to create flow with embedded route
+netedit.typeKey("enter")
+
+# set valid arrival pos
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.spacingOption, "22")
+
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
 netedit.typeKey("enter")
-
-# set valid arrival pos
-netedit.modifyAttribute(netedit.attrs.flowJunction.create.spacingOption, "22")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
