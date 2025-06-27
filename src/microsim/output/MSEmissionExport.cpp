@@ -40,7 +40,7 @@
 // method definitions
 // ===========================================================================
 void
-MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
+MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
     const OptionsCont& oc = OptionsCont::getOptions();
     const SUMOTime period = string2time(oc.getString("device.emissions.period"));
     const SUMOTime begin = string2time(oc.getString("device.emissions.begin"));
@@ -52,7 +52,7 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
     const SumoXMLAttrMask mask = MSDevice_Emissions::getWrittenAttributes();
 
     of.openTag("timestep").writeAttr("time", time2string(timestep));
-    of.setPrecision(precision);
+    of.setPrecision(gPrecisionEmissions);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
@@ -97,16 +97,15 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
 
             Position pos = veh->getPosition();
             if (useGeo) {
-                of.setPrecision(MAX2(gPrecisionGeo, precision));
+                of.setPrecision(gPrecisionGeo);
                 GeoConvHelper::getFinal().cartesian2geo(pos);
             }
             of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
             of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
+            of.setPrecision(gPrecision);
             if (MSNet::getInstance()->hasElevation()) {
                 of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
             }
-            of.setPrecision(precision);
-
             of.closeTag();
         }
     }

@@ -123,16 +123,6 @@ public:
     static void closeAll(bool keepErrorRetrievers = false);
     /// @}
 
-
-    /** @brief Helper method for string formatting
-     *
-     * @param[in] v The floating point value to be formatted
-     * @param[in] precision the precision to achieve
-     * @return The formatted string
-     */
-    static std::string realString(const double v, const int precision = gPrecision);
-
-
 public:
     /// @name OutputDevice member methods
     /// @{

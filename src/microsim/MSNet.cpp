@@ -1071,8 +1071,7 @@ MSNet::writeOutput() {
 
     // check emission dumps
     if (OptionsCont::getOptions().isSet("emission-output")) {
-        MSEmissionExport::write(OutputDevice::getDeviceByOption("emission-output"), myStep,
-                                oc.getInt("emission-output.precision"));
+        MSEmissionExport::write(OutputDevice::getDeviceByOption("emission-output"), myStep);
     }
 
     // battery dumps

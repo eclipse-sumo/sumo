@@ -109,7 +109,7 @@ public:
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        void write(OutputDevice& dev, SumoXMLAttrMask attributeMask, const SUMOTime period,
+        void write(OutputDevice& dev, const SumoXMLAttrMask& attributeMask, const SUMOTime period,
                    const int numLanes, const double speedLimit, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 

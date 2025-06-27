@@ -114,6 +114,7 @@ MAX4(T a, T b, T c, T d) {
 
 /// the precision for floating point outputs
 extern int gPrecision;
+extern int gPrecisionEmissions;
 extern int gPrecisionGeo; // for lon,lat
 extern int gPrecisionRandom; // for randomized values (i.e. speedFactor)
 extern bool gHumanReadableTime;

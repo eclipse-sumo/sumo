@@ -375,7 +375,7 @@ MSMeanData::MeanDataValueTracker::isEmpty() const {
 
 void
 MSMeanData::MeanDataValueTracker::write(OutputDevice& dev,
-                                        SumoXMLAttrMask attributeMask,
+                                        const SumoXMLAttrMask& attributeMask,
                                         const SUMOTime period,
                                         const int numLanes,
                                         const double speedLimit,

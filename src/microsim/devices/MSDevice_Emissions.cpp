@@ -26,6 +26,7 @@
 #include <microsim/MSStop.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/output/MSDetectorControl.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersEnergy.h>
@@ -155,19 +156,17 @@ MSDevice_Emissions::notifyMoveInternal(const SUMOTrafficObject& veh,
 void
 MSDevice_Emissions::generateOutput(OutputDevice* tripinfoOut) const {
     if (tripinfoOut != nullptr) {
-        const OptionsCont& oc = OptionsCont::getOptions();
-        const int precision = MAX2(
-                                  oc.isDefault("emission-output.precision") ? 6 : oc.getInt("emission-output.precision"),
-                                  gPrecision);
+        tripinfoOut->setPrecision(gPrecisionEmissions);
         tripinfoOut->openTag("emissions");
-        tripinfoOut->writeAttr("CO_abs", OutputDevice::realString(myEmissions.CO, precision));
-        tripinfoOut->writeAttr("CO2_abs", OutputDevice::realString(myEmissions.CO2, precision));
-        tripinfoOut->writeAttr("HC_abs", OutputDevice::realString(myEmissions.HC, precision));
-        tripinfoOut->writeAttr("PMx_abs", OutputDevice::realString(myEmissions.PMx, precision));
-        tripinfoOut->writeAttr("NOx_abs", OutputDevice::realString(myEmissions.NOx, precision));
-        tripinfoOut->writeAttr("fuel_abs", OutputDevice::realString(myEmissions.fuel, precision));
-        tripinfoOut->writeAttr("electricity_abs", OutputDevice::realString(myEmissions.electricity, precision));
+        tripinfoOut->writeAttr(SUMO_ATTR_CO_ABS, myEmissions.CO);
+        tripinfoOut->writeAttr(SUMO_ATTR_CO2_ABS, myEmissions.CO2);
+        tripinfoOut->writeAttr(SUMO_ATTR_HC_ABS, myEmissions.HC);
+        tripinfoOut->writeAttr(SUMO_ATTR_PMX_ABS, myEmissions.PMx);
+        tripinfoOut->writeAttr(SUMO_ATTR_NOX_ABS, myEmissions.NOx);
+        tripinfoOut->writeAttr(SUMO_ATTR_FUEL_ABS, myEmissions.fuel);
+        tripinfoOut->writeAttr(SUMO_ATTR_ELECTRICITY_ABS, myEmissions.electricity);
         tripinfoOut->closeTag();
+        tripinfoOut->setPrecision(gPrecision);
     }
 }
 
