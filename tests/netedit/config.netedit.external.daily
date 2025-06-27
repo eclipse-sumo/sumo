@@ -1,2 +1,2 @@
 # limit the max number of pararell external tests
-queue_system_max_capacity:2
+queue_system_max_capacity:3
