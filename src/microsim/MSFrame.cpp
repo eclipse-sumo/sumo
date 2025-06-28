@@ -124,14 +124,12 @@ MSFrame::fillOptions() {
     oc.addSynonyme("netstate-dump.precision", "dump-precision", true);
     oc.addDescription("netstate-dump.precision", "Output", TL("Write positions and speeds with the given precision (default 2)"));
 
-
     oc.doRegister("emission-output", new Option_FileName());
     oc.addDescription("emission-output", "Output", TL("Save the emission values of each vehicle"));
     oc.doRegister("emission-output.precision", new Option_Integer(2));
     oc.addDescription("emission-output.precision", "Output", TL("Write emission values with the given precision (default 2)"));
     oc.doRegister("emission-output.geo", new Option_Bool(false));
     oc.addDescription("emission-output.geo", "Output", TL("Save the positions in emission output using geo-coordinates (lon/lat)"));
-
     oc.doRegister("emission-output.step-scaled", new Option_Bool(false));
     oc.addDescription("emission-output.step-scaled", "Output", TL("Write emission values scaled to the step length rather than as per-second values"));
     oc.doRegister("emission-output.attributes", new Option_StringVector());

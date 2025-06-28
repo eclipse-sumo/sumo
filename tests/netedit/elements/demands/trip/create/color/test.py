@@ -31,9 +31,6 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# disable select trip due this is the first vehicle in the list
-# netedit.changeElement("vehicleFrame", "trip")
-
 # set color using dialog color
 netedit.modifyColorAttribute(netedit.attrs.trip.create.colorButton)
 
@@ -56,10 +53,6 @@ netedit.typeKey("enter")
 
 # set valid color
 netedit.modifyAttribute(netedit.attrs.trip.create.color, "cyan")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeKey("enter")

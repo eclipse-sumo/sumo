@@ -138,6 +138,9 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
 bool
 SystemFrame::checkOptions(OptionsCont& oc) {
     gPrecision = oc.getInt("precision");
+    if (oc.exists("emission-output.precision")) {
+        gPrecisionEmissions = oc.getInt("emission-output.precision");
+    }
     gPrecisionGeo = oc.getInt("precision.geo");
     gHumanReadableTime = oc.getBool("human-readable-time");
     if (oc.exists("weights.random-factor")) {

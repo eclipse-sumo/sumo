@@ -146,6 +146,9 @@ private:
     /// @brief process click function
     void mouseClick(const std::string& button, const std::string& modifier) const;
 
+    /// @brief process click function
+    void leftClickOffset(const std::string& button) const;
+
     /// @brief process typeKey function
     void typeKey() const;
 
@@ -172,6 +175,42 @@ private:
 
     /// @brief process modifyVClassDialog_DisallowAll function
     void modifyVClassDialog_Reset(const int overlappedTabs) const;
+
+    /// @brief process createConnection function
+    void createConnection(const std::string& keyModifier) const;
+
+    /// @brief process createConnectionEdit function
+    void saveConnectionEdit() const;
+
+    /// @brief process createTLS function
+    void createTLS(const int overlappedTabs) const;
+
+    /// @brief process Copy TLS function
+    void copyTLS() const;
+
+    /// @brief process join TLS function
+    void joinTSL() const;
+
+    /// @brief process disJoin TLS function
+    void disJoinTLS() const;
+
+    /// @brief process delete TLS function
+    void deleteTLS() const;
+
+    /// @brief process resetSingleTLSPhases function
+    void resetSingleTLSPhases() const;
+
+    /// @brief process resetAllTLSPhases function
+    void resetAllTLSPhases() const;
+
+    /// @brief process pressTLSPhaseButton function
+    void pressTLSPhaseButton() const;
+
+    /// @brief process addPhase function
+    void addPhase(const int phaseTabs) const;
+
+    /// @brief process checkParameters function
+    void checkParameters(const int overlappedTabs) const;
 
     /// @brief process changeEditMode function
     void changeEditMode();
@@ -257,6 +296,28 @@ private:
                      const int sizeX, const int sizeY, const bool close,
                      const bool line) const;
 
+    /// @name modify attribute functions
+    /// @{
+
+    /// @brief modify attribute
+    void modifyStringAttribute(const int tabs, const int overlappedTabs, const std::string& value) const;
+
+    /// @brief modify bool attribute
+    InternalTestStep* modifyBoolAttribute(const int tabs, const int overlappedTabs) const;
+
+    /// @}
+
+    /// @name undo-redo functions
+    /// @{
+
+    /// @brief process check undo function
+    void undo(const int number) const;
+
+    /// @brief process check redo function
+    void redo(const int number) const;
+
+    /// @}
+
     /// @name key functions
     /// @{
 
@@ -328,7 +389,8 @@ private:
     /// @brief build mouse click event
     void buildMouseClick(const InternalTest::ViewPosition& viewPosition,
                          const int offsetX, const int offsetY,
-                         const std::string& button, const bool move) const;
+                         const std::string& button,
+                         const std::string& keyModifier) const;
 
     /// @brief build mouse move event
     FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
@@ -336,7 +398,7 @@ private:
 
     /// @brief build mouse left click press event
     FXEvent* buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
-                             const int offsetX, const int offsetY) const;
+                             const int offsetX, const int offsetY, const std::string& keyModifier) const;
 
     /// @brief write click info
     void writeClickInfo(const InternalTest::ViewPosition& viewPosition,

@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey("enter")
 
 # set valid Line
-netedit.modifyAttribute(netedit.attrs.tripJunction.create.line, "ownLine")
+netedit.modifyAttribute(netedit.attrs.tripJunction.create.line, "")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 netedit.typeKey("enter")
 
 # set empty line
-netedit.modifyAttribute(netedit.attrs.tripJunction.create.line, "")
+netedit.modifyAttribute(netedit.attrs.tripJunction.create.line, "customLine")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)

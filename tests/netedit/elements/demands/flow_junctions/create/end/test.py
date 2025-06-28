@@ -34,22 +34,18 @@ netedit.changeMode("vehicle")
 # select flow with embedded route
 netedit.changeElement("vehicleFrame", "flow (from-to junctions)")
 
-# set invalid arrival pos
-netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminate, "dummyTerminate")
-
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
+
+# set invalid arrival pos
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminate, "dummyTerminate")
 
 # press enter to create flow with embedded route
 netedit.typeKey("enter")
 
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminate, "end")
-
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
 netedit.typeKey("enter")
@@ -67,25 +63,24 @@ netedit.typeKey("enter")
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "-30")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
-
 # press enter to create flow with embedded route
 netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "20.5")
 
+# press enter to create flow with embedded route
+netedit.typeKey("enter")
+
+# set valid arrival pos
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "22")
+
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
 netedit.typeKey("enter")
-
-# set valid arrival pos
-netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "22")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

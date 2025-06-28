@@ -125,16 +125,6 @@ public:
     static void closeAll(bool keepErrorRetrievers = false);
     /// @}
 
-
-    /** @brief Helper method for string formatting
-     *
-     * @param[in] v The floating point value to be formatted
-     * @param[in] precision the precision to achieve
-     * @return The formatted string
-     */
-    static std::string realString(const double v, const int precision = gPrecision);
-
-
 public:
     /// @name OutputDevice member methods
     /// @{
@@ -282,6 +272,25 @@ public:
                     static_cast<CSVFormatter*>(myFormatter)->writeNull(getOStream(), attr);
                 } else {
                     static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+                }
+            }
+        }
+        return *this;
+    }
+
+    template <typename Func>
+    OutputDevice& writeFuncAttr(const SumoXMLAttr attr, const Func& valFunc, const SumoXMLAttrMask& attributeMask, const bool isNull = false) {
+        assert((int)attr <= (int)attributeMask.size());
+        if (attributeMask.none() || attributeMask.test(attr)) {
+            if (myFormatter->getType() == OutputFormatterType::XML) {
+                if (!isNull) {
+                    PlainXMLFormatter::writeAttr(getOStream(), attr, valFunc());
+                }
+            } else {
+                if (isNull) {
+                    static_cast<CSVFormatter*>(myFormatter)->writeNull(getOStream(), attr);
+                } else {
+                    static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, valFunc());
                 }
             }
         }

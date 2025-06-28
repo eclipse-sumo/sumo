@@ -19,24 +19,42 @@
 from ...general.functions import *
 
 
-def createConnection(referencePosition, fromLanePosition, toLanePosition, mode=""):
+def createConnection(referencePosition, fromLanePosition, toLanePosition):
     """
     @brief create connection
     """
-    # check if connection has to be created in certain mode
-    if mode == "conflict":
-        keyPress('ctrl')
-    elif mode == "yield":
-        keyPress('shift')
     # select first lane
     leftClick(referencePosition, fromLanePosition)
     # select another lane for create a connection
     leftClick(referencePosition, toLanePosition)
-    # check if connection has to be created in certain mode
-    if mode == "conflict":
-        keyRelease('ctrl')
-    elif mode == "yield":
-        keyRelease('shift')
+
+
+def createConnectionConflict(referencePosition, fromLanePosition, toLanePosition):
+    """
+    @brief create connection conflict
+    """
+    # press control
+    keyPress('ctrl')
+    # select first lane
+    leftClick(referencePosition, fromLanePosition)
+    # select another lane for create a connection
+    leftClick(referencePosition, toLanePosition)
+    # release control
+    keyRelease('ctrl')
+
+
+def createConnectionYield(referencePosition, fromLanePosition, toLanePosition):
+    """
+    @brief create connection
+    """
+    # press shift
+    keyPress('shift')
+    # select first lane
+    leftClick(referencePosition, fromLanePosition)
+    # select another lane for create a connection
+    leftClick(referencePosition, toLanePosition)
+    # release shift
+    keyRelease('shift')
 
 
 def saveConnectionEdit():

@@ -29,8 +29,8 @@ neteditProcess, referencePosition = netedit.setupAndStart()
 netedit.changeMode("createEdge")
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyVClassDialogOverlapped_NoDisallowAll(netedit.attrs.lane.create.allowButton,
-                                                   netedit.attrs.dialog.allowVClass.onlyRoadVehicles)
+netedit.modifyVClassDialog_NoDisallowAll(netedit.attrs.lane.create.allowButton,
+                                         netedit.attrs.dialog.allowVClass.onlyRoadVehicles)
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)

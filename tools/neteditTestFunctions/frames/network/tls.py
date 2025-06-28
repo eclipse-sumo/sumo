@@ -34,7 +34,7 @@ def createTLS():
     time.sleep(DELAY_SELECT)
 
 
-def createTLSOverlapped(junction):
+def createTLSOverlapped():
     """
     @brief Create TLS in overlapped junction
     """
@@ -43,8 +43,8 @@ def createTLSOverlapped(junction):
     # type tab 2 times to jump to create TLS button
     for _ in range(attrs.TLS.createOverlapped):
         typeKey('tab')
-    for _ in range(junction):
-        typeKey('space')
+    # press space
+    typeKey('space')
     for _ in range(attrs.TLS.createOverlapped):
         typeKey('tab')
     # create TLS
@@ -158,10 +158,6 @@ def pressTLSPhaseButton(position):
     typeKey('space')
     # wait
     time.sleep(DELAY_SELECT)
-    # add phase
-    typeKey('space')
-    # wait
-    time.sleep(DELAY_SELECT)
 
 
 def addDefaultPhase(position):
@@ -177,6 +173,9 @@ def addDefaultPhase(position):
     typeKey('space')
     # wait
     time.sleep(DELAY_SELECT)
+    # go to button
+    for _ in range(attrs.TLS.addPhases.default):
+        typeKey('right')
     # add phase
     typeKey('space')
     # wait
@@ -196,8 +195,9 @@ def addDuplicatePhase(position):
     typeKey('space')
     # wait
     time.sleep(DELAY_SELECT)
-    # move to button
-    typeKey('right')
+    # go to button
+    for _ in range(attrs.TLS.addPhases.duplicate):
+        typeKey('right')
     # add phase
     typeKey('space')
     # wait
@@ -218,7 +218,7 @@ def addRedPhase(position):
     # wait
     time.sleep(DELAY_SELECT)
     # go to button
-    for _ in range(2):
+    for _ in range(attrs.TLS.addPhases.red):
         typeKey('right')
     # add phase
     typeKey('space')
@@ -240,7 +240,7 @@ def addYellowPhase(position):
     # wait
     time.sleep(DELAY_SELECT)
     # go to button
-    for _ in range(3):
+    for _ in range(attrs.TLS.addPhases.yellow):
         typeKey('right')
     # add phase
     typeKey('space')
@@ -262,7 +262,7 @@ def addGreenPhase(position):
     # wait
     time.sleep(DELAY_SELECT)
     # go to button
-    for _ in range(4):
+    for _ in range(attrs.TLS.addPhases.green):
         typeKey('right')
     # add phase
     typeKey('space')
@@ -284,7 +284,7 @@ def addGreenPriorityPhase(position):
     # wait
     time.sleep(DELAY_SELECT)
     # go to button
-    for _ in range(5):
+    for _ in range(attrs.TLS.addPhases.priorityGreen):
         typeKey('right')
     # add phase
     typeKey('space')

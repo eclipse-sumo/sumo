@@ -28,6 +28,7 @@ import subprocess
 import sys
 import glob
 import pickle
+import re
 
 from runner import computeScoreFromWaitingTime, REFSCOREFILE
 
@@ -53,17 +54,34 @@ def main():
                 if ".tll" in f or ".tls" in f:
                     tls = add[-1]
         if tls:
+            with open(tls) as tls_in:
+                lines = tls_in.readlines()
+        else:
+            lines = []
+            for n in sumolib.xml.parse_fast(config, "net-file", "value"):
+                net_file = os.path.join(base, n.value)
+                net = sumolib.net.readNet(net_file, withPrograms=True)
+            for t in net.getTrafficLights():
+                xml = t.toXML()
+                if 'duration="1000' in xml:
+                    if not lines:
+                        lines.append("<a>")
+                    lines += xml.splitlines()
+            if lines:
+                lines.append("</a>")
+                tls = net_file
+        if lines:
             high[scen] = []
             for alg, minDur in (("actuated", 3), ("delay_based", 1)):
                 print("running scenario '%s' with algorithm '%s'" % (scen, alg))
-                with open(tls) as tls_in, open(tls + "." + alg, "w") as tls_out:
+                with open(tls + "." + alg, "w") as tls_out:
                     sumo = 'sumo'
                     if scen == "cross" and alg == "actuated" and False:
                         sumo = 'sumo-gui'
-                    for line in tls_in:
+                    for line in lines:
                         line = line.replace('type="static"', 'type="%s"' % alg)
                         if "phase" in line:
-                            line = line.replace('duration="10000"', 'duration="10" minDur="%s" maxDur="10000"' % minDur)
+                            line = re.sub('duration="1000\d+', 'duration="10" minDur="%s" maxDur="10000' % minDur, line)
                         tls_out.write(line)
                 subprocess.call([sumolib.checkBinary(sumo), "-c", config,
                                  "-a", ",".join(add).replace(tls, tls_out.name),

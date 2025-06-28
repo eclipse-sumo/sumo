@@ -1066,13 +1066,12 @@ MSNet::writeOutput() {
 
     // check fcd dumps
     if (OptionsCont::getOptions().isSet("fcd-output")) {
-        MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-output"), myStep, myHasElevation);
+        MSFCDExport::write(OutputDevice::getDeviceByOption("fcd-output"), myStep);
     }
 
     // check emission dumps
     if (OptionsCont::getOptions().isSet("emission-output")) {
-        MSEmissionExport::write(OutputDevice::getDeviceByOption("emission-output"), myStep,
-                                oc.getInt("emission-output.precision"));
+        MSEmissionExport::write(OutputDevice::getDeviceByOption("emission-output"), myStep);
     }
 
     // battery dumps

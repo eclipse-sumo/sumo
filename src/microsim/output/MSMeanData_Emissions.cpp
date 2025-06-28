@@ -95,26 +95,27 @@ MSMeanData_Emissions::MSLaneMeanDataValues::notifyIdle(SUMOTrafficObject& veh) {
 
 
 void
-MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, SumoXMLAttrMask attributeMask, const SUMOTime period,
+MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttrMask& attributeMask, const SUMOTime period,
         const int /*numLanes*/, const double /*speedLimit*/, const double defaultTravelTime, const int /*numVehicles*/) const {
     const double normFactor = double(3600. / STEPS2TIME(period) / myLaneLength);
-    dev.writeOptionalAttr(SUMO_ATTR_CO_ABS,          OutputDevice::realString(myEmissions.CO, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_CO2_ABS,         OutputDevice::realString(myEmissions.CO2, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_HC_ABS,          OutputDevice::realString(myEmissions.HC, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_PMX_ABS,         OutputDevice::realString(myEmissions.PMx, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_NOX_ABS,         OutputDevice::realString(myEmissions.NOx, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_FUEL_ABS,        OutputDevice::realString(myEmissions.fuel, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_ABS, OutputDevice::realString(myEmissions.electricity, 6), attributeMask);
+    dev.setPrecision(gPrecisionEmissions);
+    dev.writeOptionalAttr(SUMO_ATTR_CO_ABS,          myEmissions.CO, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_CO2_ABS,         myEmissions.CO2, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_HC_ABS,          myEmissions.HC, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_PMX_ABS,         myEmissions.PMx, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_NOX_ABS,         myEmissions.NOx, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_FUEL_ABS,        myEmissions.fuel, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_ABS, myEmissions.electricity, attributeMask);
     if (attributeMask == 0) {
-        dev << "\n           ";
+        dev.writePadding("\n           ");
     }
-    dev.writeOptionalAttr(SUMO_ATTR_CO_NORMED,          OutputDevice::realString(normFactor * myEmissions.CO, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_CO2_NORMED,         OutputDevice::realString(normFactor * myEmissions.CO2, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_HC_NORMED,          OutputDevice::realString(normFactor * myEmissions.HC, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_PMX_NORMED,         OutputDevice::realString(normFactor * myEmissions.PMx, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_NOX_NORMED,         OutputDevice::realString(normFactor * myEmissions.NOx, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_FUEL_NORMED,        OutputDevice::realString(normFactor * myEmissions.fuel, 6), attributeMask);
-    dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_NORMED, OutputDevice::realString(normFactor * myEmissions.electricity, 6), attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_CO_NORMED,          normFactor * myEmissions.CO, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_CO2_NORMED,         normFactor * myEmissions.CO2, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_HC_NORMED,          normFactor * myEmissions.HC, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_PMX_NORMED,         normFactor * myEmissions.PMx, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_NOX_NORMED,         normFactor * myEmissions.NOx, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_FUEL_NORMED,        normFactor * myEmissions.fuel, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_NORMED, normFactor * myEmissions.electricity, attributeMask);
 
     if (sampleSeconds > myParent->getMinSamples()) {
         double vehFactor = myParent->getMaxTravelTime() / sampleSeconds;
@@ -124,32 +125,37 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, SumoXMLAttr
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
         if (attributeMask == 0) {
-            dev << "\n           ";
+            dev.writePadding("\n           ");
         }
-        dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME,         OutputDevice::realString(traveltime), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_CO_PERVEH,          OutputDevice::realString(vehFactor * myEmissions.CO, 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_CO2_PERVEH,         OutputDevice::realString(vehFactor * myEmissions.CO2, 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_HC_PERVEH,          OutputDevice::realString(vehFactor * myEmissions.HC, 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_PMX_PERVEH,         OutputDevice::realString(vehFactor * myEmissions.PMx, 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_NOX_PERVEH,         OutputDevice::realString(vehFactor * myEmissions.NOx, 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_FUEL_PERVEH,        OutputDevice::realString(vehFactor * myEmissions.fuel, 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_PERVEH, OutputDevice::realString(vehFactor * myEmissions.electricity, 6), attributeMask);
+        dev.setPrecision(gPrecision);
+        dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME,         traveltime, attributeMask);
+        dev.setPrecision(gPrecisionEmissions);
+        dev.writeOptionalAttr(SUMO_ATTR_CO_PERVEH,          vehFactor * myEmissions.CO, attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_CO2_PERVEH,         vehFactor * myEmissions.CO2, attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_HC_PERVEH,          vehFactor * myEmissions.HC, attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_PMX_PERVEH,         vehFactor * myEmissions.PMx, attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_NOX_PERVEH,         vehFactor * myEmissions.NOx, attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_FUEL_PERVEH,        vehFactor * myEmissions.fuel, attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_PERVEH, vehFactor * myEmissions.electricity, attributeMask);
     } else if (defaultTravelTime >= 0.) {
         const MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType();
         const double speed = MIN2(myLaneLength / defaultTravelTime, t->getMaxSpeed());
 
         if (attributeMask == 0) {
-            dev << "\n           ";
+            dev.writePadding("\n           ");
         }
-        dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME,         OutputDevice::realString(defaultTravelTime), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_CO_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_CO2_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO2,  speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_HC_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::HC,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_PMX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::PM_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_NOX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::NO_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_FUEL_PERVEH,        OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_PERVEH, OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::ELEC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), 6), attributeMask);
+        dev.setPrecision(gPrecision);
+        dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME,         defaultTravelTime, attributeMask);
+        dev.setPrecision(gPrecisionEmissions);
+        dev.writeOptionalAttr(SUMO_ATTR_CO_PERVEH,          PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_CO2_PERVEH,         PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO2,  speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_HC_PERVEH,          PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::HC,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_PMX_PERVEH,         PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::PM_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_NOX_PERVEH,         PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::NO_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_FUEL_PERVEH,        PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_PERVEH, PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::ELEC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), attributeMask);
     }
+    dev.setPrecision(gPrecision);
     dev.closeTag();
 }
 

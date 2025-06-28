@@ -24,6 +24,7 @@
 
 // set by option --precision (see SystemFrame.cpp)
 int gPrecision = 2;
+int gPrecisionEmissions = 2;
 int gPrecisionGeo = 6;
 int gPrecisionRandom = 4;
 bool gHumanReadableTime = false;

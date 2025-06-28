@@ -418,7 +418,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             } else {
                 source = stopEdge;
             }
-            stopEdgeInfo.routeIndex = edges.size() - 1;
+            stopEdgeInfo.routeIndex = (int)edges.size() - 1;
         } else {
             if ((source != sink || !stopAtSink)) {
                 if (priority >= 0) {
@@ -730,7 +730,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
 
 ConstMSEdgeVector
 MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const MSEdge* source, double sourcePos,
-        std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges, SUMOTime maxDelay) const {
+                               std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges, SUMOTime maxDelay) const {
     double skippedPrio = 0;
     double minPrio = std::numeric_limits<double>::max();
     std::vector<int> skipped;
@@ -804,7 +804,7 @@ MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicl
     std::sort(unskippedEnds.begin(), unskippedEnds.end()); // ascending
     std::set<int> skippedSet(skipped.begin(), skipped.end());
 #ifdef DEBUG_OPTIMIZE_SKIPPED
-        std::cout << "  unskippedEnds=" << toString(unskippedEnds) << " skippedStarts=" << toString(skippedStarts) << "\n";
+    std::cout << "  unskippedEnds=" << toString(unskippedEnds) << " skippedStarts=" << toString(skippedStarts) << "\n";
 #endif
 
     ConstMSEdgeVector bestEdges = edges;
@@ -816,7 +816,7 @@ MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicl
         if (skippedSet.count(i)  // found start of another skip sequence
                 || prio < 0 // cannot backtrack past unskippable stop
                 || altSkippedPrio >= skippedPrio // backtracking past this stop cannot improve result
-                ) {
+           ) {
             unskippedEnds.pop_back();
             skippedStarts.pop_back();
             if (unskippedEnds.empty()) {
@@ -851,7 +851,7 @@ MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicl
             stops2[i2].backtracked = true;
         }
         int prevRouteIndex = i > 0 ? stops[i - 1].routeIndex : getDepartEdge();
-        assert(prevRouteIndex >= 0 && prevRouteIndex < edges.size());
+        assert(prevRouteIndex >= 0 && prevRouteIndex < (int)edges.size());
         ConstMSEdgeVector edges2(edges.begin(), edges.begin() + prevRouteIndex);
         stops2[skippedStarts.back()].skipped = false;
         edges2.insert(edges2.begin(), into.begin(), into.end());
@@ -871,8 +871,8 @@ MSBaseVehicle::optimizeSkipped(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicl
 
 ConstMSEdgeVector
 MSBaseVehicle::routeAlongStops(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
-        std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
-        int originStop, SUMOTime maxDelay, double& skippedPrio2) const {
+                               std::vector<StopEdgeInfo>& stops, ConstMSEdgeVector edges,
+                               int originStop, SUMOTime maxDelay, double& skippedPrio2) const {
     // originStop was already reached an the edges appended
     for (int i = originStop + 1; i < (int)stops.size(); i++) {
         ConstMSEdgeVector into;

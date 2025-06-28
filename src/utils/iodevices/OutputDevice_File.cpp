@@ -87,10 +87,4 @@ OutputDevice_File::~OutputDevice_File() {
 }
 
 
-std::ostream&
-OutputDevice_File::getOStream() {
-    return *myFileStream;
-}
-
-
 /****************************************************************************/

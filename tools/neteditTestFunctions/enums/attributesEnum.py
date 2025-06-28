@@ -300,7 +300,7 @@ class attrs:
             useTemplate = 7
             numLanes = 9
             speed = 10
-            allowButton = 10
+            allowButton = 11
             allow = 12
             disallow = 13
             spreadType = 14
@@ -374,14 +374,14 @@ class attrs:
     class lane:
         class create:
             add = 24
-            remove = 24
-            speed = 25
-            allowButton = 26
-            allow = 27
-            disallow = 282
-            width = 29
-            parameters = 31
-            parametersButton = 32
+            remove = 25
+            speed = 26
+            allowButton = 27
+            allow = 28
+            disallow = 29
+            width = 30
+            parameters = 32
+            parametersButton = 33
 
         class inspect:
             speed = 2
@@ -600,6 +600,14 @@ class attrs:
         class common:
             TLID = 1
             TLType = 2
+
+        class addPhases:
+            default = 0
+            duplicate = 1
+            red = 2
+            yellow = 3
+            green = 4
+            priorityGreen = 5
 
         class single:
 
@@ -1550,7 +1558,7 @@ class attrs:
             helpDialog = 17
             reset = 18
 
-    # calibrator (FALTA CENTER XXXX)
+    # calibrator
 
     class calibrator:
         class create:
@@ -1562,41 +1570,70 @@ class attrs:
             output = 10
             jamTreshold = 11
             vTypes = 12
+            parameters = 14
+            parametersButton = 15
+            center = 17
+            additionalFileButton = 18
+            additionalFile = 19
+            helpDialog = 20
+            reset = 21
 
         class inspect:
             id = 2
             edge = 3
             pos = 4
-            frequency = 5
-            name = 6
+            name = 5
+            frequency = 6
             routeProbe = 7
-            output = 8
-            jamTreshold = 9
-            vTypes = 10
+            outputButton = 8
+            output = 9
+            jamTreshold = 10
+            vTypes = 11
             parameters = 13
+            parametersButton = 14
+            frontButton = 16
+            calibratorDialog = 17
+            additionalFileButton = 18
+            additionalFile = 19
+            helpDialog = 20
+            reset = 21
 
         class inspectLane:
             id = 2
             lane = 3
             laneMoveUp = 4
             pos = 5
-            frequency = 6
-            name = 7
+            name = 6
+            frequency = 7
             routeProbe = 8
-            output = 9
-            jamTreshold = 10
-            vTypes = 11
+            outputButton = 9
+            output = 10
+            jamTreshold = 11
+            vTypes = 12
             parameters = 14
+            parametersButton = 15
+            frontButton = 17
+            calibratorDialog = 18
+            additionalFileButton = 19
+            additionalFile = 20
+            helpDialog = 21
+            reset = 22
 
         class inspectSelection:
-            pos = 2
+            name = 2
             frequency = 3
-            name = 4
-            routeProbe = 5
+            routeProbe = 4
+            outputButton = 5
             output = 6
             jamTreshold = 7
             vTypes = 8
-            parameters = 11
+            parameters = 10
+            parametersButton = 11
+            frontButton = 13
+            additionalFileButton = 14
+            additionalFile = 15
+            helpDialog = 16
+            reset = 17
 
     # routeProbe (FALTA CENTER XXXX)
 
@@ -2736,34 +2773,33 @@ class attrs:
             type = 4
             fromJunction = 6
             toJunction = 7
-            via = 8
-            colorButton = 9
-            color = 10
-            departLane = 11
-            departPos = 12
-            departSpeed = 13
-            arrivalLane = 14
-            arrivalPos = 15
-            arrivalSpeed = 16
-            line = 17
-            personNumber = 18
-            containerNumber = 19
-            departPosLat = 20
-            arrivalPosLat = 21
-            insertionChecks = 22
-            begin = 23
-            terminate = 25
-            spacing = 27
-            end = 27
-            number = 28
-            terminateOption = 29
-            spacingOption = 30
-            parameters = 32
-            parametersButton = 33
-            routeFileButton = 35
-            routeFile = 36
-            helpDialog = 37
-            reset = 38
+            colorButton = 8
+            color = 9
+            departLane = 10
+            departPos = 11
+            departSpeed = 12
+            arrivalLane = 13
+            arrivalPos = 14
+            arrivalSpeed = 15
+            line = 16
+            personNumber = 17
+            containerNumber = 18
+            departPosLat = 19
+            arrivalPosLat = 20
+            insertionChecks = 21
+            begin = 22
+            terminate = 24
+            spacing = 26
+            end = 26
+            number = 27
+            terminateOption = 28
+            spacingOption = 29
+            parameters = 31
+            parametersButton = 32
+            routeFileButton = 34
+            routeFile = 35
+            helpDialog = 36
+            reset = 37
 
         class inspectSelection:
             typeButton = 2

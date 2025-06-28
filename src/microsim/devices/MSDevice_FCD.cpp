@@ -38,6 +38,12 @@
 // ===========================================================================
 // static members
 // ===========================================================================
+SUMOTime MSDevice_FCD::myBegin = SUMOTime_MAX;
+SUMOTime MSDevice_FCD::myPeriod = 0;
+bool MSDevice_FCD::myUseGeo;
+double MSDevice_FCD::myMaxLeaderDistance;
+std::vector<std::string> MSDevice_FCD::myParamsToWrite;
+double MSDevice_FCD::myRadius;
 std::set<const MSEdge*> MSDevice_FCD::myEdgeFilter;
 std::vector<PositionVector> MSDevice_FCD::myShape4Filters;
 bool MSDevice_FCD::myEdgeFilterInitialized(false);
@@ -74,7 +80,6 @@ MSDevice_FCD::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
     if (equippedByDefaultAssignmentOptions(oc, "fcd", v, oc.isSet("fcd-output"))) {
         MSDevice_FCD* device = new MSDevice_FCD(v, "fcd_" + v.getID());
         into.push_back(device);
-        initOnce();
     }
 }
 
@@ -161,6 +166,12 @@ MSDevice_FCD::initOnce() {
     }
     myEdgeFilterInitialized = true;
     const OptionsCont& oc = OptionsCont::getOptions();
+    myPeriod = string2time(oc.getString("device.fcd.period"));
+    myBegin = string2time(oc.getString("device.fcd.begin"));
+    myUseGeo = oc.getBool("fcd-output.geo");
+    myMaxLeaderDistance = oc.getFloat("fcd-output.max-leader-distance");
+    myParamsToWrite = oc.getStringVector("fcd-output.params");
+    myRadius = oc.getFloat("device.fcd.radius");
     if (oc.isSet("fcd-output.filter-edges.input-file")) {
         const std::string file = oc.getString("fcd-output.filter-edges.input-file");
         std::ifstream strm(file.c_str());
@@ -181,6 +192,9 @@ MSDevice_FCD::initOnce() {
         myWrittenAttributes = OutputDevice::parseWrittenAttributes(oc.getStringVector("fcd-output.attributes"), "fcd output");
     } else {
         myWrittenAttributes = getDefaultMask();
+    }
+    if (!MSNet::getInstance()->hasElevation()) {
+        myWrittenAttributes.reset(SUMO_ATTR_Z);
     }
     if (oc.getBool("fcd-output.signals")) {
         myWrittenAttributes.set(SUMO_ATTR_SIGNALS);

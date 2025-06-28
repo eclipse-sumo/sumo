@@ -54,7 +54,7 @@ def modifyVClassDialogOverlapped_NoDisallowAll(attribute, vClass):
     typeKey('space')
 
 
-def modifyVClassDialog_DisallowAll(attribute, vClass, cancel=False, reset=False):
+def modifyVClassDialog_DisallowAll(attribute, vClass):
     """
     @brief modify vclass attribute using dialog (this disallow all other vClasses)
     """
@@ -69,22 +69,10 @@ def modifyVClassDialog_DisallowAll(attribute, vClass, cancel=False, reset=False)
         typeKey('tab')
     # Change current value
     typeKey('space')
-    # check if cancel
-    if (cancel):
-        for _ in range(attrs.dialog.allowVClass.cancel - vClass):
-            typeKey('tab')
-        typeKey('space')
-    elif (reset):
-        for _ in range(attrs.dialog.allowVClass.reset - vClass):
-            typeKey('tab')
-        typeKey('space')
-        for _ in range(2):
-            typeTwoKeys('shift', 'tab')
-        typeKey('space')
-    else:
-        for _ in range(attrs.dialog.allowVClass.accept - vClass):
-            typeKey('tab')
-        typeKey('space')
+    # accept changes
+    for _ in range(attrs.dialog.allowVClass.accept - vClass):
+        typeKey('tab')
+    typeKey('space')
 
 
 def modifyVClassDialogOverlapped_DisallowAll(attribute, vClass):

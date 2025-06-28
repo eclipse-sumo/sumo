@@ -33,16 +33,14 @@ netedit.changeMode("vehicle")
 
 # select vehicle with embedded route
 netedit.changeElement("vehicleFrame", "vehicle (embedded route)")
-
-# create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set invalid ID
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.id, ";;;;&&&")
+# set invalid id
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.id, "%%%;;%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -51,22 +49,24 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set invalid ID
+# set valid id
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.id, "")
+
+# press enter to create trip
+netedit.typeKey("enter")
+
+# set empty id
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.id, "v_0")
 
-# create trip
+# try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeKey("enter")
 
-# set valid ID
+# set empty id
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.create.id, "customID")
-
-# create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeKey("enter")

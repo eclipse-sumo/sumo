@@ -32,7 +32,7 @@ netedit.changeMode("TLS")
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # create TLS
-netedit.createTLSOverlapped(1)
+netedit.createTLSOverlapped()
 
 # type ESC (for undo-redo)
 netedit.typeKey("esc")

@@ -40,13 +40,13 @@ CSVFormatter::writeXMLHeader(std::ostream& /* into */, const std::string& /* roo
 
 void
 CSVFormatter::openTag(std::ostream& /* into */, const std::string& /* xmlElement */) {
-    myXMLStack.push_back(std::ostringstream());
+    myXMLStack.emplace_back(std::ostringstream());
 }
 
 
 void
 CSVFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& /* xmlElement */) {
-    myXMLStack.push_back(std::ostringstream());
+    myXMLStack.emplace_back(std::ostringstream());
 }
 
 

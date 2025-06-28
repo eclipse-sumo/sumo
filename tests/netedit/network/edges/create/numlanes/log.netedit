@@ -1,6 +1,6 @@
-Warning: Invalid edge attributes
-Warning: Invalid edge attributes
-Warning: Invalid edge attributes
-Warning: Invalid edge attributes
-Warning: Invalid edge attributes
-Warning: Invalid edge attributes
+Warning: Invalid value 'dummyLanes' in attribute numLanes
+Warning: Invalid value 'dummyLanes' in attribute numLanes
+Warning: Invalid value '-2' in attribute numLanes
+Warning: Invalid value '-2' in attribute numLanes
+Warning: Invalid value '5.5' in attribute numLanes
+Warning: Invalid value '5.5' in attribute numLanes
