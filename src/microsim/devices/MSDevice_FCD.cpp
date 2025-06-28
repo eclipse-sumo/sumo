@@ -99,7 +99,6 @@ MSDevice_FCD::~MSDevice_FCD() {
 SumoXMLAttrMask
 MSDevice_FCD::getDefaultMask() {
     SumoXMLAttrMask mask;
-    mask.set(SUMO_ATTR_ID);
     mask.set(SUMO_ATTR_X);
     mask.set(SUMO_ATTR_Y);
     if (MSNet::getInstance()->hasElevation()) {
@@ -193,6 +192,7 @@ MSDevice_FCD::initOnce() {
     } else {
         myWrittenAttributes = getDefaultMask();
     }
+    myWrittenAttributes.set(SUMO_ATTR_ID);
     if (!MSNet::getInstance()->hasElevation()) {
         myWrittenAttributes.reset(SUMO_ATTR_Z);
     }
