@@ -27,7 +27,7 @@
 // member method definitions
 // ===========================================================================
 CSVFormatter::CSVFormatter(const char separator)
-    : OutputFormatter(OutputFormatterType::CSV), mySeparator(separator), myMaxDepth(0), myWroteHeader(false) {
+    : OutputFormatter(OutputFormatterType::CSV), mySeparator(separator) {
 }
 
 
@@ -40,41 +40,49 @@ CSVFormatter::writeXMLHeader(std::ostream& /* into */, const std::string& /* roo
 
 void
 CSVFormatter::openTag(std::ostream& /* into */, const std::string& /* xmlElement */) {
-    myXMLStack.emplace_back(std::ostringstream());
+    myCurrentDepth++;
+    if (myCurrentDepth > (int)myXMLStack.size()) {
+        myXMLStack.emplace_back(std::unique_ptr<std::ostringstream>(new std::ostringstream()));
+    }
 }
 
 
 void
 CSVFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& /* xmlElement */) {
-    myXMLStack.emplace_back(std::ostringstream());
+    myCurrentDepth++;
+    if (myCurrentDepth > (int)myXMLStack.size()) {
+        myXMLStack.emplace_back(std::unique_ptr<std::ostringstream>(new std::ostringstream()));
+    }
 }
 
 
 bool
 CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
-    if (myMaxDepth == 0 || (myMaxDepth == (int)myXMLStack.size() && !myWroteHeader)) {
-        into << myHeader << std::endl;
+    if (myMaxDepth == 0 || (myMaxDepth == myCurrentDepth && !myWroteHeader)) {
+        into << myHeader << "\n";
         if (myMaxDepth == 0) {
-            myMaxDepth = (int)myXMLStack.size();
+            myMaxDepth = myCurrentDepth;
             myExpectedAttrs = mySeenAttrs;
         }
         myWroteHeader = true;
     }
-    if ((int)myXMLStack.size() == myMaxDepth) {
+    if (myCurrentDepth == myMaxDepth) {
         if (myExpectedAttrs != mySeenAttrs) {
             throw ProcessError(TLF("Incomplete attribute set '%', this file format does not support CSV output yet.", toString(mySeenAttrs)));
         }
         for (auto it = myXMLStack.begin(); it != myXMLStack.end() - 1; ++it) {
-            into << it->str();
+            into << (*it)->str();
         }
         // remove the final separator
-        std::string final = myXMLStack.back().str();
-        final.pop_back();
-        into << final << std::endl;
+        std::string final = myXMLStack[myCurrentDepth - 1]->str();
+        final[final.size() - 1] = '\n';
+        into << final;
         mySeenAttrs.reset();
     }
-    if (!myXMLStack.empty()) {
-        myXMLStack.pop_back();
+    if (myCurrentDepth > 0) {
+        myXMLStack[myCurrentDepth - 1]->str("");
+        myXMLStack[myCurrentDepth - 1]->clear();
+        myCurrentDepth--;
     }
     return false;
 }

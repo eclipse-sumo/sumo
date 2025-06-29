@@ -73,6 +73,9 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
 
 
 OutputDevice_File::~OutputDevice_File() {
+    // we need to cleanup the formatter first, because it still might have cached data
+    delete myFormatter;
+    myFormatter = nullptr;
     delete myFileStream;
 }
 
