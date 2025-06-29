@@ -66,15 +66,6 @@ public:
      */
     bool closeTag(std::ostream& into, const std::string& comment = "");
 
-    /** @brief writes a preformatted tag to the device but ensures that any
-     * pending tags are closed
-     * @param[in] into The output stream to use
-     * @param[in] val The preformatted data
-     */
-    void writePreformattedTag(std::ostream& /* into */, const std::string& /* val */) {
-        throw ProcessError("This file format does not support CSV output yet.");
-    }
-
     /** @brief writes a named attribute
      *
      * @param[in] into The output stream to use
@@ -99,33 +90,37 @@ public:
     void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth = 2) {
         myExpectedAttrs = expected;
         myMaxDepth = depth;
+        myCheckColumns = true;
     }
 
 private:
-    /** @brief Helper function to keep track of the written attributes and accumulates the header.
-     * This function does not add functionality except for collecting the attribute names for the header.
-     * It just checks whether the written attribute is expected in the column based format.
-     * The check does not apply to the order of the columns just to the presence.
+    /** @brief Helper function to keep track of the written attributes and accumulate the header.
+     * It checks whether the written attribute is expected in the column based format.
+     * The check does only apply to the deepest level of the XML hierarchy and not to the order of the columns just to the presence.
      *
      * @param[in] attr The attribute (name)
      */
     inline void checkAttr(const SumoXMLAttr attr) {
-        if (myMaxDepth == myCurrentDepth) {
+        if (myCheckColumns && myMaxDepth == myCurrentDepth) {
             mySeenAttrs.set(attr);
             if (!myExpectedAttrs.test(attr)) {
                 throw ProcessError(TLF("Unexpected attribute '%', this file format does not support CSV output yet.", toString(attr)));
             }
         }
         if (!myWroteHeader) {
-            if (myHeader != "") {
-                myHeader += mySeparator;
+            std::string attrString = toString(attr);
+            if (std::find(myHeader.begin(), myHeader.end(), attrString) != myHeader.end()) {
+                attrString = myCurrentTag + "_" + attrString;
             }
-            myHeader += toString(attr);
+            myHeader.push_back(attrString);
         }
     }
 
     /// @brief the CSV header
-    std::string myHeader;
+    std::vector<std::string> myHeader;
+
+    /// @brief the currently read tag (only valid when generating the header)
+    std::string myCurrentTag;
 
     /// @brief The attributes to write for each begun xml element (excluding the root element)
     std::vector<std::unique_ptr<std::ostringstream>> myXMLStack;
@@ -141,6 +136,9 @@ private:
 
     /// @brief whether the CSV header line has been written
     bool myWroteHeader = false;
+
+    /// @brief whether the columns should be checked for completeness
+    bool myCheckColumns = false;
 
     /// @brief which CSV columns are expected (just for checking completeness)
     SumoXMLAttrMask myExpectedAttrs;

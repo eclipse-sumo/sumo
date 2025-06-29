@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include "CSVFormatter.h"
 
@@ -32,35 +33,41 @@ CSVFormatter::CSVFormatter(const char separator)
 
 
 void
-CSVFormatter::openTag(std::ostream& /* into */, const std::string& /* xmlElement */) {
+CSVFormatter::openTag(std::ostream& /* into */, const std::string& xmlElement) {
     myCurrentDepth++;
     if (myCurrentDepth > (int)myXMLStack.size()) {
         myXMLStack.emplace_back(std::unique_ptr<std::ostringstream>(new std::ostringstream()));
+    }
+    if (!myWroteHeader) {
+        myCurrentTag = xmlElement;
     }
 }
 
 
 void
-CSVFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& /* xmlElement */) {
+CSVFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& xmlElement) {
     myCurrentDepth++;
     if (myCurrentDepth > (int)myXMLStack.size()) {
         myXMLStack.emplace_back(std::unique_ptr<std::ostringstream>(new std::ostringstream()));
+    }
+    if (!myWroteHeader) {
+        myCurrentTag = toString(xmlElement);
     }
 }
 
 
 bool
 CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
-    if (myMaxDepth == 0 || (myMaxDepth == myCurrentDepth && !myWroteHeader)) {
-        into << myHeader << "\n";
-        if (myMaxDepth == 0) {
-            myMaxDepth = myCurrentDepth;
-            myExpectedAttrs = mySeenAttrs;
-        }
+    if (myMaxDepth == 0) {
+        WRITE_WARNING("Column based formats are still experimental. Autodetection only works for homogeneous output.");
+        myMaxDepth = myCurrentDepth;
+    }
+    if (myMaxDepth == myCurrentDepth && !myWroteHeader) {
+        into << joinToString(myHeader, mySeparator) << "\n";
         myWroteHeader = true;
     }
     if (myCurrentDepth == myMaxDepth) {
-        if (myExpectedAttrs != mySeenAttrs) {
+        if (myCheckColumns && myExpectedAttrs != mySeenAttrs) {
             throw ProcessError(TLF("Incomplete attribute set '%', this file format does not support CSV output yet.", toString(mySeenAttrs)));
         }
         for (auto it = myXMLStack.begin(); it != myXMLStack.end() - 1; ++it) {
