@@ -298,7 +298,7 @@ public:
         if (myFormatter->getType() == OutputFormatterType::XML) {
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
         } else {
-            throw ProcessError("This file format does not support CSV output yet.");
+            static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
         }
         return *this;
     }

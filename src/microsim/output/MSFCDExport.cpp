@@ -92,16 +92,10 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep) {
                 }
                 of.openTag(SUMO_TAG_VEHICLE);
                 of.writeAttr(SUMO_ATTR_ID, veh->getID());
-                of.writeFuncAttr(SUMO_ATTR_X, [ = ]() {
-                    return pos.x();
-                }, mask);
-                of.writeFuncAttr(SUMO_ATTR_Y, [ = ]() {
-                    return pos.y();
-                }, mask);
+                of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
+                of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
                 of.setPrecision(gPrecision);
-                of.writeFuncAttr(SUMO_ATTR_Z, [ = ]() {
-                    return pos.z();
-                }, mask);
+                of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
                 of.writeFuncAttr(SUMO_ATTR_ANGLE, [ = ]() {
                     return GeomHelper::naviDegree(veh->getAngle());
                 }, mask);
