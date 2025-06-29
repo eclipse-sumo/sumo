@@ -66,7 +66,12 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
     bool writeBatch = false;
     if ((int)myXMLStack.size() == myMaxDepth) {
         if (myExpectedAttrs != mySeenAttrs) {
-            throw ProcessError(TLF("Incomplete attribute set '%', this file format does not support Parquet output yet.", toString(mySeenAttrs)));
+            for (int i = 0; i < myExpectedAttrs.size(); ++i) {
+                if (myExpectedAttrs.test(i) && !mySeenAttrs.test(i)) {
+                    throw ProcessError(TLF("Incomplete attribute set, '%' is missing. This file format does not support Parquet output yet.",
+                                           toString((SumoXMLAttr)i)));
+                }
+            }
         }
         int index = 0;
         for (auto& builder : myBuilders) {
