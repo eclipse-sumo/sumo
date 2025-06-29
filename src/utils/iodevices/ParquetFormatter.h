@@ -87,12 +87,6 @@ public:
     /// @brief Destructor
     virtual ~ParquetFormatter() { }
 
-    /** @brief This is not an xml format so it does nothing
-     */
-    bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                        const std::map<SumoXMLAttr, std::string>& attrs,
-                        bool includeConfig = true);
-
     /** @brief Keeps track of an open XML tag by adding a new element to the stack
      *
      * @param[in] into The output stream to use (unused)
@@ -116,24 +110,6 @@ public:
      */
     bool closeTag(std::ostream& into, const std::string& comment = "");
 
-    /** @brief writes a preformatted tag to the device but ensures that any
-     * pending tags are closed
-     * @param[in] into The output stream to use
-     * @param[in] val The preformatted data
-     */
-    void writePreformattedTag(std::ostream& /* into */, const std::string& /* val */) {
-        throw ProcessError("This file format does not support Parquet output yet.");
-    }
-
-    inline void checkAttr(const SumoXMLAttr attr) {
-        if (myMaxDepth == (int)myXMLStack.size()) {
-            mySeenAttrs.set(attr);
-            if (!myExpectedAttrs.test(attr)) {
-                throw ProcessError(TLF("Unexpected attribute '%', this file format does not support Parquet output yet.", toString(attr)));
-            }
-        }
-    }
-
     /** @brief writes a named attribute
      *
      * @param[in] attr The attribute (name)
@@ -144,7 +120,7 @@ public:
     void writeAttr(const SumoXMLAttr attr, const T& val, const bool isNull = false) {
         checkAttr(attr);
         if (!myWroteHeader) {
-            mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(toString(attr), arrow::utf8()));
+            mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::utf8()));
             myBuilders.push_back(std::make_shared<arrow::StringBuilder>());
         }
         myValues.push_back(isNull ? nullptr : std::make_shared<arrow::StringScalar>(toString(val)));
@@ -157,9 +133,32 @@ public:
     void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth = 2) {
         myExpectedAttrs = expected;
         myMaxDepth = depth;
+        myCheckColumns = true;
     }
 
 private:
+    inline const std::string getAttrString(const SumoXMLAttr attr) {
+        std::string attrString = toString(attr);
+        for (const auto& field : mySchema->fields()) {
+            if (field->name() == attrString) {
+                return myCurrentTag + "_" + attrString;
+            }
+        }
+        return attrString;
+    }
+
+    inline void checkAttr(const SumoXMLAttr attr) {
+        if (myCheckColumns && myMaxDepth == (int)myXMLStack.size()) {
+            mySeenAttrs.set(attr);
+            if (!myExpectedAttrs.test(attr)) {
+                throw ProcessError(TLF("Unexpected attribute '%', this file format does not support Parquet output yet.", toString(attr)));
+            }
+        }
+    }
+
+    /// @brief the currently read tag (only valid when generating the header)
+    std::string myCurrentTag;
+
     /// @brief the number of rows to write per batch
     const int myBatchSize;
 
@@ -179,10 +178,13 @@ private:
     std::vector<std::shared_ptr<arrow::Scalar> > myValues;
 
     /// @brief the maximum depth of the XML hierarchy
-    int myMaxDepth;
+    int myMaxDepth = 0;
 
     /// @brief whether the schema has been constructed completely
-    bool myWroteHeader;
+    bool myWroteHeader = false;
+
+    /// @brief whether the columns should be checked for completeness
+    bool myCheckColumns = false;
 
     /// @brief the attributes which are expected for a complete row (including null values)
     SumoXMLAttrMask myExpectedAttrs;
@@ -199,7 +201,7 @@ template <>
 inline void ParquetFormatter::writeAttr(const SumoXMLAttr attr, const double& val, const bool isNull) {
     checkAttr(attr);
     if (!myWroteHeader) {
-        mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(toString(attr), arrow::float64()));
+        mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::float64()));
         myBuilders.push_back(std::make_shared<arrow::DoubleBuilder>());
     }
     myValues.push_back(isNull ? nullptr : std::make_shared<arrow::DoubleScalar>(val));

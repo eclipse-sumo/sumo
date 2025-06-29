@@ -21,6 +21,7 @@
 
 #include <arrow/io/api.h>
 
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include "ParquetFormatter.h"
 
@@ -29,44 +30,40 @@
 // member method definitions
 // ===========================================================================
 ParquetFormatter::ParquetFormatter(const int batchSize)
-    : OutputFormatter(OutputFormatterType::PARQUET), myBatchSize(batchSize), myMaxDepth(0), myWroteHeader(false) {
-}
-
-
-bool
-ParquetFormatter::writeXMLHeader(std::ostream& /* into */, const std::string& /* rootElement */,
-                                 const std::map<SumoXMLAttr, std::string>& /* attrs */, bool /* includeConfig */) {
-    return false;
+    : OutputFormatter(OutputFormatterType::PARQUET), myBatchSize(batchSize) { }
+void
+ParquetFormatter::openTag(std::ostream& /* into */, const std::string& xmlElement) {
+    myXMLStack.push_back(myValues.size());
+    if (!myWroteHeader) {
+        myCurrentTag = xmlElement;
+    }
 }
 
 
 void
-ParquetFormatter::openTag(std::ostream& /* into */, const std::string& /* xmlElement */) {
+ParquetFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& xmlElement) {
     myXMLStack.push_back(myValues.size());
-}
-
-
-void
-ParquetFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& /* xmlElement */) {
-    myXMLStack.push_back(myValues.size());
+    if (!myWroteHeader) {
+        myCurrentTag = toString(xmlElement);
+    }
 }
 
 
 bool
 ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
-    if (myMaxDepth == 0 || (myMaxDepth == (int)myXMLStack.size() && !myWroteHeader)) {
+    if (myMaxDepth == 0) {
+        WRITE_WARNING("Column based formats are still experimental. Autodetection only works for homogeneous output.");
+        myMaxDepth = (int)myXMLStack.size();
+    }
+    if (myMaxDepth == (int)myXMLStack.size() && !myWroteHeader) {
         auto arrow_stream = std::make_shared<ArrowOStreamWrapper>(into);
         myParquetWriter = *parquet::arrow::FileWriter::Open(*mySchema, arrow::default_memory_pool(), arrow_stream);
-        if (myMaxDepth == 0) {
-            myMaxDepth = (int)myXMLStack.size();
-            myExpectedAttrs = mySeenAttrs;
-        }
         myWroteHeader = true;
     }
     bool writeBatch = false;
     if ((int)myXMLStack.size() == myMaxDepth) {
-        if (myExpectedAttrs != mySeenAttrs) {
-            for (int i = 0; i < myExpectedAttrs.size(); ++i) {
+        if (myCheckColumns && myExpectedAttrs != mySeenAttrs) {
+            for (int i = 0; i < (int)myExpectedAttrs.size(); ++i) {
                 if (myExpectedAttrs.test(i) && !mySeenAttrs.test(i)) {
                     throw ProcessError(TLF("Incomplete attribute set, '%' is missing. This file format does not support Parquet output yet.",
                                            toString((SumoXMLAttr)i)));
@@ -76,11 +73,7 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
         int index = 0;
         for (auto& builder : myBuilders) {
             const auto val = myValues[index++];
-            if (val == nullptr) {
-                PARQUET_THROW_NOT_OK(builder->AppendNull());
-            } else {
-                PARQUET_THROW_NOT_OK(builder->AppendScalar(*val));
-            }
+            PARQUET_THROW_NOT_OK(val == nullptr ? builder->AppendNull() : builder->AppendScalar(*val));
         }
         writeBatch = myBuilders.back()->length() == myBatchSize;
         mySeenAttrs.reset();
