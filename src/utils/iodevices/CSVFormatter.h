@@ -43,12 +43,6 @@ public:
     /// @brief Destructor
     virtual ~CSVFormatter() { }
 
-    /** @brief This is not an xml format so it does nothing
-     */
-    bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
-                        const std::map<SumoXMLAttr, std::string>& attrs,
-                        bool includeConfig = true);
-
     /** @brief Keeps track of an open XML tag by adding a new element to the stack
      *
      * @param[in] into The output stream to use (unused)

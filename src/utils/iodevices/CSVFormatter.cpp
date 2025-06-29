@@ -31,13 +31,6 @@ CSVFormatter::CSVFormatter(const char separator)
 }
 
 
-bool
-CSVFormatter::writeXMLHeader(std::ostream& /* into */, const std::string& /* rootElement */,
-                             const std::map<SumoXMLAttr, std::string>& /* attrs */, bool /* includeConfig */) {
-    return false;
-}
-
-
 void
 CSVFormatter::openTag(std::ostream& /* into */, const std::string& /* xmlElement */) {
     myCurrentDepth++;
