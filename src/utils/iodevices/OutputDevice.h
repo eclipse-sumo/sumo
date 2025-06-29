@@ -311,6 +311,10 @@ public:
     OutputDevice& writeAttr(const std::string& attr, const T& val) {
         if (myFormatter->getType() == OutputFormatterType::XML) {
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+#ifdef HAVE_PARQUET
+        } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
+            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(attr, val);
+#endif
         } else {
             static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
         }

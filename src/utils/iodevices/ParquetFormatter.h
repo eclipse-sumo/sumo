@@ -120,10 +120,20 @@ public:
     void writeAttr(const SumoXMLAttr attr, const T& val, const bool isNull = false) {
         checkAttr(attr);
         if (!myWroteHeader) {
-            mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::utf8()));
+            mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(toString(attr)), arrow::utf8()));
             myBuilders.push_back(std::make_shared<arrow::StringBuilder>());
         }
         myValues.push_back(isNull ? nullptr : std::make_shared<arrow::StringScalar>(toString(val)));
+    }
+
+    template <class T>
+    void writeAttr(const std::string& attr, const T& val) {
+        assert(!myCheckColumns);
+        if (!myWroteHeader) {
+            mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::utf8()));
+            myBuilders.push_back(std::make_shared<arrow::StringBuilder>());
+        }
+        myValues.push_back(std::make_shared<arrow::StringScalar>(toString(val)));
     }
 
     bool wroteHeader() const {
@@ -137,8 +147,7 @@ public:
     }
 
 private:
-    inline const std::string getAttrString(const SumoXMLAttr attr) {
-        std::string attrString = toString(attr);
+    inline const std::string getAttrString(const std::string& attrString) {
         for (const auto& field : mySchema->fields()) {
             if (field->name() == attrString) {
                 return myCurrentTag + "_" + attrString;
@@ -201,8 +210,21 @@ template <>
 inline void ParquetFormatter::writeAttr(const SumoXMLAttr attr, const double& val, const bool isNull) {
     checkAttr(attr);
     if (!myWroteHeader) {
-        mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::float64()));
+        mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(toString(attr)), arrow::float64()));
         myBuilders.push_back(std::make_shared<arrow::DoubleBuilder>());
     }
     myValues.push_back(isNull ? nullptr : std::make_shared<arrow::DoubleScalar>(val));
 }
+/*
+// TODO this specialization triggers compilation errors
+
+template <>
+void ParquetFormatter::writeAttr(const std::string& attr, const double& val) {
+    assert(!myCheckColumns);
+    if (!myWroteHeader) {
+        mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::float64()));
+        myBuilders.push_back(std::make_shared<arrow::DoubleBuilder>());
+    }
+    myValues.push_back(std::make_shared<arrow::DoubleScalar>(val));
+}
+*/
