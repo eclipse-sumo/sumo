@@ -289,10 +289,13 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* const e, const M
     of.writeAttr(SUMO_ATTR_ID, p->getID());
     of.writeOptionalAttr(SUMO_ATTR_X, pos.x(), mask);
     of.writeOptionalAttr(SUMO_ATTR_Y, pos.y(), mask);
+    of.setPrecision(gPrecision);
     of.writeOptionalAttr(SUMO_ATTR_Z, pos.z(), mask);
     of.writeOptionalAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()), mask);
+    of.writeOptionalAttr(SUMO_ATTR_TYPE, "", mask, true);
     of.writeOptionalAttr(SUMO_ATTR_SPEED, p->getSpeed(), mask);
     of.writeOptionalAttr(SUMO_ATTR_POSITION, p->getEdgePos(), mask);
+    of.writeOptionalAttr(SUMO_ATTR_LANE, "", mask, true);
     of.writeOptionalAttr(SUMO_ATTR_EDGE, e->getID(), mask);
     of.writeOptionalAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()), mask);
     of.writeOptionalAttr(SUMO_ATTR_VEHICLE, v == nullptr ? "" : v->getID(), mask);
