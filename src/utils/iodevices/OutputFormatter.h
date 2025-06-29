@@ -66,16 +66,23 @@ public:
      *
      * If something has been written (myXMLStack is not empty), nothing
      *  is written and false returned.
+     * The default implementation does nothing and returns false.
      *
      * @param[in] into The output stream to use
      * @param[in] rootElement The root element to use
      * @param[in] attrs Additional attributes to save within the rootElement
-     * @todo Check which parameter is used herein
-     * @todo Describe what is saved
+     * @param[in] includeConfig whether the current config should be included as XML comment
+     * @return whether something has been written
      */
     virtual bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
                                 const std::map<SumoXMLAttr, std::string>& attrs,
-                                bool includeConfig = true) = 0;
+                                bool includeConfig = true) {
+        UNUSED_PARAMETER(into);
+        UNUSED_PARAMETER(rootElement);
+        UNUSED_PARAMETER(attrs);
+        UNUSED_PARAMETER(includeConfig);
+        return false;
+    }
 
     /** @brief Opens an XML tag
      *
@@ -106,24 +113,54 @@ public:
      */
     virtual bool closeTag(std::ostream& into, const std::string& comment = "") = 0;
 
-    virtual void writePreformattedTag(std::ostream& into, const std::string& val) = 0;
+    /** @brief Writes a preformatted tag to the device but ensures that any
+     * pending tags are closed.
+     * This method is only implemented for XML output.
+     * @param[in] into The output stream to use
+     * @param[in] val The preformatted data
+     */
+    virtual void writePreformattedTag(std::ostream& into, const std::string& val) {
+        UNUSED_PARAMETER(into);
+        UNUSED_PARAMETER(val);
+        throw ProcessError("The selected file format does not support preformatted tags.");
+    }
 
+    /** @brief Writes some whitespace to format the output.
+     * This method is only implemented for XML output.
+     * @param[in] into The output stream to use
+     * @param[in] val The whitespace
+     */
     virtual void writePadding(std::ostream& into, const std::string& val) {
         UNUSED_PARAMETER(into);
         UNUSED_PARAMETER(val);
     }
 
+    /** @brief Returns whether a header has been written.
+     * Useful to detect whether a file is being used by multiple sources.
+     * @return Whether a header has been written
+     */
     virtual bool wroteHeader() const = 0;
 
+    /** @brief Returns the type of formatter being used.
+     * @return the formatter type
+     */
     OutputFormatterType getType() {
         return myType;
     }
 
+    /** @brief Set the expected attributes to write.
+     * This is used for tracking which attributes are expected in table like outputs.
+     * This should be not necessary but at least in the initial phase of implementing CSV and Parquet
+     * it helps a lot to track errors.
+     * @param[in] expected which attributes are to be written (at the deepest XML level)
+     * @param[in] depth the maximum XML hierarchy depth (excluding the root)
+     */
     virtual void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth = 2) {
         UNUSED_PARAMETER(expected);
         UNUSED_PARAMETER(depth);
     }
 
 private:
+    /// @brief the type of formatter being used (XML, CSV, Parquet, etc.)
     const OutputFormatterType myType;
 };

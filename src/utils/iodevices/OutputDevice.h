@@ -246,7 +246,7 @@ public:
         return *this;
     }
 
-    static SumoXMLAttrMask parseWrittenAttributes(const std::vector<std::string>& attrList, const std::string& desc);
+    static const SumoXMLAttrMask parseWrittenAttributes(const std::vector<std::string>& attrList, const std::string& desc);
 
     /** @brief writes a named attribute unless filtered
      *

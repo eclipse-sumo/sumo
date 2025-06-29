@@ -281,7 +281,7 @@ OutputDevice::inform(const std::string& msg, const bool progress) {
 }
 
 
-SumoXMLAttrMask
+const SumoXMLAttrMask
 OutputDevice::parseWrittenAttributes(const std::vector<std::string>& attrList, const std::string& desc) {
     SumoXMLAttrMask result;
     for (std::string attrName : attrList) {
