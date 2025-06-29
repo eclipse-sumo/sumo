@@ -78,6 +78,19 @@ public:
         *myXMLStack[myCurrentDepth - 1] << toString(val, into.precision()) << mySeparator;
     }
 
+    template <class T>
+    void writeAttr(std::ostream& into, const std::string& attr, const T& val) {
+        assert(!myCheckColumns);
+        if (!myWroteHeader) {
+            if (std::find(myHeader.begin(), myHeader.end(), attr) != myHeader.end()) {
+                myHeader.push_back(myCurrentTag + "_" + attr);
+            } else {
+                myHeader.push_back(attr);
+            }
+        }
+        *myXMLStack[myCurrentDepth - 1] << toString(val, into.precision()) << mySeparator;
+    }
+
     void writeNull(std::ostream& /* into */, const SumoXMLAttr attr) {
         checkAttr(attr);
         *myXMLStack[myCurrentDepth - 1] << mySeparator;
@@ -108,11 +121,12 @@ private:
             }
         }
         if (!myWroteHeader) {
-            std::string attrString = toString(attr);
-            if (std::find(myHeader.begin(), myHeader.end(), attrString) != myHeader.end()) {
-                attrString = myCurrentTag + "_" + attrString;
+            const std::string attrString = toString(attr);
+            if (std::find(myHeader.begin(), myHeader.end(), attrString) == myHeader.end()) {
+                myHeader.push_back(attrString);
+            } else {
+                myHeader.push_back(myCurrentTag + "_" + attrString);
             }
-            myHeader.push_back(attrString);
         }
     }
 
