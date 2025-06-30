@@ -35,8 +35,8 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyVClassDialogOverlapped_NoDisallowAll(netedit.attrs.lane.inspect.changeLeftButton,
-                                                   netedit.attrs.dialog.allowVClass.disallowAll)
+netedit.modifyVClassDialog_NoDisallowAll(netedit.attrs.lane.inspect.changeLeftButton,
+                                         netedit.attrs.dialog.allowVClass.disallowAll)
 
 # Check undos
 netedit.undo(referencePosition, 4)
