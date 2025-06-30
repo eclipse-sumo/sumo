@@ -47,19 +47,11 @@ netedit.typeKey("enter")
 # set invalid depart lane
 netedit.modifyAttribute(netedit.attrs.flow.create.departLane, "-12")
 
-# try to create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 
 # set valid depart lane
 netedit.modifyAttribute(netedit.attrs.flow.create.departLane, "random")
-
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create flow
 netedit.typeKey("enter")

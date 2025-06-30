@@ -54,10 +54,6 @@ netedit.typeKey("enter")
 # set valid id
 netedit.modifyAttribute(netedit.attrs.flow.create.id, "")
 
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 
@@ -73,10 +69,6 @@ netedit.typeKey("enter")
 
 # set empty id
 netedit.modifyAttribute(netedit.attrs.flow.create.id, "customID")
-
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create flow
 netedit.typeKey("enter")

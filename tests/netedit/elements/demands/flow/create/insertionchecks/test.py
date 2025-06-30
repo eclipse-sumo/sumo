@@ -47,10 +47,6 @@ netedit.typeKey("enter")
 # set valid Line
 netedit.modifyAttribute(netedit.attrs.flow.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
 
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 

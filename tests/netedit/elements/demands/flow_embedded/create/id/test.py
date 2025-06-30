@@ -31,54 +31,46 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# select flow with embedded route
+# select flow
 netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
-# create other
+# try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set invalid id
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.id, ";;;;;;%%")
 
-# try to create flow with embedded route
+# try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set valid id
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.id, "")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
-# set valid id
+# set empty id
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.id, "f_0")
 
-# create flow with embedded route
+# create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set empty id
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.id, "customID")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # Check undo redo

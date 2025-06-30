@@ -47,29 +47,17 @@ netedit.typeKey("enter")
 # set invalid containerNumber
 netedit.modifyAttribute(netedit.attrs.flow.create.containerNumber, "-12")
 
-# try to create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 
 # set invalid containerNumber
 netedit.modifyAttribute(netedit.attrs.flow.create.containerNumber, "3.5")
 
-# try to create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 
 # set valid containerNumber
 netedit.modifyAttribute(netedit.attrs.flow.create.containerNumber, "13")
-
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create flow
 netedit.typeKey("enter")

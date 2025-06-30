@@ -47,10 +47,6 @@ netedit.typeKey("enter")
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flow.create.terminate, "end-number")
 
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 
@@ -67,25 +63,24 @@ netedit.typeKey("enter")
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flow.create.end, "-30")
 
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flow.create.end, "20.5")
 
+# press enter to create flow
+netedit.typeKey("enter")
+
+# set valid arrival pos
+netedit.modifyAttribute(netedit.attrs.flow.create.end, "22")
+
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create flow
 netedit.typeKey("enter")
-
-# set valid arrival pos
-netedit.modifyAttribute(netedit.attrs.flow.create.end, "22")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flow.create.number, "dummy")
@@ -100,29 +95,17 @@ netedit.typeKey("enter")
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flow.create.number, "-30")
 
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flow.create.number, "20.5")
 
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 
 # set valid arrival pos
 netedit.modifyAttribute(netedit.attrs.flow.create.number, "51")
-
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create flow
 netedit.typeKey("enter")

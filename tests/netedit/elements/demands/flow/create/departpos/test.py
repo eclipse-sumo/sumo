@@ -47,17 +47,13 @@ netedit.typeKey("enter")
 # set invalid depart pos
 netedit.modifyAttribute(netedit.attrs.flow.create.departPos, "-12")
 
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 
 # set valid depart pos
 netedit.modifyAttribute(netedit.attrs.flow.create.departPos, "random_free")
 
-# create flow
+# try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 

@@ -31,47 +31,39 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# select flow with embedded route
+# select flow
 netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # set invalid depart lane
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.departLane, "dummyLane")
 
-# try to create flow with embedded route
+# try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set invalid depart lane
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.departLane, "-12")
 
-# try to create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set valid depart lane
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.departLane, "random")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set valid depart lane
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.departLane, "20")
 
-# create flow with embedded route
+# create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # Check undo redo
