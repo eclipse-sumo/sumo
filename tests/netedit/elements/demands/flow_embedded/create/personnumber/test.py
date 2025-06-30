@@ -31,47 +31,35 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# select flow with embedded route
+# select flow
 netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
 # set invalid personNumber
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.personNumber, "dummycontainerNumber")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.personNumber, "dummypersonNumber")
 
-# try to create flow with embedded route
+# try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set invalid personNumber
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.personNumber, "-12")
 
-# try to create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set invalid personNumber
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.personNumber, "3.5")
 
-# try to create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set valid personNumber
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.personNumber, "13")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # Check undo redo

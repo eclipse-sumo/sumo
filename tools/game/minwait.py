@@ -44,7 +44,7 @@ def main():
     for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
         scen_path = config[:-8]
         scen = os.path.basename(scen_path)
-        if "demo" in scen:
+        if "demo" in scen or "bs3" in scen:
             continue
         tls = None
         add = []

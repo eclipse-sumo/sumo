@@ -31,47 +31,43 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# select flow with embedded route
+# select flow
 netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
-# set invalid person number
+# set color using dialog
 netedit.modifyColorAttribute(netedit.attrs.flowEmbedded.create.colorButton)
 
-# try to create flow with embedded route
+# try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set invalid color
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.color, "dummyColor")
 
-# try to create flow with embedded route
+# try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set valid color
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.color, "cyan")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # set valid color
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.color, "12,13,14")
 
-# create flow with embedded route
+# create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # Check undo redo

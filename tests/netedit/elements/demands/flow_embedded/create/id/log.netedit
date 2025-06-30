@@ -1,3 +1,2 @@
-Error: Attribute 'id' in definition of a flowWithRoute is empty.
-Error: Invalid flowWithRoute id ''.
-Error: flowWithRoute cannot be created
+Warning: Invalid value ';;;;;;%%' in attribute id
+Warning: Invalid value 'f_0' in attribute id

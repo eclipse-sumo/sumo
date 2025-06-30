@@ -404,23 +404,27 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge
             }
             const PositionVector& v = lane->getShape();
             double lanePos;
+            double centerPos;
             switch (edgeType) {
                 case REROUTER_TRIGGER_EDGE:
                     // U sign at end of edge
                     // (note: symbol is drawn downstream of lanePos and extends 6m)
                     lanePos = MAX2(0.0, v.length() - 10);
+                    centerPos = MIN2(lanePos + 3, v.length());
                     break;
                 case REROUTER_SWITCH_EDGE:
                     // triangle with switch probability
                     lanePos = 0;
+                    centerPos = lanePos;
                     break;
                 default:
                     // closing sign on start of edge
                     lanePos = MIN2(v.length(), 3.0);
+                    centerPos = MIN2(lanePos + 3, v.length());
             }
             myFGPositions.push_back(v.positionAtOffset(lanePos));
             myFGRotations.push_back(-v.rotationDegreeAtOffset(lanePos));
-            myBoundary.add(myFGPositions.back());
+            myBoundary.add(v.positionAtOffset(centerPos));
             myHalfWidths.push_back(lane->getWidth() * 0.5 * 0.875);
         }
     } else {

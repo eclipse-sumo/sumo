@@ -510,7 +510,7 @@ protected:
     virtual GUIGlID getToolTipID();
 
     /// @brief returns the id of the front object under the cursor using GL_SELECT
-    GUIGlID getObjectUnderCursor();
+    GUIGlID getObjectUnderCursor(double sensitivity = SENSITIVITY);
 
     /// @brief returns the id of the objects under the cursor using GL_SELECT (including overlapped objects)
     std::vector<GUIGlID> getObjectsUnderCursor();
@@ -522,7 +522,7 @@ protected:
     std::vector<GUIGlObject*> getGUIGlObjectsUnderSnappedCursor();
 
     /// @brief returns the id of the object at position using GL_SELECT
-    GUIGlID getObjectAtPosition(Position pos);
+    GUIGlID getObjectAtPosition(Position pos, double sensitivity = SENSITIVITY);
 
     /// @brief returns the ids of the object at position within the given (rectangular) radius using GL_SELECT
     std::vector<GUIGlID> getObjectsAtPosition(Position pos, double radius);
@@ -633,6 +633,9 @@ protected:
     /// @brief counter for measuring rendering time
     long myFrameDrawTime = 0;
 
+    // @brief sensitivity for "<>AtPosition(...) functions
+    static const double SENSITIVITY;
+
 private:
     /// @brief struct used for sorting objects by layer
     struct LayerObject : public std::pair<double, std::pair<GUIGlObjectType, std::string> > {
@@ -652,6 +655,4 @@ private:
         GUIGlObject* myGLObject;
     };
 
-    // @brief sensitivity for "<>AtPosition(...) functions
-    static const double SENSITIVITY;
 };

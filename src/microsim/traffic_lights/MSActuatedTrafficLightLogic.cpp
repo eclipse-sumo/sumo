@@ -1403,6 +1403,12 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                 } catch (ProcessError&) {
                     return retrieveDetExpression<MSE2Collector, SUMO_TAG_LANE_AREA_DETECTOR>(arg, expr, true)->getCurrentVehicleNumber();
                 }
+            } else if (fun == "w") {
+                try {
+                    return retrieveDetExpression<MSInductLoop, SUMO_TAG_INDUCTION_LOOP>(arg, expr, true)->getOccupancyTime();
+                } catch (ProcessError&) {
+                    return retrieveDetExpression<MSE2Collector, SUMO_TAG_LANE_AREA_DETECTOR>(arg, expr, true)->getCurrentJamDuration();
+                }
             } else if (fun == "g" || fun == "r") {
                 try {
                     int linkIndex = StringUtils::toInt(arg);

@@ -195,6 +195,7 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentJamNo(0),
     myCurrentJamLengthInMeters(0),
     myCurrentJamLengthInVehicles(0),
+    myCurrentJamDuration(0),
     myCurrentHaltingsNumber(0),
     myPreviousMeanOccupancy(0),
     myPreviousMeanSpeed(0),
@@ -1129,7 +1130,8 @@ MSE2Collector::makeMoveNotification(const SUMOTrafficObject& veh, double oldPos,
     /* Store new infos */
     return new MoveNotificationInfo(veh.getID(), oldPos, newPos, newSpeed, veh.getAcceleration(),
                                     myDetectorLength - (vehInfo.entryOffset + newPos),
-                                    timeOnDetector, lengthOnDetector, timeLoss, stillOnDetector);
+                                    timeOnDetector, lengthOnDetector, timeLoss,
+                                    STEPS2TIME(veh.getWaitingTime()), stillOnDetector);
 }
 
 void
@@ -1263,6 +1265,7 @@ MSE2Collector::processJams(std::vector<JamInfo*>& jams, JamInfo* currentJam) {
     myCurrentMaxJamLengthInVehicles = 0;
     myCurrentJamLengthInMeters = 0;
     myCurrentJamLengthInVehicles = 0;
+    myCurrentJamDuration = 0;
     for (std::vector<JamInfo*>::const_iterator i = jams.begin(); i != jams.end(); ++i) {
         // compute current jam's values
         MoveNotificationInfo* lastVeh = *((*i)->lastStandingVehicle);
@@ -1278,6 +1281,7 @@ MSE2Collector::processJams(std::vector<JamInfo*>& jams, JamInfo* currentJam) {
         myJamLengthInVehiclesSum += jamLengthInVehicles;
         myCurrentJamLengthInMeters += jamLengthInMeters;
         myCurrentJamLengthInVehicles += jamLengthInVehicles;
+        myCurrentJamDuration = MAX2(myCurrentJamDuration, firstVeh->waitingTime);
 #ifdef DEBUG_E2_JAMS
         if (DEBUG_COND) {
             std::cout << SIMTIME << " processing jam nr." << ((int) distance((std::vector<JamInfo*>::const_iterator) jams.begin(), i) + 1)

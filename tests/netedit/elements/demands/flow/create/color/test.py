@@ -57,10 +57,6 @@ netedit.typeKey("enter")
 # set valid color
 netedit.modifyAttribute(netedit.attrs.flow.create.color, "cyan")
 
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 

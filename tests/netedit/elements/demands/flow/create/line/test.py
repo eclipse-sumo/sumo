@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("enter")
 
 # set valid Line
-netedit.modifyAttribute(netedit.attrs.flow.create.line, "ownLine")
+netedit.modifyAttribute(netedit.attrs.flow.create.line, "")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeKey("enter")
 
 # set empty line
-netedit.modifyAttribute(netedit.attrs.flow.create.line, "")
+netedit.modifyAttribute(netedit.attrs.flow.create.line, "customLine")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

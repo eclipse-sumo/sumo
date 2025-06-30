@@ -87,6 +87,7 @@ This Documentation is continuously updated and always refers to the latest devel
 
 - [Basic Definition](Simulation/Basic_Definition.md)
 - [Saving and Loading Simulation State](Simulation/SaveAndLoad.md)
+- [The SUMO-JuPedSim coupling](jupedsim.md)
 
 ## Output
 - [Simulation output overview](Simulation/Output/index.md)

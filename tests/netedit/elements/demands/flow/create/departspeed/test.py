@@ -47,19 +47,11 @@ netedit.typeKey("enter")
 # set invalid depart speed
 netedit.modifyAttribute(netedit.attrs.flow.create.departSpeed, "-12")
 
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
 # press enter to create flow
 netedit.typeKey("enter")
 
 # set valid depart speed
 netedit.modifyAttribute(netedit.attrs.flow.create.departSpeed, "max")
-
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create flow
 netedit.typeKey("enter")

@@ -31,28 +31,23 @@ netedit.changeSupermode("demand")
 # go to vehicle mode
 netedit.changeMode("vehicle")
 
-# select flow with embedded route
+# select flow
 netedit.changeElement("vehicleFrame", "flow (embedded route)")
 
-# set invalid depart speed
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.insertionChecks, "dummy")
+# set invalid insertionChecks
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.insertionChecks, "%%%%%%")
 
-# try to create flow with embedded route
+# try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
-# set valid depart speed
-netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.insertionChecks,
-                        "leaderGap junction speedLimit pedestrian")
+# set valid Line
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
 
-# create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-
-# press enter to create flow with embedded route
+# press enter to create flow
 netedit.typeKey("enter")
 
 # Check undo redo

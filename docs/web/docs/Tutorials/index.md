@@ -59,6 +59,9 @@ The SUMO User Conference is an annual event organized by the German Aerospace Ce
 <a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=ccc2mnGX_Mg">Watch the 2025 Tutorial</a>
 (a transcription is available [here](2025.md#transcription))
 
+# JuPedSim Tutorials
+* [Crossing Simulation](Jupedsim/crossing-simulation.md)
+
 # Advanced Tutorials
 * [Hello SUMO](Hello_SUMO.md) - The simplest net and a single car set up "by hand"
 * [ScenarioGuide](ScenarioGuide.md) - High level outline of the steps needed to build a simulation scenario

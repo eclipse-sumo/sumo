@@ -80,6 +80,11 @@ CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
         mySeenAttrs.reset();
     }
     if (myCurrentDepth > 0) {
+        if (!myWroteHeader) {
+            const std::string text = myXMLStack[myCurrentDepth - 1]->str();
+            const int count = std::count(text.begin(), text.end(), mySeparator);
+            myHeader.resize(myHeader.size() - count);
+        }
         myXMLStack[myCurrentDepth - 1]->str("");
         myXMLStack[myCurrentDepth - 1]->clear();
         myCurrentDepth--;

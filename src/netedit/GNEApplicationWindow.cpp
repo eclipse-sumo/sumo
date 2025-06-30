@@ -1327,23 +1327,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             neteditOptions.resetWritable();
             neteditOptions.set("route-files", mySumoOptions.getValueString("route-files"));
         }
-        // update default filenames
-        const auto& additionalFiles = neteditOptions.getStringVector("additional-files");
-        if (additionalFiles.size() > 0) {
-            myNet->getSavingFilesHandler()->updateAdditionalEmptyFilenames(additionalFiles.front());
-        }
-        const auto& demandFiles = neteditOptions.getStringVector("route-files");
-        if (demandFiles.size() > 0) {
-            myNet->getSavingFilesHandler()->updateDemandEmptyFilenames(demandFiles.front());
-        }
-        const auto& dataFiles = neteditOptions.getStringVector("data-files");
-        if (dataFiles.size() > 0) {
-            myNet->getSavingFilesHandler()->updateDataEmptyFilenames(dataFiles.front());
-        }
-        const auto& meanDataFiles = neteditOptions.getStringVector("meandata-files");
-        if (meanDataFiles.size() > 0) {
-            myNet->getSavingFilesHandler()->updateMeanDataEmptyFilenames(meanDataFiles.front());
-        }
         // load elements
         loadAdditionalElements();
         loadDemandElements();
@@ -4684,7 +4667,12 @@ GNEApplicationWindow::loadAdditionalElements() {
         // reset flag
         neteditOptions.resetWritable();
         neteditOptions.set("ignore.additionalelements", "false");
+        // also reset route files in both containers
+        neteditOptions.resetDefault("additional-files");
+        mySumoOptions.resetDefault("additional-files");
     } else if (myNet && (additionalFiles.size() > 0)) {
+        // update saving files handler
+        myNet->getSavingFilesHandler()->updateAdditionalEmptyFilenames(additionalFiles.front());
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
@@ -4735,7 +4723,12 @@ GNEApplicationWindow::loadDemandElements() {
         // reset flag
         neteditOptions.resetWritable();
         neteditOptions.set("ignore.routeelements", "false");
+        // also reset route files in both containers
+        neteditOptions.resetDefault("route-files");
+        mySumoOptions.resetDefault("route-files");
     } else if (myNet && (demandFiles.size() > 0)) {
+        // update saving files handler
+        myNet->getSavingFilesHandler()->updateDemandEmptyFilenames(demandFiles.front());
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
@@ -4780,6 +4773,8 @@ GNEApplicationWindow::loadDataElements() {
     // get data files
     const auto& dataFiles = neteditOptions.getStringVector("data-files");
     if (myNet && (dataFiles.size() > 0)) {
+        // update saving files handler
+        myNet->getSavingFilesHandler()->updateDataEmptyFilenames(dataFiles.front());
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
@@ -4824,6 +4819,8 @@ GNEApplicationWindow::loadMeanDataElements() {
     // get meanData files
     const auto& meanDataFiles = neteditOptions.getStringVector("meandata-files");
     if (myNet && (meanDataFiles.size() > 0)) {
+        // update saving files handler
+        myNet->getSavingFilesHandler()->updateMeanDataEmptyFilenames(meanDataFiles.front());
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist

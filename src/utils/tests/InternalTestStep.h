@@ -263,6 +263,9 @@ private:
     /// @brief create line shape
     void createLineShape();
 
+    /// @brief create mean data
+    void createMeanData();
+
     /// @brief process quit function
     void quit();
 

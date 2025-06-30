@@ -34,8 +34,8 @@ netedit.changeMode("vehicle")
 # select flow
 netedit.changeElement("vehicleFrame", "flow (from-to edges)")
 
-# set invalid arrival pos
-netedit.modifyAttribute(netedit.attrs.flow.create.arrivalPosLat, "dummyPos")
+# set invalid arrival lane
+netedit.modifyAttribute(netedit.attrs.flow.create.arrivalSpeed, "dummySpeed")
 
 # try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
@@ -44,28 +44,20 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 # press enter to create flow
 netedit.typeKey("enter")
 
-# set invalid arrival pos
-netedit.modifyAttribute(netedit.attrs.flow.create.arrivalPosLat, "-12")
-
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+# set invalid arrival speed
+netedit.modifyAttribute(netedit.attrs.flow.create.arrivalSpeed, "-12")
 
 # press enter to create flow
 netedit.typeKey("enter")
 
-# set valid arrival pos
-netedit.modifyAttribute(netedit.attrs.flow.create.arrivalPosLat, "center")
-
-# create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+# set valid arrival speed
+netedit.modifyAttribute(netedit.attrs.flow.create.arrivalSpeed, "current")
 
 # press enter to create flow
 netedit.typeKey("enter")
 
-# set valid arrival pos
-netedit.modifyAttribute(netedit.attrs.flow.create.arrivalPosLat, "20")
+# set valid arrival speed
+netedit.modifyAttribute(netedit.attrs.flow.create.arrivalSpeed, "20")
 
 # create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
