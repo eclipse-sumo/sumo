@@ -381,8 +381,8 @@ GUISUMOAbstractView::getToolTipID() {
 
 
 GUIGlID
-GUISUMOAbstractView::getObjectUnderCursor() {
-    return getObjectAtPosition(getPositionInformation());
+GUISUMOAbstractView::getObjectUnderCursor(double sensitivity) {
+    return getObjectAtPosition(getPositionInformation(), sensitivity);
 }
 
 
@@ -406,15 +406,16 @@ GUISUMOAbstractView::getGUIGlObjectsUnderSnappedCursor() {
 
 
 GUIGlID
-GUISUMOAbstractView::getObjectAtPosition(Position pos) {
+GUISUMOAbstractView::getObjectAtPosition(Position pos, double sensitivity) {
     // calculate a boundary for the given position
     Boundary positionBoundary;
     positionBoundary.add(pos);
-    positionBoundary.grow(SENSITIVITY);
+    positionBoundary.grow(sensitivity);
     const std::vector<GUIGlID> ids = getObjectsInBoundary(positionBoundary);
     // Interpret results
     int idMax = 0;
     double maxLayer = -std::numeric_limits<double>::max();
+    double minDist = std::numeric_limits<double>::max();
     // iterate over obtained GUIGlIDs
     for (const auto& i : ids) {
         // obtain GUIGlObject
@@ -429,10 +430,15 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
         }
         //std::cout << "point selection hit " << o->getMicrosimID() << "\n";
         double layer = o->getClickPriority();
+        double dist = o->getCenter().distanceTo2D(pos);
         // check whether the current object is above a previous one
         if (layer > maxLayer) {
             idMax = i;
             maxLayer = layer;
+            minDist = dist;
+        } else if (layer == maxLayer && dist < minDist) {
+            idMax = i;
+            minDist = dist;
         }
         // unblock object
         GUIGlObjectStorage::gIDStorage.unblockObject(i);
@@ -1099,9 +1105,6 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
                 if (o != nullptr) {
                     if (!myApp->isGaming() && (o->getType() == GLO_VEHICLE || o->getType() == GLO_PERSON)) {
                         startTrack(id);
-                    } else if (o->getType() == GLO_REROUTER_EDGE) {
-                        o->onLeftBtnPress(ptr);
-                        update();
                     }
                 }
             }
@@ -1122,8 +1125,7 @@ long
 GUISUMOAbstractView::onLeftBtnRelease(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
     myChanger->onLeftBtnRelease(ptr);
-    FXEvent* e = (FXEvent*) ptr;
-    if (myApp->isGaming() && (e->state & SHIFTMASK) == 0) {
+    if (myApp->isGaming()) {
         onGamingClick(getPositionInformation());
     }
     ungrab();
@@ -1167,21 +1169,7 @@ GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
 long
 GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    if (myApp->isGaming()) {
-        if (makeCurrent()) {
-            int id = getObjectUnderCursor();
-            if (id != 0) {
-                GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-                if (o != nullptr) {
-                    if (o->getType() == GLO_REROUTER_EDGE) {
-                        o->onLeftBtnPress(ptr);
-                        update();
-                    }
-                }
-            }
-            makeNonCurrent();
-        }
-    } else {
+    if (!myApp->isGaming()) {
         myChanger->onRightBtnPress(ptr);
     }
     grab();

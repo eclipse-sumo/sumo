@@ -411,7 +411,9 @@ GUIViewTraffic::onGamingClick(Position pos) {
     if (myTLSGame) {
         MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
         MSTrafficLightLogic* minTll = nullptr;
+        GUIGlObject* minRR = nullptr;
         double minDist = std::numeric_limits<double>::infinity();
+        double minDistRR = std::numeric_limits<double>::infinity();
         for (MSTrafficLightLogic* const tll : tlsControl.getAllLogics()) {
             if (tlsControl.isActive(tll) && tll->getProgramID() != "off") {
                 // get the links
@@ -425,6 +427,24 @@ GUIViewTraffic::onGamingClick(Position pos) {
                 }
             }
         }
+        if (makeCurrent()) {
+            for (GUIGlObject* o : getGUIGlObjectsAtPosition(getPositionInformation(), MIN2(minDist, 20.0))) {
+                if (o->getType() == GLO_REROUTER_EDGE) {
+                    const double dist = o->getCenter().distanceTo2D(pos);
+                    if (dist < minDistRR) {
+                        minDistRR = dist;
+                        minRR = o;
+                    }
+                }
+            }
+            makeNonCurrent();
+        }
+        if (minDistRR < minDist && minRR != nullptr) {
+            minRR->onLeftBtnPress(nullptr);
+            update();
+            return;
+        }
+
         if (minTll != nullptr) {
             if (minTll->getPhaseNumber() == 0) {
                 // MSRailSignal

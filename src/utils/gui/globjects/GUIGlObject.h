@@ -182,6 +182,10 @@ public:
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
 
+    virtual Position getCenter() const {
+        return getCenteringBoundary().getCenter();
+    }
+
     /// @brief Draws the object
     /// @param[in] s The settings for the current view (may influence drawing)
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
