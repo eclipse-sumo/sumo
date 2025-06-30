@@ -40,7 +40,7 @@ jobs:
         brew update
         brew upgrade || brew link --overwrite python@3.12
         brew install --cask xquartz
-        brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
+        brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen apache-arrow
 
     - name: Cloning jupedsim
       if: matrix.os != 'macos-13'
@@ -79,6 +79,12 @@ jobs:
         export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
+
+    - name: Uploading artifacts (SUMO examples with outputs)
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.os }}-examples
+        path: sumo/docs/examples
 
     - name: Running texttest
       run: |

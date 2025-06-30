@@ -108,6 +108,8 @@ ssm2:ssm_ego.xml
 png:out.png
 png2:out2.png
 wkt:wkt.txt
+fcd_csv:fcd.csv
+fcd_parquet:fcd.parquet
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:
