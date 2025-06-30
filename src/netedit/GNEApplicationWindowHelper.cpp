@@ -2309,6 +2309,9 @@ bool
 GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     // get options
     auto& neteditOptions = OptionsCont::getOptions();
+    // before reset defaults, save ignore route and demand elements (because usually are loaded trought console)
+    const bool ignoreAdditionalElements = neteditOptions.getBool("ignore.additionalelements");
+    const bool ignoreRouteElements = neteditOptions.getBool("ignore.routeelements");
     // reset options
     neteditOptions.resetDefault();
     // make all options writables
@@ -2339,6 +2342,10 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", newConfiguration);
     }
+    // restore ignores
+    neteditOptions.resetWritable();
+    neteditOptions.set("ignore.additionalelements", toString(ignoreAdditionalElements));
+    neteditOptions.set("ignore.routeelements", toString(ignoreRouteElements));
     return true;
 }
 
