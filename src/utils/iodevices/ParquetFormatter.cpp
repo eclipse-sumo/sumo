@@ -91,6 +91,10 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
     }
     if (!myXMLStack.empty()) {
         while ((int)myValues.size() > myXMLStack.back()) {
+            if (!myWroteHeader) {
+                mySchema = *mySchema->RemoveField(mySchema->num_fields() - 1);
+                myBuilders.pop_back();
+            }
             myValues.pop_back();
         }
         myXMLStack.pop_back();
