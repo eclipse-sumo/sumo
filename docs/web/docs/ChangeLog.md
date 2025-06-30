@@ -88,7 +88,7 @@ title: ChangeLog
 
 - sumo-gui
   - Various improvement to visual placement of rerouter objects #16716
-  - In game mode, right-click can now toggle switches (rerouters) #16717
+  - In game mode, left-click can now toggle switches (rerouters) #16840
   - The 3D-view can now render vehicles in their 3D-model color #12683
   - The 3D-view now shows POIs and polygons #13991
   - busStop now support `<param key="waitingWidth" value="FLOAT"/>` to customize spacing of waiting transportables #16724
