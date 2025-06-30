@@ -157,7 +157,7 @@ private:
      *          temporarily stored in myMoveNotifications for each step.
     */
     struct MoveNotificationInfo {
-        MoveNotificationInfo(std::string _vehID, double _oldPos, double _newPos, double _speed, double _accel, double _distToDetectorEnd, double _timeOnDetector, double _lengthOnDetector, double _timeLoss, bool _onDetector) :
+        MoveNotificationInfo(std::string _vehID, double _oldPos, double _newPos, double _speed, double _accel, double _distToDetectorEnd, double _timeOnDetector, double _lengthOnDetector, double _timeLoss, double _waitingTime, bool _onDetector) :
             id(_vehID),
             oldPos(_oldPos),
             newPos(_newPos),
@@ -167,6 +167,7 @@ private:
             timeOnDetector(_timeOnDetector),
             lengthOnDetector(_lengthOnDetector),
             timeLoss(_timeLoss),
+            waitingTime(_waitingTime),
             onDetector(_onDetector) {}
 
         virtual ~MoveNotificationInfo() {};
@@ -189,6 +190,8 @@ private:
         double lengthOnDetector;
         /// timeloss during the last integration step
         double timeLoss;
+        /// the current (consecutive) waitingTime on the detector in s
+        double waitingTime;
         /// whether the vehicle is on the detector at the end of the current timestep
         bool onDetector;
     };
@@ -460,6 +463,11 @@ public:
     /** @brief Returns the length of all jams in meters */
     double getCurrentJamLengthInMeters() const {
         return myCurrentJamLengthInMeters;
+    }
+
+    /** @brief Returns the length of the longest-duration jam in s */
+    double getCurrentJamDuration() const {
+        return myCurrentJamDuration;
     }
 
     /** @brief Returns the length of all jams in meters */
@@ -821,6 +829,8 @@ private:
     double myCurrentJamLengthInMeters;
     /// @brief The overall jam length in vehicles
     int myCurrentJamLengthInVehicles;
+    /// @brief The overall jam duration in s
+    double myCurrentJamDuration;
     /// @brief The number of started halts in the last step
     int myCurrentStartedHalts;
     /// @brief The number of halted vehicles [#]
