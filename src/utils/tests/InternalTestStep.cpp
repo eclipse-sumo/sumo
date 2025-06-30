@@ -162,6 +162,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         createSquaredShape();
     } else if (function == "createLineShape") {
         createLineShape();
+    } else if (function == "createMeanData") {
+        createMeanData();
     } else if (function == "saveExistentShortcut") {
         saveExistentShortcut();
     } else if (function == "checkUndoRedo") {
@@ -1109,6 +1111,8 @@ InternalTestStep::changeMode() {
             myMessageID = MID_HOTKEY_L_MODE_PERSONPLAN;
         } else if (networkMode == "vehicle") {
             myMessageID = MID_HOTKEY_V_MODE_VEHICLE;
+        } else if (networkMode == "meanData") {
+            myMessageID = MID_HOTKEY_M_MODE_MOVE_MEANDATA;
         } else {
             writeError("changeMode", 0, "<inspect/delete/select/move...>");
         }
@@ -1290,6 +1294,16 @@ InternalTestStep::createLineShape() {
                     getIntArgument(myArguments[3]),
                     getBoolArgument(myArguments[4]),
                     true);
+    }
+}
+
+
+void
+InternalTestStep::createMeanData() {
+    if (myArguments.size() != 0) {
+        writeError("createMeanData", 0, "<>");
+    } else {
+        modifyBoolAttribute(5, 0);
     }
 }
 
