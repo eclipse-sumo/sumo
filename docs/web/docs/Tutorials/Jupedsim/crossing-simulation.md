@@ -1,18 +1,19 @@
+---
+title: Crossing Simulation
 template: jupedsim.html
-
-# Crossing Simulation
+---
 
 In this tutorial you will learn how to configure a basic simulation scenario with *netedit* from scratch.
 The scenario consists of crossing with interacting cars and pedestrians.
 We will define the simulation network and the demand for vehicle and person flows.
-First, you will run a simulation with the default pedestrian model of *SUMO* ([striping model](https://sumo.dlr.de/docs/Simulation/Pedestrians.html#model_striping)).
+First, you will run a simulation with the default pedestrian model of *SUMO* ([striping model](../../Simulation/Pedestrians.md#model_striping)).
 Then you will switch to the *JuPedSim* model and inspect the results.
 At the end of this tutorial, you can find videos of the simulation results for both models.
 
 You can find the resulting **configuration files** for this tutorial [here](https://github.com/PedestrianDynamics/SUMO-JuPedSim-Simulations/tree/main/tutorials/crossing).
 
-#### NOTE
-If you made a mistake press *Ctrl + Z* to undo the last step.
+!!! note
+    If you made a mistake press <kbd>Ctrl</kbd> + <kbd>Z</kbd> to undo the last step.
 
 The message window at the bottom of *netedit* informs you about warnings and errors. For this tutorial, the window was hidden.
 
@@ -26,8 +27,8 @@ Then you can draw the edges (roads) in the editor.
 
 ![*Edge mode* for creating the network](../../images/network_edges1.png)
 
-Make sure that the egdes are connected by a node in the center so that a crossing can be generated.
-To learn more about the *SUMO* road network we refer to [this](https://sumo.dlr.de/docs/Networks/SUMO_Road_Networks.html) website.
+Make sure that the edges are connected by a node in the center so that a crossing can be generated.
+To learn more about the *SUMO* road network we refer to [this](../../Networks/SUMO_Road_Networks.html) website.
 
 As pedestrians are spawned distributed along an edge we define small edges at the end of the roads of interest.
 In this way, we reduce the effects of the initial conditions and the pedestrians are already in motion when they enter the network defined above.
@@ -87,7 +88,7 @@ As we want to create a flow of vehicles, you need to choose the option *flow (fr
 You can define properties of the flow when you scroll down the menu.
 We define that a car should appear every 30 seconds.
 
-![*Vehicle mode* for counfiguration of vehicle flows](../../images/demand_vehicle1.png)
+![*Vehicle mode* for configuration of vehicle flows](../../images/demand_vehicle1.png)
 
 Now you can define the route for that flow by clicking on the edge where the flow should start.
 If you scroll down on the left, you can see information on the coloring of the edges in the defined network.
@@ -142,7 +143,7 @@ This option can be found by clicking on *Edit Coloring Schemes* (color wheel) an
 
 When zooming in you can see interacting cars and pedestrian at the crossing.
 For this simulation the *striping* model is used.
-As you can see the pedestrians are moving and waiting in strucutred formations.
+As you can see the pedestrians are moving and waiting in structured formations.
 
 ![Snapshot of simulation with *striping* model](../../images/gui_snapshot_striping.png)
 
@@ -170,7 +171,7 @@ Your simulation should look similar to this one:
 
 ## Results
 
-In the follwing, you can see a comparison of the two simulations results (left: *striping* model, right: *JuPedSim* model).
+In the following, you can see a comparison of the two simulations results (left: *striping* model, right: *JuPedSim* model).
 There are clear differences in the movement patterns and interactions as the *JuPedSim* pedestrians are moving in 2D space.
 
 | ![image](../../images/simulation_striping.gif)   | ![image](../../images/simulation_jupedsim.gif)   |
