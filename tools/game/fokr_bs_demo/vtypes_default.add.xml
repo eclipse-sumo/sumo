@@ -4,7 +4,7 @@
     <vType id="veh_bus" vClass="bus"/>
     <vType id="veh_truck" vClass="truck"/>
     <vType id="veh_van" vClass="delivery"/>
-    <vType id="veh_motorbike" vClass="motorcycle"/>
-    <vType id="bike_bicycle" vClass="bicycle"/>
-    <vType id="ped_pedestrian" vClass="pedestrian"/>
+    <vType id="veh_motorbike" length="3" width="2" vClass="motorcycle"/>
+    <vType id="bike_bicycle" length="3" width="1.8" vClass="bicycle"/>
+    <vType id="ped_pedestrian" length="1" width="0.85" vClass="pedestrian"/>
 </additional>
