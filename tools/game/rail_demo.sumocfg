@@ -13,7 +13,7 @@
 
     <time>
         <begin value="0"/>
-        <end value="1200"/>
+        <end value="1200000"/>
         <step-length value=".2"/>
     </time>
 

@@ -30,7 +30,7 @@ import glob
 import pickle
 import re
 
-from runner import computeScoreFromWaitingTime, REFSCOREFILE
+from runner import computeScore, parseEndTime, REFSCOREFILE
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -38,12 +38,20 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 
 
+def computeHighScore(scen, high, alg=""):
+    score = computeScore(scen)
+    i = 0
+    for i, s in enumerate(high[scen]):
+        if s[2] < score[0]:
+            break
+    high[scen].insert(i, ("SUMO " + alg, "", score[0]))
+
+
 def main():
     base = os.path.dirname(os.path.abspath(__file__))
     high = {}
     for config in sorted(glob.glob(os.path.join(base, "*.sumocfg"))):
-        scen_path = config[:-8]
-        scen = os.path.basename(scen_path)
+        scen = os.path.basename(config[:-8])
         if "demo" in scen or "bs3" in scen:
             continue
         tls = None
@@ -75,25 +83,27 @@ def main():
             for alg, minDur in (("actuated", 3), ("delay_based", 1)):
                 print("running scenario '%s' with algorithm '%s'" % (scen, alg))
                 with open(tls + "." + alg, "w") as tls_out:
-                    sumo = 'sumo'
-                    if scen == "cross" and alg == "actuated" and False:
-                        sumo = 'sumo-gui'
                     for line in lines:
                         line = line.replace('type="static"', 'type="%s"' % alg)
                         if "phase" in line:
                             line = re.sub('duration="1000\d+', 'duration="10" minDur="%s" maxDur="10000' % minDur, line)
                         tls_out.write(line)
-                subprocess.call([sumolib.checkBinary(sumo), "-c", config,
+                subprocess.call([sumolib.checkBinary('sumo'), "-c", config,
                                  "-a", ",".join(add).replace(tls, tls_out.name),
-                                 '--duration-log.statistics', '--statistic-output', scen_path + '.stats.xml',
+                                 '-l', os.path.join(base, scen, "log"), '--duration-log.statistics',
+                                 '--statistic-output', os.path.join(base, scen, 'stats.xml'),
                                  '-v', 'false', '--no-warnings', '--no-step-log',
                                  '--tripinfo-output.write-unfinished'])
-                score = computeScoreFromWaitingTime(scen_path)
-                i = 0
-                for i, s in enumerate(high[scen]):
-                    if s[2] < score[0]:
-                        break
-                high[scen].insert(i, ("SUMO " + alg, "", score[0]))
+                computeHighScore(scen, high, alg)
+        if scen == "rail":
+            high[scen] = []
+            print("running scenario 'rail'")
+            subprocess.call([sumolib.checkBinary('sumo'), "-c", config.replace("rail", "rail_demo"),
+                             '-l', os.path.join(base, scen, "log"), '--duration-log.statistics',
+                             '--statistic-output', os.path.join(base, scen, 'stats.xml'),
+                             '-v', 'false', '--no-warnings', '--no-step-log',
+                             '--tripinfo-output.write-unfinished', "-e", str(parseEndTime(config))])
+            computeHighScore(scen, high)
     print(high)
     with open(os.path.join(base, REFSCOREFILE), 'wb') as pkl:
         pickle.dump(high, pkl)
