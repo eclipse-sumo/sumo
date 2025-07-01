@@ -1790,21 +1790,21 @@ class attrs:
             name = 4
             colorButton = 5
             color = 6
-            type = 6
-            icon = 7
-            layer = 9
-            width = 10
-            height = 11
-            imgFileButton = 12
-            imgFile = 13
-            angle = 14
-            parameters = 16
-            parametersButton = 17
-            frontButton = 19
-            additionalFileButton = 20
-            additionalFile = 21
-            helpDialog = 22
-            reset = 23
+            type = 7
+            icon = 8
+            layer = 10
+            width = 11
+            height = 12
+            imgFileButton = 13
+            imgFile = 14
+            angle = 15
+            parameters = 17
+            parametersButton = 18
+            frontButton = 20
+            additionalFileButton = 21
+            additionalFile = 22
+            helpDialog = 23
+            reset = 24
 
         class inspectSelection:
             name = 2
@@ -1861,21 +1861,21 @@ class attrs:
             color = 5
             type = 6
             icon = 7
-            layer = 8
-            width = 9
-            height = 10
-            imgFileButton = 11
-            imgFile = 12
-            angle = 13
-            lon = 15
-            lat = 16
-            parameters = 18
-            parametersButton = 19
-            frontButton = 21
-            additionalFileButton = 22
-            additionalFile = 23
-            helpDialog = 24
-            reset = 25
+            layer = 9
+            width = 10
+            height = 11
+            imgFileButton = 12
+            imgFile = 13
+            angle = 14
+            lon = 16
+            lat = 17
+            parameters = 19
+            parametersButton = 20
+            frontButton = 22
+            additionalFileButton = 23
+            additionalFile = 24
+            helpDialog = 25
+            reset = 26
 
         class inspectSelection:
             name = 2
@@ -1962,13 +1962,13 @@ class attrs:
             imgFileButton = 13
             imgFile = 14
             angle = 15
-            parameters = 19
-            parametersButton = 20
-            frontButton = 22
-            additionalFileButton = 23
-            additionalFile = 24
-            helpDialog = 25
-            reset = 26
+            parameters = 17
+            parametersButton = 18
+            frontButton = 20
+            additionalFileButton = 21
+            additionalFile = 22
+            helpDialog = 23
+            reset = 24
 
     # jps walkableArea
 
@@ -2048,19 +2048,19 @@ class attrs:
 
     class TAZ:
         class create:
-            id = 2
-            center = 3
-            name = 4
-            colorButton = 5
-            color = 6
-            fill = 7
-            parameters = 9
-            parametersButton = 10
-            edgesWithin = 12
-            additionalFileButton = 13
-            additionalFile = 14
-            helpDialog = 15
-            reset = 16
+            id = 3
+            center = 4
+            name = 5
+            colorButton = 6
+            color = 7
+            fill = 8
+            parameters = 10
+            parametersButton = 11
+            edgesWithin = 14
+            additionalFileButton = 15
+            additionalFile = 16
+            helpDialog = 17
+            reset = 18
 
         class inspect:
             id = 2
