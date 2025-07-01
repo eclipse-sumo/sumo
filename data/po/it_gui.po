@@ -12798,11 +12798,11 @@ msgstr "   per ispezionare il prossimo elemento"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:239
 msgid " - Shift + Click in the same"
-msgstr " - Shift + Clic nello stesso/nella stessa"
+msgstr " - Shift + Clic nella stessa"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:240
 msgid "   position to inspect"
-msgstr ""
+msgstr "   posizione per ispezionare"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:241
 msgid "   previous element"
@@ -12969,7 +12969,7 @@ msgstr "Clicca su:"
 #: src/netedit/frames/GNEPlanCreator.cpp:854
 #: src/netedit/frames/GNEPlanCreator.cpp:894
 msgid "Only two from-to elements are allowed"
-msgstr ""
+msgstr "Solamente due elementi from-to sono autorizzati"
 
 #: src/netedit/frames/GNEPlanCreator.cpp:887
 msgid "Double stoppingPlaces aren't allowed"
@@ -13582,7 +13582,7 @@ msgstr "inverti selezione"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:469
 msgid "reduce network"
-msgstr ""
+msgstr "riduci la rete"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:632
 msgid "Hierarchy operations"
@@ -14149,11 +14149,11 @@ msgstr "Svuota selezione"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:167
 msgid "Clears all connections of all selected objects"
-msgstr ""
+msgstr "Rimuovi tutti i collegamenti degli oggetti selezionati"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:170
 msgid "Reset Selected"
-msgstr ""
+msgstr "Resetta selezione"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:170
 msgid "Recomputes connections at all selected junctions"
