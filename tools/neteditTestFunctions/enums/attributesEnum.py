@@ -1052,9 +1052,9 @@ class attrs:
             friendlyPos = 5
             length = 6
             parameters = 8
-            parent = 10
-            helpDialog = 12
-            reset = 13
+            parent = 11
+            helpDialog = 13
+            reset = 14
 
         class inspect:
             lane = 2
