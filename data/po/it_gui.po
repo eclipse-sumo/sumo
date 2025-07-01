@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-20 08:20+0000\n"
-"PO-Revision-Date: 2025-06-16 05:35+0000\n"
+"PO-Revision-Date: 2025-07-02 12:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:307 src/gui/GUIApplicationWindow.cpp:310
 #: src/gui/GUIApplicationWindow.cpp:2267 src/gui/GUIApplicationWindow.cpp:2268
@@ -12328,7 +12328,7 @@ msgstr "Attributi del flusso"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:34
 msgid "Geo attributes"
-msgstr ""
+msgstr "Attributi geografici"
 
 #: src/netedit/frames/GNEAttributesEditor.cpp:35
 msgid "Parameters"
@@ -12798,7 +12798,7 @@ msgstr "   per ispezionare il prossimo elemento"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:239
 msgid " - Shift + Click in the same"
-msgstr ""
+msgstr " - Shift + Clic nello stesso/nella stessa"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:240
 msgid "   position to inspect"
