@@ -475,11 +475,11 @@ netedit.attrs.TLS.single.staticPhase.nxt 28
 netedit.attrs.TLS.single.staticPhase.state 23
 netedit.attrs.TLS.single.staticPhase.ungroupSignal 54
 netedit.attrs.access.create.friendlyPos 5
-netedit.attrs.access.create.helpDialog 12
+netedit.attrs.access.create.helpDialog 13
 netedit.attrs.access.create.length 6
 netedit.attrs.access.create.parameters 8
-netedit.attrs.access.create.parent 10
-netedit.attrs.access.create.reset 13
+netedit.attrs.access.create.parent 11
+netedit.attrs.access.create.reset 14
 netedit.attrs.access.inspect.friendlyPos 5
 netedit.attrs.access.inspect.frontButton 11
 netedit.attrs.access.inspect.helpDialog 14
