@@ -62,3 +62,6 @@ ticket15927
 
 # missing cooperation at lane addition
 ticket16443
+
+# prolonged failure to change lane
+ticket16780
