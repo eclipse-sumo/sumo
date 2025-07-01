@@ -179,6 +179,21 @@ private:
     /// @brief process createConnection function
     void createConnection(const std::string& keyModifier) const;
 
+    /// @brief process createCrossing function
+    void createCrossing() const;
+
+    /// @brief process modifyCrossingDefaultValue function
+    void modifyCrossingDefaultValue() const;
+
+    /// @brief process modifyCrossingDefaultBoolValue function
+    void modifyCrossingDefaultBoolValue() const;
+
+    /// @brief process crossingClearEdges function
+    void crossingClearEdges() const;
+
+    /// @brief process crossingInvertEdges function
+    void crossingInvertEdges() const;
+
     /// @brief process createConnectionEdit function
     void saveConnectionEdit() const;
 
