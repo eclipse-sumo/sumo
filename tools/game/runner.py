@@ -66,8 +66,8 @@ def updateLocalMessages():
     global _LANGUAGE_CAPTIONS
     _LANGUAGE_CAPTIONS = {'title': TL('Interactive Traffic Light'),
                           'rail': TL('Railway Control'),
-                          'rail_demo': TL('Railway Control Demo'),
-                          'fokr_bs': TL('Research intersection Braunschweig'),
+                          'rail_demo': TL('Railway Control (Demo)'),
+                          'fokr_bs_demo': TL('Research intersection Braunschweig (Demo)'),
                           'fkk_in': TL('Research intersection Ingolstadt'),
                           'cross': TL('Simple Junction'),
                           'cross_demo': TL('Simple Junction (Demo)'),
@@ -340,22 +340,21 @@ class StartDialog(Tkinter.Frame):
         # there is one column for every config, +2 more columns for control
         # buttons
         configs = sorted(glob.glob(os.path.join(BASE, "*.sumocfg")))
-        numButtons = len(configs) + 2
+        demos = [cfg for cfg in configs if "demo" in cfg]
+        numButtons = len(configs) + 2 - len(demos)
         # button dimensions
-        bWidth_start = 30
+        bWidth_start = 40
         bWidth_high = 10
 
         self.gametime = 0
         self.ret = 0
-        # some pretty images
-        Tkinter.Label(self, image=IMAGE.dlrLogo).grid(
-            row=0, rowspan=numButtons, column=COL_DLRLOGO)
-        Tkinter.Label(self, image=IMAGE.sumoLogo).grid(
-            row=0, rowspan=numButtons, column=COL_SUMOLOGO)
         haveOSG = "OSG" in subprocess.check_output(sumolib.checkBinary("sumo"), universal_newlines=True)
 
         # 2 button for each config (start, highscore)
-        for row, cfg in enumerate(configs):
+
+        demo = 0
+        row = 0
+        for cfg in configs:
             if "bs3" in cfg and not haveOSG:
                 continue
             category = self.category_name(cfg)
@@ -363,6 +362,11 @@ class StartDialog(Tkinter.Frame):
             button = Tkinter.Button(self, width=bWidth_start,
                                     command=lambda cfg=cfg: self.start_cfg(cfg))
             self.addButton(button, category)
+            if cfg in demos:
+                button.grid(row=numButtons - demo, column=COL_SUMOLOGO)
+                demo += 1
+                continue
+
             button.grid(row=row, column=COL_START)
 
             button = Tkinter.Button(self, width=bWidth_high,
@@ -371,11 +375,18 @@ class StartDialog(Tkinter.Frame):
                                     )  # .grid(row=row, column=COL_HIGH)
             self.addButton(button, 'high')
             button.grid(row=row, column=COL_HIGH)
+            row += 1
+
+        # some pretty images
+        Tkinter.Label(self, image=IMAGE.dlrLogo).grid(
+            row=0, rowspan=numButtons, column=COL_DLRLOGO, sticky="n")
+        Tkinter.Label(self, image=IMAGE.sumoLogo).grid(
+            row=0, rowspan=numButtons, column=COL_SUMOLOGO, sticky="n")
 
         # control buttons
         button = Tkinter.Button(self, width=bWidth_start, command=self.clear)
         self.addButton(button, 'reset')
-        button.grid(row=numButtons - 2, column=COL_START, columnspan=1)
+        button.grid(row=numButtons - 1, column=COL_START, columnspan=1)
 
         # language selection
         self.langChoices = {
@@ -397,8 +408,7 @@ class StartDialog(Tkinter.Frame):
         self.langDrop.grid(row=numButtons - 2, column=COL_HIGH, rowspan=3, sticky="nsew")
         self.scrollbar.grid(row=numButtons - 2, column=COL_SUMOLOGO, rowspan=3, sticky="nsw")
 
-        button = Tkinter.Button(
-            self, width=bWidth_start, command=sys.exit)
+        button = Tkinter.Button(self, width=bWidth_start, command=sys.exit)
         self.addButton(button, 'quit')
         button.grid(row=numButtons, column=COL_START, columnspan=1)
 
