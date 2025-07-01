@@ -166,6 +166,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         computeJunctions();
     } else if (function == "computeJunctionsVolatileOptions") {
         computeJunctionsVolatileOptions();
+    } else if (function == "selectAdditionalChild") {
+        selectAdditionalChild();
     } else if (function == "createRectangledShape") {
         createRectangledShape();
     } else if (function == "createSquaredShape") {
@@ -1317,6 +1319,33 @@ InternalTestStep::computeJunctionsVolatileOptions() {
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE;
         myModalArguments = new ModalArguments({result});
+    }
+}
+
+
+void
+InternalTestStep::selectAdditionalChild() {
+    if ((myArguments.size() != 2) ||
+            !checkIntArgument(myArguments[0]) ||
+            !checkIntArgument(myArguments[1])) {
+        writeError("selectAdditionalChild", 0, "<int, int>");
+    } else {
+        const auto tabs = getIntArgument(myArguments[0]);
+        const auto downs = getIntArgument(myArguments[1]);
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to the element
+        for (int i = 0; i < tabs; i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // jump to the element
+        for (int i = 0; i < downs; i++) {
+            buildPressKeyEvent("down", false);
+        }
+        // select additional child
+        buildPressKeyEvent("space", true);
+        // leave
+        buildPressKeyEvent("tab", true);
     }
 }
 

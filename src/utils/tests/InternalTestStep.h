@@ -270,15 +270,18 @@ private:
     void computeJunctionsVolatileOptions();
 
     /// @brief create rectangle shape
+    void selectAdditionalChild();
+
+    /// @brief process create rectangle shape function
     void createRectangledShape();
 
-    /// @brief create squared shape
+    /// @brief process create squared shape function
     void createSquaredShape();
 
-    /// @brief create line shape
+    /// @brief process create line shape function
     void createLineShape();
 
-    /// @brief create mean data
+    /// @brief process create mean data function
     void createMeanData();
 
     /// @brief process quit function
