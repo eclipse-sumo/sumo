@@ -1006,8 +1006,8 @@ class attrs:
             moveLane = 4
             startPos = 5
             endPos = 6
-            name = 7
-            friendlyPos = 8
+            friendlyPos = 7
+            name = 8
             power = 9
             efficiency = 10
             chargeInTransit = 11
@@ -1026,8 +1026,8 @@ class attrs:
             reset = 28
 
         class inspectSelection:
-            name = 2
-            friendlyPos = 3
+            friendlyPos = 2
+            name = 3
             power = 4
             efficiency = 5
             chargeInTrainsit = 6
