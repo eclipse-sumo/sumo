@@ -1,5 +1,8 @@
 trip_closedAlready
 trip_closeEnroute
+
+# Copy of trip_closeEnroute
+trip_closeEnroute_ignoreMode
 vehicle_closedAlready
 vehicle_closedAlready_ignore
 vehicle_closedEnroute
