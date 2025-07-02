@@ -141,6 +141,24 @@ GNETLSEditorFrame::frameWidthUpdated() {
 
 
 void
+GNETLSEditorFrame::updateModules() {
+    if (myTLSJunction) {
+        myTLSJunction->updateTLSJunction();
+    }
+    if (myTLSPrograms) {
+        myTLSPrograms->updateTLSPrograms();
+    }
+    if (myTLSAttributes) {
+        myTLSAttributes->updateTLSAttributes();
+    }
+    if (myTLSPhases) {
+        myTLSPhases->updateTLSPhases();
+    }
+    update();
+}
+
+
+void
 GNETLSEditorFrame::editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition, const bool shiftKeyPressed) {
     // first check if in viewObjects there is a junction
     if (viewObjects.getJunctionFront()) {
@@ -505,6 +523,7 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
     } else {
         myViewNet->setStatusBarText(TL("Unsaved modifications. Abort or Save"));
     }
+    updateModules();
 }
 
 
@@ -765,7 +784,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetOffset(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myTLSPrograms->markAsModified();
         myTLSEditorParent->myEditedDef->setOffset(getOffset());
         myOffsetTextField->killFocus();
-        myTLSEditorParent->update();
+        myTLSEditorParent->updateModules();
     }
     return 1;
 }
@@ -777,7 +796,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetParameters(FXObject*, FXSelector, void
         myTLSEditorParent->myTLSPrograms->markAsModified();
         myTLSEditorParent->myEditedDef->setParametersStr(getParameters());
         myParametersTextField->killFocus();
-        myTLSEditorParent->update();
+        myTLSEditorParent->updateModules();
     }
     return 1;
 }
@@ -798,6 +817,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog(FXObject*, FXSelector, v
                 myTLSEditorParent->myTLSPrograms->markAsModified();
             }
         }
+        myTLSEditorParent->updateModules();
     }
     return 1;
 }
@@ -812,6 +832,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdToggleDetectorMode(FXObject*, FXSelector,
         // restore default color
         mySetDetectorsToggleButton->setBackColor(4293980400);
     }
+    myTLSEditorParent->updateModules();
     // update view
     myTLSEditorParent->getViewNet()->update();
     return 1;
@@ -831,6 +852,7 @@ GNETLSEditorFrame::TLSAttributes::updateE1Detectors() {
             myE1Detectors[parameter.first] = parameter.second;
         }
     }
+    myTLSEditorParent->updateModules();
     // update view net
     myTLSEditorParent->getViewNet()->update();
 }
@@ -899,7 +921,7 @@ GNETLSEditorFrame::TLSJunction::~TLSJunction() {}
 
 void
 GNETLSEditorFrame::TLSJunction::updateTLSJunction() {
-if ((myCurrentJunction == nullptr) ||
+    if ((myCurrentJunction == nullptr) ||
         (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0)) {
         // no TLS
         myTLSIDTextField->setText("");
@@ -1043,6 +1065,7 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
         // edit junction again
         myTLSEditorParent->editJunction(junction);
     }
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -1100,6 +1123,7 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
         // edit junction again
         myTLSEditorParent->editJunction(junction);
     }
+    myTLSEditorParent->updateModules();
     return 1;
 
 }
@@ -1166,6 +1190,7 @@ GNETLSEditorFrame::TLSJunction::onCmdToggleJoinTLS(FXObject*, FXSelector, void*)
         // edit junction again
         myTLSEditorParent->editJunction(currentJunction);
     }
+    myTLSEditorParent->updateModules();
     // update view
     myTLSEditorParent->getViewNet()->update();
     return 1;
@@ -1215,6 +1240,7 @@ GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS(FXObject*, FXSelector, void*) {
     mySelectedJunctionIDs.clear();
     // edit junction again
     myTLSEditorParent->editJunction(currentJunction);
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -1222,6 +1248,7 @@ GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::TLSJunction::onCmdAcceptJoin(FXObject*, FXSelector, void*) {
     myJoinTLSToggleButton->setState(FALSE, TRUE);
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -1231,6 +1258,7 @@ GNETLSEditorFrame::TLSJunction::onCmdCancelJoin(FXObject*, FXSelector, void*) {
     // restore selected junction
     mySelectedJunctionIDs = myOriginalSelectedJunctionIDs;
     myJoinTLSToggleButton->setState(FALSE, TRUE);
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -1338,8 +1366,8 @@ GNETLSEditorFrame::TLSPrograms::~TLSPrograms() {}
 void
 GNETLSEditorFrame::TLSPrograms::updateTLSPrograms() {
     if (getNumberOfTLSPrograms() == 0) {
-        // no TLS Programs, disable buttons
-        myCreateButton->disable();
+        // no TLS Programs, disable buttons except create
+        myCreateButton->enable();
         myDeleteButton->disable();
         myResetSingleButton->disable();
         myProgramComboBox->disable();
@@ -1513,6 +1541,7 @@ GNETLSEditorFrame::TLSPrograms::discardChanges(const bool editJunctionAgain) {
             myTLSEditorParent->editJunction(currentJunction);
         }
     }
+    myTLSEditorParent->updateModules();
 }
 
 
@@ -1561,6 +1590,7 @@ GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
     myTLSEditorParent->editJunction(currentJunction);
     // switch to the last program
     myProgramComboBox->setCurrentItem(myProgramComboBox->getNumItems() - 1, TRUE);
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -1584,6 +1614,7 @@ GNETLSEditorFrame::TLSPrograms::onCmdDelete(FXObject*, FXSelector, void*) {
         // edit junction again
         myTLSEditorParent->editJunction(currentJunction);
     }
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -1619,6 +1650,7 @@ GNETLSEditorFrame::TLSPrograms::onCmdResetCurrentProgram(FXObject*, FXSelector, 
     if (index != -1) {
         myProgramComboBox->setCurrentItem(index, TRUE);
     }
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -1719,6 +1751,7 @@ GNETLSEditorFrame::TLSPrograms::onCmdSaveChanges(FXObject*, FXSelector, void*) {
         // discard changes inspecting junction again
         discardChanges(true);
     }
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -2175,6 +2208,7 @@ GNETLSEditorFrame::TLSPhases::onCmdCleanStates(FXObject*, FXSelector, void*) {
     initPhaseTable();
     myPhaseTable->setFocus();
     myTLSEditorParent->myTLSPrograms->markAsModified();
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -2185,6 +2219,7 @@ GNETLSEditorFrame::TLSPhases::onCmdAddUnusedStates(FXObject*, FXSelector, void*)
     myTLSEditorParent->myTLSPrograms->markAsModified();
     initPhaseTable();
     myPhaseTable->setFocus();
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -2196,6 +2231,7 @@ GNETLSEditorFrame::TLSPhases::onCmdGroupStates(FXObject*, FXSelector, void*) {
     myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
     initPhaseTable();
     myPhaseTable->setFocus();
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -2208,6 +2244,7 @@ GNETLSEditorFrame::TLSPhases::onCmdUngroupStates(FXObject*, FXSelector, void*) {
     myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
     initPhaseTable();
     myPhaseTable->setFocus();
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -2869,6 +2906,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
         myTLSEditorParent->myTLSPhases->initPhaseTable();
         myTLSEditorParent->myTLSPrograms->markAsModified();
     }
+    myTLSEditorParent->updateModules();
     return 0;
 }
 
@@ -2888,6 +2926,7 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
         NWWriter_SUMO::writeTrafficLight(device, myTLSEditorParent->myEditedDef->getLogic());
         device.close();
     }
+    myTLSEditorParent->updateModules();
     return 1;
 }
 

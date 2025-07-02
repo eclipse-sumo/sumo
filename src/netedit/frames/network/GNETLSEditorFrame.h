@@ -619,6 +619,9 @@ public:
     /// @brief function called after setting new width in current frame
     void frameWidthUpdated();
 
+    /// @brief update modules
+    void updateModules();
+
     /**@brief edits the traffic light for the given clicked junction
      * @param[in] clickedPosition clicked position
      * @param[in] viewObjects The clicked objects under cursor
