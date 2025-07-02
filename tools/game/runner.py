@@ -276,38 +276,6 @@ def computeScore(gamename):
     return _SCORING_FUNCTION[gamename](gamename)
 
 
-def loadHighscore():
-    if _UPLOAD:
-        printDebug("try to load highscore from scoreserver...")
-        try:
-            conn = httplib.HTTPConnection(_SCORESERVER, timeout=_TIMEOUT)
-            conn.request("GET", _SCORESCRIPT + "top=" + str(_SCORES))
-            response = conn.getresponse()
-            if response.status == httplib.OK:
-                scores = {}
-                for line in response.read().splitlines():
-                    category, values = line.split()
-                    scores[category] = _SCORES * [("", "", -1.)]
-                    for idx, item in enumerate(values.split(':')):
-                        name, game, score = item.split(',')
-                        scores[category][idx] = (name, game, int(float(score)))
-                printDebug("SUCCESS")
-                return scores
-        except Exception:
-            printDebug("FAILED")
-
-    try:
-        with open(_SCOREFILE, 'rb') as sf:
-            return pickle.load(sf)
-    except Exception as e:
-        print(e)
-        pass
-    if os.path.exists(REFSCOREFILE):
-        with open(REFSCOREFILE, 'rb') as sf:
-            return pickle.load(sf)
-    return {}
-
-
 def parseEndTime(cfg):
     cfg_doc = pulldom.parse(cfg)
     for event, parsenode in cfg_doc:
@@ -333,7 +301,8 @@ class StartDialog(Tkinter.Frame):
         self.parent.title(self._language_text['title'])
         self.parent.minsize(250, 50)
         self.category = None
-        self.high = loadHighscore()
+        self.highscoreLocation = Tkinter.StringVar(value="local")
+        self.high = self.loadHighscore(self.highscoreLocation.get())
 
         # we use a grid layout with 4 columns
         COL_DLRLOGO, COL_START, COL_HIGH, COL_SUMOLOGO = range(4)
@@ -341,7 +310,7 @@ class StartDialog(Tkinter.Frame):
         # buttons
         configs = sorted(glob.glob(os.path.join(BASE, "*.sumocfg")))
         demos = [cfg for cfg in configs if "demo" in cfg]
-        numButtons = len(configs) + 2 - len(demos)
+        numButtons = len(configs) + 3 - len(demos)
         # button dimensions
         bWidth_start = 40
         bWidth_high = 10
@@ -378,15 +347,17 @@ class StartDialog(Tkinter.Frame):
             row += 1
 
         # some pretty images
-        Tkinter.Label(self, image=IMAGE.dlrLogo).grid(
-            row=0, rowspan=numButtons, column=COL_DLRLOGO, sticky="n")
-        Tkinter.Label(self, image=IMAGE.sumoLogo).grid(
-            row=0, rowspan=numButtons, column=COL_SUMOLOGO, sticky="n")
+        Tkinter.Label(self, image=IMAGE.dlrLogo).grid(row=0, rowspan=numButtons-3, column=COL_DLRLOGO)
+        Tkinter.Label(self, image=IMAGE.sumoLogo).grid(row=0, rowspan=numButtons-3, column=COL_SUMOLOGO)
 
         # control buttons
+        r1 = Tkinter.Radiobutton(self, text='Local Highscores', value='local', variable=self.highscoreLocation)
+        r1.grid(row=numButtons-3, column=COL_DLRLOGO)
+        r2 = Tkinter.Radiobutton(self, text='Global Highscores', value='global', variable=self.highscoreLocation)
+        r2.grid(row=numButtons-2, column=COL_DLRLOGO)
         button = Tkinter.Button(self, width=bWidth_start, command=self.clear)
         self.addButton(button, 'reset')
-        button.grid(row=numButtons - 1, column=COL_START, columnspan=1)
+        button.grid(row=numButtons - 1, column=COL_DLRLOGO)
 
         # language selection
         self.langChoices = {
@@ -399,18 +370,18 @@ class StartDialog(Tkinter.Frame):
             "zh-Hant": 'chinese (traditional)',
         }
         self._langCode = langCode
-        self.langDrop = Tkinter.Listbox(self, height=3, selectmode=Tkinter.SINGLE, width=bWidth_high)
+        self.langDrop = Tkinter.Listbox(self, height=len(demos), selectmode=Tkinter.SINGLE, width=bWidth_high)
         self.langDrop.bind('<<ListboxSelect>>', self.change_language)
         self.scrollbar = Tkinter.Scrollbar(self, orient=Tkinter.VERTICAL)
         self.scrollbar.config(command=self.langDrop.yview)
         self.langDrop.config(yscrollcommand=self.scrollbar.set)
         self.updateLanguageMenu()
-        self.langDrop.grid(row=numButtons - 2, column=COL_HIGH, rowspan=3, sticky="nsew")
-        self.scrollbar.grid(row=numButtons - 2, column=COL_SUMOLOGO, rowspan=3, sticky="nsw")
+        self.langDrop.grid(row=numButtons - len(demos) + 1, column=COL_HIGH, rowspan=len(demos), sticky="nsew")
+        self.scrollbar.grid(row=numButtons - len(demos) + 1, column=COL_SUMOLOGO, rowspan=len(demos), sticky="nsw")
 
         button = Tkinter.Button(self, width=bWidth_start, command=sys.exit)
         self.addButton(button, 'quit')
-        button.grid(row=numButtons, column=COL_START, columnspan=1)
+        button.grid(row=numButtons, column=COL_START)
 
         self.grid()
         # The following three commands are needed so the window pops
@@ -455,6 +426,37 @@ class StartDialog(Tkinter.Frame):
 
     def category_name(self, cfg):
         return os.path.basename(cfg)[:-8]
+
+    def loadHighscore(self, location):
+        if location == "global":
+            printDebug("try to load highscore from scoreserver...")
+            try:
+                conn = httplib.HTTPConnection(_SCORESERVER, timeout=_TIMEOUT)
+                conn.request("GET", _SCORESCRIPT + "top=" + str(_SCORES))
+                response = conn.getresponse()
+                if response.status == httplib.OK:
+                    scores = {}
+                    for line in response.read().splitlines():
+                        category, values = line.split()
+                        scores[category] = _SCORES * [("", "", -1.)]
+                        for idx, item in enumerate(values.split(':')):
+                            name, game, score = item.split(',')
+                            scores[category][idx] = (name, game, int(float(score)))
+                    printDebug("SUCCESS")
+                    return scores
+            except Exception:
+                printDebug("FAILED")
+
+        try:
+            with open(_SCOREFILE, 'rb') as sf:
+                return pickle.load(sf)
+        except Exception as e:
+            print(e)
+            pass
+        if os.path.exists(REFSCOREFILE):
+            with open(REFSCOREFILE, 'rb') as sf:
+                return pickle.load(sf)
+        return {}
 
     def clear(self):
         self.high.clear()
