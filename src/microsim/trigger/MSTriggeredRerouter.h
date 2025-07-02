@@ -312,6 +312,9 @@ protected:
     */
     bool applies(const SUMOTrafficObject& obj) const;
 
+    /// @brief reset router after closing edges
+    void resetClosedEdges(bool hasReroutingDevice, const SUMOTrafficObject& o);
+
     static bool affected(const std::set<SUMOTrafficObject::NumericalID>& edgeIndices, const MSEdgeVector& closed);
 
 protected:

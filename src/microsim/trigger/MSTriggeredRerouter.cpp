@@ -547,9 +547,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             ConstMSEdgeVector prevEdges(veh.getCurrentRouteEdge(), veh.getRoute().end());
             const double previousCost = router.recomputeCosts(prevEdges, &veh, MSNet::getInstance()->getCurrentTimeStep());
             const double savings = previousCost - routeCost;
-            hasReroutingDevice
-            ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass())
-            : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
+            resetClosedEdges(hasReroutingDevice, veh);
             //if (getID() == "ego") std::cout << SIMTIME << " pCost=" << previousCost << " cost=" << routeCost
             //        << " prevEdges=" << toString(prevEdges)
             //        << " newEdges=" << toString(edges)
@@ -599,6 +597,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             veh.replaceRouteEdges(newEdges, routeCost, savings, info, false, false, false);
             rerouteDef->sidingExit->addConstraint(veh.getID(), new MSRailSignalConstraint_Predecessor(
                     MSRailSignalConstraint::PREDECESSOR, overtaker_signal.second, overtaker_signal.first->getID(), 100, true));
+            resetClosedEdges(hasReroutingDevice, veh);
         }
         return false;
     }
@@ -718,6 +717,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 }
             }
         }
+        if (!prohibited.empty()) {
+            resetClosedEdges(hasReroutingDevice, tObject);
+        }
     }
     // it was only a via so calculate the remaining part
     if (rerouteDef->isVia) {
@@ -770,6 +772,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                 // maybe the pedestrian model still finds a way (JuPedSim)
                 static_cast<MSPerson&>(tObject).replaceWalk({tObject.getEdge(), newEdge, lastEdge}, tObject.getPositionOnLane(), 0, 1);
             }
+        }
+        if (!prohibited.empty()) {
+            resetClosedEdges(hasReroutingDevice, tObject);
         }
     }
     return false; // XXX another interval could appear later but we would have to track whether the currenty interval was already used
@@ -1167,5 +1172,19 @@ MSTriggeredRerouter::checkParkingRerouteConsistency() {
     }
 }
 
+
+void
+MSTriggeredRerouter::resetClosedEdges(bool hasReroutingDevice, const SUMOTrafficObject& o) {
+    // getRouterTT without prohibitions removes previous prohibitions
+    if (o.isVehicle()) {
+        hasReroutingDevice
+            ? MSRoutingEngine::getRouterTT(o.getRNGIndex(), o.getVClass())
+            : MSNet::getInstance()->getRouterTT(o.getRNGIndex());
+    } else {
+        hasReroutingDevice
+            ? MSRoutingEngine::getIntermodalRouterTT(o.getRNGIndex())
+            : MSNet::getInstance()->getIntermodalRouter(o.getRNGIndex(), 0);
+    }
+}
 
 /****************************************************************************/
