@@ -21,6 +21,9 @@ unreachable_default
 unreachable_skip
 
 # see #16421
+blockedStopEdge_skip
+
+# see #16421
 dest_unreachable_skip
 
 # see #16421
