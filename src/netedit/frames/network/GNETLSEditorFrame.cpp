@@ -84,13 +84,9 @@ FXDEFMAP(GNETLSEditorFrame::TLSAttributes) TLSAttributesMap[] = {
 
 FXDEFMAP(GNETLSEditorFrame::TLSPhases) TLSPhasesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_PHASES_CLEANUP,        GNETLSEditorFrame::TLSPhases::onCmdCleanStates),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_PHASES_CLEANUP,        GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_PHASES_ADDUNUSED,      GNETLSEditorFrame::TLSPhases::onCmdAddUnusedStates),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_PHASES_ADDUNUSED,      GNETLSEditorFrame::TLSPhases::onUpdNeedsDef),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_PHASES_GROUPSTATES,    GNETLSEditorFrame::TLSPhases::onCmdGroupStates),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_PHASES_GROUPSTATES,    GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES,  GNETLSEditorFrame::TLSPhases::onCmdUngroupStates),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES,  GNETLSEditorFrame::TLSPhases::onUpdUngroupStates),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
@@ -1918,6 +1914,51 @@ GNETLSEditorFrame::TLSPhases::~TLSPhases() {
 
 
 void
+GNETLSEditorFrame::TLSPhases::updateTLSPhases() {
+    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
+        // selecting E1, disable buttons
+        myPhaseTable->disable();
+        myCleanStatesButton->disable();
+        myAddStates->disable();
+        myGroupSignalsButton->disable();
+        myUngroupSignalsButton->disable();
+    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
+        // joining TLSs, disable buttons
+        myPhaseTable->disable();
+        myCleanStatesButton->disable();
+        myAddStates->disable();
+        myGroupSignalsButton->disable();
+        myUngroupSignalsButton->disable();
+        myUngroupSignalsButton->disable();
+    } else if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSProgramss() == 0) {
+        // no TLSs, disable buttons
+        myPhaseTable->disable();
+        myCleanStatesButton->disable();
+        myAddStates->disable();
+        myGroupSignalsButton->disable();
+        myUngroupSignalsButton->disable();
+    } else if (myTLSEditorParent->myEditedDef == nullptr) {
+        // no edited definition, disable buttons
+        myPhaseTable->disable();
+        myCleanStatesButton->disable();
+        myAddStates->disable();
+        myGroupSignalsButton->disable();
+        myUngroupSignalsButton->disable();
+    } else {
+        myPhaseTable->enable();
+        myCleanStatesButton->enable();
+        myAddStates->enable();
+        myGroupSignalsButton->enable();
+        if (myTLSEditorParent->myEditedDef->usingSignalGroups()) {
+            myUngroupSignalsButton->enable();
+        } else {
+            myUngroupSignalsButton->disable();
+        }
+    }
+}
+
+
+void
 GNETLSEditorFrame::TLSPhases::showTLSPhases() {
     show();
 }
@@ -2173,49 +2214,6 @@ GNETLSEditorFrame::TLSPhases::updateTLSColoring() {
 
 
 long
-GNETLSEditorFrame::TLSPhases::onUpdNeedsDef(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable buttons
-        sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-        // also disable table
-        myPhaseTable->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-        // also disable table
-        myPhaseTable->disable();
-    } else if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSProgramss() > 0) {
-        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
-        // also enable table
-        myPhaseTable->enable();
-    } else {
-        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-        // also disable table
-        myPhaseTable->disable();
-    }
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSPhases::onUpdNeedsDefAndPhase(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable buttons
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSProgramss() == 0) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myPhaseTable->getNumRows() <= 1) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
-    }
-}
-
-
-long
 GNETLSEditorFrame::TLSPhases::onCmdCleanStates(FXObject*, FXSelector, void*) {
     if (myTLSEditorParent->myEditedDef->cleanupStates()) {
         myTLSEditorParent->myTLSPrograms->markAsModified();
@@ -2258,42 +2256,6 @@ GNETLSEditorFrame::TLSPhases::onCmdUngroupStates(FXObject*, FXSelector, void*) {
     initPhaseTable();
     myPhaseTable->setFocus();
     return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable buttons
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSProgramss() == 1) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    }
-}
-
-
-long
-GNETLSEditorFrame::TLSPhases::onUpdUngroupStates(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable buttons
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSProgramss() != 1) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myEditedDef == nullptr) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myEditedDef->usingSignalGroups()) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
-    }
 }
 
 

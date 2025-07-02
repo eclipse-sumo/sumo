@@ -413,6 +413,9 @@ public:
         /// @brief destructor
         ~TLSPhases();
 
+        /// @brief update TLSPhases module
+        void updateTLSPhases();
+
         /// @brief show TLSPhases
         void showTLSPhases();
 
@@ -468,23 +471,14 @@ public:
         /// @brief Called when the user ungroups states
         long onCmdUngroupStates(FXObject*, FXSelector, void*);
 
-        /// @brief Called to update the ungroups states button
-        long onUpdUngroupStates(FXObject*, FXSelector, void*);
-
-        /// @brief Called to buttons that modify link indices
-        long onUpdNeedsSingleDef(FXObject*, FXSelector, void*);
-
-        /// @brief enable buttons, only when a tlLogic is being edited
-        long onUpdNeedsDef(FXObject*, FXSelector, void*);
-
-        /// @brief Called when occurs an update of needs definition and phase
-        long onUpdNeedsDefAndPhase(FXObject*, FXSelector, void*);
-
         /// @}
 
     protected:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(TLSPhases)
+
+        /// @brief update table
+        void updateTable();
 
     private:
         /// @brief init static phase table
