@@ -581,6 +581,9 @@ public:
         /// @brief destructor
         ~TLSFile();
 
+        /// @brief update TLSFile module
+        void updateTLSFile();
+
         /// @brief show TLSPhases
         void showTLSFile();
 
@@ -595,9 +598,6 @@ public:
 
         /// @brief save TLS Program to an additional file
         long onCmdSaveTLSProgram(FXObject*, FXSelector, void*);
-
-        /// @brief enable buttons, only when a tlLogic is being edited
-        long onUpdButtons(FXObject*, FXSelector, void*);
 
         /// @}
 

@@ -95,9 +95,7 @@ FXDEFMAP(GNETLSEditorFrame::TLSPhases) TLSPhasesMap[] = {
 
 FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_FILE_LOADPROGRAM,  GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_FILE_LOADPROGRAM,  GNETLSEditorFrame::TLSFile::onUpdButtons),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_FILE_SAVEPROGRAM,  GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_FILE_SAVEPROGRAM,  GNETLSEditorFrame::TLSFile::onUpdButtons),
 };
 
 // Object implementation
@@ -2866,6 +2864,26 @@ GNETLSEditorFrame::TLSFile::~TLSFile() {}
 
 
 void
+GNETLSEditorFrame::TLSFile::updateTLSFile() {
+    if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSProgramss() == 0) {
+        myLoadButton->disable();
+        mySaveButton->disable();
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
+        // selecting E1, disable buttons
+        myLoadButton->disable();
+        mySaveButton->disable();
+    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
+        // joining TLSs, disable button
+        myLoadButton->disable();
+        mySaveButton->disable();
+    } else {
+        myLoadButton->enable();
+        mySaveButton->enable();
+    }
+}
+
+
+void
 GNETLSEditorFrame::TLSFile::showTLSFile() {
     show();
 }
@@ -2966,22 +2984,6 @@ GNETLSEditorFrame::TLSFile::writeSUMOTime(SUMOTime steps) {
         return toString(int(time));
     } else {
         return toString(time);
-    }
-}
-
-
-long
-GNETLSEditorFrame::TLSFile::onUpdButtons(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSProgramss() == 0) {
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable buttons
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else {
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     }
 }
 
