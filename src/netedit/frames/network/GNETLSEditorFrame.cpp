@@ -48,13 +48,9 @@
 
 FXDEFMAP(GNETLSEditorFrame::TLSJunction) TLSJunctionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_TLSJUNCTION_ID,            GNETLSEditorFrame::TLSJunction::onCmdRenameTLS),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_TLSJUNCTION_ID,            GNETLSEditorFrame::TLSJunction::onUpdTLSID),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_TLSJUNCTION_TYPE,          GNETLSEditorFrame::TLSJunction::onCmdChangeType),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_TLSJUNCTION_TYPE,          GNETLSEditorFrame::TLSJunction::onUpdTLSType),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN,    GNETLSEditorFrame::TLSJunction::onCmdToggleJoinTLS),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN,    GNETLSEditorFrame::TLSJunction::onUpdJoinTLS),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN,       GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN,       GNETLSEditorFrame::TLSJunction::onUpdDisjoinTLS),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,                      GNETLSEditorFrame::TLSJunction::onCmdAcceptJoin),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,                      GNETLSEditorFrame::TLSJunction::onCmdCancelJoin)
 };
@@ -929,62 +925,50 @@ GNETLSEditorFrame::TLSJunction::~TLSJunction() {}
 
 
 void
-GNETLSEditorFrame::TLSJunction::refreshTLSJunction() {
-    // first reset junction label
-    myJunctionIDLabel->setText(TL("Junction ID"));
-    // clear selected junctions
-    mySelectedJunctionIDs.clear();
-    // cancel joining junction mode
-    onCmdCancelJoin(nullptr, 0, nullptr);
-    // continue depending of current junction
-    if (myCurrentJunction == nullptr) {
-        myJunctionIDTextField->setText(TL("No junction selected"));
+GNETLSEditorFrame::TLSJunction::updateTLSJunction() {
+if ((myCurrentJunction == nullptr) ||
+        (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0)) {
+        // no TLS
+        myTLSIDTextField->setText("");
         myTLSIDTextField->disable();
         myTLSTypeComboBox->disable();
         myJoinTLSToggleButton->disable();
         myDisjoinTLSButton->disable();
         myJoinControlButtons->hide();
     } else {
-        // update junction ID text field
-        myJunctionIDTextField->setText(myCurrentJunction->getID().c_str());
-        // get all TLS assigned to this node 
-        const auto &TLSs = myCurrentJunction->getNBNode()->getControllingTLS();
-        // check if junction is controlled
-        if (TLSs.empty()) {
-            // disable other fields
-            myTLSTypeComboBox->disable();
+        // get first controled TLS
+        const auto TLS = (*myCurrentJunction->getNBNode()->getControllingTLS().begin());
+        // set text field ID
+        myTLSIDTextField->setText(TLS->getID().c_str());
+        // continue with more options
+        if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled() || 
+            myTLSEditorParent->myTLSPrograms->checkHaveModifications()) {
+            // disable if selecting selecting detectors or we modified the program
+            myTLSIDTextField->setText("");
             myTLSIDTextField->disable();
+            myTLSTypeComboBox->disable();
             myJoinTLSToggleButton->disable();
             myDisjoinTLSButton->disable();
             myJoinControlButtons->hide();
+        } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
+            // partial disable due joining
+            myTLSIDTextField->setText("");
+            myTLSIDTextField->disable();
+            myTLSTypeComboBox->disable();
+            myDisjoinTLSButton->disable();
+            // enable join TLS and show control buttons
+            myJoinTLSToggleButton->enable();
+            myJoinControlButtons->show();
         } else {
-            // get first TLS
-            const auto TLS = (*TLSs.begin());
-            // declare string
-            std::string TLSNodesStr;
-            for (auto it = TLS->getNodes().begin(); it != TLS->getNodes().end(); it++) {
-                if (it == (TLS->getNodes().end() - 1)) {
-                    TLSNodesStr += (*it)->getID();
-                } else {
-                    TLSNodesStr += (*it)->getID() + ", ";
-                }
-            }
-            // updated junction fields
-            myJunctionIDTextField->setText(TLSNodesStr.c_str());
-            // update junction label if we have multiple nodes
-            if (TLS->getNodes().size() > 1) {
-                myJunctionIDLabel->setText(TL("Junction IDs"));
-            }
-            // update TLS ID text field
-            myTLSIDTextField->setText(TLS->getID().c_str());
+            // enable
             myTLSIDTextField->enable();
-            // set TLS type in comboBox
-            const int index = myTLSTypeComboBox->findItem(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
-            if (index == -1) {
-                myTLSTypeComboBox->disable();
+            myTLSTypeComboBox->enable();
+            myJoinTLSToggleButton->enable();
+            // disjoint button only if we have more than one TLS controlled
+            if (TLS->getNodes().size() == 1) {
+                myDisjoinTLSButton->disable();
             } else {
-                myTLSTypeComboBox->setCurrentItem(index);
-                myTLSTypeComboBox->enable();
+                myDisjoinTLSButton->enable();
             }
         }
     }
@@ -1091,35 +1075,6 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
 
 
 long
-GNETLSEditorFrame::TLSJunction::onUpdTLSID(FXObject*, FXSelector, void*) {
-    if (myCurrentJunction == nullptr) {
-        // no junction, disable and clear
-        myTLSIDTextField->setText("");
-        myTLSIDTextField->disable();
-    } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
-        // no TLSs in Junctions, disable
-        myTLSIDTextField->disable();
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable button
-        myTLSIDTextField->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        myTLSIDTextField->disable();
-    } else if (myTLSEditorParent->myTLSPrograms->checkHaveModifications()) {
-        // current TLS modified, disable
-        myTLSIDTextField->disable();
-    } else if (isJoiningJunctions()) {
-        // joining TLSs, disable button
-        myTLSIDTextField->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        // enable
-        myTLSIDTextField->enable();
-    }
-    return 1;
-}
-
-
-long
 GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
     // get IDs
     const std::string currentTLType = toString((*myCurrentJunction->getNBNode()->getControllingTLS().begin())->getType());
@@ -1174,31 +1129,6 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
     }
     return 1;
 
-}
-
-
-long
-GNETLSEditorFrame::TLSJunction::onUpdTLSType(FXObject*, FXSelector, void*) {
-    if (myCurrentJunction == nullptr) {
-        // no junction, disable and clear
-        myTLSTypeComboBox->disable();
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable button
-        myTLSTypeComboBox->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        myTLSTypeComboBox->disable();
-    } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
-        // no TLSs in Junctions, disable
-        myTLSTypeComboBox->disable();
-    } else if (myTLSEditorParent->myTLSPrograms->checkHaveModifications()) {
-        // current TLS modified, disable
-        myTLSTypeComboBox->disable();
-    } else {
-        // enable
-        myTLSTypeComboBox->enable();
-    }
-    return 1;
 }
 
 
@@ -1270,27 +1200,6 @@ GNETLSEditorFrame::TLSJunction::onCmdToggleJoinTLS(FXObject*, FXSelector, void*)
 
 
 long
-GNETLSEditorFrame::TLSJunction::onUpdJoinTLS(FXObject* sender, FXSelector, void*) {
-    if (myCurrentJunction == nullptr) {
-        // no junction, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSPrograms->checkHaveModifications()) {
-        // current TLS modified, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
-        // no TLSs in Junctions, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        // enable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    }
-}
-
-
-long
 GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS(FXObject*, FXSelector, void*) {
     // make a copy of current junction
     const auto currentJunction = myCurrentJunction;
@@ -1338,33 +1247,6 @@ GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS(FXObject*, FXSelector, void*) {
 
 
 long
-GNETLSEditorFrame::TLSJunction::onUpdDisjoinTLS(FXObject* sender, FXSelector, void*) {
-    if (myCurrentJunction == nullptr) {
-        // no junction, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSPrograms->checkHaveModifications()) {
-        // current TLS modified, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
-        // no TLSs in Junctions, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if ((*myCurrentJunction->getNBNode()->getControllingTLS().begin())->getNodes().size() == 1) {
-        // TLS only control one junction, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        // enable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    }
-}
-
-
-long
 GNETLSEditorFrame::TLSJunction::onCmdAcceptJoin(FXObject*, FXSelector, void*) {
     myJoinTLSToggleButton->setState(FALSE, TRUE);
     return 1;
@@ -1379,6 +1261,57 @@ GNETLSEditorFrame::TLSJunction::onCmdCancelJoin(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+void
+GNETLSEditorFrame::TLSJunction::refreshTLSJunction() {
+    // first reset junction label
+    myJunctionIDLabel->setText(TL("Junction ID"));
+    // clear selected junctions
+    mySelectedJunctionIDs.clear();
+    // cancel joining junction mode
+    onCmdCancelJoin(nullptr, 0, nullptr);
+    // continue depending of current junction
+    if (myCurrentJunction == nullptr) {
+        myJunctionIDTextField->setText(TL("No junction selected"));
+    } else {
+        // get all TLS assigned to this node 
+        const auto &TLSs = myCurrentJunction->getNBNode()->getControllingTLS();
+        // check if junction is controlled
+        if (TLSs.size() > 0) {
+            // get first TLS
+            const auto TLS = (*TLSs.begin());
+            // update junction ID text field
+            if (TLS->getNodes().size() > 1) {
+                // declare string
+                std::string TLSNodesStr;
+                for (auto it = TLS->getNodes().begin(); it != TLS->getNodes().end(); it++) {
+                    if (it == (TLS->getNodes().end() - 1)) {
+                        TLSNodesStr += (*it)->getID();
+                    } else {
+                        TLSNodesStr += (*it)->getID() + ", ";
+                    }
+                }
+                // updated junction fields
+                myJunctionIDTextField->setText(TLSNodesStr.c_str());
+                // update junction label if we have multiple nodes
+                if (TLS->getNodes().size() > 1) {
+                    myJunctionIDLabel->setText(TL("Junction IDs"));
+                }
+                // set TLS type in comboBox
+                const int index = myTLSTypeComboBox->findItem(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
+                if (index != -1) {
+                    myTLSTypeComboBox->setCurrentItem(index, FALSE);
+                }
+            }
+        } else {
+            // update junction ID text field
+            myJunctionIDTextField->setText(myCurrentJunction->getID().c_str());
+            myTLSTypeComboBox->setCurrentItem(0, FALSE);
+        }
+    }
+    // update TLS junction
+    updateTLSJunction();
+}
 
 // ---------------------------------------------------------------------------
 // GNETLSEditorFrame::TLSPrograms - methods

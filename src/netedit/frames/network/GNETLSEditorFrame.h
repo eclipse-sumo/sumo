@@ -21,15 +21,16 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <netedit/GNEViewNetHelper.h>
 #include <netbuild/NBTrafficLightLogic.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEInternalLane;
 class GNEOverlappedInspection;
 class GNETLSTable;
+class MFXComboBoxIcon;
 class MFXTextFieldTooltip;
 class MFXToggleButtonTooltip;
 class NBLoadedSUMOTLDef;
@@ -58,8 +59,8 @@ public:
         /// @brief destructor
         ~TLSJunction();
 
-        /// @brief refresh TLJunction module
-        void refreshTLSJunction();
+        /// @brief update TLSJunction module
+        void updateTLSJunction();
 
         /// @brief get current modified junction
         GNEJunction* getCurrentJunction() const;
@@ -84,26 +85,14 @@ public:
         /// @brief Called when the user rename TLS
         long onCmdRenameTLS(FXObject*, FXSelector, void*);
 
-        /// @brief Called when occurs an update of modified
-        long onUpdTLSID(FXObject*, FXSelector, void*);
-
         /// @brief Called when the user change TLS Type
         long onCmdChangeType(FXObject*, FXSelector, void*);
-
-        /// @brief Called when occurs an update of modified
-        long onUpdTLSType(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user join TLS
         long onCmdToggleJoinTLS(FXObject*, FXSelector, void*);
 
-        /// @brief Called when update join TLS
-        long onUpdJoinTLS(FXObject*, FXSelector, void*);
-
         /// @brief Called when the user join TLS
         long onCmdDisjoinTLS(FXObject*, FXSelector, void*);
-
-        /// @brief Called when update join TLS
-        long onUpdDisjoinTLS(FXObject*, FXSelector, void*);
 
         /// @brief accept join
         long onCmdAcceptJoin(FXObject*, FXSelector, void*);
@@ -116,6 +105,9 @@ public:
     protected:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(TLSJunction)
+
+        /// @brief refresh TLJunction module
+        void refreshTLSJunction();
 
     private:
         /// @brief TLS editor frame parent
