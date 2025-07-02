@@ -117,7 +117,7 @@ public:
      * @param[in] isNull The given value is not set
      */
     template <class T>
-    void writeAttr(const SumoXMLAttr attr, const T& val, const bool isNull = false) {
+    void writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const T& val, const bool isNull = false) {
         checkAttr(attr);
         if (!myWroteHeader) {
             mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(toString(attr)), arrow::utf8()));
@@ -127,13 +127,25 @@ public:
     }
 
     template <class T>
-    void writeAttr(const std::string& attr, const T& val) {
+    void writeAttr(std::ostream& /* into */, const std::string& attr, const T& val) {
         assert(!myCheckColumns);
         if (!myWroteHeader) {
             mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::utf8()));
             myBuilders.push_back(std::make_shared<arrow::StringBuilder>());
         }
         myValues.push_back(std::make_shared<arrow::StringScalar>(toString(val)));
+    }
+
+    void writeTime(std::ostream& into, const SumoXMLAttr attr, const SUMOTime val) {
+        if (!gHumanReadableTime) {
+            if (!myWroteHeader) {
+                mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(toString(attr)), arrow::float64()));
+                myBuilders.push_back(std::make_shared<arrow::DoubleBuilder>());
+            }
+            myValues.push_back(std::make_shared<arrow::DoubleScalar>(STEPS2TIME(val)));
+            return;
+        }
+        writeAttr(into, attr, time2string(val));
     }
 
     bool wroteHeader() const {
@@ -207,24 +219,57 @@ private:
 // specialized template implementations
 // ===========================================================================
 template <>
-inline void ParquetFormatter::writeAttr(const SumoXMLAttr attr, const double& val, const bool isNull) {
+inline void ParquetFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val, const bool isNull) {
     checkAttr(attr);
-    if (!myWroteHeader) {
-        mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(toString(attr)), arrow::float64()));
-        myBuilders.push_back(std::make_shared<arrow::DoubleBuilder>());
+    if (attr == SUMO_ATTR_X || attr == SUMO_ATTR_Y || into.precision() > 2) {
+        if (!myWroteHeader) {
+            mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(toString(attr)), arrow::float64()));
+            myBuilders.push_back(std::make_shared<arrow::DoubleBuilder>());
+        }
+        myValues.push_back(isNull ? nullptr : std::make_shared<arrow::DoubleScalar>(val));
+    } else {
+        if (!myWroteHeader) {
+            mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(toString(attr)), arrow::float32()));
+            myBuilders.push_back(std::make_shared<arrow::FloatBuilder>());
+        }
+        myValues.push_back(isNull ? nullptr : std::make_shared<arrow::FloatScalar>(val));
     }
-    myValues.push_back(isNull ? nullptr : std::make_shared<arrow::DoubleScalar>(val));
 }
-/*
-// TODO this specialization triggers compilation errors
 
 template <>
-void ParquetFormatter::writeAttr(const std::string& attr, const double& val) {
+inline void ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const int& val, const bool isNull) {
+    checkAttr(attr);
+    if (!myWroteHeader) {
+        mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(toString(attr)), arrow::int32()));
+        myBuilders.push_back(std::make_shared<arrow::Int32Builder>());
+    }
+    myValues.push_back(isNull ? nullptr : std::make_shared<arrow::Int32Scalar>(val));
+}
+
+template <>
+inline void ParquetFormatter::writeAttr(std::ostream& into, const std::string& attr, const double& val) {
+    assert(!myCheckColumns);
+    if (into.precision() > 2) {
+        if (!myWroteHeader) {
+            mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::float64()));
+            myBuilders.push_back(std::make_shared<arrow::DoubleBuilder>());
+        }
+        myValues.push_back(std::make_shared<arrow::DoubleScalar>(val));
+    } else {
+        if (!myWroteHeader) {
+            mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::float32()));
+            myBuilders.push_back(std::make_shared<arrow::FloatBuilder>());
+        }
+        myValues.push_back(std::make_shared<arrow::FloatScalar>(val));
+    }
+}
+
+template <>
+inline void ParquetFormatter::writeAttr(std::ostream& /* into */, const std::string& attr, const int& val) {
     assert(!myCheckColumns);
     if (!myWroteHeader) {
-        mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::float64()));
-        myBuilders.push_back(std::make_shared<arrow::DoubleBuilder>());
+        mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::int32()));
+        myBuilders.push_back(std::make_shared<arrow::Int32Builder>());
     }
-    myValues.push_back(std::make_shared<arrow::DoubleScalar>(val));
+    myValues.push_back(std::make_shared<arrow::Int32Scalar>(val));
 }
-*/

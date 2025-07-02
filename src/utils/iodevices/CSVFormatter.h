@@ -96,6 +96,11 @@ public:
         *myXMLStack[myCurrentDepth - 1] << mySeparator;
     }
 
+    void writeTime(std::ostream& /* into */, const SumoXMLAttr attr, const SUMOTime val) {
+        checkAttr(attr);
+        *myXMLStack[myCurrentDepth - 1] << time2string(val) << mySeparator;
+    }
+
     bool wroteHeader() const {
         return myWroteHeader;
     }

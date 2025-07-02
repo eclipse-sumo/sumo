@@ -78,7 +78,7 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep) {
         }
     }
 
-    of.openTag("timestep").writeAttr(SUMO_ATTR_TIME, time2string(timestep));
+    of.openTag("timestep").writeTime(SUMO_ATTR_TIME, timestep);
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* const veh = it->second;
         if (isVisible(veh)) {

@@ -238,7 +238,7 @@ public:
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
 #ifdef HAVE_PARQUET
         } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
-            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(attr, val);
+            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
 #endif
         } else {
             static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
@@ -265,7 +265,7 @@ public:
                 }
 #ifdef HAVE_PARQUET
             } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
-                static_cast<ParquetFormatter*>(myFormatter)->writeAttr(attr, val, isNull);
+                static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val, isNull);
 #endif
             } else {
                 if (isNull) {
@@ -288,7 +288,7 @@ public:
                 }
 #ifdef HAVE_PARQUET
             } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
-                static_cast<ParquetFormatter*>(myFormatter)->writeAttr(attr, valFunc(), isNull);
+                static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, valFunc(), isNull);
 #endif
             } else {
                 if (isNull) {
@@ -313,7 +313,7 @@ public:
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
 #ifdef HAVE_PARQUET
         } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
-            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(attr, val);
+            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
 #endif
         } else {
             static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
@@ -334,6 +334,10 @@ public:
         return *this;
     }
 
+    OutputDevice& writeTime(const SumoXMLAttr attr, const SUMOTime val) {
+        myFormatter->writeTime(getOStream(), attr, val);
+        return *this;
+    }
 
     /** @brief writes a preformatted tag to the device but ensures that any
      * pending tags are closed
