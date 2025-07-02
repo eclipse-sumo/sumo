@@ -954,7 +954,6 @@ GNETLSEditorFrame::TLSJunction::refreshTLSJunction() {
             // disable other fields
             myTLSTypeComboBox->disable();
             myTLSIDTextField->disable();
-            myTLSTypeComboBox->disable();
             myJoinTLSToggleButton->disable();
             myDisjoinTLSButton->disable();
             myJoinControlButtons->hide();
@@ -1182,7 +1181,6 @@ long
 GNETLSEditorFrame::TLSJunction::onUpdTLSType(FXObject*, FXSelector, void*) {
     if (myCurrentJunction == nullptr) {
         // no junction, disable and clear
-        myTLSTypeComboBox->clearItems();
         myTLSTypeComboBox->disable();
     } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable button
