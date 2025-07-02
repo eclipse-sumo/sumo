@@ -1415,7 +1415,7 @@ MSVehicle::validatePosition(Position result, double offset) const {
 ConstMSEdgeVector::const_iterator
 MSVehicle::getRerouteOrigin() const {
     // too close to the next junction, so avoid an emergency brake here
-    if (myLane != nullptr && (myCurrEdge + 1) != myRoute->end()) {
+    if (myLane != nullptr && (myCurrEdge + 1) != myRoute->end() && !isRailway(getVClass())) {
         if (myLane->isInternal()) {
             return myCurrEdge + 1;
         }
