@@ -165,6 +165,9 @@ public:
         /// @brief destructor
         ~TLSPrograms();
 
+        /// @brief update TLSPrograms module
+        void updateTLSPrograms();
+
         /// @brief show TLSPrograms
         void showTLSPrograms();
 
@@ -181,7 +184,7 @@ public:
         int getNumberOfPrograms() const;
 
         /// @brief get number of TLS definitions
-        int getNumberOfTLSProgramss() const;
+        int getNumberOfTLSPrograms() const;
 
         /// @brief check if current TLS was modified
         bool checkHaveModifications() const;
@@ -203,9 +206,6 @@ public:
         /// @brief Called when the user press button create/duplicate TLS Program
         long onCmdCreate(FXObject*, FXSelector, void*);
 
-        /// @brief Called when occurs an update of create definition
-        long onUpdCreate(FXObject*, FXSelector, void*);
-
         /// @brief Called when the user press button delete TLS Program
         long onCmdDelete(FXObject*, FXSelector, void*);
 
@@ -217,15 +217,6 @@ public:
 
         /// @brief Called when the user switches a TLS
         long onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*);
-
-        /// @brief Called when occurs an update of switch definition
-        long onUpdTLSEnableModified(FXObject*, FXSelector, void*);
-
-        /// @brief Called when occurs an update of switch definition
-        long onUpdTLSDisableModified(FXObject*, FXSelector, void*);
-
-        /// @brief Called when occurs an update of switch definition
-        long onUpdTLSDisableResetAll(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user presses the save-Button
         long onCmdSaveChanges(FXObject*, FXSelector, void*);
