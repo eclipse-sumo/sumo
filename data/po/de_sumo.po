@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-20 08:20+0000\n"
-"PO-Revision-Date: 2025-05-22 09:01+0000\n"
+"PO-Revision-Date: 2025-07-02 12:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1404,7 +1404,7 @@ msgstr "Fehler: Ungültige Fahrzeuge im Stand (kann ein Mikrostand sein)!"
 
 #: src/mesosim/MEVehicle.cpp:629
 msgid "Unknown segment '%:%' for vehicle '%' in loaded state."
-msgstr ""
+msgstr "Unbekanntes Segment '%:%' des Fahrzeugs '%' im geladenen Zustand."
 
 #: src/microsim/MSBaseVehicle.cpp:190
 msgid "Changing a vehicle ID is not permitted"
@@ -1423,15 +1423,21 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:463
 msgid "Vehicle '%' skips stop on edge '%' with delay % at time %."
 msgstr ""
+"Das Fahrzeug '%' lässt den Halt auf der Kante '%' aus (Verspätung %, zur "
+"Zeit %)."
 
 #: src/microsim/MSBaseVehicle.cpp:465
 msgid "Vehicle '%' skips stop on edge '%' with priority % at time %."
 msgstr ""
+"Das Fahrzeug '%' lässt den Halt auf der Kante '%' aus (Priorität %, zur Zeit "
+"%)."
 
 #: src/microsim/MSBaseVehicle.cpp:467
 msgid ""
 "Vehicle '%' skips unreachable stop on edge '%' with priority % at time %."
 msgstr ""
+"Das Fahrzeug '%' lässt den nicht erreichbaren Halt auf der Kante '%' aus ("
+"Priorität %, zur Zeit %)."
 
 #: src/microsim/MSBaseVehicle.cpp:496
 #, c-format
@@ -3650,7 +3656,7 @@ msgstr "Unbekannter Fahrstreifen '%' in der geladenen Stand."
 #: src/microsim/MSStateHandler.cpp:303
 #, c-format
 msgid "Unknown segment '%' in loaded state."
-msgstr ""
+msgstr "Der geladene Zustand enthält das unbekanntes Segment '%'."
 
 #: src/microsim/MSStateHandler.cpp:331
 msgid ""
