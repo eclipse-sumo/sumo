@@ -74,7 +74,8 @@ title: ChangeLog
 ### Enhancements
 
 - sumo
-  - A warning is now issued for traffic light programs where a link never gets a green phase even when the program has only a single phase. #16652
+  - A warning is now issued for traffic light programs if a link never gets a green phase even when the program has only a single phase. #16652
+  - A warning is now issued for traffic light programs if two 'G' links target the same lane in the same phase #16636
   - Added waitingTime to personinfo walk output #16737
   - closingReroute now supports optional attribute `until` for setting the estimated duration of closing. Vehicle may wait at the closed edge if a detour would take longer. #16804
   - Vehicles may now exceed their vType-`maxSpeed` when using `carFollowModel="KraussPS"` and going downhill (up to their `desiredMaxSpeed`) #16805
