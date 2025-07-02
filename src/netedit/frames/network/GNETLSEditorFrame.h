@@ -298,6 +298,9 @@ public:
         /// @brief destructor
         ~TLSAttributes();
 
+        /// @brief update TLSAttributes module
+        void updateTLSAttributes();
+
         /// @brief show TLSAttributes
         void showTLSAttributes();
 
@@ -345,23 +348,14 @@ public:
         /// @brief Called when the user changes the offset of a TLS
         long onCmdSetOffset(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the offset is updated
-        long onUpdOffset(FXObject*, FXSelector, void*);
-
         /// @brief Called when the user changes parameters of a TLS
         long onCmdSetParameters(FXObject*, FXSelector, void*);
 
         /// @brief Called when user press edit parameters button
         long onCmdParametersDialog(FXObject*, FXSelector, void* ptr);
 
-        /// @brief Called when the offset is updated
-        long onUpdParameters(FXObject*, FXSelector, void*);
-
         /// @brief Called when user toggle set detector mode
         long onCmdToggleDetectorMode(FXObject*, FXSelector, void* ptr);
-
-        /// @brief Called when occurs an update of set detector mode
-        long onUpdSetDetectorMode(FXObject*, FXSelector, void*);
 
         /// @}
 

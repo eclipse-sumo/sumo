@@ -74,12 +74,9 @@ FXDEFMAP(GNETLSEditorFrame::TLSPrograms) TLSProgramsMap[] = {
 
 FXDEFMAP(GNETLSEditorFrame::TLSAttributes) TLSAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET,             GNETLSEditorFrame::TLSAttributes::onCmdSetOffset),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET,             GNETLSEditorFrame::TLSAttributes::onUpdOffset),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,         GNETLSEditorFrame::TLSAttributes::onCmdSetParameters),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG,   GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,         GNETLSEditorFrame::TLSAttributes::onUpdParameters),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_TOGGLEDETECTOR,     GNETLSEditorFrame::TLSAttributes::onCmdToggleDetectorMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_ATTRIBUTES_TOGGLEDETECTOR,     GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSPhases) TLSPhasesMap[] = {
@@ -561,6 +558,60 @@ GNETLSEditorFrame::TLSAttributes::~TLSAttributes() {}
 
 
 void
+GNETLSEditorFrame::TLSAttributes::updateTLSAttributes() {
+    if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSProgramss() == 0) {
+        // no TLS programs, disable elements
+        myOffsetTextField->disable();
+        myButtonEditParameters->disable();
+        myParametersTextField->disable();
+        // disable E1 detector mode
+        disableE1DetectorMode();
+        mySetDetectorsToggleButton->disable();
+        // clear E1 detectors
+        if (myE1Detectors.size() > 0) {
+            myE1Detectors.clear();
+            myTLSEditorParent->getViewNet()->update();
+        }
+    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
+        // joining TLSs, disable button
+        myOffsetTextField->disable();
+        myButtonEditParameters->disable();
+        myParametersTextField->disable();
+        // disable E1 detector mode
+        disableE1DetectorMode();
+        mySetDetectorsToggleButton->disable();
+        // clear E1 detectors
+        if (myE1Detectors.size() > 0) {
+            myE1Detectors.clear();
+            myTLSEditorParent->getViewNet()->update();
+        }
+    } else if (isSetDetectorsToggleButtonEnabled()) {
+        // set detectors toggle button is enabled, disable elements
+        myOffsetTextField->disable();
+        myButtonEditParameters->disable();
+        myParametersTextField->disable();
+    } else {
+        myOffsetTextField->enable();
+        myButtonEditParameters->enable();
+        myParametersTextField->enable();
+        // disable E1 detector mode in static
+        if (myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms()->getType() == TrafficLightType::STATIC) {
+            // disable E1 detector mode
+            disableE1DetectorMode();
+            mySetDetectorsToggleButton->disable();
+            // clear E1 detectors
+            if (myE1Detectors.size() > 0) {
+                myE1Detectors.clear();
+                myTLSEditorParent->getViewNet()->update();
+            }
+        } else {
+            mySetDetectorsToggleButton->enable();
+        }
+    }
+}
+
+
+void
 GNETLSEditorFrame::TLSAttributes::showTLSAttributes() {
     show();
 }
@@ -728,27 +779,6 @@ GNETLSEditorFrame::TLSAttributes::onCmdSetOffset(FXObject*, FXSelector, void*) {
 
 
 long
-GNETLSEditorFrame::TLSAttributes::onUpdOffset(FXObject*, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSProgramss() == 0) {
-        myOffsetTextField->disable();
-        // clear E1 detectors
-        if (myE1Detectors.size() > 0) {
-            myE1Detectors.clear();
-            myTLSEditorParent->getViewNet()->update();
-        }
-    } else if (isSetDetectorsToggleButtonEnabled()) {
-        myOffsetTextField->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        myOffsetTextField->disable();
-    } else {
-        myOffsetTextField->enable();
-    }
-    return 1;
-}
-
-
-long
 GNETLSEditorFrame::TLSAttributes::onCmdSetParameters(FXObject*, FXSelector, void*) {
     if (isValidParameters()) {
         myTLSEditorParent->myTLSPrograms->markAsModified();
@@ -781,31 +811,6 @@ GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog(FXObject*, FXSelector, v
 
 
 long
-GNETLSEditorFrame::TLSAttributes::onUpdParameters(FXObject*, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSProgramss() == 0) {
-        myButtonEditParameters->disable();
-        myParametersTextField->disable();
-        // clear E1 detectors
-        if (myE1Detectors.size() > 0) {
-            myE1Detectors.clear();
-            myTLSEditorParent->getViewNet()->update();
-        }
-    } else if (isSetDetectorsToggleButtonEnabled()) {
-        myButtonEditParameters->disable();
-        myParametersTextField->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        myButtonEditParameters->disable();
-        myParametersTextField->disable();
-    } else {
-        myButtonEditParameters->enable();
-        myParametersTextField->enable();
-    }
-    return 1;
-}
-
-
-long
 GNETLSEditorFrame::TLSAttributes::onCmdToggleDetectorMode(FXObject*, FXSelector, void*) {
     if (mySetDetectorsToggleButton->getState()) {
         // set special color
@@ -816,25 +821,6 @@ GNETLSEditorFrame::TLSAttributes::onCmdToggleDetectorMode(FXObject*, FXSelector,
     }
     // update view
     myTLSEditorParent->getViewNet()->update();
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode(FXObject*, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSProgramss() == 0) {
-        disableE1DetectorMode();
-        mySetDetectorsToggleButton->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        disableE1DetectorMode();
-        mySetDetectorsToggleButton->disable();
-    } else if (myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms()->getType() == TrafficLightType::STATIC) {
-        disableE1DetectorMode();
-        mySetDetectorsToggleButton->disable();
-    } else {
-        mySetDetectorsToggleButton->enable();
-    }
     return 1;
 }
 
