@@ -353,9 +353,12 @@ GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s,
     if (constantSize && (!constantSizeSelected || (o == nullptr) || gSelected.isSelected(o))) {
         exaggerationFinal = MAX2(exaggeration, exaggeration * factor / s.scale);
     } else if (!constantSizeSelected || (o == nullptr) || gSelected.isSelected(o)) {
-        exaggerationFinal  = exaggeration;
+        exaggerationFinal = exaggeration;
     } else {
         exaggerationFinal = 1;
+    }
+    if (o != nullptr) {
+        exaggerationFinal *= o->getScaleVisual();
     }
     // add selectorFrameScale
     if ((o != nullptr) && gSelected.isSelected(o)) {

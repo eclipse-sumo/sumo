@@ -182,6 +182,10 @@ public:
     /// @brief gets the color value according to the current scheme index
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
+    double getScaleVisual() const {
+        return getVehicleType().getParameter().scaleVisual;
+    }
+
     /**
      * @class GUIPersonPopupMenu
      *

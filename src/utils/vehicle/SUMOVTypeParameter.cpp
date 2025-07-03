@@ -346,6 +346,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       maxSpeedLat(1.0),
       latAlignmentOffset(0.0),
       latAlignmentProcedure(LatAlignmentDefinition::CENTER),
+      scaleVisual(1),
       carriageLength(-1),
       locomotiveLength(-1),
       carriageGap(1.),
@@ -784,6 +785,9 @@ SUMOVTypeParameter::cacheParamRestrictions(const std::vector<std::string>& restr
 
 void
 SUMOVTypeParameter::initRailVisualizationParameters(const std::string fileName) {
+    if (hasParameter("scaleVisual")) {
+        scaleVisual = StringUtils::toDouble(getParameter("scaleVisual"));
+    }
     if (hasParameter("carriageLength")) {
         carriageLength = StringUtils::toDouble(getParameter("carriageLength"));
         parametersSet |= VTYPEPARS_CARRIAGE_LENGTH_SET;

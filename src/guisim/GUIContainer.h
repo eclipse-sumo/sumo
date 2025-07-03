@@ -141,6 +141,9 @@ public:
     /// @brief whether this container is selected in the GUI
     bool isSelected() const override;
 
+    double getScaleVisual() const {
+        return getVehicleType().getParameter().scaleVisual;
+    }
     /**
      * @class GUIContainerPopupMenu
      *

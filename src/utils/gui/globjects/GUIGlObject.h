@@ -186,6 +186,11 @@ public:
         return getCenteringBoundary().getCenter();
     }
 
+    /// @brief return individual scaling factor for this object
+    virtual double getScaleVisual() const {
+        return 1;
+    }
+
     /// @brief Draws the object
     /// @param[in] s The settings for the current view (may influence drawing)
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;

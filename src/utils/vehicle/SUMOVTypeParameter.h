@@ -378,6 +378,9 @@ public:
     /// @brief The vehicle type's minimum lateral gap [m]
     double minGapLat;
 
+    /// @brief the scaling factor when drawing the object
+    double scaleVisual;
+
     /// @brief the length of train carriages
     double carriageLength;
 
