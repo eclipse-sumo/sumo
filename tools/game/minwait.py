@@ -70,7 +70,7 @@ def main():
                 net_file = os.path.join(base, n.value)
                 net = sumolib.net.readNet(net_file, withPrograms=True)
             for t in net.getTrafficLights():
-                xml = t.toXML()
+                xml = t.toXML().replace('programID="0"', 'programID="1"')
                 if 'duration="1000' in xml:
                     if not lines:
                         lines.append("<a>")
@@ -80,16 +80,24 @@ def main():
                 tls = net_file
         if lines:
             high[scen] = []
-            for alg, minDur in (("actuated", 3), ("delay_based", 1)):
+            for alg, minDur in (("actuated", 3), ("delay_based", 1), ("no_switch", 0)):
                 print("running scenario '%s' with algorithm '%s'" % (scen, alg))
-                with open(tls + "." + alg, "w") as tls_out:
-                    for line in lines:
-                        line = line.replace('type="static"', 'type="%s"' % alg)
-                        if "phase" in line:
-                            line = re.sub('duration="1000\d+', 'duration="10" minDur="%s" maxDur="10000' % minDur, line)
-                        tls_out.write(line)
+                if minDur:
+                    with open(tls + "." + alg, "w") as tls_out:
+                        for line in lines:
+                            line = line.replace('type="static"', 'type="%s"' % alg)
+                            if "phase" in line:
+                                line = re.sub('duration="1000\d+',
+                                              'duration="10" minDur="%s" maxDur="10000' % minDur, line)
+                            tls_out.write(line)
+                addStr = ",".join(add)
+                if minDur:
+                    if tls in add:
+                        addStr = addStr.replace(tls, tls_out.name)
+                    else:
+                        addStr += "," + tls_out.name
                 subprocess.call([sumolib.checkBinary('sumo'), "-c", config,
-                                 "-a", ",".join(add).replace(tls, tls_out.name),
+                                 "-a", addStr,
                                  '--output-prefix', os.path.join(scen, ""),
                                  '-l', 'log', '--duration-log.statistics',
                                  '--statistic-output', 'stats.xml',
