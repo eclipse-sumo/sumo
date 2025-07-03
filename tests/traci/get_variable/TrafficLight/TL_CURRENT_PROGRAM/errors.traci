@@ -2,7 +2,4 @@ TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/doc
 #Error while connecting: tcpip::Socket::connect() @ socket: Connection refused
 TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.
 Warning: Missing yellow phase in tlLogic '1/1', program 'prog1' for tl-index 0 when switching to phase 1.
-Warning: Unsafe green phase 0 in tlLogic '1/1', program 'prog1'. Lane '1/1to0/1_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 0 in tlLogic '1/1', program 'prog1'. Lane '1/1to1/0_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 0 in tlLogic '1/1', program 'prog1'. Lane '1/1to1/2_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 0 in tlLogic '1/1', program 'prog1'. Lane '1/1to2/1_0' is targeted by 4 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 0 in tlLogic '1/1', program 'prog1'. Lane '1/1to0/1_0' is targeted by 4 'G'-links. (use 'g' instead) Overall 4 lanes in 1 phases are unsafe.
