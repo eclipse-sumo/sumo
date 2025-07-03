@@ -1366,8 +1366,12 @@ GNETLSEditorFrame::TLSPrograms::~TLSPrograms() {}
 void
 GNETLSEditorFrame::TLSPrograms::updateTLSPrograms() {
     if (getNumberOfPrograms() == 0) {
-        // no TLS Programs, disable buttons except create
-        myCreateButton->enable();
+        // no TLS Programs, disable buttons except create (if we have a junction)
+        if (myTLSEditorParent->getTLSJunction()->getCurrentJunction() != nullptr) {
+            myCreateButton->enable();
+        } else {
+            myCreateButton->disable();
+        }
         myDeleteButton->disable();
         myResetSingleButton->disable();
         myProgramComboBox->disable();
@@ -1400,8 +1404,8 @@ GNETLSEditorFrame::TLSPrograms::updateTLSPrograms() {
         myProgramComboBox->disable();
         myResetAllButton->disable();
         // enable save and cancel buttons
-        mySaveButon->disable();
-        myCancelButon->disable();
+        mySaveButon->enable();
+        myCancelButon->enable();
     } else {
         myCreateButton->enable();
         myDeleteButton->enable();
@@ -1497,6 +1501,7 @@ GNETLSEditorFrame::TLSPrograms::checkHaveModifications() const {
 void
 GNETLSEditorFrame::TLSPrograms::markAsModified() {
     myHaveModifications = true;
+    myTLSEditorParent->updateModules();
 }
 
 
