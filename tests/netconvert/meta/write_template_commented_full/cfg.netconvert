@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-21 14:16:49 by Eclipse SUMO netconvert Version v1_22_0+0440-9af1eda2b59
+<!-- generated on 2025-07-03 09:53:11 by Eclipse SUMO netconvert Version v1_23_1+0813-5f3c910f36e
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -101,6 +101,18 @@
 
         <!-- Defines the number of digits after the comma for lon,lat output -->
         <precision.geo value="6" type="INT"/>
+
+        <!-- Defines the standard compression algorithm (currently only for parquet output) -->
+        <output.compression value="" type="STR"/>
+
+        <!-- Defines the standard output format if not derivable from the file name (&apos;xml&apos;, &apos;csv&apos;, &apos;parquet&apos;) -->
+        <output.format value="xml" type="STR"/>
+
+        <!-- How to derive column headers from attribute names (&apos;none&apos;, &apos;tag&apos;, &apos;auto&apos;, &apos;plain&apos;) -->
+        <output.column-header value="tag" type="STR"/>
+
+        <!-- Separator in CSV output -->
+        <output.column-separator value=";" type="STR"/>
 
         <!-- Write time values as hour:minute:second or day:hour:minute:second rather than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>

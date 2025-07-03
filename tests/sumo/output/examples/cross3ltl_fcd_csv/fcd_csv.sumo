@@ -1,4 +1,4 @@
-time;id;x;y;angle;type;speed;pos;lane;edge;slope
+timestep_time;vehicle_id;vehicle_x;vehicle_y;vehicle_angle;vehicle_type;vehicle_speed;vehicle_pos;vehicle_lane;vehicle_edge;vehicle_slope
 100.00;always_left.0;5.10;498.35;90.00;DEFAULT_VEHTYPE;0.00;5.10;1fi_0;;0.00
 100.00;always_right.0;501.65;5.10;0.00;DEFAULT_VEHTYPE;0.00;5.10;3fi_0;;0.00
 100.00;horizontal.0;994.90;501.65;270.00;DEFAULT_VEHTYPE;0.00;5.10;2fi_0;;0.00
