@@ -220,6 +220,8 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE,
     /// @brief save SUMOConfig (SUMO AND netedit)
     MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG,
+    /// @brief focus TLS table
+    MID_HOTKEY_CTRL_SHIFT_T_FOCUSTLSTABLE,
 
     /// @}
 

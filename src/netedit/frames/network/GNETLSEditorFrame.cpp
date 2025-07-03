@@ -159,6 +159,14 @@ GNETLSEditorFrame::updateModules() {
 
 
 void
+GNETLSEditorFrame::focusTLSTable() {
+    if (myTLSPhases) {
+        myTLSPhases->getPhaseTable()->setFocus();
+    }
+}
+
+
+void
 GNETLSEditorFrame::editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition, const bool shiftKeyPressed) {
     // first check if in viewObjects there is a junction
     if (viewObjects.getJunctionFront()) {
@@ -922,7 +930,7 @@ GNETLSEditorFrame::TLSJunction::~TLSJunction() {}
 void
 GNETLSEditorFrame::TLSJunction::updateTLSJunction() {
     if ((myCurrentJunction == nullptr) ||
-        (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0)) {
+            (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0)) {
         // no TLS
         myTLSIDTextField->setText("");
         myTLSIDTextField->disable();
@@ -936,8 +944,8 @@ GNETLSEditorFrame::TLSJunction::updateTLSJunction() {
         // set text field ID
         myTLSIDTextField->setText(TLS->getID().c_str());
         // continue with more options
-        if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled() || 
-            myTLSEditorParent->myTLSPrograms->checkHaveModifications()) {
+        if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled() ||
+                myTLSEditorParent->myTLSPrograms->checkHaveModifications()) {
             // disable if selecting selecting detectors or we modified the program
             myTLSIDTextField->setText("");
             myTLSIDTextField->disable();
@@ -1275,8 +1283,8 @@ GNETLSEditorFrame::TLSJunction::refreshTLSJunction() {
     if (myCurrentJunction == nullptr) {
         myJunctionIDTextField->setText(TL("No junction selected"));
     } else {
-        // get all TLS assigned to this node 
-        const auto &TLSs = myCurrentJunction->getNBNode()->getControllingTLS();
+        // get all TLS assigned to this node
+        const auto& TLSs = myCurrentJunction->getNBNode()->getControllingTLS();
         // check if junction is controlled
         if (TLSs.size() > 0) {
             // get first TLS
@@ -1337,23 +1345,23 @@ GNETLSEditorFrame::TLSPrograms::TLSPrograms(GNETLSEditorFrame* TLSEditorParent) 
     myCreateButton->disable();
     // create delete tlDef button
     myDeleteButton = GUIDesigns::buildFXButton(verticalFrameAuxA, TL("Delete"), "", TL("Delete a traffic light program. If all programs are deleted the junction turns into a priority junction."),
-                              GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_TLSFRAME_DEFINITION_DELETE, GUIDesignButton);
+                     GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_TLSFRAME_DEFINITION_DELETE, GUIDesignButton);
     myDeleteButton->disable();
     // create reset current tlDef button
     myResetSingleButton = GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Reset single"), "", TL("Reset current TLS program."),
-                              GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT, GUIDesignButton);
+                          GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT, GUIDesignButton);
     myResetSingleButton->disable();
     // create reset all tlDefs button
     myResetAllButton = GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Reset all"), "", TL("Reset all TLS programs."),
-                              GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETALL, GUIDesignButton);
+                       GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETALL, GUIDesignButton);
     myResetAllButton->disable();
     // create save modifications button
     mySaveButon = GUIDesigns::buildFXButton(verticalFrameAuxA, TL("Save"), "", TL("Save program modifications. (Enter)"),
-                              GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_TLSFRAME_DEFINITION_SAVE, GUIDesignButton);
+                                            GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_TLSFRAME_DEFINITION_SAVE, GUIDesignButton);
     mySaveButon->disable();
     // create cancel modifications buttons
     myCancelButon = GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Cancel"), "", TL("Discard program modifications. (Esc)"),
-                              GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_TLSFRAME_DEFINITION_DISCARD, GUIDesignButton);
+                    GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_TLSFRAME_DEFINITION_DISCARD, GUIDesignButton);
     myCancelButon->disable();
     // show GroupBox
     show();
@@ -1861,31 +1869,31 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // right button column
     // create cleanup states button
     myCleanStatesButton = new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                         TL("Clean States") + std::string("\t") +
-                         TL("Clean unused states from all phase") + std::string("\t") +
-                         TL("Clean unused states from all phase. (Not allowed for multiple programs)"),
-                         nullptr, this, MID_GNE_TLSFRAME_PHASES_CLEANUP, GUIDesignButton);
+            TL("Clean States") + std::string("\t") +
+            TL("Clean unused states from all phase") + std::string("\t") +
+            TL("Clean unused states from all phase. (Not allowed for multiple programs)"),
+            nullptr, this, MID_GNE_TLSFRAME_PHASES_CLEANUP, GUIDesignButton);
     myCleanStatesButton->disable();
     // add unused states button
     myAddStates = new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                         TL("Add States") + std::string("\t") +
-                         TL("Extend the state vector for all phases by one entry") + std::string("\t") +
-                         TL("Extend the state vector for all phases by one entry. (Unused until a connection or crossing is assigned to the new index)"),
-                         nullptr, this, MID_GNE_TLSFRAME_PHASES_ADDUNUSED, GUIDesignButton);
+                                       TL("Add States") + std::string("\t") +
+                                       TL("Extend the state vector for all phases by one entry") + std::string("\t") +
+                                       TL("Extend the state vector for all phases by one entry. (Unused until a connection or crossing is assigned to the new index)"),
+                                       nullptr, this, MID_GNE_TLSFRAME_PHASES_ADDUNUSED, GUIDesignButton);
     myAddStates->disable();
     // group states button
     myGroupSignalsButton = new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                         TL("Group Sig.") + std::string("\t") +
-                         TL("Shorten state definition by letting connections with the same signal states use the same index") + std::string("\t") +
-                         TL("Shorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)"),
-                         nullptr, this, MID_GNE_TLSFRAME_PHASES_GROUPSTATES, GUIDesignButton);
+            TL("Group Sig.") + std::string("\t") +
+            TL("Shorten state definition by letting connections with the same signal states use the same index") + std::string("\t") +
+            TL("Shorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)"),
+            nullptr, this, MID_GNE_TLSFRAME_PHASES_GROUPSTATES, GUIDesignButton);
     myGroupSignalsButton->disable();
     // ungroup states button
     myUngroupSignalsButton = new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                         TL("Ungroup Sig.") + std::string("\t") +
-                         TL("Let every connection use a distinct index (reverse state grouping)") + std::string("\t") +
-                         TL("Let every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)"),
-                         nullptr, this, MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES, GUIDesignButton);
+            TL("Ungroup Sig.") + std::string("\t") +
+            TL("Let every connection use a distinct index (reverse state grouping)") + std::string("\t") +
+            TL("Let every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)"),
+            nullptr, this, MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES, GUIDesignButton);
     myUngroupSignalsButton->disable();
     // show TLSFile
     show();
