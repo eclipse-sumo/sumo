@@ -31,4 +31,7 @@ ticket16652
 
 # junction collision must be detected
 ticket16695
+
+# collision after emergency braking
+ticket16779
 ticket16802
