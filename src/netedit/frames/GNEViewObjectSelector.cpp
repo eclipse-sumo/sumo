@@ -77,16 +77,16 @@ GNEViewObjectSelector::isNetworkElementSelected(const GNEAttributeCarrier* AC) c
 
 
 void
-GNEViewObjectSelector::showNetworkElementsSelector(const SumoXMLTag tag, const SumoXMLAttr attribute) {
-    myTag = tag;
+GNEViewObjectSelector::showNetworkElementsSelector(const SumoXMLTag newTag, const SumoXMLAttr attribute) {
+    myTag = newTag;
     myAttribute = attribute;
     // update info
     myLabel->setText((TL("-This additional requires to\n select at least\n one element") + std::string("\n") +
-                      TLF("-Click over % to select", toString(tag)) + std::string("\n") +
+                      TLF("-Click over % to select", toString(newTag)) + std::string("\n") +
                       TL("-ESC to clear elements")).c_str());
-    myUseSelected->setText(TLF("Use selected %s", toString(tag)).c_str());
+    myUseSelected->setText(TLF("Use selected %s", toString(newTag)).c_str());
     // update groupBox elements
-    setText(TLF("% selector", toString(tag)));
+    setText(TLF("% selector", toString(newTag)));
     // clear items
     myList->clearItems();
     mySelectedACs.clear();

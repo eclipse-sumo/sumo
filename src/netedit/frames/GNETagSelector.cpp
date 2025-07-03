@@ -78,7 +78,7 @@ GNETagSelector::getCurrentTemplateAC() const {
 
 
 void
-GNETagSelector::updateTagTypes(const GNETagProperties::Type type, const SumoXMLTag tag, const bool informParent) {
+GNETagSelector::updateTagTypes(const GNETagProperties::Type type, const SumoXMLTag newTag, const bool informParent) {
     // check if net has proj
     const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
     // change GNETagSelector text
@@ -142,7 +142,7 @@ GNETagSelector::updateTagTypes(const GNETagProperties::Type type, const SumoXMLT
     }
     if (myTagsMatchBox->getNumItems() > 0) {
         myTagsMatchBox->enable();
-        setCurrentTag(tag, informParent);
+        setCurrentTag(newTag, informParent);
     } else {
         myTagsMatchBox->disable();
     }
