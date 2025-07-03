@@ -90,19 +90,21 @@ def main():
                         tls_out.write(line)
                 subprocess.call([sumolib.checkBinary('sumo'), "-c", config,
                                  "-a", ",".join(add).replace(tls, tls_out.name),
-                                 '-l', os.path.join(base, scen, "log"), '--duration-log.statistics',
-                                 '--statistic-output', os.path.join(base, scen, 'stats.xml'),
+                                 '--output-prefix', os.path.join(scen, ""),
+                                 '-l', 'log', '--duration-log.statistics',
+                                 '--statistic-output', 'stats.xml',
                                  '-v', 'false', '--no-warnings', '--no-step-log',
-                                 '--tripinfo-output.write-unfinished'])
+                                 '--tripinfo-output.write-unfinished'], cwd=base)
                 computeHighScore(scen, high, alg)
         if scen == "rail":
             high[scen] = []
             print("running scenario 'rail'")
             subprocess.call([sumolib.checkBinary('sumo'), "-c", config.replace("rail", "rail_demo"),
-                             '-l', os.path.join(base, scen, "log"), '--duration-log.statistics',
-                             '--statistic-output', os.path.join(base, scen, 'stats.xml'),
+                             '--output-prefix', os.path.join(scen, ""),
+                             '-l', "log", '--duration-log.statistics',
+                             '--statistic-output', 'stats.xml',
                              '-v', 'false', '--no-warnings', '--no-step-log',
-                             '--tripinfo-output.write-unfinished', "-e", str(parseEndTime(config))])
+                             '--tripinfo-output.write-unfinished', "-e", str(parseEndTime(config))], cwd=base)
             computeHighScore(scen, high)
     print(high)
     with open(os.path.join(base, REFSCOREFILE), 'wb') as pkl:

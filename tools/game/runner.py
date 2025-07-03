@@ -112,8 +112,12 @@ if _UPLOAD:
     printDebug("import http.client...")
     try:
         import http.client as httplib  # noqa
+        import socket  # noqa
+        host = socket.gethostbyname(_SCORESERVER)
+        s = socket.create_connection((host, 80), 2)
+        s.close()
         printDebug("SUCCESS")
-    except ImportError:
+    except Exception:
         printDebug("FAILED - disabling upload...")
         _UPLOAD = False
 if _UPLOAD:
@@ -351,10 +355,11 @@ class StartDialog(Tkinter.Frame):
         Tkinter.Label(self, image=IMAGE.sumoLogo).grid(row=0, rowspan=numButtons-3, column=COL_SUMOLOGO)
 
         # control buttons
-        r1 = Tkinter.Radiobutton(self, text='Local Highscores', value='local', variable=self.highscoreLocation)
-        r1.grid(row=numButtons-3, column=COL_DLRLOGO)
-        r2 = Tkinter.Radiobutton(self, text='Global Highscores', value='global', variable=self.highscoreLocation)
-        r2.grid(row=numButtons-2, column=COL_DLRLOGO)
+        if _UPLOAD:
+            r1 = Tkinter.Radiobutton(self, text='Local Highscores', value='local', variable=self.highscoreLocation)
+            r1.grid(row=numButtons-3, column=COL_DLRLOGO)
+            r2 = Tkinter.Radiobutton(self, text='Global Highscores', value='global', variable=self.highscoreLocation)
+            r2.grid(row=numButtons-2, column=COL_DLRLOGO)
         button = Tkinter.Button(self, width=bWidth_start, command=self.clear)
         self.addButton(button, 'reset')
         button.grid(row=numButtons - 1, column=COL_DLRLOGO)
@@ -446,7 +451,6 @@ class StartDialog(Tkinter.Frame):
                     return scores
             except Exception:
                 printDebug("FAILED")
-
         try:
             with open(_SCOREFILE, 'rb') as sf:
                 return pickle.load(sf)
@@ -490,7 +494,7 @@ class StartDialog(Tkinter.Frame):
         # parse switches
         switch = []
         lastProg = {}
-        tlsfile = os.path.join(BASE, "%s.tlsstate.xml" % self.category)
+        tlsfile = os.path.join(BASE, self.category, "tlsstate.xml")
         if os.path.exists(tlsfile):
             for line in open(tlsfile):
                 m = re.search(r'tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
@@ -548,7 +552,7 @@ class ScoreDialog:
             Tkinter.Label(self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
             Tkinter.Label(self.root, text=n, padx=5).grid(
                 row=idx, sticky=Tkinter.W, column=1)
-            Tkinter.Label(self.root, text=str(p)).grid(row=idx, column=2)
+            Tkinter.Label(self.root, text="%.2f" % p).grid(row=idx, column=2)
             idx += 1
         if not haveHigh:
             if score is not None:  # not called from the main menue
