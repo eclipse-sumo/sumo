@@ -35,7 +35,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 netedit.createTLS()
 
 # change type
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based")
+netedit.modifyTLSTable(netedit.attrs.TLS.common.TLType, "delay_based")
 
 # type enter to save changes
 netedit.typeKey("enter")

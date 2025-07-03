@@ -151,13 +151,33 @@ def pressTLSPhaseButton(position):
     """
     # focus current frame
     focusOnFrame()
-    # type tab 2 times to jump to create TLS button
-    for _ in range(position):
+    # now focus the table
+    typeThreeKeys('ctrl', 'shift', 't')
+    # go to the button
+    for _ in range(position + 1):
         typeKey('tab')
     # add phase
     typeKey('space')
     # wait
     time.sleep(DELAY_SELECT)
+
+
+def modifyTLSTable(position, value):
+    """
+    @brief modify attribute of type int/float/string
+    """
+    # focus current frame
+    focusOnFrame()
+    # now focus the table
+    typeThreeKeys('ctrl', 'shift', 't')
+    time.sleep(1)
+    # jump to attribute
+    for _ in range(position + 1):
+        typeKey('tab')
+    # paste the new value
+    updateText(value)
+    # type Enter to commit change
+    typeKey('enter')
 
 
 def addDefaultPhase(position):
@@ -166,16 +186,15 @@ def addDefaultPhase(position):
     """
     # focus current frame
     focusOnFrame()
-    # type tab 2 times to jump to create TLS button
-    for _ in range(position):
+    # now focus the table
+    typeThreeKeys('ctrl', 'shift', 't')
+    # go to the button
+    for _ in range(position + 1):
         typeKey('tab')
     # add phase
     typeKey('space')
     # wait
     time.sleep(DELAY_SELECT)
-    # go to button
-    for _ in range(attrs.TLS.addPhases.default):
-        typeKey('right')
     # add phase
     typeKey('space')
     # wait
@@ -188,8 +207,10 @@ def addDuplicatePhase(position):
     """
     # focus current frame
     focusOnFrame()
-    # type tab 2 times to jump to create TLS button
-    for _ in range(position):
+    # now focus the table
+    typeThreeKeys('ctrl', 'shift', 't')
+    # go to the button
+    for _ in range(position + 1):
         typeKey('tab')
     # add phase
     typeKey('space')
@@ -210,8 +231,10 @@ def addRedPhase(position):
     """
     # focus current frame
     focusOnFrame()
-    # type tab 2 times to jump to create TLS button
-    for _ in range(position):
+    # now focus the table
+    typeThreeKeys('ctrl', 'shift', 't')
+    # go to the button
+    for _ in range(position + 1):
         typeKey('tab')
     # add phase
     typeKey('space')
@@ -232,8 +255,10 @@ def addYellowPhase(position):
     """
     # focus current frame
     focusOnFrame()
-    # type tab 2 times to jump to create TLS button
-    for _ in range(position):
+    # now focus the table
+    typeThreeKeys('ctrl', 'shift', 't')
+    # go to the button
+    for _ in range(position + 1):
         typeKey('tab')
     # add phase
     typeKey('space')
@@ -254,8 +279,10 @@ def addGreenPhase(position):
     """
     # focus current frame
     focusOnFrame()
-    # type tab 2 times to jump to create TLS button
-    for _ in range(position):
+    # now focus the table
+    typeThreeKeys('ctrl', 'shift', 't')
+    # go to the button
+    for _ in range(position + 1):
         typeKey('tab')
     # add phase
     typeKey('space')
@@ -276,8 +303,10 @@ def addGreenPriorityPhase(position):
     """
     # focus current frame
     focusOnFrame()
-    # type tab 2 times to jump to create TLS button
-    for _ in range(position):
+    # now focus the table
+    typeThreeKeys('ctrl', 'shift', 't')
+    # go to the button
+    for _ in range(position + 1):
         typeKey('tab')
     # add phase
     typeKey('space')

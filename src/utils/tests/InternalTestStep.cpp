@@ -130,6 +130,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         disJoinTLS();
     } else if (function == "deleteTLS") {
         deleteTLS();
+    } else if (function == "modifyTLSTable") {
+        modifyTLSTable();
     } else if (function == "resetSingleTLSPhases") {
         resetSingleTLSPhases();
     } else if (function == "resetAllTLSPhases") {
@@ -788,14 +790,26 @@ InternalTestStep::deleteTLS() const {
 
 
 void
+InternalTestStep::modifyTLSTable() const {
+    if ((myArguments.size() != 2) || !checkIntArgument(myArguments[0]) ||
+            !checkStringArgument(myArguments[1])) {
+        writeError("modifyTLSTable", 0, "<int/attributeEnum, \"string\">");
+    } else {
+        // modify attribute
+        modifyStringAttribute(getIntArgument(myArguments[0]), 1, getStringArgument(myArguments[1]));
+    }
+}
+
+
+void
 InternalTestStep::resetSingleTLSPhases() const {
     if ((myArguments.size() != 1) || !checkBoolArgument(myArguments[0])) {
         writeError("resetSingleTLSPhases", 0, "<bool>");
     } else {
         if (getBoolArgument(myArguments[0])) {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetPhaseSingle"), 0);
+            modifyTLSTableBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetPhaseSingle"));
         } else {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetPhaseJoined"), 0);
+            modifyTLSTableBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetPhaseJoined"));
         }
     }
 }
@@ -807,9 +821,9 @@ InternalTestStep::resetAllTLSPhases() const {
         writeError("resetAllTLSPhases", 0, "<bool>");
     } else {
         if (getBoolArgument(myArguments[0])) {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetAllJoined"), 0);
+            modifyTLSTableBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetAllJoined"));
         } else {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetAllSingle"), 0);
+            modifyTLSTableBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetAllSingle"));
         }
     }
 }
@@ -830,13 +844,7 @@ InternalTestStep::addPhase(const int phaseTabs) const {
     if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
         writeError("addPhase", 0, "<int/attributeEnum>");
     } else {
-        modifyBoolAttribute(getIntArgument(myArguments[0]), 0);
-        // jump to the element
-        for (int i = 0; i < phaseTabs; i++) {
-            buildPressKeyEvent("tab", false);
-        }
-        // press button
-        buildPressKeyEvent("space", true);
+        modifyTLSTableBoolAttribute(getIntArgument(myArguments[0]));
     }
 }
 
@@ -1587,6 +1595,40 @@ InternalTestStep::modifyBoolAttribute(const int tabs, const int overlappedTabs) 
     }
     // toogle attribute
     return buildPressKeyEvent("space", true);
+}
+
+
+void
+InternalTestStep::modifyTLSTableAttribute(const int tabs, const std::string& value) const {
+    // focus table
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_T_FOCUSTLSTABLE, Category::APP);
+    // jump to the element
+    for (int i = 0; i < (tabs + 1); i++) {
+        buildPressKeyEvent("tab", false);
+    }
+    // write attribute character by character
+    if (value.empty()) {
+        buildPressKeyEvent("delete", false);
+    } else {
+        for (const char c : value) {
+            buildPressKeyEvent(c, false);
+        }
+    }
+    // press enter to confirm changes (updating view)
+    buildPressKeyEvent("enter", true);
+}
+
+
+void
+InternalTestStep::modifyTLSTableBoolAttribute(const int tabs) const {
+    // focus table
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_T_FOCUSTLSTABLE, Category::APP);
+    // jump to the element
+    for (int i = 0; i < (tabs + 1); i++) {
+        buildPressKeyEvent("tab", false);
+    }
+    // toogle attribute
+    buildPressKeyEvent("space", true);
 }
 
 

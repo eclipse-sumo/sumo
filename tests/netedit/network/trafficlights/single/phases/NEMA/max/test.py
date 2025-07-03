@@ -35,19 +35,19 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 netedit.createTLS()
 
 # change type
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA")
+netedit.modifyTLSTable(netedit.attrs.TLS.common.TLType, "NEMA")
 
 # type enter to save changes
 netedit.typeKey("enter")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.maxD, "dummyDur")
+netedit.modifyTLSTable(netedit.attrs.TLS.single.NEMAPhase.maxD, "dummyDur")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.maxD, "-20")
+netedit.modifyTLSTable(netedit.attrs.TLS.single.NEMAPhase.maxD, "-20")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.single.NEMAPhase.maxD, "13.15")
+netedit.modifyTLSTable(netedit.attrs.TLS.single.NEMAPhase.maxD, "13.15")
 
 # type enter to save changes
 netedit.typeKey("enter")

@@ -35,19 +35,19 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 netedit.createTLS()
 
 # change type
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "actuated")
+netedit.modifyTLSTable(netedit.attrs.TLS.common.TLType, "actuated")
 
 # type enter to save changes
 netedit.typeKey("enter")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.single.actuatedPhase.latestEnd, "dummyDur")
+netedit.modifyTLSTable(netedit.attrs.TLS.single.actuatedPhase.latestEnd, "dummyDur")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.single.actuatedPhase.latestEnd, "-20")
+netedit.modifyTLSTable(netedit.attrs.TLS.single.actuatedPhase.latestEnd, "-20")
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.single.actuatedPhase.latestEnd, "13.15")
+netedit.modifyTLSTable(netedit.attrs.TLS.single.actuatedPhase.latestEnd, "13.15")
 
 # type enter to save changes
 netedit.typeKey("enter")

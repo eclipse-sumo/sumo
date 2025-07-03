@@ -212,6 +212,9 @@ private:
     /// @brief process delete TLS function
     void deleteTLS() const;
 
+    /// @brief process modifyTLSTable function
+    void modifyTLSTable() const;
+
     /// @brief process resetSingleTLSPhases function
     void resetSingleTLSPhases() const;
 
@@ -325,6 +328,12 @@ private:
 
     /// @brief modify bool attribute
     InternalTestStep* modifyBoolAttribute(const int tabs, const int overlappedTabs) const;
+
+    /// @brief modify TLSTable attribute
+    void modifyTLSTableAttribute(const int tabs, const std::string& value) const;
+
+    /// @brief modify bool attribute
+    void modifyTLSTableBoolAttribute(const int tabs) const;
 
     /// @}
 

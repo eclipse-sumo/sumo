@@ -4,13 +4,13 @@ ticket16267
 # invalid bestLane offset
 ticket16287
 
-# crash 
+# crash
 ticket16296
 
 # collision at zipper
 ticket16305
 
-# crash 
+# crash
 ticket16347
 
 # tls warning
@@ -23,7 +23,7 @@ ticket16635
 # crash
 ticket16641
 
-# junction collision 
+# junction collision
 ticket16643
 
 # missing tls warning
