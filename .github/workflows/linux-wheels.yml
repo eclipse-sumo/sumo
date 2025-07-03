@@ -82,7 +82,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_version: [3.8, 3.9, '3.10', 3.11, 3.12, 3.13]
+        python_version: [3.8, 3.9, '3.10', 3.11, 3.12, 3.13, '3.13t']
 
     steps:
     - name: Cloning SUMO
@@ -111,6 +111,7 @@ jobs:
         testenv/bin/python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests
+      if: matrix.python_version != '3.13t'
       run: |
         source testenv/bin/activate
         python3 -m pip install -r tools/req_ci.txt -r tools/requirements.txt

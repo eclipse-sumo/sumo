@@ -21,6 +21,9 @@ unreachable_default
 unreachable_skip
 
 # see #16421
+blockedStopEdge_skip
+
+# see #16421
 dest_unreachable_skip
 
 # see #16421
@@ -30,7 +33,5 @@ dest_unreachable2
 # see #16421
 short_closing_wait
 
-# stop is in cul-de-sack and a should be skipped to reach another higher-priority stop
-# 
-# see #16421
-backtrack
+# see #16852
+detour_ignoreBrakeGap

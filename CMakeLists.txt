@@ -199,7 +199,7 @@ if (CMAKE_GENERATOR MATCHES Xcode)
 endif ()
 message(STATUS "")
 
-if (${CMAKE_VERSION} VERSION_LESS 3.12.0)
+if ((${CMAKE_SYSTEM_NAME} MATCHES "Linux" AND SKBUILD) OR ${CMAKE_VERSION} VERSION_LESS 3.12.0)
     find_package(PythonInterp REQUIRED)
     find_package(PythonLibs)
 else()

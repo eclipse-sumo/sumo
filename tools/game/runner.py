@@ -66,8 +66,8 @@ def updateLocalMessages():
     global _LANGUAGE_CAPTIONS
     _LANGUAGE_CAPTIONS = {'title': TL('Interactive Traffic Light'),
                           'rail': TL('Railway Control'),
-                          'rail_demo': TL('Railway Control Demo'),
-                          'fokr_bs': TL('Research intersection Braunschweig'),
+                          'rail_demo': TL('Railway Control (Demo)'),
+                          'fokr_bs_demo': TL('Research intersection Braunschweig (Demo)'),
                           'fkk_in': TL('Research intersection Ingolstadt'),
                           'cross': TL('Simple Junction'),
                           'cross_demo': TL('Simple Junction (Demo)'),
@@ -126,9 +126,9 @@ def computeScoreFromWaitingTime(gamename, maxScore=10000):
     totalArrived = 0
     totalWaitingTime = 0
     complete = True
-    for s in sumolib.xml.parse(os.path.join(BASE, gamename + ".stats.xml"), ("performance", "vehicleTripStatistics")):
+    for s in sumolib.xml.parse(os.path.join(BASE, gamename, "stats.xml"), ("performance", "vehicleTripStatistics")):
         if s.name == "performance":
-            if float(s.end) != parseEndTime(gamename + ".sumocfg"):
+            if float(s.end) != parseEndTime(os.path.join(BASE, gamename + ".sumocfg")):
                 return 0, 0, False
         else:
             totalWaitingTime = float(s.waitingTime) * float(s.count)
@@ -147,7 +147,7 @@ def computeScoreFromTimeLoss(gamename, maxScore=10000):
     waiting = None
     completed = False
 
-    for line in open(gamename + ".log"):
+    for line in open(os.path.join(BASE, gamename, "log")):
         if "Reason: The final simulation step has been reached." in line:
             completed = True
         m = re.search('Inserted: ([0-9]*)', line)
@@ -186,9 +186,8 @@ def computeScoreDRT(gamename):
     rideDuration = 0
     rideStarted = 0
     rideFinished = 0
-    tripinfos = gamename + ".tripinfos.xml"
     rideCount = 0
-    for ride in sumolib.xml.parse(tripinfos, 'ride'):
+    for ride in sumolib.xml.parse(os.path.join(BASE, gamename, "tripinfos.xml"), 'ride'):
         if float(ride.waitingTime) < 0:
             if _DEBUG:
                 print("negative waitingTime")
@@ -216,10 +215,9 @@ def computeScoreDRT(gamename):
 
 def computeScoreRail(gamename):
     expectedMeanWait = 360
-    tripinfos = gamename + ".tripinfos.xml"
     rideCount = 0
     score = 0
-    for ride in sumolib.xml.parse(tripinfos, 'ride'):
+    for ride in sumolib.xml.parse(os.path.join(BASE, gamename, "tripinfos.xml"), 'ride'):
         wt = float(ride.waitingTime)
         if wt < 0:
             if _DEBUG:
@@ -243,8 +241,7 @@ def computeScoreSquare(gamename):
     timeLoss = 0
     tripCount = 0
     arrived = 0
-    tripinfos = gamename + ".tripinfos.xml"
-    for trip in sumolib.xml.parse(tripinfos, 'tripinfo'):
+    for trip in sumolib.xml.parse(os.path.join(BASE, gamename, "tripinfos.xml"), 'tripinfo'):
         timeLoss += float(trip.timeLoss) + float(trip.departDelay)
         tripCount += 1
         if float(trip.arrival) > 0:
@@ -275,36 +272,8 @@ _SCORING_FUNCTION.update({
 })
 
 
-def loadHighscore():
-    if _UPLOAD:
-        printDebug("try to load highscore from scoreserver...")
-        try:
-            conn = httplib.HTTPConnection(_SCORESERVER, timeout=_TIMEOUT)
-            conn.request("GET", _SCORESCRIPT + "top=" + str(_SCORES))
-            response = conn.getresponse()
-            if response.status == httplib.OK:
-                scores = {}
-                for line in response.read().splitlines():
-                    category, values = line.split()
-                    scores[category] = _SCORES * [("", "", -1.)]
-                    for idx, item in enumerate(values.split(':')):
-                        name, game, score = item.split(',')
-                        scores[category][idx] = (name, game, int(float(score)))
-                printDebug("SUCCESS")
-                return scores
-        except Exception:
-            printDebug("FAILED")
-
-    try:
-        with open(_SCOREFILE, 'rb') as sf:
-            return pickle.load(sf)
-    except Exception as e:
-        print(e)
-        pass
-    if os.path.exists(REFSCOREFILE):
-        with open(REFSCOREFILE, 'rb') as sf:
-            return pickle.load(sf)
-    return {}
+def computeScore(gamename):
+    return _SCORING_FUNCTION[gamename](gamename)
 
 
 def parseEndTime(cfg):
@@ -332,29 +301,29 @@ class StartDialog(Tkinter.Frame):
         self.parent.title(self._language_text['title'])
         self.parent.minsize(250, 50)
         self.category = None
-        self.high = loadHighscore()
+        self.highscoreLocation = Tkinter.StringVar(value="local")
+        self.high = self.loadHighscore(self.highscoreLocation.get())
 
         # we use a grid layout with 4 columns
         COL_DLRLOGO, COL_START, COL_HIGH, COL_SUMOLOGO = range(4)
         # there is one column for every config, +2 more columns for control
         # buttons
         configs = sorted(glob.glob(os.path.join(BASE, "*.sumocfg")))
-        numButtons = len(configs) + 2
+        demos = [cfg for cfg in configs if "demo" in cfg]
+        numButtons = len(configs) + 3 - len(demos)
         # button dimensions
-        bWidth_start = 30
+        bWidth_start = 40
         bWidth_high = 10
 
         self.gametime = 0
         self.ret = 0
-        # some pretty images
-        Tkinter.Label(self, image=IMAGE.dlrLogo).grid(
-            row=0, rowspan=numButtons, column=COL_DLRLOGO)
-        Tkinter.Label(self, image=IMAGE.sumoLogo).grid(
-            row=0, rowspan=numButtons, column=COL_SUMOLOGO)
         haveOSG = "OSG" in subprocess.check_output(sumolib.checkBinary("sumo"), universal_newlines=True)
 
         # 2 button for each config (start, highscore)
-        for row, cfg in enumerate(configs):
+
+        demo = 0
+        row = 0
+        for cfg in configs:
             if "bs3" in cfg and not haveOSG:
                 continue
             category = self.category_name(cfg)
@@ -362,6 +331,11 @@ class StartDialog(Tkinter.Frame):
             button = Tkinter.Button(self, width=bWidth_start,
                                     command=lambda cfg=cfg: self.start_cfg(cfg))
             self.addButton(button, category)
+            if cfg in demos:
+                button.grid(row=numButtons - demo, column=COL_SUMOLOGO)
+                demo += 1
+                continue
+
             button.grid(row=row, column=COL_START)
 
             button = Tkinter.Button(self, width=bWidth_high,
@@ -370,11 +344,20 @@ class StartDialog(Tkinter.Frame):
                                     )  # .grid(row=row, column=COL_HIGH)
             self.addButton(button, 'high')
             button.grid(row=row, column=COL_HIGH)
+            row += 1
+
+        # some pretty images
+        Tkinter.Label(self, image=IMAGE.dlrLogo).grid(row=0, rowspan=numButtons-3, column=COL_DLRLOGO)
+        Tkinter.Label(self, image=IMAGE.sumoLogo).grid(row=0, rowspan=numButtons-3, column=COL_SUMOLOGO)
 
         # control buttons
+        r1 = Tkinter.Radiobutton(self, text='Local Highscores', value='local', variable=self.highscoreLocation)
+        r1.grid(row=numButtons-3, column=COL_DLRLOGO)
+        r2 = Tkinter.Radiobutton(self, text='Global Highscores', value='global', variable=self.highscoreLocation)
+        r2.grid(row=numButtons-2, column=COL_DLRLOGO)
         button = Tkinter.Button(self, width=bWidth_start, command=self.clear)
         self.addButton(button, 'reset')
-        button.grid(row=numButtons - 2, column=COL_START, columnspan=1)
+        button.grid(row=numButtons - 1, column=COL_DLRLOGO)
 
         # language selection
         self.langChoices = {
@@ -387,19 +370,18 @@ class StartDialog(Tkinter.Frame):
             "zh-Hant": 'chinese (traditional)',
         }
         self._langCode = langCode
-        self.langDrop = Tkinter.Listbox(self, height=3, selectmode=Tkinter.SINGLE, width=bWidth_high)
+        self.langDrop = Tkinter.Listbox(self, height=len(demos), selectmode=Tkinter.SINGLE, width=bWidth_high)
         self.langDrop.bind('<<ListboxSelect>>', self.change_language)
         self.scrollbar = Tkinter.Scrollbar(self, orient=Tkinter.VERTICAL)
         self.scrollbar.config(command=self.langDrop.yview)
         self.langDrop.config(yscrollcommand=self.scrollbar.set)
         self.updateLanguageMenu()
-        self.langDrop.grid(row=numButtons - 2, column=COL_HIGH, rowspan=3, sticky="nsew")
-        self.scrollbar.grid(row=numButtons - 2, column=COL_SUMOLOGO, rowspan=3, sticky="nsw")
+        self.langDrop.grid(row=numButtons - len(demos) + 1, column=COL_HIGH, rowspan=len(demos), sticky="nsew")
+        self.scrollbar.grid(row=numButtons - len(demos) + 1, column=COL_SUMOLOGO, rowspan=len(demos), sticky="nsw")
 
-        button = Tkinter.Button(
-            self, width=bWidth_start, command=sys.exit)
+        button = Tkinter.Button(self, width=bWidth_start, command=sys.exit)
         self.addButton(button, 'quit')
-        button.grid(row=numButtons, column=COL_START, columnspan=1)
+        button.grid(row=numButtons, column=COL_START)
 
         self.grid()
         # The following three commands are needed so the window pops
@@ -445,6 +427,37 @@ class StartDialog(Tkinter.Frame):
     def category_name(self, cfg):
         return os.path.basename(cfg)[:-8]
 
+    def loadHighscore(self, location):
+        if location == "global":
+            printDebug("try to load highscore from scoreserver...")
+            try:
+                conn = httplib.HTTPConnection(_SCORESERVER, timeout=_TIMEOUT)
+                conn.request("GET", _SCORESCRIPT + "top=" + str(_SCORES))
+                response = conn.getresponse()
+                if response.status == httplib.OK:
+                    scores = {}
+                    for line in response.read().splitlines():
+                        category, values = line.split()
+                        scores[category] = _SCORES * [("", "", -1.)]
+                        for idx, item in enumerate(values.split(':')):
+                            name, game, score = item.split(',')
+                            scores[category][idx] = (name, game, int(float(score)))
+                    printDebug("SUCCESS")
+                    return scores
+            except Exception:
+                printDebug("FAILED")
+
+        try:
+            with open(_SCOREFILE, 'rb') as sf:
+                return pickle.load(sf)
+        except Exception as e:
+            print(e)
+            pass
+        if os.path.exists(REFSCOREFILE):
+            with open(REFSCOREFILE, 'rb') as sf:
+                return pickle.load(sf)
+        return {}
+
     def clear(self):
         self.high.clear()
         if os.path.exists(REFSCOREFILE):
@@ -462,7 +475,7 @@ class StartDialog(Tkinter.Frame):
             binary = sumolib.checkBinary("sumo-gui", os.path.join(SUMO_HOME, "bin"))
         self.ret = subprocess.call(
             [binary, "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
-                '--output-prefix', "%s." % self.category, '--language', self._langCode,
+                '--output-prefix', "%s/" % self.category, '--language', self._langCode,
                 '--duration-log.statistics', '--statistic-output', 'stats.xml',
                 '--tripinfo-output.write-unfinished'], stderr=sys.stderr)
 

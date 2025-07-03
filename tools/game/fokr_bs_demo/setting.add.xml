@@ -1,0 +1,26 @@
+<viewsettings>
+    <delay value="40"/>
+    <viewport zoom="410" x="260" y="220"/>
+    <scheme name="game_cross">
+        <opengl antialiase="0" dither="0"/>
+        <vehicles vehicleMode="10" vehicleQuality="2" minVehicleSize="2.00" vehicleExaggeration="1.00" showBlinker="1"
+                  vehicleName_show="0" vehicleName_size="50.00" vehicleName_color="0.80,0.60,0.00" >
+            <colorScheme name="by waiting time" interpolated="1">
+                <entry color="green" threshold="0.00"/>
+                <entry color="yellow" threshold="20.00"/>
+                <entry color="red" threshold="40.00"/>
+            </colorScheme>
+        </vehicles>
+        <persons personMode="6" personQuality="1" showPedestrianNetwork="1" pedestrianNetworkColor="179,217,255" person_minSize="1.00" person_exaggeration="2.00" person_constantSize="0" person_constantSizeSelected="0"
+                 personName_show="0" personName_size="60.00" personName_color="0,153,204" personName_bgColor="128,0,0,0" personName_constantSize="1" personName_onlySelected="0"
+                  personValue_show="0" personValue_size="80.00" personValue_color="cyan" personValue_bgColor="128,0,0,0" personValue_constantSize="1" personValue_onlySelected="0">
+            <colorScheme name="by waiting time" interpolated="1">
+                <entry color="blue" threshold="0.00"/>
+                <entry color="cyan" threshold="20.00"/>
+                <entry color="yellow" threshold="40.00"/>
+                <entry color="red" threshold="60.00"/>
+            </colorScheme>
+        </persons>
+        <legend showSizeLegend="1"/>
+    </scheme>
+</viewsettings>

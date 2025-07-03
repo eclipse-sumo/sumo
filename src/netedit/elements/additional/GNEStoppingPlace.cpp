@@ -373,7 +373,11 @@ bool
 GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(NamespaceIDs::busStops, value);
+            if (std::find(NamespaceIDs::busStops.begin(), NamespaceIDs::busStops.end(), myTagProperty->getTag()) != NamespaceIDs::busStops.end()) {
+                return isValidAdditionalID(NamespaceIDs::busStops, value);
+            } else {
+                return isValidAdditionalID(value);
+            }
         case SUMO_ATTR_LANE:
             if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
                 return true;

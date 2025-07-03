@@ -1,8 +1,5 @@
 Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1.
-Warning: Unsafe green phase 0 in tlLogic '0', program 'freaky'. Lane '1o_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 0 in tlLogic '0', program 'freaky'. Lane '2o_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 0 in tlLogic '0', program 'freaky'. Lane '3o_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 0 in tlLogic '0', program 'freaky'. Lane '4o_0' is targeted by 4 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 0 in tlLogic '0', program 'freaky'. Lane '1o_0' is targeted by 4 'G'-links. (use 'g' instead) Overall 4 lanes in 1 phases are unsafe.
 Warning: Vehicle 'horizontal.0'; junction collision with vehicle 'vertical.0', lane=':0_13_0', gap=-1.00, time=2.50, stage=move.
 Warning: Vehicle 'horizontal.0' performs emergency stop at the end of lane ':0_13_0' because there is no connection to the next edge (decel=-11.61, offset=2.23), time=3.00.
 Warning: Vehicle 'vertical.0' performs emergency stop at the end of lane ':0_9_0' because there is no connection to the next edge (decel=-11.61, offset=1.70), time=3.00.

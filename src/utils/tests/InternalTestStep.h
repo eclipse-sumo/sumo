@@ -179,6 +179,21 @@ private:
     /// @brief process createConnection function
     void createConnection(const std::string& keyModifier) const;
 
+    /// @brief process createCrossing function
+    void createCrossing() const;
+
+    /// @brief process modifyCrossingDefaultValue function
+    void modifyCrossingDefaultValue() const;
+
+    /// @brief process modifyCrossingDefaultBoolValue function
+    void modifyCrossingDefaultBoolValue() const;
+
+    /// @brief process crossingClearEdges function
+    void crossingClearEdges() const;
+
+    /// @brief process crossingInvertEdges function
+    void crossingInvertEdges() const;
+
     /// @brief process createConnectionEdit function
     void saveConnectionEdit() const;
 
@@ -255,15 +270,18 @@ private:
     void computeJunctionsVolatileOptions();
 
     /// @brief create rectangle shape
+    void selectAdditionalChild();
+
+    /// @brief process create rectangle shape function
     void createRectangledShape();
 
-    /// @brief create squared shape
+    /// @brief process create squared shape function
     void createSquaredShape();
 
-    /// @brief create line shape
+    /// @brief process create line shape function
     void createLineShape();
 
-    /// @brief create mean data
+    /// @brief process create mean data function
     void createMeanData();
 
     /// @brief process quit function

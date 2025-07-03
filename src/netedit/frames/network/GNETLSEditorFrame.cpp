@@ -48,65 +48,45 @@
 
 FXDEFMAP(GNETLSEditorFrame::TLSJunction) TLSJunctionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_TLSJUNCTION_ID,            GNETLSEditorFrame::TLSJunction::onCmdRenameTLS),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_TLSJUNCTION_ID,            GNETLSEditorFrame::TLSJunction::onUpdTLSID),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_TLSJUNCTION_TYPE,          GNETLSEditorFrame::TLSJunction::onCmdChangeType),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_TLSJUNCTION_TYPE,          GNETLSEditorFrame::TLSJunction::onUpdTLSType),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN,    GNETLSEditorFrame::TLSJunction::onCmdToggleJoinTLS),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_TLSJUNCTION_TOGGLEJOIN,    GNETLSEditorFrame::TLSJunction::onUpdJoinTLS),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN,       GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_TLSJUNCTION_DISJOIN,       GNETLSEditorFrame::TLSJunction::onUpdDisjoinTLS),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,                      GNETLSEditorFrame::TLSJunction::onCmdAcceptJoin),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,                      GNETLSEditorFrame::TLSJunction::onCmdCancelJoin)
 };
 
-FXDEFMAP(GNETLSEditorFrame::TLSDefinition) TLSDefinitionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_CREATE,         GNETLSEditorFrame::TLSDefinition::onCmdCreate),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_DEFINITION_CREATE,         GNETLSEditorFrame::TLSDefinition::onUpdCreate),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_DELETE,         GNETLSEditorFrame::TLSDefinition::onCmdDelete),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_DEFINITION_DELETE,         GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableModified),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT,   GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT,   GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableModified),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_RESETALL,       GNETLSEditorFrame::TLSDefinition::onCmdResetAll),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_DEFINITION_RESETALL,       GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableResetAll),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM,  GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM,  GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableModified),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_SAVE,           GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_DEFINITION_SAVE,           GNETLSEditorFrame::TLSDefinition::onUpdTLSEnableModified),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_DISCARD,        GNETLSEditorFrame::TLSDefinition::onCmdDiscardChanges),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_DEFINITION_DISCARD,        GNETLSEditorFrame::TLSDefinition::onUpdTLSEnableModified),
+FXDEFMAP(GNETLSEditorFrame::TLSPrograms) TLSProgramsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_CREATE,         GNETLSEditorFrame::TLSPrograms::onCmdCreate),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_DELETE,         GNETLSEditorFrame::TLSPrograms::onCmdDelete),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT,   GNETLSEditorFrame::TLSPrograms::onCmdResetCurrentProgram),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_RESETALL,       GNETLSEditorFrame::TLSPrograms::onCmdResetAll),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM,  GNETLSEditorFrame::TLSPrograms::onCmdDefSwitchTLSProgram),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_SAVE,           GNETLSEditorFrame::TLSPrograms::onCmdSaveChanges),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_DEFINITION_DISCARD,        GNETLSEditorFrame::TLSPrograms::onCmdDiscardChanges),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSAttributes) TLSAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET,             GNETLSEditorFrame::TLSAttributes::onCmdSetOffset),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET,             GNETLSEditorFrame::TLSAttributes::onUpdOffset),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,         GNETLSEditorFrame::TLSAttributes::onCmdSetParameters),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG,   GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS,         GNETLSEditorFrame::TLSAttributes::onUpdParameters),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_ATTRIBUTES_TOGGLEDETECTOR,     GNETLSEditorFrame::TLSAttributes::onCmdToggleDetectorMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_ATTRIBUTES_TOGGLEDETECTOR,     GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSPhases) TLSPhasesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_PHASES_CLEANUP,        GNETLSEditorFrame::TLSPhases::onCmdCleanStates),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_PHASES_CLEANUP,        GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_PHASES_ADDUNUSED,      GNETLSEditorFrame::TLSPhases::onCmdAddUnusedStates),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_PHASES_ADDUNUSED,      GNETLSEditorFrame::TLSPhases::onUpdNeedsDef),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_PHASES_GROUPSTATES,    GNETLSEditorFrame::TLSPhases::onCmdGroupStates),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_PHASES_GROUPSTATES,    GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES,  GNETLSEditorFrame::TLSPhases::onCmdUngroupStates),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES,  GNETLSEditorFrame::TLSPhases::onUpdUngroupStates),
 };
 
 FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_FILE_LOADPROGRAM,  GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_FILE_LOADPROGRAM,  GNETLSEditorFrame::TLSFile::onUpdButtons),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_FILE_SAVEPROGRAM,  GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TLSFRAME_FILE_SAVEPROGRAM,  GNETLSEditorFrame::TLSFile::onUpdButtons),
 };
 
 // Object implementation
 FXIMPLEMENT(GNETLSEditorFrame::TLSJunction,     MFXGroupBoxModule,  TLSJunctionMap,     ARRAYNUMBER(TLSJunctionMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSDefinition,   MFXGroupBoxModule,  TLSDefinitionMap,   ARRAYNUMBER(TLSDefinitionMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSPrograms,     MFXGroupBoxModule,  TLSProgramsMap,     ARRAYNUMBER(TLSProgramsMap))
 FXIMPLEMENT(GNETLSEditorFrame::TLSAttributes,   MFXGroupBoxModule,  TLSAttributesMap,   ARRAYNUMBER(TLSAttributesMap))
 FXIMPLEMENT(GNETLSEditorFrame::TLSPhases,       MFXGroupBoxModule,  TLSPhasesMap,       ARRAYNUMBER(TLSPhasesMap))
 FXIMPLEMENT(GNETLSEditorFrame::TLSFile,         MFXGroupBoxModule,  TLSFileMap,         ARRAYNUMBER(TLSFileMap))
@@ -126,8 +106,8 @@ GNETLSEditorFrame::GNETLSEditorFrame(GNEViewParent* viewParent, GNEViewNet* view
     // create TLSJunction module
     myTLSJunction = new GNETLSEditorFrame::TLSJunction(this);
 
-    // create TLSDefinition module
-    myTLSDefinition = new GNETLSEditorFrame::TLSDefinition(this);
+    // create TLSPrograms module
+    myTLSPrograms = new GNETLSEditorFrame::TLSPrograms(this);
 
     // create TLSAttributes module
     myTLSAttributes = new GNETLSEditorFrame::TLSAttributes(this);
@@ -157,6 +137,24 @@ void
 GNETLSEditorFrame::frameWidthUpdated() {
     // recalc table width
     myTLSPhases->getPhaseTable()->recalcTableWidth();
+}
+
+
+void
+GNETLSEditorFrame::updateModules() {
+    if (myTLSJunction) {
+        myTLSJunction->updateTLSJunction();
+    }
+    if (myTLSPrograms) {
+        myTLSPrograms->updateTLSPrograms();
+    }
+    if (myTLSAttributes) {
+        myTLSAttributes->updateTLSAttributes();
+    }
+    if (myTLSPhases) {
+        myTLSPhases->updateTLSPhases();
+    }
+    update();
 }
 
 
@@ -192,18 +190,18 @@ GNETLSEditorFrame::editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, c
 
 bool
 GNETLSEditorFrame::isTLSSaved() {
-    if (myTLSDefinition->checkHaveModifications()) {
+    if (myTLSPrograms->checkHaveModifications()) {
         // open question box
         FXuint answer = FXMessageBox::question(this, MBOX_YES_NO_CANCEL,
                                                TL("Save TLS Changes"), "%s",
                                                TL("There are unsaved changes in the currently edited traffic light.\nDo you want to save it before changing mode?"));
         if (answer == MBOX_CLICKED_YES) { //1:yes, 2:no, 4:esc/cancel
             // save modifications
-            myTLSDefinition->onCmdSaveChanges(nullptr, 0, nullptr);
+            myTLSPrograms->onCmdSaveChanges(nullptr, 0, nullptr);
             return true;
         } else if (answer == MBOX_CLICKED_NO) {
             // cancel modifications
-            myTLSDefinition->onCmdSaveChanges(nullptr, 0, nullptr);
+            myTLSPrograms->onCmdSaveChanges(nullptr, 0, nullptr);
             return true;
         } else {
             // abort changing mode
@@ -285,8 +283,8 @@ void
 GNETLSEditorFrame::cleanup() {
     if (myTLSJunction->getCurrentJunction()) {
         myTLSJunction->getCurrentJunction()->selectTLS(false);
-        if (myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
-            for (const auto& node : myTLSDefinition->getCurrentTLSDefinition()->getNodes()) {
+        if (myTLSPrograms->getNumberOfPrograms() > 0) {
+            for (const auto& node : myTLSPrograms->getCurrentTLSPrograms()->getNodes()) {
                 myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(false);
             }
         }
@@ -301,7 +299,7 @@ GNETLSEditorFrame::cleanup() {
     // clear internal lanes
     buildInternalLanes(nullptr);
     // clean up attributes
-    myTLSDefinition->clearTLSDefinitions();
+    myTLSPrograms->clearTLSProgramss();
     // clean up attributes
     myTLSAttributes->clearTLSAttributes();
     // only clears when there are no definitions
@@ -315,9 +313,9 @@ GNETLSEditorFrame::getTLSJunction() const {
 }
 
 
-GNETLSEditorFrame::TLSDefinition*
-GNETLSEditorFrame::getTLSDefinition() const {
-    return myTLSDefinition;
+GNETLSEditorFrame::TLSPrograms*
+GNETLSEditorFrame::getTLSPrograms() const {
+    return myTLSPrograms;
 }
 
 
@@ -420,7 +418,7 @@ GNETLSEditorFrame::getPhase(const int index) {
 
 void
 GNETLSEditorFrame::handleChange(GNEInternalLane* lane) {
-    myTLSDefinition->markAsModified();
+    myTLSPrograms->markAsModified();
     // get current selected row
     const auto selectedRow = myTLSPhases->getPhaseTable()->getCurrentSelectedRow();
     if (myViewNet->changeAllPhases()) {
@@ -442,7 +440,7 @@ GNETLSEditorFrame::handleChange(GNEInternalLane* lane) {
 void
 GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector sel, void* eventData) {
     if (myEditedDef != nullptr) {
-        myTLSDefinition->markAsModified();
+        myTLSPrograms->markAsModified();
         const NBConnectionVector& links = myEditedDef->getControlledLinks();
         std::set<std::string> fromIDs;
         fromIDs.insert(lane->getMicrosimID());
@@ -499,13 +497,13 @@ GNETLSEditorFrame::controlsEdge(GNEEdge* edge) const {
 
 void
 GNETLSEditorFrame::editJunction(GNEJunction* junction) {
-    if ((myTLSJunction->getCurrentJunction() == nullptr) || (!myTLSDefinition->checkHaveModifications() && (junction != myTLSJunction->getCurrentJunction()))) {
+    if ((myTLSJunction->getCurrentJunction() == nullptr) || (!myTLSPrograms->checkHaveModifications() && (junction != myTLSJunction->getCurrentJunction()))) {
         // discard previous changes
-        myTLSDefinition->discardChanges(false);
+        myTLSPrograms->discardChanges(false);
         // set junction
         myTLSJunction->setCurrentJunction(junction);
         // init TLS definitions
-        if (myTLSDefinition->initTLSDefinitions()) {
+        if (myTLSPrograms->initTLSPrograms()) {
             // init TLSAttributes
             myTLSAttributes->initTLSAttributes();
             // begin undo-list
@@ -514,8 +512,8 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
             if (myTLSJunction->getCurrentJunction()) {
                 myTLSJunction->getCurrentJunction()->selectTLS(true);
             }
-            if (myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
-                for (NBNode* node : myTLSDefinition->getCurrentTLSDefinition()->getNodes()) {
+            if (myTLSPrograms->getNumberOfPrograms() > 0) {
+                for (NBNode* node : myTLSPrograms->getCurrentTLSPrograms()->getNodes()) {
                     myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(true);
                 }
                 // update color
@@ -525,6 +523,7 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
     } else {
         myViewNet->setStatusBarText(TL("Unsaved modifications. Abort or Save"));
     }
+    updateModules();
 }
 
 
@@ -543,7 +542,7 @@ GNETLSEditorFrame::getSteps2Time(const SUMOTime value) {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorParent) :
-    MFXGroupBoxModule(TLSEditorParent, TL("Traffic light Attributes")),
+    MFXGroupBoxModule(TLSEditorParent, TL("Traffic Light Attributes")),
     myTLSEditorParent(TLSEditorParent) {
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -556,17 +555,72 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myParametersTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS, GUIDesignTextField);
     myButtonEditParameters->disable();
     myParametersTextField->disable();
-    // create Checkable button
+    // create set detectors button (By default disabled)
     mySetDetectorsToggleButton = new MFXToggleButtonTooltip(getCollapsableFrame(),
             TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
             TL("Assign E1 detectors") + std::string("\t") + TL("Enable assign E1 mode") + std::string("\t") + TL("Assign E1 detectors to the current TLS"),
             TL("Assign E1 detectors") + std::string("\t") + TL("Disable assign E1 mode") + std::string("\t") + TL("Assign E1 detectors to the current TLS"),
             GUIIconSubSys::getIcon(GUIIcon::E1), GUIIconSubSys::getIcon(GUIIcon::E1),
             this, MID_GNE_TLSFRAME_ATTRIBUTES_TOGGLEDETECTOR, GUIDesignButton);
+    mySetDetectorsToggleButton->disable();
 }
 
 
 GNETLSEditorFrame::TLSAttributes::~TLSAttributes() {}
+
+
+void
+GNETLSEditorFrame::TLSAttributes::updateTLSAttributes() {
+    if (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() == 0) {
+        // no TLS programs, disable elements
+        myOffsetTextField->disable();
+        myButtonEditParameters->disable();
+        myParametersTextField->disable();
+        // disable E1 detector mode
+        disableE1DetectorMode();
+        mySetDetectorsToggleButton->disable();
+        // clear E1 detectors
+        if (myE1Detectors.size() > 0) {
+            myE1Detectors.clear();
+            myTLSEditorParent->getViewNet()->update();
+        }
+    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
+        // joining TLSs, disable button
+        myOffsetTextField->disable();
+        myButtonEditParameters->disable();
+        myParametersTextField->disable();
+        // disable E1 detector mode
+        disableE1DetectorMode();
+        mySetDetectorsToggleButton->disable();
+        // clear E1 detectors
+        if (myE1Detectors.size() > 0) {
+            myE1Detectors.clear();
+            myTLSEditorParent->getViewNet()->update();
+        }
+    } else if (isSetDetectorsToggleButtonEnabled()) {
+        // set detectors toggle button is enabled, disable elements
+        myOffsetTextField->disable();
+        myButtonEditParameters->disable();
+        myParametersTextField->disable();
+    } else {
+        myOffsetTextField->enable();
+        myButtonEditParameters->enable();
+        myParametersTextField->enable();
+        // disable E1 detector mode in static
+        if (myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms()->getType() == TrafficLightType::STATIC) {
+            // disable E1 detector mode
+            disableE1DetectorMode();
+            mySetDetectorsToggleButton->disable();
+            // clear E1 detectors
+            if (myE1Detectors.size() > 0) {
+                myE1Detectors.clear();
+                myTLSEditorParent->getViewNet()->update();
+            }
+        } else {
+            mySetDetectorsToggleButton->enable();
+        }
+    }
+}
 
 
 void
@@ -688,7 +742,7 @@ GNETLSEditorFrame::TLSAttributes::toggleE1DetectorSelection(const GNEAdditional*
             myTLSEditorParent->myEditedDef->unsetParameter(laneID);
             myParametersTextField->setText(myTLSEditorParent->myEditedDef->getParametersStr().c_str());
             // mark TL as modified
-            myTLSEditorParent->myTLSDefinition->markAsModified();
+            myTLSEditorParent->myTLSPrograms->markAsModified();
             return true;
         } else if (laneID == it->first) {
             // there is another E1 in the same lane, then swap
@@ -698,7 +752,7 @@ GNETLSEditorFrame::TLSAttributes::toggleE1DetectorSelection(const GNEAdditional*
             myTLSEditorParent->myEditedDef->setParameter(laneID, E1->getID());
             myParametersTextField->setText(myTLSEditorParent->myEditedDef->getParametersStr().c_str());
             // mark TL as modified
-            myTLSEditorParent->myTLSDefinition->markAsModified();
+            myTLSEditorParent->myTLSPrograms->markAsModified();
             return true;
         }
     }
@@ -707,7 +761,7 @@ GNETLSEditorFrame::TLSAttributes::toggleE1DetectorSelection(const GNEAdditional*
     myTLSEditorParent->myEditedDef->setParameter(laneID, E1->getID());
     myParametersTextField->setText(myTLSEditorParent->myEditedDef->getParametersStr().c_str());
     // mark TL as modified
-    myTLSEditorParent->myTLSDefinition->markAsModified();
+    myTLSEditorParent->myTLSPrograms->markAsModified();
     return true;
 }
 
@@ -727,31 +781,10 @@ GNETLSEditorFrame::TLSAttributes::disableE1DetectorMode() {
 long
 GNETLSEditorFrame::TLSAttributes::onCmdSetOffset(FXObject*, FXSelector, void*) {
     if (isValidOffset()) {
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         myTLSEditorParent->myEditedDef->setOffset(getOffset());
         myOffsetTextField->killFocus();
-        myTLSEditorParent->update();
-    }
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSAttributes::onUpdOffset(FXObject*, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
-        myOffsetTextField->disable();
-        // clear E1 detectors
-        if (myE1Detectors.size() > 0) {
-            myE1Detectors.clear();
-            myTLSEditorParent->getViewNet()->update();
-        }
-    } else if (isSetDetectorsToggleButtonEnabled()) {
-        myOffsetTextField->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        myOffsetTextField->disable();
-    } else {
-        myOffsetTextField->enable();
+        myTLSEditorParent->updateModules();
     }
     return 1;
 }
@@ -760,10 +793,10 @@ GNETLSEditorFrame::TLSAttributes::onUpdOffset(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::TLSAttributes::onCmdSetParameters(FXObject*, FXSelector, void*) {
     if (isValidParameters()) {
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         myTLSEditorParent->myEditedDef->setParametersStr(getParameters());
         myParametersTextField->killFocus();
-        myTLSEditorParent->update();
+        myTLSEditorParent->updateModules();
     }
     return 1;
 }
@@ -781,34 +814,10 @@ GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog(FXObject*, FXSelector, v
             setParameters(myTLSEditorParent->myEditedDef->getParametersStr());
             // only mark as modified if parameters are different
             if (getParameters() != previousParameters) {
-                myTLSEditorParent->myTLSDefinition->markAsModified();
+                myTLSEditorParent->myTLSPrograms->markAsModified();
             }
         }
-    }
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSAttributes::onUpdParameters(FXObject*, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
-        myButtonEditParameters->disable();
-        myParametersTextField->disable();
-        // clear E1 detectors
-        if (myE1Detectors.size() > 0) {
-            myE1Detectors.clear();
-            myTLSEditorParent->getViewNet()->update();
-        }
-    } else if (isSetDetectorsToggleButtonEnabled()) {
-        myButtonEditParameters->disable();
-        myParametersTextField->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        myButtonEditParameters->disable();
-        myParametersTextField->disable();
-    } else {
-        myButtonEditParameters->enable();
-        myParametersTextField->enable();
+        myTLSEditorParent->updateModules();
     }
     return 1;
 }
@@ -823,27 +832,9 @@ GNETLSEditorFrame::TLSAttributes::onCmdToggleDetectorMode(FXObject*, FXSelector,
         // restore default color
         mySetDetectorsToggleButton->setBackColor(4293980400);
     }
+    myTLSEditorParent->updateModules();
     // update view
     myTLSEditorParent->getViewNet()->update();
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSAttributes::onUpdSetDetectorMode(FXObject*, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
-        disableE1DetectorMode();
-        mySetDetectorsToggleButton->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        disableE1DetectorMode();
-        mySetDetectorsToggleButton->disable();
-    } else if (myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition()->getType() == TrafficLightType::STATIC) {
-        disableE1DetectorMode();
-        mySetDetectorsToggleButton->disable();
-    } else {
-        mySetDetectorsToggleButton->enable();
-    }
     return 1;
 }
 
@@ -861,6 +852,7 @@ GNETLSEditorFrame::TLSAttributes::updateE1Detectors() {
             myE1Detectors[parameter.first] = parameter.second;
         }
     }
+    myTLSEditorParent->updateModules();
     // update view net
     myTLSEditorParent->getViewNet()->update();
 }
@@ -879,6 +871,7 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     myJunctionIDTextField = new MFXTextFieldTooltip(junctionIDFrame,
             TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
             GUIDesignTextFieldNCol, this, 0, GUIDesignTextField);
+    // junction ID remains always disabled
     myJunctionIDTextField->disable();
     // Create frame for TLS Program ID
     FXHorizontalFrame* TLSIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -891,6 +884,11 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
     myTLSTypeComboBox = new MFXComboBoxIcon(typeFrame, GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItems,
                                             this, MID_GNE_TLSFRAME_TLSJUNCTION_TYPE, GUIDesignComboBoxAttribute);
+    // fill comboBox (only certain TL types)
+    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::STATIC).c_str());
+    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::ACTUATED).c_str());
+    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::DELAYBASED).c_str());
+    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::NEMA).c_str());
     // create frame for join buttons
     FXHorizontalFrame* joinButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     // create join states button
@@ -911,15 +909,65 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
                               GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButton);
     GUIDesigns::buildFXButton(myJoinControlButtons, TL("Cancel"), "", TL("Cancel Join."),
                               GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButton);
-    myJoinControlButtons->hide();
     // update junction description after creation
-    updateJunctionDescription();
+    refreshTLSJunction();
     // show TLS Junction
     show();
 }
 
 
 GNETLSEditorFrame::TLSJunction::~TLSJunction() {}
+
+
+void
+GNETLSEditorFrame::TLSJunction::updateTLSJunction() {
+    if ((myCurrentJunction == nullptr) ||
+        (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0)) {
+        // no TLS
+        myTLSIDTextField->setText("");
+        myTLSIDTextField->disable();
+        myTLSTypeComboBox->disable();
+        myJoinTLSToggleButton->disable();
+        myDisjoinTLSButton->disable();
+        myJoinControlButtons->hide();
+    } else {
+        // get first controled TLS
+        const auto TLS = (*myCurrentJunction->getNBNode()->getControllingTLS().begin());
+        // set text field ID
+        myTLSIDTextField->setText(TLS->getID().c_str());
+        // continue with more options
+        if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled() || 
+            myTLSEditorParent->myTLSPrograms->checkHaveModifications()) {
+            // disable if selecting selecting detectors or we modified the program
+            myTLSIDTextField->setText("");
+            myTLSIDTextField->disable();
+            myTLSTypeComboBox->disable();
+            myJoinTLSToggleButton->disable();
+            myDisjoinTLSButton->disable();
+            myJoinControlButtons->hide();
+        } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
+            // partial disable due joining
+            myTLSIDTextField->setText("");
+            myTLSIDTextField->disable();
+            myTLSTypeComboBox->disable();
+            myDisjoinTLSButton->disable();
+            // enable join TLS and show control buttons
+            myJoinTLSToggleButton->enable();
+            myJoinControlButtons->show();
+        } else {
+            // enable
+            myTLSIDTextField->enable();
+            myTLSTypeComboBox->enable();
+            myJoinTLSToggleButton->enable();
+            // disjoint button only if we have more than one TLS controlled
+            if (TLS->getNodes().size() == 1) {
+                myDisjoinTLSButton->disable();
+            } else {
+                myDisjoinTLSButton->enable();
+            }
+        }
+    }
+}
 
 
 GNEJunction*
@@ -931,64 +979,10 @@ GNETLSEditorFrame::TLSJunction::getCurrentJunction() const {
 void
 GNETLSEditorFrame::TLSJunction::setCurrentJunction(GNEJunction* junction) {
     myCurrentJunction = junction;
-    // update junction description
-    updateJunctionDescription();
+    // resfresh module
+    refreshTLSJunction();
 }
 
-
-void
-GNETLSEditorFrame::TLSJunction::updateJunctionDescription() {
-    // first reset junction label
-    myJunctionIDLabel->setText(TL("Junction ID"));
-    // clear selected junctions
-    mySelectedJunctionIDs.clear();
-    // cancel joining junction mode
-    onCmdCancelJoin(nullptr, 0, nullptr);
-    // continue depending of current junction
-    if (myCurrentJunction == nullptr) {
-        myJunctionIDTextField->setText(TL("no junction selected"));
-    } else {
-        const auto nbn = myCurrentJunction->getNBNode();
-        // update junction ID text field
-        myJunctionIDTextField->setText(nbn->getID().c_str());
-        // check if junction is controlled
-        if (nbn->getControllingTLS().size() > 0) {
-            // get all nodes controlled by this TLS
-            const auto NBNodes = (*nbn->getControllingTLS().begin())->getNodes();
-            // declare string
-            std::string nodesStr;
-            for (auto it = NBNodes.begin(); it != NBNodes.end(); it++) {
-                if (it == (NBNodes.end() - 1)) {
-                    nodesStr += (*it)->getID();
-                } else {
-                    nodesStr += (*it)->getID() + ", ";
-                }
-            }
-            // updated junction fields
-            myJunctionIDTextField->setText(nodesStr.c_str());
-            // update junction label
-            if (NBNodes.size() > 1) {
-                myJunctionIDLabel->setText(TL("Junction IDs"));
-            }
-            // update TLS ID text field
-            myTLSIDTextField->setText((*nbn->getControllingTLS().begin())->getID().c_str());
-            // fill comboBox (only certain TL types)
-            myTLSTypeComboBox->clearItems();
-            myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::STATIC).c_str());
-            myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::ACTUATED).c_str());
-            myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::DELAYBASED).c_str());
-            myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::NEMA).c_str());
-            // set TLS type
-            const int index = myTLSTypeComboBox->findItem(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
-            if (index == -1) {
-                myTLSTypeComboBox->disable();
-            } else {
-                myTLSTypeComboBox->setCurrentItem(index);
-                myTLSTypeComboBox->enable();
-            }
-        }
-    }
-}
 
 bool
 GNETLSEditorFrame::TLSJunction::isJoiningJunctions() const {
@@ -1037,7 +1031,7 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
         myTLSIDTextField->killFocus();
         myTLSEditorParent->update();
         // show all moduls
-        myTLSEditorParent->myTLSDefinition->showTLSDefinition();
+        myTLSEditorParent->myTLSPrograms->showTLSPrograms();
         myTLSEditorParent->myTLSAttributes->showTLSAttributes();
         myTLSEditorParent->myTLSPhases->showTLSPhases();
         myTLSEditorParent->myTLSFile->showTLSFile();
@@ -1045,61 +1039,33 @@ GNETLSEditorFrame::TLSJunction::onCmdRenameTLS(FXObject*, FXSelector, void*) {
         // set invalid color
         myTLSIDTextField->setTextColor(FXRGB(255, 0, 0));
         // hide moduls
-        myTLSEditorParent->myTLSDefinition->hideTLSDefinition();
+        myTLSEditorParent->myTLSPrograms->hideTLSPrograms();
         myTLSEditorParent->myTLSAttributes->hideTLSAttributes();
         myTLSEditorParent->myTLSPhases->hideTLSPhases();
         myTLSEditorParent->myTLSFile->hideTLSFile();
     } else {
         // make a copy of myCurrentJunction and current tlDef (because will be reset after calling discardChanges)
         auto junction = myCurrentJunction;
-        const auto tlDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
+        const auto tlDef = myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms();
         // restore color
         myTLSIDTextField->setTextColor(FXRGB(0, 0, 0));
         myTLSIDTextField->killFocus();
         myTLSEditorParent->update();
         // discard previous changes
-        myTLSEditorParent->myTLSDefinition->discardChanges(false);
+        myTLSEditorParent->myTLSPrograms->discardChanges(false);
         // change name using undo-List
         myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TL("rename TLS"));
         myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, tlDef, newTLID), true);
         myTLSEditorParent->getViewNet()->getUndoList()->end();
         // show all moduls
-        myTLSEditorParent->myTLSDefinition->showTLSDefinition();
+        myTLSEditorParent->myTLSPrograms->showTLSPrograms();
         myTLSEditorParent->myTLSAttributes->showTLSAttributes();
         myTLSEditorParent->myTLSPhases->showTLSPhases();
         myTLSEditorParent->myTLSFile->showTLSFile();
         // edit junction again
         myTLSEditorParent->editJunction(junction);
     }
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSJunction::onUpdTLSID(FXObject*, FXSelector, void*) {
-    if (myCurrentJunction == nullptr) {
-        // no junction, disable and clear
-        myTLSIDTextField->setText("");
-        myTLSIDTextField->disable();
-    } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
-        // no TLSs in Junctions, disable
-        myTLSIDTextField->disable();
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable button
-        myTLSIDTextField->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        myTLSIDTextField->disable();
-    } else if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
-        // current TLS modified, disable
-        myTLSIDTextField->disable();
-    } else if (isJoiningJunctions()) {
-        // joining TLSs, disable button
-        myTLSIDTextField->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        // enable
-        myTLSIDTextField->enable();
-    }
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -1124,7 +1090,7 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
         myTLSTypeComboBox->killFocus();
         myTLSEditorParent->update();
         // show all moduls
-        myTLSEditorParent->myTLSDefinition->showTLSDefinition();
+        myTLSEditorParent->myTLSPrograms->showTLSPrograms();
         myTLSEditorParent->myTLSAttributes->showTLSAttributes();
         myTLSEditorParent->myTLSPhases->showTLSPhases();
         myTLSEditorParent->myTLSFile->showTLSFile();
@@ -1132,7 +1098,7 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
         // set invalid color
         myTLSTypeComboBox->setTextColor(FXRGB(255, 0, 0));
         // hide moduls
-        myTLSEditorParent->myTLSDefinition->hideTLSDefinition();
+        myTLSEditorParent->myTLSPrograms->hideTLSPrograms();
         myTLSEditorParent->myTLSAttributes->hideTLSAttributes();
         myTLSEditorParent->myTLSPhases->hideTLSPhases();
         myTLSEditorParent->myTLSFile->hideTLSFile();
@@ -1144,47 +1110,22 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
         // make a copy of myCurrentJunction (because will be reset after calling discardChanges)
         auto junction = myCurrentJunction;
         // discard previous changes
-        myTLSEditorParent->myTLSDefinition->discardChanges(false);
+        myTLSEditorParent->myTLSPrograms->discardChanges(false);
         // change name using undo-List
         myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TL("change TLS type"));
         junction->setAttribute(SUMO_ATTR_TLTYPE, newTLType, myTLSEditorParent->getViewNet()->getUndoList());
         myTLSEditorParent->getViewNet()->getUndoList()->end();
         // show all moduls
-        myTLSEditorParent->myTLSDefinition->showTLSDefinition();
+        myTLSEditorParent->myTLSPrograms->showTLSPrograms();
         myTLSEditorParent->myTLSAttributes->showTLSAttributes();
         myTLSEditorParent->myTLSPhases->showTLSPhases();
         myTLSEditorParent->myTLSFile->showTLSFile();
         // edit junction again
         myTLSEditorParent->editJunction(junction);
     }
+    myTLSEditorParent->updateModules();
     return 1;
 
-}
-
-
-long
-GNETLSEditorFrame::TLSJunction::onUpdTLSType(FXObject*, FXSelector, void*) {
-    if (myCurrentJunction == nullptr) {
-        // no junction, disable and clear
-        myTLSTypeComboBox->clearItems();
-        myTLSTypeComboBox->disable();
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable button
-        myTLSTypeComboBox->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        myTLSTypeComboBox->disable();
-    } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
-        // no TLSs in Junctions, disable
-        myTLSTypeComboBox->disable();
-    } else if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
-        // current TLS modified, disable
-        myTLSTypeComboBox->disable();
-    } else {
-        // enable
-        myTLSTypeComboBox->enable();
-    }
-    return 1;
 }
 
 
@@ -1228,7 +1169,7 @@ GNETLSEditorFrame::TLSJunction::onCmdToggleJoinTLS(FXObject*, FXSelector, void*)
             }
         }
         // discard changes
-        myTLSEditorParent->myTLSDefinition->discardChanges(false);
+        myTLSEditorParent->myTLSPrograms->discardChanges(false);
         // begin undo list
         myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TL("join TLS"));
         // remove tl from TLNBNode
@@ -1249,30 +1190,10 @@ GNETLSEditorFrame::TLSJunction::onCmdToggleJoinTLS(FXObject*, FXSelector, void*)
         // edit junction again
         myTLSEditorParent->editJunction(currentJunction);
     }
+    myTLSEditorParent->updateModules();
     // update view
     myTLSEditorParent->getViewNet()->update();
     return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSJunction::onUpdJoinTLS(FXObject* sender, FXSelector, void*) {
-    if (myCurrentJunction == nullptr) {
-        // no junction, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
-        // current TLS modified, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
-        // no TLSs in Junctions, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        // enable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    }
 }
 
 
@@ -1290,7 +1211,7 @@ GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS(FXObject*, FXSelector, void*) {
     const auto type = resetTLJunctions.front()->getAttribute(SUMO_ATTR_TYPE);
     const auto tlType = resetTLJunctions.front()->getAttribute(SUMO_ATTR_TLTYPE);
     // discard changes
-    myTLSEditorParent->myTLSDefinition->discardChanges(false);
+    myTLSEditorParent->myTLSPrograms->discardChanges(false);
     // begin undo list
     myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TL("disjoin TLS"));
     // the disjoint tlIds will be the junction ids. Ensure that there is no name clash with the current tlId
@@ -1319,40 +1240,15 @@ GNETLSEditorFrame::TLSJunction::onCmdDisjoinTLS(FXObject*, FXSelector, void*) {
     mySelectedJunctionIDs.clear();
     // edit junction again
     myTLSEditorParent->editJunction(currentJunction);
+    myTLSEditorParent->updateModules();
     return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSJunction::onUpdDisjoinTLS(FXObject* sender, FXSelector, void*) {
-    if (myCurrentJunction == nullptr) {
-        // no junction, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSDefinition->checkHaveModifications()) {
-        // current TLS modified, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myCurrentJunction->getNBNode()->getControllingTLS().size() == 0) {
-        // no TLSs in Junctions, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if ((*myCurrentJunction->getNBNode()->getControllingTLS().begin())->getNodes().size() == 1) {
-        // TLS only control one junction, disable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        // enable
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    }
 }
 
 
 long
 GNETLSEditorFrame::TLSJunction::onCmdAcceptJoin(FXObject*, FXSelector, void*) {
     myJoinTLSToggleButton->setState(FALSE, TRUE);
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -1362,15 +1258,67 @@ GNETLSEditorFrame::TLSJunction::onCmdCancelJoin(FXObject*, FXSelector, void*) {
     // restore selected junction
     mySelectedJunctionIDs = myOriginalSelectedJunctionIDs;
     myJoinTLSToggleButton->setState(FALSE, TRUE);
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
 
+void
+GNETLSEditorFrame::TLSJunction::refreshTLSJunction() {
+    // first reset junction label
+    myJunctionIDLabel->setText(TL("Junction ID"));
+    // clear selected junctions
+    mySelectedJunctionIDs.clear();
+    // cancel joining junction mode
+    onCmdCancelJoin(nullptr, 0, nullptr);
+    // continue depending of current junction
+    if (myCurrentJunction == nullptr) {
+        myJunctionIDTextField->setText(TL("No junction selected"));
+    } else {
+        // get all TLS assigned to this node 
+        const auto &TLSs = myCurrentJunction->getNBNode()->getControllingTLS();
+        // check if junction is controlled
+        if (TLSs.size() > 0) {
+            // get first TLS
+            const auto TLS = (*TLSs.begin());
+            // update junction ID text field
+            if (TLS->getNodes().size() > 1) {
+                // declare string
+                std::string TLSNodesStr;
+                for (auto it = TLS->getNodes().begin(); it != TLS->getNodes().end(); it++) {
+                    if (it == (TLS->getNodes().end() - 1)) {
+                        TLSNodesStr += (*it)->getID();
+                    } else {
+                        TLSNodesStr += (*it)->getID() + ", ";
+                    }
+                }
+                // updated junction fields
+                myJunctionIDTextField->setText(TLSNodesStr.c_str());
+                // update junction label if we have multiple nodes
+                if (TLS->getNodes().size() > 1) {
+                    myJunctionIDLabel->setText(TL("Junction IDs"));
+                }
+                // set TLS type in comboBox
+                const int index = myTLSTypeComboBox->findItem(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
+                if (index != -1) {
+                    myTLSTypeComboBox->setCurrentItem(index, FALSE);
+                }
+            }
+        } else {
+            // update junction ID text field
+            myJunctionIDTextField->setText(myCurrentJunction->getID().c_str());
+            myTLSTypeComboBox->setCurrentItem(0, FALSE);
+        }
+    }
+    // update TLS junction
+    updateTLSJunction();
+}
+
 // ---------------------------------------------------------------------------
-// GNETLSEditorFrame::TLSDefinition - methods
+// GNETLSEditorFrame::TLSPrograms - methods
 // ---------------------------------------------------------------------------
 
-GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorParent) :
+GNETLSEditorFrame::TLSPrograms::TLSPrograms(GNETLSEditorFrame* TLSEditorParent) :
     MFXGroupBoxModule(TLSEditorParent, TL("Traffic Light Programs")),
     myTLSEditorParent(TLSEditorParent) {
     // create frame, label and comboBox for programID
@@ -1386,61 +1334,138 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     // create create tlDef button
     myCreateButton = GUIDesigns::buildFXButton(verticalFrameAuxA, TL("Create TLS"), "", TL("Create a new traffic light program."),
                      GUIIconSubSys::getIcon(GUIIcon::MODETLS), this, MID_GNE_TLSFRAME_DEFINITION_CREATE, GUIDesignButton);
+    myCreateButton->disable();
     // create delete tlDef button
-    GUIDesigns::buildFXButton(verticalFrameAuxA, TL("Delete"), "", TL("Delete a traffic light program. If all programs are deleted the junction turns into a priority junction."),
+    myDeleteButton = GUIDesigns::buildFXButton(verticalFrameAuxA, TL("Delete"), "", TL("Delete a traffic light program. If all programs are deleted the junction turns into a priority junction."),
                               GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_TLSFRAME_DEFINITION_DELETE, GUIDesignButton);
+    myDeleteButton->disable();
     // create reset current tlDef button
-    GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Reset single"), "", TL("Reset current TLS program."),
+    myResetSingleButton = GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Reset single"), "", TL("Reset current TLS program."),
                               GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT, GUIDesignButton);
+    myResetSingleButton->disable();
     // create reset all tlDefs button
-    GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Reset all"), "", TL("Reset all TLS programs."),
+    myResetAllButton = GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Reset all"), "", TL("Reset all TLS programs."),
                               GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETALL, GUIDesignButton);
+    myResetAllButton->disable();
     // create save modifications button
-    GUIDesigns::buildFXButton(verticalFrameAuxA, TL("Save"), "", TL("Save program modifications. (Enter)"),
+    mySaveButon = GUIDesigns::buildFXButton(verticalFrameAuxA, TL("Save"), "", TL("Save program modifications. (Enter)"),
                               GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_TLSFRAME_DEFINITION_SAVE, GUIDesignButton);
-    // create discard modifications buttons
-    GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Cancel"), "", TL("Discard program modifications. (Esc)"),
+    mySaveButon->disable();
+    // create cancel modifications buttons
+    myCancelButon = GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Cancel"), "", TL("Discard program modifications. (Esc)"),
                               GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_TLSFRAME_DEFINITION_DISCARD, GUIDesignButton);
+    myCancelButon->disable();
     // show GroupBox
     show();
 }
 
 
-GNETLSEditorFrame::TLSDefinition::~TLSDefinition() {}
+GNETLSEditorFrame::TLSPrograms::~TLSPrograms() {}
 
 
 void
-GNETLSEditorFrame::TLSDefinition::showTLSDefinition() {
+GNETLSEditorFrame::TLSPrograms::updateTLSPrograms() {
+    if (getNumberOfPrograms() == 0) {
+        // no TLS Programs, disable buttons except create (if we have a junction)
+        if (myTLSEditorParent->getTLSJunction()->getCurrentJunction() != nullptr) {
+            myCreateButton->enable();
+        } else {
+            myCreateButton->disable();
+        }
+        myDeleteButton->disable();
+        myResetSingleButton->disable();
+        myProgramComboBox->disable();
+        myResetAllButton->disable();
+        mySaveButon->disable();
+        myCancelButon->disable();
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
+        // selecting E1, disable buttons
+        myCreateButton->disable();
+        myDeleteButton->disable();
+        myResetSingleButton->disable();
+        myProgramComboBox->disable();
+        myResetAllButton->disable();
+        mySaveButon->disable();
+        myCancelButon->disable();
+    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
+        // joining TLSs, disable button
+        myCreateButton->disable();
+        myDeleteButton->disable();
+        myResetSingleButton->disable();
+        myProgramComboBox->disable();
+        myResetAllButton->disable();
+        mySaveButon->disable();
+        myCancelButon->disable();
+    } else if (myHaveModifications) {
+        // modifications, disable button
+        myCreateButton->disable();
+        myDeleteButton->disable();
+        myResetSingleButton->disable();
+        myProgramComboBox->disable();
+        myResetAllButton->disable();
+        // enable save and cancel buttons
+        mySaveButon->enable();
+        myCancelButon->enable();
+    } else {
+        myCreateButton->enable();
+        myDeleteButton->enable();
+        myResetSingleButton->enable();
+        myProgramComboBox->enable();
+        // disable save and cancel buttons
+        mySaveButon->disable();
+        myCancelButon->disable();
+        // check if enable reset all
+        if (getNumberOfPrograms() > 1) {
+            myResetAllButton->enable();
+        } else {
+            myResetAllButton->disable();
+        }
+    }
+    // get current junction
+    const auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
+    // update button text
+    if (currentJunction == nullptr) {
+        myCreateButton->setText(TL("Create"));
+    } else if (currentJunction->getNBNode()->isTLControlled()) {
+        myCreateButton->setText(TL("Duplicate"));
+    } else {
+        myCreateButton->setText(TL("Create"));
+    }
+}
+
+
+void
+GNETLSEditorFrame::TLSPrograms::showTLSPrograms() {
     show();
 }
 
 
 void
-GNETLSEditorFrame::TLSDefinition::hideTLSDefinition() {
+GNETLSEditorFrame::TLSPrograms::hideTLSPrograms() {
     hide();
 }
 
 
 bool
-GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
+GNETLSEditorFrame::TLSPrograms::initTLSPrograms() {
     // get current edited junction
     const auto junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     if (junction == nullptr) {
         throw ProcessError("Junction cannot be NULL");
     } else {
         // clear definitions
-        myTLSDefinitions.clear();
+        myTLSPrograms.clear();
         // obtain TLSs sorted by ID
         std::set<std::string> programIDs;
         for (const auto& TLS : junction->getNBNode()->getControllingTLS()) {
-            myTLSDefinitions.push_back(TLS);
+            myTLSPrograms.push_back(TLS);
             programIDs.insert(TLS->getProgramID());
         }
         for (const auto& programID : programIDs) {
             myProgramComboBox->appendIconItem(programID.c_str());
         }
         // check if enable TLS definitions
-        if (myTLSDefinitions.size() > 0) {
+        if (myTLSPrograms.size() > 0) {
             myProgramComboBox->enable();
             myProgramComboBox->setCurrentItem(0);
             // switch TLS Program
@@ -1452,9 +1477,9 @@ GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
 
 
 void
-GNETLSEditorFrame::TLSDefinition::clearTLSDefinitions() {
+GNETLSEditorFrame::TLSPrograms::clearTLSProgramss() {
     // clear definitions
-    myTLSDefinitions.clear();
+    myTLSPrograms.clear();
     // clear and disable myProgramComboBox
     myProgramComboBox->clearItems();
     myProgramComboBox->disable();
@@ -1462,43 +1487,38 @@ GNETLSEditorFrame::TLSDefinition::clearTLSDefinitions() {
 
 
 int
-GNETLSEditorFrame::TLSDefinition::getNumberOfPrograms() const {
+GNETLSEditorFrame::TLSPrograms::getNumberOfPrograms() const {
     return myProgramComboBox->getNumItems();
 }
 
 
-int
-GNETLSEditorFrame::TLSDefinition::getNumberOfTLSDefinitions() const {
-    return (int)myTLSDefinitions.size();
-}
-
-
 bool
-GNETLSEditorFrame::TLSDefinition::checkHaveModifications() const {
+GNETLSEditorFrame::TLSPrograms::checkHaveModifications() const {
     return myHaveModifications;
 }
 
 
 void
-GNETLSEditorFrame::TLSDefinition::markAsModified() {
+GNETLSEditorFrame::TLSPrograms::markAsModified() {
     myHaveModifications = true;
+    myTLSEditorParent->updateModules();
 }
 
 
 NBTrafficLightDefinition*
-GNETLSEditorFrame::TLSDefinition::getCurrentTLSDefinition() const {
+GNETLSEditorFrame::TLSPrograms::getCurrentTLSPrograms() const {
     // find TLS definition
-    for (const auto& TLSDefinition : myTLSDefinitions) {
-        if (TLSDefinition->getProgramID() == myProgramComboBox->getText().text()) {
-            return TLSDefinition;
+    for (const auto& TLSPrograms : myTLSPrograms) {
+        if (TLSPrograms->getProgramID() == myProgramComboBox->getText().text()) {
+            return TLSPrograms;
         }
     }
-    throw ProcessError(TL("TLSDefinition cannot be found"));
+    throw ProcessError(TL("TLSPrograms cannot be found"));
 }
 
 
 const std::string
-GNETLSEditorFrame::TLSDefinition::getCurrentTLSProgramID() const {
+GNETLSEditorFrame::TLSPrograms::getCurrentTLSProgramID() const {
     if (myProgramComboBox->getNumItems() == 0) {
         return "";
     } else {
@@ -1508,7 +1528,7 @@ GNETLSEditorFrame::TLSDefinition::getCurrentTLSProgramID() const {
 
 
 void
-GNETLSEditorFrame::TLSDefinition::discardChanges(const bool editJunctionAgain) {
+GNETLSEditorFrame::TLSPrograms::discardChanges(const bool editJunctionAgain) {
     // get junction copy
     auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     if (currentJunction != nullptr) {
@@ -1520,11 +1540,12 @@ GNETLSEditorFrame::TLSDefinition::discardChanges(const bool editJunctionAgain) {
             myTLSEditorParent->editJunction(currentJunction);
         }
     }
+    myTLSEditorParent->updateModules();
 }
 
 
 long
-GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
     // get current edited junction (needed because onCmdDiscardChanges clear junction)
     GNEJunction* currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // abort because we onCmdOk assumes we wish to save an edited definition
@@ -1568,54 +1589,19 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
     myTLSEditorParent->editJunction(currentJunction);
     // switch to the last program
     myProgramComboBox->setCurrentItem(myProgramComboBox->getNumItems() - 1, TRUE);
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
 
 long
-GNETLSEditorFrame::TLSDefinition::onUpdCreate(FXObject* sender, FXSelector, void*) {
-    // get current junction
-    const auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
-    // check conditions
-    if (currentJunction == nullptr) {
-        // no junction, disable button
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myHaveModifications) {
-        // wait for modifications, disable button
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable button
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        // enable button
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    }
-    // update button text
-    if (currentJunction == nullptr) {
-        myCreateButton->setText(TL("Create"));
-    } else if (currentJunction->getNBNode()->isTLControlled()) {
-        myCreateButton->setText(TL("Duplicate"));
-    } else {
-        myCreateButton->setText(TL("Create"));
-    }
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSDefinition::onCmdDelete(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSPrograms::onCmdDelete(FXObject*, FXSelector, void*) {
     // get current junction
     GNEJunction* currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // get current edited tlDef
-    NBTrafficLightDefinition* tlDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
+    NBTrafficLightDefinition* tlDef = myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms();
     // check if remove entire TLS or only one program
-    const bool changeJunctionType = (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 1);
+    const bool changeJunctionType = (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() == 1);
     // abort because onCmdOk assumes we wish to save an edited definition
     discardChanges(false);
     // check if change junction type
@@ -1627,15 +1613,16 @@ GNETLSEditorFrame::TLSDefinition::onCmdDelete(FXObject*, FXSelector, void*) {
         // edit junction again
         myTLSEditorParent->editJunction(currentJunction);
     }
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
 
 long
-GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSPrograms::onCmdResetCurrentProgram(FXObject*, FXSelector, void*) {
     // obtain junction and old definitions
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
-    NBTrafficLightDefinition* oldDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
+    NBTrafficLightDefinition* oldDef = myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms();
     const std::string programID = oldDef->getProgramID();
     // discard changes
     discardChanges(false);
@@ -1662,15 +1649,16 @@ GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector
     if (index != -1) {
         myProgramComboBox->setCurrentItem(index, TRUE);
     }
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
 
 long
-GNETLSEditorFrame::TLSDefinition::onCmdResetAll(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSPrograms::onCmdResetAll(FXObject*, FXSelector, void*) {
     // obtain junction and old definitions
     GNEJunction* junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
-    NBTrafficLightDefinition* oldDef = myTLSEditorParent->myTLSDefinition->getCurrentTLSDefinition();
+    NBTrafficLightDefinition* oldDef = myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms();
     // get a list of all affected nodes
     std::vector<GNEJunction*> TLSJunctions;
     for (const auto& TLSNode : oldDef->getNodes()) {
@@ -1702,18 +1690,18 @@ GNETLSEditorFrame::TLSDefinition::onCmdResetAll(FXObject*, FXSelector, void*) {
 
 
 long
-GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSPrograms::onCmdDefSwitchTLSProgram(FXObject*, FXSelector, void*) {
     // check if program is valid (user may input arbitrary text)
     bool found = false;
-    for (const auto& TLSDefinition : myTLSDefinitions) {
-        if (TLSDefinition->getProgramID() == myProgramComboBox->getText().text()) {
+    for (const auto& TLSPrograms : myTLSPrograms) {
+        if (TLSPrograms->getProgramID() == myProgramComboBox->getText().text()) {
             found = true;
             break;
         }
     }
     if (!found) {
         // reset field to a valid program
-        myProgramComboBox->setText(myTLSDefinitions.front()->getProgramID().c_str());
+        myProgramComboBox->setText(myTLSPrograms.front()->getProgramID().c_str());
     }
     switchProgram();
     return 1;
@@ -1721,71 +1709,14 @@ GNETLSEditorFrame::TLSDefinition::onCmdDefSwitchTLSProgram(FXObject*, FXSelector
 
 
 long
-GNETLSEditorFrame::TLSDefinition::onUpdTLSEnableModified(FXObject* sender, FXSelector, void*) {
-    if (getNumberOfTLSDefinitions() == 0) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable button
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myHaveModifications) {
-        // modifications, enable button
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    }
-}
-
-
-long
-GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableModified(FXObject* sender, FXSelector, void*) {
-    if (getNumberOfTLSDefinitions() == 0) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable button
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myHaveModifications) {
-        // modifications, disable button
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    }
-}
-
-
-long
-GNETLSEditorFrame::TLSDefinition::onUpdTLSDisableResetAll(FXObject* sender, FXSelector, void*) {
-    if (getNumberOfTLSDefinitions() <= 1) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable button
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myHaveModifications) {
-        // modifications, disable button
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    }
-}
-
-
-long
-GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSPrograms::onCmdSaveChanges(FXObject*, FXSelector, void*) {
     // get junction copy
     const auto currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // get current program
     const auto currentProgram = myProgramComboBox->getCurrentItem();
     // check that junction is valid
     if (currentJunction != nullptr) {
-        const auto oldDefinition = getCurrentTLSDefinition();
+        const auto oldDefinition = getCurrentTLSPrograms();
         std::vector<NBNode*> nodes = oldDefinition->getNodes();
         GNEUndoList* undoList = myTLSEditorParent->getViewNet()->getUndoList();
         for (const auto& node : nodes) {
@@ -1819,12 +1750,13 @@ GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges(FXObject*, FXSelector, void*)
         // discard changes inspecting junction again
         discardChanges(true);
     }
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
 
 long
-GNETLSEditorFrame::TLSDefinition::onCmdDiscardChanges(FXObject*, FXSelector, void*) {
+GNETLSEditorFrame::TLSPrograms::onCmdDiscardChanges(FXObject*, FXSelector, void*) {
     // discard changes inspecting junction again
     discardChanges(true);
     return 1;
@@ -1832,7 +1764,7 @@ GNETLSEditorFrame::TLSDefinition::onCmdDiscardChanges(FXObject*, FXSelector, voi
 
 
 void
-GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
+GNETLSEditorFrame::TLSPrograms::createTLS(GNEJunction* junction) {
     // get current TLS program id
     const auto currentTLS = getCurrentTLSProgramID();
     // check conditions
@@ -1877,16 +1809,14 @@ GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
 
 
 bool
-GNETLSEditorFrame::TLSDefinition::switchProgram() {
+GNETLSEditorFrame::TLSPrograms::switchProgram() {
     if (myTLSEditorParent->myTLSJunction->getCurrentJunction() == nullptr) {
         throw ProcessError("Junction cannot be NULL");
-    } else if (getNumberOfTLSDefinitions() != getNumberOfPrograms()) {
-        throw ProcessError("myProgramComboBox must have the same number of TLSDefinitions");
     } else {
         // reset save flag
         myHaveModifications = false;
         // get current definition
-        NBTrafficLightDefinition* tlDef = getCurrentTLSDefinition();
+        NBTrafficLightDefinition* tlDef = getCurrentTLSPrograms();
         // logic may not have been recomputed yet. recompute to be sure
         NBTrafficLightLogicCont& tllCont = myTLSEditorParent->getViewNet()->getNet()->getTLLogicCont();
         // compute junction
@@ -1908,7 +1838,7 @@ GNETLSEditorFrame::TLSDefinition::switchProgram() {
         } else {
             // tlDef has no valid logic (probably because id does not control any links
             discardChanges(false);
-            myTLSEditorParent->getViewNet()->setStatusBarText(TL("Traffic light does not control any links"));
+            myTLSEditorParent->getViewNet()->setStatusBarText(TL("Traffic Light does not control any links"));
             return false;
         }
     }
@@ -1930,35 +1860,84 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // left button columm
     FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, GUIDesignAuxiliarHorizontalFrame); // right button column
     // create cleanup states button
-    new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+    myCleanStatesButton = new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
                          TL("Clean States") + std::string("\t") +
                          TL("Clean unused states from all phase") + std::string("\t") +
                          TL("Clean unused states from all phase. (Not allowed for multiple programs)"),
                          nullptr, this, MID_GNE_TLSFRAME_PHASES_CLEANUP, GUIDesignButton);
+    myCleanStatesButton->disable();
     // add unused states button
-    new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+    myAddStates = new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
                          TL("Add States") + std::string("\t") +
                          TL("Extend the state vector for all phases by one entry") + std::string("\t") +
                          TL("Extend the state vector for all phases by one entry. (Unused until a connection or crossing is assigned to the new index)"),
                          nullptr, this, MID_GNE_TLSFRAME_PHASES_ADDUNUSED, GUIDesignButton);
+    myAddStates->disable();
     // group states button
-    new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+    myGroupSignalsButton = new MFXButtonTooltip(col1, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
                          TL("Group Sig.") + std::string("\t") +
                          TL("Shorten state definition by letting connections with the same signal states use the same index") + std::string("\t") +
                          TL("Shorten state definition by letting connections with the same signal states use the same index. (Not allowed for multiple programs)"),
                          nullptr, this, MID_GNE_TLSFRAME_PHASES_GROUPSTATES, GUIDesignButton);
+    myGroupSignalsButton->disable();
     // ungroup states button
-    new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+    myUngroupSignalsButton = new MFXButtonTooltip(col2, TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
                          TL("Ungroup Sig.") + std::string("\t") +
                          TL("Let every connection use a distinct index (reverse state grouping)") + std::string("\t") +
                          TL("Let every connection use a distinct index (reverse state grouping). (Not allowed for multiple programs)"),
                          nullptr, this, MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES, GUIDesignButton);
+    myUngroupSignalsButton->disable();
     // show TLSFile
     show();
 }
 
 
 GNETLSEditorFrame::TLSPhases::~TLSPhases() {
+}
+
+
+void
+GNETLSEditorFrame::TLSPhases::updateTLSPhases() {
+    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
+        // selecting E1, disable buttons
+        myPhaseTable->disable();
+        myCleanStatesButton->disable();
+        myAddStates->disable();
+        myGroupSignalsButton->disable();
+        myUngroupSignalsButton->disable();
+    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
+        // joining TLSs, disable buttons
+        myPhaseTable->disable();
+        myCleanStatesButton->disable();
+        myAddStates->disable();
+        myGroupSignalsButton->disable();
+        myUngroupSignalsButton->disable();
+        myUngroupSignalsButton->disable();
+    } else if (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() == 0) {
+        // no TLSs, disable buttons
+        myPhaseTable->disable();
+        myCleanStatesButton->disable();
+        myAddStates->disable();
+        myGroupSignalsButton->disable();
+        myUngroupSignalsButton->disable();
+    } else if (myTLSEditorParent->myEditedDef == nullptr) {
+        // no edited definition, disable buttons
+        myPhaseTable->disable();
+        myCleanStatesButton->disable();
+        myAddStates->disable();
+        myGroupSignalsButton->disable();
+        myUngroupSignalsButton->disable();
+    } else {
+        myPhaseTable->enable();
+        myCleanStatesButton->enable();
+        myAddStates->enable();
+        myGroupSignalsButton->enable();
+        if (myTLSEditorParent->myEditedDef->usingSignalGroups()) {
+            myUngroupSignalsButton->enable();
+        } else {
+            myUngroupSignalsButton->disable();
+        }
+    }
 }
 
 
@@ -1990,7 +1969,7 @@ void
 GNETLSEditorFrame::TLSPhases::initPhaseTable() {
     // first clear table
     clearPhaseTable();
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
+    if (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() > 0) {
         if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
             initStaticPhaseTable();
         } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::ACTUATED) {
@@ -2093,7 +2072,7 @@ GNETLSEditorFrame::TLSPhases::changePhaseValue(const int col, const int row, con
 void
 GNETLSEditorFrame::TLSPhases::addPhase(const int row, const char c) {
     // mark TLS as modified
-    myTLSEditorParent->myTLSDefinition->markAsModified();
+    myTLSEditorParent->myTLSPrograms->markAsModified();
     // build default phase
     const int newIndex = buildDefaultPhase(row);
     // check if override state
@@ -2119,7 +2098,7 @@ GNETLSEditorFrame::TLSPhases::addPhase(const int row, const char c) {
 void
 GNETLSEditorFrame::TLSPhases::duplicatePhase(const int row) {
     // mark TLS as modified
-    myTLSEditorParent->myTLSDefinition->markAsModified();
+    myTLSEditorParent->myTLSPrograms->markAsModified();
     // build default phase
     const int newIndex = buildDefaultPhase(row);
     // coply old phase in the new phase
@@ -2136,7 +2115,7 @@ GNETLSEditorFrame::TLSPhases::duplicatePhase(const int row) {
 void
 GNETLSEditorFrame::TLSPhases::removePhase(const int row) {
     // mark TLS ad modified
-    myTLSEditorParent->myTLSDefinition->markAsModified();
+    myTLSEditorParent->myTLSPrograms->markAsModified();
     // calculate new row
     const auto newRow = MAX2(0, (row - 1));
     // delete selected row
@@ -2153,7 +2132,7 @@ GNETLSEditorFrame::TLSPhases::removePhase(const int row) {
 void
 GNETLSEditorFrame::TLSPhases::movePhaseUp(const int row) {
     // mark TLS ad modified
-    myTLSEditorParent->myTLSDefinition->markAsModified();
+    myTLSEditorParent->myTLSPrograms->markAsModified();
     // delete selected row
     if (row == 0) {
         myTLSEditorParent->myEditedDef->getLogic()->swapfirstPhase();
@@ -2176,7 +2155,7 @@ GNETLSEditorFrame::TLSPhases::movePhaseUp(const int row) {
 void
 GNETLSEditorFrame::TLSPhases::movePhaseDown(const int row) {
     // mark TLS ad modified
-    myTLSEditorParent->myTLSDefinition->markAsModified();
+    myTLSEditorParent->myTLSPrograms->markAsModified();
     // delete selected row
     if (row == (int)myTLSEditorParent->myEditedDef->getLogic()->getPhases().size() - 1) {
         myTLSEditorParent->myEditedDef->getLogic()->swaplastPhase();
@@ -2218,57 +2197,15 @@ GNETLSEditorFrame::TLSPhases::updateTLSColoring() {
 
 
 long
-GNETLSEditorFrame::TLSPhases::onUpdNeedsDef(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable buttons
-        sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-        // also disable table
-        myPhaseTable->disable();
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-        // also disable table
-        myPhaseTable->disable();
-    } else if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
-        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
-        // also enable table
-        myPhaseTable->enable();
-    } else {
-        sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-        // also disable table
-        myPhaseTable->disable();
-    }
-    return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSPhases::onUpdNeedsDefAndPhase(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable buttons
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myPhaseTable->getNumRows() <= 1) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
-    }
-}
-
-
-long
 GNETLSEditorFrame::TLSPhases::onCmdCleanStates(FXObject*, FXSelector, void*) {
     if (myTLSEditorParent->myEditedDef->cleanupStates()) {
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
     }
     myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
     initPhaseTable();
     myPhaseTable->setFocus();
-    myTLSEditorParent->myTLSDefinition->markAsModified();
+    myTLSEditorParent->myTLSPrograms->markAsModified();
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -2276,9 +2213,10 @@ GNETLSEditorFrame::TLSPhases::onCmdCleanStates(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::TLSPhases::onCmdAddUnusedStates(FXObject*, FXSelector, void*) {
     myTLSEditorParent->myEditedDef->getLogic()->setStateLength(myTLSEditorParent->myEditedDef->getLogic()->getNumLinks() + 1);
-    myTLSEditorParent->myTLSDefinition->markAsModified();
+    myTLSEditorParent->myTLSPrograms->markAsModified();
     initPhaseTable();
     myPhaseTable->setFocus();
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -2286,10 +2224,11 @@ GNETLSEditorFrame::TLSPhases::onCmdAddUnusedStates(FXObject*, FXSelector, void*)
 long
 GNETLSEditorFrame::TLSPhases::onCmdGroupStates(FXObject*, FXSelector, void*) {
     myTLSEditorParent->myEditedDef->groupSignals();
-    myTLSEditorParent->myTLSDefinition->markAsModified();
+    myTLSEditorParent->myTLSPrograms->markAsModified();
     myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
     initPhaseTable();
     myPhaseTable->setFocus();
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -2298,47 +2237,12 @@ long
 GNETLSEditorFrame::TLSPhases::onCmdUngroupStates(FXObject*, FXSelector, void*) {
     myTLSEditorParent->myEditedDef->setParticipantsInformation();
     myTLSEditorParent->myEditedDef->ungroupSignals();
-    myTLSEditorParent->myTLSDefinition->markAsModified();
+    myTLSEditorParent->myTLSPrograms->markAsModified();
     myTLSEditorParent->buildInternalLanes(myTLSEditorParent->myEditedDef);
     initPhaseTable();
     myPhaseTable->setFocus();
+    myTLSEditorParent->updateModules();
     return 1;
-}
-
-
-long
-GNETLSEditorFrame::TLSPhases::onUpdNeedsSingleDef(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable buttons
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 1) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    }
-}
-
-
-long
-GNETLSEditorFrame::TLSPhases::onUpdUngroupStates(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable buttons
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() != 1) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myEditedDef == nullptr) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myEditedDef->usingSignalGroups()) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
-    }
 }
 
 
@@ -2596,7 +2500,7 @@ GNETLSEditorFrame::TLSPhases::setDuration(const int col, const int row, const st
         // check that duration > 0
         if (duration > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseDuration(row, duration);
-            myTLSEditorParent->myTLSDefinition->markAsModified();
+            myTLSEditorParent->myTLSPrograms->markAsModified();
             // update Cycle duration
             updateCycleDuration(col);
             return true;
@@ -2631,7 +2535,7 @@ GNETLSEditorFrame::TLSPhases::setState(const int col, const int row, const std::
     }
     // mark TLS as modified depending of value
     if (value.size() > 0) {
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         // select row
         myPhaseTable->selectRow(row);
     } else {
@@ -2656,7 +2560,7 @@ GNETLSEditorFrame::TLSPhases::setNext(const int row, const std::string& value) {
         }
         // set new next
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseNext(row, nextEdited);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else {
         return false;
@@ -2668,7 +2572,7 @@ bool
 GNETLSEditorFrame::TLSPhases::setName(const int row, const std::string& value) {
     // update name (currently no check needed)
     myTLSEditorParent->myEditedDef->getLogic()->setPhaseName(row, value);
-    myTLSEditorParent->myTLSDefinition->markAsModified();
+    myTLSEditorParent->myTLSPrograms->markAsModified();
     return true;
 }
 
@@ -2679,21 +2583,21 @@ GNETLSEditorFrame::TLSPhases::setMinDur(const int row, const std::string& value)
     if (value.empty()) {
         // set empty value
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseMinDuration(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto minDur = getSUMOTime(value);
         // check that minDur > 0
         if (minDur > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseMinDuration(row, minDur);
-            myTLSEditorParent->myTLSDefinition->markAsModified();
+            myTLSEditorParent->myTLSPrograms->markAsModified();
             return true;
         } else {
             return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseMinDuration(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else {
         return false;
@@ -2707,21 +2611,21 @@ GNETLSEditorFrame::TLSPhases::setMaxDur(const int row, const std::string& value)
     if (value.empty()) {
         // set empty value
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseMaxDuration(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto maxDur = getSUMOTime(value);
         // check that minDur > 0
         if (maxDur > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseMaxDuration(row, maxDur);
-            myTLSEditorParent->myTLSDefinition->markAsModified();
+            myTLSEditorParent->myTLSPrograms->markAsModified();
             return true;
         } else {
             return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseMaxDuration(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else {
         return false;
@@ -2735,21 +2639,21 @@ GNETLSEditorFrame::TLSPhases::setEarliestEnd(const int row, const std::string& v
     if (value.empty()) {
         // set empty value
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseEarliestEnd(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto earliestEnd = getSUMOTime(value);
         // check that earliestEnd > 0
         if (earliestEnd > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseEarliestEnd(row, earliestEnd);
-            myTLSEditorParent->myTLSDefinition->markAsModified();
+            myTLSEditorParent->myTLSPrograms->markAsModified();
             return true;
         } else {
             return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseEarliestEnd(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else {
         return false;
@@ -2763,21 +2667,21 @@ GNETLSEditorFrame::TLSPhases::setLatestEnd(const int row, const std::string& val
     if (value.empty()) {
         // set empty value
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseLatestEnd(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto latestEnd = getSUMOTime(value);
         // check that latestEnd > 0
         if (latestEnd > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseLatestEnd(row, latestEnd);
-            myTLSEditorParent->myTLSDefinition->markAsModified();
+            myTLSEditorParent->myTLSPrograms->markAsModified();
             return true;
         } else {
             return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseLatestEnd(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else {
         return false;
@@ -2791,21 +2695,21 @@ GNETLSEditorFrame::TLSPhases::setVehExt(const int row, const std::string& value)
     if (value.empty()) {
         // set empty value
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseVehExt(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto vehExt = getSUMOTime(value);
         // check that vehExt > 0
         if (vehExt > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseVehExt(row, vehExt);
-            myTLSEditorParent->myTLSDefinition->markAsModified();
+            myTLSEditorParent->myTLSPrograms->markAsModified();
             return true;
         } else {
             return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseVehExt(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else {
         return false;
@@ -2819,21 +2723,21 @@ GNETLSEditorFrame::TLSPhases::setYellow(const int row, const std::string& value)
     if (value.empty()) {
         // set empty value
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseYellow(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto yellow = getSUMOTime(value);
         // check that yellow > 0
         if (yellow > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseYellow(row, yellow);
-            myTLSEditorParent->myTLSDefinition->markAsModified();
+            myTLSEditorParent->myTLSPrograms->markAsModified();
             return true;
         } else {
             return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseYellow(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else {
         return false;
@@ -2847,21 +2751,21 @@ GNETLSEditorFrame::TLSPhases::setRed(const int row, const std::string& value) {
     if (value.empty()) {
         // set empty value
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseRed(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else if (GNEAttributeCarrier::canParse<double>(value)) {
         const auto red = getSUMOTime(value);
         // check that red > 0
         if (red > 0) {
             myTLSEditorParent->myEditedDef->getLogic()->setPhaseRed(row, red);
-            myTLSEditorParent->myTLSDefinition->markAsModified();
+            myTLSEditorParent->myTLSPrograms->markAsModified();
             return true;
         } else {
             return false;
         }
     } else if (StringUtils::prune(value).empty()) {
         myTLSEditorParent->myEditedDef->getLogic()->setPhaseRed(row, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
         return true;
     } else {
         return false;
@@ -2895,15 +2799,37 @@ GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
     myTLSEditorParent(TLSEditorParent) {
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
-    GUIDesigns::buildFXButton(buttonsFrame, TL("Load"), "", TL("Load TLS program from additional file"), GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_TLSFRAME_FILE_LOADPROGRAM, GUIDesignButton);
+    myLoadButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Load"), "", TL("Load TLS program from additional file"), GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_TLSFRAME_FILE_LOADPROGRAM, GUIDesignButton);
+    myLoadButton->disable();
     // create create tlDef button
-    GUIDesigns::buildFXButton(buttonsFrame, TL("Save"), "", TL("Save TLS program to additional file"), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_TLSFRAME_FILE_SAVEPROGRAM, GUIDesignButton);
+    mySaveButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Save"), "", TL("Save TLS program to additional file"), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_TLSFRAME_FILE_SAVEPROGRAM, GUIDesignButton);
+    mySaveButton->disable();
     // show TLSFile
     show();
 }
 
 
 GNETLSEditorFrame::TLSFile::~TLSFile() {}
+
+
+void
+GNETLSEditorFrame::TLSFile::updateTLSFile() {
+    if (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() == 0) {
+        myLoadButton->disable();
+        mySaveButton->disable();
+    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
+        // selecting E1, disable buttons
+        myLoadButton->disable();
+        mySaveButton->disable();
+    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
+        // joining TLSs, disable button
+        myLoadButton->disable();
+        mySaveButton->disable();
+    } else {
+        myLoadButton->enable();
+        mySaveButton->enable();
+    }
+}
 
 
 void
@@ -2975,8 +2901,9 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
         }
 
         myTLSEditorParent->myTLSPhases->initPhaseTable();
-        myTLSEditorParent->myTLSDefinition->markAsModified();
+        myTLSEditorParent->myTLSPrograms->markAsModified();
     }
+    myTLSEditorParent->updateModules();
     return 0;
 }
 
@@ -2996,6 +2923,7 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
         NWWriter_SUMO::writeTrafficLight(device, myTLSEditorParent->myEditedDef->getLogic());
         device.close();
     }
+    myTLSEditorParent->updateModules();
     return 1;
 }
 
@@ -3007,22 +2935,6 @@ GNETLSEditorFrame::TLSFile::writeSUMOTime(SUMOTime steps) {
         return toString(int(time));
     } else {
         return toString(time);
-    }
-}
-
-
-long
-GNETLSEditorFrame::TLSFile::onUpdButtons(FXObject* sender, FXSelector, void*) {
-    if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() == 0) {
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
-        // selecting E1, disable buttons
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else if (myTLSEditorParent->myTLSJunction->isJoiningJunctions()) {
-        // joining TLSs, disable button
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
-    } else {
-        return sender->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
     }
 }
 

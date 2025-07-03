@@ -1,22 +1,13 @@
 Warning: Ignoring child element 'route' for vehicle '2' because attribute 'route' is set.
 Warning: Missing yellow phase in tlLogic '1/1', program 't1' for tl-index 5 when switching to phase 1.
 Warning: Missing yellow phase in tlLogic '1/1', program 't1' for tl-index 0 when switching to phase 0.
-Warning: Unsafe green phase 1 in tlLogic '1/1', program 't1'. Lane '1/1to0/1_0' is targeted by 3 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic '1/1', program 't1'. Lane '1/1to1/0_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic '1/1', program 't1'. Lane '1/1to1/2_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic '1/1', program 't1'. Lane '1/1to2/1_0' is targeted by 4 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 1 in tlLogic '1/1', program 't1'. Lane '1/1to0/1_0' is targeted by 3 'G'-links. (use 'g' instead) Overall 4 lanes in 1 phases are unsafe.
 Warning: Missing yellow phase in tlLogic '2/1', program 't1' for tl-index 5 when switching to phase 1.
 Warning: Missing yellow phase in tlLogic '2/1', program 't1' for tl-index 0 when switching to phase 0.
-Warning: Unsafe green phase 1 in tlLogic '2/1', program 't1'. Lane '2/1to1/1_0' is targeted by 3 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic '2/1', program 't1'. Lane '2/1to2/0_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic '2/1', program 't1'. Lane '2/1to2/2_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic '2/1', program 't1'. Lane '2/1to3/1_0' is targeted by 4 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 1 in tlLogic '2/1', program 't1'. Lane '2/1to1/1_0' is targeted by 3 'G'-links. (use 'g' instead) Overall 4 lanes in 1 phases are unsafe.
 Warning: Missing yellow phase in tlLogic '3/1', program 't1' for tl-index 5 when switching to phase 1.
 Warning: Missing yellow phase in tlLogic '3/1', program 't1' for tl-index 0 when switching to phase 0.
-Warning: Unsafe green phase 1 in tlLogic '3/1', program 't1'. Lane '3/1to2/1_0' is targeted by 3 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic '3/1', program 't1'. Lane '3/1to3/0_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic '3/1', program 't1'. Lane '3/1to3/2_0' is targeted by 4 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic '3/1', program 't1'. Lane '3/1to4/1_0' is targeted by 4 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 1 in tlLogic '3/1', program 't1'. Lane '3/1to2/1_0' is targeted by 3 'G'-links. (use 'g' instead) Overall 4 lanes in 1 phases are unsafe.
 Warning: Teleporting vehicle '0.4'; waited too long, from edge '3/1to2/1':3, time=400.14.
 Warning: Teleporting vehicle '0.12'; waited too long, from edge '4/1to3/1':3, time=400.14.
 Warning: Teleporting vehicle '0.0'; waited too long, from edge '2/1to1/1':3 to edge '1/1to0/1':1, time=421.00.

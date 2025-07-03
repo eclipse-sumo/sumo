@@ -224,6 +224,11 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
     }
     // check direct conflict (two green links targeting the same lane)
     const int numLinks = (int)myLinks.size();
+    std::set<const MSLane*> unsafeGreen;
+    int firstUnsafePhase = -1;
+    const MSLane* firstUnsafeLane = nullptr;
+    int firstUnsafeOrigins = 0;
+    int unsafeGreenPhases = 0;
     for (int i = 0; i < (int)phases.size(); ++i) {
         std::map<const MSLane*, int, ComparatorNumericalIdLess> greenLanes;
         const std::string& state = phases[i]->getState();
@@ -238,12 +243,26 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 }
             }
         }
+        bool unsafe = false;
         for (auto item : greenLanes) {
             if (item.second > 1) {
-                WRITE_WARNINGF(TL("Unsafe green phase % in tlLogic '%', program '%'. Lane '%' is targeted by % 'G'-links. (use 'g' instead)"),
-                               i, getID(), getProgramID(), item.first->getID(), item.second);
+                if (unsafeGreenPhases == 0 && !unsafe) {
+                    firstUnsafePhase = i;
+                    firstUnsafeLane = item.first;
+                    firstUnsafeOrigins = item.second;
+                }
+                unsafe = true;
+                unsafeGreen.insert(item.first);
             }
         }
+        if (unsafe) {
+            unsafeGreenPhases++;
+        }
+    }
+    if (unsafeGreenPhases > 0) {
+        const std::string furtherAffected = unsafeGreen.size() > 1 || unsafeGreenPhases > 1 ? TLF(" Overall % lanes in % phases are unsafe.", unsafeGreen.size(), unsafeGreenPhases) : "";
+        WRITE_WARNINGF(TL("Unsafe green phase % in tlLogic '%', program '%'. Lane '%' is targeted by % 'G'-links. (use 'g' instead)%"),
+                firstUnsafePhase, getID(), getProgramID(), firstUnsafeLane->getID(), firstUnsafeOrigins, furtherAffected);
     }
 
     // check incompatible junction logic

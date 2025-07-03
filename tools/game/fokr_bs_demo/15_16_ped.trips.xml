@@ -1,0 +1,32 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow id="1695568738601786" begin="54139.416" end="62000" period="15" type="ped_pedestrian" beginPos="50.141" speedFactor="1.000">
+        <walk from="3" to="-3.22" speed="1.122"/>
+    </personFlow>
+    <personFlow id="1695569525266753" begin="54139.916" end="62000" period="15" type="ped_pedestrian" beginPos="28.956" speedFactor="1.000">
+        <walk from="-2.10" to="-1.23" speed="1.746"/>
+    </personFlow>
+    <personFlow id="1695569956950277" begin="54256.766" end="62000" period="15" type="ped_pedestrian" beginPos="16.682" speedFactor="1.000">
+        <walk from="-5.5" to="1" speed="1.713"/>
+    </personFlow>
+    <personFlow id="1695569965358162" begin="54265.316" end="62000" period="15" type="ped_pedestrian" beginPos="14.926" speedFactor="1.000">
+        <walk from="-5.5" to="-3.22" speed="1.632"/>
+    </personFlow>
+    <personFlow id="1695570467140109" begin="54270.116" end="62000" period="15" type="ped_pedestrian" beginPos="45.391" speedFactor="1.000">
+        <walk from="5" to="2" speed="1.369"/>
+    </personFlow>
+    <personFlow id="1695570662192009" begin="54324.616" end="62000" period="15" type="ped_pedestrian" beginPos="13.175" speedFactor="1.000">
+        <walk from="-1.23" to="5" speed="1.377"/>
+    </personFlow>
+    <personFlow id="1695570808136473" begin="54407.616" end="62000" period="15" type="ped_pedestrian" beginPos="50.141" speedFactor="1.000">
+        <walk from="3" to="1" speed="3.433"/>
+    </personFlow>
+    <personFlow id="1695571032993663" begin="54455.416" end="62000" period="15" type="ped_pedestrian" beginPos="17.570" speedFactor="1.000">
+        <walk from="-3.22" to="5" speed="1.000"/>
+    </personFlow>
+    <personFlow id="1695571047639927" begin="54460.066" end="62000" period="15" type="ped_pedestrian" beginPos="44.863" speedFactor="1.000">
+        <walk from="3" to="1" speed="1.466"/>
+    </personFlow>
+    <personFlow id="1695571123270424" begin="54523.866" end="62000" period="15" type="ped_pedestrian" beginPos="40.613" speedFactor="1.000">
+        <walk from="5" to="3" speed="2.487"/>
+    </personFlow>
+</routes>

@@ -1,12 +1,5 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Unsafe green phase 2 in tlLogic 'C', program '0'. Lane 'NS2_0' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 2 in tlLogic 'C', program '0'. Lane 'SN2_0' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 6 in tlLogic 'C', program '0'. Lane 'NS2_0' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 7 in tlLogic 'C', program '0'. Lane 'NS2_0' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 7 in tlLogic 'C', program '0'. Lane 'SN2_0' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 11 in tlLogic 'C', program '0'. Lane 'EW2_0' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 11 in tlLogic 'C', program '0'. Lane 'EW2_1' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 11 in tlLogic 'C', program '0'. Lane 'WE2_1' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 2 in tlLogic 'C', program '0'. Lane 'NS2_0' is targeted by 2 'G'-links. (use 'g' instead) Overall 5 lanes in 4 phases are unsafe.
 Warning: Vehicle class 'bicycle' of vType 'bicycle' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
 Error: The lane ':C_20_0' for a stop is not known in vehicle 'NE1'.
 Quitting (on error).

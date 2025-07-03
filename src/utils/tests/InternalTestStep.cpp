@@ -102,6 +102,16 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         modifyVClassDialog_Reset(overlappedTabs);
     } else if (function == "createConnection") {
         createConnection("");
+    } else if (function == "createCrossing") {
+        createCrossing();
+    } else if (function == "modifyCrossingDefaultValue") {
+        modifyCrossingDefaultValue();
+    } else if (function == "modifyCrossingDefaultBoolValue") {
+        modifyCrossingDefaultBoolValue();
+    } else if (function == "crossingClearEdges") {
+        crossingClearEdges();
+    } else if (function == "crossingInvertEdges") {
+        crossingInvertEdges();
     } else if (function == "createConnectionConflict") {
         createConnection("control");
     } else if (function == "createConnectionYield") {
@@ -156,6 +166,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         computeJunctions();
     } else if (function == "computeJunctionsVolatileOptions") {
         computeJunctionsVolatileOptions();
+    } else if (function == "selectAdditionalChild") {
+        selectAdditionalChild();
     } else if (function == "createRectangledShape") {
         createRectangledShape();
     } else if (function == "createSquaredShape") {
@@ -651,6 +663,63 @@ InternalTestStep::createConnection(const std::string& keyModifier) const {
 
 
 void
+InternalTestStep::createCrossing() const {
+    if ((myArguments.size() != 1) || !checkBoolArgument(myArguments[0])) {
+        writeError("createCrossing", 0, "<bool>");
+    } else {
+        if (getBoolArgument(myArguments[0])) {
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.createTLS.button"), 0);
+        } else {
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.create.button"), 0);
+        }
+    }
+}
+
+
+void
+InternalTestStep::modifyCrossingDefaultValue() const {
+    if ((myArguments.size() != 2) || !checkIntArgument(myArguments[0]) || !checkStringArgument(myArguments[1])) {
+        writeError("modifyCrossingDefaultValue", 0, "<int, value>");
+    } else {
+        const int tabs = getIntArgument(myArguments[0]);
+        const auto value = getStringArgument(myArguments[1]);
+        modifyStringAttribute(tabs, myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.firstField"), value);
+    }
+}
+
+
+void
+InternalTestStep::modifyCrossingDefaultBoolValue() const {
+    if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
+        writeError("modifyCrossingDefaultBoolValue", 0, "<int>");
+    } else {
+        const int tabs = getIntArgument(myArguments[0]);
+        modifyBoolAttribute(tabs, myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.firstField"));
+    }
+}
+
+
+void
+InternalTestStep::crossingClearEdges() const {
+    if (myArguments.size() != 0) {
+        writeError("crossingClearEdges", 0, "<>");
+    } else {
+        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.clearEdges"), 0);
+    }
+}
+
+
+void
+InternalTestStep::crossingInvertEdges() const {
+    if (myArguments.size() != 0) {
+        writeError("crossingInvertEdges", 0, "<>");
+    } else {
+        modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.crossing.invertEdges"), 0);
+    }
+}
+
+
+void
 InternalTestStep::saveConnectionEdit() const {
     if (myArguments.size() != 0) {
         writeError("saveConnectionEdit", 0, "<>");
@@ -890,7 +959,19 @@ InternalTestStep::saveExistentShortcut() {
     } else {
         myCategory = Category::APP;
         const auto savingType = getStringArgument(myArguments[0]);
-        if (savingType == "neteditConfig") {
+        if (savingType == "network") {
+            myMessageID = MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK;
+        } else if (savingType == "additionals") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS;
+        } else if (savingType == "demands") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS;
+        } else if (savingType == "datas") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS;
+        } else if (savingType == "meanDatas") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS;
+        } else if (savingType == "sumoConfig") {
+            myMessageID = MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG;
+        } else if (savingType == "neteditConfig") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG;
         } else {
             writeError("save", 0, "<neteditConfig>");
@@ -1238,6 +1319,33 @@ InternalTestStep::computeJunctionsVolatileOptions() {
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE;
         myModalArguments = new ModalArguments({result});
+    }
+}
+
+
+void
+InternalTestStep::selectAdditionalChild() {
+    if ((myArguments.size() != 2) ||
+            !checkIntArgument(myArguments[0]) ||
+            !checkIntArgument(myArguments[1])) {
+        writeError("selectAdditionalChild", 0, "<int, int>");
+    } else {
+        const auto tabs = getIntArgument(myArguments[0]);
+        const auto downs = getIntArgument(myArguments[1]);
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to the element
+        for (int i = 0; i < tabs; i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // jump to the element
+        for (int i = 0; i < downs; i++) {
+            buildPressKeyEvent("down", false);
+        }
+        // select additional child
+        buildPressKeyEvent("space", true);
+        // leave
+        buildPressKeyEvent("tab", true);
     }
 }
 
