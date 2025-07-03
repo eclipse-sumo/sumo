@@ -283,7 +283,7 @@ void
 GNETLSEditorFrame::cleanup() {
     if (myTLSJunction->getCurrentJunction()) {
         myTLSJunction->getCurrentJunction()->selectTLS(false);
-        if (myTLSPrograms->getNumberOfTLSPrograms() > 0) {
+        if (myTLSPrograms->getNumberOfPrograms() > 0) {
             for (const auto& node : myTLSPrograms->getCurrentTLSPrograms()->getNodes()) {
                 myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(false);
             }
@@ -512,7 +512,7 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
             if (myTLSJunction->getCurrentJunction()) {
                 myTLSJunction->getCurrentJunction()->selectTLS(true);
             }
-            if (myTLSPrograms->getNumberOfTLSPrograms() > 0) {
+            if (myTLSPrograms->getNumberOfPrograms() > 0) {
                 for (NBNode* node : myTLSPrograms->getCurrentTLSPrograms()->getNodes()) {
                     myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(node->getID())->selectTLS(true);
                 }
@@ -571,7 +571,7 @@ GNETLSEditorFrame::TLSAttributes::~TLSAttributes() {}
 
 void
 GNETLSEditorFrame::TLSAttributes::updateTLSAttributes() {
-    if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSPrograms() == 0) {
+    if (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() == 0) {
         // no TLS programs, disable elements
         myOffsetTextField->disable();
         myButtonEditParameters->disable();
@@ -1365,7 +1365,7 @@ GNETLSEditorFrame::TLSPrograms::~TLSPrograms() {}
 
 void
 GNETLSEditorFrame::TLSPrograms::updateTLSPrograms() {
-    if (getNumberOfTLSPrograms() == 0) {
+    if (getNumberOfPrograms() == 0) {
         // no TLS Programs, disable buttons except create
         myCreateButton->enable();
         myDeleteButton->disable();
@@ -1411,10 +1411,10 @@ GNETLSEditorFrame::TLSPrograms::updateTLSPrograms() {
         mySaveButon->disable();
         myCancelButon->disable();
         // check if enable reset all
-        if (getNumberOfTLSPrograms() <= 1) {
-            myResetAllButton->disable();
-        } else {
+        if (getNumberOfPrograms() > 1) {
             myResetAllButton->enable();
+        } else {
+            myResetAllButton->disable();
         }
     }
     // get current junction
@@ -1485,12 +1485,6 @@ GNETLSEditorFrame::TLSPrograms::clearTLSProgramss() {
 int
 GNETLSEditorFrame::TLSPrograms::getNumberOfPrograms() const {
     return myProgramComboBox->getNumItems();
-}
-
-
-int
-GNETLSEditorFrame::TLSPrograms::getNumberOfTLSPrograms() const {
-    return (int)myTLSPrograms.size();
 }
 
 
@@ -1602,7 +1596,7 @@ GNETLSEditorFrame::TLSPrograms::onCmdDelete(FXObject*, FXSelector, void*) {
     // get current edited tlDef
     NBTrafficLightDefinition* tlDef = myTLSEditorParent->myTLSPrograms->getCurrentTLSPrograms();
     // check if remove entire TLS or only one program
-    const bool changeJunctionType = (myTLSEditorParent->myTLSPrograms->getNumberOfTLSPrograms() == 1);
+    const bool changeJunctionType = (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() == 1);
     // abort because onCmdOk assumes we wish to save an edited definition
     discardChanges(false);
     // check if change junction type
@@ -1813,8 +1807,6 @@ bool
 GNETLSEditorFrame::TLSPrograms::switchProgram() {
     if (myTLSEditorParent->myTLSJunction->getCurrentJunction() == nullptr) {
         throw ProcessError("Junction cannot be NULL");
-    } else if (getNumberOfTLSPrograms() != getNumberOfPrograms()) {
-        throw ProcessError("myProgramComboBox must have the same number of TLSProgramss");
     } else {
         // reset save flag
         myHaveModifications = false;
@@ -1916,7 +1908,7 @@ GNETLSEditorFrame::TLSPhases::updateTLSPhases() {
         myGroupSignalsButton->disable();
         myUngroupSignalsButton->disable();
         myUngroupSignalsButton->disable();
-    } else if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSPrograms() == 0) {
+    } else if (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() == 0) {
         // no TLSs, disable buttons
         myPhaseTable->disable();
         myCleanStatesButton->disable();
@@ -1972,7 +1964,7 @@ void
 GNETLSEditorFrame::TLSPhases::initPhaseTable() {
     // first clear table
     clearPhaseTable();
-    if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSPrograms() > 0) {
+    if (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() > 0) {
         if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
             initStaticPhaseTable();
         } else if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::ACTUATED) {
@@ -2817,7 +2809,7 @@ GNETLSEditorFrame::TLSFile::~TLSFile() {}
 
 void
 GNETLSEditorFrame::TLSFile::updateTLSFile() {
-    if (myTLSEditorParent->myTLSPrograms->getNumberOfTLSPrograms() == 0) {
+    if (myTLSEditorParent->myTLSPrograms->getNumberOfPrograms() == 0) {
         myLoadButton->disable();
         mySaveButton->disable();
     } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {

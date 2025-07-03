@@ -183,9 +183,6 @@ public:
         /// @brief get number of programs
         int getNumberOfPrograms() const;
 
-        /// @brief get number of TLS definitions
-        int getNumberOfTLSPrograms() const;
-
         /// @brief check if current TLS was modified
         bool checkHaveModifications() const;
 
