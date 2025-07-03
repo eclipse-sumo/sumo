@@ -82,7 +82,7 @@ class ParquetFormatter : public OutputFormatter {
 public:
     /// @brief Constructor
     // for some motivation on the default batch size see https://stackoverflow.com/questions/76782018/what-is-actually-meant-when-referring-to-parquet-row-group-size
-    ParquetFormatter(const int batchSize = 1000000);
+    ParquetFormatter(const std::string& columnNames, const std::string& compression = "", const int batchSize = 1000000);
 
     /// @brief Destructor
     virtual ~ParquetFormatter() { }
@@ -160,12 +160,18 @@ public:
 
 private:
     inline const std::string getAttrString(const std::string& attrString) {
-        for (const auto& field : mySchema->fields()) {
-            if (field->name() == attrString) {
-                return myCurrentTag + "_" + attrString;
-            }
+        if (myHeaderFormat == "plain") {
+            return attrString;
         }
-        return attrString;
+        if (myHeaderFormat == "auto") {
+            for (const auto& field : mySchema->fields()) {
+                if (field->name() == attrString) {
+                    return myCurrentTag + "_" + attrString;
+                }
+            }
+            return attrString;
+        }
+        return myCurrentTag + "_" + attrString;
     }
 
     inline void checkAttr(const SumoXMLAttr attr) {
@@ -177,11 +183,17 @@ private:
         }
     }
 
-    /// @brief the currently read tag (only valid when generating the header)
-    std::string myCurrentTag;
+    /// @brief the format to use for the column names
+    const std::string myHeaderFormat;
+
+    /// @brief the compression to use
+    parquet::Compression::type myCompression = parquet::Compression::UNCOMPRESSED;
 
     /// @brief the number of rows to write per batch
     const int myBatchSize;
+
+    /// @brief the currently read tag (only valid when generating the header)
+    std::string myCurrentTag;
 
     /// @brief the table schema
     std::shared_ptr<arrow::Schema> mySchema = arrow::schema({});

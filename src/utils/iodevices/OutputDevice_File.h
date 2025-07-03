@@ -39,11 +39,10 @@ class OutputDevice_File : public OutputDevice {
 public:
     /** @brief Constructor
      * @param[in] fullName The name of the output file to use
-     * @param[in] compressed whether to apply gzip compression
+     * @param[in] binary whether the output steam needs to be opened in binary mode
      * @exception IOError Should not be thrown by this implementation
      */
-    OutputDevice_File(const std::string& fullName, const bool compressed = false);
-
+    OutputDevice_File(const std::string& fullName, const bool binary = false);
 
     /// @brief Destructor
     ~OutputDevice_File();
@@ -54,7 +53,6 @@ public:
     bool isNull() override {
         return myAmNull;
     }
-
 
 protected:
     /// @name Methods that override/implement OutputDevice-methods
@@ -67,7 +65,6 @@ protected:
         return *myFileStream;
     }
     /// @}
-
 
 private:
     /// The wrapped ofstream

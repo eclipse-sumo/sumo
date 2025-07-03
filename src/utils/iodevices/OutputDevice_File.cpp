@@ -35,7 +35,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool compressed)
+OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool binary)
     : OutputDevice(0, fullName) {
     if (fullName == "/dev/null") {
         myAmNull = true;
@@ -50,8 +50,11 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
     }
     const std::string& localName = StringUtils::transcodeToLocal(fullName);
     std::ios_base::openmode mode = std::ios_base::out;
+    if (binary) {
+        mode |= std::ios_base::binary;
+    }
 #ifdef HAVE_ZLIB
-    if (compressed) {
+    if (fullName.length() > 3 && fullName.substr(fullName.length() - 3) == ".gz") {
         try {
             myFileStream = new zstr::ofstream(localName.c_str(), mode);
         } catch (strict_fstream::Exception& e) {
@@ -62,12 +65,6 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
     }
 #else
     UNUSED_PARAMETER(compressed);
-#endif
-#ifdef HAVE_PARQUET
-    if (localName.length() > 8 && localName.substr(localName.length() - 8) == ".parquet") {
-        setFormatter(new ParquetFormatter());
-        mode |= std::ios_base::binary;
-    }
 #endif
     if (myFileStream == nullptr) {
         myFileStream = new std::ofstream(localName.c_str(), mode);

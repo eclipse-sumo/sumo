@@ -1143,7 +1143,7 @@ MSNet::writeOutput() {
             std::string output = OptionsCont::getOptions().getString("vtk-output");
             std::string filename = output + "_" + timestep + ".vtp";
 
-            OutputDevice_File dev(filename, false);
+            OutputDevice_File dev(filename);
 
             //build a huge mass of xml files
             MSVTKExport::write(dev, myStep);

@@ -29,8 +29,19 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-ParquetFormatter::ParquetFormatter(const int batchSize)
-    : OutputFormatter(OutputFormatterType::PARQUET), myBatchSize(batchSize) { }
+ParquetFormatter::ParquetFormatter(const std::string& columnNames, const std::string& compression, const int batchSize)
+    : OutputFormatter(OutputFormatterType::PARQUET), myHeaderFormat(columnNames), myBatchSize(batchSize) {
+    if (compression == "snappy") {
+        myCompression = parquet::Compression::SNAPPY;
+    } else if (compression == "gzip") {
+        myCompression = parquet::Compression::GZIP;
+    } else if (compression == "brotli") {
+        myCompression = parquet::Compression::BROTLI;
+    } else if (compression == "zstd") {
+        myCompression = parquet::Compression::ZSTD;
+    }
+}
+
 void
 ParquetFormatter::openTag(std::ostream& /* into */, const std::string& xmlElement) {
     myXMLStack.push_back(myValues.size());
@@ -57,7 +68,8 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
     }
     if (myMaxDepth == (int)myXMLStack.size() && !myWroteHeader) {
         auto arrow_stream = std::make_shared<ArrowOStreamWrapper>(into);
-        myParquetWriter = *parquet::arrow::FileWriter::Open(*mySchema, arrow::default_memory_pool(), arrow_stream);
+        std::shared_ptr<parquet::WriterProperties> props = parquet::WriterProperties::Builder().compression(myCompression)->build();
+        myParquetWriter = *parquet::arrow::FileWriter::Open(*mySchema, arrow::default_memory_pool(), arrow_stream, props);
         myWroteHeader = true;
     }
     bool writeBatch = false;

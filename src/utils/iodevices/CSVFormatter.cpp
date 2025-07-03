@@ -27,8 +27,11 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-CSVFormatter::CSVFormatter(const char separator)
-    : OutputFormatter(OutputFormatterType::CSV), mySeparator(separator) {
+CSVFormatter::CSVFormatter(const std::string& columnNames, const char separator)
+    : OutputFormatter(OutputFormatterType::CSV), myHeaderFormat(columnNames), mySeparator(separator) {
+    if (myHeaderFormat == "none") {
+        myWroteHeader = true;
+    }
 }
 
 
