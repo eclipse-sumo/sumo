@@ -182,7 +182,7 @@ MSLCM_LC2013::wantsChange(
     }
 #endif
 
-    const int result = _wantsChange(laneOffset, msgPass, blocked, leader, follower, neighLead, neighFollow, neighLane, preb, lastBlocked, firstBlocked);
+    const int result = _wantsChange(laneOffset, msgPass, blocked, leader, follower, neighLead, neighFollow, neighLane, preb, *lastBlocked, *firstBlocked);
 
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
@@ -1110,8 +1110,8 @@ MSLCM_LC2013::_wantsChange(
     const std::pair<MSVehicle*, double>& neighFollow,
     const MSLane& neighLane,
     const std::vector<MSVehicle::LaneQ>& preb,
-    MSVehicle** lastBlocked,
-    MSVehicle** firstBlocked) {
+    MSVehicle* lastBlocked,
+    MSVehicle* firstBlocked) {
     assert(laneOffset == 1 || laneOffset == -1);
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     // compute bestLaneOffset
@@ -1211,8 +1211,8 @@ MSLCM_LC2013::_wantsChange(
                   << " veh=" << myVehicle.getID()
                   << " _wantsChange state=" << myOwnState
                   << " myLCAccelerationAdvices=" << toString(myLCAccelerationAdvices)
-                  << " firstBlocked=" << Named::getIDSecure(*firstBlocked)
-                  << " lastBlocked=" << Named::getIDSecure(*lastBlocked)
+                  << " firstBlocked=" << Named::getIDSecure(firstBlocked)
+                  << " lastBlocked=" << Named::getIDSecure(lastBlocked)
                   << " leader=" << Named::getIDSecure(leader.first)
                   << " leaderGap=" << leader.second
                   << " follower=" << Named::getIDSecure(follower.first)
@@ -1500,8 +1500,8 @@ MSLCM_LC2013::_wantsChange(
         //   if there is a leader and he wants to change to the opposite direction
         const bool canContinue = curr.bestContinuations.size() > 1;
         bool canReserve = MSLCHelper::updateBlockerLength(myVehicle, neighLead.first, lcaCounter, myLeftSpace - MAGIC_OFFSET, canContinue, myLeadingBlockerLength);
-        if (*firstBlocked != neighLead.first) {
-            canReserve &= MSLCHelper::updateBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace - MAGIC_OFFSET, canContinue, myLeadingBlockerLength);
+        if (firstBlocked != neighLead.first) {
+            canReserve &= MSLCHelper::updateBlockerLength(myVehicle, firstBlocked, lcaCounter, myLeftSpace - MAGIC_OFFSET, canContinue, myLeadingBlockerLength);
         }
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
         if (DEBUG_COND) {
@@ -1985,15 +1985,15 @@ MSLCM_LC2013::anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderD
 
 
 int
-MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
+MSLCM_LC2013::slowDownForBlocked(MSVehicle* blocked, int state) {
     //  if this vehicle is blocking someone in front, we maybe decelerate to let him in
-    if ((*blocked) != nullptr) {
-        double gap = (*blocked)->getPositionOnLane() - (*blocked)->getVehicleType().getLength() - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
+    if (blocked != nullptr) {
+        double gap = blocked->getPositionOnLane() - blocked->getVehicleType().getLength() - myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getMinGap();
 #ifdef DEBUG_SLOW_DOWN
         if (DEBUG_COND) {
             std::cout << SIMTIME
                       << " veh=" << myVehicle.getID()
-                      << " blocked=" << Named::getIDSecure(*blocked)
+                      << " blocked=" << Named::getIDSecure(blocked)
                       << " gap=" << gap
                       << "\n";
         }
@@ -2005,15 +2005,15 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
             if (myVehicle.getSpeed() < myVehicle.getCarFollowModel().getMaxDecel()
                     //|| blockedWantsUrgentRight  // VARIANT_10 (helpblockedRight)
                ) {
-                if ((*blocked)->getSpeed() < SUMO_const_haltingSpeed) {
+                if (blocked->getSpeed() < SUMO_const_haltingSpeed) {
                     state |= LCA_AMBACKBLOCKER_STANDING;
                 } else {
                     state |= LCA_AMBACKBLOCKER;
                 }
                 addLCSpeedAdvice(getCarFollowModel().followSpeed(
                                      &myVehicle, myVehicle.getSpeed(),
-                                     gap - POSITION_EPS, (*blocked)->getSpeed(),
-                                     (*blocked)->getCarFollowModel().getMaxDecel()), false);
+                                     gap - POSITION_EPS, blocked->getSpeed(),
+                                     blocked->getCarFollowModel().getMaxDecel()), false);
 
                 //(*blocked) = 0; // VARIANT_14 (furtherBlock)
 #ifdef DEBUG_SLOW_DOWN
@@ -2021,7 +2021,7 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
                     std::cout << SIMTIME
                               << " veh=" << myVehicle.getID()
                               << " slowing down for"
-                              << " blocked=" << Named::getIDSecure(*blocked)
+                              << " blocked=" << Named::getIDSecure(blocked)
                               << " helpSpeed=" << myLCAccelerationAdvices.back().first
                               << "\n";
                 }

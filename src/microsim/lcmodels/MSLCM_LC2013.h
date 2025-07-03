@@ -131,8 +131,8 @@ protected:
         const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
         const std::vector<MSVehicle::LaneQ>& preb,
-        MSVehicle** lastBlocked,
-        MSVehicle** firstBlocked);
+        MSVehicle* lastBlocked,
+        MSVehicle* firstBlocked);
 
     /* @brief decide whether we will overtake or follow a blocking leader
      * and inform it accordingly
@@ -163,7 +163,7 @@ protected:
     static double overtakeDistance(const MSVehicle* follower, const MSVehicle* leader, const double gap, double followerSpeed = INVALID_SPEED, double leaderSpeed = INVALID_SPEED);
 
     /// @brief compute useful slowdowns for blocked vehicles
-    int slowDownForBlocked(MSVehicle** blocked, int state);
+    int slowDownForBlocked(MSVehicle* blocked, int state);
 
     /// @brief anticipate future follow speed for the given leader
     double anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderDist, double dist, double vMax, bool acceleratingLeader);
