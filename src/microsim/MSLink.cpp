@@ -210,7 +210,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 //#endif
     myIndex = index;
     myHasFoes = hasFoes;
-    myAmCont = isCont;
+    myAmCont = isCont && MSGlobals::gUsingInternalLanes;
     myFoeLinks = foeLinks;
     for (MSLane* foeLane : foeLanes) {
         // cannot assign vector due to const-ness
