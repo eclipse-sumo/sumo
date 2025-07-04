@@ -35,13 +35,13 @@ netedit.changeMode("type")
 netedit.modifyAttribute(netedit.attrs.type.editDefault.minGap, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.minGap + 1, "dummyMinGap")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.minGap, "dummyMinGap")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.minGap + 1, "-30")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.minGap, "-30")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.minGap + 1, "20.5")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.minGap, "20.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

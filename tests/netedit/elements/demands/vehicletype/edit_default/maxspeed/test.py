@@ -35,13 +35,13 @@ netedit.changeMode("type")
 netedit.modifyAttribute(netedit.attrs.type.editDefault.maxSpeed, "")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.maxSpeed + 1, "dummyMaxSpeed")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.maxSpeed, "dummyMaxSpeed")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.maxSpeed + 1, "-30")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.maxSpeed, "-30")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.maxSpeed + 1, "20.5")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.maxSpeed, "20.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

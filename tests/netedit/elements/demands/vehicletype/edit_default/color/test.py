@@ -35,16 +35,16 @@ netedit.changeMode("type")
 netedit.modifyColorAttribute(netedit.attrs.type.editDefault.colorButton)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.color + 1, "")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.color, "")
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.color + 1, "dummyColor")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.color, "dummyColor")
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.color + 1, "cyan")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.color, "cyan")
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.color + 1, "12,13,14")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.color, "12,13,14")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

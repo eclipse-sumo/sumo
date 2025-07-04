@@ -44,7 +44,10 @@ netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "-30")
 netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "20.5")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "0.52")
+netedit.modifyAttribute(netedit.attrs.type.editDefault.sigma, "0.15")
+
+# change value
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.sigma, "0.52")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

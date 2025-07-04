@@ -2109,7 +2109,47 @@ class attrs:
             dialog = 24
 
         class edit:
-            id = 8
+            id = 9
+            vClass = 10
+            colorButton = 12
+            color = 13
+            length = 14
+            minGap = 15
+            maxSpeed = 16
+            desiredMaxSpeed = 17
+            parkingBadges = 18
+            accel = 19
+            decel = 20
+            sigma = 21
+            tau = 22
+            parameters = 24
+            parametersButton = 25
+            routeFileButton = 27
+            routeFile = 28
+            helpDialog = 29
+            reset = 30
+
+        class editDefault:
+            vClass = 8
+            colorButton = 10
+            color = 11
+            length = 12
+            minGap = 13
+            maxSpeed = 14
+            desiredMaxSpeed = 15
+            parkingBadges = 16
+            accel = 17
+            decel = 18
+            sigma = 19
+            tau = 20
+            parameters = 24
+            parametersButton = 25
+            routeFileButton = 27
+            routeFile = 28
+            helpDialog = 29
+            reset = 30
+
+        class editDefaultModified:
             vClass = 9
             colorButton = 11
             color = 12
@@ -2122,33 +2162,12 @@ class attrs:
             decel = 19
             sigma = 20
             tau = 21
-            parameters = 23
-            parametersButton = 24
-            routeFileButton = 26
-            routeFile = 27
-            helpDialog = 28
-            reset = 29
-
-        class editDefault:
-            vClass = 7
-            vClassEdited = 8
-            colorButton = 9
-            color = 10
-            length = 11
-            minGap = 12
-            maxSpeed = 13
-            desiredMaxSpeed = 14
-            parkingBadges = 15
-            accel = 16
-            decel = 17
-            sigma = 18
-            tau = 19
-            parameters = 21
-            parametersButton = 22
-            routeFileButton = 24
-            routeFile = 25
-            helpDialog = 26
-            reset = 27
+            parameters = 25
+            parametersButton = 26
+            routeFileButton = 28
+            routeFile = 29
+            helpDialog = 30
+            reset = 31
 
         class editDialog:
             vClass = 1

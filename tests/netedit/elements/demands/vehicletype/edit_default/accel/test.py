@@ -41,7 +41,7 @@ netedit.modifyAttribute(netedit.attrs.type.editDefault.accel, "dummyAcel")
 netedit.modifyAttribute(netedit.attrs.type.editDefault.accel, "-30")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.accel + 1, "20.5")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.accel, "20.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

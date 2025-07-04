@@ -41,7 +41,7 @@ netedit.modifyAttribute(netedit.attrs.type.editDefault.tau, "dummyTau")
 netedit.modifyAttribute(netedit.attrs.type.editDefault.tau, "-30")
 
 # change value
-netedit.modifyAttribute(netedit.attrs.type.editDefault.tau + 1, "20.5")
+netedit.modifyAttribute(netedit.attrs.type.editDefaultModified.tau, "20.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
