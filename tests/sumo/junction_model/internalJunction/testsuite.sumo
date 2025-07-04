@@ -5,3 +5,6 @@ left_turn_width2
 
 # two left turns with internal junctions coming from the same edge merge
 left_turns_merge
+
+# see #16857
+left_turn_noInternal
