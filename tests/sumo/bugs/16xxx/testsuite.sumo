@@ -35,3 +35,6 @@ ticket16695
 # collision after emergency braking
 ticket16779
 ticket16802
+
+# invalid blockage
+ticket16858
