@@ -47,6 +47,14 @@ jobs:
         sudo apt-get install libunwind-dev  # to work around https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
         sudo apt-get install $(cat sumo/build_config/build_req_deb.txt)
 
+    - name: Installing Parquet
+      if: matrix.build_type == 'full'
+      run: |
+        wget https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+        sudo apt install -y -V ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+        sudo apt update
+        sudo apt install -y -V libarrow-dev libparquet-dev
+
     - name: Validate CITATION.cff
       if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       uses: dieghernan/cff-validator@v4
