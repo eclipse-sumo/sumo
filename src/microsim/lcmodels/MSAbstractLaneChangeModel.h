@@ -624,8 +624,11 @@ public:
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
 
-    /// reserve extra space for unseen blockers when more than one lane change is required
-    virtual double getExtraReservation(int bestLaneOffset) const; 
+    /* @brief reserve extra space for unseen blockers when more than one lane change is required
+     * @param[in] bestLaneOffset The offset to the best lane
+     * @param[in] neighExtraDist the additional distance that can be driven on the neighboring lane (after a single lane change)
+     */
+    virtual double getExtraReservation(int bestLaneOffset, double neighExtraDist = 0) const;
 
     /// @brief Check for commands issued for the vehicle via TraCI and apply the appropriate state changes
     ///        For the sublane case, this includes setting a new maneuver distance if appropriate.

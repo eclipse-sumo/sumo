@@ -1131,7 +1131,10 @@ MSAbstractLaneChangeModel::loadState(const SUMOSAXAttributes& attrs) {
 
 
 double
-MSAbstractLaneChangeModel::getExtraReservation(int bestLaneOffset) const {
+MSAbstractLaneChangeModel::getExtraReservation(int bestLaneOffset, double neighExtraDist) const {
+    if (neighExtraDist > myVehicle.getVehicleType().getLengthWithGap()) {
+        return 0;
+    }
     if (bestLaneOffset < -1) {
         return 20;
     } else if (bestLaneOffset > 1) {
