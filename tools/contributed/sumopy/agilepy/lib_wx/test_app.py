@@ -16,8 +16,8 @@
 # @author  Joerg Schweizer
 # @date    2012
 
-from ogleditor import *
-from mainframe import *
+from .ogleditor import *
+from .mainframe import *
 import os
 import sys
 
@@ -31,11 +31,11 @@ if __name__ == '__main__':
     except:
         APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
     AGILEDIR = os.path.join(APPDIR, '..')
-    print 'APPDIR,AGILEDIR', APPDIR, AGILEDIR
+    print('APPDIR,AGILEDIR', APPDIR, AGILEDIR)
     sys.path.append(AGILEDIR)
     libpaths = [AGILEDIR, os.path.join(AGILEDIR, "lib_base"), os.path.join(AGILEDIR, "lib_wx"), ]
     for libpath in libpaths:
-        print '  libpath=', libpath
+        print('  libpath=', libpath)
         lp = os.path.abspath(libpath)
         if not lp in sys.path:
             # print ' append',lp
@@ -108,15 +108,15 @@ class MyApp(wx.App):
                                            shortkey='Ctrl+s', info='save it out')
 
     def on_save(self, event):
-        print 'save it!!'
+        print('save it!!')
 
     def on_open(self, event):
         """Open a document"""
         #wildcards = CreateWildCards() + "All files (*.*)|*.*"
-        print 'open it!!'
+        print('open it!!')
 
     def on_test(self, event=None):
-        print '\non_test'
+        print('\non_test')
         vertices = np.array([
             [[0.0, 0.0, 0.0], [0.2, 0.0, 0.0]],  # 0 green
             [[0.0, 0.0, 0.0], [0.0, 0.9, 0.0]],  # 1 red
@@ -202,7 +202,7 @@ class MyApp(wx.App):
                 [[0.0, -2.0, 0.0], [-2.0, -2.0, 0.0], [-2.0, 0.0, 0.0]],  # 1 red
             ], np.object)
 
-            print '  vertices_polygon\n', vertices_poly
+            print('  vertices_polygon\n', vertices_poly)
             polygons.add_drawobjs(vertices_poly,
                                   colors_poly)
             drawing.add_drawobj(polygons)
