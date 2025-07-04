@@ -645,6 +645,9 @@ public:
         return myVehicle.getVehicleType().getPreferredLateralAlignment();
     }
 
+    /// @brief return speed for helping a vehicle that is blocked from changing
+    double getCooperativeHelpSpeed(const MSLane* lane, double distToLaneEnd) const;
+
     static const double NO_NEIGHBOR;
     static const double UNDEFINED_LOOKAHEAD;
 
@@ -793,6 +796,10 @@ protected:
     double mySigma;
     // allow overtaking right even though it is prohibited
     double myOvertakeRightParam;
+    // @brief willingness to undercut longitudinal safe gaps
+    double myAssertive;
+    // @brief brake for blocked vehicles enter after they have been waiting for the given time
+    SUMOTime myCooperativeHelpTime;
 
     /// @brief whether this vehicle is driving with special permissions and behavior
     bool myHaveBlueLight;

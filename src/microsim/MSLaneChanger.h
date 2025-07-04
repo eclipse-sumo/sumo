@@ -101,6 +101,12 @@ public:
 
         /// visibility distance to the closest zipper link that may be encountered when driving on this lane
         double zipperDist;
+
+        /// the back position of the last blocked vehicle that wants to change to this lane
+        double lastBlockedBackPos;
+
+        /// the waiting time of the last blocked vehicle that wants to change to this lane
+        SUMOTime lastBlockedWaitingTime;
         ///@}
 
     };
@@ -121,6 +127,8 @@ public:
         return myChanger;
     }
 
+    /// @brief retrieve properties of a blocked vehicle that wants to chane to the lane with the given index
+    std::pair<double, SUMOTime> getLastBlocked(int index) const;
 
 protected:
     /// Initialize the changer before looping over all vehicles.

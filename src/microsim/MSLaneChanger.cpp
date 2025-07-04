@@ -87,7 +87,10 @@ MSLaneChanger::ChangeElem::ChangeElem(MSLane* _lane) :
     lastStopped(nullptr),
     ahead(_lane->getWidth()),
     aheadNext(_lane->getWidth(), nullptr, 0.),
-    zipperDist(0) {
+    zipperDist(0),
+    lastBlockedBackPos(-1),
+    lastBlockedWaitingTime(-1)
+{
     if (lane->isInternal()) {
         for (auto ili : lane->getIncomingLanes()) {
             if (ili.viaLink->getState() == LINKSTATE_ZIPPER) {
@@ -187,6 +190,8 @@ MSLaneChanger::initChanger() {
         ce->firstBlocked = nullptr;
         ce->lastStopped = nullptr;
         ce->dens = 0;
+        ce->lastBlockedBackPos = -1;
+        ce->lastBlockedWaitingTime = -1;
         ce->lane->getVehiclesSecure();
 
         //std::cout << SIMTIME << " initChanger lane=" << ce->lane->getID() << " vehicles=" << toString(ce->lane->myVehicles) << "\n";
@@ -226,6 +231,10 @@ MSLaneChanger::updateLanes(SUMOTime t) {
         //std::cout << SIMTIME << " updateLanes lane=" << ce->lane->getID() << " myVehicles=" << toString(ce->lane->myVehicles) << " myTmpVehicles=" << toString(ce->lane->myTmpVehicles) << "\n";
         ce->lane->swapAfterLaneChange(t);
         ce->lane->releaseVehicles();
+        if (ce->lastBlocked != nullptr) {
+            ce->lastBlockedBackPos = ce->lastBlocked->getBackPositionOnLane();
+            ce->lastBlockedWaitingTime = ce->lastBlocked->getWaitingTime();
+        }
     }
 }
 
@@ -2562,6 +2571,15 @@ MSLaneChanger::getMaxOvertakingSpeed(const MSVehicle* vehicle, double maxSpaceTo
     const double d = vehicle->getCarFollowModel().getMaxDecel();
     const double v = sqrt(2 * maxSpaceToOvertake * a * d / (a + d));
     return v;
+}
+
+
+std::pair<double, SUMOTime>
+MSLaneChanger::getLastBlocked(int index) const {
+    assert(index >= 0 && index < (int)myChanger.size());
+    return std::make_pair(
+            myChanger[index].lastBlockedBackPos,
+            myChanger[index].lastBlockedWaitingTime);
 }
 
 /****************************************************************************/

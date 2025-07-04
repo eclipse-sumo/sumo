@@ -1672,6 +1672,14 @@ MSEdge::hasTransientPermissions() const {
 }
 
 
+std::pair<double, SUMOTime>
+MSEdge::getLastBlocked(int index) const {
+    if (myLaneChanger != nullptr) {
+        return myLaneChanger->getLastBlocked(index);
+    }
+    return std::make_pair(-1, -1);
+}
+
 void
 MSEdge::clearState() {
     myPersons.clear();

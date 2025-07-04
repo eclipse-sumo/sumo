@@ -739,6 +739,9 @@ public:
         return myLaneChanger != nullptr;
     }
 
+    /// @brief retrieve properties of a blocked vehicle that wants to chane to the lane with the given index
+    std::pair<double, SUMOTime> getLastBlocked(int index) const;
+
     /// @brief whether this edge allows changing to the opposite direction edge
     bool canChangeToOpposite() const;
 

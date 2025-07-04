@@ -2495,6 +2495,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 }
             }
         }
+        // adapt to vehicles blocked from (urgent) lane-changing
+        if (!opposite && lane->getEdge().hasLaneChanger()) {
+            v = MIN2(v, myLaneChangeModel->getCooperativeHelpSpeed(lane, seen));
+        }
 
         // process all stops and waypoints on the current edge
         bool foundRealStop = false;

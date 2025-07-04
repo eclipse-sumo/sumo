@@ -228,8 +228,6 @@ protected:
     // @brief the factor by which the speedGain-threshold for the leftdiffers from the threshold for the right
     double mySpeedGainRight;
 
-    // @brief willingness to undercut longitudinal safe gaps
-    double myAssertive;
     // @brief lookahead for speedGain in seconds
     double mySpeedGainLookahead;
     // @brief the minimum time to spent driving without lane change after a speed-gain change
