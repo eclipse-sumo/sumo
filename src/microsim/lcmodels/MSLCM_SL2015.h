@@ -113,8 +113,6 @@ public:
 
     void prepareStep() override;
 
-    double getExtraReservation(int bestLaneOffset) const override;
-
     /// @brief whether the current vehicles shall be debugged
     bool debugVehicle() const override;
 

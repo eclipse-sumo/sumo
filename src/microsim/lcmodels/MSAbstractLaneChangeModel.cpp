@@ -1128,3 +1128,14 @@ MSAbstractLaneChangeModel::loadState(const SUMOSAXAttributes& attrs) {
         bis >> myLaneChangeDirection;
     }
 }
+
+
+double
+MSAbstractLaneChangeModel::getExtraReservation(int bestLaneOffset) const {
+    if (bestLaneOffset < -1) {
+        return 20;
+    } else if (bestLaneOffset > 1) {
+        return 40;
+    }
+    return 0;
+}
