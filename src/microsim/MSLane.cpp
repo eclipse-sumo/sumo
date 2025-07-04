@@ -95,7 +95,7 @@
 //#define DEBUG_COND (getID() == "undefined")
 #define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
-#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+#define DEBUG_COND2(obj) ((obj != nullptr && (obj)->isSelected()))
 //#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "ego"))
 //#define DEBUG_COND2(obj) (true)
@@ -3929,9 +3929,11 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                             // Therefore, technically v is not a follower but only an obstruction and
                             // the gap is not between the front of v and the back of ego
                             // but rather between the flank of v and the back of ego.
-                            agap = (*it).length - next->getLength() + backOffset
-                                   /// XXX dubious term. here for backwards compatibility
-                                   - v->getVehicleType().getMinGap();
+                            agap = (*it).length - next->getLength() + backOffset;
+                            if (MSGlobals::gUsingInternalLanes) {
+                                // ego should have left the intersection still occupied by v
+                                agap -= v->getVehicleType().getMinGap();
+                            }
 #ifdef DEBUG_CONTEXT
                             if (DEBUG_COND2(ego)) {
                                 std::cout << "    agap1=" << agap << "\n";
