@@ -1972,6 +1972,9 @@ GNERouteHandler::transformToTripJunctions(GNEVehicle* originalVehicle) {
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
+        // get TAZs before deleting vehicle
+        const auto fromJunction = originalVehicle->getParentJunctions().front()->getID();
+        const auto toJunction = originalVehicle->getParentJunctions().back()->getID();
         // check if transform after creation
         const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
         // declare route handler
@@ -1986,7 +1989,7 @@ GNERouteHandler::transformToTripJunctions(GNEVehicle* originalVehicle) {
         // change tag in vehicle parameters
         vehicleParameters.tag = GNE_TAG_TRIP_JUNCTIONS;
         // create trip
-        routeHandler.buildTripJunctions(nullptr, vehicleParameters, originalVehicle->getParentJunctions().front()->getID(), originalVehicle->getParentJunctions().back()->getID());
+        routeHandler.buildTripJunctions(nullptr, vehicleParameters, fromJunction, toJunction);
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
         // check if inspect
@@ -2013,6 +2016,9 @@ GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
+        // get TAZs before deleting vehicle
+        const auto fromJunction = originalVehicle->getParentJunctions().front()->getID();
+        const auto toJunction = originalVehicle->getParentJunctions().back()->getID();
         // check if transform after creation
         const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
         // declare route handler
@@ -2036,7 +2042,7 @@ GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
         // change tag in vehicle parameters
         vehicleParameters.tag = GNE_TAG_FLOW_JUNCTIONS;
         // create flow
-        routeHandler.buildFlowJunctions(nullptr, vehicleParameters, originalVehicle->getParentJunctions().front()->getID(), originalVehicle->getParentJunctions().back()->getID());
+        routeHandler.buildFlowJunctions(nullptr, vehicleParameters, fromJunction, toJunction);
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
         // check if inspect
@@ -2063,6 +2069,9 @@ GNERouteHandler::transformToTripTAZs(GNEVehicle* originalVehicle) {
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
+        // get TAZs before deleting vehicle
+        const auto fromTAZ = originalVehicle->getParentAdditionals().front()->getID();
+        const auto toTAZ = originalVehicle->getParentAdditionals().back()->getID();
         // check if transform after creation
         const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
         // declare route handler
@@ -2077,7 +2086,7 @@ GNERouteHandler::transformToTripTAZs(GNEVehicle* originalVehicle) {
         // change tag in vehicle parameters
         vehicleParameters.tag = GNE_TAG_TRIP_TAZS;
         // create trip
-        routeHandler.buildTripTAZs(nullptr, vehicleParameters, originalVehicle->getParentAdditionals().front()->getID(), originalVehicle->getParentAdditionals().back()->getID());
+        routeHandler.buildTripTAZs(nullptr, vehicleParameters, fromTAZ, toTAZ);
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
         // check if inspect
@@ -2104,6 +2113,9 @@ GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
     } else {
         // get pointer to net
         GNENet* net = originalVehicle->getNet();
+        // get TAZs before deleting vehicle
+        const auto fromTAZ = originalVehicle->getParentAdditionals().front()->getID();
+        const auto toTAZ = originalVehicle->getParentAdditionals().back()->getID();
         // check if transform after creation
         const bool inspectAfterTransform = net->getViewNet()->getInspectedElements().isACInspected(originalVehicle);
         // declare route handler
@@ -2127,7 +2139,7 @@ GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
         // change tag in vehicle parameters
         vehicleParameters.tag = GNE_TAG_FLOW_TAZS;
         // create flow
-        routeHandler.buildFlowTAZs(nullptr, vehicleParameters, originalVehicle->getParentAdditionals().front()->getID(), originalVehicle->getParentAdditionals().back()->getID());
+        routeHandler.buildFlowTAZs(nullptr, vehicleParameters, fromTAZ, toTAZ);
         // end undo-redo operation
         net->getViewNet()->getUndoList()->end();
         // check if inspect
