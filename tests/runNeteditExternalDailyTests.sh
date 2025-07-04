@@ -28,8 +28,42 @@ fi
 popd
 export NETEDIT_BINARY="$SUMO_HOME/bin/netedit"
 
-for f in $TEXTTEST_HOME/netedit/testsuite.netedit.external.daily.*; do
-  base=`basename $f`
-  texttest -a ${base:10} "$@" &
-done
+# Monday
+if [ "$(date +%u)" -eq 1 ]; then
+    for f in \
+    "$TEXTTEST_HOME/netedit/testsuite.netedit.external.daily.basic" \
+    "$TEXTTEST_HOME/netedit/testsuite.netedit.external.daily.elements.bugs" \
+    "$TEXTTEST_HOME/netedit/testsuite.netedit.external.daily.elements.datas" \
+    "$TEXTTEST_HOME/netedit/testsuite.netedit.external.daily.elements.shapes" \
+    "$TEXTTEST_HOME/netedit/testsuite.netedit.external.daily.elements.tazs"
+  do
+    base=$(basename "$f")
+    texttest -a "${base:10}" "$@" &
+  done
+fi
+
+# Tuesday
+if [ "$(date +%u)" -eq 2 ]; then
+  for f in $TEXTTEST_HOME/netedit/testsuite.netedit.external.daily.elements.network.*; do
+    base=`basename $f`
+    texttest -a ${base:10} "$@" &
+  done
+fi
+
+# Wednesday
+if [ "$(date +%u)" -eq 3 ]; then
+  for f in $TEXTTEST_HOME/netedit/testsuite.netedit.external.daily.elements.additionals.*; do
+    base=`basename $f`
+    texttest -a ${base:10} "$@" &
+  done
+fi
+
+# Thursday
+if [ "$(date +%u)" -eq 4 ]; then
+  for f in $TEXTTEST_HOME/netedit/testsuite.netedit.external.daily.demands.*; do
+    base=`basename $f`
+    texttest -a ${base:10} "$@" &
+  done
+fi
+
 wait
