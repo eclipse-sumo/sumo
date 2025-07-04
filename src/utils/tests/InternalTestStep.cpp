@@ -834,7 +834,7 @@ InternalTestStep::pressTLSPhaseButton() const {
     if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
         writeError("pressTLSPhaseButton", 0, "<int/attributeEnum>");
     } else {
-        modifyBoolAttribute(getIntArgument(myArguments[0]), 0);
+        modifyTLSTableBoolAttribute(getIntArgument(myArguments[0]));
     }
 }
 
@@ -845,6 +845,12 @@ InternalTestStep::addPhase(const int phaseTabs) const {
         writeError("addPhase", 0, "<int/attributeEnum>");
     } else {
         modifyTLSTableBoolAttribute(getIntArgument(myArguments[0]));
+        // jump to the phase
+        for (int i = 0; i < phaseTabs; i++) {
+            buildPressKeyEvent("right", false);
+        }
+        // press space to add phase
+        buildPressKeyEvent("space", true);
     }
 }
 

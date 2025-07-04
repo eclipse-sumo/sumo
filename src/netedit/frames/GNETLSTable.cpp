@@ -75,6 +75,16 @@ FXIMPLEMENT(GNETLSTable, FXHorizontalFrame, GNETLSTableMap, ARRAYNUMBER(GNETLSTa
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// GNETLSTable::Test - public methods
+// ---------------------------------------------------------------------------
+
+GNETLSTable::GNETLSTableTest::GNETLSTableTest(FXSelector sel_, const int row_, const int column_, const std::string& text_) :
+    row(row_),
+    column(column_),
+    text(text_) {
+}
+
+// ---------------------------------------------------------------------------
 // GNETLSTable - public methods
 // ---------------------------------------------------------------------------
 
@@ -275,6 +285,46 @@ GNETLSTable::setColumnLabelBot(const int column, const std::string& text) {
         myColumns.at(column)->setColumnLabelBot(text);
     } else {
         throw ProcessError(TL("Invalid column"));
+    }
+}
+
+
+long
+GNETLSTable::onInternalTest(FXObject*, FXSelector, void* ptr) {
+    // parse table test
+    GNETLSTableTest* tableTest = static_cast<GNETLSTableTest*>(ptr);
+    // obtain cell
+    if (tableTest->row > (int)myRows.size()) {
+        throw ProcessError(TL("Invalid row in table test"));
+    } else if (tableTest->column > (int)myColumns.size()) {
+        throw ProcessError(TL("Invalid column in table test"));
+    } else {
+        // get cell
+        Cell* cell = myRows.at(tableTest->row)->getCells().at(tableTest->column);
+        // continue depending of operation
+        if (tableTest->sel == MID_GNE_TLSTABLE_ADDPHASE) {
+            return onCmdAddPhase(cell->getAddPhaseButton(), 0, nullptr);
+        } else if (tableTest->sel == MID_GNE_TLSTABLE_COPYPHASE) {
+            return onCmdDuplicatePhase(cell->getDuplicatePhaseButton(), 0, nullptr);
+        } else if (tableTest->sel == MID_GNE_TLSTABLE_ADDPHASEALLRED) {
+            return onCmdAddPhaseAllRed(cell->getAddAllRedPhaseButton(), 0, nullptr);
+        } else if (tableTest->sel == MID_GNE_TLSTABLE_ADDPHASEALLYELLOW) {
+            return onCmdAddPhaseAllYellow(cell->getAddAllYellowPhaseButton(), 0, nullptr);
+        } else if (tableTest->sel == MID_GNE_TLSTABLE_ADDPHASEALLGREEN) {
+            return onCmdAddPhaseAllGreen(cell->getAddAllGreenPhaseButton(), 0, nullptr);
+        } else if (tableTest->sel == MID_GNE_TLSTABLE_ADDPHASEALLGREENPRIORITY) {
+            return onCmdAddPhaseAllGreenPriority(cell->getAddAllGreenPriorityPhaseButton(), 0, nullptr);
+        } else if (tableTest->sel == MID_GNE_TLSTABLE_REMOVEPHASE) {
+            return onCmdRemovePhase(cell->getButton(), 0, nullptr);
+        } else if (tableTest->sel == MID_GNE_TLSTABLE_MOVEUPPHASE) {
+            return onCmdMoveUpPhase(cell->getButton(), 0, nullptr);
+        } else if (tableTest->sel == MID_GNE_TLSTABLE_MOVEDOWNPHASE) {
+            return onCmdMoveDownPhase(cell->getButton(), 0, nullptr);
+        } else if (tableTest->sel == MID_GNE_TLSTABLE_TEXTFIELD) {
+            // set text in text field
+            cell->getTextField()->setText(tableTest->text.c_str(), TRUE);
+            return 1;
+        }
     }
 }
 

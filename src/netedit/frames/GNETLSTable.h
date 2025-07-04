@@ -37,14 +37,39 @@ class MFXMenuButtonTooltip;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNETLSTable
- */
+
 class GNETLSTable : public FXHorizontalFrame {
     /// @brief fox declaration
     FXDECLARE(GNETLSTable)
 
 public:
+    /// @brief struct used for internal tests)
+    class GNETLSTableTest {
+
+    public:
+        /// brief default constructor with text
+        GNETLSTableTest(FXSelector sel_, const int row_, const int column_, const std::string& text_);
+
+        /// @brief selector
+        const FXSelector sel = 0;
+
+        /// @brief x coordinate
+        const int row = 0;
+
+        /// @brief y coordinate
+        const int column = 0;
+
+        /// @brief text
+        const std::string text = "";
+
+    private:
+        /// @brief invalidated default constructor
+        GNETLSTableTest() = delete;
+
+        /// @brief invalidated copy constructor
+        GNETLSTableTest(const GNETLSTableTest&) = delete;
+    };
+
     /// @brief constructor (Exactly like the FXButton constructor)
     GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent);
 
@@ -103,6 +128,9 @@ public:
 
     /// @name FOX callbacks
     /// @{
+    /// @brief called in internal tests
+    long onInternalTest(FXObject*, FXSelector, void* ptr);
+
     /// @brief called when a row is focused
     long onFocusRow(FXObject*, FXSelector, void*);
 
