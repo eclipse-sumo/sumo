@@ -56,7 +56,7 @@ netedit.positions.elements.demands.planStopBusStop 250 -5
 netedit.positions.elements.demands.planStopEdge 493 -15
 netedit.positions.elements.demands.route 420 439
 netedit.positions.elements.demands.routeB 536 409
-netedit.positions.elements.demands.stopLane 415 30
+netedit.positions.elements.demands.stopLane 499 26
 netedit.positions.elements.demands.trainStop 718 13
 netedit.positions.elements.demands.trainStopB 284 265
 netedit.positions.elements.demands.vehicleEdge 185 440

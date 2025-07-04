@@ -654,8 +654,8 @@ class positions:
                 y = 474
 
             class stopLane:
-                x = 415
-                y = 30
+                x = 499
+                y = 26
 
             class planEdge1:
                 x = 848
