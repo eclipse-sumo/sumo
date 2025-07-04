@@ -1,3 +1,2 @@
-Error: Attribute 'id' in definition of a flowRoute is empty.
-Error: Invalid flowRoute id ''.
-Error: flowRoute cannot be created
+Warning: Invalid value '%%;;%%%%' in attribute id
+Warning: Invalid value 'f_0' in attribute id

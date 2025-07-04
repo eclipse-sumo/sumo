@@ -1,1 +1,4 @@
-Error: If 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour' or 'probability' are given at most one of 'end' and 'number' are allowed in flowRoute 'f_0'.
+Warning: Invalid value 'dummyTerminate' in attribute terminate
+Warning: Invalid value 'dummy' in attribute number
+Warning: Invalid value '-30' in attribute number
+Warning: Invalid value '20.5' in attribute number
