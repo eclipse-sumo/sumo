@@ -28,7 +28,7 @@ Then you can draw the edges (roads) in the editor.
 ![*Edge mode* for creating the network](../../images/network_edges1.png)
 
 Make sure that the edges are connected by a node in the center so that a crossing can be generated.
-To learn more about the *SUMO* road network we refer to [this](../../Networks/SUMO_Road_Networks.html) website.
+To learn more about the *SUMO* road network we refer to [this](../../Networks/SUMO_Road_Networks.md) website.
 
 As pedestrians are spawned distributed along an edge we define small edges at the end of the roads of interest.
 In this way, we reduce the effects of the initial conditions and the pedestrians are already in motion when they enter the network defined above.
