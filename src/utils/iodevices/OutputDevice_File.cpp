@@ -35,7 +35,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool compressed)
+OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool binary)
     : OutputDevice(0, fullName) {
     if (fullName == "/dev/null") {
         myAmNull = true;
@@ -49,22 +49,26 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
 #endif
     }
     const std::string& localName = StringUtils::transcodeToLocal(fullName);
+    std::ios_base::openmode mode = std::ios_base::out;
+    if (binary) {
+        mode |= std::ios_base::binary;
+    }
 #ifdef HAVE_ZLIB
-    if (compressed) {
+    if (fullName.length() > 3 && fullName.substr(fullName.length() - 3) == ".gz") {
         try {
-            myFileStream = new zstr::ofstream(localName.c_str(), std::ios_base::out);
+            myFileStream = new zstr::ofstream(localName.c_str(), mode);
         } catch (strict_fstream::Exception& e) {
             throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         } catch (zstr::Exception& e) {
             throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         }
-    } else {
-        myFileStream = new std::ofstream(localName.c_str(), std::ios_base::out);
     }
 #else
     UNUSED_PARAMETER(compressed);
-    myFileStream = new std::ofstream(localName.c_str(), std::ios_base::out);
 #endif
+    if (myFileStream == nullptr) {
+        myFileStream = new std::ofstream(localName.c_str(), mode);
+    }
     if (!myFileStream->good()) {
         delete myFileStream;
         throw IOError("Could not build output file '" + fullName + "' (" + std::strerror(errno) + ").");

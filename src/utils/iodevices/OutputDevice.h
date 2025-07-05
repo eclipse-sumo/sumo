@@ -29,8 +29,10 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "CSVFormatter.h"
+#ifdef HAVE_PARQUET
+#include "ParquetFormatter.h"
+#endif
 #include "PlainXMLFormatter.h"
-
 
 // ===========================================================================
 // class definitions
@@ -234,6 +236,10 @@ public:
     OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
         if (myFormatter->getType() == OutputFormatterType::XML) {
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+#ifdef HAVE_PARQUET
+        } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
+            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+#endif
         } else {
             static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
         }
@@ -257,6 +263,10 @@ public:
                 if (!isNull) {
                     PlainXMLFormatter::writeAttr(getOStream(), attr, val);
                 }
+#ifdef HAVE_PARQUET
+            } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
+                static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val, isNull);
+#endif
             } else {
                 if (isNull) {
                     static_cast<CSVFormatter*>(myFormatter)->writeNull(getOStream(), attr);
@@ -276,6 +286,10 @@ public:
                 if (!isNull) {
                     PlainXMLFormatter::writeAttr(getOStream(), attr, valFunc());
                 }
+#ifdef HAVE_PARQUET
+            } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
+                static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, valFunc(), isNull);
+#endif
             } else {
                 if (isNull) {
                     static_cast<CSVFormatter*>(myFormatter)->writeNull(getOStream(), attr);
@@ -297,6 +311,10 @@ public:
     OutputDevice& writeAttr(const std::string& attr, const T& val) {
         if (myFormatter->getType() == OutputFormatterType::XML) {
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+#ifdef HAVE_PARQUET
+        } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
+            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+#endif
         } else {
             static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
         }
@@ -316,6 +334,10 @@ public:
         return *this;
     }
 
+    OutputDevice& writeTime(const SumoXMLAttr attr, const SUMOTime val) {
+        myFormatter->writeTime(getOStream(), attr, val);
+        return *this;
+    }
 
     /** @brief writes a preformatted tag to the device but ensures that any
      * pending tags are closed

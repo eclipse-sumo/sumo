@@ -40,6 +40,9 @@ class RGBColor;
 // ===========================================================================
 enum class OutputFormatterType {
     XML,
+#ifdef HAVE_PARQUET
+    PARQUET,
+#endif
     CSV
 };
 
@@ -101,6 +104,8 @@ public:
      * @param[in] xmlElement Id of the element to open
      */
     virtual void openTag(std::ostream& into, const SumoXMLTag& xmlElement) = 0;
+
+    virtual void writeTime(std::ostream& into, const SumoXMLAttr attr, const SUMOTime val) = 0;
 
     /** @brief Closes the most recently opened tag and optinally add a comment
      *

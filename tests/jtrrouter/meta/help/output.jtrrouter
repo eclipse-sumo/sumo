@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter Version v1_23_1+0337-5cf15d51313
+Eclipse SUMO jtrrouter Version v1_23_1+0813-5f3c910f36e
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
  junction turning ratios.
@@ -51,6 +51,16 @@ Output Options:
                                        comma for floating point output
   --precision.geo INT                 Defines the number of digits after the
                                        comma for lon,lat output
+  --output.compression STR            Defines the standard compression
+                                       algorithm (currently only for parquet
+                                       output)
+  --output.format STR                 Defines the standard output format if not
+                                       derivable from the file name ('xml',
+                                       'csv', 'parquet')
+  --output.column-header STR          How to derive column headers from
+                                       attribute names ('none', 'tag', 'auto',
+                                       'plain')
+  --output.column-separator STR       Separator in CSV output
   -H, --human-readable-time           Write time values as hour:minute:second
                                        or day:hour:minute:second rather than
                                        seconds

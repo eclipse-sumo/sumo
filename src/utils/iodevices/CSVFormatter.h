@@ -38,7 +38,7 @@
 class CSVFormatter : public OutputFormatter {
 public:
     /// @brief Constructor
-    CSVFormatter(const char separator = ';');
+    CSVFormatter(const std::string& columnNames, const char separator = ';');
 
     /// @brief Destructor
     virtual ~CSVFormatter() { }
@@ -96,6 +96,11 @@ public:
         *myXMLStack[myCurrentDepth - 1] << mySeparator;
     }
 
+    void writeTime(std::ostream& /* into */, const SumoXMLAttr attr, const SUMOTime val) {
+        checkAttr(attr);
+        *myXMLStack[myCurrentDepth - 1] << time2string(val) << mySeparator;
+    }
+
     bool wroteHeader() const {
         return myWroteHeader;
     }
@@ -122,13 +127,19 @@ private:
         }
         if (!myWroteHeader) {
             const std::string attrString = toString(attr);
-            if (std::find(myHeader.begin(), myHeader.end(), attrString) == myHeader.end()) {
+            if (myHeaderFormat == "plain" || (myHeaderFormat == "auto" && std::find(myHeader.begin(), myHeader.end(), attrString) == myHeader.end())) {
                 myHeader.push_back(attrString);
             } else {
                 myHeader.push_back(myCurrentTag + "_" + attrString);
             }
         }
     }
+
+    /// @brief the format to use for the column names
+    const std::string myHeaderFormat;
+
+    /// @brief The value separator
+    const char mySeparator;
 
     /// @brief the CSV header
     std::vector<std::string> myHeader;
@@ -138,9 +149,6 @@ private:
 
     /// @brief The attributes to write for each begun xml element (excluding the root element)
     std::vector<std::unique_ptr<std::ostringstream>> myXMLStack;
-
-    /// @brief The value separator
-    const char mySeparator;
 
     /// @brief the maximum depth of the XML hierarchy (excluding the root element)
     int myMaxDepth = 0;

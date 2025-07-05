@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-23 23:15:27 by Eclipse SUMO sumo Version v1_22_0+1676-989a5715aeb
+<!-- generated on 2025-07-03 09:53:10 by Eclipse SUMO sumo Version v1_23_1+0813-5f3c910f36e
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -59,6 +59,10 @@
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="output.compression" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.format" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-header" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-separator" type="strOptionType" minOccurs="0"/>
             <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="netstate-dump" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="netstate-dump.empty-edges" type="boolOptionType" minOccurs="0"/>

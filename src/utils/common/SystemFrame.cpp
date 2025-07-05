@@ -130,6 +130,18 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("precision.geo", new Option_Integer(6));
     oc.addDescription("precision.geo", "Output", TL("Defines the number of digits after the comma for lon,lat output"));
 
+    oc.doRegister("output.compression", new Option_String());
+    oc.addDescription("output.compression", "Output", TL("Defines the standard compression algorithm (currently only for parquet output)"));
+
+    oc.doRegister("output.format", new Option_String("xml"));
+    oc.addDescription("output.format", "Output", TL("Defines the standard output format if not derivable from the file name ('xml', 'csv', 'parquet')"));
+
+    oc.doRegister("output.column-header", new Option_String("tag"));
+    oc.addDescription("output.column-header", "Output", TL("How to derive column headers from attribute names ('none', 'tag', 'auto', 'plain')"));
+
+    oc.doRegister("output.column-separator", new Option_String(";"));
+    oc.addDescription("output.column-separator", "Output", TL("Separator in CSV output"));
+
     oc.doRegister("human-readable-time", 'H', new Option_Bool(false));
     oc.addDescription("human-readable-time", "Output", TL("Write time values as hour:minute:second or day:hour:minute:second rather than seconds"));
 }

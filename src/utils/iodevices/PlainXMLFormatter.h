@@ -123,6 +123,10 @@ public:
         into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
     }
 
+    void writeTime(std::ostream& into, const SumoXMLAttr attr, const SUMOTime val) {
+        into << " " << toString(attr) << "=\"" << time2string(val) << "\"";
+    }
+
     bool wroteHeader() const {
         return !myXMLStack.empty();
     }

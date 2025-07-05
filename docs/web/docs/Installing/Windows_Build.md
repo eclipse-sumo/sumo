@@ -97,6 +97,26 @@ own and also on how to use different versions and additional libraries
 see [Installing/Windows_Libraries](../Installing/Windows_Libraries.md).
 You might not to edit your `CMakeCache.txt` to use the selfmade libraries.
 
+## vcpkg / parquet support
+
+If you need to add your own or experimental packages you can also try to build against vcpkg.
+For adding parquet you need those steps.
+```
+git clone https://github.com/Microsoft/vcpkg.git
+cd vcpkg
+./bootstrap-vcpkg.sh
+./vcpkg integrate install
+./vcpkg install arrow
+```
+
+For the integrate step you might need admin permissions. If it fails, try adding
+`-DCMAKE_TOOLCHAIN_FILE=<vcpkg-root>/scripts/buildsystems/vcpkg.cmake` to your cmake options.
+
+You can also install further packages from vcpkg if for any reason the SUMOLibraries do not work for you:
+`./vcpkg install gdal xerces-c gettext fmt eigen3`. Unfortunately the FOX toolkit is still missing so you
+cannot build any GUI applications by using only vcpkg.
+
+
 ## Install python packages
 
 For using the SUMO Python tools from the command line or in netedit it is recommended to install a list of python packages.
