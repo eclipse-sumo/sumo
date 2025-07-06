@@ -87,7 +87,7 @@ def main():
                         for line in lines:
                             line = line.replace('type="static"', 'type="%s"' % alg)
                             if "phase" in line:
-                                line = re.sub('duration="1000\d+',
+                                line = re.sub(r'duration="1000\d+',
                                               'duration="10" minDur="%s" maxDur="10000' % minDur, line)
                             tls_out.write(line)
                 addStr = ",".join(add)
