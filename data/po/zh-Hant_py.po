@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-20 08:20+0000\n"
-"PO-Revision-Date: 2023-05-25 07:25+0000\n"
-"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
-"eclipse-sumo/python-tools/zh_Hant/>\n"
+"PO-Revision-Date: 2025-07-07 07:00+0000\n"
+"Last-Translator: Tim Huang <timhuang@synology.com>\n"
+"Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
+"projects/eclipse-sumo/python-tools/zh_Hant/>\n"
 "Language: zh-Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: tools/game/runner.py:67
 msgid "Interactive Traffic Light"
@@ -25,11 +25,11 @@ msgstr "互動式交通號誌"
 
 #: tools/game/runner.py:68
 msgid "Railway Control"
-msgstr ""
+msgstr "鐵路控制"
 
 #: tools/game/runner.py:69
 msgid "Railway Control Demo"
-msgstr ""
+msgstr "鐵路控制演示"
 
 #: tools/game/runner.py:70
 msgid "Research intersection Ingolstadt"
@@ -109,23 +109,23 @@ msgstr "英語"
 
 #: tools/game/runner.py:89
 msgid "Italian"
-msgstr ""
+msgstr "義大利語"
 
 #: tools/game/runner.py:90
 msgid "Spanish"
-msgstr ""
+msgstr "西班牙語"
 
 #: tools/game/runner.py:91
 msgid "French"
-msgstr ""
+msgstr "法語"
 
 #: tools/game/runner.py:92
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "中文 (簡體)"
 
 #: tools/game/runner.py:93
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "中文 (繁體)"
 
 #: tools/game/runner.py:94
 msgid "Quit"
