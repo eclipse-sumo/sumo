@@ -29,7 +29,7 @@ msgstr "鐵路控制"
 
 #: tools/game/runner.py:69
 msgid "Railway Control Demo"
-msgstr "鐵路控制演示"
+msgstr "鐵路控制 Demo"
 
 #: tools/game/runner.py:70
 msgid "Research intersection Ingolstadt"
@@ -41,7 +41,7 @@ msgstr "簡單路口"
 
 #: tools/game/runner.py:72
 msgid "Simple Junction (Demo)"
-msgstr "簡單路口(展示)"
+msgstr "簡單路口 (Demo)"
 
 #: tools/game/runner.py:73
 msgid "Four Junctions"
@@ -53,7 +53,7 @@ msgstr "六個路口"
 
 #: tools/game/runner.py:75
 msgid "Prof. Kühne"
-msgstr "屈内(Kühne) 教授"
+msgstr "屈內 (Kühne) 教授"
 
 #: tools/game/runner.py:76
 msgid "3D Junction Virtual World"
@@ -129,7 +129,7 @@ msgstr "中文 (繁體)"
 
 #: tools/game/runner.py:94
 msgid "Quit"
-msgstr "結束"
+msgstr "退出"
 
 #: tools/game/runner.py:96
 msgid "Congratulations!"
