@@ -3960,7 +3960,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                             } else {
                                 agap = (*it).length - v->getPositionOnLane() + backOffset - v->getVehicleType().getMinGap();
                             }
-                            if (!(*it).viaLink->havePriority() && !ego->onFurtherEdge(&(*it).lane->getEdge())
+                            if (!(*it).viaLink->havePriority() && egoFurther.count(&(*it).lane->getEdge()) == 0
                                     && ego->isOnRoad() // during insertion, this can lead to collisions because ego's further lanes are not set (see #3053)
                                     && !ego->getLaneChangeModel().isOpposite()
                                     && v->getSpeed() < SUMO_const_haltingSpeed
