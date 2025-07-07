@@ -3939,7 +3939,8 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                                 std::cout << "    agap1=" << agap << "\n";
                             }
 #endif
-                            if (agap > 0 && &v->getLane()->getEdge() != &ego->getLane()->getEdge()) {
+                            const bool differentEdge = &v->getLane()->getEdge() != &ego->getLane()->getEdge();
+                            if (agap > 0 && differentEdge) {
                                 // Only if ego overlaps we treat v as if it were a real follower
                                 // Otherwise we ignore it and look for another follower
                                 if (!getOppositeLeaders) {
@@ -3953,6 +3954,9 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                                         v = nullptr;
                                     }
                                 }
+                            } else if (differentEdge && result.hasVehicle(v)) {
+                                // ignore this vehicle as it was already seen on another lane
+                                agap = 0;
                             }
                         } else {
                             if (next->getBidiLane() != nullptr && v->isBidiOn(next)) {
