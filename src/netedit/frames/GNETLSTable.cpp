@@ -324,6 +324,9 @@ GNETLSTable::onInternalTest(FXObject*, FXSelector, void* ptr) {
             // set text in text field
             cell->getTextField()->setText(tableTest->text.c_str(), TRUE);
             return 1;
+        } else {
+            // unknown operation
+            throw ProcessError(TL("Unknown operation in table test"));
         }
     }
 }

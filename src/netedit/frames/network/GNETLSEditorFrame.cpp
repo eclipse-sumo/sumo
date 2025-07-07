@@ -159,14 +159,6 @@ GNETLSEditorFrame::updateModules() {
 
 
 void
-GNETLSEditorFrame::focusTLSTable() {
-    if (myTLSPhases) {
-        myTLSPhases->getPhaseTable()->setFocus();
-    }
-}
-
-
-void
 GNETLSEditorFrame::editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, const Position& clickedPosition, const bool shiftKeyPressed) {
     // first check if in viewObjects there is a junction
     if (viewObjects.getJunctionFront()) {

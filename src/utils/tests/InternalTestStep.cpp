@@ -1607,7 +1607,7 @@ InternalTestStep::modifyBoolAttribute(const int tabs, const int overlappedTabs) 
 void
 InternalTestStep::modifyTLSTableAttribute(const int tabs, const std::string& value) const {
     // focus table
-    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_T_FOCUSTLSTABLE, Category::APP);
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
     // jump to the element
     for (int i = 0; i < (tabs + 1); i++) {
         buildPressKeyEvent("tab", false);
@@ -1628,7 +1628,7 @@ InternalTestStep::modifyTLSTableAttribute(const int tabs, const std::string& val
 void
 InternalTestStep::modifyTLSTableBoolAttribute(const int tabs) const {
     // focus table
-    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_T_FOCUSTLSTABLE, Category::APP);
+    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
     // jump to the element
     for (int i = 0; i < (tabs + 1); i++) {
         buildPressKeyEvent("tab", false);
