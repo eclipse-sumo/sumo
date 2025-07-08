@@ -243,6 +243,10 @@ public:
         }
     }
 
+    static int count() {
+        return myRandomNumberGenerator.count;
+    }
+
 protected:
     /// @brief the default random number generator to use
     static SumoRNG myRandomNumberGenerator;
