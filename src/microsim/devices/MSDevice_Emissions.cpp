@@ -103,7 +103,7 @@ MSDevice_Emissions::initOnce() {
             myWrittenAttributes.set(attr);
         }
     }
-    //std::cout << "mask=" << myWrittenAttributes << "\n";
+    OutputDevice::getDeviceByOption("emission-output").setExpectedAttributes(0);
 }
 
 
