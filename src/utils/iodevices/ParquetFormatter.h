@@ -22,10 +22,18 @@
 
 #include <ostream>
 
+#ifdef _MSC_VER
+#pragma warning(push)
+/* Disable warning about hidden function arrow::io::Writable::Write */
+#pragma warning(disable: 4266)
+#endif
 #include <arrow/api.h>
 #include <arrow/io/interfaces.h>
 #include <arrow/status.h>
 #include <parquet/arrow/writer.h>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #include <utils/common/ToString.h>
 #include "OutputFormatter.h"
