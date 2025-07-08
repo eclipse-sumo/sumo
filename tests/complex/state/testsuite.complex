@@ -128,3 +128,6 @@ edge_missing
 
 # loading state with a different network
 edge_length_different
+
+# replicate probabilistic device assignment after loading
+device_prob
