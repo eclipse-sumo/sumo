@@ -591,7 +591,12 @@ if (MSVC)
             PATTERN "*.bat"
             PATTERN "*.dll"
             PATTERN "*d.dll" EXCLUDE
+            PATTERN "*_Debug.dll" EXCLUDE
             PATTERN "gtest*.dll" EXCLUDE)
+    # files which end with "d" but are not debug
+    install(DIRECTORY bin/ DESTINATION bin
+            FILES_MATCHING
+            PATTERN "thriftmd.dll")
 else ()
     include(GNUInstallDirs)
 endif ()
