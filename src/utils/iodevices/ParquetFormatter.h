@@ -272,7 +272,7 @@ inline void ParquetFormatter::writeAttr(std::ostream& into, const std::string& a
             mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(getAttrString(attr), arrow::float32()));
             myBuilders.push_back(std::make_shared<arrow::FloatBuilder>());
         }
-        myValues.push_back(std::make_shared<arrow::FloatScalar>(val));
+        myValues.push_back(std::make_shared<arrow::FloatScalar>((float)val));
     }
 }
 
