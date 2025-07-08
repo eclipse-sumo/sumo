@@ -38,16 +38,15 @@ public:
         INIT,   // Setup and start step
         APP,    // send signal to APP (Either GUIAppWindows or GNEApplicationWindow)
         VIEW,   // send signal to view (either GUIView or GNEViewNet)
+        TLS,    // send signal to TLSTable (used for TLS Phases)
         COLOR,  // send signal to color dialog
     };
 
-    /// @brief extra arguments (used for certain functions that opens modal dialogs)
+    /// @brief modal arguments (used for certain functions that opens modal dialogs)
     struct ModalArguments {
 
         /// @brief constructor for question dialogs
-        ModalArguments(const std::vector<FXuint> values) :
-            questionDialogValues(values) {
-        }
+        ModalArguments(const std::vector<FXuint> values);
 
         /// @brief yes value
         static const FXuint yes = 1;
@@ -63,6 +62,43 @@ public:
 
         /// @brief used if we have multiple modal dialogs
         const std::vector<FXuint> questionDialogValues;
+
+    private:
+        /// @brief invalidated default constructor
+        ModalArguments() = delete;
+
+        /// @brief invalidated copy constructor
+        ModalArguments(const ModalArguments&) = delete;
+    };
+
+    /// @brief struct used for test TLS Tables
+    class TLSTableTest {
+
+    public:
+        /// brief default constructor for phases
+        TLSTableTest(FXSelector sel_, const int row_);
+
+        /// brief default constructor with text
+        TLSTableTest(FXSelector sel_, const int row_, const int column_, const std::string& text_);
+
+        /// @brief selector
+        const FXSelector sel = 0;
+
+        /// @brief x coordinate
+        const int row = 0;
+
+        /// @brief y coordinate
+        const int column = 0;
+
+        /// @brief text
+        const std::string text = "";
+
+    private:
+        /// @brief invalidated default constructor
+        TLSTableTest() = delete;
+
+        /// @brief invalidated copy constructor
+        TLSTableTest(const TLSTableTest&) = delete;
     };
 
     /// @brief constructor for parsing step in strin format
@@ -90,6 +126,9 @@ public:
 
     /// @brief get modal arguments
     ModalArguments* getModalArguments() const;
+
+    /// @brief get TLS Table test
+    TLSTableTest* getTLSTableTest() const;
 
     /// @brief get selector (based in messageType and messageID)
     FXSelector getSelector() const;
@@ -130,6 +169,9 @@ private:
 
     /// @brief extra arguments
     ModalArguments* myModalArguments = nullptr;
+
+    /// @brief TLS Table test (used for certain steps)
+    TLSTableTest* myTLSTableTest = nullptr;
 
     /// @brief Test steps used in certain modal dialogs
     std::vector<const InternalTestStep*> myModalDialogTestSteps;
@@ -225,7 +267,7 @@ private:
     void pressTLSPhaseButton() const;
 
     /// @brief process addPhase function
-    void addPhase(const int phaseTabs) const;
+    void addPhase(const std::string& type);
 
     /// @brief process checkParameters function
     void checkParameters(const int overlappedTabs) const;

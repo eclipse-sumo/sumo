@@ -43,6 +43,35 @@ constexpr int MOUSE_REFERENCE_Y = 168;
 // member method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNETLSTable::Test - public methods
+// ---------------------------------------------------------------------------
+
+InternalTestStep::ModalArguments::ModalArguments(const std::vector<FXuint> values) :
+    questionDialogValues(values) {
+}
+
+// ---------------------------------------------------------------------------
+// GNETLSTable::Test - public methods
+// ---------------------------------------------------------------------------
+
+InternalTestStep::TLSTableTest::TLSTableTest(FXSelector sel_, const int row_) :
+    sel(sel_),
+    row(row_) {
+}
+
+
+InternalTestStep::TLSTableTest::TLSTableTest(FXSelector sel_, const int row_, const int column_, const std::string& text_) :
+    sel(sel_),
+    row(row_),
+    column(column_),
+    text(text_) {
+}
+
+// ---------------------------------------------------------------------------
+// InternalTestStep - public methods
+// ---------------------------------------------------------------------------
+
 InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& step) :
     myTestSystem(testSystem) {
     // add this testStep to test system
@@ -139,17 +168,17 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     } else if (function == "pressTLSPhaseButton") {
         pressTLSPhaseButton();
     } else if (function == "addDefaultPhase") {
-        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.default"));
+        addPhase("default");
     } else if (function == "addDuplicatePhase") {
-        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.duplicate"));
+        addPhase("duplicate");
     } else if (function == "addRedPhase") {
-        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.red"));
+        addPhase("red");
     } else if (function == "addYellowPhase") {
-        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.yellow"));
+        addPhase("yellow");
     } else if (function == "addGreenPhase") {
-        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.green"));
+        addPhase("green");
     } else if (function == "addGreenPriorityPhase") {
-        addPhase(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.addPhases.priorityGreen"));
+        addPhase("priorityGreen");
     } else if (function == "checkParameters") {
         checkParameters(0);
     } else if (function == "checkParametersOverlapped") {
@@ -240,6 +269,9 @@ InternalTestStep::~InternalTestStep() {
     if (myModalArguments) {
         delete myModalArguments;
     }
+    if (myTLSTableTest) {
+        delete myTLSTableTest;
+    }
     // remove all key steps
     for (auto modalDialogTestStep : myModalDialogTestSteps) {
         delete modalDialogTestStep;
@@ -263,6 +295,12 @@ InternalTestStep::getMessageID() const {
 InternalTestStep::ModalArguments*
 InternalTestStep::getModalArguments() const {
     return myModalArguments;
+}
+
+
+InternalTestStep::TLSTableTest*
+InternalTestStep::getTLSTableTest() const {
+    return myTLSTableTest;
 }
 
 
@@ -840,17 +878,27 @@ InternalTestStep::pressTLSPhaseButton() const {
 
 
 void
-InternalTestStep::addPhase(const int phaseTabs) const {
+InternalTestStep::addPhase(const std::string& type) {
     if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
         writeError("addPhase", 0, "<int/attributeEnum>");
     } else {
-        modifyTLSTableBoolAttribute(getIntArgument(myArguments[0]));
-        // jump to the phase
-        for (int i = 0; i < phaseTabs; i++) {
-            buildPressKeyEvent("right", false);
+        myCategory = Category::TLS;
+        // get row
+        const int row = getIntArgument(myArguments[0]);
+        // continue depending of the type of phase
+        if (type == "default") {
+            myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_ADDPHASE, row);
+        } else if (type == "duplicate") {
+            myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_COPYPHASE, row);
+        } else if (type == "red") {
+            myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_ADDPHASEALLRED, row);
+        } else if (type == "yellow") {
+            myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_ADDPHASEALLYELLOW, row);
+        } else if (type == "green") {
+            myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_ADDPHASEALLGREEN, row);
+        } else if (type == "priorityGreen") {
+            myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_ADDPHASEALLGREENPRIORITY, row);
         }
-        // press space to add phase
-        buildPressKeyEvent("space", true);
     }
 }
 
