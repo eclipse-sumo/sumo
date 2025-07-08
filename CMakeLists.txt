@@ -307,7 +307,7 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/freetype-2.??.?")
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
     file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-?.??")
-    file(GLOB ARROW_PATH "${SUMO_LIBRARIES}/arrow-*")
+    file(GLOB ARROW_PATH "${SUMO_LIBRARIES}/apache-arrow-??.?.?")
     # set all paths in prefix
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
@@ -336,6 +336,7 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libexpat-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/librttopo-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/minizip-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/thrift-*/bin/*.dll"
                                  )
     # check if MSVC dll runtimes have to be copied
     if (INSTALL_DLL_RUNTIMES)
