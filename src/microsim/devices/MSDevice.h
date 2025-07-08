@@ -99,6 +99,8 @@ public:
     /// @brief perform cleanup for all devices
     static void cleanupAll();
 
+    static const std::string LOADSTATE_DEVICENAMES;
+
 public:
     /** @brief Constructor
      *
@@ -241,7 +243,13 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
         if (oc.exists(prefix + ".deterministic") && oc.getBool(prefix + ".deterministic")) {
             return MSNet::getInstance()->getVehicleControl().getQuota(probability) == 1;
         } else if (probability > 0) {
-            return RandHelper::rand(&myEquipmentRNG) < probability;
+            if (v.getParameter().hasParameter(LOADSTATE_DEVICENAMES)) {
+                // replicate probabilistic assignment
+                const std::vector<std::string> lsdn = StringTokenizer(v.getParameter().getParameter(LOADSTATE_DEVICENAMES)).getVector();
+                return std::find(lsdn.begin(), lsdn.end(), deviceName) != lsdn.end();
+            } else {
+                return RandHelper::rand(&myEquipmentRNG) < probability;
+            }
         } else {
             return false;
         }

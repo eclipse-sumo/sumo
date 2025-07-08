@@ -56,8 +56,10 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
+const std::string MSDevice::LOADSTATE_DEVICENAMES("LOADSTATE_DEVICENAMES");
 std::map<std::string, std::set<std::string> > MSDevice::myExplicitIDs;
 SumoRNG MSDevice::myEquipmentRNG("deviceEquipment");
+
 
 // ===========================================================================
 // debug flags

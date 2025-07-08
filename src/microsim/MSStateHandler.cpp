@@ -60,7 +60,6 @@
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 
-
 // ===========================================================================
 // MSStateTimeHandler method definitions
 // ===========================================================================
@@ -512,22 +511,15 @@ MSStateHandler::closeVehicle() {
 
         // devices that influence simulation behavior must replicate stochastic assignment
         // also, setting the parameter avoids extra calls to MSDevice::myEquipmentRNG (which would pollute replication)
-        std::vector<std::string> addedParams;
+        std::vector<std::string> deviceNames;
         for (auto attrs : myDeviceAttrs) {
-            const std::string deviceName = MSDevice::getDeviceName(attrs->getString(SUMO_ATTR_ID));
-            const std::string key = "has." + deviceName + ".device";
-            if (!myVehicleParameter->hasParameter(key)) {
-                myVehicleParameter->setParameter(key, "true");
-                addedParams.push_back(key);
-            }
+            deviceNames.push_back(MSDevice::getDeviceName(attrs->getString(SUMO_ATTR_ID)));
         }
+        myVehicleParameter->setParameter(MSDevice::LOADSTATE_DEVICENAMES, toString(deviceNames));
         MSRouteHandler::closeVehicle();
         SUMOVehicle* v = vc.getVehicle(vehID);
-        // clean up added params after initializing devices in closeVehicle
-        for (std::string& key : addedParams) {
-            ((SUMOVehicleParameter&)v->getParameter()).unsetParameter(key);
-        }
-
+        // clean up added param after initializing devices in closeVehicle
+        ((SUMOVehicleParameter&)v->getParameter()).unsetParameter(MSDevice::LOADSTATE_DEVICENAMES);
         if (v == nullptr) {
             throw ProcessError(TLF("Could not load vehicle '%' from state", vehID));
         }
