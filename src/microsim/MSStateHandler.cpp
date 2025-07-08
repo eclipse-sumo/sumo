@@ -511,15 +511,14 @@ MSStateHandler::closeVehicle() {
     if (myVehiclesToRemove.count(vehID) == 0) {
 
         // devices that influence simulation behavior must replicate stochastic assignment
+        // also, setting the parameter avoids extra calls to MSDevice::myEquipmentRNG (which would pollute replication)
         std::vector<std::string> addedParams;
         for (auto attrs : myDeviceAttrs) {
-            const std::string attrID = attrs->getString(SUMO_ATTR_ID);
-            if (StringUtils::startsWith(attrID, "routing_")) {
-                const std::string key = "has.rerouting.device";
-                if (!myVehicleParameter->hasParameter(key)) {
-                    myVehicleParameter->setParameter(key, "true");
-                    addedParams.push_back(key);
-                }
+            const std::string deviceName = MSDevice::getDeviceName(attrs->getString(SUMO_ATTR_ID));
+            const std::string key = "has." + deviceName + ".device";
+            if (!myVehicleParameter->hasParameter(key)) {
+                myVehicleParameter->setParameter(key, "true");
+                addedParams.push_back(key);
             }
         }
         MSRouteHandler::closeVehicle();

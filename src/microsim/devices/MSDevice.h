@@ -86,6 +86,9 @@ public:
     */
     static void buildTransportableDevices(MSTransportable& p, std::vector<MSTransportableDevice*>& into);
 
+    /// @brief extracts the deviceName from the id (which includes holder id) and is subject to special cases
+    static std::string getDeviceName(const std::string& id);
+
     static SumoRNG* getEquipmentRNG() {
         return &myEquipmentRNG;
     }

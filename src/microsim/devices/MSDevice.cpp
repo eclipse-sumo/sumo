@@ -167,6 +167,20 @@ MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const st
 }
 
 
+std::string
+MSDevice::getDeviceName(const std::string& id) {
+    if (StringUtils::startsWith(id, "routing_")) {
+        // special case: renamed in output
+        return "rerouting";
+    } else if (StringUtils::startsWith(id, "driverstate")) {
+        // special case: no underscore
+        return "driverstate";
+    } else {
+        return id.substr(0, id.find('_'));
+    }
+}
+
+
 void
 MSDevice::saveState(OutputDevice& /* out */) const {
     WRITE_WARNINGF(TL("Device '%' cannot save state"), getID());
