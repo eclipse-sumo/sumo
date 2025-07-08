@@ -41,6 +41,7 @@
 // ===========================================================================
 void
 MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
+    MSDevice_Emissions::initOnce();
     const OptionsCont& oc = OptionsCont::getOptions();
     const SUMOTime period = string2time(oc.getString("device.emissions.period"));
     const SUMOTime begin = string2time(oc.getString("device.emissions.begin"));
