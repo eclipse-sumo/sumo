@@ -28,7 +28,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Using SUMO Command Line Applications](Basics/Using_the_Command_Line_Applications.md)
 - [Tutorials](Tutorials/index.md)
 - [Validating application inputs](XMLValidation.md)
-- [Tabular outputs](TabularOutput.md)
+- [Tabular outputs](TabularOutputs.md)
 
 # Network Building
 
