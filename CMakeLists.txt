@@ -337,6 +337,8 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/librttopo-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/minizip-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/thrift-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/zstd-*/bin/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/lz4-*/bin/*.dll"
                                  )
     # check if MSVC dll runtimes have to be copied
     if (INSTALL_DLL_RUNTIMES)
