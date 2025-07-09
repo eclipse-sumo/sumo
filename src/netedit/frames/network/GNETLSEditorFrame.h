@@ -657,6 +657,9 @@ public:
     /// @brief get module for TLS attributes
     GNETLSEditorFrame::TLSAttributes* getTLSAttributes() const;
 
+    /// @brief get module for TLS Phases
+    GNETLSEditorFrame::TLSPhases* getTLSPhases() const;
+
 protected:
     /// @brief converts to SUMOTime
     static SUMOTime getSUMOTime(const std::string& value);

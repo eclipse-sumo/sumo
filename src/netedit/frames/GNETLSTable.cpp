@@ -1060,7 +1060,9 @@ GNETLSTable::Cell::getType() const {
 
 void
 GNETLSTable::Cell::hideMenuButtonPopup() {
-    myMenuButtonPopup->popdown();
+    if (myMenuButtonPopup) {
+        myMenuButtonPopup->popdown();
+    }
 }
 
 

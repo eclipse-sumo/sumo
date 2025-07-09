@@ -63,8 +63,10 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
             applicationWindow->handle(this, testStep->getSelector(), argument);
         } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
             applicationWindow->getViewNet()->handle(this, testStep->getSelector(), argument);
-        } else if (testStep->getCategory() == InternalTestStep::Category::TLS) {
-            //applicationWindow->getViewNet()->getViewParent()->getTLSEditorFrame()->get handle(this, testStep->getSelector(), argument);
+        } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASES) {
+            applicationWindow->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), argument);
+        } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASETABLE) {
+            applicationWindow->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->onInternalTest(this, testStep->getSelector(), argument);
         } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
             writeClosedSucessfully = true;
         }

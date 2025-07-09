@@ -179,6 +179,20 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         addPhase("green");
     } else if (function == "addGreenPriorityPhase") {
         addPhase("priorityGreen");
+    } else if (function == "tlsDeletePhase") {
+        addPhase("deletePhase");
+    } else if (function == "tlsMoveUp") {
+        addPhase("moveUp");
+    } else if (function == "tlsMoveDown") {
+        addPhase("moveDown");
+    } else if (function == "tlsCleanStates") {
+        pressTLSButton("cleanStates");
+    } else if (function == "tlsAddStates") {
+        pressTLSButton("addStates");
+    } else if (function == "tlsGroupSignal") {
+        pressTLSButton("groupSignal");
+    } else if (function == "tlsUngroupSignal") {
+        pressTLSButton("ungroupSignal");
     } else if (function == "checkParameters") {
         checkParameters(0);
     } else if (function == "checkParametersOverlapped") {
@@ -828,13 +842,20 @@ InternalTestStep::deleteTLS() const {
 
 
 void
-InternalTestStep::modifyTLSTable() const {
-    if ((myArguments.size() != 2) || !checkIntArgument(myArguments[0]) ||
-            !checkStringArgument(myArguments[1])) {
-        writeError("modifyTLSTable", 0, "<int/attributeEnum, \"string\">");
+InternalTestStep::modifyTLSTable() {
+    if ((myArguments.size() != 3) || !checkIntArgument(myArguments[0]) ||
+            !checkIntArgument(myArguments[1]) || !checkStringArgument(myArguments[2])) {
+        writeError("modifyTLSTable", 0, "<row, int/attributeEnum, \"string\">");
     } else {
+        myCategory = Category::TLS_PHASETABLE;
+        // get row
+        const int row = getIntArgument(myArguments[0]);
+        const int column = getIntArgument(myArguments[1]);
+        const std::string text = getStringArgument(myArguments[2]);
         // modify attribute
-        modifyStringAttribute(getIntArgument(myArguments[0]), 1, getStringArgument(myArguments[1]));
+        myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_TEXTFIELD, row, column, text);
+        // show text
+        std::cout << text << std::endl;
     }
 }
 
@@ -845,9 +866,9 @@ InternalTestStep::resetSingleTLSPhases() const {
         writeError("resetSingleTLSPhases", 0, "<bool>");
     } else {
         if (getBoolArgument(myArguments[0])) {
-            modifyTLSTableBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetPhaseSingle"));
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetPhaseSingle"));
         } else {
-            modifyTLSTableBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetPhaseJoined"));
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetPhaseJoined"));
         }
     }
 }
@@ -859,9 +880,9 @@ InternalTestStep::resetAllTLSPhases() const {
         writeError("resetAllTLSPhases", 0, "<bool>");
     } else {
         if (getBoolArgument(myArguments[0])) {
-            modifyTLSTableBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetAllJoined"));
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetAllJoined"));
         } else {
-            modifyTLSTableBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetAllSingle"));
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.TLS.resetAllSingle"));
         }
     }
 }
@@ -872,7 +893,7 @@ InternalTestStep::pressTLSPhaseButton() const {
     if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
         writeError("pressTLSPhaseButton", 0, "<int/attributeEnum>");
     } else {
-        modifyTLSTableBoolAttribute(getIntArgument(myArguments[0]));
+        modifyBoolAttribute(getIntArgument(myArguments[0]));
     }
 }
 
@@ -880,9 +901,9 @@ InternalTestStep::pressTLSPhaseButton() const {
 void
 InternalTestStep::addPhase(const std::string& type) {
     if ((myArguments.size() != 1) || !checkIntArgument(myArguments[0])) {
-        writeError("addPhase", 0, "<int/attributeEnum>");
+        writeError("addPhase" + type, 0, "<int/attributeEnum>");
     } else {
-        myCategory = Category::TLS;
+        myCategory = Category::TLS_PHASETABLE;
         // get row
         const int row = getIntArgument(myArguments[0]);
         // continue depending of the type of phase
@@ -898,6 +919,32 @@ InternalTestStep::addPhase(const std::string& type) {
             myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_ADDPHASEALLGREEN, row);
         } else if (type == "priorityGreen") {
             myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_ADDPHASEALLGREENPRIORITY, row);
+        } else if (type == "deletePhase") {
+            myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_REMOVEPHASE, row);
+        } else if (type == "moveUp") {
+            myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_MOVEUPPHASE, row);
+        } else if (type == "moveDown") {
+            myTLSTableTest = new TLSTableTest(MID_GNE_TLSTABLE_MOVEDOWNPHASE, row);
+        }
+    }
+}
+
+
+void
+InternalTestStep::pressTLSButton(const std::string& type) {
+    if (myArguments.size() != 0) {
+        writeError("pressTLSButton" + type, 0, "<>");
+    } else {
+        myCategory = Category::TLS_PHASES;
+        // continue depending of the type of phase
+        if (type == "cleanStates") {
+            myMessageID = MID_GNE_TLSFRAME_PHASES_CLEANUP;
+        } else if (type == "addStates") {
+            myMessageID = MID_GNE_TLSFRAME_PHASES_ADDUNUSED;
+        } else if (type == "groupSignal") {
+            myMessageID = MID_GNE_TLSFRAME_PHASES_GROUPSTATES;
+        } else if (type == "ungroupSignal") {
+            myMessageID = MID_GNE_TLSFRAME_PHASES_UNGROUPSTATES;
         }
     }
 }
@@ -1649,40 +1696,6 @@ InternalTestStep::modifyBoolAttribute(const int tabs, const int overlappedTabs) 
     }
     // toogle attribute
     return buildPressKeyEvent("space", true);
-}
-
-
-void
-InternalTestStep::modifyTLSTableAttribute(const int tabs, const std::string& value) const {
-    // focus table
-    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-    // jump to the element
-    for (int i = 0; i < (tabs + 1); i++) {
-        buildPressKeyEvent("tab", false);
-    }
-    // write attribute character by character
-    if (value.empty()) {
-        buildPressKeyEvent("delete", false);
-    } else {
-        for (const char c : value) {
-            buildPressKeyEvent(c, false);
-        }
-    }
-    // press enter to confirm changes (updating view)
-    buildPressKeyEvent("enter", true);
-}
-
-
-void
-InternalTestStep::modifyTLSTableBoolAttribute(const int tabs) const {
-    // focus table
-    new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
-    // jump to the element
-    for (int i = 0; i < (tabs + 1); i++) {
-        buildPressKeyEvent("tab", false);
-    }
-    // toogle attribute
-    buildPressKeyEvent("space", true);
 }
 
 

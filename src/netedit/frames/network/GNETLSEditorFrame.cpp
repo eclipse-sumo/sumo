@@ -325,6 +325,12 @@ GNETLSEditorFrame::getTLSAttributes() const {
 }
 
 
+GNETLSEditorFrame::TLSPhases*
+GNETLSEditorFrame::getTLSPhases() const {
+    return myTLSPhases;
+}
+
+
 void
 GNETLSEditorFrame::buildInternalLanes(const NBTrafficLightDefinition* tlDef) {
     // clean up previous internal lanes

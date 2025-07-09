@@ -34,12 +34,13 @@ class InternalTestStep {
 public:
     /// @name category step
     enum class Category {
-        META,   // Meta step (used for packing set of steps like click or write)
-        INIT,   // Setup and start step
-        APP,    // send signal to APP (Either GUIAppWindows or GNEApplicationWindow)
-        VIEW,   // send signal to view (either GUIView or GNEViewNet)
-        TLS,    // send signal to TLSTable (used for TLS Phases)
-        COLOR,  // send signal to color dialog
+        META,           // Meta step (used for packing set of steps like click or write)
+        INIT,           // Setup and start step
+        APP,            // send signal to APP (Either GUIAppWindows or GNEApplicationWindow)
+        VIEW,           // send signal to view (either GUIView or GNEViewNet)
+        TLS_PHASES,     // send signal to TLS Phases module (used for TLS Phases)
+        TLS_PHASETABLE, // send signal to TLSTable (used for TLS Phases)
+        COLOR,          // send signal to color dialog
     };
 
     /// @brief modal arguments (used for certain functions that opens modal dialogs)
@@ -255,7 +256,7 @@ private:
     void deleteTLS() const;
 
     /// @brief process modifyTLSTable function
-    void modifyTLSTable() const;
+    void modifyTLSTable();
 
     /// @brief process resetSingleTLSPhases function
     void resetSingleTLSPhases() const;
@@ -268,6 +269,9 @@ private:
 
     /// @brief process addPhase function
     void addPhase(const std::string& type);
+
+    /// @brief process pressTLSButton function
+    void pressTLSButton(const std::string& type);
 
     /// @brief process checkParameters function
     void checkParameters(const int overlappedTabs) const;
@@ -370,12 +374,6 @@ private:
 
     /// @brief modify bool attribute
     InternalTestStep* modifyBoolAttribute(const int tabs, const int overlappedTabs) const;
-
-    /// @brief modify TLSTable attribute
-    void modifyTLSTableAttribute(const int tabs, const std::string& value) const;
-
-    /// @brief modify bool attribute
-    void modifyTLSTableBoolAttribute(const int tabs) const;
 
     /// @}
 
