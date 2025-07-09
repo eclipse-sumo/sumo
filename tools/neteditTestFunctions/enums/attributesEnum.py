@@ -604,6 +604,42 @@ class attrs:
             offset = 13
             parameters = 15
 
+        class phases:
+
+            class static:
+                dur = 0
+                state = 1
+                nxt = 2
+                name = 3
+
+            class actuated:
+                dur = 0
+                minD = 1
+                maxD = 2
+                state = 3
+                earlyEnd = 4
+                latestEnd = 5
+                nxt = 6
+                name = 7
+
+            class delayBased:
+                dur = 0
+                minD = 1
+                maxD = 2
+                state = 3
+                nxt = 4
+                name = 5
+
+            class NEMA:
+                dur = 0
+                minD = 1
+                maxD = 2
+                state = 3
+                vehext = 4
+                yellow = 5
+                red = 6
+                nxt = 7
+
         create = 3
         createOverlapped = 4
         copySingle = 9
