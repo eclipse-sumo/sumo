@@ -24,8 +24,20 @@
 
 #ifdef _MSC_VER
 #pragma warning(push)
+/* Disable warning about unused parameters */
+#pragma warning(disable: 4100)
 /* Disable warning about hidden function arrow::io::Writable::Write */
 #pragma warning(disable: 4266)
+/* Disable warning about padded memory layout */
+#pragma warning(disable: 4324)
+/* Disable warning about this in initializers */
+#pragma warning(disable: 4355)
+/* Disable warning about changed memory layout due to virtual base class */
+#pragma warning(disable: 4435)
+/* Disable warning about declaration hiding class member */
+#pragma warning(disable: 4458)
+/* Disable warning about implicit conversion of int to bool */
+#pragma warning(disable: 4800)
 #endif
 #include <arrow/api.h>
 #include <arrow/io/interfaces.h>

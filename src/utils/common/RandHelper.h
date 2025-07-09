@@ -244,7 +244,7 @@ public:
     }
 
     static int count() {
-        return myRandomNumberGenerator.count;
+        return (int)myRandomNumberGenerator.count;
     }
 
 protected:
