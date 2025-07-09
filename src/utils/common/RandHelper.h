@@ -216,9 +216,9 @@ public:
             rng = &myRandomNumberGenerator;
         }
         std::ostringstream oss;
-        oss << rng->count << " ";
+        oss << rng->count;
         if (rng->count >= SAVE_ONLY_COUNT) {
-            oss << (*rng);
+            oss << " " << (*rng);
         }
         return oss.str();
     }
