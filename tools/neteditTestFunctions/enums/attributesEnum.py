@@ -607,38 +607,38 @@ class attrs:
         class phases:
 
             class static:
-                dur = 0
-                state = 1
-                nxt = 2
-                name = 3
+                dur = 1
+                state = 2
+                nxt = 3
+                name = 4
 
             class actuated:
-                dur = 0
-                minD = 1
-                maxD = 2
-                state = 3
-                earlyEnd = 4
-                latestEnd = 5
-                nxt = 6
-                name = 7
+                dur = 1
+                minD = 2
+                maxD = 3
+                state = 4
+                earlyEnd = 5
+                latestEnd = 6
+                nxt = 7
+                name = 8
 
             class delayBased:
-                dur = 0
-                minD = 1
-                maxD = 2
-                state = 3
-                nxt = 4
-                name = 5
+                dur = 1
+                minD = 2
+                maxD = 3
+                state = 4
+                nxt = 5
+                name = 6
 
             class NEMA:
-                dur = 0
-                minD = 1
-                maxD = 2
-                state = 3
-                vehext = 4
-                yellow = 5
-                red = 6
-                nxt = 7
+                dur = 1
+                minD = 2
+                maxD = 3
+                state = 4
+                vehext = 5
+                yellow = 6
+                red = 7
+                nxt = 8
 
         create = 3
         createOverlapped = 4
