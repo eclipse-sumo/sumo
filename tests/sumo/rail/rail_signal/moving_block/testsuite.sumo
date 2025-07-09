@@ -9,3 +9,6 @@ protect_flank_option
 
 # rail signal must prohibit entering an occupied driveway if it contains a reversal
 protect_reversal
+
+# rail signal must prohibit entering an occupied driveway if it contains a self-intersecting part
+protect_selfintersecting
