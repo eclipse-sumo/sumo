@@ -603,7 +603,8 @@ if (MSVC)
     # files which end with "d" but are not debug
     install(DIRECTORY bin/ DESTINATION bin
             FILES_MATCHING
-            PATTERN "thriftmd.dll")
+            PATTERN "thriftmd.dll"
+            PATTERN "zstd.dll")
 else ()
     include(GNUInstallDirs)
 endif ()
