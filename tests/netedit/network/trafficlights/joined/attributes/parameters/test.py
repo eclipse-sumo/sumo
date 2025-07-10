@@ -47,13 +47,13 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ri
 netedit.typeKey("enter")
 
 # Change generic parameters with an invalid value (dummy)
-netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.parameters, "dummyGenericParameters")
+netedit.modifyAttribute(netedit.attrs.TLS.attributesJoined.parameters, "dummyGenericParameters")
 
 # Change generic parameters with an invalid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.parameters, "key1|key2|key3")
+netedit.modifyAttribute(netedit.attrs.TLS.attributesJoined.parameters, "key1|key2|key3")
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.parameters,
+netedit.modifyAttribute(netedit.attrs.TLS.attributesJoined.parameters,
                         "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3")
 
 # type enter to save changes
