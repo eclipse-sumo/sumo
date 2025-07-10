@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-09 15:34:16 by Eclipse SUMO sumo Version v1_23_1+0966-bdb84726343
+<!-- generated on 2025-07-10 09:24:14 by Eclipse SUMO sumo Version v1_23_1+0978-b3f6417a0cf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,7 +28,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <processing>
         <collision.action value="warn"/>
         <time-to-teleport.railsignal-deadlock value="200"/>
-        <railsignal-moving-block value="false"/>
+        <railsignal-moving-block value="true"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -53,6 +53,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <entry id="v1" time="333.00" reason="junction"/>
                 <exit id="v1" time="529.00" reason="arrived"/>
             </driveWay>
+            <subDriveWay id="gneJ9.0.0"/>
         </link>
     </railSignal>
     <departJunction id="gneJ1">
