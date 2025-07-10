@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-03 14:48:14 by Eclipse SUMO netconvert Version v1_21_0+2283-8c24bb7ce10
-<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2025-07-10 10:02:27 by Eclipse SUMO netedit Version v1_23_1+0978-b3f6417a0cf
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:/SUMO/tests/netedit\network\trafficlights\joined\phases\NEMA/net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\network\trafficlights\joined\phases\NEMA\net.net.xml"/>
     </input>
-
-    <output>
-        <plain-output-prefix value="D:/SUMO/tests/netedit\network\trafficlights\joined\phases\NEMA/net"/>
-    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="0"/>
@@ -29,13 +26,15 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</netconvertConfiguration>
+</neteditConfiguration>
 -->
 
 <tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="J0" type="NEMA" programID="0" offset="0">
-        <phase duration="90" state="rgrgrgrgrgrgrgrgrgrgrgrgrgrg" name="2"/>
-        <phase duration="90" state="grgrgrgrgrgrgrgrgrgrgrgrgrgr" minDur="6" maxDur="55" vehext="3" yellow="4" red="5" name="1"/>
+        <phase duration="90" state="rrrrrrrrrrrrrrrrrrrGrrrrrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="2"/>
+        <phase duration="90" state="rrrrrrrrrrrrrrrrrrGrrrrrrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="6"/>
+        <phase duration="90" state="rrrrrrrrrrrrrrrrrrrrrrrrrrrG" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="4"/>
+        <phase duration="90" state="rrrrrrrrrrrrrrrrrrrrrrrrGrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="8"/>
         <param key="barrier2Phases" value="2,6"/>
         <param key="barrierPhases" value="4,8"/>
         <param key="ring1" value="0,2,0,4"/>
