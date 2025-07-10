@@ -1364,8 +1364,27 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     dw->addReversalFoes(movingBlock);
     // make foes unique and symmetrical
     std::set<MSDriveWay*, ComparatorNumericalIdLess> uniqueFoes(dw->myFoes.begin(), dw->myFoes.end());
-    std::set<MSLink*> uniqueCLink(dw->myConflictLinks.begin(), dw->myConflictLinks.end());
     dw->myFoes.clear();
+    // check for self-intersecting forward-section in movingBlock mode
+    if (movingBlock && uniqueFoes.count(dw) == 0) {
+        std::set<const MSJunction*> forwardJunctions;
+        for (const MSLane* fw : dw->myForward) {
+            if (fw->isNormal()) {
+                const MSJunction* fwTo = fw->getEdge().getToJunction();
+                if (forwardJunctions.count(fwTo) == 1) {
+                    dw->myFoes.push_back(dw);
+#ifdef DEBUG_ADD_FOES
+                    if (DEBUG_COND_DW) {
+                        std::cout << " self-intersecting movingBlock for dw=" << dw->getID() << "\n";
+                    }
+#endif
+                    break;
+                }
+                forwardJunctions.insert(fwTo);
+            }
+        }
+    }
+    std::set<MSLink*> uniqueCLink(dw->myConflictLinks.begin(), dw->myConflictLinks.end());
     const MSEdge* lastEdge = &dw->myForward.back()->getEdge();
     for (MSDriveWay* foe : uniqueFoes) {
         const MSEdge* foeLastEdge = &foe->myForward.back()->getEdge();
