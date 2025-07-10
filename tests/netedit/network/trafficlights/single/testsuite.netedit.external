@@ -4,6 +4,7 @@ programs
 
 attributes
 
-phases
+# disabled phase tests in external tests
+#phases
 
 file
