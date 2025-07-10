@@ -195,8 +195,14 @@ private:
     /// @brief process typeKey function
     void typeKey() const;
 
-    /// @brief contextual menu operation
+    /// @brief process contextualMenuOperation function
     void contextualMenuOperation() const;
+
+    /// @brief process protect elements function
+    void protectElements() const;
+
+    /// @brief process waitDeleteWarning function
+    void waitDeleteWarning() const;
 
     /// @brief process modifyAttribute function
     void modifyAttribute(const int overlappedTabs) const;

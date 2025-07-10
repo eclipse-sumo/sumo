@@ -101,6 +101,10 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         typeKey();
     } else if (function == "contextualMenuOperation") {
         contextualMenuOperation();
+    } else if (function == "protectElements") {
+        protectElements();
+    } else if (function == "waitDeleteWarning") {
+        waitDeleteWarning();
     } else if (function == "modifyAttribute") {
         modifyAttribute(0);
     } else if (function == "modifyAttributeOverlapped") {
@@ -517,6 +521,35 @@ InternalTestStep::contextualMenuOperation() const {
             // type space for select
             buildPressKeyEvent("space", false);
         }
+    }
+}
+
+
+void
+InternalTestStep::protectElements() const {
+    if (myArguments.size() != 0) {
+        writeError("protectElements", 0, "<>");
+    } else {
+        // go to delete mode
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE, Category::APP);
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
+        // jump to the element
+        for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.frames.delete.protectElements"); i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // press enter to confirm changes (updating view)
+        buildPressKeyEvent("space", true);
+    }
+}
+
+
+void
+InternalTestStep::waitDeleteWarning() const {
+    if (myArguments.size() != 0) {
+        writeError("waitDeleteWarning", 0, "<>");
+    } else {
+        // nothing to do (wait for delete warning doesnt' appear in internal test)
     }
 }
 

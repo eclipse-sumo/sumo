@@ -20,6 +20,8 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEInternalTest.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/elements/additional/GNEPoly.h>
@@ -124,19 +126,22 @@ GNEDeleteFrame::SubordinatedElements::~SubordinatedElements() {}
 
 bool
 GNEDeleteFrame::SubordinatedElements::checkElements(const ProtectElements* protectElements) {
+    // check if running internal tests
+    const auto internalTest = protectElements->getDeleteFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest();
+    const bool runningInternalTests = internalTest ? internalTest->isRunning() : false;
     // check every parent/child
     if ((myAdditionalParents > 0) && protectElements->protectAdditionals()) {
-        openWarningDialog("additional", myAdditionalParents, false);
+        openWarningDialog("additional", myAdditionalParents, false, runningInternalTests);
     } else if ((myAdditionalChilds > 0) && protectElements->protectAdditionals()) {
-        openWarningDialog("additional", myAdditionalChilds, true);
+        openWarningDialog("additional", myAdditionalChilds, true, runningInternalTests);
     } else if ((myDemandElementParents > 0) && protectElements->protectDemandElements()) {
-        openWarningDialog("demand", myDemandElementParents, false);
+        openWarningDialog("demand", myDemandElementParents, false, runningInternalTests);
     } else if ((myDemandElementChilds > 0) && protectElements->protectDemandElements()) {
-        openWarningDialog("demand", myDemandElementChilds, true);
+        openWarningDialog("demand", myDemandElementChilds, true, runningInternalTests);
     } else if ((myGenericDataParents > 0) && protectElements->protectGenericDatas()) {
-        openWarningDialog("data", myGenericDataParents, false);
+        openWarningDialog("data", myGenericDataParents, false, runningInternalTests);
     } else if ((myGenericDataChilds > 0) && protectElements->protectGenericDatas()) {
-        openWarningDialog("data", myGenericDataChilds, true);
+        openWarningDialog("data", myGenericDataChilds, true, runningInternalTests);
     } else {
         // all checks ok, then return true, to remove element
         return true;
@@ -201,7 +206,7 @@ GNEDeleteFrame::SubordinatedElements::addValuesFromSubordinatedElements(Subordin
 
 
 void
-GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type, const size_t number, const bool isChild) {
+GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type, const size_t number, const bool isChild, const bool runningInternalTests) {
     // declare plural depending of "number"
     const std::string plural = (number > 1) ? "s" : "";
     // declare header
@@ -218,8 +223,10 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
               "' cannot be deleted because it is part of " + toString(number) + " " + type + " element" + plural + ".\n" +
               "To delete it, uncheck 'protect " + type + " elements'.";
     }
-    // open message box
-    FXMessageBox::warning(myViewNet->getApp(), MBOX_OK, header.c_str(), "%s", msg.c_str());
+    // open message box only if we're not running internal tests
+    if (!runningInternalTests) {
+        FXMessageBox::warning(myViewNet->getApp(), MBOX_OK, header.c_str(), "%s", msg.c_str());
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -227,11 +234,14 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
 // ---------------------------------------------------------------------------
 
 GNEDeleteFrame::ProtectElements::ProtectElements(GNEDeleteFrame* deleteFrameParent) :
-    MFXGroupBoxModule(deleteFrameParent, TL("Protect Elements")) {
+    MFXGroupBoxModule(deleteFrameParent, TL("Protect Elements")),
+    myDeleteFrameParent(deleteFrameParent) {
     // Create "Protect all" Button
-    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Protect all"), "", TL("Protect all elements"), nullptr, this, MID_GNE_PROTECT_ALL, GUIDesignButton);
+    myProtectAllButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Protect all"), "", TL("Protect all elements"), nullptr, this, MID_GNE_PROTECT_ALL, GUIDesignButton);
+    // start disabled (because allelements are protected)
+    myProtectAllButton->disable();
     // Create "Unprotect all" Button
-    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Unprotect all"), "", TL("Unprotect all elements"), nullptr, this, MID_GNE_UNPROTECT_ALL, GUIDesignButton);
+    myUnprotectAllButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Unprotect all"), "", TL("Unprotect all elements"), nullptr, this, MID_GNE_UNPROTECT_ALL, GUIDesignButton);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
     myProtectAdditionals = new FXCheckButton(getCollapsableFrame(), TL("Protect additional elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectAdditionals->setCheck(TRUE);
@@ -248,6 +258,12 @@ GNEDeleteFrame::ProtectElements::ProtectElements(GNEDeleteFrame* deleteFramePare
 
 
 GNEDeleteFrame::ProtectElements::~ProtectElements() {}
+
+
+GNEDeleteFrame*
+GNEDeleteFrame::ProtectElements::getDeleteFrameParent() const {
+    return myDeleteFrameParent;
+}
 
 
 bool
@@ -280,6 +296,7 @@ GNEDeleteFrame::ProtectElements::onCmdProtectAll(FXObject*, FXSelector, void*) {
     myProtectTAZs->setCheck(TRUE);
     myProtectDemandElements->setCheck(TRUE);
     myProtectGenericDatas->setCheck(TRUE);
+    myUnprotectAllButton->enable();
     return 1;
 }
 
@@ -290,6 +307,7 @@ GNEDeleteFrame::ProtectElements::onCmdUnprotectAll(FXObject*, FXSelector, void*)
     myProtectTAZs->setCheck(FALSE);
     myProtectDemandElements->setCheck(FALSE);
     myProtectGenericDatas->setCheck(FALSE);
+    myProtectAllButton->enable();
     return 1;
 }
 
