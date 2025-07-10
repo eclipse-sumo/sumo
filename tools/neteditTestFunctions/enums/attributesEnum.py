@@ -598,7 +598,13 @@ class attrs:
 
     class TLS:
 
-        class attributes:
+        class attributesSingle:
+            TLID = 2
+            TLType = 3
+            offset = 13
+            parameters = 15
+
+        class attributesJoined:
             TLID = 2
             TLType = 3
             offset = 13
@@ -639,6 +645,7 @@ class attrs:
                 yellow = 6
                 red = 7
                 nxt = 8
+                name = 9
 
         create = 3
         createOverlapped = 4

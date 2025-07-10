@@ -324,10 +324,14 @@ netedit.attrs.TAZRelData.inspect.fromTAZ 2
 netedit.attrs.TAZRelData.inspect.parameters 6
 netedit.attrs.TAZRelData.inspect.toTAZ 3
 netedit.attrs.TAZRelData.inspectSelection.parameters 2
-netedit.attrs.TLS.attributes.TLID 2
-netedit.attrs.TLS.attributes.TLType 3
-netedit.attrs.TLS.attributes.offset 13
-netedit.attrs.TLS.attributes.parameters 15
+netedit.attrs.TLS.attributesJoined.TLID 2
+netedit.attrs.TLS.attributesJoined.TLType 3
+netedit.attrs.TLS.attributesJoined.offset 13
+netedit.attrs.TLS.attributesJoined.parameters 15
+netedit.attrs.TLS.attributesSingle.TLID 2
+netedit.attrs.TLS.attributesSingle.TLType 3
+netedit.attrs.TLS.attributesSingle.offset 13
+netedit.attrs.TLS.attributesSingle.parameters 15
 netedit.attrs.TLS.copyJoined 10
 netedit.attrs.TLS.copySingle 9
 netedit.attrs.TLS.create 3
@@ -339,6 +343,7 @@ netedit.attrs.TLS.joinTLS 5
 netedit.attrs.TLS.phases.NEMA.dur 1
 netedit.attrs.TLS.phases.NEMA.maxD 3
 netedit.attrs.TLS.phases.NEMA.minD 2
+netedit.attrs.TLS.phases.NEMA.name 9
 netedit.attrs.TLS.phases.NEMA.nxt 8
 netedit.attrs.TLS.phases.NEMA.red 7
 netedit.attrs.TLS.phases.NEMA.state 4
