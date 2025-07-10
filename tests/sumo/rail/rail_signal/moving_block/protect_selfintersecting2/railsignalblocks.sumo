@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-10 11:04:06 by Eclipse SUMO sumo Version v1_23_1+0982-5eb3d46e22a
+<!-- generated on 2025-07-10 11:19:21 by Eclipse SUMO sumo Version v1_23_1+0983-91902b4aa48
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":gneJ8_0_0 -b0_0 :gneJ1_0_0 -c_0 :gneJ9_0_0 -e_0 :gneJ3_0_0 -E0_0 :J0_1_0 -E1_0 :gneJ9_2_0 c_0 :gneJ1_1_0 b_0 :gneJ8_1_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="gneJ0.d0 gneJ0.d1 gneJ8.1.0"/>
+                <foes driveWays="gneJ0.d0 gneJ0.d1 gneJ8.0 gneJ8.1.0"/>
             </driveWay>
             <subDriveWay id="gneJ8.0.0" vehicle="" edges="b c e E0 E1 -c -b0">
                 <forward lanes=":gneJ8_1_0 b_0 :gneJ1_1_0 c_0 :gneJ9_3_0 e_0 :gneJ3_1_0 E0_0 :J0_0_0 E1_0 :gneJ9_1_0 -c_0 :gneJ1_0_0 -b0_0 :gneJ8_0_0"/>
@@ -59,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":gneJ8_0_0 -b0_0 :gneJ1_0_0 -c_0 :gneJ9_1_0 E1_0 :J0_0_0 E0_0 :gneJ3_1_0 e_0 :gneJ9_3_0 c_0 :gneJ1_1_0 b_0 :gneJ8_1_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="gneJ0.d0 gneJ0.d1 gneJ8.0.0"/>
+                <foes driveWays="gneJ0.d0 gneJ0.d1 gneJ8.0.0 gneJ8.1"/>
             </driveWay>
             <subDriveWay id="gneJ8.1.0" vehicle="" edges="b c -E1 -E0 -e -c -b0">
                 <forward lanes=":gneJ8_1_0 b_0 :gneJ1_1_0 c_0 :gneJ9_2_0 -E1_0 :J0_1_0 -E0_0 :gneJ3_0_0 -e_0 :gneJ9_0_0 -c_0 :gneJ1_0_0 -b0_0 :gneJ8_0_0"/>
