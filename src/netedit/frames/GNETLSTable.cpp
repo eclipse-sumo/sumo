@@ -285,9 +285,9 @@ GNETLSTable::onInternalTest(FXObject*, FXSelector, void* ptr) {
     // parse table test
     InternalTestStep::TLSTableTest* tableTest = static_cast<InternalTestStep::TLSTableTest*>(ptr);
     // obtain cell
-    if (tableTest->row > (int)myRows.size()) {
+    if (tableTest->row >= (int)myRows.size()) {
         throw ProcessError(TL("Invalid row in table test"));
-    } else if (tableTest->column > (int)myColumns.size()) {
+    } else if (tableTest->column >= (int)myColumns.size()) {
         throw ProcessError(TL("Invalid column in table test"));
     } else {
         // get cell
