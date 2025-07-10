@@ -1,2 +1,2 @@
 Warning: Invalid value ';;;;;;;;;;;;;;;;' in attribute id
-Error: Could not build chargingStation with ID 'cs_0' in netedit; Found another chargingStation with the same ID.
+Warning: Invalid value 'cs_0' in attribute id
