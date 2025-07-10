@@ -1,6 +1,2 @@
 Warning: Unused states in tlLogic 'JunctionCenter', program '0' in phase 0 after tl-index 23
-Warning: Unsafe green phase 12 in tlLogic 'JunctionCenter', program '0'. Lane '-E6_1' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 13 in tlLogic 'JunctionCenter', program '0'. Lane '-E6_1' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 14 in tlLogic 'JunctionCenter', program '0'. Lane '-E6_1' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 15 in tlLogic 'JunctionCenter', program '0'. Lane '-E6_1' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 16 in tlLogic 'JunctionCenter', program '0'. Lane '-E6_1' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 12 in tlLogic 'JunctionCenter', program '0'. Lane '-E6_1' is targeted by 2 'G'-links. (use 'g' instead) Overall 1 lanes in 5 phases are unsafe.

@@ -1,4 +1,1 @@
-Warning: Unsafe green phase 1 in tlLogic 'J0', program '0'. Lane 'E0_2' is targeted by 3 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic 'J0', program '0'. Lane 'E1_2' is targeted by 3 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic 'J0', program '0'. Lane 'E2_2' is targeted by 3 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 1 in tlLogic 'J0', program '0'. Lane 'E3_2' is targeted by 3 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 1 in tlLogic 'J0', program '0'. Lane 'E0_2' is targeted by 3 'G'-links. (use 'g' instead) Overall 4 lanes in 1 phases are unsafe.

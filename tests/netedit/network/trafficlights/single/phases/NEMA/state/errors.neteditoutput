@@ -1,3 +1,4 @@
-Warning: At NEMA tlLogic 'J0', the phases before barrier 2 from both rings do not add up. (ring1=55.00, ring2=90.00)
-Warning: Missing green phase in tlLogic 'J0', program '0' for tl-index 5.
-Warning: Unsafe green phase 3 in tlLogic 'J0', program '0'. Lane 'E0_2' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: At NEMA tlLogic 'J0', the phases before barrier 1 from both rings do not add up. (ring1=55.00, ring2=90.00)
+Warning: At NEMA tlLogic 'J0', the phases before barrier 2 from both rings do not add up. (ring1=90.00, ring2=55.00)
+Warning: Missing green phase in tlLogic 'J0', program '0' for tl-index 13.
+Warning: Unsafe green phase 2 in tlLogic 'J0', program '0'. Lane 'E0_2' is targeted by 2 'G'-links. (use 'g' instead)

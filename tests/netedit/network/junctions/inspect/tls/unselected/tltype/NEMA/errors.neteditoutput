@@ -1,5 +1,3 @@
 Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E5_1'! Truncated detector at length 17.8.
 Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E7_1'! Truncated detector at length 17.8.
-Warning: Unsafe green phase 0 in tlLogic 'JunctionRight', program '0'. Lane '-E6_1' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 0 in tlLogic 'JunctionRight', program '0'. Lane 'E2_0' is targeted by 2 'G'-links. (use 'g' instead)
-Warning: Unsafe green phase 0 in tlLogic 'JunctionRight', program '0'. Lane 'E3_0' is targeted by 2 'G'-links. (use 'g' instead)
+Warning: Unsafe green phase 0 in tlLogic 'JunctionRight', program '0'. Lane '-E6_1' is targeted by 2 'G'-links. (use 'g' instead) Overall 3 lanes in 1 phases are unsafe.
