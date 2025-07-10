@@ -196,6 +196,9 @@ class attrs:
                 attribute = 3
                 value = 2
 
+        class delete:
+            protectElements = 4
+
         class changeParentElement:
             route = 4
             stop = 2

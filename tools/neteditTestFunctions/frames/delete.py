@@ -17,6 +17,7 @@
 
 # imports
 import time
+from ..enums import attrs
 from ..constants import DELAY_REMOVESELECTION, DELAY_QUESTION
 from ..general.functions import typeKey, changeMode
 from ..input.keyboard import typeTwoKeys
@@ -38,7 +39,7 @@ def protectElements():
     # select delete mode again to set mode
     changeMode("delete")
     # jump to checkbox
-    for _ in range(4):
+    for _ in range(attrs.frames.delete.protectElements):
         typeKey('tab')
     # type SPACE to change value
     typeKey('space')
