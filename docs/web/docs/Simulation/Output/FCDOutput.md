@@ -51,13 +51,13 @@ The values without a tick in the "On" column need to be [enabled explicitly](#fu
 | id       | id                   |  x |   x  | The id of the vehicle                                                                                       |
 | x        | m or longitude       |  x |   x  | The absolute X coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection |
 | y        | m or latitude        |  x |   x  | The absolute Y coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection |
-| z        | m                    |  x |   x  | The z value of the vehicle (center of front bumper).<br><br>**Note:** This value is only present if the network contains elevation data      |
+| z        | m                    |  (x) |   x  | The z value of the vehicle (center of front bumper).<br><br>**Note:** This value is only present if the network contains elevation data      |
 | angle    | degree               |  x |   x  | The angle of the vehicle in navigational standard (0-360 degrees, going clockwise with 0 at the 12'o clock position)    |
 | type     | id                   |  x |   x  | The name of the vehicle type                                                                                |
 | speed    | m/s                  |  x |   x  | The speed of the vehicle                                                                                    |
 | pos      | m                    |  x |   x  | The running position of the vehicle measured from the start of the current lane.                            |
-| lane     | id                   |  x |      | The id of the current lane.                                                                                 |
-| edge     | id                   |  x |   x  | The id of the current edge (only available in meso).                                                        |
+| lane     | id                   |  (x) |      | The id of the current lane (only available in microsimulation).                                                                                 |
+| edge     | id                   |  (x) |   x  | The id of the current edge (only available in meso).                                                        |
 | slope    | degree               |  x |   x  | The slope of the vehicle in degrees (equals the slope of the road at the current position)                  |
 | signals  | bitset               |    |      | The [signal state information](../../TraCI/Vehicle_Signalling.md) (blinkers, etc)                           |
 | acceleration  | m/s<sup>2</sup  |    |      | The longitudinal acceleration                                                                               |
@@ -70,11 +70,15 @@ The values without a tick in the "On" column need to be [enabled explicitly](#fu
 | leaderID | id                   |    |      | The id of the leading vehicle                                                                               |
 | leaderSpeed | m/s               |    |      | The speed of the leader                                                                                     |
 | leaderGap | m                   |    |      | The gap to the leader                                                                                       |
-| segment | m                     |    |  X   | The [segment index within the current edge](../Meso.md#longitudinal_model)                                  |
-| queue | m                       |    |  X   | The [queue index within the current edge](../Meso.md#longitudinal_model)                                    |
-| entryTime | m                   |    |  X   | The time at which the vehicle entered the current segment                                                   |
-| eventTime | m                   |    |  X   | The earliest time at which the vehicle can leave the current segment                                        |
-| blockTime | m                   |    |  X   | The time at which the vehicle was blocked from leaving the current segment (or -1 if not blocked)           |
+| segment | m                     |    |  x   | The [segment index within the current edge](../Meso.md#longitudinal_model)                                  |
+| queue | m                       |    |  x   | The [queue index within the current edge](../Meso.md#longitudinal_model)                                    |
+| entryTime | m                   |    |  x   | The time at which the vehicle entered the current segment                                                   |
+| eventTime | m                   |    |  x   | The earliest time at which the vehicle can leave the current segment                                        |
+| blockTime | m                   |    |  x   | The time at which the vehicle was blocked from leaving the current segment (or -1 if not blocked)           |
+| tag | string                    |    |      | Whether a vehicle, container or person is being written (mainly useful for tabular output)           |
+
+All attributes from the [emission output](EmissionOutput.md) can be added to the FCD output as well.
+They need to be enabled by using the option **--fcd-output.attributes**, see below.
 
 When the option **--fcd-output.geo** is set, the written (x,y)-coordinates will be the
 lon/lat geo-coordinates.
@@ -115,7 +119,7 @@ vehicle.
 ## Filtering / Restricting Output
 
 !!! caution
-    The generated output files can become quite large. To write [gzipped](https://en.wikipedia.org/wiki/Gzip) output files, simply name the output file with an `.gz` extension.
+    The generated output files can become quite large. To write [gzipped](https://en.wikipedia.org/wiki/Gzip) output files, simply name the output file with an `.gz` extension. You can also write [CSV or Parquet output](../../TabularOutputs.md).
 
 ### Restricting the set of vehicles that generate output
 Output can be restricted to specific vehicle types or vehicle ids by [controlling the set of vehicles that are equipped](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)   with the **fcd**-device. The following example restricts output to a
@@ -172,6 +176,13 @@ The [polygon shapes](../Shapes.md) must have been loaded from an additional file
 ### Restricting output by sensor range
 When not all vehicles are equipped with an **fcd**-device, other vehicles and persons in a radius around the equipped vehicles can be included in the output by setting option **--device.fcd.radius** to the desired range in m.
 
+## Changing the written attributes
+The option **--fcd-output.attributes ATTR1,ATTR2,...** restricts / extends the written attributes to the given list to customize output (can be any combination of the attributes above). By default all the values with a marker in the "on" column are written.
+The value **all** enables all attributes (including emission output). There are also some predefined attribute sets:
+- **location** refers to all location attributes enabled by default
+- **emissions** all direct emission values (CO, CO2 etc.)
+- **misc** all values in the table above which are not seleted by default (and not in the emission output)
+
 ## Further Options
 
 - **--fcd-output.geo** will toggle output coordinates to WGS84 (for
@@ -182,7 +193,6 @@ When not all vehicles are equipped with an **fcd**-device, other vehicles and pe
 - **--fcd-output.acceleration** will add acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md))
 - **--fcd-output.max-leader-distance FLOAT** will add attributes leaderGap, leaderSpeed, leaderID whenever a vehicle has a leader within the given distance. Otherwise, leaderID will be "" and leaderGap, leaderSpeed will be -1.
 - **--fcd-output.params KEY1,KEY2,...** adds [generic parameters](../GenericParameters.md) to the output (supports device and car-following model parameters as well as arbitrary user-define values)
-- **--fcd-output.attributes ATTR1,ATTR2,...** restrict / extend written attributes to the given list to customize output (can be any combination of the attributes above). The value **all** enables all attributes.
 
 ## NOTES
 
