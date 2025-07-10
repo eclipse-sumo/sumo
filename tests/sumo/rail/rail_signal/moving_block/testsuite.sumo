@@ -18,3 +18,4 @@ protect_reversal_noSignal
 
 # rail signal must prohibit entering an occupied driveway if it contains a self-intersecting part
 protect_selfintersecting
+protect_selfintersecting2
