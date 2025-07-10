@@ -17,9 +17,10 @@
 
 # imports
 import time
-from ..enums import attrs
+from ..enums.attributesEnum import attrs
+from ..enums.viewPositions import positions
 from ..constants import TEXTTEST_SANDBOX, DELAY_SAVING
-from ..general.functions import typeKey, typeTwoKeys, typeThreeKeys, updateText
+from ..input.keyboard import typeKey, typeTwoKeys, typeThreeKeys, updateText
 from ..input.mouse import leftClick
 
 

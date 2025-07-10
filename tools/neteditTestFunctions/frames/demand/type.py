@@ -16,9 +16,10 @@
 # @date    28-05-25
 
 # imports
-from ...enums import attrs
+from ...enums.attributesEnum import attrs
 from ...constants import DELAY_QUESTION
-from ...general.functions import focusOnFrame, typeKey, typeTwoKeys, updateText
+from ...general.functions import focusOnFrame
+from ...input.keyboard import typeKey, typeTwoKeys, updateText
 
 
 def openVTypeDialog():

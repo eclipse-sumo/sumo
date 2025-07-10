@@ -18,7 +18,8 @@
 # imports
 import time
 from ..constants import DELAY_QUESTION
-from ..general.functions import focusOnFrame, typeKey, typeTwoKeys
+from ..general.functions import focusOnFrame
+from ..input.keyboard import typeKey, typeTwoKeys
 
 
 def fixDemandElement(value):

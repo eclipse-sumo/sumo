@@ -21,9 +21,8 @@ import sys
 import time
 import subprocess
 import pyautogui
-from constants import NETEDIT_APP, TEXTTEST_SANDBOX, REFERENCE_PNG, DELAY_REFERENCE, DELAY_MOUSE_MOVE, DELAY_MOUSE_CLICK
-from general.functions import typeKey, keyRelease
-from frames.edit.basicAttribute import quit
+from .input.keyboard import typeKey, keyRelease
+from .constants import NETEDIT_APP, TEXTTEST_SANDBOX, REFERENCE_PNG, DELAY_REFERENCE, DELAY_MOUSE_MOVE, DELAY_MOUSE_CLICK
 
 
 def Popen(extraParameters):

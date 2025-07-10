@@ -17,9 +17,10 @@
 
 # imports
 from ...constants import TEXTTEST_SANDBOX
-from ...enums import attrs
-from ...general.functions import focusOnFrame, typeKey, typeTwoKeys, updateText
+from ...enums.attributesEnum import attrs
+from ...general.functions import focusOnFrame
 from ...frames.edit.basicAttribute import modifyAttribute, modifyAttributeOverlapped
+from ...input.keyboard import typeKey, typeTwoKeys, updateText
 
 
 def modifyAdditionalFile(attributeIndex):

@@ -16,7 +16,7 @@
 # @date    28-05-25
 
 # imports
-from ...enums import attrs
+from ...enums.attributesEnum import attrs
 from ...general.functions import focusOnFrame, typeKey
 
 

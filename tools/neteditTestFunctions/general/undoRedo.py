@@ -17,9 +17,11 @@
 
 # imports
 import time
-from ..enums import positions
+from ..enums.viewPositions import positions
 from ..constants import DELAY_UNDOREDO
-from ..general.functions import focusOnFrame, typeKey, typeTwoKeys, leftClickOffset
+from ..general.functions import focusOnFrame
+from ..input.keyboard import typeKey, typeTwoKeys
+from ..input.mouse import leftClickOffset
 
 
 def undo(referencePosition, number, offsetX=0, offsetY=0):

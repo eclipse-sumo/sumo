@@ -18,8 +18,7 @@
 # imports
 import time
 from ..constants import TEXTTEST_SANDBOX, DELAY_SELECT
-from ..general.functions import typeKey, typeTwoKeys, updateText
-from ..frames.edit.basicAttribute import quit
+from ..input.keyboard import typeKey, typeTwoKeys, updateText
 
 
 def loadViewPort():

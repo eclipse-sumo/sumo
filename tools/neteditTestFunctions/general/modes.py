@@ -18,7 +18,7 @@
 # imports
 import time
 from ..constants import DELAY_RECOMPUTE
-from ..general.functions import typeKey, typeTwoKeys
+from ..input.keyboard import typeKey, typeTwoKeys
 
 
 def changeSupermode(supermode):

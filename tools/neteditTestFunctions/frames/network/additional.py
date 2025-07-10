@@ -18,8 +18,9 @@
 # imports
 import time
 from ...constants import TEXTTEST_SANDBOX
-from ...general.functions import focusOnFrame, typeKey, typeTwoKeys, updateText
+from ...general.functions import focusOnFrame
 from ...frames.edit.basicAttribute import modifyAttribute
+from ...input.keyboard import typeKey, typeTwoKeys, updateText
 
 
 def changeAdditionalFileDialog(attributeIndex, waitTime=2):

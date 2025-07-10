@@ -16,7 +16,8 @@
 # @date    28-05-25
 
 # imports
-from ...general.functions import focusOnFrame, typeKey, leftClick, updateText
+from ...general.functions import focusOnFrame
+from ...input.keyboard import typeKey
 
 
 def createMeanData():

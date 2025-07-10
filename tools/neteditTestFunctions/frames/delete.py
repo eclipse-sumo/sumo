@@ -17,10 +17,10 @@
 
 # imports
 import time
-from ..enums import attrs
+from ..enums.attributesEnum import attrs
 from ..constants import DELAY_REMOVESELECTION, DELAY_QUESTION
-from ..general.functions import typeKey, changeMode
-from ..input.keyboard import typeTwoKeys
+from ..general.modes import changeMode
+from ..input.keyboard import typeKey
 
 
 def delete():

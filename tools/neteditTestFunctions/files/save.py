@@ -17,9 +17,10 @@
 
 # imports
 import time
-from ..enums import attrs
+from ..enums.attributesEnum import attrs
 from ..constants import TEXTTEST_SANDBOX
-from ..general.functions import typeKey, typeTwoKeys, typeThreeKeys, updateText
+from ..input.keyboard import typeKey, typeTwoKeys, typeThreeKeys, updateText
+
 
 # declare delay in saving
 _DELAY_OPENDIALOG = 1

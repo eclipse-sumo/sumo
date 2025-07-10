@@ -16,8 +16,9 @@
 # @date    28-05-25
 
 # imports
-from ...enums import attrs
-from ...general.functions import focusOnFrame, typeKey, typeTwoKeys
+from ...enums.attributesEnum import attrs
+from ...general.functions import focusOnFrame
+from ...input.keyboard import typeKey, typeTwoKeys
 
 
 def modifyColorAttribute(attributeIndex):

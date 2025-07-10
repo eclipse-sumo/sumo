@@ -19,11 +19,11 @@
 import os
 import pyautogui
 import time
-from ..enums import attrs
+from ..enums.attributesEnum import attrs
 from ..constants import TEXTTEST_SANDBOX, DELAY_SELECT, DELAY_KEY
-from ..general.functions import focusOnFrame, typeKey, typeTwoKeys, updateText
+from ..general.functions import focusOnFrame
 from ..input.mouse import dragDrop
-from ..input.keyboard import keyPress, keyRelease
+from ..input.keyboard import keyPress, keyRelease, typeKey, typeTwoKeys, updateText
 
 
 def selection(selectionType):

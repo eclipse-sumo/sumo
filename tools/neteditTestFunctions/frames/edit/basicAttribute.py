@@ -16,8 +16,9 @@
 # @date    28-05-25
 
 # imports
-from ...constants import attrs
-from ...general.functions import focusOnFrame, typeKey, updateText
+from ...enums.attributesEnum import attrs
+from ...general.functions import focusOnFrame
+from ...input.keyboard import typeKey, updateText
 
 
 def modifyAttribute(attributeIndex, value):

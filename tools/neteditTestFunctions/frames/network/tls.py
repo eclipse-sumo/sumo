@@ -17,7 +17,7 @@
 
 # imports
 import time
-from ...enums import attrs
+from ...enums.attributesEnum import attrs
 from ...constants import DELAY_SELECT
 from ...general.functions import focusOnFrame, typeKey
 
