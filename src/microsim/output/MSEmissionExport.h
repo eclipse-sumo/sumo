@@ -62,11 +62,9 @@ public:
      *
      * @param[in] of The output device to use
      * @param[in] veh The vehicle to generate data for
-     * @param[in] scaled Whetehr the values are scaled to the current step length
      * @param[in] mask The attributes to write
-     * @exception IOError If an error on writing occurs (!!! not yet implemented)
      */
-    static void writeEmissions(OutputDevice& of, const bool scaled, const MSBaseVehicle* const veh, const bool includeType, const SumoXMLAttrMask& mask);
+    static void writeEmissions(OutputDevice& of, const MSBaseVehicle* const veh, const bool includeType, const SumoXMLAttrMask& mask);
 
 private:
     /// @brief Invalidated copy constructor.

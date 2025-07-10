@@ -68,10 +68,12 @@ CSVFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& xmlElement) {
 bool
 CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
     if (myMaxDepth == 0) {
-        WRITE_WARNING("Column based formats are still experimental. Autodetection only works for homogeneous output.");
         myMaxDepth = myCurrentDepth;
     }
     if (myMaxDepth == myCurrentDepth && !myWroteHeader) {
+        if (!myCheckColumns) {
+            WRITE_WARNING("Column based formats are still experimental. Autodetection only works for homogeneous output.");
+        }
         into << joinToString(myHeader, mySeparator) << "\n";
         myWroteHeader = true;
     }

@@ -208,7 +208,7 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep) {
                 of.writeFuncAttr(SUMO_ATTR_TAG, [ = ]() {
                     return toString(SUMO_TAG_VEHICLE);
                 }, mask);
-                MSEmissionExport::writeEmissions(of, false, static_cast<const MSBaseVehicle*>(veh), false, mask);
+                MSEmissionExport::writeEmissions(of, static_cast<const MSBaseVehicle*>(veh), false, mask);
                 of.closeTag();
             }
             // write persons and containers in the vehicle

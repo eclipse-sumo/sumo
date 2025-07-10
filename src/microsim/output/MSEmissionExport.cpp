@@ -45,7 +45,6 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
     const OptionsCont& oc = OptionsCont::getOptions();
     const SUMOTime period = string2time(oc.getString("device.emissions.period"));
     const SUMOTime begin = string2time(oc.getString("device.emissions.begin"));
-    const bool scaled = oc.getBool("emission-output.step-scaled");
     const bool useGeo = oc.getBool("emission-output.geo");
     if ((period > 0 && (timestep - begin) % period != 0) || timestep < begin) {
         return;
@@ -60,7 +59,7 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
         if (emissionsDevice != nullptr && (veh->isOnRoad() || veh->isIdling())) {
             of.openTag("vehicle");
             of.writeAttr(SUMO_ATTR_ID, veh->getID());
-            writeEmissions(of, scaled, static_cast<const MSBaseVehicle*>(veh), true, mask);
+            writeEmissions(of, static_cast<const MSBaseVehicle*>(veh), true, mask);
             if (MSGlobals::gUseMesoSim) {
                 of.writeOptionalAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID(), mask);
             } else {
@@ -89,7 +88,7 @@ MSEmissionExport::write(OutputDevice& of, SUMOTime timestep) {
 
 
 void
-MSEmissionExport::writeEmissions(OutputDevice& of, const bool scaled, const MSBaseVehicle* const veh, const bool includeType, const SumoXMLAttrMask& mask) {
+MSEmissionExport::writeEmissions(OutputDevice& of, const MSBaseVehicle* const veh, const bool includeType, const SumoXMLAttrMask& mask) {
     of.writeFuncAttr(SUMO_ATTR_ECLASS, [ = ]() {
         return  PollutantsInterface::getName(veh->getVehicleType().getEmissionClass());
     }, mask);
@@ -99,7 +98,7 @@ MSEmissionExport::writeEmissions(OutputDevice& of, const bool scaled, const MSBa
                 veh->getVehicleType().getEmissionClass(),
                 veh->getSpeed(), veh->getAcceleration(), veh->getSlope(),
                 veh->getEmissionParameters());
-        if (scaled) {
+        if (OptionsCont::getOptions().getBool("emission-output.step-scaled")) {
             emiss.addScaled(emiss, TS - 1.);
         }
         of.setPrecision(gPrecisionEmissions);

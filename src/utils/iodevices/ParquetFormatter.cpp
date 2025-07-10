@@ -79,10 +79,12 @@ ParquetFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& xmlElement
 bool
 ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
     if (myMaxDepth == 0) {
-        WRITE_WARNING("Column based formats are still experimental. Autodetection only works for homogeneous output.");
         myMaxDepth = (int)myXMLStack.size();
     }
     if (myMaxDepth == (int)myXMLStack.size() && !myWroteHeader) {
+        if (!myCheckColumns) {
+            WRITE_WARNING("Column based formats are still experimental. Autodetection only works for homogeneous output.");
+        }
         auto arrow_stream = std::make_shared<ArrowOStreamWrapper>(into);
         std::shared_ptr<parquet::WriterProperties> props = parquet::WriterProperties::Builder().compression(myCompression)->build();
         myParquetWriter = *parquet::arrow::FileWriter::Open(*mySchema, arrow::default_memory_pool(), arrow_stream, props);

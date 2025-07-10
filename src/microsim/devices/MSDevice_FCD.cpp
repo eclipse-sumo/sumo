@@ -187,7 +187,6 @@ MSDevice_FCD::initOnce() {
             myEdgeFilter.insert(MSEdge::dictionary(name));
         }
     }
-    const SumoXMLAttrMask traffic = getDefaultMask();
     SumoXMLAttrMask emissions;
     emissions.set(SUMO_ATTR_ECLASS);
     emissions.set(SUMO_ATTR_CO2);
@@ -212,12 +211,14 @@ MSDevice_FCD::initOnce() {
     misc.set(SUMO_ATTR_ENTRYTIME);
     misc.set(SUMO_ATTR_EVENTTIME);
     misc.set(SUMO_ATTR_BLOCKTIME);
-    const std::map<std::string, SumoXMLAttrMask> special = {{"traffic", traffic}, {"emissions", emissions}, {"misc", misc}};
+    const std::map<std::string, SumoXMLAttrMask> special = {{"location", getDefaultMask()}, {"emissions", emissions}, {"misc", misc}};
     if (oc.isSet("fcd-output.attributes")) {
         myWrittenAttributes = OutputDevice::parseWrittenAttributes(oc.getStringVector("fcd-output.attributes"), "fcd output", special);
     } else {
         myWrittenAttributes = getDefaultMask();
     }
+    // need to store this because some attributes are reset later
+    const bool all = myWrittenAttributes.all();
     myWrittenAttributes.set(SUMO_ATTR_ID);
     if (!MSNet::getInstance()->hasElevation()) {
         myWrittenAttributes.reset(SUMO_ATTR_Z);
@@ -238,8 +239,7 @@ MSDevice_FCD::initOnce() {
         myShapeFilterDesired = true;
         buildShapeFilter();
     }
-    OutputDevice& of = OutputDevice::getDeviceByOption("fcd-output");
-    of.setExpectedAttributes(myWrittenAttributes);
+    OutputDevice::getDeviceByOption("fcd-output").setExpectedAttributes(all ? 0 : myWrittenAttributes);
 }
 
 
