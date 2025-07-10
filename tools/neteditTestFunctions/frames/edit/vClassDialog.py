@@ -16,8 +16,10 @@
 # @date    28-05-25
 
 # imports
-from ...general.functions import *
-from .boolAttribute import *
+from ...enums import attrs
+from ...constants import DELAY_SELECT
+from ...general.functions import modifyBoolAttribute, modifyBoolAttributeOverlapped
+from ...input.keyboard import typeKey, typeTwoKeys
 
 
 def modifyVClassDialog_NoDisallowAll(attribute, vClass):

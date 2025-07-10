@@ -16,7 +16,10 @@
 # @date    28-05-25
 
 # imports
-from ..input.keyboard import *
+import time
+import pyautogui
+from ..constants import DELAY_MOUSE_MOVE, DELAY_KEY_TAB
+from ..input.keyboard import typeKey
 
 
 def contextualMenuOperation(referencePosition, position, contextualMenuOperation,

@@ -16,8 +16,10 @@
 # @date    28-05-25
 
 # imports
-from .keyboard import *
-from ..constants import *
+import time
+import pyautogui
+from ..constants import DELAY_MOUSE_MOVE, DELAY_MOUSE_CLICK, DELAY_DRAGDROP, DELAY_KEY
+from ..input.keyboard import keyPress, keyRelease, typeKey
 
 
 def leftClick(referencePosition, position):

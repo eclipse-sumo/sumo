@@ -16,7 +16,8 @@
 # @date    28-05-25
 
 # imports
-from ...general.functions import *
+from ...constants import attrs
+from ...general.functions import focusOnFrame, typeKey, updateText
 
 
 def modifyAttribute(attributeIndex, value):

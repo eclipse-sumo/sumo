@@ -16,7 +16,9 @@
 # @date    28-05-25
 
 # imports
-from ...general.functions import *
+from ...enums import attrs
+from ...constants import DELAY_SELECT
+from ...general.functions import focusOnFrame, typeKey, leftClick, leftClickOffset
 
 
 def createSquaredShape(referencePosition, position, size, close):

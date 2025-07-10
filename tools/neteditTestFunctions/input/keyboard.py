@@ -16,8 +16,10 @@
 # @date    28-05-25
 
 # imports
-from ..imports import *
-from ..constants import *
+import pyautogui
+import time
+import pyperclip
+from ..constants import DELAY_KEY
 
 # Define the mapping from English to German keyboard layout
 EN_KEYS = r"""y[];'\z/Y{}:"|Z<>?@#^&*()-_=+"""

@@ -16,14 +16,9 @@
 # @date    28-05-25
 
 # imports
-from ..enums.attributesEnum import *
-from ..enums.contextualMenuOperations import *
-from ..enums.viewPositions import *
-from ..imports import *
-from ..input.keyboard import *
-from ..input.mouse import *
-from ..constants import *
-from .modes import *
+import time
+from ..constants import DELAY_RECOMPUTE, DELAY_RECOMPUTE_VOLATILE, DELAY_QUESTION
+from ..input.keyboard import typeKey, typeTwoKeys
 
 
 def computeJunctions():

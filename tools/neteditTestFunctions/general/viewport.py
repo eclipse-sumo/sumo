@@ -16,9 +16,10 @@
 # @date    28-05-25
 
 # imports
-from ..imports import *
-from ..constants import *
-from ..input.keyboard import *
+import time
+from ..constants import TEXTTEST_SANDBOX, DELAY_SELECT
+from ..general.functions import typeKey, typeTwoKeys, updateText
+from ..frames.edit.basicAttribute import quit
 
 
 def loadViewPort():

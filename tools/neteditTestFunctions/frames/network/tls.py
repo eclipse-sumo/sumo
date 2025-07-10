@@ -16,7 +16,10 @@
 # @date    28-05-25
 
 # imports
-from ...general.functions import *
+import time
+from ...enums import attrs
+from ...constants import DELAY_SELECT
+from ...general.functions import focusOnFrame, typeKey
 
 
 def createTLS():

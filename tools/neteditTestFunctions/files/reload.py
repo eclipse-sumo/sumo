@@ -16,10 +16,10 @@
 # @date    28-05-25
 
 # imports
-from ..imports import *
-from ..constants import *
-from ..input.keyboard import *
-from ..general.functions import *
+import time
+import pyautogui
+from ..constants import DELAY_RELOAD
+from ..general.functions import typeTwoKeys, waitQuestion
 
 
 def reload(NeteditProcess, openNetDialog=False, saveNet=False,

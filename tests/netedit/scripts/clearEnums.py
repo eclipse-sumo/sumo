@@ -39,7 +39,7 @@ for line in lines:
         line = line.replace("    ", "\t")
         line = line.replace(":", "")
         line = line.replace("\n", "")
-        if ("="" in line):
+        if ("=" in line):
             line = line[0:-4]
         if ("=" in line):
             line = line[0:-3]
@@ -82,7 +82,7 @@ for line in lines:
         line = line.replace("    ", "\t")
         line = line.replace(":", "")
         line = line.replace("\n", "")
-        if ("="" in line):
+        if ("=" in line):
             line = line[0:-4]
         if ("=" in line):
             line = line[0:-3]

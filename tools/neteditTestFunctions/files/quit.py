@@ -16,9 +16,12 @@
 # @date    28-05-25
 
 # imports
-from ..imports import *
-from ..input.keyboard import *
-from ..general.functions import *
+import time
+import pyautogui
+import subprocess
+from ..constants import DELAY_QUIT_NETEDIT
+from ..general.functions import typeTwoKeys, waitQuestion
+from ..input.keyboard import keyRelease
 
 
 def quit(NeteditProcess, openNetDialog=False, saveNet=False,

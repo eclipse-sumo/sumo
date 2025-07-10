@@ -16,9 +16,7 @@
 # @date    28-05-25
 
 # imports
-from ...general.functions import *
-from .basicAttribute import *
-from ...general.undoRedo import *
+from ...frames.edit.basicAttribute import modifyAttribute, modifyAttributeOverlapped, checkUndoRedo
 
 
 def checkParameters(referencePosition, attributeIndex, offsetX=0, offsetY=0):

@@ -16,7 +16,7 @@
 # @date    28-05-25
 
 # imports
-from .imports import *
+import os
 
 # files
 NETEDIT_APP = os.environ.get("NETEDIT_BINARY", "netedit")

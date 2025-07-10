@@ -16,7 +16,14 @@
 # @date    28-05-25
 
 # imports
-from ..general.functions import *
+import os
+import pyautogui
+import time
+from ..enums import attrs
+from ..constants import TEXTTEST_SANDBOX, DELAY_SELECT, DELAY_KEY
+from ..general.functions import focusOnFrame, typeKey, typeTwoKeys, updateText
+from ..input.mouse import dragDrop
+from ..input.keyboard import keyPress, keyRelease
 
 
 def selection(selectionType):

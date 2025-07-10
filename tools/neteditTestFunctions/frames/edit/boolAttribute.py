@@ -16,7 +16,8 @@
 # @date    28-05-25
 
 # imports
-from ...general.functions import *
+from ...enums import attrs
+from ...general.functions import focusOnFrame, typeKey
 
 
 def modifyBoolAttribute(attributeIndex):

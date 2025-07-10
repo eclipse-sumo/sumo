@@ -52,7 +52,6 @@
     <Compile Include="general\modes.py" />
     <Compile Include="general\undoRedo.py" />
     <Compile Include="general\viewport.py" />
-    <Compile Include="imports.py" />
     <Compile Include="input\keyboard.py" />
     <Compile Include="input\mouse.py" />
     <Compile Include="buildinternaltestdata.py" />

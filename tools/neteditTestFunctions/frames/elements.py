@@ -16,8 +16,9 @@
 # @date    28-05-25
 
 # imports
-from neteditTestFunctions.frames.edit.vClassDialog import modifyBoolAttribute
-from ..general.functions import *
+from ..enums import attrs
+from ..constants import DELAY_SELECT
+from ..general.functions import focusOnFrame, typeKey, updateText
 
 
 def changeElement(frame, element):

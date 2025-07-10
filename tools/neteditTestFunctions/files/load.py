@@ -16,12 +16,11 @@
 # @date    28-05-25
 
 # imports
-from ..imports import *
-from ..constants import *
-from ..input.keyboard import *
-from ..input.mouse import *
-from ..enums.attributesEnum import *
-from ..enums.viewPositions import *
+import time
+from ..enums import attrs
+from ..constants import TEXTTEST_SANDBOX, DELAY_SAVING
+from ..general.functions import typeKey, typeTwoKeys, typeThreeKeys, updateText
+from ..input.mouse import leftClick
 
 
 def openNeteditConfigAs(waitTime=2):

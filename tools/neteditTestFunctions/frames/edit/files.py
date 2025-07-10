@@ -16,8 +16,10 @@
 # @date    28-05-25
 
 # imports
-from ...general.functions import *
-from .basicAttribute import *
+from ...constants import TEXTTEST_SANDBOX
+from ...enums import attrs
+from ...general.functions import focusOnFrame, typeKey, typeTwoKeys, updateText
+from ...frames.edit.basicAttribute import modifyAttribute, modifyAttributeOverlapped
 
 
 def modifyAdditionalFile(attributeIndex):

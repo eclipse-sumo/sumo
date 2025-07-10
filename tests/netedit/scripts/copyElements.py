@@ -25,7 +25,7 @@ import shutil
 def copy_file_if_reference_exists(source_file, base_folder, reference_file):
     # Check if the source file exists
     if not os.path.isfile(source_file):
-        print(f"The source file "{source_file}" does not exist.")
+        print(source_file + " doesn't exist")
         return
 
     # Traverse all folders and subfolders in the base folder
@@ -41,7 +41,7 @@ def copy_file_if_reference_exists(source_file, base_folder, reference_file):
                     shutil.copy(source_file, destination_folder)
                     print(f"File copied to: {destination_folder}")
                 except Exception as e:
-                    print(f"Could not copy the file to "{destination_folder}": {e}")
+                    print("File " + source_file + " cannnot be copied to " + destination_folder)
 
 
 # Main block

@@ -16,8 +16,10 @@
 # @date    28-05-25
 
 # imports
-from ...general.functions import *
-from ..edit.basicAttribute import *
+import time
+from ...constants import TEXTTEST_SANDBOX
+from ...general.functions import focusOnFrame, typeKey, typeTwoKeys, updateText
+from ...frames.edit.basicAttribute import modifyAttribute
 
 
 def changeAdditionalFileDialog(attributeIndex, waitTime=2):

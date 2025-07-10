@@ -16,9 +16,14 @@
 # @date    28-05-25
 
 # imports
-from .imports import *
-from .constants import *
-from .input.keyboard import *
+import os
+import sys
+import time
+import subprocess
+import pyautogui
+from constants import NETEDIT_APP, TEXTTEST_SANDBOX, REFERENCE_PNG, DELAY_REFERENCE, DELAY_MOUSE_MOVE, DELAY_MOUSE_CLICK
+from general.functions import typeKey, keyRelease
+from frames.edit.basicAttribute import quit
 
 
 def Popen(extraParameters):

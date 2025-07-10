@@ -16,7 +16,9 @@
 # @date    28-05-25
 
 # imports
-from ..input.keyboard import *
+import time
+from ..constants import DELAY_RECOMPUTE
+from ..general.functions import typeKey, typeTwoKeys
 
 
 def changeSupermode(supermode):
