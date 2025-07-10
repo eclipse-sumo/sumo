@@ -35,7 +35,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 netedit.createTLS()
 
 # change type
-netedit.modifyAttribute(netedit.attrs.TLS.attributes.TLType, "actuated")
+netedit.modifyAttribute(netedit.attrs.TLS.attributesSingle.TLType, "actuated")
 
 # type enter to save changes
 netedit.typeKey("enter")
