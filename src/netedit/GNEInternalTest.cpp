@@ -18,13 +18,13 @@
 // Internal test system used for testing netedit
 /****************************************************************************/
 
-#include <netedit/frames/GNETagSelector.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/dialogs/GNEFixAdditionalElements.h>
+#include <netedit/dialogs/GNEFixDemandElements.h>
+#include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netedit/frames/GNETLSTable.h>
-#include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <netedit/GNEApplicationWindow.h>
-#include <utils/tests/InternalTestStep.h>
 
 #include "GNEInternalTest.h"
 
@@ -57,9 +57,6 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
         if (testStep->getModalArguments()) {
             argument = testStep->getModalArguments();
         }
-        if (testStep->getTLSTableTest()) {
-            argument = testStep->getTLSTableTest();
-        }
         // check if we have to process it in main windows, abstract view or specific view
         if (testStep->getCategory() == InternalTestStep::Category::APP) {
             applicationWindow->handle(this, testStep->getSelector(), argument);
@@ -68,15 +65,13 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
         } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASES) {
             viewParent->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), argument);
         } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASETABLE) {
-            viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->onInternalTest(this, testStep->getSelector(), argument);
-
-        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_ADDITIONAL) {
-            viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->onInternalTest(this, testStep->getSelector(), argument);
-        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_DEMAND) {
-            viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->onInternalTest(this, testStep->getSelector(), argument);
+            viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->testTable(testStep->getTLSTableTest());
         } else if (testStep->getCategory() == InternalTestStep::Category::FIX_NETWORK) {
-            viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->onInternalTest(this, testStep->getSelector(), argument);
-
+            viewNet->getFixNetworkElementsDialog()->testFixDialog(testStep->getFixDialogTest());
+        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_ADDITIONAL) {
+            viewNet->getFixAdditionalElementsDialog()->testFixDialog(testStep->getFixDialogTest());
+        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_DEMAND) {
+            viewNet->getFixDemandElementsDialog()->testFixDialog(testStep->getFixDialogTest());
         } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
             writeClosedSucessfully = true;
         }
