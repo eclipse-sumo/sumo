@@ -146,6 +146,9 @@ public:
     /// @brief record actual travel time for an edge
     static void addEdgeTravelTime(const MSEdge& edge, const SUMOTime travelTime);
 
+    /// @brief initialize RNG for the gui thread
+    static void initGUIThreadRNG();
+
     /** @brief Saves the state (i.e. recorded speeds)
      *
      * @param[in] out The OutputDevice to write the information into

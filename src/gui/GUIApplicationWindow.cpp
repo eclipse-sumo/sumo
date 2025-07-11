@@ -35,6 +35,7 @@
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/devices/MSRoutingEngine.h>
 #include <netload/NLHandler.h>
 #include <traci-server/TraCIServer.h>
 #include <utils/common/MsgHandler.h>
@@ -1975,6 +1976,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 myDemandScaleSpinner->setValue(OptionsCont::getOptions().getFloat("scale"));
             }
             myRunThread->getNet().getVehicleControl().setScale(myDemandScaleSpinner->getValue());
+            MSRoutingEngine::initGUIThreadRNG();
         }
     }
     getApp()->endWaitCursor();

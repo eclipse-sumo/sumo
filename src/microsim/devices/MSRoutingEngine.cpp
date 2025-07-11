@@ -448,6 +448,21 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
 
 
 void
+MSRoutingEngine::initGUIThreadRNG() {
+#ifndef THREAD_POOL
+#ifdef HAVE_FOX
+    MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        FXMutexLock lock(myRouteCacheMutex);
+        SumoRNG* rng = new SumoRNG("routingGUI");
+        myThreadRNGs[std::this_thread::get_id()] = rng;
+    }
+#endif
+#endif
+}
+
+
+void
 MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
                          const bool onInit, const bool silent, const Prohibitions& prohibited) {
     if (myRouterProvider == nullptr) {
