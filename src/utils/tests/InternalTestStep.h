@@ -102,6 +102,27 @@ public:
         TLSTableTest(const TLSTableTest&) = delete;
     };
 
+    /// @brief struct used for test fix dialogs
+    class FixDialogTest {
+
+    public:
+        /// brief default constructor with text
+        FixDialogTest(const std::string& solution);
+
+        /// @brief get selector
+        FXSelector getSelector() const;
+
+    private:
+        /// @brief selector
+        FXSelector mySel = 0;
+
+        /// @brief invalidated default constructor
+        FixDialogTest() = delete;
+
+        /// @brief invalidated copy constructor
+        FixDialogTest(const FixDialogTest&) = delete;
+    };
+
     /// @brief constructor for parsing step in strin format
     InternalTestStep(InternalTest* testSystem, const std::string& step);
 
@@ -130,6 +151,9 @@ public:
 
     /// @brief get TLS Table test
     TLSTableTest* getTLSTableTest() const;
+
+    /// @brief get Fix dialog test
+    FixDialogTest* getFixDialogTest() const;
 
     /// @brief get selector (based in messageType and messageID)
     FXSelector getSelector() const;
@@ -171,8 +195,11 @@ private:
     /// @brief extra arguments
     ModalArguments* myModalArguments = nullptr;
 
-    /// @brief TLS Table test (used for certain steps)
+    /// @brief TLS Table test
     TLSTableTest* myTLSTableTest = nullptr;
+
+    /// @brief Fix dialog test
+    FixDialogTest* myFixDialogTest = nullptr;
 
     /// @brief Test steps used in certain modal dialogs
     std::vector<const InternalTestStep*> myModalDialogTestSteps;

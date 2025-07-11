@@ -69,6 +69,20 @@ InternalTestStep::TLSTableTest::TLSTableTest(FXSelector sel_, const int row_, co
 }
 
 // ---------------------------------------------------------------------------
+// GNETLSTable::Test - public methods
+// ---------------------------------------------------------------------------
+
+InternalTestStep::FixDialogTest::FixDialogTest(const std::string& solution) {
+
+}
+
+
+FXSelector
+InternalTestStep::FixDialogTest::getSelector() const {
+    return mySel;
+}
+
+// ---------------------------------------------------------------------------
 // InternalTestStep - public methods
 // ---------------------------------------------------------------------------
 
@@ -290,6 +304,9 @@ InternalTestStep::~InternalTestStep() {
     if (myTLSTableTest) {
         delete myTLSTableTest;
     }
+    if (myFixDialogTest) {
+        delete myFixDialogTest;
+    }
     // remove all key steps
     for (auto modalDialogTestStep : myModalDialogTestSteps) {
         delete modalDialogTestStep;
@@ -319,6 +336,12 @@ InternalTestStep::getModalArguments() const {
 InternalTestStep::TLSTableTest*
 InternalTestStep::getTLSTableTest() const {
     return myTLSTableTest;
+}
+
+
+InternalTestStep::FixDialogTest*
+InternalTestStep::getFixDialogTest() const {
+    return myFixDialogTest;
 }
 
 
