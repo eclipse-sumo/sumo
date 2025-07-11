@@ -192,7 +192,7 @@
         <parking.maneuver value="false" type="BOOL" help="Whether parking simulation includes maneuvering time and associated lane blocking"/>
         <use-stop-ended value="false" type="BOOL" help="Override stop until times with stop ended times when given"/>
         <use-stop-started value="false" type="BOOL" help="Override stop arrival times with stop started times when given"/>
-        <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;]"/>
+        <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;jupedsim&apos;, &apos;remote&apos;]"/>
         <pedestrian.timegap-crossing value="2" type="FLOAT" help="Minimal acceptable gap (in seconds) between two vehicles before starting to cross"/>
         <pedestrian.striping.stripe-width value="0.64" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
         <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="Factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>

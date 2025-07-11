@@ -549,7 +549,7 @@ MSFrame::fillOptions() {
 
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
-    oc.addDescription("pedestrian.model", "Processing", TL("Select among pedestrian models ['nonInteracting', 'striping', 'remote']"));
+    oc.addDescription("pedestrian.model", "Processing", TL("Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', 'remote']"));
 
     oc.doRegister("pedestrian.timegap-crossing", new Option_Float(2.));
     oc.addDescription("pedestrian.timegap-crossing", "Processing", TL("Minimal acceptable gap (in seconds) between two vehicles before starting to cross"));
