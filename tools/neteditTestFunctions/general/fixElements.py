@@ -19,6 +19,7 @@
 import time
 from ..constants import DELAY_QUESTION
 from ..general.functions import focusOnFrame
+from ..files.save import saveExistentShortcut
 from ..input.keyboard import typeKey, typeTwoKeys
 
 
@@ -103,6 +104,38 @@ def fixStoppingPlace(solution):
         typeKey('tab')
         typeKey('space')
     elif (solution == "activateFriendlyPos"):
+        # default option, then press accept
+        typeKey('space')
+    else:
+        # press cancel
+        typeKey('tab')
+        typeKey('space')
+
+
+def fixCrossings(solution):
+    """
+    @brief fix stoppingPlaces
+    """
+    # save network
+    saveExistentShortcut("network")
+    # wait some second to question dialog
+    time.sleep(DELAY_QUESTION)
+    # select bullet depending of solution
+    if (solution == "saveInvalidCrossings"):
+        for _ in range(2):
+            typeTwoKeys('shift', 'tab')
+        typeKey('space')
+    # go back and press accept
+        for _ in range(2):
+            typeKey('tab')
+        typeKey('space')
+    elif (solution == "selectInvalidCrossings"):
+        typeTwoKeys('shift', 'tab')
+        typeKey('space')
+        # go back and press accept
+        typeKey('tab')
+        typeKey('space')
+    elif (solution == "removeInvalidCrossings"):
         # default option, then press accept
         typeKey('space')
     else:

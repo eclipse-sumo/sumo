@@ -54,6 +54,7 @@ from .frames.select import *
 # general folder
 from .general.contextualMenu import *
 from .general.functions import *
+from .general.fixElements import *
 from .general.modes import *
 from .general.undoRedo import *
 from .general.viewport import *
