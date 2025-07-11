@@ -2518,9 +2518,9 @@ msgstr ""
 "Ankunftszeiten am Halt mit Haltbeginnzeiten überschreiben (wenn vorhanden)"
 
 #: src/microsim/MSFrame.cpp:554
-msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
+msgid "Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', 'remote']"
 msgstr ""
-"Aus Fußgängermodellen ['nonInteracting', 'striping', 'remote'] auswählen"
+"Aus Fußgängermodellen ['nonInteracting', 'striping', 'jupedsim', 'remote'] auswählen"
 
 #: src/microsim/MSFrame.cpp:557
 msgid ""

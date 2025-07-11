@@ -2207,8 +2207,8 @@ msgid "Override stop arrival times with stop started times when given"
 msgstr "在给定的情况下，用停车开始时间覆盖停车到达时间"
 
 #: src/microsim/MSFrame.cpp:554
-msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
-msgstr "在行人模式中选择['非互动', '剥离', '远程']"
+msgid "Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', 'remote']"
+msgstr "在行人模式中选择['非互动', '剥离', 'jupedsim', '远程']"
 
 #: src/microsim/MSFrame.cpp:557
 msgid ""

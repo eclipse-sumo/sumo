@@ -540,7 +540,7 @@
         <!-- Override stop arrival times with stop started times when given -->
         <use-stop-started value="false" type="BOOL"/>
 
-        <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
+        <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;jupedsim&apos;, &apos;remote&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
 
         <!-- Minimal acceptable gap (in seconds) between two vehicles before starting to cross -->

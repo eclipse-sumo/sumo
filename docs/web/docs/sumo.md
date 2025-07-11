@@ -237,7 +237,7 @@ configuration:
 | **--parking.maneuver** {{DT_BOOL}} | Whether parking simulation includes maneuvering time and associated lane blocking; *default:* **false** |
 | **--use-stop-ended** {{DT_BOOL}} | Override stop until times with stop ended times when given; *default:* **false** |
 | **--use-stop-started** {{DT_BOOL}} | Override stop arrival times with stop started times when given; *default:* **false** |
-| **--pedestrian.model** {{DT_STR}} | Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', 'remote']; *default:* **striping** |
+| **--pedestrian.model** {{DT_STR}} | Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', 'remote']; *default:* **striping**; enable 'ignore-route-errors' when using 'jupedsim' |
 | **--pedestrian.timegap-crossing** {{DT_FLOAT}} | Minimal acceptable gap (in seconds) between two vehicles before starting to cross; *default:* **2** |
 | **--pedestrian.striping.stripe-width** {{DT_FLOAT}} | Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'; *default:* **0.64** |
 | **--pedestrian.striping.dawdling** {{DT_FLOAT}} | Factor for random slow-downs [0,1] for use with model 'striping'; *default:* **0.2** |

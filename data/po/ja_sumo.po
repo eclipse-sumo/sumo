@@ -2175,7 +2175,7 @@ msgid "Override stop arrival times with stop started times when given"
 msgstr ""
 
 #: src/microsim/MSFrame.cpp:554
-msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
+msgid "Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', 'remote']"
 msgstr ""
 
 #: src/microsim/MSFrame.cpp:557

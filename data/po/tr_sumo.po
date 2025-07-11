@@ -2396,9 +2396,9 @@ msgstr ""
 "kılma"
 
 #: src/microsim/MSFrame.cpp:554
-msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
+msgid "Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', 'remote']"
 msgstr ""
-"Yaya modelleri arasından seçim yapın ['etkileşimsiz', 'şeritleme', 'uzak']"
+"Yaya modelleri arasından seçim yapın ['etkileşimsiz', 'şeritleme', 'jupedsim', 'uzak']"
 
 #: src/microsim/MSFrame.cpp:557
 msgid ""

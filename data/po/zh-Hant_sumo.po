@@ -2250,8 +2250,8 @@ msgid "Override stop arrival times with stop started times when given"
 msgstr "若有給定,用停靠站的開始時間覆蓋停靠站的抵達時間"
 
 #: src/microsim/MSFrame.cpp:554
-msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
-msgstr "選擇行人模擬模式 ['nonInteracting', 'striping', 'remote']"
+msgid "Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', 'remote']"
+msgstr "選擇行人模擬模式 ['nonInteracting', 'striping', 'jupedsim', 'remote']"
 
 #: src/microsim/MSFrame.cpp:557
 msgid ""
