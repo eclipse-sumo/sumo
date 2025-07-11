@@ -22,6 +22,7 @@
 
 #include <utils/foxtools/MFXDialogBox.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/tests/InternalTestStep.h>
 
 // ===========================================================================
 // class declarations
@@ -43,6 +44,9 @@ public:
 
     /// @brief destructor
     ~GNEFixElementsDialog();
+
+    /// @brief test fix elements dialog
+    virtual void testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest) = 0;
 
     /// @name FOX-callbacks
     /// @{

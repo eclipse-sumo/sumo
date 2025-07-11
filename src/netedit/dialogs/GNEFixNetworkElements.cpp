@@ -90,6 +90,12 @@ GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& invalid
 }
 
 
+void
+GNEFixNetworkElements::testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest) {
+
+}
+
+
 long
 GNEFixNetworkElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     // select options

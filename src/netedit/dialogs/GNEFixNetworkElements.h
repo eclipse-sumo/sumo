@@ -46,6 +46,9 @@ public:
     /// @brief open fix network elements dialog
     FXuint openDialog(const std::vector<GNENetworkElement*>& invalidNetworkElements);
 
+    /// @brief test fix elements dialog
+    void testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest);
+
     /// @name FOX-callbacks
     /// @{
     /// @brief event when user select a option

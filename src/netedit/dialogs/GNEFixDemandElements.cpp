@@ -100,6 +100,12 @@ GNEFixDemandElements::openDialog(const std::vector<GNEDemandElement*>& invalidDe
 }
 
 
+void
+GNEFixDemandElements::testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest) {
+
+}
+
+
 long
 GNEFixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     // select options

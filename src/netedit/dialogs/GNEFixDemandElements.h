@@ -46,6 +46,9 @@ public:
     /// @brief open fix demand elements dialog
     FXuint openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements);
 
+    /// @brief test fix elements dialog
+    void testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest);
+
     /// @name FOX-callbacks
     /// @{
 

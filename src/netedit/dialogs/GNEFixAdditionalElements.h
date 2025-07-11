@@ -47,6 +47,9 @@ public:
     /// @brief open fix additional dialog
     FXuint openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
 
+    /// @brief test fix elements dialog
+    void testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest);
+
     /// @name FOX-callbacks
     /// @{
 

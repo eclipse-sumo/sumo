@@ -79,6 +79,12 @@ GNEFixAdditionalElements::openDialog(const std::vector<GNEAdditional*>& invalidS
 }
 
 
+void
+GNEFixAdditionalElements::testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest) {
+
+}
+
+
 long
 GNEFixAdditionalElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     myPositionOptions->selectOption(obj);
