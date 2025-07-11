@@ -47,13 +47,11 @@ netedit.computeJunctions()
 
 netedit.redo(referencePosition, 1)
 
-# save network
-netedit.saveExistentShortcut("network")
-
-# press space to fix crossings
-netedit.typeKey("space")
+# fix crossings
+netedit.fixCrossings("removeInvalidCrossings")
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")
+
 # quit netedit
 netedit.quit(neteditProcess)

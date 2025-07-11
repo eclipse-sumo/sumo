@@ -45,11 +45,8 @@ netedit.undo(referencePosition, 2)
 netedit.computeJunctions()
 netedit.redo(referencePosition, 2)
 
-# save network
-netedit.saveExistentShortcut("network")
-
-# press space to fix crossings
-netedit.typeKey("space")
+# fix crossings
+netedit.fixCrossings("removeInvalidCrossings")
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")
