@@ -246,6 +246,5 @@ Right clicking over an element will open a popup-menu with functions and operati
     Currently, you may either switching on **--opposites.guess** via the [F10-menu](#processing_menu_options) or set lane attribute 'oppositeID'.
 
 - Editing [walkingarea shapes](../Networks/PlainXML.md#walking_areas)
-- Integration of [netgenerate](../netgenerate.md)
-- Integration of [netdiff](../Tools/Net.md#netdiffpy)
+- Ability to graphically edit decals in the "Decals"-Mode
 - Adding / merging of sub-networks to the existing network
