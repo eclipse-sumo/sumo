@@ -39,7 +39,7 @@ FXDEFMAP(GNEFixNetworkElements) GNEFixNetworkElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFixNetworkElements, MFXDialogBox, GNEFixNetworkElementsMap, ARRAYNUMBER(GNEFixNetworkElementsMap))
+FXIMPLEMENT(GNEFixNetworkElements, GNEFixElementsDialog, GNEFixNetworkElementsMap, ARRAYNUMBER(GNEFixNetworkElementsMap))
 
 // ===========================================================================
 // member method definitions
@@ -50,12 +50,7 @@ FXIMPLEMENT(GNEFixNetworkElements, MFXDialogBox, GNEFixNetworkElementsMap, ARRAY
 // ---------------------------------------------------------------------------
 
 GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet) :
-    MFXDialogBox(viewNet->getApp(), TL("Fix network elements problems"), GUIDesignDialogBoxExplicitStretchable(600, 620)),
-    myViewNet(viewNet) {
-    // set busStop icon for this dialog
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
-    // create main frame
-    myMainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    GNEFixElementsDialog(viewNet, TL("Fix network elements problems"), GUIIcon::SUPERMODEDEMAND, 600, 620) {
     // create frames for options
     FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignAuxiliarFrame);
     myLeftFrame = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
@@ -380,18 +375,6 @@ GNEFixNetworkElements::FixCrossingOptions::disableOptions() {
     removeInvalidCrossings->disable();
     saveInvalidCrossings->disable();
     selectInvalidCrossingsAndCancel->disable();
-}
-
-// ---------------------------------------------------------------------------
-// GNEFixNetworkElements::Buttons - methods
-// ---------------------------------------------------------------------------
-
-GNEFixNetworkElements::Buttons::Buttons(GNEFixNetworkElements* fixNetworkElementsParent) :
-    FXHorizontalFrame(fixNetworkElementsParent->myMainFrame, GUIDesignHorizontalFrame) {
-    new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = GUIDesigns::buildFXButton(this, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixNetworkElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = GUIDesigns::buildFXButton(this, TL("&Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixNetworkElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 }
 
 /****************************************************************************/

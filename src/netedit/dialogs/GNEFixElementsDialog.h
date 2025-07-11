@@ -27,8 +27,6 @@
 // class declarations
 // ===========================================================================
 
-class GNEStoppingPlace;
-class GNEDetector;
 class GNEViewNet;
 
 // ===========================================================================
@@ -37,125 +35,62 @@ class GNEViewNet;
 
 class GNEFixElementsDialog : public MFXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEFixElementsDialog)
+    FXDECLARE_ABSTRACT(GNEFixElementsDialog)
 
 public:
     /// @brief Constructor
-    GNEFixElementsDialog(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
+    GNEFixElementsDialog(GNEViewNet* viewNet, const std::string title, GUIIcon icon, const int sizeX, const int sizeY);
 
     /// @brief destructor
     ~GNEFixElementsDialog();
 
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event when user select a option
-    long onCmdSelectOption(FXObject* obj, FXSelector, void*);
+    virtual long onCmdSelectOption(FXObject* obj, FXSelector, void*) = 0;
 
     /// @brief event after press accept button
-    long onCmdAccept(FXObject*, FXSelector, void*);
+    virtual long onCmdAccept(FXObject*, FXSelector, void*) = 0;
 
     /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
+    virtual long onCmdCancel(FXObject*, FXSelector, void*) = 0;
+
     /// @}
 
 protected:
-    /// @brief groupbox for list
-    class AdditionalList : protected FXGroupBox {
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GNEFixElementsDialog)
 
-    public:
-        /// @brief constructor
-        AdditionalList(GNEFixElementsDialog* fixAdditionalPositions, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
-
-        /// @brief vector with the invalid single-lane additionals
-        std::vector<GNEAdditional*> myInvalidSingleLaneAdditionals;
-
-        /// @brief vector with the invalid multi-lane additionals
-        std::vector<GNEAdditional*> myInvalidMultiLaneAdditionals;
-
-        /// @brief list with the stoppingPlaces and detectors
-        FXTable* myTable;
-    };
-
-    /// @brief groupbox for group all radio buttons related to additionals with single lanes
-    class PositionOptions : public MFXGroupBoxModule {
+    /// @brief horizontal frame for buttons
+    class Buttons : public FXHorizontalFrame {
 
     public:
         /// @brief build Position Options
-        PositionOptions(GNEFixElementsDialog* fixAdditionalPositions);
+        Buttons(GNEFixElementsDialog* fixElementsDialog);
 
-        /// @brief select option
-        void selectOption(FXObject* option);
+        /// @brief accept button
+        FXButton* myAcceptButton = nullptr;
 
-        /// @brief enable position options
-        void enablePositionOptions();
+        /// @brief cancel button
+        FXButton* myCancelButton = nullptr;
 
-        /// @brief disable position options
-        void disablePositionOptions();
+    private:
+        /// @brief Invalidated copy constructor.
+        Buttons(const Buttons&) = delete;
 
-        /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPositionAndSave;
-
-        /// @brief Option "Fix Positions and save"
-        FXRadioButton* fixPositionsAndSave;
-
-        /// @brief Option "Save invalid"
-        FXRadioButton* saveInvalid;
-
-        /// @brief Option "Select invalid stops and cancel"
-        FXRadioButton* selectInvalidStopsAndCancel;
+        /// @brief Invalidated assignment operator.
+        Buttons& operator=(const Buttons&) = delete;
     };
-
-    /// @brief groupbox for group all radio buttons related to additionals with consecutive lanes
-    class ConsecutiveLaneOptions : public MFXGroupBoxModule {
-
-    public:
-        /// @brief build consecutive lane Options
-        ConsecutiveLaneOptions(GNEFixElementsDialog* fixAdditionalPositions);
-
-        /// @brief select option
-        void selectOption(FXObject* option);
-
-        /// @brief enable consecutive lane options
-        void enableConsecutiveLaneOptions();
-
-        /// @brief disable consecutive lane options
-        void disableConsecutiveLaneOptions();
-
-        /// @brief Option "build connections between lanes"
-        FXRadioButton* buildConnectionBetweenLanes;
-
-        /// @brief Option "remove invalid elements"
-        FXRadioButton* removeInvalidElements;
-
-        /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPositionAndSave;
-
-        /// @brief Option "Fix Positions and save"
-        FXRadioButton* fixPositionsAndSave;
-    };
-
-    FOX_CONSTRUCTOR(GNEFixElementsDialog)
 
     /// @brief view net
-    GNEViewNet* myViewNet;
+    GNEViewNet* myViewNet = nullptr;
 
     /// @brief main
-    FXVerticalFrame* myMainFrame;
+    FXVerticalFrame* myMainFrame = nullptr;
 
-    /// @brief Additional List
-    AdditionalList* myAdditionalList;
-
-    /// @brief position options
-    PositionOptions* myPositionOptions;
-
-    /// @brief consecutive lane options
-    ConsecutiveLaneOptions* myConsecutiveLaneOptions;
-
-    /// @brief accept button
-    FXButton* myKeepOldButton;
-
-    /// @brief cancel button
-    FXButton* myCancelButton;
+    /// @brief buttons
+    Buttons* myButtons = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

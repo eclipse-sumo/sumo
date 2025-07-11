@@ -44,6 +44,8 @@ void
 GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow) {
     bool writeClosedSucessfully = false;
     myRunning = true;
+    const auto viewNet = applicationWindow->getViewNet();
+    const auto viewParent = viewNet->getViewParent();
     // process every step
     while (myCurrentStep < myTestSteps.size()) {
         const auto testStep = myTestSteps.at(myCurrentStep);
@@ -62,11 +64,19 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
         if (testStep->getCategory() == InternalTestStep::Category::APP) {
             applicationWindow->handle(this, testStep->getSelector(), argument);
         } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
-            applicationWindow->getViewNet()->handle(this, testStep->getSelector(), argument);
+            viewNet->handle(this, testStep->getSelector(), argument);
         } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASES) {
-            applicationWindow->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), argument);
+            viewParent->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), argument);
         } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASETABLE) {
-            applicationWindow->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->onInternalTest(this, testStep->getSelector(), argument);
+            viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->onInternalTest(this, testStep->getSelector(), argument);
+
+        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_ADDITIONAL) {
+            viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->onInternalTest(this, testStep->getSelector(), argument);
+        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_DEMAND) {
+            viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->onInternalTest(this, testStep->getSelector(), argument);
+        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_NETWORK) {
+            viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->onInternalTest(this, testStep->getSelector(), argument);
+
         } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
             writeClosedSucessfully = true;
         }

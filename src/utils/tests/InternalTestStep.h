@@ -40,6 +40,9 @@ public:
         VIEW,           // send signal to view (either GUIView or GNEViewNet)
         TLS_PHASES,     // send signal to TLS Phases module (used for TLS Phases)
         TLS_PHASETABLE, // send signal to TLSTable (used for TLS Phases)
+        FIX_ADDITIONAL, // send signal to fix additional dialog
+        FIX_DEMAND,     // send signal to fix demand dialog
+        FIX_NETWORK,    // send signal to fix network dialog
         COLOR,          // send signal to color dialog
     };
 

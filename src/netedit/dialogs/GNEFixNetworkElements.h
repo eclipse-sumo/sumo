@@ -20,21 +20,19 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXDialogBox.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include "GNEFixElementsDialog.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNENetworkElement;
-class GNEViewNet;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEFixNetworkElements : public MFXDialogBox {
+class GNEFixNetworkElements : public GNEFixElementsDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNEFixNetworkElements)
 
@@ -61,7 +59,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX need this
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEFixNetworkElements)
 
     /// @brief general GroupBox for fix options
@@ -182,33 +180,6 @@ protected:
         FixCrossingOptions& operator=(const FixCrossingOptions&) = delete;
     };
 
-    /// @brief horizontal frame for buttons
-    class Buttons : public FXHorizontalFrame {
-
-    public:
-        /// @brief build Position Options
-        Buttons(GNEFixNetworkElements* fixNetworkElementsParent);
-
-        /// @brief accept button
-        FXButton* myAcceptButton = nullptr;
-
-        /// @brief cancel button
-        FXButton* myCancelButton = nullptr;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        Buttons(const Buttons&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        Buttons& operator=(const Buttons&) = delete;
-    };
-
-    /// @brief view net
-    GNEViewNet* myViewNet = nullptr;
-
-    /// @brief main frame
-    FXVerticalFrame* myMainFrame = nullptr;
-
     /// @brief vertical left frame
     FXVerticalFrame* myLeftFrame = nullptr;
 
@@ -220,9 +191,6 @@ protected:
 
     /// @brief fix crossing options
     FixCrossingOptions* myFixCrossingOptions = nullptr;
-
-    /// @brief buttons
-    Buttons* myButtons = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

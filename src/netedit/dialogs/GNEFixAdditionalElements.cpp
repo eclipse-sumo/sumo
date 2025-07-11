@@ -38,19 +38,14 @@ FXDEFMAP(GNEFixAdditionalElements) GNEFixAdditionalElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFixAdditionalElements, MFXDialogBox, GNEFixAdditionalElementsMap, ARRAYNUMBER(GNEFixAdditionalElementsMap))
+FXIMPLEMENT(GNEFixAdditionalElements, GNEFixElementsDialog, GNEFixAdditionalElementsMap, ARRAYNUMBER(GNEFixAdditionalElementsMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEFixAdditionalElements::GNEFixAdditionalElements(GNEViewNet* viewNet) :
-    MFXDialogBox(viewNet->getApp(), TL("Fix additional problems"), GUIDesignDialogBoxExplicitStretchable(500, 380)),
-    myViewNet(viewNet) {
-    // set busStop icon for this dialog
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::BUSSTOP));
-    // create main frame
-    myMainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    GNEFixElementsDialog(viewNet, TL("Fix additional problems"), GUIIcon::BUSSTOP, 500, 380) {
     // create AdditionalList
     myAdditionalList = new AdditionalList(this);
     // create position options
@@ -386,18 +381,6 @@ GNEFixAdditionalElements::ConsecutiveLaneOptions::disableConsecutiveLaneOptions(
     removeInvalidElements->disable();
     activateFriendlyPositionAndSave->disable();
     fixPositionsAndSave->disable();
-}
-
-// ---------------------------------------------------------------------------
-// GNEFixNetworkElements::Buttons - methods
-// ---------------------------------------------------------------------------
-
-GNEFixAdditionalElements::Buttons::Buttons(GNEFixAdditionalElements* fixAdditionalElementsParent) :
-    FXHorizontalFrame(fixAdditionalElementsParent->myMainFrame, GUIDesignHorizontalFrame) {
-    new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = GUIDesigns::buildFXButton(this, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixAdditionalElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = GUIDesigns::buildFXButton(this, TL("&Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixAdditionalElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 }
 
 /****************************************************************************/

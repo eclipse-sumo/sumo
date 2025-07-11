@@ -20,20 +20,19 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXDialogBox.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include "GNEFixElementsDialog.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEDemandElement;
-class GNEViewNet;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEFixDemandElements : public MFXDialogBox {
+class GNEFixDemandElements : public GNEFixElementsDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNEFixDemandElements)
 
@@ -49,6 +48,7 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event when user select a option
     long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
@@ -57,6 +57,7 @@ public:
 
     /// @brief event after press cancel button
     long onCmdCancel(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
@@ -262,33 +263,6 @@ protected:
         FixPersonPlanOptions& operator=(const FixPersonPlanOptions&) = delete;
     };
 
-    /// @brief horizontal frame for buttons
-    class Buttons : public FXHorizontalFrame {
-
-    public:
-        /// @brief build Position Options
-        Buttons(GNEFixDemandElements* fixDemandElementsParent);
-
-        /// @brief accept button
-        FXButton* myAcceptButton = nullptr;
-
-        /// @brief cancel button
-        FXButton* myCancelButton = nullptr;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        Buttons(const Buttons&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        Buttons& operator=(const Buttons&) = delete;
-    };
-
-    /// @brief view net
-    GNEViewNet* myViewNet = nullptr;
-
-    /// @brief main frame
-    FXVerticalFrame* myMainFrame = nullptr;
-
     /// @brief vertical left frame
     FXVerticalFrame* myLeftFrame = nullptr;
 
@@ -306,9 +280,6 @@ protected:
 
     /// @brief fix person plan options
     FixPersonPlanOptions* myFixPersonPlanOptions = nullptr;
-
-    /// @brief buttons
-    Buttons* myButtons = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
