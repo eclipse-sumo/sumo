@@ -41,13 +41,17 @@ class GNEFixAdditionalElements : public MFXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEFixAdditionalElements(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
+    GNEFixAdditionalElements(GNEViewNet* viewNet);
 
     /// @brief destructor
     ~GNEFixAdditionalElements();
 
+    /// @brief open fix additional dialog
+    FXuint openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
+
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event when user select a option
     long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
@@ -56,6 +60,7 @@ public:
 
     /// @brief event after press cancel button
     long onCmdCancel(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
@@ -64,7 +69,10 @@ protected:
 
     public:
         /// @brief constructor
-        AdditionalList(GNEFixAdditionalElements* fixAdditionalPositions, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
+        AdditionalList(GNEFixAdditionalElements* fixAdditionalPositions);
+
+        /// @brief update list with the invalid additionals
+        void updateList(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
 
         /// @brief vector with the invalid single-lane additionals
         std::vector<GNEAdditional*> myInvalidSingleLaneAdditionals;
@@ -74,6 +82,13 @@ protected:
 
         /// @brief list with the stoppingPlaces and detectors
         FXTable* myTable;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        AdditionalList(const AdditionalList&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        AdditionalList& operator=(const AdditionalList&) = delete;
     };
 
     /// @brief groupbox for group all radio buttons related to additionals with single lanes
@@ -103,6 +118,13 @@ protected:
 
         /// @brief Option "Select invalid stops and cancel"
         FXRadioButton* selectInvalidStopsAndCancel;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        PositionOptions(const PositionOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        PositionOptions& operator=(const PositionOptions&) = delete;
     };
 
     /// @brief groupbox for group all radio buttons related to additionals with consecutive lanes
@@ -132,6 +154,34 @@ protected:
 
         /// @brief Option "Fix Positions and save"
         FXRadioButton* fixPositionsAndSave;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        ConsecutiveLaneOptions(const ConsecutiveLaneOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ConsecutiveLaneOptions& operator=(const ConsecutiveLaneOptions&) = delete;
+    };
+
+    /// @brief horizontal frame for buttons
+    class Buttons : public FXHorizontalFrame {
+
+    public:
+        /// @brief build Position Options
+        Buttons(GNEFixAdditionalElements* fixAdditionalElementsParent);
+
+        /// @brief accept button
+        FXButton* myAcceptButton = nullptr;
+
+        /// @brief cancel button
+        FXButton* myCancelButton = nullptr;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        Buttons(const Buttons&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        Buttons& operator=(const Buttons&) = delete;
     };
 
     FOX_CONSTRUCTOR(GNEFixAdditionalElements)
@@ -151,11 +201,8 @@ protected:
     /// @brief consecutive lane options
     ConsecutiveLaneOptions* myConsecutiveLaneOptions;
 
-    /// @brief accept button
-    FXButton* myKeepOldButton;
-
-    /// @brief cancel button
-    FXButton* myCancelButton;
+    /// @brief buttons
+    Buttons* myButtons = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.

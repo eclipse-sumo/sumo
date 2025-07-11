@@ -2239,12 +2239,9 @@ GNENet::saveAdditionals() {
     }
     // if there are invalid StoppingPlaces or detectors, open GNEFixAdditionalElements
     if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
-        // set focus again in net
-        myViewNet->setFocus();
         // 0 -> Canceled Saving, with or without selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
-        GNEFixAdditionalElements fixAdditionalElementsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
-        if (fixAdditionalElementsDialog.openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest()) == 0) {
+        if (myViewNet->getFixAdditionalElementsDialog()->openDialog(invalidSingleLaneAdditionals, invalidMultiLaneAdditionals) == 0) {
             return false;
         } else {
             saveAdditionalsConfirmed();
@@ -2293,12 +2290,9 @@ GNENet::saveDemandElements() {
     }
     // if there are invalid demand elements, open GNEFixDemandElements
     if (invalidSingleLaneDemandElements.size() > 0) {
-        // set focus again in net
-        myViewNet->setFocus();
         // 0 -> Canceled Saving, with or without selecting invalid demand elements
         // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
-        GNEFixDemandElements fixDemandElementsDialog(myViewNet, invalidSingleLaneDemandElements);
-        if (fixDemandElementsDialog.openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest()) == 0) {
+        if (myViewNet->getFixDemandElementsDialog()->openDialog(invalidSingleLaneDemandElements) == 0) {
             return false;
         } else {
             saveDemandElementsConfirmed();

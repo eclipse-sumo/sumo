@@ -33,20 +33,19 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEFixDemandElements
- * @brief Dialog for edit rerouters
- */
 class GNEFixDemandElements : public MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEFixDemandElements)
 
 public:
     /// @brief Constructor
-    GNEFixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements);
+    GNEFixDemandElements(GNEViewNet* viewNet);
 
     /// @brief destructor
     ~GNEFixDemandElements();
+
+    /// @brief open fix demand elements dialog
+    FXuint openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements);
 
     /// @name FOX-callbacks
     /// @{
@@ -102,6 +101,12 @@ protected:
 
         /// @brief Table with the demand elements
         FXTable* myTable = nullptr;
+
+        /// @brief Invalidated copy constructor.
+        FixOptions(const FixOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        FixOptions& operator=(const FixOptions&) = delete;
     };
 
     /// @brief groupbox for all radio buttons related with fix route options
@@ -135,6 +140,12 @@ protected:
 
         /// @brief disable route options
         void disableOptions();
+
+        /// @brief Invalidated copy constructor.
+        FixRouteOptions(const FixRouteOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        FixRouteOptions& operator=(const FixRouteOptions&) = delete;
     };
 
     /// @brief groupbox for all radio buttons related with fix vehicle options
@@ -168,6 +179,12 @@ protected:
 
         /// @brief disable vehicle options
         void disableOptions();
+
+        /// @brief Invalidated copy constructor.
+        FixVehicleOptions(const FixVehicleOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        FixVehicleOptions& operator=(const FixVehicleOptions&) = delete;
     };
 
     /// @brief groupbox for all radio buttons related with fix stop options
@@ -201,6 +218,12 @@ protected:
 
         /// @brief disable stop options
         void disableOptions();
+
+        /// @brief Invalidated copy constructor.
+        FixStopPositionOptions(const FixStopPositionOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        FixStopPositionOptions& operator=(const FixStopPositionOptions&) = delete;
     };
 
     /// @brief groupbox for all radio buttons related with fix person plan options
@@ -231,6 +254,12 @@ protected:
 
         /// @brief disable personPlan options
         void disableOptions();
+
+        /// @brief Invalidated copy constructor.
+        FixPersonPlanOptions(const FixPersonPlanOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        FixPersonPlanOptions& operator=(const FixPersonPlanOptions&) = delete;
     };
 
     /// @brief horizontal frame for buttons
@@ -240,12 +269,18 @@ protected:
         /// @brief build Position Options
         Buttons(GNEFixDemandElements* fixDemandElementsParent);
 
-    private:
         /// @brief accept button
-        FXButton* myKeepOldButton = nullptr;
+        FXButton* myAcceptButton = nullptr;
 
         /// @brief cancel button
         FXButton* myCancelButton = nullptr;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        Buttons(const Buttons&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        Buttons& operator=(const Buttons&) = delete;
     };
 
     /// @brief view net

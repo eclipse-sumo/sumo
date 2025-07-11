@@ -24,6 +24,9 @@
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/dialogs/GNEGeometryPointDialog.h>
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
+#include <netedit/dialogs/GNEFixAdditionalElements.h>
+#include <netedit/dialogs/GNEFixDemandElements.h>
+#include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
@@ -295,6 +298,12 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNet->setViewNet(this);
     // create allow VClasses dialog
     myAllowVClassesDialog = new GNEAllowVClassesDialog(this);
+    // create fix network elements dialog
+    myFixNetworkElementsDialog = new GNEFixNetworkElements(this);
+    // create fix demand elements dialog
+    myFixAdditionalElementsDialog = new GNEFixAdditionalElements(this);
+    // create fix demand elements dialog
+    myFixDemandElementsDialog = new GNEFixDemandElements(this);
     // set drag delay
     ((GUIDanielPerspectiveChanger*)myChanger)->setDragDelay(100000000); // 100 milliseconds
     // Reset textures
@@ -807,6 +816,24 @@ GNEViewNet::getEditNetworkElementShapes() const {
 GNEAllowVClassesDialog*
 GNEViewNet::getAllowVClassesDialog() const {
     return myAllowVClassesDialog;
+}
+
+
+GNEFixNetworkElements*
+GNEViewNet::getFixNetworkElementsDialog() const {
+    return myFixNetworkElementsDialog;
+}
+
+
+GNEFixAdditionalElements*
+GNEViewNet::getFixAdditionalElementsDialog() const {
+    return myFixAdditionalElementsDialog;
+}
+
+
+GNEFixDemandElements*
+GNEViewNet::getFixDemandElementsDialog() const {
+    return myFixDemandElementsDialog;
 }
 
 

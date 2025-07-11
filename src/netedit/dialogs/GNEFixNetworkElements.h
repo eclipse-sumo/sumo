@@ -40,10 +40,13 @@ class GNEFixNetworkElements : public MFXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEFixNetworkElements(GNEViewNet* viewNet, const std::vector<GNENetworkElement*>& invalidNetworkElements);
+    GNEFixNetworkElements(GNEViewNet* viewNet);
 
     /// @brief destructor
     ~GNEFixNetworkElements();
+
+    /// @brief open fix network elements dialog
+    FXuint openDialog(const std::vector<GNENetworkElement*>& invalidNetworkElements);
 
     /// @name FOX-callbacks
     /// @{
@@ -99,6 +102,12 @@ protected:
 
         /// @brief Table with the network elements
         FXTable* myTable = nullptr;
+
+        /// @brief Invalidated copy constructor.
+        FixOptions(const FixOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        FixOptions& operator=(const FixOptions&) = delete;
     };
 
     /// @brief groupbox for all radio buttons related with fix edges options
@@ -122,12 +131,19 @@ protected:
 
         /// @brief Option "Select invalid edges and cancel"
         FXRadioButton* selectInvalidEdgesAndCancel;
+
     private:
         /// @brief enable edge options
         void enableOptions();
 
         /// @brief disable edge options
         void disableOptions();
+
+        /// @brief Invalidated copy constructor.
+        FixEdgeOptions(const FixEdgeOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        FixEdgeOptions& operator=(const FixEdgeOptions&) = delete;
     };
 
     /// @brief groupbox for all radio buttons related with fix crossing options
@@ -158,6 +174,12 @@ protected:
 
         /// @brief disable crossing options
         void disableOptions();
+
+        /// @brief Invalidated copy constructor.
+        FixCrossingOptions(const FixCrossingOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        FixCrossingOptions& operator=(const FixCrossingOptions&) = delete;
     };
 
     /// @brief horizontal frame for buttons
@@ -167,12 +189,18 @@ protected:
         /// @brief build Position Options
         Buttons(GNEFixNetworkElements* fixNetworkElementsParent);
 
-    private:
         /// @brief accept button
-        FXButton* myKeepOldButton = nullptr;
+        FXButton* myAcceptButton = nullptr;
 
         /// @brief cancel button
         FXButton* myCancelButton = nullptr;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        Buttons(const Buttons&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        Buttons& operator=(const Buttons&) = delete;
     };
 
     /// @brief view net

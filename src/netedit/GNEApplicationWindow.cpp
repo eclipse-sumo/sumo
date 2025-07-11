@@ -3193,8 +3193,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             if (invalidNetworkElements.size() > 0) {
                 // 0 -> Canceled Saving, with or without selecting invalid network elements
                 // 1 -> Invalid network elements fixed, friendlyPos enabled, or saved with invalid positions
-                GNEFixNetworkElements fixNetworkElementsDialog(myViewNet, invalidNetworkElements);
-                if (fixNetworkElementsDialog.openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest()) == 0) {
+                if (myViewNet->getFixNetworkElementsDialog()->openDialog(invalidNetworkElements) == 0) {
                     // stop
                     return 0;
                 } else {

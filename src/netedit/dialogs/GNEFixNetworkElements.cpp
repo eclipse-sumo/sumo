@@ -18,12 +18,13 @@
 // Dialog used to fix network elements during saving
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFixNetworkElements.h"
 
@@ -48,7 +49,7 @@ FXIMPLEMENT(GNEFixNetworkElements, MFXDialogBox, GNEFixNetworkElementsMap, ARRAY
 // GNEFixNetworkElements - methods
 // ---------------------------------------------------------------------------
 
-GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet, const std::vector<GNENetworkElement*>& invalidNetworkElements) :
+GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet) :
     MFXDialogBox(viewNet->getApp(), TL("Fix network elements problems"), GUIDesignDialogBoxExplicitStretchable(600, 620)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
@@ -65,6 +66,15 @@ GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet, const std::vec
     myFixCrossingOptions = new FixCrossingOptions(this, viewNet);
     // create buttons
     myButtons = new Buttons(this);
+}
+
+
+GNEFixNetworkElements::~GNEFixNetworkElements() {
+}
+
+
+FXuint
+GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& invalidNetworkElements) {
     // split invalidNetworkElements in four groups
     std::vector<GNENetworkElement*> invalidEdges, invalidCrossings;
     // fill groups
@@ -78,10 +88,10 @@ GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet, const std::vec
     // fill options
     myFixEdgeOptions->setInvalidElements(invalidEdges);
     myFixCrossingOptions->setInvalidElements(invalidCrossings);
-}
-
-
-GNEFixNetworkElements::~GNEFixNetworkElements() {
+    // set focus in accept button
+    myButtons->myAcceptButton->setFocus();
+    // open modal dialog
+    return openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest());
 }
 
 
@@ -379,11 +389,9 @@ GNEFixNetworkElements::FixCrossingOptions::disableOptions() {
 GNEFixNetworkElements::Buttons::Buttons(GNEFixNetworkElements* fixNetworkElementsParent) :
     FXHorizontalFrame(fixNetworkElementsParent->myMainFrame, GUIDesignHorizontalFrame) {
     new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myKeepOldButton = GUIDesigns::buildFXButton(this, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixNetworkElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myAcceptButton = GUIDesigns::buildFXButton(this, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixNetworkElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
     myCancelButton = GUIDesigns::buildFXButton(this, TL("&Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixNetworkElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
     new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    // set focus in accept button
-    myKeepOldButton->setFocus();
 }
 
 /****************************************************************************/

@@ -18,12 +18,13 @@
 // Dialog used to fix demand elements during saving
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFixDemandElements.h"
 
@@ -48,8 +49,8 @@ FXIMPLEMENT(GNEFixDemandElements, MFXDialogBox, GNEFixDemandElementsMap, ARRAYNU
 // GNEFixDemandElements - methods
 // ---------------------------------------------------------------------------
 
-GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements) :
-    MFXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicitStretchable(800, 620)),
+GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet) :
+    MFXDialogBox(viewNet->getApp(), TL("Fix demand elements problems"), GUIDesignDialogBoxExplicitStretchable(800, 620)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
@@ -69,6 +70,15 @@ GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vecto
     myFixPersonPlanOptions = new FixPersonPlanOptions(this, viewNet);
     // create buttons
     myButtons = new Buttons(this);
+}
+
+
+GNEFixDemandElements::~GNEFixDemandElements() {
+}
+
+
+FXuint
+GNEFixDemandElements::openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements) {
     // split invalidDemandElements in four groups
     std::vector<GNEDemandElement*> invalidRoutes, invalidVehicles, invalidStops, invalidPlans;
     // fill groups
@@ -88,10 +98,10 @@ GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vecto
     myFixVehicleOptions->setInvalidElements(invalidVehicles);
     myFixStopPositionOptions->setInvalidElements(invalidStops);
     myFixPersonPlanOptions->setInvalidElements(invalidPlans);
-}
-
-
-GNEFixDemandElements::~GNEFixDemandElements() {
+    // set focus in accept button
+    myButtons->myAcceptButton->setFocus();
+    // open modal dialog
+    return openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest());
 }
 
 
@@ -627,11 +637,9 @@ GNEFixDemandElements::FixPersonPlanOptions::disableOptions() {
 GNEFixDemandElements::Buttons::Buttons(GNEFixDemandElements* fixDemandElementsParent) :
     FXHorizontalFrame(fixDemandElementsParent->myMainFrame, GUIDesignHorizontalFrame) {
     new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myKeepOldButton = GUIDesigns::buildFXButton(this, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixDemandElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myAcceptButton = GUIDesigns::buildFXButton(this, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixDemandElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
     myCancelButton = GUIDesigns::buildFXButton(this, TL("&Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixDemandElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
     new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    // set focus in accept button
-    myKeepOldButton->setFocus();
 }
 
 /****************************************************************************/

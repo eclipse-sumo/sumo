@@ -27,10 +27,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEViewNet
- * Microscopic view at the simulation
- */
+
 class GNEViewNet : public GUISUMOAbstractView {
     /// @brief FOX-declaration
     FXDECLARE(GNEViewNet)
@@ -146,6 +143,15 @@ public:
 
     /// @brief get allow vClasses dialog
     GNEAllowVClassesDialog* getAllowVClassesDialog() const;
+
+    /// @brief get fix network elements dialog
+    GNEFixNetworkElements* getFixNetworkElementsDialog() const;
+
+    /// @brief get fix additional elements dialog
+    GNEFixAdditionalElements* getFixAdditionalElementsDialog() const;
+
+    /// @brief get fix additional elements dialog
+    GNEFixDemandElements* getFixDemandElementsDialog() const;
 
     /// @name overloaded handlers
     /// @{
@@ -699,6 +705,15 @@ private:
 
     /// @brief allowVClasses dialog
     GNEAllowVClassesDialog* myAllowVClassesDialog = nullptr;
+
+    /// @brief fix network elements dialog
+    GNEFixNetworkElements* myFixNetworkElementsDialog = nullptr;
+
+    /// @brief fix additional elements dialog
+    GNEFixAdditionalElements* myFixAdditionalElementsDialog = nullptr;
+
+    /// @brief fix additional elements dialog
+    GNEFixDemandElements* myFixDemandElementsDialog = nullptr;
 
     /// @}
 

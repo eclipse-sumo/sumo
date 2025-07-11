@@ -18,11 +18,12 @@
 // Dialog used to fix additional elements
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFixAdditionalElements.h"
 
@@ -43,19 +44,31 @@ FXIMPLEMENT(GNEFixAdditionalElements, MFXDialogBox, GNEFixAdditionalElementsMap,
 // member method definitions
 // ===========================================================================
 
-GNEFixAdditionalElements::GNEFixAdditionalElements(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) :
-    MFXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicitStretchable(500, 380)),
+GNEFixAdditionalElements::GNEFixAdditionalElements(GNEViewNet* viewNet) :
+    MFXDialogBox(viewNet->getApp(), TL("Fix additional problems"), GUIDesignDialogBoxExplicitStretchable(500, 380)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::BUSSTOP));
     // create main frame
     myMainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create AdditionalList
-    myAdditionalList = new AdditionalList(this, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
+    myAdditionalList = new AdditionalList(this);
     // create position options
     myPositionOptions = new PositionOptions(this);
     // create consecutive lane options
     myConsecutiveLaneOptions = new ConsecutiveLaneOptions(this);
+    // create buttons
+    myButtons = new Buttons(this);
+}
+
+
+GNEFixAdditionalElements::~GNEFixAdditionalElements() {
+}
+
+
+FXuint
+GNEFixAdditionalElements::openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) {
+    myAdditionalList->updateList(invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
     // check if position options has to be disabled
     if (myAdditionalList->myInvalidSingleLaneAdditionals.empty()) {
         myPositionOptions->disablePositionOptions();
@@ -64,18 +77,10 @@ GNEFixAdditionalElements::GNEFixAdditionalElements(GNEViewNet* viewNet, const st
     if (myAdditionalList->myInvalidMultiLaneAdditionals.empty()) {
         myConsecutiveLaneOptions->disableConsecutiveLaneOptions();
     }
-    // create dialog buttons bot centered
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myKeepOldButton = GUIDesigns::buildFXButton(buttonsFrame, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("&Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // set focus in accept button
-    myKeepOldButton->setFocus();
-}
-
-
-GNEFixAdditionalElements::~GNEFixAdditionalElements() {
+    myButtons->myAcceptButton->setFocus();
+    // open modal dialog
+    return openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest());
 }
 
 
@@ -96,24 +101,24 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
             myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
             // iterate over invalid single lane elements to enable friendly position
-            for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+            for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
+                invalidSingleLaneAdditional->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->end();
         } else if (myPositionOptions->fixPositionsAndSave->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "fix positions of invalid additionals");
             // iterate over invalid single lane elements to fix positions
-            for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                i->fixAdditionalProblem();
+            for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
+                invalidSingleLaneAdditional->fixAdditionalProblem();
             }
             myViewNet->getUndoList()->end();
         } else if (myPositionOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "select invalid additionals");
             // iterate over invalid single lane elements to select all elements
-            for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
+                invalidSingleLaneAdditional->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->end();
             // abort saving
@@ -127,21 +132,21 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
         // fix problems of consecutive lanes
         if (myConsecutiveLaneOptions->buildConnectionBetweenLanes->getCheck() == TRUE) {
             // iterate over invalid single lane elements to enable friendly position
-            for (auto i : myAdditionalList->myInvalidMultiLaneAdditionals) {
-                i->fixAdditionalProblem();
+            for (const auto& invalidMultiLaneAdditional : myAdditionalList->myInvalidMultiLaneAdditionals) {
+                invalidMultiLaneAdditional->fixAdditionalProblem();
             }
             // we need to check if after first fix there is still  Invalid MultiL-ane Additionals with errors
-            auto copyOfInvalidMultiLaneAdditionals = myAdditionalList->myInvalidMultiLaneAdditionals;
+            const auto copyOfInvalidMultiLaneAdditionals = myAdditionalList->myInvalidMultiLaneAdditionals;
             myAdditionalList->myInvalidMultiLaneAdditionals.clear();
-            for (auto i : copyOfInvalidMultiLaneAdditionals) {
-                if (!i->isAdditionalValid()) {
-                    myAdditionalList->myInvalidMultiLaneAdditionals.push_back(i);
+            for (const auto& invalidMultiLaneAdditional : copyOfInvalidMultiLaneAdditionals) {
+                if (!invalidMultiLaneAdditional->isAdditionalValid()) {
+                    myAdditionalList->myInvalidMultiLaneAdditionals.push_back(invalidMultiLaneAdditional);
                 }
             }
         } else if (myConsecutiveLaneOptions->removeInvalidElements->getCheck() == TRUE) {
             // iterate over invalid single lane elements to fix positions
-            for (auto i : myAdditionalList->myInvalidMultiLaneAdditionals) {
-                myViewNet->getNet()->deleteAdditional(i, myViewNet->getUndoList());
+            for (const auto& invalidMultiLaneAdditional : myAdditionalList->myInvalidMultiLaneAdditionals) {
+                myViewNet->getNet()->deleteAdditional(invalidMultiLaneAdditional, myViewNet->getUndoList());
             }
             // clear myInvalidMultiLaneAdditionals due there isn't more invalid multi lane additionals
             myAdditionalList->myInvalidMultiLaneAdditionals.clear();
@@ -149,13 +154,13 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
         // fix problem of positions
         if (myPositionOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
             // iterate over invalid single lane elements to enable friendly position
-            for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+            for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
+                invalidSingleLaneAdditional->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
         } else if (myPositionOptions->fixPositionsAndSave->getCheck() == TRUE) {
             // iterate over invalid single lane elements to fix positions
-            for (auto i : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                i->fixAdditionalProblem();
+            for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
+                invalidSingleLaneAdditional->fixAdditionalProblem();
             }
         }
         myViewNet->getUndoList()->end();
@@ -182,20 +187,26 @@ GNEFixAdditionalElements::onCmdCancel(FXObject*, FXSelector, void*) {
 // GNEFixDemandElements::DemandList - methods
 // ---------------------------------------------------------------------------
 
-GNEFixAdditionalElements::AdditionalList::AdditionalList(GNEFixAdditionalElements* fixAdditionalPositions, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) :
-    FXGroupBox(fixAdditionalPositions->myMainFrame, "Stopping places and E2 detectors with conflicts", GUIDesignGroupBoxFrameFill),
-    myInvalidSingleLaneAdditionals(invalidSingleLaneAdditionals),
-    myInvalidMultiLaneAdditionals(invalidMultiLaneAdditionals) {
-    // Create table, copy intervals and update table
+GNEFixAdditionalElements::AdditionalList::AdditionalList(GNEFixAdditionalElements* fixAdditionalPositions) :
+    FXGroupBox(fixAdditionalPositions->myMainFrame, "Stopping places and E2 detectors with conflicts", GUIDesignGroupBoxFrameFill) {
+    // Create table
     myTable = new FXTable(this, this, MID_GNE_FIXSTOPPINGPLACES_CHANGE, GUIDesignTableAdditionals);
-    myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
-    myTable->setEditable(false);
+}
+
+
+void
+GNEFixAdditionalElements::AdditionalList::updateList(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) {
+    // update containers
+    myInvalidSingleLaneAdditionals = invalidSingleLaneAdditionals;
+    myInvalidMultiLaneAdditionals = invalidMultiLaneAdditionals;
     // clear table
     myTable->clearItems();
     // set number of rows
     myTable->setTableSize(int(myInvalidSingleLaneAdditionals.size() + myInvalidMultiLaneAdditionals.size()), 3);
-    // Configure list
+    // configure table
+    myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
+    myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+    myTable->setEditable(false);
     myTable->setVisibleColumns(4);
     myTable->setColumnWidth(0, GUIDesignHeight);
     myTable->setColumnWidth(1, 160);
@@ -208,34 +219,34 @@ GNEFixAdditionalElements::AdditionalList::AdditionalList(GNEFixAdditionalElement
     int indexRow = 0;
     FXTableItem* item = nullptr;
     // iterate over single lane additionals
-    for (auto i : myInvalidSingleLaneAdditionals) {
+    for (const auto& invalidSingleLaneAdditional : myInvalidSingleLaneAdditionals) {
         // Set icon
-        item = new FXTableItem("", i->getACIcon());
+        item = new FXTableItem("", invalidSingleLaneAdditional->getACIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
         myTable->setItem(indexRow, 0, item);
         // Set ID
-        item = new FXTableItem(i->getID().c_str());
+        item = new FXTableItem(invalidSingleLaneAdditional->getID().c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 1, item);
         // Set conflict
-        item = new FXTableItem(i->getAdditionalProblem().c_str());
+        item = new FXTableItem(invalidSingleLaneAdditional->getAdditionalProblem().c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
     }
     // iterate over multi lane additionals
-    for (auto i : myInvalidMultiLaneAdditionals) {
+    for (const auto& invalidMultiLaneAdditional : myInvalidMultiLaneAdditionals) {
         // Set icon
-        item = new FXTableItem("", i->getACIcon());
+        item = new FXTableItem("", invalidMultiLaneAdditional->getACIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
         myTable->setItem(indexRow, 0, item);
         // Set ID
-        item = new FXTableItem(i->getID().c_str());
+        item = new FXTableItem(invalidMultiLaneAdditional->getID().c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 1, item);
         // set conflict
-        item = new FXTableItem((i->getAdditionalProblem()).c_str());
+        item = new FXTableItem((invalidMultiLaneAdditional->getAdditionalProblem()).c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 2, item);
         // Update index
@@ -377,5 +388,16 @@ GNEFixAdditionalElements::ConsecutiveLaneOptions::disableConsecutiveLaneOptions(
     fixPositionsAndSave->disable();
 }
 
+// ---------------------------------------------------------------------------
+// GNEFixNetworkElements::Buttons - methods
+// ---------------------------------------------------------------------------
+
+GNEFixAdditionalElements::Buttons::Buttons(GNEFixAdditionalElements* fixAdditionalElementsParent) :
+    FXHorizontalFrame(fixAdditionalElementsParent->myMainFrame, GUIDesignHorizontalFrame) {
+    new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAcceptButton = GUIDesigns::buildFXButton(this, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixAdditionalElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = GUIDesigns::buildFXButton(this, TL("&Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixAdditionalElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+}
 
 /****************************************************************************/
