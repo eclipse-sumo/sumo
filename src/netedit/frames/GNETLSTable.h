@@ -22,9 +22,8 @@
 #include <config.h>
 
 #include <vector>
-
-#include <utils/common/UtilExceptions.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <utils/tests/InternalTestStep.h>
 
 // ===========================================================================
 // class declaration
@@ -99,10 +98,11 @@ public:
      */
     void setTableSize(const std::string& columnsType, const int numberRow);
 
+    /// @brief test table (using internal tests)
+    long testTable(const InternalTestStep::TLSTableTest* tableTest);
+
     /// @name FOX callbacks
     /// @{
-    /// @brief called in internal tests
-    long onInternalTest(FXObject*, FXSelector, void* ptr);
 
     /// @brief called when a row is focused
     long onFocusRow(FXObject*, FXSelector, void*);

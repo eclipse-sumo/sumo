@@ -28,7 +28,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/tests/InternalTestStep.h>
 
 #include "GNETLSTable.h"
 
@@ -281,9 +280,7 @@ GNETLSTable::setColumnLabelBot(const int column, const std::string& text) {
 
 
 long
-GNETLSTable::onInternalTest(FXObject*, FXSelector, void* ptr) {
-    // parse table test
-    InternalTestStep::TLSTableTest* tableTest = static_cast<InternalTestStep::TLSTableTest*>(ptr);
+GNETLSTable::testTable(const InternalTestStep::TLSTableTest* tableTest) {
     // obtain cell
     if (tableTest->row >= (int)myRows.size()) {
         throw ProcessError(TL("Invalid row in table test"));
