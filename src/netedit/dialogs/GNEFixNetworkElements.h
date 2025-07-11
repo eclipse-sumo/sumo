@@ -167,7 +167,7 @@ protected:
         FXRadioButton* saveInvalidCrossings;
 
         /// @brief Option "Select invalid crossings and cancel"
-        FXRadioButton* selectInvalidCrossingsAndCancel;
+        FXRadioButton* selectInvalidCrossings;
 
     private:
         /// @brief enable crossing options

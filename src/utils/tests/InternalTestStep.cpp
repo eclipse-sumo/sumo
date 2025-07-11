@@ -72,14 +72,14 @@ InternalTestStep::TLSTableTest::TLSTableTest(FXSelector sel_, const int row_, co
 // GNETLSTable::Test - public methods
 // ---------------------------------------------------------------------------
 
-InternalTestStep::FixDialogTest::FixDialogTest(const std::string& solution) {
-
+InternalTestStep::FixDialogTest::FixDialogTest(const std::string& solution) :
+    mySolution(solution) {
 }
 
 
-FXSelector
-InternalTestStep::FixDialogTest::getSelector() const {
-    return mySel;
+const std::string&
+InternalTestStep::FixDialogTest::getSolution() const {
+    return mySolution;
 }
 
 // ---------------------------------------------------------------------------

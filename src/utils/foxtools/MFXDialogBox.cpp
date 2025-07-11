@@ -90,7 +90,6 @@ MFXDialogBox::openModalDialog(InternalTest* internalTests, FXuint placement) {
         for (const auto& modalStep : internalTests->getCurrentStep()->getModalDialogTestSteps()) {
             handle(internalTests, modalStep->getSelector(), modalStep->getEvent());
         }
-        //internalTests->getCurrentStep()->
         return 1;
     } else {
         myTesting = false;

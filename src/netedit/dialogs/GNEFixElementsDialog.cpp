@@ -53,8 +53,7 @@ GNEFixElementsDialog::GNEFixElementsDialog(GNEViewNet* viewNet, const std::strin
 }
 
 
-GNEFixElementsDialog::~GNEFixElementsDialog() {
-}
+GNEFixElementsDialog::~GNEFixElementsDialog() {}
 
 
 long
@@ -69,12 +68,12 @@ GNEFixElementsDialog::closeFixDialog(const bool success) {
     if (success) {
         // stop modal with TRUE (continue saving)
         getApp()->stopModal(this, TRUE);
-        return TRUE;
     } else {
         // stop modal with FALSE (abort saving)
         getApp()->stopModal(this, FALSE);
-        return FALSE;
     }
+    hide();
+    return 1;
 }
 
 

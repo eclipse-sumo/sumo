@@ -112,12 +112,12 @@ public:
         /// brief default constructor with text
         FixDialogTest(const std::string& solution);
 
-        /// @brief get selector
-        FXSelector getSelector() const;
+        /// @brief get solution
+        const std::string& getSolution() const;
 
     private:
-        /// @brief selector
-        FXSelector mySel = 0;
+        /// @brief solution
+        std::string mySolution;
 
         /// @brief invalidated default constructor
         FixDialogTest() = delete;

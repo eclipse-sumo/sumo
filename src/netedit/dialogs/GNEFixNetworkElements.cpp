@@ -62,8 +62,7 @@ GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet) :
 }
 
 
-GNEFixNetworkElements::~GNEFixNetworkElements() {
-}
+GNEFixNetworkElements::~GNEFixNetworkElements() {}
 
 
 FXuint
@@ -90,7 +89,13 @@ GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& invalid
 
 void
 GNEFixNetworkElements::testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest) {
-
+    if (fixDialogTest->getSolution() == "removeInvalidCrossings") {
+        myFixCrossingOptions->removeInvalidCrossings->setCheck(TRUE, TRUE);
+    } else if (fixDialogTest->getSolution() == "saveInvalidCrossings") {
+        myFixCrossingOptions->saveInvalidCrossings->setCheck(TRUE, TRUE);
+    } else if (fixDialogTest->getSolution() == "selectInvalidCrossings") {
+        myFixCrossingOptions->selectInvalidCrossings->setCheck(TRUE, TRUE);
+    }
 }
 
 
@@ -305,7 +310,7 @@ GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkEleme
     saveInvalidCrossings = new FXRadioButton(myLeftFrame, TL("Save invalid crossings"),
             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid crossing
-    selectInvalidCrossingsAndCancel = new FXRadioButton(myRightFrame, TL("Select conflicted crossing"),
+    selectInvalidCrossings = new FXRadioButton(myRightFrame, TL("Select conflicted crossing"),
             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // by default remove invalid crossings
     removeInvalidCrossings->setCheck(TRUE);
@@ -317,15 +322,15 @@ GNEFixNetworkElements::FixCrossingOptions::selectOption(FXObject* option) {
     if (option == removeInvalidCrossings) {
         removeInvalidCrossings->setCheck(true);
         saveInvalidCrossings->setCheck(false);
-        selectInvalidCrossingsAndCancel->setCheck(false);
+        selectInvalidCrossings->setCheck(false);
     } else if (option == saveInvalidCrossings) {
         removeInvalidCrossings->setCheck(false);
         saveInvalidCrossings->setCheck(true);
-        selectInvalidCrossingsAndCancel->setCheck(false);
-    } else if (option == selectInvalidCrossingsAndCancel) {
+        selectInvalidCrossings->setCheck(false);
+    } else if (option == selectInvalidCrossings) {
         removeInvalidCrossings->setCheck(false);
         saveInvalidCrossings->setCheck(false);
-        selectInvalidCrossingsAndCancel->setCheck(true);
+        selectInvalidCrossings->setCheck(true);
     }
 }
 
@@ -342,7 +347,7 @@ GNEFixNetworkElements::FixCrossingOptions::fixElements(bool& abortSaving) {
             }
             // end undo list
             myViewNet->getUndoList()->end();
-        } else if (selectInvalidCrossingsAndCancel->getCheck() == TRUE) {
+        } else if (selectInvalidCrossings->getCheck() == TRUE) {
             // begin undo list
             myViewNet->getUndoList()->begin(GUIIcon::CROSSING, TL("select invalid crossings"));
             // iterate over invalid single lane elements to select all elements
@@ -362,7 +367,7 @@ void
 GNEFixNetworkElements::FixCrossingOptions::enableOptions() {
     removeInvalidCrossings->enable();
     saveInvalidCrossings->enable();
-    selectInvalidCrossingsAndCancel->enable();
+    selectInvalidCrossings->enable();
 }
 
 
@@ -370,7 +375,7 @@ void
 GNEFixNetworkElements::FixCrossingOptions::disableOptions() {
     removeInvalidCrossings->disable();
     saveInvalidCrossings->disable();
-    selectInvalidCrossingsAndCancel->disable();
+    selectInvalidCrossings->disable();
 }
 
 /****************************************************************************/
