@@ -1,5 +1,3 @@
-# Netedit attribute help
-
 ## edge
 | Attribute | Type | Description |
 |-----------|------|-------------|
