@@ -18,11 +18,11 @@
 // Dialog used to fix elements during saving
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFixElementsDialog.h"
 
@@ -37,7 +37,7 @@ FXDEFMAP(GNEFixElementsDialog) GNEFixElementsDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_ABSTRACT(GNEFixElementsDialog, GNEFixElementsDialog, GNEFixElementsDialogMap, ARRAYNUMBER(GNEFixElementsDialogMap))
+FXIMPLEMENT_ABSTRACT(GNEFixElementsDialog, MFXDialogBox, GNEFixElementsDialogMap, ARRAYNUMBER(GNEFixElementsDialogMap))
 
 // ===========================================================================
 // member method definitions
@@ -55,6 +55,28 @@ GNEFixElementsDialog::GNEFixElementsDialog(GNEViewNet* viewNet, const std::strin
 
 GNEFixElementsDialog::~GNEFixElementsDialog() {
 }
+
+
+long
+GNEFixElementsDialog::openFixDialog() {
+    // open modal dialog
+    return openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest());
+}
+
+
+long
+GNEFixElementsDialog::closeFixDialog(const bool success) {
+    if (success) {
+        // stop modal with TRUE (continue saving)
+        getApp()->stopModal(this, TRUE);
+        return TRUE;
+    } else {
+        // stop modal with FALSE (abort saving)
+        getApp()->stopModal(this, FALSE);
+        return FALSE;
+    }
+}
+
 
 // ---------------------------------------------------------------------------
 // GNEFixElementsDialog::Buttons - methods

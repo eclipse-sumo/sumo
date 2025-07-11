@@ -19,11 +19,9 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEFixDemandElements.h"
@@ -96,7 +94,7 @@ GNEFixDemandElements::openDialog(const std::vector<GNEDemandElement*>& invalidDe
     // set focus in accept button
     myButtons->myAcceptButton->setFocus();
     // open modal dialog
-    return openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest());
+    return openFixDialog();
 }
 
 
@@ -125,23 +123,15 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
     myFixVehicleOptions->fixElements(abortSaving);
     myFixStopPositionOptions->fixElements(abortSaving);
     myFixPersonPlanOptions->fixElements(abortSaving);
-    // check if abort saving
-    if (abortSaving) {
-        // stop modal with TRUE (abort saving)
-        getApp()->stopModal(this, FALSE);
-    } else {
-        // stop modal with TRUE (continue saving)
-        getApp()->stopModal(this, TRUE);
-    }
-    return 1;
+    // stop dialog
+    return closeFixDialog(abortSaving);
 }
 
 
 long
 GNEFixDemandElements::onCmdCancel(FXObject*, FXSelector, void*) {
-    // Stop Modal (abort saving)
-    getApp()->stopModal(this, FALSE);
-    return 1;
+    // stop dialog
+    return closeFixDialog(false);
 }
 
 // ---------------------------------------------------------------------------

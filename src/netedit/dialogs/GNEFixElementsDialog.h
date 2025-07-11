@@ -34,7 +34,7 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-class GNEFixElementsDialog : public MFXDialogBox {
+class GNEFixElementsDialog : protected MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE_ABSTRACT(GNEFixElementsDialog)
 
@@ -86,6 +86,12 @@ protected:
         /// @brief Invalidated assignment operator.
         Buttons& operator=(const Buttons&) = delete;
     };
+
+    /// @brief open dialog
+    long openFixDialog();
+
+    /// @brief stop fix elements dialog accepting changes
+    long closeFixDialog(const bool success);
 
     /// @brief view net
     GNEViewNet* myViewNet = nullptr;

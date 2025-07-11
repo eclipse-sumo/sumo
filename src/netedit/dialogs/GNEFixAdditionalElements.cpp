@@ -19,10 +19,8 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEFixAdditionalElements.h"
@@ -75,7 +73,7 @@ GNEFixAdditionalElements::openDialog(const std::vector<GNEAdditional*>& invalidS
     // set focus in accept button
     myButtons->myAcceptButton->setFocus();
     // open modal dialog
-    return openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest());
+    return openFixDialog();
 }
 
 
@@ -166,22 +164,13 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         myViewNet->getUndoList()->end();
     }
-    if (continueSaving) {
-        // stop modal with TRUE (continue saving)
-        getApp()->stopModal(this, TRUE);
-    } else {
-        // stop modal with TRUE (abort saving)
-        getApp()->stopModal(this, FALSE);
-    }
-    return 1;
+    return closeFixDialog(continueSaving);
 }
 
 
 long
 GNEFixAdditionalElements::onCmdCancel(FXObject*, FXSelector, void*) {
-    // Stop Modal (abort saving)
-    getApp()->stopModal(this, FALSE);
-    return 1;
+    return closeFixDialog(false);
 }
 
 // ---------------------------------------------------------------------------
