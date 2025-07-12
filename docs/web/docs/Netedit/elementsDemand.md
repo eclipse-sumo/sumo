@@ -28,25 +28,25 @@ A vehicle defined over a route follow the path defined by the give route. To cre
 
 ### Vehicle with embedded route
 
-A vehicle with embedded route is defined clicking over a list of edges in the network. NETEDIT automatically calculate the shorted minimum path between clicked edges.
+A vehicle with embedded route is defined clicking over a list of edges in the network. NETEDIT automatically calculates the shortest minimum path between clicked edges.
 
 ![](../images/GNEVehicleEmbeddedRoute.png)
 
 ### Flow
 
-A flow is defined clicking over a start and a end edge. NETEDIT automatically calculate the shorted minimum path between clicked edges. If user defines a list of "via" edges, then the path is calculated using also the via edges. The path is drawn while flow is inspected.
+A flow is defined clicking over a start and a end edge. NETEDIT automatically calculates the shortest minimum path between clicked edges. If user defines a list of "via" edges, then the path is calculated using the via edges as well. The path is drawn while flow is inspected.
 
 ![](../images/GNEFlow.png)
 
 ### Flow over route
 
-A flow defined over a route follow the path defined by the give route.  To create it, just click over the route.
+A flow defined over a route follow the path defined by the give route. To create it, just click over the route.
 
 ![](../images/GNEFlowRoute.png)
 
 ### Flow over embedded route
 
-A flow with embedded route is defined clicking over a list of edges in the network. NETEDIT automatically calculate the shorted minimum path between clicked edges.
+A flow with embedded route is defined clicking over a list of edges in the network. NETEDIT automatically calculates the shortest minimum path between clicked edges.
 
 ![](../images/GNEFlowEmbeddedRoute.png)
 
@@ -54,7 +54,7 @@ A flow with embedded route is defined clicking over a list of edges in the netwo
 
 ## Vehicle Types
 
-A vehicle is defined using the Vehicle Type element as parent. There is two way to edit vehicles. The first one is the frame, in which can be created and edited their basic attributes, and the second one is the "Attribute editor", in which all attributes can be edited.
+A vehicle is defined using the Vehicle Type element as parent. There is two ways to edit vehicles. The first one is the frame, in which a vehicle can be created and basic attributes edited, and the second one is the "Attribute editor", in which all attributes can be edited.
 
 ![](../images/GNEVehicleType.png)
 
