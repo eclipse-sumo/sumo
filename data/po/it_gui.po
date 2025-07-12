@@ -16930,7 +16930,7 @@ msgstr "Modifica veduta"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:123
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
-msgstr "Apre un menù per modificare la"
+msgstr "Apre un menù per modificare la veduta. (Ctrl+I)"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:127
 msgid "Toggle Zooming Style"
@@ -16960,11 +16960,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:160
 msgid "Edit Coloring Schemes"
-msgstr ""
+msgstr "Modifica schemi di colori"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:160
 msgid "Opens a menu which lets you edit the coloring schemes. (F9)"
-msgstr ""
+msgstr "Apre un menù per modificare i schemi di colori. (F9)"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:171
 msgid "Make Snapshot"
@@ -17060,7 +17060,7 @@ msgstr "ungherese"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:407
 msgid "japanese"
-msgstr ""
+msgstr "giapponese"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:411
 msgid "english"
@@ -17082,7 +17082,7 @@ msgstr ""
 #: src/utils/gui/windows/GUIMainWindow.cpp:425
 msgid ""
 "For the Debug build you might also need to set the LANG environment variable."
-msgstr ""
+msgstr "Magari hai bisogno della variabile di"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:428
 msgid "Under development. You can help to improve the translation at:"
