@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_23_1+0813-5f3c910f36e
+Eclipse SUMO sumo Version v1_23_1+1025-f96d9ecb723
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -377,7 +377,8 @@ Processing Options:
   --use-stop-started                   Override stop arrival times with stop
                                         started times when given
   --pedestrian.model STR               Select among pedestrian models
-                                        ['nonInteracting', 'striping', 'remote']
+                                        ['nonInteracting', 'striping',
+                                        'jupedsim', 'remote']
   --pedestrian.timegap-crossing FLOAT  Minimal acceptable gap (in seconds)
                                         between two vehicles before starting to
                                         cross
