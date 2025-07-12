@@ -17082,7 +17082,8 @@ msgstr ""
 #: src/utils/gui/windows/GUIMainWindow.cpp:425
 msgid ""
 "For the Debug build you might also need to set the LANG environment variable."
-msgstr "Magari hai bisogno della variabile d'ambiente LANG per la Debug."
+msgstr ""
+"Magari hai bisogno di impostare la variabile d'ambiente LANG per la Debug."
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:428
 msgid "Under development. You can help to improve the translation at:"
