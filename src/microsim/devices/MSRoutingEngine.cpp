@@ -654,6 +654,7 @@ MSRoutingEngine::saveState(OutputDevice& out) {
 void
 MSRoutingEngine::loadState(const SUMOSAXAttributes& attrs) {
     const MSEdge* const e = MSEdge::dictionary(attrs.getString(SUMO_ATTR_ID));
+    e->markDelayed();
     const int id = e->getNumericalID();
     bool checkedSteps = false;
     bool checkedBikeSpeeds = false;
