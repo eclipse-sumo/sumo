@@ -253,6 +253,7 @@
             <xsd:element name="edge" type="routingEngineEdgeType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="last" type="xsd:int" use="required"/>
+        <xsd:attribute name="index" type="xsd:int" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="routingEngineEdgeType">

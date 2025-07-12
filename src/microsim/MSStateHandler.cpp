@@ -247,7 +247,8 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_ROUTINGENGINE: {
             bool ok = true;
             const SUMOTime lastAdaptation = attrs.get<SUMOTime>(SUMO_ATTR_LAST, nullptr, ok);
-            MSRoutingEngine::initEdgeWeights(SVC_PASSENGER, lastAdaptation);
+            const int index = attrs.get<int>(SUMO_ATTR_INDEX, nullptr, ok);
+            MSRoutingEngine::initEdgeWeights(SVC_PASSENGER, lastAdaptation, index);
             if (OptionsCont::getOptions().getBool("device.rerouting.bike-speeds")) {
                 MSRoutingEngine::initEdgeWeights(SVC_BICYCLE);
             }

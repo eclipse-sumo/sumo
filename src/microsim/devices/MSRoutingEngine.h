@@ -71,7 +71,7 @@ public:
     static void initWeightUpdate();
 
     /// @brief initialize the edge weights if not done before
-    static void initEdgeWeights(SUMOVehicleClass svc, SUMOTime lastAdaption = -1);
+    static void initEdgeWeights(SUMOVehicleClass svc, SUMOTime lastAdaption = -1, int index = -1);
 
     /// @brief returns whether any edge weight updates will take place
     static bool hasEdgeUpdates() {
