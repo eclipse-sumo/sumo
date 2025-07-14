@@ -109,7 +109,7 @@ GNERunNetgenerateDialog::~GNERunNetgenerateDialog() {}
 
 
 void
-GNERunNetgenerateDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+GNERunNetgenerateDialog::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
     // finish
 }
 

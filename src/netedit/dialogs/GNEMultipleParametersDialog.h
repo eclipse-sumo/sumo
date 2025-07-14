@@ -256,7 +256,7 @@ public:
     ~GNEMultipleParametersDialog();
 
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::FixDialogTest* dialogTest);
+    void runInternalTest(const InternalTestStep::ModalArguments* modalArguments);
 
     /// @name FOX-callbacks
     /// @{

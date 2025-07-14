@@ -526,7 +526,7 @@ GNESingleParametersDialog::~GNESingleParametersDialog() {}
 
 
 void
-GNESingleParametersDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+GNESingleParametersDialog::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
     // finish
 }
 

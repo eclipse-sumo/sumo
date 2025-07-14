@@ -79,15 +79,15 @@ GNEFixAdditionalElements::openDialog(const std::vector<GNEAdditional*>& invalidS
 
 
 void
-GNEFixAdditionalElements::runInternalTest(const InternalTestStep::FixDialogTest* dialogTest) {
+GNEFixAdditionalElements::runInternalTest(const InternalTestStep::ModalArguments* modalArguments) {
     // chooose solution
-    if (dialogTest->getSolution() == "savePositionInvalids") {
+    if (modalArguments->fixSolution == "savePositionInvalids") {
         myPositionOptions->saveInvalids->setCheck(TRUE, TRUE);
-    } else if (dialogTest->getSolution() == "fixPositions") {
+    } else if (modalArguments->fixSolution == "fixPositions") {
         myPositionOptions->fixPositions->setCheck(TRUE, TRUE);
-    } else if (dialogTest->getSolution() == "selectPositionInvalids") {
+    } else if (modalArguments->fixSolution == "selectPositionInvalids") {
         myPositionOptions->selectInvalids->setCheck(TRUE, TRUE);
-    } else if (dialogTest->getSolution() == "activatePositionFriendlyPos") {
+    } else if (modalArguments->fixSolution == "activatePositionFriendlyPos") {
         myPositionOptions->activateFriendlyPosition->setCheck(TRUE, TRUE);
     }
     // accept changes

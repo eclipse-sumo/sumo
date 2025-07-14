@@ -89,7 +89,7 @@ GNEOptionsDialog::~GNEOptionsDialog() { }
 
 
 void
-GNEOptionsDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+GNEOptionsDialog::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
     // finish
 }
 

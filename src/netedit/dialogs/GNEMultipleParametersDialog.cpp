@@ -502,7 +502,7 @@ GNEMultipleParametersDialog::~GNEMultipleParametersDialog() {}
 
 
 void
-GNEMultipleParametersDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+GNEMultipleParametersDialog::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
     // finish
 }
 

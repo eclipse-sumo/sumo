@@ -133,7 +133,7 @@ GNENetgenerateDialog::openDialog() {
 
 
 void
-GNENetgenerateDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+GNENetgenerateDialog::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
     // finish
 }
 

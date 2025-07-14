@@ -515,7 +515,7 @@ GNEVTypeDistributionsDialog::closeDialog() {
 
 
 void
-GNEVTypeDistributionsDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+GNEVTypeDistributionsDialog::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
     // finish
 }
 

@@ -42,7 +42,7 @@ public:
     FXuint openModalDialog(InternalTest* internalTests, FXuint placement = PLACEMENT_CURSOR);
 
     /// @brief run internal test
-    virtual void runInternalTest(const InternalTestStep::FixDialogTest* dialogTest);
+    virtual void runInternalTest(const InternalTestStep::ModalArguments* modalArguments);
 
     /// @name FOX-callbacks
     /// @{

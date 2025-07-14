@@ -93,7 +93,7 @@ GNEAbout::~GNEAbout() {
 
 
 void
-GNEAbout::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+GNEAbout::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
     // finish
 }
 

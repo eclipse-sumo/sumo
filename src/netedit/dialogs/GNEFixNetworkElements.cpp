@@ -88,13 +88,13 @@ GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& invalid
 
 
 void
-GNEFixNetworkElements::runInternalTest(const InternalTestStep::FixDialogTest* dialogTest) {
+GNEFixNetworkElements::runInternalTest(const InternalTestStep::ModalArguments* modalArguments) {
     // chooose solution
-    if (dialogTest->getSolution() == "removeInvalidCrossings") {
+    if (modalArguments->fixSolution == "removeInvalidCrossings") {
         myFixCrossingOptions->removeInvalidCrossings->setCheck(TRUE, TRUE);
-    } else if (dialogTest->getSolution() == "saveInvalidCrossings") {
+    } else if (modalArguments->fixSolution == "saveInvalidCrossings") {
         myFixCrossingOptions->saveInvalidCrossings->setCheck(TRUE, TRUE);
-    } else if (dialogTest->getSolution() == "selectInvalidCrossings") {
+    } else if (modalArguments->fixSolution == "selectInvalidCrossings") {
         myFixCrossingOptions->selectInvalidCrossings->setCheck(TRUE, TRUE);
     }
     // accept changes

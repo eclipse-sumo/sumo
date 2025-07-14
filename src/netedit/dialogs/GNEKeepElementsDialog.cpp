@@ -80,7 +80,7 @@ GNEKeepElementsDialog::~GNEKeepElementsDialog() {
 
 
 void
-GNEKeepElementsDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+GNEKeepElementsDialog::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
     // finish
 }
 

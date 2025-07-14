@@ -44,10 +44,17 @@ public:
     };
 
     /// @brief modal arguments (used for certain functions that opens modal dialogs)
-    struct ModalArguments {
+    class ModalArguments {
+
+    public:
+        /// @brief constructor for yes/no argument
+        ModalArguments(const FXuint value);
 
         /// @brief constructor for question dialogs
-        ModalArguments(const std::vector<FXuint> values);
+        ModalArguments(const std::vector<FXuint>& values);
+
+        /// @brief constructor fix dialogs
+        ModalArguments(const std::string& solution);
 
         /// @brief yes value
         static const FXuint yes = 1;
@@ -63,6 +70,9 @@ public:
 
         /// @brief used if we have multiple modal dialogs
         const std::vector<FXuint> questionDialogValues;
+
+        /// @brief solution for fix dialogs
+        const std::string fixSolution;
 
     private:
         /// @brief invalidated default constructor
@@ -102,27 +112,6 @@ public:
         TLSTableTest(const TLSTableTest&) = delete;
     };
 
-    /// @brief struct used for test fix dialogs
-    class FixDialogTest {
-
-    public:
-        /// brief default constructor with text
-        FixDialogTest(const std::string& solution);
-
-        /// @brief get solution
-        const std::string& getSolution() const;
-
-    private:
-        /// @brief solution
-        std::string mySolution;
-
-        /// @brief invalidated default constructor
-        FixDialogTest() = delete;
-
-        /// @brief invalidated copy constructor
-        FixDialogTest(const FixDialogTest&) = delete;
-    };
-
     /// @brief constructor for parsing step in strin format
     InternalTestStep(InternalTest* testSystem, const std::string& step);
 
@@ -154,9 +143,6 @@ public:
 
     /// @brief get TLS Table test
     TLSTableTest* getTLSTableTest() const;
-
-    /// @brief get Fix dialog test
-    FixDialogTest* getFixDialogTest() const;
 
     /// @brief get selector (based in messageType and messageID)
     FXSelector getSelector() const;
@@ -195,14 +181,11 @@ private:
     /// @brief list of events associated with this step
     FXEvent* myEvent = nullptr;
 
-    /// @brief extra arguments
+    /// @brief modal arguments
     ModalArguments* myModalArguments = nullptr;
 
     /// @brief TLS Table test
     TLSTableTest* myTLSTableTest = nullptr;
-
-    /// @brief Fix dialog test
-    FixDialogTest* myFixDialogTest = nullptr;
 
     /// @brief Test steps used in certain modal dialogs
     std::vector<const InternalTestStep*> myModalDialogTestSteps;

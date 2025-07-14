@@ -110,7 +110,7 @@ GNERunPythonToolDialog::~GNERunPythonToolDialog() {}
 
 
 void
-GNERunPythonToolDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+GNERunPythonToolDialog::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
     // finish
 }
 

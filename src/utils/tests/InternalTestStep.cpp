@@ -47,8 +47,18 @@ constexpr int MOUSE_REFERENCE_Y = 168;
 // InternalTestStep::ModalArguments - public methods
 // ---------------------------------------------------------------------------
 
-InternalTestStep::ModalArguments::ModalArguments(const std::vector<FXuint> values) :
+InternalTestStep::ModalArguments::ModalArguments(const FXuint value) :
+    questionDialogValues({value}) {
+}
+
+
+InternalTestStep::ModalArguments::ModalArguments(const std::vector<FXuint>& values) :
     questionDialogValues(values) {
+}
+
+
+InternalTestStep::ModalArguments::ModalArguments(const std::string& solution) :
+    fixSolution(solution) {
 }
 
 // ---------------------------------------------------------------------------
@@ -66,20 +76,6 @@ InternalTestStep::TLSTableTest::TLSTableTest(FXSelector sel_, const int row_, co
     row(row_),
     column(column_),
     text(text_) {
-}
-
-// ---------------------------------------------------------------------------
-// InternalTestStep::FixDialogTest - public methods
-// ---------------------------------------------------------------------------
-
-InternalTestStep::FixDialogTest::FixDialogTest(const std::string& solution) :
-    mySolution(solution) {
-}
-
-
-const std::string&
-InternalTestStep::FixDialogTest::getSolution() const {
-    return mySolution;
 }
 
 // ---------------------------------------------------------------------------
@@ -294,8 +290,8 @@ InternalTestStep::InternalTestStep(InternalTestStep* parent, const std::string& 
     myMessageID(MID_INTERNALTEST) {
     // add this testStep to parent modal dialgo testSteps
     parent->myModalDialogTestSteps.push_back(this);
-    // create fix dialog test
-    myFixDialogTest = new FixDialogTest(solution);
+    // modal arguments
+    myModalArguments = new ModalArguments(solution);
 }
 
 
@@ -317,9 +313,6 @@ InternalTestStep::~InternalTestStep() {
     }
     if (myTLSTableTest) {
         delete myTLSTableTest;
-    }
-    if (myFixDialogTest) {
-        delete myFixDialogTest;
     }
     // remove all key steps
     for (auto modalDialogTestStep : myModalDialogTestSteps) {
@@ -350,12 +343,6 @@ InternalTestStep::getModalArguments() const {
 InternalTestStep::TLSTableTest*
 InternalTestStep::getTLSTableTest() const {
     return myTLSTableTest;
-}
-
-
-InternalTestStep::FixDialogTest*
-InternalTestStep::getFixDialogTest() const {
-    return myFixDialogTest;
 }
 
 
@@ -1530,13 +1517,14 @@ InternalTestStep::computeJunctionsVolatileOptions() {
     if (myArguments.size() > 1) {
         writeError("computeJunctionsVolatileOptions", 0, "<True/False>");
     } else {
+        // due argument is optional, if not given, we assume True
         FXuint result = ModalArguments::yes;
         if ((myArguments.size() == 1) && (myArguments[0] == "False")) {
             result = ModalArguments::no;
         }
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE;
-        myModalArguments = new ModalArguments({result});
+        myModalArguments = new ModalArguments(result);
     }
 }
 
