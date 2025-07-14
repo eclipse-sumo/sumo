@@ -10,16 +10,16 @@ Skipped until: 0.00
 DijkstraRouter answered 9 queries and explored 3.44 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Success.
-Only 5 out of 9 requested trips passed validation. Sampling again to find more.
+Only 5 out of 10 requested trips passed validation. Sampling again to find more.
 calling /scr1/sumo/bin/duarouter --alternatives-output NUL -n net2.net.xml -r trips.trips.xml --ignore-errors --begin 0 --end 10.0 --no-warnings --no-step-log -v -o trips.trips.xml.tmp --write-trips
 Loading net ... done.
 Skipped until: 0.00
-DijkstraRouter answered 11 queries and explored 2.82 edges on average.
+DijkstraRouter answered 13 queries and explored 3.31 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Success.
 calling /scr1/sumo/bin/duarouter --alternatives-output NUL -n net2.net.xml -r trips.trips.xml --ignore-errors --begin 0 --end 10.0 --no-warnings --no-step-log -v -o routes.rou.xml
 Loading net ... done.
 Skipped until: 0.00
-DijkstraRouter answered 8 queries and explored 3.62 edges on average.
+DijkstraRouter answered 8 queries and explored 3.88 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Success.
