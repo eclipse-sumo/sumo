@@ -12,8 +12,7 @@ title: ChangeLog
   - Vehicles no longer drive onto forbidden internal lanes when option **--ignore-route-errors** is set #16635
   - Fixed bug where junction collision was not detected #16695
   - Fixed collision on junction due to unsafe lane changing #16643
-  - Fixed invalid waitingTime for walking stage in tripinfo-output (not accumulating) #16729
-  - Previously recorded travel speeds are now preserved when loading state #16775
+  - Fixed invalid waitingTime for walking stage in tripinfo-output (not accumulating) #16729  
   - Stochastic assignment of rerouting device is now reproduced when loading state #16784
   - railway routing now ignores temporary road closings when option **--device.rerouting.mode 8** is set #16799
   - Fixed bug where persons with a personTrip had the wrong arrivalPos when changing from `<ride>` to `<walk>` #16801
@@ -21,14 +20,33 @@ title: ChangeLog
   - Fixed bug where parking outflow would be blocked due to numerical issues. #16809
   - Fixed invalid rail signal state when departing before crossed tracks #16819
   - Fixed inconsistencies in emission value output. The option **--emission-output.precision** is now being applied also to [tripinfo](Simulation/Output/TripInfo.md) and [edgedata](Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md). #16832
+  - Fixed routing of pedestrians across multiple traffic light controlled crossings within an intersection #16788
+  - Fixed bug where routing ignores option **--device.rerouting.mode 8** when using rerouter and trips #16851
+  - Fixed emergency braking on approach to lane end #16779
+  - Fixed invalid speed when approaching internal junction with option **--no-internal-links** #16857
+  - Fixed invalid computation of follower vehicles when using **--no-internal-links** #16858
+  - Fixed prolonged failure to change lane on short edge #1403, #16780
+  - Fixed train collisions in *moving block mode* on switches #16855
+  - Fixed various bugs that impact replication from loaded state #16765
+    - Timing of rerouting events are now preserved when loading state #16772
+    - Previously recorded travel speeds are now preserved when loading state #16775
+    - State-saving now preserves loading/insertion order for vehicles that depart in the same step #16870
+    - Probabilistic device assignment no longer differs when loading state #16784, #16871
+    - Behavior no longer differs after loading state **--weights.random-factor** #16876
+    - Fixed differing behavior after loading state with **--meso-overtaking** #16874
+    - Queue entry block time is now preserved when saving/loading state #16770
+    
 
-- netedit
+- netedit  
   - link-direction arrows for spread bidi-rail are drawn in the correct spot #16718 (regression in 1.20.0)
   - bidi-rail connections are drawn large enough for comfortable clicking #16701 (regression in 1.22.0)
   - bidi-rail connections are drawn on the correct side again #16700 (regression in 1.23.0)
+  - Fixed Crash transforming flows between TAZs #16859 (regression 1.23.0)
   - Changing connection attribute 'uncontrolled' to `False` and a traffic light, now makes that connection controlled by the traffic light #16705
   - Fixed crash after using tls-mode "reset single" when loaded programs had non-standard programIDs. #16702
   - parkingArea reference in chargingStation is now loaded #16789
+  - Fixed bug where saving .sumocfg could overwrite demand when started from sumo-gui with ctrl+t #16711
+  
 
 - sumo-gui
   - Fixed bug where the trailer was occasionally not drawn for guiShape truck/semitrailer #16808 (regression in 1.23.0)
@@ -40,11 +58,11 @@ title: ChangeLog
   - Fixed crash in "About Dialog" if SUMO_HOME is not set #16749
   - Fixed orientation of parking lots to be in line with the documentation #16593
   - Fixed rendering glitches for train carriages #16761
+  - Fixed crash when running with options **--device.rerouting.threads** and **--weights.random-factor** #16878
 
 - mesosim
   - Fixed crash when loading state with different network #16758
-  - Fixed crash when loading state with different values of **--meso-lane-queue** #16757
-  - Queue entry block time is now preserved when saving/loading state #16770
+  - Fixed crash when loading state with different values of **--meso-lane-queue** #16757  
   - Vehroute-output no longer contains invalid route edges when loading state and rerouting #16776
   - Fixed bug where calibrators caused invalid traffic data output when removing vehicles #16821
 
@@ -71,10 +89,13 @@ title: ChangeLog
   - sumolib.net.connection: No longer ignores connection permissions #16633
   - sumolib.xml.toXML: custom indent is now passed on #16734
   - generateRerouters.py: fixed missing character in XML output #16815
+  - traceExporter.py: Fixed inconsistent coordinates when setting option **--shift** #16825
 
 ### Enhancements
 
 - sumo
+  - Files ending with *.parquet* are now written in [Apache Parquet format](https://en.wikipedia.org/wiki/Apache_Parquet). This can also be activated with option **--output.format parquet**. Further applicable options are **--output.compression**, **--output.column-header**. #14694
+  - Files ending with *.csv* are now written in [CSV format](https://en.wikipedia.org/wiki/Comma-separated_values). This can also be activated with option **--output.format csv**. Compressed csv is supported with *.csv.gz*. Further applicable options are **--output.column-header**, **--output.column-separator**. #16791
   - A warning is now issued for traffic light programs if a link never gets a green phase even when the program has only a single phase. #16652
   - A warning is now issued for traffic light programs if two 'G' links target the same lane in the same phase #16636
   - Added waitingTime to personinfo walk output #16737
@@ -84,6 +105,8 @@ title: ChangeLog
   - Vehroute output for persons and containers can now selectively be disabled via param key `"has.vehroute.person-device"`  #16820
   - It is now possible to model [trailers / marshalling](Specification/Logistics.md#trailers_and_rail_cars) by changing vehicle properties upon loading/unloading of containers #8800
   - Experimental support for [CSV and Parquet output](TabularOutputs.md) #14694 #16791
+  - Custom traffic light switching rules now support function `w:DETIT` to retrieve the longest individual waiting time in seconds for vehicles on detector #16841
+  - Rerouting trains now always use the current edge as reroute-origin #16852
 
 
 - meso
@@ -97,6 +120,8 @@ title: ChangeLog
   - busStop now support `<param key="waitingWidth" value="FLOAT"/>` to customize spacing of waiting transportables #16724
   - ChargingStations that have an associated parkingArea are now drawn at the parking space rather than on the road #16670
   - containerStop now supports attribute `angle` to draw stationed containers at an angle #16813
+  - vTypes now support `<param key="scaleVisual" value="FLOAT"/>` to customize individual visual scaling #16849
+
 
 - duarouter
   - Added option **--repair.max-detour-factor** to give more control over repairing routes. Vehicles will backtrack rather than take large detours. #16746
@@ -106,7 +131,8 @@ title: ChangeLog
   - [plotStops.py](Tools/Railways.md#plotstopspy): New tool to simplify drawing a train schedule diagram along a specified route. #16683
   - generateContinuousRerouters.py: Added option **--stop-file** to add stops at loaded busStops when rerouting #16719
   - mapDetectors.py: Added option **--all-lanes** to place detectors on all lanes of an edge based on a single input coordinate #16751
-  - plot_net_dump.py: Added opion **--colormap.center** two permit plotting colors with `TwoSlopeNorm` #16778
+  - plot_net_dump.py: Added opion **--colormap.center** two permit plotting colors with `TwoSlopeNorm` #16778  
+  - tileGet.py:: Added 'cartodb_' URL-shortcuts and option **--retina** to be used with cartodb URLS #16822 
 
 
 
