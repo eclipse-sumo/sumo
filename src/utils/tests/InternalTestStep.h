@@ -282,6 +282,9 @@ private:
     /// @brief process fixStoppingPlace function
     void fixStoppingPlace();
 
+    /// @brief process fixRoutes function
+    void fixRoute();
+
     /// @brief process createTLS function
     void createTLS(const int overlappedTabs) const;
 

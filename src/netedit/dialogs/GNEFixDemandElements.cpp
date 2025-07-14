@@ -102,6 +102,14 @@ GNEFixDemandElements::openDialog(const std::vector<GNEDemandElement*>& invalidDe
 
 void
 GNEFixDemandElements::runInternalTest(const InternalTestStep::FixDialogTest* dialogTest) {
+    // chooose solution
+    if (dialogTest->getSolution() == "saveRouteInvalids") {
+        myFixRouteOptions->saveInvalidRoutes->setCheck(TRUE, TRUE);
+    } else if (dialogTest->getSolution() == "removeRouteInvalids") {
+        myFixRouteOptions->removeInvalidRoutes->setCheck(TRUE, TRUE);
+    } else if (dialogTest->getSolution() == "selectRouteInvalids") {
+        myFixRouteOptions->selectRouteInvalids->setCheck(TRUE, TRUE);
+    }
     // accept changes
     onCmdAccept(nullptr, 0, nullptr);
 }
@@ -239,8 +247,8 @@ GNEFixDemandElements::FixRouteOptions::FixRouteOptions(GNEFixDemandElements* fix
     saveInvalidRoutes = new FXRadioButton(myLeftFrame, TL("Save invalid routes"),
                                           fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid routes
-    selectInvalidRoutesAndCancel = new FXRadioButton(myRightFrame, TL("Select conflicted routes"),
-            fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    selectRouteInvalids = new FXRadioButton(myRightFrame, TL("Select conflicted routes"),
+                                            fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Remove stops out of route
     removeStopsOutOfRoute = new FXCheckButton(myRightFrame, TL("Remove stops out of route"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
@@ -256,15 +264,15 @@ GNEFixDemandElements::FixRouteOptions::selectOption(FXObject* option) {
     if (option == removeInvalidRoutes) {
         removeInvalidRoutes->setCheck(true);
         saveInvalidRoutes->setCheck(false);
-        selectInvalidRoutesAndCancel->setCheck(false);
+        selectRouteInvalids->setCheck(false);
     } else if (option == saveInvalidRoutes) {
         removeInvalidRoutes->setCheck(false);
         saveInvalidRoutes->setCheck(true);
-        selectInvalidRoutesAndCancel->setCheck(false);
-    } else if (option == selectInvalidRoutesAndCancel) {
+        selectRouteInvalids->setCheck(false);
+    } else if (option == selectRouteInvalids) {
         removeInvalidRoutes->setCheck(false);
         saveInvalidRoutes->setCheck(false);
-        selectInvalidRoutesAndCancel->setCheck(true);
+        selectRouteInvalids->setCheck(true);
     }
 }
 
@@ -286,7 +294,7 @@ GNEFixDemandElements::FixRouteOptions::fixElements(bool& abortSaving) {
             }
             // end undo list
             myViewNet->getUndoList()->end();
-        } else if (selectInvalidRoutesAndCancel->getCheck() == TRUE) {
+        } else if (selectRouteInvalids->getCheck() == TRUE) {
             // begin undo list
             myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid routes");
             // iterate over invalid single lane elements to select all elements
@@ -324,7 +332,7 @@ void
 GNEFixDemandElements::FixRouteOptions::enableOptions() {
     removeInvalidRoutes->enable();
     saveInvalidRoutes->enable();
-    selectInvalidRoutesAndCancel->enable();
+    selectRouteInvalids->enable();
     removeStopsOutOfRoute->enable();
 }
 
@@ -333,7 +341,7 @@ void
 GNEFixDemandElements::FixRouteOptions::disableOptions() {
     removeInvalidRoutes->disable();
     saveInvalidRoutes->disable();
-    selectInvalidRoutesAndCancel->disable();
+    selectRouteInvalids->disable();
     removeStopsOutOfRoute->disable();
 }
 

@@ -167,6 +167,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         saveConnectionEdit();
     } else if (function == "fixStoppingPlace") {
         fixStoppingPlace();
+    } else if (function == "fixRoute") {
+        fixRoute();
     } else if (function == "createTLS") {
         createTLS(0);
     } else if (function == "createTLSOverlapped") {
@@ -868,6 +870,19 @@ void
 InternalTestStep::fixStoppingPlace() {
     if ((myArguments.size() != 1) || !checkStringArgument(myArguments[0])) {
         writeError("fixStoppingPlace", 0, "<str>");
+    } else {
+        // save config
+        auto saveConfig = new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, Category::APP);
+        // create fix dialog test
+        new InternalTestStep(saveConfig, getStringArgument(myArguments[0]));
+    }
+}
+
+
+void
+InternalTestStep::fixRoute() {
+    if ((myArguments.size() != 1) || !checkStringArgument(myArguments[0])) {
+        writeError("fixRoute", 0, "<str>");
     } else {
         // save config
         auto saveConfig = new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, Category::APP);

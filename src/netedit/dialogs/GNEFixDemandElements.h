@@ -133,7 +133,7 @@ protected:
         FXRadioButton* saveInvalidRoutes;
 
         /// @brief Option "Select invalid routes and cancel"
-        FXRadioButton* selectInvalidRoutesAndCancel;
+        FXRadioButton* selectRouteInvalids;
 
         /// @brief Option "Remove stops out of route"
         FXCheckButton* removeStopsOutOfRoute;
