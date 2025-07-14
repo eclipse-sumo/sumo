@@ -182,7 +182,7 @@ public:
     /// @brief gets the color value according to the current scheme index
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
-    double getScaleVisual() const {
+    double getScaleVisual() const override {
         return getVehicleType().getParameter().scaleVisual;
     }
 
