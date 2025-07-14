@@ -25,7 +25,7 @@ from ..input.keyboard import typeKey, typeTwoKeys
 
 def fixDemandElement(value):
     """
-    @brief fix demand element
+    @brief fix demand element (THIS FUNCTION HAS TO BE REMOVED)
     """
     # focus current frame
     focusOnFrame()
@@ -42,6 +42,8 @@ def fixDemandElements(solution):
     """
     @brief fix stoppingPlaces
     """
+    # save config
+    saveExistentShortcut("neteditConfig")
     # select bullet depending of solution
     if (solution == "saveInvalids"):
         for _ in range(3):
@@ -78,10 +80,12 @@ def fixStoppingPlace(solution):
     """
     @brief fix stoppingPlaces
     """
+    # save config
+    saveExistentShortcut("neteditConfig")
     # wait some second to question dialog
     time.sleep(DELAY_QUESTION)
     # select bullet depending of solution
-    if (solution == "saveInvalids"):
+    if (solution == "savePositionInvalids"):
         for _ in range(3):
             typeTwoKeys('shift', 'tab')
         typeKey('space')
@@ -97,13 +101,13 @@ def fixStoppingPlace(solution):
         for _ in range(2):
             typeKey('tab')
         typeKey('space')
-    elif (solution == "selectInvalids"):
+    elif (solution == "selectPositionInvalids"):
         typeTwoKeys('shift', 'tab')
         typeKey('space')
     # go back and press accept
         typeKey('tab')
         typeKey('space')
-    elif (solution == "activateFriendlyPos"):
+    elif (solution == "activatePositionFriendlyPos"):
         # default option, then press accept
         typeKey('space')
     else:
@@ -116,8 +120,8 @@ def fixCrossings(solution):
     """
     @brief fix stoppingPlaces
     """
-    # save network
-    saveExistentShortcut("network")
+    # save config
+    saveExistentShortcut("neteditConfig")
     # wait some second to question dialog
     time.sleep(DELAY_QUESTION)
     # select bullet depending of solution
