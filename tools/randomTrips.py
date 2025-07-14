@@ -1002,13 +1002,15 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                     raise ValueError("The argument '%s' has already been passed without the %s prefix." % (
                                      option[0], router))
 
+    redirect = None if options.verbose else subprocess.DEVNULL
+
     if options.routefile and rerunFactor is None:
         args2 = (maargs if options.marouter else duargs)[:]
         args2 += ['-o', options.routefile]
         if options.verbose:
             print("calling", " ".join(args2))
             sys.stdout.flush()
-        subprocess.call(args2)
+        subprocess.call(args2, stdout=redirect)
         sys.stdout.flush()
         sumolib.xml.insertOptionsHeader(options.routefile, options)
 
@@ -1021,7 +1023,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
         if options.verbose:
             print("calling", " ".join(args2))
             sys.stdout.flush()
-        subprocess.call(args2)
+        subprocess.call(args2, stdout=redirect)
         sys.stdout.flush()
         os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
