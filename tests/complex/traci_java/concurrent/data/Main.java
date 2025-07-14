@@ -41,11 +41,8 @@ class Runner implements Runnable {
 public class Main {
     public static void main(String[] args) {
         if (System.getProperty("os.name").startsWith("Windows") && Simulation.class.toString().contains("libsumo")) {
-            System.loadLibrary("iconv-2");
-            System.loadLibrary("intl-8");
             System.loadLibrary("libcrypto-3-x64");
             System.loadLibrary("libssl-3-x64");
-            System.loadLibrary("proj_9");
         }
         System.loadLibrary("libtracijni");
         String sumo_bin = "sumo";

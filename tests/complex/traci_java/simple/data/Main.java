@@ -25,11 +25,8 @@ import org.eclipse.sumo.libtraci.*;
 public class Main {
     public static void main(String[] args) {
         if (System.getProperty("os.name").startsWith("Windows") && Simulation.class.toString().contains("libsumo")) {
-            System.loadLibrary("iconv-2");
-            System.loadLibrary("intl-8");
             System.loadLibrary("libcrypto-3-x64");
             System.loadLibrary("libssl-3-x64");
-            System.loadLibrary("proj_9");
         }
         System.loadLibrary("libtracijni");
         String sumo_bin = "sumo";
@@ -41,7 +38,6 @@ public class Main {
         if (args.length > 1) {
             config_file = args[1];
         }
-
         Simulation.start(new StringVector(new String[] {sumo_bin,
                                           "-c", config_file,
                                           "--start",
