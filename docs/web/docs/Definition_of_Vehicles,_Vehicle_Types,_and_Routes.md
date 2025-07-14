@@ -756,7 +756,7 @@ length look quite odd, buses with 2m length, too.
 !!! caution
     Not all of these named shapes have a distinct visualization.
 
-## Carriages
+## Carriages, custom visualization 
 
 Further parameters can be used to achieve visualization of [individual rail carriages](Simulation/Railways.md#trains) and configure exiting behavior at stations.
 ```xml
@@ -768,6 +768,7 @@ Further parameters can be used to achieve visualization of [individual rail carr
     <param key="frontSeatPos" value="1.7"/>
     <param key="seatingWidth" value="2.0"/>
     <param key="carriageDoors" value="2"/>
+    <param key="scaleVisual" value="1.5"/>
 </vType>
 ```
 
