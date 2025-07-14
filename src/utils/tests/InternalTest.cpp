@@ -107,6 +107,16 @@ InternalTest::getCurrentStep() const {
 }
 
 
+const InternalTestStep*
+InternalTest::getLastTestStep() const {
+    if (myTestSteps.empty()) {
+        return nullptr;
+    } else {
+        return myTestSteps.back();
+    }
+}
+
+
 const std::map<std::string, int>&
 InternalTest::getAttributesEnum() const {
     return myAttributesEnum;

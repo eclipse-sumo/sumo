@@ -143,6 +143,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         modifyVClassDialog_Reset(0);
     } else if (function == "modifyVClassDialogOverlapped_Reset") {
         modifyVClassDialog_Reset(overlappedTabs);
+    } else if (function == "modifyVTypeDialogAttribute") {
+        modifyVTypeDialogAttribute();
     } else if (function == "createConnection") {
         createConnection("");
     } else if (function == "createCrossing") {
@@ -749,6 +751,54 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
         }
         // press accept
         buildPressKeyEvent(openDialogEvent, "space");
+    }
+}
+
+
+void
+InternalTestStep::modifyVTypeDialogAttribute() const {
+    if ((myArguments.size() != 3) || !checkStringArgument(myArguments[0]) ||
+            !checkIntArgument(myArguments[1]) || !checkStringArgument(myArguments[2])) {
+        writeError("modifyVTypeDialogAttribute", 0, "<str, int/attributeEnum, str>");
+    } else {
+        // get arguments
+        const auto operation = getStringArgument(myArguments[0]);
+        const auto tabs = getIntArgument(myArguments[1]);
+        const auto value = getStringArgument(myArguments[2]);
+        // first check if open dialog
+        if (operation == "open") {
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("attrs.type.buttons.dialog"));
+        }
+        // obtain last step
+        const InternalTestStep* parentStep = myTestSystem->getLastTestStep();
+        // check that parentStep is not null
+        if (parentStep) {
+            // print info
+            std::cout << value << std::endl;
+            // focus dialog
+            /*
+            buildTwoPressKeyEvent(parentStep, "alt", "f");
+            // jump to the element
+            for (int i = 0; i < tabs; i++) {
+                buildPressKeyEvent(parentStep, "tab");
+            }
+            // write attribute character by character
+            if (value.empty()) {
+                buildPressKeyEvent(parentStep, "delete");
+            } else {
+                for (const char c : value) {
+                    buildPressKeyEvent(parentStep, c);
+                }
+            }
+            // press enter to confirm changes (updating view)
+            buildPressKeyEvent(parentStep, "enter");
+            // finally check if close dialog
+            if (operation == "close") {
+                buildTwoPressKeyEvent(parentStep, "alt", "a");
+                buildPressKeyEvent(parentStep, "enter");
+            }
+            */
+        }
     }
 }
 

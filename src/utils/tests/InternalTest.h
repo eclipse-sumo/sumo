@@ -86,6 +86,9 @@ public:
     /// @brief get current step
     const InternalTestStep* getCurrentStep() const;
 
+    /// @brief get last test step
+    const InternalTestStep* getLastTestStep() const;
+
     /// @brief get map with attributesEnum jump steps
     const std::map<std::string, int>& getAttributesEnum() const;
 
