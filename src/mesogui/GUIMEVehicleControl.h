@@ -99,10 +99,10 @@ public:
     virtual int getHaltingVehicleNo() const override;
 
     /// @brief lock access to vehicle removal/additions for thread synchronization
-    void secureVehicles();
+    void secureVehicles() override;
 
     /// @brief unlock access to vehicle removal/additions for thread synchronization
-    void releaseVehicles();
+    void releaseVehicles() override;
 
 
 private:

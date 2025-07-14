@@ -40,6 +40,7 @@
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIVehicleControl.h>
 #include <mesogui/GUIMEVehicle.h>
+#include <mesogui/GUIMEVehicleControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSJunctionControl.h>
@@ -307,7 +308,12 @@ GUIViewTraffic::getEdgeLaneParamKeys(bool edgeKeys) const {
 std::vector<std::string>
 GUIViewTraffic::getVehicleParamKeys(bool /*vTypeKeys*/) const {
     std::set<std::string> keys;
-    GUIVehicleControl* vc = GUINet::getGUIInstance()->getGUIVehicleControl();
+    MSVehicleControl* vc = nullptr;
+    if (MSGlobals::gUseMesoSim) {
+        vc = GUINet::getGUIInstance()->getGUIMEVehicleControl();
+    } else {
+        vc = GUINet::getGUIInstance()->getGUIVehicleControl();
+    }
     vc->secureVehicles();
     for (auto vehIt = vc->loadedVehBegin(); vehIt != vc->loadedVehEnd(); ++vehIt) {
         for (auto kv : vehIt->second->getParameter().getParametersMap()) {
