@@ -58,6 +58,9 @@ public:
     /// @brief open dialog
     void openDialog(GNEPythonTool* tool);
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::FixDialogTest* dialogTest);
+
     /// @brief get pointer to GNEApplicationWindow
     GNEApplicationWindow* getGNEApplicationWindow() const;
 

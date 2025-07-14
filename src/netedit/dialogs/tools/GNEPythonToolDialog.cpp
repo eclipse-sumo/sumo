@@ -1,3 +1,5 @@
+#include "GNEPythonToolDialog.h"
+#include "GNEPythonToolDialog.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
@@ -131,6 +133,12 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     MFXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
+}
+
+
+void
+GNEPythonToolDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+    // finish
 }
 
 

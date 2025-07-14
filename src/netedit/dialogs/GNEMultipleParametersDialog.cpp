@@ -501,6 +501,12 @@ GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEAttributesEditorType
 GNEMultipleParametersDialog::~GNEMultipleParametersDialog() {}
 
 
+void
+GNEMultipleParametersDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+    // finish
+}
+
+
 long
 GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     const auto& inspectedElements = myAttributesEditor->getFrameParent()->getViewNet()->getInspectedElements();

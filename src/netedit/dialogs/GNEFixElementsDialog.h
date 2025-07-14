@@ -45,8 +45,8 @@ public:
     /// @brief destructor
     ~GNEFixElementsDialog();
 
-    /// @brief test fix elements dialog
-    virtual void testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest) = 0;
+    /// @brief run internal test
+    virtual void runInternalTest(const InternalTestStep::FixDialogTest* dialogTest) = 0;
 
     /// @name FOX-callbacks
     /// @{

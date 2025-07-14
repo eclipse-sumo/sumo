@@ -514,6 +514,12 @@ GNEVTypeDistributionsDialog::closeDialog() {
 }
 
 
+void
+GNEVTypeDistributionsDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+    // finish
+}
+
+
 long
 GNEVTypeDistributionsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // close dialog

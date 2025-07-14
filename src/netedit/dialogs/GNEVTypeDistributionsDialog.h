@@ -38,10 +38,6 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEVTypeDistributionsDialog
- * @brief Dialog for edit  parameters
- */
 class GNEVTypeDistributionsDialog : public MFXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEVTypeDistributionsDialog)
@@ -241,8 +237,12 @@ public:
     /// @brief close dialog
     void closeDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::FixDialogTest* dialogTest);
+
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 

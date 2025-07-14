@@ -49,6 +49,9 @@ public:
     /// @brief open dialog
     int openDialog(SumoXMLAttr attr, const std::string originalVClasses, GNEInternalTest* internalTests);
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::FixDialogTest* dialogTest);
+
     /// @brief get vClasses modified by this dialog
     std::string getModifiedVClasses() const;
 

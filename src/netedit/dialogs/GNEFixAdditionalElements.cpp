@@ -79,8 +79,19 @@ GNEFixAdditionalElements::openDialog(const std::vector<GNEAdditional*>& invalidS
 
 
 void
-GNEFixAdditionalElements::testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest) {
-
+GNEFixAdditionalElements::runInternalTest(const InternalTestStep::FixDialogTest* dialogTest) {
+    // chooose solution
+    if (dialogTest->getSolution() == "savePositionInvalids") {
+        myPositionOptions->saveInvalids->setCheck(TRUE, TRUE);
+    } else if (dialogTest->getSolution() == "fixPositions") {
+        myPositionOptions->fixPositions->setCheck(TRUE, TRUE);
+    } else if (dialogTest->getSolution() == "selectPositionInvalids") {
+        myPositionOptions->selectInvalids->setCheck(TRUE, TRUE);
+    } else if (dialogTest->getSolution() == "activatePositionFriendlyPos") {
+        myPositionOptions->activateFriendlyPosition->setCheck(TRUE, TRUE);
+    }
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
 }
 
 
@@ -97,7 +108,7 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
     bool continueSaving = true;
     // first check options from single lane additionals
     if (myAdditionalList->myInvalidSingleLaneAdditionals.size() > 0) {
-        if (myPositionOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
+        if (myPositionOptions->activateFriendlyPosition->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
             // iterate over invalid single lane elements to enable friendly position
@@ -105,7 +116,7 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
                 invalidSingleLaneAdditional->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->end();
-        } else if (myPositionOptions->fixPositionsAndSave->getCheck() == TRUE) {
+        } else if (myPositionOptions->fixPositions->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "fix positions of invalid additionals");
             // iterate over invalid single lane elements to fix positions
@@ -113,7 +124,7 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
                 invalidSingleLaneAdditional->fixAdditionalProblem();
             }
             myViewNet->getUndoList()->end();
-        } else if (myPositionOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
+        } else if (myPositionOptions->selectInvalids->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "select invalid additionals");
             // iterate over invalid single lane elements to select all elements
@@ -152,12 +163,12 @@ GNEFixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
             myAdditionalList->myInvalidMultiLaneAdditionals.clear();
         }
         // fix problem of positions
-        if (myPositionOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
+        if (myPositionOptions->activateFriendlyPosition->getCheck() == TRUE) {
             // iterate over invalid single lane elements to enable friendly position
             for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 invalidSingleLaneAdditional->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
-        } else if (myPositionOptions->fixPositionsAndSave->getCheck() == TRUE) {
+        } else if (myPositionOptions->fixPositions->getCheck() == TRUE) {
             // iterate over invalid single lane elements to fix positions
             for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 invalidSingleLaneAdditional->fixAdditionalProblem();
@@ -255,62 +266,62 @@ GNEFixAdditionalElements::PositionOptions::PositionOptions(GNEFixAdditionalEleme
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    activateFriendlyPositionAndSave = GUIDesigns::buildFXRadioButton(RadioButtonsLeft, TL("Activate friendlyPos and save"), "", TL("Friendly pos parameter will be activated in all stopping places and E2 detectors"),
-                                      fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    saveInvalid = GUIDesigns::buildFXRadioButton(RadioButtonsLeft, TL("Save invalid positions"), "", TL("Save stopping places and E2 detectors with invalid positions"),
-                  fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    activateFriendlyPosition = GUIDesigns::buildFXRadioButton(RadioButtonsLeft, TL("Activate friendlyPos and save"), "", TL("Friendly pos parameter will be activated in all stopping places and E2 detectors"),
+                               fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    saveInvalids = GUIDesigns::buildFXRadioButton(RadioButtonsLeft, TL("Save invalid positions"), "", TL("Save stopping places and E2 detectors with invalid positions"),
+                   fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    fixPositionsAndSave = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Fix positions and save"), "", TL("Position of stopping places and E2 detectors will be fixed"),
-                          fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    selectInvalidStopsAndCancel = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Select invalid additionals"), "", TL("Cancel saving of additionals and select invalid stopping places and E2 detectors"),
-                                  fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // leave option "activateFriendlyPositionAndSave" as default
-    activateFriendlyPositionAndSave->setCheck(true);
+    fixPositions = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Fix positions and save"), "", TL("Position of stopping places and E2 detectors will be fixed"),
+                   fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    selectInvalids = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Select invalid additionals"), "", TL("Cancel saving of additionals and select invalid stopping places and E2 detectors"),
+                     fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // leave option "activateFriendlyPosition" as default
+    activateFriendlyPosition->setCheck(true);
 }
 
 
 void
 GNEFixAdditionalElements::PositionOptions::selectOption(FXObject* option) {
-    if (option == activateFriendlyPositionAndSave) {
-        activateFriendlyPositionAndSave->setCheck(true);
-        fixPositionsAndSave->setCheck(false);
-        saveInvalid->setCheck(false);
-        selectInvalidStopsAndCancel->setCheck(false);
-    } else if (option == fixPositionsAndSave) {
-        activateFriendlyPositionAndSave->setCheck(false);
-        fixPositionsAndSave->setCheck(true);
-        saveInvalid->setCheck(false);
-        selectInvalidStopsAndCancel->setCheck(false);
-    } else if (option == saveInvalid) {
-        activateFriendlyPositionAndSave->setCheck(false);
-        fixPositionsAndSave->setCheck(false);
-        saveInvalid->setCheck(true);
-        selectInvalidStopsAndCancel->setCheck(false);
-    } else if (option == selectInvalidStopsAndCancel) {
-        activateFriendlyPositionAndSave->setCheck(false);
-        fixPositionsAndSave->setCheck(false);
-        saveInvalid->setCheck(false);
-        selectInvalidStopsAndCancel->setCheck(true);
+    if (option == activateFriendlyPosition) {
+        activateFriendlyPosition->setCheck(true);
+        fixPositions->setCheck(false);
+        saveInvalids->setCheck(false);
+        selectInvalids->setCheck(false);
+    } else if (option == fixPositions) {
+        activateFriendlyPosition->setCheck(false);
+        fixPositions->setCheck(true);
+        saveInvalids->setCheck(false);
+        selectInvalids->setCheck(false);
+    } else if (option == saveInvalids) {
+        activateFriendlyPosition->setCheck(false);
+        fixPositions->setCheck(false);
+        saveInvalids->setCheck(true);
+        selectInvalids->setCheck(false);
+    } else if (option == selectInvalids) {
+        activateFriendlyPosition->setCheck(false);
+        fixPositions->setCheck(false);
+        saveInvalids->setCheck(false);
+        selectInvalids->setCheck(true);
     }
 }
 
 
 void
 GNEFixAdditionalElements::PositionOptions::enablePositionOptions() {
-    activateFriendlyPositionAndSave->enable();
-    fixPositionsAndSave->enable();
-    saveInvalid->enable();
-    selectInvalidStopsAndCancel->enable();
+    activateFriendlyPosition->enable();
+    fixPositions->enable();
+    saveInvalids->enable();
+    selectInvalids->enable();
 }
 
 
 void
 GNEFixAdditionalElements::PositionOptions::disablePositionOptions() {
-    activateFriendlyPositionAndSave->disable();
-    fixPositionsAndSave->disable();
-    saveInvalid->disable();
-    selectInvalidStopsAndCancel->disable();
+    activateFriendlyPosition->disable();
+    fixPositions->disable();
+    saveInvalids->disable();
+    selectInvalids->disable();
 }
 
 // ---------------------------------------------------------------------------
@@ -331,13 +342,13 @@ GNEFixAdditionalElements::ConsecutiveLaneOptions::ConsecutiveLaneOptions(GNEFixA
     new FXVerticalSeparator(RadioButtons, GUIDesignVerticalSeparator);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    activateFriendlyPositionAndSave = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Activate friendlyPos and save"), "", TL("Friendly pos parameter will be activated in all stopping places and E2 detectors"),
-                                      fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    fixPositionsAndSave = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Fix positions and save"), "", TL("Position of stopping places and E2 detectors will be fixed"),
-                          fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // leave option "buildConnectionBetweenLanes" and "activateFriendlyPositionAndSave" as default
+    activateFriendlyPosition = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Activate friendlyPos and save"), "", TL("Friendly pos parameter will be activated in all stopping places and E2 detectors"),
+                               fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    fixPositions = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Fix positions and save"), "", TL("Position of stopping places and E2 detectors will be fixed"),
+                   fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // leave option "buildConnectionBetweenLanes" and "activateFriendlyPosition" as default
     buildConnectionBetweenLanes->setCheck(true);
-    activateFriendlyPositionAndSave->setCheck(true);
+    activateFriendlyPosition->setCheck(true);
 }
 
 
@@ -352,12 +363,12 @@ GNEFixAdditionalElements::ConsecutiveLaneOptions::selectOption(FXObject* option)
         removeInvalidElements->setCheck(true);
     }
     // set down buttons
-    if (option == activateFriendlyPositionAndSave) {
-        activateFriendlyPositionAndSave->setCheck(true);
-        fixPositionsAndSave->setCheck(false);
-    } else if (option == fixPositionsAndSave) {
-        activateFriendlyPositionAndSave->setCheck(false);
-        fixPositionsAndSave->setCheck(true);
+    if (option == activateFriendlyPosition) {
+        activateFriendlyPosition->setCheck(true);
+        fixPositions->setCheck(false);
+    } else if (option == fixPositions) {
+        activateFriendlyPosition->setCheck(false);
+        fixPositions->setCheck(true);
     }
 }
 
@@ -366,8 +377,8 @@ void
 GNEFixAdditionalElements::ConsecutiveLaneOptions::enableConsecutiveLaneOptions() {
     buildConnectionBetweenLanes->enable();
     removeInvalidElements->enable();
-    activateFriendlyPositionAndSave->enable();
-    fixPositionsAndSave->enable();
+    activateFriendlyPosition->enable();
+    fixPositions->enable();
 }
 
 
@@ -375,8 +386,8 @@ void
 GNEFixAdditionalElements::ConsecutiveLaneOptions::disableConsecutiveLaneOptions() {
     buildConnectionBetweenLanes->disable();
     removeInvalidElements->disable();
-    activateFriendlyPositionAndSave->disable();
-    fixPositionsAndSave->disable();
+    activateFriendlyPosition->disable();
+    fixPositions->disable();
 }
 
 /****************************************************************************/

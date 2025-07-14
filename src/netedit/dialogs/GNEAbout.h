@@ -38,6 +38,9 @@ public:
     /// @brief Destructor
     ~GNEAbout();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::FixDialogTest* dialogTest);
+
     /// @brief Creates the widget
     void create();
 

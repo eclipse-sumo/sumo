@@ -525,6 +525,12 @@ GNESingleParametersDialog::GNESingleParametersDialog(FXApp* app, NBLoadedSUMOTLD
 GNESingleParametersDialog::~GNESingleParametersDialog() {}
 
 
+void
+GNESingleParametersDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+    // finish
+}
+
+
 long
 GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // declare vector for parameters in stringvector format

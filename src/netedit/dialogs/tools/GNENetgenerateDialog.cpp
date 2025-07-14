@@ -132,6 +132,12 @@ GNENetgenerateDialog::openDialog() {
 }
 
 
+void
+GNENetgenerateDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+    // finish
+}
+
+
 long
 GNENetgenerateDialog::onCmdOpenOutputFile(FXObject*, FXSelector, void*) {
     // get output file

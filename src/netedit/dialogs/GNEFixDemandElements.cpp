@@ -101,8 +101,9 @@ GNEFixDemandElements::openDialog(const std::vector<GNEDemandElement*>& invalidDe
 
 
 void
-GNEFixDemandElements::testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest) {
-
+GNEFixDemandElements::runInternalTest(const InternalTestStep::FixDialogTest* dialogTest) {
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
 }
 
 

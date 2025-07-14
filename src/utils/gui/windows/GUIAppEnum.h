@@ -1675,8 +1675,15 @@ enum {
 
     /// @}
 
+    /// @name test
+    /// @{
+
     /// @brief run tests
     MID_RUNTESTS,
+    /// @brief execute internal test in modal dialog
+    MID_INTERNALTEST,
+
+    /// @{
 
     /// @brief last element of enum (not used)
     MID_LAST

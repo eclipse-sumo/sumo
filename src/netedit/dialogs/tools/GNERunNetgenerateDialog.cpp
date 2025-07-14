@@ -1,3 +1,5 @@
+#include "GNERunNetgenerateDialog.h"
+#include "GNERunNetgenerateDialog.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
@@ -104,6 +106,12 @@ GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
 
 
 GNERunNetgenerateDialog::~GNERunNetgenerateDialog() {}
+
+
+void
+GNERunNetgenerateDialog::runInternalTest(const InternalTestStep::FixDialogTest* /*dialogTest*/) {
+    // finish
+}
 
 
 GNEApplicationWindow*

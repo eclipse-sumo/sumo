@@ -66,12 +66,6 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
             viewParent->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), argument);
         } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASETABLE) {
             viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->testTable(testStep->getTLSTableTest());
-        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_NETWORK) {
-            viewNet->getFixNetworkElementsDialog()->testFixDialog(testStep->getFixDialogTest());
-        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_ADDITIONAL) {
-            viewNet->getFixAdditionalElementsDialog()->testFixDialog(testStep->getFixDialogTest());
-        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_DEMAND) {
-            viewNet->getFixDemandElementsDialog()->testFixDialog(testStep->getFixDialogTest());
         } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
             writeClosedSucessfully = true;
         }
