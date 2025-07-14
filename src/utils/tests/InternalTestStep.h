@@ -137,6 +137,9 @@ public:
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, Category category,
                      FXEvent* event, const bool updateView);
 
+    /// @brief constructor for fix dialogs
+    InternalTestStep(InternalTest* testSystem, Category category, const std::string& solution);
+
     /// @brief constructor for key steps (only used for dialog steps)
     InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event);
 
@@ -275,6 +278,9 @@ private:
 
     /// @brief process createConnectionEdit function
     void saveConnectionEdit() const;
+
+    /// @brief process fixCrossings function
+    void fixCrossings();
 
     /// @brief process createTLS function
     void createTLS(const int overlappedTabs) const;

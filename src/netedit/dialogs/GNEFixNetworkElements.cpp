@@ -96,6 +96,8 @@ GNEFixNetworkElements::testFixDialog(const InternalTestStep::FixDialogTest* fixD
     } else if (fixDialogTest->getSolution() == "selectInvalidCrossings") {
         myFixCrossingOptions->selectInvalidCrossings->setCheck(TRUE, TRUE);
     }
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
 }
 
 

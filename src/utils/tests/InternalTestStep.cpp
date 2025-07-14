@@ -44,7 +44,7 @@ constexpr int MOUSE_REFERENCE_Y = 168;
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNETLSTable::Test - public methods
+// InternalTestStep::ModalArguments - public methods
 // ---------------------------------------------------------------------------
 
 InternalTestStep::ModalArguments::ModalArguments(const std::vector<FXuint> values) :
@@ -52,7 +52,7 @@ InternalTestStep::ModalArguments::ModalArguments(const std::vector<FXuint> value
 }
 
 // ---------------------------------------------------------------------------
-// GNETLSTable::Test - public methods
+// InternalTestStep::TLSTableTest - public methods
 // ---------------------------------------------------------------------------
 
 InternalTestStep::TLSTableTest::TLSTableTest(FXSelector sel_, const int row_) :
@@ -69,7 +69,7 @@ InternalTestStep::TLSTableTest::TLSTableTest(FXSelector sel_, const int row_, co
 }
 
 // ---------------------------------------------------------------------------
-// GNETLSTable::Test - public methods
+// InternalTestStep::FixDialogTest - public methods
 // ---------------------------------------------------------------------------
 
 InternalTestStep::FixDialogTest::FixDialogTest(const std::string& solution) :
@@ -165,6 +165,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         createConnection("shift");
     } else if (function == "saveConnectionEdit") {
         saveConnectionEdit();
+    } else if (function == "fixCrossings") {
+        fixCrossings();
     } else if (function == "createTLS") {
         createTLS(0);
     } else if (function == "createTLSOverlapped") {
@@ -256,8 +258,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     } else if (function == "quit") {
         quit();
     } else if (function.size() > 0) {
-        std::cout << function << std::endl;
-        throw ProcessError("Function " + function + " not implemented in InternalTestStep");
+        std::cout << "Function " + function + " not implemented in InternalTestStep" << std::endl;
+        throw ProcessError();
     }
 }
 
@@ -284,6 +286,15 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
     testSystem->addTestSteps(this);
 }
 
+
+InternalTestStep::InternalTestStep(InternalTest* testSystem, Category category, const std::string& solution) :
+    myTestSystem(testSystem),
+    myCategory(category) {
+    // add this testStep to test system
+    testSystem->addTestSteps(this);
+    // create fix dialog test
+    myFixDialogTest = new FixDialogTest(solution);
+}
 
 InternalTestStep::InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event) :
     myTestSystem(parent->myTestSystem),
@@ -835,6 +846,19 @@ InternalTestStep::saveConnectionEdit() const {
         writeError("saveConnectionEdit", 0, "<>");
     } else {
         modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.connection.saveConnections"), 0);
+    }
+}
+
+
+void
+InternalTestStep::fixCrossings() {
+    if ((myArguments.size() != 1) || !checkStringArgument(myArguments[0])) {
+        writeError("fixCrossings", 0, "<str>");
+    } else {
+        // save network
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, Category::APP);
+        // create fix dialog test
+        new InternalTestStep(myTestSystem, Category::FIX_NETWORK, getStringArgument(myArguments[0]));
     }
 }
 
