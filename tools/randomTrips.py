@@ -1031,7 +1031,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
         validatedTrips = [(o, d, i) for (label, o, d, i) in generatedTrips if label in validLabels]
 
         if rerunFactor is None:
-            nRequested = idx - 1
+            nRequested = idx
             nValid = len(validLabels)
             if nRequested > 0 and nValid < nRequested:
                 successRate = nValid / nRequested
