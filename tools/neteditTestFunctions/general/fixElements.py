@@ -23,19 +23,41 @@ from ..files.save import saveExistentShortcut
 from ..input.keyboard import typeKey, typeTwoKeys
 
 
-def fixDemandElement(value):
+def fixRoute(solution):
     """
-    @brief fix demand element (THIS FUNCTION HAS TO BE REMOVED)
+    @brief fix route
     """
-    # focus current frame
-    focusOnFrame()
-    # jump to option
-    for _ in range(value):
-        typeTwoKeys('shift', 'tab')
-    # type space to select
-    typeKey('space')
-    # accept
-    typeTwoKeys('alt', 'a')
+    # save config
+    saveExistentShortcut("neteditConfig")
+    # select bullet depending of solution
+    if (solution == "selectRouteInvalids"):
+        for _ in range(2):
+            typeTwoKeys('shift', 'tab')
+        typeKey('space')
+        # go back and press accept
+        for _ in range(2):
+            typeKey('tab')
+        typeKey('space')
+    elif (solution == "saveRouteInvalids"):
+        for _ in range(3):
+            typeTwoKeys('shift', 'tab')
+        typeKey('space')
+        # go back and press accept
+        for _ in range(3):
+            typeKey('tab')
+        typeKey('space')
+    elif (solution == "removeRouteInvalids"):
+        for _ in range(4):
+            typeTwoKeys('shift', 'tab')
+        typeKey('space')
+        # go back and press accept
+        for _ in range(4):
+            typeKey('tab')
+        typeKey('space')
+    else:
+        # press cancel
+        typeKey('tab')
+        typeKey('space')
 
 
 def fixDemandElements(solution):

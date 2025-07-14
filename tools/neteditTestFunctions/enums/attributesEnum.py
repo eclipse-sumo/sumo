@@ -214,13 +214,6 @@ class attrs:
             abort = 16
             removeLastInsertedEdge = 17
 
-    class fix:
-        class demandElements:
-            class routes:
-                removeStops = 1
-                selectInvalidRoutes = 2
-                saveInvalidRoutes = 3
-
     # --------------------------------
     # NETWORK
     # --------------------------------
