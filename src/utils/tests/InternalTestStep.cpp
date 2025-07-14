@@ -165,8 +165,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         createConnection("shift");
     } else if (function == "saveConnectionEdit") {
         saveConnectionEdit();
-    } else if (function == "fixCrossings") {
-        fixCrossings();
+    } else if (function == "fixStoppingPlace") {
+        fixStoppingPlace();
     } else if (function == "createTLS") {
         createTLS(0);
     } else if (function == "createTLSOverlapped") {
@@ -287,14 +287,15 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
 }
 
 
-InternalTestStep::InternalTestStep(InternalTest* testSystem, Category category, const std::string& solution) :
-    myTestSystem(testSystem),
-    myCategory(category) {
-    // add this testStep to test system
-    testSystem->addTestSteps(this);
+InternalTestStep::InternalTestStep(InternalTestStep* parent, const std::string& solution) :
+    myTestSystem(parent->myTestSystem),
+    myMessageID(MID_INTERNALTEST) {
+    // add this testStep to parent modal dialgo testSteps
+    parent->myModalDialogTestSteps.push_back(this);
     // create fix dialog test
     myFixDialogTest = new FixDialogTest(solution);
 }
+
 
 InternalTestStep::InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event) :
     myTestSystem(parent->myTestSystem),
@@ -855,10 +856,23 @@ InternalTestStep::fixCrossings() {
     if ((myArguments.size() != 1) || !checkStringArgument(myArguments[0])) {
         writeError("fixCrossings", 0, "<str>");
     } else {
-        // save network
-        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, Category::APP);
+        // save config
+        auto saveConfig = new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, Category::APP);
         // create fix dialog test
-        new InternalTestStep(myTestSystem, Category::FIX_NETWORK, getStringArgument(myArguments[0]));
+        new InternalTestStep(saveConfig, getStringArgument(myArguments[0]));
+    }
+}
+
+
+void
+InternalTestStep::fixStoppingPlace() {
+    if ((myArguments.size() != 1) || !checkStringArgument(myArguments[0])) {
+        writeError("fixStoppingPlace", 0, "<str>");
+    } else {
+        // save config
+        auto saveConfig = new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, Category::APP);
+        // create fix dialog test
+        new InternalTestStep(saveConfig, getStringArgument(myArguments[0]));
     }
 }
 

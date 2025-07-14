@@ -40,9 +40,6 @@ public:
         VIEW,           // send signal to view (either GUIView or GNEViewNet)
         TLS_PHASES,     // send signal to TLS Phases module (used for TLS Phases)
         TLS_PHASETABLE, // send signal to TLSTable (used for TLS Phases)
-        FIX_ADDITIONAL, // send signal to fix additional dialog
-        FIX_DEMAND,     // send signal to fix demand dialog
-        FIX_NETWORK,    // send signal to fix network dialog
         COLOR,          // send signal to color dialog
     };
 
@@ -138,7 +135,7 @@ public:
                      FXEvent* event, const bool updateView);
 
     /// @brief constructor for fix dialogs
-    InternalTestStep(InternalTest* testSystem, Category category, const std::string& solution);
+    InternalTestStep(InternalTestStep* parent, const std::string& solution);
 
     /// @brief constructor for key steps (only used for dialog steps)
     InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event);
@@ -281,6 +278,9 @@ private:
 
     /// @brief process fixCrossings function
     void fixCrossings();
+
+    /// @brief process fixStoppingPlace function
+    void fixStoppingPlace();
 
     /// @brief process createTLS function
     void createTLS(const int overlappedTabs) const;
