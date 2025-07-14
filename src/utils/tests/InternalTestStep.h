@@ -232,11 +232,14 @@ private:
     /// @brief process modifyVClassDialog_DisallowAll function
     void modifyVClassDialog_DisallowAll(const int overlappedTabs) const;
 
-    /// @brief process modifyVClassDialog_DisallowAll function
+    /// @brief process modifyVClassDialog_Cancel function
     void modifyVClassDialog_Cancel(const int overlappedTabs) const;
 
-    /// @brief process modifyVClassDialog_DisallowAll function
+    /// @brief process modifyVClassDialog_Reset function
     void modifyVClassDialog_Reset(const int overlappedTabs) const;
+
+    /// @brief process modifyVTypeDialogAttribute function
+    void modifyVTypeDialogAttribute() const;
 
     /// @brief process createConnection function
     void createConnection(const std::string& keyModifier) const;
