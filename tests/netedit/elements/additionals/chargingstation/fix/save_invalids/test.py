@@ -47,7 +47,7 @@ netedit.changeMode("select")
 netedit.selection("clear")
 
 # save invalids
-netedit.fixStoppingPlace("saveInvalids")
+netedit.fixStoppingPlace("savePositionInvalids")
 
 # quit netedit
 netedit.quit(neteditProcess)

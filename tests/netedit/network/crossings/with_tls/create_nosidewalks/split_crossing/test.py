@@ -48,8 +48,5 @@ netedit.redo(referencePosition, 2)
 # fix crossings
 netedit.fixCrossings("removeInvalidCrossings")
 
-# save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
-
 # quit netedit
 netedit.quit(neteditProcess)
