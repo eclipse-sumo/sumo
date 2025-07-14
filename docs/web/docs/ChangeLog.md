@@ -95,8 +95,8 @@ title: ChangeLog
 ### Enhancements
 
 - sumo
-  - Files ending with *.parquet* are now written in [Apache Parquet format](https://en.wikipedia.org/wiki/Apache_Parquet). This can also be activated with option **--output.format parquet**. Further applicable options are **--output.compression**, **--output.column-header**. #14694
-  - Files ending with *.csv* are now written in [CSV format](https://en.wikipedia.org/wiki/Comma-separated_values). This can also be activated with option **--output.format csv**. Compressed csv is supported with *.csv.gz*. Further applicable options are **--output.column-header**, **--output.column-separator**. #16791
+  - Files ending with *.parquet* are now written in [Apache Parquet format](https://en.wikipedia.org/wiki/Apache_Parquet). This can also be activated with option **--output.format parquet**. Further applicable options are **--output.compression**, **--output.column-header**. Feature is in [experimental stage](TabularOutputs.md#limitations) #14694
+  - Files ending with *.csv* are now written in [CSV format](https://en.wikipedia.org/wiki/Comma-separated_values). This can also be activated with option **--output.format csv**. Compressed csv is supported with *.csv.gz*. Further applicable options are **--output.column-header**, **--output.column-separator**. Feature is in [experimental stage](TabularOutputs.md#limitations) #16791
   - A warning is now issued for traffic light programs if a link never gets a green phase even when the program has only a single phase. #16652
   - A warning is now issued for traffic light programs if two 'G' links target the same lane in the same phase #16636
   - Added waitingTime to personinfo walk output #16737
