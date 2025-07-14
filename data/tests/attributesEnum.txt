@@ -987,9 +987,6 @@ netedit.attrs.entryExit.inspectSelection.helpDialog 10
 netedit.attrs.entryExit.inspectSelection.parameters 4
 netedit.attrs.entryExit.inspectSelection.parametersButton 5
 netedit.attrs.entryExit.inspectSelection.reset 11
-netedit.attrs.fix.demandElements.routes.removeStops 1
-netedit.attrs.fix.demandElements.routes.saveInvalidRoutes 3
-netedit.attrs.fix.demandElements.routes.selectInvalidRoutes 2
 netedit.attrs.flow.create.arrivalLane 14
 netedit.attrs.flow.create.arrivalPos 15
 netedit.attrs.flow.create.arrivalPosLat 21

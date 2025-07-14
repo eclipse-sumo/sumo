@@ -47,13 +47,13 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ri
 netedit.typeKey("enter")
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLID, "")
+netedit.modifyAttribute(netedit.attrs.TLS.attributesJoined.TLID, "")
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLID, ";;;%%;;;")
+netedit.modifyAttribute(netedit.attrs.TLS.attributesJoined.TLID, ";;;%%;;;")
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLID, "customID")
+netedit.modifyAttribute(netedit.attrs.TLS.attributesJoined.TLID, "customID")
 
 # type enter to save changes
 netedit.typeKey("enter")
