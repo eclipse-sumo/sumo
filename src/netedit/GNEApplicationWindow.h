@@ -87,7 +87,7 @@ public:
     void setStatusBarText(const std::string& statusBarText);
 
     /// @brief called if the user selects Processing->compute junctions with volatile options
-    long computeJunctionWithVolatileOptions(const InternalTestStep::ModalArguments* modalArguments);
+    long computeJunctionWithVolatileOptions(const InternalTestStep::DialogTest* modalArguments);
 
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();

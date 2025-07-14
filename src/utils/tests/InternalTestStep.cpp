@@ -32,7 +32,7 @@
 // static member definitions
 // ===========================================================================
 
-const std::string InternalTestStep::ModalArguments::colorValue = "139,131,120";
+const std::string InternalTestStep::DialogTest::colorValue = "139,131,120";
 // this offsets corresponds to the offset of the test magenta square
 constexpr int MOUSE_OFFSET_X = 24;
 constexpr int MOUSE_OFFSET_Y = 25;
@@ -44,20 +44,20 @@ constexpr int MOUSE_REFERENCE_Y = 168;
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// InternalTestStep::ModalArguments - public methods
+// InternalTestStep::DialogTest - public methods
 // ---------------------------------------------------------------------------
 
-InternalTestStep::ModalArguments::ModalArguments(const FXuint value) :
+InternalTestStep::DialogTest::DialogTest(const FXuint value) :
     questionDialogValues({value}) {
 }
 
 
-InternalTestStep::ModalArguments::ModalArguments(const std::vector<FXuint>& values) :
+InternalTestStep::DialogTest::DialogTest(const std::vector<FXuint>& values) :
     questionDialogValues(values) {
 }
 
 
-InternalTestStep::ModalArguments::ModalArguments(const std::string& solution) :
+InternalTestStep::DialogTest::DialogTest(const std::string& solution) :
     fixSolution(solution) {
 }
 
@@ -289,9 +289,9 @@ InternalTestStep::InternalTestStep(InternalTestStep* parent, const std::string& 
     myTestSystem(parent->myTestSystem),
     myMessageID(MID_INTERNALTEST) {
     // add this testStep to parent modal dialgo testSteps
-    parent->myModalDialogTestSteps.push_back(this);
+    parent->myDialogTestSteps.push_back(this);
     // modal arguments
-    myModalArguments = new ModalArguments(solution);
+    myDialogTest = new DialogTest(solution);
 }
 
 
@@ -300,7 +300,7 @@ InternalTestStep::InternalTestStep(InternalTestStep* parent, FXSelector messageT
     myMessageType(messageType),
     myEvent(event) {
     // add this testStep to parent modal dialgo testSteps
-    parent->myModalDialogTestSteps.push_back(this);
+    parent->myDialogTestSteps.push_back(this);
 }
 
 
@@ -308,17 +308,17 @@ InternalTestStep::~InternalTestStep() {
     if (myEvent) {
         delete myEvent;
     }
-    if (myModalArguments) {
-        delete myModalArguments;
+    if (myDialogTest) {
+        delete myDialogTest;
     }
     if (myTLSTableTest) {
         delete myTLSTableTest;
     }
     // remove all key steps
-    for (auto modalDialogTestStep : myModalDialogTestSteps) {
+    for (auto modalDialogTestStep : myDialogTestSteps) {
         delete modalDialogTestStep;
     }
-    myModalDialogTestSteps.clear();
+    myDialogTestSteps.clear();
 }
 
 
@@ -334,9 +334,9 @@ InternalTestStep::getMessageID() const {
 }
 
 
-InternalTestStep::ModalArguments*
-InternalTestStep::getModalArguments() const {
-    return myModalArguments;
+InternalTestStep::DialogTest*
+InternalTestStep::getDialogTest() const {
+    return myDialogTest;
 }
 
 
@@ -372,7 +372,7 @@ InternalTestStep::getEvent() const {
 
 const std::vector<const InternalTestStep*>&
 InternalTestStep::getModalDialogTestSteps() const {
-    return myModalDialogTestSteps;
+    return myDialogTestSteps;
 }
 
 
@@ -1518,13 +1518,13 @@ InternalTestStep::computeJunctionsVolatileOptions() {
         writeError("computeJunctionsVolatileOptions", 0, "<True/False>");
     } else {
         // due argument is optional, if not given, we assume True
-        FXuint result = ModalArguments::yes;
+        FXuint result = DialogTest::yes;
         if ((myArguments.size() == 1) && (myArguments[0] == "False")) {
-            result = ModalArguments::no;
+            result = DialogTest::no;
         }
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE;
-        myModalArguments = new ModalArguments(result);
+        myDialogTest = new DialogTest(result);
     }
 }
 

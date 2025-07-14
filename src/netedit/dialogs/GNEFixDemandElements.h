@@ -47,7 +47,7 @@ public:
     FXuint openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements);
 
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::ModalArguments* modalArguments);
+    void runInternalTest(const InternalTestStep::DialogTest* dialogTest);
 
     /// @name FOX-callbacks
     /// @{

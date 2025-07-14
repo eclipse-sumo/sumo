@@ -50,7 +50,7 @@ public:
     int openDialog(SumoXMLAttr attr, const std::string originalVClasses, GNEInternalTest* internalTests);
 
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::ModalArguments* modalArguments);
+    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
 
     /// @brief get vClasses modified by this dialog
     std::string getModifiedVClasses() const;

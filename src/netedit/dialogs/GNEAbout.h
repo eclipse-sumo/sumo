@@ -37,7 +37,7 @@ public:
     ~GNEAbout();
 
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::ModalArguments* modalArguments);
+    void runInternalTest(const InternalTestStep::DialogTest* dialogTest);
 
     /// @brief Creates the widget
     void create();

@@ -59,7 +59,7 @@ public:
     void openDialog(GNEPythonTool* tool);
 
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::ModalArguments* modalArguments);
+    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
 
     /// @brief get pointer to GNEApplicationWindow
     GNEApplicationWindow* getGNEApplicationWindow() const;

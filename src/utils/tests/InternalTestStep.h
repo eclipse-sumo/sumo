@@ -43,18 +43,18 @@ public:
         COLOR,          // send signal to color dialog
     };
 
-    /// @brief modal arguments (used for certain functions that opens modal dialogs)
-    class ModalArguments {
+    /// @brief dialog arguments (used for certain functions that opens modal dialogs)
+    class DialogTest {
 
     public:
         /// @brief constructor for yes/no argument
-        ModalArguments(const FXuint value);
+        DialogTest(const FXuint value);
 
         /// @brief constructor for question dialogs
-        ModalArguments(const std::vector<FXuint>& values);
+        DialogTest(const std::vector<FXuint>& values);
 
         /// @brief constructor fix dialogs
-        ModalArguments(const std::string& solution);
+        DialogTest(const std::string& solution);
 
         /// @brief yes value
         static const FXuint yes = 1;
@@ -76,10 +76,10 @@ public:
 
     private:
         /// @brief invalidated default constructor
-        ModalArguments() = delete;
+        DialogTest() = delete;
 
         /// @brief invalidated copy constructor
-        ModalArguments(const ModalArguments&) = delete;
+        DialogTest(const DialogTest&) = delete;
     };
 
     /// @brief struct used for test TLS Tables
@@ -138,8 +138,8 @@ public:
     /// @brief get message ID
     FXSelector getMessageID() const;
 
-    /// @brief get modal arguments
-    ModalArguments* getModalArguments() const;
+    /// @brief get dialog arguments
+    DialogTest* getDialogTest() const;
 
     /// @brief get TLS Table test
     TLSTableTest* getTLSTableTest() const;
@@ -181,14 +181,14 @@ private:
     /// @brief list of events associated with this step
     FXEvent* myEvent = nullptr;
 
-    /// @brief modal arguments
-    ModalArguments* myModalArguments = nullptr;
+    /// @brief dialog test
+    DialogTest* myDialogTest = nullptr;
 
     /// @brief TLS Table test
     TLSTableTest* myTLSTableTest = nullptr;
 
-    /// @brief Test steps used in certain modal dialogs
-    std::vector<const InternalTestStep*> myModalDialogTestSteps;
+    /// @brief Test steps used in dialog test
+    std::vector<const InternalTestStep*> myDialogTestSteps;
 
     /// @brief parse function and arguments
     std::string parseStep(const std::string& rowText);

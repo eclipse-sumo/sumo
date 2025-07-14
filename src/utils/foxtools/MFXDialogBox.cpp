@@ -71,8 +71,8 @@ MFXDialogBox::openModalDialog(InternalTest* internalTests, FXuint placement) {
         for (const auto& modalStep : internalTests->getCurrentStep()->getModalDialogTestSteps()) {
             if (modalStep->getEvent()) {
                 handle(internalTests, modalStep->getSelector(), modalStep->getEvent());
-            } else if (modalStep->getModalArguments()) {
-                handle(internalTests, modalStep->getSelector(), modalStep->getModalArguments());
+            } else if (modalStep->getDialogTest()) {
+                handle(internalTests, modalStep->getSelector(), modalStep->getDialogTest());
             }
         }
         return 1;
@@ -84,7 +84,7 @@ MFXDialogBox::openModalDialog(InternalTest* internalTests, FXuint placement) {
 
 
 void
-MFXDialogBox::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
+MFXDialogBox::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
     // temporal until #16893
 }
 
@@ -113,11 +113,11 @@ MFXDialogBox::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 MFXDialogBox::onCmdInternalTest(FXObject*, FXSelector, void* ptr) {
-    auto modalArguments = static_cast<const InternalTestStep::ModalArguments*>(ptr);
-    // ensure modalArguments is not null
-    if (modalArguments) {
+    auto dialogTest = static_cast<const InternalTestStep::DialogTest*>(ptr);
+    // ensure dialogTest is not null
+    if (dialogTest) {
         // run internal test
-        runInternalTest(modalArguments);
+        runInternalTest(dialogTest);
     }
     // complete
     return 1;

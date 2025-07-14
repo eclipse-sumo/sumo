@@ -413,7 +413,7 @@ long
 GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
     // check if get the value of the modal arguments
     if (myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest()) {
-        myValueTextField->setText(InternalTestStep::ModalArguments::colorValue.c_str(), TRUE);
+        myValueTextField->setText(InternalTestStep::DialogTest::colorValue.c_str(), TRUE);
     } else {
         // create FXColorDialog
         FXColorDialog colordialog(myAttributeTable->getFrameParent()->getViewNet(), TL("Color Dialog"));

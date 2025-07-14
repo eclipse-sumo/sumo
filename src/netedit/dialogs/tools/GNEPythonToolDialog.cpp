@@ -137,7 +137,7 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
 
 
 void
-GNEPythonToolDialog::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
+GNEPythonToolDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
     // finish
 }
 

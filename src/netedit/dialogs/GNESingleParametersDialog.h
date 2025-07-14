@@ -246,7 +246,7 @@ public:
     ~GNESingleParametersDialog();
 
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::ModalArguments* modalArguments);
+    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
 
     /// @name FOX-callbacks
     /// @{

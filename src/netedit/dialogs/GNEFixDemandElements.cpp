@@ -101,13 +101,13 @@ GNEFixDemandElements::openDialog(const std::vector<GNEDemandElement*>& invalidDe
 
 
 void
-GNEFixDemandElements::runInternalTest(const InternalTestStep::ModalArguments* modalArguments) {
+GNEFixDemandElements::runInternalTest(const InternalTestStep::DialogTest* dialogTest) {
     // chooose solution
-    if (modalArguments->fixSolution == "saveRouteInvalids") {
+    if (dialogTest->fixSolution == "saveRouteInvalids") {
         myFixRouteOptions->saveInvalidRoutes->setCheck(TRUE, TRUE);
-    } else if (modalArguments->fixSolution == "removeRouteInvalids") {
+    } else if (dialogTest->fixSolution == "removeRouteInvalids") {
         myFixRouteOptions->removeInvalidRoutes->setCheck(TRUE, TRUE);
-    } else if (modalArguments->fixSolution == "selectRouteInvalids") {
+    } else if (dialogTest->fixSolution == "selectRouteInvalids") {
         myFixRouteOptions->selectRouteInvalids->setCheck(TRUE, TRUE);
     }
     // accept changes

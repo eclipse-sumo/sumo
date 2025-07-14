@@ -1786,7 +1786,7 @@ GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
 
 
 long
-GNEApplicationWindow::computeJunctionWithVolatileOptions(const InternalTestStep::ModalArguments* modalArguments) {
+GNEApplicationWindow::computeJunctionWithVolatileOptions(const InternalTestStep::DialogTest* modalArguments) {
     // declare variable to save FXMessageBox outputs.
     FXuint answer = 0;
     // check if open dialog or obtain the argument trought input (used in tests)
@@ -1926,7 +1926,7 @@ GNEApplicationWindow::onUpdLockMenuTitle(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdProcessButton(FXObject* sender, FXSelector sel, void* arg) {
     // obtain modal arguments from internal tests
-    auto modalArguments = (sender == myInternalTest) ? static_cast<InternalTestStep::ModalArguments*>(arg) : nullptr;
+    auto dialogTest = (sender == myInternalTest) ? static_cast<InternalTestStep::DialogTest*>(arg) : nullptr;
     // first check if there is a view
     if (myViewNet) {
         // process depending of supermode
@@ -1938,7 +1938,7 @@ GNEApplicationWindow::onCmdProcessButton(FXObject* sender, FXSelector sel, void*
                     updateControls();
                     break;
                 case MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE:
-                    computeJunctionWithVolatileOptions(modalArguments);
+                    computeJunctionWithVolatileOptions(dialogTest);
                     break;
                 case MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES:
                     myNet->removeSolitaryJunctions(myUndoList);

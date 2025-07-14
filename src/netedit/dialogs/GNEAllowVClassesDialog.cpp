@@ -142,7 +142,7 @@ GNEAllowVClassesDialog::openDialog(SumoXMLAttr attr, const std::string originalV
 
 
 void
-GNEAllowVClassesDialog::runInternalTest(const InternalTestStep::ModalArguments* /*modalArguments*/) {
+GNEAllowVClassesDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
     // finish
 }
 
