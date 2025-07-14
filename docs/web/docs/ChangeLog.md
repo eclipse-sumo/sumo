@@ -104,8 +104,7 @@ title: ChangeLog
   - Vehicles may now exceed their vType-`maxSpeed` when using `carFollowModel="KraussPS"` and going downhill (up to their `desiredMaxSpeed`) #16805
   - containerStop now supports element `<access>` #16811
   - Vehroute output for persons and containers can now selectively be disabled via param key `"has.vehroute.person-device"`  #16820
-  - It is now possible to model [trailers / marshalling](Specification/Logistics.md#trailers_and_rail_cars) by changing vehicle properties upon loading/unloading of containers #8800
-  - Experimental support for [CSV and Parquet output](TabularOutputs.md) #14694 #16791
+  - It is now possible to model [trailers / marshalling](Specification/Logistics.md#trailers_and_rail_cars) by changing vehicle properties upon loading/unloading of containers #8800  
   - Custom traffic light switching rules now support function `w:DETIT` to retrieve the longest individual waiting time in seconds for vehicles on detector #16841
   - Rerouting trains now always use the current edge as reroute-origin #16852
 
