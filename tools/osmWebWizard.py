@@ -321,6 +321,7 @@ class Builder(object):
 
             self.edges = sumolib.net.readNet(os.path.join(self.tmp, self.files["net"])).getEdges()
 
+            seed = 42
             for vehicle in sorted(self.data["vehicles"].keys()):
                 options = self.data["vehicles"][vehicle]
                 self.report("Processing %s" % vehicleNames[vehicle])
@@ -337,6 +338,9 @@ class Builder(object):
                     options += ["--additional-files", ",".join([self.files["stops"], self.files["ptroutes"]])]
                     options += ["--persontrip.walk-opposite-factor", "0.8"]
                     options += ["--duarouter-weights.tls-penalty", "20"]
+
+                options += ["--seed", str(seed)]
+                seed += 1
 
                 try:
                     randomTrips.main(randomTrips.get_options(options))
