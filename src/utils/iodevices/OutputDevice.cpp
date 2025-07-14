@@ -72,10 +72,12 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
     // build the device
     const OptionsCont& oc = OptionsCont::getOptions();
     const int len = (int)name.length();
-#ifdef HAVE_PARQUET
-    const bool isParquet = (oc.exists("output.format") && oc.getString("output.format") == "parquet") || (len > 8 && name.substr(len - 8) == ".parquet");
-#else
-    const bool isParquet = false;
+    bool isParquet = (oc.exists("output.format") && oc.getString("output.format") == "parquet") || (len > 8 && name.substr(len - 8) == ".parquet");
+#ifndef HAVE_PARQUET
+    if (isParquet) {
+        WRITE_WARNING("Compiled without Parquet support, falling back to XML.")
+        isParquet = false;
+    }
 #endif
     OutputDevice* dev = nullptr;
     // check whether the device shall print to stdout
