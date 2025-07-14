@@ -28,12 +28,12 @@ title: ChangeLog
   - Fixed prolonged failure to change lane on short edge #1403, #16780
   - Fixed train collisions in *moving block mode* on switches #16855
   - Fixed various bugs that impact replication from loaded state #16765
-    - Timing of rerouting events are now preserved when loading state #16772
+    - Timing of rerouting events is now preserved when loading state #16772
     - Previously recorded travel speeds are now preserved when loading state #16775
     - State-saving now preserves loading/insertion order for vehicles that depart in the same step #16870
     - Probabilistic device assignment no longer differs when loading state #16784, #16871
-    - Behavior no longer differs after loading state **--weights.random-factor** #16876
-    - Fixed differing behavior after loading state with **--meso-overtaking** #16874
+    - Behavior no longer differs after loading state when using option **--weights.random-factor** #16876
+    - Fixed differing behavior after loading state with option **--meso-overtaking** #16874
     - Queue entry block time is now preserved when saving/loading state #16770
     
 
@@ -65,6 +65,7 @@ title: ChangeLog
   - Fixed crash when loading state with different values of **--meso-lane-queue** #16757  
   - Vehroute-output no longer contains invalid route edges when loading state and rerouting #16776
   - Fixed bug where calibrators caused invalid traffic data output when removing vehicles #16821
+  - Fixed state-saving related bugs #16770, #16874
 
 - netconvert
   - invalid right of way at left_before_right junction at specific angles #16793 (regression in 1.23.0)
