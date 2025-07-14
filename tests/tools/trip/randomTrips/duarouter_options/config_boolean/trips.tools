@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-16 23:41:23.512233 by randomTrips.py v1_22_0+1564-e72678f29de
+<!-- generated on 2025-07-14 13:23:06.510081 by randomTrips.py v1_23_1+1056-485580ee618
 <configuration>
     <net-file value="net2.net.xml"/>
     <route-file value="out.rou.xml"/>
@@ -10,28 +10,29 @@
     <remove-loops value="True"/>
     <end value="20.0"/>
     <duarouter-exit-times value="true"/>
+    <duarouter-route-length value="true"/>
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="0" depart="0.00" from="left2end" to="beg" type="passenger"/>
-    <trip id="1" depart="1.00" from="beg2left" to="beg2left" type="passenger"/>
-    <trip id="2" depart="2.00" from="middle" to="left2end" type="passenger"/>
-    <trip id="3" depart="3.00" from="rend" to="beg" type="passenger"/>
-    <trip id="4" depart="4.00" from="end" to="beg" type="passenger"/>
-    <trip id="5" depart="5.00" from="beg2left" to="left" type="passenger"/>
-    <trip id="6" depart="6.00" from="beg" to="beg2left" type="passenger"/>
-    <trip id="7" depart="7.00" from="left2end" to="left" type="passenger"/>
-    <trip id="8" depart="8.00" from="beg2left" to="left2end" type="passenger"/>
-    <trip id="9" depart="9.00" from="middle" to="beg" type="passenger"/>
-    <trip id="10" depart="10.00" from="middle" to="left2end" type="passenger"/>
-    <trip id="11" depart="11.00" from="end" to="beg2left" type="passenger"/>
-    <trip id="12" depart="12.00" from="rend" to="end" type="passenger"/>
-    <trip id="13" depart="13.00" from="beg" to="beg" type="passenger"/>
-    <trip id="14" depart="14.00" from="middle" to="left2end" type="passenger"/>
+    <trip id="0" depart="0.00" from="beg2left" to="beg2left" type="passenger"/>
+    <trip id="1" depart="1.00" from="beg2left" to="left" type="passenger"/>
+    <trip id="2" depart="2.00" from="beg" to="beg2left" type="passenger"/>
+    <trip id="3" depart="3.00" from="beg2left" to="left2end" type="passenger"/>
+    <trip id="4" depart="4.00" from="beg" to="beg" type="passenger"/>
+    <trip id="5" depart="5.00" from="middle" to="middle" type="passenger"/>
+    <trip id="6" depart="6.00" from="left" to="rend" type="passenger"/>
+    <trip id="7" depart="7.00" from="beg2left" to="end" type="passenger"/>
+    <trip id="8" depart="8.00" from="beg" to="beg2left" type="passenger"/>
+    <trip id="9" depart="9.00" from="beg" to="beg2left" type="passenger"/>
+    <trip id="10" depart="10.00" from="left2end" to="end" type="passenger"/>
+    <trip id="11" depart="11.00" from="beg2left" to="rend" type="passenger"/>
+    <trip id="12" depart="12.00" from="left2end" to="left2end" type="passenger"/>
+    <trip id="13" depart="13.00" from="beg2left" to="end" type="passenger"/>
+    <trip id="14" depart="14.00" from="left" to="left2end" type="passenger"/>
     <trip id="15" depart="15.00" from="middle" to="middle" type="passenger"/>
-    <trip id="16" depart="16.00" from="left" to="rend" type="passenger"/>
-    <trip id="17" depart="17.00" from="end" to="left" type="passenger"/>
-    <trip id="18" depart="18.00" from="middle" to="left2end" type="passenger"/>
-    <trip id="19" depart="19.00" from="rend" to="left2end" type="passenger"/>
+    <trip id="16" depart="16.00" from="beg2left" to="rend" type="passenger"/>
+    <trip id="17" depart="17.00" from="left2end" to="end" type="passenger"/>
+    <trip id="18" depart="18.00" from="beg2left" to="beg2left" type="passenger"/>
+    <trip id="19" depart="19.00" from="left2end" to="rend" type="passenger"/>
 </routes>

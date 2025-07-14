@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-22 16:28:25.093850 by randomTrips.py v1_22_0+1637-c5dd922c45b
+<!-- generated on 2025-07-14 13:14:21.222146 by randomTrips.py v1_23_1+1056-485580ee618
 <configuration>
     <net-file value="net.net.xml"/>
     <persontrips value="True"/>
@@ -13,22 +13,22 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="0" depart="0.00">
-        <personTrip from="EC" to="CE" modes="taxi"/>
-    </person>
-    <person id="1" depart="10.00">
-        <personTrip from="CW" to="CE" modes="taxi"/>
-    </person>
-    <person id="2" depart="20.00">
         <personTrip from="EC" to="EC" modes="taxi"/>
     </person>
-    <person id="3" depart="30.00">
+    <person id="1" depart="10.00">
         <personTrip from="WC" to="CE" modes="taxi"/>
     </person>
+    <person id="2" depart="20.00">
+        <personTrip from="CE" to="CE" modes="taxi"/>
+    </person>
+    <person id="3" depart="30.00">
+        <personTrip from="EC" to="EC" modes="taxi"/>
+    </person>
     <person id="4" depart="40.00">
-        <personTrip from="CW" to="CE" modes="taxi"/>
+        <personTrip from="WC" to="CE" modes="taxi"/>
     </person>
     <person id="5" depart="50.00">
-        <personTrip from="CE" to="EC" modes="taxi"/>
+        <personTrip from="CE" to="CE" modes="taxi"/>
     </person>
     <person id="6" depart="60.00">
         <personTrip from="CE" to="CE" modes="taxi"/>
@@ -37,9 +37,9 @@
         <personTrip from="EC" to="EC" modes="taxi"/>
     </person>
     <person id="8" depart="80.00">
-        <personTrip from="CE" to="EC" modes="taxi"/>
+        <personTrip from="WC" to="CE" modes="taxi"/>
     </person>
     <person id="9" depart="90.00">
-        <personTrip from="WC" to="CE" modes="taxi"/>
+        <personTrip from="CE" to="CE" modes="taxi"/>
     </person>
 </routes>

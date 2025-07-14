@@ -1,1 +1,1 @@
--n net2.net.xml -s 42 --insertion-density 10 --edge-permission bus
+-n net2.net.xml -s 42 --insertion-density 10 --edge-permission bus --vehicle-class bus
