@@ -252,6 +252,13 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (OptionsCont::getOptions().getBool("device.rerouting.bike-speeds")) {
                 MSRoutingEngine::initEdgeWeights(SVC_BICYCLE);
             }
+            if (MSGlobals::gUseMesoSim) {
+                for (const MSEdge* e : MSEdge::getAllEdges()) {
+                    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*e); segment != nullptr; segment = segment->getNextSegment()) {
+                        segment->resetCachedSpeeds();
+                    }
+                }
+            }
             break;
         }
         case SUMO_TAG_EDGE: {

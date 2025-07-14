@@ -292,6 +292,9 @@ public:
      */
     double getMeanSpeed(bool useCache) const;
 
+    /// @brief reset myLastMeanSpeedUpdate
+    void resetCachedSpeeds();
+
     /// @brief wrapper to satisfy the FunctionBinding signature
     inline double getMeanSpeed() const {
         return getMeanSpeed(true);

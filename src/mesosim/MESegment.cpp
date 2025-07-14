@@ -405,6 +405,11 @@ MESegment::getMeanSpeed(bool useCached) const {
 
 
 void
+MESegment::resetCachedSpeeds() {
+    myLastMeanSpeedUpdate = SUMOTime_MIN;
+}
+
+void
 MESegment::writeVehicles(OutputDevice& of) const {
     for (const Queue& q : myQueues) {
         for (const MEVehicle* const veh : q.getVehicles()) {
