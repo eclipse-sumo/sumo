@@ -37,23 +37,17 @@ netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 # create another vType
 netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
-# open dialog
-netedit.openVTypeDialog()
+# modify attribute
+netedit.modifyVTypeDialogAttribute("open", netedit.attrs.type.editDialog.id, ";;;;;")
 
 # modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.id, ";;;;;")
+netedit.modifyVTypeDialogAttribute("", netedit.attrs.type.editDialog.id, "")
 
 # modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.id, "")
+netedit.modifyVTypeDialogAttribute("", netedit.attrs.type.editDialog.id, "t_1")
 
 # modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.id, "t_1")
-
-# modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.id, "customID")
-
-# close dialog
-netedit.typeTwoKeys("alt", "a")
+netedit.modifyVTypeDialogAttribute("close", netedit.attrs.type.editDialog.id, "customID")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

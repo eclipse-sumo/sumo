@@ -16,31 +16,28 @@
 # @date    28-05-25
 
 # imports
+import time
 from ...enums.attributesEnum import attrs
 from ...constants import DELAY_QUESTION
 from ...general.functions import focusOnFrame
 from ...input.keyboard import typeKey, typeTwoKeys, updateText
 
 
-def openVTypeDialog():
-    """
-    @brief create vType
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to stop type
-    for _ in range(attrs.type.buttons.dialog):
-        typeKey('tab')
-    # type space
-    typeKey('space')
-    # wait some second to question dialog
-    time.sleep(DELAY_QUESTION)
-
-
-def modifyVTypeDialogAttribute(attributeIndex, value):
+def modifyVTypeDialogAttribute(operation, attributeIndex, value):
     """
     @brief modify VType attribute of type int/float/string
     """
+    # first check if open dialog
+    if (operation == "open"):
+        # focus current frame
+        focusOnFrame()
+        # jump to stop type
+        for _ in range(attrs.type.buttons.dialog):
+            typeKey('tab')
+        # type space
+        typeKey('space')
+        # wait some second to question dialog
+        time.sleep(DELAY_QUESTION)
     # focus dialog
     typeTwoKeys('alt', 'f')
     # jump to attribute
@@ -50,3 +47,7 @@ def modifyVTypeDialogAttribute(attributeIndex, value):
     updateText(value)
     # type Enter to commit change
     typeKey('enter')
+    # finally check if close dialog
+    if (operation == "close"):
+        # close dialog
+        typeTwoKeys("alt", "a")

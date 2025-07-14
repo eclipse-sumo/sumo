@@ -34,23 +34,17 @@ netedit.changeMode("type")
 # create vType
 netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
-# open dialog
-netedit.openVTypeDialog()
+# modify attribute
+netedit.modifyVTypeDialogAttribute("open", netedit.attrs.type.editDialog.desiredMaxSpeed, "dummy")
 
 # modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "dummy")
+netedit.modifyVTypeDialogAttribute("", netedit.attrs.type.editDialog.desiredMaxSpeed, "")
 
 # modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "")
+netedit.modifyVTypeDialogAttribute("", netedit.attrs.type.editDialog.desiredMaxSpeed, "-8")
 
 # modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "-8")
-
-# modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.desiredMaxSpeed, "4.4")
-
-# close dialog
-netedit.typeTwoKeys("alt", "a")
+netedit.modifyVTypeDialogAttribute("close", netedit.attrs.type.editDialog.desiredMaxSpeed, "4.4")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
