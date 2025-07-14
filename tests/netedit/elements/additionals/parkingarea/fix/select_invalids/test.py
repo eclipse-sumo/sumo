@@ -46,9 +46,6 @@ netedit.changeMode("select")
 # clear selection
 netedit.selection("clear")
 
-# save netedit config
-netedit.saveExistentShortcut("neteditConfig")
-
 # select invalids
 netedit.fixStoppingPlace("selectInvalids")
 
