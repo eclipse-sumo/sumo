@@ -163,6 +163,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         createConnection("shift");
     } else if (function == "saveConnectionEdit") {
         saveConnectionEdit();
+    } else if (function == "fixCrossings") {
+        fixCrossings();
     } else if (function == "fixStoppingPlace") {
         fixStoppingPlace();
     } else if (function == "fixRoute") {
@@ -777,37 +779,32 @@ InternalTestStep::modifyVTypeDialogAttribute() const {
         const auto value = getStringArgument(myArguments[2]);
         // first check if open dialog
         if (operation == "open") {
-            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("attrs.type.buttons.dialog"));
+            modifyBoolAttribute(myTestSystem->getAttributesEnum().at("netedit.attrs.type.buttons.dialog"), 0);
         }
         // obtain last step
-        const InternalTestStep* parentStep = myTestSystem->getLastTestStep();
-        // check that parentStep is not null
-        if (parentStep) {
-            // print info
-            std::cout << value << std::endl;
-            // focus dialog
-            /*
-            buildTwoPressKeyEvent(parentStep, "alt", "f");
-            // jump to the element
-            for (int i = 0; i < tabs; i++) {
-                buildPressKeyEvent(parentStep, "tab");
+        InternalTestStep* parentStep = myTestSystem->getLastTestStep();
+        // print info
+        std::cout << value << std::endl;
+        // focus dialog
+        buildTwoPressKeyEvent(parentStep, "alt", "f");
+        // jump to the element
+        for (int i = 0; i < tabs; i++) {
+            buildPressKeyEvent(parentStep, "tab");
+        }
+        // write attribute character by character
+        if (value.empty()) {
+            buildPressKeyEvent(parentStep, "delete");
+        } else {
+            for (const char c : value) {
+                buildPressKeyEvent(parentStep, {c});
             }
-            // write attribute character by character
-            if (value.empty()) {
-                buildPressKeyEvent(parentStep, "delete");
-            } else {
-                for (const char c : value) {
-                    buildPressKeyEvent(parentStep, c);
-                }
-            }
-            // press enter to confirm changes (updating view)
+        }
+        // press enter to confirm changes (updating view)
+        buildPressKeyEvent(parentStep, "enter");
+        // finally check if close dialog
+        if (operation == "close") {
+            buildTwoPressKeyEvent(parentStep, "alt", "a");
             buildPressKeyEvent(parentStep, "enter");
-            // finally check if close dialog
-            if (operation == "close") {
-                buildTwoPressKeyEvent(parentStep, "alt", "a");
-                buildPressKeyEvent(parentStep, "enter");
-            }
-            */
         }
     }
 }
@@ -2041,6 +2038,9 @@ InternalTestStep::buildTwoPressKeyEvent(const std::string& keyA, const std::stri
     } else if (keyA == "control") {
         pressEvent->state = CONTROLMASK;
         releaseEvent->state = CONTROLMASK;
+    } else if (keyA == "alt") {
+        pressEvent->state = ALTMASK;
+        releaseEvent->state = ALTMASK;
     }
     new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, pressEvent, updateView);
     new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, releaseEvent, updateView);
@@ -2059,6 +2059,9 @@ InternalTestStep::buildTwoPressKeyEvent(InternalTestStep* parent, const std::str
     } else if (keyA == "control") {
         pressEvent->state = CONTROLMASK;
         releaseEvent->state = CONTROLMASK;
+    } else if (keyA == "alt") {
+        pressEvent->state = ALTMASK;
+        releaseEvent->state = ALTMASK;
     }
     new InternalTestStep(parent, SEL_KEYPRESS, pressEvent);
     new InternalTestStep(parent, SEL_KEYRELEASE, releaseEvent);
