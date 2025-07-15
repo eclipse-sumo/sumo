@@ -92,12 +92,12 @@ InternalTest::~InternalTest() {
 
 
 void
-InternalTest::addTestSteps(const InternalTestStep* internalTestStep) {
+InternalTest::addTestSteps(InternalTestStep* internalTestStep) {
     myTestSteps.push_back(internalTestStep);
 }
 
 
-const InternalTestStep*
+InternalTestStep*
 InternalTest::getCurrentStep() const {
     if (myCurrentStep < myTestSteps.size()) {
         return myTestSteps.at(myCurrentStep);
@@ -107,7 +107,7 @@ InternalTest::getCurrentStep() const {
 }
 
 
-const InternalTestStep*
+InternalTestStep*
 InternalTest::getLastTestStep() const {
     if (myTestSteps.empty()) {
         return nullptr;

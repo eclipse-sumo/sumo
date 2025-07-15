@@ -609,7 +609,9 @@ InternalTestStep::modifyColorAttribute(const int overlappedTabs) const {
         writeError("modifyColorAttribute", overlappedTabs, "<int/attributeEnum>");
     } else {
         // open dialog
-        auto openDialogEvent = modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        // get last event (openDialogEvent)
+        auto openDialogEvent = myTestSystem->getLastTestStep();
         // go to the list of colors
         for (int i = 0; i < 2; i++) {
             buildTwoPressKeyEvent(openDialogEvent, "shift", "tab");
@@ -633,7 +635,9 @@ InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) con
         writeError("modifyVClassDialog_NoDisallowAll", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // open dialog
-        auto openDialogEvent = modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        // get last event (openDialogEvent)
+        auto openDialogEvent = myTestSystem->getLastTestStep();
         // get vClass
         const int vClass = getIntArgument(myArguments[1]);
         // jump to vClass
@@ -659,7 +663,9 @@ InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const
         writeError("modifyVClassDialog_DisallowAll", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // open dialog
-        auto openDialogEvent = modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        // get last event (openDialogEvent)
+        auto openDialogEvent = myTestSystem->getLastTestStep();
         // get vClass
         const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
@@ -692,7 +698,9 @@ InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
         writeError("modifyVClassDialog_Cancel", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // open dialog
-        auto openDialogEvent = modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        // get last event (openDialogEvent)
+        auto openDialogEvent = myTestSystem->getLastTestStep();
         // get vClass
         const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
@@ -724,7 +732,9 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
         writeError("modifyVClassDialog_Reset", overlappedTabs, "<int/attributeEnum, int/attributeEnum>");
     } else {
         // open dialog
-        auto openDialogEvent = modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        modifyBoolAttribute(getIntArgument(myArguments[0]), overlappedTabs);
+        // get last event (openDialogEvent)
+        auto openDialogEvent = myTestSystem->getLastTestStep();
         // get vClass
         const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
@@ -1833,7 +1843,7 @@ InternalTestStep::modifyStringAttribute(const int tabs, const int overlappedTabs
 }
 
 
-InternalTestStep*
+void
 InternalTestStep::modifyBoolAttribute(const int tabs, const int overlappedTabs) const {
     // focus frame
     new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP);
@@ -1842,7 +1852,7 @@ InternalTestStep::modifyBoolAttribute(const int tabs, const int overlappedTabs) 
         buildPressKeyEvent("tab", false);
     }
     // toogle attribute
-    return buildPressKeyEvent("space", true);
+    buildPressKeyEvent("space", true);
 }
 
 
@@ -2005,10 +2015,10 @@ InternalTestStep::buildKeyReleaseEvent(const std::string& key) const {
 }
 
 
-InternalTestStep*
+void
 InternalTestStep::buildPressKeyEvent(const std::string& key, const bool updateView) const {
     new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(key), updateView);
-    return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
+    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
 }
 
 
@@ -2019,7 +2029,7 @@ InternalTestStep::buildPressKeyEvent(InternalTestStep* parent, const std::string
 }
 
 
-InternalTestStep*
+void
 InternalTestStep::buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const {
     // create both events using keyB
     auto pressEvent = buildKeyPressEvent(keyB);
@@ -2033,7 +2043,7 @@ InternalTestStep::buildTwoPressKeyEvent(const std::string& keyA, const std::stri
         releaseEvent->state = CONTROLMASK;
     }
     new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, pressEvent, updateView);
-    return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, releaseEvent, updateView);
+    new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, releaseEvent, updateView);
 }
 
 

@@ -404,7 +404,7 @@ private:
     void modifyStringAttribute(const int tabs, const int overlappedTabs, const std::string& value) const;
 
     /// @brief modify bool attribute
-    InternalTestStep* modifyBoolAttribute(const int tabs, const int overlappedTabs) const;
+    void modifyBoolAttribute(const int tabs, const int overlappedTabs) const;
 
     /// @}
 
@@ -432,13 +432,13 @@ private:
     FXEvent* buildKeyReleaseEvent(const std::string &key) const;
 
     /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
-    InternalTestStep* buildPressKeyEvent(const std::string &key, const bool updateView) const;
+    void buildPressKeyEvent(const std::string &key, const bool updateView) const;
 
     /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
     void buildPressKeyEvent(InternalTestStep* parent, const std::string &key) const;
 
     /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
-    InternalTestStep* buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const;
+    void buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const;
 
     /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
     void buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string &keyB) const;

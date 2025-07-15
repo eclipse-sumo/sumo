@@ -81,13 +81,13 @@ public:
     ~InternalTest();
 
     /// @brief add test steps
-    void addTestSteps(const InternalTestStep* internalTestStep);
+    void addTestSteps(InternalTestStep* internalTestStep);
 
     /// @brief get current step
-    const InternalTestStep* getCurrentStep() const;
+    InternalTestStep* getCurrentStep() const;
 
     /// @brief get last test step
-    const InternalTestStep* getLastTestStep() const;
+    InternalTestStep* getLastTestStep() const;
 
     /// @brief get map with attributesEnum jump steps
     const std::map<std::string, int>& getAttributesEnum() const;
@@ -103,7 +103,7 @@ protected:
     size_t myCurrentStep = 0;
 
     /// @brief test steps
-    std::vector<const InternalTestStep*> myTestSteps;
+    std::vector<InternalTestStep*> myTestSteps;
 
     /// @brief vector with attributesEnum jump steps
     std::map<std::string, int> myAttributesEnum;
