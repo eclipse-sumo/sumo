@@ -41,6 +41,8 @@
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <mesosim/MEVehicle.h>
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
 #include "MSEmissionExport.h"
 #include "MSFCDExport.h"
 
@@ -48,6 +50,35 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+// Helper function to get interpolated position for mesoscopic vehicles
+Position
+getInterpolatedMesoPosition(const MEVehicle* mesoVeh) {
+    const MESegment* segment = mesoVeh->getSegment();
+    if (segment == nullptr) {
+        return mesoVeh->getPosition();
+    }
+    
+    const double now = SIMTIME;
+    const double intendedLeave = MIN2(mesoVeh->getEventTimeSeconds(), mesoVeh->getBlockTimeSeconds());
+    const double entry = mesoVeh->getLastEntryTimeSeconds();
+    
+    // Calculate segment offset (position of segment start)
+    double segmentOffset = 0;
+    for (MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*mesoVeh->getEdge());
+            seg != nullptr && seg != segment; seg = seg->getNextSegment()) {
+        segmentOffset += seg->getLength();
+    }
+    
+    // Calculate interpolated position within segment
+    const double length = segment->getLength();
+    const double relPos = segmentOffset + length * (now - entry) / (intendedLeave - entry);
+    
+    // Convert to cartesian coordinates
+    const MSLane* const lane = mesoVeh->getEdge()->getLanes()[0];
+    return lane->geometryPositionAtOffset(relPos);
+}
+
 void
 MSFCDExport::write(OutputDevice& of, const SUMOTime timestep) {
     MSDevice_FCD::initOnce();
@@ -86,7 +117,13 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep) {
             const bool hasOutput = hasOwnOutput(veh, filter, shapeFilter, (radius > 0 && inRadius.count(veh) > 0));
             if (hasOutput) {
                 const MSVehicle* const microVeh = MSGlobals::gUseMesoSim ? nullptr : static_cast<const MSVehicle*>(veh);
-                Position pos = veh->getPosition();
+                Position pos;
+                if (MSGlobals::gUseMesoSim) {
+                    const MEVehicle* mesoVeh = static_cast<const MEVehicle*>(veh);
+                    pos = getInterpolatedMesoPosition(mesoVeh);
+                } else {
+                    pos = veh->getPosition();
+                }
                 if (useGeo) {
                     of.setPrecision(gPrecisionGeo);
                     GeoConvHelper::getFinal().cartesian2geo(pos);
@@ -107,7 +144,30 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep) {
                     return veh->getSpeed();
                 }, mask);
                 of.writeFuncAttr(SUMO_ATTR_POSITION, [ = ]() {
-                    return veh->getPositionOnLane();
+                    if (MSGlobals::gUseMesoSim) {
+                        const MEVehicle* mesoVeh = static_cast<const MEVehicle*>(veh);
+                        const MESegment* segment = mesoVeh->getSegment();
+                        if (segment == nullptr) {
+                            return veh->getPositionOnLane();
+                        }
+                        
+                        const double now = SIMTIME;
+                        const double intendedLeave = MIN2(mesoVeh->getEventTimeSeconds(), mesoVeh->getBlockTimeSeconds());
+                        const double entry = mesoVeh->getLastEntryTimeSeconds();
+                        
+                        // Calculate segment offset (position of segment start)
+                        double segmentOffset = 0;
+                        for (MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*mesoVeh->getEdge());
+                                seg != nullptr && seg != segment; seg = seg->getNextSegment()) {
+                            segmentOffset += seg->getLength();
+                        }
+                        
+                        // Calculate interpolated position within segment
+                        const double length = segment->getLength();
+                        return segmentOffset + length * (now - entry) / (intendedLeave - entry);
+                    } else {
+                        return veh->getPositionOnLane();
+                    }
                 }, mask);
                 of.writeFuncAttr(SUMO_ATTR_LANE, [ = ]() {
                     return MSGlobals::gUseMesoSim ? "" : microVeh->getLane()->getID();
@@ -130,10 +190,34 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep) {
                     }, mask);
                 }
                 of.writeFuncAttr(SUMO_ATTR_DISTANCE, [ = ]() {
-                    double lanePos = veh->getPositionOnLane();
-                    if (!MSGlobals::gUseMesoSim && microVeh->getLane()->isInternal()) {
-                        lanePos = microVeh->getRoute().getDistanceBetween(0., lanePos, microVeh->getEdge()->getLanes()[0], microVeh->getLane(),
-                                  microVeh->getRoutePosition());
+                    double lanePos;
+                    if (MSGlobals::gUseMesoSim) {
+                        const MEVehicle* mesoVeh = static_cast<const MEVehicle*>(veh);
+                        const MESegment* segment = mesoVeh->getSegment();
+                        if (segment == nullptr) {
+                            lanePos = veh->getPositionOnLane();
+                        } else {
+                            const double now = SIMTIME;
+                            const double intendedLeave = MIN2(mesoVeh->getEventTimeSeconds(), mesoVeh->getBlockTimeSeconds());
+                            const double entry = mesoVeh->getLastEntryTimeSeconds();
+                            
+                            // Calculate segment offset (position of segment start)
+                            double segmentOffset = 0;
+                            for (MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*mesoVeh->getEdge());
+                                    seg != nullptr && seg != segment; seg = seg->getNextSegment()) {
+                                segmentOffset += seg->getLength();
+                            }
+                            
+                            // Calculate interpolated position within segment
+                            const double length = segment->getLength();
+                            lanePos = segmentOffset + length * (now - entry) / (intendedLeave - entry);
+                        }
+                    } else {
+                        lanePos = veh->getPositionOnLane();
+                        if (microVeh->getLane()->isInternal()) {
+                            lanePos = microVeh->getRoute().getDistanceBetween(0., lanePos, microVeh->getEdge()->getLanes()[0], microVeh->getLane(),
+                                      microVeh->getRoutePosition());
+                        }
                     }
                     return veh->getEdge()->getDistanceAt(lanePos);
                 }, mask);
