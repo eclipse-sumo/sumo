@@ -51,7 +51,6 @@ netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow, "")
 
 # Change parameter 7 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow,
-                        "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
                         "rail_electric motorcycle moped pedestrian custom1")
 
 # Check undos
@@ -62,9 +61,6 @@ netedit.redo(referencePosition, 3)
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")
-
-# fix routes
-netedit.typeKey("space")
 
 # quit netedit
 netedit.quit(neteditProcess)

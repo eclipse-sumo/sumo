@@ -330,11 +330,11 @@ class attrs:
             stopOffset = 22
             stopOffsetExceptionButton = 23
             stopOffsetException = 24
-            parameters = 26
-            parametersButton = 27
-            frontButton = 29
-            helpDialog = 30
-            reset = 31
+            parameters = 24
+            parametersButton = 25
+            frontButton = 27
+            helpDialog = 28
+            reset = 29
 
         class inspectSelection:
             speed = 2

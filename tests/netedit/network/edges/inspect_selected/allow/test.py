@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allow, "authority  a
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allow, "")
 
 # Change parameter 5 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow,
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allow,
                         "authority army vip passenger hov taxi bus coach tram bicycle")
 
 # Check undos
