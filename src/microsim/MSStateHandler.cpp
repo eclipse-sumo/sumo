@@ -129,7 +129,10 @@ MSStateHandler::~MSStateHandler() {
 void
 MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix) {
     OutputDevice& out = OutputDevice::getDevice(file, usePrefix);
-    out.setPrecision(OptionsCont::getOptions().getInt("save-state.precision"));
+    const int statePrecision = OptionsCont::getOptions().getInt("save-state.precision");
+    out.setPrecision(statePrecision);
+    const int defaultPrecision = gPrecision;
+    gPrecision = statePrecision;
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = VERSION_STRING;
     attrs[SUMO_ATTR_TIME] = time2string(step);
@@ -177,6 +180,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix
     MSNet::getInstance()->getTLSControl().saveState(out);
     MSRoutingEngine::saveState(out);
     out.close();
+    gPrecision = defaultPrecision;
 }
 
 
