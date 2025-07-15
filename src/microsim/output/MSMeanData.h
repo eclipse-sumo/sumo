@@ -395,6 +395,9 @@ public:
         return defaultValue;
     }
 
+    /// @brief retrieve all MeanDataValues
+    const std::vector<MSMoveReminder*> getReminders() const;
+
 protected:
     /** @brief Create an instance of MeanDataValues
      *

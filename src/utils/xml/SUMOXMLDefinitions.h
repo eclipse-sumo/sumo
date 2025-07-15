@@ -343,6 +343,7 @@ enum SumoXMLTag {
 
     SUMO_TAG_VEHICLETRANSFER,
     SUMO_TAG_DEVICE,
+    SUMO_TAG_REMINDER,
 
     /// @name Car-Following models
     /// @{

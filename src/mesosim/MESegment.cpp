@@ -812,6 +812,7 @@ MESegment::loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime block
         q.getModifiableVehicles().push_back(v);
         myNumVehicles++;
         q.setOccupancy(q.getOccupancy() + v->getVehicleType().getLengthWithGap());
+        addReminders(v);
     }
     if (q.size() != 0) {
         // add the last vehicle of this queue

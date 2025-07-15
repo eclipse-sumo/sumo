@@ -38,6 +38,7 @@
 // class declarations
 // ===========================================================================
 class SUMOTrafficObject;
+class OutputDevice;
 class MSLane;
 
 
@@ -299,6 +300,11 @@ public:
     virtual bool isParkingRerouter() const {
         return false;
     }
+
+    /** @brief Saves the current state into the given stream */
+    void saveReminderState(OutputDevice& out, const SUMOTrafficObject& veh);
+
+    void loadReminderState(long long int numID, SUMOTime time, double pos);
 
     static StringBijection<Notification> Notifications;
 

@@ -180,6 +180,9 @@ public:
     /** @brief Remove all vehicles before quick-loading state */
     void clearState(SUMOTime step);
 
+    /// @brief retrieve reminders of all detectors (for loading state)
+    const std::map<std::string, MSMoveReminder*>& getAllReminders();
+
 protected:
     /// @name Structures needed for assigning detectors to intervals
     /// @{
@@ -213,6 +216,7 @@ protected:
     /// @brief An empty container to return in getTypedDetectors() if no detectors of the asked type exist
     NamedObjectCont< MSDetectorFileOutput*> myEmptyContainer;
 
+    std::map<std::string, MSMoveReminder*> myReminders;
 
 private:
     /// @brief Invalidated copy constructor.

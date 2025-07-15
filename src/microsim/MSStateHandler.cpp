@@ -43,6 +43,7 @@
 #include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
@@ -294,6 +295,10 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         case SUMO_TAG_DEVICE: {
             myDeviceAttrs.push_back(attrs.clone());
+            break;
+        }
+        case SUMO_TAG_REMINDER: {
+            myReminderAttrs.push_back(attrs.clone());
             break;
         }
         case SUMO_TAG_VEHICLETRANSFER: {
@@ -561,6 +566,19 @@ MSStateHandler::closeVehicle() {
             }
             delete myDeviceAttrs.back();
             myDeviceAttrs.pop_back();
+        }
+        bool ok = true;
+        while (!myReminderAttrs.empty()) {
+            const std::string attrID = myReminderAttrs.back()->getString(SUMO_ATTR_ID);
+            const SUMOTime time = myReminderAttrs.back()->get<SUMOTime>(SUMO_ATTR_TIME, nullptr, ok, false);
+            const double pos = myReminderAttrs.back()->get<double>(SUMO_ATTR_POSITION, nullptr, ok, false);
+            const auto& remDict = MSNet::getInstance()->getDetectorControl().getAllReminders();
+            auto it = remDict.find(attrID);
+            if (it != remDict.end()) {
+                it->second->loadReminderState(v->getNumericalID(), time, pos);
+            }
+            delete myReminderAttrs.back();
+            myReminderAttrs.pop_back();
         }
     } else {
         delete myVehicleParameter;
