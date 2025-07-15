@@ -396,7 +396,10 @@ GNEFixDemandElements::FixVehicleOptions::fixElements(bool& abortSaving) {
             myViewNet->getUndoList()->begin(GUIIcon::VEHICLE, "delete invalid vehicles");
             // iterate over invalid vehicles to delete it
             for (const auto& invalidVehicle : myInvalidElements) {
-                myViewNet->getNet()->deleteDemandElement(invalidVehicle, myViewNet->getUndoList());
+                // check that vehicle was not removed previously in cascade
+                if (myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(invalidVehicle->getTagProperty()->getTag(), invalidVehicle->getID(), false) != nullptr) {
+                    myViewNet->getNet()->deleteDemandElement(invalidVehicle, myViewNet->getUndoList());
+                }
             }
             // end undo list
             myViewNet->getUndoList()->end();
