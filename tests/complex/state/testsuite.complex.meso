@@ -7,6 +7,9 @@ rail
 # two vehicles saved and reloaded
 plain
 
+# two vehicles saved and reloaded
+precision
+
 # include route and vtype dists
 dists
 

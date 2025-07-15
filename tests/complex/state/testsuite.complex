@@ -7,6 +7,9 @@ rail
 # two vehicles saved and reloaded
 plain
 
+# two vehicles saved and reloaded
+precision
+
 # include route and vtype dists
 dists
 
@@ -46,9 +49,6 @@ rerouting_looped_stops
 
 # lots of vehicles with rerouting, insertion backlog and vehroute output
 rerouting_randWeights
-
-# enough rng calls to warrant saving the full rng state
-rngState
 
 # flow saved and loaded
 flow
