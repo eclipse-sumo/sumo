@@ -126,3 +126,6 @@ insertionChecks
 edge_missing
 edge_length_different
 meso_lane_queue_differs
+
+# flow saved and loaded with meandata output
+meandata

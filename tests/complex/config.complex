@@ -76,6 +76,7 @@ log:log.txt
 log2:log2.txt
 cadytslog:cadySumo-log.txt
 detector:detector.xml
+detector2:detector2.xml
 tocs:tocs.xml
 stops:stops.xml
 stopinfos:stopinfos.xml
@@ -158,6 +159,7 @@ tls_state2:<!--{[->]}-->
 state:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 state2:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 detector:<!--{[->]}-->
+detector2:<!--{[->]}-->
 toc:<!--{[->]}-->
 toc2:<!--{[->]}-->
 tocs:<!--{[->]}-->

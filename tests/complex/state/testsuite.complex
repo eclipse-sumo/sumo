@@ -137,3 +137,6 @@ edge_length_different
 
 # replicate probabilistic device assignment after loading
 device_prob
+
+# flow saved and loaded with meandata output
+meandata
