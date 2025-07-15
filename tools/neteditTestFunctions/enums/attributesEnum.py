@@ -397,11 +397,11 @@ class attrs:
             stopOffset = 16
             stopOffsetExceptionButton = 17
             stopOffsetException = 18
-            parameters = 19
-            parametersButton = 20
-            frontButton = 22
-            helpDialog = 23
-            reset = 24
+            parameters = 18
+            parametersButton = 19
+            frontButton = 21
+            helpDialog = 22
+            reset = 23
 
         class inspectSelection:
             speed = 2
@@ -1857,17 +1857,31 @@ class attrs:
         class create:
             id = 5
             name = 6
-            parameters = 8
-            parametersButton = 9
-            additionalFileButton = 11
-            additionalFile = 12
-            helpDialog = 13
-            reset = 14
+            geo = 8
+            parameters = 10
+            parametersButton = 11
+            additionalFileButton = 13
+            additionalFile = 14
+            helpDialog = 15
+            reset = 16
 
         class inspect:
             id = 2
             shape = 3
             name = 4
+            geo = 6
+            geoShape = 7
+            parameters = 8
+            parametersButton = 9
+            frontButton = 11
+            additionalFileButton = 12
+            additionalFile = 13
+            helpDialog = 14
+            reset = 15
+
+        class inspectSelection:
+            name = 2
+            geo = 4
             parameters = 6
             parametersButton = 7
             frontButton = 9
@@ -1875,16 +1889,6 @@ class attrs:
             additionalFile = 11
             helpDialog = 12
             reset = 13
-
-        class inspectSelection:
-            name = 2
-            parameters = 4
-            parametersButton = 5
-            frontButton = 7
-            additionalFileButton = 8
-            additionalFile = 9
-            helpDialog = 10
-            reset = 11
 
     # jps obstacle
 
@@ -1892,17 +1896,31 @@ class attrs:
         class create:
             id = 5
             name = 6
-            parameters = 8
-            parametersButton = 9
-            additionalFileButton = 11
-            additionalFile = 12
-            helpDialog = 13
-            reset = 14
+            geo = 8
+            parameters = 10
+            parametersButton = 11
+            additionalFileButton = 13
+            additionalFile = 14
+            helpDialog = 15
+            reset = 16
 
         class inspect:
             id = 2
             shape = 3
             name = 4
+            geo = 6
+            geoShape = 7
+            parameters = 8
+            parametersButton = 9
+            frontButton = 11
+            additionalFileButton = 12
+            additionalFile = 13
+            helpDialog = 14
+            reset = 15
+
+        class inspectSelection:
+            name = 2
+            geo = 4
             parameters = 6
             parametersButton = 7
             frontButton = 9
@@ -1910,16 +1928,6 @@ class attrs:
             additionalFile = 11
             helpDialog = 12
             reset = 13
-
-        class inspectSelection:
-            name = 2
-            parameters = 4
-            parametersButton = 5
-            frontButton = 7
-            additionalFileButton = 8
-            additionalFile = 9
-            helpDialog = 10
-            reset = 11
 
     # --------------------------------
     # TAZ ELEMENTS

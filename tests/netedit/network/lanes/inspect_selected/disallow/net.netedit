@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-31 13:31:26 by Eclipse SUMO netedit Version v1_20_0+1585-7f20689389f
+<!-- generated on 2025-07-15 15:23:29 by Eclipse SUMO netedit Version v1_23_1+1089-9f820db986c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,20 +14,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/disallow/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/disallow/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/disallow/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/disallow/net.net.xml"/>
+        <additional-files value="additionals.add.xml"/>
+        <route-files value="routes.rou.xml"/>
+        <data-files value="datas.dat.xml"/>
+        <meandata-files value="datas.med.add.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/disallow/net.net.xml"/>
+        <output-file value="net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="0"/>
@@ -46,19 +48,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <ignore.additionalelements value="0"/>
+        <ignore.routeelements value="0"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/disallow/gui-settings.xml"/>
+        <gui-settings-file value="gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/disallow/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/disallow/log.txt"/>
+        <error-log value="log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -69,39 +74,39 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
     <edge id=":J2_0" function="internal">
-        <lane id=":J2_0_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="5.61" length="10.92" width="2.00" shape="-24.00,24.00 -30.00,24.00 -31.06,22.91 -31.29,22.00 -30.70,21.27 -29.29,20.71"/>
+        <lane id=":J2_0_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="5.61" length="10.92" width="2.00" shape="-24.00,24.00 -30.00,24.00 -31.06,22.91 -31.29,22.00 -30.70,21.27 -29.29,20.71"/>
     </edge>
     <edge id=":J3_0" function="internal">
-        <lane id=":J3_0_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="5.61" length="10.92" width="2.00" shape="25.05,16.46 29.29,20.71 30.70,21.27 31.29,22.00 31.06,22.91 30.00,24.00"/>
+        <lane id=":J3_0_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="5.61" length="10.92" width="2.00" shape="25.05,16.46 29.29,20.71 30.70,21.27 31.29,22.00 31.06,22.91 30.00,24.00"/>
     </edge>
     <edge id=":J4_0" function="internal">
-        <lane id=":J4_0_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="5.61" length="10.92" width="2.00" shape="-25.05,-16.46 -29.29,-20.71 -30.70,-21.27 -31.29,-22.00 -31.06,-22.91 -30.00,-24.00"/>
+        <lane id=":J4_0_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="5.61" length="10.92" width="2.00" shape="-25.05,-16.46 -29.29,-20.71 -30.70,-21.27 -31.29,-22.00 -31.06,-22.91 -30.00,-24.00"/>
     </edge>
     <edge id=":J5_0" function="internal">
-        <lane id=":J5_0_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="5.61" length="10.92" width="2.00" shape="24.00,-24.00 30.00,-24.00 31.06,-22.91 31.29,-22.00 30.70,-21.27 29.29,-20.71"/>
+        <lane id=":J5_0_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="5.61" length="10.92" width="2.00" shape="24.00,-24.00 30.00,-24.00 31.06,-22.91 31.29,-22.00 30.70,-21.27 29.29,-20.71"/>
     </edge>
     <edge id=":JunctionExtern0_0" function="internal">
-        <lane id=":JunctionExtern0_0_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="3.53" length="4.38" width="3.00" shape="-60.00,1.50 -61.12,0.75 -61.50,0.00 -61.12,-0.75 -60.00,-1.50"/>
+        <lane id=":JunctionExtern0_0_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="3.53" length="4.38" width="3.00" shape="-60.00,1.50 -61.12,0.75 -61.50,0.00 -61.12,-0.75 -60.00,-1.50"/>
     </edge>
     <edge id=":JunctionExtern1_0" function="internal">
-        <lane id=":JunctionExtern1_0_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="3.53" length="4.38" width="3.00" shape="60.00,-1.50 61.12,-0.75 61.50,0.00 61.12,0.75 60.00,1.50"/>
+        <lane id=":JunctionExtern1_0_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="3.53" length="4.38" width="3.00" shape="60.00,-1.50 61.12,-0.75 61.50,0.00 61.12,0.75 60.00,1.50"/>
     </edge>
 
     <edge id="-E1" from="J3" to="J2" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="25.00,25.00 -25.00,25.00">
         <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
-        <lane id="-E1_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="30.00,26.00 -24.00,26.00" type="TypeB">
+        <lane id="-E1_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="30.00,26.00 -24.00,26.00" type="TypeB">
             <stopOffset exceptions="rail_urban rail rail_electric cable_car drone" value="4.00"/>
             <param key="KeyA" value="ValueA"/>
         </lane>
-        <lane id="-E1_1" index="1" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="30.00,24.00 -24.00,24.00" type="TypeA"/>
+        <lane id="-E1_1" index="1" disallow="pedestrian motorcycle moped rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="30.00,24.00 -24.00,24.00" type="TypeA"/>
         <param key="Key1B" value="Value1B"/>
         <param key="Key2B" value="Value2B"/>
         <param key="Key3B" value="Value3B"/>
     </edge>
     <edge id="-E2" from="J5" to="J4" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="30.00,-20.00 25.00,-15.00 -25.00,-15.00 -30.00,-20.00">
         <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
-        <lane id="-E2_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="30.71,-19.29 25.41,-14.00 -25.41,-14.00 -26.46,-15.05"/>
-        <lane id="-E2_1" index="1" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="29.29,-20.71 24.59,-16.00 -24.59,-16.00 -25.05,-16.46" changeLeft="tram rail_urban rail rail_electric rail_fast cable_car subway">
+        <lane id="-E2_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="30.71,-19.29 25.41,-14.00 -25.41,-14.00 -26.46,-15.05"/>
+        <lane id="-E2_1" index="1" disallow="pedestrian motorcycle moped rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="29.29,-20.71 24.59,-16.00 -24.59,-16.00 -25.05,-16.46" changeLeft="tram rail_urban rail rail_electric rail_fast cable_car subway">
             <stopOffset vClasses="all" value="12.00"/>
         </lane>
         <param key="Key1B" value="Value1B"/>
@@ -109,12 +114,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="Key3B" value="Value3B"/>
     </edge>
     <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="13.89" length="60.00" acceleration="1" shape="-30.00,-1.60 30.00,-1.60" changeLeft="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle moped evehicle rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone custom1 custom2"/>
+        <lane id="E0_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="13.89" length="60.00" acceleration="1" shape="-30.00,-1.60 30.00,-1.60" changeLeft="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle moped evehicle rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone custom1 custom2"/>
     </edge>
     <edge id="E1" from="J2" to="J3" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="-30.00,20.00 -25.00,15.00 25.00,15.00 30.00,20.00">
         <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
-        <lane id="E1_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.71,19.29 -25.41,14.00 25.41,14.00 26.46,15.05"/>
-        <lane id="E1_1" index="1" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-29.29,20.71 -24.59,16.00 24.59,16.00 25.05,16.46" changeLeft="tram rail_urban rail rail_electric rail_fast cable_car subway">
+        <lane id="E1_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.71,19.29 -25.41,14.00 25.41,14.00 26.46,15.05"/>
+        <lane id="E1_1" index="1" disallow="pedestrian motorcycle moped rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-29.29,20.71 -24.59,16.00 24.59,16.00 25.05,16.46" changeLeft="tram rail_urban rail rail_electric rail_fast cable_car subway">
             <stopOffset vClasses="all" value="12.00"/>
         </lane>
         <param key="Key1B" value="Value1B"/>
@@ -123,24 +128,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="E2" from="J4" to="J5" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="-25.00,-25.00 25.00,-25.00">
         <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
-        <lane id="E2_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.00,-26.00 24.00,-26.00" type="TypeB">
+        <lane id="E2_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.00,-26.00 24.00,-26.00" type="TypeB">
             <stopOffset exceptions="rail_urban rail rail_electric cable_car drone" value="4.00"/>
             <param key="KeyA" value="ValueA"/>
         </lane>
-        <lane id="E2_1" index="1" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.00,-24.00 24.00,-24.00" type="TypeA"/>
+        <lane id="E2_1" index="1" disallow="pedestrian motorcycle moped rail_electric custom1" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.00,-24.00 24.00,-24.00" type="TypeA"/>
         <param key="Key1B" value="Value1B"/>
         <param key="Key2B" value="Value2B"/>
         <param key="Key3B" value="Value3B"/>
     </edge>
     <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" length="175.00" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00">
-        <lane id="EdgeExternBot_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="13.89" length="175.00" width="3.00" shape="-60.00,-1.50 -46.50,-1.50 -46.50,-25.62 -40.62,-31.50 40.62,-31.50 46.50,-25.62 46.50,-1.50 60.00,-1.50" changeRight="private emergency vip pedestrian passenger hov taxi bus coach truck trailer motorcycle moped bicycle evehicle tram rail_urban rail_electric rail_fast container cable_car subway wheelchair scooter drone custom1 custom2">
+        <lane id="EdgeExternBot_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="13.89" length="175.00" width="3.00" shape="-60.00,-1.50 -46.50,-1.50 -46.50,-25.62 -40.62,-31.50 40.62,-31.50 46.50,-25.62 46.50,-1.50 60.00,-1.50" changeRight="private emergency vip pedestrian passenger hov taxi bus coach truck trailer motorcycle moped bicycle evehicle tram rail_urban rail_electric rail_fast container cable_car subway wheelchair scooter drone custom1 custom2">
             <param key="Key1" value="Value1"/>
             <param key="Key2" value="Value2"/>
             <param key="Key3" value="Value3"/>
         </lane>
     </edge>
     <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" length="175.00" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00">
-        <lane id="EdgeExternTop_0" index="0" disallow="emergency authority pedestrian coach motorcycle moped tram rail_urban rail rail_electric custom1" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50" changeRight="private emergency vip pedestrian passenger hov taxi bus coach truck trailer motorcycle moped bicycle evehicle tram rail_urban rail_electric rail_fast container cable_car subway wheelchair scooter drone custom1 custom2">
+        <lane id="EdgeExternTop_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50" changeRight="private emergency vip pedestrian passenger hov taxi bus coach truck trailer motorcycle moped bicycle evehicle tram rail_urban rail_electric rail_fast container cable_car subway wheelchair scooter drone custom1 custom2">
             <param key="Key1" value="Value1"/>
             <param key="Key2" value="Value2"/>
             <param key="Key3" value="Value3"/>

@@ -45,7 +45,7 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.allow, "")
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.allow,
-                        "authority army vip passenger hov taxi bus coach tram bicycle")
+                        "authority army vip passenger taxi bus coach tram bicycle")
 
 # Check undos
 netedit.undo(referencePosition, 4)
