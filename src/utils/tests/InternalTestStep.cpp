@@ -1324,7 +1324,7 @@ InternalTestStep::selectNetworkItems() const  {
         }
         // set network element
         for (const char c : "Network elements") {
-            buildPressKeyEvent(c, false);
+            buildPressKeyEvent({c}, false);
         }
         // show info
         std::cout << "Network elements" << std::endl;
@@ -1334,7 +1334,7 @@ InternalTestStep::selectNetworkItems() const  {
         }
         // set network element
         for (const char c : element) {
-            buildPressKeyEvent(c, false);
+            buildPressKeyEvent({c}, false);
         }
         // show info
         std::cout << element << std::endl;
@@ -1344,7 +1344,7 @@ InternalTestStep::selectNetworkItems() const  {
         }
         // set attribute
         for (const char c : attribute) {
-            buildPressKeyEvent(c, false);
+            buildPressKeyEvent({c}, false);
         }
         // show info
         std::cout << attribute << std::endl;
@@ -1354,7 +1354,7 @@ InternalTestStep::selectNetworkItems() const  {
         }
         // set value
         for (const char c : value) {
-            buildPressKeyEvent(c, false);
+            buildPressKeyEvent({c}, false);
         }
         // show info
         std::cout << value << std::endl;
@@ -1500,7 +1500,7 @@ InternalTestStep::changeElement() const {
             }
             // write additional character by character
             for (const char c : element) {
-                buildPressKeyEvent(c, false);
+                buildPressKeyEvent({c}, false);
             }
             // press enter to confirm changes (updating view)
             buildPressKeyEvent("enter", true);
@@ -1540,7 +1540,7 @@ InternalTestStep::changePlan()  const {
             }
             // write additional character by character
             for (const char c : plan) {
-                buildPressKeyEvent(c, false);
+                buildPressKeyEvent({c}, false);
             }
             // print info
             std::cout << plan << std::endl;
@@ -1825,7 +1825,7 @@ InternalTestStep::modifyStringAttribute(const int tabs, const int overlappedTabs
         buildPressKeyEvent("delete", false);
     } else {
         for (const char c : value) {
-            buildPressKeyEvent(c, false);
+            buildPressKeyEvent({c}, false);
         }
     }
     // press enter to confirm changes (updating view)
@@ -1888,104 +1888,170 @@ InternalTestStep::redo(const int number) const {
 }
 
 
-template <> std::pair<FXint, FXString>
-InternalTestStep::translateKey(const std::string key) const {
+std::pair<FXint, FXString>
+InternalTestStep::translateKey(const std::string &key) const {
     std::pair<FXint, FXString> solution;
-    // continue depending of key
-    if (key == "backspace") {
-        solution.first = KEY_BackSpace;
-        solution.second = "\b";
-    } else if (key == "space") {
-        solution.first = KEY_space;
-    } else if (key == "tab") {
-        solution.first = KEY_Tab;
-        solution.second = "\t";
-    } else if (key == "clear") {
-        solution.first = KEY_Clear;
-    } else if (key == "enter" || key == "return") {
-        solution.first = KEY_Return;
-        solution.second = "\n";
-    } else if (key == "pause") {
-        solution.first = KEY_Pause;
-    } else if (key == "sys_req") {
-        solution.first = KEY_Sys_Req;
-    } else if (key == "esc" || key == "escape") {
-        solution.first = KEY_Escape;
-        solution.second = "\x1B";
-    } else if (key == "delete") {
-        solution.first = KEY_Delete;
-        solution.second = "\x7F";
-    } else if (key == "multi_key") {
-        solution.first = KEY_Multi_key;
-        // function
-    } else if (key == "shift") {
-        solution.first = KEY_Shift_L;
-    } else if (key == "control") {
-        solution.first = KEY_Control_L;
-        // Cursor
-    } else if (key == "home") {
-        solution.first = KEY_Home;
-    } else if (key == "left") {
-        solution.first = KEY_Left;
-    } else if (key == "up") {
-        solution.first = KEY_Up;
-    } else if (key == "right") {
-        solution.first = KEY_Right;
-    } else if (key == "down") {
-        solution.first = KEY_Down;
-    } else if (key == "prior" || key == "page_up") {
-        solution.first = KEY_Page_Up;
-    } else if (key == "next" || key == "page_down") {
-        solution.first = KEY_Page_Down;
-    } else if (key == "end") {
-        solution.first = KEY_End;
-    } else if (key == "begin") {
-        solution.first = KEY_Begin;
-        // Function keys
-    } else if (key == "f1") {
-        solution.first = KEY_F1;
-    } else if (key == "f2") {
-        solution.first = KEY_F2;
-    } else if (key == "f3") {
-        solution.first = KEY_F3;
-    } else if (key == "f4") {
-        solution.first = KEY_F4;
-    } else if (key == "f5") {
-        solution.first = KEY_F5;
-    } else if (key == "f6") {
-        solution.first = KEY_F6;
-    } else if (key == "f7") {
-        solution.first = KEY_F7;
-    } else if (key == "f8") {
-        solution.first = KEY_F8;
-    } else if (key == "f9") {
-        solution.first = KEY_F9;
-    } else if (key == "f10") {
-        solution.first = KEY_F10;
-    } else if (key == "f11" || key == "l1") {
-        solution.first = KEY_F11;
-    } else if (key == "f12" || key == "l2") {
-        solution.first = KEY_F12;
+    // check if key is a single character
+    if (key.size() == 1) {
+        solution.first = FXint(key.front());
+        solution.second.append(key.front());
     } else {
-        writeError("translateKey", 0, "<key>");
-        solution.first = KEY_VoidSymbol;
+        // continue depending of key
+        if (key == "backspace") {
+            solution.first = KEY_BackSpace;
+            solution.second = "\b";
+        } else if (key == "space") {
+            solution.first = KEY_space;
+        } else if (key == "tab") {
+            solution.first = KEY_Tab;
+            solution.second = "\t";
+        } else if (key == "clear") {
+            solution.first = KEY_Clear;
+        } else if (key == "enter" || key == "return") {
+            solution.first = KEY_Return;
+            solution.second = "\n";
+        } else if (key == "pause") {
+            solution.first = KEY_Pause;
+        } else if (key == "sys_req") {
+            solution.first = KEY_Sys_Req;
+        } else if (key == "esc" || key == "escape") {
+            solution.first = KEY_Escape;
+            solution.second = "\x1B";
+        } else if (key == "delete") {
+            solution.first = KEY_Delete;
+            solution.second = "\x7F";
+        } else if (key == "multi_key") {
+            solution.first = KEY_Multi_key;
+            // function
+        } else if (key == "shift") {
+            solution.first = KEY_Shift_L;
+        } else if (key == "control") {
+            solution.first = KEY_Control_L;
+            // Cursor
+        } else if (key == "home") {
+            solution.first = KEY_Home;
+        } else if (key == "left") {
+            solution.first = KEY_Left;
+        } else if (key == "up") {
+            solution.first = KEY_Up;
+        } else if (key == "right") {
+            solution.first = KEY_Right;
+        } else if (key == "down") {
+            solution.first = KEY_Down;
+        } else if (key == "prior" || key == "page_up") {
+            solution.first = KEY_Page_Up;
+        } else if (key == "next" || key == "page_down") {
+            solution.first = KEY_Page_Down;
+        } else if (key == "end") {
+            solution.first = KEY_End;
+        } else if (key == "begin") {
+            solution.first = KEY_Begin;
+            // Function keys
+        } else if (key == "f1") {
+            solution.first = KEY_F1;
+        } else if (key == "f2") {
+            solution.first = KEY_F2;
+        } else if (key == "f3") {
+            solution.first = KEY_F3;
+        } else if (key == "f4") {
+            solution.first = KEY_F4;
+        } else if (key == "f5") {
+            solution.first = KEY_F5;
+        } else if (key == "f6") {
+            solution.first = KEY_F6;
+        } else if (key == "f7") {
+            solution.first = KEY_F7;
+        } else if (key == "f8") {
+            solution.first = KEY_F8;
+        } else if (key == "f9") {
+            solution.first = KEY_F9;
+        } else if (key == "f10") {
+            solution.first = KEY_F10;
+        } else if (key == "f11" || key == "l1") {
+            solution.first = KEY_F11;
+        } else if (key == "f12" || key == "l2") {
+            solution.first = KEY_F12;
+        } else {
+            writeError("translateKey", 0, "<key>");
+            solution.first = KEY_VoidSymbol;
+        }
     }
     return solution;
 }
 
 
-template <> std::pair<FXint, FXString>
-InternalTestStep::translateKey(const char* key) const {
-    return translateKey(std::string(key));
+FXEvent*
+InternalTestStep::buildKeyPressEvent(const std::string& key) const {
+    const auto keyValues = translateKey(key);
+    FXEvent* keyPressEvent = new FXEvent();
+    // set event values
+    keyPressEvent->type = SEL_KEYPRESS;
+    keyPressEvent->code = keyValues.first;
+    keyPressEvent->text = keyValues.second;
+    return keyPressEvent;
 }
 
 
-template <> std::pair<FXint, FXString>
-InternalTestStep::translateKey(const char key) const {
-    std::pair<FXint, FXString> solution;
-    solution.first = FXint(key);
-    solution.second.append(key);
-    return solution;
+FXEvent*
+InternalTestStep::buildKeyReleaseEvent(const std::string& key) const {
+    const auto keyValues = translateKey(key);
+    FXEvent* keyPressEvent = new FXEvent();
+    // set event values
+    keyPressEvent->type = SEL_KEYPRESS;
+    keyPressEvent->code = keyValues.first;
+    keyPressEvent->text = keyValues.second;
+    // special case for shift and control
+    return keyPressEvent;
+}
+
+
+InternalTestStep*
+InternalTestStep::buildPressKeyEvent(const std::string& key, const bool updateView) const {
+    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(key), updateView);
+    return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
+}
+
+
+void 
+InternalTestStep::buildPressKeyEvent(InternalTestStep* parent, const std::string& key) const {
+    new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(key));
+    new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(key));
+}
+
+
+InternalTestStep*
+InternalTestStep::buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const {
+    // create both events using keyB
+    auto pressEvent = buildKeyPressEvent(keyB);
+    auto releaseEvent = buildKeyPressEvent(keyB);
+    // check if set state
+    if (keyA == "shift") {
+        pressEvent->state = SHIFTMASK;
+        releaseEvent->state = SHIFTMASK;
+    } else if (keyA == "control") {
+        pressEvent->state = CONTROLMASK;
+        releaseEvent->state = CONTROLMASK;
+    }
+    new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, pressEvent, updateView);
+    return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, releaseEvent, updateView);
+}
+
+
+void
+InternalTestStep::buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string& keyB) const {
+    // create both events using keyB
+    auto pressEvent = buildKeyPressEvent(keyB);
+    auto releaseEvent = buildKeyPressEvent(keyB);
+    // check if set state
+    if (keyA == "shift") {
+        pressEvent->state = SHIFTMASK;
+        releaseEvent->state = SHIFTMASK;
+    } else if (keyA == "control") {
+        pressEvent->state = CONTROLMASK;
+        releaseEvent->state = CONTROLMASK;
+    }
+    new InternalTestStep(parent, SEL_KEYPRESS, pressEvent);
+    new InternalTestStep(parent, SEL_KEYRELEASE, releaseEvent);
 }
 
 

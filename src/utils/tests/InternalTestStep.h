@@ -423,64 +423,25 @@ private:
     /// @{
 
     /// @brief translate key
-    template<typename T>
-    std::pair<FXint, FXString> translateKey(const T key) const;
+    std::pair<FXint, FXString> translateKey(const std::string &key) const;
 
     /// @brief build key press event
-    template<typename T>
-    FXEvent* buildKeyPressEvent(const T key) const {
-        const auto keyValues = translateKey(key);
-        FXEvent* keyPressEvent = new FXEvent();
-        // set event values
-        keyPressEvent->type = SEL_KEYPRESS;
-        keyPressEvent->code = keyValues.first;
-        keyPressEvent->text = keyValues.second;
-        return keyPressEvent;
-    }
+    FXEvent* buildKeyPressEvent(const std::string &key) const;
 
     /// @brief build key release event
-    template<typename T>
-    FXEvent* buildKeyReleaseEvent(const T key) const {
-        const auto keyValues = translateKey(key);
-        FXEvent* keyPressEvent = new FXEvent();
-        // set event values
-        keyPressEvent->type = SEL_KEYPRESS;
-        keyPressEvent->code = keyValues.first;
-        keyPressEvent->text = keyValues.second;
-        return keyPressEvent;
-    }
+    FXEvent* buildKeyReleaseEvent(const std::string &key) const;
 
     /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
-    template<typename T>
-    InternalTestStep* buildPressKeyEvent(const T key, const bool updateView) const {
-        new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(key), updateView);
-        return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
-    }
+    InternalTestStep* buildPressKeyEvent(const std::string &key, const bool updateView) const;
 
     /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
-    template<typename T>
-    void buildPressKeyEvent(InternalTestStep* parent, const T key) const {
-        new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(key));
-        new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(key));
-    }
+    void buildPressKeyEvent(InternalTestStep* parent, const std::string &key) const;
 
     /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
-    template<typename T, typename J>
-    InternalTestStep* buildTwoPressKeyEvent(const T keyA, const J keyB, const bool updateView) const {
-        new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(keyA), updateView);
-        new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(keyB), updateView);
-        new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(keyB), updateView);
-        return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(keyA), updateView);
-    }
+    InternalTestStep* buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const;
 
     /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
-    template<typename T, typename J>
-    void buildTwoPressKeyEvent(InternalTestStep* parent, const T keyA, const J keyB) const {
-        new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(keyA));
-        new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(keyB));
-        new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(keyB));
-        new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(keyA));
-    }
+    void buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string &keyB) const;
 
     /// @}
 
