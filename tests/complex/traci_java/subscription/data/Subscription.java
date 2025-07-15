@@ -27,11 +27,7 @@ import java.util.TreeMap;
 public class Subscription {
 
     public static void main(String[] args) {
-        if (System.getProperty("os.name").startsWith("Windows") && Simulation.class.toString().contains("libsumo")) {
-            System.loadLibrary("libcrypto-3-x64");
-            System.loadLibrary("libssl-3-x64");
-        }
-        System.loadLibrary("libtracijni");
+        Simulation.preloadLibraries();
         String sumo_bin = "sumo";
         String config_file = "data/config.sumocfg";
         double step_length = 0.1;

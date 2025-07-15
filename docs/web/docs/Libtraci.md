@@ -124,7 +124,7 @@ import org.eclipse.sumo.libtraci.*;
 
 public class APITest {
     public static void main(String[] args) {
-        System.loadLibrary("libtracijni");
+        Simulation.preloadLibraries();
         Simulation.start(new StringVector(new String[] {"sumo", "-n", "net.net.xml"}));
         for (int i = 0; i < 5; i++) {
             Simulation.step();

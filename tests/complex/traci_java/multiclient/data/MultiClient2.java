@@ -26,12 +26,7 @@ import org.eclipse.sumo.libtraci.*;
 public class MultiClient2 {
 
     public static void main(String[] args) {
-
-        if (System.getProperty("os.name").startsWith("Windows") && Simulation.class.toString().contains("libsumo")) {
-            System.loadLibrary("libcrypto-3-x64");
-            System.loadLibrary("libssl-3-x64");
-        }
-        System.loadLibrary("libtracijni");
+        Simulation.preloadLibraries();
         try {
             Simulation.init(9999);
             Simulation.setOrder(2);

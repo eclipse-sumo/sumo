@@ -140,11 +140,7 @@ import org.eclipse.sumo.libsumo.StringVector;
 
 public class Test {
     public static void main(String[] args) {
-        if (System.getProperty("os.name").startsWith("Windows")) {
-            System.loadLibrary("libcrypto-3-x64");
-            System.loadLibrary("libssl-3-x64");
-        }
-        System.loadLibrary("libsumojni");
+        Simulation.preloadLibraries();
         Simulation.start(new StringVector(new String[] {"sumo", "-c", "test.sumocfg"}));
         for (int i = 0; i < 5; i++) {
             Simulation.step();
@@ -156,6 +152,7 @@ public class Test {
 
 Please note that starting with SUMO 1.16.0 it seems to be necessary to preload some libraries
 on Windows, see https://github.com/eclipse-sumo/sumo/issues/12605.
+This has been encapsulated in a separate convenience call `Simulation.preloadLibraries()` since SUMO 1.24.0.
 
 ### compiling on Linux (make sure SUMO_HOME is set and sumo has been built)
 

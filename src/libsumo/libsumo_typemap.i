@@ -706,17 +706,4 @@ SELF_NULL_CHECKER(TraCISignalConstraint)
 SELF_NULL_CHECKER(TraCIJunctionFoe)
 #endif
 
-#if defined(SWIGJAVA)
-%typemap(javaimports) libsumo::Simulation "import java.lang.Runtime.Version;"
-%extend libsumo::Simulation {
-%proxycode %{
-    static {
-        if (Version.parse(System.getProperty("java.version")).compareTo(Version.parse("21.0.5")) < 0) {
-            System.err.println("The recommended minimal Java version is 21.0.5.");
-        }
-    }
-%}
-}
-#endif
-
 // %feature("compactdefaultargs") libsumo::Simulation::findRoute;
