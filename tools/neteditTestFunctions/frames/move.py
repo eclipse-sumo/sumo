@@ -17,7 +17,6 @@
 
 # imports
 from ..enums.attributesEnum import attrs
-from ..constants import DELAY_SELECT
 from ..general.functions import focusOnFrame
 from ..input.keyboard import typeKey
 from ..input.mouse import dragDrop, leftClick

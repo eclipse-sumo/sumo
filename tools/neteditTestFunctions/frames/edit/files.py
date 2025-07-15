@@ -16,6 +16,8 @@
 # @date    28-05-25
 
 # imports
+import time
+
 from ...constants import TEXTTEST_SANDBOX
 from ...enums.attributesEnum import attrs
 from ...general.functions import focusOnFrame

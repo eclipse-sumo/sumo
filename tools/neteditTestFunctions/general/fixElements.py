@@ -18,7 +18,6 @@
 # imports
 import time
 from ..constants import DELAY_QUESTION
-from ..general.functions import focusOnFrame
 from ..files.save import saveExistentShortcut
 from ..input.keyboard import typeKey, typeTwoKeys
 
