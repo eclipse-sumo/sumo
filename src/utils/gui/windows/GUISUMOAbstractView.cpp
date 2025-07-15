@@ -1732,15 +1732,17 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
             const double horizontalSize = xSize * adfGeoTransform[1];
             const double verticalSize = ySize * adfGeoTransform[5];
             Position bottomRight(topLeft.x() + horizontalSize, topLeft.y() + verticalSize);
-            if (GeoConvHelper::getProcessing().x2cartesian(topLeft) && GeoConvHelper::getProcessing().x2cartesian(bottomRight)) {
-                d.width = bottomRight.x() - topLeft.x();
-                d.height = topLeft.y() - bottomRight.y();
-                d.centerX = (topLeft.x() + bottomRight.x()) / 2;
-                d.centerY = (topLeft.y() + bottomRight.y()) / 2;
+            if (GeoConvHelper::getFinal().x2cartesian_const(topLeft) && GeoConvHelper::getFinal().x2cartesian_const(bottomRight)) {
                 //WRITE_MESSAGE("proj: " + toString(poDataset->GetProjectionRef()) + " dim: " + toString(d.width) + "," + toString(d.height) + " center: " + toString(d.centerX) + "," + toString(d.centerY));
             } else {
-                WRITE_WARNINGF(TL("Could not convert coordinates in %."), d.filename);
+                WRITE_WARNINGF(TL("Could not transform coordinates from WGS84 in decal %, assuming UTM."), d.filename);
+                topLeft = topLeft + GeoConvHelper::getFinal().getOffset();
+                bottomRight = bottomRight + GeoConvHelper::getFinal().getOffset();
             }
+            d.width = bottomRight.x() - topLeft.x();
+            d.height = topLeft.y() - bottomRight.y();
+            d.centerX = (topLeft.x() + bottomRight.x()) / 2;
+            d.centerY = (topLeft.y() + bottomRight.y()) / 2;
         }
     }
 #endif
