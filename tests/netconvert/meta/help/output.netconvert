@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_23_1+0813-5f3c910f36e
+Eclipse SUMO netconvert Version v1_23_1+1103-652455bc646
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -74,7 +74,9 @@ Output Options:
                                         junctions to FILE (can be loaded as
                                         additional node-file to reproduce joins
   --prefix STR                         Defines a prefix for edge and junction
-                                        names
+                                        IDs
+  --prefix.junction STR                Defines a prefix for unction IDs
+  --prefix.edge STR                    Defines a prefix for edge IDs
   --amitran-output FILE                The generated net will be written to
                                         FILE using Amitran format
   --matsim-output FILE                 The generated net will be written to

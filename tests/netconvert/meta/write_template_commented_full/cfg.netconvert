@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-03 09:53:11 by Eclipse SUMO netconvert Version v1_23_1+0813-5f3c910f36e
+<!-- generated on 2025-07-16 09:21:24 by Eclipse SUMO netconvert Version v1_23_1+1103-652455bc646
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -129,8 +129,14 @@
         <!-- Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins -->
         <junctions.join-output value="" type="FILE"/>
 
-        <!-- Defines a prefix for edge and junction names -->
+        <!-- Defines a prefix for edge and junction IDs -->
         <prefix value="" type="STR"/>
+
+        <!-- Defines a prefix for unction IDs -->
+        <prefix.junction value="" type="STR"/>
+
+        <!-- Defines a prefix for edge IDs -->
+        <prefix.edge value="" type="STR"/>
 
         <!-- The generated net will be written to FILE using Amitran format -->
         <amitran-output value="" type="FILE"/>
