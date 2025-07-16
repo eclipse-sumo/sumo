@@ -49,6 +49,7 @@ InternalTest::ContextualMenu::ContextualMenu(const std::string& mainMenuValue, c
 
 
 InternalTest::InternalTest(const std::string& testFile) {
+    // locate sumo home directory
     const auto sumoHome = std::string(getenv("SUMO_HOME"));
     // load data files
     myAttributesEnum = parseAttributesEnumFile(sumoHome + "/data/tests/attributesEnum.txt");
@@ -88,6 +89,15 @@ InternalTest::~InternalTest() {
     for (auto testStep : myTestSteps) {
         delete testStep;
     }
+}
+
+
+const FXint
+InternalTest::getTime() const {
+    return static_cast<FXuint>(
+               std::chrono::duration_cast<std::chrono::milliseconds>(
+                   std::chrono::steady_clock::now().time_since_epoch()
+               ).count());
 }
 
 
@@ -132,6 +142,19 @@ InternalTest::getContextualMenuOperations() const {
 const std::map<std::string, InternalTest::ViewPosition>&
 InternalTest::getViewPositions() const {
     return myViewPositions;
+}
+
+
+const
+std::pair<FXint, FXint> InternalTest::getLastMovedPosition() const {
+    return myLastMovedPosition;
+}
+
+
+void
+InternalTest::updateLastMovedPosition(const FXint x, const FXint y) {
+    myLastMovedPosition.first = x;
+    myLastMovedPosition.second = y;
 }
 
 

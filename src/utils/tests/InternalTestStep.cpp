@@ -470,6 +470,8 @@ InternalTestStep::setupAndStart() {
     std::cout << "TestFunctions: 'reference.png' found. Position: " <<
               toString(MOUSE_REFERENCE_X) << " - " <<
               toString(MOUSE_REFERENCE_Y) << std::endl;
+    // set first mouse position
+    myTestSystem->updateLastMovedPosition(MOUSE_REFERENCE_X, MOUSE_REFERENCE_Y);
 }
 
 
@@ -1896,7 +1898,7 @@ InternalTestStep::redo(const int number) const {
 
 
 std::pair<FXint, FXString>
-InternalTestStep::translateKey(const std::string &key) const {
+InternalTestStep::translateKey(const std::string& key) const {
     std::pair<FXint, FXString> solution;
     // check if key is a single character
     if (key.size() == 1) {
@@ -1992,6 +1994,8 @@ InternalTestStep::buildKeyPressEvent(const std::string& key) const {
     const auto keyValues = translateKey(key);
     FXEvent* keyPressEvent = new FXEvent();
     // set event values
+    keyPressEvent->time = myTestSystem->getTime();
+    keyPressEvent->synthetic = true;
     keyPressEvent->type = SEL_KEYPRESS;
     keyPressEvent->code = keyValues.first;
     keyPressEvent->text = keyValues.second;
@@ -2004,6 +2008,8 @@ InternalTestStep::buildKeyReleaseEvent(const std::string& key) const {
     const auto keyValues = translateKey(key);
     FXEvent* keyPressEvent = new FXEvent();
     // set event values
+    keyPressEvent->time = myTestSystem->getTime();
+    keyPressEvent->synthetic = true;
     keyPressEvent->type = SEL_KEYPRESS;
     keyPressEvent->code = keyValues.first;
     keyPressEvent->text = keyValues.second;
@@ -2019,7 +2025,7 @@ InternalTestStep::buildPressKeyEvent(const std::string& key, const bool updateVi
 }
 
 
-void 
+void
 InternalTestStep::buildPressKeyEvent(InternalTestStep* parent, const std::string& key) const {
     new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(key));
     new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(key));
@@ -2079,24 +2085,24 @@ InternalTestStep::buildMouseClick(const InternalTest::ViewPosition& viewPosition
     // continue depending of mouse
     if (button == "left") {
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW,
-                             buildMouseEvent(SEL_LEFTBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
+                             buildMouseClickEvent(SEL_LEFTBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
                              true);
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW,
-                             buildMouseEvent(SEL_LEFTBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
-                             true);
-    } else if (button == "right") {
-        new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONPRESS, Category::VIEW,
-                             buildMouseEvent(SEL_RIGHTBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
-                             true);
-        new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONRELEASE, Category::VIEW,
-                             buildMouseEvent(SEL_RIGHTBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
+                             buildMouseClickEvent(SEL_LEFTBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
                              true);
     } else if (button == "center") {
         new InternalTestStep(myTestSystem, SEL_MIDDLEBUTTONPRESS, Category::VIEW,
-                             buildMouseEvent(SEL_MIDDLEBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
+                             buildMouseClickEvent(SEL_MIDDLEBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
                              true);
         new InternalTestStep(myTestSystem, SEL_MIDDLEBUTTONRELEASE, Category::VIEW,
-                             buildMouseEvent(SEL_MIDDLEBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
+                             buildMouseClickEvent(SEL_MIDDLEBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
+    } else if (button == "right") {
+        new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONPRESS, Category::VIEW,
+                             buildMouseClickEvent(SEL_RIGHTBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
+        new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONRELEASE, Category::VIEW,
+                             buildMouseClickEvent(SEL_RIGHTBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
                              true);
     }
 }
@@ -2106,43 +2112,68 @@ FXEvent*
 InternalTestStep::buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
                                       const int offsetX, const int offsetY) const {
     FXEvent* moveEvent = new FXEvent();
-    // common values
-    moveEvent->synthetic = true;
     // set event values
+    moveEvent->time = myTestSystem->getTime();
     moveEvent->type = SEL_MOTION;
+    moveEvent->synthetic = true;
     moveEvent->win_x = viewPosition.x + MOUSE_OFFSET_X + offsetX;
     moveEvent->win_y = viewPosition.y + MOUSE_OFFSET_Y + offsetY;
+    moveEvent->last_x = myTestSystem->getLastMovedPosition().first;
+    moveEvent->last_y = myTestSystem->getLastMovedPosition().second;
+    moveEvent->click_x = 0;
+    moveEvent->click_y = 0;
     moveEvent->moved = true;
     moveEvent->rect = FXRectangle(0, 0, 0, 0);
+    moveEvent->state = 0;
+    moveEvent->click_button = 0;
+    moveEvent->click_count = 0;
+    moveEvent->code = 0;
+    // update last moved position
+    myTestSystem->updateLastMovedPosition(moveEvent->win_x, moveEvent->win_y);
     return moveEvent;
 }
 
 
 FXEvent*
-InternalTestStep::buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
-                                  const int offsetX, const int offsetY, const std::string& keyModifier) const {
-    FXEvent* leftClickPressEvent = new FXEvent();
-    // common values
-    leftClickPressEvent->synthetic = true;
+InternalTestStep::buildMouseClickEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
+                                       const int offsetX, const int offsetY, const std::string& keyModifier) const {
+    FXEvent* clickEvent = new FXEvent();
     // set event values
-    leftClickPressEvent->win_x = viewPosition.x + MOUSE_OFFSET_X + offsetX;
-    leftClickPressEvent->win_y = viewPosition.y + MOUSE_OFFSET_Y + offsetY;
-    leftClickPressEvent->click_x = viewPosition.x + MOUSE_OFFSET_X + offsetX;
-    leftClickPressEvent->click_y = viewPosition.y + MOUSE_OFFSET_Y + offsetY;
-    leftClickPressEvent->type = type;
-    leftClickPressEvent->code = 1;
-    leftClickPressEvent->click_button = 1;
-    leftClickPressEvent->click_count = 1;
-    leftClickPressEvent->moved = false;
+    clickEvent->time = myTestSystem->getTime();
+    clickEvent->type = type;
+    clickEvent->synthetic = true;
+    clickEvent->win_x = viewPosition.x + MOUSE_OFFSET_X + offsetX;
+    clickEvent->win_y = viewPosition.y + MOUSE_OFFSET_Y + offsetY;
+    clickEvent->click_x = viewPosition.x + MOUSE_OFFSET_X + offsetX;
+    clickEvent->click_y = viewPosition.y + MOUSE_OFFSET_Y + offsetY;
+    clickEvent->last_x = myTestSystem->getLastMovedPosition().first;
+    clickEvent->last_y = myTestSystem->getLastMovedPosition().second;
+    clickEvent->click_count = 1;
+    clickEvent->moved = false;
+    clickEvent->rect = FXRectangle(0, 0, 0, 0);
+    // set button
+    if ((type == SEL_LEFTBUTTONPRESS) || (type == SEL_LEFTBUTTONRELEASE)) {
+        clickEvent->click_button = LEFTBUTTON;
+        clickEvent->code = LEFTBUTTON;
+    } else if ((type == SEL_MIDDLEBUTTONPRESS) || (type == SEL_MIDDLEBUTTONRELEASE)) {
+        clickEvent->click_button = MIDDLEBUTTON;
+        clickEvent->code = MIDDLEBUTTON;
+    } else if ((type == SEL_RIGHTBUTTONPRESS) || (type == SEL_RIGHTBUTTONRELEASE)) {
+        clickEvent->click_button = RIGHTBUTTON;
+        clickEvent->code = RIGHTBUTTON;
+    } else {
+        clickEvent->click_button = 0;
+        clickEvent->code = 0;
+    }
     // set modifier
     if (keyModifier == "control") {
-        leftClickPressEvent->state = CONTROLMASK;
+        clickEvent->state = CONTROLMASK;
     } else if (keyModifier == "shift") {
-        leftClickPressEvent->state = SHIFTMASK;
+        clickEvent->state = SHIFTMASK;
     } else {
-        leftClickPressEvent->state = 256;
+        clickEvent->state = 0;
     }
-    return leftClickPressEvent;
+    return clickEvent;
 }
 
 

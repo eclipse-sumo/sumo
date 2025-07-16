@@ -80,6 +80,9 @@ public:
     /// @brief destructor
     ~InternalTest();
 
+    /// @brief get currentTime
+    const FXint getTime() const;
+
     /// @brief add test steps
     void addTestSteps(InternalTestStep* internalTestStep);
 
@@ -98,12 +101,18 @@ public:
     /// @brief get map with view position pairs
     const std::map<std::string, InternalTest::ViewPosition>& getViewPositions() const;
 
-protected:
-    /// @brief current step index
-    size_t myCurrentStep = 0;
+    /// @brief get last moved position
+    const std::pair<FXint, FXint> getLastMovedPosition() const;
 
+    /// @brief update last moved position
+    void updateLastMovedPosition(const FXint x, const FXint y);
+
+protected:
     /// @brief test steps
     std::vector<InternalTestStep*> myTestSteps;
+
+    /// @brief current step index
+    size_t myCurrentStep = 0;
 
     /// @brief vector with attributesEnum jump steps
     std::map<std::string, int> myAttributesEnum;
@@ -113,6 +122,9 @@ protected:
 
     /// @brief vector with view position pairs
     std::map<std::string, InternalTest::ViewPosition> myViewPositions;
+
+    /// @brief last moved position
+    std::pair<FXint, FXint> myLastMovedPosition = {0, 0};
 
     /// @brief parse attributesEnum file
     std::map<std::string, int> parseAttributesEnumFile(const std::string filePath) const;

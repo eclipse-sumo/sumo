@@ -423,25 +423,25 @@ private:
     /// @{
 
     /// @brief translate key
-    std::pair<FXint, FXString> translateKey(const std::string &key) const;
+    std::pair<FXint, FXString> translateKey(const std::string& key) const;
 
     /// @brief build key press event
-    FXEvent* buildKeyPressEvent(const std::string &key) const;
+    FXEvent* buildKeyPressEvent(const std::string& key) const;
 
     /// @brief build key release event
-    FXEvent* buildKeyReleaseEvent(const std::string &key) const;
+    FXEvent* buildKeyReleaseEvent(const std::string& key) const;
 
     /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
-    void buildPressKeyEvent(const std::string &key, const bool updateView) const;
+    void buildPressKeyEvent(const std::string& key, const bool updateView) const;
 
     /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
-    void buildPressKeyEvent(InternalTestStep* parent, const std::string &key) const;
+    void buildPressKeyEvent(InternalTestStep* parent, const std::string& key) const;
 
     /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
     void buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const;
 
     /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
-    void buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string &keyB) const;
+    void buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string& keyB) const;
 
     /// @}
 
@@ -459,8 +459,8 @@ private:
                                  const int offsetX, const int offsetY) const;
 
     /// @brief build mouse left click press event
-    FXEvent* buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
-                             const int offsetX, const int offsetY, const std::string& keyModifier) const;
+    FXEvent* buildMouseClickEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
+                                  const int offsetX, const int offsetY, const std::string& keyModifier) const;
 
     /// @brief write click info
     void writeClickInfo(const InternalTest::ViewPosition& viewPosition,
