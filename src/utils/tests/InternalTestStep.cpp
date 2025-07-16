@@ -25,8 +25,6 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
 #include "InternalTestStep.h"
-#include "InternalTest.h"
-
 
 // ===========================================================================
 // static member definitions
@@ -530,22 +528,22 @@ InternalTestStep::contextualMenuOperation() const {
         // build mouse click
         buildMouseClick(viewPosition, 0, 0, "right", "");
         // jump to the element
-        for (int i = 0; i < contextualMenu.mainMenu; i++) {
+        for (int i = 0; i < contextualMenu.getMainMenuPosition(); i++) {
             buildPressKeyEvent("down", false);
         }
         // type space for select
         buildPressKeyEvent("space", false);
         // jump to the subMenuA
-        if (contextualMenu.subMenuA > 0) {
-            for (int i = 0; i < contextualMenu.subMenuA; i++) {
+        if (contextualMenu.getSubMenuAPosition() > 0) {
+            for (int i = 0; i < contextualMenu.getSubMenuAPosition(); i++) {
                 buildPressKeyEvent("down", false);
             }
             // type space for select
             buildPressKeyEvent("space", false);
         }
         // jump to the subMenuB
-        if (contextualMenu.subMenuB > 0) {
-            for (int i = 0; i < contextualMenu.subMenuB; i++) {
+        if (contextualMenu.getSubMenuBPosition() > 0) {
+            for (int i = 0; i < contextualMenu.getSubMenuBPosition(); i++) {
                 buildPressKeyEvent("down", false);
             }
             // type space for select
@@ -2082,6 +2080,14 @@ InternalTestStep::buildMouseClick(const InternalTest::ViewPosition& viewPosition
     // move mouse
     new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
                          buildMouseMoveEvent(viewPosition, offsetX, offsetY), true);
+    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
+                         buildMouseMoveEvent(viewPosition, offsetX + 10, offsetY + 10), true);
+    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
+                         buildMouseMoveEvent(viewPosition, offsetX + 14, offsetY + 15), true);
+    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
+                         buildMouseMoveEvent(viewPosition, offsetX + 17, offsetY + 18), true);
+    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
+                         buildMouseMoveEvent(viewPosition, offsetX, offsetY), true);
     // continue depending of mouse
     if (button == "left") {
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW,
@@ -2116,8 +2122,8 @@ InternalTestStep::buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosi
     moveEvent->time = myTestSystem->getTime();
     moveEvent->type = SEL_MOTION;
     moveEvent->synthetic = true;
-    moveEvent->win_x = viewPosition.x + MOUSE_OFFSET_X + offsetX;
-    moveEvent->win_y = viewPosition.y + MOUSE_OFFSET_Y + offsetY;
+    moveEvent->win_x = viewPosition.getX() + MOUSE_OFFSET_X + offsetX;
+    moveEvent->win_y = viewPosition.getY() + MOUSE_OFFSET_Y + offsetY;
     moveEvent->last_x = myTestSystem->getLastMovedPosition().first;
     moveEvent->last_y = myTestSystem->getLastMovedPosition().second;
     moveEvent->click_x = 0;
@@ -2142,10 +2148,10 @@ InternalTestStep::buildMouseClickEvent(FXSelType type, const InternalTest::ViewP
     clickEvent->time = myTestSystem->getTime();
     clickEvent->type = type;
     clickEvent->synthetic = true;
-    clickEvent->win_x = viewPosition.x + MOUSE_OFFSET_X + offsetX;
-    clickEvent->win_y = viewPosition.y + MOUSE_OFFSET_Y + offsetY;
-    clickEvent->click_x = viewPosition.x + MOUSE_OFFSET_X + offsetX;
-    clickEvent->click_y = viewPosition.y + MOUSE_OFFSET_Y + offsetY;
+    clickEvent->win_x = viewPosition.getX() + MOUSE_OFFSET_X + offsetX;
+    clickEvent->win_y = viewPosition.getY() + MOUSE_OFFSET_Y + offsetY;
+    clickEvent->click_x = viewPosition.getX() + MOUSE_OFFSET_X + offsetX;
+    clickEvent->click_y = viewPosition.getY() + MOUSE_OFFSET_Y + offsetY;
     clickEvent->last_x = myTestSystem->getLastMovedPosition().first;
     clickEvent->last_y = myTestSystem->getLastMovedPosition().second;
     clickEvent->click_count = 1;
@@ -2183,16 +2189,16 @@ InternalTestStep::writeClickInfo(const InternalTest::ViewPosition& viewPosition,
                                  const std::string modifier) const {
     if (modifier == "control") {
         std::cout << "TestFunctions: Clicked with Control key pressed over position " <<
-                  toString(viewPosition.x + MOUSE_REFERENCE_X + offsetX) << " - " <<
-                  toString(viewPosition.y + MOUSE_REFERENCE_Y + offsetY) << std::endl;
+                  toString(viewPosition.getX() + MOUSE_REFERENCE_X + offsetX) << " - " <<
+                  toString(viewPosition.getY() + MOUSE_REFERENCE_Y + offsetY) << std::endl;
     } else if (modifier == "shift") {
         std::cout << "TestFunctions: Clicked with Shift key pressed over position " <<
-                  toString(viewPosition.x + MOUSE_REFERENCE_X + offsetX) << " - " <<
-                  toString(viewPosition.y + MOUSE_REFERENCE_Y) << std::endl;
+                  toString(viewPosition.getX() + MOUSE_REFERENCE_X + offsetX) << " - " <<
+                  toString(viewPosition.getY() + MOUSE_REFERENCE_Y) << std::endl;
     } else {
         std::cout << "TestFunctions: Clicked over position " <<
-                  toString(viewPosition.x + MOUSE_REFERENCE_X + offsetX) << " - " <<
-                  toString(viewPosition.y + MOUSE_REFERENCE_Y + offsetY) << std::endl;
+                  toString(viewPosition.getX() + MOUSE_REFERENCE_X + offsetX) << " - " <<
+                  toString(viewPosition.getY() + MOUSE_REFERENCE_Y + offsetY) << std::endl;
     }
 }
 

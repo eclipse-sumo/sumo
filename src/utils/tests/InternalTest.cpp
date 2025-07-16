@@ -34,18 +34,71 @@
 // member method definitions
 // ===========================================================================
 
-InternalTest::ViewPosition::ViewPosition(const std::string& xValue, const std::string& yValue) :
-    x(StringUtils::toInt(xValue)),
-    y(StringUtils::toInt(yValue)) {
+// ---------------------------------------------------------------------------
+// InternalTest::ViewPosition - public methods
+// ---------------------------------------------------------------------------
+
+InternalTest::ViewPosition::ViewPosition() {}
+
+
+InternalTest::ViewPosition::ViewPosition(const int x, const int y) :
+    myX(x),
+    myY(y) {
 }
 
 
-InternalTest::ContextualMenu::ContextualMenu(const std::string& mainMenuValue, const std::string& subMenuAValue,
-        const std::string& subMenuBValue) :
-    mainMenu(StringUtils::toInt(mainMenuValue)),
-    subMenuA(StringUtils::toInt(subMenuAValue)),
-    subMenuB(StringUtils::toInt(subMenuBValue)) {
+InternalTest::ViewPosition::ViewPosition(const std::string& x, const std::string& y) :
+    myX(StringUtils::toInt(x)),
+    myY(StringUtils::toInt(y)) {
 }
+
+
+int
+InternalTest::ViewPosition::getX() const {
+    return myX;
+}
+
+
+int
+InternalTest::ViewPosition::getY() const {
+    return myY;
+}
+
+// ---------------------------------------------------------------------------
+// InternalTest::ContextualMenu - public methods
+// ---------------------------------------------------------------------------
+
+InternalTest::ContextualMenu::ContextualMenu() {}
+
+
+InternalTest::ContextualMenu::ContextualMenu(const std::string& mainMenuValue,
+        const std::string& subMenuAValue, const std::string& subMenuBValue) :
+    myMainMenu(StringUtils::toInt(mainMenuValue)),
+    mySubMenuA(StringUtils::toInt(subMenuAValue)),
+    mySubMenuB(StringUtils::toInt(subMenuBValue)) {
+}
+
+
+int
+InternalTest::ContextualMenu::getMainMenuPosition() const {
+    return myMainMenu;
+}
+
+
+int
+InternalTest::ContextualMenu::getSubMenuAPosition() const {
+    return mySubMenuA;
+}
+
+
+int
+InternalTest::ContextualMenu::getSubMenuBPosition() const {
+    return mySubMenuB;
+}
+
+// ---------------------------------------------------------------------------
+// InternalTest - public methods
+// ---------------------------------------------------------------------------
 
 
 InternalTest::InternalTest(const std::string& testFile) {

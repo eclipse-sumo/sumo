@@ -40,38 +40,61 @@ class InternalTest : public FXObject {
 
 public:
     /// @brief view position
-    struct ViewPosition {
-        /// @brief constructor
-        ViewPosition() {}
+    class ViewPosition {
 
-        /// @brief constructor
+    public:
+        /// @brief default constructor
+        ViewPosition();
+
+        /// @brief parameter constructor (string)
+        ViewPosition(const int xValue, const int yValue);
+
+        /// @brief parameter constructor
         ViewPosition(const std::string& xValue, const std::string& yValue);
 
+        ///  @brief get x value
+        int getX() const;
+
+        /// @brief get y value
+        int getY() const;
+
+    private:
         /// @brief x value
-        int x = 0;
+        int myX = 0;
 
         /// @brief y value
-        int y = 0;
+        int myY = 0;
     };
 
     /// @brief contextual menu
     struct ContextualMenu {
 
+    public:
         /// @brief default constructor
-        ContextualMenu() {}
+        ContextualMenu();
 
         /// @brief constructor
         ContextualMenu(const std::string& mainMenuValue, const std::string& subMenuAValue,
                        const std::string& subMenuBValue);
 
+        /// @brief get main menu position
+        int getMainMenuPosition() const;
+
+        /// @brief get submenu A position
+        int getSubMenuAPosition() const;
+
+        /// @brief get submenu B position
+        int getSubMenuBPosition() const;
+
+    private:
         /// @brief main manue
-        int mainMenu = 0;
+        int myMainMenu = 0;
 
         /// @brief submenu A
-        int subMenuA = 0;
+        int mySubMenuA = 0;
 
         /// @brief submenu B
-        int subMenuB = 0;
+        int mySubMenuB = 0;
     };
 
     /// @brief constructor
@@ -125,6 +148,8 @@ protected:
 
     /// @brief last moved position
     std::pair<FXint, FXint> myLastMovedPosition = {0, 0};
+
+    /// @brief interpolate
 
     /// @brief parse attributesEnum file
     std::map<std::string, int> parseAttributesEnumFile(const std::string filePath) const;
