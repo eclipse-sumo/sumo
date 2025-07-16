@@ -1046,6 +1046,12 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
 void
 NBEdgeCont::guessOpposites() {
     //@todo magic values
+    const bool fixOppositeLengths = OptionsCont::getOptions().getBool("opposites.guess.fix-lengths");
+    // ensure consistency of loaded values before starting to guess
+    for (const auto& edgeIt : myEdges) {
+        NBEdge* const edge = edgeIt.second;
+        edge->recheckOpposite(*this, fixOppositeLengths);
+    }
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         NBEdge* edge = i->second;
         edge->guessOpposite();
