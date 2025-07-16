@@ -39,7 +39,11 @@ class movements:
     class movementEdgeTop:
         up = -180
         down = 0
+        left = 0
+        right = 0
 
     class movementEdgeBot:
         up = 0
         down = 180
+        left = 0
+        right = 0
