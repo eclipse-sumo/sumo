@@ -1,6 +1,12 @@
 # prefix junction and edge ids
 prefix
 
+# prefix junction ids
+prefix_junctions
+
+# prefix junction ids
+prefix_edges
+
 # prefix junction and edge ids (net has a joined tls)
 prefix_joinedTLS
 
