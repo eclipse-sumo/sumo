@@ -1,2 +1,3 @@
 Warning: Ambiguity in turnarounds computation at junction 'J0'.
 Warning: Ambiguity in turnarounds computation at junction 'J1'.
+Warning: Adapting inconsistent opposite lanes for edges 'E1', '-E0' and 'E0'.
