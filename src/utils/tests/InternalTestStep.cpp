@@ -515,17 +515,18 @@ InternalTestStep::leftClickOffset(const std::string& button) const {
 void
 InternalTestStep::moveElementHorizontal() const {
     if ((myArguments.size() != 3) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
-            !checkIntArgument(myArguments[2])) {
-        writeError("moveElementHorizontal", 0, "<reference, position, int>");
+            (myTestSystem->getMovements().count(myArguments[2]) == 0)) {
+        writeError("moveElementHorizontal", 0, "<reference, position, radius>");
     } else {
         // get parameters
         const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
         const auto& position = myTestSystem->getViewPositions().at(myArguments[1]);
-        const int radius = getIntArgument(myArguments[2]);
+        const auto& radius = myTestSystem->getMovements().at(myArguments[2]);
         // click over reference
         buildMouseClick(referencePosition, 0, 0, "left", "");
         // drag and drop
-        buildMouseDragDrop(position, 0, 0, position, 0, 0);
+        buildMouseDragDrop(position, 0, 0, position, radius.getRight(), 0);
+        buildMouseDragDrop(position, radius.getRight(), 0, position, radius.getLeft(), 0);
     }
 }
 
@@ -533,17 +534,15 @@ InternalTestStep::moveElementHorizontal() const {
 void
 InternalTestStep::moveElementVertical() const {
     if ((myArguments.size() != 3) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
-            !checkIntArgument(myArguments[2])) {
-        writeError("moveElementVertical", 0, "<reference, position, int>");
+            (myTestSystem->getMovements().count(myArguments[2]) == 0)) {
+        writeError("moveElementVertical", 0, "<reference, position, radius>");
     } else {
         // get parameters
         const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
         const auto& position = myTestSystem->getViewPositions().at(myArguments[1]);
-        const int radius = getIntArgument(myArguments[2]);
+        const auto& radius = myTestSystem->getMovements().at(myArguments[2]);
         // click over reference
         buildMouseClick(referencePosition, 0, 0, "left", "");
-        // drag and drop
-        buildMouseDragDrop(position, 0, 0, position, 0, 0);
     }
 }
 
@@ -551,17 +550,15 @@ InternalTestStep::moveElementVertical() const {
 void
 InternalTestStep::moveElement() const {
     if ((myArguments.size() != 3) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
-            !checkIntArgument(myArguments[2])) {
-        writeError("moveElement", 0, "<reference, position, int>");
+            (myTestSystem->getMovements().count(myArguments[2]) == 0)) {
+        writeError("moveElement", 0, "<reference, position, radius>");
     } else {
         // get parameters
         const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
         const auto& position = myTestSystem->getViewPositions().at(myArguments[1]);
-        const int radius = getIntArgument(myArguments[2]);
+        const auto& radius = myTestSystem->getMovements().at(myArguments[2]);
         // click over reference
         buildMouseClick(referencePosition, 0, 0, "left", "");
-        // drag and drop
-        buildMouseDragDrop(position, 0, 0, position, 0, 0);
     }
 }
 
