@@ -1694,7 +1694,7 @@ NBEdgeCont::addPrefix(const std::string& prefix) {
 
 
 int
-NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc) {
+NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, bool keptIDs, const std::string& prefix, NBPTStopCont& sc) {
     bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.edge-start");
     if (!numericaIDs && !reservedIDs && prefix == "" && !startGiven) {
         return 0;
@@ -1728,6 +1728,17 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
             toChange.insert(it->second);
         }
     }
+    std::set<std::string> keep;
+    if (keptIDs) {
+        NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("kept-ids"), "edge:", keep);
+        for (auto it = toChange.begin(); it != toChange.end();) {
+            if (keep.count((*it)->getID()) != 0) {
+                toChange.erase(it++);
+            } else {
+                it++;
+            }
+        }
+    }
 
     std::map<std::string, std::vector<std::shared_ptr<NBPTStop> > > stopsOnEdge;
     for (const auto& item : sc.getStops()) {
@@ -1756,7 +1767,7 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
         // make a copy because we will modify the map
         auto oldEdges = myEdges;
         for (auto item : oldEdges) {
-            if (!StringUtils::startsWith(item.first, prefix)) {
+            if (!StringUtils::startsWith(item.first, prefix) && keep.count(item.first) == 0) {
                 rename(item.second, prefix + item.first);
                 renamed++;
             }

@@ -400,8 +400,11 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
 
     // remap ids if wished
     if (mayAddOrRemove) {
-        int numChangedEdges = myEdgeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"), oc.getString("prefix.edge"), myPTStopCont);
-        int numChangedNodes = myNodeCont.remapIDs(oc.getBool("numerical-ids"), oc.isSet("reserved-ids"), oc.getString("prefix.junction"), myTLLCont);
+        const bool numericalIDs = oc.getBool("numerical-ids");
+        const bool reservedIDs = oc.isSet("reserved-ids");
+        const bool keptIDs = oc.isSet("kept-ids");
+        int numChangedEdges = myEdgeCont.remapIDs(numericalIDs, reservedIDs, keptIDs, oc.getString("prefix.edge"), myPTStopCont);
+        int numChangedNodes = myNodeCont.remapIDs(numericalIDs, reservedIDs, keptIDs, oc.getString("prefix.junction"), myTLLCont);
         if (numChangedEdges + numChangedNodes > 0) {
             WRITE_MESSAGEF(TL("Remapped % edge IDs and % node IDs."), toString(numChangedEdges), toString(numChangedNodes));
         }

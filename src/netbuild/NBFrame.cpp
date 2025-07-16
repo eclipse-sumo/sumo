@@ -132,6 +132,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("reserved-ids", new Option_FileName());
     oc.addDescription("reserved-ids", "Processing", TL("Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format)"));
 
+    oc.doRegister("kept-ids", new Option_FileName());
+    oc.addDescription("kept-ids", "Processing", TL("Ensures that objects with typed IDs from FILE (sumo-gui selection file format) are not renamed"));
+
     if (!forNetgen) {
         oc.doRegister("dismiss-vclasses", new Option_Bool(false));
         oc.addDescription("dismiss-vclasses", "Processing", TL("Removes vehicle class restrictions from imported edges"));
