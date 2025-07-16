@@ -1,0 +1,11 @@
+# warn about opposite direction lanes with unequal length
+unequal_length
+
+# fix Asymmetrical neigh lane
+neigh_missing
+
+# abort on  inconsistent Asymmetrical neigh lanes
+neigh_inconsistent
+
+# abort on  inconsistent Asymmetrical neigh lanes
+neigh_inconsistent2

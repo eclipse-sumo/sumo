@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-07-16 13:37:11 by Eclipse SUMO netedit Version v1_23_1+1110-3ee544734de
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="-E0" from="J1" to="J0" priority="-1">
+        <lane id="-E0_0" index="0" speed="13.89" length="100.00" shape="100.00,1.60 0.00,1.60">
+            <neigh lane="E0_0"/>
+        </lane>
+    </edge>
+    <edge id="E0" from="J0" to="J1" priority="-1">
+        <lane id="E0_0" index="0" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60">
+            <neigh lane="-E0_0"/>
+        </lane>
+    </edge>
+    <edge id="E1" from="J0" to="J1" priority="-1">
+        <lane id="E1_0" index="0" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60">
+            <neigh lane="-E0_0"/>
+        </lane>
+    </edge>
+
+    <junction id="J0" type="priority" x="0.00" y="0.00" incLanes="-E0_0" intLanes="" shape="0.00,0.00 0.00,3.20 0.00,-3.20">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J1" type="priority" x="100.00" y="0.00" incLanes="E1_0 E0_0" intLanes="" shape="100.00,-3.20 100.00,3.20 100.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+
+    <connection from="-E0" to="E1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="E1" to="-E0" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>
