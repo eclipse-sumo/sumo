@@ -1121,8 +1121,8 @@ InternalTestStep::checkParameters(const int overlappedTabs) const {
         modifyStringAttribute(tabs, overlappedTabs, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3");
         modifyStringAttribute(tabs, overlappedTabs, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3");
         // check undo-redo
-        undo(9);
-        redo(9);
+        buildUndo(9);
+        buildRedo(9);
     }
 }
 
@@ -1248,8 +1248,8 @@ InternalTestStep::checkUndoRedo() const {
         writeError("checkUndoRedo", 0, "<referencePosition>");
     } else {
         const int numUndoRedos = 9;
-        undo(numUndoRedos);
-        redo(numUndoRedos);
+        buildUndo(numUndoRedos);
+        buildRedo(numUndoRedos);
     }
 }
 
@@ -1377,7 +1377,7 @@ InternalTestStep::undo() const {
         writeError("undo", 0, "<referencePosition, int>");
     } else {
         // do undo
-        undo(getIntArgument(myArguments[1]));
+        buildUndo(getIntArgument(myArguments[1]));
     }
 }
 
@@ -1388,7 +1388,7 @@ InternalTestStep::redo() const {
         writeError("redo", 0, "<referencePosition, int>");
     } else {
         // do redo
-        redo(getIntArgument(myArguments[1]));
+        buildRedo(getIntArgument(myArguments[1]));
     }
 }
 
@@ -1854,7 +1854,7 @@ InternalTestStep::modifyBoolAttribute(const int tabs, const int overlappedTabs) 
 
 
 void
-InternalTestStep::undo(const int number) const {
+InternalTestStep::buildUndo(const int number) const {
     // get reference position
     const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
     // focus frame
@@ -1875,7 +1875,7 @@ InternalTestStep::undo(const int number) const {
 
 
 void
-InternalTestStep::redo(const int number) const {
+InternalTestStep::buildRedo(const int number) const {
     // get reference position
     const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
     // focus frame
@@ -2077,17 +2077,12 @@ InternalTestStep::buildMouseClick(const InternalTest::ViewPosition& viewPosition
                                   const int offsetX, const int offsetY,
                                   const std::string& button,
                                   const std::string& keyModifier) const {
-    // move mouse
-    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
-                         buildMouseMoveEvent(viewPosition, offsetX, offsetY), true);
-    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
-                         buildMouseMoveEvent(viewPosition, offsetX + 10, offsetY + 10), true);
-    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
-                         buildMouseMoveEvent(viewPosition, offsetX + 14, offsetY + 15), true);
-    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
-                         buildMouseMoveEvent(viewPosition, offsetX + 17, offsetY + 18), true);
-    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
-                         buildMouseMoveEvent(viewPosition, offsetX, offsetY), true);
+    // move mouse interpolating
+    const auto interpolationSteps = myTestSystem->interpolateViewPositions(myTestSystem->getLastMovedPosition(), viewPosition);
+    for (const auto& position : interpolationSteps) {
+        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
+                             buildMouseMoveEvent(position, offsetX, offsetY), true);
+    }
     // continue depending of mouse
     if (button == "left") {
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW,
@@ -2124,8 +2119,8 @@ InternalTestStep::buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosi
     moveEvent->synthetic = true;
     moveEvent->win_x = viewPosition.getX() + MOUSE_OFFSET_X + offsetX;
     moveEvent->win_y = viewPosition.getY() + MOUSE_OFFSET_Y + offsetY;
-    moveEvent->last_x = myTestSystem->getLastMovedPosition().first;
-    moveEvent->last_y = myTestSystem->getLastMovedPosition().second;
+    moveEvent->last_x = myTestSystem->getLastMovedPosition().getX();
+    moveEvent->last_y = myTestSystem->getLastMovedPosition().getY();
     moveEvent->click_x = 0;
     moveEvent->click_y = 0;
     moveEvent->moved = true;
@@ -2152,8 +2147,8 @@ InternalTestStep::buildMouseClickEvent(FXSelType type, const InternalTest::ViewP
     clickEvent->win_y = viewPosition.getY() + MOUSE_OFFSET_Y + offsetY;
     clickEvent->click_x = viewPosition.getX() + MOUSE_OFFSET_X + offsetX;
     clickEvent->click_y = viewPosition.getY() + MOUSE_OFFSET_Y + offsetY;
-    clickEvent->last_x = myTestSystem->getLastMovedPosition().first;
-    clickEvent->last_y = myTestSystem->getLastMovedPosition().second;
+    clickEvent->last_x = myTestSystem->getLastMovedPosition().getX();
+    clickEvent->last_y = myTestSystem->getLastMovedPosition().getY();
     clickEvent->click_count = 1;
     clickEvent->moved = false;
     clickEvent->rect = FXRectangle(0, 0, 0, 0);

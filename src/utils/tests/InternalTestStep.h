@@ -412,10 +412,10 @@ private:
     /// @{
 
     /// @brief process check undo function
-    void undo(const int number) const;
+    void buildUndo(const int number) const;
 
     /// @brief process check redo function
-    void redo(const int number) const;
+    void buildRedo(const int number) const;
 
     /// @}
 

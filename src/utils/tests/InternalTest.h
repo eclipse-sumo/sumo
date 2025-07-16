@@ -125,10 +125,13 @@ public:
     const std::map<std::string, InternalTest::ViewPosition>& getViewPositions() const;
 
     /// @brief get last moved position
-    const std::pair<FXint, FXint> getLastMovedPosition() const;
+    const InternalTest::ViewPosition& getLastMovedPosition() const;
 
     /// @brief update last moved position
-    void updateLastMovedPosition(const FXint x, const FXint y);
+    void updateLastMovedPosition(const int x, const int y);
+
+    /// @brief interpolate view positions
+    std::vector<InternalTest::ViewPosition> interpolateViewPositions(const InternalTest::ViewPosition& from, const InternalTest::ViewPosition& to) const;
 
 protected:
     /// @brief test steps
@@ -147,9 +150,7 @@ protected:
     std::map<std::string, InternalTest::ViewPosition> myViewPositions;
 
     /// @brief last moved position
-    std::pair<FXint, FXint> myLastMovedPosition = {0, 0};
-
-    /// @brief interpolate
+    InternalTest::ViewPosition myLastMovedPosition;
 
     /// @brief parse attributesEnum file
     std::map<std::string, int> parseAttributesEnumFile(const std::string filePath) const;

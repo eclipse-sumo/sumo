@@ -30,6 +30,9 @@
 #pragma warning(disable:4996)
 #endif
 
+// define number of points to interpolate
+#define numPointsInterpolation 100
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -198,16 +201,32 @@ InternalTest::getViewPositions() const {
 }
 
 
-const
-std::pair<FXint, FXint> InternalTest::getLastMovedPosition() const {
+const InternalTest::ViewPosition&
+InternalTest::getLastMovedPosition() const {
     return myLastMovedPosition;
 }
 
 
 void
-InternalTest::updateLastMovedPosition(const FXint x, const FXint y) {
-    myLastMovedPosition.first = x;
-    myLastMovedPosition.second = y;
+InternalTest::updateLastMovedPosition(const int x, const int y) {
+    myLastMovedPosition = InternalTest::ViewPosition(x, y);
+}
+
+
+std::vector<InternalTest::ViewPosition>
+InternalTest::interpolateViewPositions(const InternalTest::ViewPosition& from, const InternalTest::ViewPosition& to) const {
+    std::vector<InternalTest::ViewPosition> trajectory;
+    trajectory.reserve(numPointsInterpolation);
+    // itearte over the number of points to interpolate
+    for (int i = 0; i < numPointsInterpolation; i++) {
+        const double t = static_cast<double>(i) / (numPointsInterpolation - 1); // t in [0, 1]
+        // calculate interpolated position
+        const int interpolatedX = int(from.getX() + t * (to.getX() - from.getX()));
+        const int interpolatedY = int(from.getY() + t * (to.getY() - from.getY()));
+        // add interpolated position
+        trajectory.push_back(ViewPosition(interpolatedX, interpolatedY));
+    }
+    return trajectory;
 }
 
 
