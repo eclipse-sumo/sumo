@@ -1,2 +1,2 @@
-Warning: Asymmetrical neigh lane '-E0_0' for lane 'E0_0'
-Warning: Asymmetrical neigh lane '-E0_0' for lane 'E1_0'
+Error: Mutually inconsistent neigh lane definitions for lanes 'E0_0', '-E0_0' and 'E1_0'
+Quitting (on error).
