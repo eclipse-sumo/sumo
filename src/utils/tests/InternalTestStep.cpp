@@ -107,6 +107,12 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         leftClickOffset("left");
     } else if (function == "typeKey") {
         typeKey();
+    } else if (function == "moveElementHorizontal") {
+        moveElementHorizontal();
+    } else if (function == "moveElementVertical") {
+        moveElementVertical();
+    } else if (function == "moveElement") {
+        moveElement();
     } else if (function == "contextualMenuOperation") {
         contextualMenuOperation();
     } else if (function == "protectElements") {
@@ -502,6 +508,60 @@ InternalTestStep::leftClickOffset(const std::string& button) const {
         buildMouseClick(viewPosition, x, y, button, "");
         // print info
         writeClickInfo(viewPosition, x, y, button);
+    }
+}
+
+
+void
+InternalTestStep::moveElementHorizontal() const {
+    if ((myArguments.size() != 3) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
+            !checkIntArgument(myArguments[2])) {
+        writeError("moveElementHorizontal", 0, "<reference, position, int>");
+    } else {
+        // get parameters
+        const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
+        const auto& position = myTestSystem->getViewPositions().at(myArguments[1]);
+        const int radius = getIntArgument(myArguments[2]);
+        // click over reference
+        buildMouseClick(referencePosition, 0, 0, "left", "");
+        // drag and drop
+        buildMouseDragDrop(position, 0, 0, position, 0, 0);
+    }
+}
+
+
+void
+InternalTestStep::moveElementVertical() const {
+    if ((myArguments.size() != 3) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
+            !checkIntArgument(myArguments[2])) {
+        writeError("moveElementVertical", 0, "<reference, position, int>");
+    } else {
+        // get parameters
+        const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
+        const auto& position = myTestSystem->getViewPositions().at(myArguments[1]);
+        const int radius = getIntArgument(myArguments[2]);
+        // click over reference
+        buildMouseClick(referencePosition, 0, 0, "left", "");
+        // drag and drop
+        buildMouseDragDrop(position, 0, 0, position, 0, 0);
+    }
+}
+
+
+void
+InternalTestStep::moveElement() const {
+    if ((myArguments.size() != 3) || (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
+            !checkIntArgument(myArguments[2])) {
+        writeError("moveElement", 0, "<reference, position, int>");
+    } else {
+        // get parameters
+        const auto& referencePosition = myTestSystem->getViewPositions().at("netedit.positions.reference");
+        const auto& position = myTestSystem->getViewPositions().at(myArguments[1]);
+        const int radius = getIntArgument(myArguments[2]);
+        // click over reference
+        buildMouseClick(referencePosition, 0, 0, "left", "");
+        // drag and drop
+        buildMouseDragDrop(position, 0, 0, position, 0, 0);
     }
 }
 
@@ -2076,12 +2136,8 @@ void
 InternalTestStep::buildMouseClick(const InternalTest::ViewPosition& viewPosition,
                                   const int offsetX, const int offsetY,
                                   const std::string& button, const std::string& keyModifier) const {
-    // move mouse interpolating
-    const auto interpolationSteps = myTestSystem->interpolateViewPositions(myTestSystem->getLastMovedPosition(), viewPosition);
-    for (const auto& position : interpolationSteps) {
-        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
-                             buildMouseMoveEvent(position, offsetX, offsetY), true);
-    }
+    // move mouse move
+    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(viewPosition, offsetX, offsetY, 0), true);
     // continue depending of mouse
     if (button == "left") {
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW,
@@ -2112,43 +2168,28 @@ void
 InternalTestStep::buildMouseDragDrop(const InternalTest::ViewPosition& viewStartPosition,
                                      const int offsetStartX, const int offsetStartY,
                                      const InternalTest::ViewPosition& viewEndPosition,
-                                     const int offsetEndX, const int offsetEndY,
-                                     const std::string& button, const std::string& keyModifier) const {
+                                     const int offsetEndX, const int offsetEndY) const {
     // move mouse interpolating
-    const auto interpolationSteps = myTestSystem->interpolateViewPositions(myTestSystem->getLastMovedPosition(), viewPosition);
+    const auto interpolationSteps = myTestSystem->interpolateViewPositions(viewStartPosition, offsetStartX, offsetStartY, viewEndPosition, offsetEndX, offsetEndY);
+    // press button
+    new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW,
+                         buildMouseClickEvent(SEL_LEFTBUTTONPRESS, viewStartPosition, offsetStartX, offsetStartY, ""),
+                         true);
+    // move mouse button
     for (const auto& position : interpolationSteps) {
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
-                             buildMouseMoveEvent(position, offsetX, offsetY), true);
+                             buildMouseMoveEvent(position, 0, 0, LEFTBUTTON), true);
     }
-    // continue depending of mouse
-    if (button == "left") {
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW,
-                             buildMouseClickEvent(SEL_LEFTBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
-                             true);
-        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW,
-                             buildMouseClickEvent(SEL_LEFTBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
-                             true);
-    } else if (button == "center") {
-        new InternalTestStep(myTestSystem, SEL_MIDDLEBUTTONPRESS, Category::VIEW,
-                             buildMouseClickEvent(SEL_MIDDLEBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
-                             true);
-        new InternalTestStep(myTestSystem, SEL_MIDDLEBUTTONRELEASE, Category::VIEW,
-                             buildMouseClickEvent(SEL_MIDDLEBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
-                             true);
-    } else if (button == "right") {
-        new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONPRESS, Category::VIEW,
-                             buildMouseClickEvent(SEL_RIGHTBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
-                             true);
-        new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONRELEASE, Category::VIEW,
-                             buildMouseClickEvent(SEL_RIGHTBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
-                             true);
-    }
+    // release button
+    new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW,
+                         buildMouseClickEvent(SEL_LEFTBUTTONRELEASE, viewEndPosition, offsetEndX, offsetEndY, ""),
+                         true);
 }
 
 
 FXEvent*
 InternalTestStep::buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
-                                      const int offsetX, const int offsetY) const {
+                                      const int offsetX, const int offsetY, const int clickedButton) const {
     FXEvent* moveEvent = new FXEvent();
     // set event values
     moveEvent->time = myTestSystem->getTime();
@@ -2163,7 +2204,7 @@ InternalTestStep::buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosi
     moveEvent->moved = true;
     moveEvent->rect = FXRectangle(0, 0, 0, 0);
     moveEvent->state = 0;
-    moveEvent->click_button = 0;
+    moveEvent->click_button = clickedButton;
     moveEvent->click_count = 0;
     moveEvent->code = 0;
     // update last moved position

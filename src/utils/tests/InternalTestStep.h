@@ -205,6 +205,15 @@ private:
     /// @brief process click function
     void leftClickOffset(const std::string& button) const;
 
+    /// @brief process moveElementHorizontal function
+    void moveElementHorizontal() const;
+
+    /// @brief process moveElementVertical function
+    void moveElementVertical() const;
+
+    /// @brief process moveElement function
+    void moveElement() const;
+
     /// @brief process typeKey function
     void typeKey() const;
 
@@ -457,12 +466,11 @@ private:
     void buildMouseDragDrop(const InternalTest::ViewPosition& viewStartPosition,
                             const int offsetStartX, const int offsetStartY,
                             const InternalTest::ViewPosition& viewEndPosition,
-                            const int offsetEndX, const int offsetEndY,
-                            const std::string& button, const std::string& keyModifier) const;
+                            const int offsetEndX, const int offsetEndY) const;
 
     /// @brief build mouse move event
     FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
-                                 const int offsetX, const int offsetY) const;
+                                 const int offsetX, const int offsetY, const int clickedButton) const;
 
     /// @brief build mouse left click press event
     FXEvent* buildMouseClickEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,

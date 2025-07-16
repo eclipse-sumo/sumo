@@ -31,7 +31,7 @@
 #endif
 
 // define number of points to interpolate
-#define numPointsInterpolation 10
+#define numPointsInterpolation 100
 
 // ===========================================================================
 // member method definitions
@@ -222,14 +222,8 @@ InternalTest::interpolateViewPositions(const InternalTest::ViewPosition& viewSta
     std::vector<InternalTest::ViewPosition> trajectory;
     trajectory.reserve(numPointsInterpolation);
     // calulate from using offsets
-    const auto from = InternalTest::ViewPosition(
-                          viewStartPosition.getX() + offsetStartX,
-                          viewStartPosition.getY() + offsetStartY
-                      );
-    const auto to = InternalTest::ViewPosition(
-                        viewEndPosition.getX() + offsetEndX,
-                        viewEndPosition.getY() + offsetEndY
-                    );
+    const auto from = InternalTest::ViewPosition(viewStartPosition.getX() + offsetStartX, viewStartPosition.getY() + offsetStartY);
+    const auto to = InternalTest::ViewPosition(viewEndPosition.getX() + offsetEndX, viewEndPosition.getY() + offsetEndY);
     // itearte over the number of points to interpolate
     for (int i = 0; i < numPointsInterpolation; i++) {
         const double t = static_cast<double>(i) / (numPointsInterpolation - 1); // t in [0, 1]
