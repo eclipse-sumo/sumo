@@ -2075,8 +2075,45 @@ InternalTestStep::buildTwoPressKeyEvent(InternalTestStep* parent, const std::str
 void
 InternalTestStep::buildMouseClick(const InternalTest::ViewPosition& viewPosition,
                                   const int offsetX, const int offsetY,
-                                  const std::string& button,
-                                  const std::string& keyModifier) const {
+                                  const std::string& button, const std::string& keyModifier) const {
+    // move mouse interpolating
+    const auto interpolationSteps = myTestSystem->interpolateViewPositions(myTestSystem->getLastMovedPosition(), viewPosition);
+    for (const auto& position : interpolationSteps) {
+        new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
+                             buildMouseMoveEvent(position, offsetX, offsetY), true);
+    }
+    // continue depending of mouse
+    if (button == "left") {
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW,
+                             buildMouseClickEvent(SEL_LEFTBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
+        new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW,
+                             buildMouseClickEvent(SEL_LEFTBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
+    } else if (button == "center") {
+        new InternalTestStep(myTestSystem, SEL_MIDDLEBUTTONPRESS, Category::VIEW,
+                             buildMouseClickEvent(SEL_MIDDLEBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
+        new InternalTestStep(myTestSystem, SEL_MIDDLEBUTTONRELEASE, Category::VIEW,
+                             buildMouseClickEvent(SEL_MIDDLEBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
+    } else if (button == "right") {
+        new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONPRESS, Category::VIEW,
+                             buildMouseClickEvent(SEL_RIGHTBUTTONPRESS, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
+        new InternalTestStep(myTestSystem, SEL_RIGHTBUTTONRELEASE, Category::VIEW,
+                             buildMouseClickEvent(SEL_RIGHTBUTTONRELEASE, viewPosition, offsetX, offsetY, keyModifier),
+                             true);
+    }
+}
+
+
+void
+InternalTestStep::buildMouseDragDrop(const InternalTest::ViewPosition& viewStartPosition,
+                                     const int offsetStartX, const int offsetStartY,
+                                     const InternalTest::ViewPosition& viewEndPosition,
+                                     const int offsetEndX, const int offsetEndY,
+                                     const std::string& button, const std::string& keyModifier) const {
     // move mouse interpolating
     const auto interpolationSteps = myTestSystem->interpolateViewPositions(myTestSystem->getLastMovedPosition(), viewPosition);
     for (const auto& position : interpolationSteps) {

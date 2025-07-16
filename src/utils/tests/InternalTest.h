@@ -131,7 +131,11 @@ public:
     void updateLastMovedPosition(const int x, const int y);
 
     /// @brief interpolate view positions
-    std::vector<InternalTest::ViewPosition> interpolateViewPositions(const InternalTest::ViewPosition& from, const InternalTest::ViewPosition& to) const;
+    std::vector<InternalTest::ViewPosition> interpolateViewPositions(
+        const InternalTest::ViewPosition& viewStartPosition,
+        const int offsetStartX, const int offsetStartY,
+        const InternalTest::ViewPosition& viewEndPosition,
+        const int offsetEndX, const int offsetEndY) const;
 
 protected:
     /// @brief test steps

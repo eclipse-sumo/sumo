@@ -451,8 +451,14 @@ private:
     /// @brief build mouse click event
     void buildMouseClick(const InternalTest::ViewPosition& viewPosition,
                          const int offsetX, const int offsetY,
-                         const std::string& button,
-                         const std::string& keyModifier) const;
+                         const std::string& button, const std::string& keyModifier) const;
+
+    /// @brief build mouse dragdrop
+    void buildMouseDragDrop(const InternalTest::ViewPosition& viewStartPosition,
+                            const int offsetStartX, const int offsetStartY,
+                            const InternalTest::ViewPosition& viewEndPosition,
+                            const int offsetEndX, const int offsetEndY,
+                            const std::string& button, const std::string& keyModifier) const;
 
     /// @brief build mouse move event
     FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
