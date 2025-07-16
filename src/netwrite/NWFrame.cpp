@@ -66,7 +66,13 @@ NWFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
                       "Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins");
 
     oc.doRegister("prefix", new Option_String(""));
-    oc.addDescription("prefix", "Output", TL("Defines a prefix for edge and junction names"));
+    oc.addDescription("prefix", "Output", TL("Defines a prefix for edge and junction IDs"));
+
+    oc.doRegister("prefix.junction", new Option_String(""));
+    oc.addDescription("prefix.junction", "Output", TL("Defines a prefix for unction IDs"));
+
+    oc.doRegister("prefix.edge", new Option_String(""));
+    oc.addDescription("prefix.edge", "Output", TL("Defines a prefix for edge IDs"));
 
 #ifdef PROJ_API_FILE
     if (!forNetgen) {
@@ -178,6 +184,12 @@ NWFrame::checkOptions(OptionsCont& oc) {
     }
     if (oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up") && !oc.isSet("ptline-output")) {
         WRITE_WARNING(TL("'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring invalid option."));
+    }
+    if (oc.isDefault("prefix.junction")) {
+        oc.setDefault("prefix.junction", oc.getString("prefix"));
+    }
+    if (oc.isDefault("prefix.edge")) {
+        oc.setDefault("prefix.edge", oc.getString("prefix"));
     }
 
     return ok;
