@@ -100,9 +100,47 @@ InternalTest::ContextualMenu::getSubMenuBPosition() const {
 }
 
 // ---------------------------------------------------------------------------
-// InternalTest - public methods
+// InternalTest::Movement - public methods
 // ---------------------------------------------------------------------------
 
+InternalTest::Movement::Movement() {}
+
+
+InternalTest::Movement::Movement(const std::string& up, const std::string& down,
+                                 const std::string& left, const std::string& right) :
+    myUp(StringUtils::toInt(up)),
+    myDown(StringUtils::toInt(down)),
+    myLeft(StringUtils::toInt(left)),
+    myRight(StringUtils::toInt(right)) {
+}
+
+
+int
+InternalTest::Movement::getUp() const {
+    return myUp;
+}
+
+
+int
+InternalTest::Movement::getDown() const {
+    return myDown;
+}
+
+
+int
+InternalTest::Movement::getLeft() const {
+    return myLeft;
+}
+
+
+int
+InternalTest::Movement::getRight() const {
+    return myRight;
+}
+
+// ---------------------------------------------------------------------------
+// InternalTest - public methods
+// ---------------------------------------------------------------------------
 
 InternalTest::InternalTest(const std::string& testFile) {
     // locate sumo home directory
@@ -111,13 +149,14 @@ InternalTest::InternalTest(const std::string& testFile) {
     myAttributesEnum = parseAttributesEnumFile(sumoHome + "/data/tests/attributesEnum.txt");
     myContextualMenuOperations = parseContextualMenuOperationsFile(sumoHome + "/data/tests/contextualMenuOperations.txt");
     myViewPositions = parseViewPositionsFile(sumoHome + "/data/tests/viewPositions.txt");
+    myMovements = parseMovementsFile(sumoHome + "/data/tests/movements.txt");
     // open file
     std::ifstream strm(testFile);
     // check if file can be opened
     if (!strm.good()) {
         std::cout << "Could not open test file '" + testFile + "'." << std::endl;
         throw ProcessError();
-    } else if (myAttributesEnum.empty() || myContextualMenuOperations.empty() || myViewPositions.empty()) {
+    } else if (myAttributesEnum.empty() || myContextualMenuOperations.empty() || myViewPositions.empty() || myMovements.empty()) {
         std::cout << "Error loading test data files" << std::endl;
         throw ProcessError();
     } else {
@@ -148,7 +187,7 @@ InternalTest::~InternalTest() {
 }
 
 
-const FXint
+FXint
 InternalTest::getTime() const {
     return static_cast<FXuint>(
                std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -198,6 +237,12 @@ InternalTest::getContextualMenuOperations() const {
 const std::map<std::string, InternalTest::ViewPosition>&
 InternalTest::getViewPositions() const {
     return myViewPositions;
+}
+
+
+const std::map<std::string, InternalTest::Movement>&
+InternalTest::getMovements() const {
+    return myMovements;
 }
 
 
@@ -346,6 +391,49 @@ InternalTest::parseViewPositionsFile(const std::string filePath) const {
                 WRITE_ERRORF(TL("In internal test file, y value '%' cannot be parsed to int."), yValue);
             } else {
                 solution[key] = InternalTest::ViewPosition(xValue, yValue);
+            }
+        }
+    }
+    return solution;
+}
+
+
+std::map<std::string, InternalTest::Movement>
+InternalTest::parseMovementsFile(const std::string filePath) const {
+    std::map<std::string, InternalTest::Movement> solution;
+    // open file
+    std::ifstream strm(filePath);
+    // check if file can be opened
+    if (!strm.good()) {
+        WRITE_ERRORF(TL("Could not open view positions file '%'."), filePath);
+    } else {
+        std::string line;
+        // read full lines until end of file
+        while (std::getline(strm, line)) {
+            // use stringstream for
+            std::stringstream ss(line);
+            // read key and value
+            std::string key;
+            std::string upValue;
+            std::string downValue;
+            std::string leftValue;
+            std::string rightValue;
+            std::getline(ss, key, ' ');
+            std::getline(ss, upValue, ' ');
+            std::getline(ss, downValue, ' ');
+            std::getline(ss, leftValue, ' ');
+            std::getline(ss, rightValue, '\n');
+            // check that int can be parsed
+            if (!StringUtils::isInt(upValue)) {
+                WRITE_ERRORF(TL("In internal test file, x value '%' cannot be parsed to int."), upValue);
+            } else if (!StringUtils::isInt(downValue)) {
+                WRITE_ERRORF(TL("In internal test file, y value '%' cannot be parsed to int."), downValue);
+            } else if (!StringUtils::isInt(leftValue)) {
+                WRITE_ERRORF(TL("In internal test file, y value '%' cannot be parsed to int."), leftValue);
+            } else if (!StringUtils::isInt(rightValue)) {
+                WRITE_ERRORF(TL("In internal test file, y value '%' cannot be parsed to int."), rightValue);
+            } else {
+                solution[key] = InternalTest::Movement(upValue, downValue, leftValue, rightValue);
             }
         }
     }

@@ -97,6 +97,43 @@ public:
         int mySubMenuB = 0;
     };
 
+    /// @brief view position
+    class Movement {
+
+    public:
+        /// @brief default constructor
+        Movement();
+
+        /// @brief constructor
+        Movement(const std::string& up, const std::string& down,
+                 const std::string& left, const std::string& right);
+
+        ///  @brief get up value
+        int getUp() const;
+
+        /// @brief get down value
+        int getDown() const;
+
+        /// @brief get left value
+        int getLeft() const;
+
+        /// @brief get right value
+        int getRight() const;
+
+    private:
+        /// @brief up value
+        int myUp = 0;
+
+        /// @brief down value
+        int myDown = 0;
+
+        /// @brief left value
+        int myLeft = 0;
+
+        /// @brief right value
+        int myRight = 0;
+    };
+
     /// @brief constructor
     InternalTest(const std::string& testFile);
 
@@ -104,7 +141,7 @@ public:
     ~InternalTest();
 
     /// @brief get currentTime
-    const FXint getTime() const;
+    FXint getTime() const;
 
     /// @brief add test steps
     void addTestSteps(InternalTestStep* internalTestStep);
@@ -123,6 +160,9 @@ public:
 
     /// @brief get map with view position pairs
     const std::map<std::string, InternalTest::ViewPosition>& getViewPositions() const;
+
+    /// @brief get map with movement pairs
+    const std::map<std::string, InternalTest::Movement>& getMovements() const;
 
     /// @brief get last moved position
     const InternalTest::ViewPosition& getLastMovedPosition() const;
@@ -150,8 +190,11 @@ protected:
     /// @brief vector with contextual menu operation jump steps
     std::map<std::string, InternalTest::ContextualMenu> myContextualMenuOperations;
 
-    /// @brief vector with view position pairs
+    /// @brief vector with view positions
     std::map<std::string, InternalTest::ViewPosition> myViewPositions;
+
+    /// @brief vector with movements
+    std::map<std::string, InternalTest::Movement> myMovements;
 
     /// @brief last moved position
     InternalTest::ViewPosition myLastMovedPosition;
@@ -162,8 +205,11 @@ protected:
     /// @brief parse attributesEnum file
     std::map<std::string, InternalTest::ContextualMenu> parseContextualMenuOperationsFile(const std::string filePath) const;
 
-    /// @brief parse viewPosition file
+    /// @brief parse viewPositions file
     std::map<std::string, InternalTest::ViewPosition> parseViewPositionsFile(const std::string filePath) const;
+
+    /// @brief parse movements file
+    std::map<std::string, InternalTest::Movement> parseMovementsFile(const std::string filePath) const;
 
     /// @brief clear lines
     std::vector<std::string> cleanLines(const std::vector<std::pair<bool, std::string> >& linesRaw) const;
