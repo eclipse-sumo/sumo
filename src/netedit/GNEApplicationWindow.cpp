@@ -2441,11 +2441,11 @@ GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, v
 
 
 long
-GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdUndo(FXObject* sender, FXSelector, void*) {
     // Check conditions
     if (myViewNet == nullptr) {
         return 0;
-    } else if (!myEditMenuCommands.undoLastChange->isEnabled()) {
+    } else if ((myInternalTest != sender) && !myEditMenuCommands.undoLastChange->isEnabled()) {
         return 0;
     } else {
         // check supermode (currently ignore supermode data)
@@ -2472,11 +2472,11 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdRedo(FXObject* sender, FXSelector, void*) {
     // Check conditions
     if (myViewNet == nullptr) {
         return 0;
-    } else if (!myEditMenuCommands.redoLastChange->isEnabled()) {
+    } else if ((myInternalTest != sender) && !myEditMenuCommands.redoLastChange->isEnabled()) {
         return 0;
     } else {
         // check supermode (currently ignore supermode data)
