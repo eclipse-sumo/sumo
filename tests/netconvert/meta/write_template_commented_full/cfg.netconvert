@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-16 09:21:24 by Eclipse SUMO netconvert Version v1_23_1+1103-652455bc646
+<!-- generated on 2025-07-16 12:01:37 by Eclipse SUMO netconvert Version v1_23_1+1107-78f51b0269e
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -248,6 +248,9 @@
 
         <!-- Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) -->
         <reserved-ids value="" type="FILE"/>
+
+        <!-- Ensures that objects with typed IDs from FILE (sumo-gui selection file format) are not renamed -->
+        <kept-ids value="" type="FILE"/>
 
         <!-- Removes vehicle class restrictions from imported edges -->
         <dismiss-vclasses value="false" type="BOOL"/>

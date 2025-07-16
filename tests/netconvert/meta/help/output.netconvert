@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_23_1+1103-652455bc646
+Eclipse SUMO netconvert Version v1_23_1+1107-78f51b0269e
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -146,6 +146,9 @@ Processing Options:
   --reserved-ids FILE                  Ensures that generated ids do not
                                         included any of the typed IDs from FILE
                                         (sumo-gui selection file format)
+  --kept-ids FILE                      Ensures that objects with typed IDs from
+                                        FILE (sumo-gui selection file format)
+                                        are not renamed
   --dismiss-vclasses                   Removes vehicle class restrictions from
                                         imported edges
   --geometry.split                     Splits edges across geometry nodes
