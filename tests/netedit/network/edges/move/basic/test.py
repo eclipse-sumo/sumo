@@ -39,10 +39,10 @@ netedit.changeMode("move")
 
 # move
 netedit.moveElementVertical(referencePosition, netedit.positions.network.edge.move.top,
-                            netedit.positions.elements.movementEdgeTop)
+                            netedit.movements.edgeTop)
 
 netedit.moveElementVertical(referencePosition, netedit.positions.network.edge.move.bot,
-                            netedit.positions.elements.movementEdgeBot)
+                            netedit.movements.edgeBot)
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)

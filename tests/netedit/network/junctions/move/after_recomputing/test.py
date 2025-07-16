@@ -34,7 +34,7 @@ netedit.computeJunctions()
 
 # move
 netedit.moveElement(referencePosition, netedit.positions.network.junction.cross.center,
-                    netedit.positions.elements.movementRadius)
+                    netedit.movements.radius)
 
 # rebuild network
 netedit.computeJunctions()

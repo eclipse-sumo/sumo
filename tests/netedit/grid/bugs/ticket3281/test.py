@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.edge.right)
 netedit.changeMode("move")
 
 netedit.moveElement(referencePosition, netedit.positions.network.edge.center,
-                    netedit.positions.elements.movementRadiusC)
+                    netedit.movements.radiusC)
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)

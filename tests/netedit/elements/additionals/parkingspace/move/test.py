@@ -48,7 +48,7 @@ netedit.changeMode("move")
 
 # move
 netedit.moveElement(referencePosition, netedit.positions.elements.additionals.parkingSpace,
-                    netedit.positions.elements.movementRadiusB)
+                    netedit.movements.radiusB)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
