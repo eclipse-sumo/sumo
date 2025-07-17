@@ -849,8 +849,60 @@ enum {
     MID_GNE_ADDSELECT_EDGE,
     /// @brief Remove edge from selected items - Menu Entry
     MID_GNE_REMOVESELECT_EDGE,
-    /// @brief lock element
+    /// @brief lock element (general, used if we press directly the menuCommand in the toolbar)
     MID_GNE_LOCK_ELEMENT,
+    /// @brief lock junctions
+    MID_GNE_LOCK_JUNCTION,
+    /// @brief lock edges
+    MID_GNE_LOCK_EDGE,
+    /// @brief lock lanes
+    MID_GNE_LOCK_LANE,
+    /// @brief lock connections
+    MID_GNE_LOCK_CONNECTION,
+    /// @brief lock crossings
+    MID_GNE_LOCK_CROSSING,
+    /// @brief lock walkingareas
+    MID_GNE_LOCK_WALKINGAREA,
+    /// @brief lock additional elements
+    MID_GNE_LOCK_ADDITIONALELEMENT,
+    /// @brief lock wires
+    MID_GNE_LOCK_WIRE,
+    /// @brief lock TAZs
+    MID_GNE_LOCK_TAZ,
+    /// @brief lock polygons
+    MID_GNE_LOCK_POLYGON,
+    /// @brief lock POIs
+    MID_GNE_LOCK_POI,
+    /// @brief lock walkableAreas
+    MID_GNE_LOCK_JPS_WALKABLEAREA,
+    /// @brief lock obstacles
+    MID_GNE_LOCK_JPS_OBSTACLE,
+    /// @brief lock routes
+    MID_GNE_LOCK_ROUTE,
+    /// @brief lock vehicles
+    MID_GNE_LOCK_VEHICLE,
+    /// @brief lock persons
+    MID_GNE_LOCK_PERSON,
+    /// @brief lock personTrips
+    MID_GNE_LOCK_PERSONTRIP,
+    /// @brief lock walks
+    MID_GNE_LOCK_WALK,
+    /// @brief lock rides
+    MID_GNE_LOCK_RIDE,
+    /// @brief lock containers
+    MID_GNE_LOCK_CONTAINER,
+    /// @brief lock transports
+    MID_GNE_LOCK_TRANSPORT,
+    /// @brief lock tranships
+    MID_GNE_LOCK_TRANSHIP,
+    /// @brief lock stops
+    MID_GNE_LOCK_STOP,
+    /// @brief lock edgeDatas
+    MID_GNE_LOCK_EDGEDATA,
+    /// @brief lock edgeRelDatas
+    MID_GNE_LOCK_EDGERELDATA,
+    /// @brief lock TAZRelDatas
+    MID_GNE_LOCK_TAZRELDATA,
     /// @brief lock all element
     MID_GNE_LOCK_ALLELEMENTS,
     /// @brief unlock all element

@@ -50,6 +50,9 @@ public:
     /// @brief Set check state (TRUE, FALSE or MAYBE)
     void setCheck(FXbool s = TRUE);
 
+    /// @brief Toggle current check state
+    void toggleCheck();
+
     /// @brief Get check state (TRUE, FALSE or MAYBE)
     FXbool getCheck() const;
 

@@ -107,6 +107,18 @@ MFXMenuCheckIcon::setCheck(FXbool s) {
 }
 
 
+void
+MFXMenuCheckIcon::toggleCheck() {
+    if (myCheck == TRUE) {
+        setCheck(FALSE);
+    } else if (myCheck == FALSE) {
+        setCheck(TRUE);
+    } else {
+        setCheck(MAYBE);
+    }
+}
+
+
 FXbool
 MFXMenuCheckIcon::getCheck() const {
     return myCheck;

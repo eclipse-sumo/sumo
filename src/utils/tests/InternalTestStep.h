@@ -334,6 +334,9 @@ private:
     /// @brief process selectNetworkItems function
     void selectNetworkItems() const;
 
+    /// @brief process lockSelection function
+    void lockSelection() const;
+
     /// @brief process check undo function
     void undo() const;
 
