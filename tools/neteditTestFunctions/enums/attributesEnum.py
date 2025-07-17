@@ -1201,18 +1201,18 @@ class attrs:
             file = 8
             vTypes = 9
             nextEdges = 10
-            detectPersons = 12
-            timeThreshold = 13
-            speedThreshold = 14
-            jamThreshold = 15
-            show = 16
-            parameters = 18
-            parametersButton = 19
-            frontButton = 21
-            additionalFileButton = 22
-            additionalFile = 23
-            helpDialog = 24
-            reset = 25
+            detectPersons = 11
+            timeThreshold = 12
+            speedThreshold = 13
+            jamThreshold = 14
+            show = 15
+            parameters = 17
+            parametersButton = 18
+            frontButton = 20
+            additionalFileButton = 21
+            additionalFile = 22
+            helpDialog = 23
+            reset = 24
 
     # E2Multilane
 
@@ -1275,17 +1275,17 @@ class attrs:
             vTypes = 8
             nextEdges = 9
             detectPersons = 10
-            timeThreshold = 12
-            speedThreshold = 13
-            jamThreshold = 14
-            show = 15
-            parameters = 17
-            parametersButton = 18
-            frontButton = 20
-            additionalFileButton = 21
-            additionalFile = 22
-            helpDialog = 23
-            reset = 24
+            timeThreshold = 11
+            speedThreshold = 12
+            jamThreshold = 13
+            show = 14
+            parameters = 16
+            parametersButton = 17
+            frontButton = 19
+            additionalFileButton = 20
+            additionalFile = 21
+            helpDialog = 22
+            reset = 23
 
     # E3
 
@@ -1369,8 +1369,8 @@ class attrs:
             parameters = 7
             parametersButton = 8
             frontButton = 10
-            additionalFileButton = 11
-            additionalFile = 12
+            reparentButton = 11
+            parent = 12
             helpDialog = 13
             reset = 14
 
@@ -1379,8 +1379,8 @@ class attrs:
             parameters = 4
             parametersButton = 5
             frontButton = 7
-            additionalFileButton = 8
-            additionalFile = 9
+            reparentButton = 8
+            parent = 9
             helpDialog = 10
             reset = 11
 
@@ -1417,11 +1417,10 @@ class attrs:
             detectPersons = 12
             parameters = 15
             parametersButton = 16
-            frontButton = 18
-            additionalFileButton = 19
-            additionalFile = 20
-            helpDialog = 21
-            reset = 22
+            additionalFileButton = 18
+            additionalFile = 19
+            helpDialog = 20
+            reset = 21
 
         class inspectSelection:
             friendlyPos = 2
@@ -1431,13 +1430,13 @@ class attrs:
             vTypes = 6
             nextEdges = 7
             detectPersons = 8
-            parameters = 11
-            parametersButton = 12
-            frontButton = 14
-            additionalFileButton = 15
-            additionalFile = 16
-            helpDialog = 17
-            reset = 18
+            parameters = 10
+            parametersButton = 11
+            frontButton = 13
+            additionalFileButton = 14
+            additionalFile = 15
+            helpDialog = 16
+            reset = 17
 
     # calibrator
 
