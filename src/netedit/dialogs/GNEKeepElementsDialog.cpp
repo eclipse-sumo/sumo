@@ -1,5 +1,3 @@
-#include "GNEKeepElementsDialog.h"
-#include "GNEKeepElementsDialog.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
