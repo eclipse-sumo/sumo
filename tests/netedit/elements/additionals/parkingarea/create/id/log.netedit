@@ -1,2 +1,3 @@
-Error: Could not build parkingArea with ID 'pa_0' in netedit; Found another parkingArea with the same ID.
+Warning: Invalid value 'pa_0' in attribute id
+Warning: Invalid value '' in attribute id
 Warning: Invalid value ';;;;' in attribute id

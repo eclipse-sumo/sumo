@@ -1062,7 +1062,7 @@ class attrs:
             parametersButton = 10
             frontButton = 12
             reparentButton = 13
-            reparentButton = 14
+            parent = 14
             helpDialog = 15
             reset = 16
 
@@ -1076,7 +1076,7 @@ class attrs:
             parametersButton = 9
             frontButton = 11
             reparentButton = 12
-            reparentButton = 13
+            parent = 13
             helpDialog = 14
             reset = 15
 
@@ -1516,45 +1516,71 @@ class attrs:
             helpDialog = 16
             reset = 17
 
-    # routeProbe (FALTA CENTER XXXX)
+    # routeProbe
 
     class routeProbe:
         class create:
             id = 5
-            frequency = 6
-            name = 7
-            file = 8
-            begin = 9
-            vTypes = 10
-            center = 14
+            name = 6
+            period = 7
+            fileButton = 8
+            file = 9
+            begin = 10
+            vTypes = 11
+            parameters = 13
+            parametersButton = 14
+            center = 16
+            additionalFileButton = 17
+            additionalFile = 18
+            helpDialog = 19
+            reset = 20
 
         class inspect:
             id = 2
             edge = 3
-            frequency = 4
-            name = 5
-            file = 6
-            begin = 7
-            vTypes = 8
+            name = 4
+            period = 5
+            fileButton = 6
+            file = 7
+            begin = 8
+            vTypes = 9
             parameters = 11
+            parametersButton = 12
+            frontElement = 14
+            additionalFileButton = 15
+            additionalFile = 16
+            helpDialog = 17
+            reset = 18
 
         class inspectSelection:
-            frequency = 2
-            name = 3
-            file = 4
-            begin = 5
-            vTypes = 6
+            name = 2
+            period = 3
+            fileButton = 4
+            file = 5
+            begin = 6
+            vTypes = 7
             parameters = 9
+            parametersButton = 10
+            frontElement = 12
+            additionalFileButton = 13
+            additionalFile = 14
+            helpDialog = 15
+            reset = 16
 
-    # vaporizer (FALTA CENTER XXXX)
+    # vaporizer
 
     class vaporizer:
         class create:
-            begin = 5
-            end = 6
-            name = 7
+            name = 5
+            begin = 6
+            end = 7
             parameters = 9
+            parametersButton = 10
             center = 12
+            additionalFileButton = 13
+            additionalFile = 14
+            helpDialog = 15
+            reset = 16
 
         class inspect:
             edge = 2
@@ -1562,12 +1588,24 @@ class attrs:
             begin = 4
             end = 5
             parameters = 7
+            parametersButton = 8
+            frontElement = 10
+            additionalFileButton = 11
+            additionalFile = 12
+            helpDialog = 13
+            reset = 14
 
         class inspectSelection:
             name = 2
             begin = 3
             end = 4
             parameters = 6
+            parametersButton = 7
+            frontElement = 9
+            additionalFileButton = 10
+            additionalFile = 11
+            helpDialog = 12
+            reset = 13
 
     # --------------------------------
     # SHAPE ELEMENTS

@@ -35,7 +35,7 @@ netedit.changeElement("additionalFrame", "routeProbe")
 netedit.modifyBoolAttribute(netedit.attrs.routeProbe.create.center)
 
 # set invalid name
-netedit.modifyAttribute(netedit.attrs.routeProbe.create.name, "\"\"\"")
+netedit.modifyAttribute(netedit.attrs.routeProbe.create.name, "%%%%%%%%%")
 
 # try to create RouteProbe with invalid name
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
