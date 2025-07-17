@@ -51,6 +51,10 @@ GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, const std::stri
     setParent<GNEEdge*>(edge);
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
+    // set default output filename if not set
+    if (myOutputFilename.empty()) {
+        myOutputFilename = getID() + ".xml";
+    }
 }
 
 
@@ -327,7 +331,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
                 return (canParse<double>(value) && (parse<double>(value) >= 0));
             }
         case SUMO_ATTR_BEGIN:
-            return canParse<SUMOTime>(value);
+            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) >= 0);
         case SUMO_ATTR_VTYPES:
             if (value.empty()) {
                 return true;
