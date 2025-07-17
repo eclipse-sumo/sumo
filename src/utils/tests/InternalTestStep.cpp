@@ -1834,6 +1834,13 @@ InternalTestStep::writeError(const std::string& function, const int overlapping,
     } else {
         WRITE_ERRORF("Invalid internal testStep function '%', requires '%' arguments ", function, expected);
     }
+    // also print arguments
+    if (myArguments.size() > 0) {
+        WRITE_ERROR("Arguments: ");
+        for (const auto& arg : myArguments) {
+            WRITE_ERROR(stripSpaces(arg));
+        }
+    }
 }
 
 
