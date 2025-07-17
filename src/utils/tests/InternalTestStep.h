@@ -337,6 +337,9 @@ private:
     /// @brief process lockSelection function
     void lockSelection() const;
 
+    /// @brief process selectionRectangle function
+    void selectionRectangle() const;
+
     /// @brief process check undo function
     void undo() const;
 
@@ -469,11 +472,13 @@ private:
     void buildMouseDragDrop(const InternalTest::ViewPosition& viewStartPosition,
                             const int offsetStartX, const int offsetStartY,
                             const InternalTest::ViewPosition& viewEndPosition,
-                            const int offsetEndX, const int offsetEndY) const;
+                            const int offsetEndX, const int offsetEndY,
+                            const std::string& keyModifier) const;
 
     /// @brief build mouse move event
     FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
-                                 const int offsetX, const int offsetY, const int clickedButton) const;
+                                 const int offsetX, const int offsetY, const int clickedButton,
+                                 const std::string& keyModifier) const;
 
     /// @brief build mouse left click press event
     FXEvent* buildMouseClickEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,

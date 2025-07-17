@@ -259,6 +259,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         selectNetworkItems();
     } else if (function == "lockSelection") {
         lockSelection();
+    } else if (function == "selectionRectangle") {
+        selectionRectangle();
     } else if (function == "undo") {
         undo();
     } else if (function == "redo") {
@@ -527,8 +529,8 @@ InternalTestStep::moveElementHorizontal() const {
         // click over reference
         buildMouseClick(referencePosition, 0, 0, "left", "");
         // drag and drop
-        buildMouseDragDrop(position, 0, 0, position, radius.getRight(), 0);
-        buildMouseDragDrop(position, radius.getRight(), 0, position, radius.getLeft(), 0);
+        buildMouseDragDrop(position, 0, 0, position, radius.getRight(), 0, "");
+        buildMouseDragDrop(position, radius.getRight(), 0, position, radius.getLeft(), 0, "");
     }
 }
 
@@ -1452,25 +1454,42 @@ InternalTestStep::lockSelection() const {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_GNE_LOCK_WALKINGAREA, Category::APP);
         } else if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.additionals")) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_GNE_LOCK_ADDITIONALELEMENT, Category::APP);
-        } else  if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.tazs")) {
+        } else if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.tazs")) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_GNE_LOCK_TAZ, Category::APP);
-        } else  if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.wires")) {
+        } else if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.wires")) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_GNE_LOCK_WIRE, Category::APP);
-        } else  if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.polygons")) {
+        } else if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.polygons")) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_GNE_LOCK_POLYGON, Category::APP);
-        } else  if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.pois")) {
+        } else if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.pois")) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_GNE_LOCK_POI, Category::APP);
-        } else  if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.walkableAreas")) {
+        } else if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.walkableAreas")) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_GNE_LOCK_JPS_WALKABLEAREA, Category::APP);
-        } else  if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.obstacles")) {
+        } else if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.obstacles")) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_GNE_LOCK_JPS_OBSTACLE, Category::APP);
-        } else  if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.selected")) {
+        } else if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.selected")) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_GNE_LOCK_SELECTEDELEMENTS, Category::APP);
-        } else  if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.lockAll")) {
+        } else if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.lockAll")) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_GNE_LOCK_ALLELEMENTS, Category::APP);
-        } else  if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.unlockAll")) {
+        } else if (lockType == myTestSystem->getAttributesEnum().at("netedit.attrs.selection.lockSelectionNetwork.unlockAll")) {
             new InternalTestStep(myTestSystem, SEL_COMMAND, MID_GNE_UNLOCK_ALLELEMENTS, Category::APP);
         }
+    }
+}
+
+
+void
+InternalTestStep::selectionRectangle() const {
+    if (myArguments.size() != 3 || (myTestSystem->getViewPositions().count(myArguments[1]) == 0) ||
+            (myTestSystem->getViewPositions().count(myArguments[2]) == 0)) {
+        writeError("selectionRectangle", 0, "<viewPosition, viewPosition>");
+    } else {
+        // get position
+        const auto& from = myTestSystem->getViewPositions().at(myArguments[1]);
+        const auto& to = myTestSystem->getViewPositions().at(myArguments[2]);
+        // go to selection mode
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT, Category::APP);
+        // drag and drop
+        buildMouseDragDrop(from, 0, 0, to, 0, 0, "shift");
     }
 }
 
@@ -2188,7 +2207,7 @@ InternalTestStep::buildMouseClick(const InternalTest::ViewPosition& viewPosition
                                   const int offsetX, const int offsetY,
                                   const std::string& button, const std::string& keyModifier) const {
     // move mouse move
-    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(viewPosition, offsetX, offsetY, 0), true);
+    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(viewPosition, offsetX, offsetY, 0, ""), true);
     // continue depending of mouse
     if (button == "left") {
         new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW,
@@ -2219,7 +2238,8 @@ void
 InternalTestStep::buildMouseDragDrop(const InternalTest::ViewPosition& viewStartPosition,
                                      const int offsetStartX, const int offsetStartY,
                                      const InternalTest::ViewPosition& viewEndPosition,
-                                     const int offsetEndX, const int offsetEndY) const {
+                                     const int offsetEndX, const int offsetEndY,
+                                     const std::string& keyModifier) const {
     // move mouse interpolating
     const auto interpolationSteps = myTestSystem->interpolateViewPositions(viewStartPosition, offsetStartX, offsetStartY, viewEndPosition, offsetEndX, offsetEndY);
     // press button
@@ -2229,7 +2249,7 @@ InternalTestStep::buildMouseDragDrop(const InternalTest::ViewPosition& viewStart
     // move mouse button
     for (const auto& position : interpolationSteps) {
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
-                             buildMouseMoveEvent(position, 0, 0, LEFTBUTTON), true);
+                             buildMouseMoveEvent(position, 0, 0, LEFTBUTTON, keyModifier), true);
     }
     // release button
     new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW,
@@ -2240,7 +2260,8 @@ InternalTestStep::buildMouseDragDrop(const InternalTest::ViewPosition& viewStart
 
 FXEvent*
 InternalTestStep::buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
-                                      const int offsetX, const int offsetY, const int clickedButton) const {
+                                      const int offsetX, const int offsetY, const int clickedButton,
+                                      const std::string& keyModifier) const {
     FXEvent* moveEvent = new FXEvent();
     // set event values
     moveEvent->time = myTestSystem->getTime();
@@ -2254,10 +2275,17 @@ InternalTestStep::buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosi
     moveEvent->click_y = 0;
     moveEvent->moved = true;
     moveEvent->rect = FXRectangle(0, 0, 0, 0);
-    moveEvent->state = 0;
     moveEvent->click_button = clickedButton;
     moveEvent->click_count = 0;
     moveEvent->code = 0;
+    // set modifier
+    if (keyModifier == "control") {
+        moveEvent->state = CONTROLMASK;
+    } else if (keyModifier == "shift") {
+        moveEvent->state = SHIFTMASK;
+    } else {
+        moveEvent->state = 0;
+    }
     // update last moved position
     myTestSystem->updateLastMovedPosition(moveEvent->win_x, moveEvent->win_y);
     return moveEvent;
