@@ -1728,7 +1728,7 @@ StringBijection<ReferencePosition>::Entry SUMOXMLDefinitions::referencePositionV
 };
 
 StringBijection<XMLFileExtension>::Entry SUMOXMLDefinitions::XMLFileExtensionValues[] = {
-    {TL("XML files (*.xml, *.xml.gz)"), XMLFileExtension::XML},
+    {TL("XML files (*.xml,*.xml.gz)"), XMLFileExtension::XML},
     {TL("All files (*)"),               XMLFileExtension::ALL} //< must be the last one
 };
 
@@ -1802,7 +1802,7 @@ StringBijection<OutputFileExtension>::Entry SUMOXMLDefinitions::outputFileExtens
 };
 
 StringBijection<ViewSettingsFileExtension>::Entry SUMOXMLDefinitions::viewSettingsFileExtensionValues[] = {
-    {TL("View settings files (*.xml, *.xml.gz)"),   ViewSettingsFileExtension::XML},
+    {TL("View settings files (*.xml,*.xml.gz)"),   ViewSettingsFileExtension::XML},
     {TL("All files (*)"),                           ViewSettingsFileExtension::ALL} //< must be the last one
 };
 
@@ -1831,60 +1831,60 @@ StringBijection<NetconvertConfigFileExtension>::Entry SUMOXMLDefinitions::netcon
 };
 
 StringBijection<OSMFileExtension>::Entry SUMOXMLDefinitions::osmFileExtensionValues[] = {
-    {TL("OSM network files (*.osm, *.osm.gz)"), OSMFileExtension::OSM},
-    {TL("XML files (*.xml, *.xml.gz)"),         OSMFileExtension::XML},
+    {TL("OSM network files (*.osm,*.osm.gz)"), OSMFileExtension::OSM},
+    {TL("XML files (*.xml,*.xml.gz)"),         OSMFileExtension::XML},
     {TL("All files (*)"),                       OSMFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<NetFileExtension>::Entry SUMOXMLDefinitions::netFileExtensionValues[] = {
-    {TL("SUMO network files (*.net.xml, *.net.xml.gz)"),    NetFileExtension::NET_XML},
-    {TL("XML files (*.xml, *.xml.gz)"),                     NetFileExtension::XML},
+    {TL("SUMO network files (*.net.xml,*.net.xml.gz)"),    NetFileExtension::NET_XML},
+    {TL("XML files (*.xml,*.xml.gz)"),                     NetFileExtension::XML},
     {TL("All files (*)"),                                   NetFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<TLSFileExtension>::Entry SUMOXMLDefinitions::TLSFileExtensionValues[] = {
-    {TL("TLS files (*.ttl.xml, *.ttl.xml.gz)"), TLSFileExtension::TTL_XML},
-    {TL("XML files (*.xml, *.xml.gz)"),         TLSFileExtension::XML},
+    {TL("TLS files (*.ttl.xml,*.ttl.xml.gz)"), TLSFileExtension::TTL_XML},
+    {TL("XML files (*.xml,*.xml.gz)"),         TLSFileExtension::XML},
     {TL("All files (*)"),                       TLSFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<JunctionFileExtension>::Entry SUMOXMLDefinitions::junctionFileExtensionValues[] = {
-    {TL("Junction files (*.nod.xml, *.nod.xml.gz)"),    JunctionFileExtension::NOD_XML},
-    {TL("XML files (*.xml, *.xml.gz)"),                 JunctionFileExtension::XML},
+    {TL("Junction files (*.nod.xml,*.nod.xml.gz)"),    JunctionFileExtension::NOD_XML},
+    {TL("XML files (*.xml,*.xml.gz)"),                 JunctionFileExtension::XML},
     {TL("All files (*)"),                               JunctionFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<EdgeTypeFileExtension>::Entry SUMOXMLDefinitions::edgeTypeFileExtensionValues[] = {
-    {TL("Edge type files (*.ttl.xml, *.ttl.xml.gz)"),   EdgeTypeFileExtension::TYP_XML},
-    {TL("XML files (*.xml, *.xml.gz)"),                 EdgeTypeFileExtension::XML},
+    {TL("Edge type files (*.ttl.xml,*.ttl.xml.gz)"),   EdgeTypeFileExtension::TYP_XML},
+    {TL("XML files (*.xml,*.xml.gz)"),                 EdgeTypeFileExtension::XML},
     {TL("All files (*)"),                               EdgeTypeFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<AdditionalFileExtension>::Entry SUMOXMLDefinitions::additionalFileExtensionValues[] = {
-    {TL("Additional files (*.add.xml, *.add.xml.gz)"),  AdditionalFileExtension::ADD_XML},
-    {TL("XML files (*.xml, *.xml.gz)"),                 AdditionalFileExtension::XML},
+    {TL("Additional files (*.add.xml,*.add.xml.gz)"),  AdditionalFileExtension::ADD_XML},
+    {TL("XML files (*.xml,*.xml.gz)"),                 AdditionalFileExtension::XML},
     {TL("All files (*)"),                               AdditionalFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<ShapesFileExtension>::Entry SUMOXMLDefinitions::shapesFileExtensionValues[] = {
-    {TL("XML files (*.xml, *.xml.gz)"),                 ShapesFileExtension::XML},
+    {TL("XML files (*.xml,*.xml.gz)"),                 ShapesFileExtension::XML},
     {TL("All files (*)"),                               ShapesFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<RouteFileExtension>::Entry SUMOXMLDefinitions::routeFileExtensionsValues[] = {
-    {TL("Route files (*.rou.xml, *.rou.xml.gz)"),   RouteFileExtension::ROU_XML},
-    {TL("XML files (*.xml, *.xml.gz)"),             RouteFileExtension::XML},
+    {TL("Route files (*.rou.xml,*.rou.xml.gz)"),   RouteFileExtension::ROU_XML},
+    {TL("XML files (*.xml,*.xml.gz)"),             RouteFileExtension::XML},
     {TL("All files (*)"),                           RouteFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<EdgeDataFileExtension>::Entry SUMOXMLDefinitions::edgeDataFileExtensionsValues[] = {
-    {TL("Edge data files (*.xml, *.xml.gz)"),   EdgeDataFileExtension::XML},
+    {TL("Edge data files (*.xml,*.xml.gz)"),   EdgeDataFileExtension::XML},
     {TL("All files (*)"),                       EdgeDataFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<MeanDataFileExtension>::Entry SUMOXMLDefinitions::meanDataFileExtensionsValues[] = {
-    {TL("Mean data files (*.add.xml, *.add.xml.gz)"),   MeanDataFileExtension::ADD},
-    {TL("XML files (*.xml, *.xml.gz)"),                 MeanDataFileExtension::XML},
+    {TL("Mean data files (*.add.xml,*.add.xml.gz)"),   MeanDataFileExtension::ADD},
+    {TL("XML files (*.xml,*.xml.gz)"),                 MeanDataFileExtension::XML},
     {TL("All files (*)"),                               MeanDataFileExtension::ALL} //< must be the last one
 };
 
