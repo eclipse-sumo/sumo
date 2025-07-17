@@ -2133,6 +2133,7 @@ class attrs:
 
     class route:
         class create:
+            vClass = 4
             id = 7
             colorButton = 8
             color = 9

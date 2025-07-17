@@ -2241,6 +2241,7 @@ netedit.attrs.route.create.repeat 10
 netedit.attrs.route.create.reset 19
 netedit.attrs.route.create.routeFile 17
 netedit.attrs.route.create.routeFileButton 16
+netedit.attrs.route.create.vClass 4
 netedit.attrs.route.inspect.color 5
 netedit.attrs.route.inspect.colorButton 4
 netedit.attrs.route.inspect.cycletime 7
