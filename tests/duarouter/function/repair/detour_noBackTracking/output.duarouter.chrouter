@@ -1,0 +1,13 @@
+Loading net ... done.
+Skipped until: 0.00
+Edge 'B0toB1' not connected to edge 'B1toC1' for vehicle '0'.
+Building Contraction Hierarchy for vClass='ignoring' and time=0.00 (71 edges)
+ ...
+Created 52 shortcuts.
+Recomputed priority 100 times.
+done (0ms).
+ done.
+    Taking detour of 97.60m to avoid gap of 0.00m)
+CHRouter answered 1 queries and explored 8.00 edges on average.
+CHRouter spent 0.00s answering queries (0.00ms on average).
+Success.
