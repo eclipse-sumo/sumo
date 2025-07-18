@@ -263,6 +263,10 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         lockSelection();
     } else if (function == "selectionRectangle") {
         selectionRectangle();
+    } else if (function == "createDataSet") {
+        createDataSet();
+    } else if (function == "createDataInterval") {
+        createDataInterval();
     } else if (function == "undo") {
         undo();
     } else if (function == "redo") {
@@ -1521,6 +1525,71 @@ InternalTestStep::selectionRectangle() const {
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT, Category::APP, "selection mode");
         // drag and drop
         buildMouseDragDrop(from, 0, 0, to, 0, 0, "shift");
+    }
+}
+
+
+void
+InternalTestStep::createDataSet() const {
+    if ((myArguments.size() != 1) || !checkStringArgument(myArguments[0])) {
+        writeError("createDataSet", 0, "<dataSetId>");
+    } else {
+        // get dataSetId
+        const auto& dataSetId = getStringArgument(myArguments[0]);
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus data frame");
+        // jump to select additional argument
+        for (int i = 0; i < 2; i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // create new dataSet
+        buildPressKeyEvent("space", false);
+        // go to dataSetId
+        buildPressKeyEvent("tab", false);
+        // write additional character by character
+        for (const char c : dataSetId) {
+            buildPressKeyEvent({c}, false);
+        }
+        // go to create new dataSet
+        buildPressKeyEvent("tab", false);
+        // press enter to confirm changes (updating view)
+        buildPressKeyEvent("space", true);
+    }
+}
+
+
+void
+InternalTestStep::createDataInterval() const {
+    if ((myArguments.size() != 2) || !checkStringArgument(myArguments[0]) || !checkStringArgument(myArguments[1])) {
+        writeError("createDataInterval", 0, "<begin, end>");
+    } else {
+        // get begin and end
+        const auto& begin = getStringArgument(myArguments[0]);
+        const auto& end = getStringArgument(myArguments[1]);
+        // focus frame
+        new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus data frame");
+        // jump to create interval
+        for (int i = 0; i < 6; i++) {
+            buildPressKeyEvent("tab", false);
+        }
+        // create new interval
+        buildPressKeyEvent("space", false);
+        // go to begin
+        buildPressKeyEvent("tab", false);
+        // write begin character by character
+        for (const char c : begin) {
+            buildPressKeyEvent({c}, false);
+        }
+        // go to begin
+        buildPressKeyEvent("tab", false);
+        // write end character by character
+        for (const char c : end) {
+            buildPressKeyEvent({c}, false);
+        }
+        // go to create button
+        buildPressKeyEvent("tab", false);
+        // press button
+        buildPressKeyEvent("space", false);
     }
 }
 

@@ -346,6 +346,12 @@ private:
     /// @brief process selectionRectangle function
     void selectionRectangle() const;
 
+    /// @brief process createDataSet function
+    void createDataSet() const;
+
+    /// @brief process createDataInterval function
+    void createDataInterval() const;
+
     /// @brief process check undo function
     void undo() const;
 
