@@ -546,6 +546,8 @@ InternalTestStep::moveElementHorizontal() const {
         // drag and drop
         buildMouseDragDrop(position, 0, 0, position, radius.getRight(), 0, "");
         buildMouseDragDrop(position, radius.getRight(), 0, position, radius.getLeft(), 0, "");
+        // write info
+        writeClickInfo(position, 0, 0, "");
     }
 }
 
@@ -562,6 +564,11 @@ InternalTestStep::moveElementVertical() const {
         const auto& radius = myTestSystem->getMovements().at(myArguments[2]);
         // click over reference
         buildMouseClick(referencePosition, 0, 0, "left", "");
+        // drag and drop
+        buildMouseDragDrop(position, 0, 0, position, 0, radius.getUp(), "");
+        buildMouseDragDrop(position, radius.getRight(), 0, position, 0, radius.getDown(), "");
+        // write info
+        writeClickInfo(position, 0, 0, "");
     }
 }
 
@@ -578,6 +585,12 @@ InternalTestStep::moveElement() const {
         const auto& radius = myTestSystem->getMovements().at(myArguments[2]);
         // click over reference
         buildMouseClick(referencePosition, 0, 0, "left", "");
+        // drag and drop
+        buildMouseDragDrop(position, 0, 0, position, radius.getRight(), 0, "");
+        buildMouseDragDrop(position, radius.getRight(), 0, position, radius.getRight(), radius.getDown(), "");
+        // drag and drop
+        buildMouseDragDrop(position, radius.getRight(), radius.getDown(), position, radius.getLeft(), radius.getDown(), "");
+        buildMouseDragDrop(position, radius.getLeft(), radius.getDown(), position, radius.getLeft(), radius.getUp(), "");
     }
 }
 
@@ -2279,7 +2292,7 @@ InternalTestStep::buildMouseDragDrop(const InternalTest::ViewPosition& viewStart
     // move mouse button
     for (const auto& position : interpolationSteps) {
         new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW,
-                             buildMouseMoveEvent(position, 0, 0, LEFTBUTTON, keyModifier, 1),
+                             buildMouseMoveEvent(position, 0, 0, LEFTBUTTON, "leftButton", 1),
                              true, "mouse moved (dragDrop)");
     }
     // release button
@@ -2314,6 +2327,8 @@ InternalTestStep::buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosi
         moveEvent->state = CONTROLMASK;
     } else if (keyModifier == "shift") {
         moveEvent->state = SHIFTMASK;
+    } else if (keyModifier == "leftButton") {
+        moveEvent->state = LEFTBUTTONMASK;
     } else {
         moveEvent->state = 0;
     }

@@ -50,9 +50,9 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
     while (myCurrentStep < myTestSteps.size()) {
         const auto testStep = myTestSteps.at(myCurrentStep);
         // write description
-        std::cout << "TestFunctions: Executing step " << myCurrentStep + 1
-                  << " of " << myTestSteps.size() << ": "
-                  << testStep->getDescription() << std::endl;
+        // std::cout << "TestFunctions: Executing step " << myCurrentStep + 1
+        //           << " of " << myTestSteps.size() << ": "
+        //           << testStep->getDescription() << std::endl;
         // get argument (either event or modalDialogArgument or nullptr)
         void* argument = nullptr;
         if (testStep->getEvent()) {
@@ -76,8 +76,6 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
         // check if update view after execute step
         if (testStep->updateView()) {
             applicationWindow->getViewNet()->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
-            // write description
-            std::cout << "TestFunctions: updating view" << std::endl;
         }
         myCurrentStep++;
     }
