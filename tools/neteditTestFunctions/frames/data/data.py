@@ -20,7 +20,7 @@ from ...general.functions import focusOnFrame
 from ...input.keyboard import typeKey, updateText
 
 
-def createDataSet(dataSetID="newDataSet"):
+def createDataSet(dataSetID):
     """
     @brief create dataSet
     """
@@ -41,7 +41,7 @@ def createDataSet(dataSetID="newDataSet"):
     typeKey('space')
 
 
-def createDataInterval(begin="0", end="3600"):
+def createDataInterval(begin, end):
     """
     @brief create dataInterval
     """

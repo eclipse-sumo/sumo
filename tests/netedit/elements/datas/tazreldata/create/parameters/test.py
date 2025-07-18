@@ -32,10 +32,10 @@ netedit.changeSupermode("data")
 netedit.changeMode("TAZRelData")
 
 # create dataSet
-netedit.createDataSet()
+netedit.createDataSet("newDataSet")
 
 # create data interval
-netedit.createDataInterval()
+netedit.createDataInterval("0", "3600")
 
 # set invalid parameters
 netedit.modifyAttribute(netedit.attrs.TAZRelData.create.parameters, "dummyValues")
