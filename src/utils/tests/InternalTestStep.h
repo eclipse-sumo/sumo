@@ -112,22 +112,22 @@ public:
         TLSTableTest(const TLSTableTest&) = delete;
     };
 
-    /// @brief constructor for parsing step in strin format
+    /// @brief constructor for parsing step in string format
     InternalTestStep(InternalTest* testSystem, const std::string& step);
 
     /// @brief constructor for shortcuts
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, FXSelector messageID,
-                     Category category);
+                     Category category, const std::string description);
 
     /// @brief constructor for input events (click, keyPress, etc.)
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, Category category,
-                     FXEvent* event, const bool updateView);
+                     FXEvent* event, const bool updateView, const std::string description);
 
     /// @brief constructor for fix dialogs
-    InternalTestStep(InternalTestStep* parent, const std::string& solution);
+    InternalTestStep(InternalTestStep* parent, const std::string& solution, const std::string description);
 
     /// @brief constructor for key steps (only used for dialog steps)
-    InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event);
+    InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event, const std::string description);
 
     /// @brief destructor
     ~InternalTestStep();
@@ -159,9 +159,12 @@ public:
     /// @brief get key events used in certain dialogs (allowDialog, etc.)
     const std::vector<const InternalTestStep*>& getModalDialogTestSteps() const;
 
+    ///  @brief get description
+    const std::string& getDescription() const;
+
 private:
     /// @brief test system parent
-    InternalTest* myTestSystem;
+    InternalTest* myTestSystem = nullptr;
 
     /// @brief message type (by default SEL_COMMAND)
     FXSelector myMessageType = SEL_COMMAND;
@@ -174,6 +177,9 @@ private:
 
     /// @brief flag to enable or disable view after execute step
     bool myUpdateView = false;
+
+    /// @brief description
+    std::string myDescription;
 
     /// @brief arguments
     std::vector<std::string> myArguments;
@@ -478,11 +484,12 @@ private:
     /// @brief build mouse move event
     FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
                                  const int offsetX, const int offsetY, const int clickedButton,
-                                 const std::string& keyModifier) const;
+                                 const std::string& keyModifier, const int numberOfClicks) const;
 
     /// @brief build mouse left click press event
     FXEvent* buildMouseClickEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
-                                  const int offsetX, const int offsetY, const std::string& keyModifier) const;
+                                  const int offsetX, const int offsetY, const std::string& keyModifier,
+                                  const int numberOfClicks) const;
 
     /// @brief write click info
     void writeClickInfo(const InternalTest::ViewPosition& viewPosition,
