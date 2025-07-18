@@ -2242,9 +2242,11 @@ InternalTestStep::buildMouseDragDrop(const InternalTest::ViewPosition& viewStart
                                      const std::string& keyModifier) const {
     // move mouse interpolating
     const auto interpolationSteps = myTestSystem->interpolateViewPositions(viewStartPosition, offsetStartX, offsetStartY, viewEndPosition, offsetEndX, offsetEndY);
+    // move mouse move
+    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(viewStartPosition, 0, 0, 0, ""), true);
     // press button
     new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW,
-                         buildMouseClickEvent(SEL_LEFTBUTTONPRESS, viewStartPosition, offsetStartX, offsetStartY, ""),
+                         buildMouseClickEvent(SEL_LEFTBUTTONPRESS, viewStartPosition, offsetStartX, offsetStartY, keyModifier),
                          true);
     // move mouse button
     for (const auto& position : interpolationSteps) {
@@ -2253,7 +2255,7 @@ InternalTestStep::buildMouseDragDrop(const InternalTest::ViewPosition& viewStart
     }
     // release button
     new InternalTestStep(myTestSystem, SEL_LEFTBUTTONRELEASE, Category::VIEW,
-                         buildMouseClickEvent(SEL_LEFTBUTTONRELEASE, viewEndPosition, offsetEndX, offsetEndY, ""),
+                         buildMouseClickEvent(SEL_LEFTBUTTONRELEASE, viewEndPosition, offsetEndX, offsetEndY, keyModifier),
                          true);
 }
 

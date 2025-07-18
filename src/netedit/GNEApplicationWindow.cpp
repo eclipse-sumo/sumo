@@ -1875,7 +1875,7 @@ long
 GNEApplicationWindow::onCmdLockElements(FXObject*, FXSelector sel, void*) {
     if (myViewNet) {
         // check if we're calling the functions using internal test
-        switch (sel) {
+        switch (FXSELID(sel)) {
             case MID_GNE_LOCK_JUNCTION:
                 myLockMenuCommands.menuCheckLockJunctions->toggleCheck();
                 break;
