@@ -215,11 +215,11 @@ def parseRoutes(options):
         if options.standalone:
             for route in parse(routefile, 'route'):
                 # print("found veh", vehicle.id)
-                yield unique_id(route.id), filterEdges(route.edges.split(), keep)
+                yield unique_id(route.id), filterEdges(route.edges.split(), keep), route.probability
         else:
             for vehicle in parse(routefile, 'vehicle'):
                 # print("found veh", vehicle.id)
-                yield unique_id(vehicle.id), filterEdges(vehicle.route[0].edges.split(), keep)
+                yield unique_id(vehicle.id), filterEdges(vehicle.route[0].edges.split(), keep), None
 
 
 def main(args):
@@ -229,16 +229,17 @@ def main(args):
     with open(options.outfile, 'w') as outf:
         outf.write('<polygons>\n')
         if options.scaleWidth is None:
-            for route_id, edges in parseRoutes(options):
+            for route_id, edges, _ in parseRoutes(options):
                 generate_poly(options, net, route_id, options.colorgen(), edges, outf)
         else:
             count = {}
-            for route_id, edges in parseRoutes(options):
+            for route_id, edges, rCount in parseRoutes(options):
                 edges = tuple(edges)
+                rCount = 1 if rCount is None else float(rCount)
                 if edges in count:
-                    count[edges][0] += 1
+                    count[edges][0] += rCount
                 else:
-                    count[edges] = [1, route_id]
+                    count[edges] = [rCount, route_id]
             for edges, (n, route_id) in count.items():
                 width = options.scaleWidth * n
                 params = {'count': str(n)}
