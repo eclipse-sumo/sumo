@@ -52,7 +52,7 @@ The first option passes its arguments only to the [sumo](../sumo.md) process. Th
 ## duaIterateMix.py
 This tool is designed to solve the multiclass traffic assignment problem for mixed traffic flow. Most of the options in this tool are similar to those in [duaIterate.py](#duaiteratepy), with a few exceptions. To solve the multiclass traffic assignment problem, you need to provide two demand files. Use the option `-t` to specify the demand for UE-seeking vehicles, and use the option `-r` to specify the demand for SO-seeking vehicles. To obtain the multiclass traffic assignment solution, you should set the following options: `--mix`, `--marginal-cost`, and `--marginal-cost.exp`.
 
-## duaIterate_analysis.py
+### duaIterate_analysis.py
 
 To check the evolution of different simulation parameters during the dua
 estimation an additional script is provided which analyses teleport counts
@@ -103,6 +103,10 @@ An exemplary execution command is shown below.
 Additional setting, such as outputs of summary and trip-information as
 well as begin time, could be made by adding respective options which can
 be found in the script.
+
+## MAROUTER
+
+[Marouter](../marouter.md) computes a macroscopic user assignment.
 
 ## matrixDailyToHourly.py
 
