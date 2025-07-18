@@ -114,6 +114,8 @@ SUMOTime MSLane::myIntermodalCollisionStopTime(0);
 double MSLane::myCollisionMinGapFactor(1.0);
 bool MSLane::myExtrapolateSubstepDepart(false);
 std::vector<SumoRNG> MSLane::myRNGs;
+DepartSpeedDefinition MSLane::myDefaultDepartSpeedDefinition(DepartSpeedDefinition::DEFAULT);
+double MSLane::myDefaultDepartSpeed(0);
 
 
 // ===========================================================================
@@ -605,9 +607,17 @@ double
 MSLane::getDepartSpeed(const MSVehicle& veh, bool& patchSpeed) {
     double speed = 0;
     const SUMOVehicleParameter& pars = veh.getParameter();
-    switch (pars.departSpeedProcedure) {
+    DepartSpeedDefinition dsd = pars.departSpeedProcedure;
+    if (dsd == DepartSpeedDefinition::DEFAULT) {
+        dsd = myDefaultDepartSpeedDefinition;
+        if (dsd == DepartSpeedDefinition::GIVEN) {
+            speed = myDefaultDepartSpeed;
+        }
+    } else if (dsd == DepartSpeedDefinition::GIVEN) {
+        speed = pars.departSpeed;;
+    }
+    switch (dsd) {
         case DepartSpeedDefinition::GIVEN:
-            speed = pars.departSpeed;
             patchSpeed = false;
             break;
         case DepartSpeedDefinition::RANDOM:

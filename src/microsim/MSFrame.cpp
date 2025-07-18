@@ -1208,6 +1208,11 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
             MSEdge::getDefaultDepartLaneDefinition(), error)) {
         WRITE_ERROR(error);
     }
+    if (!SUMOVehicleParameter::parseDepartSpeed(oc.getString("default.departspeed"), "options", "",
+            MSLane::getDefaultDepartSpeed(),
+            MSLane::getDefaultDepartSpeedDefinition(), error)) {
+        WRITE_ERROR(error);
+    }
 
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {
