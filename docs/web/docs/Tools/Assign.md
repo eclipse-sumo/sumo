@@ -1,6 +1,7 @@
 ---
 title: Assign
 ---
+The following tools are useful in the contect of [Dynamic User Assignment](../Demand/Dynamic_User_Assignment.md).
 
 # Assignment Tools
 
@@ -103,10 +104,6 @@ An exemplary execution command is shown below.
 Additional setting, such as outputs of summary and trip-information as
 well as begin time, could be made by adding respective options which can
 be found in the script.
-
-## MAROUTER
-
-[Marouter](../marouter.md) computes a macroscopic user assignment.
 
 ## matrixDailyToHourly.py
 
