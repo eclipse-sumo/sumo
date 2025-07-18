@@ -1,0 +1,8 @@
+<polygons>
+<poly id="r0" color="0,255,255" layer="200" type="route" shape="1595.25,401.65 1204.75,401.65 1195.25,401.65 804.75,401.65 795.25,401.65 404.75,401.65 395.25,401.65 4.75,401.65" lineWidth="2.0">
+    <param key="count" value="2.0"/>
+</poly>
+<poly id="r1" color="0,255,255" layer="200" type="route" shape="1195.25,401.65 804.75,401.65 795.25,401.65 404.75,401.65 395.25,401.65 4.75,401.65" lineWidth="5.0">
+    <param key="count" value="5.0"/>
+</poly>
+</polygons>

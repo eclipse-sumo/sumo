@@ -12,3 +12,9 @@ internal
 
 # spread shapes to avoid overlap
 spread
+
+# test generating polygons from a route file
+standalone
+
+# test generating polygons from a route file
+standalone_scaleWidth
