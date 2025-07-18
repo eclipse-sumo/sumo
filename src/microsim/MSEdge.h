@@ -797,6 +797,14 @@ public:
     /// @brief update meso segment parameters
     void updateMesoType();
 
+    static DepartLaneDefinition& getDefaultDepartLaneDefinition() {
+        return myDefaultDepartLaneDefinition;
+    }
+
+    static int& getDefaultDepartLane() {
+        return myDefaultDepartLane;
+    }
+
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
         returns false. */
@@ -1024,6 +1032,9 @@ protected:
     static MSEdgeVector myEdges;
 
     static SVCPermissions myMesoIgnoredVClasses;
+
+    static DepartLaneDefinition myDefaultDepartLaneDefinition;
+    static int myDefaultDepartLane;
     /// @}
 
 
