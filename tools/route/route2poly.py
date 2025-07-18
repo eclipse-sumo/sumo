@@ -59,7 +59,9 @@ def parse_args(args):
     ap.add_option("--blur", type=float, default=0,
                   help="maximum random disturbance to route geometry")
     ap.add_option("--scale-width", type=float, dest="scaleWidth",
-                  help="group similar routes and scale width by group size multiplied with the given factor (in m)")
+                  help="group similar routes and scale width by group size or route probablity, multiplied with the given factor (in m)")
+    ap.add_option("--filter-count", type=float, dest="filterCount",
+                  help="only include routes that occur at least INT times")
     ap.add_option("--standalone", action="store_true", default=False,
                   help="Parse stand-alone routes that are not define as child-element of a vehicle")
     ap.add_option("--filter-output.file", dest="filterOutputFile",
@@ -240,7 +242,12 @@ def main(args):
                     count[edges][0] += rCount
                 else:
                     count[edges] = [rCount, route_id]
-            for edges, (n, route_id) in count.items():
+
+            countItems = [(-n, route_id, edges) for edges, (n, route_id) in count.items()]
+            for nNeg, route_id, edges in sorted(countItems):
+                n = -nNeg
+                if options.filterCount and n < options.filterCount:
+                    continue
                 width = options.scaleWidth * n
                 params = {'count': str(n)}
                 generate_poly(options, net, route_id, options.colorgen(), edges, outf, lineWidth=width, params=params)
