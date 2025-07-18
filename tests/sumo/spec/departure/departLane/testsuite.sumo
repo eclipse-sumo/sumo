@@ -5,6 +5,9 @@ lane_default
 lane_default_option2
 
 # change default with option
+lane_default_option_best
+
+# change default with option
 lane_option2_override
 
 # checks using the default lane (rightmost allowed, only accessible for busses, all should use 0)
