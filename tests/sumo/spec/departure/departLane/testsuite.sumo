@@ -1,6 +1,12 @@
 # checks using the default lane (rightmost allowed - 0)
 lane_default
 
+# change default with option
+lane_default_option2
+
+# change default with option
+lane_option2_override
+
 # checks using the default lane (rightmost allowed, only accessible for busses, all should use 0)
 lane_default_3veh_bus
 
