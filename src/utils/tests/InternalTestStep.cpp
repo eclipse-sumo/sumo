@@ -2243,7 +2243,7 @@ InternalTestStep::buildMouseDragDrop(const InternalTest::ViewPosition& viewStart
     // move mouse interpolating
     const auto interpolationSteps = myTestSystem->interpolateViewPositions(viewStartPosition, offsetStartX, offsetStartY, viewEndPosition, offsetEndX, offsetEndY);
     // move mouse move
-    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(viewStartPosition, 0, 0, 0, ""), true);
+    new InternalTestStep(myTestSystem, SEL_MOTION, Category::VIEW, buildMouseMoveEvent(viewStartPosition, offsetStartX, offsetStartY, 0, ""), true);
     // press button
     new InternalTestStep(myTestSystem, SEL_LEFTBUTTONPRESS, Category::VIEW,
                          buildMouseClickEvent(SEL_LEFTBUTTONPRESS, viewStartPosition, offsetStartX, offsetStartY, keyModifier),
