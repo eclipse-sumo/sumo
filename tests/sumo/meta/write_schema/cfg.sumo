@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-03 09:53:10 by Eclipse SUMO sumo Version v1_23_1+0813-5f3c910f36e
+<!-- generated on 2025-07-18 16:06:41 by Eclipse SUMO sumo Version v1_23_1+1171-abf54b0e8c3
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -213,6 +213,8 @@
             <xsd:element name="railsignal.max-block-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal.default-classes" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="time-to-impatience" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="default.departspeed" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="default.departlane" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.action-step-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.carfollowmodel" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.speeddev" type="floatOptionType" minOccurs="0"/>
