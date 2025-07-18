@@ -13,6 +13,9 @@ internal
 # spread shapes to avoid overlap
 spread
 
+# spread shapes to avoid overlap
+filterCount
+
 # test generating polygons from a route file
 standalone
 
