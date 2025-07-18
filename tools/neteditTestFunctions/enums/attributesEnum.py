@@ -2870,12 +2870,12 @@ class attrs:
             number = 24
             terminateOption = 25
             spacingOption = 26
-            parameters = 28
-            parametersButton = 29
-            routeFileButton = 31
-            routeFile = 32
-            helpDialog = 33
-            reset = 34
+            parameters = 26
+            parametersButton = 27
+            routeFileButton = 29
+            routeFile = 30
+            helpDialog = 31
+            reset = 32
 
     # flow (over route)
 
