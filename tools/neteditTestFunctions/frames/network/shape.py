@@ -16,7 +16,6 @@
 # @date    28-05-25
 
 # imports
-from ...constants import DELAY_SELECT
 from ...general.functions import focusOnFrame
 from ...input.mouse import leftClick, leftClickOffset
 from ...input.keyboard import typeKey

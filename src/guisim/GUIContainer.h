@@ -141,7 +141,7 @@ public:
     /// @brief whether this container is selected in the GUI
     bool isSelected() const override;
 
-    double getScaleVisual() const {
+    double getScaleVisual() const override {
         return getVehicleType().getParameter().scaleVisual;
     }
     /**

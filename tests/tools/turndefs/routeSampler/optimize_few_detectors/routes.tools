@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-13 19:14:21.815634 by routeSampler.py v1_21_0+0025-85f2a55a1cc
+<!-- generated on 2025-07-18 14:53:08.579385 by routeSampler.py v1_23_1+1165-c477aa00e14
 <configuration>
     <route-files value="input_routes2.rou.xml"/>
     <turn-files value="input_turns.xml"/>
@@ -12,9 +12,9 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="99.0" -->
-    <route id="10" edges="-27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 75 75.121.42"/> <!-- 64 -->
-    <route id="13" edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 -60 -60.80.00"/> <!-- 57 -->
-    <route id="17" edges="-68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60"/> <!-- 79 -->
+    <route id="10" edges="-27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 75 75.121.42" probability="64"/>
+    <route id="13" edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 -60 -60.80.00" probability="57"/>
+    <route id="17" edges="-68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60" probability="79"/>
 
     <flow id="10" begin="0.88" end="99.00" number="64" route="10"/>
     <flow id="17" begin="0.92" end="99.00" number="79" route="17"/>

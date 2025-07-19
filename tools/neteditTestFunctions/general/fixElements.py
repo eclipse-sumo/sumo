@@ -18,30 +18,53 @@
 # imports
 import time
 from ..constants import DELAY_QUESTION
-from ..general.functions import focusOnFrame
 from ..files.save import saveExistentShortcut
 from ..input.keyboard import typeKey, typeTwoKeys
 
 
-def fixDemandElement(value):
+def fixRoute(solution):
     """
-    @brief fix demand element
+    @brief fix route
     """
-    # focus current frame
-    focusOnFrame()
-    # jump to option
-    for _ in range(value):
-        typeTwoKeys('shift', 'tab')
-    # type space to select
-    typeKey('space')
-    # accept
-    typeTwoKeys('alt', 'a')
+    # save config
+    saveExistentShortcut("neteditConfig")
+    # select bullet depending of solution
+    if (solution == "selectRouteInvalids"):
+        for _ in range(2):
+            typeTwoKeys('shift', 'tab')
+        typeKey('space')
+        # go back and press accept
+        for _ in range(2):
+            typeKey('tab')
+        typeKey('space')
+    elif (solution == "saveRouteInvalids"):
+        for _ in range(3):
+            typeTwoKeys('shift', 'tab')
+        typeKey('space')
+        # go back and press accept
+        for _ in range(3):
+            typeKey('tab')
+        typeKey('space')
+    elif (solution == "removeRouteInvalids"):
+        for _ in range(4):
+            typeTwoKeys('shift', 'tab')
+        typeKey('space')
+        # go back and press accept
+        for _ in range(4):
+            typeKey('tab')
+        typeKey('space')
+    else:
+        # press cancel
+        typeKey('tab')
+        typeKey('space')
 
 
 def fixDemandElements(solution):
     """
     @brief fix stoppingPlaces
     """
+    # save config
+    saveExistentShortcut("neteditConfig")
     # select bullet depending of solution
     if (solution == "saveInvalids"):
         for _ in range(3):
@@ -78,10 +101,12 @@ def fixStoppingPlace(solution):
     """
     @brief fix stoppingPlaces
     """
+    # save config
+    saveExistentShortcut("neteditConfig")
     # wait some second to question dialog
     time.sleep(DELAY_QUESTION)
     # select bullet depending of solution
-    if (solution == "saveInvalids"):
+    if (solution == "savePositionInvalids"):
         for _ in range(3):
             typeTwoKeys('shift', 'tab')
         typeKey('space')
@@ -97,13 +122,13 @@ def fixStoppingPlace(solution):
         for _ in range(2):
             typeKey('tab')
         typeKey('space')
-    elif (solution == "selectInvalids"):
+    elif (solution == "selectPositionInvalids"):
         typeTwoKeys('shift', 'tab')
         typeKey('space')
     # go back and press accept
         typeKey('tab')
         typeKey('space')
-    elif (solution == "activateFriendlyPos"):
+    elif (solution == "activatePositionFriendlyPos"):
         # default option, then press accept
         typeKey('space')
     else:
@@ -116,8 +141,8 @@ def fixCrossings(solution):
     """
     @brief fix stoppingPlaces
     """
-    # save network
-    saveExistentShortcut("network")
+    # save config
+    saveExistentShortcut("neteditConfig")
     # wait some second to question dialog
     time.sleep(DELAY_QUESTION)
     # select bullet depending of solution

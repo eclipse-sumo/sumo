@@ -222,9 +222,28 @@ bool
 GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_BEGIN:
+            if (canParse<SUMOTime>(value)) {
+                const auto begin = parse<SUMOTime>(value);
+                if (begin < 0) {
+                    return false;
+                } else {
+                    return (begin <= myEnd);
+                }
+            } else {
+                return false;
+            }
             return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) < myEnd);
         case SUMO_ATTR_END:
-            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) > myBegin);
+            if (canParse<SUMOTime>(value)) {
+                const auto end = parse<SUMOTime>(value);
+                if (end < 0) {
+                    return false;
+                } else {
+                    return (myBegin <= end);
+                }
+            } else {
+                return false;
+            }
         default:
             return isCommonValid(key, value);
     }

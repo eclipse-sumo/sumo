@@ -104,7 +104,7 @@ def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net, i
         for y in range(sy, ey + 1):
             scale = '@2x' if is_retina and "cartodb" in options.url else ''
             request = "%s/%s/%s/%s%s.png" % (options.url, zoom, x, y, scale)
-            
+
             filename = os.path.join(options.output_dir, "%s%s_%s.png" % (options.prefix, x, y))
             worker(options, request, filename)
             if net is not None:
@@ -189,21 +189,21 @@ def get_options(args=None):
                          help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
     optParser.add_option("-r", "--retina", action="store_true", default=False,
                          help="set 'true' for double resolution tiles (applies to cartodb only).")
-    
+
     URL_SHORTCUTS = {
         "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
         "mapquest": "https://www.mapquestapi.com/staticmap/v5/map",
         "google": "https://maps.googleapis.com/maps/api/staticmap",
         "berlin2024": "https://tiles.codefor.de/berlin-2025-dop20rgbi",
         "osm": "https://tile.openstreetmap.org",
-        "osm_hot":"https://a.tile.openstreetmap.fr/hot",
+        "osm_hot": "https://a.tile.openstreetmap.fr/hot",
         "cartodb_dark": "https://cartodb-basemaps-a.global.ssl.fastly.net/dark_nolabels/",
-        "cartodb_light_all":"https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/",
-        "cartodb_dark_all":"https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/",
-        "cartodb_light_nolabels":"https://cartodb-basemaps-a.global.ssl.fastly.net/light_nolabels/",
-        "cartodb_light_only_labels":"https://cartodb-basemaps-a.global.ssl.fastly.net/light_only_labels/",
-        "cartodb_dark_nolabels":"https://cartodb-basemaps-a.global.ssl.fastly.net/dark_nolabels/",
-        "cartodb_dark_only_labels":"https://cartodb-basemaps-a.global.ssl.fastly.net/dark_only_labels/"
+        "cartodb_light_all": "https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/",
+        "cartodb_dark_all": "https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/",
+        "cartodb_light_nolabels": "https://cartodb-basemaps-a.global.ssl.fastly.net/light_nolabels/",
+        "cartodb_light_only_labels": "https://cartodb-basemaps-a.global.ssl.fastly.net/light_only_labels/",
+        "cartodb_dark_nolabels": "https://cartodb-basemaps-a.global.ssl.fastly.net/dark_nolabels/",
+        "cartodb_dark_only_labels": "https://cartodb-basemaps-a.global.ssl.fastly.net/dark_only_labels/"
     }
     options = optParser.parse_args(args=args)
     if not options.bbox and not options.net and not options.polygon:

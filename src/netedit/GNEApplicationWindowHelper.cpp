@@ -1345,10 +1345,10 @@ GNEApplicationWindowHelper::LockMenuCommands::LockMenuCommands(GNEApplicationWin
 void
 GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* fileMenu) {
     // network
-    menuCheckLockJunction = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                            TL("&Junctions"), "", "",
-                            GUIIconSubSys::getIcon(GUIIcon::JUNCTION),
-                            myGNEApp, MID_GNE_LOCK_ELEMENT);
+    menuCheckLockJunctions = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                             TL("&Junctions"), "", "",
+                             GUIIconSubSys::getIcon(GUIIcon::JUNCTION),
+                             myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockEdges = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                          TL("&Edges"), "", "",
@@ -1425,15 +1425,15 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                            GUIIconSubSys::getIcon(GUIIcon::PERSON),
                            myGNEApp, MID_GNE_LOCK_ELEMENT);
 
-    menuCheckLockPersonTrip = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                              TL("Person&Trips"), "", "",
-                              GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_EDGE),
-                              myGNEApp, MID_GNE_LOCK_ELEMENT);
+    menuCheckLockPersonTrips = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                               TL("Person&Trips"), "", "",
+                               GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_EDGE),
+                               myGNEApp, MID_GNE_LOCK_ELEMENT);
 
-    menuCheckLockWalk = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                        TL("&Walks"), "", "",
-                        GUIIconSubSys::getIcon(GUIIcon::WALK_EDGE),
-                        myGNEApp, MID_GNE_LOCK_ELEMENT);
+    menuCheckLockWalks = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                         TL("&Walks"), "", "",
+                         GUIIconSubSys::getIcon(GUIIcon::WALK_EDGE),
+                         myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockRides = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                          TL("Ri&des"), "", "",
@@ -1498,7 +1498,7 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
 void
 GNEApplicationWindowHelper::LockMenuCommands::removeHotkeys() {
     // network
-    menuCheckLockJunction->remHotKey(parseHotKey('j'));
+    menuCheckLockJunctions->remHotKey(parseHotKey('j'));
     menuCheckLockEdges->remHotKey(parseHotKey('e'));
     menuCheckLockLanes->remHotKey(parseHotKey('l'));
     menuCheckLockConnections->remHotKey(parseHotKey('c'));
@@ -1515,8 +1515,8 @@ GNEApplicationWindowHelper::LockMenuCommands::removeHotkeys() {
     menuCheckLockRoutes->remHotKey(parseHotKey('r'));
     menuCheckLockVehicles->remHotKey(parseHotKey('v'));
     menuCheckLockPersons->remHotKey(parseHotKey('p'));
-    menuCheckLockPersonTrip->remHotKey(parseHotKey('t'));
-    menuCheckLockWalk->remHotKey(parseHotKey('w'));
+    menuCheckLockPersonTrips->remHotKey(parseHotKey('t'));
+    menuCheckLockWalks->remHotKey(parseHotKey('w'));
     menuCheckLockRides->remHotKey(parseHotKey('d'));
     menuCheckLockContainers->remHotKey(parseHotKey('c'));
     menuCheckLockTransports->remHotKey(parseHotKey('n'));
@@ -1531,7 +1531,7 @@ GNEApplicationWindowHelper::LockMenuCommands::removeHotkeys() {
 void
 GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     // first enable menu commands
-    menuCheckLockJunction->enable();
+    menuCheckLockJunctions->enable();
     menuCheckLockEdges->enable();
     menuCheckLockLanes->enable();
     menuCheckLockConnections->enable();
@@ -1545,7 +1545,7 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockJpsWalkableAreas->enable();
     menuCheckLockJpsObstacles->enable();
     // set accels
-    menuCheckLockJunction->addHotKey(parseHotKey('j'));
+    menuCheckLockJunctions->addHotKey(parseHotKey('j'));
     menuCheckLockEdges->addHotKey(parseHotKey('e'));
     menuCheckLockLanes->addHotKey(parseHotKey('l'));
     menuCheckLockConnections->addHotKey(parseHotKey('c'));
@@ -1559,7 +1559,7 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockJpsWalkableAreas->addHotKey(parseHotKey('n'));
     menuCheckLockJpsObstacles->addHotKey(parseHotKey('b'));
     // now show it
-    menuCheckLockJunction->show();
+    menuCheckLockJunctions->show();
     menuCheckLockEdges->show();
     menuCheckLockLanes->show();
     menuCheckLockConnections->show();
@@ -1578,7 +1578,7 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
 void
 GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     // first disable menu commands
-    menuCheckLockJunction->disable();
+    menuCheckLockJunctions->disable();
     menuCheckLockEdges->disable();
     menuCheckLockLanes->disable();
     menuCheckLockConnections->disable();
@@ -1591,7 +1591,7 @@ GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     menuCheckLockJpsWalkableAreas->disable();
     menuCheckLockJpsObstacles->disable();
     // now hide it
-    menuCheckLockJunction->hide();
+    menuCheckLockJunctions->hide();
     menuCheckLockEdges->hide();
     menuCheckLockLanes->hide();
     menuCheckLockConnections->hide();
@@ -1613,8 +1613,8 @@ GNEApplicationWindowHelper::LockMenuCommands::showDemandLockMenuCommands() {
     menuCheckLockRoutes->enable();
     menuCheckLockVehicles->enable();
     menuCheckLockPersons->enable();
-    menuCheckLockPersonTrip->enable();
-    menuCheckLockWalk->enable();
+    menuCheckLockPersonTrips->enable();
+    menuCheckLockWalks->enable();
     menuCheckLockRides->enable();
     menuCheckLockContainers->enable();
     menuCheckLockTransports->enable();
@@ -1624,8 +1624,8 @@ GNEApplicationWindowHelper::LockMenuCommands::showDemandLockMenuCommands() {
     menuCheckLockRoutes->addHotKey(parseHotKey('r'));
     menuCheckLockVehicles->addHotKey(parseHotKey('v'));
     menuCheckLockPersons->addHotKey(parseHotKey('p'));
-    menuCheckLockPersonTrip->addHotKey(parseHotKey('t'));
-    menuCheckLockWalk->addHotKey(parseHotKey('w'));
+    menuCheckLockPersonTrips->addHotKey(parseHotKey('t'));
+    menuCheckLockWalks->addHotKey(parseHotKey('w'));
     menuCheckLockRides->addHotKey(parseHotKey('d'));
     menuCheckLockContainers->addHotKey(parseHotKey('c'));
     menuCheckLockTransports->addHotKey(parseHotKey('n'));
@@ -1635,8 +1635,8 @@ GNEApplicationWindowHelper::LockMenuCommands::showDemandLockMenuCommands() {
     menuCheckLockRoutes->show();
     menuCheckLockVehicles->show();
     menuCheckLockPersons->show();
-    menuCheckLockPersonTrip->show();
-    menuCheckLockWalk->show();
+    menuCheckLockPersonTrips->show();
+    menuCheckLockWalks->show();
     menuCheckLockRides->show();
     menuCheckLockContainers->show();
     menuCheckLockTransports->show();
@@ -1651,8 +1651,8 @@ GNEApplicationWindowHelper::LockMenuCommands::hideDemandLockMenuCommands() {
     menuCheckLockRoutes->disable();
     menuCheckLockVehicles->disable();
     menuCheckLockPersons->disable();
-    menuCheckLockPersonTrip->disable();
-    menuCheckLockWalk->disable();
+    menuCheckLockPersonTrips->disable();
+    menuCheckLockWalks->disable();
     menuCheckLockRides->disable();
     menuCheckLockContainers->disable();
     menuCheckLockTransports->disable();
@@ -1662,8 +1662,8 @@ GNEApplicationWindowHelper::LockMenuCommands::hideDemandLockMenuCommands() {
     menuCheckLockRoutes->hide();
     menuCheckLockVehicles->hide();
     menuCheckLockPersons->hide();
-    menuCheckLockPersonTrip->hide();
-    menuCheckLockWalk->hide();
+    menuCheckLockPersonTrips->hide();
+    menuCheckLockWalks->hide();
     menuCheckLockRides->hide();
     menuCheckLockContainers->hide();
     menuCheckLockTransports->hide();
@@ -1704,7 +1704,7 @@ GNEApplicationWindowHelper::LockMenuCommands::hideDataLockMenuCommands() {
 
 void
 GNEApplicationWindowHelper::LockMenuCommands::lockAll() {
-    menuCheckLockJunction->setCheck(TRUE);
+    menuCheckLockJunctions->setCheck(TRUE);
     menuCheckLockEdges->setCheck(TRUE);
     menuCheckLockLanes->setCheck(TRUE);
     menuCheckLockConnections->setCheck(TRUE);
@@ -1720,8 +1720,8 @@ GNEApplicationWindowHelper::LockMenuCommands::lockAll() {
     menuCheckLockRoutes->setCheck(TRUE);
     menuCheckLockVehicles->setCheck(TRUE);
     menuCheckLockPersons->setCheck(TRUE);
-    menuCheckLockPersonTrip->setCheck(TRUE);
-    menuCheckLockWalk->setCheck(TRUE);
+    menuCheckLockPersonTrips->setCheck(TRUE);
+    menuCheckLockWalks->setCheck(TRUE);
     menuCheckLockRides->setCheck(TRUE);
     menuCheckLockContainers->setCheck(TRUE);
     menuCheckLockTransports->setCheck(TRUE);
@@ -1735,7 +1735,7 @@ GNEApplicationWindowHelper::LockMenuCommands::lockAll() {
 
 void
 GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
-    menuCheckLockJunction->setCheck(FALSE);
+    menuCheckLockJunctions->setCheck(FALSE);
     menuCheckLockEdges->setCheck(FALSE);
     menuCheckLockLanes->setCheck(FALSE);
     menuCheckLockConnections->setCheck(FALSE);
@@ -1751,8 +1751,8 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
     menuCheckLockRoutes->setCheck(FALSE);
     menuCheckLockVehicles->setCheck(FALSE);
     menuCheckLockPersons->setCheck(FALSE);
-    menuCheckLockPersonTrip->setCheck(FALSE);
-    menuCheckLockWalk->setCheck(FALSE);
+    menuCheckLockPersonTrips->setCheck(FALSE);
+    menuCheckLockWalks->setCheck(FALSE);
     menuCheckLockRides->setCheck(FALSE);
     menuCheckLockContainers->setCheck(FALSE);
     menuCheckLockTransports->setCheck(FALSE);
@@ -1768,7 +1768,7 @@ void
 GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarrier* AC, const FXbool value) {
     // check elements
     if (AC->getTagProperty()->getTag() == SUMO_TAG_JUNCTION) {
-        menuCheckLockJunction->setCheck(value);
+        menuCheckLockJunctions->setCheck(value);
     } else if (AC->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
         menuCheckLockEdges->setCheck(value);
     } else if (AC->getTagProperty()->getTag() == SUMO_TAG_LANE) {
@@ -1802,9 +1802,9 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
     } else if (AC->getTagProperty()->isPerson()) {
         menuCheckLockPersons->setCheck(value);
     } else if (AC->getTagProperty()->isPlanPersonTrip()) {
-        menuCheckLockPersonTrip->setCheck(value);
+        menuCheckLockPersonTrips->setCheck(value);
     } else if (AC->getTagProperty()->isPlanWalk()) {
-        menuCheckLockWalk->setCheck(value);
+        menuCheckLockWalks->setCheck(value);
     } else if (AC->getTagProperty()->isPlanRide()) {
         menuCheckLockRides->setCheck(value);
     } else if (AC->getTagProperty()->isContainer()) {

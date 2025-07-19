@@ -1,6 +1,7 @@
 ---
 title: Assign
 ---
+The following tools are useful in the contect of [Dynamic User Assignment](../Demand/Dynamic_User_Assignment.md).
 
 # Assignment Tools
 
@@ -52,7 +53,7 @@ The first option passes its arguments only to the [sumo](../sumo.md) process. Th
 ## duaIterateMix.py
 This tool is designed to solve the multiclass traffic assignment problem for mixed traffic flow. Most of the options in this tool are similar to those in [duaIterate.py](#duaiteratepy), with a few exceptions. To solve the multiclass traffic assignment problem, you need to provide two demand files. Use the option `-t` to specify the demand for UE-seeking vehicles, and use the option `-r` to specify the demand for SO-seeking vehicles. To obtain the multiclass traffic assignment solution, you should set the following options: `--mix`, `--marginal-cost`, and `--marginal-cost.exp`.
 
-## duaIterate_analysis.py
+### duaIterate_analysis.py
 
 To check the evolution of different simulation parameters during the dua
 estimation an additional script is provided which analyses teleport counts

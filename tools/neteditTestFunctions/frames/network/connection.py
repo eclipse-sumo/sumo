@@ -16,6 +16,8 @@
 # @date    28-05-25
 
 # imports
+import time
+
 from ...enums.attributesEnum import attrs
 from ...constants import DELAY_SELECT
 from ...general.functions import focusOnFrame

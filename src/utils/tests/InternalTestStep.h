@@ -40,17 +40,21 @@ public:
         VIEW,           // send signal to view (either GUIView or GNEViewNet)
         TLS_PHASES,     // send signal to TLS Phases module (used for TLS Phases)
         TLS_PHASETABLE, // send signal to TLSTable (used for TLS Phases)
-        FIX_ADDITIONAL, // send signal to fix additional dialog
-        FIX_DEMAND,     // send signal to fix demand dialog
-        FIX_NETWORK,    // send signal to fix network dialog
         COLOR,          // send signal to color dialog
     };
 
-    /// @brief modal arguments (used for certain functions that opens modal dialogs)
-    struct ModalArguments {
+    /// @brief dialog arguments (used for certain functions that opens modal dialogs)
+    class DialogTest {
+
+    public:
+        /// @brief constructor for yes/no argument
+        DialogTest(const FXuint value);
 
         /// @brief constructor for question dialogs
-        ModalArguments(const std::vector<FXuint> values);
+        DialogTest(const std::vector<FXuint>& values);
+
+        /// @brief constructor fix dialogs
+        DialogTest(const std::string& solution);
 
         /// @brief yes value
         static const FXuint yes = 1;
@@ -67,12 +71,15 @@ public:
         /// @brief used if we have multiple modal dialogs
         const std::vector<FXuint> questionDialogValues;
 
+        /// @brief solution for fix dialogs
+        const std::string fixSolution;
+
     private:
         /// @brief invalidated default constructor
-        ModalArguments() = delete;
+        DialogTest() = delete;
 
         /// @brief invalidated copy constructor
-        ModalArguments(const ModalArguments&) = delete;
+        DialogTest(const DialogTest&) = delete;
     };
 
     /// @brief struct used for test TLS Tables
@@ -105,40 +112,22 @@ public:
         TLSTableTest(const TLSTableTest&) = delete;
     };
 
-    /// @brief struct used for test fix dialogs
-    class FixDialogTest {
-
-    public:
-        /// brief default constructor with text
-        FixDialogTest(const std::string& solution);
-
-        /// @brief get solution
-        const std::string& getSolution() const;
-
-    private:
-        /// @brief solution
-        std::string mySolution;
-
-        /// @brief invalidated default constructor
-        FixDialogTest() = delete;
-
-        /// @brief invalidated copy constructor
-        FixDialogTest(const FixDialogTest&) = delete;
-    };
-
-    /// @brief constructor for parsing step in strin format
+    /// @brief constructor for parsing step in string format
     InternalTestStep(InternalTest* testSystem, const std::string& step);
 
     /// @brief constructor for shortcuts
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, FXSelector messageID,
-                     Category category);
+                     Category category, const std::string description);
 
     /// @brief constructor for input events (click, keyPress, etc.)
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, Category category,
-                     FXEvent* event, const bool updateView);
+                     FXEvent* event, const bool updateView, const std::string description);
+
+    /// @brief constructor for fix dialogs
+    InternalTestStep(InternalTestStep* parent, const std::string& solution, const std::string description);
 
     /// @brief constructor for key steps (only used for dialog steps)
-    InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event);
+    InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event, const std::string description);
 
     /// @brief destructor
     ~InternalTestStep();
@@ -149,14 +138,11 @@ public:
     /// @brief get message ID
     FXSelector getMessageID() const;
 
-    /// @brief get modal arguments
-    ModalArguments* getModalArguments() const;
+    /// @brief get dialog arguments
+    DialogTest* getDialogTest() const;
 
     /// @brief get TLS Table test
     TLSTableTest* getTLSTableTest() const;
-
-    /// @brief get Fix dialog test
-    FixDialogTest* getFixDialogTest() const;
 
     /// @brief get selector (based in messageType and messageID)
     FXSelector getSelector() const;
@@ -173,9 +159,12 @@ public:
     /// @brief get key events used in certain dialogs (allowDialog, etc.)
     const std::vector<const InternalTestStep*>& getModalDialogTestSteps() const;
 
+    ///  @brief get description
+    const std::string& getDescription() const;
+
 private:
     /// @brief test system parent
-    InternalTest* myTestSystem;
+    InternalTest* myTestSystem = nullptr;
 
     /// @brief message type (by default SEL_COMMAND)
     FXSelector myMessageType = SEL_COMMAND;
@@ -189,23 +178,23 @@ private:
     /// @brief flag to enable or disable view after execute step
     bool myUpdateView = false;
 
+    /// @brief description
+    std::string myDescription;
+
     /// @brief arguments
     std::vector<std::string> myArguments;
 
     /// @brief list of events associated with this step
     FXEvent* myEvent = nullptr;
 
-    /// @brief extra arguments
-    ModalArguments* myModalArguments = nullptr;
+    /// @brief dialog test
+    DialogTest* myDialogTest = nullptr;
 
     /// @brief TLS Table test
     TLSTableTest* myTLSTableTest = nullptr;
 
-    /// @brief Fix dialog test
-    FixDialogTest* myFixDialogTest = nullptr;
-
-    /// @brief Test steps used in certain modal dialogs
-    std::vector<const InternalTestStep*> myModalDialogTestSteps;
+    /// @brief Test steps used in dialog test
+    std::vector<const InternalTestStep*> myDialogTestSteps;
 
     /// @brief parse function and arguments
     std::string parseStep(const std::string& rowText);
@@ -221,6 +210,15 @@ private:
 
     /// @brief process click function
     void leftClickOffset(const std::string& button) const;
+
+    /// @brief process moveElementHorizontal function
+    void moveElementHorizontal() const;
+
+    /// @brief process moveElementVertical function
+    void moveElementVertical() const;
+
+    /// @brief process moveElement function
+    void moveElement() const;
 
     /// @brief process typeKey function
     void typeKey() const;
@@ -249,11 +247,14 @@ private:
     /// @brief process modifyVClassDialog_DisallowAll function
     void modifyVClassDialog_DisallowAll(const int overlappedTabs) const;
 
-    /// @brief process modifyVClassDialog_DisallowAll function
+    /// @brief process modifyVClassDialog_Cancel function
     void modifyVClassDialog_Cancel(const int overlappedTabs) const;
 
-    /// @brief process modifyVClassDialog_DisallowAll function
+    /// @brief process modifyVClassDialog_Reset function
     void modifyVClassDialog_Reset(const int overlappedTabs) const;
+
+    /// @brief process modifyVTypeDialogAttribute function
+    void modifyVTypeDialogAttribute() const;
 
     /// @brief process createConnection function
     void createConnection(const std::string& keyModifier) const;
@@ -275,6 +276,15 @@ private:
 
     /// @brief process createConnectionEdit function
     void saveConnectionEdit() const;
+
+    /// @brief process fixCrossings function
+    void fixCrossings();
+
+    /// @brief process fixStoppingPlace function
+    void fixStoppingPlace();
+
+    /// @brief process fixRoutes function
+    void fixRoute();
 
     /// @brief process createTLS function
     void createTLS(const int overlappedTabs) const;
@@ -329,6 +339,18 @@ private:
 
     /// @brief process selectNetworkItems function
     void selectNetworkItems() const;
+
+    /// @brief process lockSelection function
+    void lockSelection() const;
+
+    /// @brief process selectionRectangle function
+    void selectionRectangle() const;
+
+    /// @brief process createDataSet function
+    void createDataSet() const;
+
+    /// @brief process createDataInterval function
+    void createDataInterval() const;
 
     /// @brief process check undo function
     void undo() const;
@@ -409,7 +431,7 @@ private:
     void modifyStringAttribute(const int tabs, const int overlappedTabs, const std::string& value) const;
 
     /// @brief modify bool attribute
-    InternalTestStep* modifyBoolAttribute(const int tabs, const int overlappedTabs) const;
+    void modifyBoolAttribute(const int tabs, const int overlappedTabs) const;
 
     /// @}
 
@@ -417,10 +439,10 @@ private:
     /// @{
 
     /// @brief process check undo function
-    void undo(const int number) const;
+    void buildUndo(const int number) const;
 
     /// @brief process check redo function
-    void redo(const int number) const;
+    void buildRedo(const int number) const;
 
     /// @}
 
@@ -428,64 +450,25 @@ private:
     /// @{
 
     /// @brief translate key
-    template<typename T>
-    std::pair<FXint, FXString> translateKey(const T key) const;
+    std::pair<FXint, FXString> translateKey(const std::string& key) const;
 
     /// @brief build key press event
-    template<typename T>
-    FXEvent* buildKeyPressEvent(const T key) const {
-        const auto keyValues = translateKey(key);
-        FXEvent* keyPressEvent = new FXEvent();
-        // set event values
-        keyPressEvent->type = SEL_KEYPRESS;
-        keyPressEvent->code = keyValues.first;
-        keyPressEvent->text = keyValues.second;
-        return keyPressEvent;
-    }
+    FXEvent* buildKeyPressEvent(const std::string& key) const;
 
     /// @brief build key release event
-    template<typename T>
-    FXEvent* buildKeyReleaseEvent(const T key) const {
-        const auto keyValues = translateKey(key);
-        FXEvent* keyPressEvent = new FXEvent();
-        // set event values
-        keyPressEvent->type = SEL_KEYPRESS;
-        keyPressEvent->code = keyValues.first;
-        keyPressEvent->text = keyValues.second;
-        return keyPressEvent;
-    }
+    FXEvent* buildKeyReleaseEvent(const std::string& key) const;
 
     /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
-    template<typename T>
-    InternalTestStep* buildPressKeyEvent(const T key, const bool updateView) const {
-        new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(key), updateView);
-        return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(key), updateView);
-    }
+    void buildPressKeyEvent(const std::string& key, const bool updateView) const;
 
     /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
-    template<typename T>
-    void buildPressKeyEvent(InternalTestStep* parent, const T key) const {
-        new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(key));
-        new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(key));
-    }
+    void buildPressKeyEvent(InternalTestStep* parent, const std::string& key) const;
 
     /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
-    template<typename T, typename J>
-    InternalTestStep* buildTwoPressKeyEvent(const T keyA, const J keyB, const bool updateView) const {
-        new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(keyA), updateView);
-        new InternalTestStep(myTestSystem, SEL_KEYPRESS, Category::APP, buildKeyPressEvent(keyB), updateView);
-        new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(keyB), updateView);
-        return new InternalTestStep(myTestSystem, SEL_KEYRELEASE, Category::APP, buildKeyReleaseEvent(keyA), updateView);
-    }
+    void buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const;
 
     /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
-    template<typename T, typename J>
-    void buildTwoPressKeyEvent(InternalTestStep* parent, const T keyA, const J keyB) const {
-        new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(keyA));
-        new InternalTestStep(parent, SEL_KEYPRESS, buildKeyPressEvent(keyB));
-        new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(keyB));
-        new InternalTestStep(parent, SEL_KEYRELEASE, buildKeyReleaseEvent(keyA));
-    }
+    void buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string& keyB) const;
 
     /// @}
 
@@ -495,16 +478,24 @@ private:
     /// @brief build mouse click event
     void buildMouseClick(const InternalTest::ViewPosition& viewPosition,
                          const int offsetX, const int offsetY,
-                         const std::string& button,
-                         const std::string& keyModifier) const;
+                         const std::string& button, const std::string& keyModifier) const;
+
+    /// @brief build mouse dragdrop
+    void buildMouseDragDrop(const InternalTest::ViewPosition& viewStartPosition,
+                            const int offsetStartX, const int offsetStartY,
+                            const InternalTest::ViewPosition& viewEndPosition,
+                            const int offsetEndX, const int offsetEndY,
+                            const std::string& keyModifier) const;
 
     /// @brief build mouse move event
     FXEvent* buildMouseMoveEvent(const InternalTest::ViewPosition& viewPosition,
-                                 const int offsetX, const int offsetY) const;
+                                 const int offsetX, const int offsetY, const int clickedButton,
+                                 const std::string& keyModifier, const int numberOfClicks) const;
 
     /// @brief build mouse left click press event
-    FXEvent* buildMouseEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
-                             const int offsetX, const int offsetY, const std::string& keyModifier) const;
+    FXEvent* buildMouseClickEvent(FXSelType type, const InternalTest::ViewPosition& viewPosition,
+                                  const int offsetX, const int offsetY, const std::string& keyModifier,
+                                  const int numberOfClicks) const;
 
     /// @brief write click info
     void writeClickInfo(const InternalTest::ViewPosition& viewPosition,

@@ -2,6 +2,24 @@
 #define SWIG_MODULE libsumo
 %include "libsumo_typemap.i"
 
+#if defined(SWIGJAVA)
+%typemap(javaimports) libsumo::Simulation "import java.lang.Runtime.Version;"
+%extend libsumo::Simulation {
+%proxycode %{
+    public static void preloadLibraries() {
+        if (Version.parse(System.getProperty("java.version")).compareTo(Version.parse("21.0.5")) < 0) {
+            System.err.println("The recommended minimal Java version is 21.0.5.");
+        }
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            System.loadLibrary("libcrypto-3-x64");
+            System.loadLibrary("libssl-3-x64");
+        }
+        System.loadLibrary("libsumojni");
+    }
+%}
+}
+#endif
+
 // Add necessary symbols to generated header
 %{
 #include <libsumo/Edge.h>

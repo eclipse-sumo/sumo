@@ -34,20 +34,14 @@ netedit.changeMode("type")
 # create vType
 netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
-# open dialog
-netedit.openVTypeDialog()
+# modify attribute
+netedit.modifyVTypeDialogAttribute("open", netedit.attrs.type.editDialog.emissionClass, "dummy")
 
 # modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.emissionClass, "dummy")
+netedit.modifyVTypeDialogAttribute("", netedit.attrs.type.editDialog.emissionClass, "")
 
 # modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.emissionClass, "")
-
-# modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.emissionClass, "HBEFA2/P_7_5")
-
-# close dialog
-netedit.typeTwoKeys("alt", "a")
+netedit.modifyVTypeDialogAttribute("close", netedit.attrs.type.editDialog.emissionClass, "HBEFA2/P_7_5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

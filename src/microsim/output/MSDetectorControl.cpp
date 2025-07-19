@@ -184,6 +184,24 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
     det->writeXMLDetectorProlog(*device);
 }
 
+const std::map<std::string, MSMoveReminder*>&
+MSDetectorControl::getAllReminders() {
+    if (myReminders.empty()) {
+        for (auto item : myMeanData) {
+            for (MSMeanData* md : item.second) {
+                for (MSMoveReminder* rem : md->getReminders()) {
+                    myReminders[rem->getDescription()] = rem;
+                }
+            }
+        }
+        if (myReminders.empty()) {
+            // ensure non-empty map
+            myReminders[""] = nullptr;
+        }
+    }
+    return myReminders;
+}
+
 void
 MSDetectorControl::clearState(SUMOTime step) {
     for (const auto& i : myDetectors) {
@@ -191,6 +209,7 @@ MSDetectorControl::clearState(SUMOTime step) {
             j.second->clearState(step);
         }
     }
+    myReminders.clear();
 }
 
 /****************************************************************************/

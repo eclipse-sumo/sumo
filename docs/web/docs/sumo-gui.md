@@ -776,6 +776,9 @@ The following attributes are supported
 !!! note
     When loading an image file with an embedded geo-reference (i.e. [GeoTIFF](https://en.wikipedia.org/wiki/GeoTIFF)) and the simulation network also has a geo-reference, then the image will be positioned automatically.
 
+!!! caution
+    When loading an image with an assocciated [world file](https://en.wikipedia.org/wiki/World_file), that file must be encoded in WGS84 (lon,lat).
+    
 !!! note
     Background images for a network can be downloaded with the [tileGet tool](Tools/Misc.md#tilegetpy) or by using the [osmWebWizard](Tools/Import/OSM.md#osmwebwizardpy).
 

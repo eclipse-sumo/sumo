@@ -34,23 +34,17 @@ netedit.changeMode("type")
 # create vType
 netedit.modifyBoolAttribute(netedit.attrs.type.buttons.create)
 
-# open dialog
-netedit.openVTypeDialog()
+# modify attribute
+netedit.modifyVTypeDialogAttribute("open", netedit.attrs.type.editDialog.vClass, "emergency")
 
 # modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.vClass, "emergency")
+netedit.modifyVTypeDialogAttribute("", netedit.attrs.type.editDialog.guiShape, "dummy")
 
 # modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.guiShape, "dummy")
+netedit.modifyVTypeDialogAttribute("", netedit.attrs.type.editDialog.guiShape, "")
 
 # modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.guiShape, "")
-
-# modify attribute
-netedit.modifyVTypeDialogAttribute(netedit.attrs.type.editDialog.guiShape, "passenger/wagon")
-
-# close dialog
-netedit.typeTwoKeys("alt", "a")
+netedit.modifyVTypeDialogAttribute("close", netedit.attrs.type.editDialog.guiShape, "passenger/wagon")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

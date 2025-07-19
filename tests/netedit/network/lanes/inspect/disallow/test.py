@@ -48,7 +48,6 @@ netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "")
 
 # Change parameter 2 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow,
-                        "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
                         "rail_electric motorcycle moped pedestrian custom1")
 
 # Check undos

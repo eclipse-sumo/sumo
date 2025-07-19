@@ -141,6 +141,12 @@ GNEAllowVClassesDialog::openDialog(SumoXMLAttr attr, const std::string originalV
 }
 
 
+void
+GNEAllowVClassesDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
+    // finish
+}
+
+
 std::string
 GNEAllowVClassesDialog::getModifiedVClasses() const {
     return myEditedVClasses;

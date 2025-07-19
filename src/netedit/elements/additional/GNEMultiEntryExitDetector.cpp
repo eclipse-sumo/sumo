@@ -55,6 +55,10 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNEN
     myExpectedArrival(expectedArrival) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
+    // set default output filename
+    if (outputFilename.empty()) {
+        myOutputFilename = id + ".xml";
+    }
 }
 
 

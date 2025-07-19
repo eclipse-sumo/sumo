@@ -116,3 +116,10 @@ fcd.csv    |15s|194MB | 2s
 fcd.parquet|13s| 74MB | 0.2s
 fcd.xml.gz |19s| 56MB | 7s | 9s
 fcd.csv.gz |17s| 47MB | 3s
+
+# Limitations
+
+Columns are currently determined by the first fully closed (innermost) element. This means the following structures are not supported:
+  
+- elements with optional attributes (i.e. edgeData defaults)
+- different elements on the same level (i.e. elements `<walk>` and `<ride>` of a persons plan)

@@ -674,7 +674,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
     const auto editedDemandElement = myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement;
     // check if get the value of the modal arguments
     if (editedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest()) {
-        myTextField->setText(InternalTestStep::ModalArguments::colorValue.c_str(), TRUE);
+        myTextField->setText(InternalTestStep::DialogTest::colorValue.c_str(), TRUE);
     } else {
         // create FXColorDialog
         FXColorDialog colordialog(this, TL("Color Dialog"));

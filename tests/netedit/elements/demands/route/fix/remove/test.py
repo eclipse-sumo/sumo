@@ -28,11 +28,8 @@ neteditProcess, referencePosition = netedit.setupAndStart()
 # show demand elements in network mode
 netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 
-# save Netedit config
-netedit.saveExistentShortcut("neteditConfig")
-
-# press space to press ok button
-netedit.typeKey("space")
+# fix
+netedit.fixRoute("removeRouteInvalids")
 
 # quit netedit
 netedit.quit(neteditProcess)

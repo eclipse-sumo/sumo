@@ -106,6 +106,12 @@ GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
 GNERunNetgenerateDialog::~GNERunNetgenerateDialog() {}
 
 
+void
+GNERunNetgenerateDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
+    // finish
+}
+
+
 GNEApplicationWindow*
 GNERunNetgenerateDialog::getGNEApp() const {
     return myGNEApp;

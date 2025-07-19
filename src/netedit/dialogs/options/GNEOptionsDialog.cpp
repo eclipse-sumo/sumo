@@ -88,6 +88,12 @@ GNEOptionsDialog::Run(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& o
 GNEOptionsDialog::~GNEOptionsDialog() { }
 
 
+void
+GNEOptionsDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
+    // finish
+}
+
+
 long
 GNEOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // reset entries

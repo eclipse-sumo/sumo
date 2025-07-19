@@ -2785,7 +2785,7 @@ NBNodeCont::discardRailSignals() {
 
 
 int
-NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBTrafficLightLogicCont& tlc) {
+NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, bool keptIDs, const std::string& prefix, NBTrafficLightLogicCont& tlc) {
     bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.node-start");
     if (!numericaIDs && !reservedIDs && prefix == "" && !startGiven) {
         return 0;
@@ -2820,6 +2820,18 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
             toChange.insert(it->second);
         }
     }
+    std::set<std::string> keep;
+    if (keptIDs) {
+        NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("kept-ids"), "node:", keep); // backward compatibility
+        NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("kept-ids"), "junction:", keep); // selection format
+        for (auto it = toChange.begin(); it != toChange.end();) {
+            if (keep.count((*it)->getID()) != 0) {
+                it = toChange.erase(it++);
+            } else {
+                it++;
+            }
+        }
+    }
     const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     for (NBNode* node : toChange) {
         myNodes.erase(node->getID());
@@ -2841,7 +2853,7 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
         // make a copy because we will modify the map
         auto oldNodes = myNodes;
         for (auto item : oldNodes) {
-            if (!StringUtils::startsWith(item.first, prefix)) {
+            if (!StringUtils::startsWith(item.first, prefix) && keep.count(item.first) == 0) {
                 rename(item.second, prefix + item.first);
                 for (NBTrafficLightDefinition* tlDef : item.second->getControllingTLS()) {
                     if (!StringUtils::startsWith(tlDef->getID(), prefix)) {

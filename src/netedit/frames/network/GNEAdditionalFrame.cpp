@@ -361,7 +361,7 @@ GNEAdditionalFrame::tagSelected() {
             myE2MultilaneLegendModule->hideE2MultilaneLegend();
         }
         // reset last position
-        myLastClickedPosition = myViewNet->getPositionInformation();
+        myLastClickedPosition = Position::INVALID;
     } else {
         // hide all modules if additional isn't valid
         myAdditionalAttributesEditor->hideAttributesEditor();

@@ -57,3 +57,4 @@ load_invalid_index
 
 # load network with invalid opposites and guess opposites anew
 load_invalid_guess
+fix_inconsistent

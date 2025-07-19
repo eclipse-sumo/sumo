@@ -46,14 +46,14 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.translation import addLanguageOption, setLanguage, TL  # noqa
 
-_UPLOAD = False if "noupload" in sys.argv else True
+_UPLOAD = "noupload" not in sys.argv
 _SCOREFILE = "scores.pkl"
 REFSCOREFILE = "refscores.pkl"
 if _UPLOAD:
     _TIMEOUT = 5
     _SCORESERVER = "sumo.dlr.de"
     _SCORESCRIPT = "/scores.php?game=TLS&"
-_DEBUG = True if "debug" in sys.argv else False
+_DEBUG = "debug" in sys.argv
 _SCORES = 30
 BASE = os.path.dirname(sys.argv[0])
 _LANGUAGE_CAPTIONS = {}
@@ -125,8 +125,8 @@ if _UPLOAD:
 def computeScoreFromWaitingTime(gamename, maxScore=10000):
     totalArrived = 0
     totalWaitingTime = 0
-    complete = True
-    for s in sumolib.xml.parse(os.path.join(BASE, "output", gamename + ".stats.xml"), ("performance", "vehicleTripStatistics")):
+    for s in sumolib.xml.parse(os.path.join(BASE, "output", gamename + ".stats.xml"),
+                               ("performance", "vehicleTripStatistics")):
         if s.name == "performance":
             if float(s.end) != parseEndTime(os.path.join(BASE, gamename + ".sumocfg")):
                 return 0, 0, False
@@ -134,7 +134,7 @@ def computeScoreFromWaitingTime(gamename, maxScore=10000):
             totalWaitingTime = float(s.waitingTime) * float(s.count)
             totalArrived = float(s.count)
     score = maxScore - totalWaitingTime
-    return score, totalArrived, complete
+    return score, totalArrived, True
 
 
 def computeScoreFromTimeLoss(gamename, maxScore=10000):

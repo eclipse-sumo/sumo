@@ -78,3 +78,6 @@ ticket15925
 # crash when re-using flow ids
 # 
 ticket16091
+
+# invalid warning
+ticket16899

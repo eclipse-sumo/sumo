@@ -46,8 +46,8 @@ public:
     /// @brief open fix demand elements dialog
     FXuint openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements);
 
-    /// @brief test fix elements dialog
-    void testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest);
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogTest* dialogTest);
 
     /// @name FOX-callbacks
     /// @{
@@ -133,7 +133,7 @@ protected:
         FXRadioButton* saveInvalidRoutes;
 
         /// @brief Option "Select invalid routes and cancel"
-        FXRadioButton* selectInvalidRoutesAndCancel;
+        FXRadioButton* selectRouteInvalids;
 
         /// @brief Option "Remove stops out of route"
         FXCheckButton* removeStopsOutOfRoute;

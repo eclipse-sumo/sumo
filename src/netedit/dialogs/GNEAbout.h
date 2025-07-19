@@ -30,13 +30,14 @@
 class GNEAbout : public MFXDialogBox {
 
 public:
-    /**@brief Constructor
-     * @param[in] parent The parent window
-     */
+    /// @brief Constructor
     GNEAbout(FXWindow* parent);
 
     /// @brief Destructor
     ~GNEAbout();
+
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogTest* dialogTest);
 
     /// @brief Creates the widget
     void create();

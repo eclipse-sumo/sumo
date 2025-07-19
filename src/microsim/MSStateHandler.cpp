@@ -43,6 +43,7 @@
 #include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
@@ -128,7 +129,10 @@ MSStateHandler::~MSStateHandler() {
 void
 MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix) {
     OutputDevice& out = OutputDevice::getDevice(file, usePrefix);
-    out.setPrecision(OptionsCont::getOptions().getInt("save-state.precision"));
+    const int statePrecision = OptionsCont::getOptions().getInt("save-state.precision");
+    out.setPrecision(statePrecision);
+    const int defaultPrecision = gPrecision;
+    gPrecision = statePrecision;
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = VERSION_STRING;
     attrs[SUMO_ATTR_TIME] = time2string(step);
@@ -176,6 +180,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix
     MSNet::getInstance()->getTLSControl().saveState(out);
     MSRoutingEngine::saveState(out);
     out.close();
+    gPrecision = defaultPrecision;
 }
 
 
@@ -247,9 +252,17 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_ROUTINGENGINE: {
             bool ok = true;
             const SUMOTime lastAdaptation = attrs.get<SUMOTime>(SUMO_ATTR_LAST, nullptr, ok);
-            MSRoutingEngine::initEdgeWeights(SVC_PASSENGER, lastAdaptation);
+            const int index = attrs.get<int>(SUMO_ATTR_INDEX, nullptr, ok);
+            MSRoutingEngine::initEdgeWeights(SVC_PASSENGER, lastAdaptation, index);
             if (OptionsCont::getOptions().getBool("device.rerouting.bike-speeds")) {
                 MSRoutingEngine::initEdgeWeights(SVC_BICYCLE);
+            }
+            if (MSGlobals::gUseMesoSim) {
+                for (const MSEdge* e : MSEdge::getAllEdges()) {
+                    for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*e); segment != nullptr; segment = segment->getNextSegment()) {
+                        segment->resetCachedSpeeds();
+                    }
+                }
             }
             break;
         }
@@ -286,6 +299,10 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         case SUMO_TAG_DEVICE: {
             myDeviceAttrs.push_back(attrs.clone());
+            break;
+        }
+        case SUMO_TAG_REMINDER: {
+            myReminderAttrs.push_back(attrs.clone());
             break;
         }
         case SUMO_TAG_VEHICLETRANSFER: {
@@ -553,6 +570,19 @@ MSStateHandler::closeVehicle() {
             }
             delete myDeviceAttrs.back();
             myDeviceAttrs.pop_back();
+        }
+        bool ok = true;
+        while (!myReminderAttrs.empty()) {
+            const std::string attrID = myReminderAttrs.back()->getString(SUMO_ATTR_ID);
+            const SUMOTime time = myReminderAttrs.back()->get<SUMOTime>(SUMO_ATTR_TIME, nullptr, ok, false);
+            const double pos = myReminderAttrs.back()->get<double>(SUMO_ATTR_POSITION, nullptr, ok, false);
+            const auto& remDict = MSNet::getInstance()->getDetectorControl().getAllReminders();
+            auto it = remDict.find(attrID);
+            if (it != remDict.end()) {
+                it->second->loadReminderState(v->getNumericalID(), time, pos);
+            }
+            delete myReminderAttrs.back();
+            myReminderAttrs.pop_back();
         }
     } else {
         delete myVehicleParameter;

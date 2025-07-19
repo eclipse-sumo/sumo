@@ -130,7 +130,7 @@ GNEViewNetHelper::LockManager::updateFlags() {
     // get lock menu commands
     GNEApplicationWindowHelper::LockMenuCommands& lockMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands();
     // network
-    myLockedElements[GLO_JUNCTION].lock = lockMenuCommands.menuCheckLockJunction->getCheck() == TRUE;
+    myLockedElements[GLO_JUNCTION].lock = lockMenuCommands.menuCheckLockJunctions->getCheck() == TRUE;
     myLockedElements[GLO_EDGE].lock = lockMenuCommands.menuCheckLockEdges->getCheck() == TRUE;
     myLockedElements[GLO_LANE].lock = lockMenuCommands.menuCheckLockLanes->getCheck() == TRUE;
     myLockedElements[GLO_CONNECTION].lock = lockMenuCommands.menuCheckLockConnections->getCheck() == TRUE;
@@ -147,8 +147,8 @@ GNEViewNetHelper::LockManager::updateFlags() {
     myLockedElements[GLO_ROUTE].lock = lockMenuCommands.menuCheckLockRoutes->getCheck() == TRUE;
     myLockedElements[GLO_VEHICLE].lock = lockMenuCommands.menuCheckLockVehicles->getCheck() == TRUE;
     myLockedElements[GLO_PERSON].lock = lockMenuCommands.menuCheckLockPersons->getCheck() == TRUE;
-    myLockedElements[GLO_PERSONTRIP].lock = lockMenuCommands.menuCheckLockPersonTrip->getCheck() == TRUE;
-    myLockedElements[GLO_WALK].lock = lockMenuCommands.menuCheckLockWalk->getCheck() == TRUE;
+    myLockedElements[GLO_PERSONTRIP].lock = lockMenuCommands.menuCheckLockPersonTrips->getCheck() == TRUE;
+    myLockedElements[GLO_WALK].lock = lockMenuCommands.menuCheckLockWalks->getCheck() == TRUE;
     myLockedElements[GLO_RIDE].lock = lockMenuCommands.menuCheckLockRides->getCheck() == TRUE;
     myLockedElements[GLO_CONTAINER].lock = lockMenuCommands.menuCheckLockContainers->getCheck() == TRUE;
     myLockedElements[GLO_TRANSPORT].lock = lockMenuCommands.menuCheckLockTransports->getCheck() == TRUE;
@@ -166,7 +166,7 @@ GNEViewNetHelper::LockManager::updateLockMenuBar() {
     // get lock menu commands
     GNEApplicationWindowHelper::LockMenuCommands& lockMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands();
     // network
-    lockMenuCommands.menuCheckLockJunction->setCheck(myLockedElements[GLO_JUNCTION].lock);
+    lockMenuCommands.menuCheckLockJunctions->setCheck(myLockedElements[GLO_JUNCTION].lock);
     lockMenuCommands.menuCheckLockEdges->setCheck(myLockedElements[GLO_EDGE].lock);
     lockMenuCommands.menuCheckLockLanes->setCheck(myLockedElements[GLO_LANE].lock);
     lockMenuCommands.menuCheckLockConnections->setCheck(myLockedElements[GLO_CONNECTION].lock);
@@ -183,8 +183,8 @@ GNEViewNetHelper::LockManager::updateLockMenuBar() {
     lockMenuCommands.menuCheckLockRoutes->setCheck(myLockedElements[GLO_ROUTE].lock);
     lockMenuCommands.menuCheckLockVehicles->setCheck(myLockedElements[GLO_VEHICLE].lock);
     lockMenuCommands.menuCheckLockPersons->setCheck(myLockedElements[GLO_PERSON].lock);
-    lockMenuCommands.menuCheckLockPersonTrip->setCheck(myLockedElements[GLO_PERSONTRIP].lock);
-    lockMenuCommands.menuCheckLockWalk->setCheck(myLockedElements[GLO_WALK].lock);
+    lockMenuCommands.menuCheckLockPersonTrips->setCheck(myLockedElements[GLO_PERSONTRIP].lock);
+    lockMenuCommands.menuCheckLockWalks->setCheck(myLockedElements[GLO_WALK].lock);
     lockMenuCommands.menuCheckLockRides->setCheck(myLockedElements[GLO_RIDE].lock);
     lockMenuCommands.menuCheckLockContainers->setCheck(myLockedElements[GLO_CONTAINER].lock);
     lockMenuCommands.menuCheckLockTransports->setCheck(myLockedElements[GLO_TRANSPORT].lock);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-25 10:37:54.023016 by randomTrips.py v1_22_0+0986-56ff9733733
+<!-- generated on 2025-07-14 12:39:39.112952 by randomTrips.py v1_23_1+1052-42c38246850
 <configuration>
     <net-file value="net2.net.xml"/>
     <additional-files value="input_additional.add.xml"/>
@@ -11,7 +11,7 @@
 </configuration>
 -->
 
-<!-- generated on 2025-03-25 10:37:54 by Eclipse SUMO duarouter Version v1_22_0+0980-9c5f52822c7
+<!-- generated on 2025-07-14 12:39:39 by Eclipse SUMO duarouter Version v1_23_1+1052-42c38246850
 <duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
@@ -69,6 +69,6 @@
         <route edges="beg2left left left2end end"/>
     </vehicle>
     <vehicle id="9" type="truck" depart="9.00">
-        <route edges="beg2left left left2end end"/>
+        <route edges="beg beg2left left left2end end"/>
     </vehicle>
 </routes>

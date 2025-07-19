@@ -1,2 +1,2 @@
-Error: Opposite lane 'VODUGES_beg_0' does not connect the same nodes as edge 'VODUGES_beg'!
+Error: Opposite lane 'VODUGES_beg_0' does not reverse-connect the same nodes as edge 'VODUGES_beg'!
 Quitting (on error).

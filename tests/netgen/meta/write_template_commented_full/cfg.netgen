@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-03 09:53:11 by Eclipse SUMO netgenerate Version v1_23_1+0813-5f3c910f36e
+<!-- generated on 2025-07-16 12:01:43 by Eclipse SUMO netgenerate Version v1_23_1+1107-78f51b0269e
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -174,8 +174,14 @@
         <!-- Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins -->
         <junctions.join-output value="" type="FILE"/>
 
-        <!-- Defines a prefix for edge and junction names -->
+        <!-- Defines a prefix for edge and junction IDs -->
         <prefix value="" type="STR"/>
+
+        <!-- Defines a prefix for unction IDs -->
+        <prefix.junction value="" type="STR"/>
+
+        <!-- Defines a prefix for edge IDs -->
+        <prefix.edge value="" type="STR"/>
 
         <!-- The generated net will be written to FILE using Amitran format -->
         <amitran-output value="" type="FILE"/>
@@ -248,6 +254,9 @@
 
         <!-- Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) -->
         <reserved-ids value="" type="FILE"/>
+
+        <!-- Ensures that objects with typed IDs from FILE (sumo-gui selection file format) are not renamed -->
+        <kept-ids value="" type="FILE"/>
 
         <!-- Splits edges across geometry nodes -->
         <geometry.split value="false" synonymes="split-geometry" type="BOOL"/>

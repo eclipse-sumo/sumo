@@ -571,6 +571,12 @@ public:
         return myScale;
     }
 
+    /// @brief lock access to vehicle removal/additions for thread synchronization
+    virtual void secureVehicles() {}
+
+    /// @brief unlock access to vehicle removal/additions for thread synchronization
+    virtual void releaseVehicles() {}
+
 private:
     /// @brief create default types
     void initDefaultTypes();

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-20 08:20+0000\n"
-"PO-Revision-Date: 2025-07-02 12:02+0000\n"
+"PO-Revision-Date: 2025-07-12 14:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11470,20 +11470,20 @@ msgstr "aggiuni relazione di origine-destinazione"
 
 #: src/netedit/elements/data/GNEDataInterval.cpp:222
 msgid "GenericData was already inserted"
-msgstr ""
+msgstr "GenericData è già stato inserito"
 
 #: src/netedit/elements/data/GNEDataInterval.cpp:248
 msgid "GenericData wasn't previously inserted"
-msgstr ""
+msgstr "GenericData non è stato inserito previamente"
 
 #: src/netedit/elements/data/GNEDataSet.cpp:260
 msgid "DataInterval was already inserted"
-msgstr ""
+msgstr "DataInterval è già stato inserito"
 
 #: src/netedit/elements/data/GNEDataSet.cpp:277
 #: src/netedit/elements/data/GNEDataSet.cpp:301
 msgid "DataInterval wasn't previously inserted"
-msgstr ""
+msgstr "DataInterval non è stato inserito previamente"
 
 #: src/netedit/elements/data/GNEGenericData.cpp:201
 msgid "Open % Dialog"
@@ -11496,11 +11496,11 @@ msgstr "Indice invalido"
 
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:87
 msgid "add meanDataEdge"
-msgstr ""
+msgstr "aggiungi arco MeanData"
 
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:136
 msgid "add meanDataLane"
-msgstr ""
+msgstr "aggiungi corsia MeanData"
 
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:157
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:175
@@ -13639,19 +13639,19 @@ msgstr "C'è già un % nell'arco '%'"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:74
 msgid "Create new dataSet"
-msgstr ""
+msgstr "Crea un nuovo insieme di dati"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:86
 msgid "Create dataSet"
-msgstr ""
+msgstr "Crea insieme di dati"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:148
 msgid "Invalid dataSet ID"
-msgstr ""
+msgstr "Codice identificativo dell'insieme di dati invalido"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:150
 msgid "Invalid empty dataSet ID"
-msgstr ""
+msgstr "Codice identificativo di insiemi di dati vuoto invalido"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:152
 msgid "Invalid duplicated dataSet ID"
@@ -14656,7 +14656,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:480
 msgid "Membership"
-msgstr ""
+msgstr "Affiliazione"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:481
 msgid "Toggle"
@@ -14731,7 +14731,7 @@ msgstr "Conferma appartenenza:"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:657
 msgid "  Select Sources/Sinks."
-msgstr ""
+msgstr "  Seleziona sorgenti/scarichi."
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:658
 msgid "Press ESC to clear the current selection."
@@ -14833,7 +14833,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETAZFrame.cpp:1493
 #, c-format
 msgid "Created % sources and sinks"
-msgstr ""
+msgstr "% sorgenti e scarichi sono stati creati"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:120
 msgid "Edit Traffic Light"
@@ -15188,7 +15188,7 @@ msgstr "Parte sperimentale"
 
 #: src/netedit/frames/network/GNEWireFrame.cpp:68
 msgid "Warning: The netedit overhead editor is still in experimental state."
-msgstr ""
+msgstr "Avviso: l'editore di catenarie è ancora in uno stato sperimentale."
 
 #: src/netedit/frames/network/GNEWireFrame.cpp:78
 msgid "Current selected wire isn't valid."
@@ -15361,7 +15361,7 @@ msgstr ""
 #: src/utils/gui/div/GUISelectedStorage.cpp:230
 #, c-format
 msgid "Item '%' not found\n"
-msgstr ""
+msgstr "L'elemento '%' non è stato trovato\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:237
 #, c-format
@@ -16888,7 +16888,7 @@ msgstr "Veduta 3D"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2456
 msgid "Ignore color scheme for vehicles"
-msgstr ""
+msgstr "Ignora lo schema di colori dei veicoli"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2458
 msgid "Show TLS link markers"
@@ -16930,7 +16930,7 @@ msgstr "Modifica veduta"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:123
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
-msgstr ""
+msgstr "Apre un menù per modificare la veduta. (Ctrl+I)"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:127
 msgid "Toggle Zooming Style"
@@ -16960,11 +16960,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:160
 msgid "Edit Coloring Schemes"
-msgstr ""
+msgstr "Modifica schemi di colori"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:160
 msgid "Opens a menu which lets you edit the coloring schemes. (F9)"
-msgstr ""
+msgstr "Apre un menù per modificare i schemi di colori. (F9)"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:171
 msgid "Make Snapshot"
@@ -17060,7 +17060,7 @@ msgstr "ungherese"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:407
 msgid "japanese"
-msgstr ""
+msgstr "giapponese"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:411
 msgid "english"
@@ -17083,6 +17083,8 @@ msgstr ""
 msgid ""
 "For the Debug build you might also need to set the LANG environment variable."
 msgstr ""
+"Magari hai bisogno di impostare la variabile d'ambiente LANG per "
+"l'eseguibile Debug."
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:428
 msgid "Under development. You can help to improve the translation at:"

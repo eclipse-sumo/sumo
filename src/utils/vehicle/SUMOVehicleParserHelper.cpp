@@ -1772,7 +1772,7 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
             WRITE_WARNING(defaultError + "Ignoring given value (=" + toString(STEPS2TIME(result)) + " s.)");
         }
         result = DELTA_T;
-    } else if (result % DELTA_T != 0) {
+    } else if (result % DELTA_T != 0 && OptionsCont::getOptions().exists("step-length")) {
         result = (SUMOTime)((double)DELTA_T * floor(double(result) / double(DELTA_T)));
         result = MAX2(DELTA_T, result);
         if (fabs(given * 1000. - double(result)) > NUMERICAL_EPS) {

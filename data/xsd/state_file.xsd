@@ -94,6 +94,7 @@
             <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="device" type="deviceType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="rem" type="remType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="route" type="xsd:string"/>
@@ -139,6 +140,12 @@
         <!-- device specific attributes -->
         <xsd:attribute name="exitTimes" type="xsd:string" use="optional"/>
         <xsd:attribute name="edge" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="remType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="time" type="timeType" use="required"/>
+        <xsd:attribute name="pos" type="xsd:float" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="transportablesStateType">
@@ -253,6 +260,7 @@
             <xsd:element name="edge" type="routingEngineEdgeType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="last" type="xsd:int" use="required"/>
+        <xsd:attribute name="index" type="xsd:int" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="routingEngineEdgeType">

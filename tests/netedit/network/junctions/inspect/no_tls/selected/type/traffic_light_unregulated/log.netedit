@@ -3,4 +3,4 @@ Warning: Intersecting left turns at junction 'JunctionCenter' from lane '-E6_1' 
 Warning: Intersecting left turns at junction 'JunctionCenter' from lane '-E7_1' and lane '-E6_1' (increase junction radius to avoid this).
 Warning: Intersecting left turns at junction 'JunctionCenter' from lane '-E7_1' and lane '-E4_1' (increase junction radius to avoid this).
 Warning: Intersecting left turns at junction 'JunctionLeft' from lane 'E4_1' and lane '-E0_0' (increase junction radius to avoid this).
-Warning: 18 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).
+Warning: 12 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).

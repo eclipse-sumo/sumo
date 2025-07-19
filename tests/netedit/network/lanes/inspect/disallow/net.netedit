@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-29 15:43:52 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
+<!-- generated on 2025-07-15 15:23:17 by Eclipse SUMO netedit Version v1_23_1+1089-9f820db986c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,19 +14,21 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul154036.3286/netedit.gui/network/lanes/inspect/disallow/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul154036.3286/netedit.gui/network/lanes/inspect/disallow/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul154036.3286/netedit.gui/network/lanes/inspect/disallow/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul154036.3286/netedit.gui/network/lanes/inspect/disallow/net.net.xml"/>
+        <additional-files value="additionals.add.xml"/>
+        <route-files value="routes.rou.xml"/>
+        <data-files value="datas.dat.xml"/>
+        <meandata-files value="datas.med.add.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul154036.3286/netedit.gui/network/lanes/inspect/disallow/net.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="0"/>
@@ -45,19 +47,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <ignore.additionalelements value="0"/>
+        <ignore.routeelements value="0"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul154036.3286/netedit.gui/network/lanes/inspect/disallow/gui-settings.xml"/>
+        <gui-settings-file value="gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul154036.3286/netedit.gui/network/lanes/inspect/disallow/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.29Jul154036.3286/netedit.gui/network/lanes/inspect/disallow/log.txt"/>
+        <error-log value="log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -93,7 +98,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-E2_0" index="0" speed="13.89" length="60.00" shape="30.00,-18.40 -30.00,-18.40"/>
     </edge>
     <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom2" speed="13.89" length="60.00" shape="-30.00,-1.60 30.00,-1.60"/>
+        <lane id="E0_0" index="0" disallow="pedestrian motorcycle moped rail_electric custom1" speed="13.89" length="60.00" shape="-30.00,-1.60 30.00,-1.60"/>
     </edge>
     <edge id="E1" from="J2" to="J3" priority="-1">
         <lane id="E1_0" index="0" speed="13.89" length="60.00" shape="-30.00,18.40 30.00,18.40"/>

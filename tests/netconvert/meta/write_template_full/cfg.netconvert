@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-03 09:53:11 by Eclipse SUMO netconvert Version v1_23_1+0813-5f3c910f36e
+<!-- generated on 2025-07-16 12:01:37 by Eclipse SUMO netconvert Version v1_23_1+1107-78f51b0269e
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -51,7 +51,9 @@
         <plain-output-prefix value="" synonymes="p plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
         <plain-output.lanes value="false" type="BOOL" help="Write all lanes and their attributes even when they are not customized"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
-        <prefix value="" type="STR" help="Defines a prefix for edge and junction names"/>
+        <prefix value="" type="STR" help="Defines a prefix for edge and junction IDs"/>
+        <prefix.junction value="" type="STR" help="Defines a prefix for unction IDs"/>
+        <prefix.edge value="" type="STR" help="Defines a prefix for edge IDs"/>
         <amitran-output value="" type="FILE" help="The generated net will be written to FILE using Amitran format"/>
         <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATSim format"/>
         <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using OpenDRIVE format"/>
@@ -93,6 +95,7 @@
         <numerical-ids.node-start value="2147483647" type="INT" help="Remaps IDs of nodes to integers starting at INT"/>
         <numerical-ids.edge-start value="2147483647" type="INT" help="Remaps IDs of edges to integers starting at INT"/>
         <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format)"/>
+        <kept-ids value="" type="FILE" help="Ensures that objects with typed IDs from FILE (sumo-gui selection file format) are not renamed"/>
         <dismiss-vclasses value="false" type="BOOL" help="Removes vehicle class restrictions from imported edges"/>
         <geometry.split value="false" synonymes="split-geometry" type="BOOL" help="Splits edges across geometry nodes"/>
         <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL" help="Replace nodes which only define edge geometry by geometry points (joins edges)"/>

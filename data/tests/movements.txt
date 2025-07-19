@@ -1,0 +1,5 @@
+netedit.movements.movementEdgeBot 0 180 0 0
+netedit.movements.movementEdgeTop -180 0 0 0
+netedit.movements.radius 70 -70 -70 70
+netedit.movements.radiusB 100 -100 -100 100
+netedit.movements.radiusC 200 0 0 190

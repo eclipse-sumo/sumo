@@ -38,6 +38,7 @@ copy_test_path:input_plain2.typ.xml
 copy_test_path:input_shapes.add.xml
 copy_test_path:heightmap.tif
 copy_test_path:edge_ids.txt
+copy_test_path:input_ids.txt
 copy_test_path:data
 copy_test_path:input_ptstops.xml
 copy_test_path:input_ptlines.xml

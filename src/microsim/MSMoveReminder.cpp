@@ -108,6 +108,24 @@ MSMoveReminder::updateDetector(SUMOTrafficObject& veh, double entryPos, double l
     }
 }
 
+void
+MSMoveReminder::saveReminderState(OutputDevice& out, const SUMOTrafficObject& veh) {
+    auto j = myLastVehicleUpdateValues.find(veh.getNumericalID());
+    if (j != myLastVehicleUpdateValues.end()) {
+        out.openTag(SUMO_TAG_REMINDER);
+        out.writeAttr(SUMO_ATTR_ID, getDescription());
+        out.writeAttr(SUMO_ATTR_TIME, (*j).second.first);
+        out.writeAttr(SUMO_ATTR_POSITION, (*j).second.second);
+        out.closeTag();
+    }
+}
+
+
+void
+MSMoveReminder::loadReminderState(long long int numID, SUMOTime time, double pos) {
+    myLastVehicleUpdateValues[numID] = std::make_pair(time, pos);
+}
+
 
 void
 MSMoveReminder::removeFromVehicleUpdateValues(SUMOTrafficObject& veh) {

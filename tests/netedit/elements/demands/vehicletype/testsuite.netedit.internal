@@ -4,6 +4,7 @@ edit_default
 
 edit
 
-edit_dialog
+# edit dialog disabled until #16898
+#edit_dialog
 
 load

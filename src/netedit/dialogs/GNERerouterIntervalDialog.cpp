@@ -628,16 +628,17 @@ GNERerouterIntervalDialog::onCmdEditParkingAreaReroute(FXObject*, FXSelector, vo
 
 long
 GNERerouterIntervalDialog::onCmdChangeBeginEnd(FXObject*, FXSelector, void*) {
-    if (myEditedAdditional->isValid(SUMO_ATTR_BEGIN, myBeginTextField->getText().text()) &&
-            myEditedAdditional->isValid(SUMO_ATTR_END, myEndTextField->getText().text())) {
+    const auto begin = GNEAttributeCarrier::canParse<SUMOTime>(myBeginTextField->getText().text()) ? GNEAttributeCarrier::parse<SUMOTime>(myBeginTextField->getText().text()) : -1;
+    const auto end = GNEAttributeCarrier::canParse<SUMOTime>(myEndTextField->getText().text()) ? GNEAttributeCarrier::parse<SUMOTime>(myEndTextField->getText().text()) : -1;
+    // check that both begin and end are positive, and begin <= end
+    myBeginEndValid = (begin >= 0) && (end >= 0) && (begin <= end);
+    if (myBeginEndValid) {
         // set new values in rerouter interval
         myEditedAdditional->setAttribute(SUMO_ATTR_BEGIN, myBeginTextField->getText().text(), myEditedAdditional->getNet()->getViewNet()->getUndoList());
         myEditedAdditional->setAttribute(SUMO_ATTR_END, myEndTextField->getText().text(), myEditedAdditional->getNet()->getViewNet()->getUndoList());
         // change icon
-        myBeginEndValid = true;
         myCheckLabel->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
     } else {
-        myBeginEndValid = false;
         myCheckLabel->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
     }
     return 0;

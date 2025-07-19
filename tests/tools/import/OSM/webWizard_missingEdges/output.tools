@@ -1,11 +1,11 @@
 Success.
 Written configuration to 'osm.polycfg'
-Parsing network projection from 'osm.net.xml.gz' ... done (8ms).
-Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (5ms).
-Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (3ms).
-Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (6ms).
+Parsing network projection from 'osm.net.xml.gz' ... done (10ms).
+Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (3ms).
+Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (3ms).
+Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (4ms).
 Success.
-Building scenario in '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/test'.
+Building scenario in '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test'.
 generating trips...
 Cannot extend route to fringe for line '9445421' (not enough edges given)
 Cannot extend route to fringe for line '9445422' (not enough edges given)
@@ -14,33 +14,26 @@ Imported 2 lines with 4 stops and skipped 0 lines
 done.
 running SUMO to determine actual departure times...
 done.
-Success.
 creating routes...
 done.
-Success.
-Success.
-Success.
-Success.
-Success.
-Success.
 Written configuration to 'osm.sumocfg'
-Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz' ... done (6ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/test/osm.poly.xml.gz' ... done (5ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml' ... done (5ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/test/output.add.xml' ... done (5ms).
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/test/osm_pt.rou.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/test/osm.bicycle.trips.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/test/osm.pedestrian.rou.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.25Mar174557.1755830/tools/import/OSM/webWizard_missingEdges/test/osm.ship.trips.xml'
+Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz' ... done (13ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm.poly.xml.gz' ... done (12ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml' ... done (10ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/output.add.xml' ... done (10ms).
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm_pt.rou.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm.bicycle.trips.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm.pedestrian.rou.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm.ship.trips.xml'
 Loading done.
-Simulation version v1_22_0+1033-67a55eff2be started with time: 0.00.
-Simulation ended at time: 2002.00.
+Simulation version v1_23_1+1052-42c38246850 started with time: 0.00.
+Simulation ended at time: 1848.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.05s
- Real time factor: 39254.9
- UPS: 111000.000000
- UPS-Persons: 34686.274510
+ Duration: 0.10s
+ Real time factor: 18117.6
+ UPS: 62137.254902
+ UPS-Persons: 28911.764706
 Vehicles:
  Inserted: 11
  Running: 0
@@ -48,30 +41,31 @@ Vehicles:
 Persons:
  Inserted: 6
  Running: 0
+ Jammed: 1
 Statistics (avg of 8):
- RouteLength: 2270.30
- Speed: 3.44
- Duration: 653.38
+ RouteLength: 2525.64
+ Speed: 3.38
+ Duration: 746.62
  WaitingTime: 0.25
- TimeLoss: 34.19
+ TimeLoss: 34.23
  DepartDelay: 0.15
 Bike Statistics (avg of 3):
  RouteLength: 679.54
- Speed: 4.65
- Duration: 144.67
+ Speed: 5.02
+ Duration: 121.67
  WaitingTime: 0.00
- TimeLoss: 9.85
+ TimeLoss: 8.08
  DepartDelay: 0.33
 Pedestrian Statistics (avg of 8 walks):
- RouteLength: 173.79
- Duration: 144.62
- TimeLoss: 15.85
+ RouteLength: 301.70
+ Duration: 246.00
+ TimeLoss: 27.06
 Ride Statistics (avg of 2 rides):
- WaitingTime: 64.00
- RouteLength: 851.17
+ WaitingTime: 248.50
+ RouteLength: 851.15
  Duration: 240.00
  Bus: 2
-DijkstraRouter answered 27 queries and explored 5.89 edges on average.
+DijkstraRouter answered 41 queries and explored 6.27 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-DijkstraRouter answered 7 queries and explored 4.71 edges on average.
+DijkstraRouter answered 7 queries and explored 5.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).

@@ -49,6 +49,9 @@ public:
     /// @brief destructor
     ~GNERunPythonToolDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
+
     /// @brief get to GNEApplicationWindow
     GNEApplicationWindow* getGNEApp() const;
 
@@ -75,6 +78,7 @@ public:
 
     /// @brief called when the thread signals an event
     long onThreadEvent(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:

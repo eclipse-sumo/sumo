@@ -54,6 +54,9 @@ public:
     /// @brief destructor
     ~GNERunNetgenerateDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
+
     /// @brief get to GNEApplicationWindow
     GNEApplicationWindow* getGNEApp() const;
 

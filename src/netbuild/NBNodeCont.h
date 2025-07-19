@@ -370,7 +370,7 @@ public:
     }
 
     /// @brief remap node IDs according to options --numerical-ids and --reserved-ids
-    int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBTrafficLightLogicCont& tlc);
+    int remapIDs(bool numericaIDs, bool reservedIDs, bool keptIDs, const std::string& prefix, NBTrafficLightLogicCont& tlc);
 
     /// @brief guess and mark fringe nodes
     int guessFringe();

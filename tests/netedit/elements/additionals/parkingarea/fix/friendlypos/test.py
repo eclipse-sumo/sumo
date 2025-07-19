@@ -46,11 +46,8 @@ netedit.changeMode("select")
 # clear selection
 netedit.selection("clear")
 
-# save netedit config
-netedit.saveExistentShortcut("neteditConfig")
-
 # Fix stopping places position
-netedit.fixStoppingPlace("activateFriendlyPos")
+netedit.fixStoppingPlace("activatePositionFriendlyPos")
 
 # quit netedit
 netedit.quit(neteditProcess)

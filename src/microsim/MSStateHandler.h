@@ -121,8 +121,9 @@ private:
     /// @brief cached attrs for delayed loading of MSVehicleControl state
     SUMOSAXAttributes* myVCAttrs;
 
-    /// @brief cached device attrs (used when loading vehicles)
+    /// @brief cached device and reminder attrs (used when loading vehicles)
     std::vector<SUMOSAXAttributes*> myDeviceAttrs;
+    std::vector<SUMOSAXAttributes*> myReminderAttrs;
 
     /// @brief the last object that potentially carries parameters
     Parameterised* myLastParameterised;

@@ -50,7 +50,7 @@ netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "")
 netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "12.00,8.00")
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(netedit.attrs.poly.inspect.shape, "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 " +
+netedit.modifyAttribute(netedit.attrs.poly.inspect.shape,
                         "5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00")
 
 # Check undos and redos

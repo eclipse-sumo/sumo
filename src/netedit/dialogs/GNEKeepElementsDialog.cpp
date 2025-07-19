@@ -77,6 +77,12 @@ GNEKeepElementsDialog::~GNEKeepElementsDialog() {
 }
 
 
+void
+GNEKeepElementsDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
+    // finish
+}
+
+
 GNEKeepElementsDialog::Result
 GNEKeepElementsDialog::getResult() const {
     return myResult;

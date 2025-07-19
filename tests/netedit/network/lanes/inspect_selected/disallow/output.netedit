@@ -6,7 +6,7 @@ DummyDisallowed
 
 authority  army, passenger; taxi. tram
 
-emergency authority coach tram rail_urban rail rail_electric motorcycle moped pedestrian custom1
+rail_electric motorcycle moped pedestrian custom1
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

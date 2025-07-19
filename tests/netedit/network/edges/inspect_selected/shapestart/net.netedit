@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-27 10:42:17 by Eclipse SUMO netedit Version v1_20_0+2172-1b857258f91
+<!-- generated on 2025-07-15 10:21:57 by Eclipse SUMO netedit Version v1_23_1+1081-603be8fe035
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,20 +14,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapestart\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapestart\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapestart\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapestart\net.net.xml"/>
+        <additional-files value="additionals.add.xml"/>
+        <route-files value="routes.rou.xml"/>
+        <data-files value="datas.dat.xml"/>
+        <meandata-files value="datas.med.add.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapestart\net.net.xml"/>
+        <output-file value="net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="0"/>
@@ -46,19 +48,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <ignore.additionalelements value="0"/>
+        <ignore.routeelements value="0"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapestart\gui-settings.xml"/>
+        <gui-settings-file value="gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapestart\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Sep104055.21616\netedit.gui\network\edges\inspect_selected\shapestart\log.txt"/>
+        <error-log value="log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -72,7 +77,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":J2_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="9.21" length="40.05" width="2.00" shape="-22.77,23.43 -28.60,24.85 -16.54,21.50 -12.70,19.32 -17.08,18.31 -29.69,18.49"/>
     </edge>
     <edge id=":J3_0" function="internal">
-        <lane id=":J3_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="6.92" length="17.47" width="2.00" shape="24.36,16.03 24.76,16.01 29.65,18.74 26.33,17.52 24.92,15.83 25.42,13.70 27.83,11.10"/>
+        <lane id=":J3_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="7.65" length="18.79" width="2.00" shape="24.04,16.04 24.60,16.02 28.45,19.86 24.99,17.97 23.70,15.88 24.60,13.61 27.68,11.14"/>
     </edge>
     <edge id=":J4_0" function="internal">
         <lane id=":J4_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="8.94" length="22.08" width="2.00" shape="25.19,-12.57 26.42,-16.00 24.07,-16.00 19.41,-0.61"/>
@@ -89,8 +94,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <edge id="-E1" from="J3" to="J2" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="14.00,15.50 -25.00,25.00">
         <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
-        <lane id="-E1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="28.29,13.05 -22.44,25.40"/>
-        <lane id="-E1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="27.83,11.10 -22.77,23.43"/>
+        <lane id="-E1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="27.86,13.15 -22.44,25.40"/>
+        <lane id="-E1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="27.68,11.14 -22.77,23.43"/>
         <param key="Key1B" value="Value1B"/>
         <param key="Key2B" value="Value2B"/>
         <param key="Key3B" value="Value3B"/>
@@ -106,10 +111,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="E0" from="J0" to="J1" priority="-1" shape="14.00,15.50 30.00,0.00">
         <lane id="E0_0" index="0" speed="13.89" length="43.09" shape="-2.07,28.84 28.89,-1.15"/>
     </edge>
-    <edge id="E1" from="J2" to="J3" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="14.00,15.50 -25.00,15.00 25.00,15.00 31.41,18.59">
+    <edge id="E1" from="J2" to="J3" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="14.00,15.50 -25.00,15.00 25.00,15.00 30.00,20.00">
         <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
-        <lane id="E1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.03,16.50 23.57,14.06"/>
-        <lane id="E1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-29.69,18.49 24.36,16.03"/>
+        <lane id="E1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.03,16.50 23.33,14.07"/>
+        <lane id="E1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-29.69,18.49 24.04,16.04"/>
         <param key="Key1B" value="Value1B"/>
         <param key="Key2B" value="Value2B"/>
         <param key="Key3B" value="Value3B"/>
@@ -134,7 +139,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="J2" type="priority" x="-30.00" y="20.00" incLanes="-E1_0 -E1_1" intLanes=":J2_0_0" shape="-28.10,27.81 -29.04,23.93 -30.02,19.50 -30.20,15.51">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="J3" type="priority" x="30.00" y="20.00" incLanes="E1_0 E1_1" intLanes=":J3_0_0" shape="27.60,10.13 28.54,14.02 31.92,16.57 29.96,20.07">
+    <junction id="J3" type="priority" x="30.00" y="20.00" incLanes="E1_0 E1_1" intLanes=":J3_0_0" shape="27.60,10.13 28.54,14.02 31.41,18.59 28.59,21.41">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="J4" type="priority" x="-30.00" y="-20.00" incLanes="-E2_0 -E2_1" intLanes=":J4_0_0" shape="21.59,-13.00 24.90,-17.00 21.04,-18.05 20.49,-15.24 20.49,-14.26 20.67,-13.56 21.04,-13.14">

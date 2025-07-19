@@ -49,13 +49,17 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
     // process every step
     while (myCurrentStep < myTestSteps.size()) {
         const auto testStep = myTestSteps.at(myCurrentStep);
+        // write description
+        // std::cout << "TestFunctions: Executing step " << myCurrentStep + 1
+        //           << " of " << myTestSteps.size() << ": "
+        //           << testStep->getDescription() << std::endl;
         // get argument (either event or modalDialogArgument or nullptr)
         void* argument = nullptr;
         if (testStep->getEvent()) {
             argument = testStep->getEvent();
         }
-        if (testStep->getModalArguments()) {
-            argument = testStep->getModalArguments();
+        if (testStep->getDialogTest()) {
+            argument = testStep->getDialogTest();
         }
         // check if we have to process it in main windows, abstract view or specific view
         if (testStep->getCategory() == InternalTestStep::Category::APP) {
@@ -66,12 +70,6 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
             viewParent->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), argument);
         } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASETABLE) {
             viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->testTable(testStep->getTLSTableTest());
-        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_NETWORK) {
-            viewNet->getFixNetworkElementsDialog()->testFixDialog(testStep->getFixDialogTest());
-        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_ADDITIONAL) {
-            viewNet->getFixAdditionalElementsDialog()->testFixDialog(testStep->getFixDialogTest());
-        } else if (testStep->getCategory() == InternalTestStep::Category::FIX_DEMAND) {
-            viewNet->getFixDemandElementsDialog()->testFixDialog(testStep->getFixDialogTest());
         } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
             writeClosedSucessfully = true;
         }

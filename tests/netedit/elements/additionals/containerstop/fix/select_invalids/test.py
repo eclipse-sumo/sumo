@@ -50,7 +50,7 @@ netedit.selection("clear")
 netedit.saveExistentShortcut("neteditConfig")
 
 # select invalids
-netedit.fixStoppingPlace("selectInvalids")
+netedit.fixStoppingPlace("selectPositionInvalids")
 
 # remove it using DEL key
 netedit.delete()

@@ -87,7 +87,7 @@ public:
     void setStatusBarText(const std::string& statusBarText);
 
     /// @brief called if the user selects Processing->compute junctions with volatile options
-    long computeJunctionWithVolatileOptions(const InternalTestStep::ModalArguments* modalArguments);
+    long computeJunctionWithVolatileOptions(const InternalTestStep::DialogTest* modalArguments);
 
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
@@ -512,10 +512,10 @@ public:
     long onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*);
 
     /// @brief called when user press Ctrl+Z
-    long onCmdUndo(FXObject*, FXSelector, void*);
+    long onCmdUndo(FXObject* sender, FXSelector, void*);
 
     // @brief called when user press Ctrl+Y
-    long onCmdRedo(FXObject*, FXSelector, void*);
+    long onCmdRedo(FXObject* sender, FXSelector, void*);
 
     // @brief called when user press open undoList dialog
     long onCmdOpenUndoListDialog(FXObject*, FXSelector, void*);

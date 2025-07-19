@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_23_1+1025-f96d9ecb723
+Eclipse SUMO sumo Version v1_23_1+1171-abf54b0e8c3
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -338,6 +338,8 @@ Processing Options:
                                         until impatience grows from 0 to 1,
                                         defaults to 300, non-positive values
                                         disable impatience growth
+  --default.departspeed STR            Select default depart speed
+  --default.departlane STR             Select default depart lane
   --default.action-step-length FLOAT   Length of the default interval length
                                         between action points for the
                                         car-following and lane-change models (in

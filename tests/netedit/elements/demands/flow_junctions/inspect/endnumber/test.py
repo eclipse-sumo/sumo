@@ -60,16 +60,16 @@ netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacing, "dummyEnd")
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacing, "23")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.end, "dummyNumber")
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.number, "dummyNumber")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.end, "12.3")
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.number, "12.3")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.end, "-30")
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.number, "-30")
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.end, "81")
+netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.number, "81")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

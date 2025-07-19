@@ -60,11 +60,11 @@
 MSMeanData::MeanDataValues::MeanDataValues(
     MSLane* const lane, const double length, const bool doAdd,
     const MSMeanData* const parent) :
-    MSMoveReminder("meandata_" + (lane == nullptr ? "NULL" :  lane->getID()), lane, doAdd),
+    MSMoveReminder("meandata_" + (parent == nullptr ? "" : parent->getID() + "|") + (lane == nullptr ? "NULL" :  lane->getID()), lane, doAdd),
     myParent(parent),
     myLaneLength(length),
     sampleSeconds(0),
-    travelledDistance(0) {}
+    travelledDistance(0) { }
 
 
 MSMeanData::MeanDataValues::~MeanDataValues() {
@@ -477,7 +477,7 @@ MSMeanData::init() {
                 } else {
                     data = createValues(nullptr, lanes[0]->getLength(), false);
                 }
-                data->setDescription("meandata_" + edge->getID());
+                data->setDescription("meandata_" + getID() + "|" + edge->getID());
                 myMeasures.back().push_back(data);
                 MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
                 while (s != nullptr) {
@@ -766,6 +766,16 @@ MSMeanData::getEdgeValues(const MSEdge* edge) const {
     } else {
         return nullptr;
     }
+}
+
+
+const std::vector<MSMoveReminder*>
+MSMeanData::getReminders() const {
+    std::vector<MSMoveReminder*> result;
+    for (auto vec : myMeasures) {
+        result.insert(result.end(), vec.begin(), vec.end());
+    }
+    return result;
 }
 
 

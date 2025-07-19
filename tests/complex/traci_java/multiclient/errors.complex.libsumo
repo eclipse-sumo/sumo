@@ -3,9 +3,9 @@ Error: Multi client support (including connection switching) is not implemented 
 java.lang.IllegalArgumentException: Multi client support (including connection switching) is not implemented in libsumo.
 	at org.eclipse.sumo.libsumo.libsumoJNI.Simulation_setOrder(Native Method)
 	at org.eclipse.sumo.libsumo.Simulation.setOrder(Simulation.java:120)
-	at MultiClient1.main(MultiClient1.java:54)
+	at MultiClient1.main(MultiClient1.java:51)
 Error: Multi client support (including connection switching) is not implemented in libsumo.
 java.lang.IllegalArgumentException: Multi client support (including connection switching) is not implemented in libsumo.
 	at org.eclipse.sumo.libsumo.libsumoJNI.Simulation_init__SWIG_4(Native Method)
 	at org.eclipse.sumo.libsumo.Simulation.init(Simulation.java:68)
-	at MultiClient2.main(MultiClient2.java:39)
+	at MultiClient2.main(MultiClient2.java:36)

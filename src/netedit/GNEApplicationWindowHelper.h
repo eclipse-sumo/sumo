@@ -763,7 +763,7 @@ struct GNEApplicationWindowHelper {
         /// @name Processing FXMenuCommands for Network mode
         /// @{
         /// @brief menu check to lock junction
-        MFXMenuCheckIcon* menuCheckLockJunction = nullptr;
+        MFXMenuCheckIcon* menuCheckLockJunctions = nullptr;
 
         /// @brief menu check to lock edges
         MFXMenuCheckIcon* menuCheckLockEdges = nullptr;
@@ -815,10 +815,10 @@ struct GNEApplicationWindowHelper {
         MFXMenuCheckIcon* menuCheckLockPersons = nullptr;
 
         /// @brief menu check to lock personTrips
-        MFXMenuCheckIcon* menuCheckLockPersonTrip = nullptr;
+        MFXMenuCheckIcon* menuCheckLockPersonTrips = nullptr;
 
         /// @brief menu check to lock walks
-        MFXMenuCheckIcon* menuCheckLockWalk = nullptr;
+        MFXMenuCheckIcon* menuCheckLockWalks = nullptr;
 
         /// @brief menu check to lock rides
         MFXMenuCheckIcon* menuCheckLockRides = nullptr;

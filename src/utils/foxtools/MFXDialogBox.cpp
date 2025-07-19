@@ -22,8 +22,10 @@
 // included modules
 // ===========================================================================
 
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/tests/InternalTest.h>
 #include <utils/tests/InternalTestStep.h>
+
 #include "MFXDialogBox.h"
 
 // ===========================================================================
@@ -36,6 +38,7 @@ FXDEFMAP(MFXDialogBox) MFXDialogBoxMap[] = {
     FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
     FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_INTERNALTEST,       MFXDialogBox::onCmdInternalTest),
 };
 
 // Object implementation
@@ -54,6 +57,35 @@ MFXDialogBox::MFXDialogBox(FXApp* a, const FXString& name, FXuint opts, FXint x,
 MFXDialogBox::MFXDialogBox(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y,
                            FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs):
     FXDialogBox(owner, name, opts, x, y, w, h, pl, pr, pt, pb, hs, vs) {
+}
+
+
+FXuint
+MFXDialogBox::openModalDialog(InternalTest* internalTests, FXuint placement) {
+    create();
+    show(placement);
+    getApp()->refresh();
+    if (internalTests) {
+        myTesting = true;
+        // execute every modal dialog test step
+        for (const auto& modalStep : internalTests->getCurrentStep()->getModalDialogTestSteps()) {
+            if (modalStep->getEvent()) {
+                handle(internalTests, modalStep->getSelector(), modalStep->getEvent());
+            } else if (modalStep->getDialogTest()) {
+                handle(internalTests, modalStep->getSelector(), modalStep->getDialogTest());
+            }
+        }
+        return 1;
+    } else {
+        myTesting = false;
+        return getApp()->runModalFor(this);
+    }
+}
+
+
+void
+MFXDialogBox::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
+    // temporal until #16893
 }
 
 
@@ -79,22 +111,16 @@ MFXDialogBox::onCmdCancel(FXObject*, FXSelector, void*) {
 }
 
 
-FXuint
-MFXDialogBox::openModalDialog(InternalTest* internalTests, FXuint placement) {
-    create();
-    show(placement);
-    getApp()->refresh();
-    if (internalTests) {
-        myTesting = true;
-        // execute every modal dialog test step
-        for (const auto& modalStep : internalTests->getCurrentStep()->getModalDialogTestSteps()) {
-            handle(internalTests, modalStep->getSelector(), modalStep->getEvent());
-        }
-        return 1;
-    } else {
-        myTesting = false;
-        return getApp()->runModalFor(this);
+long
+MFXDialogBox::onCmdInternalTest(FXObject*, FXSelector, void* ptr) {
+    auto dialogTest = static_cast<const InternalTestStep::DialogTest*>(ptr);
+    // ensure dialogTest is not null
+    if (dialogTest) {
+        // run internal test
+        runInternalTest(dialogTest);
     }
+    // complete
+    return 1;
 }
 
 

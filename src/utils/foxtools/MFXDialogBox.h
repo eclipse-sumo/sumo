@@ -20,13 +20,9 @@
 #pragma once
 #include <config.h>
 
+#include <utils/tests/InternalTestStep.h>
+
 #include "fxheader.h"
-
-// ===========================================================================
-// class declaration
-// ===========================================================================
-
-class InternalTest;
 
 // ===========================================================================
 // class definitions
@@ -45,11 +41,22 @@ public:
     /// @brief Run modal invocation of the dialog
     FXuint openModalDialog(InternalTest* internalTests, FXuint placement = PLACEMENT_CURSOR);
 
+    /// @brief run internal test
+    virtual void runInternalTest(const InternalTestStep::DialogTest* dialogTest);
+
+    /// @name FOX-callbacks
+    /// @{
+
     /// @brief called when accept button is pressed
     long onCmdAccept(FXObject*, FXSelector, void*);
 
     /// @brief called when cancel button is pressed (or dialog is closed)
     long onCmdCancel(FXObject*, FXSelector, void*);
+
+    /// @brief event used in internal tests
+    long onCmdInternalTest(FXObject*, FXSelector, void* ptr);
+
+    /// @}
 
 protected:
     /// @brief FOX needs this

@@ -78,6 +78,12 @@ public:
     /// @brief Destructor
     ~GNEOptionsDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
+
+    /// @name FOX-callbacks
+    /// @{
+
     /// @brief called when user press cancel button
     long onCmdCancel(FXObject*, FXSelector, void*);
 
@@ -104,6 +110,8 @@ public:
 
     /// @brief reset default
     long onCmdResetDefault(FXObject*, FXSelector, void*);
+
+    /// @}
 
 protected:
     /// @brief FOX needs this

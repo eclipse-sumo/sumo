@@ -107,6 +107,12 @@ GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* GNEApp) :
 GNERunPythonToolDialog::~GNERunPythonToolDialog() {}
 
 
+void
+GNERunPythonToolDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
+    // finish
+}
+
+
 GNEApplicationWindow*
 GNERunPythonToolDialog::getGNEApp() const {
     return myGNEApp;

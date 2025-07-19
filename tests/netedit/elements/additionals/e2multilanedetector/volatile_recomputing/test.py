@@ -32,13 +32,7 @@ netedit.computeJunctions()
 netedit.computeJunctionsVolatileOptions()
 
 # create new connections
-netedit.fixStoppingPlace("activateFriendlyPos")
-
-# save netedit config
-netedit.saveExistentShortcut("neteditConfig")
-
-# create new connections
-netedit.typeKey("space")
+netedit.fixStoppingPlace("activatePositionFriendlyPos")
 
 # quit netedit
 netedit.quit(neteditProcess)

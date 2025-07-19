@@ -42,6 +42,7 @@ To avoid the limitations with respect to GUI, multi-clients support, you can als
 
 The binary windows release already contains the readily compiled libsumo
 for C++ and Java. For Python you can install it via `pip install libsumo`.
+For C# the generated source files are provided.
 Only if your platform or language is not supported follow the steps below.
 
 It currently requires cmake and swig being installed together with the
@@ -126,6 +127,9 @@ LD_LIBRARY_PATH=$SUMO_HOME/bin ./test
 
 ## Java
 
+On Windows it is strongly recommended to use at least OpenJDK 21.0.5 (for libsumo 1.22.0 or later).
+Earlier versions show unexplained crashes.
+
 You might want to use the available [Maven package](Developer/Maven.md).
 
 ### Example Code (Test.java)
@@ -136,14 +140,7 @@ import org.eclipse.sumo.libsumo.StringVector;
 
 public class Test {
     public static void main(String[] args) {
-        if (System.getProperty("os.name").startsWith("Windows")) {
-            System.loadLibrary("iconv-2");
-            System.loadLibrary("intl-8");
-            System.loadLibrary("libcrypto-3-x64");
-            System.loadLibrary("libssl-3-x64");
-            System.loadLibrary("proj_9");
-        }
-        System.loadLibrary("libsumojni");
+        Simulation.preloadLibraries();
         Simulation.start(new StringVector(new String[] {"sumo", "-c", "test.sumocfg"}));
         for (int i = 0; i < 5; i++) {
             Simulation.step();
@@ -155,6 +152,7 @@ public class Test {
 
 Please note that starting with SUMO 1.16.0 it seems to be necessary to preload some libraries
 on Windows, see https://github.com/eclipse-sumo/sumo/issues/12605.
+This has been encapsulated in a separate convenience call `Simulation.preloadLibraries()` since SUMO 1.24.0.
 
 ### compiling on Linux (make sure SUMO_HOME is set and sumo has been built)
 
@@ -202,7 +200,7 @@ Make sure you have added the swig generated C# bindings to your solution, as wel
 ```c#
 using Eclipse.Sumo.Libsumo;
 
-internal class Program 
+internal class Program
 {
     static void Main(String[] args) {
         Simulation.start(new StringVector(new String[] {"sumo", "-c", "test.sumocfg"}));

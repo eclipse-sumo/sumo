@@ -10,6 +10,20 @@
 
 %include "../libsumo/libsumo_typemap.i"
 
+#if defined(SWIGJAVA)
+%typemap(javaimports) libtraci::Simulation "import java.lang.Runtime.Version;"
+%extend libtraci::Simulation {
+%proxycode %{
+    public static void preloadLibraries() {
+        if (Version.parse(System.getProperty("java.version")).compareTo(Version.parse("21.0.5")) < 0) {
+            System.err.println("The recommended minimal Java version is 21.0.5.");
+        }
+        System.loadLibrary("libtracijni");
+    }
+%}
+}
+#endif
+
 // Add necessary symbols to generated header
 %{
 #include <libsumo/Edge.h>

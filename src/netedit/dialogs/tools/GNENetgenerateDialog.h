@@ -51,6 +51,9 @@ public:
     /// @brief open dialog
     void openDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
+
     /// @name FOX-callbacks
     /// @{
 

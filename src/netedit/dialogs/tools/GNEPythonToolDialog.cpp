@@ -134,6 +134,12 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
 }
 
 
+void
+GNEPythonToolDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
+    // finish
+}
+
+
 GNEApplicationWindow*
 GNEPythonToolDialog::getGNEApplicationWindow() const {
     return myGNEApp;

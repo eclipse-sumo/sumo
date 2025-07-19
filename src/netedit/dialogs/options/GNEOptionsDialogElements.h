@@ -32,10 +32,7 @@ class GNEOptionsDialog;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEOptionsDialog
- * @briefA Dialog for setting options (see OptionsCont)
- */
+
 class GNEOptionsDialogElements {
 
 public:

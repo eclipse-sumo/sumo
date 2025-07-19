@@ -583,6 +583,9 @@ MEVehicle::saveState(OutputDevice& out) {
     for (MSDevice* dev : myDevices) {
         dev->saveState(out);
     }
+    for (const auto& item : myMoveReminders) {
+        item.first->saveReminderState(out, *this);
+    }
     out.closeTag();
 }
 

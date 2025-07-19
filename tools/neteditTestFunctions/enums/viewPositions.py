@@ -452,33 +452,6 @@ class positions:
             x = 503
             y = 233
 
-        # movement radius
-        class movementRadius:
-            up = 70
-            down = -70
-            left = -70
-            right = 70
-
-        class movementRadiusB:
-            up = 100
-            down = -100
-            left = -100
-            right = 100
-
-        class movementRadiusC:
-            up = 200
-            down = 0
-            left = 0
-            right = 190
-
-        class movementEdgeTop:
-            up = -180
-            down = 0
-
-        class movementEdgeBot:
-            up = 0
-            down = 180
-
         # additional (for inspect, delete, etc.)
         class additionals:
 

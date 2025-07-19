@@ -47,8 +47,8 @@ public:
     /// @brief open fix additional dialog
     FXuint openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
 
-    /// @brief test fix elements dialog
-    void testFixDialog(const InternalTestStep::FixDialogTest* fixDialogTest);
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
 
     /// @name FOX-callbacks
     /// @{
@@ -112,16 +112,16 @@ protected:
         void disablePositionOptions();
 
         /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPositionAndSave;
+        FXRadioButton* activateFriendlyPosition;
 
         /// @brief Option "Fix Positions and save"
-        FXRadioButton* fixPositionsAndSave;
+        FXRadioButton* fixPositions;
 
         /// @brief Option "Save invalid"
-        FXRadioButton* saveInvalid;
+        FXRadioButton* saveInvalids;
 
         /// @brief Option "Select invalid stops and cancel"
-        FXRadioButton* selectInvalidStopsAndCancel;
+        FXRadioButton* selectInvalids;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -154,10 +154,10 @@ protected:
         FXRadioButton* removeInvalidElements;
 
         /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPositionAndSave;
+        FXRadioButton* activateFriendlyPosition;
 
         /// @brief Option "Fix Positions and save"
-        FXRadioButton* fixPositionsAndSave;
+        FXRadioButton* fixPositions;
 
     private:
         /// @brief Invalidated copy constructor.

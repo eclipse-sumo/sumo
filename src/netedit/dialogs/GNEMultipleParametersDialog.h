@@ -255,8 +255,12 @@ public:
     /// @brief destructor
     ~GNEMultipleParametersDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
+
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
@@ -265,6 +269,7 @@ public:
 
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
