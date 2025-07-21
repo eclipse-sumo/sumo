@@ -31,8 +31,6 @@ def createDataSet(dataSetID):
         typeKey('tab')
     # enable create dataSet
     typeKey('space')
-    # go to create new dataSet
-    typeKey('tab')
     # create new ID
     updateText(dataSetID)
     # go to create new dataSet button

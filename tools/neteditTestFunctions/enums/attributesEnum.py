@@ -188,7 +188,7 @@ class attrs:
                 invert = 24
                 load = 25
                 reduce = 26
-                invertData = 27
+                invertData = 22  # temporal, until restoration of select using start-end interval
 
             class networkItem:
                 type = 8
@@ -4766,40 +4766,91 @@ class attrs:
     class edgeData:
         class create:
             parameters = 12
+            parametersButton = 13
+            dataFileButton = 15
+            dataFile = 16
+            helpDialog = 17
+            reset = 18
 
         class inspect:
-            parameters = 4
+            parameters = 2
+            parametersButton = 3
+            frontElement = 5
+            dataFileButton = 6
+            dataFile = 7
+            helpDialog = 8
+            reset = 9
 
         class inspectSelection:
             parameters = 2
+            parametersButton = 3
+            frontElement = 5
+            dataFileButton = 6
+            dataFile = 7
+            helpDialog = 8
+            reset = 9
 
     # edgeRelData
 
     class edgeRelData:
         class create:
             parameters = 12
+            parametersButton = 13
+            dataFileButton = 15
+            dataFile = 16
+            helpDialog = 17
+            reset = 18
 
         class inspect:
             fromEdge = 2
             toEdge = 3
-            parameters = 6
+            parameters = 5
+            parametersButton = 6
+            frontElement = 8
+            dataFileButton = 9
+            dataFile = 10
+            helpDialog = 11
+            reset = 12
 
         class inspectSelection:
             parameters = 2
+            parametersButton = 3
+            frontElement = 5
+            dataFileButton = 6
+            dataFile = 7
+            helpDialog = 8
+            reset = 9
 
     # TAZRelData
 
     class TAZRelData:
         class create:
             parameters = 12
+            parametersButton = 13
+            dataFileButton = 15
+            dataFile = 16
+            helpDialog = 17
+            reset = 18
 
         class inspect:
             fromTAZ = 2
             toTAZ = 3
-            parameters = 6
+            parameters = 5
+            parametersButton = 6
+            frontElement = 8
+            dataFileButton = 9
+            dataFile = 10
+            helpDialog = 11
+            reset = 12
 
         class inspectSelection:
             parameters = 2
+            parametersButton = 3
+            frontElement = 5
+            dataFileButton = 6
+            dataFile = 7
+            helpDialog = 8
+            reset = 9
 
     # edge mean data
 

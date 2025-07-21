@@ -101,7 +101,7 @@ def checkDoubleParameters(referencePosition, attributeIndex, offsetX=0, offsetY=
     # Change generic parameters with a valid value
     modifyAttribute(attributeIndex, "keyFinal1=1|keyFinal2=2|keyFinal3=3")
     # Check undoRedo
-    checkUndoRedo(referencePosition, offsetX, offsetY)
+    checkUndoRedo(referencePosition, offsetX, offsetY + 30)
 
 
 def checkDoubleParametersOverlapped(referencePosition, attributeIndex, offsetX=0, offsetY=0):
@@ -129,4 +129,4 @@ def checkDoubleParametersOverlapped(referencePosition, attributeIndex, offsetX=0
     # Change generic parameters with a valid value
     modifyAttributeOverlapped(attributeIndex, "keyFinal1=1|keyFinal2=2|keyFinal3=3")
     # Check undoRedo
-    checkUndoRedo(referencePosition, offsetX, offsetY)
+    checkUndoRedo(referencePosition, offsetX, offsetY + 30)

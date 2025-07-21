@@ -340,10 +340,6 @@ class positions:
             x = 381
             y = 443
 
-        class edge0_dataMode:
-            x = 381
-            y = 473  # 443 + 30
-
         class edge1Ped:
             x = 874
             y = 238
@@ -351,10 +347,6 @@ class positions:
         class edge1:
             x = 850
             y = 222
-
-        class edge1_dataMode:
-            x = 850
-            y = 252  # 222 + 30
 
         class edge2Ped:
             x = 463
@@ -364,10 +356,6 @@ class positions:
             x = 494
             y = 26
 
-        # class edge2_dataMode:
-        #    x = 494
-        #    y = 26 + 30
-
         class edge3Ped:
             x = 409
             y = 57
@@ -375,10 +363,6 @@ class positions:
         class edge3:
             x = 477
             y = 56
-
-        # class edge3_dataMode:
-        #    x = 477
-        #    y = 56 + 30
 
         class edge4Ped:
             x = 791
@@ -388,10 +372,6 @@ class positions:
             x = 817
             y = 235
 
-        # class edge4_dataMode:
-        #    x = 817
-        #    y = 235 + 30
-
         class edge5Ped:
             x = 459
             y = 383
@@ -399,10 +379,6 @@ class positions:
         class edge5:
             x = 515
             y = 413
-
-        # class edge5_dataMode:
-        #    x = 515
-        #    y = 413 + 30
 
         class edgeBike0:
             x = 145
@@ -671,11 +647,11 @@ class positions:
 
             class TAZRelTop:
                 x = 630
-                y = 238
+                y = 215
 
             class TAZRelBot:
-                x = 650
-                y = 255
+                x = 630
+                y = 225
 
     class bugs:
 

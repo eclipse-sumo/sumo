@@ -40,6 +40,24 @@ def leftClick(referencePosition, position):
     print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
 
 
+def leftClickData(referencePosition, position):
+    """
+    @brief do left click over a position relative to referencePosition (pink square) with an small offest y
+    """
+    # obtain clicked position
+    clickedPosition = [referencePosition[0] + position.x, referencePosition[1] + position.y + 30]
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
+    # click over position
+    pyautogui.click(button='left')
+    # wait after every operation
+    time.sleep(DELAY_MOUSE_CLICK)
+    # show debug (rest 30 to y position to unify output with internal tests)
+    print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1] - 30)
+
+
 def leftClickOffset(referencePosition, position, offsetX, offsetY):
     """
     @brief do left click over a position relative to referencePosition (pink square)
