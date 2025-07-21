@@ -322,6 +322,9 @@ private:
     /// @brief process checkParameters function
     void checkParameters(const int overlappedTabs) const;
 
+    /// @brief process checkDoubleParameters function
+    void checkDoubleParameters(const int overlappedTabs) const;
+
     /// @brief process changeEditMode function
     void changeEditMode();
 

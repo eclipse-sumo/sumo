@@ -197,6 +197,8 @@ GNEGenericDataFrame::DataSetSelector::onCmdSelectCheckButton(FXObject*, FXSelect
     }
     // update interval modul
     myGenericDataFrameParent->myIntervalSelector->refreshIntervalSelector();
+    // set focus in text field ID
+    myNewDataSetIDTextField->setFocus();
     return 1;
 }
 
@@ -492,8 +494,6 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
     if (myGenericDataFrameParent->myTemplateGenericData) {
         myGenericDataFrameParent->myGenericDataAttributesEditor->showAttributesEditor(myGenericDataFrameParent->myTemplateGenericData, true);
     }
-    // recalc frame
-    recalc();
     // update view net
     myGenericDataFrameParent->getViewNet()->updateViewNet();
 }

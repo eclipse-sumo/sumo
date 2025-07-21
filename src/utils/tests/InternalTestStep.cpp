@@ -93,7 +93,7 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
     // continue depending of function
     if (function == "setupAndStart") {
         setupAndStart();
-    } else if (function == "leftClick") {
+    } else if ((function == "leftClick") || (function == "leftClickData")) {
         mouseClick("left", "");
     } else if (function == "leftClickControl") {
         mouseClick("left", "control");
@@ -225,6 +225,10 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         checkParameters(0);
     } else if (function == "checkParametersOverlapped") {
         checkParameters(overlappedTabs);
+    } else if (function == "checkDoubleParameters") {
+        checkDoubleParameters(0);
+    } else if (function == "checkDoubleParametersOverlapped") {
+        checkDoubleParameters(overlappedTabs);
     } else if (function == "changeEditMode") {
         changeEditMode();
     } else if (function == "changeSupermode") {
@@ -1202,7 +1206,7 @@ InternalTestStep::pressTLSButton(const std::string& type) {
 void
 InternalTestStep::checkParameters(const int overlappedTabs) const {
     if ((myArguments.size() != 2) || !checkIntArgument(myArguments[1])) {
-        writeError("checkParameters", 0, "<int/attributeEnum>");
+        writeError("checkParameters", overlappedTabs, "<int/attributeEnum>");
     } else {
         const int tabs = getIntArgument(myArguments[1]);
         // check different values
@@ -1216,6 +1220,30 @@ InternalTestStep::checkParameters(const int overlappedTabs) const {
         modifyStringAttribute(tabs, overlappedTabs, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3");
         modifyStringAttribute(tabs, overlappedTabs, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3");
         modifyStringAttribute(tabs, overlappedTabs, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3");
+        // check undo-redo
+        buildUndo(9);
+        buildRedo(9);
+    }
+}
+
+
+void
+InternalTestStep::checkDoubleParameters(const int overlappedTabs) const {
+    if ((myArguments.size() != 2) || !checkIntArgument(myArguments[1])) {
+        writeError("checkDoubleParameters", overlappedTabs, "<int/attributeEnum>");
+    } else {
+        const int tabs = getIntArgument(myArguments[1]);
+        // check different values
+        modifyStringAttribute(tabs, overlappedTabs, "dummyGenericParameters");
+        modifyStringAttribute(tabs, overlappedTabs, "key1|key2|key3");
+        modifyStringAttribute(tabs, overlappedTabs, "key1=1|key2=2|key3=3");
+        modifyStringAttribute(tabs, overlappedTabs, "key1=|key2=|key3=");
+        modifyStringAttribute(tabs, overlappedTabs, "");
+        modifyStringAttribute(tabs, overlappedTabs, "key1duplicated=1|key1duplicated=2|key3=3");
+        modifyStringAttribute(tabs, overlappedTabs, "key1=Duplicated|key2=Duplicated|key3=Duplicated");
+        modifyStringAttribute(tabs, overlappedTabs, "keyInvalid.;%>%$$=1|key2=2|key3=3");
+        modifyStringAttribute(tabs, overlappedTabs, "key1=Invalid%;%$<>$$%|key2=2|key3=3");
+        modifyStringAttribute(tabs, overlappedTabs, "keyFinal1=1|keyFinal2=2|keyFinal3=3");
         // check undo-redo
         buildUndo(9);
         buildRedo(9);
@@ -1536,6 +1564,8 @@ InternalTestStep::createDataSet() const {
     } else {
         // get dataSetId
         const auto& dataSetId = getStringArgument(myArguments[0]);
+        // show info
+        std::cout << dataSetId << std::endl;
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus data frame");
         // jump to select additional argument
@@ -1543,9 +1573,7 @@ InternalTestStep::createDataSet() const {
             buildPressKeyEvent("tab", false);
         }
         // create new dataSet
-        buildPressKeyEvent("space", false);
-        // go to dataSetId
-        buildPressKeyEvent("tab", false);
+        buildPressKeyEvent("space", true);
         // write additional character by character
         for (const char c : dataSetId) {
             buildPressKeyEvent({c}, false);
@@ -1566,6 +1594,9 @@ InternalTestStep::createDataInterval() const {
         // get begin and end
         const auto& begin = getStringArgument(myArguments[0]);
         const auto& end = getStringArgument(myArguments[1]);
+        // show info
+        std::cout << begin << std::endl;
+        std::cout << end << std::endl;
         // focus frame
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, Category::APP, "focus data frame");
         // jump to create interval
@@ -1573,7 +1604,7 @@ InternalTestStep::createDataInterval() const {
             buildPressKeyEvent("tab", false);
         }
         // create new interval
-        buildPressKeyEvent("space", false);
+        buildPressKeyEvent("space", true);
         // go to begin
         buildPressKeyEvent("tab", false);
         // write begin character by character
@@ -1589,7 +1620,7 @@ InternalTestStep::createDataInterval() const {
         // go to create button
         buildPressKeyEvent("tab", false);
         // press button
-        buildPressKeyEvent("space", false);
+        buildPressKeyEvent("space", true);
     }
 }
 
@@ -1673,7 +1704,7 @@ InternalTestStep::changeMode() {
             myMessageID = MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS;
         } else if ((mode == "wire") || (mode == "routeDistribution")) {
             myMessageID = MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION;
-        } else if ((mode == "taz") || (mode == "TAZ") || (mode == "tazRel")) {
+        } else if ((mode == "taz") || (mode == "TAZ") || (mode == "TAZRelData")) {
             myMessageID = MID_HOTKEY_Z_MODE_TAZ_TAZREL;
         } else if ((mode == "shape") || (mode == "person")) {
             myMessageID = MID_HOTKEY_P_MODE_POLYGON_PERSON;
