@@ -26,24 +26,25 @@ from __future__ import print_function
 import sys
 import os
 import subprocess
-import optparse
 import tempfile
 import shutil
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
+from sumolib.options import ArgumentParser
 
 
 def parseArgs():
     USAGE = "Usage: " + sys.argv[0] + " <net> <prefix:x:y> <prefix:x:y>+"
-    optParser = optparse.OptionParser(usage=USAGE)
+    optParser = ArgumentParser(usage=USAGE)
     sumolib.pullOptions("netconvert", optParser)
     optParser.add_option(
+        "net", type=ArgumentParser.net_file, help="network to duplicate")
+    optParser.add_option(
+        "desc", nargs="+", help="List of descriptions Prefix:OffsetX:OffsetY+")
+    optParser.add_option(
         "--drop-types", action="store_true", default=False, help="Remove edge types")
-    options, args = optParser.parse_args()
-    if len(args) < 3:
-        sys.exit(USAGE)
-    options.net = args[0]
-    options.desc = [d.split(":") for d in args[1:]]
+    options = optParser.parse_args()
+    options.desc = [d.split(":") for d in options.desc]
     return options
 
 
