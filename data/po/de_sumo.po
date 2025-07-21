@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-20 08:20+0000\n"
-"PO-Revision-Date: 2025-07-02 12:02+0000\n"
+"PO-Revision-Date: 2025-07-21 09:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3190,7 +3190,7 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:2137
 msgid ", latGap="
-msgstr ""
+msgstr ", seitlicher Abstand="
 
 #: src/microsim/MSLane.cpp:2164
 msgid "Vehicle '%'"
@@ -3663,6 +3663,8 @@ msgid ""
 "Invalid queue index '%' on segment '%'. Check for consistency of lane "
 "numbers and queue options."
 msgstr ""
+"Ungültiger Warteschlangenindex '%' im Segment '%'. Bitte prüfe "
+"Fahrstreifenanzahl und Warteschlangenoptionen auf Konsistenz."
 
 #: src/microsim/MSStateHandler.cpp:436
 #, c-format
@@ -5204,7 +5206,7 @@ msgstr "Unbekannter ToC-Stand '%'"
 #: src/microsim/devices/MSDevice_Transportable.cpp:69
 #, c-format
 msgid "Vehicle type '%' in parameter '%' of vehicle '%' is not known."
-msgstr ""
+msgstr "Der Fahrzeugtyp '%' im Parameter '%' des Fahrzeugs '%' ist unbekannt."
 
 #: src/microsim/devices/MSDispatch.cpp:100
 msgid ""
@@ -5572,6 +5574,8 @@ msgid ""
 "Unsafe green phase % in tlLogic '%', program '%'. Lane '%' is targeted by % "
 "'G'-links. (use 'g' instead)"
 msgstr ""
+"Unsichere Grünphase in der LSA-Logik '%' (Programm '%'). Der Fahrstreifen "
+"'%' wird von % 'G'-Verbindungen erreicht. (Nutze stattdessen 'g')"
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:314
 msgid ""
@@ -6088,11 +6092,11 @@ msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:312
 msgid "rerouter '%': stationReroute requires a stopping place id."
-msgstr ""
+msgstr "Rerouter '%': stationReroute benötigt eine Haltepunkt-ID."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:316
 msgid "rerouter '%': stopping place '%' is not known."
-msgstr ""
+msgstr "Rerouter '%': Unbekannter Haltepunkt '%'."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:644
 #, c-format
@@ -12046,6 +12050,8 @@ msgstr "Reparierte Route vom Fahrzeug '%'."
 #: src/router/RORouteDef.cpp:221
 msgid "Removing invalid edge '%' for from route for vehicle '%'."
 msgstr ""
+"Die ungültige Kante '%' wird aus der Ausgangsroute des Fahrzeugs '%' "
+"entfernt."
 
 #: src/router/RORouteDef.cpp:229
 msgid ""
@@ -13212,11 +13218,15 @@ msgid ""
 "Incomplete attribute set '%', this file format does not support CSV output "
 "yet."
 msgstr ""
+"Unvollständige Attributmenge '%' - dieses Dateiformat unterstützt noch keine "
+"CSV-Ausgabe."
 
 #: src/utils/iodevices/CSVFormatter.h:87
 msgid ""
 "Unexpected attribute '%', this file format does not support CSV output yet."
 msgstr ""
+"Unerwartetes Attribut '%' - dieses Dateiformat unterstützt noch keine CSV-"
+"Ausgabe."
 
 #: src/utils/iodevices/OutputDevice.cpp:88
 msgid "No port number given."
@@ -13228,7 +13238,7 @@ msgstr "Fehler beim Schließen des Ausgabegerätes."
 
 #: src/utils/iodevices/OutputDevice.cpp:310
 msgid "Unknown attribute '%' to write in %."
-msgstr ""
+msgstr "Unbekanntes Attribut '%' nach % zu schreiben."
 
 #: src/utils/iodevices/OutputDevice_File.cpp:46
 msgid "Could not redirect to NUL device (%)."
@@ -13847,67 +13857,68 @@ msgstr "Unbekanntes Fahrzeugfolgemodell im vType '%' gefunden"
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1305
 msgid "Invalid Car-Following-Model Attribute %. Cannot be parsed to float"
 msgstr ""
-"Ungültiges Fahrzeugfolgemodell Attribut %. Konnte nicht als Fließkommazahl "
+"Ungültiges Fahrzeugfolgemodellattribut %. Konnte nicht als Fließkommazahl "
 "eingelesen werden"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1286
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1316
 msgid "Invalid Car-Following-Model Attribute %. Must be greater than 0"
-msgstr "Ungültiges Fahrzeugfolgemodell-Attribut %. Muss größer als 0 sein"
+msgstr "Ungültiges Fahrzeugfolgemodellattribut %. Muss größer als 0 sein"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1295
 msgid ""
 "Invalid Car-Following-Model Attribute %. Cannot be parsed as a vector of "
 "<speed accel> pairs"
 msgstr ""
+"Ungültiges Fahrzeugfolgemodellattribut %. Es kann nicht in einen Vektor aus "
+"<Geschwindigkeit, Beschleunigung>-Paaren eingelesen werden"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1327
 msgid ""
 "Invalid Car-Following-Model Attribute %. Only values between [0-1] are "
 "allowed"
 msgstr ""
-"Ungültiges Fahrzeugfolgemodell-Attribut %. Es sind nur Werte zwischen [0-1] "
+"Ungültiges Fahrzeugfolgemodellattribut %. Es sind nur Werte zwischen [0-1] "
 "erlaubt"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1601
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
 msgstr ""
-"Ungültiger Fahrstreifenwechsel-Model Attribut %. Konnte nicht in float "
-"eingelesen werden"
+"Ungültiger Fahrstreifenwechselmodellattribut %. Konnte nicht als "
+"Fließkommazahl eingelesen werden"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1618
 msgid "Invalid Lane-Change-Model Attribute %. Must be equal or greater than 0"
 msgstr ""
-"Ungültiges Fahrstreifenwechsel-Model Attribut %. Muss gleich oder größer 0 "
+"Ungültiges Fahrstreifenwechselmodellattribut %. Muss gleich oder größer 0 "
 "sein"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1629
 msgid "Invalid Lane-Change-Model Attribute %. Must be greater than 0"
-msgstr ""
-"Ungültiges Fahrstreifenwechsel-Model Attribut %. Muss größer als 0 sein"
+msgstr "Ungültiges Fahrstreifenwechselmodellattribut %. Muss größer als 0 sein"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1640
 msgid "Invalid Lane-Change-Model Attribute %. Must be between -1 and 1"
 msgstr ""
-"Ungültiges Fahrstreifenwechsel-Model Attribut %. Muss zwischen -1 und 1 sein"
+"Ungültiges Fahrstreifenwechselmodelattribut %. Muss zwischen -1 und 1 sein"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1672
 msgid "Invalid Junction-Model Attribute %. Cannot be parsed to float"
 msgstr ""
-"Ungültiges Knotenpunktmodel-Attribut %. Konnte nicht im float eingelesen "
-"werden"
+"Ungültiges Knotenpunktmodellattribut %. Konnte nicht als Fließkommazahl "
+"eingelesen werden"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1681
 msgid ""
 "Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"
 msgstr ""
-"Ungültiges Knotenpunkt-Model Attribut %. Es sind nur Werte zwischen [0-1] "
+"Ungültiges Knotenpunktmodellattribut %. Es sind nur Werte zwischen [0-1] "
 "erlaubt"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1692
 msgid "Invalid Junction-Model Attribute %. Must be equal or greater than 0"
 msgstr ""
-"Ungültiges Knotenpunkt-Model Attribut %. Es muss gleich oder größer 0 sein"
+"Ungültiges Knotenpunktmodellattribut %. Es muss gleich oder größer 0 sein"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1722
 msgid "The vehicle class '%' for % '%' is not known."
@@ -13922,6 +13933,8 @@ msgid ""
 "Invalid Car-Following-Model Attribute %. An acceleration profile value "
 "cannot be negative"
 msgstr ""
+"Ungültiges Fahrzeugfolgemodellattribut %. Werte des Beschleunigungsprofils "
+"können nicht negativ sein"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1802
 #, c-format
