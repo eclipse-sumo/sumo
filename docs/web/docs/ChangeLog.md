@@ -12,8 +12,7 @@ title: ChangeLog
   - Vehicles no longer drive onto forbidden internal lanes when option **--ignore-route-errors** is set #16635
   - Fixed bug where junction collision was not detected #16695
   - Fixed collision on junction due to unsafe lane changing #16643
-  - Fixed invalid waitingTime for walking stage in tripinfo-output (not accumulating) #16729  
-  - Stochastic assignment of rerouting device is now reproduced when loading state #16784
+  - Fixed invalid waitingTime for walking stage in tripinfo-output (value was not accumulating) #16729  
   - railway routing now ignores temporary road closings when option **--device.rerouting.mode 8** is set #16799
   - Fixed bug where persons with a personTrip had the wrong arrivalPos when changing from `<ride>` to `<walk>` #16801
   - Fixed invalid emergency stop when vehicle is teleported beyond `arrivalEdge` attribute #16802
@@ -77,7 +76,7 @@ title: ChangeLog
   - Fixed state-saving related bugs #16770, #16874
 
 - netconvert
-  - invalid right of way at left_before_right junction at specific angles #16793 (regression in 1.23.0)
+  - Fixed invalid right of way at left_before_right junction at specific angles #16793 (regression in 1.23.0)
   - Fixed bug where option **--tls.rebuild** creates invalid signal plan when using custom crossing traffic light indices. #16653
   - Fixed unsafe signal plan when crossings use linkIndex2 #16657
   - Fixed missing yellow phase when crossing re-uses vehicular link index #16658
@@ -102,7 +101,7 @@ title: ChangeLog
   - net2geojson.py: Fixed bug that was causing invalid shapes with option **--boundary** #16295
   - tlsCycleAdaptation.py: Fixed invalid error #14015
   - scaleTimeLine.py: Fixed invalid sorting of output #16744
-  - sumolib.net.connection: No longer ignores connection permissions #16633
+  - sumolib.net: No longer ignores connection permissions #16633
   - sumolib.xml.toXML: custom indent is now passed on #16734
   - generateRerouters.py: fixed missing character in XML output #16815
   - traceExporter.py: Fixed inconsistent coordinates when setting option **--shift** #16825
@@ -121,7 +120,7 @@ title: ChangeLog
   - containerStop now supports element `<access>` #16811
   - Vehroute output for persons and containers can now selectively be disabled via param key `"has.vehroute.person-device"`  #16820
   - It is now possible to model [trailers / marshalling](Specification/Logistics.md#trailers_and_rail_cars) by changing vehicle properties upon loading/unloading of containers #8800  
-  - Custom traffic light switching rules now support function `w:DETIT` to retrieve the longest individual waiting time in seconds for vehicles on detector #16841
+  - Custom traffic light switching rules now support function `w:DETID` to retrieve the longest individual waiting time in seconds for vehicles on detector #16841
   - Rerouting trains now always use the current edge as reroute-origin #16852
   - Added options **--default.departspeed** and **--default.departlane** to override the default value when vehicles do not define the respective attributes #16925
 
@@ -154,10 +153,10 @@ title: ChangeLog
   - mapDetectors.py: Added option **--all-lanes** to place detectors on all lanes of an edge based on a single input coordinate #16751
   - plot_net_dump.py: Added opion **--colormap.center** two permit plotting colors with `TwoSlopeNorm` #16778  
   - tileGet.py:: Added 'cartodb_' URL-shortcuts and option **--retina** to be used with cartodb URLS #16822
-  - net2sel.py: Added new tool obtain selection file with junctions and edges from .net.xml #16907
+  - net2sel.py: Added new tool to obtain selection file with junctions and edges from .net.xml #16907
   - routeSampler.py: Named route output now always writes the usage count as route "probability" attribute #16919
   - route2poly.py: when using **--standalone** with **--scale-width**, named routes are scaled by attribute probability  #16920
-  - route2poly.py: when using option **--scale-width** route are sorted by count/probability in descending order. Optin **--filter-count** can be used to exlude routes with low count #16921
+  - route2poly.py: when using option **--scale-width**, routes are sorted by count/probability in descending order. Option **--filter-count** can be used to exlude routes with low count #16921
 
 
 ### Miscellaneous
