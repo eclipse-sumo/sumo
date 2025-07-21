@@ -275,13 +275,13 @@ GNEStoppingPlace::getStoppingPlaceAttribute(const Parameterised* parameterised, 
             if (myStartPosition != INVALID_DOUBLE) {
                 return toString(myStartPosition);
             } else {
-                return TL("lane start");
+                return LANE_START;
             }
         case SUMO_ATTR_ENDPOS:
             if (myEndPosition != INVALID_DOUBLE) {
                 return toString(myEndPosition);
             } else {
-                return TL("lane end");
+                return LANE_END;
             }
         case SUMO_ATTR_NAME:
             return myAdditionalName;
@@ -385,7 +385,7 @@ GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if (value.empty() || (value == TL("lane start"))) {
+            if (value.empty() || (value == LANE_START)) {
                 return true;
             } else if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(parse<double>(value), getAttributeDouble(SUMO_ATTR_ENDPOS), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
@@ -393,7 +393,7 @@ GNEStoppingPlace::isStoppingPlaceValid(SumoXMLAttr key, const std::string& value
                 return false;
             }
         case SUMO_ATTR_ENDPOS:
-            if (value.empty() || (value == TL("lane end"))) {
+            if (value.empty() || (value == LANE_END)) {
                 return true;
             } else if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(getAttributeDouble(SUMO_ATTR_STARTPOS), parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, myFriendlyPosition);
@@ -440,14 +440,14 @@ GNEStoppingPlace::setStoppingPlaceAttribute(Parameterised* parameterised, SumoXM
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_STARTPOS:
-            if (value.empty() || (value == TL("lane start"))) {
+            if (value.empty() || (value == LANE_START)) {
                 myStartPosition = INVALID_DOUBLE;
             } else {
                 myStartPosition = parse<double>(value);
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            if (value.empty() || (value == TL("lane end"))) {
+            if (value.empty() || (value == LANE_END)) {
                 myEndPosition = INVALID_DOUBLE;
             } else {
                 myEndPosition = parse<double>(value);

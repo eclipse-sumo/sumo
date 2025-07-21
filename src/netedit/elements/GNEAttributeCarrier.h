@@ -314,6 +314,12 @@ public:
     /// @brief feature has been approved but not changed (i.e. after being reguessed)
     static const std::string FEATURE_APPROVED;
 
+    /// @brief lane start
+    static const std::string LANE_START;
+
+    /// @brief lane end
+    static const std::string LANE_END;
+
     /// @}
 
     /// @brief true value in string format (used for comparing boolean values in getAttribute(...))

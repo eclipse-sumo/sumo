@@ -43,6 +43,8 @@ const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
+const std::string GNEAttributeCarrier::LANE_START = TL("lane start");
+const std::string GNEAttributeCarrier::LANE_END = TL("lane end");
 const std::string GNEAttributeCarrier::True = toString(true);
 const std::string GNEAttributeCarrier::False = toString(false);
 

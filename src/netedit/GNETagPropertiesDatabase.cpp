@@ -7005,13 +7005,13 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                GNEAttributeProperties::Edit::EDITMODE,
                                TL("The begin position on the lane (the lower position on the lane) in meters"),
-                               TL("lane start"), "INVALID_DOUBLE");
+                               GNEAttributeCarrier::LANE_START, "INVALID_DOUBLE");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ENDPOS,
                                GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                GNEAttributeProperties::Edit::EDITMODE,
                                TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"),
-                               TL("lane end"), "INVALID_DOUBLE");
+                               GNEAttributeCarrier::LANE_END, "INVALID_DOUBLE");
 
     fillFriendlyPosAttribute(tagProperties);
 
