@@ -47,7 +47,8 @@ title: ChangeLog
   - Fixed Crash transforming flows between TAZs #16859 (regression 1.23.0)
   - Rerouter intervals can be defined again #16796 (regression in 1.23.0)
   - RouteProbe and E3 detectors now properly saves the output filename #16910, #16913 (regression in 1.23.0)
-  - Ipen-network dialog now list net.xml.gz files again #16915 (regression in 1.23.0)
+  - Open-network dialog now list net.xml.gz files again #16915 (regression in 1.23.0)
+  - Fixed broken functionality when switching language to "Deutsch" #16926 (regression in 1.23.0)
   - Changing connection attribute 'uncontrolled' to `False` and a traffic light, now makes that connection controlled by the traffic light #16705
   - Fixed crash after using tls-mode "reset single" when loaded programs had non-standard programIDs. #16702
   - parkingArea reference in chargingStation is now loaded #16789
