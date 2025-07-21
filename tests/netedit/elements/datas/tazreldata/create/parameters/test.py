@@ -41,8 +41,8 @@ netedit.createDataInterval("0", "3600")
 netedit.modifyAttribute(netedit.attrs.TAZRelData.create.parameters, "dummyValues")
 
 # create TAZRelData
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
+netedit.leftClickData(referencePosition, netedit.positions.elements.demands.TAZGreen)
+netedit.leftClickData(referencePosition, netedit.positions.elements.demands.TAZRed)
 netedit.typeKey("enter")
 
 # set valid parameters
