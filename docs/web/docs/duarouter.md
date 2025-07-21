@@ -103,6 +103,10 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--output-prefix** {{DT_STR}} | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
 | **--precision** {{DT_INT}} | Defines the number of digits after the comma for floating point output; *default:* **2** |
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
+| **--output.compression** {{DT_STR}} | Defines the standard compression algorithm (currently only for parquet output) |
+| **--output.format** {{DT_STR}} | Defines the standard output format if not derivable from the file name ('xml', 'csv', 'parquet'); *default:* **xml** |
+| **--output.column-header** {{DT_STR}} | How to derive column headers from attribute names ('none', 'tag', 'auto', 'plain'); *default:* **tag** |
+| **--output.column-separator** {{DT_STR}} | Separator in CSV output; *default:* **;** |
 | **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
 | **--alternatives-output** {{DT_FILE}} | Write generated route alternatives to FILE |
 | **--intermodal-network-output** {{DT_FILE}} | Write edge splits and connectivity to FILE |
@@ -128,6 +132,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--repair** {{DT_BOOL}} | Tries to correct a false route; *default:* **false** |
 | **--repair.from** {{DT_BOOL}} | Tries to correct an invalid starting edge by using the first usable edge instead; *default:* **false** |
 | **--repair.to** {{DT_BOOL}} | Tries to correct an invalid destination edge by using the last usable edge instead; *default:* **false** |
+| **--repair.max-detour-factor** {{DT_FLOAT}} | Backtrack on route if the detour is longer than the gap by FACTOR; *default:* **10** |
 | **--mapmatch.distance** {{DT_FLOAT}} | Maximum distance when mapping input coordinates (fromXY etc.) to the road network; *default:* **100** |
 | **--mapmatch.junctions** {{DT_BOOL}} | Match positions to junctions instead of edges; *default:* **false** |
 | **--mapmatch.taz** {{DT_BOOL}} | Match positions to taz instead of edges; *default:* **false** |

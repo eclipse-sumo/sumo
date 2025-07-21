@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-05 21:56:01 by Eclipse SUMO sumo Version v1_22_0+1872-170b1223605
+<!-- generated on 2025-07-21 21:32:03 by Eclipse SUMO sumo Version v1_23_1+1211-c292db0a7e7
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -59,6 +59,10 @@
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="output.compression" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.format" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-header" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output.column-separator" type="strOptionType" minOccurs="0"/>
             <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="netstate-dump" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="netstate-dump.empty-edges" type="boolOptionType" minOccurs="0"/>
@@ -209,6 +213,8 @@
             <xsd:element name="railsignal.max-block-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal.default-classes" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="time-to-impatience" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="default.departspeed" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="default.departlane" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.action-step-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.carfollowmodel" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.speeddev" type="floatOptionType" minOccurs="0"/>

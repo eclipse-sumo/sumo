@@ -1,6 +1,4 @@
----
-title: Netedit attribute help
----
+# Netedit attribute help
 
 ## edge
 | Attribute | Type | Description |
