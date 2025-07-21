@@ -34,20 +34,20 @@ netedit.changeElement("additionalFrame", "calibratorLane")
 # change center view
 netedit.modifyBoolAttribute(netedit.attrs.calibrator.create.center)
 
-# change frequency with an invalid value (dummy)
-netedit.modifyAttribute(netedit.attrs.calibrator.create.frequency, "dummyFreq")
+# change period with an invalid value (dummy)
+netedit.modifyAttribute(netedit.attrs.calibrator.create.period, "dummyFreq")
 
 # create calibratorLane with an invalid parameter (Default value will be used)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
-# change frequency with an invalid value (negative)
-netedit.modifyAttribute(netedit.attrs.calibrator.create.frequency, "-30")
+# change period with an invalid value (negative)
+netedit.modifyAttribute(netedit.attrs.calibrator.create.period, "-30")
 
 # create calibratorLane with an invalid parameter (Default value will be used)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
-# change frequency with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.create.frequency, "250.5")
+# change period with a valid value
+netedit.modifyAttribute(netedit.attrs.calibrator.create.period, "250.5")
 
 # create calibratorLane with a valid parameter
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

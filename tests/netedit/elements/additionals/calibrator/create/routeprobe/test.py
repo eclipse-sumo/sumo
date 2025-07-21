@@ -40,7 +40,7 @@ netedit.modifyAttribute(netedit.attrs.calibrator.create.routeProbe, ";;;;;%%;;;;
 # create calibrator with a different routeProbe in other lane
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
-# change frequency with a different routeProbe (Valid, empty)
+# change period with a different routeProbe (Valid, empty)
 netedit.modifyAttribute(netedit.attrs.calibrator.create.routeProbe, "")
 
 # create calibrator with a valid parameter in other lane

@@ -1463,7 +1463,7 @@ class attrs:
             edge = 3
             pos = 4
             name = 5
-            frequency = 6
+            period = 6
             routeProbe = 7
             outputButton = 8
             output = 9
@@ -1484,7 +1484,7 @@ class attrs:
             laneMoveUp = 4
             pos = 5
             name = 6
-            frequency = 7
+            period = 7
             routeProbe = 8
             outputButton = 9
             output = 10
@@ -1501,7 +1501,7 @@ class attrs:
 
         class inspectSelection:
             name = 2
-            frequency = 3
+            period = 3
             routeProbe = 4
             outputButton = 5
             output = 6

@@ -489,7 +489,6 @@ netedit.attrs.calibrator.inspect.additionalFile 19
 netedit.attrs.calibrator.inspect.additionalFileButton 18
 netedit.attrs.calibrator.inspect.calibratorDialog 17
 netedit.attrs.calibrator.inspect.edge 3
-netedit.attrs.calibrator.inspect.frequency 6
 netedit.attrs.calibrator.inspect.frontButton 16
 netedit.attrs.calibrator.inspect.helpDialog 20
 netedit.attrs.calibrator.inspect.id 2
@@ -499,6 +498,7 @@ netedit.attrs.calibrator.inspect.output 9
 netedit.attrs.calibrator.inspect.outputButton 8
 netedit.attrs.calibrator.inspect.parameters 13
 netedit.attrs.calibrator.inspect.parametersButton 14
+netedit.attrs.calibrator.inspect.period 6
 netedit.attrs.calibrator.inspect.pos 4
 netedit.attrs.calibrator.inspect.reset 21
 netedit.attrs.calibrator.inspect.routeProbe 7
@@ -506,7 +506,6 @@ netedit.attrs.calibrator.inspect.vTypes 11
 netedit.attrs.calibrator.inspectLane.additionalFile 20
 netedit.attrs.calibrator.inspectLane.additionalFileButton 19
 netedit.attrs.calibrator.inspectLane.calibratorDialog 18
-netedit.attrs.calibrator.inspectLane.frequency 7
 netedit.attrs.calibrator.inspectLane.frontButton 17
 netedit.attrs.calibrator.inspectLane.helpDialog 21
 netedit.attrs.calibrator.inspectLane.id 2
@@ -518,13 +517,13 @@ netedit.attrs.calibrator.inspectLane.output 10
 netedit.attrs.calibrator.inspectLane.outputButton 9
 netedit.attrs.calibrator.inspectLane.parameters 14
 netedit.attrs.calibrator.inspectLane.parametersButton 15
+netedit.attrs.calibrator.inspectLane.period 7
 netedit.attrs.calibrator.inspectLane.pos 5
 netedit.attrs.calibrator.inspectLane.reset 22
 netedit.attrs.calibrator.inspectLane.routeProbe 8
 netedit.attrs.calibrator.inspectLane.vTypes 12
 netedit.attrs.calibrator.inspectSelection.additionalFile 15
 netedit.attrs.calibrator.inspectSelection.additionalFileButton 14
-netedit.attrs.calibrator.inspectSelection.frequency 3
 netedit.attrs.calibrator.inspectSelection.frontButton 13
 netedit.attrs.calibrator.inspectSelection.helpDialog 16
 netedit.attrs.calibrator.inspectSelection.jamTreshold 7
@@ -533,6 +532,7 @@ netedit.attrs.calibrator.inspectSelection.output 6
 netedit.attrs.calibrator.inspectSelection.outputButton 5
 netedit.attrs.calibrator.inspectSelection.parameters 10
 netedit.attrs.calibrator.inspectSelection.parametersButton 11
+netedit.attrs.calibrator.inspectSelection.period 3
 netedit.attrs.calibrator.inspectSelection.reset 17
 netedit.attrs.calibrator.inspectSelection.routeProbe 4
 netedit.attrs.calibrator.inspectSelection.vTypes 8
