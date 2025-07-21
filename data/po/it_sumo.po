@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-20 08:20+0000\n"
-"PO-Revision-Date: 2025-06-27 13:07+0000\n"
+"PO-Revision-Date: 2025-07-21 09:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5209,7 +5209,7 @@ msgstr "Stato ToC '%' sconosciuto"
 #: src/microsim/devices/MSDevice_Transportable.cpp:69
 #, c-format
 msgid "Vehicle type '%' in parameter '%' of vehicle '%' is not known."
-msgstr ""
+msgstr "Il tipo di veicolo '%' nel parametro '%' del veicolo '%' è sconosciuto."
 
 #: src/microsim/devices/MSDispatch.cpp:100
 msgid ""
@@ -5581,6 +5581,8 @@ msgid ""
 "Unsafe green phase % in tlLogic '%', program '%'. Lane '%' is targeted by % "
 "'G'-links. (use 'g' instead)"
 msgstr ""
+"Fase di verde insicura % nella logica semaforica '%' (programma '%'). La "
+"corsia '%' viene raggiunta da % collegamenti 'G'. (Invece usa 'g')"
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:314
 msgid ""

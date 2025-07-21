@@ -26,24 +26,25 @@ from __future__ import print_function
 import sys
 import os
 import subprocess
-import optparse
 import tempfile
 import shutil
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
+from sumolib.options import ArgumentParser
 
 
 def parseArgs():
     USAGE = "Usage: " + sys.argv[0] + " <net> <prefix:x:y> <prefix:x:y>+"
-    optParser = optparse.OptionParser(usage=USAGE)
+    optParser = ArgumentParser(usage=USAGE)
     sumolib.pullOptions("netconvert", optParser)
     optParser.add_option(
+        "net", type=ArgumentParser.net_file, help="network to duplicate")
+    optParser.add_option(
+        "desc", nargs="+", help="List of descriptions Prefix:OffsetX:OffsetY+")
+    optParser.add_option(
         "--drop-types", action="store_true", default=False, help="Remove edge types")
-    options, args = optParser.parse_args()
-    if len(args) < 3:
-        sys.exit(USAGE)
-    options.net = args[0]
-    options.desc = [d.split(":") for d in args[1:]]
+    options = optParser.parse_args()
+    options.desc = [d.split(":") for d in options.desc]
     return options
 
 
@@ -64,45 +65,49 @@ def main():
     conns = []
     tlls = []
     tmpDir = tempfile.mkdtemp()
-    for d in options.desc:
+    for prefix, xoff, yoff in options.desc:
         createPlain(
-            netconvert, options.net, os.path.join(tmpDir, d[0]), d[1], d[2])
-        out = open(os.path.join(tmpDir, "%s_.nod.xml" % d[0]), 'w')
-        for line in open(os.path.join(tmpDir, "%s.nod.xml" % d[0])):
-            if 'location' in line:
-                continue
-            line = line.replace('id="', 'id="%s_' % d[0])
-            line = line.replace('tl="', 'tl="%s_' % d[0])
-            out.write(line)
+            netconvert, options.net, os.path.join(tmpDir, prefix), xoff, yoff)
+        out = open(os.path.join(tmpDir, "%s_.nod.xml" % prefix), 'w')
+        with open(os.path.join(tmpDir, "%s.nod.xml" % prefix)) as nfile:
+            for line in nfile:
+                if 'location' in line:
+                    continue
+                line = line.replace('id="', 'id="%s_' % prefix)
+                line = line.replace('tl="', 'tl="%s_' % prefix)
+                out.write(line)
         out.close()
         nodes.append(out.name)
-        out = open(os.path.join(tmpDir, "%s_.edg.xml" % d[0]), 'w')
-        for line in open(os.path.join(tmpDir, "%s.edg.xml" % d[0])):
-            line = line.replace('id="', 'id="%s_' % d[0])
-            line = line.replace('from="', 'from="%s_' % d[0])
-            line = line.replace('to="', 'to="%s_' % d[0])
-            if options.drop_types:
-                typeStart = line.find('type="')
-                if typeStart >= 0:
-                    typeEnd = line.find('"', typeStart + 6)
-                    line = line[0:typeStart] + line[typeEnd + 1:]
-            out.write(line)
+        out = open(os.path.join(tmpDir, "%s_.edg.xml" % prefix), 'w')
+        with open(os.path.join(tmpDir, "%s.edg.xml" % prefix)) as efile:
+            for line in efile:
+                line = line.replace('id="', 'id="%s_' % prefix)
+                line = line.replace('from="', 'from="%s_' % prefix)
+                line = line.replace('to="', 'to="%s_' % prefix)
+                if options.drop_types:
+                    typeStart = line.find('type="')
+                    if typeStart >= 0:
+                        typeEnd = line.find('"', typeStart + 6)
+                        line = line[0:typeStart] + line[typeEnd + 1:]
+                out.write(line)
         out.close()
         edges.append(out.name)
-        out = open(os.path.join(tmpDir, "%s_.con.xml" % d[0]), 'w')
-        for line in open(os.path.join(tmpDir, "%s.con.xml" % d[0])):
-            line = line.replace('from="', 'from="%s_' % d[0])
-            line = line.replace('to="', 'to="%s_' % d[0])
-            out.write(line)
+        out = open(os.path.join(tmpDir, "%s_.con.xml" % prefix), 'w')
+        with open(os.path.join(tmpDir, "%s.con.xml" % prefix)) as cfile:
+            for line in cfile:
+                line = line.replace('from="', 'from="%s_' % prefix)
+                line = line.replace('to="', 'to="%s_' % prefix)
+                out.write(line)
         out.close()
         conns.append(out.name)
-        out = open(os.path.join(tmpDir, "%s_.tll.xml" % d[0]), 'w')
-        for line in open(os.path.join(tmpDir, "%s.tll.xml" % d[0])):
-            line = line.replace('id="', 'id="%s_' % d[0])
-            line = line.replace('from="', 'from="%s_' % d[0])
-            line = line.replace('to="', 'to="%s_' % d[0])
-            line = line.replace('tl="', 'tl="%s_' % d[0])
-            out.write(line)
+        out = open(os.path.join(tmpDir, "%s_.tll.xml" % prefix), 'w')
+        with open(os.path.join(tmpDir, "%s.tll.xml" % prefix)) as tfile:
+            for line in tfile:
+                line = line.replace('id="', 'id="%s_' % prefix)
+                line = line.replace('from="', 'from="%s_' % prefix)
+                line = line.replace('to="', 'to="%s_' % prefix)
+                line = line.replace('tl="', 'tl="%s_' % prefix)
+                out.write(line)
         out.close()
         tlls.append(out.name)
     options.node_files = ",".join(nodes)

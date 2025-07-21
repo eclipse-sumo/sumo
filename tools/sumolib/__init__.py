@@ -22,13 +22,12 @@ import os
 import sys
 import subprocess
 import warnings
-from optparse import OptionParser
 
 from . import files, net, output, sensors, shapes, statistics, fpdiff  # noqa
 from . import color, geomhelper, miscutils, options, route, vehicletype, version  # noqa
 # the visualization submodule is not imported to avoid an explicit matplotlib dependency
 from .miscutils import openz
-from .options import pullOptions
+from .options import pullOptions, ArgumentParser
 from .xml import writeHeader as writeXMLHeader  # noqa
 
 
@@ -38,15 +37,15 @@ def saveConfiguration(executable, configoptions, filename):
 
 
 def call(executable, args):
-    optParser = OptionParser()
-    pullOptions(executable, optParser)
+    ap = ArgumentParser()
+    pullOptions(executable, ap)
     cmd = [executable]
     for option, value in args.__dict__.items():
         o = "--" + option.replace("_", "-")
-        opt = optParser.get_option(o)
-        if opt is not None and value is not None and opt.default != value:
-            cmd.append(o)
-            if opt.action != "store_true":
+        if value is not None:
+            a = ap.get_option(option)
+            if a is not None and a.default != value:
+                cmd.append(o)
                 cmd.append(str(value))
     return subprocess.call(cmd)
 
