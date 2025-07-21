@@ -94,9 +94,10 @@ title: ChangeLog
 
 - tools
   - gtfs2pt.py: Fixed bug where option **--repair** did not fix broken **--osm-routes**. #16632 (regression in 1.17.0)
-  - gtfs2pt.py: Fixed invalid vehicle departure when running with options **--osm-routes --bbox** #16731
-  - gtfs2pt.py: Fixed obsolete config header when using **--osm-routes** #16680
+  - netduplicate.py: tool is working again #16931 (regression in 1.17.0)
   - createVehTypeDistribution.py: no longer crashes when output file already exists #16728 (regression in 1.21.0)
+  - gtfs2pt.py: Fixed invalid vehicle departure when running with options **--osm-routes --bbox** #16731
+  - gtfs2pt.py: Fixed obsolete config header when using **--osm-routes** #16680  
   - osmWebWizard.py: Fixed bug where the wizard wouldn't open properly on Linux #16086
   - net2geojson.py: Fixed bug that was causing invalid shapes with option **--boundary** #16295
   - tlsCycleAdaptation.py: Fixed invalid error #14015
