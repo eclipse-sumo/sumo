@@ -35,13 +35,13 @@ netedit.changeMode("meanData")
 netedit.createMeanData()
 
 # modify meanData
-netedit.modifyAttributeOverlapped(netedit.attrs.edgeMeanData.inspect.end, "dummy")
+netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.end, "dummy")
 
 # modify meanData
-netedit.modifyAttributeOverlapped(netedit.attrs.edgeMeanData.inspect.end, "-12")
+netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.end, "-12")
 
 # modify meanData
-netedit.modifyAttributeOverlapped(netedit.attrs.edgeMeanData.inspect.end, "7.5")
+netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.end, "7.5")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -4857,48 +4857,58 @@ class attrs:
     class edgeMeanData:
 
         class inspect:
-            id = 7
-            fileButton = 8
-            file = 9
-            period = 10
-            begin = 11
-            end = 12
-            excludeEmpty = 13
-            withInternal = 15
-            maxTravelTime = 16
-            minSamples = 17
-            speedThreshold = 18
-            vTypes = 19
-            trackVehicles = 20
-            detectPersons = 21
-            writeAttributes = 22
-            edges = 23
-            edgesFile = 24
-            aggregate = 25
+            id = 12
+            fileButton = 13
+            file = 14
+            period = 15
+            begin = 16
+            end = 17
+            excludeEmpty = 18
+            withInternal = 20
+            maxTravelTime = 21
+            minSamples = 22
+            speedThreshold = 23
+            vTypes = 24
+            trackVehicles = 25
+            detectPersons = 26
+            writeAttributes = 28
+            edges = 29
+            edgesFileButton = 30
+            edgesFile = 31
+            aggregate = 32
+            additionalFileButton = 34
+            additionalFile = 35
+            helpDialog = 36
+            reset = 37
 
     # lane mean data
 
     class laneMeanData:
 
         class inspect:
-            id = 7
-            fileButton = 8
-            file = 9
-            period = 10
-            begin = 11
-            end = 12
-            excludeEmpty = 13
-            withInternal = 15
-            maxTravelTime = 16
-            minSamples = 17
-            speedThreshold = 18
-            vTypes = 19
-            trackVehicles = 20
-            detectPersons = 21
-            writeAttributes = 22
-            edges = 23
-            edgesFile = 24
-            aggregate = 25
+            id = 12
+            fileButton = 13
+            file = 14
+            period = 15
+            begin = 16
+            end = 17
+            excludeEmpty = 18
+            withInternal = 20
+            maxTravelTime = 21
+            minSamples = 22
+            speedThreshold = 23
+            vTypes = 24
+            trackVehicles = 25
+            detectPersons = 26
+            writeAttributes = 28
+            edges = 29
+            edgesFileButton = 30
+            edgesFile = 31
+            aggregate = 32
+            additionalFileButton = 34
+            additionalFile = 35
+            helpDialog = 36
+            reset = 37
 
     # --------------------------------
     # Dialogs
