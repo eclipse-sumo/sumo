@@ -253,6 +253,10 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         createLineShape();
     } else if (function == "createMeanData") {
         createMeanData();
+    } else if (function == "deleteMeanData") {
+        deleteMeanData();
+    } else if (function == "copyMeanData") {
+        copyMeanData();
     } else if (function == "saveExistentShortcut") {
         saveExistentShortcut();
     } else if (function == "checkUndoRedo") {
@@ -1935,6 +1939,26 @@ InternalTestStep::createMeanData() {
         writeError("createMeanData", 0, "<>");
     } else {
         modifyBoolAttribute(5, 0);
+    }
+}
+
+
+void
+InternalTestStep::deleteMeanData() {
+    if (myArguments.size() != 0) {
+        writeError("deleteMeanData", 0, "<>");
+    } else {
+        modifyBoolAttribute(6, 0);
+    }
+}
+
+
+void
+InternalTestStep::copyMeanData() {
+    if (myArguments.size() != 0) {
+        writeError("copyMeanData", 0, "<>");
+    } else {
+        modifyBoolAttribute(7, 0);
     }
 }
 

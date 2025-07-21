@@ -391,8 +391,14 @@ private:
     /// @brief process create line shape function
     void createLineShape();
 
-    /// @brief process create mean data function
+    /// @brief process createMeanData function
     void createMeanData();
+
+    /// @brief process deleteMeanData function
+    void deleteMeanData();
+
+    /// @brief process copyMeanData function
+    void copyMeanData();
 
     /// @brief process quit function
     void quit();
