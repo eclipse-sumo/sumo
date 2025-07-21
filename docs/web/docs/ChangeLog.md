@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.24.0 (22.07.2025)
 
 ### Bugfixes
 
@@ -12,7 +12,7 @@ title: ChangeLog
   - Vehicles no longer drive onto forbidden internal lanes when option **--ignore-route-errors** is set #16635
   - Fixed bug where junction collision was not detected #16695
   - Fixed collision on junction due to unsafe lane changing #16643
-  - Fixed invalid waitingTime for walking stage in tripinfo-output (value was not accumulating) #16729  
+  - Fixed invalid waitingTime for walking stage in tripinfo-output (value was not accumulating) #16729
   - railway routing now ignores temporary road closings when option **--device.rerouting.mode 8** is set #16799
   - Fixed bug where persons with a personTrip had the wrong arrivalPos when changing from `<ride>` to `<walk>` #16801
   - Fixed invalid emergency stop when vehicle is teleported beyond `arrivalEdge` attribute #16802
@@ -37,9 +37,9 @@ title: ChangeLog
     - Queue entry block time is now preserved when saving/loading state #16770
     - edgeData now restores internal state when loading state #16894
     - Option **--save-state.precision** now applies to all values stored in state #16897
-    
 
-- netedit  
+
+- netedit
   - link-direction arrows for spread bidi-rail are drawn in the correct spot #16718 (regression in 1.20.0)
   - bidi-rail connections are drawn large enough for comfortable clicking #16701 (regression in 1.22.0)
   - bidi-rail connections are drawn on the correct side again #16700 (regression in 1.23.0)
@@ -70,7 +70,7 @@ title: ChangeLog
 
 - mesosim
   - Fixed crash when loading state with different network #16758
-  - Fixed crash when loading state with different values of **--meso-lane-queue** #16757  
+  - Fixed crash when loading state with different values of **--meso-lane-queue** #16757
   - Vehroute-output no longer contains invalid route edges when loading state and rerouting #16776
   - Fixed bug where calibrators caused invalid traffic data output when removing vehicles #16821
   - Fixed state-saving related bugs #16770, #16874
@@ -96,7 +96,7 @@ title: ChangeLog
   - netduplicate.py: tool is working again #16931 (regression in 1.17.0)
   - createVehTypeDistribution.py: no longer crashes when output file already exists #16728 (regression in 1.21.0)
   - gtfs2pt.py: Fixed invalid vehicle departure when running with options **--osm-routes --bbox** #16731
-  - gtfs2pt.py: Fixed obsolete config header when using **--osm-routes** #16680  
+  - gtfs2pt.py: Fixed obsolete config header when using **--osm-routes** #16680
   - osmWebWizard.py: Fixed bug where the wizard wouldn't open properly on Linux #16086
   - net2geojson.py: Fixed bug that was causing invalid shapes with option **--boundary** #16295
   - tlsCycleAdaptation.py: Fixed invalid error #14015
@@ -119,7 +119,7 @@ title: ChangeLog
   - Vehicles may now exceed their vType-`maxSpeed` when using `carFollowModel="KraussPS"` and going downhill (up to their `desiredMaxSpeed`) #16805
   - containerStop now supports element `<access>` #16811
   - Vehroute output for persons and containers can now selectively be disabled via param key `"has.vehroute.person-device"`  #16820
-  - It is now possible to model [trailers / marshalling](Specification/Logistics.md#trailers_and_rail_cars) by changing vehicle properties upon loading/unloading of containers #8800  
+  - It is now possible to model [trailers / marshalling](Specification/Logistics.md#trailers_and_rail_cars) by changing vehicle properties upon loading/unloading of containers #8800
   - Custom traffic light switching rules now support function `w:DETID` to retrieve the longest individual waiting time in seconds for vehicles on detector #16841
   - Rerouting trains now always use the current edge as reroute-origin #16852
   - Added options **--default.departspeed** and **--default.departlane** to override the default value when vehicles do not define the respective attributes #16925
@@ -151,7 +151,7 @@ title: ChangeLog
   - [plotStops.py](Tools/Railways.md#plotstopspy): New tool to simplify drawing a train schedule diagram along a specified route. #16683
   - generateContinuousRerouters.py: Added option **--stop-file** to add stops at loaded busStops when rerouting #16719
   - mapDetectors.py: Added option **--all-lanes** to place detectors on all lanes of an edge based on a single input coordinate #16751
-  - plot_net_dump.py: Added opion **--colormap.center** two permit plotting colors with `TwoSlopeNorm` #16778  
+  - plot_net_dump.py: Added opion **--colormap.center** two permit plotting colors with `TwoSlopeNorm` #16778
   - tileGet.py:: Added 'cartodb_' URL-shortcuts and option **--retina** to be used with cartodb URLS #16822
   - net2sel.py: Added new tool to obtain selection file with junctions and edges from .net.xml #16907
   - routeSampler.py: Named route output now always writes the usage count as route "probability" attribute #16919
