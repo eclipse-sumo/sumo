@@ -3859,6 +3859,11 @@ GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector s
     const auto savingFileHandler = myViewNet->getNet()->getSavingFilesHandler();
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
+    // first check if we have to save additionals
+    if (myNet->getAttributeCarriers()->getNumberOfAdditionals() == 0) {
+        // nothing to save
+        return 1;
+    }
     if (myNet->getSavingStatus()->isAdditionalsSaved() && !neteditOptions.getBool("force-saving")) {
         // nothing to save
         return 1;
@@ -4252,6 +4257,11 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
     const auto savingFileHandler = myViewNet->getNet()->getSavingFilesHandler();
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
+    // first check if we have data elements to save
+    if (myNet->getAttributeCarriers()->getNumberOfDataElements() == 0) {
+        // nothing to save
+        return 1;
+    }
     // check saving conditions
     if (myNet->getSavingStatus()->isDataElementsSaved() && !neteditOptions.getBool("force-saving")) {
         // nothing to save
@@ -4419,6 +4429,11 @@ GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel
     const auto savingFileHandler = myViewNet->getNet()->getSavingFilesHandler();
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
+    // first check if we have to save meanDatas
+    if (myNet->getAttributeCarriers()->getNumberOfMeanDatas() == 0) {
+        // nothing to save
+        return 1;
+    }
     // check saving conditions
     if (myNet->getSavingStatus()->isMeanDatasSaved() && !neteditOptions.getBool("force-saving")) {
         // nothing to save
