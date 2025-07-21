@@ -1,4 +1,6 @@
 Warning: No flow intervals in calibrator 'ca_5'.
 Warning: No flow intervals in calibrator 'ca_6'.
-Error: Source taz 'taz_3' has no outgoing edges for trip 't_2'!
+Warning: No connection between edge 'taz_3-source' and edge 'taz_2-sink' found.
+Warning: No route for vehicle 't_2' found.
+Error: Vehicle 't_2' has no valid route.
 Quitting (on error).
