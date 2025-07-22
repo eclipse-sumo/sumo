@@ -2,6 +2,10 @@
 title: ChangeLog
 ---
 
+## Git Main
+
+### Bugfixes
+
 ## Version 1.24.0 (22.07.2025)
 
 ### Bugfixes
