@@ -129,7 +129,7 @@ GNEAllowVClassesDialog::~GNEAllowVClassesDialog() {
 }
 
 
-int
+bool
 GNEAllowVClassesDialog::openDialog(SumoXMLAttr attr, const std::string originalVClasses, GNEInternalTest* internalTests) {
     setTitle(TLF("Edit vClasses of attribute '%'", toString(attr)).c_str());
     myOriginalVClasses = originalVClasses;
@@ -137,7 +137,7 @@ GNEAllowVClassesDialog::openDialog(SumoXMLAttr attr, const std::string originalV
     // reset dialog
     onCmdReset(nullptr, 0, nullptr);
     // run it as modal
-    return openModalDialog(internalTests);
+    return openModal(internalTests);
 }
 
 

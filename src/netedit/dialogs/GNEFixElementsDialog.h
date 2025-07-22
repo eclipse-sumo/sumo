@@ -88,7 +88,7 @@ protected:
     };
 
     /// @brief open dialog
-    long openFixDialog();
+    bool openFixDialog();
 
     /// @brief stop fix elements dialog accepting changes
     long closeFixDialog(const bool success);

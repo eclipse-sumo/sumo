@@ -62,8 +62,11 @@ public:
     /// @brief event when user select an option
     long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
-    /// @brief event when dialog is closed
-    long onCmdClose(FXObject* obj, FXSelector, void*);
+    /// @brief called when accept button is pressed
+    long onCmdAccept(FXObject*, FXSelector, void*);
+
+    /// @brief called when cancel button is pressed (or dialog is closed)
+    long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @}
 

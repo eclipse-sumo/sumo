@@ -1,3 +1,7 @@
+#include "GNEAbout.h"
+#include "GNEAbout.h"
+#include "GNEAbout.h"
+#include "GNEAbout.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
@@ -90,10 +94,15 @@ GNEAbout::~GNEAbout() {
 }
 
 
-void
-GNEAbout::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
-    // finish
+long
+GNEAbout::onCmdAccept(FXObject*, FXSelector, void*) {
+    return closeDialogAccepting();
 }
 
+
+long
+GNEAbout::onCmdCancel(FXObject*, FXSelector, void*) {
+    return closeDialogCanceling();
+}
 
 /****************************************************************************/

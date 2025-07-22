@@ -1734,8 +1734,6 @@ enum {
 
     /// @brief run tests
     MID_RUNTESTS,
-    /// @brief execute internal test in modal dialog
-    MID_INTERNALTEST,
 
     /// @{
 

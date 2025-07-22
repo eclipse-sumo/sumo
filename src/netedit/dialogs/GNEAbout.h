@@ -36,8 +36,16 @@ public:
     /// @brief Destructor
     ~GNEAbout();
 
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogTest* dialogTest);
+    /// @name FOX-callbacks
+    /// @{
+
+    /// @brief called when accept button is pressed
+    long onCmdAccept(FXObject*, FXSelector, void*);
+
+    /// @brief called when cancel button is pressed (or dialog is closed)
+    long onCmdCancel(FXObject*, FXSelector, void*);
+
+    /// @}
 
     /// @brief Creates the widget
     void create();
