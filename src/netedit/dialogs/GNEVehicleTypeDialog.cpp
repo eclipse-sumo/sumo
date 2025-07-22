@@ -1285,7 +1285,7 @@ long
 GNEVehicleTypeDialog::VTypeAttributes::onCmdOpenParametersEditor(FXObject*, FXSelector, void*) {
     const auto viewNet = myVehicleTypeDialog->getEditedDemandElement()->getNet()->getViewNet();
     // edit parameters using dialog
-    if (GNESingleParametersDialog(myParameters, viewNet).openModalDialog(viewNet->getViewParent()->getGNEAppWindows()->getInternalTest())) {
+    if (GNESingleParametersDialog(myParameters, viewNet).openModal(viewNet->getViewParent()->getGNEAppWindows()->getInternalTest())) {
         // set values edited in Parameter dialog in Edited AC
         myVehicleTypeDialog->getEditedDemandElement()->setAttribute(GNE_ATTR_PARAMETERS, myParameters->getParametersStr(), viewNet->getUndoList());
     }

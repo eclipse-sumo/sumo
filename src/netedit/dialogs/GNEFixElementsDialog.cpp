@@ -56,10 +56,10 @@ GNEFixElementsDialog::GNEFixElementsDialog(GNEViewNet* viewNet, const std::strin
 GNEFixElementsDialog::~GNEFixElementsDialog() {}
 
 
-long
+bool
 GNEFixElementsDialog::openFixDialog() {
     // open modal dialog
-    return openModalDialog(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest());
+    return openModal(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest());
 }
 
 

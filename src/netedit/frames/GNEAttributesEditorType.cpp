@@ -409,7 +409,8 @@ long
 GNEAttributesEditorType::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
     // get internal test (for code legibly)
     const auto internalTest = myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest();
-    if (GNESingleParametersDialog(this).openModalDialog(internalTest)) {
+    // open dialog
+    if (GNESingleParametersDialog(this).openModal(internalTest)) {
         refreshAttributesEditor();
     }
     return 1;

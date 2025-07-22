@@ -317,7 +317,7 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
 InternalTestStep::InternalTestStep(InternalTestStep* parent, const std::string& solution,
                                    const std::string description) :
     myTestSystem(parent->myTestSystem),
-    myMessageID(MID_INTERNALTEST),
+    myMessageID(0),
     myDescription(description) {
     // add this testStep to parent modal dialgo testSteps
     parent->myDialogTestSteps.push_back(this);

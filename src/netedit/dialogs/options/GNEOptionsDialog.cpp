@@ -69,19 +69,21 @@ FXIMPLEMENT(GNEOptionsDialog, MFXDialogBox, GUIDialogOptionsMap, ARRAYNUMBER(GUI
 
 std::pair<int, bool>
 GNEOptionsDialog::Options(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer, const char* titleName) {
-    GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, false);
-    auto result = std::make_pair(optionsDialog->openModalDialog(GNEApp->getInternalTest()), optionsDialog->myOptionsModified);
-    delete optionsDialog;
-    return result;
+    auto optionsDialog = GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, false);
+    // open dialog modal
+    optionsDialog.openModal(GNEApp->getInternalTest());
+    // save result
+    return std::make_pair(optionsDialog.getAccepted(), optionsDialog.myOptionsModified);
 }
 
 
 std::pair<int, bool>
 GNEOptionsDialog::Run(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer, const char* titleName) {
-    GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, true);
-    auto result = std::make_pair(optionsDialog->openModalDialog(GNEApp->getInternalTest()), optionsDialog->myOptionsModified);
-    delete optionsDialog;
-    return result;
+    auto optionsDialog = GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, true);
+    // open dialog modal
+    optionsDialog.openModal(GNEApp->getInternalTest());
+    // save result
+    return std::make_pair(optionsDialog.getAccepted(), optionsDialog.myOptionsModified);
 }
 
 
@@ -95,13 +97,18 @@ GNEOptionsDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTe
 
 
 long
+GNEOptionsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    return closeDialogAccepting();
+}
+
+
+long
 GNEOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // reset entries
     for (const auto& entry : myInputOptionEntries) {
         entry->onCmdResetOption(nullptr, 0, nullptr);
     }
-    // close dialog canceling changes
-    return handle(this, FXSEL(SEL_COMMAND, FXDialogBox::ID_CANCEL), nullptr);
+    return closeDialogCanceling();
 }
 
 

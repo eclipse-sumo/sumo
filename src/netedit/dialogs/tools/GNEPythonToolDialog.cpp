@@ -40,7 +40,6 @@
 // ===========================================================================
 
 FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNEPythonToolDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,  GNEPythonToolDialog::onCmdShowToolTipsMenu),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,       GNEPythonToolDialog::onCmdSave),
     FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SAVE,       GNEPythonToolDialog::onUpdRequiredAttributes),
@@ -48,7 +47,6 @@ FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEPythonToolDialog::onCmdSetVisualization),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNEPythonToolDialog::onCmdRun),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_RUN,     GNEPythonToolDialog::onUpdRequiredAttributes),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEPythonToolDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEPythonToolDialog::onCmdReset)
 };
 
@@ -213,10 +211,14 @@ GNEPythonToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
 
 
 long
+GNEPythonToolDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    return closeDialogAccepting();
+}
+
+
+long
 GNEPythonToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // hide dialog
-    hide();
-    return 1;
+    return closeDialogCanceling();
 }
 
 

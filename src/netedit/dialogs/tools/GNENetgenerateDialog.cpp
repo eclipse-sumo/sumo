@@ -293,10 +293,14 @@ GNENetgenerateDialog::onUpdSettingsConfigured(FXObject* sender, FXSelector, void
 
 
 long
+GNENetgenerateDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    return closeDialogAccepting();
+}
+
+
+long
 GNENetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // hide dialog
-    hide();
-    return 1;
+    return closeDialogCanceling();
 }
 
 
