@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-20 08:20+0000\n"
-"PO-Revision-Date: 2025-07-22 09:03+0000\n"
+"PO-Revision-Date: 2025-07-22 16:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -16463,11 +16463,11 @@ msgstr "Rimuovi configurazione dal registro di sistema"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1784
 msgid "Export setting to file"
-msgstr ""
+msgstr "Salva configurazione in file"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1785
 msgid "Load setting from file"
-msgstr ""
+msgstr "Carica configurazione da file"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1788
 msgid "Export includes:"
@@ -16577,7 +16577,7 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1909
 msgid ""
 "Make both directional edges for a bidirectional railways or roads visible"
-msgstr ""
+msgstr "Rendi visibile ambi archi direzionali di ferrovie o vie bidirezionali"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1912
 msgid "Secondary shape"
@@ -17012,11 +17012,11 @@ msgstr "Cambia lingua in italiano. (it)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:353
 msgid "简体中文 (zh)"
-msgstr ""
+msgstr "简体中文 (zh)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:355
 msgid "繁體中文 (zh-Hant)"
-msgstr ""
+msgstr "繁體中文 (zh-Hant)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:357
 msgid "Change language to turkish. (tr)"
@@ -17028,7 +17028,7 @@ msgstr "Cambia lingua in ungherese. (hu)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:361
 msgid "Change language to japanese. (ja)"
-msgstr ""
+msgstr "Cambia lingua in giapponese. (ja)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:375
 msgid "german"
