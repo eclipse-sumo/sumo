@@ -33,16 +33,17 @@
 // ===========================================================================
 
 FXDEFMAP(MFXDialogBox) MFXDialogBoxMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      MFXDialogBox::onCmdCancel),
+    // close dialog accepting changes
     FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_ACCEPT, MFXDialogBox::onCmdAccept),
+    // close dialog discarding changes
+    FXMAPFUNC(SEL_CLOSE,    0,                      MFXDialogBox::onCmdCancel),
     FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
     FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_INTERNALTEST,       MFXDialogBox::onCmdInternalTest),
 };
 
 // Object implementation
-FXIMPLEMENT(MFXDialogBox, FXDialogBox, MFXDialogBoxMap, ARRAYNUMBER(MFXDialogBoxMap))
+FXIMPLEMENT_ABSTRACT(MFXDialogBox, FXDialogBox, MFXDialogBoxMap, ARRAYNUMBER(MFXDialogBoxMap))
 
 // ===========================================================================
 // method definitions
@@ -60,71 +61,62 @@ MFXDialogBox::MFXDialogBox(FXWindow* owner, const FXString& name, FXuint opts, F
 }
 
 
-FXuint
-MFXDialogBox::openModalDialog(InternalTest* internalTests, FXuint placement) {
+bool
+MFXDialogBox::openModal(InternalTest* internalTests, FXuint placement) {
+    // create and show dialog
     create();
     show(placement);
+    // refresh the application
     getApp()->refresh();
+    // continue depending on whether we are testing or not
     if (internalTests) {
         myTesting = true;
         // execute every modal dialog test step
         for (const auto& modalStep : internalTests->getCurrentStep()->getModalDialogTestSteps()) {
+            // this will be unified
             if (modalStep->getEvent()) {
                 handle(internalTests, modalStep->getSelector(), modalStep->getEvent());
             } else if (modalStep->getDialogTest()) {
                 handle(internalTests, modalStep->getSelector(), modalStep->getDialogTest());
             }
         }
-        return 1;
     } else {
         myTesting = false;
-        return getApp()->runModalFor(this);
+        getApp()->runModalFor(this);
     }
+    return myAccepted;
 }
 
 
-void
-MFXDialogBox::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
-    // temporal until #16893
+bool
+MFXDialogBox::getAccepted() const {
+    return myAccepted;
 }
 
 
 long
-MFXDialogBox::onCmdAccept(FXObject*, FXSelector, void*) {
+MFXDialogBox::closeDialogAccepting() {
     // only stop modal if we're not testing
     if (myTesting == false) {
         getApp()->stopModal(this, TRUE);
     }
+    // hide dialog
     hide();
+    // enable accepted flag
+    myAccepted = true;
     return 1;
 }
 
 
 long
-MFXDialogBox::onCmdCancel(FXObject*, FXSelector, void*) {
+MFXDialogBox::closeDialogCanceling() {
     // only stop modal if we're not testing
     if (myTesting == false) {
         getApp()->stopModal(this, FALSE);
     }
+    // hide dialog
     hide();
-    return 1;
-}
-
-
-long
-MFXDialogBox::onCmdInternalTest(FXObject*, FXSelector, void* ptr) {
-    auto dialogTest = static_cast<const InternalTestStep::DialogTest*>(ptr);
-    // ensure dialogTest is not null
-    if (dialogTest) {
-        // run internal test
-        runInternalTest(dialogTest);
-    }
-    // complete
-    return 1;
-}
-
-
-FXuint
-MFXDialogBox::execute(FXuint placement) {
-    return FXDialogBox::execute(placement);
+    // disable accepted flag
+    myAccepted = false;
+    return 0;
 }
