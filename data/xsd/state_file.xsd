@@ -224,8 +224,8 @@
     </xsd:complexType>
 
     <xsd:complexType name="queueType">
-        <xsd:attribute name="time" type="xsd:int" use="required"/>
-        <xsd:attribute name="blockTime" type="xsd:string" use="required"/>
+        <xsd:attribute name="time" type="xsd:long" use="required"/>
+        <xsd:attribute name="blockTime" type="xsd:long" use="required"/>
         <xsd:attribute name="value" type="xsd:string" use="required"/>
     </xsd:complexType>
 
