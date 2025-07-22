@@ -852,7 +852,7 @@ the figure (once known it is as it should be). In such cases, the option
 
 ## Coloring and scaling edges in [sumo-gui](../sumo-gui.md) according to arbitrary data
 
-[sumo-gui](../sumo-gui.md) can load [edgeData files](../sumo-gui.md#visualizing_edge-related_data) and user the contained values of any attribute for coloring edges (roads) as well as for modifying the visual width of the edges. This serves a similar use case as #plot_net_dumppy but allows all dynamic zooming and panning features of of sumo-gui.
+[sumo-gui](../sumo-gui.md) can load [edgeData files](../sumo-gui.md#visualizing_edge-related_data) and use the contained values of any attribute for coloring edges (roads) as well as for modifying the visual width of the edges. This serves a similar use case as [plot_net_dump.py](#plot_net_dumppy) but allows all dynamic zooming and panning features of of sumo-gui.
 
 When stepping through the simulation, different time intervals contained in
 the weight file can be shown. It can be useful to adapt the simulation step length to the data period for easier stepping:
