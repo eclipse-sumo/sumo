@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-20 08:20+0000\n"
-"PO-Revision-Date: 2025-07-12 14:36+0000\n"
+"PO-Revision-Date: 2025-07-22 09:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13655,7 +13655,7 @@ msgstr "Codice identificativo di insiemi di dati vuoto invalido"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:152
 msgid "Invalid duplicated dataSet ID"
-msgstr ""
+msgstr "Codice identificativo di insieme di dati invalido perché raddoppiato"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:208
 msgid "Interval"
@@ -13757,7 +13757,7 @@ msgstr "Il piano di contenitori attualmente selezionato è invalido."
 
 #: src/netedit/frames/demand/GNEContainerPlanFrame.cpp:39
 msgid "ContainerPlans"
-msgstr ""
+msgstr "Piani di contenitori"
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:80
 msgid "Distribution Editor"
@@ -14018,6 +14018,10 @@ msgid ""
 " clicking over one in view\n"
 " or by selecting from list"
 msgstr ""
+"-Seleziona rivelatore di entrata-uscita\n"
+" attraverso la veduta\n"
+" o dall'elenco \n"
+"prima della creazione"
 
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:186
 msgid "Current selected additional isn't valid."
@@ -14499,7 +14503,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
-msgstr ""
+msgstr "Salva proibizioni modificate (Enter)"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
@@ -14511,7 +14515,7 @@ msgstr "Deseleziona collegamento (Esc)"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:229
 msgid "Prohibitions"
-msgstr ""
+msgstr "Proibizioni"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:57
 msgid "GEO POI Creator"
@@ -14652,7 +14656,7 @@ msgstr "Modifiche di zone di assegnazione del traffico"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:474
 msgid "TAZ Sources/Sinks"
-msgstr ""
+msgstr "Sorgenti e scarichi di zone di assegnazione del traffico"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:480
 msgid "Membership"
@@ -14660,7 +14664,7 @@ msgstr "Affiliazione"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:481
 msgid "Toggle"
-msgstr ""
+msgstr "Alternare"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:486
 msgid "New source"
@@ -14677,12 +14681,12 @@ msgstr "Definisci probabilità di bordo rete"
 #: src/netedit/frames/network/GNETAZFrame.cpp:501
 #: src/netedit/frames/network/GNETAZFrame.cpp:635
 msgid "Toggle Membership:"
-msgstr ""
+msgstr "Alterna affiliazione:"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:502
 #: src/netedit/frames/network/GNETAZFrame.cpp:636
 msgid "Create new Sources/Sinks with given weights."
-msgstr ""
+msgstr "Crea nuovi sorgenti e scarichi con i pesi indicati."
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:552
 #: src/netedit/frames/network/GNETAZFrame.cpp:644
@@ -14723,7 +14727,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:628
 msgid "toggle"
-msgstr ""
+msgstr "alternare"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:657
 msgid "Keep Membership:"
@@ -15332,11 +15336,11 @@ msgstr "persona"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:76
 msgid "tlLogic"
-msgstr ""
+msgstr "logica semaforica"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:81
 msgid "overheadWireSegment"
-msgstr ""
+msgstr "segmento di catenaria"
 
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:80
 msgid "Name"
@@ -15356,7 +15360,7 @@ msgstr "Apri in una finestra di inseguimento di valori"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:216
 msgid "Ignoring item '%' because of invalid type %\n"
-msgstr ""
+msgstr "L'elemento '%' viene ignorato a causa del tipo invalido %\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:230
 #, c-format
@@ -16435,15 +16439,15 @@ msgstr "Ricalibra arcobaleno"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1722
 msgid "min"
-msgstr ""
+msgstr "min."
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1727
 msgid "max"
-msgstr ""
+msgstr "max."
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1732
 msgid "center"
-msgstr ""
+msgstr "centro"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1737
 msgid "fix range"
