@@ -29,46 +29,50 @@
 // ===========================================================================
 
 class MFXDialogBox : public FXDialogBox {
-    FXDECLARE(MFXDialogBox)
+    FXDECLARE_ABSTRACT(MFXDialogBox)
 
 public:
     /// @brief Construct free-floating dialog
     MFXDialogBox(FXApp* a, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
 
     /// @brief Construct dialog which will always float over the owner window
+    /// @note must be removed
     MFXDialogBox(FXWindow* owner, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
 
-    /// @brief Run modal invocation of the dialog
-    FXuint openModalDialog(InternalTest* internalTests, FXuint placement = PLACEMENT_CURSOR);
+    /// @brief open modal dialog
+    bool openModal(InternalTest* internalTests, FXuint placement = PLACEMENT_CURSOR);
 
-    /// @brief run internal test
-    virtual void runInternalTest(const InternalTestStep::DialogTest* dialogTest);
+    /// @brief bool to indicate if this dialog was closed accepting or rejecting changes
+    bool getAccepted() const;
 
     /// @name FOX-callbacks
     /// @{
 
     /// @brief called when accept button is pressed
-    long onCmdAccept(FXObject*, FXSelector, void*);
+    virtual long onCmdAccept(FXObject*, FXSelector, void*) = 0;
 
     /// @brief called when cancel button is pressed (or dialog is closed)
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @brief event used in internal tests
-    long onCmdInternalTest(FXObject*, FXSelector, void* ptr);
+    virtual long onCmdCancel(FXObject*, FXSelector, void*) = 0;
 
     /// @}
 
 protected:
+    /// @brief close dialog accepting the changes
+    long closeDialogAccepting();
+
+    /// @brief close dialog canceling the changes
+    long closeDialogCanceling();
+
     /// @brief FOX needs this
     MFXDialogBox() {}
+
+    /// @brief bool to indicate if this dialog was closed accepting or rejecting changes
+    bool myAccepted = false;
 
     /// @brief flag to indicate if this dialog is being tested using internal test
     bool myTesting = false;
 
 private:
-    /// @brief make execute private
-    FXuint execute(FXuint placement = PLACEMENT_CURSOR);
-
     /// @brief Invalidated copy constructor.
     MFXDialogBox(const MFXDialogBox&) = delete;
 
