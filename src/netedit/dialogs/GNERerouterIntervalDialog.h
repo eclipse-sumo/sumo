@@ -19,15 +19,8 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include <netedit/elements/additional/GNERerouterInterval.h>
-#include <netedit/elements/additional/GNEClosingLaneReroute.h>
-#include <netedit/elements/additional/GNEParkingAreaReroute.h>
-#include <netedit/elements/additional/GNEClosingReroute.h>
-#include <netedit/elements/additional/GNEDestProbReroute.h>
-#include <netedit/elements/additional/GNERouteProbReroute.h>
 
 #include "GNEAdditionalDialog.h"
-
 
 // ===========================================================================
 // class declarations
@@ -35,15 +28,9 @@
 
 class GNERerouterInterval;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
-/**
- * @class GNERerouterIntervalDialog
- * @brief Dialog for edit rerouter intervals
- */
 
 class GNERerouterIntervalDialog : public GNEAdditionalDialog {
     /// @brief FOX-declaration

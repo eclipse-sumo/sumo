@@ -22,7 +22,6 @@
 
 #include "GNEAdditionalDialog.h"
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -35,10 +34,6 @@ class GNERerouterIntervalDialog;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNERerouterDialog
- * @brief Dialog for edit rerouters
- */
 class GNERerouterDialog : public GNEAdditionalDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNERerouterDialog)

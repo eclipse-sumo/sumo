@@ -11,16 +11,14 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MFXDialogBox.h
+/// @file    GNEDialog.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2025
+/// @date    Jul 2025
 ///
-// Custom FXDialogBox that supports internal tests
+// Custom FXDialogBox used in Netedit that supports internal tests
 /****************************************************************************/
 #pragma once
 #include <config.h>
-
-#include <utils/tests/InternalTestStep.h>
 
 #include "fxheader.h"
 
@@ -34,12 +32,12 @@ class GNEApplicationWindow;
 // class definitions
 // ===========================================================================
 
-class MFXDialogBox : public FXDialogBox {
-    FXDECLARE_ABSTRACT(MFXDialogBox)
+class GNEDialog : public FXDialogBox {
+    FXDECLARE_ABSTRACT(GNEDialog)
 
 public:
-    /// @brief Construct free-floating dialog
-    MFXDialogBox(GNEApplicationWindow* applicationWindow, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
+    /// @brief constructor
+    GNEDialog(GNEApplicationWindow* applicationWindow, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
 
     /// @brief open modal dialog
     bool openModal(FXuint placement = PLACEMENT_CURSOR);
@@ -60,7 +58,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    MFXDialogBox() {}
+    FOX_CONSTRUCTOR(GNECalibratorDialog)
 
     /// @brief close dialog accepting the changes
     long closeDialogAccepting();
@@ -79,8 +77,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    MFXDialogBox(const MFXDialogBox&) = delete;
+    GNEDialog(const GNEDialog&) = delete;
 
     /// @brief Invalidated assignment operator
-    MFXDialogBox& operator=(const MFXDialogBox& src) = delete;
+    GNEDialog& operator=(const GNEDialog& src) = delete;
 };

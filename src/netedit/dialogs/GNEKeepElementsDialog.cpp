@@ -35,7 +35,7 @@ FXDEFMAP(GNEKeepElementsDialog) GNEKeepElementsDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEKeepElementsDialog, MFXDialogBox, GNEKeepElementsDialogMap, ARRAYNUMBER(GNEKeepElementsDialogMap))
+FXIMPLEMENT(GNEKeepElementsDialog, GNEDialog, GNEKeepElementsDialogMap, ARRAYNUMBER(GNEKeepElementsDialogMap))
 
 // ===========================================================================
 // member method definitions
@@ -46,7 +46,7 @@ FXIMPLEMENT(GNEKeepElementsDialog, MFXDialogBox, GNEKeepElementsDialogMap, ARRAY
 // ---------------------------------------------------------------------------
 
 GNEKeepElementsDialog::GNEKeepElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType) :
-    MFXDialogBox(applicationWindow, TLF("Keep % elements", elementType).c_str(), GUIDesignDialogBoxExplicit(400, 100)) {
+    GNEDialog(applicationWindow, TLF("Keep % elements", elementType).c_str(), GUIDesignDialogBoxExplicit(400, 100)) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
     // create main frame

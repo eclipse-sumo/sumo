@@ -17,12 +17,10 @@
 ///
 // Class for the window that allows to choose a street, junction or vehicle
 /****************************************************************************/
-
 #pragma once
 #include <config.h>
 
 #include <utils/gui/windows/GUIDialog_ChooserAbstract.h>
-
 
 // ===========================================================================
 // class declarations

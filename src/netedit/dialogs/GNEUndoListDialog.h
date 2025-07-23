@@ -24,7 +24,6 @@
 #include <vector>
 #include <string>
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -36,10 +35,6 @@ class GNEApplicationWindow;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEUndoListDialog
- * @brief Dialog for edit rerouters
- */
 class GNEUndoListDialog : protected FXTopWindow {
     /// @brief FOX-declaration
     FXDECLARE(GNEUndoListDialog)

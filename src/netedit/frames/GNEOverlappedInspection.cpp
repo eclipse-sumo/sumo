@@ -25,7 +25,6 @@
 #include <netedit/dialogs/GNEHelpDialog.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 

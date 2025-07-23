@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNEAboutDialog::GNEAboutDialog(GNEApplicationWindow* applicationWindow) :
-    MFXDialogBox(applicationWindow, TL("About Eclipse SUMO netedit"), GUIDesignDialogBox) {
+    GNEDialog(applicationWindow, TL("About Eclipse SUMO netedit"), GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
 

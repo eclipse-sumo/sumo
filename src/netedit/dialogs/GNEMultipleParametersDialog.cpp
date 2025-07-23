@@ -59,7 +59,7 @@ FXDEFMAP(GNEMultipleParametersDialog::ParametersOperations) ParametersOperations
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMultipleParametersDialog,                        MFXDialogBox,   GNEMultipleParametersDialogMap, ARRAYNUMBER(GNEMultipleParametersDialogMap))
+FXIMPLEMENT(GNEMultipleParametersDialog,                        GNEDialog,   GNEMultipleParametersDialogMap, ARRAYNUMBER(GNEMultipleParametersDialogMap))
 FXIMPLEMENT(GNEMultipleParametersDialog::ParametersValues,      FXGroupBox,     ParametersValuesMap,            ARRAYNUMBER(ParametersValuesMap))
 FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOperations,  FXGroupBox,     ParametersOperationsMap,        ARRAYNUMBER(ParametersOperationsMap))
 
@@ -474,7 +474,7 @@ GNEMultipleParametersDialog::ParametersOptions::onlyForExistentKeys() const {
 // ---------------------------------------------------------------------------
 
 GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEAttributesEditorType* attributesEditor) :
-    MFXDialogBox(attributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(430, 300)),
+    GNEDialog(attributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(430, 300)),
     myAttributesEditor(attributesEditor) {
     // call auxiliar constructor
     constructor();

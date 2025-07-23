@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
 #include <vector>
+#include <utils/foxtools/fxheader.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================

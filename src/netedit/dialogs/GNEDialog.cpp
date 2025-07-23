@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MFXDialogBox.cpp
+/// @file    GNEDialog.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2025
+/// @date    Jul 2025
 ///
-// Custom FXDialogBox that supports internal tests
+// Custom FXDialogBox used in Netedit that supports internal tests
 /****************************************************************************/
 
 // ===========================================================================
@@ -25,39 +25,38 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEInternalTest.h>
 
-#include "MFXDialogBox.h"
+#include "GNEDialog.h"
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(MFXDialogBox) MFXDialogBoxMap[] = {
+FXDEFMAP(GNEDialog) MFXDialogBoxMap[] = {
     // close dialog accepting changes
-    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_ACCEPT, MFXDialogBox::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_ACCEPT, GNEDialog::onCmdAccept),
     // close dialog discarding changes
-    FXMAPFUNC(SEL_CLOSE,    0,                      MFXDialogBox::onCmdCancel),
-    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
-    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL, MFXDialogBox::onCmdCancel),
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNEDialog::onCmdCancel),
+    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL, GNEDialog::onCmdCancel),
+    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL, GNEDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL, GNEDialog::onCmdCancel),
 };
 
 // Object implementation
-FXIMPLEMENT_ABSTRACT(MFXDialogBox, FXDialogBox, MFXDialogBoxMap, ARRAYNUMBER(MFXDialogBoxMap))
+FXIMPLEMENT_ABSTRACT(GNEDialog, FXDialogBox, MFXDialogBoxMap, ARRAYNUMBER(MFXDialogBoxMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-MFXDialogBox::MFXDialogBox(GNEApplicationWindow* applicationWindow, const FXString& name, FXuint opts, FXint x, FXint y,
+GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const FXString& name, FXuint opts, FXint x, FXint y,
                            FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs) :
     FXDialogBox(applicationWindow->getApp(), name, opts, x, y, w, h, pl, pr, pt, pb, hs, vs),
     myApplicationWindow(applicationWindow) {
-    // check option with only mainWindow
 }
 
 
 bool
-MFXDialogBox::openModal(FXuint placement) {
+GNEDialog::openModal(FXuint placement) {
     // create and show dialog
     create();
     show(placement);
@@ -84,13 +83,13 @@ MFXDialogBox::openModal(FXuint placement) {
 
 
 bool
-MFXDialogBox::getAccepted() const {
+GNEDialog::getAccepted() const {
     return myAccepted;
 }
 
 
 long
-MFXDialogBox::closeDialogAccepting() {
+GNEDialog::closeDialogAccepting() {
     // only stop modal if we're not testing
     if (myTesting == false) {
         getApp()->stopModal(this, TRUE);
@@ -104,7 +103,7 @@ MFXDialogBox::closeDialogAccepting() {
 
 
 long
-MFXDialogBox::closeDialogCanceling() {
+GNEDialog::closeDialogCanceling() {
     // only stop modal if we're not testing
     if (myTesting == false) {
         getApp()->stopModal(this, FALSE);

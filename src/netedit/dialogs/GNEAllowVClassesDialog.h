@@ -21,7 +21,8 @@
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/foxtools/MFXDialogBox.h>
+
+#include "GNEDialog.h"
 
 // ===========================================================================
 // class definitions
@@ -35,7 +36,7 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-class GNEAllowVClassesDialog : public MFXDialogBox {
+class GNEAllowVClassesDialog : public GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNEAllowVClassesDialog)
 

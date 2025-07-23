@@ -23,8 +23,9 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <utils/foxtools/MFXDialogBox.h>
 #include <netedit/dialogs/GNEVehicleTypeDialog.h>
+
+#include "GNEDialog.h"
 
 // ===========================================================================
 // class definitions
@@ -38,7 +39,7 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-class GNEVTypeDistributionsDialog : public MFXDialogBox {
+class GNEVTypeDistributionsDialog : public GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNEVTypeDistributionsDialog)
 

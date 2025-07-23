@@ -37,14 +37,14 @@ FXDEFMAP(GNEFixElementsDialog) GNEFixElementsDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_ABSTRACT(GNEFixElementsDialog, MFXDialogBox, GNEFixElementsDialogMap, ARRAYNUMBER(GNEFixElementsDialogMap))
+FXIMPLEMENT_ABSTRACT(GNEFixElementsDialog, GNEDialog, GNEFixElementsDialogMap, ARRAYNUMBER(GNEFixElementsDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEFixElementsDialog::GNEFixElementsDialog(GNEViewNet* viewNet, const std::string title, GUIIcon icon, const int sizeX, const int sizeY) :
-    MFXDialogBox(viewNet->getViewParent()->getGNEAppWindows(), title.c_str(), GUIDesignDialogBoxExplicitStretchable(sizeX, sizeY)),
+    GNEDialog(viewNet->getViewParent()->getGNEAppWindows(), title.c_str(), GUIDesignDialogBoxExplicitStretchable(sizeX, sizeY)),
     myViewNet(viewNet) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(icon));

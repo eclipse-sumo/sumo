@@ -57,7 +57,7 @@ FXDEFMAP(GNEVTypeDistributionsDialog::ParametersOperations) ParametersOperations
 };
 
 // Object implementation
-FXIMPLEMENT(GNEVTypeDistributionsDialog,                          MFXDialogBox,   GNEVTypeDistributionsDialogMap,   ARRAYNUMBER(GNEVTypeDistributionsDialogMap))
+FXIMPLEMENT(GNEVTypeDistributionsDialog,                          GNEDialog,   GNEVTypeDistributionsDialogMap,   ARRAYNUMBER(GNEVTypeDistributionsDialogMap))
 FXIMPLEMENT(GNEVTypeDistributionsDialog::ParametersValues,        FXGroupBox,     ParametersValuesMap,              ARRAYNUMBER(ParametersValuesMap))
 FXIMPLEMENT(GNEVTypeDistributionsDialog::ParametersOperations,    FXGroupBox,     ParametersOperationsMap,          ARRAYNUMBER(ParametersOperationsMap))
 
@@ -452,7 +452,7 @@ GNEVTypeDistributionsDialog::ParametersOperations::GNEParameterHandler::myStartE
 // ---------------------------------------------------------------------------
 
 GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(GNETypeFrame* typeFrameParent) :
-    MFXDialogBox(typeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), TL("Edit attributes"), GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    GNEDialog(typeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), TL("Edit attributes"), GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myTypeFrameParent(typeFrameParent) {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));

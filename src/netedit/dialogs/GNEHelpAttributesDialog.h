@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXDialogBox.h>
+#include "GNEDialog.h"
 
 // ===========================================================================
 // class definitions
@@ -32,7 +32,7 @@ class GNEAttributeCarrier;
 // class definitions
 // ===========================================================================
 
-class GNEHelpAttributesDialog : public MFXDialogBox {
+class GNEHelpAttributesDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
