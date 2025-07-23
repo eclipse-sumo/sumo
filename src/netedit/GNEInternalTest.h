@@ -44,13 +44,7 @@ public:
     /// @brief run netedit internal test
     void runNeteditInternalTests(GNEApplicationWindow* applicationWindow);
 
-    /// @brief check if test is running
-    bool isRunning() const;
-
 private:
-    /// @brief flag to indicate if test is running
-    bool myRunning = false;
-
     /// @brief Invalidated default constructor.
     GNEInternalTest() = delete;
 

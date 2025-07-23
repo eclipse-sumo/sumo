@@ -140,6 +140,9 @@ public:
     /// @brief destructor
     ~InternalTest();
 
+    /// @brief check if test is running
+    bool isRunning() const;
+
     /// @brief get currentTime
     FXint getTime() const;
 
@@ -180,6 +183,9 @@ public:
 protected:
     /// @brief test steps
     std::vector<InternalTestStep*> myTestSteps;
+
+    /// @brief flag to indicate if test is running
+    bool myRunning = false;
 
     /// @brief current step index
     size_t myCurrentStep = 0;

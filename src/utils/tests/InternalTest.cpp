@@ -187,6 +187,12 @@ InternalTest::~InternalTest() {
 }
 
 
+bool
+InternalTest::isRunning() const {
+    return myRunning;
+}
+
+
 FXint
 InternalTest::getTime() const {
     return static_cast<FXuint>(
