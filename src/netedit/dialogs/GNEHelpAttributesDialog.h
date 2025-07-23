@@ -36,7 +36,7 @@ class GNEHelpAttributesDialog : public MFXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEHelpAttributesDialog(GUIMainWindow* mainWindow, const GNEAttributeCarrier* AC);
+    GNEHelpAttributesDialog(GNEApplicationWindow* applicationWindow, const GNEAttributeCarrier* AC);
 
     /// @brief Destructor
     ~GNEHelpAttributesDialog();

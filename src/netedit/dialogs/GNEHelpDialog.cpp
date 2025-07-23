@@ -1,7 +1,3 @@
-#include "GNEAbout.h"
-#include "GNEAbout.h"
-#include "GNEAbout.h"
-#include "GNEAbout.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
@@ -33,8 +29,8 @@
 // method definitions
 // ===========================================================================
 
-GNEHelpDialog::GNEHelpDialog(GUIMainWindow* mainWindow, const std::string &header, const std::string &text) :
-    MFXDialogBox(mainWindow, header.c_str(), GUIDesignDialogBox) {
+GNEHelpDialog::GNEHelpDialog(GNEApplicationWindow* applicationWindow, const std::string &header, const std::string &text) :
+    MFXDialogBox(applicationWindow, header.c_str(), GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::HELP));
     // Create label with the help text

@@ -30,7 +30,7 @@ class GNEHelpDialog : public MFXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEHelpDialog(GUIMainWindow* mainWindow, const std::string &header, const std::string &text);
+    GNEHelpDialog(GNEApplicationWindow* applicationWindow, const std::string &header, const std::string &text);
 
     /// @brief Destructor
     ~GNEHelpDialog();

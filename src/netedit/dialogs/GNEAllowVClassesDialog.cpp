@@ -53,7 +53,7 @@ FXIMPLEMENT(GNEAllowVClassesDialog, MFXDialogBox, GNEAllowVClassesDialogMap, ARR
 // ===========================================================================
 
 GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEViewNet* viewNet) :
-    MFXDialogBox(viewNet->getViewParent()->getGUIMainWindow(), "", GUIDesignDialogBox),
+    MFXDialogBox(viewNet->getViewParent()->getGNEAppWindows(), "", GUIDesignDialogBox),
     myViewNet(viewNet) {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
@@ -241,9 +241,9 @@ GNEAllowVClassesDialog::onCmdAccept(FXObject* sender, FXSelector sel, void* arg)
     }
     // Stop Modal if we have a different  classes from original
     if (myEditedVClasses != myOriginalVClasses) {
-        return MFXDialogBox::onCmdAccept(sender, sel, arg);
+        return closeDialogAccepting();
     } else {
-        return MFXDialogBox::onCmdCancel(sender, sel, arg);
+        return closeDialogCanceling();
     }
 }
 
@@ -253,7 +253,7 @@ GNEAllowVClassesDialog::onCmdCancel(FXObject* sender, FXSelector sel, void* arg)
     // reset vClasses
     myEditedVClasses = myOriginalVClasses;
     // cancel
-    return MFXDialogBox::onCmdCancel(sender, sel, arg);
+    return closeDialogCanceling();
 }
 
 

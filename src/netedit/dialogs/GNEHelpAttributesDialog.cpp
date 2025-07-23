@@ -32,8 +32,8 @@
 // method definitions
 // ===========================================================================
 
-GNEHelpAttributesDialog::GNEHelpAttributesDialog(GUIMainWindow* mainWindow, const GNEAttributeCarrier* AC) :
-    MFXDialogBox(mainWindow, TLF("Parameters of %", AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4) {
+GNEHelpAttributesDialog::GNEHelpAttributesDialog(GNEApplicationWindow* applicationWindow, const GNEAttributeCarrier* AC) :
+    MFXDialogBox(applicationWindow, TLF("Parameters of %", AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT));
     // Create FXTable
