@@ -1,0 +1,116 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    GNEAbout.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Jul 2025
+///
+// Help dialog used in netedit
+/****************************************************************************/
+
+#include <netedit/GNETagProperties.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/foxtools/MFXLinkLabel.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+
+#include "GNEHelpAttributesDialog.h"
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+
+GNEHelpAttributesDialog::GNEHelpAttributesDialog(GUIMainWindow* mainWindow, const GNEAttributeCarrier* AC) :
+    MFXDialogBox(mainWindow, TLF("Parameters of %", AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4) {
+    // set icon
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT));
+    // Create FXTable
+    FXTable* myTable = new FXTable(this, this, MID_TABLE, GUIDesignTableNotEditable);
+    // configure table
+    int sizeColumnDescription = 0;
+    int sizeColumnDefinitions = 0;
+    myTable->setVisibleRows((FXint)(AC->getTagProperty()->getNumberOfAttributes()));
+    myTable->setVisibleColumns(4);
+    myTable->setTableSize((FXint)(AC->getTagProperty()->getNumberOfAttributes()), 4);
+    myTable->setBackColor(FXRGB(255, 255, 255));
+    myTable->setColumnText(0, TL("Attribute"));
+    myTable->setColumnText(1, TL("Category"));
+    myTable->setColumnText(2, TL("Description"));
+    myTable->setColumnText(3, TL("Definition"));
+    myTable->getRowHeader()->setWidth(0);
+    myTable->setColumnHeaderHeight(GUIDesignHeight);
+    // Iterate over vector of additional parameters
+    int itemIndex = 0;
+    for (const auto& attrProperty : AC->getTagProperty()->getAttributeProperties()) {
+        // Set attribute
+        FXTableItem* attributeItem = new FXTableItem(attrProperty->getAttrStr().c_str());
+        attributeItem->setJustify(FXTableItem::CENTER_X);
+        myTable->setItem(itemIndex, 0, attributeItem);
+        // Set description of element
+        FXTableItem* categoryItem = new FXTableItem("");
+        categoryItem->setText(attrProperty->getCategory().c_str());
+        categoryItem->setJustify(FXTableItem::CENTER_X);
+        myTable->setItem(itemIndex, 1, categoryItem);
+        // Set description of element
+        FXTableItem* descriptionItem = new FXTableItem("");
+        descriptionItem->setText(attrProperty->getDescription().c_str());
+        sizeColumnDescription = MAX2(sizeColumnDescription, (int)attrProperty->getDescription().size());
+        descriptionItem->setJustify(FXTableItem::CENTER_X);
+        myTable->setItem(itemIndex, 2, descriptionItem);
+        // Set definition
+        FXTableItem* definitionItem = new FXTableItem(attrProperty->getDefinition().c_str());
+        definitionItem->setJustify(FXTableItem::LEFT);
+        myTable->setItem(itemIndex, 3, definitionItem);
+        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)attrProperty->getDefinition().size());
+        itemIndex++;
+    }
+    myTable->fitRowsToContents(0, itemIndex);
+    // set header
+    FXHeader* header = myTable->getColumnHeader();
+    header->setItemJustify(0, JUSTIFY_CENTER_X);
+    header->setItemSize(0, 120);
+    header->setItemJustify(0, JUSTIFY_CENTER_X);
+    header->setItemSize(1, 100);
+    header->setItemJustify(1, JUSTIFY_CENTER_X);
+    header->setItemSize(2, sizeColumnDescription * 8);
+    header->setItemJustify(2, JUSTIFY_CENTER_X);
+    header->setItemSize(3, sizeColumnDefinitions * 6);
+    // Create horizontal separator
+    new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
+    // Create frame for OK Button
+    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // Create Button Close (And two more horizontal frames to center it)
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+}
+
+
+GNEHelpAttributesDialog::~GNEHelpAttributesDialog() {
+}
+
+
+long
+GNEHelpAttributesDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    return closeDialogAccepting();
+}
+
+
+long
+GNEHelpAttributesDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    return closeDialogCanceling();
+}
+
+/****************************************************************************/
