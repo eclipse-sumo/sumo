@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-06-20 08:20+0000\n"
-"PO-Revision-Date: 2025-07-21 09:15+0000\n"
+"PO-Revision-Date: 2025-07-21 17:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3188,7 +3188,7 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:2137
 msgid ", latGap="
-msgstr ""
+msgstr ", distanza laterale="
 
 #: src/microsim/MSLane.cpp:2164
 msgid "Vehicle '%'"
@@ -5380,7 +5380,7 @@ msgstr ""
 msgid ""
 "At actuated tlLogic '%', minDur % is too short for a detector gap of %m."
 msgstr ""
-"Logica di semaforo '%': la durata minima % è troppo corta per un rivelatorea "
+"Logica di semaforo '%': la durata minima % è troppo corta per un rivelatore "
 "a distanza di %m."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:433
@@ -5593,6 +5593,13 @@ msgid ""
 "  or rebuild the network with option '--tls.ignore-internal-junction-jam' or "
 "include the program when building."
 msgstr ""
+"Il programma '%' della logica semaforica '%' non è compatibile con la logica "
+"all'incrocio '%' (c'è un conflitto reciproco tra gli indici di collegamento "
+"%, % / indici semaforici %,% fase %).\n"
+"  Per evitare blocchi o collisioni o ricrea il piano semaforico con una "
+"versione più recente di netconvert/netedit\n"
+"  o ricrea la rete con l'opzione '--tls.ignore-internal-junction-jam' oppure "
+"includi il programma nel processo di creazione."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:518
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
@@ -11171,6 +11178,8 @@ msgid ""
 "Match loaded shapes to the closest edge within FLOAT and export as road "
 "objects"
 msgstr ""
+"Assegna le forme caricate all'arco più vicino nel raggio di FLOAT e "
+"esportali come oggetti stradali"
 
 #: src/netwrite/NWFrame.cpp:156
 msgid "OpenDRIVE export needs internal links computation."
@@ -12119,6 +12128,7 @@ msgstr "L'itinerario del veicolo '%' è stato corretto."
 #: src/router/RORouteDef.cpp:221
 msgid "Removing invalid edge '%' for from route for vehicle '%'."
 msgstr ""
+"L'arco invalido '%' viene rimosso dall'itinerario originale del veicolo '%'."
 
 #: src/router/RORouteDef.cpp:229
 msgid ""
