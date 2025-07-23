@@ -37,12 +37,10 @@
 // ===========================================================================
 
 FXDEFMAP(GNERunPythonToolDialog) GNERunPythonToolDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNERunPythonToolDialog::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNERunPythonToolDialog::onCmdSaveLog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ABORT,   GNERunPythonToolDialog::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RERUN,   GNERunPythonToolDialog::onCmdRerun),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_BACK,    GNERunPythonToolDialog::onCmdBack),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNERunPythonToolDialog::onCmdClose),
     // threads events
     FXMAPFUNC(FXEX::SEL_THREAD_EVENT,   ID_LOADTHREAD_EVENT,    GNERunPythonToolDialog::onThreadEvent),
     FXMAPFUNC(FXEX::SEL_THREAD,         ID_LOADTHREAD_EVENT,    GNERunPythonToolDialog::onThreadEvent)
@@ -56,7 +54,7 @@ FXIMPLEMENT(GNERunPythonToolDialog, MFXDialogBox, GNERunPythonToolDialogMap, ARR
 // ===========================================================================
 
 GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* GNEApp) :
-    MFXDialogBox(GNEApp->getApp(), "Tool", GUIDesignAuxiliarDialogBoxResizable),
+    MFXDialogBox(GNEApp, "Tool", GUIDesignAuxiliarDialogBoxResizable),
     myGNEApp(GNEApp) {
     // build the thread - io
     myThreadEvent.setTarget(this);
@@ -97,7 +95,7 @@ GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* GNEApp) :
     buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     myCloseButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Close"), "", TL("close dialog"),
-                    GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+                    GUIIconSubSys::getIcon(GUIIcon::OK), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonAccept);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // resize
     resize(640, 480);
@@ -200,7 +198,17 @@ GNERunPythonToolDialog::onCmdBack(FXObject*, FXSelector, void*) {
 
 
 long
-GNERunPythonToolDialog::onCmdClose(FXObject* obj, FXSelector, void*) {
+GNERunPythonToolDialog::onCmdCancel(FXObject* obj, FXSelector, void*) {
+    // abort tool
+    myRunTool->abortTool();
+    // hide dialog
+    hide();
+    return 1;
+}
+
+
+long
+GNERunPythonToolDialog::onCmdAccept(FXObject* obj, FXSelector, void*) {
     // abort tool
     myRunTool->abortTool();
     // check if we're closing using "close" button
@@ -212,6 +220,7 @@ GNERunPythonToolDialog::onCmdClose(FXObject* obj, FXSelector, void*) {
     hide();
     return 1;
 }
+
 
 long
 GNERunPythonToolDialog::onThreadEvent(FXObject*, FXSelector, void*) {
