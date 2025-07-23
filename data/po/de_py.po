@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-06-26 15:59+0200\n"
+"POT-Creation-Date: 2025-07-23 09:53+0000\n"
 "PO-Revision-Date: 2023-06-15 08:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -28,12 +28,12 @@ msgid "Railway Control"
 msgstr "Eisenbahnsteuerung"
 
 #: tools/game/runner.py:69
-msgid "Railway Control Demo"
-msgstr "Eisenbahnsteuerung (Demo)"
+msgid "Railway Control (Demo)"
+msgstr ""
 
 #: tools/game/runner.py:70
-msgid "Research intersection Braunschweig"
-msgstr "Forschungskreuzung Braunschweig"
+msgid "Research intersection Braunschweig (Demo)"
+msgstr ""
 
 #: tools/game/runner.py:71
 msgid "Research intersection Ingolstadt"
@@ -146,3 +146,9 @@ msgstr "Deine Punkte"
 #: tools/game/runner.py:99
 msgid "Continue"
 msgstr "Weiter"
+
+#~ msgid "Railway Control Demo"
+#~ msgstr "Eisenbahnsteuerung (Demo)"
+
+#~ msgid "Research intersection Braunschweig"
+#~ msgstr "Forschungskreuzung Braunschweig"

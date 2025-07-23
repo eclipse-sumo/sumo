@@ -79,7 +79,6 @@ class ConfigurationReader(handler.ContentHandler):
             else:
                 self._group.add_argument("--" + name, help=help, action=action, default=default)
 
-
     def endElement(self, name):
         if self._group != self._opts and name == self._group.title:
             self._opts.add_argument_group(self._group)

@@ -133,10 +133,9 @@ If everything is fine:
 - update the eclipse.dev/sumo website
   - modify the version number (Version) and the DOI number (DOI) [in config.yaml](https://github.com/eclipse-sumo/sumo.website/blob/source/config/_default/config.yaml) in the **Default Parameters** section
 - make new sourceforge-release
-  - create a shell `ssh -t <user>,sumo@shell.sf.net create` and log off immediately
-  - copy the files `scp -O -r /s/Releases/{{Version}} <user>,sumo@shell.sf.net:`
-  - login again, delete the wheels and move the files into the right directory `mv {{Version}} /home/frs/project/sumo/sumo/"version {{Version}}"`
-  - change default download attributes by logging in on the web browser at https://sourceforge.net/projects/sumo/files/sumo/version%20{{Version}}/ and clicking on the circled "i" after each file
+  - Login on the web browser, create a new folder and upload the files at https://sourceforge.net/projects/sumo/files/sumo/version%20{{Version}}/
+    - you might need to do this in several rounds because of the size
+  - change default download attributes by clicking on the circled "i" after each file
     - the default for Windows is sumo-win64extra-{{Version}}.msi, for macOS sumo-{{Version}}.pkg and for all the others sumo-src-{{Version}}.tar.gz
 - finish the Zenodo version draft, by uploading the `sumo-src-{{Version}}.tar.gz`, adding the release info (can also be done later) and publishing it
 - Create a new Eclipse release at https://projects.eclipse.org/projects/automotive.sumo (after login there should be a "Create Release" button)

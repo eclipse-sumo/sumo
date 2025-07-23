@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-06-30 12:19+0200\n"
+"POT-Creation-Date: 2025-07-23 09:53+0000\n"
 "PO-Revision-Date: 2025-06-30 12:19+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -26,11 +26,11 @@ msgid "Railway Control"
 msgstr ""
 
 #: tools/game/runner.py:69
-msgid "Railway Control Demo"
+msgid "Railway Control (Demo)"
 msgstr ""
 
 #: tools/game/runner.py:70
-msgid "Research intersection Braunschweig"
+msgid "Research intersection Braunschweig (Demo)"
 msgstr ""
 
 #: tools/game/runner.py:71

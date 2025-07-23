@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-06-20 08:20+0000\n"
+"POT-Creation-Date: 2025-07-23 09:53+0000\n"
 "PO-Revision-Date: 2023-08-05 10:05+0000\n"
 "Last-Translator: hongsheng cui <glychs@126.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -28,117 +28,121 @@ msgid "Railway Control"
 msgstr ""
 
 #: tools/game/runner.py:69
-msgid "Railway Control Demo"
+msgid "Railway Control (Demo)"
 msgstr ""
 
 #: tools/game/runner.py:70
+msgid "Research intersection Braunschweig (Demo)"
+msgstr ""
+
+#: tools/game/runner.py:71
 msgid "Research intersection Ingolstadt"
 msgstr "因戈尔施塔特市(Ingolstadt)內的研究交叉点"
 
-#: tools/game/runner.py:71
+#: tools/game/runner.py:72
 msgid "Simple Junction"
 msgstr "简单路口"
 
-#: tools/game/runner.py:72
+#: tools/game/runner.py:73
 msgid "Simple Junction (Demo)"
 msgstr "简单路口(演示)"
 
-#: tools/game/runner.py:73
+#: tools/game/runner.py:74
 msgid "Four Junctions"
 msgstr "四个路口"
 
-#: tools/game/runner.py:74
+#: tools/game/runner.py:75
 msgid "Six Junctions"
 msgstr "六个路口"
 
-#: tools/game/runner.py:75
+#: tools/game/runner.py:76
 msgid "Prof. Kühne"
 msgstr "屈內(Kühne)教授"
 
-#: tools/game/runner.py:76
+#: tools/game/runner.py:77
 msgid "3D Junction Virtual World"
 msgstr "三維路口虚拟世界"
 
-#: tools/game/runner.py:77
+#: tools/game/runner.py:78
 msgid "3D Junction OpenStreetMap"
 msgstr "三維路口開放地图(OpenStreetMap)"
 
-#: tools/game/runner.py:78
+#: tools/game/runner.py:79
 msgid "Highway Ramp"
 msgstr "高速公路匝道"
 
-#: tools/game/runner.py:79
+#: tools/game/runner.py:80
 msgid "Combined Highway On and Off Ramp"
 msgstr "合併的高速公路进出匝道"
 
-#: tools/game/runner.py:80
+#: tools/game/runner.py:81
 msgid "Corridor"
 msgstr "走廊"
 
-#: tools/game/runner.py:81
+#: tools/game/runner.py:82
 msgid "Highway Ramp A10"
 msgstr "高速公路匝道 A10"
 
-#: tools/game/runner.py:82
+#: tools/game/runner.py:83
 msgid "Demand Responsive Transport (new)"
 msgstr "需求响应运输(新)"
 
-#: tools/game/runner.py:83
+#: tools/game/runner.py:84
 msgid "DRT - Advanced (new)"
 msgstr "需求响应运输(DRT) - 進階(新)"
 
-#: tools/game/runner.py:84
+#: tools/game/runner.py:85
 msgid "DRT - Demo"
 msgstr "需求响应运输(DRT) - 演示"
 
-#: tools/game/runner.py:85 tools/game/runner.py:95
+#: tools/game/runner.py:86 tools/game/runner.py:96
 msgid "Highscore"
 msgstr "排行榜"
 
-#: tools/game/runner.py:86
+#: tools/game/runner.py:87
 msgid "Reset Highscore"
 msgstr "重置排行榜"
 
-#: tools/game/runner.py:87
+#: tools/game/runner.py:88
 msgid "German"
 msgstr "德语"
 
-#: tools/game/runner.py:88
+#: tools/game/runner.py:89
 msgid "English"
 msgstr "英语"
 
-#: tools/game/runner.py:89
+#: tools/game/runner.py:90
 msgid "Italian"
 msgstr "意大利语"
 
-#: tools/game/runner.py:90
+#: tools/game/runner.py:91
 msgid "Spanish"
 msgstr "西班牙语"
 
-#: tools/game/runner.py:91
+#: tools/game/runner.py:92
 msgid "French"
 msgstr "法语"
 
-#: tools/game/runner.py:92
+#: tools/game/runner.py:93
 msgid "Chinese (simplified)"
 msgstr "中文（简体）"
 
-#: tools/game/runner.py:93
+#: tools/game/runner.py:94
 msgid "Chinese (traditional)"
 msgstr "中文（繁体）"
 
-#: tools/game/runner.py:94
+#: tools/game/runner.py:95
 msgid "Quit"
 msgstr "退出"
 
-#: tools/game/runner.py:96
+#: tools/game/runner.py:97
 msgid "Congratulations!"
 msgstr "恭喜!"
 
-#: tools/game/runner.py:97
+#: tools/game/runner.py:98
 msgid "Your Score"
 msgstr "您的分数"
 
-#: tools/game/runner.py:98
+#: tools/game/runner.py:99
 msgid "Continue"
 msgstr "继续"
