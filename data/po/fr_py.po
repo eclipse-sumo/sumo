@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-06-20 08:20+0000\n"
+"POT-Creation-Date: 2025-07-23 09:53+0000\n"
 "PO-Revision-Date: 2023-06-15 09:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -28,117 +28,121 @@ msgid "Railway Control"
 msgstr ""
 
 #: tools/game/runner.py:69
-msgid "Railway Control Demo"
+msgid "Railway Control (Demo)"
 msgstr ""
 
 #: tools/game/runner.py:70
+msgid "Research intersection Braunschweig (Demo)"
+msgstr ""
+
+#: tools/game/runner.py:71
 msgid "Research intersection Ingolstadt"
 msgstr "Carrefour de recherche de Ingolstadt"
 
-#: tools/game/runner.py:71
+#: tools/game/runner.py:72
 msgid "Simple Junction"
 msgstr "Carrefour simple"
 
-#: tools/game/runner.py:72
+#: tools/game/runner.py:73
 msgid "Simple Junction (Demo)"
 msgstr "Carrefour simple (Demo)"
 
-#: tools/game/runner.py:73
+#: tools/game/runner.py:74
 msgid "Four Junctions"
 msgstr "Quatre carrefours"
 
-#: tools/game/runner.py:74
+#: tools/game/runner.py:75
 msgid "Six Junctions"
 msgstr "Six carrefours"
 
-#: tools/game/runner.py:75
+#: tools/game/runner.py:76
 msgid "Prof. Kühne"
 msgstr "Pr Kühne"
 
-#: tools/game/runner.py:76
+#: tools/game/runner.py:77
 msgid "3D Junction Virtual World"
 msgstr "Carrefour en 3D Monde virtuel"
 
-#: tools/game/runner.py:77
+#: tools/game/runner.py:78
 msgid "3D Junction OpenStreetMap"
 msgstr "Carrefour en 3D OpenStreetMap"
 
-#: tools/game/runner.py:78
+#: tools/game/runner.py:79
 msgid "Highway Ramp"
 msgstr "Bretelle d'autoroute"
 
-#: tools/game/runner.py:79
+#: tools/game/runner.py:80
 msgid "Combined Highway On and Off Ramp"
 msgstr "Bretelles d'accès et de sortie d'autoroute combinées"
 
-#: tools/game/runner.py:80
+#: tools/game/runner.py:81
 msgid "Corridor"
 msgstr "Couloir"
 
-#: tools/game/runner.py:81
+#: tools/game/runner.py:82
 msgid "Highway Ramp A10"
 msgstr "Bretelle d'autoroute A10"
 
-#: tools/game/runner.py:82
+#: tools/game/runner.py:83
 msgid "Demand Responsive Transport (new)"
 msgstr "Transport à la demande (nouveau)"
 
-#: tools/game/runner.py:83
+#: tools/game/runner.py:84
 msgid "DRT - Advanced (new)"
 msgstr "Transport à la demande - niveau avancé (nouveau)"
 
-#: tools/game/runner.py:84
+#: tools/game/runner.py:85
 msgid "DRT - Demo"
 msgstr "Transport à la demande - Demo"
 
-#: tools/game/runner.py:85 tools/game/runner.py:95
+#: tools/game/runner.py:86 tools/game/runner.py:96
 msgid "Highscore"
 msgstr "Meilleurs scores"
 
-#: tools/game/runner.py:86
+#: tools/game/runner.py:87
 msgid "Reset Highscore"
 msgstr "Effacer les meilleurs scores"
 
-#: tools/game/runner.py:87
+#: tools/game/runner.py:88
 msgid "German"
 msgstr "Allemand"
 
-#: tools/game/runner.py:88
+#: tools/game/runner.py:89
 msgid "English"
 msgstr "Anglais"
 
-#: tools/game/runner.py:89
+#: tools/game/runner.py:90
 msgid "Italian"
 msgstr "Italien"
 
-#: tools/game/runner.py:90
+#: tools/game/runner.py:91
 msgid "Spanish"
 msgstr "Espagnol"
 
-#: tools/game/runner.py:91
+#: tools/game/runner.py:92
 msgid "French"
 msgstr "Français"
 
-#: tools/game/runner.py:92
+#: tools/game/runner.py:93
 msgid "Chinese (simplified)"
 msgstr "Chinois (simplifié)"
 
-#: tools/game/runner.py:93
+#: tools/game/runner.py:94
 msgid "Chinese (traditional)"
 msgstr "Chinois (traditionel)"
 
-#: tools/game/runner.py:94
+#: tools/game/runner.py:95
 msgid "Quit"
 msgstr "Quitter"
 
-#: tools/game/runner.py:96
+#: tools/game/runner.py:97
 msgid "Congratulations!"
 msgstr "Félicitations !"
 
-#: tools/game/runner.py:97
+#: tools/game/runner.py:98
 msgid "Your Score"
 msgstr "Ton score"
 
-#: tools/game/runner.py:98
+#: tools/game/runner.py:99
 msgid "Continue"
 msgstr "Continuer"
