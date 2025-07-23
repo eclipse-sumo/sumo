@@ -1,7 +1,3 @@
-#include "GNEAbout.h"
-#include "GNEAbout.h"
-#include "GNEAbout.h"
-#include "GNEAbout.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
@@ -36,8 +32,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEAbout::GNEAbout(FXWindow* parent) :
-    MFXDialogBox(parent, TL("About Eclipse SUMO netedit"), GUIDesignDialogBox) {
+
+GNEAbout::GNEAbout(GUIMainWindow* mainWindow) :
+    MFXDialogBox(mainWindow, TL("About Eclipse SUMO netedit"), GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
 
@@ -80,12 +77,6 @@ GNEAbout::GNEAbout(FXWindow* parent) :
 
     // focus OK button
     OKButton->setFocus();
-}
-
-
-void
-GNEAbout::create() {
-    MFXDialogBox::create();
 }
 
 

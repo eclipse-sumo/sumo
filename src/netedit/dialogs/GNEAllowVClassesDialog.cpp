@@ -19,6 +19,8 @@
 /****************************************************************************/
 
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEInternalTest.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/common/StringTokenizer.h>
@@ -51,7 +53,7 @@ FXIMPLEMENT(GNEAllowVClassesDialog, MFXDialogBox, GNEAllowVClassesDialogMap, ARR
 // ===========================================================================
 
 GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEViewNet* viewNet) :
-    MFXDialogBox(viewNet->getApp(), "", GUIDesignDialogBox),
+    MFXDialogBox(viewNet->getViewParent()->getGUIMainWindow(), "", GUIDesignDialogBox),
     myViewNet(viewNet) {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
@@ -130,14 +132,14 @@ GNEAllowVClassesDialog::~GNEAllowVClassesDialog() {
 
 
 bool
-GNEAllowVClassesDialog::openDialog(SumoXMLAttr attr, const std::string originalVClasses, GNEInternalTest* internalTests) {
+GNEAllowVClassesDialog::openDialog(SumoXMLAttr attr, const std::string originalVClasses) {
     setTitle(TLF("Edit vClasses of attribute '%'", toString(attr)).c_str());
     myOriginalVClasses = originalVClasses;
     myEditedVClasses = originalVClasses;
     // reset dialog
     onCmdReset(nullptr, 0, nullptr);
     // run it as modal
-    return openModal(internalTests);
+    return openModal();
 }
 
 
