@@ -36,12 +36,10 @@
 // ===========================================================================
 
 FXDEFMAP(GNERunNetgenerateDialog) GNERunNetgenerateDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNERunNetgenerateDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNERunNetgenerateDialog::onCmdSaveLog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ABORT,   GNERunNetgenerateDialog::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RERUN,   GNERunNetgenerateDialog::onCmdRerun),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_BACK,    GNERunNetgenerateDialog::onCmdBack),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNERunNetgenerateDialog::onCmdClose),
     // threads events
     FXMAPFUNC(FXEX::SEL_THREAD_EVENT,   ID_LOADTHREAD_EVENT,    GNERunNetgenerateDialog::onThreadEvent),
     FXMAPFUNC(FXEX::SEL_THREAD,         ID_LOADTHREAD_EVENT,    GNERunNetgenerateDialog::onThreadEvent)
@@ -55,7 +53,7 @@ FXIMPLEMENT(GNERunNetgenerateDialog, MFXDialogBox, GNERunNetgenerateDialogMap, A
 // ===========================================================================
 
 GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    MFXDialogBox(GNEApp->getApp(), "", GUIDesignDialogBoxExplicit(0, 0)),
+    MFXDialogBox(GNEApp, "", GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp) {
     // build the thread - io
     myThreadEvent.setTarget(this);
@@ -96,7 +94,7 @@ GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
     buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     myCloseButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Close"), "", TL("close dialog"),
-                    GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+                    GUIIconSubSys::getIcon(GUIIcon::OK), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonAccept);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // resize
     resize(640, 480);
@@ -202,7 +200,7 @@ GNERunNetgenerateDialog::onCmdBack(FXObject*, FXSelector, void*) {
 
 
 long
-GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
+GNERunNetgenerateDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // close run dialog and call postprocessing
     onCmdCancel(nullptr, 0, nullptr);
     myText->setText("", 0);

@@ -79,13 +79,14 @@ public:
     long onCmdBack(FXObject*, FXSelector, void*);
 
     /// @brief event after press close button
-    long onCmdClose(FXObject*, FXSelector, void*);
+    long onCmdAccept(FXObject*, FXSelector, void*);
 
     /// @brief event after press cancel button
     long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @brief called when the thread signals an event
     long onThreadEvent(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
