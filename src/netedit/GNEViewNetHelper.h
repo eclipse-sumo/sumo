@@ -147,8 +147,8 @@ class GNEViewParent;
 // dialogs
 class GNEAllowVClassesDialog;
 class GNEFixNetworkElements;
-class GNEFixAdditionalElements;
-class GNEFixDemandElements;
+class GNEFixAdditionalElementsDialog;
+class GNEFixDemandElementsDialog;
 // network elements
 class GNENetworkElement;
 class GNEJunction;

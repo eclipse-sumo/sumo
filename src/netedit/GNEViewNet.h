@@ -148,10 +148,10 @@ public:
     GNEFixNetworkElements* getFixNetworkElementsDialog() const;
 
     /// @brief get fix additional elements dialog
-    GNEFixAdditionalElements* getFixAdditionalElementsDialog() const;
+    GNEFixAdditionalElementsDialog* getFixAdditionalElementsDialog() const;
 
     /// @brief get fix additional elements dialog
-    GNEFixDemandElements* getFixDemandElementsDialog() const;
+    GNEFixDemandElementsDialog* getFixDemandElementsDialog() const;
 
     /// @name overloaded handlers
     /// @{
@@ -710,10 +710,10 @@ private:
     GNEFixNetworkElements* myFixNetworkElementsDialog = nullptr;
 
     /// @brief fix additional elements dialog
-    GNEFixAdditionalElements* myFixAdditionalElementsDialog = nullptr;
+    GNEFixAdditionalElementsDialog* myFixAdditionalElementsDialog = nullptr;
 
     /// @brief fix additional elements dialog
-    GNEFixDemandElements* myFixDemandElementsDialog = nullptr;
+    GNEFixDemandElementsDialog* myFixDemandElementsDialog = nullptr;
 
     /// @}
 

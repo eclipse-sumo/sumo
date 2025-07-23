@@ -633,7 +633,7 @@ class MFXMenuCheckIcon;
 /// @brief design for tables used in additional dialogs
 #define GUIDesignTableAdditionals       (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 0, 0, 2, 2, 2, 2
 
-/// @brief design for tables used in GNEFixDemandElements dialogs
+/// @brief design for tables used in GNEFixDemandElementsDialog dialogs
 #define GUIDesignTableFixElements       (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @}

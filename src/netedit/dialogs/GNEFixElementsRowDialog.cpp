@@ -11,40 +11,33 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFixElementsDialogRow.h
+/// @file    GNEFixElementsRowDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2023
 ///
 // Row used in GNEFixElementsDialog
 /****************************************************************************/
-#pragma once
-#include <config.h>
 
-#include "GNEFixElementsDialog.h"
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
+#include "GNEFixElementsRowDialog.h"
 
 // ===========================================================================
-// class definitions
+// member method definitions
 // ===========================================================================
 
-class GNEFixElementsDialogRow : public MFXDialogBox {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEFixElementsDialogRow)
+GNEFixElementsRowDialog::GNEFixElementsRowDialog(GNEFixElementsDialog* fixElementsDialog) :
+    myFixElementsDialogParent(fixElementsDialog) {
 
-public:
-    /// @brief Constructor
-    GNEFixElementsDialogRow(GNEFixElementsDialog* fixElementsDialog);
+}
 
-    /// @brief destructor
-    ~GNEFixElementsDialogRow();
 
-private:
-    /// @brief fix demand element dialog parent
-    GNEFixElementsDialog* myFixElementsDialogParent;
+GNEFixElementsRowDialog::~GNEFixElementsRowDialog() {
+}
 
-    /// @brief Invalidated copy constructor.
-    GNEFixElementsDialogRow(const GNEFixElementsDialogRow&) = delete;
 
-    /// @brief Invalidated assignment operator.
-    GNEFixElementsDialogRow& operator=(const GNEFixElementsDialogRow&) = delete;
-};
+/****************************************************************************/

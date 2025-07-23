@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAbout.cpp
+/// @file    GNEAboutDialog.cpp
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
 ///
@@ -27,13 +27,13 @@
 #include <version.h>
 #endif
 
-#include "GNEAbout.h"
+#include "GNEAboutDialog.h"
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEAbout::GNEAbout(GNEApplicationWindow* applicationWindow) :
+GNEAboutDialog::GNEAboutDialog(GNEApplicationWindow* applicationWindow) :
     MFXDialogBox(applicationWindow, TL("About Eclipse SUMO netedit"), GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
@@ -80,19 +80,19 @@ GNEAbout::GNEAbout(GNEApplicationWindow* applicationWindow) :
 }
 
 
-GNEAbout::~GNEAbout() {
+GNEAboutDialog::~GNEAboutDialog() {
     delete myHeadlineFont;
 }
 
 
 long
-GNEAbout::onCmdAccept(FXObject*, FXSelector, void*) {
+GNEAboutDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     return closeDialogAccepting();
 }
 
 
 long
-GNEAbout::onCmdCancel(FXObject*, FXSelector, void*) {
+GNEAboutDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     return closeDialogCanceling();
 }
 

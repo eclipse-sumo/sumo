@@ -32,7 +32,7 @@
 // ===========================================================================
 
 class GNEApplicationWindow;
-class GNEDialogACChooser;
+class GNEACChooserDialog;
 class GNEFrame;
 class GNEViewNet;
 class GNENet;
@@ -218,7 +218,7 @@ public:
     GNEApplicationWindow* getGNEAppWindows() const;
 
     /// @brief remove created chooser dialog
-    void eraseACChooserDialog(GNEDialogACChooser* chooserDialog);
+    void eraseACChooserDialog(GNEACChooserDialog* chooserDialog);
 
     /// @brief update toolbar undo/redo buttons (called when user press Ctrl+Z/Y)
     void updateUndoRedoButtons();
@@ -443,46 +443,46 @@ protected:
         ~ACChoosers();
 
         /// @brief pointer to ACChooser dialog used for locate junctions
-        GNEDialogACChooser* ACChooserJunction = nullptr;
+        GNEACChooserDialog* ACChooserJunction = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate edges
-        GNEDialogACChooser* ACChooserEdges = nullptr;
+        GNEACChooserDialog* ACChooserEdges = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate walkingareas
-        GNEDialogACChooser* ACChooserWalkingAreas = nullptr;
+        GNEACChooserDialog* ACChooserWalkingAreas = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate vehicles
-        GNEDialogACChooser* ACChooserVehicles = nullptr;
+        GNEACChooserDialog* ACChooserVehicles = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate persons
-        GNEDialogACChooser* ACChooserPersons = nullptr;
+        GNEACChooserDialog* ACChooserPersons = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate containers
-        GNEDialogACChooser* ACChooserContainers = nullptr;
+        GNEACChooserDialog* ACChooserContainers = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate routes
-        GNEDialogACChooser* ACChooserRoutes = nullptr;
+        GNEACChooserDialog* ACChooserRoutes = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate stops
-        GNEDialogACChooser* ACChooserStops = nullptr;
+        GNEACChooserDialog* ACChooserStops = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate TLSs
-        GNEDialogACChooser* ACChooserTLS = nullptr;
+        GNEACChooserDialog* ACChooserTLS = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate additional
-        GNEDialogACChooser* ACChooserAdditional = nullptr;
+        GNEACChooserDialog* ACChooserAdditional = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate POIs
-        GNEDialogACChooser* ACChooserPOI = nullptr;
+        GNEACChooserDialog* ACChooserPOI = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate Polygons
-        GNEDialogACChooser* ACChooserPolygon = nullptr;
+        GNEACChooserDialog* ACChooserPolygon = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate Prohibitions
-        GNEDialogACChooser* ACChooserProhibition = nullptr;
+        GNEACChooserDialog* ACChooserProhibition = nullptr;
 
         /// @brief pointer to ACChooser dialog used for locate Wires
-        GNEDialogACChooser* ACChooserWire = nullptr;
+        GNEACChooserDialog* ACChooserWire = nullptr;
     };
 
 private:

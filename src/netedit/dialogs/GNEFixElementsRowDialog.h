@@ -11,42 +11,40 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAbout.h
-/// @author  Jakob Erdmann
-/// @date    Feb 2011
+/// @file    GNEFixElementsRowDialog.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Nov 2023
 ///
-// The "About" - dialog for netedit, (adapted from GUIDialog_AboutSUMO)
+// Row used in GNEFixElementsDialog
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXDialogBox.h>
+#include "GNEFixElementsDialog.h"
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEAbout : public MFXDialogBox {
+class GNEFixElementsRowDialog : public MFXDialogBox {
+    /// @brief FOX-declaration
+    FXDECLARE(GNEFixElementsRowDialog)
 
 public:
     /// @brief Constructor
-    GNEAbout(GNEApplicationWindow* applicationWindow);
+    GNEFixElementsRowDialog(GNEFixElementsDialog* fixElementsDialog);
 
-    /// @brief Destructor
-    ~GNEAbout();
-
-    /// @name FOX-callbacks
-    /// @{
-
-    /// @brief called when accept button is pressed
-    long onCmdAccept(FXObject*, FXSelector, void*);
-
-    /// @brief called when cancel button is pressed (or dialog is closed)
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @}
+    /// @brief destructor
+    ~GNEFixElementsRowDialog();
 
 private:
-    /// @brief Font for the widget
-    FXFont* myHeadlineFont;
+    /// @brief fix demand element dialog parent
+    GNEFixElementsDialog* myFixElementsDialogParent;
+
+    /// @brief Invalidated copy constructor.
+    GNEFixElementsRowDialog(const GNEFixElementsRowDialog&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEFixElementsRowDialog& operator=(const GNEFixElementsRowDialog&) = delete;
 };

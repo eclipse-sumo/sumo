@@ -435,7 +435,7 @@ GUIDialog_ChooserAbstract::deselect(int listIndex) {
 
 void
 GUIDialog_ChooserAbstract::filterACs(const std::vector<GUIGlID>& /*GLIDs*/) {
-    // overrided in GNEDialogACChooser
+    // overrided in GNEACChooserDialog
 }
 
 /****************************************************************************/
