@@ -89,10 +89,4 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
     }
 }
 
-
-bool
-GNEInternalTest::isRunning() const {
-    return myRunning;
-}
-
 /****************************************************************************/
