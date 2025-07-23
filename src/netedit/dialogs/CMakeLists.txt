@@ -30,6 +30,8 @@ set(netedit_dialogs_SRCS
    GNEGeometryPointDialog.h
    GNEHelpDialog.cpp
    GNEHelpDialog.h
+   GNEHelpAttributesDialog.cpp
+   GNEHelpAttributesDialog.h
    GNEKeepElementsDialog.cpp
    GNEKeepElementsDialog.h
    GNEMultipleParametersDialog.cpp
