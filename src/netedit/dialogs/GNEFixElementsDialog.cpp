@@ -44,7 +44,7 @@ FXIMPLEMENT_ABSTRACT(GNEFixElementsDialog, MFXDialogBox, GNEFixElementsDialogMap
 // ===========================================================================
 
 GNEFixElementsDialog::GNEFixElementsDialog(GNEViewNet* viewNet, const std::string title, GUIIcon icon, const int sizeX, const int sizeY) :
-    MFXDialogBox(viewNet->getApp(), title.c_str(), GUIDesignDialogBoxExplicitStretchable(sizeX, sizeY)),
+    MFXDialogBox(viewNet->getViewParent()->getGUIMainWindow(), title.c_str(), GUIDesignDialogBoxExplicitStretchable(sizeX, sizeY)),
     myViewNet(viewNet) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(icon));
@@ -54,13 +54,6 @@ GNEFixElementsDialog::GNEFixElementsDialog(GNEViewNet* viewNet, const std::strin
 
 
 GNEFixElementsDialog::~GNEFixElementsDialog() {}
-
-
-bool
-GNEFixElementsDialog::openFixDialog() {
-    // open modal dialog
-    return openModal(myViewNet->getViewParent()->getGNEAppWindows()->getInternalTest());
-}
 
 
 long

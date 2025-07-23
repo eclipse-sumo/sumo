@@ -58,7 +58,7 @@ FXIMPLEMENT(GNENetgenerateDialog, MFXDialogBox, GNENetgenerateDialogMap, ARRAYNU
 // ===========================================================================
 
 GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    MFXDialogBox(GNEApp->getApp(), "Netgenerate", GUIDesignDialogBox),
+    MFXDialogBox(GNEApp, "Netgenerate", GUIDesignDialogBox),
     myGNEApp(GNEApp) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETGENERATE));

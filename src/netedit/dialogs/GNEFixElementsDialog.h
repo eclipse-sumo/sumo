@@ -87,9 +87,6 @@ protected:
         Buttons& operator=(const Buttons&) = delete;
     };
 
-    /// @brief open dialog
-    bool openFixDialog();
-
     /// @brief stop fix elements dialog accepting changes
     long closeFixDialog(const bool success);
 
