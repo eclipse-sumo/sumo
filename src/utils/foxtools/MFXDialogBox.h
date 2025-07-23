@@ -28,7 +28,7 @@
 // class declarations
 // ===========================================================================
 
-class GUIMainWindow;
+class GNEApplicationWindow;
 
 // ===========================================================================
 // class definitions
@@ -39,7 +39,7 @@ class MFXDialogBox : public FXDialogBox {
 
 public:
     /// @brief Construct free-floating dialog
-    MFXDialogBox(GUIMainWindow* mainWindow, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
+    MFXDialogBox(GNEApplicationWindow* applicationWindow, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
 
     /// @brief open modal dialog
     bool openModal(FXuint placement = PLACEMENT_CURSOR);
@@ -69,7 +69,7 @@ protected:
     long closeDialogCanceling();
 
     /// @brief pointer to the main window
-    GUIMainWindow* myMainWindow;
+    GNEApplicationWindow* myApplicationWindow;
 
     /// @brief bool to indicate if this dialog was closed accepting or rejecting changes
     bool myAccepted = false;

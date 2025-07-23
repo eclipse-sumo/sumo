@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXDialogBox.h>
-#include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
 // class definitions
@@ -31,7 +30,7 @@ class GNEAbout : public MFXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEAbout(GUIMainWindow* mainWindow);
+    GNEAbout(GNEApplicationWindow* applicationWindow);
 
     /// @brief Destructor
     ~GNEAbout();

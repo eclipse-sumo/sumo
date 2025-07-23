@@ -33,8 +33,8 @@
 // method definitions
 // ===========================================================================
 
-GNEAbout::GNEAbout(GUIMainWindow* mainWindow) :
-    MFXDialogBox(mainWindow, TL("About Eclipse SUMO netedit"), GUIDesignDialogBox) {
+GNEAbout::GNEAbout(GNEApplicationWindow* applicationWindow) :
+    MFXDialogBox(applicationWindow, TL("About Eclipse SUMO netedit"), GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
 
