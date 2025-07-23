@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFixDemandElements.h
+/// @file    GNEFixDemandElementsDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 ///
@@ -32,16 +32,16 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNEFixDemandElements : public GNEFixElementsDialog {
+class GNEFixDemandElementsDialog : public GNEFixElementsDialog {
     /// @brief FOX-declaration
-    FXDECLARE(GNEFixDemandElements)
+    FXDECLARE(GNEFixDemandElementsDialog)
 
 public:
     /// @brief Constructor
-    GNEFixDemandElements(GNEViewNet* viewNet);
+    GNEFixDemandElementsDialog(GNEViewNet* viewNet);
 
     /// @brief destructor
-    ~GNEFixDemandElements();
+    ~GNEFixDemandElementsDialog();
 
     /// @brief open fix demand elements dialog
     FXuint openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements);
@@ -65,7 +65,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(GNEFixDemandElements)
+    FOX_CONSTRUCTOR(GNEFixDemandElementsDialog)
 
     /// @brief general GroupBox for fix options
     class FixOptions : public MFXGroupBoxModule {
@@ -118,7 +118,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixRouteOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet);
+        FixRouteOptions(GNEFixDemandElementsDialog* fixDemandElementsParent, GNEViewNet* viewNet);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -157,7 +157,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixVehicleOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet);
+        FixVehicleOptions(GNEFixDemandElementsDialog* fixDemandElementsParent, GNEViewNet* viewNet);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -196,7 +196,7 @@ protected:
 
     public:
         /// @brief build Position Options
-        FixStopPositionOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet);
+        FixStopPositionOptions(GNEFixDemandElementsDialog* fixDemandElementsParent, GNEViewNet* viewNet);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -235,7 +235,7 @@ protected:
 
     public:
         /// @brief build Position Options
-        FixPersonPlanOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet);
+        FixPersonPlanOptions(GNEFixDemandElementsDialog* fixDemandElementsParent, GNEViewNet* viewNet);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -286,8 +286,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEFixDemandElements(const GNEFixDemandElements&) = delete;
+    GNEFixDemandElementsDialog(const GNEFixDemandElementsDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEFixDemandElements& operator=(const GNEFixDemandElements&) = delete;
+    GNEFixDemandElementsDialog& operator=(const GNEFixDemandElementsDialog&) = delete;
 };

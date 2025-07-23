@@ -23,7 +23,7 @@
 #include <netbuild/NBFrame.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
-#include <netedit/dialogs/GNEAbout.h>
+#include <netedit/dialogs/GNEAboutDialog.h>
 #include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netedit/dialogs/GNEKeepElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
@@ -1251,10 +1251,7 @@ GNEApplicationWindow::onCmdLoadDemandInSUMOGUI(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
     // create and open about dialog
-    GNEAbout* about = new GNEAbout(this);
-    about->create();
-    about->show(PLACEMENT_OWNER);
-    return 1;
+    return GNEAboutDialog(this).openModal();
 }
 
 

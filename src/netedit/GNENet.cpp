@@ -43,8 +43,8 @@
 #include <netedit/changes/GNEChange_MeanData.h>
 #include <netedit/changes/GNEChange_RegisterJoin.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
-#include <netedit/dialogs/GNEFixAdditionalElements.h>
-#include <netedit/dialogs/GNEFixDemandElements.h>
+#include <netedit/dialogs/GNEFixAdditionalElementsDialog.h>
+#include <netedit/dialogs/GNEFixDemandElementsDialog.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/data/GNEDataHandler.h>
@@ -2237,7 +2237,7 @@ GNENet::saveAdditionals() {
             }
         }
     }
-    // if there are invalid StoppingPlaces or detectors, open GNEFixAdditionalElements
+    // if there are invalid StoppingPlaces or detectors, open GNEFixAdditionalElementsDialog
     if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
         // 0 -> Canceled Saving, with or without selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
@@ -2288,7 +2288,7 @@ GNENet::saveDemandElements() {
             }
         }
     }
-    // if there are invalid demand elements, open GNEFixDemandElements
+    // if there are invalid demand elements, open GNEFixDemandElementsDialog
     if (invalidSingleLaneDemandElements.size() > 0) {
         // 0 -> Canceled Saving, with or without selecting invalid demand elements
         // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions

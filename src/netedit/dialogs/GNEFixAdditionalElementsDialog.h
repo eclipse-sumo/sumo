@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFixAdditionalElements.h
+/// @file    GNEFixAdditionalElementsDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
 ///
@@ -33,16 +33,16 @@ class GNEDetector;
 // class definitions
 // ===========================================================================
 
-class GNEFixAdditionalElements : public GNEFixElementsDialog {
+class GNEFixAdditionalElementsDialog : public GNEFixElementsDialog {
     /// @brief FOX-declaration
-    FXDECLARE(GNEFixAdditionalElements)
+    FXDECLARE(GNEFixAdditionalElementsDialog)
 
 public:
     /// @brief Constructor
-    GNEFixAdditionalElements(GNEViewNet* viewNet);
+    GNEFixAdditionalElementsDialog(GNEViewNet* viewNet);
 
     /// @brief destructor
-    ~GNEFixAdditionalElements();
+    ~GNEFixAdditionalElementsDialog();
 
     /// @brief open fix additional dialog
     FXuint openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
@@ -66,14 +66,14 @@ public:
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEFixAdditionalElements)
+    FOX_CONSTRUCTOR(GNEFixAdditionalElementsDialog)
 
     /// @brief groupbox for list
     class AdditionalList : protected FXGroupBox {
 
     public:
         /// @brief constructor
-        AdditionalList(GNEFixAdditionalElements* fixAdditionalPositions);
+        AdditionalList(GNEFixAdditionalElementsDialog* fixAdditionalPositions);
 
         /// @brief update list with the invalid additionals
         void updateList(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
@@ -100,7 +100,7 @@ protected:
 
     public:
         /// @brief build Position Options
-        PositionOptions(GNEFixAdditionalElements* fixAdditionalPositions);
+        PositionOptions(GNEFixAdditionalElementsDialog* fixAdditionalPositions);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -136,7 +136,7 @@ protected:
 
     public:
         /// @brief build consecutive lane Options
-        ConsecutiveLaneOptions(GNEFixAdditionalElements* fixAdditionalPositions);
+        ConsecutiveLaneOptions(GNEFixAdditionalElementsDialog* fixAdditionalPositions);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -178,8 +178,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEFixAdditionalElements(const GNEFixAdditionalElements&) = delete;
+    GNEFixAdditionalElementsDialog(const GNEFixAdditionalElementsDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEFixAdditionalElements& operator=(const GNEFixAdditionalElements&) = delete;
+    GNEFixAdditionalElementsDialog& operator=(const GNEFixAdditionalElementsDialog&) = delete;
 };

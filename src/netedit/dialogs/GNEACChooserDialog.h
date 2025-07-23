@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDialogACChooser.h
+/// @file    GNEACChooserDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Apr 2018
 ///
@@ -34,13 +34,8 @@ class GNEViewParent;
 // ===========================================================================
 // class definition
 // ===========================================================================
-/**
- * @class GNEDialogACChooser
- * Instances of this class are windows that display the list of instances
- * from a given artifact like vehicles, edges or junctions and allow
- * one of their items
- */
-class GNEDialogACChooser : public GUIDialog_ChooserAbstract {
+
+class GNEACChooserDialog : public GUIDialog_ChooserAbstract {
 
 public:
     /** @brief Constructor
@@ -53,10 +48,10 @@ public:
                        const std::map<std::string, GNEAttributeCarrier*>& ACs);
 
     /// @brief Destructor
-    ~GNEDialogACChooser();
+    ~GNEACChooserDialog();
 
 protected:
-    FOX_CONSTRUCTOR(GNEDialogACChooser)
+    FOX_CONSTRUCTOR(GNEACChooserDialog)
 
     /// @brief toggle selection
     void toggleSelection(int listIndex) override;

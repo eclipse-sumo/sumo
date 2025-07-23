@@ -11,33 +11,42 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFixElementsDialogRow.cpp
-/// @author  Pablo Alvarez Lopez
-/// @date    Nov 2023
+/// @file    GNEAboutDialog.h
+/// @author  Jakob Erdmann
+/// @date    Feb 2011
 ///
-// Row used in GNEFixElementsDialog
+// The "About" - dialog for netedit, (adapted from GUIDialog_AboutSUMO)
 /****************************************************************************/
+#pragma once
+#include <config.h>
 
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-
-#include "GNEFixElementsDialogRow.h"
+#include <utils/foxtools/MFXDialogBox.h>
 
 // ===========================================================================
-// member method definitions
+// class definitions
 // ===========================================================================
 
-GNEFixElementsDialogRow::GNEFixElementsDialogRow(GNEFixElementsDialog* fixElementsDialog) :
-    myFixElementsDialogParent(fixElementsDialog) {
+class GNEAboutDialog : public MFXDialogBox {
 
-}
+public:
+    /// @brief Constructor
+    GNEAboutDialog(GNEApplicationWindow* applicationWindow);
 
+    /// @brief Destructor
+    ~GNEAboutDialog();
 
-GNEFixElementsDialogRow::~GNEFixElementsDialogRow() {
-}
+    /// @name FOX-callbacks
+    /// @{
 
+    /// @brief called when accept button is pressed
+    long onCmdAccept(FXObject*, FXSelector, void*);
 
-/****************************************************************************/
+    /// @brief called when cancel button is pressed (or dialog is closed)
+    long onCmdCancel(FXObject*, FXSelector, void*);
+
+    /// @}
+
+private:
+    /// @brief Font for the widget
+    FXFont* myHeadlineFont;
+};

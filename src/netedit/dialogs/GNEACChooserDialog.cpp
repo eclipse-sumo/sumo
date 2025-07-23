@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDialogACChooser.cpp
+/// @file    GNEACChooserDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Apr 2018
 ///
@@ -22,7 +22,7 @@
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 
-#include "GNEDialogACChooser.h"
+#include "GNEACChooserDialog.h"
 
 // ===========================================================================
 // method definitions
@@ -52,13 +52,13 @@ GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, int messageId,
 }
 
 
-GNEDialogACChooser::~GNEDialogACChooser() {
+GNEACChooserDialog::~GNEACChooserDialog() {
     myViewParent->eraseACChooserDialog(this);
 }
 
 
 void
-GNEDialogACChooser::toggleSelection(int listIndex) {
+GNEACChooserDialog::toggleSelection(int listIndex) {
     // always filtered ACs
     GNEAttributeCarrier* ac = myFilteredACs[listIndex];
     if (ac->isAttributeCarrierSelected()) {
@@ -70,7 +70,7 @@ GNEDialogACChooser::toggleSelection(int listIndex) {
 
 
 void
-GNEDialogACChooser::select(int listIndex) {
+GNEACChooserDialog::select(int listIndex) {
     // always filtered ACs
     GNEAttributeCarrier* ac = myFilteredACs[listIndex];
     if (!ac->isAttributeCarrierSelected()) {
@@ -80,7 +80,7 @@ GNEDialogACChooser::select(int listIndex) {
 
 
 void
-GNEDialogACChooser::deselect(int listIndex) {
+GNEACChooserDialog::deselect(int listIndex) {
     // always filtered ACs
     GNEAttributeCarrier* ac = myFilteredACs[listIndex];
     if (ac->isAttributeCarrierSelected()) {
@@ -90,7 +90,7 @@ GNEDialogACChooser::deselect(int listIndex) {
 
 
 void
-GNEDialogACChooser::filterACs(const std::vector<GUIGlID>& GLIDs) {
+GNEACChooserDialog::filterACs(const std::vector<GUIGlID>& GLIDs) {
     if (GLIDs.empty()) {
         myFilteredACs = myACs;
     } else {
@@ -108,7 +108,7 @@ GNEDialogACChooser::filterACs(const std::vector<GUIGlID>& GLIDs) {
 
 
 std::string
-GNEDialogACChooser::getObjectName(GUIGlObject* o) const {
+GNEACChooserDialog::getObjectName(GUIGlObject* o) const {
     // check if we're locating a TLS
     if (myLocateTLS) {
         // obtain junction

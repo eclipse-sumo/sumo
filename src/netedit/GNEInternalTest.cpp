@@ -21,8 +21,8 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/dialogs/GNEFixAdditionalElements.h>
-#include <netedit/dialogs/GNEFixDemandElements.h>
+#include <netedit/dialogs/GNEFixAdditionalElementsDialog.h>
+#include <netedit/dialogs/GNEFixDemandElementsDialog.h>
 #include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netedit/frames/GNETLSTable.h>
 
