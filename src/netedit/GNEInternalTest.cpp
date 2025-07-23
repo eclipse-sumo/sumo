@@ -28,6 +28,8 @@
 
 #include "GNEInternalTest.h"
 
+//#define DEBUG_INTERNAL_TESTS
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -49,10 +51,12 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
     // process every step
     while (myCurrentStep < myTestSteps.size()) {
         const auto testStep = myTestSteps.at(myCurrentStep);
-        // write description
-        // std::cout << "TestFunctions: Executing step " << myCurrentStep + 1
-        //           << " of " << myTestSteps.size() << ": "
-        //           << testStep->getDescription() << std::endl;
+        // check if debug internal tests
+#ifdef DEBUG_INTERNAL_TESTS
+         std::cout << "TestFunctions: Executing step " << myCurrentStep + 1
+                   << " of " << myTestSteps.size() << ": "
+                   << testStep->getDescription() << std::endl;
+#endif
         // get argument (either event or modalDialogArgument or nullptr)
         void* argument = nullptr;
         if (testStep->getEvent()) {
