@@ -19,7 +19,11 @@
 /****************************************************************************/
 
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/dialogs/GNEHelpDialog.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEAttributeProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
@@ -309,9 +313,6 @@ GNEMatchAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
 
 long
 GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
-    // Create dialog box
-    MFXDialogBox* additionalNeteditAttributesHelpDialog = new MFXDialogBox(getCollapsableFrame(), TL("Netedit Parameters Help"), GUIDesignDialogBox);
-    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;
     help
@@ -335,25 +336,9 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
             << TL("     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n")
             << TL("     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n")
             << TL("     edge; speed; '>10' -> match all edges with a speed above 10\n");
-    // Create label with the help text
-    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
-    // Create horizontal separator
-    new FXHorizontalSeparator(additionalNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
-    // Create frame for OK Button
-    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
-    // Create Button Close (And two more horizontal frames to center it)
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    // create Dialog
-    additionalNeteditAttributesHelpDialog->create();
-    // show in the given position
-    additionalNeteditAttributesHelpDialog->show(PLACEMENT_CURSOR);
-    // refresh APP
-    getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
-    return 1;
+    // create help dialog
+    return GNEHelpDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                         TL("Netedit parameters Help"), help.str()).openModal();
 }
 
 
