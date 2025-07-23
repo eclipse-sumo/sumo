@@ -19,7 +19,10 @@
 /****************************************************************************/
 
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/dialogs/GNEHelpDialog.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/foxtools/MFXDialogBox.h>
@@ -231,7 +234,7 @@ GNEOverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
-    MFXDialogBox* helpDialog = new MFXDialogBox(getCollapsableFrame(), TL("GEO attributes Help"), GUIDesignDialogBox);
+    // create text for help dialog
     std::ostringstream help;
     help
             << TL(" - Click in the same position") << "\n"
@@ -239,12 +242,10 @@ GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
             << TL(" - Shift + Click in the same") << "\n"
             << TL("   position to inspect") << "\n"
             << TL("   previous element");
-    new FXLabel(helpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
-    // "OK"
-    GUIDesigns::buildFXButton(helpDialog, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    helpDialog->create();
-    helpDialog->show(PLACEMENT_SCREEN);
-    return 1;
+    // create help dialog
+    GNEHelpDialog* helpDialog = new GNEHelpDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                                                  TL("GEO attributes Help"), help.str());
+    return helpDialog->openModal();
 }
 
 
