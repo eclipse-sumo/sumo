@@ -61,7 +61,8 @@ GNEFixAdditionalElements::~GNEFixAdditionalElements() {
 
 
 FXuint
-GNEFixAdditionalElements::openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) {
+GNEFixAdditionalElements::openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals,
+                                     const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) {
     myAdditionalList->updateList(invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
     // check if position options has to be disabled
     if (myAdditionalList->myInvalidSingleLaneAdditionals.empty()) {
@@ -74,7 +75,7 @@ GNEFixAdditionalElements::openDialog(const std::vector<GNEAdditional*>& invalidS
     // set focus in accept button
     myButtons->myAcceptButton->setFocus();
     // open modal dialog
-    return openFixDialog();
+    return openModal();
 }
 
 

@@ -89,10 +89,7 @@ public:
     long onCmdAccept(FXObject*, FXSelector, void*);
 
     /// @brief called when cancel button is pressed (or dialog is closed)
-    long onCmdCancel(FXObject*, FXSelector, void*) {
-        closeDialogCanceling();
-        return 1;
-    }
+    long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);

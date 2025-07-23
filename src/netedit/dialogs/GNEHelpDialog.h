@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXDialogBox.h>
-#include <utils/gui/images/GUIIcons.h>
 
 // ===========================================================================
 // class definitions
@@ -31,7 +30,7 @@ class GNEHelpDialog : public MFXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEHelpDialog(GUIMainWindow* mainWindow, const std::string &header, const std::string &text, GUIIcon icon);
+    GNEHelpDialog(GUIMainWindow* mainWindow, const std::string &header, const std::string &text);
 
     /// @brief Destructor
     ~GNEHelpDialog();

@@ -83,7 +83,7 @@ GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& invalid
     // set focus in accept button
     myButtons->myAcceptButton->setFocus();
     // open modal dialog
-    return openFixDialog();
+    return openModal();
 }
 
 

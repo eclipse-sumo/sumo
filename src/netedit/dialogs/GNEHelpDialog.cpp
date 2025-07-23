@@ -33,10 +33,10 @@
 // method definitions
 // ===========================================================================
 
-GNEHelpDialog::GNEHelpDialog(GUIMainWindow* mainWindow, const std::string &header, const std::string &text, GUIIcon icon) :
+GNEHelpDialog::GNEHelpDialog(GUIMainWindow* mainWindow, const std::string &header, const std::string &text) :
     MFXDialogBox(mainWindow, header.c_str(), GUIDesignDialogBox) {
     // set dialog icon
-    setIcon(GUIIconSubSys::getIcon(icon));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::HELP));
     // Create label with the help text
     new FXLabel(this, text.c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator

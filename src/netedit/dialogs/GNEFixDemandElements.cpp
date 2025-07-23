@@ -96,7 +96,7 @@ GNEFixDemandElements::openDialog(const std::vector<GNEDemandElement*>& invalidDe
     // set focus in accept button
     myButtons->myAcceptButton->setFocus();
     // open modal dialog
-    return openFixDialog();
+    return openModal();
 }
 
 

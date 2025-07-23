@@ -31,7 +31,7 @@ class GNEAbout : public MFXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEAbout(FXWindow* parent);
+    GNEAbout(GUIMainWindow* mainWindow);
 
     /// @brief Destructor
     ~GNEAbout();
@@ -46,9 +46,6 @@ public:
     long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @}
-
-    /// @brief Creates the widget
-    void create();
 
 private:
     /// @brief Font for the widget

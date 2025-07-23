@@ -46,7 +46,7 @@ FXIMPLEMENT(GNEKeepElementsDialog, MFXDialogBox, GNEKeepElementsDialogMap, ARRAY
 // ---------------------------------------------------------------------------
 
 GNEKeepElementsDialog::GNEKeepElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType) :
-    MFXDialogBox(applicationWindow->getApp(), ("Keep " + elementType + " elements").c_str(), GUIDesignDialogBoxExplicit(400, 100)) {
+    MFXDialogBox(applicationWindow, TLF("Keep % elements", elementType).c_str(), GUIDesignDialogBoxExplicit(400, 100)) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
     // create main frame

@@ -437,10 +437,9 @@ GNEAttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEAttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
-    const auto internalTests = myAttributeTable->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest();
     const auto allowVClassesDialog = myAttributeTable->getFrameParent()->getViewNet()->getAllowVClassesDialog();
     // open dialog
-    if (allowVClassesDialog->openDialog(myAttrProperty->getAttr(), myValueTextField->getText().text(), internalTests) == 1) {
+    if (allowVClassesDialog->openDialog(myAttrProperty->getAttr(), myValueTextField->getText().text()) == 1) {
         myValueTextField->setText(allowVClassesDialog->getModifiedVClasses().c_str(), TRUE);
     }
     return 1;

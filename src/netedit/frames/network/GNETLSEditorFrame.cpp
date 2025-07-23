@@ -814,8 +814,7 @@ GNETLSEditorFrame::TLSAttributes::onCmdParametersDialog(FXObject*, FXSelector, v
     if (myTLSEditorParent->myEditedDef) {
         // get previous parameters
         const auto previousParameters = getParameters();
-        const auto internalTests = myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getInternalTest();
-        if (GNESingleParametersDialog(myTLSEditorParent->getViewNet()->getApp(), myTLSEditorParent->myEditedDef).openModal(internalTests)) {
+        if (GNESingleParametersDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(), myTLSEditorParent->myEditedDef).openModal()) {
             // set parameters in textfield
             setParameters(myTLSEditorParent->myEditedDef->getParametersStr());
             // only mark as modified if parameters are different

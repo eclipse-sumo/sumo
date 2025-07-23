@@ -58,7 +58,7 @@ FXIMPLEMENT(GNEPythonToolDialog, MFXDialogBox, GNEPythonToolDialogMap, ARRAYNUMB
 // ===========================================================================
 
 GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
-    MFXDialogBox(GNEApp->getApp(), "Tool", GUIDesignAuxiliarDialogBoxResizable),
+    MFXDialogBox(GNEApp, "Tool", GUIDesignAuxiliarDialogBoxResizable),
     myGNEApp(GNEApp) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));

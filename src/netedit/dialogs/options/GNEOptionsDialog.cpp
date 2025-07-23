@@ -71,7 +71,7 @@ std::pair<int, bool>
 GNEOptionsDialog::Options(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer, const char* titleName) {
     auto optionsDialog = GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, false);
     // open dialog modal
-    optionsDialog.openModal(GNEApp->getInternalTest());
+    optionsDialog.openModal();
     // save result
     return std::make_pair(optionsDialog.getAccepted(), optionsDialog.myOptionsModified);
 }
@@ -81,7 +81,7 @@ std::pair<int, bool>
 GNEOptionsDialog::Run(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer, const char* titleName) {
     auto optionsDialog = GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, true);
     // open dialog modal
-    optionsDialog.openModal(GNEApp->getInternalTest());
+    optionsDialog.openModal();
     // save result
     return std::make_pair(optionsDialog.getAccepted(), optionsDialog.myOptionsModified);
 }
