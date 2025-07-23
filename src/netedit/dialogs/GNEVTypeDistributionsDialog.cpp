@@ -19,7 +19,10 @@
 /****************************************************************************/
 
 #include <netedit/frames/demand/GNETypeFrame.h>
+#include <netedit/dialogs/GNEHelpDialog.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/XMLSubSys.h>
@@ -385,9 +388,6 @@ GNEVTypeDistributionsDialog::ParametersOperations::onCmdSortParameters(FXObject*
 
 long
 GNEVTypeDistributionsDialog::ParametersOperations::onCmdHelpParameter(FXObject*, FXSelector, void*) {
-    // Create dialog box
-    MFXDialogBox* ParameterHelpDialog = new MFXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
-    ParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // set help text
     std::ostringstream help;
     help
@@ -395,25 +395,9 @@ GNEVTypeDistributionsDialog::ParametersOperations::onCmdHelpParameter(FXObject*,
             << TL("- In Netedit can be defined using format key1=parameter1|key2=parameter2|...\n")
             << TL(" - Duplicated and empty Keys aren't valid.\n")
             << TL(" - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n");
-    // Create label with the help text
-    new FXLabel(ParameterHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
-    // Create horizontal separator
-    new FXHorizontalSeparator(ParameterHelpDialog, GUIDesignHorizontalSeparator);
-    // Create frame for OK Button
-    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(ParameterHelpDialog, GUIDesignAuxiliarHorizontalFrame);
-    // Create Button Close (And two more horizontal frames to center it)
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), ParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    // create Dialog
-    ParameterHelpDialog->create();
-    // show in the given position
-    ParameterHelpDialog->show(PLACEMENT_CURSOR);
-    // refresh APP
-    getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    getApp()->runModalFor(ParameterHelpDialog);
-    return 1;
+    // create help dialog
+    return GNEHelpDialog(myParameterDialogParent->myTypeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                         TL("Parameters Help"), help.str()).openModal();
 }
 
 
@@ -468,7 +452,7 @@ GNEVTypeDistributionsDialog::ParametersOperations::GNEParameterHandler::myStartE
 // ---------------------------------------------------------------------------
 
 GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(GNETypeFrame* typeFrameParent) :
-    MFXDialogBox(typeFrameParent->getViewNet()->getApp(), "Edit attributes", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    MFXDialogBox(typeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), TL("Edit attributes"), GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myTypeFrameParent(typeFrameParent) {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
