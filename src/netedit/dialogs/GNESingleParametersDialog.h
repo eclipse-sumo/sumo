@@ -189,6 +189,7 @@ public:
         /// @class GNEParameterHandler
         /// @brief load  parameters from a filename
         class GNEParameterHandler : public SUMOSAXHandler {
+
         public:
             /// @brief Constructor
             GNEParameterHandler(ParametersOperations* ParametersOperationsParent, const std::string& file);
@@ -234,13 +235,13 @@ public:
     GNESingleParametersDialog(GNEAttributesEditorType* attributesEditor);
 
     /// @brief Constructor for Vehicle Type Row (Vehicle Type Dialog)
-    GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet);
+    GNESingleParametersDialog(GNEApplicationWindow* applicationWindow, GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow);
 
     /// @brief Constructor for attribute carriers (used in GNECreateEdgeFrame)
     GNESingleParametersDialog(GNEAttributeCarrier* attributeCarrier);
 
     /// @brief Constructor for attribute carriers (used in GNETLSEditorFrame)
-    GNESingleParametersDialog(FXApp* app, NBLoadedSUMOTLDef* TLDef);
+    GNESingleParametersDialog(GNEApplicationWindow* applicationWindow, NBLoadedSUMOTLDef* TLDef);
 
     /// @brief destructor
     ~GNESingleParametersDialog();
