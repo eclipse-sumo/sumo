@@ -23,6 +23,7 @@
 // ===========================================================================
 
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/tests/InternalTest.h>
 #include <utils/tests/InternalTestStep.h>
 
@@ -49,35 +50,31 @@ FXIMPLEMENT_ABSTRACT(MFXDialogBox, FXDialogBox, MFXDialogBoxMap, ARRAYNUMBER(MFX
 // method definitions
 // ===========================================================================
 
-MFXDialogBox::MFXDialogBox(FXApp* a, const FXString& name, FXuint opts, FXint x, FXint y,
-                           FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs):
-    FXDialogBox(a, name, opts, x, y, w, h, pl, pr, pt, pb, hs, vs) {
-}
-
-
-MFXDialogBox::MFXDialogBox(FXWindow* owner, const FXString& name, FXuint opts, FXint x, FXint y,
-                           FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs):
-    FXDialogBox(owner, name, opts, x, y, w, h, pl, pr, pt, pb, hs, vs) {
+MFXDialogBox::MFXDialogBox(GUIMainWindow* mainWindow, const FXString& name, FXuint opts, FXint x, FXint y,
+                           FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs) :
+    FXDialogBox(mainWindow->getApp(), name, opts, x, y, w, h, pl, pr, pt, pb, hs, vs),
+    myMainWindow(mainWindow) {
+    // check option with only mainWindow
 }
 
 
 bool
-MFXDialogBox::openModal(InternalTest* internalTests, FXuint placement) {
+MFXDialogBox::openModal(FXuint placement) {
     // create and show dialog
     create();
     show(placement);
     // refresh the application
     getApp()->refresh();
     // continue depending on whether we are testing or not
-    if (internalTests) {
+    if (myMainWindow->getInternalTest()) {
         myTesting = true;
         // execute every modal dialog test step
-        for (const auto& modalStep : internalTests->getCurrentStep()->getModalDialogTestSteps()) {
+        for (const auto& modalStep : myMainWindow->getInternalTest()->getCurrentStep()->getModalDialogTestSteps()) {
             // this will be unified
             if (modalStep->getEvent()) {
-                handle(internalTests, modalStep->getSelector(), modalStep->getEvent());
+                handle(myMainWindow->getInternalTest(), modalStep->getSelector(), modalStep->getEvent());
             } else if (modalStep->getDialogTest()) {
-                handle(internalTests, modalStep->getSelector(), modalStep->getDialogTest());
+                handle(myMainWindow->getInternalTest(), modalStep->getSelector(), modalStep->getDialogTest());
             }
         }
     } else {

@@ -25,6 +25,12 @@
 #include "fxheader.h"
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+
+class GUIMainWindow;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -33,14 +39,10 @@ class MFXDialogBox : public FXDialogBox {
 
 public:
     /// @brief Construct free-floating dialog
-    MFXDialogBox(FXApp* a, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
-
-    /// @brief Construct dialog which will always float over the owner window
-    /// @note must be removed
-    MFXDialogBox(FXWindow* owner, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
+    MFXDialogBox(GUIMainWindow* mainWindow, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
 
     /// @brief open modal dialog
-    bool openModal(InternalTest* internalTests, FXuint placement = PLACEMENT_CURSOR);
+    bool openModal(FXuint placement = PLACEMENT_CURSOR);
 
     /// @brief bool to indicate if this dialog was closed accepting or rejecting changes
     bool getAccepted() const;
@@ -57,14 +59,17 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX needs this
+    MFXDialogBox() {}
+
     /// @brief close dialog accepting the changes
     long closeDialogAccepting();
 
     /// @brief close dialog canceling the changes
     long closeDialogCanceling();
 
-    /// @brief FOX needs this
-    MFXDialogBox() {}
+    /// @brief pointer to the main window
+    GUIMainWindow* myMainWindow;
 
     /// @brief bool to indicate if this dialog was closed accepting or rejecting changes
     bool myAccepted = false;
