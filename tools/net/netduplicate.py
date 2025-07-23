@@ -30,7 +30,7 @@ import tempfile
 import shutil
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
-from sumolib.options import ArgumentParser
+from sumolib.options import ArgumentParser # noqa
 
 
 def parseArgs():
