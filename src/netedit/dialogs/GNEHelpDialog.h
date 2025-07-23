@@ -20,13 +20,13 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXDialogBox.h>
+#include "GNEDialog.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEHelpDialog : public MFXDialogBox {
+class GNEHelpDialog : public GNEDialog {
 
 public:
     /// @brief Constructor

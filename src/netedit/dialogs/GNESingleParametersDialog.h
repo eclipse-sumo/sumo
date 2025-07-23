@@ -22,8 +22,9 @@
 
 #include <netedit/dialogs/GNEVehicleTypeDialog.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/xml/SUMOSAXHandler.h>
+
+#include "GNEDialog.h"
 
 // ===========================================================================
 // class definitions
@@ -38,11 +39,7 @@ class NBLoadedSUMOTLDef;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNESingleParametersDialog
- * @brief Dialog for edit  parameters
- */
-class GNESingleParametersDialog : public MFXDialogBox {
+class GNESingleParametersDialog : public GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNESingleParametersDialog)
 

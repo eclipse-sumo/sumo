@@ -117,7 +117,7 @@ GNEDemandElementDialog::onCmdFocusOnFrame(FXObject*, FXSelector, void*) {
 
 void
 GNEDemandElementDialog::changeDemandElementDialogHeader(const std::string& newHeader) {
-    // change MFXDialogBox title
+    // change GNEDialog title
     setTitle(newHeader.c_str());
 }
 

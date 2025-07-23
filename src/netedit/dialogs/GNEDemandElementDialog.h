@@ -35,10 +35,6 @@ class GNEUndoList;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEDemandElementDialog
- * @brief Dialog to edit sequences, parameters, etc.. of DemandElements
- */
 class GNEDemandElementDialog : protected FXTopWindow {
     /// @brief FOX-declaration abstract
     FXDECLARE_ABSTRACT(GNEDemandElementDialog)

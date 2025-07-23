@@ -30,7 +30,7 @@
 // ===========================================================================
 
 GNEHelpDialog::GNEHelpDialog(GNEApplicationWindow* applicationWindow, const std::string &header, const std::string &text) :
-    MFXDialogBox(applicationWindow, header.c_str(), GUIDesignDialogBox) {
+    GNEDialog(applicationWindow, header.c_str(), GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::HELP));
     // Create label with the help text

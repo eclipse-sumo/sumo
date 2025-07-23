@@ -16,6 +16,8 @@ set(netedit_dialogs_SRCS
    GNECalibratorFlowDialog.h
    GNEDemandElementDialog.cpp
    GNEDemandElementDialog.h
+   GNEDialog.cpp
+   GNEDialog.h
    GNEFixAdditionalElementsDialog.cpp
    GNEFixAdditionalElementsDialog.h
    GNEFixDemandElementsDialog.cpp

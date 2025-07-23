@@ -20,9 +20,10 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/tests/InternalTestStep.h>
+
+#include "GNEDialog.h"
 
 // ===========================================================================
 // class declarations
@@ -34,7 +35,7 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-class GNEFixElementsDialog : protected MFXDialogBox {
+class GNEFixElementsDialog : protected GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE_ABSTRACT(GNEFixElementsDialog)
 

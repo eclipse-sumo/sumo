@@ -22,12 +22,11 @@
 
 #include "GNEFixElementsDialog.h"
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEFixElementsRowDialog : public MFXDialogBox {
+class GNEFixElementsRowDialog : public GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNEFixElementsRowDialog)
 

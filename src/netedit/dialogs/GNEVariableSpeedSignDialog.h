@@ -21,8 +21,6 @@
 #include <config.h>
 
 #include <map>
-#include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
-
 #include "GNEAdditionalDialog.h"
 
 // ===========================================================================
@@ -35,10 +33,6 @@ class GNEVariableSpeedSign;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEAdditionalDialog
- * @brief Dialog to edit sequences, parameters, etc.. of Additionals
- */
 class GNEVariableSpeedSignDialog : public GNEAdditionalDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNEVariableSpeedSignDialog)
