@@ -8,14 +8,17 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-23 09:53+0000\n"
-"PO-Revision-Date: 2025-06-30 12:19+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-07-24 14:03+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2269 src/gui/GUIApplicationWindow.cpp:2270
@@ -27,81 +30,82 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:1648
 #: src/netedit/GNEApplicationWindow.cpp:1649
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: src/gui/GUIApplicationWindow.cpp:308
 #: src/netedit/GNEApplicationWindow.cpp:563
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr ""
+"Coordenada original (antes da transformação de coordenada no netconvert)"
 
 #: src/gui/GUIApplicationWindow.cpp:311
 #: src/netedit/GNEApplicationWindow.cpp:567
 msgid "Network coordinate"
-msgstr ""
+msgstr "Coordenada da rede"
 
 #: src/gui/GUIApplicationWindow.cpp:339
 #: src/netedit/GNEApplicationWindow.cpp:590
 msgid "Ready."
-msgstr ""
+msgstr "Pronto."
 
 #: src/gui/GUIApplicationWindow.cpp:462
 #: src/netedit/GNEApplicationWindow.cpp:1389
 msgid "&File"
-msgstr ""
+msgstr "&Arquivo"
 
 #: src/gui/GUIApplicationWindow.cpp:464
 #: src/netedit/GNEApplicationWindowHelper.cpp:206
 msgid "New Window"
-msgstr ""
+msgstr "Nova Janela"
 
 #: src/gui/GUIApplicationWindow.cpp:464
 msgid "Open a new sumo-gui window."
-msgstr ""
+msgstr "Abra uma nova janela do sumo-gui."
 
 #: src/gui/GUIApplicationWindow.cpp:468
 msgid "&Open Simulation..."
-msgstr ""
+msgstr "&Abrir Simulação..."
 
 #: src/gui/GUIApplicationWindow.cpp:468
 msgid "Open a simulation (Configuration file)."
-msgstr ""
+msgstr "Abrir uma simulação (Configuration file)."
 
 #: src/gui/GUIApplicationWindow.cpp:471
 msgid "Open &Network..."
-msgstr ""
+msgstr "Abrir &Rede..."
 
 #: src/gui/GUIApplicationWindow.cpp:471
 msgid "Open a network."
-msgstr ""
+msgstr "Abrir uma rede."
 
 #: src/gui/GUIApplicationWindow.cpp:474
 msgid "Open Shapes "
-msgstr ""
+msgstr "Abrir Formas "
 
 #: src/gui/GUIApplicationWindow.cpp:474
 msgid "Load POIs and Polygons for visualization."
-msgstr ""
+msgstr "Abrir POIs e Polígonos para visualização."
 
 #: src/gui/GUIApplicationWindow.cpp:477
 msgid "Open EdgeData "
-msgstr ""
+msgstr "Abrir EdgeData "
 
 #: src/gui/GUIApplicationWindow.cpp:477
 msgid "Load edge related data for visualization."
-msgstr ""
+msgstr "Abrir dados relacionados às arestas para visualização."
 
 #: src/gui/GUIApplicationWindow.cpp:480
 #: src/netedit/GNEApplicationWindow.cpp:1071
 msgid "&Reload"
-msgstr ""
+msgstr "&Recarregar"
 
 #: src/gui/GUIApplicationWindow.cpp:480
 msgid "Reloads the simulation / the network."
-msgstr ""
+msgstr "Recarrega a simulação / rede."
 
 #: src/gui/GUIApplicationWindow.cpp:483
 msgid "Quick-Reload"
-msgstr ""
+msgstr "Reinício Rápido"
 
 #: src/gui/GUIApplicationWindow.cpp:483
 msgid "Reloads the simulation (but not network)."
@@ -325,7 +329,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:636
 #: src/netedit/GNEApplicationWindowHelper.cpp:2041
 msgid "&Additional"
-msgstr ""
+msgstr "&Adicional"
 
 #: src/gui/GUIApplicationWindow.cpp:572
 #: src/netedit/GNEApplicationWindowHelper.cpp:2041
@@ -396,19 +400,19 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:594
 msgctxt "Simulation"
 msgid "Stop"
-msgstr ""
+msgstr "Parar"
 
 #: src/gui/GUIApplicationWindow.cpp:594
 msgid "Halt the simulation."
-msgstr ""
+msgstr "Interromper a simulação."
 
 #: src/gui/GUIApplicationWindow.cpp:597
 msgid "Step"
-msgstr ""
+msgstr "Passo"
 
 #: src/gui/GUIApplicationWindow.cpp:597
 msgid "Perform one simulation step."
-msgstr ""
+msgstr "Executando um passo da simulação."
 
 #: src/gui/GUIApplicationWindow.cpp:600
 msgid "Delay+"
@@ -16456,39 +16460,39 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:341
 msgid "Langua&ge"
-msgstr ""
+msgstr "Idioma"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:343
 msgid "Change language to english. (en)"
-msgstr ""
+msgstr "Mudar idioma para inglês. (en)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:345
 msgid "Change language to german. (de)"
-msgstr ""
+msgstr "Mudar idioma para alemão. (de)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:347
 msgid "Change language to spanish. (es)"
-msgstr ""
+msgstr "Mudar idioma para espanhol. (es)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:349
 msgid "Change language to french. (fr)"
-msgstr ""
+msgstr "Mudar idioma para francês. (fr)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:351
 msgid "Change language to italian. (it)"
-msgstr ""
+msgstr "Mudar idioma para italiano. (it)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:353
 msgid "简体中文 (zh)"
-msgstr ""
+msgstr "简体中文 (zh)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:355
 msgid "繁體中文 (zh-Hant)"
-msgstr ""
+msgstr "繁體中文 (zh-Hant)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:357
 msgid "Change language to turkish. (tr)"
-msgstr ""
+msgstr "Mudar idioma para turco. (tr)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:359
 msgid "Change language to hungarian. (hu)"
@@ -16500,51 +16504,51 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:375
 msgid "german"
-msgstr ""
+msgstr "alemão"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:379
 msgid "spanish"
-msgstr ""
+msgstr "espanhol"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:383
 msgid "french"
-msgstr ""
+msgstr "francês"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:387
 msgid "italian"
-msgstr ""
+msgstr "italiano"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:391
 msgid "simplified chinese"
-msgstr ""
+msgstr "chinês simplificado"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:395
 msgid "traditional chinese"
-msgstr ""
+msgstr "chines tradicional"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:399
 msgid "turkish"
-msgstr ""
+msgstr "turco"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:403
 msgid "hungarian"
-msgstr ""
+msgstr "húngaro"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:407
 msgid "japanese"
-msgstr ""
+msgstr "japonês"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:411
 msgid "english"
-msgstr ""
+msgstr "inglês"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:419
 msgid "Language changed to "
-msgstr ""
+msgstr "Idioma trocado para "
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:421
 msgid "Restart needed"
-msgstr ""
+msgstr "Reinício necessário"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:422
 msgid "Changing display language needs restart to take effect."
@@ -16557,11 +16561,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:428
 msgid "Under development. You can help to improve the translation at:"
-msgstr ""
+msgstr "Em desenvolvimento. Você pode ajudar a melhorar a tradução em:"
 
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:249
 msgid "(No projection defined)"
-msgstr ""
+msgstr "(Sem projeção definida)"
 
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1738
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
