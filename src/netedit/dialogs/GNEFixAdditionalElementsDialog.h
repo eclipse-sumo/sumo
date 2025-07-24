@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/MFXGroupBoxModule.h>
+
 #include "GNEFixElementsDialog.h"
 
 // ===========================================================================

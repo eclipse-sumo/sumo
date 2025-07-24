@@ -34,6 +34,9 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsLoader.h>
 #include <xercesc/parsers/SAXParser.hpp>
+#include <utils/foxtools/MFXCheckButtonTooltip.h>
+#include <utils/foxtools/MFXTextFieldSearch.h>
+#include <utils/foxtools/MFXCheckableButton.h>
 
 #include "GNEOptionsDialog.h"
 
@@ -61,7 +64,7 @@ FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEOptionsDialog, MFXDialogBox, GUIDialogOptionsMap, ARRAYNUMBER(GUIDialogOptionsMap))
+FXIMPLEMENT(GNEOptionsDialog, GNEDialog, GUIDialogOptionsMap, ARRAYNUMBER(GUIDialogOptionsMap))
 
 // ===========================================================================
 // method definitions
@@ -296,7 +299,7 @@ GNEOptionsDialog::loadConfiguration(const std::string& file) {
 
 GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
                                    const OptionsCont& originalOptionsContainer, const char* titleName, const bool runDialog) :
-    MFXDialogBox(GNEApp, titleName, GUIDesignDialogBoxExplicitStretchable(800, 600)),
+    GNEDialog(GNEApp, titleName, GUIDesignDialogBoxExplicitStretchable(800, 600)),
     myGNEApp(GNEApp),
     myOptionsContainer(optionsContainer),
     myOriginalOptionsContainer(originalOptionsContainer) {

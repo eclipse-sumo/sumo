@@ -51,14 +51,14 @@ FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPythonToolDialog, MFXDialogBox, GNEPythonToolDialogMap, ARRAYNUMBER(GNEPythonToolDialogMap))
+FXIMPLEMENT(GNEPythonToolDialog, GNEDialog, GNEPythonToolDialogMap, ARRAYNUMBER(GNEPythonToolDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
 GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
-    MFXDialogBox(GNEApp, "Tool", GUIDesignAuxiliarDialogBoxResizable),
+    GNEDialog(GNEApp, "Tool", GUIDesignAuxiliarDialogBoxResizable),
     myGNEApp(GNEApp) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
@@ -126,7 +126,7 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     // resize
     resize(1024, maximumHeight <= 768 ? maximumHeight : 768);
     // show dialog
-    MFXDialogBox::show(PLACEMENT_SCREEN);
+    GNEDialog::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
 }

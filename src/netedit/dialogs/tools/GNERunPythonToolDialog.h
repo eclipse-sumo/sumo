@@ -20,8 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
-#include <utils/foxtools/MFXDialogBox.h>
+#include <netedit/dialogs/GNEDialog.h>
 #include <utils/foxtools/MFXSynchQue.h>
 #include <utils/foxtools/MFXThreadEvent.h>
 
@@ -29,16 +28,14 @@
 // class declarations
 // ===========================================================================
 
-class GNEApplicationWindow;
 class GNERunPythonTool;
 class GNEPythonTool;
-class GUIEvent;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNERunPythonToolDialog : protected MFXDialogBox {
+class GNERunPythonToolDialog : protected GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNERunPythonToolDialog)
 

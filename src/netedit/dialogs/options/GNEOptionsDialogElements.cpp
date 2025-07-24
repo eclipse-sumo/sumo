@@ -29,6 +29,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 
 #include "GNEOptionsDialogElements.h"
 #include "GNEOptionsDialog.h"

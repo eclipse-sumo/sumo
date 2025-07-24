@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXDialogBox.h>
+#include <netedit/dialogs/GNEDialog.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEPythonToolDialogElements.h"
@@ -29,7 +29,6 @@
 // class declarations
 // ===========================================================================
 
-class GNEApplicationWindow;
 class GNEPythonTool;
 class MFXCheckableButton;
 
@@ -37,11 +36,7 @@ class MFXCheckableButton;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEPythonToolDialog
- * @brief Dialog for python tool dialog
- */
-class GNEPythonToolDialog : protected MFXDialogBox {
+class GNEPythonToolDialog : protected GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNEPythonToolDialog)
 

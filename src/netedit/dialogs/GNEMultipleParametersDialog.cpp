@@ -59,7 +59,7 @@ FXDEFMAP(GNEMultipleParametersDialog::ParametersOperations) ParametersOperations
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMultipleParametersDialog,                        GNEDialog,   GNEMultipleParametersDialogMap, ARRAYNUMBER(GNEMultipleParametersDialogMap))
+FXIMPLEMENT(GNEMultipleParametersDialog,                        GNEDialog,      GNEMultipleParametersDialogMap, ARRAYNUMBER(GNEMultipleParametersDialogMap))
 FXIMPLEMENT(GNEMultipleParametersDialog::ParametersValues,      FXGroupBox,     ParametersValuesMap,            ARRAYNUMBER(ParametersValuesMap))
 FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOperations,  FXGroupBox,     ParametersOperationsMap,        ARRAYNUMBER(ParametersOperationsMap))
 

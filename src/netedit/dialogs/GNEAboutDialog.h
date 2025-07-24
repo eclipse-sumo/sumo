@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/GNEDialog.h>
+#include "GNEDialog.h"
 
 // ===========================================================================
 // class definitions

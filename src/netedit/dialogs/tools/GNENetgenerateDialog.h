@@ -20,21 +20,19 @@
 #pragma once
 #include <config.h>
 
-#include <utils/options/OptionsCont.h>
-#include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/foxtools/MFXDialogBox.h>
+#include <netedit/dialogs/GNEDialog.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEApplicationWindow;
+class MFXCheckableButton;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNENetgenerateDialog : protected MFXDialogBox {
+class GNENetgenerateDialog : protected GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNENetgenerateDialog)
 

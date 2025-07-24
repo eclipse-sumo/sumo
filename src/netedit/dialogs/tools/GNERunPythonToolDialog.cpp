@@ -47,14 +47,14 @@ FXDEFMAP(GNERunPythonToolDialog) GNERunPythonToolDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNERunPythonToolDialog, MFXDialogBox, GNERunPythonToolDialogMap, ARRAYNUMBER(GNERunPythonToolDialogMap))
+FXIMPLEMENT(GNERunPythonToolDialog, GNEDialog, GNERunPythonToolDialogMap, ARRAYNUMBER(GNERunPythonToolDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
 GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* GNEApp) :
-    MFXDialogBox(GNEApp, "Tool", GUIDesignAuxiliarDialogBoxResizable),
+    GNEDialog(GNEApp, "Tool", GUIDesignAuxiliarDialogBoxResizable),
     myGNEApp(GNEApp) {
     // build the thread - io
     myThreadEvent.setTarget(this);
@@ -126,7 +126,7 @@ GNERunPythonToolDialog::runTool(GNEPythonTool* tool) {
     // clear text
     myText->setText("");
     // show dialog
-    MFXDialogBox::show(PLACEMENT_SCREEN);
+    GNEDialog::show(PLACEMENT_SCREEN);
     // set tool
     myPythonTool = tool;
     // run tool
@@ -149,7 +149,7 @@ GNERunPythonToolDialog::updateDialog() {
         myCloseButton->enable();
     }
     // update dialog
-    MFXDialogBox::update();
+    GNEDialog::update();
 }
 
 

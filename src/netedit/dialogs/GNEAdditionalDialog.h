@@ -20,9 +20,9 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
 #include <vector>
-#include <utils/xml/SUMOXMLDefinitions.h>
+#include <map>
+#include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
 // class declarations

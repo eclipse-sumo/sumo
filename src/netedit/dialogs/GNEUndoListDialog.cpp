@@ -21,6 +21,7 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/foxtools/MFXTextFieldTooltip.h>
 
 #include "GNEUndoListDialog.h"
 

@@ -20,10 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/dialogs/GNEVehicleTypeDialog.h>
 
 #include "GNEDialog.h"
 
@@ -31,9 +28,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEAttributeCarrier;
 class GNETypeFrame;
-class GNEViewNet;
 
 // ===========================================================================
 // class definitions

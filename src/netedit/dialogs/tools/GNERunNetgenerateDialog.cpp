@@ -22,6 +22,7 @@
 #include <netedit/tools/GNERunNetgenerate.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/events/GUIEvent_Message.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNERunNetgenerateDialog.h"
 
@@ -46,14 +47,14 @@ FXDEFMAP(GNERunNetgenerateDialog) GNERunNetgenerateDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNERunNetgenerateDialog, MFXDialogBox, GNERunNetgenerateDialogMap, ARRAYNUMBER(GNERunNetgenerateDialogMap))
+FXIMPLEMENT(GNERunNetgenerateDialog, GNEDialog, GNERunNetgenerateDialogMap, ARRAYNUMBER(GNERunNetgenerateDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
 GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    MFXDialogBox(GNEApp, "", GUIDesignDialogBoxExplicit(0, 0)),
+    GNEDialog(GNEApp, "", GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp) {
     // build the thread - io
     myThreadEvent.setTarget(this);
@@ -125,7 +126,7 @@ GNERunNetgenerateDialog::run(const OptionsCont* netgenerateOptions) {
     // clear text
     myText->setText("");
     // show dialog
-    MFXDialogBox::show(PLACEMENT_SCREEN);
+    GNEDialog::show(PLACEMENT_SCREEN);
     // set netgenerate options
     myNetgenerateOptions = netgenerateOptions;
     // reset error flag
@@ -150,7 +151,7 @@ GNERunNetgenerateDialog::updateDialog() {
         myCloseButton->enable();
     }
     // update dialog
-    MFXDialogBox::update();
+    GNEDialog::update();
 }
 
 

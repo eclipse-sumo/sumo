@@ -20,9 +20,9 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
 #include <string>
 #include <vector>
+#include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
 // class declaration

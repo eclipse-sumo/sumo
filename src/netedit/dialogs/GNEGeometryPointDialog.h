@@ -22,7 +22,6 @@
 
 #include <vector>
 #include <utils/foxtools/fxheader.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class declarations
@@ -34,13 +33,6 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEGeometryPointDialog
- * @brief Dialog to edit geometry points
- *
- * This is a modal dialog which blocks in its constructor so it is save to delete it
- *  directly after construction
- */
 class GNEGeometryPointDialog : protected FXTopWindow {
     /// @brief FOX-declaration abstract
     FXDECLARE_ABSTRACT(GNEGeometryPointDialog)

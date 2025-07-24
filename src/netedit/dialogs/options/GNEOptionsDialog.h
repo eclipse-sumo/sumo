@@ -20,12 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <set>
+#include <netedit/dialogs/GNEDialog.h>
 #include <utils/gui/images/GUIIcons.h>
-#include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/foxtools/MFXCheckButtonTooltip.h>
-#include <utils/foxtools/MFXDialogBox.h>
-#include <utils/foxtools/MFXTextFieldSearch.h>
 
 #include "GNEOptionsDialogElements.h"
 
@@ -34,16 +30,16 @@
 // ===========================================================================
 
 class GNEApplicationWindow;
+class MFXCheckableButton;
+class MFXTextFieldSearch;
+class MFXCheckButtonTooltip;
 class OptionsCont;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEOptionsDialog
- * @briefA Dialog for setting options (see OptionsCont)
- */
-class GNEOptionsDialog : public MFXDialogBox {
+
+class GNEOptionsDialog : public GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNEOptionsDialog)
 

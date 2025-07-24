@@ -20,9 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXGroupBoxModule.h>
-#include <utils/tests/InternalTestStep.h>
-
 #include "GNEDialog.h"
 
 // ===========================================================================

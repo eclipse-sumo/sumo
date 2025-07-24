@@ -20,7 +20,10 @@
 #pragma once
 #include <config.h>
 
-#include "fxheader.h"
+#include <string>
+#include <set>
+#include <utils/foxtools/fxheader.h>
+#include <utils/tests/InternalTestStep.h>
 
 // ===========================================================================
 // class declarations
@@ -58,7 +61,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNECalibratorDialog)
+    FOX_CONSTRUCTOR(GNEDialog)
 
     /// @brief close dialog accepting the changes
     long closeDialogAccepting();
