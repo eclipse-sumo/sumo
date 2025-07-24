@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-23 09:53+0000\n"
-"PO-Revision-Date: 2025-07-24 14:03+0000\n"
+"PO-Revision-Date: 2025-07-25 06:41+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -109,15 +109,15 @@ msgstr "Reinício Rápido"
 
 #: src/gui/GUIApplicationWindow.cpp:483
 msgid "Reloads the simulation (but not network)."
-msgstr ""
+msgstr "Recarrega a simulação (mas não a rede)."
 
 #: src/gui/GUIApplicationWindow.cpp:487
 msgid "Save Configuration"
-msgstr ""
+msgstr "Salvar configuração"
 
 #: src/gui/GUIApplicationWindow.cpp:487
 msgid "Save current options as a configuration file."
-msgstr ""
+msgstr "Salvar opções atuais como um arquivo de configuração."
 
 #: src/gui/GUIApplicationWindow.cpp:490
 #: src/netedit/GNEApplicationWindowHelper.cpp:314
@@ -125,50 +125,52 @@ msgstr ""
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:98
 #: src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:99
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #: src/gui/GUIApplicationWindow.cpp:490
 msgid "Close the simulation."
-msgstr ""
+msgstr "Fecha a simulação."
 
 #: src/gui/GUIApplicationWindow.cpp:498
 #: src/netedit/GNEApplicationWindow.cpp:1410
 msgid "&Quit"
-msgstr ""
+msgstr "&Sair"
 
 #: src/gui/GUIApplicationWindow.cpp:498
 #: src/netedit/GNEApplicationWindow.cpp:1410
 msgid "Quit the Application."
-msgstr ""
+msgstr "Fechar o Aplicativo."
 
 #: src/gui/GUIApplicationWindow.cpp:507
 #: src/netedit/GNEApplicationWindow.cpp:1425
 msgid "&Edit"
-msgstr ""
+msgstr "&Editar"
 
 #: src/gui/GUIApplicationWindow.cpp:509 src/gui/GUIApplicationWindow.cpp:878
 msgid "Edit Selected..."
-msgstr ""
+msgstr "Editar Selecionados..."
 
 #: src/gui/GUIApplicationWindow.cpp:509
 msgid "Opens a dialog for editing the list of selected items."
-msgstr ""
+msgstr "Abre uma janela para editar a lista de itens selecionados."
 
 #: src/gui/GUIApplicationWindow.cpp:511
 msgid "Select lanes which allow..."
-msgstr ""
+msgstr "Selecionar faixas que permitem..."
 
 #: src/gui/GUIApplicationWindow.cpp:512
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
 msgstr ""
+"Abre um menu para selecionar uma classe de veículos (vclass) que selecionara "
+"arestas permitidas."
 
 #: src/gui/GUIApplicationWindow.cpp:515
 msgid "Set Breakpoint"
-msgstr ""
+msgstr "Estabelece ponto de interrupção"
 
 #: src/gui/GUIApplicationWindow.cpp:515
 msgid "Sets a breakpoint at the current simulation step"
-msgstr ""
+msgstr "Estabelece um ponto de interrupção no passo atual da simulação"
 
 #: src/gui/GUIApplicationWindow.cpp:518
 msgid "Set Breakpoint with offset"
@@ -179,132 +181,134 @@ msgid ""
 "Sets a breakpoint at the current simulation step + offset configured in "
 "application settings"
 msgstr ""
+"Define um ponto de interrupção no passo da simulação atual + deslocamento "
+"configurado nas configurações do aplicativo"
 
 #: src/gui/GUIApplicationWindow.cpp:521
 msgid "Edit Breakpoints"
-msgstr ""
+msgstr "Edita pontos de interrupção"
 
 #: src/gui/GUIApplicationWindow.cpp:521
 msgid "Opens a dialog for editing breakpoints."
-msgstr ""
+msgstr "Abre uma janela para editar pontos de interrupção."
 
 #: src/gui/GUIApplicationWindow.cpp:524
 #: src/netedit/GNEApplicationWindowHelper.cpp:1303
 msgid "Edit Visualisation"
-msgstr ""
+msgstr "Editar Visualização"
 
 #: src/gui/GUIApplicationWindow.cpp:524
 #: src/netedit/GNEApplicationWindowHelper.cpp:1303
 msgid "Opens a dialog for editing visualization settings."
-msgstr ""
+msgstr "Abre uma janela para editar configurações de visualização."
 
 #: src/gui/GUIApplicationWindow.cpp:527
 #: src/netedit/GNEApplicationWindowHelper.cpp:1306
 msgid "Edit Viewport"
-msgstr ""
+msgstr "Editar Janela de Visualização"
 
 #: src/gui/GUIApplicationWindow.cpp:527
 #: src/netedit/GNEApplicationWindowHelper.cpp:1306
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
-msgstr ""
+msgstr "Abre uma aba para editar a janela de visualização, zoom e rotação."
 
 #: src/gui/GUIApplicationWindow.cpp:531
 msgid "Load additionals in netedit"
-msgstr ""
+msgstr "Carrega adicionais no netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:531
 msgid "Load additionals in netedit."
-msgstr ""
+msgstr "Carrega adicionais no netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:533
 msgid "Load demand in netedit"
-msgstr ""
+msgstr "Carregar demanda no netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:533
 msgid "Load demand in netedit."
-msgstr ""
+msgstr "Carrega demanda no netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:536
 msgid "Open in netedit"
-msgstr ""
+msgstr "Abrir no netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:536
 msgid "Opens current simulation in NETEDIT."
-msgstr ""
+msgstr "Abre a simulação atual no netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:540
 msgid "&Settings"
-msgstr ""
+msgstr "&Configurações"
 
 #: src/gui/GUIApplicationWindow.cpp:542
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
-msgstr ""
+msgstr "Configurações do aplicativo"
 
 #: src/gui/GUIApplicationWindow.cpp:542
 msgid "Open a Dialog for Application Settings editing."
-msgstr ""
+msgstr "Abre uma janela para editar configurações do aplicativo."
 
 #: src/gui/GUIApplicationWindow.cpp:545
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
-msgstr ""
+msgstr "Modo de Jogo\tCtrl+G\tAltera o modo de jogo on/off."
 
 #: src/gui/GUIApplicationWindow.cpp:548
 msgid "Full Screen Mode"
-msgstr ""
+msgstr "Modo Tela Cheia"
 
 #: src/gui/GUIApplicationWindow.cpp:548
 msgid "Toggle full screen mode on/off."
-msgstr ""
+msgstr "Ativa/desativa modo tela cheia."
 
 #: src/gui/GUIApplicationWindow.cpp:552
 #: src/netedit/GNEApplicationWindow.cpp:1461
 msgid "&Locate"
-msgstr ""
+msgstr "&Localizar"
 
 #: src/gui/GUIApplicationWindow.cpp:554
 #: src/netedit/GNEApplicationWindowHelper.cpp:1349
 #: src/netedit/GNEApplicationWindowHelper.cpp:2014
 msgid "&Junctions"
-msgstr ""
+msgstr "&Junções"
 
 #: src/gui/GUIApplicationWindow.cpp:554
 #: src/netedit/GNEApplicationWindowHelper.cpp:2014
 msgid "Open a dialog for locating a Junction."
-msgstr ""
+msgstr "Abre uma janela para localizar uma Junção."
 
 #: src/gui/GUIApplicationWindow.cpp:557
 #: src/netedit/GNEApplicationWindowHelper.cpp:1354
 #: src/netedit/GNEApplicationWindowHelper.cpp:2017
 msgid "&Edges"
-msgstr ""
+msgstr "&Arestas"
 
 #: src/gui/GUIApplicationWindow.cpp:557
 #: src/netedit/GNEApplicationWindowHelper.cpp:2017
 msgid "Open a dialog for locating an Edge."
-msgstr ""
+msgstr "Abre uma janela pra localizar uma aresta."
 
 #: src/gui/GUIApplicationWindow.cpp:560
 #: src/netedit/GNEApplicationWindowHelper.cpp:1419
 #: src/netedit/GNEApplicationWindowHelper.cpp:2023
 msgid "&Vehicles"
-msgstr ""
+msgstr "&Veículos"
 
 #: src/gui/GUIApplicationWindow.cpp:560
 #: src/netedit/GNEApplicationWindowHelper.cpp:2023
 msgid "Open a dialog for locating a Vehicle."
-msgstr ""
+msgstr "Abre uma janela para localizar um veículo."
 
 #: src/gui/GUIApplicationWindow.cpp:563
 #: src/netedit/GNEApplicationWindowHelper.cpp:1424
 #: src/netedit/GNEApplicationWindowHelper.cpp:2026
 msgid "&Persons"
-msgstr ""
+msgstr "&Pessoas"
 
 #: src/gui/GUIApplicationWindow.cpp:563
 #: src/netedit/GNEApplicationWindowHelper.cpp:2026
 msgid "Open a dialog for locating a Person."
-msgstr ""
+msgstr "Abre uma janela para localizar uma pessoa."
 
 #: src/gui/GUIApplicationWindow.cpp:566
 msgid "&Container"
