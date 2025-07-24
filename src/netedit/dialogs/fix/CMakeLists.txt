@@ -5,8 +5,6 @@ set(netedit_dialogs_fix_SRCS
    GNEFixDemandElementsDialog.h
    GNEFixElementsDialog.cpp
    GNEFixElementsDialog.h
-   GNEFixElementsRowDialog.cpp
-   GNEFixElementsRowDialog.h
    GNEFixNetworkElements.cpp
    GNEFixNetworkElements.h
 )
