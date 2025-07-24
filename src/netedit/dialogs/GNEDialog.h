@@ -49,6 +49,9 @@ public:
     /// @brief open modal dialog
     Result openModal(FXuint placement = PLACEMENT_CURSOR);
 
+    /// @brief run internal test
+    virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
+
     /// @name FOX-callbacks
     /// @{
 

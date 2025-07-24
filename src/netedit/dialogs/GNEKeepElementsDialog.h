@@ -51,7 +51,7 @@ public:
     ~GNEKeepElementsDialog();
 
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// @brief get result
     Result getResult() const;

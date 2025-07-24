@@ -45,11 +45,11 @@ public:
     /// @brief destructor
     ~GNEFixNetworkElements();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @brief open fix network elements dialog
     GNEDialog::Result openDialog(const std::vector<GNENetworkElement*>& invalidNetworkElements);
-
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
 
     /// @name FOX-callbacks
     /// @{

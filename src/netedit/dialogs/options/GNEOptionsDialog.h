@@ -63,6 +63,9 @@ public:
     /// @brief Destructor
     ~GNEOptionsDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @brief check if option was modified
     bool isOptionModified() const;
 

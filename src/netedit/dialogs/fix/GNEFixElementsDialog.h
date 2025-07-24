@@ -44,7 +44,7 @@ public:
     ~GNEFixElementsDialog();
 
     /// @brief run internal test
-    virtual void runInternalTest(const InternalTestStep::DialogTest* modalArguments) = 0;
+    virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
 
     /// @name FOX-callbacks
     /// @{

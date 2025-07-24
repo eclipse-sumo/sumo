@@ -70,6 +70,21 @@ GNEFixDemandElementsDialog::~GNEFixDemandElementsDialog() {
 }
 
 
+void
+GNEFixDemandElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // chooose solution
+    if (dialogArgument->fixSolution == "saveRouteInvalids") {
+        myFixRouteOptions->saveInvalidRoutes->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "removeRouteInvalids") {
+        myFixRouteOptions->removeInvalidRoutes->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "selectRouteInvalids") {
+        myFixRouteOptions->selectRouteInvalids->setCheck(TRUE, TRUE);
+    }
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
+}
+
+
 GNEDialog::Result
 GNEFixDemandElementsDialog::openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements) {
     // split invalidDemandElements in four groups
@@ -95,21 +110,6 @@ GNEFixDemandElementsDialog::openDialog(const std::vector<GNEDemandElement*>& inv
     myButtons->myAcceptButton->setFocus();
     // open modal dialog
     return openModal();
-}
-
-
-void
-GNEFixDemandElementsDialog::runInternalTest(const InternalTestStep::DialogTest* dialogTest) {
-    // chooose solution
-    if (dialogTest->fixSolution == "saveRouteInvalids") {
-        myFixRouteOptions->saveInvalidRoutes->setCheck(TRUE, TRUE);
-    } else if (dialogTest->fixSolution == "removeRouteInvalids") {
-        myFixRouteOptions->removeInvalidRoutes->setCheck(TRUE, TRUE);
-    } else if (dialogTest->fixSolution == "selectRouteInvalids") {
-        myFixRouteOptions->selectRouteInvalids->setCheck(TRUE, TRUE);
-    }
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
 }
 
 

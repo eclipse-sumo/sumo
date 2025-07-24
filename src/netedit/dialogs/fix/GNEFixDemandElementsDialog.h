@@ -45,11 +45,11 @@ public:
     /// @brief destructor
     ~GNEFixDemandElementsDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @brief open fix demand elements dialog
     GNEDialog::Result openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements);
-
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogTest* dialogTest);
 
     /// @name FOX-callbacks
     /// @{

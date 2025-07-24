@@ -66,8 +66,8 @@ GNEDialog::openModal(FXuint placement) {
             // this will be unified
             if (modalStep->getEvent()) {
                 handle(myApplicationWindow->getInternalTest(), modalStep->getSelector(), modalStep->getEvent());
-            } else if (modalStep->getDialogTest()) {
-                handle(myApplicationWindow->getInternalTest(), modalStep->getSelector(), modalStep->getDialogTest());
+            } else if (modalStep->getDialogArguments()) {
+                handle(myApplicationWindow->getInternalTest(), modalStep->getSelector(), modalStep->getDialogArguments());
             }
         }
     } else {

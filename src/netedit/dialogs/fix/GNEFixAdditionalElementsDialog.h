@@ -46,12 +46,12 @@ public:
     /// @brief destructor
     ~GNEFixAdditionalElementsDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @brief open fix additional dialog
     GNEDialog::Result openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals,
                                  const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
-
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
 
     /// @name FOX-callbacks
     /// @{

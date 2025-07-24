@@ -65,6 +65,21 @@ GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet) :
 GNEFixNetworkElements::~GNEFixNetworkElements() {}
 
 
+void
+GNEFixNetworkElements::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // chooose solution
+    if (dialogArgument->fixSolution == "removeInvalidCrossings") {
+        myFixCrossingOptions->removeInvalidCrossings->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "saveInvalidCrossings") {
+        myFixCrossingOptions->saveInvalidCrossings->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "selectInvalidCrossings") {
+        myFixCrossingOptions->selectInvalidCrossings->setCheck(TRUE, TRUE);
+    }
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
+}
+
+
 GNEDialog::Result
 GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& invalidNetworkElements) {
     // split invalidNetworkElements in four groups
@@ -87,19 +102,6 @@ GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& invalid
 }
 
 
-void
-GNEFixNetworkElements::runInternalTest(const InternalTestStep::DialogTest* dialogTest) {
-    // chooose solution
-    if (dialogTest->fixSolution == "removeInvalidCrossings") {
-        myFixCrossingOptions->removeInvalidCrossings->setCheck(TRUE, TRUE);
-    } else if (dialogTest->fixSolution == "saveInvalidCrossings") {
-        myFixCrossingOptions->saveInvalidCrossings->setCheck(TRUE, TRUE);
-    } else if (dialogTest->fixSolution == "selectInvalidCrossings") {
-        myFixCrossingOptions->selectInvalidCrossings->setCheck(TRUE, TRUE);
-    }
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
-}
 
 
 long
