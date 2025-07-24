@@ -82,7 +82,6 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 
 #include "GNEApplicationWindow.h"
-#include "GNEInternalTest.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
