@@ -59,7 +59,7 @@ GNEFixAdditionalElementsDialog::~GNEFixAdditionalElementsDialog() {
 }
 
 
-FXuint
+GNEDialog::Result
 GNEFixAdditionalElementsDialog::openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals,
                                      const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) {
     myAdditionalList->updateList(invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);

@@ -65,7 +65,7 @@ GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet) :
 GNEFixNetworkElements::~GNEFixNetworkElements() {}
 
 
-FXuint
+GNEDialog::Result
 GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& invalidNetworkElements) {
     // split invalidNetworkElements in four groups
     std::vector<GNENetworkElement*> invalidEdges, invalidCrossings;

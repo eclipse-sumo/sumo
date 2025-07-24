@@ -20,8 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <string>
-#include <set>
 #include <utils/foxtools/fxheader.h>
 #include <utils/tests/InternalTestStep.h>
 
@@ -39,14 +37,17 @@ class GNEDialog : public FXDialogBox {
     FXDECLARE_ABSTRACT(GNEDialog)
 
 public:
+    /// @brief list of possible results when closing the dialog
+    enum class Result {
+        ACCEPT,     // dialog was closed accepting changes
+        CANCEL,     // dialog was closed canceling changes
+    };
+
     /// @brief constructor
-    GNEDialog(GNEApplicationWindow* applicationWindow, const FXString& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
+    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
 
     /// @brief open modal dialog
-    bool openModal(FXuint placement = PLACEMENT_CURSOR);
-
-    /// @brief bool to indicate if this dialog was closed accepting or rejecting changes
-    bool getAccepted() const;
+    Result openModal(FXuint placement = PLACEMENT_CURSOR);
 
     /// @name FOX-callbacks
     /// @{
@@ -72,8 +73,8 @@ protected:
     /// @brief pointer to the main window
     GNEApplicationWindow* myApplicationWindow;
 
-    /// @brief bool to indicate if this dialog was closed accepting or rejecting changes
-    bool myAccepted = false;
+    /// @brief result to indicate if this dialog was closed accepting or rejecting changes
+    Result myResult = Result::CANCEL;
 
     /// @brief flag to indicate if this dialog is being tested using internal test
     bool myTesting = false;

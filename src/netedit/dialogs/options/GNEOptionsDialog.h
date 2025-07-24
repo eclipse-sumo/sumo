@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <set>
 #include <netedit/dialogs/GNEDialog.h>
 #include <utils/gui/images/GUIIcons.h>
 
@@ -47,35 +48,23 @@ class GNEOptionsDialog : public GNEDialog {
     friend class GNEOptionsDialogElements;
 
 public:
-    /**@brief Constructor for options dialogs
+    /**@brief Constructor
      *
      * @param[in] GNEApp netedit App
      * @param[in] optionsContainer edited option container
      * @param[in] originalOptionsContainer original options container
+     * @param[in] titleName The title to show
      * @param[in] icon windows icon
-     * @param[in] name The title to show
-     * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
+     * @param[in] runDialog check if this is a run dialog
      */
-    static std::pair<int, bool> Options(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
-                                        const OptionsCont& originalOptionsContainer, const char* titleName);
-
-    /**@brief Constructor for run dialogs
-     *
-     * @param[in] GNEApp netedit App
-     * @param[in] optionsContainer edited option container
-     * @param[in] originalOptionsContainer original options container
-     * @param[in] icon windows icon
-     * @param[in] name The title to show
-     * @return pair with int (TRUE, FALSE) depending of execution, and bool for check if options were modified
-     */
-    static std::pair<int, bool> Run(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
-                                    const OptionsCont& originalOptionsContainer, const char* titleName);
+    GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
+                     const OptionsCont& originalOptionsContainer, const char* titleName, const bool runDialog);
 
     /// @brief Destructor
     ~GNEOptionsDialog();
 
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
+    /// @brief check if option was modified
+    bool isOptionModified() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -167,18 +156,6 @@ private:
 
     /// @brief load configuration
     bool loadConfiguration(const std::string& file);
-
-    /**@brief Constructor
-     *
-     * @param[in] GNEApp netedit App
-     * @param[in] optionsContainer edited option container
-     * @param[in] originalOptionsContainer original options container
-     * @param[in] titleName The title to show
-     * @param[in] icon windows icon
-     * @param[in] runDialog check if this is a run dialog
-     */
-    GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
-                     const OptionsCont& originalOptionsContainer, const char* titleName, const bool runDialog);
 
     /// @brief Invalidated copy constructor.
     GNEOptionsDialog(const GNEOptionsDialog&) = delete;

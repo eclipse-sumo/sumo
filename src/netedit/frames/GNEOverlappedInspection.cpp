@@ -236,15 +236,15 @@ GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
     // create text for help dialog
     std::ostringstream help;
     help
-            << TL(" - Click in the same position") << "\n"
-            << TL("   to inspect next element") << "\n"
-            << TL(" - Shift + Click in the same") << "\n"
-            << TL("   position to inspect") << "\n"
-            << TL("   previous element");
+        << TL(" - Click in the same position") << "\n"
+        << TL("   to inspect next element") << "\n"
+        << TL(" - Shift + Click in the same") << "\n"
+        << TL("   position to inspect") << "\n"
+        << TL("   previous element");
     // create help dialog
-    GNEHelpDialog* helpDialog = new GNEHelpDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                                  TL("GEO attributes Help"), help.str());
-    return helpDialog->openModal();
+    GNEHelpDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                  TL("GEO attributes Help"), help.str()).openModal();
+    return 1;
 }
 
 
