@@ -152,6 +152,7 @@ If everything is fine:
   - run `cd sumo-{{Version}} && tools/build_config/ubuntu_release.sh` and enter the release comment
 - start a pull request against [winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/e/EclipseFoundation/SUMO)
 - upload the wheels to PyPI using `twine upload /s/daily/wheels/*{{Version}}*.whl`
+  - you might need to do this with an up to date twine in a virtual environment, see https://github.com/pypi/warehouse/issues/15611
 - scenarios (optional)
   - add files to [the scenario folder](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/)
   - updated README.txt
