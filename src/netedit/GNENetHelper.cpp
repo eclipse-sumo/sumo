@@ -18,7 +18,6 @@
 // Helper for GNENet
 /****************************************************************************/
 
-
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>

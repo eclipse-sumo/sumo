@@ -25,7 +25,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/dialogs/GNERerouterDialog.h>
+#include <netedit/dialogs/additional/GNERerouterDialog.h>
 
 #include "GNERerouter.h"
 #include "GNERerouterSymbol.h"

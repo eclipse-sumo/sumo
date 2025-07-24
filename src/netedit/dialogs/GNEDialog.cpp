@@ -18,10 +18,6 @@
 // Custom FXDialogBox used in Netedit that supports internal tests
 /****************************************************************************/
 
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEInternalTest.h>
 

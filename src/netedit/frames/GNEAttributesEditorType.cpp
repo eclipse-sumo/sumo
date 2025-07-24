@@ -19,16 +19,16 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEInternalTest.h>
-#include <netedit/dialogs/GNECalibratorDialog.h>
-#include <netedit/dialogs/GNERerouterDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
-#include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
+#include <netedit/dialogs/additional/GNECalibratorDialog.h>
+#include <netedit/dialogs/additional/GNERerouterDialog.h>
+#include <netedit/dialogs/additional/GNEVariableSpeedSignDialog.h>
 #include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
