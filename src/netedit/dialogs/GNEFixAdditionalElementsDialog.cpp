@@ -19,7 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <utils/gui/div/GUIDesigns.h>

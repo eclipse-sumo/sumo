@@ -21,7 +21,6 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEKeepElementsDialog.h"

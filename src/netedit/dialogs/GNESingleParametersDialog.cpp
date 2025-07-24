@@ -21,14 +21,11 @@
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netedit/dialogs/GNEHelpDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNESingleParametersDialog.h"

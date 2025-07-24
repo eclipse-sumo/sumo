@@ -19,11 +19,9 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <netedit/GNEInternalTest.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEFixDemandElementsDialog.h"

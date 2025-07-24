@@ -21,7 +21,6 @@
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/additional/GNECalibrator.h>
