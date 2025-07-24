@@ -30,7 +30,7 @@
 // static member definitions
 // ===========================================================================
 
-const std::string InternalTestStep::DialogTest::colorValue = "139,131,120";
+const std::string InternalTestStep::DialogArgument::colorValue = "139,131,120";
 // this offsets corresponds to the offset of the test magenta square
 constexpr int MOUSE_OFFSET_X = 24;
 constexpr int MOUSE_OFFSET_Y = 25;
@@ -42,20 +42,20 @@ constexpr int MOUSE_REFERENCE_Y = 168;
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// InternalTestStep::DialogTest - public methods
+// InternalTestStep::DialogArgument - public methods
 // ---------------------------------------------------------------------------
 
-InternalTestStep::DialogTest::DialogTest(const FXuint value) :
+InternalTestStep::DialogArgument::DialogArgument(const FXuint value) :
     questionDialogValues({value}) {
 }
 
 
-InternalTestStep::DialogTest::DialogTest(const std::vector<FXuint>& values) :
+InternalTestStep::DialogArgument::DialogArgument(const std::vector<FXuint>& values) :
     questionDialogValues(values) {
 }
 
 
-InternalTestStep::DialogTest::DialogTest(const std::string& solution) :
+InternalTestStep::DialogArgument::DialogArgument(const std::string& solution) :
     fixSolution(solution) {
 }
 
@@ -322,7 +322,7 @@ InternalTestStep::InternalTestStep(InternalTestStep* parent, const std::string& 
     // add this testStep to parent modal dialgo testSteps
     parent->myDialogTestSteps.push_back(this);
     // modal arguments
-    myDialogTest = new DialogTest(solution);
+    myDialogArgument = new DialogArgument(solution);
 }
 
 
@@ -341,8 +341,8 @@ InternalTestStep::~InternalTestStep() {
     if (myEvent) {
         delete myEvent;
     }
-    if (myDialogTest) {
-        delete myDialogTest;
+    if (myDialogArgument) {
+        delete myDialogArgument;
     }
     if (myTLSTableTest) {
         delete myTLSTableTest;
@@ -367,9 +367,9 @@ InternalTestStep::getMessageID() const {
 }
 
 
-InternalTestStep::DialogTest*
-InternalTestStep::getDialogTest() const {
-    return myDialogTest;
+InternalTestStep::DialogArgument*
+InternalTestStep::getDialogArguments() const {
+    return myDialogArgument;
 }
 
 
@@ -1839,13 +1839,13 @@ InternalTestStep::computeJunctionsVolatileOptions() {
         writeError("computeJunctionsVolatileOptions", 0, "<True/False>");
     } else {
         // due argument is optional, if not given, we assume True
-        FXuint result = DialogTest::yes;
+        FXuint result = DialogArgument::yes;
         if ((myArguments.size() == 1) && (myArguments[0] == "False")) {
-            result = DialogTest::no;
+            result = DialogArgument::no;
         }
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE;
-        myDialogTest = new DialogTest(result);
+        myDialogArgument = new DialogArgument(result);
     }
 }
 
