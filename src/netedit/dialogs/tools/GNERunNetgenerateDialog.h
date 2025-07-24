@@ -20,30 +20,23 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
-#include <utils/foxtools/MFXDialogBox.h>
+#include <netedit/dialogs/GNEDialog.h>
 #include <utils/foxtools/MFXSynchQue.h>
 #include <utils/foxtools/MFXThreadEvent.h>
-#include <utils/options/OptionsCont.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEApplicationWindow;
 class GNERunNetgenerate;
-class OptionsCont;
 class GUIEvent;
+class OptionsCont;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNERunNetgenerateDialog
- * @brief Abstract dialog for tools
- */
-class GNERunNetgenerateDialog : protected MFXDialogBox {
+class GNERunNetgenerateDialog : protected GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNERunNetgenerateDialog)
 

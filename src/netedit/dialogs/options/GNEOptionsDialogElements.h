@@ -20,14 +20,15 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXLabelTooltip.h>
 #include <string>
+#include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
 class GNEOptionsDialog;
+class MFXLabelTooltip;
 
 // ===========================================================================
 // class definitions

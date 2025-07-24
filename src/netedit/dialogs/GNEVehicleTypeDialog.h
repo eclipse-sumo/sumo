@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/foxtools/MFXComboBoxIcon.h>
 
 #include "GNEDemandElementDialog.h"
 
@@ -30,6 +29,7 @@
 // ===========================================================================
 
 class GNEVType;
+class MFXComboBoxIcon;
 
 // ===========================================================================
 // class definitions

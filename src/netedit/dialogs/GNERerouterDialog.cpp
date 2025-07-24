@@ -24,6 +24,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/additional/GNERerouter.h>
+#include <netedit/elements/additional/GNERerouterInterval.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 

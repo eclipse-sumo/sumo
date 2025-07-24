@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNENetgenerateDialog.h"
@@ -51,14 +52,14 @@ FXDEFMAP(GNENetgenerateDialog) GNENetgenerateDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNENetgenerateDialog, MFXDialogBox, GNENetgenerateDialogMap, ARRAYNUMBER(GNENetgenerateDialogMap))
+FXIMPLEMENT(GNENetgenerateDialog, GNEDialog, GNENetgenerateDialogMap, ARRAYNUMBER(GNENetgenerateDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
 GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    MFXDialogBox(GNEApp, "Netgenerate", GUIDesignDialogBox),
+    GNEDialog(GNEApp, "Netgenerate", GUIDesignDialogBox),
     myGNEApp(GNEApp) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETGENERATE));
@@ -126,7 +127,7 @@ GNENetgenerateDialog::openDialog() {
     // set output
     myOutputTextField->setText(generateOptions.getValueString("output-file").c_str());
     // show dialog
-    MFXDialogBox::show(PLACEMENT_SCREEN);
+    GNEDialog::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
 }

@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <netedit/dialogs/GNEVehicleTypeDialog.h>
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
 #include "GNEDialog.h"

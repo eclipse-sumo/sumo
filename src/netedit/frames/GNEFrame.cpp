@@ -24,7 +24,6 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
-#include <utils/foxtools/MFXDialogBox.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 

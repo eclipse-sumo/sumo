@@ -20,9 +20,9 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXTextFieldTooltip.h>
 #include <vector>
 #include <string>
+#include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
 // class declarations
@@ -30,6 +30,7 @@
 
 class GNEUndoList;
 class GNEApplicationWindow;
+class MFXTextFieldTooltip;
 
 // ===========================================================================
 // class definitions
