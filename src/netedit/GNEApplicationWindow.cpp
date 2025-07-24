@@ -24,9 +24,9 @@
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
 #include <netedit/dialogs/GNEAboutDialog.h>
-#include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netedit/dialogs/GNEKeepElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
+#include <netedit/dialogs/fix/GNEFixNetworkElements.h>
 #include <netedit/dialogs/options/GNEOptionsDialog.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
@@ -69,9 +69,9 @@
 
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
+#include "GNEInternalTest.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
-#include "GNEInternalTest.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"

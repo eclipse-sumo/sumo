@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/dialogs/GNEVehicleTypeDialog.h>
+#include <netedit/dialogs/demand/GNEVehicleTypeDialog.h>
 #include <utils/xml/SUMOSAXHandler.h>
 
 #include "GNEDialog.h"

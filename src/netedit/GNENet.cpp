@@ -43,8 +43,8 @@
 #include <netedit/changes/GNEChange_MeanData.h>
 #include <netedit/changes/GNEChange_RegisterJoin.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
-#include <netedit/dialogs/GNEFixAdditionalElementsDialog.h>
-#include <netedit/dialogs/GNEFixDemandElementsDialog.h>
+#include <netedit/dialogs/fix/GNEFixAdditionalElementsDialog.h>
+#include <netedit/dialogs/fix/GNEFixDemandElementsDialog.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/data/GNEDataHandler.h>
@@ -68,12 +68,12 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GNEApplicationWindow.h"
+#include "GNEInternalTest.h"
 #include "GNENet.h"
 #include "GNETagPropertiesDatabase.h"
-#include "GNEViewNet.h"
 #include "GNEUndoList.h"
+#include "GNEViewNet.h"
 #include "GNEViewParent.h"
-#include "GNEInternalTest.h"
 
 // ===========================================================================
 // FOX callback mapping

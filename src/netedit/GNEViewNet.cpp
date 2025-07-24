@@ -22,11 +22,11 @@
 #include <netbuild/NBEdgeCont.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_TLS.h>
-#include <netedit/dialogs/GNEGeometryPointDialog.h>
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
-#include <netedit/dialogs/GNEFixAdditionalElementsDialog.h>
-#include <netedit/dialogs/GNEFixDemandElementsDialog.h>
-#include <netedit/dialogs/GNEFixNetworkElements.h>
+#include <netedit/dialogs/GNEGeometryPointDialog.h>
+#include <netedit/dialogs/fix/GNEFixAdditionalElementsDialog.h>
+#include <netedit/dialogs/fix/GNEFixDemandElementsDialog.h>
+#include <netedit/dialogs/fix/GNEFixNetworkElements.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
@@ -82,8 +82,8 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 
 #include "GNEApplicationWindow.h"
-#include "GNENet.h"
 #include "GNEInternalTest.h"
+#include "GNENet.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"

@@ -20,9 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/dialogs/GNEDialog.h>
 #include <utils/xml/SUMOSAXHandler.h>
-
-#include "GNEDialog.h"
 
 // ===========================================================================
 // class definitions

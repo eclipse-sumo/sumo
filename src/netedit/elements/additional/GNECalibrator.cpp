@@ -24,10 +24,10 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/dialogs/GNECalibratorDialog.h>
+#include <netedit/dialogs/additional/GNECalibratorDialog.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNECalibrator.h"
