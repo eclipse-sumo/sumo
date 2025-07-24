@@ -62,8 +62,8 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
         if (testStep->getEvent()) {
             argument = testStep->getEvent();
         }
-        if (testStep->getDialogTest()) {
-            argument = testStep->getDialogTest();
+        if (testStep->getDialogArguments()) {
+            argument = testStep->getDialogArguments();
         }
         // check if we have to process it in main windows, abstract view or specific view
         if (testStep->getCategory() == InternalTestStep::Category::APP) {

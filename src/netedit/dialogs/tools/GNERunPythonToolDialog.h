@@ -47,7 +47,7 @@ public:
     ~GNERunPythonToolDialog();
 
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// @brief get to GNEApplicationWindow
     GNEApplicationWindow* getGNEApp() const;

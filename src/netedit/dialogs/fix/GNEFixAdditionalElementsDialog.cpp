@@ -59,6 +59,23 @@ GNEFixAdditionalElementsDialog::~GNEFixAdditionalElementsDialog() {
 }
 
 
+void
+GNEFixAdditionalElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // chooose solution
+    if (dialogArgument->fixSolution == "savePositionInvalids") {
+        myPositionOptions->saveInvalids->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "fixPositions") {
+        myPositionOptions->fixPositions->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "selectPositionInvalids") {
+        myPositionOptions->selectInvalids->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "activatePositionFriendlyPos") {
+        myPositionOptions->activateFriendlyPosition->setCheck(TRUE, TRUE);
+    }
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
+}
+
+
 GNEDialog::Result
 GNEFixAdditionalElementsDialog::openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals,
                                      const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) {
@@ -75,23 +92,6 @@ GNEFixAdditionalElementsDialog::openDialog(const std::vector<GNEAdditional*>& in
     myButtons->myAcceptButton->setFocus();
     // open modal dialog
     return openModal();
-}
-
-
-void
-GNEFixAdditionalElementsDialog::runInternalTest(const InternalTestStep::DialogTest* dialogTest) {
-    // chooose solution
-    if (dialogTest->fixSolution == "savePositionInvalids") {
-        myPositionOptions->saveInvalids->setCheck(TRUE, TRUE);
-    } else if (dialogTest->fixSolution == "fixPositions") {
-        myPositionOptions->fixPositions->setCheck(TRUE, TRUE);
-    } else if (dialogTest->fixSolution == "selectPositionInvalids") {
-        myPositionOptions->selectInvalids->setCheck(TRUE, TRUE);
-    } else if (dialogTest->fixSolution == "activatePositionFriendlyPos") {
-        myPositionOptions->activateFriendlyPosition->setCheck(TRUE, TRUE);
-    }
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
 }
 
 

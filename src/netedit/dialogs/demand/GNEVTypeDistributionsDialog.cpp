@@ -481,42 +481,20 @@ GNEVTypeDistributionsDialog::~GNEVTypeDistributionsDialog() {}
 
 
 void
-GNEVTypeDistributionsDialog::openDialog() {
-    // show
-    show(PLACEMENT_SCREEN);
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    //getApp()->runModalFor(this);
-}
-
-
-void
-GNEVTypeDistributionsDialog::closeDialog() {
-    // hide
-    hide();
-    // close dialog
-    //getApp()->stopModal(this, TRUE);
-}
-
-
-void
-GNEVTypeDistributionsDialog::runInternalTest(const InternalTestStep::DialogTest* /*dialogTest*/) {
+GNEVTypeDistributionsDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // finish
 }
 
 
 long
 GNEVTypeDistributionsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // close dialog
-    closeDialog();
-    return 1;
+    return closeDialogAccepting();
 }
 
 
 long
 GNEVTypeDistributionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // close dialog
-    closeDialog();
-    return 1;
+    return closeDialogCanceling();
 }
 
 /****************************************************************************/

@@ -226,14 +226,8 @@ public:
     /// @brief destructor
     ~GNEVTypeDistributionsDialog();
 
-    /// @brief open dialog
-    void openDialog();
-
-    /// @brief close dialog
-    void closeDialog();
-
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// @name FOX-callbacks
     /// @{

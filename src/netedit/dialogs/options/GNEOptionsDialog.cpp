@@ -177,6 +177,12 @@ GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, O
 GNEOptionsDialog::~GNEOptionsDialog() { }
 
 
+void 
+GNEOptionsDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // finish runInternalTest
+}
+
+
 bool
 GNEOptionsDialog::isOptionModified() const {
     return myOptionsModified;

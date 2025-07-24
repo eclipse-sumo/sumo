@@ -51,7 +51,7 @@ public:
     GNEDialog::Result openDialog(SumoXMLAttr attr, const std::string originalVClasses);
 
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// @brief get vClasses modified by this dialog
     std::string getModifiedVClasses() const;

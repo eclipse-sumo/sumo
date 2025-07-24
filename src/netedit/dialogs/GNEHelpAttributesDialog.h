@@ -41,6 +41,9 @@ public:
     /// @brief Destructor
     ~GNEHelpAttributesDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @name FOX-callbacks
     /// @{
 

@@ -99,6 +99,12 @@ GNEHelpAttributesDialog::~GNEHelpAttributesDialog() {
 }
 
 
+void
+GNEHelpAttributesDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // finish runInternalTest
+}
+
+
 long
 GNEHelpAttributesDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     return closeDialogAccepting();
