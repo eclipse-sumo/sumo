@@ -127,7 +127,7 @@ GNEAllowVClassesDialog::~GNEAllowVClassesDialog() {
 }
 
 
-bool
+GNEDialog::Result
 GNEAllowVClassesDialog::openDialog(SumoXMLAttr attr, const std::string originalVClasses) {
     setTitle(TLF("Edit vClasses of attribute '%'", toString(attr)).c_str());
     myOriginalVClasses = originalVClasses;

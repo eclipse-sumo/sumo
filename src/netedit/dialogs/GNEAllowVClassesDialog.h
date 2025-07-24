@@ -48,7 +48,7 @@ public:
     ~GNEAllowVClassesDialog();
 
     /// @brief open dialog
-    bool openDialog(SumoXMLAttr attr, const std::string originalVClasses);
+    GNEDialog::Result openDialog(SumoXMLAttr attr, const std::string originalVClasses);
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogTest* modalArguments);

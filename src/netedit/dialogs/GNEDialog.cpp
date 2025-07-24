@@ -44,14 +44,14 @@ FXIMPLEMENT_ABSTRACT(GNEDialog, FXDialogBox, MFXDialogBoxMap, ARRAYNUMBER(MFXDia
 // method definitions
 // ===========================================================================
 
-GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const FXString& name, FXuint opts, FXint x, FXint y,
-                           FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs) :
-    FXDialogBox(applicationWindow->getApp(), name, opts, x, y, w, h, pl, pr, pt, pb, hs, vs),
+GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, FXuint opts, FXint x, FXint y,
+                     FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs) :
+    FXDialogBox(applicationWindow->getApp(), name.c_str(), opts, x, y, w, h, pl, pr, pt, pb, hs, vs),
     myApplicationWindow(applicationWindow) {
 }
 
 
-bool
+GNEDialog::Result
 GNEDialog::openModal(FXuint placement) {
     // create and show dialog
     create();
@@ -74,13 +74,7 @@ GNEDialog::openModal(FXuint placement) {
         myTesting = false;
         getApp()->runModalFor(this);
     }
-    return myAccepted;
-}
-
-
-bool
-GNEDialog::getAccepted() const {
-    return myAccepted;
+    return myResult;
 }
 
 
@@ -92,8 +86,8 @@ GNEDialog::closeDialogAccepting() {
     }
     // hide dialog
     hide();
-    // enable accepted flag
-    myAccepted = true;
+    // set result
+    myResult = Result::ACCEPT;
     return 1;
 }
 
@@ -106,7 +100,7 @@ GNEDialog::closeDialogCanceling() {
     }
     // hide dialog
     hide();
-    // disable accepted flag
-    myAccepted = false;
+    // set result
+    myResult = Result::CANCEL;
     return 0;
 }

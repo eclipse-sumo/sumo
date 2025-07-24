@@ -2241,7 +2241,7 @@ GNENet::saveAdditionals() {
     if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
         // 0 -> Canceled Saving, with or without selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
-        if (myViewNet->getFixAdditionalElementsDialog()->openDialog(invalidSingleLaneAdditionals, invalidMultiLaneAdditionals) == 0) {
+        if (myViewNet->getFixAdditionalElementsDialog()->openDialog(invalidSingleLaneAdditionals, invalidMultiLaneAdditionals) == GNEDialog::Result::ACCEPT) {
             return false;
         } else {
             saveAdditionalsConfirmed();
@@ -2292,11 +2292,11 @@ GNENet::saveDemandElements() {
     if (invalidSingleLaneDemandElements.size() > 0) {
         // 0 -> Canceled Saving, with or without selecting invalid demand elements
         // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
-        if (myViewNet->getFixDemandElementsDialog()->openDialog(invalidSingleLaneDemandElements) == 0) {
-            return false;
-        } else {
+        if (myViewNet->getFixDemandElementsDialog()->openDialog(invalidSingleLaneDemandElements) == GNEDialog::Result::ACCEPT) {
             saveDemandElementsConfirmed();
             return true;
+        } else {
+            return false;
         }
     } else {
         saveDemandElementsConfirmed();

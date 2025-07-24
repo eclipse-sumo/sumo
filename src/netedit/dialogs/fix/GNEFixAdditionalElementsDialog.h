@@ -47,7 +47,8 @@ public:
     ~GNEFixAdditionalElementsDialog();
 
     /// @brief open fix additional dialog
-    FXuint openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
+    GNEDialog::Result openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals,
+                                 const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogTest* modalArguments);

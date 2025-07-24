@@ -439,7 +439,7 @@ long
 GNEAttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
     const auto allowVClassesDialog = myAttributeTable->getFrameParent()->getViewNet()->getAllowVClassesDialog();
     // open dialog
-    if (allowVClassesDialog->openDialog(myAttrProperty->getAttr(), myValueTextField->getText().text()) == 1) {
+    if (allowVClassesDialog->openDialog(myAttrProperty->getAttr(), myValueTextField->getText().text()) == GNEDialog::Result::ACCEPT) {
         myValueTextField->setText(allowVClassesDialog->getModifiedVClasses().c_str(), TRUE);
     }
     return 1;

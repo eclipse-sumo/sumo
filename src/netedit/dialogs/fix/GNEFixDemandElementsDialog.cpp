@@ -70,7 +70,7 @@ GNEFixDemandElementsDialog::~GNEFixDemandElementsDialog() {
 }
 
 
-FXuint
+GNEDialog::Result
 GNEFixDemandElementsDialog::openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements) {
     // split invalidDemandElements in four groups
     std::vector<GNEDemandElement*> invalidRoutes, invalidVehicles, invalidStops, invalidPlans;

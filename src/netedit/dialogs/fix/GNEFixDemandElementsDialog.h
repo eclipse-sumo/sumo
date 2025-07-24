@@ -46,7 +46,7 @@ public:
     ~GNEFixDemandElementsDialog();
 
     /// @brief open fix demand elements dialog
-    FXuint openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements);
+    GNEDialog::Result openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements);
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogTest* dialogTest);

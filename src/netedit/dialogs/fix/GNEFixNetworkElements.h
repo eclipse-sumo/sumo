@@ -46,7 +46,7 @@ public:
     ~GNEFixNetworkElements();
 
     /// @brief open fix network elements dialog
-    FXuint openDialog(const std::vector<GNENetworkElement*>& invalidNetworkElements);
+    GNEDialog::Result openDialog(const std::vector<GNENetworkElement*>& invalidNetworkElements);
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogTest* modalArguments);
