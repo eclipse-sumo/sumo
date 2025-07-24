@@ -21,7 +21,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNERerouterInterval.h>

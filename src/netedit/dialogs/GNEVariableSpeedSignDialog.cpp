@@ -21,7 +21,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/elements/additional/GNEVariableSpeedSignStep.h>

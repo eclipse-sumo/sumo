@@ -20,9 +20,6 @@
 
 #include <netedit/GNETagProperties.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/foxtools/MFXLinkLabel.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 

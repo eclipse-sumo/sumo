@@ -17,26 +17,15 @@
 ///
 // A Dialog for setting options (see OptionsCont)
 /****************************************************************************/
-#include <config.h>
 
-#include <algorithm>
-#include <fstream>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEInternalTest.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsLoader.h>
 #include <xercesc/parsers/SAXParser.hpp>
 #include <utils/foxtools/MFXCheckButtonTooltip.h>
-#include <utils/foxtools/MFXTextFieldSearch.h>
-#include <utils/foxtools/MFXCheckableButton.h>
 
 #include "GNEOptionsDialog.h"
 

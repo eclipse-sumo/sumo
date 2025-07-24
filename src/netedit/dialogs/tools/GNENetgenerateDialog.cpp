@@ -19,7 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNENetgenerateDialog.h"

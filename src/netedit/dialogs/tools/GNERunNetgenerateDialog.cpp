@@ -22,7 +22,6 @@
 #include <netedit/tools/GNERunNetgenerate.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/options/OptionsCont.h>
 
 #include "GNERunNetgenerateDialog.h"
 
