@@ -44,17 +44,17 @@ public:
     };
 
     /// @brief dialog arguments (used for certain functions that opens modal dialogs)
-    class DialogTest {
+    class DialogArgument {
 
     public:
         /// @brief constructor for yes/no argument
-        DialogTest(const FXuint value);
+        DialogArgument(const FXuint value);
 
         /// @brief constructor for question dialogs
-        DialogTest(const std::vector<FXuint>& values);
+        DialogArgument(const std::vector<FXuint>& values);
 
         /// @brief constructor fix dialogs
-        DialogTest(const std::string& solution);
+        DialogArgument(const std::string& solution);
 
         /// @brief yes value
         static const FXuint yes = 1;
@@ -76,10 +76,10 @@ public:
 
     private:
         /// @brief invalidated default constructor
-        DialogTest() = delete;
+        DialogArgument() = delete;
 
         /// @brief invalidated copy constructor
-        DialogTest(const DialogTest&) = delete;
+        DialogArgument(const DialogArgument&) = delete;
     };
 
     /// @brief struct used for test TLS Tables
@@ -139,7 +139,7 @@ public:
     FXSelector getMessageID() const;
 
     /// @brief get dialog arguments
-    DialogTest* getDialogTest() const;
+    DialogArgument* getDialogArguments() const;
 
     /// @brief get TLS Table test
     TLSTableTest* getTLSTableTest() const;
@@ -187,8 +187,8 @@ private:
     /// @brief list of events associated with this step
     FXEvent* myEvent = nullptr;
 
-    /// @brief dialog test
-    DialogTest* myDialogTest = nullptr;
+    /// @brief dialog argument
+    DialogArgument* myDialogArgument = nullptr;
 
     /// @brief TLS Table test
     TLSTableTest* myTLSTableTest = nullptr;
