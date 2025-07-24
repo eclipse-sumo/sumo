@@ -232,7 +232,6 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) < myEnd);
         case SUMO_ATTR_END:
             if (canParse<SUMOTime>(value)) {
                 const auto end = parse<SUMOTime>(value);
