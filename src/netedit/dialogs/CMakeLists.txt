@@ -1,3 +1,6 @@
+add_subdirectory(additional)
+add_subdirectory(demand)
+add_subdirectory(fix)
 add_subdirectory(tools)
 add_subdirectory(options)
 
@@ -6,28 +9,10 @@ set(netedit_dialogs_SRCS
    GNEAboutDialog.h
    GNEACChooserDialog.cpp
    GNEACChooserDialog.h
-   GNEAdditionalDialog.cpp
-   GNEAdditionalDialog.h
    GNEAllowVClassesDialog.cpp
    GNEAllowVClassesDialog.h
-   GNECalibratorDialog.cpp
-   GNECalibratorDialog.h
-   GNECalibratorFlowDialog.cpp
-   GNECalibratorFlowDialog.h
-   GNEDemandElementDialog.cpp
-   GNEDemandElementDialog.h
    GNEDialog.cpp
    GNEDialog.h
-   GNEFixAdditionalElementsDialog.cpp
-   GNEFixAdditionalElementsDialog.h
-   GNEFixDemandElementsDialog.cpp
-   GNEFixDemandElementsDialog.h
-   GNEFixElementsDialog.cpp
-   GNEFixElementsDialog.h
-   GNEFixElementsRowDialog.cpp
-   GNEFixElementsRowDialog.h
-   GNEFixNetworkElements.cpp
-   GNEFixNetworkElements.h
    GNEGeometryPointDialog.cpp
    GNEGeometryPointDialog.h
    GNEHelpAttributesDialog.cpp
@@ -38,22 +23,10 @@ set(netedit_dialogs_SRCS
    GNEKeepElementsDialog.h
    GNEMultipleParametersDialog.cpp
    GNEMultipleParametersDialog.h
-   GNERerouterDialog.cpp
-   GNERerouterDialog.h
-   GNERerouterIntervalDialog.cpp
-   GNERerouterIntervalDialog.h
-   GNERouteDialog.cpp
-   GNERouteDialog.h
    GNESingleParametersDialog.cpp
    GNESingleParametersDialog.h
    GNEUndoListDialog.cpp
    GNEUndoListDialog.h
-   GNEVariableSpeedSignDialog.cpp
-   GNEVariableSpeedSignDialog.h
-   GNEVehicleTypeDialog.cpp
-   GNEVehicleTypeDialog.h
-   GNEVTypeDistributionsDialog.cpp
-   GNEVTypeDistributionsDialog.h
 )
 
 add_library(netedit_dialogs STATIC ${netedit_dialogs_SRCS})
