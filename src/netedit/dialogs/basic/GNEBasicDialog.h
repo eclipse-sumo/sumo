@@ -27,7 +27,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEBasicDialog : public GNEDialog {
+class GNEBasicDialog : protected GNEDialog {
 
 public:
     /// @name basic dialog type
@@ -39,9 +39,12 @@ public:
         ACCEPT_CANCEL,  // accept/cancel buttons
     };
 
+    // make get result public
+    using GNEDialog::getResult;
+
     /// @brief Constructor
     GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string &title,
-                   const std::string &text, Buttons buttons, GUIIcon icon);
+                   const std::string &info, Buttons buttons, GUIIcon icon);
 
     /// @brief Destructor
     ~GNEBasicDialog();

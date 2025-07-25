@@ -25,12 +25,12 @@
 // ===========================================================================
 
 GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow,
-                                         const std::string& name, const std::string& info) :
+                                                     const std::string& name, const std::string& info) :
     GNEBasicDialog(applicationWindow, name, info, GNEBasicDialog::Buttons::OK, GUIIcon::INFORMATION) {
 }
 
 
-GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow,
-                                         const std::string& name, const std::vector<std::string> &infoLines) :
-    GNEBasicDialog(applicationWindow, name, infoLines, GNEBasicDialog::Buttons::OK, GUIIcon::INFORMATION) {
+GNEInformationBasicDialog::GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
+                                                     const std::string& infoLineA, const std::string& infoLineB) :
+    GNEBasicDialog(applicationWindow, name, infoLineA + "\n" + infoLineB, GNEBasicDialog::Buttons::OK, GUIIcon::INFORMATION) {
 }

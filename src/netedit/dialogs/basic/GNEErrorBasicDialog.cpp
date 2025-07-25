@@ -26,5 +26,11 @@
 
 GNEErrorBasicDialog::GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow,
                                          const std::string& name, const std::string& info) :
-    GNEBasicDialog(applicationWindow, name, info, GNEBasicDialog::Buttons::OK, GUIIcon::ERROR) {
+    GNEBasicDialog(applicationWindow, name, info, GNEBasicDialog::Buttons::OK, GUIIcon::ERRORICON) {
+}
+
+
+GNEErrorBasicDialog::GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow,
+                                         const std::string& name, const std::string& infoLineA, const std::string& infoLineB) :
+    GNEBasicDialog(applicationWindow, name, infoLineA + "\n" + infoLineB, GNEBasicDialog::Buttons::OK, GUIIcon::ERRORICON) {
 }

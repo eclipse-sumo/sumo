@@ -31,11 +31,11 @@ class GNEInformationBasicDialog : public GNEBasicDialog {
 public:
     /// @brief constructor
     GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
-                        const std::string& info);
+                              const std::string& info);
 
     /// @brief constructor for multiple lines
     GNEInformationBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
-                        const std::vector<std::string> &infoLines);
+                              const std::string& infoLineA, const std::string& infoLineB);
 
 private:
     /// @brief Invalidated copy constructor.

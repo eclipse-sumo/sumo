@@ -29,3 +29,10 @@ GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* application
                                                const std::string& info) :
     GNEBasicDialog(applicationWindow, name, info, buttons, GUIIcon::QUESTION) {
 }
+
+
+GNEQuestionBasicDialog::GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow,
+                                               GNEBasicDialog::Buttons buttons, const std::string& name,
+                                               const std::string& infoLineA, const std::string& infoLineB) :
+    GNEBasicDialog(applicationWindow, name, infoLineA + "\n" + infoLineB, buttons, GUIIcon::QUESTION) {
+}
