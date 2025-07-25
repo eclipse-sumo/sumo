@@ -1085,7 +1085,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::RESET] = new FXXPMIcon(a, reset_xpm);
     myIcons[GUIIcon::QUESTION] = new FXXPMIcon(a, question_xpm);
     myIcons[GUIIcon::WARNING] = new FXXPMIcon(a, warning_xpm);
-    myIcons[GUIIcon::ERROR] = new FXXPMIcon(a, error_xpm);
+    myIcons[GUIIcon::ERRORICON] = new FXXPMIcon(a, error_xpm);
     myIcons[GUIIcon::DANGER] = new FXXPMIcon(a, danger_xpm);
     myIcons[GUIIcon::SUM] = new FXXPMIcon(a, sum_xpm);
     myIcons[GUIIcon::BACK] = new FXXPMIcon(a, back_xpm);
