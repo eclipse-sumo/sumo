@@ -23,7 +23,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/dialogs/basic/GNEHelpDialog.h>
+#include <netedit/dialogs/basic/GNEHelpBasicDialog.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -401,7 +401,7 @@ GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, F
         << TL(" - Duplicated and empty Keys aren't valid.\n")
         << TL(" - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n");
     // create and open dialog
-    GNEHelpDialog(myParameterDialogParent->myAttributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
+    GNEHelpBasicDialog(myParameterDialogParent->myAttributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
                   TL("Parameters Help"), help.str()).openModal();
     return 1;
 }

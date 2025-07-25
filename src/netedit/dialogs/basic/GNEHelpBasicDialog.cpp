@@ -22,13 +22,13 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNEHelpDialog.h"
+#include "GNEHelpBasicDialog.h"
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEHelpDialog::GNEHelpDialog(GNEApplicationWindow* applicationWindow, const std::string &header, const std::string &text) :
+GNEHelpBasicDialog::GNEHelpBasicDialog(GNEApplicationWindow* applicationWindow, const std::string &header, const std::string &text) :
     GNEDialog(applicationWindow, header.c_str(), GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::HELP));
@@ -45,24 +45,24 @@ GNEHelpDialog::GNEHelpDialog(GNEApplicationWindow* applicationWindow, const std:
 }
 
 
-GNEHelpDialog::~GNEHelpDialog() {
+GNEHelpBasicDialog::~GNEHelpBasicDialog() {
 }
 
 
 void
-GNEHelpDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+GNEHelpBasicDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // finish runInternalTest
 }
 
 
 long
-GNEHelpDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+GNEHelpBasicDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     return closeDialogAccepting();
 }
 
 
 long
-GNEHelpDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+GNEHelpBasicDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     return closeDialogCanceling();
 }
 

@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/frames/common/GNESelectorFrame.h>
-#include <netedit/dialogs/basic/GNEHelpDialog.h>
+#include <netedit/dialogs/basic/GNEHelpBasicDialog.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -336,7 +336,7 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
         << TL("     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n")
         << TL("     edge; speed; '>10' -> match all edges with a speed above 10\n");
     // open help dialog
-    GNEHelpDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), TL("Netedit parameters Help"), help.str()).openModal();
+    GNEHelpBasicDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), TL("Netedit parameters Help"), help.str()).openModal();
     return 1;
 }
 
