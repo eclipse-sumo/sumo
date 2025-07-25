@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/frames/demand/GNETypeFrame.h>
-#include <netedit/dialogs/GNEHelpDialog.h>
+#include <netedit/dialogs/basic/GNEHelpDialog.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>

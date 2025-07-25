@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include "GNEDialog.h"
+#include <netedit/dialogs/basic/GNEBasicDialog.h>
 
 // ===========================================================================
 // class definitions

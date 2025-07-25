@@ -42,8 +42,6 @@ GNEBasicDialog::GNEBasicDialog(GNEApplicationWindow* applicationWindow, const st
     new FXLabel(infoFrame, FXString::null, ic, ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     new FXLabel(infoFrame, info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     new FXHorizontalSeparator(content, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
-    // Create horizontal separator
-    new FXHorizontalSeparator(content, GUIDesignHorizontalSeparator);
     // Create frame for buttons
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(content, GUIDesignAuxiliarHorizontalFrame);
     // add horizontal frame used to center buttons horizontally
