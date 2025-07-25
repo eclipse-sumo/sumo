@@ -243,7 +243,7 @@ GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
         << TL("   previous element");
     // create help dialog
     GNEHelpBasicDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-                  TL("GEO attributes Help"), help.str()).openModal();
+                       TL("GEO attributes Help"), help);
     return 1;
 }
 

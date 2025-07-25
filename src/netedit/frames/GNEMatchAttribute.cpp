@@ -315,28 +315,29 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // set help text
     std::ostringstream help;
     help
-        << TL("- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection\n")
-        << TL("  according to the current 'Modification Mode'.\n")
-        << TL("     1. Select an object type from the first input box\n")
-        << TL("     2. Select an attribute from the second input box\n")
-        << TL("     3. Enter a 'match expression' in the third input box and press <return>\n")
+        << TL("- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection") << "\n"
+        << TL("  according to the current 'Modification Mode'.") << "\n"
+        << TL("     1. Select an object type from the first input box") << "\n"
+        << TL("     2. Select an attribute from the second input box") << "\n"
+        << TL("     3. Enter a 'match expression' in the third input box and press <return>") << "\n"
         << "\n"
-        << TL("- The empty expression matches all objects\n")
-        << TL("- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n")
-        << TL("- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n")
+        << TL("- The empty expression matches all objects") << "\n"
+        << TL("- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.") << "\n"
+        << TL("- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'") << "\n"
         << "\n"
-        << TL("- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n")
-        << TL("     '' (no operator) matches if string is a substring of that object's attribute.\n")
-        << TL("     '=' matches if string is an exact match.\n")
-        << TL("     '!' matches if string is not a substring.\n")
-        << TL("     '^' matches if string is not an exact match.\n")
+        << TL("- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.") << "\n"
+        << TL("     '' (no operator) matches if string is a substring of that object's attribute.") << "\n"
+        << TL("     '=' matches if string is an exact match.") << "\n"
+        << TL("     '!' matches if string is not a substring.") << "\n"
+        << TL("     '^' matches if string is not an exact match.") << "\n"
         << "\n"
-        << TL("- Examples:\n")
-        << TL("     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n")
-        << TL("     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n")
-        << TL("     edge; speed; '>10' -> match all edges with a speed above 10\n");
+        << TL("- Examples:")
+        << TL("     junction; id; 'foo' -> match all junctions that have 'foo' in their id") << "\n"
+        << TL("     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'") << "\n"
+        << TL("     edge; speed; '>10' -> match all edges with a speed above 10");
     // open help dialog
-    GNEHelpBasicDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), TL("Netedit parameters Help"), help.str()).openModal();
+    GNEHelpBasicDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                       TL("Netedit parameters Help"), help);
     return 1;
 }
 
