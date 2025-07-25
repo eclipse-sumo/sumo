@@ -3,6 +3,8 @@ set(netedit_dialogs_basic_SRCS
     GNEBasicDialog.h
     GNEErrorBasicDialog.cpp
     GNEErrorBasicDialog.h
+    GNEQuestionBasicDialog.cpp
+    GNEQuestionBasicDialog.h
     GNEWarningBasicDialog.cpp
     GNEWarningBasicDialog.h
 )
