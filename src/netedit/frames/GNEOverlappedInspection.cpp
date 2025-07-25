@@ -22,7 +22,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/dialogs/GNEHelpDialog.h>
+#include <netedit/dialogs/basic/GNEHelpDialog.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
