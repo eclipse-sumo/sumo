@@ -18,13 +18,15 @@
 // Dialog for edit multiple parameters
 /****************************************************************************/
 
-#include <netedit/dialogs/GNEHelpDialog.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/dialogs/GNEHelpDialog.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/xml/XMLSubSys.h>
+
 
 #include "GNEMultipleParametersDialog.h"
 
@@ -510,11 +512,11 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                 if (parameterRow->valueChanged) {
                     if (parameterRow->keyField->getText().empty()) {
                         // open warning Box
-                        FXMessageBox::warning(getApp(), MBOX_OK, "Empty Parameter key", "%s", "Parameters with empty keys aren't allowed");
+                        GNEWarningBasicDialog(myApplicationWindow, TL("Empty Parameter key"), TL("Parameters with empty keys aren't allowed"));
                         return 1;
                     } else if (!SUMOXMLDefinitions::isValidParameterKey(parameterRow->keyField->getText().text())) {
                         // open warning Box
-                        FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
+                        GNEWarningBasicDialog(myApplicationWindow, TL("Invalid Parameter key"), TL("There are keys with invalid characters"));
                         return 1;
                     }
                     // insert in parameters
@@ -528,7 +530,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         for (auto i = parametersChanged.begin(); i != parametersChanged.end(); i++) {
             if (((i + 1) != parametersChanged.end()) && (i->first) == (i + 1)->first) {
                 // open warning Box
-                FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Parameters", "%s", "Parameters with the same Key aren't allowed");
+                GNEWarningBasicDialog(myApplicationWindow, TL("Duplicated Parameters"), TL("Parameters with the same Key aren't allowed"));
                 return 1;
             }
         }

@@ -39,8 +39,9 @@ class GNEDialog : public FXDialogBox {
 public:
     /// @brief list of possible results when closing the dialog
     enum class Result {
-        ACCEPT,     // dialog was closed accepting changes
-        CANCEL,     // dialog was closed canceling changes
+        ACCEPT,     // dialog was closed accepting changes (used in ok, accept, yes buttons)
+        DECLINE,    // dialog was closed declining changes (used in no, decline, button)
+        CANCEL,     // dialog was closed canceling changes (used in cancel or ESC buttons)
     };
 
     /// @brief constructor
@@ -49,13 +50,16 @@ public:
     /// @brief open modal dialog
     Result openModal(FXuint placement = PLACEMENT_CURSOR);
 
+    /// @brief get result to indicate if this dialog was closed accepting or rejecting changes
+    Result getResult() const;
+
     /// @brief run internal test
     virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
 
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief called when accept button is pressed
+    /// @brief called when accept or yes button is pressed
     virtual long onCmdAccept(FXObject*, FXSelector, void*) = 0;
 
     /// @brief called when cancel button is pressed (or dialog is closed)
@@ -69,6 +73,9 @@ protected:
 
     /// @brief close dialog accepting the changes
     long closeDialogAccepting();
+
+    /// @brief close dialog declining the changes
+    long closeDialogDeclining();
 
     /// @brief close dialog canceling the changes
     long closeDialogCanceling();

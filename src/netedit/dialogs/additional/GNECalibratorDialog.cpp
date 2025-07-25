@@ -18,10 +18,14 @@
 // Dialog for edit calibrators
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/dialogs/demand/GNERouteDialog.h>
 #include <netedit/dialogs/demand/GNEVehicleTypeDialog.h>
 #include <netedit/elements/additional/GNECalibrator.h>
@@ -162,21 +166,31 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
         if (myRouteList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains route to delete as "route" parameter
             std::vector<GNEAdditional*> calibratorFlowsToErase;
-            for (auto j : myEditedAdditional->getChildAdditionals()) {
-                if (j->getAttribute(SUMO_ATTR_ROUTE) == myRouteList->getItem(i, 0)->getText().text()) {
-                    calibratorFlowsToErase.push_back(j);
+            for (const auto &additional : myEditedAdditional->getChildAdditionals()) {
+                if (additional->getAttribute(SUMO_ATTR_ROUTE) == myRouteList->getItem(i, 0)->getText().text()) {
+                    calibratorFlowsToErase.push_back(additional);
                 }
             }
             // if there are flows that has route to remove as "route" parameter
             if (calibratorFlowsToErase.size() > 0) {
                 // open question dialog box
-                const std::string msg = ("Deletion of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() + "' will remove " +
-                                         toString(calibratorFlowsToErase.size()) + " " + toString(GNE_TAG_CALIBRATOR_FLOW) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) + ". Continue?");
-                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(GNE_TAG_CALIBRATOR_FLOW) + "s").c_str(), "%s", msg.c_str());
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // abort deletion of route
-                    return 0;
+                std::string title;
+                std::string info;
+                // continue depending of number of flows to erase
+                if (calibratorFlowsToErase.size() == 1) {
+                    title = TLF("Remove %", toString(GNE_TAG_CALIBRATOR_FLOW));
+                    info = TLF ("Deletion of % '%' will remove one %. Continue?", toString(SUMO_TAG_ROUTE),
+                                myRouteList->getItem(i, 0)->getText().text(), toString(GNE_TAG_CALIBRATOR_FLOW));
                 } else {
+                    title = TLF("Remove %s", toString(GNE_TAG_CALIBRATOR_FLOW));
+                    info = TLF ("Deletion of % '%' will remove % %s. Continue?", toString(SUMO_TAG_ROUTE),
+                                myRouteList->getItem(i, 0)->getText().text(), toString(calibratorFlowsToErase.size()), toString(GNE_TAG_CALIBRATOR_FLOW));
+                }
+                // open question dialog box
+                const auto questionDialog = GNEQuestionBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), 
+                                                                   GNEBasicDialog::Buttons::YES_NO, title, info);
+                // continue depending of answer
+                if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
                     // remove affected flows of calibrator flows
                     for (auto j : calibratorFlowsToErase) {
                         myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(j, false), true);
@@ -186,14 +200,12 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                     // update flows and route table
                     updateFlowTable();
                     updateRouteTable();
-                    return 1;
                 }
             } else {
                 // remove route
                 myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(routeToEdit, false), true);
                 // update routes table
                 updateRouteTable();
-                return 1;
             }
         } else if (myRouteList->getItem(i, 0)->hasFocus() || myRouteList->getItem(i, 1)->hasFocus()) {
             // modify route of calibrator routes with modal dialog
@@ -202,7 +214,6 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
             updateRouteTable();
             // update Flows routes also because Route ID could be changed
             updateFlowTable();
-            return 1;
         }
     }
     // nothing to do
@@ -270,9 +281,10 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
         GNEDemandElement* vType = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, myVehicleTypeList->getItem(i, 0)->getText().text());
         // Make sure that default vehicle isn't edited
         if ((i == 0) && (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus() || myVehicleTypeList->getItem(i, 2)->hasFocus())) {
-            FXMessageBox::warning(getApp(), MBOX_OK,
-                                  ("Error editing default " + toString(SUMO_TAG_VTYPE)).c_str(), "%s",
-                                  ("Default " + toString(SUMO_TAG_VTYPE) + " cannot be either edited or deleted.").c_str());
+            // show warning dialog
+            GNEWarningBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                                  TLF("Error editing default %", toString(SUMO_TAG_VTYPE)),
+                                  TLF("Default %s cannot be either edited or deleted.", toString(SUMO_TAG_VTYPE)));
         } else if (myVehicleTypeList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains vehicle type to delete as "vehicle type" parameter
             std::vector<GNEAdditional*> calibratorFlowsToErase;
@@ -283,13 +295,24 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
             }
             // if there are flows that has vehicle type to remove as "vehicle type" parameter
             if (calibratorFlowsToErase.size() > 0) {
-                const std::string msg = ("Deletion of " + toString(SUMO_TAG_VTYPE) + " '" + myVehicleTypeList->getItem(i, 0)->getText().text() + "' will remove " +
-                                         toString(calibratorFlowsToErase.size()) + " " + toString(GNE_TAG_CALIBRATOR_FLOW) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) + ". Continue?");
-                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(GNE_TAG_CALIBRATOR_FLOW) + "s").c_str(), "%s", msg.c_str());
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // abort deletion of vehicle type
-                    return 0;
+                // open question dialog box
+                std::string title;
+                std::string info;
+                // continue depending of number of flows to erase
+                if (calibratorFlowsToErase.size() == 1) {
+                    title = TLF("Remove %", toString(GNE_TAG_CALIBRATOR_FLOW));
+                    info = TLF ("Deletion of % '%' will remove one %. Continue?", toString(SUMO_TAG_VTYPE),
+                                myRouteList->getItem(i, 0)->getText().text(), toString(GNE_TAG_CALIBRATOR_FLOW));
                 } else {
+                    title = TLF("Remove %s", toString(GNE_TAG_CALIBRATOR_FLOW));
+                    info = TLF ("Deletion of % '%' will remove % %s. Continue?", toString(SUMO_TAG_VTYPE),
+                                myRouteList->getItem(i, 0)->getText().text(), toString(calibratorFlowsToErase.size()), toString(GNE_TAG_CALIBRATOR_FLOW));
+                }
+                // open question dialog box
+                const auto questionDialog = GNEQuestionBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), 
+                                                                   GNEBasicDialog::Buttons::YES_NO, title, info);
+                // continue depending of answer
+                if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
                     // remove affected flows of calibrator flows
                     for (auto j : calibratorFlowsToErase) {
                         myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(j, false), true);

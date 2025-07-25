@@ -18,10 +18,14 @@
 // A class for edit phases of Variable Speed Signals
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -159,16 +163,17 @@ long
 GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myStepsValids) {
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, ("Error updating " + toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP)).c_str(), "%s",
-                              (toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP) + "cannot be updated because there are invalid values").c_str());
-        return 0;
+        GNEWarningBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                              TLF("Error updating % of % '%'", toString(SUMO_TAG_STEP), toString(SUMO_TAG_VSS), myEditedAdditional->getID()),
+                              TLF("The % of % '%s' cannot be updated because there are invalid values",
+                                  toString(SUMO_TAG_STEP), toString(SUMO_TAG_VSS), myEditedAdditional->getID()));
     } else {
         // accept changes before closing dialog
         acceptChanges();
         // stop dialog successfully
         getApp()->stopModal(this, TRUE);
-        return 1;
     }
+    return 1;
 }
 
 

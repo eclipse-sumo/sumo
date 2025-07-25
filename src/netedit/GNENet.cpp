@@ -29,6 +29,8 @@
 #include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNETagProperties.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
@@ -1645,17 +1647,18 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     // Check that there isn't another junction in the same position as Pos but doesn't belong to cluster
     for (const auto& junction : myAttributeCarriers->getJunctions()) {
         if ((junction.second->getPositionInView() == pos) && (cluster.find(junction.second->getNBNode()) == cluster.end())) {
-            // Ask confirmation to user
-            const std::string header = TL("Position of joined junction");
-            const std::string bodyA = TL("There is another unselected junction in the same position of joined junction.");
-            const std::string bodyB = TL("It will be joined with the other selected junctions. Continue?");
-            const auto answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", (bodyA + std::string("\n") + bodyB).c_str());
-            if (answer != 1) { // 1:yes, 2:no, 4:esc
-                return false;
-            } else {
+            // open dialog
+            const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEBasicDialog::Buttons::YES_NO,
+                                                               TL("Position of joined junction"),
+                                                               TL("There is another unselected junction in the same position of joined junction."),
+                                                               TL("It will be joined with the other selected junctions. Continue?"));
+            // check dialog result
+            if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
                 // select conflicted junction an join all again
                 junction.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 return joinSelectedJunctions(undoList);
+            } else {
+                return false;
             }
         }
     }
@@ -1748,27 +1751,27 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
             myInvalidCrossings.push_back(*i);
         }
     }
-
+    // continue depending of invalid crossings
     if (myInvalidCrossings.empty()) {
-        // open a dialog informing that there isn't crossing to remove
-        const std::string header = TL("Clear crossings");
-        const std::string body = TL("There are no invalid crossings to remove.");
-        FXMessageBox::warning(getApp(), MBOX_OK, (header).c_str(), "%s", (body).c_str());
+        // open a warning dialog informing that there isn't crossing to remove
+        GNEWarningBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+                              TL("Clear crossings"),
+                              TL("There are no invalid crossings to remove."));
     } else {
         std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
         // Ask confirmation to user
-        const std::string header = TL("Clear crossings");
-        const std::string body = TL("Crossings will be cleared. Continue?");
-        const auto answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
+        const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+                                    GNEBasicDialog::Buttons::YES_NO, TL("Clear crossings"),
+                                    TL("Crossings will be cleared. Continue?"));
         // 1:yes, 2:no, 4:esc
-        if (answer != 1) {
-            return false;
-        } else {
+        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             undoList->begin(GUIIcon::MODEDELETE, TL("clear crossings"));
             for (auto i = myInvalidCrossings.begin(); i != myInvalidCrossings.end(); i++) {
                 deleteCrossing((*i), undoList);
             }
             undoList->end();
+        } else {
+            return false;
         }
     }
     return true;

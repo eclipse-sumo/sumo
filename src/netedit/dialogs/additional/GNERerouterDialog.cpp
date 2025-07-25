@@ -18,10 +18,14 @@
 // Dialog for edit rerouters
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNERerouterInterval.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -84,15 +88,17 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Check if there is overlapping between Intervals
     if (!myEditedAdditional->checkChildAdditionalsOverlapping()) {
         // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, "Overlapping detected", "%s", ("Values of '" + myEditedAdditional->getID() + "' cannot be saved. There are intervals overlapped.").c_str());
-        return 0;
+        GNEWarningBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                              TL("Interval overlapping detected"),
+                              TLF("Values of % '%' cannot be saved. There are intervals overlapped.",
+                                  toString(SUMO_TAG_REROUTER), myEditedAdditional->getID()));
     } else {
         // accept changes before closing dialog
         acceptChanges();
         // Stop Modal
         getApp()->stopModal(this, TRUE);
-        return 1;
     }
+    return 1;
 }
 
 

@@ -23,6 +23,8 @@
 #include <netbuild/NBFrame.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
+#include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/dialogs/GNEAboutDialog.h>
 #include <netedit/dialogs/GNEKeepElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
@@ -1813,21 +1815,14 @@ GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
 
 
 long
-GNEApplicationWindow::computeJunctionWithVolatileOptions(InternalTestStep::DialogArgument* dialogArgument) {
-    // declare variable to save FXMessageBox outputs.
-    FXuint answer = 0;
-    // check if open dialog or obtain the argument trought input (used in tests)
-    if (dialogArgument) {
-        answer = dialogArgument->questionDialogValues[0];
-    } else {
-        // open question dialog box
-        answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Recompute with volatile options"),
-                                        TL("Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?"));
-    }
-    if (answer != 1) { //1:yes, 2:no, 4:esc
-        // abort recompute with volatile options
-        return 0;
-    } else {
+GNEApplicationWindow::computeJunctionWithVolatileOptions() {
+    // open question dialog box
+    const auto questionDialog = GNEQuestionBasicDialog(this, GNEBasicDialog::Buttons::YES_NO,
+                                                        TL("Recompute with volatile options"),
+                                                        TL("Changes produced in the net due a recomputing with"),
+                                                        TL("volatile options cannot be undone. Continue?"));
+    // check result
+    if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // save all elements
         onCmdSaveAdditionalElements(nullptr, 0, nullptr);
         onCmdSaveDemandElements(nullptr, 0, nullptr);
@@ -1836,8 +1831,8 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions(InternalTestStep::Dialo
         // compute with volatile options
         myNet->computeNetwork(this, true, true);
         updateControls();
-        return 1;
     }
+    return 1;
 }
 
 
@@ -2034,9 +2029,7 @@ GNEApplicationWindow::onUpdLockMenuTitle(FXObject*, FXSelector, void*) {
 }
 
 long
-GNEApplicationWindow::onCmdProcessButton(FXObject* sender, FXSelector sel, void* arg) {
-    // obtain modal arguments from internal tests
-    auto dialogArguments = (sender == myInternalTest) ? static_cast<InternalTestStep::DialogArgument*>(arg) : nullptr;
+GNEApplicationWindow::onCmdProcessButton(FXObject* sender, FXSelector sel, void*) {
     // first check if there is a view
     if (myViewNet) {
         // process depending of supermode
@@ -2048,7 +2041,7 @@ GNEApplicationWindow::onCmdProcessButton(FXObject* sender, FXSelector sel, void*
                     updateControls();
                     break;
                 case MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE:
-                    computeJunctionWithVolatileOptions(dialogArguments);
+                    computeJunctionWithVolatileOptions();
                     break;
                 case MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES:
                     myNet->removeSolitaryJunctions(myUndoList);
@@ -3323,7 +3316,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             }
         } catch (IOError& e) {
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving Network failed!"), "%s", e.what());
+            GNEErrorBasicDialog(this, TL("Saving Network failed!"), e.what());
         }
         if (saved) {
             // write info
@@ -3390,7 +3383,7 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
             WRITE_MESSAGE(TL("Plain XML saved with prefix '") + plainXMLFile + "'");
         } catch (IOError& e) {
             // open message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving plain xml failed!"), "%s", e.what());
+            GNEErrorBasicDialog(this, TL("Saving plain xml failed!"), e.what());
         }
         // end saving plain XML
         getApp()->endWaitCursor();
@@ -3414,7 +3407,7 @@ GNEApplicationWindow::onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*) {
             WRITE_MESSAGE(TL("Joined junctions saved to '") + joinedJunctionsFile + "'");
         } catch (IOError& e) {
             // opening error message
-            FXMessageBox::error(this, MBOX_OK, TL("Saving joined junctions failed!"), "%s", e.what());
+            GNEErrorBasicDialog(this, TL("Saving joined junctions failed!"), e.what());
         }
         getApp()->endWaitCursor();
         // set focus again in viewNet
@@ -3643,7 +3636,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject* obj, FXSelector sel, void* 
             WRITE_MESSAGE(TL("TLS Programs saved in '") + neteditOptions.getString("tls-file") + "'");
         } catch (IOError& e) {
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving TLS Programs failed!"), "%s", e.what());
+            GNEErrorBasicDialog(this, TL("Saving TLS Programs failed!"), e.what());
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
@@ -3687,7 +3680,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject* obj, FXSelector sel, void* pt
             WRITE_MESSAGE(TL("EdgeType saved in '") + neteditOptions.getString("edgetypes-file") + "'");
         } catch (IOError& e) {
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving edgeTypes failed!"), "%s", e.what());
+            GNEErrorBasicDialog(this, TL("Saving edgeTypes failed!"), e.what());
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
@@ -3895,7 +3888,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElements(FXObject* sender, FXSelector s
             }
         } catch (IOError& e) {
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving additionals failed!"), "%s", e.what());
+            GNEErrorBasicDialog(this, TL("Saving additionals failed!"), e.what());
         }
         return 0;
     }
@@ -3969,7 +3962,7 @@ GNEApplicationWindow::onCmdSaveJuPedSimElementsAs(FXObject*, FXSelector, void*) 
             }
         } catch (IOError& e) {
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving JuPedSim elements failed!"), "%s", e.what());
+            GNEErrorBasicDialog(this, TL("Saving JuPedSim elements failed!"), e.what());
         }
     }
     return 0;
@@ -4107,7 +4100,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, 
             }
         } catch (IOError& e) {
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
+            GNEErrorBasicDialog(this, TL("Saving demand elements failed!"), e.what());
         }
     }
     return 0;
@@ -4284,7 +4277,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, vo
             }
         } catch (IOError& e) {
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving data elements failed!"), "%s", e.what());
+            GNEErrorBasicDialog(this, TL("Saving data elements failed!"), e.what());
         }
     }
     return 0;
@@ -4453,7 +4446,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElements(FXObject* sender, FXSelector sel
             }
         } catch (IOError& e) {
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
+            GNEErrorBasicDialog(this, TL("Saving demand elements failed!"), e.what());
         }
     }
     return 0;

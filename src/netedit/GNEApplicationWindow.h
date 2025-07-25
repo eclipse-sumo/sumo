@@ -87,7 +87,7 @@ public:
     void setStatusBarText(const std::string& statusBarText);
 
     /// @brief called if the user selects Processing->compute junctions with volatile options
-    long computeJunctionWithVolatileOptions(InternalTestStep::DialogArgument* dialogArgument);
+    long computeJunctionWithVolatileOptions();
 
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
@@ -419,7 +419,7 @@ public:
     long onUpdLockMenuTitle(FXObject*, FXSelector sel, void*);
 
     /// @brief called when user press a process button (or a shortcut)
-    long onCmdProcessButton(FXObject* sender, FXSelector sel, void* arg);
+    long onCmdProcessButton(FXObject* sender, FXSelector sel, void*);
 
     /// @brief called if the user hints ctrl + T
     long onCmdOpenSUMOGUI(FXObject* sender, FXSelector sel, void* ptr);

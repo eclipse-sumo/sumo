@@ -18,14 +18,17 @@
 // Dialog for edit rerouter intervals
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/elements/additional/GNEClosingLaneReroute.h>
-#include <netedit/elements/additional/GNEParkingAreaReroute.h>
 #include <netedit/elements/additional/GNEClosingReroute.h>
 #include <netedit/elements/additional/GNEDestProbReroute.h>
+#include <netedit/elements/additional/GNEParkingAreaReroute.h>
 #include <netedit/elements/additional/GNERouteProbReroute.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -212,48 +215,50 @@ GNERerouterIntervalDialog::~GNERerouterIntervalDialog() {}
 
 long
 GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // set strings for dialogs
-    std::string errorTitle = "Error" + toString(myUpdatingElement ? "updating" : "creating") + " " + myEditedAdditional->getTagStr() + " of " + myEditedAdditional->getParentAdditionals().at(0)->getTagStr();
-    std::string operationType = myEditedAdditional->getParentAdditionals().at(0)->getTagStr() + "'s " + myEditedAdditional->getTagStr() + " cannot be " + (myUpdatingElement ? "updated" : "created") + " because ";
+    // declare strings
+    std::string title;
+    std::string infoA;
+    std::string infoB;
+    // set title
+    if (myUpdatingElement) {
+        title = TLF("Error updating % of %", myEditedAdditional->getTagStr(), myEditedAdditional->getParentAdditionals().at(0)->getTagStr());
+    } else {
+        title = TLF("Error creating % of %", myEditedAdditional->getTagStr(), myEditedAdditional->getParentAdditionals().at(0)->getTagStr());
+    }
+    // set infoA
+    if (myUpdatingElement) {
+        infoA = TLF("%'s % cannot be updated because", myEditedAdditional->getParentAdditionals().at(0)->getTagStr(), myEditedAdditional->getTagStr());
+    } else {
+        infoA = TLF("%'s % cannot be created because", myEditedAdditional->getParentAdditionals().at(0)->getTagStr(), myEditedAdditional->getTagStr());
+    }
+    // set infoB
     if (!myBeginEndValid) {
-        // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + myEditedAdditional->getTagStr() + " defined by " + toString(SUMO_ATTR_BEGIN) + " and " + toString(SUMO_ATTR_END) + " is invalid.").c_str());
-        return 0;
-    } else if (myClosingLaneReroutesEdited.empty() &&
-               myClosingReroutesEdited.empty() &&
-               myDestProbReroutesEdited.empty() &&
-               myParkingAreaRerouteEdited.empty() &&
-               myRouteProbReroutesEdited.empty()) {
-        // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "at least one " + myEditedAdditional->getTagStr() + "'s element must be defined.").c_str());
-        return 0;
+        infoB = TLF("% defined by % and % is invalid.", myEditedAdditional->getTagStr(), toString(SUMO_ATTR_BEGIN), toString(SUMO_ATTR_END));
+    } else if (myClosingLaneReroutesEdited.empty() && myClosingReroutesEdited.empty() && myDestProbReroutesEdited.empty() &&
+               myParkingAreaRerouteEdited.empty() && myRouteProbReroutesEdited.empty()) {
+        infoB = TLF("at least one % must be defined.", myEditedAdditional->getTagStr());
     } else if ((myClosingLaneReroutesEdited.size() > 0) && (myClosingLaneReroutesValid == false)) {
-        // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s.").c_str());
-        return 0;
+        infoB = TLF("there are invalid %s.", toString(SUMO_TAG_CLOSING_LANE_REROUTE));
     } else if ((myClosingLaneReroutesEdited.size() > 0) && (myClosingReroutesValid == false)) {
-        // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_CLOSING_REROUTE) + "s.").c_str());
-        return 0;
+        infoB = TLF("there are invalid %s.", toString(SUMO_TAG_CLOSING_REROUTE));
     } else if ((myDestProbReroutesEdited.size() > 0) && (myDestProbReroutesValid == false)) {
-        // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_PARKING_AREA_REROUTE) + "s.").c_str());
-        return 0;
+        infoB = TLF("there are invalid %s.", toString(SUMO_TAG_PARKING_AREA_REROUTE));
     } else if ((myParkingAreaRerouteEdited.size() > 0) && (myParkingAreaReroutesValid == false)) {
-        // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s.").c_str());
-        return 0;
+        infoB = TLF("there are invalid %s.", toString(SUMO_TAG_DEST_PROB_REROUTE));
     } else if ((myRouteProbReroutesEdited.size() > 0) && (myRouteProbReroutesValid == false)) {
-        // open warning Box
-        FXMessageBox::warning(getApp(), MBOX_OK, errorTitle.c_str(), "%s", (operationType + "there are invalid " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s.").c_str());
-        return 0;
+        infoB = TLF("there are invalid s.", toString(SUMO_TAG_ROUTE_PROB_REROUTE));
+    }
+    // continue depending of info
+    if (infoB.size() > 0) {
+        // open question dialog box
+        GNEWarningBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), title, infoA, infoB);
     } else {
         // accept changes before closing dialog
         acceptChanges();
         // Stop Modal
         getApp()->stopModal(this, TRUE);
-        return 1;
     }
+    return 1;
 }
 
 

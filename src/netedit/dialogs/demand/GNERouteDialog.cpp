@@ -18,9 +18,13 @@
 // Dialog for edit calibrator routes
 /****************************************************************************/
 
-#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -90,21 +94,27 @@ GNERouteDialog::~GNERouteDialog() {}
 long
 GNERouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myCalibratorRouteValid) {
-        std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
-        std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-        std::string tagString = myEditedDemandElement->getTagStr();
-        // open warning dialog box
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + operation1 + " " + tagString).c_str(), "%s",
-                              (tagString + " cannot be " + operation2 + " because parameter " + toString(myInvalidAttr) + " is invalid.").c_str());
-        return 0;
+        std::string title;
+        std::string info;
+        if (myUpdatingElement) {
+            title = TLF("Error updating % '%'", myEditedDemandElement->getTagStr(), myEditedDemandElement->getID());
+            info = TLF("The % '%' cannot be updated because parameter %s is invalid.",
+                       myEditedDemandElement->getTagStr(), myEditedDemandElement->getID(), toString(myInvalidAttr));
+        } else {
+            title = TLF("Error creating % '%'", myEditedDemandElement->getTagStr(), myEditedDemandElement->getID());
+            info = TLF("The % '%' cannot be created because parameter %s is invalid.",
+                       myEditedDemandElement->getTagStr(), myEditedDemandElement->getID(), toString(myInvalidAttr));
+        }
+        // open warning Box
+        GNEWarningBasicDialog(myEditedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                              title, info);
     } else {
         // accept changes before closing dialog
         acceptChanges();
         // stop dialog successfully
         getApp()->stopModal(this, TRUE);
-        return 1;
     }
+    return 1;
 }
 
 
