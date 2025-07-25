@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/dialogs/GNEDialog.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/GUIIcons.h>
 
 // ===========================================================================
 // class definitions
@@ -41,7 +41,7 @@ public:
 
     /// @brief Constructor
     GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string &title,
-                   const std::string &info, Buttons buttons, GUIIcon icon);
+                   const std::string &text, Buttons buttons, GUIIcon icon);
 
     /// @brief Destructor
     ~GNEBasicDialog();

@@ -29,7 +29,6 @@
 class GNEErrorBasicDialog : public GNEBasicDialog {
 
 public:
-
     /// @brief constructor
     GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& name, const std::string& info);
 

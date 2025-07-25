@@ -15,10 +15,8 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2025
 ///
-// Custom FXDialogBox error dialog used in Netedit that supports internal tests
+// Custom FXDialogBox warning dialog used in Netedit that supports internal tests
 /****************************************************************************/
-
-#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEWarningBasicDialog.h"
 
@@ -28,5 +26,5 @@
 
 GNEWarningBasicDialog::GNEWarningBasicDialog(GNEApplicationWindow* applicationWindow,
                                              const std::string& name, const std::string& info) :
-    GNEBasicDialog(applicationWindow, name, info, GNEBasicDialog::Buttons::OK, GUIIcon::ACCEPT) {
+    GNEBasicDialog(applicationWindow, name, info, GNEBasicDialog::Buttons::OK, GUIIcon::WARNING) {
 }
