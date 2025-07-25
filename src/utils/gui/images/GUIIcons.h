@@ -701,7 +701,7 @@ enum class GUIIcon {
     RESET,
     QUESTION,
     WARNING,
-    ERROR,
+    ERRORICON,
     DANGER,
     SUM,
     BACK,
