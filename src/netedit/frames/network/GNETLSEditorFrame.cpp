@@ -27,6 +27,8 @@
 #include <netedit/GNEInternalTest.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -191,17 +193,19 @@ GNETLSEditorFrame::editTLS(GNEViewNetHelper::ViewObjectsSelector& viewObjects, c
 bool
 GNETLSEditorFrame::isTLSSaved() {
     if (myTLSPrograms->checkHaveModifications()) {
-        // open question box
-        FXuint answer = FXMessageBox::question(this, MBOX_YES_NO_CANCEL,
-                                               TL("Save TLS Changes"), "%s",
-                                               TL("There are unsaved changes in the currently edited traffic light.\nDo you want to save it before changing mode?"));
-        if (answer == MBOX_CLICKED_YES) { //1:yes, 2:no, 4:esc/cancel
+        // show question dialog
+        const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEBasicDialog::Buttons::YES_NO_CANCEL,
+                                                           TL("Save TLS Changes"),
+                                                           TL("There are unsaved changes in the currently edited traffic light."),
+                                                           TL("Do you want to save it before changing mode?"));
+        // continue depending of result
+        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // save modifications
             myTLSPrograms->onCmdSaveChanges(nullptr, 0, nullptr);
             return true;
-        } else if (answer == MBOX_CLICKED_NO) {
+        } else if (questionDialog.getResult() == GNEDialog::Result::DECLINE) {
             // cancel modifications
-            myTLSPrograms->onCmdSaveChanges(nullptr, 0, nullptr);
+            myTLSPrograms->onCmdDiscardChanges(nullptr, 0, nullptr);
             return true;
         } else {
             // abort changing mode
@@ -1558,20 +1562,20 @@ GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
     discardChanges(false);
     // check number of edges
     if (currentJunction->getGNEIncomingEdges().empty() && currentJunction->getGNEOutgoingEdges().empty()) {
-        // open question box
-        FXMessageBox::warning(this, MBOX_OK,
-                              TL("TLS cannot be created"), "%s",
-                              (TL("Traffic Light cannot be created because junction must have") + std::string("\n") +
-                               TL("at least one incoming edge and one outgoing edge.")).c_str());
+        // open warning dialog
+        GNEWarningBasicDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                              TL("TLS cannot be created"),
+                              {TL("Traffic Light cannot be created because junction must have"),
+                               TL("at least one incoming edge and one outgoing edge.")});
         return 1;
     }
     // check number of connections
     if (currentJunction->getGNEConnections().empty()) {
-        // open question box
-        FXMessageBox::warning(this, MBOX_OK,
-                              TL("TLS cannot be created"), "%s",
-                              (TL("Traffic Light cannot be created because junction") + std::string("\n") +
-                               TL("must have at least one connection.")).c_str());
+        // open warning dialog
+        GNEWarningBasicDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                              TL("TLS cannot be created"),
+                              {TL("Traffic Light cannot be created because junction"),
+                               TL("must have at least one connection.")});
         return 1;
     }
     // check uncontrolled connections
@@ -1582,11 +1586,11 @@ GNETLSEditorFrame::TLSPrograms::onCmdCreate(FXObject*, FXSelector, void*) {
         }
     }
     if (!connectionControlled) {
-        // open question box
-        FXMessageBox::warning(this, MBOX_OK,
-                              TL("TLS cannot be created"), "%s",
-                              (TL("Traffic Light cannot be created because junction") + std::string("\n") +
-                               TL("must have at least one controlled connection.")).c_str());
+        // open warning dialog
+        GNEWarningBasicDialog(myTLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+                              TL("TLS cannot be created"),
+                              {TL("Traffic Light cannot be created because junction"),
+                               TL("must have at least one controlled connection.")});
         return 1;
     }
     // all checks ok, then create TLS in junction

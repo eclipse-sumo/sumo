@@ -23,6 +23,8 @@
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
+#include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
 #include <netedit/changes/GNEChange_TAZSourceSink.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNETAZ.h>
@@ -837,9 +839,11 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
                                  // multiple TAZs
                                  TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
                                  toString(sinks.size()) + TL(" sinks from ") + toString(TAZs.size()) + TL(" TAZs?");
-        // ask if continue
-        const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, TL("Set zero fringe probabilities"), "%s", text.c_str());
-        if (answer == 1) { // 1:yes, 2:no, 4:esc
+        // open question dialog
+        const auto questionDialog = GNEQuestionBasicDialog(myTAZFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), 
+                                                           GNEBasicDialog::Buttons::YES_NO, TL("Set zero fringe probabilities"), text);
+        // continue depending of answer
+        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             myTAZFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TAZ, TL("set zero fringe probabilities"));
             for (const auto& source : sources) {
                 source->setAttribute(SUMO_ATTR_WEIGHT, "0", myTAZFrameParent->myViewNet->getUndoList());
@@ -851,7 +855,8 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
         }
     } else {
         // show information box
-        FXMessageBox::information(this, MBOX_OK, TL("Set zero fringe probabilities"), TL("No source/sinks to update."));
+        GNEInformationBasicDialog(myTAZFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), 
+                                  TL("Set zero fringe probabilities"), TL("No source/sinks to update."));
     }
     return 1;
 }

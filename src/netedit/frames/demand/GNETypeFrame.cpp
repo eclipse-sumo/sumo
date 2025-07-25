@@ -18,10 +18,13 @@
 // The Widget for edit Type elements (vehicle, person and container)
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -334,14 +337,20 @@ void
 GNETypeFrame::TypeEditor::deleteType() {
     // show question dialog if vtype has already assigned vehicles
     if (myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size() > 0) {
-        std::string plural = myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size() == 1 ? ("") : ("s");
+        // declare title and info
+        std::string title = TLF("remove % '%'", toString(SUMO_TAG_VTYPE), myTypeFrameParent->myTypeSelector->getCurrentType()->getID());
+        std::string info;
+        const std::string numChildren = toString(myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size());
+        // continue depending of plural
+        if(myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size() == 1) {
+            info = TLF("Delete % '%' will remove one vehicle. Continue?", toString(SUMO_TAG_VTYPE), myTypeFrameParent->myTypeSelector->getCurrentType()->getID());
+        } else {
+            info = TLF("Delete % '%' will remove % vehicles. Continue?", toString(SUMO_TAG_VTYPE), myTypeFrameParent->myTypeSelector->getCurrentType()->getID(), numChildren);
+        }
         // Ask confirmation to user
-        FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-                                               ("Remove " + toString(SUMO_TAG_VTYPE) + "s").c_str(), "%s",
-                                               ("Delete " + toString(SUMO_TAG_VTYPE) + " '" + myTypeFrameParent->myTypeSelector->getCurrentType()->getID() +
-                                                "' will remove " + toString(myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size()) +
-                                                " vehicle" + plural + ". Continue?").c_str());
-        if (answer == 1) { // 1:yes, 2:no, 4:esc
+        const auto questionDialog = GNEQuestionBasicDialog(myTypeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), GNEBasicDialog::Buttons::YES_NO, title, info);
+        // continue depending of answer
+        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             // begin undo list operation
             myTypeFrameParent->myViewNet->getUndoList()->begin(myTypeFrameParent->myTypeSelector->getCurrentType(), ("delete vehicle type"));
             // remove vehicle type (and all of their children)

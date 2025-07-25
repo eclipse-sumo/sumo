@@ -18,9 +18,13 @@
 // Dialog for edit calibrator flows
 /****************************************************************************/
 
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -150,41 +154,39 @@ GNECalibratorFlowDialog::~GNECalibratorFlowDialog() {}
 
 long
 GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
-    std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-    std::string parentTagString = myEditedAdditional->getParentAdditionals().at(0)->getTagStr();
-    std::string tagString = myEditedAdditional->getTagStr();
+    std::string title;
+    std::string infoA;
+    std::string infoB;
+    const auto &parentTagString = myEditedAdditional->getParentAdditionals().at(0)->getTagStr();
+    // set title
+    if (myUpdatingElement) {
+        title = TLF("Error updating %'s %", myEditedAdditional->getTagStr(), parentTagString);
+        infoA = TLF("%'s % cannot be updated", parentTagString, myEditedAdditional->getTagStr());
+    } else {
+        title = TLF("Error creating %'s %", myEditedAdditional->getTagStr(), parentTagString);
+        infoA = TLF("%'s % cannot be created", parentTagString, myEditedAdditional->getTagStr());
+    }
+
     if (!myCalibratorFlowValid) {
-        // open warning dialog box
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
-                              (parentTagString + "'s " + tagString + " cannot be " + operation2 +
-                               " because parameter " + toString(myInvalidAttr) +
-                               " is invalid.").c_str());
-        return 0;
+        infoB = TLF("because parameter % is invalid.", toString(myInvalidAttr));
     } else if (!myEditedAdditional->getParentAdditionals().at(0)->checkChildAdditionalsOverlapping()) {
-        // open warning dialog box
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
-                              (parentTagString + "'s " + tagString + " cannot be " + operation2 +
-                               " because there is overlapping with another " + tagString + ".").c_str());
-        return 0;
+        infoB = TLF("because there is overlapping with another %.", myEditedAdditional->getTagStr());
     } else if ((myEditedAdditional->getAttribute(SUMO_ATTR_VEHSPERHOUR).empty() && myEditedAdditional->getAttribute(SUMO_ATTR_SPEED).empty()) ||
                (!myEditedAdditional->getAttribute(SUMO_ATTR_VEHSPERHOUR).empty() && !myEditedAdditional->getAttribute(SUMO_ATTR_SPEED).empty())) {
-        // open warning dialog box
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + operation1 + " " + parentTagString + "'s " + tagString).c_str(), "%s",
-                              (parentTagString + "'s " + tagString + " cannot be " + operation2 +
-                               " because parameters " + toString(SUMO_ATTR_VEHSPERHOUR) + " and " + toString(SUMO_ATTR_SPEED) +
-                               " cannot be defined together.").c_str());
-        return 0;
+        infoB = TLF("because parameters % and % cannot be defined together.", toString(SUMO_ATTR_VEHSPERHOUR), toString(SUMO_ATTR_SPEED));
+    }
+    // continue depending of infoB
+    if (infoB.size() > 0) {
+        // open warning Box
+        GNEWarningBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                              title, infoA, infoB);
     } else {
         // accept changes before closing dialog
         acceptChanges();
         // stop dialog successfully
         getApp()->stopModal(this, TRUE);
-        return 1;
     }
+    return 1;
 }
 
 

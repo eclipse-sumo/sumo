@@ -21,6 +21,7 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
@@ -65,7 +66,9 @@ GNEWireFrame::show() {
     // show frame
     GNEFrame::show();
     if (!myWarnedExperimental) {
-        FXMessageBox::warning(getApp(), MBOX_OK, TL("Experimental Part"), "%s", TL("Warning: The netedit overhead editor is still in experimental state."));
+        // show warning dialogbox about experimental state (only once)
+        GNEWarningBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), TL("Experimental Part"),
+                              TL("Warning: The netedit overhead editor is still in experimental state."));
         myWarnedExperimental = true;
     }
 }

@@ -25,6 +25,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -1814,15 +1815,17 @@ GNEVehicleTypeDialog::~GNEVehicleTypeDialog() {}
 long
 GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (!myVehicleTypeValid) {
-        std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
-        std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-        std::string tagString = myEditedDemandElement->getTagStr();
-        // open warning dialogBox
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + operation1 + " " + tagString).c_str(), "%s",
-                              (tagString + " cannot be " + operation2 +
-                               " because parameter " + toString(myInvalidAttr) +
-                               " is invalid.").c_str());
+        std::string title;
+        std::string info;
+        if (myUpdatingElement) {
+            title = TLF("Error updating %", myEditedDemandElement->getTagStr());
+            info = TLF("The % cannot be updated because parameter % is invalid.", myEditedDemandElement->getTagStr(), toString(myInvalidAttr));
+        } else {
+            title = TLF("Error creating %", myEditedDemandElement->getTagStr());
+            info = TLF("The % cannot be created because parameter % is invalid.", myEditedDemandElement->getTagStr(), toString(myInvalidAttr));
+        }
+        // show warning dialogbox about experimental state (only once)
+        GNEWarningBasicDialog(myEditedDemandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), title, info);
         return 0;
     } else {
         // accept changes before closing dialog

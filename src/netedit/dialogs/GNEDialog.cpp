@@ -78,6 +78,12 @@ GNEDialog::openModal(FXuint placement) {
 }
 
 
+GNEDialog::Result
+GNEDialog::getResult() const {
+    return myResult;
+}
+
+
 long
 GNEDialog::closeDialogAccepting() {
     // only stop modal if we're not testing
@@ -88,6 +94,20 @@ GNEDialog::closeDialogAccepting() {
     hide();
     // set result
     myResult = Result::ACCEPT;
+    return 1;
+}
+
+
+long
+GNEDialog::closeDialogDeclining() {
+    // only stop modal if we're not testing
+    if (myTesting == false) {
+        getApp()->stopModal(this, TRUE);
+    }
+    // hide dialog
+    hide();
+    // set result
+    myResult = Result::DECLINE;
     return 1;
 }
 

@@ -22,6 +22,9 @@
 #include <netbuild/NBEdgeCont.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
+#include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/dialogs/GNEGeometryPointDialog.h>
 #include <netedit/dialogs/fix/GNEFixAdditionalElementsDialog.h>
@@ -952,15 +955,20 @@ GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunctio
     } else if (myNetworkViewOptions.menuCheckMergeAutomatically->amChecked()) {
         return true;
     } else {
+        alreadyAsked = true;
         // open question box
         const std::string header = TL("Confirm Junction Merger");
-        const std::string body = (TLF("Do you wish to merge junctions '%' and '%'?\n('%' will be eliminated and its roads added to '%')", movedJunction->getMicrosimID(), targetJunction->getMicrosimID(), movedJunction->getMicrosimID(), targetJunction->getMicrosimID()));
-        const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, header.c_str(), "%s", body.c_str());
-        alreadyAsked = true;
-        if (answer != 1) { //1:yes, 2:no, 4:esc
-            return false;
-        } else {
+        const std::string body = TLF("Do you wish to merge junctions '%' and '%'?\n('%' will be eliminated and its roads added to '%')", 
+                                     movedJunction->getMicrosimID(),
+                                     targetJunction->getMicrosimID(),
+                                     movedJunction->getMicrosimID(),
+                                     targetJunction->getMicrosimID());
+        const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEBasicDialog::Buttons::YES_NO, header, body);
+        // continue depending of result
+        if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
             return true;
+        } else {
+            return false;
         }
     }
 }
@@ -974,20 +982,19 @@ GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedS
     }
     std::string body;
     if (expectedSupermode == Supermode::NETWORK) {
-        body = (operation + TL(" requires switch to network mode. Continue?"));
+        body = TLF("% requires switch to network mode. Continue?", operation);
     } else if (expectedSupermode == Supermode::DEMAND) {
-        body = (operation + TL(" requires switch to demand mode. Continue?"));
+        body = TLF("% requires switch to demand mode. Continue?", operation);
     } else if (expectedSupermode == Supermode::DATA) {
-        body = (operation + TL(" requires switch to data mode. Continue?"));
+        body = TLF("% requires switch to data mode. Continue?", operation);
     } else {
         throw ProcessError("invalid expected supermode");
     }
-    // open question box
-    const auto answer = FXMessageBox::question(myApp, MBOX_YES_NO, TL("Confirm switch mode"), "%s", body.c_str());
-    // restore focus to view net
-    setFocus();
-    // return answer
-    if (answer == MBOX_CLICKED_YES) {
+    // open question dialog
+    const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEBasicDialog::Buttons::YES_NO,
+                                                       TL("Confirm switch mode"), body);
+    // continue depending of result
+    if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
         myEditModes.setSupermode(expectedSupermode, true);
         return true;
     } else {
@@ -1041,7 +1048,8 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
         const std::string header = TL("Multiple lane in the same edge selected");
         const std::string bodyA = TL("There are selected lanes that belong to the same edge.");
         const std::string bodyB = TLF("Only one lane per edge will be restricted to %.", toString(vclass));
-        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (bodyA + std::string("\n") + bodyB).c_str());
+        // Show warning dialog
+        GNEWarningBasicDialog(myViewParent->getGNEAppWindows(), header, bodyA, bodyB);
     }
     // If we handeln a set of lanes
     if (mapOfEdgesAndLanes.size() > 0) {
@@ -1056,15 +1064,18 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
         // if all edges parent own a Sidewalk, stop function
         if (counter == (int)mapOfEdgesAndLanes.size()) {
             const std::string header = TLF("Set vclass to % for selected lanes", toString(vclass));
-            const std::string body = TL("All lanes own already another lane in the same edge with a restriction for ");
-            FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (body + toString(vclass) + ".").c_str());
+            const std::string body = TLF("All lanes own already another lane in the same edge with a restriction for %", toString(vclass));
+            // show information dialog
+            GNEInformationBasicDialog(myViewParent->getGNEAppWindows(), header, body);
             return 0;
         } else {
             // Ask confirmation to user
             const std::string header = TLF("Set vclass to % for selected lanes", toString(vclass));
             const std::string body = TLF("% lanes will be restricted to %. Continue?", toString(mapOfEdgesAndLanes.size() - counter), toString(vclass));
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
-            if (answer != 1) { //1:yes, 2:no, 4:esc
+            // show question dialog
+            const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEBasicDialog::Buttons::YES_NO, header, body);
+            // continue depending of result
+            if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
             }
         }
@@ -1121,14 +1132,17 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
         if (counter == (int)setOfEdges.size()) {
             const std::string header = TLF("Add vclass % to selected lanes", toString(vclass));
             const std::string body = TLF("All lanes own already another lane in the same edge with a restriction to %.", toString(vclass));
-            FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", body.c_str());
+            // show information dialog
+            GNEInformationBasicDialog(myViewParent->getGNEAppWindows(), header, body);
             return 0;
         } else {
             // Ask confirmation to user
             const std::string header = TLF("Add vclass % to selected lanes", toString(vclass));
             const std::string body = TLF("% restrictions to % will be added. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
-            if (answer != 1) { //1:yes, 2:no, 4:esc
+            // show question dialog
+            const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEBasicDialog::Buttons::YES_NO, header, body);
+            // continue depending of result
+            if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
             }
         }
@@ -1199,14 +1213,17 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
         if (counter == 0) {
             const std::string header = TLF("Remove vclass % from selected lanes", toString(vclass));
             const std::string body = TLF("The selected lanes and edges don't have a restriction to %.", toString(vclass));
-            FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", body.c_str());
+            // show information dialog
+            GNEInformationBasicDialog(myViewParent->getGNEAppWindows(), header, body);
             return 0;
         } else {
             // Ask confirmation to user
             const std::string header = TLF("Remove vclass % from selected lanes", toString(vclass));
             const std::string body = TLF("% restrictions to % will be removed. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
-            if (answer != 1) { //1:yes, 2:no, 4:esc
+            // show question dialog
+            const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEBasicDialog::Buttons::YES_NO, header, body);
+            // continue depending of result
+            if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
             }
         }

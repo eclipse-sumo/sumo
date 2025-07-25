@@ -22,6 +22,7 @@
 /****************************************************************************/
 
 #include <netedit/GNETagProperties.h>
+#include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
 #include <netedit/dialogs/GNEACChooserDialog.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
@@ -487,10 +488,10 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
         file.append(".png");
         WRITE_MESSAGE(TL("No file extension was specified - saving Snapshot as PNG."));
     }
-    std::string error = myView->makeSnapshot(file);
-    if (error != "") {
-        // open message box
-        FXMessageBox::error(this, MBOX_OK, TL("Saving failed."), "%s", error.c_str());
+    const std::string error = myView->makeSnapshot(file);
+    if (error.size() > 0) {
+        // open error message box
+        GNEErrorBasicDialog(myGNEAppWindows, TL("Saving failed."), error.c_str());
     } else {
         WRITE_MESSAGE(TL("Snapshot successfully saved!"));
     }

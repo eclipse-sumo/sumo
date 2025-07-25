@@ -18,10 +18,13 @@
 // Dialog used to fix demand elements during saving
 /****************************************************************************/
 
+#include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
+#include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEFixDemandElementsDialog.h"
@@ -223,11 +226,14 @@ GNEFixDemandElementsDialog::FixOptions::saveContents() const {
         }
         // close output device
         dev.close();
-        // open message box error
-        FXMessageBox::information(myTable, MBOX_OK, "Saving successfully", "%s", "List of conflicted items was successfully saved");
+        // open message box information
+        GNEInformationBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+                                  TL("Saving successfully"),
+                                  TL( "List of conflicted items was successfully saved"));
     } catch (IOError& e) {
         // open message box error
-        FXMessageBox::error(myTable, MBOX_OK, "Saving list of conflicted items failed", "%s", e.what());
+        GNEErrorBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+                            TL("Saving list of conflicted items failed"), e.what());
     }
     return true;
 }

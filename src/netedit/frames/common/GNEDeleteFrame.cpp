@@ -24,6 +24,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/network/GNEConnection.h>
@@ -225,7 +226,7 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
     }
     // open message box only if we're not running internal tests
     if (!runningInternalTests) {
-        FXMessageBox::warning(myViewNet->getApp(), MBOX_OK, header.c_str(), "%s", msg.c_str());
+        GNEWarningBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), header, msg);
     }
 }
 

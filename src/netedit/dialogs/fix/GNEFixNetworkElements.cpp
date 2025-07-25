@@ -22,6 +22,9 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
+#include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEFixNetworkElements.h"
@@ -205,18 +208,20 @@ GNEFixNetworkElements::FixOptions::saveContents() const {
     }
     try {
         // open output device
-        OutputDevice& dev = OutputDevice::getDevice(file.text());
+        OutputDevice& device = OutputDevice::getDevice(file.text());
         // get invalid element ID and problem
         for (const auto& invalidElement : myInvalidElements) {
-            dev << invalidElement->getID() << ":" << invalidElement->getNetworkElementProblem() << "\n";
+            device << invalidElement->getID() << ":" << invalidElement->getNetworkElementProblem() << "\n";
         }
         // close output device
-        dev.close();
-        // open message box error
-        FXMessageBox::information(myTable, MBOX_OK, TL("Saving successfully"), "%s", "List of conflicted items was successfully saved");
+        device.close();
+        // open information message box
+        GNEInformationBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+                                  TL("Saving successfully"), TL("List of conflicted items was successfully saved"));
     } catch (IOError& e) {
         // open message box error
-        FXMessageBox::error(myTable, MBOX_OK, TL("Saving list of conflicted items failed"), "%s", e.what());
+        GNEErrorBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
+                            TL("Saving list of conflicted items failed"), e.what());
     }
     return true;
 }
