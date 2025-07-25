@@ -26,14 +26,14 @@
 // class definitions
 // ===========================================================================
 
-class GNEHelpDialog : public GNEDialog {
+class GNEHelpBasicDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEHelpDialog(GNEApplicationWindow* applicationWindow, const std::string &header, const std::string &text);
+    GNEHelpBasicDialog(GNEApplicationWindow* applicationWindow, const std::string &header, const std::string &text);
 
     /// @brief Destructor
-    ~GNEHelpDialog();
+    ~GNEHelpBasicDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
@@ -51,8 +51,8 @@ public:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEHelpDialog(const GNEHelpDialog&) = delete;
+    GNEHelpBasicDialog(const GNEHelpBasicDialog&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEHelpDialog& operator=(const GNEHelpDialog& src) = delete;
+    GNEHelpBasicDialog& operator=(const GNEHelpBasicDialog& src) = delete;
 };

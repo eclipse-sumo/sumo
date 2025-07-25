@@ -22,7 +22,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNETagProperties.h>
-#include <netedit/dialogs/basic/GNEHelpDialog.h>
+#include <netedit/dialogs/basic/GNEHelpBasicDialog.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -242,7 +242,7 @@ GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
         << TL("   position to inspect") << "\n"
         << TL("   previous element");
     // create help dialog
-    GNEHelpDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+    GNEHelpBasicDialog(myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
                   TL("GEO attributes Help"), help.str()).openModal();
     return 1;
 }
