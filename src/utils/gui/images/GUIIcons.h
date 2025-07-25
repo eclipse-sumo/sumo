@@ -699,6 +699,7 @@ enum class GUIIcon {
     CORRECT,
     INCORRECT,
     RESET,
+    INFORMATION,
     QUESTION,
     WARNING,
     ERRORICON,

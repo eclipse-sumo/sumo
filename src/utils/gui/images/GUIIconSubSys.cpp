@@ -531,6 +531,7 @@
 #include "icons/correct.xpm"
 #include "icons/incorrect.xpm"
 #include "icons/reset.xpm"
+#include "icons/information.xpm"
 #include "icons/question.xpm"
 #include "icons/warning.xpm"
 #include "icons/error.xpm"
@@ -1083,9 +1084,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::CORRECT] = new FXXPMIcon(a, correct_xpm);
     myIcons[GUIIcon::INCORRECT] = new FXXPMIcon(a, incorrect_xpm);
     myIcons[GUIIcon::RESET] = new FXXPMIcon(a, reset_xpm);
-    myIcons[GUIIcon::QUESTION] = new FXXPMIcon(a, question_xpm);
+    myIcons[GUIIcon::INFORMATION] = new FXXPMIcon(a, information_xpm);  // pending
+    myIcons[GUIIcon::QUESTION] = new FXXPMIcon(a, question_xpm);        // pending
     myIcons[GUIIcon::WARNING] = new FXXPMIcon(a, warning_xpm);
-    myIcons[GUIIcon::ERRORICON] = new FXXPMIcon(a, error_xpm);
+    myIcons[GUIIcon::ERRORICON] = new FXXPMIcon(a, error_xpm);          // pending
     myIcons[GUIIcon::DANGER] = new FXXPMIcon(a, danger_xpm);
     myIcons[GUIIcon::SUM] = new FXXPMIcon(a, sum_xpm);
     myIcons[GUIIcon::BACK] = new FXXPMIcon(a, back_xpm);
