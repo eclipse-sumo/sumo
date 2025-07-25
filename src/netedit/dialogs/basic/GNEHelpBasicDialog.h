@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2025 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -11,43 +11,27 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEAboutDialog.h
+/// @file    GNEHelpBasicDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2025
 ///
-// Help dialog used in netedit
+// Custom FXDialogBox help dialog used in Netedit that supports internal tests
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <netedit/dialogs/basic/GNEBasicDialog.h>
+#include "GNEBasicDialog.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEHelpBasicDialog : public GNEDialog {
+class GNEHelpBasicDialog : public GNEBasicDialog {
 
 public:
-    /// @brief Constructor
-    GNEHelpBasicDialog(GNEApplicationWindow* applicationWindow, const std::string &header, const std::string &text);
-
-    /// @brief Destructor
-    ~GNEHelpBasicDialog();
-
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-
-    /// @name FOX-callbacks
-    /// @{
-
-    /// @brief called when accept button is pressed
-    long onCmdAccept(FXObject*, FXSelector, void*);
-
-    /// @brief called when cancel button is pressed (or dialog is closed)
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @}
+    /// @brief constructor
+    GNEHelpBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
+                       const std::ostringstream& stream);
 
 private:
     /// @brief Invalidated copy constructor.
