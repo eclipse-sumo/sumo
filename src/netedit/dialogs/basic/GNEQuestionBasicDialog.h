@@ -33,6 +33,10 @@ public:
     GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, GNEBasicDialog::Buttons buttons,
                            const std::string& name, const std::string& info);
 
+    /// @brief constructor for multiple lines
+    GNEQuestionBasicDialog(GNEApplicationWindow* applicationWindow, GNEBasicDialog::Buttons buttons,
+                           const std::string& name, const std::string& infoLineA, const std::string& infoLineB);
+
 private:
     /// @brief Invalidated copy constructor.
     GNEQuestionBasicDialog(const GNEQuestionBasicDialog&) = delete;
