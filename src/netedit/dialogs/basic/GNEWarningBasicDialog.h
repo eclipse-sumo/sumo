@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2025
 ///
-// Custom FXDialogBox error dialog used in Netedit that supports internal tests
+// Custom FXDialogBox warning dialog used in Netedit that supports internal tests
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -29,7 +29,6 @@
 class GNEWarningBasicDialog : public GNEBasicDialog {
 
 public:
-
     /// @brief constructor
     GNEWarningBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& name, const std::string& info);
 

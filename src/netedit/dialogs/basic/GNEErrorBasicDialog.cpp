@@ -18,8 +18,6 @@
 // Custom FXDialogBox error dialog used in Netedit that supports internal tests
 /****************************************************************************/
 
-#include <netedit/GNEApplicationWindow.h>
-
 #include "GNEErrorBasicDialog.h"
 
 // ===========================================================================
@@ -28,5 +26,5 @@
 
 GNEErrorBasicDialog::GNEErrorBasicDialog(GNEApplicationWindow* applicationWindow,
                                          const std::string& name, const std::string& info) :
-    GNEBasicDialog(applicationWindow, name, info, GNEBasicDialog::Buttons::OK, GUIIcon::ACCEPT) {
+    GNEBasicDialog(applicationWindow, name, info, GNEBasicDialog::Buttons::OK, GUIIcon::ERROR) {
 }

@@ -30,12 +30,18 @@
 // ===========================================================================
 
 GNEBasicDialog::GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string &title,
-                               const std::string &info, Buttons buttons, GUIIcon icon) :
+                               const std::string &text, Buttons buttons, GUIIcon icon) :
     GNEDialog(applicationWindow, title.c_str(), GUIDesignDialogBox) {
+    // get icon
+    auto ic = GUIIconSubSys::getIcon(icon);
     // set dialog icon
-    setIcon(GUIIconSubSys::getIcon(icon));
-    // Create label with the help text
-    new FXLabel(this, info.c_str(), nullptr, GUIDesignLabelFrameInformation);
+    setIcon(ic);
+    // create dialog layout (obtained from FXMessageBox)
+    FXVerticalFrame* content = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    FXHorizontalFrame* info = new FXHorizontalFrame(content, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
+    new FXLabel(info, FXString::null, ic, ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    new FXLabel(info, text.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    new FXHorizontalSeparator(content, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
     // Create horizontal separator
     new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
     // Create frame for buttons
