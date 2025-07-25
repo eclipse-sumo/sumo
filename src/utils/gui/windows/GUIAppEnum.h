@@ -1710,6 +1710,8 @@ enum {
     MID_LANGUAGE_DE,
     /// @brief change language to spanish
     MID_LANGUAGE_ES,
+    /// @brief change language to portuguese
+    MID_LANGUAGE_PT,
     /// @brief change language to french
     MID_LANGUAGE_FR,
     /// @brief change language to italian

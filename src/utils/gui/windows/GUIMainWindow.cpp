@@ -346,6 +346,8 @@ GUIMainWindow::buildLanguageMenu(FXMenuBar* menuBar) {
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE), this, MID_LANGUAGE_DE);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Español", "", TL("Change language to spanish. (es)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES), this, MID_LANGUAGE_ES);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Português", "", TL("Change language to portuguese. (pt)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_PT), this, MID_LANGUAGE_PT);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Français", "", TL("Change language to french. (fr)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR), this, MID_LANGUAGE_FR);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Italiano", "", TL("Change language to italian. (it)"),
@@ -377,6 +379,10 @@ GUIMainWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
         case MID_LANGUAGE_ES:
             langID = "es";
             lang = TL("spanish");
+            break;
+        case MID_LANGUAGE_PT:
+            langID = "pt";
+            lang = TL("portuguese");
             break;
         case MID_LANGUAGE_FR:
             langID = "fr";
@@ -431,7 +437,7 @@ GUIMainWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
         // update language in registry (common for sumo and netedit)
         std::string appKey = getApp()->reg().getAppKey().text();
         if (appKey == "SUMO GUI") {
-            // registry is written again later so we have to modify the "life" version
+            // registry is written again later so we have to modify the "live" version
             getApp()->reg().writeStringEntry("gui", "language", langID.c_str());
         } else {
             FXRegistry reg("SUMO GUI", "sumo-gui");
@@ -455,6 +461,8 @@ GUIMainWindow::onUpdChangeLanguage(FXObject* obj, FXSelector, void*) {
         } else if ((gLanguage == "de") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
         } else if ((gLanguage == "es") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "pt") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_PT))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
         } else if ((gLanguage == "fr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
