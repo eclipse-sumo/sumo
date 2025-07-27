@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-23 09:53+0000\n"
-"PO-Revision-Date: 2025-07-21 17:17+0000\n"
+"PO-Revision-Date: 2025-07-27 12:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12644,7 +12644,7 @@ msgstr "Zu durchsuchendes Attribut"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:70
 msgid "Only common"
-msgstr ""
+msgstr "Nur die gemeinsamen"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:78
 msgid "Apply selection"
@@ -13291,7 +13291,7 @@ msgstr "Geometriepunkte immer zeichnen"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:106
 msgid "Move only junction center"
-msgstr ""
+msgstr "Nur Knotenpunktzentrum verschieben"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:172
 msgid "Demand move options"
@@ -14899,7 +14899,7 @@ msgstr "Nicht gespeicherter Änderungen. Verwerfen oder speichern"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:551
 msgid "Traffic Light Attributes"
-msgstr ""
+msgstr "LSA-Attribute"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:567
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:568
@@ -14988,7 +14988,7 @@ msgstr "LSA trennen"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1282
 msgid "No junction selected"
-msgstr ""
+msgstr "Kein Knotenpunkt ausgewählt"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1305
 msgid "Junction IDs"
