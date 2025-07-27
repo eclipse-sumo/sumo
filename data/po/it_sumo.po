@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-23 09:53+0000\n"
-"PO-Revision-Date: 2025-07-21 17:17+0000\n"
+"PO-Revision-Date: 2025-07-27 10:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2443,11 +2443,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:518
 msgid "Select default depart speed"
-msgstr ""
+msgstr "Seleziona velocità di partenza standard"
 
 #: src/microsim/MSFrame.cpp:521
 msgid "Select default depart lane"
-msgstr ""
+msgstr "Seleziona corsia di partenza standard"
 
 #: src/microsim/MSFrame.cpp:524
 msgid ""
@@ -5591,7 +5591,7 @@ msgstr ""
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:263
 #, c-format
 msgid " Overall % lanes in % phases are unsafe."
-msgstr ""
+msgstr " Un totale di % corsie in % fasi sono considerate insicure."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:264
 msgid ""
@@ -6518,6 +6518,8 @@ msgstr "Rimozione della corsia opposta sconosciuta '%' per l'arco '%'."
 #: src/netbuild/NBEdge.cpp:3192
 msgid "Opposite lane '%' does not reverse-connect the same nodes as edge '%'!"
 msgstr ""
+"La corsia opposta '%' non collega gli stessi nodi (nell'ordine inverso) "
+"dell'arco '%'!"
 
 #: src/netbuild/NBEdge.cpp:3197 src/netbuild/NBEdge.cpp:3209
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
@@ -6530,10 +6532,12 @@ msgstr "Adattamento della corsia opposta mancante '%' per l'arco '%'."
 #: src/netbuild/NBEdge.cpp:3213
 msgid "Opposite edge '%' does not reverse-connect the same nodes as edge '%'!"
 msgstr ""
+"L'arco opposto '%' non collega gli stessi nodi (nell'ordine inverso) "
+"dell'arco '%'!"
 
 #: src/netbuild/NBEdge.cpp:3215
 msgid "Adapting inconsistent opposite lanes for edges '%', '%' and '%'."
-msgstr ""
+msgstr "Adeguamento delle corsie opposte degli archi '%', '%' e '%'."
 
 #: src/netbuild/NBEdge.cpp:3227
 msgid "Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."
