@@ -531,13 +531,19 @@
 #include "icons/correct.xpm"
 #include "icons/incorrect.xpm"
 #include "icons/reset.xpm"
-#include "icons/information.xpm"
-#include "icons/question.xpm"
 #include "icons/warning.xpm"
-#include "icons/error.xpm"
 #include "icons/danger.xpm"
 #include "icons/sum.xpm"
 #include "icons/back.xpm"
+
+#include "icons/error_large.xpm"
+#include "icons/error_small.xpm"
+#include "icons/information_large.xpm"
+#include "icons/information_small.xpm"
+#include "icons/question_large.xpm"
+#include "icons/question_small.xpm"
+#include "icons/warning_large.xpm"
+#include "icons/warning_small.xpm"
 
 #include "icons/grid.xpm"
 #include "icons/grid1.xpm"
@@ -1084,13 +1090,19 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::CORRECT] = new FXXPMIcon(a, correct_xpm);
     myIcons[GUIIcon::INCORRECT] = new FXXPMIcon(a, incorrect_xpm);
     myIcons[GUIIcon::RESET] = new FXXPMIcon(a, reset_xpm);
-    myIcons[GUIIcon::INFORMATION] = new FXXPMIcon(a, information_xpm);  // pending
-    myIcons[GUIIcon::QUESTION] = new FXXPMIcon(a, question_xpm);        // pending
     myIcons[GUIIcon::WARNING] = new FXXPMIcon(a, warning_xpm);
-    myIcons[GUIIcon::ERRORICON] = new FXXPMIcon(a, error_xpm);          // pending
     myIcons[GUIIcon::DANGER] = new FXXPMIcon(a, danger_xpm);
     myIcons[GUIIcon::SUM] = new FXXPMIcon(a, sum_xpm);
     myIcons[GUIIcon::BACK] = new FXXPMIcon(a, back_xpm);
+
+    myIcons[GUIIcon::ERROR_LARGE] = new FXXPMIcon(a, error_large_xpm);
+    myIcons[GUIIcon::ERROR_SMALL] = new FXXPMIcon(a, error_small_xpm);
+    myIcons[GUIIcon::INFORMATION_LARGE] = new FXXPMIcon(a, information_large_xpm);
+    myIcons[GUIIcon::INFORMATION_SMALL] = new FXXPMIcon(a, information_small_xpm);
+    myIcons[GUIIcon::QUESTION_LARGE] = new FXXPMIcon(a, question_large_xpm);
+    myIcons[GUIIcon::QUESTION_SMALL] = new FXXPMIcon(a, question_small_xpm);
+    myIcons[GUIIcon::WARNING_LARGE] = new FXXPMIcon(a, warning_large_xpm);
+    myIcons[GUIIcon::WARNING_SMALL] = new FXXPMIcon(a, warning_small_xpm);
 
     myIcons[GUIIcon::GRID] = new FXXPMIcon(a, grid_xpm);
     myIcons[GUIIcon::GRID1] = new FXXPMIcon(a, grid1_xpm);
