@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
+#include <utils/gui/images/GUIIcons.h>
 #include <utils/tests/InternalTestStep.h>
 
 // ===========================================================================
@@ -37,15 +37,31 @@ class GNEDialog : public FXDialogBox {
     FXDECLARE_ABSTRACT(GNEDialog)
 
 public:
+    /// @name basic dialog type
+    enum class Buttons {
+        OK,                     // ok button
+        YES_NO,                 // yes/no buttons
+        YES_NO_CANCEL,          // yes/no/cancel buttons
+        ACCEPT,                 // accept button
+        ACCEPT_CANCEL,          // accept/cancel buttons
+        ACCEPT_CANCEL_RESET,    // accept/cancel/reset buttons
+        KEEPNEW_KEEPOLD_CANCEL, // keep new/keep old/cancel buttons
+        RUN_CANCEL_RESET,       // run/cancel/reset buttons (used in tools dialogs)
+        RUN_ADVANCED_CANCEL,    // run/advanced/cancel buttons (used in tools dialogs)
+        ABORT_RERUN_BACK        // abort/rerun/back buttons (used in tools dialogs)
+    };
+
     /// @brief list of possible results when closing the dialog
     enum class Result {
-        ACCEPT,     // dialog was closed accepting changes (used in ok, accept, yes buttons)
-        DECLINE,    // dialog was closed declining changes (used in no, decline, button)
-        CANCEL,     // dialog was closed canceling changes (used in cancel or ESC buttons)
+        ACCEPT, // dialog was closed accepting changes (used in ok, accept, yes buttons)
+        CANCEL, // dialog was closed canceling changes (used in cancel, no buttons)
+        ABORT,  // dialog was closed aborting changes (used in abort button)
     };
 
     /// @brief constructor
-    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
+    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, GUIIcon titleIcon, Buttons buttons,
+              FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+              FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
 
     /// @brief open modal dialog
     Result openModal(FXuint placement = PLACEMENT_CURSOR);
@@ -59,11 +75,17 @@ public:
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief called when accept or yes button is pressed
+    /// @brief called when accept or yes button is pressed (must be reimplemented in children)
     virtual long onCmdAccept(FXObject*, FXSelector, void*) = 0;
 
-    /// @brief called when cancel button is pressed (or dialog is closed)
+    /// @brief called when cancel or nobutton is pressed (must be reimplemented in children)
     virtual long onCmdCancel(FXObject*, FXSelector, void*) = 0;
+
+    /// @brief called when cancel or nobutton is pressed (must be reimplemented in children)
+    virtual long onCmdReset(FXObject*, FXSelector, void*);
+
+    /// @brief called when abort is called (either closing dialog or pressing abort button) 
+    long onCmdAbort(FXObject*, FXSelector, void*);
 
     /// @}
 
@@ -77,6 +99,9 @@ protected:
     /// @brief content frame
     FXVerticalFrame* myContentFrame = nullptr;
 
+    /// @brief butto used to focus the dialog
+    FXButton* myFocusButon = nullptr;
+
     /// @brief result to indicate if this dialog was closed accepting or rejecting changes
     Result myResult = Result::CANCEL;
 
@@ -87,9 +112,6 @@ protected:
     long closeDialogAccepting();
 
     /// @brief close dialog declining the changes
-    long closeDialogDeclining();
-
-    /// @brief close dialog canceling the changes
     long closeDialogCanceling();
 
 private:
