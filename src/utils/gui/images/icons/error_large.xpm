@@ -1,5 +1,5 @@
 /* XPM */
-static const char *information_xpm[] = {
+static const char *error_small_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 4 1",
 "X c #D4AA00",

@@ -699,13 +699,22 @@ enum class GUIIcon {
     CORRECT,
     INCORRECT,
     RESET,
-    INFORMATION,
-    QUESTION,
     WARNING,
-    ERRORICON,
     DANGER,
     SUM,
     BACK,
+    /// @}
+
+    /// @name icons for dialogs
+    /// @{
+    INFORMATION_LARGE,
+    INFORMATION_SMALL,
+    QUESTION_LARGE,
+    QUESTION_SMALL,
+    ERROR_LARGE,
+    ERROR_SMALL,
+    WARNING_LARGE,
+    WARNING_SMALL,
     /// @}
 
     /// @name icons for grid
