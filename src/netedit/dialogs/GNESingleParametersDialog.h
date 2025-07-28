@@ -281,19 +281,7 @@ protected:
     /// @brief pointer to parameters operations
     ParametersOperations* myParametersOperations = nullptr;
 
-    /// @brief accept button
-    FXButton* myKeepOldButton = nullptr;
-
-    /// @brief cancel button
-    FXButton* myCancelButton = nullptr;
-
-    /// @brief cancel button
-    FXButton* myResetButton = nullptr;
-
 private:
-    /// @brief auxiliar constructor
-    void constructor(const std::string& name);
-
     /// @brief Invalidated copy constructor.
     GNESingleParametersDialog(const GNESingleParametersDialog&) = delete;
 

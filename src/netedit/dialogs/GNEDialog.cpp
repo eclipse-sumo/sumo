@@ -57,11 +57,11 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
     // create main frame
     auto mainFrame = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // create content frame
-    myContentFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignAuxiliarFrame);
     // add separator
-    new FXHorizontalSeparator(myContentFrame, GUIDesignHorizontalSeparator);
+    new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     // Create frame for buttons
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
     // add horizontal frame used to center buttons horizontally
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create buttons according to the type
@@ -79,7 +79,6 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
             myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Yes"), "", TL("Yes"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
             GUIDesigns::buildFXButton(buttonsFrame, TL("No"), "", TL("No"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonAccept);
             GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ABORT, GUIDesignButtonCancel);
-            // CHEC CANCEL
             break;
         }
         case Buttons::ACCEPT: {
@@ -98,7 +97,7 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
             break;
         }
         case Buttons::KEEPNEW_KEEPOLD_CANCEL: {
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Keep new"), "", TL("Keep new changes"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Keep new"), "", TL("Keep new changes"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
             GUIDesigns::buildFXButton(buttonsFrame, TL("Keep old"), "", TL("Keep old changes"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
             GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel changes"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ABORT, GUIDesignButtonCancel);
             break;
@@ -112,10 +111,10 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
         case Buttons::RUN_ADVANCED_CANCEL: {
             myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Run"), "", TL("Run"), GUIIconSubSys::getIcon(GUIIcon::START), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
             GUIDesigns::buildFXButton(buttonsFrame, TL("Advanced"), "", TL("Advanced options"), GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), this, MID_GNE_BUTTON_ADVANCED, GUIDesignButtonAdvanced);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ABORT, GUIDesignButtonCancel);
             break;
         }
-        case Buttons::ABORT_RERUN_BACK: {
+        case Buttons::ABORT_RERUN_BACK_CLOSE: {
             myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Abort"), "", TL("Abort running"), GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
             GUIDesigns::buildFXButton(buttonsFrame, TL("Rerun"), "", TL("Rerun tool"), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
             GUIDesigns::buildFXButton(buttonsFrame, TL("Back"), "", TL("Back to tool dialog"), GUIIconSubSys::getIcon(GUIIcon::BACK), this, MID_GNE_BUTTON_RESET, GUIDesignButtonReset);
@@ -126,7 +125,19 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
     }
     // add horizontal frame used to center buttons horizontally
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-
+    // check if add an extra line
+    if (buttons == Buttons::ABORT_RERUN_BACK_CLOSE) {
+        // add separator
+        new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
+        // Create frame for buttons
+        FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
+        // add horizontal frame used to center buttons horizontally
+        new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+        // close button
+        GUIDesigns::buildFXButton(buttonsFrame, TL("Close"), "", TL("Close dialog"), GUIIconSubSys::getIcon(GUIIcon::CLOSE), this, MID_GNE_ABORT, GUIDesignButtonReset);
+        // add horizontal frame used to center buttons horizontally
+        new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    }
 }
 
 

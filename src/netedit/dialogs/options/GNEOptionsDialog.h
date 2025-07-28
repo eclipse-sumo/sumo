@@ -51,14 +51,15 @@ public:
     /**@brief Constructor
      *
      * @param[in] GNEApp netedit App
+     * @param[in] icon windows icon
+     * @param[in] titleName The title to show
+     * @param[in] buttons (either run/cancel/reset or accept/cancel/reset)
      * @param[in] optionsContainer edited option container
      * @param[in] originalOptionsContainer original options container
-     * @param[in] titleName The title to show
-     * @param[in] icon windows icon
-     * @param[in] runDialog check if this is a run dialog
      */
-    GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
-                     const OptionsCont& originalOptionsContainer, const char* titleName, const bool runDialog);
+    GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, const std::string &titleName,
+                     GNEDialog::Buttons buttons, OptionsCont& optionsContainer,
+                     const OptionsCont& originalOptionsContainer);
 
     /// @brief Destructor
     ~GNEOptionsDialog();

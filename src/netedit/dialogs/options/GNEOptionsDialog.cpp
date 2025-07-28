@@ -61,20 +61,19 @@ FXIMPLEMENT(GNEOptionsDialog, GNEDialog, GUIDialogOptionsMap, ARRAYNUMBER(GUIDia
 // method definitions
 // ===========================================================================
 
-GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
-                                   const OptionsCont& originalOptionsContainer, const char* titleName, const bool runDialog) :
-    GNEDialog(GNEApp, titleName, GUIDesignDialogBoxExplicitStretchable(800, 600)),
+GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, const std::string &titleName, GNEDialog::Buttons buttons,
+                                   OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer) :
+    GNEDialog(GNEApp, titleName, icon, buttons, GUIDesignDialogBoxExplicitStretchable(800, 600)),
     myGNEApp(GNEApp),
     myOptionsContainer(optionsContainer),
     myOriginalOptionsContainer(originalOptionsContainer) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(icon));
-    // create content frame
-    FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // add buttons frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrameNoPadding);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrameNoPadding);
     myShowToolTipsMenu = new MFXCheckableButton(false, buttonsFrame,
-            myGNEApp->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
+            myGNEApp->getStaticTooltipMenu(),
+            (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
             GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
     auto saveFile = new MFXButtonTooltip(buttonsFrame, myGNEApp->getStaticTooltipMenu(), TL("Save options"),
                                          GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
@@ -86,9 +85,9 @@ GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, O
             GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_DEFAULT, GUIDesignButtonConfiguration);
     resetDefault->setTipText(TL("Reset all options to default"));
     // add separator
-    new FXSeparator(contentFrame);
+    new FXSeparator(myContentFrame);
     // create elements frame
-    FXHorizontalFrame* elementsFrame = new FXHorizontalFrame(contentFrame, GUIDesignAuxiliarFrame);
+    FXHorizontalFrame* elementsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
     FXVerticalFrame* elementsFrameTree = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarVerticalFrame);
     FXVerticalFrame* elementsFrameValues = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarFrame);
     // Create GroupBox modules
@@ -98,7 +97,7 @@ GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, O
     myTopicsTreeList = new FXTreeList(groupBoxTree->getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignTreeListFixedWidth);
     myTopicsTreeList->setWidth(TREELISTWIDTH);
     // add root item
-    myRootItem = myTopicsTreeList->appendItem(nullptr, titleName);
+    myRootItem = myTopicsTreeList->appendItem(nullptr, titleName.c_str());
     myRootItem->setExpanded(TRUE);
     // create scroll
     FXScrollWindow* scrollTabEntries = new FXScrollWindow(groupBoxOptions->getCollapsableFrame(), LAYOUT_FILL_X | LAYOUT_FILL_Y);
@@ -144,25 +143,11 @@ GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, O
         }
     }
     // create search elements
-    FXHorizontalFrame* searchFrame = new FXHorizontalFrame(contentFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* searchFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(searchFrame, TL("Search"), nullptr, GUIDesignLabelThickedFixed(TREELISTWIDTH - GUIDesignHeight + 14));
     myDescriptionSearchCheckButton = new MFXCheckButtonTooltip(searchFrame, myGNEApp->getStaticTooltipMenu(), "", this, MID_GNE_SEARCH_USEDESCRIPTION, GUIDesignCheckButtonThick);
     myDescriptionSearchCheckButton->setToolTipText(TL("Include description in search"));
     mySearchButton = new MFXTextFieldSearch(searchFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // add separator
-    new FXSeparator(contentFrame);
-    // create buttons frame
-    buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    // continue depending of dialog type
-    if (runDialog) {
-        GUIDesigns::buildFXButton(buttonsFrame, TL("Run"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_RUNNETGENERATE, GUIDesignButtonOK);
-    } else {
-        GUIDesigns::buildFXButton(buttonsFrame, TL("OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    }
-    GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButtonOK);
-    GUIDesigns::buildFXButton(buttonsFrame, TL("Reset"), "", "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonOK);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create dialog
     create();
     // after creation, adjust entries name sizes

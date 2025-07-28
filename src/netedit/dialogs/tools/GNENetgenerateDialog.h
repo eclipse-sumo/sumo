@@ -125,12 +125,6 @@ private:
     /// @brief output text field
     FXTextField* myOutputTextField = nullptr;
 
-    /// @brief run button
-    FXButton* myRunButton = nullptr;
-
-    /// @brief advanced button
-    FXButton* myAdvancedButton = nullptr;
-
     /// @brief Invalidated copy constructor.
     GNENetgenerateDialog(const GNENetgenerateDialog&) = delete;
 

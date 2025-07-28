@@ -21,7 +21,6 @@
 #include <config.h>
 
 #include <netedit/dialogs/GNEDialog.h>
-#include <utils/gui/images/GUIIcons.h>
 
 // ===========================================================================
 // class definitions
@@ -30,21 +29,13 @@
 class GNEBasicDialog : protected GNEDialog {
 
 public:
-    /// @name basic dialog type
-    enum class Buttons {
-        OK,             // ok button
-        YES_NO,         // yes/no buttons
-        YES_NO_CANCEL,  // yes/no/cancel buttons
-        ACCEPT,         // accept button
-        ACCEPT_CANCEL,  // accept/cancel buttons
-    };
-
     // make get result public
     using GNEDialog::getResult;
 
     /// @brief Constructor
     GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string &title,
-                   const std::string &info, Buttons buttons, GUIIcon smallIcon, GUIIcon largeIcon);
+                   const std::string &info, GNEDialog::Buttons buttons, GUIIcon titleIcon,
+                   GUIIcon largeIcon);
 
     /// @brief Destructor
     ~GNEBasicDialog();
@@ -55,13 +46,10 @@ public:
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief called when accept button is pressed
+    /// @brief called when accept / yes / ok button is pressed
     long onCmdAccept(FXObject*, FXSelector, void*);
 
-    /// @brief called when decline or not button is pressed
-    long onCmdDecline(FXObject*, FXSelector, void*);
-
-    /// @brief called when cancel button is pressed (or dialog is closed)
+    /// @brief called when cancel button is pressed
     long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @}

@@ -452,28 +452,16 @@ GNEVTypeDistributionsDialog::ParametersOperations::GNEParameterHandler::myStartE
 // ---------------------------------------------------------------------------
 
 GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(GNETypeFrame* typeFrameParent) :
-    GNEDialog(typeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), TL("Edit attributes"), GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    GNEDialog(typeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+              TL("Edit attributes"), GUIIcon::APP_TABLE, GNEDialog::Buttons::ACCEPT_CANCEL,
+              GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myTypeFrameParent(typeFrameParent) {
-    // set vehicle icon for this dialog
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
-    // create main frame
-    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create frame for Parameters and operations
-    FXHorizontalFrame* horizontalFrameExtras = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
     // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrameExtras, "test");
+    myParametersValues = new ParametersValues(horizontalFrame, "test");
     // create parameters operations
-    myParametersOperations = new ParametersOperations(horizontalFrameExtras, this);
-    // add separator
-    new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
-    // create dialog buttons bot centered
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myKeepOldButton = GUIDesigns::buildFXButton(buttonsFrame, TL("accept"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("cancel"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create dialog
-    create();
+    myParametersOperations = new ParametersOperations(horizontalFrame, this);
 }
 
 

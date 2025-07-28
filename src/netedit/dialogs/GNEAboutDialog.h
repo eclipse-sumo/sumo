@@ -52,4 +52,10 @@ public:
 private:
     /// @brief Font for the widget
     FXFont* myHeadlineFont;
+
+    /// @brief Invalidated copy constructor.
+    GNEAboutDialog(const GNEAboutDialog&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNEAboutDialog& operator=(const GNEAboutDialog& src) = delete;
 };

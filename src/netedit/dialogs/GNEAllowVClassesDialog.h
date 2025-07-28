@@ -30,7 +30,6 @@
 
 class GNEAttributeCarrier;
 class GNEInternalTest;
-class GNEViewNet;
 
 // ===========================================================================
 // class definitions
@@ -42,7 +41,7 @@ class GNEAllowVClassesDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEAllowVClassesDialog(GNEViewNet* viewNet);
+    GNEAllowVClassesDialog(GNEApplicationWindow *mainWindow);
 
     /// @brief destructor
     ~GNEAllowVClassesDialog();
@@ -88,23 +87,11 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEAllowVClassesDialog)
 
-    /// @pointer to viewNet
-    GNEViewNet* myViewNet;
-
     /// @brief original vClasses
     std::string myOriginalVClasses;
 
     /// @brief edited vClasses
     std::string myEditedVClasses;
-
-    /// @brief accept button
-    FXButton* myKeepOldButton;
-
-    /// @brief cancel button
-    FXButton* myCancelButton;
-
-    /// @brief cancel button
-    FXButton* myResetButton;
 
     /// @brief map with the buttons for every VClass
     std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*> > myVClassMap;

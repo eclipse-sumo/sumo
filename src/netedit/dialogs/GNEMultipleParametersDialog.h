@@ -288,19 +288,7 @@ protected:
     /// @brief pointer to parameters options
     ParametersOptions* myParametersOptions;
 
-    /// @brief accept button
-    FXButton* myKeepOldButton;
-
-    /// @brief cancel button
-    FXButton* myCancelButton;
-
-    /// @brief cancel button
-    FXButton* myResetButton;
-
 private:
-    /// @brief auxiliar constructor
-    void constructor();
-
     /// @brief Invalidated copy constructor.
     GNEMultipleParametersDialog(const GNEMultipleParametersDialog&) = delete;
 

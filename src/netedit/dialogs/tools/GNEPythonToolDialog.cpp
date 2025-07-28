@@ -58,14 +58,10 @@ FXIMPLEMENT(GNEPythonToolDialog, GNEDialog, GNEPythonToolDialogMap, ARRAYNUMBER(
 // ===========================================================================
 
 GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
-    GNEDialog(GNEApp, "Tool", GUIDesignAuxiliarDialogBoxResizable),
+    GNEDialog(GNEApp, TL("Tool"), GUIIcon::TOOL_PYTHON, GNEDialog::Buttons::RUN_CANCEL_RESET, GUIDesignAuxiliarDialogBoxResizable),
     myGNEApp(GNEApp) {
-    // set icon
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
-    // create main content frame
-    auto verticalContentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // create options
-    auto horizontalOptionsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrameNoPadding);
+    auto horizontalOptionsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrameNoPadding);
     // build options
     myShowToolTipsMenu = new MFXCheckableButton(false, horizontalOptionsFrame,
             GNEApp->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
@@ -79,27 +75,12 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     mySortedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Sorted by name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myGroupedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Grouped by categories"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // add separators
-    new FXSeparator(verticalContentFrame);
+    new FXSeparator(myContentFrame);
     // Create scroll frame for content rows
-    auto contentScrollWindow = new FXScrollWindow(verticalContentFrame, GUIDesignScrollWindow);
+    auto contentScrollWindow = new FXScrollWindow(myContentFrame, GUIDesignScrollWindow);
     auto horizontalRowFrames = new FXHorizontalFrame(contentScrollWindow, LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH);
     myArgumentFrameLeft = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
     myArgumentFrameRight = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
-    // add separator
-    new FXSeparator(verticalContentFrame);
-    // create buttons centered
-    auto horizontalButtonsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrame);
-    auto blueLabel = new FXLabel(horizontalButtonsFrame, TL("Blue options are mandatory"), nullptr, GUIDesignLabelFixed(200));
-    blueLabel->setTextColor(FXRGB(0, 0, 255));
-    new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Run"), "", TL("run python tool"),
-                              GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
-    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Close"), "", TL("close tool dialog"),
-                              GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Reset"), "", TL("reset to default values"),
-                              GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
-    new FXLabel(horizontalButtonsFrame, "", nullptr, GUIDesignLabelFixed(200));
-    new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
 

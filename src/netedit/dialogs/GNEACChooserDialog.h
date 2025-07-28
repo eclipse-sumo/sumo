@@ -77,4 +77,10 @@ private:
 
     /// @brief whether the current locator is for TLS
     bool myLocateTLS;
+
+    /// @brief Invalidated copy constructor.
+    GNEACChooserDialog(const GNEACChooserDialog&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNEACChooserDialog& operator=(const GNEACChooserDialog& src) = delete;
 };

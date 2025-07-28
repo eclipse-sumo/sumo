@@ -53,19 +53,17 @@ FXIMPLEMENT(GNERunNetgenerateDialog, GNEDialog, GNERunNetgenerateDialogMap, ARRA
 // ===========================================================================
 
 GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    GNEDialog(GNEApp, "", GUIDesignDialogBoxExplicit(0, 0)),
+    GNEDialog(GNEApp, TL("Running NetGenerate results"), GUIIcon::NETGENERATE,
+              GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE,
+              GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp) {
     // build the thread - io
     myThreadEvent.setTarget(this);
     myThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     // create run tool
     myRunNetgenerate = new GNERunNetgenerate(this, myEvents, myThreadEvent);
-    // set icon
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::NETGENERATE));
-    // create content frame
-    auto contentFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create header frame
-    auto headerFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
+    auto headerFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrame);
     // adjust padding
     headerFrame->setPadLeft(0);
     headerFrame->setPadRight(0);
@@ -73,29 +71,11 @@ GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
                               GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonIcon);
     new FXLabel(headerFrame, TL("Console output"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
     // create text
-    auto textFrame = new FXVerticalFrame(contentFrame, GUIDesignFrameThick);
+    auto textFrame = new FXVerticalFrame(myContentFrame, GUIDesignFrameThick);
     myText = new FXText(textFrame, 0, 0, (TEXT_READONLY | LAYOUT_FILL_X | LAYOUT_FILL_Y));
     // set styled
     myText->setHiliteStyles(GUIMessageWindow::getStyles());
     myText->setStyled(true);
-    // create buttons Abort, rerun and back
-    auto buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAbortButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Abort"), "", TL("abort running"),
-                    GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_GNE_BUTTON_ABORT, GUIDesignButtonAccept);
-    myRerunButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Rerun"), "", TL("rerun tool"),
-                    GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RERUN,  GUIDesignButtonReset);
-    myBackButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Back"), "", TL("back to tool dialog"),
-                   GUIIconSubSys::getIcon(GUIIcon::BACK), this, MID_GNE_BUTTON_BACK, GUIDesignButtonAccept);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    // add separator
-    new FXSeparator(contentFrame);
-    // create button ok
-    buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myCloseButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Close"), "", TL("close dialog"),
-                    GUIIconSubSys::getIcon(GUIIcon::OK), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonAccept);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // resize
     resize(640, 480);
 }
@@ -137,6 +117,7 @@ GNERunNetgenerateDialog::run(const OptionsCont* netgenerateOptions) {
 
 void
 GNERunNetgenerateDialog::updateDialog() {
+/*
     // update buttons
     if (myRunNetgenerate->isRunning()) {
         myAbortButton->enable();
@@ -149,6 +130,7 @@ GNERunNetgenerateDialog::updateDialog() {
         myBackButton->enable();
         myCloseButton->enable();
     }
+*/
     // update dialog
     GNEDialog::update();
 }

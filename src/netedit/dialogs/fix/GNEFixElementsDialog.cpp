@@ -42,13 +42,9 @@ FXIMPLEMENT_ABSTRACT(GNEFixElementsDialog, GNEDialog, GNEFixElementsDialogMap, A
 // member method definitions
 // ===========================================================================
 
-GNEFixElementsDialog::GNEFixElementsDialog(GNEViewNet* viewNet, const std::string title, GUIIcon icon, const int sizeX, const int sizeY) :
-    GNEDialog(viewNet->getViewParent()->getGNEAppWindows(), title.c_str(), GUIDesignDialogBoxExplicitStretchable(sizeX, sizeY)),
-    myViewNet(viewNet) {
-    // set icon
-    setIcon(GUIIconSubSys::getIcon(icon));
-    // create main frame
-    myMainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+GNEFixElementsDialog::GNEFixElementsDialog(GNEApplicationWindow *mainWindow, const std::string title, GUIIcon icon, const int sizeX, const int sizeY) :
+    GNEDialog(mainWindow, title.c_str(), icon, GNEDialog::Buttons::ACCEPT_CANCEL,
+              GUIDesignDialogBoxExplicitStretchable(sizeX, sizeY)) {
 }
 
 
@@ -66,19 +62,6 @@ GNEFixElementsDialog::closeFixDialog(const bool success) {
     }
     hide();
     return 1;
-}
-
-
-// ---------------------------------------------------------------------------
-// GNEFixElementsDialog::Buttons - methods
-// ---------------------------------------------------------------------------
-
-GNEFixElementsDialog::Buttons::Buttons(GNEFixElementsDialog* fixElementsDialog) :
-    FXHorizontalFrame(fixElementsDialog->myMainFrame, GUIDesignHorizontalFrame) {
-    new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = GUIDesigns::buildFXButton(this, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixElementsDialog, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = GUIDesigns::buildFXButton(this, TL("&Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixElementsDialog, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 }
 
 /****************************************************************************/

@@ -22,28 +22,14 @@
 
 #include "GNEDialog.h"
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEApplicationWindow;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GNEKeepElementsDialog : public GNEDialog {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEKeepElementsDialog)
 
 public:
-    /// @brief result
-    enum class Result {
-        ACCEPT,     // load elements
-        CANCEL,     // cancel load
-        OVERWRITE   // load elements, overwriting elements with the same ID
-    };
-
     /// @brief Constructor
     GNEKeepElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType);
 
@@ -53,14 +39,8 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-    /// @brief get result
-    Result getResult() const;
-
     /// @name FOX-callbacks
     /// @{
-    /// @brief event when user select an option
-    long onCmdSelectOption(FXObject* obj, FXSelector, void*);
-
     /// @brief called when accept button is pressed
     long onCmdAccept(FXObject*, FXSelector, void*);
 
@@ -68,22 +48,6 @@ public:
     long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @}
-
-protected:
-    /// @brief FOX need this
-    FOX_CONSTRUCTOR(GNEKeepElementsDialog)
-
-    /// @brief button for accept
-    FXButton* myKeepOldButton = nullptr;
-
-    /// @brief button for cancel
-    FXButton* myCancelButton = nullptr;
-
-    /// @brief button for overwrite
-    FXButton* myKeepNewButton = nullptr;
-
-    /// @brief result (by default cancel)
-    Result myResult = Result::CANCEL;
 
 private:
     /// @brief Invalidated copy constructor.

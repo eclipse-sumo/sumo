@@ -23,12 +23,6 @@
 #include <netedit/dialogs/GNEDialog.h>
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEViewNet;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -38,7 +32,8 @@ class GNEFixElementsDialog : protected GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEFixElementsDialog(GNEViewNet* viewNet, const std::string title, GUIIcon icon, const int sizeX, const int sizeY);
+    GNEFixElementsDialog(GNEApplicationWindow *mainWindow, const std::string title,
+                         GUIIcon icon, const int sizeX, const int sizeY);
 
     /// @brief destructor
     ~GNEFixElementsDialog();
@@ -64,38 +59,11 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEFixElementsDialog)
 
-    /// @brief horizontal frame for buttons
-    class Buttons : public FXHorizontalFrame {
-
-    public:
-        /// @brief build Position Options
-        Buttons(GNEFixElementsDialog* fixElementsDialog);
-
-        /// @brief accept button
-        FXButton* myAcceptButton = nullptr;
-
-        /// @brief cancel button
-        FXButton* myCancelButton = nullptr;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        Buttons(const Buttons&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        Buttons& operator=(const Buttons&) = delete;
-    };
-
     /// @brief stop fix elements dialog accepting changes
     long closeFixDialog(const bool success);
 
-    /// @brief view net
-    GNEViewNet* myViewNet = nullptr;
-
     /// @brief main
     FXVerticalFrame* myMainFrame = nullptr;
-
-    /// @brief buttons
-    Buttons* myButtons = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
