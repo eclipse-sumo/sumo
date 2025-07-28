@@ -586,17 +586,8 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             myTLDef->setParameter(parameter.first, parameter.second);
         }
     }
-    // all ok, then close dialog
-    getApp()->stopModal(this, TRUE);
-    return 1;
-}
-
-
-long
-GNESingleParametersDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // Stop Modal
-    getApp()->stopModal(this, FALSE);
-    return 1;
+    // close dialog accepting
+    return closeDialogAccepting();
 }
 
 

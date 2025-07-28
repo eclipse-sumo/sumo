@@ -80,12 +80,6 @@ public:
     /// @brief event after press run button
     long onCmdRun(FXObject*, FXSelector, void*);
 
-    /// @brief called when accept button is pressed
-    long onCmdAccept(FXObject*, FXSelector, void*);
-
-    /// @brief called when cancel button is pressed (or dialog is closed)
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
     /// @brief event after press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 

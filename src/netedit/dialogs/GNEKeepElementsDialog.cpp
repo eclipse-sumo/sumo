@@ -49,19 +49,4 @@ GNEKeepElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* /
     // finish
 }
 
-
-long GNEKeepElementsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // set accept option
-    myResult = Result::ACCEPT;
-    return closeDialogAccepting();
-}
-
-
-long
-GNEKeepElementsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // set cancel option
-    myResult = Result::CANCEL;
-    return closeDialogCanceling();
-}
-
 /****************************************************************************/

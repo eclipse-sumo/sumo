@@ -30,19 +30,6 @@
 #include "GNEFixNetworkElements.h"
 
 // ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNEFixNetworkElements) GNEFixNetworkElementsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixNetworkElements::onCmdSelectOption),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEFixNetworkElements::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEFixNetworkElements::onCmdCancel),
-};
-
-// Object implementation
-FXIMPLEMENT(GNEFixNetworkElements, GNEFixElementsDialog, GNEFixNetworkElementsMap, ARRAYNUMBER(GNEFixNetworkElementsMap))
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 

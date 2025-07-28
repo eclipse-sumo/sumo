@@ -55,16 +55,4 @@ GNEBasicDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialog
     // finish runInternalTest
 }
 
-
-long
-GNEBasicDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    return closeDialogAccepting();
-}
-
-
-long
-GNEBasicDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    return closeDialogCanceling();
-}
-
 /****************************************************************************/

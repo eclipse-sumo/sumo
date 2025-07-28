@@ -31,8 +31,6 @@
 
 FXDEFMAP(GNEFixElementsDialog) GNEFixElementsDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixElementsDialog::onCmdSelectOption),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEFixElementsDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEFixElementsDialog::onCmdCancel),
 };
 
 // Object implementation

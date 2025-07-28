@@ -36,7 +36,6 @@
 // ===========================================================================
 
 FXDEFMAP(GNENetgenerateDialog) GNENetgenerateDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                              GNENetgenerateDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN,                   GNENetgenerateDialog::onCmdOpenOutputFile),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNENetgenerateDialog::onCmdSetOutput),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_GRID,       GNENetgenerateDialog::onCmdSetGrid),
@@ -47,7 +46,6 @@ FXDEFMAP(GNENetgenerateDialog) GNENetgenerateDialogMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_RUN,             GNENetgenerateDialog::onUpdSettingsConfigured),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADVANCED,        GNENetgenerateDialog::onCmdAdvanced),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_ADVANCED,        GNENetgenerateDialog::onUpdSettingsConfigured),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,          GNENetgenerateDialog::onCmdCancel),
 };
 
 // Object implementation

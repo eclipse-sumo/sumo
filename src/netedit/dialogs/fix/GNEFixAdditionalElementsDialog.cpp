@@ -26,19 +26,6 @@
 #include "GNEFixAdditionalElementsDialog.h"
 
 // ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNEFixAdditionalElementsDialog) GNEFixAdditionalElementsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixAdditionalElementsDialog::onCmdSelectOption),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEFixAdditionalElementsDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEFixAdditionalElementsDialog::onCmdCancel),
-};
-
-// Object implementation
-FXIMPLEMENT(GNEFixAdditionalElementsDialog, GNEFixElementsDialog, GNEFixAdditionalElementsMap, ARRAYNUMBER(GNEFixAdditionalElementsMap))
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 

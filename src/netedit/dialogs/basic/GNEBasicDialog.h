@@ -43,17 +43,6 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-    /// @name FOX-callbacks
-    /// @{
-
-    /// @brief called when accept / yes / ok button is pressed
-    long onCmdAccept(FXObject*, FXSelector, void*);
-
-    /// @brief called when cancel button is pressed
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @}
-
 private:
     /// @brief Invalidated copy constructor.
     GNEBasicDialog(const GNEBasicDialog&) = delete;

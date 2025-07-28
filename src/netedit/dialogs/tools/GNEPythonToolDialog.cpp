@@ -192,18 +192,6 @@ GNEPythonToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
 
 
 long
-GNEPythonToolDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    return closeDialogAccepting();
-}
-
-
-long
-GNEPythonToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    return closeDialogCanceling();
-}
-
-
-long
 GNEPythonToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // iterate over all arguments and reset values
     for (const auto& argument : myArguments) {

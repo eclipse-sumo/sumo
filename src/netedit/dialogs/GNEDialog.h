@@ -75,13 +75,13 @@ public:
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief called when accept or yes button is pressed (must be reimplemented in children)
-    virtual long onCmdAccept(FXObject*, FXSelector, void*) = 0;
+    /// @brief called when accept or yes button is pressed (can be reimplemented in children)
+    virtual long onCmdAccept(FXObject*, FXSelector, void*);
 
-    /// @brief called when cancel or nobutton is pressed (must be reimplemented in children)
-    virtual long onCmdCancel(FXObject*, FXSelector, void*) = 0;
+    /// @brief called when cancel or nobutton is pressed (can be reimplemented in children)
+    virtual long onCmdCancel(FXObject*, FXSelector, void*);
 
-    /// @brief called when cancel or nobutton is pressed (must be reimplemented in children)
+    /// @brief called when cancel or nobutton is pressed (can be reimplemented in children)
     virtual long onCmdReset(FXObject*, FXSelector, void*);
 
     /// @brief called when abort is called (either closing dialog or pressing abort button) 
