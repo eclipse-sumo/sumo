@@ -44,7 +44,7 @@ public:
 
     /// @brief Constructor
     GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string &title,
-                   const std::string &info, Buttons buttons, GUIIcon icon);
+                   const std::string &info, Buttons buttons, GUIIcon smallIcon, GUIIcon largeIcon);
 
     /// @brief Destructor
     ~GNEBasicDialog();

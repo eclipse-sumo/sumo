@@ -48,6 +48,9 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
                      FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs) :
     FXDialogBox(applicationWindow->getApp(), name.c_str(), opts, x, y, w, h, pl, pr, pt, pb, hs, vs),
     myApplicationWindow(applicationWindow) {
+    // create content frame
+    myContentFrame = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+
 }
 
 
