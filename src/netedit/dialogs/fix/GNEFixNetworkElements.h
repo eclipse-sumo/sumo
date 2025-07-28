@@ -35,8 +35,6 @@ class GNENetworkElement;
 // ===========================================================================
 
 class GNEFixNetworkElements : public GNEFixElementsDialog {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEFixNetworkElements)
 
 public:
     /// @brief Constructor
@@ -66,9 +64,6 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEFixNetworkElements)
-
     /// @brief general GroupBox for fix options
     class FixOptions : public MFXGroupBoxModule {
 

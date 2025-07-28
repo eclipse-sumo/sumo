@@ -96,16 +96,4 @@ GNEHelpAttributesDialog::runInternalTest(const InternalTestStep::DialogArgument*
     // finish runInternalTest
 }
 
-
-long
-GNEHelpAttributesDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    return closeDialogAccepting();
-}
-
-
-long
-GNEHelpAttributesDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    return closeDialogCanceling();
-}
-
 /****************************************************************************/

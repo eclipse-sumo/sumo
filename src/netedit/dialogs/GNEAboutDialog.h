@@ -38,17 +38,6 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-    /// @name FOX-callbacks
-    /// @{
-
-    /// @brief called when accept button is pressed
-    long onCmdAccept(FXObject*, FXSelector, void*);
-
-    /// @brief called when cancel button is pressed (or dialog is closed)
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @}
-
 private:
     /// @brief Font for the widget
     FXFont* myHeadlineFont;

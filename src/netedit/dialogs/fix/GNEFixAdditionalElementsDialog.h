@@ -36,8 +36,6 @@ class GNEDetector;
 // ===========================================================================
 
 class GNEFixAdditionalElementsDialog : public GNEFixElementsDialog {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEFixAdditionalElementsDialog)
 
 public:
     /// @brief Constructor
@@ -68,9 +66,6 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEFixAdditionalElementsDialog)
-
     /// @brief groupbox for list
     class AdditionalList : protected FXGroupBox {
 

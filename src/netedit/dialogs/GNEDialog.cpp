@@ -176,6 +176,18 @@ GNEDialog::getResult() const {
 }
 
 
+long 
+GNEDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    return closeDialogAccepting();
+}
+
+
+long
+GNEDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    return closeDialogCanceling();
+}
+
+
 long
 GNEDialog::onCmdReset(FXObject*, FXSelector, void*) {
     throw ProcessError("onCmdReset not implemented in GNEDialog, must be reimplemented in children");

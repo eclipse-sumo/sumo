@@ -74,16 +74,4 @@ GNEAboutDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialog
     // finish runInternalTest
 }
 
-
-long
-GNEAboutDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    return closeDialogAccepting();
-}
-
-
-long
-GNEAboutDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    return closeDialogCanceling();
-}
-
 /****************************************************************************/

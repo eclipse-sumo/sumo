@@ -42,8 +42,6 @@
 // ===========================================================================
 
 FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                     GNEOptionsDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,                  GNEOptionsDialog::onCmdReset),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE,         GNEOptionsDialog::onCmdRunNetgenerate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                 GNEOptionsDialog::onCmdSelectTopic),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SEARCH_USEDESCRIPTION,  GNEOptionsDialog::onCmdSearch),
@@ -171,12 +169,6 @@ GNEOptionsDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dial
 bool
 GNEOptionsDialog::isOptionModified() const {
     return myOptionsModified;
-}
-
-
-long
-GNEOptionsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    return closeDialogAccepting();
 }
 
 

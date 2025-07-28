@@ -30,19 +30,6 @@
 #include "GNEFixDemandElementsDialog.h"
 
 // ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNEFixDemandElementsDialog) GNEFixDemandElementsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixDemandElementsDialog::onCmdSelectOption),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEFixDemandElementsDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEFixDemandElementsDialog::onCmdCancel),
-};
-
-// Object implementation
-FXIMPLEMENT(GNEFixDemandElementsDialog, GNEFixElementsDialog, GNEFixDemandElementsMap, ARRAYNUMBER(GNEFixDemandElementsMap))
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 
