@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-23 09:53+0000\n"
-"PO-Revision-Date: 2025-07-26 15:08+0000\n"
+"PO-Revision-Date: 2025-07-28 23:04+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -149,48 +149,50 @@ msgstr "Pelo menos uma linha não contém o número correto de colunas."
 
 #: src/dfrouter/RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
-msgstr ""
+msgstr "Rotas ausentes para o detector '%'."
 
 #: src/dfrouter/RODFDetector.cpp:305
 #, c-format
 msgid "Detector '%' has no routes!?"
-msgstr ""
+msgstr "O detector '%' não tem rotas!?"
 
 #: src/dfrouter/RODFDetectorHandler.cpp:86
 msgid "Could not add detector '%' (probably the id is already used)."
 msgstr ""
+"Não é possível adicionar o detector '%' (provavelmente os id já está sendo "
+"usado)."
 
 #: src/dfrouter/RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
-msgstr ""
+msgstr "Carrega o arquivo de rede do SUMO"
 
 #: src/dfrouter/RODFFrame.cpp:70
 msgid "Loads detector descriptions from FILE"
-msgstr ""
+msgstr "Carregar descrições de detectores a partir de um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:75
 msgid "Loads detector flows from FILE(s)"
-msgstr ""
+msgstr "Carrega fluxos de detectores a partir de um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:82
 msgid "Saves computed routes to FILE"
-msgstr ""
+msgstr "Salva rotas geradas em um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:85
 msgid "Forces dfrouter to compute routes for in-between detectors"
-msgstr ""
+msgstr "Força o dfrouter a calcular rotas para detectores intermediários"
 
 #: src/dfrouter/RODFFrame.cpp:89
 msgid "Saves typed detectors to FILE"
-msgstr ""
+msgstr "Salva detectores digitados em um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:92
 msgid "Saves detector positions as pois to FILE"
-msgstr ""
+msgstr "Salva posições de detectores como POIs em um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
-msgstr ""
+msgstr "Salva definições de emissores para detectores de origem em um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:98
 msgid "Add vehicle types to the emitters file (PKW, LKW)"
