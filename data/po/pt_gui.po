@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-23 09:53+0000\n"
-"PO-Revision-Date: 2025-07-28 14:20+0000\n"
+"PO-Revision-Date: 2025-07-28 23:04+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -362,44 +362,46 @@ msgstr "Abre uma janela para localizar um Polígono."
 
 #: src/gui/GUIApplicationWindow.cpp:581
 msgid "Show Internal Structures"
-msgstr ""
+msgstr "Mostrar estruturas internas"
 
 #: src/gui/GUIApplicationWindow.cpp:581
 msgid "Show internal junctions and streets in locator dialog."
-msgstr ""
+msgstr "Mostra junções e arestas internas na janela de localização."
 
 #: src/gui/GUIApplicationWindow.cpp:582
 msgid "Show Parking Vehicles"
-msgstr ""
+msgstr "Mostrar veículos estacionados"
 
 #: src/gui/GUIApplicationWindow.cpp:582
 msgid "Show parking vehicles in locator dialog."
-msgstr ""
+msgstr "Mostrar veículos estacioandos na janela de localização."
 
 #: src/gui/GUIApplicationWindow.cpp:584
 msgid "Show vehicles outside the road network"
-msgstr ""
+msgstr "Mostrar veículos fora da rede rodoviária"
 
 #: src/gui/GUIApplicationWindow.cpp:584
 msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
 msgstr ""
+"Mostrar veículos que estão se teletransportando ou dirigindo remotamente "
+"fora da rede rodoviária na janela do localizador."
 
 #: src/gui/GUIApplicationWindow.cpp:589
 msgid "Simulation"
-msgstr ""
+msgstr "Simulação"
 
 #: src/gui/GUIApplicationWindow.cpp:591
 #: src/netedit/dialogs/options/GNEOptionsDialog.cpp:385
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:94
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:97
 msgid "Run"
-msgstr ""
+msgstr "Executar"
 
 #: src/gui/GUIApplicationWindow.cpp:591
 msgid "Start/ Resume the simulation."
-msgstr ""
+msgstr "Começar / Resumir a simulação."
 
 #: src/gui/GUIApplicationWindow.cpp:594
 msgctxt "Simulation"
@@ -420,19 +422,19 @@ msgstr "Executando um passo da simulação."
 
 #: src/gui/GUIApplicationWindow.cpp:600
 msgid "Delay+"
-msgstr ""
+msgstr "Atraso+"
 
 #: src/gui/GUIApplicationWindow.cpp:600
 msgid "Increase simulation step delay."
-msgstr ""
+msgstr "Aumentar a atraso entre os passos da simulação."
 
 #: src/gui/GUIApplicationWindow.cpp:602
 msgid "Delay-"
-msgstr ""
+msgstr "Atraso-"
 
 #: src/gui/GUIApplicationWindow.cpp:602
 msgid "Decrease simulation step delay."
-msgstr ""
+msgstr "Diminui o atraso entre os passos da simulação."
 
 #: src/gui/GUIApplicationWindow.cpp:604
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:288
@@ -443,11 +445,11 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2811
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:71
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
 #: src/gui/GUIApplicationWindow.cpp:604
 msgid "Save the current simulation state to a file."
-msgstr ""
+msgstr "Salva o estado atual da simulação em um arquivo."
 
 #: src/gui/GUIApplicationWindow.cpp:607
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:287
@@ -457,70 +459,70 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2808
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:69
 msgid "Load"
-msgstr ""
+msgstr "Carregar"
 
 #: src/gui/GUIApplicationWindow.cpp:607
 msgid "Load simulation state for the current network from file."
-msgstr ""
+msgstr "Carregar estado da simulação a partir de um arquivo para a rede atual."
 
 #: src/gui/GUIApplicationWindow.cpp:611
 #: src/netedit/GNEApplicationWindow.cpp:1532
 msgid "&Window"
-msgstr ""
+msgstr "&Janela"
 
 #: src/gui/GUIApplicationWindow.cpp:612 src/gui/GUIApplicationWindow.cpp:759
 msgid "Open new view"
-msgstr ""
+msgstr "Abrir nova visualização"
 
 #: src/gui/GUIApplicationWindow.cpp:612 src/gui/GUIApplicationWindow.cpp:759
 msgid "Open a new microscopic view."
-msgstr ""
+msgstr "Abre uma nova visão microscópica."
 
 #: src/gui/GUIApplicationWindow.cpp:614 src/gui/GUIApplicationWindow.cpp:762
 msgid "Open new 3D view"
-msgstr ""
+msgstr "Abrir nova visualização 3D"
 
 #: src/gui/GUIApplicationWindow.cpp:614 src/gui/GUIApplicationWindow.cpp:762
 msgid "Open a new 3D view."
-msgstr ""
+msgstr "Abre uma nova visualização 3D."
 
 #: src/gui/GUIApplicationWindow.cpp:617
 msgid "Tile &Horizontally"
-msgstr ""
+msgstr "&Organizar horizontalmente"
 
 #: src/gui/GUIApplicationWindow.cpp:617
 msgid "Tile the views horizontally."
-msgstr ""
+msgstr "Organiza as visualizações horizontalmente."
 
 #: src/gui/GUIApplicationWindow.cpp:620
 msgid "Tile &Vertically"
-msgstr ""
+msgstr "&Organizar verticalmente"
 
 #: src/gui/GUIApplicationWindow.cpp:620
 msgid "Tile the views vertically."
-msgstr ""
+msgstr "Organiza as visualizações verticalmente."
 
 #: src/gui/GUIApplicationWindow.cpp:623
 msgid "Cascade"
-msgstr ""
+msgstr "Cascata"
 
 #: src/gui/GUIApplicationWindow.cpp:623
 msgid "Cascade the views."
-msgstr ""
+msgstr "Organiza as visualizações em cascata."
 
 #: src/gui/GUIApplicationWindow.cpp:627
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:99
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:104
 msgid "&Close"
-msgstr ""
+msgstr "&Fechar"
 
 #: src/gui/GUIApplicationWindow.cpp:627
 msgid "Close the selected view."
-msgstr ""
+msgstr "Fecha a visualização selecionada."
 
 #: src/gui/GUIApplicationWindow.cpp:637
 msgid "&Others..."
-msgstr ""
+msgstr "&Outros..."
 
 #: src/gui/GUIApplicationWindow.cpp:640
 #: src/netedit/GNEApplicationWindowHelper.cpp:2165
@@ -617,7 +619,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:669
 msgid "&About"
-msgstr ""
+msgstr "&Sobre"
 
 #: src/gui/GUIApplicationWindow.cpp:669
 msgid "About sumo-gui."
@@ -763,19 +765,19 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:1154
 msgid "Auto-Reloading."
-msgstr ""
+msgstr "Recarregamento automático."
 
 #: src/gui/GUIApplicationWindow.cpp:1154
 msgid "TraCI-Loading."
-msgstr ""
+msgstr "TraCI - Carregando."
 
 #: src/gui/GUIApplicationWindow.cpp:1156
 msgid "Reloading."
-msgstr ""
+msgstr "Recarregando."
 
 #: src/gui/GUIApplicationWindow.cpp:1167
 msgid "Quick-Reloading."
-msgstr ""
+msgstr "Reinício Rápido."
 
 #: src/gui/GUIApplicationWindow.cpp:1177
 #: src/netedit/GNEApplicationWindow.cpp:1143
@@ -859,7 +861,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:2086
 msgid "Reason:"
-msgstr ""
+msgstr "Motivo:"
 
 #: src/gui/GUIApplicationWindow.cpp:2087
 msgid "Do you want to close all open files and views?"
@@ -876,7 +878,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:2339 src/gui/GUIApplicationWindow.cpp:2341
 #: src/gui/GUIApplicationWindow.cpp:2342 src/gui/GUIApplicationWindow.cpp:2343
 msgid "seconds"
-msgstr ""
+msgstr "segundos"
 
 #: src/gui/GUIApplicationWindow.cpp:2486
 msgid "Set breakpoint at %"
@@ -957,11 +959,11 @@ msgstr ""
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:280
 msgid "detectors"
-msgstr ""
+msgstr "detectores"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:281
 msgid "conditions"
-msgstr ""
+msgstr "condições"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:345
 msgid "Overflow in time computation occurred."
@@ -1078,7 +1080,7 @@ msgstr ""
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:95
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:173
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:62
 msgid "Quit on Simulation End"
@@ -1110,7 +1112,7 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1035
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2499
 msgid "&OK"
-msgstr ""
+msgstr "&OK"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:102
 #: src/netedit/dialogs/GNEDemandElementDialog.cpp:66
@@ -1119,7 +1121,7 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1036
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2500
 msgid "&Cancel"
-msgstr ""
+msgstr "&Cancelar"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:69
 msgid "Breakpoints Editor"
@@ -1127,20 +1129,20 @@ msgstr ""
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:91
 msgid "&Load"
-msgstr ""
+msgstr "&Carregar"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:93
 msgid "&Save"
-msgstr ""
+msgstr "&Salvar"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:96
 msgid "Clea&r"
-msgstr ""
+msgstr "&Limpar"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:129
 #: src/netedit/GNETagPropertiesDatabase.cpp:1750
 msgid "Time"
-msgstr ""
+msgstr "Tempo"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:144
 msgid "Load Breakpoints"
@@ -1255,13 +1257,13 @@ msgstr ""
 #: src/guisim/GUIBaseVehicle.cpp:393
 #: src/netedit/GNEApplicationWindowHelper.cpp:721
 msgid "Stop"
-msgstr ""
+msgstr "Parar"
 
 #: src/guisim/GUIBaseVehicle.cpp:394
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1292
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1357
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #: src/guisim/GUIBaseVehicle.cpp:882 src/guisim/GUIVehicle.cpp:634
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
@@ -1272,7 +1274,7 @@ msgstr ""
 #: src/guisim/GUIInductLoop.cpp:140 src/guisim/GUIInstantInductLoop.cpp:96
 #: src/guisim/GUIJunctionWrapper.cpp:122 src/guisim/GUIParkingArea.cpp:110
 msgid "name"
-msgstr ""
+msgstr "nome"
 
 #: src/guisim/GUIBusStop.cpp:150 src/guisim/GUIChargingStation.cpp:84
 #: src/guisim/GUIOverheadWire.cpp:109 src/guisim/GUIParkingArea.cpp:111
@@ -1287,7 +1289,7 @@ msgstr ""
 
 #: src/guisim/GUIBusStop.cpp:152
 msgid "lines"
-msgstr ""
+msgstr "linhas"
 
 #: src/guisim/GUIBusStop.cpp:153
 msgid "parking length [m]"
@@ -1384,7 +1386,7 @@ msgstr ""
 
 #: src/guisim/GUIContainer.cpp:164 src/guisim/GUIPerson.cpp:229
 msgid "stage"
-msgstr ""
+msgstr "estado"
 
 #: src/guisim/GUIContainer.cpp:166 src/guisim/GUIPerson.cpp:231
 msgid "stage index"
@@ -1435,20 +1437,20 @@ msgstr ""
 
 #: src/guisim/GUIContainer.cpp:186 src/guisim/GUIPerson.cpp:255
 msgid "length"
-msgstr ""
+msgstr "comprimento"
 
 #: src/guisim/GUIContainer.cpp:187 src/guisim/GUIPerson.cpp:256
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2202
 msgid "width"
-msgstr ""
+msgstr "largura"
 
 #: src/guisim/GUIContainer.cpp:188 src/guisim/GUIPerson.cpp:257
 msgid "height"
-msgstr ""
+msgstr "altura"
 
 #: src/guisim/GUIContainer.cpp:189 src/guisim/GUIPerson.cpp:258
 msgid "minGap"
-msgstr ""
+msgstr "minGap"
 
 #: src/guisim/GUIContainer.cpp:190 src/guisim/GUIPerson.cpp:259
 #: src/guisim/GUIVehicle.cpp:240
@@ -1469,12 +1471,12 @@ msgstr ""
 #: src/guisim/GUIInstantInductLoop.cpp:98
 #: src/utils/gui/div/GUIMessageWindow.cpp:72
 msgid "lane"
-msgstr ""
+msgstr "faixa"
 
 #: src/guisim/GUIE2Collector.cpp:134 src/guisim/GUIE3Collector.cpp:82
 #: src/guisim/GUIInductLoop.cpp:147 src/guisim/GUIInstantInductLoop.cpp:100
 msgid "vTypes"
-msgstr ""
+msgstr "tipos de veículos (vTypes)"
 
 #: src/guisim/GUIE2Collector.cpp:137 src/guisim/GUIEdge.cpp:194
 msgid "vehicles [#]"
@@ -1666,19 +1668,19 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:228
 msgid "tauff"
-msgstr ""
+msgstr "tauff"
 
 #: src/guisim/GUIEdge.cpp:229
 msgid "taufj"
-msgstr ""
+msgstr "taufj"
 
 #: src/guisim/GUIEdge.cpp:230
 msgid "taujf"
-msgstr ""
+msgstr "taujf"
 
 #: src/guisim/GUIEdge.cpp:231
 msgid "taujj"
-msgstr ""
+msgstr "taujj"
 
 #: src/guisim/GUIEdge.cpp:232
 msgid "jam threshold"
@@ -1702,7 +1704,7 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:237
 msgid "overtaking"
-msgstr ""
+msgstr "ultrapassagem"
 
 #: src/guisim/GUIInductLoop.cpp:150
 msgid "entered vehicles [-]"
@@ -1731,7 +1733,7 @@ msgstr ""
 #: src/guisim/GUIJunctionWrapper.cpp:121 src/guisim/GUILane.cpp:1073
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:239 src/guisim/GUIVehicle.cpp:233
 msgid "type"
-msgstr ""
+msgstr "tipo"
 
 #: src/guisim/GUILane.cpp:1009
 msgid "Copy edge name to clipboard"
@@ -1739,11 +1741,11 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1017
 msgid "pos: "
-msgstr ""
+msgstr "posição: "
 
 #: src/guisim/GUILane.cpp:1017
 msgid "height: "
-msgstr ""
+msgstr "altura: "
 
 #: src/guisim/GUILane.cpp:1026
 msgid "Reopen lane"
@@ -1807,7 +1809,7 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1074 src/guisim/GUITrafficLightLogicWrapper.cpp:257
 msgid "priority"
-msgstr ""
+msgstr "prioridade"
 
 #: src/guisim/GUILane.cpp:1075
 msgid "distance [km]"
@@ -1831,7 +1833,7 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1081
 msgid "bidi-lane"
-msgstr ""
+msgstr "pista bidirecional"
 
 #: src/guisim/GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
@@ -1915,7 +1917,7 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:518
 msgid "FPS"
-msgstr ""
+msgstr "FPS"
 
 #: src/guisim/GUINet.cpp:519
 msgid "simulation duration [ms]"
@@ -2088,11 +2090,11 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:240
 msgid "program"
-msgstr ""
+msgstr "programa"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:241
 msgid "phase"
-msgstr ""
+msgstr "fase"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:242
 msgid "phase name"
@@ -2100,15 +2102,15 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:243
 msgid "duration"
-msgstr ""
+msgstr "duração"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:244
 msgid "minDur"
-msgstr ""
+msgstr "duração mínima"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:245
 msgid "maxDur"
-msgstr ""
+msgstr "duração máxima"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:246
 msgid "running duration"
@@ -2116,11 +2118,11 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:247
 msgid "earliestEnd"
-msgstr ""
+msgstr "fim mais próximo"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:248
 msgid "latestEnd"
-msgstr ""
+msgstr "fim mais distante"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:249
 msgid "time in cycle"
@@ -2136,7 +2138,7 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:254
 msgid "blocking"
-msgstr ""
+msgstr "bloqueando"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:255
 msgid "blocking driveways"
@@ -2144,11 +2146,11 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:256
 msgid "rival"
-msgstr ""
+msgstr "rival"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:258
 msgid "constraint"
-msgstr ""
+msgstr "restrição"
 
 #: src/guisim/GUIVehicle.cpp:109
 msgid "shadow lane [id]"
@@ -2197,7 +2199,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:143
 msgid "impatience"
-msgstr ""
+msgstr "impaciência"
 
 #: src/guisim/GUIVehicle.cpp:145
 msgid "last lane change [s]"
@@ -2233,7 +2235,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:164
 msgid "line"
-msgstr ""
+msgstr "linha"
 
 #: src/guisim/GUIVehicle.cpp:165
 msgid "CO2 [mg/s]"
@@ -2269,15 +2271,15 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:181
 msgid "devices"
-msgstr ""
+msgstr "dispositivos"
 
 #: src/guisim/GUIVehicle.cpp:182
 msgid "persons"
-msgstr ""
+msgstr "pessoas"
 
 #: src/guisim/GUIVehicle.cpp:184
 msgid "containers"
-msgstr ""
+msgstr "contêineres"
 
 #: src/guisim/GUIVehicle.cpp:186
 msgid "lcState right"
@@ -2317,7 +2319,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:199
 msgid "driveways"
-msgstr ""
+msgstr "acessos de veículos"
 
 #: src/guisim/GUIVehicle.cpp:202
 msgid "present state of charge [Wh]"
@@ -2373,7 +2375,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:243
 msgid "guiShape"
-msgstr ""
+msgstr "guiShape"
 
 #: src/guisim/GUIVehicle.cpp:245
 msgid "desired maximum speed [m/s]"
@@ -2405,7 +2407,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:252
 msgid "speedfactor"
-msgstr ""
+msgstr "fator de velocidade"
 
 #: src/guisim/GUIVehicle.cpp:253
 msgid "startupDelay [s]"
@@ -2441,7 +2443,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:264
 msgid "latAlignment"
-msgstr ""
+msgstr "alinhamento lateral"
 
 #: src/guisim/GUIVehicle.cpp:275
 msgid "manoeuver Angle vs Times"
@@ -2461,7 +2463,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:558
 msgid "Recomputing"
-msgstr ""
+msgstr "Recomputando"
 
 #: src/netedit/GNEApplicationWindow.cpp:559
 msgid "Recomputing is needed"
@@ -2520,7 +2522,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1315
 msgid "'"
-msgstr ""
+msgstr "'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1315
 msgid "' loaded."
@@ -2528,49 +2530,49 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1414
 msgid "&Modes"
-msgstr ""
+msgstr "&Modos"
 
 #: src/netedit/GNEApplicationWindow.cpp:1450
 msgid "L&ock"
-msgstr ""
+msgstr "&Bloquear"
 
 #: src/netedit/GNEApplicationWindow.cpp:1457
 msgid "&Processing"
-msgstr ""
+msgstr "&Processando"
 
 #: src/netedit/GNEApplicationWindow.cpp:1484
 msgid "&Tools"
-msgstr ""
+msgstr "&Ferramentas"
 
 #: src/netedit/GNEApplicationWindow.cpp:1486
 msgid "Assign"
-msgstr ""
+msgstr "Atribuir"
 
 #: src/netedit/GNEApplicationWindow.cpp:1487
 #: src/netedit/GNETagPropertiesDatabase.cpp:425
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
 msgid "Detectors"
-msgstr ""
+msgstr "Detectores"
 
 #: src/netedit/GNEApplicationWindow.cpp:1488
 msgid "Districts"
-msgstr ""
+msgstr "Distritos"
 
 #: src/netedit/GNEApplicationWindow.cpp:1489
 msgid "DRT"
-msgstr ""
+msgstr "Transporte sob Demanda (DRT)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1491
 msgid "CityBrain"
-msgstr ""
+msgstr "CityBrain"
 
 #: src/netedit/GNEApplicationWindow.cpp:1492
 msgid "GTFS"
-msgstr ""
+msgstr "GTFS"
 
 #: src/netedit/GNEApplicationWindow.cpp:1493
 msgid "Vissim"
-msgstr ""
+msgstr "Vissim"
 
 #: src/netedit/GNEApplicationWindow.cpp:1494
 msgid "Visum"
