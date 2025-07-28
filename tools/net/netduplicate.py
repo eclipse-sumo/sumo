@@ -36,7 +36,7 @@ from sumolib.options import ArgumentParser # noqa
 def parseArgs():
     USAGE = "Usage: " + sys.argv[0] + " <net> <prefix:x:y> <prefix:x:y>+"
     optParser = ArgumentParser(usage=USAGE)
-    sumolib.pullOptions("netconvert", optParser)
+    sumolib.pullOptions(sumolib.checkBinary("netconvert"), optParser)
     optParser.add_option(
         "net", type=ArgumentParser.net_file, help="network to duplicate")
     optParser.add_option(
