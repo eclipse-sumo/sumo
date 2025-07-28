@@ -34,18 +34,12 @@
 // ===========================================================================
 
 GNEAboutDialog::GNEAboutDialog(GNEApplicationWindow* applicationWindow) :
-    GNEDialog(applicationWindow, TL("About Eclipse SUMO netedit"), GUIDesignDialogBox) {
-    // set dialog icon
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
-
-    // create frame for main info
-    FXHorizontalFrame* mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-
+    GNEDialog(applicationWindow, TL("About Eclipse SUMO netedit"),
+              GUIIcon::NETEDIT_MINI, GNEDialog::Buttons::OK, GUIDesignDialogBox) {
     // Netedit icon
-    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUMO_LOGO), GUIDesignLabelIcon);
-
+    new FXLabel(myContentFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUMO_LOGO), GUIDesignLabelIcon);
     // "SUMO <VERSION>"
-    FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
+    FXVerticalFrame* descriptionFrame = new FXVerticalFrame(myContentFrame, GUIDesignLabelAboutInfo);
     myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
     FXLabel* neteditLabel = new FXLabel(descriptionFrame, "SUMO netedit " VERSION_STRING, nullptr, GUIDesignLabelAboutInfo);
     neteditLabel->setFont(myHeadlineFont);
@@ -61,22 +55,12 @@ GNEAboutDialog::GNEAboutDialog(GNEApplicationWindow* applicationWindow) :
     // SUMO_HOME
     new FXLabel(descriptionFrame, std::string("SUMO_HOME: " + std::string(getenv("SUMO_HOME"))).c_str(), nullptr, GUIDesignLabelAboutInfo);
     // copyright notice
-    new FXLabel(this, "Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(this, TL("This application is based on code provided by the Eclipse SUMO project."), nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(this, TL("These core components are available under the conditions of the Eclipse Public License v2."), nullptr, GUIDesignLabelAboutInfo);
-    (new MFXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
-
+    new FXLabel(myContentFrame, "Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(myContentFrame, TL("This application is based on code provided by the Eclipse SUMO project."), nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(myContentFrame, TL("These core components are available under the conditions of the Eclipse Public License v2."), nullptr, GUIDesignLabelAboutInfo);
+    (new MFXLinkLabel(myContentFrame, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
     // link to homepage
-    (new MFXLinkLabel(this, "https://www.eclipse.dev/sumo", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.dev/sumo");
-
-    // centered ok-button
-    FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXButton* OKButton = GUIDesigns::buildFXButton(buttonFrame, TL("&OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-
-    // focus OK button
-    OKButton->setFocus();
+    (new MFXLinkLabel(myContentFrame, "https://www.eclipse.dev/sumo", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.dev/sumo");
 }
 
 

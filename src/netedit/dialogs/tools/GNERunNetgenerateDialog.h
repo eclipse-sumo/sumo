@@ -99,18 +99,6 @@ private:
     /// @brief text
     FXText* myText = nullptr;
 
-    /// @brief abort button
-    FXButton* myAbortButton = nullptr;
-
-    /// @brief rerun button
-    FXButton* myRerunButton = nullptr;
-
-    /// @brief back button
-    FXButton* myBackButton = nullptr;
-
-    /// @brief close button
-    FXButton* myCloseButton = nullptr;
-
     /// @brief netgenerate options
     const OptionsCont* myNetgenerateOptions;
 

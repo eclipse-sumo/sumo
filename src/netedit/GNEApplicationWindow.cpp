@@ -1792,7 +1792,9 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
     neteditOptions.set("tls.guess-signals", "true");
     neteditOptions.set("tls.discard-simple", "true");
     // create wizard dialog
-    auto neteditOptionsDialog = GNEOptionsDialog(this, GUIIcon::SUPERMODENETWORK, OptionsCont::getOptions(), myOriginalNeteditOptions, TL("Select Import Options"), false);
+    auto neteditOptionsDialog = GNEOptionsDialog(this, GUIIcon::SUPERMODENETWORK, TL("Select Import Options"), 
+                                                 GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OptionsCont::getOptions(),
+                                                 myOriginalNeteditOptions);
     // open wizard dialog
     if (neteditOptionsDialog.openModal() == GNEDialog::Result::ACCEPT) {
         // needed to set projection parameters
@@ -1817,7 +1819,7 @@ GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
 long
 GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     // open question dialog box
-    const auto questionDialog = GNEQuestionBasicDialog(this, GNEBasicDialog::Buttons::YES_NO,
+    const auto questionDialog = GNEQuestionBasicDialog(this, GNEDialog::Buttons::YES_NO,
                                                         TL("Recompute with volatile options"),
                                                         TL("Changes produced in the net due a recomputing with"),
                                                         TL("volatile options cannot be undone. Continue?"));
@@ -2506,7 +2508,9 @@ long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // create netedit option dialog
-    auto neteditOptionsDialog = GNEOptionsDialog(this, GUIIcon::OPTIONS, neteditOptions, myOriginalNeteditOptions, TL("Netedit options"), false);
+    auto neteditOptionsDialog = GNEOptionsDialog(this, GUIIcon::OPTIONS, TL("Netedit options"),
+                                                 GNEDialog::Buttons::ACCEPT_CANCEL_RESET, 
+                                                 neteditOptions, myOriginalNeteditOptions);
     // open dialog
     if (neteditOptionsDialog.openModal() == GNEDialog::Result::ACCEPT) {
         NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
@@ -2525,7 +2529,9 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
     // create sumo option dialog
-    auto sumoOptionsDialog = GNEOptionsDialog(this, GUIIcon::SUMO_MINI, mySumoOptions, myOriginalSumoOptions, TL("Sumo options"), false);
+    auto sumoOptionsDialog = GNEOptionsDialog(this, GUIIcon::SUMO_MINI, TL("Sumo options"), 
+                                              GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
+                                              mySumoOptions, myOriginalSumoOptions);
     // open dialog and check if mark sumoConfig as unsaved
     if ((sumoOptionsDialog.openModal() == GNEDialog::Result::ACCEPT) && sumoOptionsDialog.isOptionModified() && myNet) {
         myNet->getSavingStatus()->requireSaveSumoConfig();
@@ -2543,7 +2549,9 @@ GNEApplicationWindow::onCmdOpenNetgenerateDialog(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*) {
     // open netgenerate options dialog
-    GNEOptionsDialog(this, GUIIcon::NETGENERATE, myNetgenerateOptions, myOriginalNetgenerateOptions, TL("Netgenerate options"), true).openModal();
+    GNEOptionsDialog(this, GUIIcon::NETGENERATE, TL("Netgenerate options"),
+                     GNEDialog::Buttons::RUN_CANCEL_RESET, myNetgenerateOptions,
+                     myOriginalNetgenerateOptions).openModal();
     return 1;
 }
 
@@ -3299,9 +3307,8 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             }
             // if there are invalid network elements, open GNEFixNetworkElements
             if (invalidNetworkElements.size() > 0) {
-                // 0 -> Canceled Saving, with or without selecting invalid network elements
-                // 1 -> Invalid network elements fixed, friendlyPos enabled, or saved with invalid positions
-                if (myViewNet->getFixNetworkElementsDialog()->openDialog(invalidNetworkElements) == GNEDialog::Result::ACCEPT) {
+                auto fixNetworkElementsDialog = GNEFixNetworkElements(this);
+                if (fixNetworkElementsDialog.openDialog(invalidNetworkElements) == GNEDialog::Result::ACCEPT) {
                     // Save network
                     myNet->saveNetwork();
                     saved = true;
@@ -3768,10 +3775,10 @@ GNEApplicationWindow::onCmdOpenAdditionalElements(FXObject*, FXSelector, void*) 
             // open overwrite dialog
             GNEKeepElementsDialog keepElementsDialog(this, "additional");
             // continue depending of result
-            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::CANCEL) {
+            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::ABORT) {
                 // abort load
                 return 0;
-            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::OVERWRITE) {
+            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::ACCEPT) {
                 // enable overwriteElements
                 overwriteElements = true;
             }
@@ -3982,10 +3989,10 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
             // open overwrite dialog
             GNEKeepElementsDialog keepElementsDialog(this, "route");
             // continue depending of result
-            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::CANCEL) {
+            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::ABORT) {
                 // abort load
                 return 0;
-            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::OVERWRITE) {
+            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::ACCEPT) {
                 // enable overwriteElements
                 overwriteElements = true;
             }
@@ -4154,10 +4161,10 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
             // open overwrite dialog
             GNEKeepElementsDialog keepElementsDialog(this, "data");
             // continue depending of result
-            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::CANCEL) {
+            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::ABORT) {
                 // abort load
                 return 0;
-            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::OVERWRITE) {
+            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::ACCEPT) {
                 // enable overwriteElements
                 overwriteElements = true;
             }
@@ -4329,10 +4336,10 @@ GNEApplicationWindow::onCmdOpenMeanDataElements(FXObject*, FXSelector, void*) {
             // open overwrite dialog
             GNEKeepElementsDialog keepElementsDialog(this, "meanData");
             // continue depending of result
-            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::CANCEL) {
+            if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::ABORT) {
                 // abort load
                 return 0;
-            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::OVERWRITE) {
+            } else if (keepElementsDialog.getResult() == GNEKeepElementsDialog::Result::ACCEPT) {
                 // enable overwriteElements
                 overwriteElements = true;
             }

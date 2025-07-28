@@ -30,11 +30,11 @@
 // ===========================================================================
 
 GNEHelpAttributesDialog::GNEHelpAttributesDialog(GNEApplicationWindow* applicationWindow, const GNEAttributeCarrier* AC) :
-    GNEDialog(applicationWindow, TLF("Parameters of %", AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4) {
-    // set icon
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT));
+    GNEDialog(applicationWindow, TLF("Parameters of %", AC->getTagStr()).c_str(),
+              GUIIcon::MODEINSPECT, GNEDialog::Buttons::OK,
+              GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4) {
     // Create FXTable
-    FXTable* myTable = new FXTable(this, this, MID_TABLE, GUIDesignTableNotEditable);
+    FXTable* myTable = new FXTable(myContentFrame, this, MID_TABLE, GUIDesignTableNotEditable);
     // configure table
     int sizeColumnDescription = 0;
     int sizeColumnDefinitions = 0;
@@ -84,14 +84,6 @@ GNEHelpAttributesDialog::GNEHelpAttributesDialog(GNEApplicationWindow* applicati
     header->setItemSize(2, sizeColumnDescription * 8);
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(3, sizeColumnDefinitions * 6);
-    // Create horizontal separator
-    new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
-    // Create frame for OK Button
-    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    // Create Button Close (And two more horizontal frames to center it)
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
 }
 
 

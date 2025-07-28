@@ -48,7 +48,7 @@ public:
         KEEPNEW_KEEPOLD_CANCEL, // keep new/keep old/cancel buttons
         RUN_CANCEL_RESET,       // run/cancel/reset buttons (used in tools dialogs)
         RUN_ADVANCED_CANCEL,    // run/advanced/cancel buttons (used in tools dialogs)
-        ABORT_RERUN_BACK        // abort/rerun/back buttons (used in tools dialogs)
+        ABORT_RERUN_BACK_CLOSE  // abort/rerun/back buttons, and close in a lower line (used in tools dialogs)
     };
 
     /// @brief list of possible results when closing the dialog

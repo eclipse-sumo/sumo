@@ -42,16 +42,14 @@ FXIMPLEMENT(GNEFixAdditionalElementsDialog, GNEFixElementsDialog, GNEFixAddition
 // member method definitions
 // ===========================================================================
 
-GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEViewNet* viewNet) :
-    GNEFixElementsDialog(viewNet, TL("Fix additional problems"), GUIIcon::BUSSTOP, 500, 380) {
+GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow) :
+    GNEFixElementsDialog(mainWindow, TL("Fix additional problems"), GUIIcon::MODEADDITIONAL, 500, 380) {
     // create AdditionalList
     myAdditionalList = new AdditionalList(this);
     // create position options
     myPositionOptions = new PositionOptions(this);
     // create consecutive lane options
     myConsecutiveLaneOptions = new ConsecutiveLaneOptions(this);
-    // create buttons
-    myButtons = new Buttons(this);
 }
 
 
@@ -88,8 +86,6 @@ GNEFixAdditionalElementsDialog::openDialog(const std::vector<GNEAdditional*>& in
     if (myAdditionalList->myInvalidMultiLaneAdditionals.empty()) {
         myConsecutiveLaneOptions->disableConsecutiveLaneOptions();
     }
-    // set focus in accept button
-    myButtons->myAcceptButton->setFocus();
     // open modal dialog
     return openModal();
 }
@@ -109,36 +105,36 @@ GNEFixAdditionalElementsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // first check options from single lane additionals
     if (myAdditionalList->myInvalidSingleLaneAdditionals.size() > 0) {
         if (myPositionOptions->activateFriendlyPosition->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
+            myApplicationWindow->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
             // iterate over invalid single lane elements to enable friendly position
             for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                invalidSingleLaneAdditional->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+                invalidSingleLaneAdditional->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myApplicationWindow->getUndoList());
             }
-            myViewNet->getUndoList()->end();
+            myApplicationWindow->getUndoList()->end();
         } else if (myPositionOptions->fixPositions->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
+            myApplicationWindow->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "fix positions of invalid additionals");
             // iterate over invalid single lane elements to fix positions
             for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
                 invalidSingleLaneAdditional->fixAdditionalProblem();
             }
-            myViewNet->getUndoList()->end();
+            myApplicationWindow->getUndoList()->end();
         } else if (myPositionOptions->selectInvalids->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
+            myApplicationWindow->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
                                             "select invalid additionals");
             // iterate over invalid single lane elements to select all elements
             for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                invalidSingleLaneAdditional->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+                invalidSingleLaneAdditional->setAttribute(GNE_ATTR_SELECTED, "true", myApplicationWindow->getUndoList());
             }
-            myViewNet->getUndoList()->end();
+            myApplicationWindow->getUndoList()->end();
             // abort saving
             continueSaving = false;
         }
     }
     // now check options from multi lane additionals
     if (myAdditionalList->myInvalidMultiLaneAdditionals.size() > 0) {
-        myViewNet->getUndoList()->begin(myAdditionalList->myInvalidMultiLaneAdditionals.front(),
+        myApplicationWindow->getUndoList()->begin(myAdditionalList->myInvalidMultiLaneAdditionals.front(),
                                         "fix multilane additionals problems");
         // fix problems of consecutive lanes
         if (myConsecutiveLaneOptions->buildConnectionBetweenLanes->getCheck() == TRUE) {
@@ -157,7 +153,7 @@ GNEFixAdditionalElementsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         } else if (myConsecutiveLaneOptions->removeInvalidElements->getCheck() == TRUE) {
             // iterate over invalid single lane elements to fix positions
             for (const auto& invalidMultiLaneAdditional : myAdditionalList->myInvalidMultiLaneAdditionals) {
-                myViewNet->getNet()->deleteAdditional(invalidMultiLaneAdditional, myViewNet->getUndoList());
+                myApplicationWindow->getViewNet()->getNet()->deleteAdditional(invalidMultiLaneAdditional, myApplicationWindow->getUndoList());
             }
             // clear myInvalidMultiLaneAdditionals due there isn't more invalid multi lane additionals
             myAdditionalList->myInvalidMultiLaneAdditionals.clear();
@@ -166,7 +162,7 @@ GNEFixAdditionalElementsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         if (myPositionOptions->activateFriendlyPosition->getCheck() == TRUE) {
             // iterate over invalid single lane elements to enable friendly position
             for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                invalidSingleLaneAdditional->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+                invalidSingleLaneAdditional->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myApplicationWindow->getUndoList());
             }
         } else if (myPositionOptions->fixPositions->getCheck() == TRUE) {
             // iterate over invalid single lane elements to fix positions
@@ -174,7 +170,7 @@ GNEFixAdditionalElementsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                 invalidSingleLaneAdditional->fixAdditionalProblem();
             }
         }
-        myViewNet->getUndoList()->end();
+        myApplicationWindow->getUndoList()->end();
     }
     return closeFixDialog(continueSaving);
 }

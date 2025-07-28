@@ -50,18 +50,16 @@ FXIMPLEMENT(GNEFixNetworkElements, GNEFixElementsDialog, GNEFixNetworkElementsMa
 // GNEFixNetworkElements - methods
 // ---------------------------------------------------------------------------
 
-GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet) :
-    GNEFixElementsDialog(viewNet, TL("Fix network elements problems"), GUIIcon::SUPERMODEDEMAND, 600, 620) {
+GNEFixNetworkElements::GNEFixNetworkElements(GNEApplicationWindow *mainWindow) :
+    GNEFixElementsDialog(mainWindow, TL("Fix network elements problems"), GUIIcon::SUPERMODENETWORK, 600, 620) {
     // create frames for options
     FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignAuxiliarFrame);
     myLeftFrame = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
     myRightFrame = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
     // create fix edge options
-    myFixEdgeOptions = new FixEdgeOptions(this, viewNet);
+    myFixEdgeOptions = new FixEdgeOptions(this);
     // create fix crossing  options
-    myFixCrossingOptions = new FixCrossingOptions(this, viewNet);
-    // create buttons
-    myButtons = new Buttons(this);
+    myFixCrossingOptions = new FixCrossingOptions(this);
 }
 
 
@@ -98,8 +96,6 @@ GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& invalid
     // fill options
     myFixEdgeOptions->setInvalidElements(invalidEdges);
     myFixCrossingOptions->setInvalidElements(invalidCrossings);
-    // set focus in accept button
-    myButtons->myAcceptButton->setFocus();
     // open modal dialog
     return openModal();
 }
@@ -137,9 +133,10 @@ GNEFixNetworkElements::onCmdCancel(FXObject*, FXSelector, void*) {
 // GNEFixNetworkElements::FixOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEFixNetworkElements::FixOptions::FixOptions(FXVerticalFrame* frameParent, const std::string& title, GNEViewNet* viewNet) :
+GNEFixNetworkElements::FixOptions::FixOptions(GNEApplicationWindow *mainWindow, FXVerticalFrame* frameParent,
+                                              const std::string& title) :
     MFXGroupBoxModule(frameParent, title, MFXGroupBoxModule::Options::SAVE),
-    myViewNet(viewNet) {
+    myMainWindow(mainWindow) {
     // Create table
     myTable = new FXTable(this, this, MID_TABLE, GUIDesignTableFixElements);
     myTable->disable();
@@ -216,12 +213,10 @@ GNEFixNetworkElements::FixOptions::saveContents() const {
         // close output device
         device.close();
         // open information message box
-        GNEInformationBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
-                                  TL("Saving successfully"), TL("List of conflicted items was successfully saved"));
+        GNEInformationBasicDialog(myMainWindow, TL("Saving successfully"), TL("List of conflicted items was successfully saved"));
     } catch (IOError& e) {
         // open message box error
-        GNEErrorBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
-                            TL("Saving list of conflicted items failed"), e.what());
+        GNEErrorBasicDialog(myMainWindow, TL("Saving list of conflicted items failed"), e.what());
     }
     return true;
 }
@@ -230,8 +225,8 @@ GNEFixNetworkElements::FixOptions::saveContents() const {
 // GNEFixNetworkElements::FixEdgeOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEFixNetworkElements::FixEdgeOptions::FixEdgeOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet) :
-    FixOptions(fixNetworkElementsParent->myLeftFrame, "Edges", viewNet) {
+GNEFixNetworkElements::FixEdgeOptions::FixEdgeOptions(GNEFixNetworkElements* fixNetworkElementsParent) :
+    FixOptions(fixNetworkElementsParent->myApplicationWindow, fixNetworkElementsParent->myLeftFrame, "Edges") {
     // Remove invalid edges
     removeInvalidEdges = new FXRadioButton(myLeftFrame, TL("Remove invalid edges"),
                                            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
@@ -269,22 +264,23 @@ GNEFixNetworkElements::FixEdgeOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
         if (removeInvalidEdges->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("delete invalid edges"));
+            myMainWindow->getUndoList()->begin(GUIIcon::EDGE, TL("delete invalid edges"));
             // iterate over invalid edges to delete it
             for (const auto& invalidEdge : myInvalidElements) {
-                myViewNet->getNet()->deleteEdge(myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(invalidEdge->getID()), myViewNet->getUndoList(), false);
+                myMainWindow->getViewNet()->getNet()->deleteEdge(myMainWindow->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdge(invalidEdge->getID()), 
+                                                                 myMainWindow->getUndoList(), false);
             }
             // end undo list
-            myViewNet->getUndoList()->end();
+            myMainWindow->getUndoList()->end();
         } else if (selectInvalidEdgesAndCancel->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("select invalid edges"));
+            myMainWindow->getUndoList()->begin(GUIIcon::EDGE, TL("select invalid edges"));
             // iterate over invalid single lane elements to select all elements
             for (const auto& invalidEdge : myInvalidElements) {
-                invalidEdge->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+                invalidEdge->setAttribute(GNE_ATTR_SELECTED, "true", myMainWindow->getUndoList());
             }
             // end undo list
-            myViewNet->getUndoList()->end();
+            myMainWindow->getUndoList()->end();
             // abort saving
             abortSaving = true;
         }
@@ -311,8 +307,8 @@ GNEFixNetworkElements::FixEdgeOptions::disableOptions() {
 // GNEFixNetworkElements::FixCrossingOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet) :
-    FixOptions(fixNetworkElementsParent->myLeftFrame, "Crossings", viewNet) {
+GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkElements* fixNetworkElementsParent) :
+    FixOptions(fixNetworkElementsParent->myApplicationWindow, fixNetworkElementsParent->myLeftFrame, "Crossings") {
     // Remove invalid crossings
     removeInvalidCrossings = new FXRadioButton(myLeftFrame, TL("Remove invalid crossings"),
             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
@@ -350,22 +346,23 @@ GNEFixNetworkElements::FixCrossingOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
         if (removeInvalidCrossings->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::CROSSING, TL("delete invalid crossings"));
+            myMainWindow->getUndoList()->begin(GUIIcon::CROSSING, TL("delete invalid crossings"));
             // iterate over invalid crossings to delete it
             for (const auto& invalidCrossing : myInvalidElements) {
-                myViewNet->getNet()->deleteCrossing(myViewNet->getNet()->getAttributeCarriers()->retrieveCrossing(invalidCrossing), myViewNet->getUndoList());
+                myMainWindow->getViewNet()->getNet()->deleteCrossing(myMainWindow->getViewNet()->getNet()->getAttributeCarriers()->retrieveCrossing(invalidCrossing),
+                                                                     myMainWindow->getUndoList());
             }
             // end undo list
-            myViewNet->getUndoList()->end();
+            myMainWindow->getUndoList()->end();
         } else if (selectInvalidCrossings->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::CROSSING, TL("select invalid crossings"));
+            myMainWindow->getUndoList()->begin(GUIIcon::CROSSING, TL("select invalid crossings"));
             // iterate over invalid single lane elements to select all elements
             for (const auto& invalidCrossing : myInvalidElements) {
-                invalidCrossing->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+                invalidCrossing->setAttribute(GNE_ATTR_SELECTED, "true", myMainWindow->getUndoList());
             }
             // end undo list
-            myViewNet->getUndoList()->end();
+            myMainWindow->getUndoList()->end();
             // abort saving
             abortSaving = true;
         }

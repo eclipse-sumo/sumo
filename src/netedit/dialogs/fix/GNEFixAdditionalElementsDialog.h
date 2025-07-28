@@ -41,7 +41,7 @@ class GNEFixAdditionalElementsDialog : public GNEFixElementsDialog {
 
 public:
     /// @brief Constructor
-    GNEFixAdditionalElementsDialog(GNEViewNet* viewNet);
+    GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow);
 
     /// @brief destructor
     ~GNEFixAdditionalElementsDialog();

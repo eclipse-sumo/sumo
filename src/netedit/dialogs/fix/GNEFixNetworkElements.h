@@ -40,7 +40,7 @@ class GNEFixNetworkElements : public GNEFixElementsDialog {
 
 public:
     /// @brief Constructor
-    GNEFixNetworkElements(GNEViewNet* viewNet);
+    GNEFixNetworkElements(GNEApplicationWindow *mainWindow);
 
     /// @brief destructor
     ~GNEFixNetworkElements();
@@ -74,7 +74,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixOptions(FXVerticalFrame* frameParent, const std::string& title, GNEViewNet* viewNet);
+        FixOptions(GNEApplicationWindow *mainWindow, FXVerticalFrame* frameParent, const std::string& title);
 
         /// @brief set invalid network elements
         void setInvalidElements(const std::vector<GNENetworkElement*>& invalidElements);
@@ -86,14 +86,14 @@ protected:
         /// @brief save contents
         bool saveContents() const;
 
+        /// @brief main window
+        GNEApplicationWindow *myMainWindow = nullptr;
+
         /// @brief vertical left frame
         FXVerticalFrame* myLeftFrame = nullptr;
 
         /// @brief vertical right frame
         FXVerticalFrame* myRightFrame = nullptr;
-
-        /// @brief pointer to viewNet
-        GNEViewNet* myViewNet;
 
         /// @brief vector with the invalid network elements
         std::vector<GNENetworkElement*> myInvalidElements;
@@ -120,7 +120,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixEdgeOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet);
+        FixEdgeOptions(GNEFixNetworkElements* fixNetworkElementsParent);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -156,7 +156,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixCrossingOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet);
+        FixCrossingOptions(GNEFixNetworkElements* fixNetworkElementsParent);
 
         /// @brief select option
         void selectOption(FXObject* option);

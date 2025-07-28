@@ -40,7 +40,7 @@ class GNEFixDemandElementsDialog : public GNEFixElementsDialog {
 
 public:
     /// @brief Constructor
-    GNEFixDemandElementsDialog(GNEViewNet* viewNet);
+    GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow);
 
     /// @brief destructor
     ~GNEFixDemandElementsDialog();
@@ -74,7 +74,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixOptions(FXVerticalFrame* frameParent, const std::string& title, GNEViewNet* viewNet);
+        FixOptions(GNEApplicationWindow *mainWindow, FXVerticalFrame* frameParent, const std::string& title);
 
         /// @brief set invalid demand elements
         void setInvalidElements(const std::vector<GNEDemandElement*>& invalidElements);
@@ -86,14 +86,14 @@ protected:
         /// @brief save contents
         bool saveContents() const;
 
+        /// @brief pointer to view Net
+        GNEApplicationWindow *myMainWindow = nullptr;
+
         /// @brief vertical left frame
         FXVerticalFrame* myLeftFrame = nullptr;
 
         /// @brief vertical right frame
         FXVerticalFrame* myRightFrame = nullptr;
-
-        /// @brief pointer to viewNet
-        GNEViewNet* myViewNet;
 
         /// @brief vector with the invalid demand elements
         std::vector<GNEDemandElement*> myInvalidElements;
@@ -120,7 +120,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixRouteOptions(GNEFixDemandElementsDialog* fixDemandElementsParent, GNEViewNet* viewNet);
+        FixRouteOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -159,7 +159,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixVehicleOptions(GNEFixDemandElementsDialog* fixDemandElementsParent, GNEViewNet* viewNet);
+        FixVehicleOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -198,7 +198,7 @@ protected:
 
     public:
         /// @brief build Position Options
-        FixStopPositionOptions(GNEFixDemandElementsDialog* fixDemandElementsParent, GNEViewNet* viewNet);
+        FixStopPositionOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -237,7 +237,7 @@ protected:
 
     public:
         /// @brief build Position Options
-        FixPersonPlanOptions(GNEFixDemandElementsDialog* fixDemandElementsParent, GNEViewNet* viewNet);
+        FixPersonPlanOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
         /// @brief select option
         void selectOption(FXObject* option);

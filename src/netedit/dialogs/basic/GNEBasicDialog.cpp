@@ -30,10 +30,9 @@
 // ===========================================================================
 
 GNEBasicDialog::GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string &title,
-                               const std::string &info, Buttons buttons, GUIIcon smallIcon, GUIIcon largeIcon) :
-    GNEDialog(applicationWindow, title.c_str(), GUIDesignDialogBox) {
-    // set dialog icon
-    setIcon(GUIIconSubSys::getIcon(smallIcon));
+                               const std::string &info, GNEDialog::Buttons buttons, GUIIcon titleIcon,
+                               GUIIcon largeIcon) :
+    GNEDialog(applicationWindow, title.c_str(), titleIcon, buttons, GUIDesignDialogBox) {
     // get icon
     const auto ic = (largeIcon != GUIIcon::EMPTY)? GUIIconSubSys::getIcon(largeIcon) : nullptr;
     // create dialog layout (obtained from FXMessageBox)
@@ -42,42 +41,6 @@ GNEBasicDialog::GNEBasicDialog(GNEApplicationWindow* applicationWindow, const st
     new FXLabel(infoFrame, FXString::null, ic, ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // add information label
     new FXLabel(infoFrame, info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    // add separator
-    new FXHorizontalSeparator(myContentFrame, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
-    // Create frame for buttons
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
-    // add horizontal frame used to center buttons horizontally
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    // create buttons according to the type
-    switch (buttons) {
-        case Buttons::OK: {
-            GUIDesigns::buildFXButton(buttonsFrame, TL("OK"), "", TL("OK"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-            break;
-        }
-        case Buttons::YES_NO: {
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Yes"), "", TL("Yes"), GUIIconSubSys::getIcon(GUIIcon::YES), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("No"), "", TL("No"), GUIIconSubSys::getIcon(GUIIcon::NO), this, FXDialogBox::ID_CANCEL, GUIDesignButtonOK);
-            break;
-        }
-        case Buttons::YES_NO_CANCEL: {
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Yes"), "", TL("Yes"), GUIIconSubSys::getIcon(GUIIcon::YES), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonAccept);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("No"), "", TL("No"), GUIIconSubSys::getIcon(GUIIcon::NO), this, FXDialogBox::ID_CANCEL, GUIDesignButtonAccept);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, FXDialogBox::ID_CANCEL, GUIDesignButtonCancel);
-            // CHEC CANCEL
-            break;
-        }
-        case Buttons::ACCEPT: {
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Accept"), "", TL("Accept"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonAccept);
-            break;
-        }
-        case Buttons::ACCEPT_CANCEL: {
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Accept"), "", TL("Accept"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonAccept);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, FXDialogBox::ID_CANCEL, GUIDesignButtonCancel);
-            break;
-        }
-    }
-    // add horizontal frame used to center buttons horizontally
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // open dialog
     openModal();
 }
@@ -96,12 +59,6 @@ GNEBasicDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialog
 long
 GNEBasicDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     return closeDialogAccepting();
-}
-
-
-long
-GNEBasicDialog::onCmdDecline(FXObject*, FXSelector, void*) {
-    return closeDialogDeclining();
 }
 
 

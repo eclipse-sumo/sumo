@@ -188,7 +188,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                 }
                 // open question dialog box
                 const auto questionDialog = GNEQuestionBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), 
-                                                                   GNEBasicDialog::Buttons::YES_NO, title, info);
+                                                                   GNEDialog::Buttons::YES_NO, title, info);
                 // continue depending of answer
                 if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
                     // remove affected flows of calibrator flows
@@ -310,7 +310,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                 }
                 // open question dialog box
                 const auto questionDialog = GNEQuestionBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), 
-                                                                   GNEBasicDialog::Buttons::YES_NO, title, info);
+                                                                   GNEDialog::Buttons::YES_NO, title, info);
                 // continue depending of answer
                 if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
                     // remove affected flows of calibrator flows

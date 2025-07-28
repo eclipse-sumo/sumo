@@ -48,15 +48,11 @@ FXIMPLEMENT(GNEAllowVClassesDialog, GNEDialog, GNEAllowVClassesDialogMap, ARRAYN
 // member method definitions
 // ===========================================================================
 
-GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEViewNet* viewNet) :
-    GNEDialog(viewNet->getViewParent()->getGNEAppWindows(), "", GUIDesignDialogBox),
-    myViewNet(viewNet) {
-    // set vehicle icon for this dialog
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
-    // create main frame
-    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEApplicationWindow *mainWindow) :
+    GNEDialog(mainWindow, TL("Edit allowed and disallowed vClasses"), GUIIcon::GREENVEHICLE,
+              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, GUIDesignDialogBox) {
     // create groupbox for options
-    FXGroupBox* myGroupBoxOptions = new FXGroupBox(mainFrame, TL("Selection options"), GUIDesignGroupBoxFrame);
+    FXGroupBox* myGroupBoxOptions = new FXGroupBox(myContentFrame, TL("Selection options"), GUIDesignGroupBoxFrame);
     FXHorizontalFrame* myOptionsFrame = new FXHorizontalFrame(myGroupBoxOptions, GUIDesignAuxiliarHorizontalFrame);
     // allow all
     GUIDesigns::buildFXButton(myOptionsFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_ALLOWDISALLOW_SELECTALL, GUIDesignButtonIcon);
@@ -71,7 +67,7 @@ GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEViewNet* viewNet) :
     GUIDesigns::buildFXButton(myOptionsFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ALLOWDISALLOW_UNSELECTALL, GUIDesignButtonIcon);
     new FXLabel(myOptionsFrame, TL("Disallow all vehicles"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
     // create groupbox for vehicles
-    FXGroupBox* myGroupBoxVehiclesFrame = new FXGroupBox(mainFrame, ("Select " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignGroupBoxFrame);
+    FXGroupBox* myGroupBoxVehiclesFrame = new FXGroupBox(myContentFrame, ("Select " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignGroupBoxFrame);
     // Create frame for vehicles's columns
     FXHorizontalFrame* myVehiclesFrame = new FXHorizontalFrame(myGroupBoxVehiclesFrame, GUIDesignContentsFrame);
     // create left frame and fill it
@@ -113,13 +109,6 @@ GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEViewNet* viewNet) :
     buildVClass(myContentRightFrame, SVC_DRONE, GUIIcon::VCLASS_DRONE, TL("A small unmanned robot"));
     buildVClass(myContentRightFrame, SVC_CUSTOM1, GUIIcon::VCLASS_CUSTOM1, TL("Reserved for user-defined semantics"));
     buildVClass(myContentRightFrame, SVC_CUSTOM2, GUIIcon::VCLASS_CUSTOM2, TL("Reserved for user-defined semantics"));
-    // create dialog buttons bot centered
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myKeepOldButton = GUIDesigns::buildFXButton(buttonsFrame, TL("accept"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("cancel"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    myResetButton = GUIDesigns::buildFXButton(buttonsFrame, TL("reset"), "", TL("close"),  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
 

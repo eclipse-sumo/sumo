@@ -1648,7 +1648,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     for (const auto& junction : myAttributeCarriers->getJunctions()) {
         if ((junction.second->getPositionInView() == pos) && (cluster.find(junction.second->getNBNode()) == cluster.end())) {
             // open dialog
-            const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEBasicDialog::Buttons::YES_NO,
+            const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEDialog::Buttons::YES_NO,
                                                                TL("Position of joined junction"),
                                                                TL("There is another unselected junction in the same position of joined junction."),
                                                                TL("It will be joined with the other selected junctions. Continue?"));
@@ -1761,7 +1761,7 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
         std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
         // Ask confirmation to user
         const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(),
-                                    GNEBasicDialog::Buttons::YES_NO, TL("Clear crossings"),
+                                    GNEDialog::Buttons::YES_NO, TL("Clear crossings"),
                                     TL("Crossings will be cleared. Continue?"));
         // 1:yes, 2:no, 4:esc
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
@@ -2237,9 +2237,9 @@ GNENet::saveAdditionals() {
     }
     // if there are invalid StoppingPlaces or detectors, open GNEFixAdditionalElementsDialog
     if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
-        // 0 -> Canceled Saving, with or without selecting invalid stopping places and E2
-        // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
-        if (myViewNet->getFixAdditionalElementsDialog()->openDialog(invalidSingleLaneAdditionals, invalidMultiLaneAdditionals) == GNEDialog::Result::ACCEPT) {
+        // open fix additional elements dialog
+        auto fixAdditionalElements = GNEFixAdditionalElementsDialog(myViewNet->getViewParent()->getGNEAppWindows());
+        if (fixAdditionalElements.openDialog(invalidSingleLaneAdditionals, invalidMultiLaneAdditionals) == GNEDialog::Result::ACCEPT) {
             return false;
         } else {
             saveAdditionalsConfirmed();
@@ -2288,9 +2288,9 @@ GNENet::saveDemandElements() {
     }
     // if there are invalid demand elements, open GNEFixDemandElementsDialog
     if (invalidSingleLaneDemandElements.size() > 0) {
-        // 0 -> Canceled Saving, with or without selecting invalid demand elements
-        // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
-        if (myViewNet->getFixDemandElementsDialog()->openDialog(invalidSingleLaneDemandElements) == GNEDialog::Result::ACCEPT) {
+        // open fix demand elements dialog
+        auto fixDemandElement = GNEFixDemandElementsDialog(myViewNet->getViewParent()->getGNEAppWindows());
+        if (fixDemandElement.openDialog(invalidSingleLaneDemandElements) == GNEDialog::Result::ACCEPT) {
             saveDemandElementsConfirmed();
             return true;
         } else {

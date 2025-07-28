@@ -253,12 +253,6 @@ protected:
     /// @brief pointer to parameters operations
     ParametersOperations* myParametersOperations;
 
-    /// @brief accept button
-    FXButton* myKeepOldButton;
-
-    /// @brief cancel button
-    FXButton* myCancelButton;
-
 private:
     /// @brief Invalidated copy constructor.
     GNEVTypeDistributionsDialog(const GNEVTypeDistributionsDialog&) = delete;
