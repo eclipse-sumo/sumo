@@ -49,6 +49,4 @@
     <edge id="E8" from="J18" to="J1" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.81" shape="262.11,94.13 254.47,98.05 196.53,126.74 169.27,140.51 41.68,204.16 14.30,217.89" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
     <edge id="E9" from="J12" to="J18" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.11" shape="293.62,79.00 290.35,80.57 281.88,84.55" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
 
-    <roundabout nodes="J18 J4 J6" edges="E10 E5 E7"/>
-
 </edges>
