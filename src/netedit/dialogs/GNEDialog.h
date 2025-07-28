@@ -71,6 +71,18 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEDialog)
 
+    /// @brief pointer to the main window
+    GNEApplicationWindow* myApplicationWindow = nullptr;
+
+    /// @brief content frame
+    FXVerticalFrame* myContentFrame = nullptr;
+
+    /// @brief result to indicate if this dialog was closed accepting or rejecting changes
+    Result myResult = Result::CANCEL;
+
+    /// @brief flag to indicate if this dialog is being tested using internal test
+    bool myTesting = false;
+
     /// @brief close dialog accepting the changes
     long closeDialogAccepting();
 
@@ -79,15 +91,6 @@ protected:
 
     /// @brief close dialog canceling the changes
     long closeDialogCanceling();
-
-    /// @brief pointer to the main window
-    GNEApplicationWindow* myApplicationWindow;
-
-    /// @brief result to indicate if this dialog was closed accepting or rejecting changes
-    Result myResult = Result::CANCEL;
-
-    /// @brief flag to indicate if this dialog is being tested using internal test
-    bool myTesting = false;
 
 private:
     /// @brief Invalidated copy constructor.

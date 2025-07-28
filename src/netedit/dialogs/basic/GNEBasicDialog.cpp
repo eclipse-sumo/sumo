@@ -30,20 +30,22 @@
 // ===========================================================================
 
 GNEBasicDialog::GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string &title,
-                               const std::string &info, Buttons buttons, GUIIcon icon) :
+                               const std::string &info, Buttons buttons, GUIIcon smallIcon, GUIIcon largeIcon) :
     GNEDialog(applicationWindow, title.c_str(), GUIDesignDialogBox) {
-    // get icon
-    auto ic = GUIIconSubSys::getIcon(icon);
     // set dialog icon
-    setIcon(ic);
+    setIcon(GUIIconSubSys::getIcon(smallIcon));
+    // get icon
+    const auto ic = (largeIcon != GUIIcon::EMPTY)? GUIIconSubSys::getIcon(largeIcon) : nullptr;
     // create dialog layout (obtained from FXMessageBox)
-    FXVerticalFrame* content = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    FXHorizontalFrame* infoFrame = new FXHorizontalFrame(content, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
+    FXHorizontalFrame* infoFrame = new FXHorizontalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
+    // add icon label
     new FXLabel(infoFrame, FXString::null, ic, ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    // add information label
     new FXLabel(infoFrame, info.c_str(), NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
-    new FXHorizontalSeparator(content, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
+    // add separator
+    new FXHorizontalSeparator(myContentFrame, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
     // Create frame for buttons
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(content, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // add horizontal frame used to center buttons horizontally
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create buttons according to the type
