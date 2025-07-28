@@ -150,22 +150,10 @@ class MFXMenuCheckIcon;
 /// @name FXButtons for dialogs
 /// @{
 /// @brief OK Button
-#define GUIDesignButtonOK                   (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief Accept Button
-#define GUIDesignButtonAccept               (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignButtonDialog                (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 100, GUIDesignDialogButtonsHeight, 2, 2, 2, 2
 
 /// @brief Configuration Button
-#define GUIDesignButtonConfiguration        (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 140, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief Cancel Button
-#define GUIDesignButtonCancel               (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief Reset Button
-#define GUIDesignButtonReset                (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief Advanced Button
-#define GUIDesignButtonAdvanced             (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 110, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignButtonConfiguration         (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 140, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief overwrite Button
 #define GUIDesignButtonKeepElements         (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 120, GUIDesignHeight, 2, 2, 2, 2
@@ -419,6 +407,9 @@ class MFXMenuCheckIcon;
 /// @brief design for auxiliar vertical frames with fixed height (DecalsTable)
 #define GUIDesignAuxiliarFrameFixHeight                     (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
+/// @brief design for auxiliar vertical used for separate buttons in dialogs
+#define GUIDesignDialogButtonSeparator                     (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 15, GUIDesignDialogButtonsHeight, 0, 0, 0, 0, 0, 0
+
 /// @}
 
 
@@ -437,7 +428,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignToolBarRaisedSame          (LAYOUT_DOCK_SAME | FRAME_RAISED)
 
 /// @brief design for toolbar supermodes (grip + buttons)
-#define GUIDesignToolBarRaisedSupermodes    (LAYOUT_DOCK_SAME | FRAME_RAISED | LAYOUT_FIX_WIDTH), 0, 0, 23 + (3 * 100)
+#define GUIDesignToolBarRaisedSupermodes    (LAYOUT_DOCK_SAME | FRAME_RAISED | LAYOUT_FIX_WIDTH), 0, 0, GUIDesignHeight + (3 * 100)
 
 /// @brief design for first toolbar shell positioned in the next position of dock
 #define GUIDesignToolBarRaisedNext          (LAYOUT_DOCK_NEXT | FRAME_RAISED)
