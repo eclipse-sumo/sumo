@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-23 09:53+0000\n"
-"PO-Revision-Date: 2025-07-26 15:08+0000\n"
+"PO-Revision-Date: 2025-07-28 14:20+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -174,7 +174,7 @@ msgstr "Estabelece um ponto de interrupção no passo atual da simulação"
 
 #: src/gui/GUIApplicationWindow.cpp:518
 msgid "Set Breakpoint with offset"
-msgstr ""
+msgstr "Define ponto de interrupção com deslocamento"
 
 #: src/gui/GUIApplicationWindow.cpp:518
 msgid ""
@@ -312,22 +312,22 @@ msgstr "Abre uma janela para localizar uma pessoa."
 
 #: src/gui/GUIApplicationWindow.cpp:566
 msgid "&Container"
-msgstr ""
+msgstr "&Contêiner"
 
 #: src/gui/GUIApplicationWindow.cpp:566
 #: src/netedit/GNEApplicationWindowHelper.cpp:2029
 msgid "Open a dialog for locating a Container."
-msgstr ""
+msgstr "Abre uma janela para localizar um Contêiner."
 
 #: src/gui/GUIApplicationWindow.cpp:569
 #: src/netedit/GNEApplicationWindowHelper.cpp:2038
 msgid "&TLS"
-msgstr ""
+msgstr "&TLS"
 
 #: src/gui/GUIApplicationWindow.cpp:569
 #: src/netedit/GNEApplicationWindowHelper.cpp:2038
 msgid "Open a dialog for locating a Traffic Light."
-msgstr ""
+msgstr "Abre uma janela para localizar um semáforo."
 
 #: src/gui/GUIApplicationWindow.cpp:572
 #: src/netedit/GNEApplicationWindowHelper.cpp:636
@@ -338,27 +338,27 @@ msgstr "&Adicional"
 #: src/gui/GUIApplicationWindow.cpp:572
 #: src/netedit/GNEApplicationWindowHelper.cpp:2041
 msgid "Open a dialog for locating an Additional Structure."
-msgstr ""
+msgstr "Abre uma janela para localizar uma Estrutura Adicional."
 
 #: src/gui/GUIApplicationWindow.cpp:575
 #: src/netedit/GNEApplicationWindowHelper.cpp:2044
 msgid "P&oI"
-msgstr ""
+msgstr "P&ol"
 
 #: src/gui/GUIApplicationWindow.cpp:575
 #: src/netedit/GNEApplicationWindowHelper.cpp:2044
 msgid "Open a dialog for locating a Point of Interest."
-msgstr ""
+msgstr "Abre uma janela para localizar um ponto de interesse."
 
 #: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:2047
 msgid "Po&lygon"
-msgstr ""
+msgstr "&Polígonos"
 
 #: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:2047
 msgid "Open a dialog for locating a Polygon."
-msgstr ""
+msgstr "Abre uma janela para localizar um Polígono."
 
 #: src/gui/GUIApplicationWindow.cpp:581
 msgid "Show Internal Structures"
