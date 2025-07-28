@@ -26,6 +26,7 @@
 
 #include <gtest/gtest.h>
 #include <utils/common/StdDefs.h>
+#include <utils/common/StopWatch.h>
 #include <utils/common/RandHelper.h>
 
 
@@ -127,3 +128,13 @@ TEST(RandHelper, test_sequence) {
         EXPECT_EQ(expect[i], RandHelper::rand(100));
     }
 }
+
+/* Test the performance of the method 'rand' without parameters.*/
+// TEST(RandHelper, test_perf) {
+//     StopWatch sw;
+//     sw.start();
+//     for (int i = 0; i < 100000000; i++) {
+//         const double rand = RandHelper::rand();
+//     }
+//     std::cout << sw.stop();
+// }
