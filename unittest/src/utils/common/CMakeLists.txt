@@ -1,8 +1,9 @@
 add_executable(testcommon
-        StringTokenizerTest.cpp
         FileHelpersTest.cpp
-        StringUtilsTest.cpp
+        RandHelperTest.cpp
         RGBColorTest.cpp
+        StringTokenizerTest.cpp
+        StringUtilsTest.cpp
         ValueTimeLineTest.cpp
         )
 setTestProperties(testcommon utils_common utils_iodevices)

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-07-28 11:23:08 by Eclipse SUMO netconvert Version v1_24_0+0021-fe10debbdad
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="orig.nod.xml"/>
+        <edge-files value="orig.edg.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <prefix.junction value="J"/>
+        <prefix.edge value="E"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="0"/>
+        <numerical-ids.edge-start value="0"/>
+    </processing>
+
+</netconvertConfiguration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-392117.44,-4987400.01" convBoundary="0.00,0.00,420.57,237.75" origBoundary="7.572009,44.988228,7.747752,45.132593" projParameter="+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0         +units=m +no_defs +north"/>
+
+    <node id="J0" x="0.00" y="188.21" type="dead_end"/>
+    <node id="J1" x="14.30" y="217.89" type="dead_end"/>
+    <node id="J10" x="239.68" y="82.51" type="traffic_light" tl="J10" tlType="actuated"/>
+    <node id="J11" x="255.48" y="62.73" type="traffic_light" tl="J11" tlType="actuated"/>
+    <node id="J12" x="293.62" y="79.00" type="traffic_light" tl="J12" tlType="actuated"/>
+    <node id="J13" x="296.49" y="86.23" type="traffic_light" tl="J13" tlType="actuated"/>
+    <node id="J14" x="393.71" y="5.17" type="dead_end"/>
+    <node id="J15" x="381.27" y="0.00" type="dead_end"/>
+    <node id="J16" x="417.11" y="17.18" type="dead_end"/>
+    <node id="J17" x="420.57" y="23.45" type="dead_end"/>
+    <node id="J18" x="267.64" y="80.17" type="priority"/>
+    <node id="J2" x="18.92" y="228.20" type="dead_end"/>
+    <node id="J3" x="5.17" y="198.87" type="dead_end"/>
+    <node id="J4" x="266.06" y="100.96" type="priority"/>
+    <node id="J5" x="284.63" y="135.37" type="priority"/>
+    <node id="J6" x="284.64" y="92.20" type="priority"/>
+    <node id="J7" x="268.34" y="56.04" type="priority"/>
+    <node id="J8" x="288.03" y="237.75" type="priority"/>
+    <node id="J9" x="271.35" y="110.03" type="traffic_light" tl="J9" tlType="actuated"/>
+</nodes>

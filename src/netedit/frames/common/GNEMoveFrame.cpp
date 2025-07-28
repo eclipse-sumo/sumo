@@ -213,7 +213,7 @@ GNEMoveFrame::ShiftEdgeSelectedGeometry::ShiftEdgeSelectedGeometry(GNEMoveFrame*
     // create horizontal frame
     FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
-    new FXLabel(myZValueFrame, "Shift value", 0, GUIDesignLabelThickedFixed(100));
+    new FXLabel(myZValueFrame, TL("Shift value"), 0, GUIDesignLabelThickedFixed(100));
     myShiftValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myShiftValueTextField->setText("0");
     // create apply button
@@ -293,7 +293,7 @@ GNEMoveFrame::ChangeZInSelection::ChangeZInSelection(GNEMoveFrame* moveFramePare
     // create horizontal frame
     FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
-    new FXLabel(myZValueFrame, "Z value", 0, GUIDesignLabelThickedFixed(100));
+    new FXLabel(myZValueFrame, TL("Z value"), 0, GUIDesignLabelThickedFixed(100));
     myZValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myZValueTextField->setText("0");
     // Create all options buttons

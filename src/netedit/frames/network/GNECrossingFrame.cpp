@@ -68,7 +68,7 @@ GNECrossingFrame::JunctionInformation::JunctionInformation(GNECrossingFrame* cro
     // Create frame for junction ID
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create label
-    new FXLabel(junctionIDFrame, "Edited", nullptr, GUIDesignLabelThickedFixed(100));
+    new FXLabel(junctionIDFrame, TL("Edited"), nullptr, GUIDesignLabelThickedFixed(100));
     // create text field and disable it
     myTextFieldJunctionID = new FXTextField(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_SELECT, GUIDesignTextField);
     myTextFieldJunctionID->disable();
