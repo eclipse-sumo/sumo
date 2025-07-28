@@ -55,69 +55,83 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(titleIcon));
     // create main frame
-    auto mainFrame = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+    auto mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create content frame
-    myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignAuxiliarFrame);
+    myContentFrame = new FXVerticalFrame(mainFrame, (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2);
     // add separator
     new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     // Create frame for buttons
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2);
     // add horizontal frame used to center buttons horizontally
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create buttons according to the type
     switch (buttons) {
         case Buttons::OK: {
-            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("OK"), "", TL("OK"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonOK);
+            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("OK"), "", TL("OK"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
             break;
         }
         case Buttons::YES_NO: {
-            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Yes"), "", TL("Yes"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonOK);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("No"), "", TL("No"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonOK);
+            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Yes"), "", TL("Yes"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("No"), "", TL("No"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
             break;
         }
         case Buttons::YES_NO_CANCEL: {
-            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Yes"), "", TL("Yes"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("No"), "", TL("No"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonAccept);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ABORT, GUIDesignButtonCancel);
+            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Yes"), "", TL("Yes"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("No"), "", TL("No"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ABORT, GUIDesignButtonDialog);
             break;
         }
         case Buttons::ACCEPT: {
-            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Accept"), "", TL("Accept"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Accept"), "", TL("Accept"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
             break;
         }
         case Buttons::ACCEPT_CANCEL: {
-            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Accept"), "", TL("Accept"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Accept"), "", TL("Accept"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
             break;
         }
         case Buttons::ACCEPT_CANCEL_RESET: {
-            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Accept"), "", TL("Accept"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Reset"), "", TL("Reset changes"), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET, GUIDesignButtonReset);
+            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Accept"), "", TL("Accept"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Reset"), "", TL("Reset changes"), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET, GUIDesignButtonDialog);
             break;
         }
         case Buttons::KEEPNEW_KEEPOLD_CANCEL: {
-            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Keep new"), "", TL("Keep new changes"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Keep old"), "", TL("Keep old changes"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel changes"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ABORT, GUIDesignButtonCancel);
+            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Keep new"), "", TL("Keep new changes"), GUIIconSubSys::getIcon(GUIIcon::YES), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Keep old"), "", TL("Keep old changes"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel changes"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ABORT, GUIDesignButtonDialog);
             break;
         }
         case Buttons::RUN_CANCEL_RESET: {
-            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Run"), "", TL("Run"), GUIIconSubSys::getIcon(GUIIcon::START), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_ABORT, GUIDesignButtonCancel);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Reset"), "", TL("Reset changes"), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET, GUIDesignButtonReset);
+            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Run"), "", TL("Run"), GUIIconSubSys::getIcon(GUIIcon::START), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_GNE_ABORT, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Reset"), "", TL("Reset changes"), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET, GUIDesignButtonDialog);
             break;
         }
         case Buttons::RUN_ADVANCED_CANCEL: {
-            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Run"), "", TL("Run"), GUIIconSubSys::getIcon(GUIIcon::START), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Advanced"), "", TL("Advanced options"), GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), this, MID_GNE_BUTTON_ADVANCED, GUIDesignButtonAdvanced);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ABORT, GUIDesignButtonCancel);
+            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Run"), "", TL("Run"), GUIIconSubSys::getIcon(GUIIcon::START), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Advanced"), "", TL("Advanced options"), GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), this, MID_GNE_BUTTON_ADVANCED, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_ABORT, GUIDesignButtonDialog);
             break;
         }
         case Buttons::ABORT_RERUN_BACK_CLOSE: {
-            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Abort"), "", TL("Abort running"), GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Rerun"), "", TL("Rerun tool"), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-            GUIDesigns::buildFXButton(buttonsFrame, TL("Back"), "", TL("Back to tool dialog"), GUIIconSubSys::getIcon(GUIIcon::BACK), this, MID_GNE_BUTTON_RESET, GUIDesignButtonReset);
+            myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Abort"), "", TL("Abort running"), GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Rerun"), "", TL("Rerun tool"), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+            new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
+            GUIDesigns::buildFXButton(buttonsFrame, TL("Back"), "", TL("Back to tool dialog"), GUIIconSubSys::getIcon(GUIIcon::BACK), this, MID_GNE_BUTTON_RESET, GUIDesignButtonDialog);
             break;
         }
         default:
@@ -134,7 +148,7 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
         // add horizontal frame used to center buttons horizontally
         new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
         // close button
-        GUIDesigns::buildFXButton(buttonsFrame, TL("Close"), "", TL("Close dialog"), GUIIconSubSys::getIcon(GUIIcon::CLOSE), this, MID_GNE_ABORT, GUIDesignButtonReset);
+        GUIDesigns::buildFXButton(buttonsFrame, TL("Close"), "", TL("Close dialog"), GUIIconSubSys::getIcon(GUIIcon::CLOSE), this, MID_GNE_ABORT, GUIDesignButtonDialog);
         // add horizontal frame used to center buttons horizontally
         new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     }

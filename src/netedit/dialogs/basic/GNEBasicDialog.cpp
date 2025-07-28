@@ -36,7 +36,7 @@ GNEBasicDialog::GNEBasicDialog(GNEApplicationWindow* applicationWindow, const st
     // get icon
     const auto ic = (largeIcon != GUIIcon::EMPTY)? GUIIconSubSys::getIcon(largeIcon) : nullptr;
     // create dialog layout (obtained from FXMessageBox)
-    FXHorizontalFrame* infoFrame = new FXHorizontalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
+    auto infoFrame = new FXVerticalFrame(myContentFrame, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
     // add icon label
     new FXLabel(infoFrame, FXString::null, ic, ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     // add information label

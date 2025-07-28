@@ -33,7 +33,9 @@ bool gIgnoreUnknownVClass = false;
 double gWeightsRandomFactor = 1;
 double gWeightsWalkOppositeFactor = 1;
 std::string gLanguage = "C";
+
 int GUIDesignHeight = 23;
+int GUIDesignDialogButtonsHeight = 32;
 
 bool gDebugFlag1 = false;
 bool gDebugFlag2 = false;
