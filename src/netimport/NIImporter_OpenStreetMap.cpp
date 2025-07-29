@@ -2638,10 +2638,13 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 }
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1, myCurrentRelation);
                 if (myStation != INVALID_ID) {
-                    NIOSMNode* station = myOSMNodes.find(myStation)->second;
-                    if (station != nullptr) {
-                        if (station->hasParameter("railway:ref")) {
-                            ptStop->setParameter("stationRef", station->getParameter("railway:ref"));
+                    const auto& nodeIt = myOSMNodes.find(myStation);
+                    if (nodeIt != myOSMNodes.end()) {
+                        NIOSMNode* station = nodeIt->second;
+                        if (station != nullptr) {
+                            if (station->hasParameter("railway:ref")) {
+                                ptStop->setParameter("stationRef", station->getParameter("railway:ref"));
+                            }
                         }
                     }
                 }
