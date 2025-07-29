@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-29 11:04+0200\n"
-"PO-Revision-Date: 2025-07-29 08:53+0000\n"
+"PO-Revision-Date: 2025-07-29 09:22+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -9058,11 +9058,11 @@ msgstr "triangular polígono"
 #: src/netedit/GNEViewNet.cpp:2921 src/netedit/GNEViewNet.cpp:2938
 #: src/netedit/GNEViewNet.cpp:2955 src/netedit/GNEViewNet.cpp:2970
 msgid "simplify edited shape"
-msgstr ""
+msgstr "simplificar la forma editada"
 
 #: src/netedit/GNEViewNet.cpp:2891
 msgid "straigthen edited shape"
-msgstr ""
+msgstr "enderezar la forma editada"
 
 #: src/netedit/GNEViewNet.cpp:3005
 #, c-format
@@ -12230,7 +12230,7 @@ msgstr "Seleccionar accesibilidad (computar cruces)"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:312
 msgid "% (Edited shape)"
-msgstr ""
+msgstr "% (forma editada)"
 
 #: src/netedit/elements/network/GNENetworkElement.cpp:315
 #: src/utils/gui/globjects/GUIGlObject.cpp:316
@@ -13282,7 +13282,7 @@ msgstr "Cambiar Z en la selección"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:296
 msgid "Z value"
-msgstr ""
+msgstr "Valor Z"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:300
 msgid "Absolute value"
@@ -14345,7 +14345,7 @@ msgstr "¡El punto inicial y final de una arista deben ser distintos!"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:71
 msgid "Edited"
-msgstr ""
+msgstr "Editado"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:95
 msgid "selection of edges"
@@ -16985,7 +16985,7 @@ msgstr "Cambiar el idioma a español. (es)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:349
 msgid "Change language to portuguese. (pt)"
-msgstr ""
+msgstr "Cambiar el idioma a portugués. (pt)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:351
 msgid "Change language to french. (fr)"
@@ -17025,7 +17025,7 @@ msgstr "español"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:385
 msgid "portuguese"
-msgstr ""
+msgstr "portugués"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:389
 msgid "french"
