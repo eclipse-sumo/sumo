@@ -57,11 +57,11 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
     // create main frame
     auto mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create content frame
-    myContentFrame = new FXVerticalFrame(mainFrame, (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2);
+    myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignDialogContentFrame);
     // add separator
     new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     // Create frame for buttons
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignDialogButtonsFrame);
     // add horizontal frame used to center buttons horizontally
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create buttons according to the type
