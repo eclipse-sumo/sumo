@@ -35,7 +35,7 @@ Open [netedit](../Netedit/index.md) and create a new network by selecting *File-
 Make sure that **Network** is selected.
 ![](../images/HelloWorld_netedit_network.png)
 
-Enter **Edge Mode** by selecting *Edit-\>Edge mode*, using the shortcut <kbd>E</kbd> or by clicking on the ![](../images/icon_modecreateedge.png) button.
+Enter **Edge Mode** by selecting *Modes-\>Edge mode*, using the shortcut <kbd>E</kbd> or by clicking on the ![](../images/icon_modecreateedge.png) button.
 In Edge Mode, make sure that ***Chain*** is selected (in newer versions, *Chain* is the following icon: ![](../images/icon_checkbox_chain.png)). This will facilitate creating multiple nodes and their connecting edges with fewer clicks.
 
 ![](../images/HelloWorld_netedit_chainmode.png)
@@ -50,7 +50,7 @@ After inserting the last Node, press <kbd>Esc</kbd> to unselect that last node.
 
 
 Now we want to rename our recently inserted Junctions and Edges (which get arbitrary id's when created) and also make our simple network prettier, by aligning all nodes.
-To do so, enter **Inspect Mode** by selecting *Edit-\>Inspect mode*, using the shortcut <kbd>I</kbd> or by clicking on the ![](../images/icon_modeinspect.png) button.
+To do so, enter **Inspect Mode** by selecting *Modes-\>Inspect mode*, using the shortcut <kbd>I</kbd> or by clicking on the ![](../images/icon_modeinspect.png) button.
 
 In Inspect mode you can select different type of elements, such as Nodes and Edges. If an element is selected, its properties will appear on the left side.
 Let's rename (change their **id**) the nodes to "1", "2" and "3" (from left to right) and the edges to "1to2" and "out" (also left to right).
@@ -81,7 +81,7 @@ Now, select the **Demand** supermode in netedit.
 
 ### Creating a Route
 
-Enter **Route Mode** by selecting *Edit-\>Route mode*, using the shortcut <kbd>R</kbd> or by clicking on the ![](../images/icon_moderoute.png) button.
+Enter **Route Mode** by selecting *Modes-\>Route mode*, using the shortcut <kbd>R</kbd> or by clicking on the ![](../images/icon_moderoute.png) button.
 
 Creating a route is as simple as clicking on the Edges that will compose it. When selecting an Edge, its color will change.
 
@@ -95,7 +95,7 @@ After selecting all the edges that will compose the desired route, click on *Fin
 
 ### Adding a Vehicle
 
-Finally, enter **Vehicle Mode** by selecting *Edit-\>Vehicle mode*, using the shortcut <kbd>V</kbd> or by clicking on the ![](../images/icon_modevehicle.png) button.
+Finally, enter **Vehicle Mode** by selecting *Modes-\>Vehicle mode*, using the shortcut <kbd>V</kbd> or by clicking on the ![](../images/icon_modevehicle.png) button.
 To insert a Vehicle, select `vehicle (over route)` and click on the beginning of the route. A car will appear.
 
 ![](../images/HelloWorld_create_car.gif)
