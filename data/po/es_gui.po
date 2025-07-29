@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-23 09:53+0000\n"
-"PO-Revision-Date: 2025-06-05 09:14+0000\n"
+"PO-Revision-Date: 2025-07-29 08:53+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2269 src/gui/GUIApplicationWindow.cpp:2270
@@ -13777,11 +13777,11 @@ msgstr "Distribuciones de ruta"
 
 #: src/netedit/frames/demand/GNERouteFrame.cpp:59
 msgid "non consecutive edges"
-msgstr ""
+msgstr "aristas no consecutivas"
 
 #: src/netedit/frames/demand/GNERouteFrame.cpp:60
 msgid "consecutive edges"
-msgstr ""
+msgstr "aristas consecutivas"
 
 #: src/netedit/frames/demand/GNEStopFrame.cpp:76
 #: src/netedit/frames/demand/GNEStopFrame.cpp:82
@@ -14846,7 +14846,7 @@ msgstr "Cambios no guardados. Cancelar o guardar"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:551
 msgid "Traffic Light Attributes"
-msgstr ""
+msgstr "Atributos del semáforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:567
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:568
@@ -14935,7 +14935,7 @@ msgstr "separar semáforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1282
 msgid "No junction selected"
-msgstr ""
+msgstr "No se ha seleccionado ningún cruce"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1305
 msgid "Junction IDs"
@@ -15034,7 +15034,7 @@ msgstr "duplicar programa '%' del semáforo '%'"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1847
 msgid "Traffic Light does not control any links"
-msgstr ""
+msgstr "El semáforo no controla ningún enlace"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1859
 msgid "Phases"
@@ -15542,7 +15542,7 @@ msgstr "por parámetro (numérico)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:201
 msgid "by edgeData (numerical, streetwise)"
-msgstr ""
+msgstr "por edgeData (numérico, por calle)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:202
 msgid "by attribute (numerical)"
@@ -15563,7 +15563,7 @@ msgstr "por código de permiso"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:206
 msgid "by live edgeData"
-msgstr ""
+msgstr "por edgeData en vivo"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:957
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1205
@@ -16859,7 +16859,7 @@ msgstr "Vista 3D"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2456
 msgid "Ignore color scheme for vehicles"
-msgstr ""
+msgstr "Ignorar esquema de colores de los vehículos"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2458
 msgid "Show TLS link markers"
@@ -17071,6 +17071,8 @@ msgstr "(Sin proyección definida)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1738
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr ""
+"No se pudo transformar las coordenadas WGS84 en la imagen de fondo %, "
+"asumiendo UTM."
 
 #~ msgid "Traffic light Attributes"
 #~ msgstr "Atributos del semáforo"
