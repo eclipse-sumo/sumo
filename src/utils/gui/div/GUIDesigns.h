@@ -150,7 +150,7 @@ class MFXMenuCheckIcon;
 /// @name FXButtons for dialogs
 /// @{
 /// @brief OK Button
-#define GUIDesignButtonDialog                (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 100, GUIDesignDialogButtonsHeight, 2, 2, 2, 2
+#define GUIDesignButtonDialog                (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 110, GUIDesignDialogButtonsHeight, 2, 2, 2, 2
 
 /// @brief Configuration Button
 #define GUIDesignButtonConfiguration         (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 140, GUIDesignHeight, 2, 2, 2, 2
@@ -382,6 +382,12 @@ class MFXMenuCheckIcon;
 
 /// @brief design for auxiliar (Without borders) frame with fixed width and extended height
 #define GUIDesignAuxiliarFrameFixedWidth(width)             (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, width, 0, 0, 0, 0, 0, 0, 0
+
+/// @brief design for content frame used in dialog
+#define GUIDesignDialogContentFrame                         (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2
+
+/// @brief design for content frame used in dialog
+#define GUIDesignDialogButtonsFrame                         (LAYOUT_FILL_X), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
 #define GUIDesignAuxiliarHorizontalFrame                    (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
