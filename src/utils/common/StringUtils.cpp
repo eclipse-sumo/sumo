@@ -395,7 +395,7 @@ StringUtils::isLong(const std::string& sData) {
     if (errno == ERANGE) {
         return false;
     }
-    // check lenght of converted data
+    // check length of converted data
     if ((int)(end - data) != (int)strlen(data)) {
         return false;
     }

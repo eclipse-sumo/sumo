@@ -8734,7 +8734,7 @@ msgid "simplify edited shape"
 msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:2891
-msgid "straigthen edited shape"
+msgid "straighten edited shape"
 msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:3005

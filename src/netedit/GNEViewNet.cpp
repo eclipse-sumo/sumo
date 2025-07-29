@@ -2888,7 +2888,7 @@ GNEViewNet::onCmdStraightenShapeEdited(FXObject*, FXSelector, void*) {
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
         // simplify edited shape using undo-redo
-        undoList->begin(shapeEdited, TL("straigthen edited shape"));
+        undoList->begin(shapeEdited, TL("straighten edited shape"));
         shapeEdited->straigthenShapeEdited(undoList);
         undoList->end();
     }

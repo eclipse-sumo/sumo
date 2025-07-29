@@ -360,7 +360,7 @@ GNEStoppingPlace::setStoppingPlaceAttribute(SumoXMLAttr key, const std::string& 
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         case GNE_ATTR_SIZE:
-            adjustLenght(parse<double>(value), undoList);
+            adjustLength(parse<double>(value), undoList);
             break;
         default:
             setCommonAttribute(key, value, undoList);
@@ -748,8 +748,8 @@ GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* 
 
 
 void
-GNEStoppingPlace::adjustLenght(const double newLength, GNEUndoList* undoList) {
-    const auto laneLenght = getParentLanes().front()->getLaneShapeLength();
+GNEStoppingPlace::adjustLength(const double newLength, GNEUndoList* undoList) {
+    const auto laneLength = getParentLanes().front()->getLaneShapeLength();
     auto newStartPos = myStartPosition;
     auto newEndPos = myEndPosition;
     if ((newStartPos != INVALID_DOUBLE) && (newEndPos != INVALID_DOUBLE)) {
@@ -763,16 +763,16 @@ GNEStoppingPlace::adjustLenght(const double newLength, GNEUndoList* undoList) {
         if (newStartPos < 0) {
             newEndPos += (newStartPos * -1);
             newStartPos = 0;
-            if ((newStartPos < 0) && (newEndPos > laneLenght)) {
+            if ((newStartPos < 0) && (newEndPos > laneLength)) {
                 newStartPos = 0;
-                newEndPos = laneLenght;
+                newEndPos = laneLength;
             }
-        } else if (newEndPos > laneLenght) {
-            newStartPos -= (newEndPos - laneLenght);
-            newStartPos = laneLenght;
-            if ((newStartPos < 0) && (newEndPos > laneLenght)) {
+        } else if (newEndPos > laneLength) {
+            newStartPos -= (newEndPos - laneLength);
+            newStartPos = laneLength;
+            if ((newStartPos < 0) && (newEndPos > laneLength)) {
                 newStartPos = 0;
-                newEndPos = laneLenght;
+                newEndPos = laneLength;
             }
         }
         // set new start and end positions
@@ -781,7 +781,7 @@ GNEStoppingPlace::adjustLenght(const double newLength, GNEUndoList* undoList) {
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(newEndPos), undoList);
         undoList->end();
     } else if (newStartPos != INVALID_DOUBLE) {
-        newStartPos = laneLenght - newLength;
+        newStartPos = laneLength - newLength;
         if (newStartPos < 0) {
             newStartPos = 0;
         }
@@ -790,8 +790,8 @@ GNEStoppingPlace::adjustLenght(const double newLength, GNEUndoList* undoList) {
         undoList->end();
     } else if (newEndPos != INVALID_DOUBLE) {
         newEndPos = newLength;
-        if (newEndPos > laneLenght) {
-            newEndPos = laneLenght;
+        if (newEndPos > laneLength) {
+            newEndPos = laneLength;
         }
         undoList->begin(this, TLF(" %'s length", myTagProperty->getTagStr()));
         GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(newEndPos), undoList);

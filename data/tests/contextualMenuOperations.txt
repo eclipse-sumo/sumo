@@ -22,9 +22,9 @@ netedit.contextualMenu.edges.edgeOperations.addReverseDirection.subMenuBPosition
 netedit.contextualMenu.edges.edgeOperations.addReverseDirectionDisconnected.mainMenuPosition 13
 netedit.contextualMenu.edges.edgeOperations.addReverseDirectionDisconnected.subMenuAPosition 6
 netedit.contextualMenu.edges.edgeOperations.addReverseDirectionDisconnected.subMenuBPosition 0
-netedit.contextualMenu.edges.edgeOperations.resetLenght.mainMenuPosition 13
-netedit.contextualMenu.edges.edgeOperations.resetLenght.subMenuAPosition 7
-netedit.contextualMenu.edges.edgeOperations.resetLenght.subMenuBPosition 0
+netedit.contextualMenu.edges.edgeOperations.resetLength.mainMenuPosition 13
+netedit.contextualMenu.edges.edgeOperations.resetLength.subMenuAPosition 7
+netedit.contextualMenu.edges.edgeOperations.resetLength.subMenuBPosition 0
 netedit.contextualMenu.edges.edgeOperations.restoreGeometryPoint.mainMenuPosition 14
 netedit.contextualMenu.edges.edgeOperations.restoreGeometryPoint.subMenuAPosition 4
 netedit.contextualMenu.edges.edgeOperations.restoreGeometryPoint.subMenuBPosition 0
@@ -49,9 +49,9 @@ netedit.contextualMenu.edges.edgeOperations.splitEdgeBothDirection.subMenuBPosit
 netedit.contextualMenu.edges.edgeOperations.straightenElevationEdge.mainMenuPosition 13
 netedit.contextualMenu.edges.edgeOperations.straightenElevationEdge.subMenuAPosition 10
 netedit.contextualMenu.edges.edgeOperations.straightenElevationEdge.subMenuBPosition 0
-netedit.contextualMenu.edges.edgeOperations.straigthenEdge.mainMenuPosition 13
-netedit.contextualMenu.edges.edgeOperations.straigthenEdge.subMenuAPosition 7
-netedit.contextualMenu.edges.edgeOperations.straigthenEdge.subMenuBPosition 0
+netedit.contextualMenu.edges.edgeOperations.straightenEdge.mainMenuPosition 13
+netedit.contextualMenu.edges.edgeOperations.straightenEdge.subMenuAPosition 7
+netedit.contextualMenu.edges.edgeOperations.straightenEdge.subMenuBPosition 0
 netedit.contextualMenu.edges.laneOperations.TransformToRestrictedLane.bikeLane.mainMenuPosition 14
 netedit.contextualMenu.edges.laneOperations.TransformToRestrictedLane.bikeLane.subMenuAPosition 5
 netedit.contextualMenu.edges.laneOperations.TransformToRestrictedLane.bikeLane.subMenuBPosition 2

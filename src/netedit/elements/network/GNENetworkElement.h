@@ -203,7 +203,7 @@ public:
     /// @brief simplify shape edited
     void simplifyShapeEdited(GNEUndoList* undoList);
 
-    /// @brief straigthen shape edited
+    /// @brief straighten shape edited
     void straigthenShapeEdited(GNEUndoList* undoList);
 
     /// @brief close shape edited
