@@ -56,7 +56,7 @@ title: ChangeLog
   - Fixed crash after using tls-mode "reset single" when loaded programs had non-standard programIDs. #16702
   - parkingArea reference in chargingStation is now loaded #16789
   - Fixed bug where saving .sumocfg could overwrite demand when started from sumo-gui with ctrl+t #16711
-  - Background images with embeded WGS84 geo-projection data are now correctly imported (UTM as fallback) #16895
+  - Background images with embedded WGS84 geo-projection data are now correctly imported (UTM as fallback) #16895
   - Fixed crash when trying to handle invalid vehicles during saving #16860
 
 - sumo-gui
@@ -70,7 +70,7 @@ title: ChangeLog
   - Fixed orientation of parking lots to be in line with the documentation #16593
   - Fixed rendering glitches for train carriages #16761
   - Fixed crash when running with options **--device.rerouting.threads** and **--weights.random-factor** #16878
-  - Background images with embeded UTM geo-projection data are now imported (UTM as fallback to WGS84) #16895
+  - Background images with embedded UTM geo-projection data are now imported (UTM as fallback to WGS84) #16895
 
 - mesosim
   - Fixed crash when loading state with different network #16758
@@ -87,7 +87,7 @@ title: ChangeLog
   - OSM import: fixed low default speed for edge type *highway.service* when used by public transport #16763
   - Fixed bug where small roundabouts where sometimes not detected #16787
   - Fixed inconsistent opposite-driving information in network #16905
-  - Fixed invalid connection when defininig split with `type="zipper"` #16923
+  - Fixed invalid connection when defining split with `type="zipper"` #16923
 
 - duarouter
   - Fixed invalid warning about actionStepLength #16899
@@ -155,7 +155,7 @@ title: ChangeLog
   - [plotStops.py](Tools/Railways.md#plotstopspy): New tool to simplify drawing a train schedule diagram along a specified route. #16683
   - generateContinuousRerouters.py: Added option **--stop-file** to add stops at loaded busStops when rerouting #16719
   - mapDetectors.py: Added option **--all-lanes** to place detectors on all lanes of an edge based on a single input coordinate #16751
-  - plot_net_dump.py: Added opion **--colormap.center** two permit plotting colors with `TwoSlopeNorm` #16778
+  - plot_net_dump.py: Added option **--colormap.center** two permit plotting colors with `TwoSlopeNorm` #16778
   - tileGet.py:: Added 'cartodb_' URL-shortcuts and option **--retina** to be used with cartodb URLS #16822
   - net2sel.py: Added new tool to obtain selection file with junctions and edges from .net.xml #16907
   - routeSampler.py: Named route output now always writes the usage count as route "probability" attribute #16919
@@ -172,7 +172,7 @@ title: ChangeLog
 - It is recommended to use a compiler which supports C++17 (e.g. MSVC 2017 or later, g++ 7 or later)
   - MSVC 2015 is no longer supported (mainly due to updates in SUMOLibraries)
 - netconvert: OSM-imported edges with type "highway.service" now have type "highway.service|psv" when used by public transport vehicles. This may require adaptations when using option **--keep-edges.by-type** or **--remove-edges.by-type** and when using edge-type specific [restrictions](Networks/PlainXML.md#vehicle-class_specific_speed_limits) or [meso-settings](Simulation/Meso.md#configuration_by_edge_type)  #16763
-- The values of **--default.departspeed** (currenlty "0") and **--default.departlane** (currenlty "first") will be changed in a future version so that vehicles depart with higher speed and on all lanes. Make sure to set explicit values if your simulation relies on the old behavior.
+- The values of **--default.departspeed** (currently "0") and **--default.departlane** (currently "first") will be changed in a future version so that vehicles depart with higher speed and on all lanes. Make sure to set explicit values if your simulation relies on the old behavior.
 
 ## Version 1.23.1 (08.05.2025)
 

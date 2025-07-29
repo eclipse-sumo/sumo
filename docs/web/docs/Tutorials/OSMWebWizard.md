@@ -5,7 +5,7 @@ title: OSMWebWizard
 # About
 
 The OSM Web Wizard offers one of the easiest solutions to start with
-SUMO. Based on a selection of an openstreetmap map excerpt, you will be
+SUMO. Based on a selection of an [openstreetmap](../Networks/Import/OpenStreetMap.md) map excerpt, you will be
 able to configure a randomized traffic demand and run and visualize the
 scenario in the [sumo-gui](../sumo-gui.md). This tutorial will
 guide you step by step from the selection of the map excerpt over

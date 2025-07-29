@@ -338,7 +338,7 @@ GNEAttributesEditorRow::fillSumoBaseObject(CommonXMLStructure::SumoBaseObject* b
             }
         } else if (GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
             const auto doubleValue = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
-            // check using default value for certain default values (for example, lenght = -1)
+            // check using default value for certain default values (for example, length = -1)
             if (!usingDefaultValue && myAttrProperty->isPositive() && (doubleValue < 0)) {
                 return attribute;
             } else if (!usingDefaultValue && myAttrProperty->isProbability() && ((doubleValue < 0) || (doubleValue > 1))) {

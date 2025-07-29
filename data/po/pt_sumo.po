@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-07-23 09:53+0000\n"
-"PO-Revision-Date: 2025-07-24 14:03+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
-"\n"
+"POT-Creation-Date: 2025-07-29 11:04+0200\n"
+"PO-Revision-Date: 2025-07-28 23:04+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
+"br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
 "Language: pt\n"
@@ -26,167 +26,173 @@ msgstr "Lendo entrada"
 
 #: src/activitygen/AGActivityGen.cpp:54
 msgid "Consolidating statistics"
-msgstr ""
+msgstr "Consolidando estatísticas"
 
 #: src/activitygen/AGActivityGen.cpp:58
 msgid "Building street representation"
-msgstr ""
+msgstr "Construindo representação de rua"
 
 #: src/activitygen/AGActivityGen.cpp:62
 msgid "Generating work positions"
-msgstr ""
+msgstr "Gerando posições de trabalho"
 
 #: src/activitygen/AGActivityGen.cpp:66
 msgid "Building bus lines"
-msgstr ""
+msgstr "Construindo linhas de ônibus"
 
 #: src/activitygen/AGActivityGen.cpp:71
 msgid "Generating population"
-msgstr ""
+msgstr "Gerando população"
 
 #: src/activitygen/AGActivityGen.cpp:75
 msgid "Allocating schools"
-msgstr ""
+msgstr "Alocando escolas"
 
 #: src/activitygen/AGActivityGen.cpp:79
 msgid "Allocating work places"
-msgstr ""
+msgstr "Alocando locais de trabalho"
 
 #: src/activitygen/AGActivityGen.cpp:83
 msgid "Allocating car places"
-msgstr ""
+msgstr "Alocando lugares para veículos"
 
 #: src/activitygen/AGActivityGenHandler.cpp:174
 #: src/activitygen/AGActivityGenHandler.cpp:181
 msgid "Invalid % value of edge % is treated as zero."
-msgstr ""
+msgstr "Valor % invalido da areta %, será tratado como zero."
 
 #: src/activitygen/AGActivityGenHandler.cpp:186
 #, c-format
 msgid "Edge '%' is not known."
-msgstr ""
+msgstr "Aresta '%' não é conhecida."
 
 #: src/activitygen/AGActivityGenHandler.cpp:345
 msgid "Unknown bus station '%'."
-msgstr ""
+msgstr "Ponto de ônibus '%' desconhecido."
 
 #: src/activitygen/AGFrame.cpp:61
 msgid "Use FILE as SUMO-network to create trips for"
-msgstr ""
+msgstr "Usar FILE como rede do SUMO para criar viagens"
 
 #: src/activitygen/AGFrame.cpp:64
 msgid "Loads the SUMO-statistics FILE"
-msgstr ""
+msgstr "Carrega estatísticas do SUMO como FILE"
 
 #: src/activitygen/AGFrame.cpp:72
 msgid "Write generated trips to FILE"
-msgstr ""
+msgstr "Escreve as viagens geradas em FILE"
 
 #: src/activitygen/AGFrame.cpp:81
 msgid ""
 "Sets the time of beginning of the simulation during the first day (in "
 "seconds)"
 msgstr ""
+"Define o tempo de início da simulação durante o primeiro dia (em segundos)"
 
 #: src/activitygen/AGFrame.cpp:84
 msgid ""
 "Sets the time of ending of the simulation during the last day (in seconds)"
 msgstr ""
+"Define o tempo de término da simulação durante o último dia (em segundos)"
 
 #: src/activitygen/AGFrame.cpp:87
 msgid "Sets the duration of the simulation in days"
-msgstr ""
+msgstr "Define a duração da simulação em dias"
 
 #: src/activitygen/activitygen_main.cpp:64 src/router/ROLoader.cpp:111
 msgid "Missing definition of network to load!"
-msgstr ""
+msgstr "Falta definição de rede para carregar!"
 
 #: src/activitygen/activitygen_main.cpp:67
 #, c-format
 msgid "The network file '%' could not be accessed."
-msgstr ""
+msgstr "O arquivo de rede '%' não pode ser acessado."
 
 #: src/activitygen/activitygen_main.cpp:69 src/router/ROLoader.cpp:116
 msgid "Loading net"
-msgstr ""
+msgstr "Carregando rede"
 
 #: src/activitygen/activitygen_main.cpp:79
 #: src/netload/NLEdgeControlBuilder.cpp:237 src/router/ROLoader.cpp:129
 #, c-format
 msgid "Deprecated vehicle classes '%' in input network."
-msgstr ""
+msgstr "A classe do veículo '%' na rede de entrada é obsoleta."
 
 #: src/activitygen/activitygen_main.cpp:89
 msgid ""
 "Generates trips of persons throughout a day for the microscopic, multi-modal "
 "traffic simulation SUMO."
 msgstr ""
+"Gera viagens de pessoas ao longo de um dia para a simulação multimodal e "
+"microscópica de tráfego no SUMO."
 
 #: src/activitygen/activitygen_main.cpp:113
 #, c-format
 msgid "Loaded % edges."
-msgstr ""
+msgstr "% arestas carregadas."
 
 #: src/activitygen/city/AGCity.cpp:415
 msgid "No street that allows passenger vehicles found in this city."
-msgstr ""
+msgstr "Não há nenhuma rua que permita veículos de passeio nesta cidade."
 
 #: src/activitygen/city/AGWorkPosition.cpp:127
 msgid "Work position already occupied. Cannot give it to another adult."
-msgstr ""
+msgstr "Cargo já ocupado. Não é possível cedê-lo a outro adulto."
 
 #: src/dfrouter/RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
-msgstr ""
+msgstr "Pelo menos um valor está além dos limites de tempo determinados."
 
 #: src/dfrouter/RODFDetFlowLoader.cpp:104
 msgid "At least one line does not contain the correct number of columns."
-msgstr ""
+msgstr "Pelo menos uma linha não contém o número correto de colunas."
 
 #: src/dfrouter/RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
-msgstr ""
+msgstr "Rotas ausentes para o detector '%'."
 
 #: src/dfrouter/RODFDetector.cpp:305
 #, c-format
 msgid "Detector '%' has no routes!?"
-msgstr ""
+msgstr "O detector '%' não tem rotas!?"
 
 #: src/dfrouter/RODFDetectorHandler.cpp:86
 msgid "Could not add detector '%' (probably the id is already used)."
 msgstr ""
+"Não é possível adicionar o detector '%' (provavelmente os id já está sendo "
+"usado)."
 
 #: src/dfrouter/RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
-msgstr ""
+msgstr "Carrega o arquivo de rede do SUMO"
 
 #: src/dfrouter/RODFFrame.cpp:70
 msgid "Loads detector descriptions from FILE"
-msgstr ""
+msgstr "Carregar descrições de detectores a partir de um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:75
 msgid "Loads detector flows from FILE(s)"
-msgstr ""
+msgstr "Carrega fluxos de detectores a partir de um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:82
 msgid "Saves computed routes to FILE"
-msgstr ""
+msgstr "Salva rotas geradas em um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:85
 msgid "Forces dfrouter to compute routes for in-between detectors"
-msgstr ""
+msgstr "Força o dfrouter a calcular rotas para detectores intermediários"
 
 #: src/dfrouter/RODFFrame.cpp:89
 msgid "Saves typed detectors to FILE"
-msgstr ""
+msgstr "Salva detectores digitados em um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:92
 msgid "Saves detector positions as pois to FILE"
-msgstr ""
+msgstr "Salva posições de detectores como POIs em um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
-msgstr ""
+msgstr "Salva definições de emissores para detectores de origem em um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:98
 msgid "Add vehicle types to the emitters file (PKW, LKW)"
@@ -3230,8 +3236,8 @@ msgstr ""
 
 #: src/microsim/MSVehicle.cpp:4667
 msgid ""
-"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
-"offset=%), time=%."
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
+"%), time=%."
 msgstr ""
 
 #: src/microsim/MSVehicle.cpp:4750
@@ -4940,8 +4946,8 @@ msgstr ""
 
 #: src/microsim/transportables/MSStageDriving.cpp:249
 msgid ""
-"Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
-"time=%"
+"Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
+"%"
 msgstr ""
 
 #: src/microsim/transportables/MSStageDriving.cpp:255
@@ -5099,8 +5105,8 @@ msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:496
 msgid ""
-"Invalid distance computation for vehicle '%' from stopping place '%' at "
-"time=%."
+"Invalid distance computation for vehicle '%' from stopping place '%' at time="
+"%."
 msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:575
@@ -9029,11 +9035,11 @@ msgstr ""
 msgid "Invalid lane index '%' for edge '%'."
 msgstr ""
 
-#: src/netimport/NIXMLTypesHandler.cpp:85
+#: src/netimport/NIXMLTypesHandler.cpp:86
 msgid "Invalid lane spread type '%'. Using default 'right'"
 msgstr ""
 
-#: src/netimport/NIXMLTypesHandler.cpp:114
+#: src/netimport/NIXMLTypesHandler.cpp:115
 msgid "Invalid lane index % for edge type '%' with % lanes"
 msgstr ""
 
@@ -9740,123 +9746,6 @@ msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
 msgstr ""
 
-#: src/od/ODAmitranHandler.cpp:48
-msgid "Invalid duration for timeSlice starting %."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:57
-#, c-format
-msgid "District '%' does not provide any valid source."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:73
-#, c-format
-msgid "District '%' does not provide any valid sink."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:84
-#, c-format
-msgid "Could not access network file '%' to load."
-msgstr ""
-
-#: src/od/ODDistrictHandler.cpp:130
-msgid "'probability' must be positive (in definition of % '%')."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:84
-msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:90
-msgid "Missing origin '%' (% vehicles)."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:95
-msgid "Missing destination '%' (% vehicles)."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:101
-#, c-format
-msgid "District '%' has no source."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:105
-#, c-format
-msgid "District '%' has no sink."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:197
-msgid ""
-"Cannot find different source and sink edge for origin '%' and destination "
-"'%'."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:372 src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
-msgid ""
-"Flow density of % vehicles per second, cannot be represented with a simple "
-"probability. Falling back to even spacing."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:442
-msgid "End of file while reading %."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:469
-msgid "Broken period definition '%'."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:483
-msgid "Broken factor: '%'."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:517
-#, c-format
-msgid "Missing line with % district names."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:527
-msgid "Missing line for district %."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:541
-msgid "More entries than districts found."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:546 src/od/ODMatrix.cpp:594
-msgid "Not numeric vehicle number in line '%'."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:592
-msgid "Missing at least one information in line '%'."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
-msgid "Could not open '%'."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
-#, c-format
-msgid "'%' does not contain the needed information about the time described."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:682 src/od/ODMatrix.cpp:695
-#, c-format
-msgid "Could not access matrix file '%' to load."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:722
-#, c-format
-msgid "Could not access route file '%' to load."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:739
-msgid "Assuming 24 entries for a day timeline, but got %."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:749
-msgid "Broken time line definition: missing a value in '%'."
-msgstr ""
-
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
 msgstr ""
@@ -9949,6 +9838,123 @@ msgstr ""
 msgid "No vehicles loaded."
 msgstr ""
 
+#: src/od/ODAmitranHandler.cpp:48
+msgid "Invalid duration for timeSlice starting %."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:57
+#, c-format
+msgid "District '%' does not provide any valid source."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:73
+#, c-format
+msgid "District '%' does not provide any valid sink."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:84
+#, c-format
+msgid "Could not access network file '%' to load."
+msgstr ""
+
+#: src/od/ODDistrictHandler.cpp:130
+msgid "'probability' must be positive (in definition of % '%')."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:84
+msgid "Missing origin '%' and destination '%' (% vehicles)."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:90
+msgid "Missing origin '%' (% vehicles)."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:95
+msgid "Missing destination '%' (% vehicles)."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:101
+#, c-format
+msgid "District '%' has no source."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:105
+#, c-format
+msgid "District '%' has no sink."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:197
+msgid ""
+"Cannot find different source and sink edge for origin '%' and destination "
+"'%'."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
+msgid ""
+"Flow density of % vehicles per second, cannot be represented with a simple "
+"probability. Falling back to even spacing."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:442
+msgid "End of file while reading %."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:469
+msgid "Broken period definition '%'."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:483
+msgid "Broken factor: '%'."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:517
+#, c-format
+msgid "Missing line with % district names."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:527
+msgid "Missing line for district %."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:541
+msgid "More entries than districts found."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
+msgid "Not numeric vehicle number in line '%'."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:592
+msgid "Missing at least one information in line '%'."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
+msgid "Could not open '%'."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
+#, c-format
+msgid "'%' does not contain the needed information about the time described."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
+#, c-format
+msgid "Could not access matrix file '%' to load."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:722
+#, c-format
+msgid "Could not access route file '%' to load."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:739
+msgid "Assuming 24 entries for a day timeline, but got %."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:749
+msgid "Broken time line definition: missing a value in '%'."
+msgstr ""
+
 #: src/osgview/GUIOSGBuilder.cpp:560 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
 msgstr ""
@@ -9984,7 +9990,7 @@ msgstr ""
 
 #: src/osgview/GUIOSGView.cpp:990 src/osgview/GUIOSGView.cpp:991
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: src/polyconvert/PCLoaderArcView.cpp:112
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:208
@@ -10603,7 +10609,7 @@ msgstr ""
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr ""
 
-#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr ""
 

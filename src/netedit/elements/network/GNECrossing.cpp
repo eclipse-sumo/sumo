@@ -536,7 +536,7 @@ GNECrossing::drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizat
         } else {
             GUIGeometry::drawGeometry(d, myCrossingGeometry, width);
         }
-        // draw shape points only in Network supemode
+        // draw shape points only in Network supermode
         if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                 s.drawMovingGeometryPoint(exaggeration, s.neteditSizeSettings.crossingGeometryPointRadius)) {
             // color
@@ -578,7 +578,7 @@ GNECrossing::getCrossingColor(const GUIVisualizationSettings& s, const NBNode::C
 
 void
 GNECrossing::drawCrossingDetailed(const double width, const double exaggeration) const {
-    // geet lenght and spacing
+    // get length and spacing
     const double length = 0.5 * exaggeration;
     const double spacing = 1.0 * exaggeration;
     // push rail matrix

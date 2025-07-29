@@ -255,8 +255,8 @@ private:
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
-    /// @brief adjust lenght
-    void adjustLenght(const double length, GNEUndoList* undoList);
+    /// @brief adjust length
+    void adjustLength(const double length, GNEUndoList* undoList);
 
     /// @brief Invalidate set new position in the view
     void setPosition(const Position& pos) = delete;

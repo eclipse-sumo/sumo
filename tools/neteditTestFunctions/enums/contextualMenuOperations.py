@@ -203,14 +203,14 @@ class contextualMenu:
                 subMenuAPosition = 6
                 subMenuBPosition = 0
 
-            # reset lenght
-            class resetLenght:
+            # reset length
+            class resetLength:
                 mainMenuPosition = 13
                 subMenuAPosition = 7
                 subMenuBPosition = 0
 
-            # straighteen
-            class straigthenEdge:
+            # straighten
+            class straightenEdge:
                 mainMenuPosition = 13
                 subMenuAPosition = 7
                 subMenuBPosition = 0
@@ -221,7 +221,7 @@ class contextualMenu:
                 subMenuAPosition = 8
                 subMenuBPosition = 0
 
-            # straighteen elevation
+            # straighten elevation
             class straightenElevationEdge:
                 mainMenuPosition = 13
                 subMenuAPosition = 10
