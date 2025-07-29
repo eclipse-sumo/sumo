@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-07-23 09:53+0000\n"
+"POT-Creation-Date: 2025-07-29 11:04+0200\n"
 "PO-Revision-Date: 2025-05-22 09:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
@@ -22,33 +22,33 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
 #: src/gui/GUIApplicationWindow.cpp:2269 src/gui/GUIApplicationWindow.cpp:2270
 #: src/gui/GUIApplicationWindow.cpp:2272
-#: src/netedit/GNEApplicationWindow.cpp:562
-#: src/netedit/GNEApplicationWindow.cpp:566
-#: src/netedit/GNEApplicationWindow.cpp:570
-#: src/netedit/GNEApplicationWindow.cpp:1647
-#: src/netedit/GNEApplicationWindow.cpp:1648
+#: src/netedit/GNEApplicationWindow.cpp:564
+#: src/netedit/GNEApplicationWindow.cpp:568
+#: src/netedit/GNEApplicationWindow.cpp:572
 #: src/netedit/GNEApplicationWindow.cpp:1649
+#: src/netedit/GNEApplicationWindow.cpp:1650
+#: src/netedit/GNEApplicationWindow.cpp:1651
 msgid "N/A"
 msgstr "ND"
 
 #: src/gui/GUIApplicationWindow.cpp:308
-#: src/netedit/GNEApplicationWindow.cpp:563
+#: src/netedit/GNEApplicationWindow.cpp:565
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr ""
 "Coordonnée originale (avant transformation des coordonnés dans netconvert)"
 
 #: src/gui/GUIApplicationWindow.cpp:311
-#: src/netedit/GNEApplicationWindow.cpp:567
+#: src/netedit/GNEApplicationWindow.cpp:569
 msgid "Network coordinate"
 msgstr "Coordonnée du réseau"
 
 #: src/gui/GUIApplicationWindow.cpp:339
-#: src/netedit/GNEApplicationWindow.cpp:590
+#: src/netedit/GNEApplicationWindow.cpp:592
 msgid "Ready."
 msgstr "Prêt."
 
 #: src/gui/GUIApplicationWindow.cpp:462
-#: src/netedit/GNEApplicationWindow.cpp:1389
+#: src/netedit/GNEApplicationWindow.cpp:1391
 msgid "&File"
 msgstr "&Fichier"
 
@@ -94,7 +94,7 @@ msgid "Load edge related data for visualization."
 msgstr "Charger données liées aux arêtes pour visualisation."
 
 #: src/gui/GUIApplicationWindow.cpp:480
-#: src/netedit/GNEApplicationWindow.cpp:1071
+#: src/netedit/GNEApplicationWindow.cpp:1073
 msgid "&Reload"
 msgstr "&Recharger"
 
@@ -131,17 +131,17 @@ msgid "Close the simulation."
 msgstr "Fermer la simulation."
 
 #: src/gui/GUIApplicationWindow.cpp:498
-#: src/netedit/GNEApplicationWindow.cpp:1410
+#: src/netedit/GNEApplicationWindow.cpp:1412
 msgid "&Quit"
 msgstr "&Quitter"
 
 #: src/gui/GUIApplicationWindow.cpp:498
-#: src/netedit/GNEApplicationWindow.cpp:1410
+#: src/netedit/GNEApplicationWindow.cpp:1412
 msgid "Quit the Application."
 msgstr "Quitter l'Application."
 
 #: src/gui/GUIApplicationWindow.cpp:507
-#: src/netedit/GNEApplicationWindow.cpp:1425
+#: src/netedit/GNEApplicationWindow.cpp:1427
 msgid "&Edit"
 msgstr "&Editer"
 
@@ -261,7 +261,7 @@ msgid "Toggle full screen mode on/off."
 msgstr "Allumer/éteindre mode plein écran."
 
 #: src/gui/GUIApplicationWindow.cpp:552
-#: src/netedit/GNEApplicationWindow.cpp:1461
+#: src/netedit/GNEApplicationWindow.cpp:1463
 msgid "&Locate"
 msgstr "&Localiser"
 
@@ -465,7 +465,7 @@ msgid "Load simulation state for the current network from file."
 msgstr "Charger l'état de la simulation pour le réseau actuel depuis fichier."
 
 #: src/gui/GUIApplicationWindow.cpp:611
-#: src/netedit/GNEApplicationWindow.cpp:1532
+#: src/netedit/GNEApplicationWindow.cpp:1534
 msgid "&Window"
 msgstr "&Fenêtre"
 
@@ -568,7 +568,7 @@ msgid "Clear the message window."
 msgstr "Efface la fenêtre des messages."
 
 #: src/gui/GUIApplicationWindow.cpp:655
-#: src/netedit/GNEApplicationWindow.cpp:1538
+#: src/netedit/GNEApplicationWindow.cpp:1540
 msgid "&Help"
 msgstr "&Aide"
 
@@ -759,10 +759,10 @@ msgid "Open Shapes"
 msgstr "Ouvrir Formes"
 
 #: src/gui/GUIApplicationWindow.cpp:1102 src/gui/GUIApplicationWindow.cpp:1130
-#: src/netedit/GNEApplicationWindow.cpp:4799
-#: src/netedit/GNEApplicationWindow.cpp:4855
-#: src/netedit/GNEApplicationWindow.cpp:4901
-#: src/netedit/GNEApplicationWindow.cpp:4947
+#: src/netedit/GNEApplicationWindow.cpp:4801
+#: src/netedit/GNEApplicationWindow.cpp:4857
+#: src/netedit/GNEApplicationWindow.cpp:4903
+#: src/netedit/GNEApplicationWindow.cpp:4949
 #, c-format
 msgid "Loading of % failed."
 msgstr "Chargement de % a échoué."
@@ -788,7 +788,7 @@ msgid "Quick-Reloading."
 msgstr "Rechargement rapide."
 
 #: src/gui/GUIApplicationWindow.cpp:1177
-#: src/netedit/GNEApplicationWindow.cpp:1143
+#: src/netedit/GNEApplicationWindow.cpp:1145
 msgid "Already loading!"
 msgstr "Chargement déjà en cours!"
 
@@ -2480,215 +2480,215 @@ msgstr ""
 msgid "This system has no OpenGL support. Exiting."
 msgstr "Ce système ne prend pas en charge OpenGL. Fermeture."
 
-#: src/netedit/GNEApplicationWindow.cpp:521
+#: src/netedit/GNEApplicationWindow.cpp:523
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "Une simulation microscopique et multi-modale du trafic routier."
 
-#: src/netedit/GNEApplicationWindow.cpp:558
+#: src/netedit/GNEApplicationWindow.cpp:560
 msgid "Recomputing"
 msgstr "Recalcul"
 
-#: src/netedit/GNEApplicationWindow.cpp:559
+#: src/netedit/GNEApplicationWindow.cpp:561
 msgid "Recomputing is needed"
 msgstr "Recalcul nécessaire"
 
-#: src/netedit/GNEApplicationWindow.cpp:571
+#: src/netedit/GNEApplicationWindow.cpp:573
 msgid "Test coordinate"
 msgstr "Coordonnée de test"
 
-#: src/netedit/GNEApplicationWindow.cpp:892
-#: src/netedit/GNEApplicationWindow.cpp:912
+#: src/netedit/GNEApplicationWindow.cpp:894
+#: src/netedit/GNEApplicationWindow.cpp:914
 msgid "loading TLS Programs from '"
 msgstr "chargement Programmes TLS depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:954
+#: src/netedit/GNEApplicationWindow.cpp:956
 msgid "Loaded edge types from '"
 msgstr "Types d'arêtes chargés depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:956
-#: src/netedit/GNEApplicationWindow.cpp:989
+#: src/netedit/GNEApplicationWindow.cpp:958
+#: src/netedit/GNEApplicationWindow.cpp:991
 msgid "load edgeTypes"
 msgstr "charge edgeTypes"
 
-#: src/netedit/GNEApplicationWindow.cpp:987
+#: src/netedit/GNEApplicationWindow.cpp:989
 msgid "Reloaded edge types from '"
 msgstr "Types d'arêtes rechargés depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1044
+#: src/netedit/GNEApplicationWindow.cpp:1046
 msgid "Reloading netedit config file '"
 msgstr "Rechargement fichier configuration netedit '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1048
+#: src/netedit/GNEApplicationWindow.cpp:1050
 msgid "Reloading sumo config file '"
 msgstr "Rechargement fichier configuration sumo '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1052
-#: src/netedit/GNEApplicationWindow.cpp:1113
+#: src/netedit/GNEApplicationWindow.cpp:1054
+#: src/netedit/GNEApplicationWindow.cpp:1115
 msgid "Reloading network file '"
 msgstr "Rechargement fichier réseau '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1068
+#: src/netedit/GNEApplicationWindow.cpp:1070
 msgid "&Reload Netedit config"
 msgstr "&Recharger configuration Netedit"
 
-#: src/netedit/GNEApplicationWindow.cpp:1069
+#: src/netedit/GNEApplicationWindow.cpp:1071
 msgid "&Reload Sumo config"
 msgstr "&Recharger configuration Sumo"
 
-#: src/netedit/GNEApplicationWindow.cpp:1070
+#: src/netedit/GNEApplicationWindow.cpp:1072
 msgid "&Reload Network"
 msgstr "&Recharger Réseau"
 
-#: src/netedit/GNEApplicationWindow.cpp:1310
+#: src/netedit/GNEApplicationWindow.cpp:1312
 msgid "Loading of '"
 msgstr "Chargememt de '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1315
+#: src/netedit/GNEApplicationWindow.cpp:1317
 msgid "'"
 msgstr "'"
 
-#: src/netedit/GNEApplicationWindow.cpp:1315
+#: src/netedit/GNEApplicationWindow.cpp:1317
 msgid "' loaded."
 msgstr "' chargé."
 
-#: src/netedit/GNEApplicationWindow.cpp:1414
+#: src/netedit/GNEApplicationWindow.cpp:1416
 msgid "&Modes"
 msgstr "&Modes"
 
-#: src/netedit/GNEApplicationWindow.cpp:1450
+#: src/netedit/GNEApplicationWindow.cpp:1452
 msgid "L&ock"
 msgstr "&Vérouiller"
 
-#: src/netedit/GNEApplicationWindow.cpp:1457
+#: src/netedit/GNEApplicationWindow.cpp:1459
 msgid "&Processing"
 msgstr "&Traitement"
 
-#: src/netedit/GNEApplicationWindow.cpp:1484
+#: src/netedit/GNEApplicationWindow.cpp:1486
 msgid "&Tools"
 msgstr "&Outils"
 
-#: src/netedit/GNEApplicationWindow.cpp:1486
+#: src/netedit/GNEApplicationWindow.cpp:1488
 msgid "Assign"
 msgstr "Assigner"
 
-#: src/netedit/GNEApplicationWindow.cpp:1487
+#: src/netedit/GNEApplicationWindow.cpp:1489
 #: src/netedit/GNETagPropertiesDatabase.cpp:425
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
 msgid "Detectors"
 msgstr "Détecteurs"
 
-#: src/netedit/GNEApplicationWindow.cpp:1488
+#: src/netedit/GNEApplicationWindow.cpp:1490
 msgid "Districts"
 msgstr "Quartiers"
 
-#: src/netedit/GNEApplicationWindow.cpp:1489
+#: src/netedit/GNEApplicationWindow.cpp:1491
 msgid "DRT"
 msgstr "Transport à la demande (DRT)"
 
-#: src/netedit/GNEApplicationWindow.cpp:1491
+#: src/netedit/GNEApplicationWindow.cpp:1493
 msgid "CityBrain"
 msgstr "CityBrain"
 
-#: src/netedit/GNEApplicationWindow.cpp:1492
+#: src/netedit/GNEApplicationWindow.cpp:1494
 msgid "GTFS"
 msgstr "GTFS"
 
-#: src/netedit/GNEApplicationWindow.cpp:1493
+#: src/netedit/GNEApplicationWindow.cpp:1495
 msgid "Vissim"
 msgstr "Vissim"
 
-#: src/netedit/GNEApplicationWindow.cpp:1494
+#: src/netedit/GNEApplicationWindow.cpp:1496
 msgid "Visum"
 msgstr "Visum"
 
-#: src/netedit/GNEApplicationWindow.cpp:1495
+#: src/netedit/GNEApplicationWindow.cpp:1497
 msgid "Import"
 msgstr "Importer"
 
-#: src/netedit/GNEApplicationWindow.cpp:1496
+#: src/netedit/GNEApplicationWindow.cpp:1498
 msgid "Net"
 msgstr "Réseau"
 
-#: src/netedit/GNEApplicationWindow.cpp:1497
+#: src/netedit/GNEApplicationWindow.cpp:1499
 msgid "Output"
 msgstr "Sortie"
 
-#: src/netedit/GNEApplicationWindow.cpp:1498
+#: src/netedit/GNEApplicationWindow.cpp:1500
 #: src/netedit/GNEApplicationWindowHelper.cpp:705
 #: src/netedit/GNETagPropertiesDatabase.cpp:2067
 #: src/netedit/GNETagPropertiesDatabase.cpp:2542
 msgid "Route"
 msgstr "Route"
 
-#: src/netedit/GNEApplicationWindow.cpp:1500
+#: src/netedit/GNEApplicationWindow.cpp:1502
 msgid "TLS"
 msgstr "Feu tricolore"
 
-#: src/netedit/GNEApplicationWindow.cpp:1501
+#: src/netedit/GNEApplicationWindow.cpp:1503
 msgid "Trigger"
 msgstr "Déclencheur"
 
-#: src/netedit/GNEApplicationWindow.cpp:1502
+#: src/netedit/GNEApplicationWindow.cpp:1504
 msgid "Turn-defs"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:1503
+#: src/netedit/GNEApplicationWindow.cpp:1505
 msgid "Visualization"
 msgstr "Visualisation"
 
-#: src/netedit/GNEApplicationWindow.cpp:1504
+#: src/netedit/GNEApplicationWindow.cpp:1506
 msgid "XML"
 msgstr "XML"
 
-#: src/netedit/GNEApplicationWindow.cpp:1600
+#: src/netedit/GNEApplicationWindow.cpp:1602
 msgid "Network computed"
 msgstr "Réseau calculé"
 
-#: src/netedit/GNEApplicationWindow.cpp:1604
+#: src/netedit/GNEApplicationWindow.cpp:1606
 msgid "Press F5"
 msgstr "Appuyer sur F5"
 
-#: src/netedit/GNEApplicationWindow.cpp:1605
+#: src/netedit/GNEApplicationWindow.cpp:1607
 msgid "Network requires recomputing"
 msgstr "Réseau nécessite nouveau calcul"
 
-#: src/netedit/GNEApplicationWindow.cpp:1682
+#: src/netedit/GNEApplicationWindow.cpp:1684
 msgid "Loading console arguments"
 msgstr "Chargement arguments console"
 
-#: src/netedit/GNEApplicationWindow.cpp:1710
+#: src/netedit/GNEApplicationWindow.cpp:1712
 msgid "Creating new network."
 msgstr "Création nouveau réseau."
 
-#: src/netedit/GNEApplicationWindow.cpp:1721
+#: src/netedit/GNEApplicationWindow.cpp:1723
 msgid "Trying to load an empty network"
 msgstr "Essai de chargement d'un réseau vide"
 
-#: src/netedit/GNEApplicationWindow.cpp:1737
+#: src/netedit/GNEApplicationWindow.cpp:1739
 msgid "Loading network file '"
 msgstr "Chargement fichier réseau '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1749
+#: src/netedit/GNEApplicationWindow.cpp:1751
 msgid "Trying to load an empty configuration"
 msgstr "Essai de chargement d'une configuration vide"
 
-#: src/netedit/GNEApplicationWindow.cpp:1765
+#: src/netedit/GNEApplicationWindow.cpp:1767
 msgid "Loading configuration file '"
 msgstr "Chargement fichier configuration '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1795
+#: src/netedit/GNEApplicationWindow.cpp:1797
 msgid "Select Import Options"
 msgstr "Sélectionner Options d'Import"
 
-#: src/netedit/GNEApplicationWindow.cpp:1801
+#: src/netedit/GNEApplicationWindow.cpp:1803
 msgid "Loading OSM file '"
 msgstr "Chargement fichier OSM '"
 
-#: src/netedit/GNEApplicationWindow.cpp:1823
+#: src/netedit/GNEApplicationWindow.cpp:1825
 msgid "Recompute with volatile options"
 msgstr "Recalculer avec options volatiles"
 
-#: src/netedit/GNEApplicationWindow.cpp:1824
+#: src/netedit/GNEApplicationWindow.cpp:1826
 msgid ""
 "Changes produced in the net due a recomputing with volatile options cannot "
 "be undone. Continue?"
@@ -2696,290 +2696,290 @@ msgstr ""
 "Changements introduits dans réseau dus à recalcul avec options volatiles ne "
 "peuvent pas être défaits. Continuer ?"
 
-#: src/netedit/GNEApplicationWindow.cpp:2122
-#: src/netedit/GNEApplicationWindow.cpp:2182
+#: src/netedit/GNEApplicationWindow.cpp:2124
+#: src/netedit/GNEApplicationWindow.cpp:2184
 msgid "Running "
 msgstr "En cours d'exécution "
 
-#: src/netedit/GNEApplicationWindow.cpp:2145
+#: src/netedit/GNEApplicationWindow.cpp:2147
 msgid "Loading network '"
 msgstr "Chargement réseau '"
 
-#: src/netedit/GNEApplicationWindow.cpp:2145
-#: src/netedit/GNEApplicationWindow.cpp:2154
+#: src/netedit/GNEApplicationWindow.cpp:2147
+#: src/netedit/GNEApplicationWindow.cpp:2156
 msgid "' in SUMO-GUI"
 msgstr "' dans SUMO-GUI"
 
-#: src/netedit/GNEApplicationWindow.cpp:2154
+#: src/netedit/GNEApplicationWindow.cpp:2156
 msgid "Loading sumo config '"
 msgstr "Chargement configuration sumo '"
 
-#: src/netedit/GNEApplicationWindow.cpp:2514
+#: src/netedit/GNEApplicationWindow.cpp:2516
 msgid "Netedit options"
 msgstr "options Netedit"
 
-#: src/netedit/GNEApplicationWindow.cpp:2531
+#: src/netedit/GNEApplicationWindow.cpp:2533
 #: src/netedit/GNEApplicationWindowHelper.cpp:1895
 msgid "Sumo options"
 msgstr "options Sumo"
 
-#: src/netedit/GNEApplicationWindow.cpp:2548
+#: src/netedit/GNEApplicationWindow.cpp:2550
 msgid "Netgenerate options"
 msgstr "options Netgenerate"
 
-#: src/netedit/GNEApplicationWindow.cpp:2564
+#: src/netedit/GNEApplicationWindow.cpp:2566
 #: src/netedit/GNEApplicationWindowHelper.cpp:1283
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:108
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
 msgstr "Annuler"
 
-#: src/netedit/GNEApplicationWindow.cpp:2595
+#: src/netedit/GNEApplicationWindow.cpp:2597
 #: src/netedit/GNEApplicationWindowHelper.cpp:1286
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:111
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
 msgstr "Refaire"
 
-#: src/netedit/GNEApplicationWindow.cpp:3320
+#: src/netedit/GNEApplicationWindow.cpp:3322
 msgid "Saving Network failed!"
 msgstr "Echec sauvegarde Réseau!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3324
+#: src/netedit/GNEApplicationWindow.cpp:3326
 msgid "Network saved in '"
 msgstr "Réseau sauvegardé dans '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3330
+#: src/netedit/GNEApplicationWindow.cpp:3332
 msgid "Could not save network in '"
 msgstr "Le réseau n'a pas pu être sauvegardé dans '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3384
+#: src/netedit/GNEApplicationWindow.cpp:3386
 msgid "Plain XML saved with prefix '"
 msgstr "Sauvegarde au format Plain XML avec le préfixe '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3387
+#: src/netedit/GNEApplicationWindow.cpp:3389
 msgid "Saving plain xml failed!"
 msgstr "Echec sauvegarde au format plain xml !"
 
-#: src/netedit/GNEApplicationWindow.cpp:3408
+#: src/netedit/GNEApplicationWindow.cpp:3410
 msgid "Joined junctions saved to '"
 msgstr "Junctions connectées sauvegardées dans '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3411
+#: src/netedit/GNEApplicationWindow.cpp:3413
 msgid "Saving joined junctions failed!"
 msgstr "Echec sauvegarde junctions connectées!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3440
-#: src/netedit/GNEApplicationWindow.cpp:3444
-#: src/netedit/GNEApplicationWindow.cpp:3448
-#: src/netedit/GNEApplicationWindow.cpp:3452
-#: src/netedit/GNEApplicationWindow.cpp:3456
+#: src/netedit/GNEApplicationWindow.cpp:3442
+#: src/netedit/GNEApplicationWindow.cpp:3446
+#: src/netedit/GNEApplicationWindow.cpp:3450
+#: src/netedit/GNEApplicationWindow.cpp:3454
+#: src/netedit/GNEApplicationWindow.cpp:3458
 msgid "Saving of Netedit configuration aborted"
 msgstr "L'enregistrement de la configuration Netedit a été interrompu"
 
-#: src/netedit/GNEApplicationWindow.cpp:3465
+#: src/netedit/GNEApplicationWindow.cpp:3467
 msgid "Netedit configuration saved in '"
 msgstr "Configuration netedit sauvegardée à '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3471
+#: src/netedit/GNEApplicationWindow.cpp:3473
 msgid "Could not save netedit configuration in '"
 msgstr "Echec sauvegarde configuration netedit dans '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3544
-#: src/netedit/GNEApplicationWindow.cpp:3548
-#: src/netedit/GNEApplicationWindow.cpp:3552
-#: src/netedit/GNEApplicationWindow.cpp:3556
-#: src/netedit/GNEApplicationWindow.cpp:3560
+#: src/netedit/GNEApplicationWindow.cpp:3546
+#: src/netedit/GNEApplicationWindow.cpp:3550
+#: src/netedit/GNEApplicationWindow.cpp:3554
+#: src/netedit/GNEApplicationWindow.cpp:3558
+#: src/netedit/GNEApplicationWindow.cpp:3562
 msgid "Saving of SUMO configuration aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3575
+#: src/netedit/GNEApplicationWindow.cpp:3577
 msgid "SUMO configuration saved in '"
 msgstr "Configuration SUMO sauvegardée dans '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3583
+#: src/netedit/GNEApplicationWindow.cpp:3585
 msgid "Could not save SUMO configuration in '"
 msgstr "Echec sauvegarde configuration SUMO dans '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3637
+#: src/netedit/GNEApplicationWindow.cpp:3639
 msgid "TLS Programs saved in '"
 msgstr "Programmes Feux de Circulation sauvegardés dans '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3640
+#: src/netedit/GNEApplicationWindow.cpp:3642
 msgid "Saving TLS Programs failed!"
 msgstr "Echec sauvegarde Programmes Feux de Circulation!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3681
+#: src/netedit/GNEApplicationWindow.cpp:3683
 msgid "EdgeType saved in '"
 msgstr "EdgeType sauvegardé dans '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3684
+#: src/netedit/GNEApplicationWindow.cpp:3686
 msgid "Saving edgeTypes failed!"
 msgstr "Echec sauvegarde edgeTypes!"
 
-#: src/netedit/GNEApplicationWindow.cpp:3787
+#: src/netedit/GNEApplicationWindow.cpp:3789
 msgid "load additionals from '"
 msgstr "chargement données additionnelles depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3791 src/netedit/GNENet.cpp:1501
+#: src/netedit/GNEApplicationWindow.cpp:3793 src/netedit/GNENet.cpp:1501
 msgid "Loading of additional file failed: "
 msgstr "Echec chargement fichier additionnel : "
 
-#: src/netedit/GNEApplicationWindow.cpp:3794 src/netedit/GNENet.cpp:1503
+#: src/netedit/GNEApplicationWindow.cpp:3796 src/netedit/GNENet.cpp:1503
 msgid "Loading of additional file successfully: "
 msgstr "Chargement fichier additionnel réussi : "
 
-#: src/netedit/GNEApplicationWindow.cpp:3819
+#: src/netedit/GNEApplicationWindow.cpp:3821
 msgid "reloading additionals"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3828
+#: src/netedit/GNEApplicationWindow.cpp:3830
 #, c-format
 msgid "Reloading of additional file '%' failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3884
+#: src/netedit/GNEApplicationWindow.cpp:3886
 msgid "Additionals saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3887
+#: src/netedit/GNEApplicationWindow.cpp:3889
 msgid "Saving additional aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3892
+#: src/netedit/GNEApplicationWindow.cpp:3894
 msgid "Saving additionals failed!"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3916
+#: src/netedit/GNEApplicationWindow.cpp:3918
 msgid "saving of unified additional elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3957
+#: src/netedit/GNEApplicationWindow.cpp:3959
 msgid "JuPedSim elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3960
+#: src/netedit/GNEApplicationWindow.cpp:3962
 msgid "Saving JuPedSim aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:3966
+#: src/netedit/GNEApplicationWindow.cpp:3968
 msgid "Saving JuPedSim elements failed!"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4001
-#: src/netedit/GNEApplicationWindow.cpp:4843
-#: src/netedit/GNEApplicationWindow.cpp:4850
+#: src/netedit/GNEApplicationWindow.cpp:4003
+#: src/netedit/GNEApplicationWindow.cpp:4845
+#: src/netedit/GNEApplicationWindow.cpp:4852
 msgid "loading demand elements from '"
 msgstr "chargement des éléments de demande depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4005 src/netedit/GNENet.cpp:1513
+#: src/netedit/GNEApplicationWindow.cpp:4007 src/netedit/GNENet.cpp:1513
 msgid "Loading of route file failed: "
 msgstr "Echec chargement fichier routes : "
 
-#: src/netedit/GNEApplicationWindow.cpp:4008 src/netedit/GNENet.cpp:1515
+#: src/netedit/GNEApplicationWindow.cpp:4010 src/netedit/GNENet.cpp:1515
 msgid "Loading of route file successfully: "
 msgstr "Chargement fichier routes réussi : "
 
-#: src/netedit/GNEApplicationWindow.cpp:4033
+#: src/netedit/GNEApplicationWindow.cpp:4035
 msgid "reloading demand elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4042
+#: src/netedit/GNEApplicationWindow.cpp:4044
 #, c-format
 msgid "Reloading of route file '%'failed."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4096
+#: src/netedit/GNEApplicationWindow.cpp:4098
 msgid "Demand elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4099
-#: src/netedit/GNEApplicationWindow.cpp:4276
+#: src/netedit/GNEApplicationWindow.cpp:4101
+#: src/netedit/GNEApplicationWindow.cpp:4278
 msgid "Saving demand elements aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4104
-#: src/netedit/GNEApplicationWindow.cpp:4450
+#: src/netedit/GNEApplicationWindow.cpp:4106
+#: src/netedit/GNEApplicationWindow.cpp:4452
 msgid "Saving demand elements failed!"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4128
+#: src/netedit/GNEApplicationWindow.cpp:4130
 msgid "saving of unified demand elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4175
-#: src/netedit/GNEApplicationWindow.cpp:4889
-#: src/netedit/GNEApplicationWindow.cpp:4896
+#: src/netedit/GNEApplicationWindow.cpp:4177
+#: src/netedit/GNEApplicationWindow.cpp:4891
+#: src/netedit/GNEApplicationWindow.cpp:4898
 msgid "loading data elements from '"
 msgstr "chargement données liées au réseau depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4179 src/netedit/GNENet.cpp:1524
+#: src/netedit/GNEApplicationWindow.cpp:4181 src/netedit/GNENet.cpp:1524
 msgid "Loading of data file failed: "
 msgstr "Echec chargement fichier de données : "
 
-#: src/netedit/GNEApplicationWindow.cpp:4182 src/netedit/GNENet.cpp:1526
+#: src/netedit/GNEApplicationWindow.cpp:4184 src/netedit/GNENet.cpp:1526
 msgid "Loading of data file successfully: "
 msgstr "Chargement fichier de données réussi : "
 
-#: src/netedit/GNEApplicationWindow.cpp:4211
+#: src/netedit/GNEApplicationWindow.cpp:4213
 msgid "reloading data elements"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4220
+#: src/netedit/GNEApplicationWindow.cpp:4222
 msgid "Reloading of data file failed: "
 msgstr "Echec rechargement fichier de données : "
 
-#: src/netedit/GNEApplicationWindow.cpp:4273
+#: src/netedit/GNEApplicationWindow.cpp:4275
 msgid "Data elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4281
+#: src/netedit/GNEApplicationWindow.cpp:4283
 msgid "Saving data elements failed!"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4305
+#: src/netedit/GNEApplicationWindow.cpp:4307
 msgid "saving of unified data elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4348
+#: src/netedit/GNEApplicationWindow.cpp:4350
 msgid "load meanDatas from '"
 msgstr "chargement des meanDatas depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4352 src/netedit/GNENet.cpp:1535
+#: src/netedit/GNEApplicationWindow.cpp:4354 src/netedit/GNENet.cpp:1535
 msgid "Loading of meandata file failed: "
 msgstr "Echec chargement fichier meandata : "
 
-#: src/netedit/GNEApplicationWindow.cpp:4355
-#: src/netedit/GNEApplicationWindow.cpp:4389 src/netedit/GNENet.cpp:1537
+#: src/netedit/GNEApplicationWindow.cpp:4357
+#: src/netedit/GNEApplicationWindow.cpp:4391 src/netedit/GNENet.cpp:1537
 msgid "Loading of meandata file successfully: "
 msgstr "Chargement fichier meandata réussi : "
 
-#: src/netedit/GNEApplicationWindow.cpp:4380
+#: src/netedit/GNEApplicationWindow.cpp:4382
 msgid "reloading meanDatas"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4442
+#: src/netedit/GNEApplicationWindow.cpp:4444
 msgid "MeanDatas elements saved"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4445
+#: src/netedit/GNEApplicationWindow.cpp:4447
 msgid "Saving MeanData elements aborted"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4474
+#: src/netedit/GNEApplicationWindow.cpp:4476
 msgid "saving of unified mean data elements in '%'"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindow.cpp:4787
+#: src/netedit/GNEApplicationWindow.cpp:4789
 msgid "loading additional elements from '"
 msgstr "chargement d'éléments additionnels depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4794
+#: src/netedit/GNEApplicationWindow.cpp:4796
 msgid "loading additionals from '"
 msgstr "chargement d'éléments additionnels depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4935
-#: src/netedit/GNEApplicationWindow.cpp:4942
+#: src/netedit/GNEApplicationWindow.cpp:4937
+#: src/netedit/GNEApplicationWindow.cpp:4944
 msgid "loading meanData elements from '"
 msgstr ""
 
@@ -12879,6 +12879,10 @@ msgstr ""
 msgid "Shift selected edges geometry"
 msgstr ""
 
+#: src/netedit/frames/common/GNEMoveFrame.cpp:216
+msgid "Shift value"
+msgstr ""
+
 #: src/netedit/frames/common/GNEMoveFrame.cpp:220
 msgid "Apply shift value"
 msgstr ""
@@ -12890,6 +12894,10 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:291
 msgid "Change Z in selection"
+msgstr ""
+
+#: src/netedit/frames/common/GNEMoveFrame.cpp:296
+msgid "Z value"
 msgstr ""
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:300
@@ -13914,6 +13922,10 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:809
 msgid "Start- and endpoint for an edge must be distinct!"
+msgstr ""
+
+#: src/netedit/frames/network/GNECrossingFrame.cpp:71
+msgid "Edited"
 msgstr ""
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:95
@@ -15050,7 +15062,7 @@ msgstr ""
 msgid "Replacing polygon '%'"
 msgstr ""
 
-#: src/utils/gui/images/GUIIconSubSys.cpp:1131
+#: src/utils/gui/images/GUIIconSubSys.cpp:1133
 msgid "Instance was previously created"
 msgstr ""
 
@@ -16518,91 +16530,99 @@ msgid "Change language to spanish. (es)"
 msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:349
-msgid "Change language to french. (fr)"
+msgid "Change language to portuguese. (pt)"
 msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:351
-msgid "Change language to italian. (it)"
+msgid "Change language to french. (fr)"
 msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:353
-msgid "简体中文 (zh)"
+msgid "Change language to italian. (it)"
 msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:355
-msgid "繁體中文 (zh-Hant)"
+msgid "简体中文 (zh)"
 msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:357
-msgid "Change language to turkish. (tr)"
+msgid "繁體中文 (zh-Hant)"
 msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:359
-msgid "Change language to hungarian. (hu)"
+msgid "Change language to turkish. (tr)"
 msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:361
+msgid "Change language to hungarian. (hu)"
+msgstr ""
+
+#: src/utils/gui/windows/GUIMainWindow.cpp:363
 msgid "Change language to japanese. (ja)"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:375
+#: src/utils/gui/windows/GUIMainWindow.cpp:377
 msgid "german"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:379
+#: src/utils/gui/windows/GUIMainWindow.cpp:381
 msgid "spanish"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:383
+#: src/utils/gui/windows/GUIMainWindow.cpp:385
+msgid "portuguese"
+msgstr ""
+
+#: src/utils/gui/windows/GUIMainWindow.cpp:389
 msgid "french"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:387
+#: src/utils/gui/windows/GUIMainWindow.cpp:393
 msgid "italian"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:391
+#: src/utils/gui/windows/GUIMainWindow.cpp:397
 msgid "simplified chinese"
 msgstr "Chinois (simplifié)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:395
+#: src/utils/gui/windows/GUIMainWindow.cpp:401
 msgid "traditional chinese"
 msgstr "Chinois (traditionel)"
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:399
+#: src/utils/gui/windows/GUIMainWindow.cpp:405
 msgid "turkish"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:403
+#: src/utils/gui/windows/GUIMainWindow.cpp:409
 msgid "hungarian"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:407
+#: src/utils/gui/windows/GUIMainWindow.cpp:413
 msgid "japanese"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:411
+#: src/utils/gui/windows/GUIMainWindow.cpp:417
 msgid "english"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:419
+#: src/utils/gui/windows/GUIMainWindow.cpp:425
 msgid "Language changed to "
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:421
+#: src/utils/gui/windows/GUIMainWindow.cpp:427
 msgid "Restart needed"
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:422
+#: src/utils/gui/windows/GUIMainWindow.cpp:428
 msgid "Changing display language needs restart to take effect."
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:425
+#: src/utils/gui/windows/GUIMainWindow.cpp:431
 msgid ""
 "For the Debug build you might also need to set the LANG environment variable."
 msgstr ""
 
-#: src/utils/gui/windows/GUIMainWindow.cpp:428
+#: src/utils/gui/windows/GUIMainWindow.cpp:434
 msgid "Under development. You can help to improve the translation at:"
 msgstr ""
 

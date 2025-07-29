@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-07-23 09:53+0000\n"
+"POT-Creation-Date: 2025-07-29 11:04+0200\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
@@ -3338,8 +3338,8 @@ msgstr " 由於未知原因"
 
 #: src/microsim/MSVehicle.cpp:4667
 msgid ""
-"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
-"offset=%), time=%."
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
+"%), time=%."
 msgstr "車輛 '%' 在車道 '%'% 的末端緊急停車(減速度=%，偏移值=%)，時間=%。"
 
 #: src/microsim/MSVehicle.cpp:4750
@@ -5129,8 +5129,8 @@ msgstr "人員 '%' 在路段 '%' 上被壅塞住，時間=%。"
 
 #: src/microsim/transportables/MSStageDriving.cpp:249
 msgid ""
-"Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
-"time=%"
+"Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
+"%"
 msgstr ""
 
 #: src/microsim/transportables/MSStageDriving.cpp:255
@@ -5293,8 +5293,8 @@ msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:496
 msgid ""
-"Invalid distance computation for vehicle '%' from stopping place '%' at "
-"time=%."
+"Invalid distance computation for vehicle '%' from stopping place '%' at time="
+"%."
 msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:575
@@ -9312,11 +9312,11 @@ msgstr "無法載入未知識別名(id) '%' 的時制計畫; 時置計畫識別�
 msgid "Invalid lane index '%' for edge '%'."
 msgstr "無效的車道索引 '%', 其位於路段 '%' 上。"
 
-#: src/netimport/NIXMLTypesHandler.cpp:85
+#: src/netimport/NIXMLTypesHandler.cpp:86
 msgid "Invalid lane spread type '%'. Using default 'right'"
 msgstr "無效的車道分佈類型(spread type) '%'。使用預設值 '向右對齊(right)'"
 
-#: src/netimport/NIXMLTypesHandler.cpp:114
+#: src/netimport/NIXMLTypesHandler.cpp:115
 msgid "Invalid lane index % for edge type '%' with % lanes"
 msgstr "無效的車道索引 %; 其路段類型為 '%', 並有 % 車道"
 
@@ -10049,124 +10049,6 @@ msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
 msgstr "忽略選項 \"proj.plain-geo\", 因為沒有定義地理坐標轉換"
 
-#: src/od/ODAmitranHandler.cpp:48
-msgid "Invalid duration for timeSlice starting %."
-msgstr "開始於 % 的時間片斷(timeSlice) 的持續時間無效。"
-
-#: src/od/ODDistrictCont.cpp:57
-#, c-format
-msgid "District '%' does not provide any valid source."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:73
-#, c-format
-msgid "District '%' does not provide any valid sink."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:84
-#, c-format
-msgid "Could not access network file '%' to load."
-msgstr "無法存取網路檔案 '%' 以進行載入。"
-
-#: src/od/ODDistrictHandler.cpp:130
-msgid "'probability' must be positive (in definition of % '%')."
-msgstr "'probability' 必須為正值 （在 % '%' 的定義中）。"
-
-#: src/od/ODMatrix.cpp:84
-msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr "缺少出發地 '%' 和目的地 '%' （% 車輛）。"
-
-#: src/od/ODMatrix.cpp:90
-msgid "Missing origin '%' (% vehicles)."
-msgstr "缺少出發地 '%' （% 車輛）。"
-
-#: src/od/ODMatrix.cpp:95
-msgid "Missing destination '%' (% vehicles)."
-msgstr "缺少目的地 '%' （% 車輛）。"
-
-#: src/od/ODMatrix.cpp:101
-#, c-format
-msgid "District '%' has no source."
-msgstr "分區 '%' 沒有起點。"
-
-#: src/od/ODMatrix.cpp:105
-#, c-format
-msgid "District '%' has no sink."
-msgstr "分區 '%' 沒有迄點。"
-
-#: src/od/ODMatrix.cpp:197
-msgid ""
-"Cannot find different source and sink edge for origin '%' and destination "
-"'%'."
-msgstr "無法為出發地 '%' 和目的地 '%' 找到不同的起始及結束路段。"
-
-#: src/od/ODMatrix.cpp:372 src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
-msgid ""
-"Flow density of % vehicles per second, cannot be represented with a simple "
-"probability. Falling back to even spacing."
-msgstr ""
-"每秒 % 車輛的流量密度不能用簡單的姬率表示。 設定回到均勻間距(even spacing)。"
-
-#: src/od/ODMatrix.cpp:442
-msgid "End of file while reading %."
-msgstr "讀取 % 時,到了文件結尾。"
-
-#: src/od/ODMatrix.cpp:469
-msgid "Broken period definition '%'."
-msgstr "損壞的期間定義 '%'。"
-
-#: src/od/ODMatrix.cpp:483
-msgid "Broken factor: '%'."
-msgstr "損壞的係數(factor)： '%'。"
-
-#: src/od/ODMatrix.cpp:517
-#, c-format
-msgid "Missing line with % district names."
-msgstr "缺少帶有 % 分區名稱的列(line)。"
-
-#: src/od/ODMatrix.cpp:527
-msgid "Missing line for district %."
-msgstr "缺少分區 % 的列(line)。"
-
-#: src/od/ODMatrix.cpp:541
-msgid "More entries than districts found."
-msgstr "找到比分區更多的輸入項目(entries)。"
-
-#: src/od/ODMatrix.cpp:546 src/od/ODMatrix.cpp:594
-msgid "Not numeric vehicle number in line '%'."
-msgstr "在 '%' 列中有不是數字的車輛編號。"
-
-#: src/od/ODMatrix.cpp:592
-msgid "Missing at least one information in line '%'."
-msgstr "在列 '%' 中至少缺少一項資訊。"
-
-#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
-msgid "Could not open '%'."
-msgstr "無法開啟 '%'。"
-
-#: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
-#, c-format
-msgid "'%' does not contain the needed information about the time described."
-msgstr "'%' 不包含有關所描述時間的必要資訊。"
-
-#: src/od/ODMatrix.cpp:682 src/od/ODMatrix.cpp:695
-#, c-format
-msgid "Could not access matrix file '%' to load."
-msgstr "無法讀取要載入的矩陣(matrix)檔案 '%' 。"
-
-#: src/od/ODMatrix.cpp:722
-#, c-format
-msgid "Could not access route file '%' to load."
-msgstr "無法讀取要載入的路徑檔案 '%'。"
-
-#: src/od/ODMatrix.cpp:739
-msgid "Assuming 24 entries for a day timeline, but got %."
-msgstr "假設一天時間線有 24 個登錄項目，但得到 %。"
-
-#: src/od/ODMatrix.cpp:749
-msgid "Broken time line definition: missing a value in '%'."
-msgstr "損壞的時間線定義: '%' 中缺少一個值。"
-
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
 msgstr "從檔案載入 TAZ （分區; 也來自路網）"
@@ -10258,6 +10140,124 @@ msgstr "沒有載入任何分區(districts)。"
 #: src/od2trips_main.cpp:282
 msgid "No vehicles loaded."
 msgstr "沒有載入任何車輛。"
+
+#: src/od/ODAmitranHandler.cpp:48
+msgid "Invalid duration for timeSlice starting %."
+msgstr "開始於 % 的時間片斷(timeSlice) 的持續時間無效。"
+
+#: src/od/ODDistrictCont.cpp:57
+#, c-format
+msgid "District '%' does not provide any valid source."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:73
+#, c-format
+msgid "District '%' does not provide any valid sink."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:84
+#, c-format
+msgid "Could not access network file '%' to load."
+msgstr "無法存取網路檔案 '%' 以進行載入。"
+
+#: src/od/ODDistrictHandler.cpp:130
+msgid "'probability' must be positive (in definition of % '%')."
+msgstr "'probability' 必須為正值 （在 % '%' 的定義中）。"
+
+#: src/od/ODMatrix.cpp:84
+msgid "Missing origin '%' and destination '%' (% vehicles)."
+msgstr "缺少出發地 '%' 和目的地 '%' （% 車輛）。"
+
+#: src/od/ODMatrix.cpp:90
+msgid "Missing origin '%' (% vehicles)."
+msgstr "缺少出發地 '%' （% 車輛）。"
+
+#: src/od/ODMatrix.cpp:95
+msgid "Missing destination '%' (% vehicles)."
+msgstr "缺少目的地 '%' （% 車輛）。"
+
+#: src/od/ODMatrix.cpp:101
+#, c-format
+msgid "District '%' has no source."
+msgstr "分區 '%' 沒有起點。"
+
+#: src/od/ODMatrix.cpp:105
+#, c-format
+msgid "District '%' has no sink."
+msgstr "分區 '%' 沒有迄點。"
+
+#: src/od/ODMatrix.cpp:197
+msgid ""
+"Cannot find different source and sink edge for origin '%' and destination "
+"'%'."
+msgstr "無法為出發地 '%' 和目的地 '%' 找到不同的起始及結束路段。"
+
+#: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
+msgid ""
+"Flow density of % vehicles per second, cannot be represented with a simple "
+"probability. Falling back to even spacing."
+msgstr ""
+"每秒 % 車輛的流量密度不能用簡單的姬率表示。 設定回到均勻間距(even spacing)。"
+
+#: src/od/ODMatrix.cpp:442
+msgid "End of file while reading %."
+msgstr "讀取 % 時,到了文件結尾。"
+
+#: src/od/ODMatrix.cpp:469
+msgid "Broken period definition '%'."
+msgstr "損壞的期間定義 '%'。"
+
+#: src/od/ODMatrix.cpp:483
+msgid "Broken factor: '%'."
+msgstr "損壞的係數(factor)： '%'。"
+
+#: src/od/ODMatrix.cpp:517
+#, c-format
+msgid "Missing line with % district names."
+msgstr "缺少帶有 % 分區名稱的列(line)。"
+
+#: src/od/ODMatrix.cpp:527
+msgid "Missing line for district %."
+msgstr "缺少分區 % 的列(line)。"
+
+#: src/od/ODMatrix.cpp:541
+msgid "More entries than districts found."
+msgstr "找到比分區更多的輸入項目(entries)。"
+
+#: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
+msgid "Not numeric vehicle number in line '%'."
+msgstr "在 '%' 列中有不是數字的車輛編號。"
+
+#: src/od/ODMatrix.cpp:592
+msgid "Missing at least one information in line '%'."
+msgstr "在列 '%' 中至少缺少一項資訊。"
+
+#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
+msgid "Could not open '%'."
+msgstr "無法開啟 '%'。"
+
+#: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
+#, c-format
+msgid "'%' does not contain the needed information about the time described."
+msgstr "'%' 不包含有關所描述時間的必要資訊。"
+
+#: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
+#, c-format
+msgid "Could not access matrix file '%' to load."
+msgstr "無法讀取要載入的矩陣(matrix)檔案 '%' 。"
+
+#: src/od/ODMatrix.cpp:722
+#, c-format
+msgid "Could not access route file '%' to load."
+msgstr "無法讀取要載入的路徑檔案 '%'。"
+
+#: src/od/ODMatrix.cpp:739
+msgid "Assuming 24 entries for a day timeline, but got %."
+msgstr "假設一天時間線有 24 個登錄項目，但得到 %。"
+
+#: src/od/ODMatrix.cpp:749
+msgid "Broken time line definition: missing a value in '%'."
+msgstr "損壞的時間線定義: '%' 中缺少一個值。"
 
 #: src/osgview/GUIOSGBuilder.cpp:560 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
@@ -10927,7 +10927,7 @@ msgstr "收到中斷信號, 試圖正常退出。"
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "微觀多運具模式交通模擬軟體。"
 
-#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr "退出 (由於錯誤)。"
 

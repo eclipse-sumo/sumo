@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-07-23 09:53+0000\n"
+"POT-Creation-Date: 2025-07-29 11:04+0200\n"
 "PO-Revision-Date: 2025-07-21 09:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -3747,8 +3747,8 @@ msgstr " aus unbekannten Gründen"
 
 #: src/microsim/MSVehicle.cpp:4667
 msgid ""
-"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
-"offset=%), time=%."
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
+"%), time=%."
 msgstr ""
 "Fahrzeug '%' führt einen Nothalt am Ende des Fahrstreifens '%'% durch "
 "(Verzögerung=%, Versatz=%), zur Zeit=%."
@@ -3764,8 +3764,8 @@ msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
 msgstr ""
-"Fahrzeug '%' führt eine Notbremsung auf dem Fahrstreifen '%' mit "
-"Verzögerung=%, erwünscht=%, Schweregrad=%, zur Zeit=% durch."
+"Fahrzeug '%' führt eine Notbremsung auf dem Fahrstreifen '%' mit Verzögerung="
+"%, erwünscht=%, Schweregrad=%, zur Zeit=% durch."
 
 #: src/microsim/MSVehicle.cpp:5688 src/microsim/MSVehicle.cpp:5777
 msgid "Vehicle '%' skips stop on lane '%' time=%."
@@ -5825,8 +5825,8 @@ msgstr "Person '%' klemmt auf der Kante '%', Zeit=%."
 
 #: src/microsim/transportables/MSStageDriving.cpp:249
 msgid ""
-"Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
-"time=%"
+"Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
+"%"
 msgstr ""
 "Das Fahrzeug '%' wird über die maximale Belegung % hinaus mit der erzeugten "
 "Person '%' beladen (zur Zeit %)"
@@ -6015,8 +6015,8 @@ msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:496
 msgid ""
-"Invalid distance computation for vehicle '%' from stopping place '%' at "
-"time=%."
+"Invalid distance computation for vehicle '%' from stopping place '%' at time="
+"%."
 msgstr ""
 "Ungültige Entfernungsberechnung für Fahrzeug '%' ausgehend vom Haltepunkt "
 "'%' zur Zeit %."
@@ -10407,11 +10407,11 @@ msgstr ""
 msgid "Invalid lane index '%' for edge '%'."
 msgstr "Ungültiger Fahrstreifenindex '%' für Kante '%'."
 
-#: src/netimport/NIXMLTypesHandler.cpp:85
+#: src/netimport/NIXMLTypesHandler.cpp:86
 msgid "Invalid lane spread type '%'. Using default 'right'"
 msgstr "Ungültiger Fahrstreifenverteilungstyp '%'. Nutze Standard 'right'"
 
-#: src/netimport/NIXMLTypesHandler.cpp:114
+#: src/netimport/NIXMLTypesHandler.cpp:115
 msgid "Invalid lane index % for edge type '%' with % lanes"
 msgstr "Ungültiger Fahrstreifenindex % für Kantentyp '%' mit % Fahrstreifen"
 
@@ -11221,129 +11221,6 @@ msgid ""
 msgstr ""
 "Ignoriere Option \"proj.plain-geo\", da keine geo-conversion definiert wurde"
 
-#: src/od/ODAmitranHandler.cpp:48
-msgid "Invalid duration for timeSlice starting %."
-msgstr "Ungültige Dauer für den Zeitabschnitt ab %."
-
-#: src/od/ODDistrictCont.cpp:57
-#, c-format
-msgid "District '%' does not provide any valid source."
-msgstr "Der Bezirk '%' verfügt über keine gültige Quelle."
-
-#: src/od/ODDistrictCont.cpp:73
-#, c-format
-msgid "District '%' does not provide any valid sink."
-msgstr "Der Bezirk '%' verfügt über kein gültiges Ziel."
-
-#: src/od/ODDistrictCont.cpp:84
-#, c-format
-msgid "Could not access network file '%' to load."
-msgstr "Zugriff auf Netz-Datei '%' zum Laden nicht möglich."
-
-#: src/od/ODDistrictHandler.cpp:130
-msgid "'probability' must be positive (in definition of % '%')."
-msgstr "'probability' muss positiv sein (in der Definition von % '%')."
-
-#: src/od/ODMatrix.cpp:84
-msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr "Fehlender Start '%' und Ziel '%' (% Fahrzeuge)."
-
-#: src/od/ODMatrix.cpp:90
-msgid "Missing origin '%' (% vehicles)."
-msgstr "Fehlender Ursprung '%' (% Fahrzeuge)."
-
-#: src/od/ODMatrix.cpp:95
-msgid "Missing destination '%' (% vehicles)."
-msgstr "Fehlendes Ziel '%' (% Fahrzeuge)."
-
-#: src/od/ODMatrix.cpp:101
-#, c-format
-msgid "District '%' has no source."
-msgstr "Bezirk '%' hat keine Quelle."
-
-#: src/od/ODMatrix.cpp:105
-#, c-format
-msgid "District '%' has no sink."
-msgstr "Bezirk '%' hat kein Ziel."
-
-#: src/od/ODMatrix.cpp:197
-msgid ""
-"Cannot find different source and sink edge for origin '%' and destination "
-"'%'."
-msgstr ""
-"Unterschiedliche Quell- und Zielkante für den Ursprung '%' und Ziel '%' kann "
-"nicht gefunden werden."
-
-#: src/od/ODMatrix.cpp:372 src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
-msgid ""
-"Flow density of % vehicles per second, cannot be represented with a simple "
-"probability. Falling back to even spacing."
-msgstr ""
-"Flussdichte von % Fahrzeugen pro Sekunde kann nicht als einfache "
-"Wahrscheinlichkeit dargestellt werden. Es wird auf einfache Abstände "
-"zurückgefallen."
-
-#: src/od/ODMatrix.cpp:442
-msgid "End of file while reading %."
-msgstr "Dateiende beim Lesen von %."
-
-#: src/od/ODMatrix.cpp:469
-msgid "Broken period definition '%'."
-msgstr "Ungültige Perioden-Definition '%'."
-
-#: src/od/ODMatrix.cpp:483
-msgid "Broken factor: '%'."
-msgstr "Ungültiger Faktor: '%'."
-
-#: src/od/ODMatrix.cpp:517
-#, c-format
-msgid "Missing line with % district names."
-msgstr "Fehlende Zeile mit % Bezirksnamen."
-
-#: src/od/ODMatrix.cpp:527
-msgid "Missing line for district %."
-msgstr "Fehlende Zeile für Bezirk %."
-
-#: src/od/ODMatrix.cpp:541
-msgid "More entries than districts found."
-msgstr "Mehr Einträge als Bezirke gefunden."
-
-#: src/od/ODMatrix.cpp:546 src/od/ODMatrix.cpp:594
-msgid "Not numeric vehicle number in line '%'."
-msgstr "Keine numerische Fahrzeuganzahl in Zeile '%'."
-
-#: src/od/ODMatrix.cpp:592
-msgid "Missing at least one information in line '%'."
-msgstr "Mindestens eine Information in Zeile '%' fehlt."
-
-#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
-msgid "Could not open '%'."
-msgstr "Konnte '%' nicht öffnen."
-
-#: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
-#, c-format
-msgid "'%' does not contain the needed information about the time described."
-msgstr ""
-"'%' enthält nicht die benötigten Informationen für die beschriebene Zeit."
-
-#: src/od/ODMatrix.cpp:682 src/od/ODMatrix.cpp:695
-#, c-format
-msgid "Could not access matrix file '%' to load."
-msgstr "Kein Zugriff auf die Matrix-Datei '%' zum Laden."
-
-#: src/od/ODMatrix.cpp:722
-#, c-format
-msgid "Could not access route file '%' to load."
-msgstr "Kein Zugriff auf die Routen-Datei '%' zum Laden."
-
-#: src/od/ODMatrix.cpp:739
-msgid "Assuming 24 entries for a day timeline, but got %."
-msgstr "Nehme 24 Einträge für eine Tages-Zeitlinie an, aber bekam %."
-
-#: src/od/ODMatrix.cpp:749
-msgid "Broken time line definition: missing a value in '%'."
-msgstr "Gebrochene Zeitlinien-Definition: fehlender Wert in '%'."
-
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
 msgstr "Ladet Verkehrsumlegungszone (Bezirke; auch von Netzen) aus FILE(s)"
@@ -11446,6 +11323,129 @@ msgstr "Keine Bezirke geladen."
 #: src/od2trips_main.cpp:282
 msgid "No vehicles loaded."
 msgstr "Keine Fahrzeuge geladen."
+
+#: src/od/ODAmitranHandler.cpp:48
+msgid "Invalid duration for timeSlice starting %."
+msgstr "Ungültige Dauer für den Zeitabschnitt ab %."
+
+#: src/od/ODDistrictCont.cpp:57
+#, c-format
+msgid "District '%' does not provide any valid source."
+msgstr "Der Bezirk '%' verfügt über keine gültige Quelle."
+
+#: src/od/ODDistrictCont.cpp:73
+#, c-format
+msgid "District '%' does not provide any valid sink."
+msgstr "Der Bezirk '%' verfügt über kein gültiges Ziel."
+
+#: src/od/ODDistrictCont.cpp:84
+#, c-format
+msgid "Could not access network file '%' to load."
+msgstr "Zugriff auf Netz-Datei '%' zum Laden nicht möglich."
+
+#: src/od/ODDistrictHandler.cpp:130
+msgid "'probability' must be positive (in definition of % '%')."
+msgstr "'probability' muss positiv sein (in der Definition von % '%')."
+
+#: src/od/ODMatrix.cpp:84
+msgid "Missing origin '%' and destination '%' (% vehicles)."
+msgstr "Fehlender Start '%' und Ziel '%' (% Fahrzeuge)."
+
+#: src/od/ODMatrix.cpp:90
+msgid "Missing origin '%' (% vehicles)."
+msgstr "Fehlender Ursprung '%' (% Fahrzeuge)."
+
+#: src/od/ODMatrix.cpp:95
+msgid "Missing destination '%' (% vehicles)."
+msgstr "Fehlendes Ziel '%' (% Fahrzeuge)."
+
+#: src/od/ODMatrix.cpp:101
+#, c-format
+msgid "District '%' has no source."
+msgstr "Bezirk '%' hat keine Quelle."
+
+#: src/od/ODMatrix.cpp:105
+#, c-format
+msgid "District '%' has no sink."
+msgstr "Bezirk '%' hat kein Ziel."
+
+#: src/od/ODMatrix.cpp:197
+msgid ""
+"Cannot find different source and sink edge for origin '%' and destination "
+"'%'."
+msgstr ""
+"Unterschiedliche Quell- und Zielkante für den Ursprung '%' und Ziel '%' kann "
+"nicht gefunden werden."
+
+#: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
+msgid ""
+"Flow density of % vehicles per second, cannot be represented with a simple "
+"probability. Falling back to even spacing."
+msgstr ""
+"Flussdichte von % Fahrzeugen pro Sekunde kann nicht als einfache "
+"Wahrscheinlichkeit dargestellt werden. Es wird auf einfache Abstände "
+"zurückgefallen."
+
+#: src/od/ODMatrix.cpp:442
+msgid "End of file while reading %."
+msgstr "Dateiende beim Lesen von %."
+
+#: src/od/ODMatrix.cpp:469
+msgid "Broken period definition '%'."
+msgstr "Ungültige Perioden-Definition '%'."
+
+#: src/od/ODMatrix.cpp:483
+msgid "Broken factor: '%'."
+msgstr "Ungültiger Faktor: '%'."
+
+#: src/od/ODMatrix.cpp:517
+#, c-format
+msgid "Missing line with % district names."
+msgstr "Fehlende Zeile mit % Bezirksnamen."
+
+#: src/od/ODMatrix.cpp:527
+msgid "Missing line for district %."
+msgstr "Fehlende Zeile für Bezirk %."
+
+#: src/od/ODMatrix.cpp:541
+msgid "More entries than districts found."
+msgstr "Mehr Einträge als Bezirke gefunden."
+
+#: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
+msgid "Not numeric vehicle number in line '%'."
+msgstr "Keine numerische Fahrzeuganzahl in Zeile '%'."
+
+#: src/od/ODMatrix.cpp:592
+msgid "Missing at least one information in line '%'."
+msgstr "Mindestens eine Information in Zeile '%' fehlt."
+
+#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
+msgid "Could not open '%'."
+msgstr "Konnte '%' nicht öffnen."
+
+#: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
+#, c-format
+msgid "'%' does not contain the needed information about the time described."
+msgstr ""
+"'%' enthält nicht die benötigten Informationen für die beschriebene Zeit."
+
+#: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
+#, c-format
+msgid "Could not access matrix file '%' to load."
+msgstr "Kein Zugriff auf die Matrix-Datei '%' zum Laden."
+
+#: src/od/ODMatrix.cpp:722
+#, c-format
+msgid "Could not access route file '%' to load."
+msgstr "Kein Zugriff auf die Routen-Datei '%' zum Laden."
+
+#: src/od/ODMatrix.cpp:739
+msgid "Assuming 24 entries for a day timeline, but got %."
+msgstr "Nehme 24 Einträge für eine Tages-Zeitlinie an, aber bekam %."
+
+#: src/od/ODMatrix.cpp:749
+msgid "Broken time line definition: missing a value in '%'."
+msgstr "Gebrochene Zeitlinien-Definition: fehlender Wert in '%'."
 
 #: src/osgview/GUIOSGBuilder.cpp:560 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
@@ -12169,7 +12169,7 @@ msgid "A microscopic, multi-modal traffic simulation."
 msgstr ""
 "Grafische Version der mikroskopischen, multimodalen Verkehrssimulation SUMO."
 
-#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr "Abbruch wegen Fehler."
 

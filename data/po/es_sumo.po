@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-07-23 09:53+0000\n"
+"POT-Creation-Date: 2025-07-29 11:04+0200\n"
 "PO-Revision-Date: 2025-04-16 11:17+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -1830,8 +1830,8 @@ msgid ""
 "(usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"
 msgstr ""
 "Guardar posiciones completas del vehículo, incluidos los valores de "
-"velocidad, en el formato VTK (uso: /path/out producirá archivos /path/"
-"out_$TIMESTEP$.vtp)"
+"velocidad, en el formato VTK (uso: /path/out producirá archivos /path/out_"
+"$TIMESTEP$.vtp)"
 
 #: src/microsim/MSFrame.cpp:201
 msgid "Save the vehicle trajectories in the Amitran format"
@@ -3561,8 +3561,8 @@ msgstr "No hay control de brecha disponible para la simulación mesoscópica."
 msgid ""
 "Lane change model did not provide a reason for changing (state=%, time=%\n"
 msgstr ""
-"El modelo de cambio de carril no proporcionó una razón para cambiar (estado "
-"=%, tiempo =%\n"
+"El modelo de cambio de carril no proporcionó una razón para cambiar (estado ="
+"%, tiempo =%\n"
 
 #: src/microsim/MSVehicle.cpp:779 src/utils/common/UtilExceptions.h:171
 msgid "should not happen"
@@ -3601,8 +3601,8 @@ msgstr " por razones desconocidas"
 
 #: src/microsim/MSVehicle.cpp:4667
 msgid ""
-"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
-"offset=%), time=%."
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
+"%), time=%."
 msgstr ""
 "El vehículo '%' realiza un frenado de emergencia al final del carril '%'% "
 "(desaceleración=%, offset=%), tiempo=%."
@@ -5592,8 +5592,8 @@ msgstr "La persona '%' está atascada en la arista '%', tiempo=%."
 
 #: src/microsim/transportables/MSStageDriving.cpp:249
 msgid ""
-"Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
-"time=%"
+"Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
+"%"
 msgstr ""
 "El vehículo '%' excede la capacidad de personas % al insertar la persona "
 "desencadenada '%', tiempo =%"
@@ -5778,8 +5778,8 @@ msgstr ""
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:496
 msgid ""
-"Invalid distance computation for vehicle '%' from stopping place '%' at "
-"time=%."
+"Invalid distance computation for vehicle '%' from stopping place '%' at time="
+"%."
 msgstr ""
 "Cálculo de distancia no válido para el vehículo '%' desde el lugar de parada "
 "'%' en el tiempo =%."
@@ -9037,8 +9037,8 @@ msgstr ""
 #: src/netimport/NIImporter_OpenDrive.cpp:1798
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
 msgstr ""
-"No se pudo calcular la geometría espiral para la arista '%' (cDot=% "
-"longitud=%)."
+"No se pudo calcular la geometría espiral para la arista '%' (cDot=% longitud="
+"%)."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1847
 msgid "Could not compute spiral geometry for edge '%' (%)."
@@ -9988,11 +9988,11 @@ msgstr ""
 msgid "Invalid lane index '%' for edge '%'."
 msgstr "Índice de carril no válido '%' para la arista '%'."
 
-#: src/netimport/NIXMLTypesHandler.cpp:85
+#: src/netimport/NIXMLTypesHandler.cpp:86
 msgid "Invalid lane spread type '%'. Using default 'right'"
 msgstr ""
 
-#: src/netimport/NIXMLTypesHandler.cpp:114
+#: src/netimport/NIXMLTypesHandler.cpp:115
 msgid "Invalid lane index % for edge type '%' with % lanes"
 msgstr ""
 
@@ -10744,127 +10744,6 @@ msgstr ""
 "Ignorando la opción \"proj.plain-geo\" porque no se ha definido ninguna "
 "conversión geográfica"
 
-#: src/od/ODAmitranHandler.cpp:48
-msgid "Invalid duration for timeSlice starting %."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:57
-#, c-format
-msgid "District '%' does not provide any valid source."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:73
-#, c-format
-msgid "District '%' does not provide any valid sink."
-msgstr ""
-
-#: src/od/ODDistrictCont.cpp:84
-#, c-format
-msgid "Could not access network file '%' to load."
-msgstr "No se pudo acceder al archivo de red '%' para cargar."
-
-#: src/od/ODDistrictHandler.cpp:130
-msgid "'probability' must be positive (in definition of % '%')."
-msgstr "'probability' debe ser positivo (en la definición de % '%')."
-
-#: src/od/ODMatrix.cpp:84
-msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr "Faltan origen '%' y destino '%' (% vehículos)."
-
-#: src/od/ODMatrix.cpp:90
-msgid "Missing origin '%' (% vehicles)."
-msgstr "Falta origen '%' (% vehículos)."
-
-#: src/od/ODMatrix.cpp:95
-msgid "Missing destination '%' (% vehicles)."
-msgstr "Falta destino '%' (% vehículos)."
-
-#: src/od/ODMatrix.cpp:101
-#, c-format
-msgid "District '%' has no source."
-msgstr "El distrito '%' no tiene fuente."
-
-#: src/od/ODMatrix.cpp:105
-#, c-format
-msgid "District '%' has no sink."
-msgstr "El distrito '%' no tiene sumidero."
-
-#: src/od/ODMatrix.cpp:197
-msgid ""
-"Cannot find different source and sink edge for origin '%' and destination "
-"'%'."
-msgstr ""
-"No se pueden encontrar diferentes aristas fuente y sumidero para el origen "
-"'%' y el destino '%'."
-
-#: src/od/ODMatrix.cpp:372 src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
-msgid ""
-"Flow density of % vehicles per second, cannot be represented with a simple "
-"probability. Falling back to even spacing."
-msgstr ""
-"La densidad de flujo de % vehículos por segundo no se puede representar con "
-"una probabilidad simple. Volviendo a un espaciado uniforme."
-
-#: src/od/ODMatrix.cpp:442
-msgid "End of file while reading %."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:469
-msgid "Broken period definition '%'."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:483
-msgid "Broken factor: '%'."
-msgstr "Factor roto: '%'."
-
-#: src/od/ODMatrix.cpp:517
-#, c-format
-msgid "Missing line with % district names."
-msgstr "Falta una línea con % nombres de distritos."
-
-#: src/od/ODMatrix.cpp:527
-msgid "Missing line for district %."
-msgstr "Falta una línea para el distrito %."
-
-#: src/od/ODMatrix.cpp:541
-msgid "More entries than districts found."
-msgstr "Más entradas que distritos encontrados."
-
-#: src/od/ODMatrix.cpp:546 src/od/ODMatrix.cpp:594
-msgid "Not numeric vehicle number in line '%'."
-msgstr "Número de vehículo no numérico en la línea '%'."
-
-#: src/od/ODMatrix.cpp:592
-msgid "Missing at least one information in line '%'."
-msgstr "Falta al menos una información en la línea '%'."
-
-#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
-msgid "Could not open '%'."
-msgstr "No se pudo abrir '%'."
-
-#: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
-#, c-format
-msgid "'%' does not contain the needed information about the time described."
-msgstr "'%' no contiene la información necesaria sobre el tiempo descrito."
-
-#: src/od/ODMatrix.cpp:682 src/od/ODMatrix.cpp:695
-#, c-format
-msgid "Could not access matrix file '%' to load."
-msgstr "No se pudo acceder al archivo de matriz '%' para cargar."
-
-#: src/od/ODMatrix.cpp:722
-#, c-format
-msgid "Could not access route file '%' to load."
-msgstr "No se pudo acceder al archivo de rutas '%' para cargar."
-
-#: src/od/ODMatrix.cpp:739
-msgid "Assuming 24 entries for a day timeline, but got %."
-msgstr ""
-
-#: src/od/ODMatrix.cpp:749
-msgid "Broken time line definition: missing a value in '%'."
-msgstr ""
-
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
 msgstr ""
@@ -10962,6 +10841,127 @@ msgstr "No se cargaron distritos."
 #: src/od2trips_main.cpp:282
 msgid "No vehicles loaded."
 msgstr "No se cargaron vehículos."
+
+#: src/od/ODAmitranHandler.cpp:48
+msgid "Invalid duration for timeSlice starting %."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:57
+#, c-format
+msgid "District '%' does not provide any valid source."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:73
+#, c-format
+msgid "District '%' does not provide any valid sink."
+msgstr ""
+
+#: src/od/ODDistrictCont.cpp:84
+#, c-format
+msgid "Could not access network file '%' to load."
+msgstr "No se pudo acceder al archivo de red '%' para cargar."
+
+#: src/od/ODDistrictHandler.cpp:130
+msgid "'probability' must be positive (in definition of % '%')."
+msgstr "'probability' debe ser positivo (en la definición de % '%')."
+
+#: src/od/ODMatrix.cpp:84
+msgid "Missing origin '%' and destination '%' (% vehicles)."
+msgstr "Faltan origen '%' y destino '%' (% vehículos)."
+
+#: src/od/ODMatrix.cpp:90
+msgid "Missing origin '%' (% vehicles)."
+msgstr "Falta origen '%' (% vehículos)."
+
+#: src/od/ODMatrix.cpp:95
+msgid "Missing destination '%' (% vehicles)."
+msgstr "Falta destino '%' (% vehículos)."
+
+#: src/od/ODMatrix.cpp:101
+#, c-format
+msgid "District '%' has no source."
+msgstr "El distrito '%' no tiene fuente."
+
+#: src/od/ODMatrix.cpp:105
+#, c-format
+msgid "District '%' has no sink."
+msgstr "El distrito '%' no tiene sumidero."
+
+#: src/od/ODMatrix.cpp:197
+msgid ""
+"Cannot find different source and sink edge for origin '%' and destination "
+"'%'."
+msgstr ""
+"No se pueden encontrar diferentes aristas fuente y sumidero para el origen "
+"'%' y el destino '%'."
+
+#: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
+msgid ""
+"Flow density of % vehicles per second, cannot be represented with a simple "
+"probability. Falling back to even spacing."
+msgstr ""
+"La densidad de flujo de % vehículos por segundo no se puede representar con "
+"una probabilidad simple. Volviendo a un espaciado uniforme."
+
+#: src/od/ODMatrix.cpp:442
+msgid "End of file while reading %."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:469
+msgid "Broken period definition '%'."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:483
+msgid "Broken factor: '%'."
+msgstr "Factor roto: '%'."
+
+#: src/od/ODMatrix.cpp:517
+#, c-format
+msgid "Missing line with % district names."
+msgstr "Falta una línea con % nombres de distritos."
+
+#: src/od/ODMatrix.cpp:527
+msgid "Missing line for district %."
+msgstr "Falta una línea para el distrito %."
+
+#: src/od/ODMatrix.cpp:541
+msgid "More entries than districts found."
+msgstr "Más entradas que distritos encontrados."
+
+#: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
+msgid "Not numeric vehicle number in line '%'."
+msgstr "Número de vehículo no numérico en la línea '%'."
+
+#: src/od/ODMatrix.cpp:592
+msgid "Missing at least one information in line '%'."
+msgstr "Falta al menos una información en la línea '%'."
+
+#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
+msgid "Could not open '%'."
+msgstr "No se pudo abrir '%'."
+
+#: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
+#, c-format
+msgid "'%' does not contain the needed information about the time described."
+msgstr "'%' no contiene la información necesaria sobre el tiempo descrito."
+
+#: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
+#, c-format
+msgid "Could not access matrix file '%' to load."
+msgstr "No se pudo acceder al archivo de matriz '%' para cargar."
+
+#: src/od/ODMatrix.cpp:722
+#, c-format
+msgid "Could not access route file '%' to load."
+msgstr "No se pudo acceder al archivo de rutas '%' para cargar."
+
+#: src/od/ODMatrix.cpp:739
+msgid "Assuming 24 entries for a day timeline, but got %."
+msgstr ""
+
+#: src/od/ODMatrix.cpp:749
+msgid "Broken time line definition: missing a value in '%'."
+msgstr ""
 
 #: src/osgview/GUIOSGBuilder.cpp:560 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
@@ -11660,7 +11660,7 @@ msgstr "Se recibió una señal de interrupción, intentando salir suavemente."
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "Una simulación de tráfico microscópica y multi-modal."
 
-#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr "Cerrando (debido a un error)."
 
@@ -13202,8 +13202,8 @@ msgstr "Desencadenantes y puntos de referencia no pueden ser combinados%."
 #: src/utils/vehicle/SUMORouteHandler.cpp:520
 msgid "Stop at parkingArea overrides attribute 'parking' for stop%."
 msgstr ""
-"Parar en la zona de estacionamiento anula el atributo 'parking' de la "
-"parada%."
+"Parar en la zona de estacionamiento anula el atributo 'parking' de la parada"
+"%."
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:561
 msgid "Invalid 'index' for stop%."
