@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-23 09:53+0000\n"
-"PO-Revision-Date: 2025-07-27 10:53+0000\n"
+"PO-Revision-Date: 2025-07-29 08:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10793,6 +10793,8 @@ msgstr "Corsia vicina '%' asimmetrica pre rispetto a corsia '%'"
 #: src/netload/NLEdgeControlBuilder.cpp:205
 msgid "Mutually inconsistent neigh lane definitions for lanes '%', '%' and '%'"
 msgstr ""
+"Definizioni di corsie opposte delle corsie '%', '%' e '%' mutualmente "
+"inconsistenti"
 
 #: src/netload/NLEdgeControlBuilder.cpp:228
 #, c-format
@@ -11123,7 +11125,7 @@ msgstr ""
 
 #: src/netwrite/NWFrame.cpp:69
 msgid "Defines a prefix for edge and junction IDs"
-msgstr ""
+msgstr "Definisce un prefisso per gli codici identificativi di archi e incroci"
 
 #: src/netwrite/NWFrame.cpp:72
 msgid "Defines a prefix for unction IDs"
