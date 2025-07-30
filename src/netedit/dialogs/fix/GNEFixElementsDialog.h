@@ -21,14 +21,19 @@
 #include <config.h>
 
 #include <netedit/dialogs/GNEDialog.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEFixOptions;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GNEFixElementsDialog : protected GNEDialog {
-    /// @brief FOX-declaration
-    FXDECLARE_ABSTRACT(GNEFixElementsDialog)
 
 public:
     /// @brief Constructor
@@ -38,32 +43,29 @@ public:
     /// @brief destructor
     ~GNEFixElementsDialog();
 
+    /// @brief add fix options to the dialog (called automatically during GNEFixOptions constructor)
+    void addFixOptions(GNEFixOptions* fixOptions);
+
     /// @brief run internal test
-    virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief event when user select a option
-    virtual long onCmdSelectOption(FXObject* obj, FXSelector, void*) = 0;
-
     /// @brief event after press accept button
-    virtual long onCmdAccept(FXObject*, FXSelector, void*) = 0;
-
-    /// @brief event after press cancel button
-    virtual long onCmdCancel(FXObject*, FXSelector, void*) = 0;
+    long onCmdAccept(FXObject*, FXSelector, void*);
 
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEFixElementsDialog)
+    /// @brief vector with all fix options
+    std::vector<GNEFixOptions*> myFixOptions;
 
-    /// @brief stop fix elements dialog accepting changes
-    long closeFixDialog(const bool success);
+    /// @brief left frame in which place the FXFixOptions
+    FXVerticalFrame* myLeftFrame = nullptr;
 
-    /// @brief main
-    FXVerticalFrame* myMainFrame = nullptr;
+    /// @brief right frame in which place the FXFixOptions
+    FXVerticalFrame* myRightFrame = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
