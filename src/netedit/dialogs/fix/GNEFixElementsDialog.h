@@ -50,7 +50,7 @@ public:
         }
 
         /// @brief run internal test
-        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
+        virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
 
         /// @brief apply selected fix option
         virtual bool applyFixOption() = 0;
@@ -181,8 +181,9 @@ public:
         GNEDialog(mainWindow, title.c_str(), icon, GNEDialog::Buttons::ACCEPT_CANCEL,
         GUIDesignDialogBoxExplicitStretchable(sizeX, sizeY)) {
         // create left and right frames
-        myLeftFrame = new FXVerticalFrame(myContentFrame, GUIDesignAuxiliarFrame);
-        myRightFrame = new FXVerticalFrame(myContentFrame, GUIDesignAuxiliarFrame);
+        FXHorizontalFrame* columnFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
+        myLeftFrame = new FXVerticalFrame(columnFrame, GUIDesignAuxiliarFrame);
+        myRightFrame = new FXVerticalFrame(columnFrame, GUIDesignAuxiliarFrame);
     }
 
     /// @brief destructor
@@ -236,10 +237,10 @@ protected:
     /// @brief vector with all fix options
     std::vector<GNEFixElementsDialog::FixOptions*> myFixOptions;
 
-    /// @brief left frame in which place the FXFixOptions
+    /// @brief left frame for fix options
     FXVerticalFrame* myLeftFrame = nullptr;
 
-    /// @brief right frame in which place the FXFixOptions
+    /// @brief right frame for fix options
     FXVerticalFrame* myRightFrame = nullptr;
 
 private:
