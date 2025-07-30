@@ -20,8 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXGroupBoxModule.h>
-
 #include "GNEFixElementsDialog.h"
 
 // ===========================================================================
@@ -46,8 +44,8 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-    /// @brief open fix network elements dialog
-    GNEDialog::Result openDialog(const std::vector<GNENetworkElement*>& invalidNetworkElements);
+    /// @brief open fix dialog
+    GNEDialog::Result openDialog(const std::vector<GNENetworkElement*>& element);
 
     /// @name FOX-callbacks
     /// @{
