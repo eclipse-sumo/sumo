@@ -60,15 +60,21 @@ GNEFixNetworkElements::runInternalTest(const InternalTestStep::DialogArgument* d
 
 
 GNEDialog::Result
-GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& invalidNetworkElements) {
+GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& element) {
     // split invalidNetworkElements in four groups
-    std::vector<GNENetworkElement*> invalidEdges, invalidCrossings;
+    std::vector<ConflictElement> invalidEdges, invalidCrossings;
     // fill groups
-    for (const auto& invalidNetworkElement : invalidNetworkElements) {
+    for (const auto& invalidNetworkElement : element) {
+        // create conflict element
+        auto fixElement = ConflictElement(invalidNetworkElement,
+                                          invalidNetworkElement->getID(),
+                                          invalidNetworkElement->getACIcon(),
+                                          invalidNetworkElement->getNetworkElementProblem());
+        // add depending of element type
         if (invalidNetworkElement->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
-            invalidEdges.push_back(invalidNetworkElement);
+            invalidEdges.push_back(fixElement);
         } else if (invalidNetworkElement->getTagProperty()->getTag() == SUMO_TAG_CROSSING) {
-            invalidCrossings.push_back(invalidNetworkElement);
+            invalidCrossings.push_back(fixElement);
         }
     }
     // fill options
@@ -109,7 +115,7 @@ GNEFixNetworkElements::FixEdgeOptions::runInternalTest(const InternalTestStep::D
 
 bool
 GNEFixNetworkElements::FixEdgeOptions::applyFixOption() {
-    if (myInvalidElements.size() > 0) {
+    if (myConflictedElements.size() > 0) {
         auto net = myFixElementDialogParent->getApplicationWindow()->getViewNet()->getNet();
         auto undoList = myFixElementDialogParent->getApplicationWindow()->getUndoList();
         // continue depending of solution
@@ -117,8 +123,8 @@ GNEFixNetworkElements::FixEdgeOptions::applyFixOption() {
             // begin undo list
             undoList->begin(GUIIcon::EDGE, TL("delete invalid edges"));
             // iterate over invalid edges to delete it
-            for (const auto& invalidEdge : myInvalidElements) {
-                net->deleteEdge(net->getAttributeCarriers()->retrieveEdge(invalidEdge->getID()), undoList, false);
+            for (const auto& conflictedElement : myConflictedElements) {
+                net->deleteEdge(net->getAttributeCarriers()->retrieveEdge(conflictedElement.getID()), undoList, false);
             }
             // end undo list
             undoList->end();
@@ -126,8 +132,8 @@ GNEFixNetworkElements::FixEdgeOptions::applyFixOption() {
             // begin undo list
             undoList->begin(GUIIcon::EDGE, TL("select invalid edges"));
             // iterate over invalid single lane elements to select all elements
-            for (const auto& invalidEdge : myInvalidElements) {
-                invalidEdge->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
             // end undo list
             undoList->end();
@@ -211,7 +217,7 @@ GNEFixNetworkElements::FixCrossingOptions::runInternalTest(const InternalTestSte
 
 bool
 GNEFixNetworkElements::FixCrossingOptions::applyFixOption() {
-    if (myInvalidElements.size() > 0) {
+    if (myConflictedElements.size() > 0) {
         auto net = myFixElementDialogParent->getApplicationWindow()->getViewNet()->getNet();
         auto undoList = myFixElementDialogParent->getApplicationWindow()->getUndoList();
         // continue depending of solution
@@ -219,8 +225,8 @@ GNEFixNetworkElements::FixCrossingOptions::applyFixOption() {
             // begin undo list
             undoList->begin(GUIIcon::CROSSING, TL("delete invalid crossings"));
             // iterate over invalid crossings to delete it
-            for (const auto& invalidCrossing : myInvalidElements) {
-                net->deleteCrossing(net->getAttributeCarriers()->retrieveCrossing(invalidCrossing), undoList);
+            for (const auto& conflictedElement : myConflictedElements) {
+                net->deleteCrossing(net->getAttributeCarriers()->retrieveCrossing(conflictedElement.getElement()), undoList);
             }
             // end undo list
             undoList->end();
@@ -228,8 +234,8 @@ GNEFixNetworkElements::FixCrossingOptions::applyFixOption() {
             // begin undo list
             undoList->begin(GUIIcon::CROSSING, TL("select invalid crossings"));
             // iterate over invalid single lane elements to select all elements
-            for (const auto& invalidCrossing : myInvalidElements) {
-                invalidCrossing->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
             // end undo list
             undoList->end();
