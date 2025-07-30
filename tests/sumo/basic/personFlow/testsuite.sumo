@@ -22,6 +22,7 @@ walk_personsPerHour
 
 # Copy of walk_personsPerHour
 walk_maxPersonNumber
+walk_maxPersonNumber_0
 
 # Copy of walk_personsPerHour
 walk_typeDist
