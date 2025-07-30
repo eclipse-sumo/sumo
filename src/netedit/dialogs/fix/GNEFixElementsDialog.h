@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/dialogs/GNEDialog.h>
-
+#include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
+#include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
 
 // ===========================================================================
 // class definitions
@@ -36,7 +36,7 @@ public:
 
     public:
         /// @brief constructor
-        FixOptions(GNEFixElementsDialog<T> *fixElementDialog, FXVerticalFrame* frameParent, const std::string& title, GUIIcon icon) :
+        FixOptions(GNEFixElementsDialog<T> *fixElementDialog, FXVerticalFrame* frameParent, const std::string& title) :
             MFXGroupBoxModule(frameParent, title, MFXGroupBoxModule::Options::NOTHING),
             myFixElementDialogParent(fixElementDialog) {
             // add this fix option to list of fix options
@@ -50,9 +50,9 @@ public:
         }
 
         /// @brief run internal test
-        virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
+        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
 
-        /// @brief apply fix option
+        /// @brief apply selected fix option
         virtual bool applyFixOption() = 0;
 
         /// @name FOX-callbacks
@@ -62,6 +62,49 @@ public:
         virtual long onCmdSelectOption(FXObject*, FXSelector, void*) = 0;
 
         /// @}
+
+        /// @brief set invalid elements to fix
+        void setInvalidElements(const std::vector<T>& invalidElements) {
+            // update invalid elements
+            myInvalidElements = invalidElements;
+            // configure table
+            myTable->setTableSize((int)(myInvalidElements.size()), 3);
+            myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
+            myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+            myTable->setEditable(false);
+            // configure header
+            myTable->setVisibleColumns(4);
+            myTable->setColumnWidth(0, GUIDesignHeight);
+            myTable->setColumnWidth(1, 150);
+            myTable->setColumnWidth(2, 390);
+            myTable->setColumnText(0, "");
+            myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
+            myTable->setColumnText(2, TL("Conflict"));
+            myTable->getRowHeader()->setWidth(0);
+            // Declare pointer to FXTableItem
+            FXTableItem* item = nullptr;
+            // iterate over invalid edges
+            for (int i = 0; i < (int)myInvalidElements.size(); i++) {
+                // Set icon
+                item = new FXTableItem("", myInvalidElements.at(i)->getACIcon());
+                item->setIconPosition(FXTableItem::CENTER_X);
+                myTable->setItem(i, 0, item);
+                // Set ID
+                item = new FXTableItem(myInvalidElements.at(i)->getID().c_str());
+                item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+                myTable->setItem(i, 1, item);
+                // Set conflict
+                item = new FXTableItem(myInvalidElements.at(i)->getNetworkElementProblem().c_str());
+                item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+                myTable->setItem(i, 2, item);
+            }
+            // check if enable or disable options
+            if (invalidElements.size() > 0) {
+                enableOptions();
+            } else {
+                disableOptions();
+            }
+        }
     
     protected:
         /// @brief pointer to the parent dialog
@@ -76,12 +119,54 @@ public:
         /// @brief vertical right frame for options
         FXVerticalFrame* myRightFrameOptions = nullptr;
 
+        /// @brief list of elements to fix
+        std::vector<T> myInvalidElements;
+
     private:
         /// @brief enable options
         virtual void enableOptions() = 0;
 
         /// @brief disable options
         virtual void disableOptions() = 0;
+
+        /// @brief get the list of conflicts (ID, conflict)
+        virtual std::vector<std::pair<std::string, std::string> > getConflicts() const;
+
+        /// @brief save save list of conflicted items to a file (Reimplemented from MFXGroupBoxModule)
+        bool saveContents() const {
+            // open file dialog to save list of conflicted items
+            const FXString file = MFXUtils::getFilename2Write(myTable,
+                                  TL("Save list of conflicted items"),
+                                  SUMOXMLDefinitions::TXTFileExtensions.getMultilineString().c_str(),
+                                  GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
+            // continue if file is not empty
+            if (file == "") {
+                return false;
+            } else {
+                try {
+                    // get list of conflicts
+                    auto conflicts = getConflicts();
+                    // open output device
+                    OutputDevice& device = OutputDevice::getDevice(file.text());
+                    // get invalid element ID and problem
+                    for (const auto& conflict : conflicts) {
+                        device << conflict.first << ":" << conflict.second << "\n";
+                    }
+                    // close output device
+                    device.close();
+                    // open information message box
+                    GNEInformationBasicDialog(myFixElementDialogParent->myApplicationWindow,
+                                              TL("Saving successfully"),
+                                              TL("List of conflicted items was successfully saved"));
+                    return true;
+                } catch (IOError& e) {
+                    // open message box error
+                    GNEErrorBasicDialog(myFixElementDialogParent->myApplicationWindow,
+                                        TL("Saving list of conflicted items failed"), e.what());
+                    return false;
+                }
+            }
+        }
 
         /// @brief Invalidated copy constructor.
         FixOptions(const FixOptions&) = delete;
@@ -106,8 +191,8 @@ public:
     /// @brief open fix additional dialog
     virtual GNEDialog::Result openFixDialog(const std::vector<T*>& invalidElements) = 0;
 
-    /// @brief add fix options to the dialog (called automatically during GNEFixOptions constructor)
-    void addFixOptions(GNEFixOptions* fixOptions) {
+    /// @brief add fix options to the dialog (called automatically during FixOptions constructor)
+    void addFixOptions(FixOptions* fixOptions) {
         myFixOptions.push_back(fixOptions);
     }
 
@@ -144,7 +229,7 @@ public:
 
 protected:
     /// @brief vector with all fix options
-    std::vector<GNEFixElementsDialog::FixOptions<T> > myFixOptions;
+    std::vector<GNEFixElementsDialog::FixOptions*> myFixOptions;
 
     /// @brief left frame in which place the FXFixOptions
     FXVerticalFrame* myLeftFrame = nullptr;
