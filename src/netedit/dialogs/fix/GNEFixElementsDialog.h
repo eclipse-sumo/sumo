@@ -191,6 +191,11 @@ public:
     /// @brief open fix additional dialog
     virtual GNEDialog::Result openFixDialog(const std::vector<T*>& invalidElements) = 0;
 
+    /// @brief pointer to the main window
+    GNEApplicationWindow* getApplicationWindow() {
+        return myApplicationWindow;
+    }
+
     /// @brief add fix options to the dialog (called automatically during FixOptions constructor)
     void addFixOptions(FixOptions* fixOptions) {
         myFixOptions.push_back(fixOptions);
