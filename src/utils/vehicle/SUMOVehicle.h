@@ -297,6 +297,8 @@ public:
       */
     virtual bool replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg) = 0;
 
+    virtual const std::vector<std::string>& getParkingBadges() const = 0;
+
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     virtual SUMOTime remainingStopDuration() const = 0;
 

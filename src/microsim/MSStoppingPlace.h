@@ -158,6 +158,10 @@ public:
      */
     virtual double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
 
+    virtual bool accepts(SUMOVehicle* /*veh*/) const {
+        return true;
+    }
+
     /// @brief return whether the given vehicle fits at the given position
     bool fits(double pos, const SUMOVehicle& veh) const;
 
