@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_23_1+1107-78f51b0269e
+Eclipse SUMO netgenerate Version v1_24_0+0070-fe27b6051ef
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -119,7 +119,7 @@ Output Options:
                                         additional node-file to reproduce joins
   --prefix STR                         Defines a prefix for edge and junction
                                         IDs
-  --prefix.junction STR                Defines a prefix for unction IDs
+  --prefix.junction STR                Defines a prefix for junction IDs
   --prefix.edge STR                    Defines a prefix for edge IDs
   --amitran-output FILE                The generated net will be written to
                                         FILE using Amitran format
