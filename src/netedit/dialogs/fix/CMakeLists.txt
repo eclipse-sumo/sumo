@@ -6,8 +6,6 @@ set(netedit_dialogs_fix_SRCS
    GNEFixElementsDialog.h
    GNEFixNetworkElements.cpp
    GNEFixNetworkElements.h
-   GNEFixOptions.cpp
-   GNEFixOptions.h
 )
 
 add_library(netedit_dialogs_fix STATIC ${netedit_dialogs_fix_SRCS})

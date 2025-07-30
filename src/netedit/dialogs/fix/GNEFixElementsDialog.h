@@ -21,13 +21,7 @@
 #include <config.h>
 
 #include <netedit/dialogs/GNEDialog.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
 
-// ===========================================================================
-// class declaration
-// ===========================================================================
-
-class GNEFixOptions;
 
 // ===========================================================================
 // class definitions
@@ -37,6 +31,65 @@ template <typename T>
 class GNEFixElementsDialog : protected GNEDialog {
 
 public:
+    /// @brief GNEFixOptions module
+    class FixOptions : public MFXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        FixOptions(GNEFixElementsDialog<T> *fixElementDialog, FXVerticalFrame* frameParent, const std::string& title, GUIIcon icon) :
+            MFXGroupBoxModule(frameParent, title, MFXGroupBoxModule::Options::NOTHING),
+            myFixElementDialogParent(fixElementDialog) {
+            // add this fix option to list of fix options
+            fixElementDialog->addFixOptions(this);
+            // Create table
+            myTable = new FXTable(frameParent, this, MID_TABLE, GUIDesignTableFixElements);
+            // create frames for options
+            FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(frameParent, GUIDesignAuxiliarFrame);
+            myLeftFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
+            myRightFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
+        }
+
+        /// @brief run internal test
+        virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
+
+        /// @brief apply fix option
+        virtual bool applyFixOption() = 0;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief called when user select a option
+        virtual long onCmdSelectOption(FXObject*, FXSelector, void*) = 0;
+
+        /// @}
+    
+    protected:
+        /// @brief pointer to the parent dialog
+        GNEFixElementsDialog *myFixElementDialogParent = nullptr; 
+
+        /// @brief Table with the demand elements
+        FXTable* myTable = nullptr;
+
+        /// @brief vertical left frame for options
+        FXVerticalFrame* myLeftFrameOptions = nullptr;
+
+        /// @brief vertical right frame for options
+        FXVerticalFrame* myRightFrameOptions = nullptr;
+
+    private:
+        /// @brief enable options
+        virtual void enableOptions() = 0;
+
+        /// @brief disable options
+        virtual void disableOptions() = 0;
+
+        /// @brief Invalidated copy constructor.
+        FixOptions(const FixOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        FixOptions& operator=(const FixOptions&) = delete;
+    };
+
     /// @brief Constructor
     GNEFixElementsDialog(GNEApplicationWindow *mainWindow, const std::string title,
                          GUIIcon icon, const int sizeX, const int sizeY):
@@ -49,6 +102,9 @@ public:
 
     /// @brief destructor
     ~GNEFixElementsDialog() {}
+
+    /// @brief open fix additional dialog
+    virtual GNEDialog::Result openFixDialog(const std::vector<T*>& invalidElements) = 0;
 
     /// @brief add fix options to the dialog (called automatically during GNEFixOptions constructor)
     void addFixOptions(GNEFixOptions* fixOptions) {
@@ -88,7 +144,7 @@ public:
 
 protected:
     /// @brief vector with all fix options
-    std::vector<GNEFixOptions*> myFixOptions;
+    std::vector<GNEFixElementsDialog::FixOptions<T> > myFixOptions;
 
     /// @brief left frame in which place the FXFixOptions
     FXVerticalFrame* myLeftFrame = nullptr;
