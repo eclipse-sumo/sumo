@@ -35,5 +35,7 @@ short_closing_wait
 
 # see #16852
 detour_ignoreBrakeGap
-
 backtrack
+
+# see #16964
+short_rerouter_edge
