@@ -2124,8 +2124,10 @@ MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
         if (veh == nullptr) {
             throw ProcessError(TLF("Unknown vehicle '%' in driveway '%'", vehID, id));
         }
-        dw->myTrains.insert(veh);
-        veh->addReminder(dw);
+        if (!dw->hasTrain(veh)) {
+            dw->myTrains.insert(veh);
+            veh->addReminder(dw);
+        }
     }
 }
 
