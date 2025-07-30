@@ -67,19 +67,25 @@ GNEFixDemandElementsDialog::runInternalTest(const InternalTestStep::DialogArgume
 
 
 GNEDialog::Result
-GNEFixDemandElementsDialog::openDialog(const std::vector<GNEDemandElement*>& invalidDemandElements) {
+GNEFixDemandElementsDialog::openDialog(const std::vector<GNEDemandElement*>& element) {
     // split invalidDemandElements in four groups
-    std::vector<GNEDemandElement*> invalidRoutes, invalidVehicles, invalidStops, invalidPlans;
+    std::vector<ConflictElement> invalidRoutes, invalidVehicles, invalidStops, invalidPlans;
     // fill groups
-    for (const auto& invalidDemandElement : invalidDemandElements) {
+    for (const auto& invalidDemandElement : element) {
+        // create conflict element
+        auto fixElement = ConflictElement(invalidDemandElement,
+                                          invalidDemandElement->getID(),
+                                          invalidDemandElement->getACIcon(),
+                                          invalidDemandElement->getDemandElementProblem());
+        // add depending of element type
         if (invalidDemandElement->getTagProperty()->isRoute()) {
-            invalidRoutes.push_back(invalidDemandElement);
+            invalidRoutes.push_back(fixElement);
         } else if (invalidDemandElement->getTagProperty()->isVehicle()) {
-            invalidVehicles.push_back(invalidDemandElement);
+            invalidVehicles.push_back(fixElement);
         } else if (invalidDemandElement->getTagProperty()->isVehicleStop()) {
-            invalidStops.push_back(invalidDemandElement);
+            invalidStops.push_back(fixElement);
         } else {
-            invalidPlans.push_back(invalidDemandElement);
+            invalidPlans.push_back(fixElement);
         }
     }
     // fill options
@@ -89,17 +95,6 @@ GNEFixDemandElementsDialog::openDialog(const std::vector<GNEDemandElement*>& inv
     myFixPersonPlanOptions->setInvalidElements(invalidPlans);
     // open modal dialog
     return openModal();
-}
-
-
-long
-GNEFixDemandElementsDialog::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
-    // select options
-    myFixRouteOptions->selectOption(obj);
-    myFixVehicleOptions->selectOption(obj);
-    myFixStopPositionOptions->selectOption(obj);
-    myFixPersonPlanOptions->selectOption(obj);
-    return 1;
 }
 
 // ---------------------------------------------------------------------------
@@ -146,7 +141,7 @@ GNEFixDemandElementsDialog::FixRouteOptions::runInternalTest(const InternalTestS
 
 bool
 GNEFixDemandElementsDialog::FixRouteOptions::applyFixOption() {
-    if (myInvalidElements.size() > 0) {
+    if (myConflictedElements.size() > 0) {
         auto net = myFixElementDialogParent->getApplicationWindow()->getViewNet()->getNet();
         auto undoList = myFixElementDialogParent->getApplicationWindow()->getUndoList();
         // continue depending of solution
@@ -154,12 +149,12 @@ GNEFixDemandElementsDialog::FixRouteOptions::applyFixOption() {
             // begin undo list
             undoList->begin(GUIIcon::ROUTE, TL("delete invalid routes"));
             // iterate over invalid routes to delete it
-            for (const auto& invalidRoute : myInvalidElements) {
+            for (const auto& conflictedElement : myConflictedElements) {
                 // special case for embedded routes
-                if (invalidRoute->getTagProperty()->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-                    net->deleteDemandElement(invalidRoute->getParentDemandElements().front(), undoList);
+                if (conflictedElement.getElement()->getTagProperty()->getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+                    net->deleteDemandElement(conflictedElement.getElement()->getParentDemandElements().front(), undoList);
                 } else {
-                    net->deleteDemandElement(invalidRoute, undoList);
+                    net->deleteDemandElement(conflictedElement.getElement(), undoList);
                 }
             }
             // end undo list
@@ -168,8 +163,8 @@ GNEFixDemandElementsDialog::FixRouteOptions::applyFixOption() {
             // begin undo list
             undoList->begin(GUIIcon::ROUTE, TL("select invalid routes"));
             // iterate over invalid single lane elements to select all elements
-            for (const auto& invalidRoute : myInvalidElements) {
-                invalidRoute->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
             // end undo list
             undoList->end();
@@ -180,8 +175,8 @@ GNEFixDemandElementsDialog::FixRouteOptions::applyFixOption() {
         if (myRemoveStopsOutOfRoute->getCheck() == TRUE) {
             // get all stops to remove
             std::vector<GNEDemandElement*> stopsToRemove;
-            for (const auto& invalidRoute : myInvalidElements) {
-                const auto invaldstops = invalidRoute->getInvalidStops();
+            for (const auto& conflictedElement : myConflictedElements) {
+                const auto invaldstops = conflictedElement.getElement()->getInvalidStops();
                 // append to stopsToRemove
                 stopsToRemove.insert(stopsToRemove.end(), invaldstops.begin(), invaldstops.end());
             }
@@ -271,7 +266,7 @@ GNEFixDemandElementsDialog::FixVehicleOptions::runInternalTest(const InternalTes
 
 bool
 GNEFixDemandElementsDialog::FixVehicleOptions::applyFixOption() {
-    if (myInvalidElements.size() > 0) {
+    if (myConflictedElements.size() > 0) {
         auto net = myFixElementDialogParent->getApplicationWindow()->getViewNet()->getNet();
         auto undoList = myFixElementDialogParent->getApplicationWindow()->getUndoList();
         // continue depending of solution
@@ -279,10 +274,10 @@ GNEFixDemandElementsDialog::FixVehicleOptions::applyFixOption() {
             // begin undo list
             undoList->begin(GUIIcon::VEHICLE, TL("delete invalid vehicles"));
             // iterate over invalid vehicles to delete it
-            for (const auto& invalidVehicle : myInvalidElements) {
+            for (const auto& conflictedElement : myConflictedElements) {
                 // check that vehicle was not removed previously in cascade
-                if (net->getAttributeCarriers()->retrieveDemandElement(invalidVehicle->getTagProperty()->getTag(), invalidVehicle->getID(), false) != nullptr) {
-                    net->deleteDemandElement(invalidVehicle, undoList);
+                if (net->getAttributeCarriers()->retrieveDemandElement(conflictedElement.getElement()->getTagProperty()->getTag(), conflictedElement.getID(), false) != nullptr) {
+                    net->deleteDemandElement(conflictedElement.getElement(), undoList);
                 }
             }
             // end undo list
@@ -291,8 +286,8 @@ GNEFixDemandElementsDialog::FixVehicleOptions::applyFixOption() {
             // begin undo list
             undoList->begin(GUIIcon::ROUTE, TL("select invalid routes"));
             // iterate over invalid single lane elements to select all elements
-            for (const auto& invalidVehicle : myInvalidElements) {
-                invalidVehicle->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
             // end undo list
             undoList->end();
@@ -303,8 +298,8 @@ GNEFixDemandElementsDialog::FixVehicleOptions::applyFixOption() {
         if (myRemoveStopsOutOfVehicle->getCheck() == TRUE) {
             // get all stops to remove
             std::vector<GNEDemandElement*> stopsToRemove;
-            for (const auto& invalidVehicle : myInvalidElements) {
-                const auto invaldstops = invalidVehicle->getInvalidStops();
+            for (const auto& conflictedElement : myConflictedElements) {
+                const auto invaldstops = conflictedElement.getElement()->getInvalidStops();
                 // append to stopsToRemove
                 stopsToRemove.insert(stopsToRemove.end(), invaldstops.begin(), invaldstops.end());
             }
@@ -393,29 +388,29 @@ GNEFixDemandElementsDialog::FixStopPositionOptions::runInternalTest(const Intern
 bool
 GNEFixDemandElementsDialog::FixStopPositionOptions::applyFixOption() {
     // check options for stops
-    if (myInvalidElements.size() > 0) {
+    if (myConflictedElements.size() > 0) {
         auto undoList = myFixElementDialogParent->getApplicationWindow()->getUndoList();
         // continue depending of solution
         if (myActivateFriendlyPositionAndSave->getCheck() == TRUE) {
             // begin undo list
             undoList->begin(GUIIcon::STOP, TLF("change % of invalid stops", toString(SUMO_ATTR_FRIENDLY_POS)));
             // iterate over invalid stops to enable friendly position
-            for (const auto& stop : myInvalidElements) {
-                stop->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", undoList);
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", undoList);
             }
             undoList->end();
         } else if (myFixPositionsAndSave->getCheck() == TRUE) {
             undoList->begin(GUIIcon::STOP, TL("fix positions of invalid stops"));
             // iterate over invalid stops to fix positions
-            for (const auto& stop : myInvalidElements) {
-                stop->fixDemandElementProblem();
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->fixDemandElementProblem();
             }
             undoList->end();
         } else if (mySelectInvalidStopsAndCancel->getCheck() == TRUE) {
             undoList->begin(GUIIcon::STOP, TL("select invalid stops"));
             // iterate over invalid stops to select all elements
-            for (const auto& stop : myInvalidElements) {
-                stop->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
             // end undo list
             undoList->end();
@@ -502,7 +497,7 @@ GNEFixDemandElementsDialog::FixPersonPlanOptions::runInternalTest(const Internal
 bool 
 GNEFixDemandElementsDialog::FixPersonPlanOptions::applyFixOption() {
     // check options for person plans
-    if (myInvalidElements.size() > 0) {
+    if (myConflictedElements.size() > 0) {
         auto net = myFixElementDialogParent->getApplicationWindow()->getViewNet()->getNet();
         auto undoList = myFixElementDialogParent->getApplicationWindow()->getUndoList();
         // continue depending of solution
@@ -510,15 +505,15 @@ GNEFixDemandElementsDialog::FixPersonPlanOptions::applyFixOption() {
             // begin undo list
             undoList->begin(GUIIcon::MODEPERSONPLAN, TL("delete invalid person plans"));
             // remove all invalid person plans
-            for (const auto& personPlan : myInvalidElements) {
-                net->deleteDemandElement(personPlan, undoList);
+            for (const auto& conflictedElement : myConflictedElements) {
+                net->deleteDemandElement(conflictedElement.getElement(), undoList);
             }
             undoList->end();
         } else if (mySelectInvalidPersonPlansAndCancel->getCheck() == TRUE) {
             undoList->begin(GUIIcon::MODEPERSONPLAN, TL("select invalid person plans"));
             // iterate over invalid person plans to select all elements
-            for (const auto& personPlan : myInvalidElements) {
-                personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
             // end undo list
             undoList->end();
