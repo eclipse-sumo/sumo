@@ -39,10 +39,6 @@
 
 GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow) :
     GNEFixElementsDialog(mainWindow, TL("Fix demand elements problems"), GUIIcon::SUPERMODEDEMAND, 800, 620) {
-    // create frames for options
-    FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignAuxiliarFrame);
-    myLeftFrame = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
-    myRightFrame = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
     // create fix route options
     myFixRouteOptions = new FixRouteOptions(this);
     // create fix vehicle  options
@@ -60,14 +56,11 @@ GNEFixDemandElementsDialog::~GNEFixDemandElementsDialog() {
 
 void
 GNEFixDemandElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // chooose solution
-    if (dialogArgument->fixSolution == "saveRouteInvalids") {
-        myFixRouteOptions->saveInvalidRoutes->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "removeRouteInvalids") {
-        myFixRouteOptions->removeInvalidRoutes->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "selectRouteInvalids") {
-        myFixRouteOptions->selectRouteInvalids->setCheck(TRUE, TRUE);
-    }
+    // run internal test in all modules
+    myFixRouteOptions->runInternalTest(dialogArgument);
+    myFixVehicleOptions->runInternalTest(dialogArgument);
+    myFixStopPositionOptions->runInternalTest(dialogArgument);
+    myFixPersonPlanOptions->runInternalTest(dialogArgument);
     // accept changes
     onCmdAccept(nullptr, 0, nullptr);
 }
@@ -109,165 +102,50 @@ GNEFixDemandElementsDialog::onCmdSelectOption(FXObject* obj, FXSelector, void*) 
     return 1;
 }
 
-
-long
-GNEFixDemandElementsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    bool abortSaving = false;
-    // fix elements
-    myFixRouteOptions->fixElements(abortSaving);
-    myFixVehicleOptions->fixElements(abortSaving);
-    myFixStopPositionOptions->fixElements(abortSaving);
-    myFixPersonPlanOptions->fixElements(abortSaving);
-    // stop dialog
-    return closeFixDialog(abortSaving);
-}
-
-
-long
-GNEFixDemandElementsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // stop dialog
-    return closeFixDialog(false);
-}
-
-// ---------------------------------------------------------------------------
-// GNEFixDemandElementsDialog::FixOptions - methods
-// ---------------------------------------------------------------------------
-
-GNEFixDemandElementsDialog::FixOptions::FixOptions(GNEApplicationWindow *mainWindow, FXVerticalFrame* frameParent,
-                                                   const std::string& title) :
-    MFXGroupBoxModule(frameParent, title, MFXGroupBoxModule::Options::SAVE),
-    myMainWindow(mainWindow){
-    // Create table
-    myTable = new FXTable(this, this, MID_TABLE, GUIDesignTableFixElements);
-    myTable->disable();
-    // create horizontal frame
-    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    // create vertical frames
-    myLeftFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
-    myRightFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
-}
-
-
-void
-GNEFixDemandElementsDialog::FixOptions::setInvalidElements(const std::vector<GNEDemandElement*>& invalidElements) {
-    // update invalid elements
-    myInvalidElements = invalidElements;
-    // configure table
-    myTable->setTableSize((int)(myInvalidElements.size()), 3);
-    myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
-    myTable->setEditable(false);
-    // configure header
-    myTable->setVisibleColumns(4);
-    myTable->setColumnWidth(0, GUIDesignHeight);
-    myTable->setColumnWidth(1, 150);
-    myTable->setColumnWidth(2, 200);
-    myTable->setColumnText(0, "");
-    myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
-    myTable->setColumnText(2, "Conflict");
-    myTable->getRowHeader()->setWidth(0);
-    // Declare pointer to FXTableItem
-    FXTableItem* item = nullptr;
-    // iterate over invalid routes
-    for (int i = 0; i < (int)myInvalidElements.size(); i++) {
-        // Set icon
-        item = new FXTableItem("", myInvalidElements.at(i)->getACIcon());
-        item->setIconPosition(FXTableItem::CENTER_X);
-        myTable->setItem(i, 0, item);
-        // Set ID
-        item = new FXTableItem(myInvalidElements.at(i)->getID().c_str());
-        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
-        myTable->setItem(i, 1, item);
-        // Set conflict
-        item = new FXTableItem(myInvalidElements.at(i)->getDemandElementProblem().c_str());
-        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
-        myTable->setItem(i, 2, item);
-    }
-    // check if enable or disable options
-    if (invalidElements.size() > 0) {
-        enableOptions();
-        toggleSaveButton(true);
-    } else {
-        disableOptions();
-        toggleSaveButton(false);
-    }
-}
-
-bool
-GNEFixDemandElementsDialog::FixOptions::saveContents() const {
-    const FXString file = MFXUtils::getFilename2Write(myTable, TL("Save list of conflicted items"),
-                          SUMOXMLDefinitions::TXTFileExtensions.getMultilineString().c_str(),
-                          GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
-    if (file == "") {
-        return false;
-    }
-    try {
-        // open output device
-        OutputDevice& dev = OutputDevice::getDevice(file.text());
-        // get invalid element ID and problem
-        for (const auto& invalidElement : myInvalidElements) {
-            dev << invalidElement->getID() << ":" << invalidElement->getDemandElementProblem() << "\n";
-        }
-        // close output device
-        dev.close();
-        // open message box information
-        GNEInformationBasicDialog(myMainWindow, TL("Saving successfully"), TL( "List of conflicted items was successfully saved"));
-    } catch (IOError& e) {
-        // open message box error
-        GNEErrorBasicDialog(myMainWindow, TL("Saving list of conflicted items failed"), e.what());
-    }
-    return true;
-}
-
 // ---------------------------------------------------------------------------
 // GNEFixDemandElementsDialog::FixRouteOptions - methods
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElementsDialog::FixRouteOptions::FixRouteOptions(GNEFixDemandElementsDialog* fixDemandElementsParent) :
-    FixOptions(fixDemandElementsParent->myApplicationWindow, fixDemandElementsParent->myLeftFrame, "Routes") {
+    FixOptions(fixDemandElementsParent->myApplicationWindow, fixDemandElementsParent->myLeftFrame, TL("Routes")) {
     // Remove invalid routes
-    removeInvalidRoutes = new FXRadioButton(myLeftFrame, TL("Remove invalid routes"),
-                                            fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    myRemoveInvalidRoutes = new FXRadioButton(myLeftFrameOptions, TL("Remove invalid routes"),
+                                              fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid routes
-    saveInvalidRoutes = new FXRadioButton(myLeftFrame, TL("Save invalid routes"),
-                                          fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
-    // Select invalid routes
-    selectRouteInvalids = new FXRadioButton(myRightFrame, TL("Select conflicted routes"),
+    mySaveInvalidRoutes = new FXRadioButton(myLeftFrameOptions, TL("Save invalid routes"),
                                             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    // Select invalid routes
+    mySelectRouteInvalids = new FXRadioButton(myRightFrameOptions, TL("Select conflicted routes"),
+                                              fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Remove stops out of route
-    removeStopsOutOfRoute = new FXCheckButton(myRightFrame, TL("Remove stops out of route"),
-            fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
+    myRemoveStopsOutOfRoute = new FXCheckButton(myRightFrameOptions, TL("Remove stops out of route"),
+                                                fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
     // leave option "removeInvalidRoutes" as default
-    removeInvalidRoutes->setCheck(true);
+    myRemoveInvalidRoutes->setCheck(true);
     // ... and remove stops out of route
-    removeStopsOutOfRoute->setCheck(TRUE);
+    myRemoveStopsOutOfRoute->setCheck(TRUE);
 }
 
 
 void
-GNEFixDemandElementsDialog::FixRouteOptions::selectOption(FXObject* option) {
-    if (option == removeInvalidRoutes) {
-        removeInvalidRoutes->setCheck(true);
-        saveInvalidRoutes->setCheck(false);
-        selectRouteInvalids->setCheck(false);
-    } else if (option == saveInvalidRoutes) {
-        removeInvalidRoutes->setCheck(false);
-        saveInvalidRoutes->setCheck(true);
-        selectRouteInvalids->setCheck(false);
-    } else if (option == selectRouteInvalids) {
-        removeInvalidRoutes->setCheck(false);
-        saveInvalidRoutes->setCheck(false);
-        selectRouteInvalids->setCheck(true);
+GNEFixDemandElementsDialog::FixRouteOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // chooose solution
+    if (dialogArgument->fixSolution == "saveRouteInvalids") {
+        mySaveInvalidRoutes->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "removeRouteInvalids") {
+        myRemoveInvalidRoutes->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "selectRouteInvalids") {
+        mySelectRouteInvalids->setCheck(TRUE, TRUE);
     }
 }
 
 
-void
-GNEFixDemandElementsDialog::FixRouteOptions::fixElements(bool& abortSaving) {
+bool
+GNEFixDemandElementsDialog::FixRouteOptions::applyFixOption() {
     if (myInvalidElements.size() > 0) {
-        if (removeInvalidRoutes->getCheck() == TRUE) {
+        if (myRemoveInvalidRoutes->getCheck() == TRUE) {
             // begin undo list
-            myMainWindow->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid routes");
+            myMainWindow->getUndoList()->begin(GUIIcon::ROUTE, TL("delete invalid routes"));
             // iterate over invalid routes to delete it
             for (const auto& invalidRoute : myInvalidElements) {
                 // special case for embedded routes
@@ -279,9 +157,9 @@ GNEFixDemandElementsDialog::FixRouteOptions::fixElements(bool& abortSaving) {
             }
             // end undo list
             myMainWindow->getUndoList()->end();
-        } else if (selectRouteInvalids->getCheck() == TRUE) {
+        } else if (mySelectRouteInvalids->getCheck() == TRUE) {
             // begin undo list
-            myMainWindow->getUndoList()->begin(GUIIcon::ROUTE, "select invalid routes");
+            myMainWindow->getUndoList()->begin(GUIIcon::ROUTE, TL("select invalid routes"));
             // iterate over invalid single lane elements to select all elements
             for (const auto& invalidRoute : myInvalidElements) {
                 invalidRoute->setAttribute(GNE_ATTR_SELECTED, "true", myMainWindow->getUndoList());
@@ -289,10 +167,10 @@ GNEFixDemandElementsDialog::FixRouteOptions::fixElements(bool& abortSaving) {
             // end undo list
             myMainWindow->getUndoList()->end();
             // abort saving
-            abortSaving = true;
+            return false;
         }
         // check if remove stops
-        if (removeStopsOutOfRoute->getCheck() == TRUE) {
+        if (myRemoveStopsOutOfRoute->getCheck() == TRUE) {
             // get all stops to remove
             std::vector<GNEDemandElement*> stopsToRemove;
             for (const auto& invalidRoute : myInvalidElements) {
@@ -301,7 +179,7 @@ GNEFixDemandElementsDialog::FixRouteOptions::fixElements(bool& abortSaving) {
                 stopsToRemove.insert(stopsToRemove.end(), invaldstops.begin(), invaldstops.end());
             }
             // begin undo list
-            myMainWindow->getUndoList()->begin(GUIIcon::STOP, "delete invalid stops");
+            myMainWindow->getUndoList()->begin(GUIIcon::STOP, TL("delete invalid stops"));
             // remove all
             for (const auto& stopToRemove : stopsToRemove) {
                 myMainWindow->getViewNet()->getNet()->deleteDemandElement(stopToRemove, myMainWindow->getUndoList());
@@ -310,24 +188,44 @@ GNEFixDemandElementsDialog::FixRouteOptions::fixElements(bool& abortSaving) {
             myMainWindow->getUndoList()->end();
         }
     }
+    return true;
+}
+
+
+long
+GNEFixDemandElementsDialog::FixRouteOptions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+    if (obj == myRemoveInvalidRoutes) {
+        myRemoveInvalidRoutes->setCheck(true);
+        mySaveInvalidRoutes->setCheck(false);
+        mySelectRouteInvalids->setCheck(false);
+    } else if (obj == mySaveInvalidRoutes) {
+        myRemoveInvalidRoutes->setCheck(false);
+        mySaveInvalidRoutes->setCheck(true);
+        mySelectRouteInvalids->setCheck(false);
+    } else if (obj == mySelectRouteInvalids) {
+        myRemoveInvalidRoutes->setCheck(false);
+        mySaveInvalidRoutes->setCheck(false);
+        mySelectRouteInvalids->setCheck(true);
+    }
+    return 1;
 }
 
 
 void
 GNEFixDemandElementsDialog::FixRouteOptions::enableOptions() {
-    removeInvalidRoutes->enable();
-    saveInvalidRoutes->enable();
-    selectRouteInvalids->enable();
-    removeStopsOutOfRoute->enable();
+    myRemoveInvalidRoutes->enable();
+    mySaveInvalidRoutes->enable();
+    mySelectRouteInvalids->enable();
+    myRemoveStopsOutOfRoute->enable();
 }
 
 
 void
 GNEFixDemandElementsDialog::FixRouteOptions::disableOptions() {
-    removeInvalidRoutes->disable();
-    saveInvalidRoutes->disable();
-    selectRouteInvalids->disable();
-    removeStopsOutOfRoute->disable();
+    myRemoveInvalidRoutes->disable();
+    mySaveInvalidRoutes->disable();
+    mySelectRouteInvalids->disable();
+    myRemoveStopsOutOfRoute->disable();
 }
 
 // ---------------------------------------------------------------------------
@@ -337,48 +235,35 @@ GNEFixDemandElementsDialog::FixRouteOptions::disableOptions() {
 GNEFixDemandElementsDialog::FixVehicleOptions::FixVehicleOptions(GNEFixDemandElementsDialog* fixDemandElementsParent) :
     FixOptions(fixDemandElementsParent->myApplicationWindow, fixDemandElementsParent->myLeftFrame, TL("Vehicles")) {
     // Remove invalid vehicles
-    removeInvalidVehicles = new FXRadioButton(myLeftFrame, TL("Remove invalid vehicles"),
+    myRemoveInvalidVehicles = new FXRadioButton(myLeftFrameOptions, TL("Remove invalid vehicles"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid vehicles
-    saveInvalidVehicles = new FXRadioButton(myLeftFrame, TL("Save invalid vehicles"),
+    mySaveInvalidVehicles = new FXRadioButton(myLeftFrameOptions, TL("Save invalid vehicles"),
                                             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid vehicle
-    selectInvalidVehiclesAndCancel = new FXRadioButton(myRightFrame, TL("Select conflicted vehicle"),
+    mySelectInvalidVehiclesAndCancel = new FXRadioButton(myRightFrameOptions, TL("Select conflicted vehicle"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Remove stops out of route
-    removeStopsOutOfVehicle = new FXCheckButton(myRightFrame, TL("Remove stops out of vehicle's route"),
+    myRemoveStopsOutOfVehicle = new FXCheckButton(myRightFrameOptions, TL("Remove stops out of vehicle's route"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
     // by default remove invalid vehicles
-    removeInvalidVehicles->setCheck(TRUE);
+    myRemoveInvalidVehicles->setCheck(TRUE);
     // ... and remove stops out of route
-    removeStopsOutOfVehicle->setCheck(TRUE);
+    myRemoveStopsOutOfVehicle->setCheck(TRUE);
 }
 
 
 void
-GNEFixDemandElementsDialog::FixVehicleOptions::selectOption(FXObject* option) {
-    if (option == removeInvalidVehicles) {
-        removeInvalidVehicles->setCheck(true);
-        saveInvalidVehicles->setCheck(false);
-        selectInvalidVehiclesAndCancel->setCheck(false);
-    } else if (option == saveInvalidVehicles) {
-        removeInvalidVehicles->setCheck(false);
-        saveInvalidVehicles->setCheck(true);
-        selectInvalidVehiclesAndCancel->setCheck(false);
-    } else if (option == selectInvalidVehiclesAndCancel) {
-        removeInvalidVehicles->setCheck(false);
-        saveInvalidVehicles->setCheck(false);
-        selectInvalidVehiclesAndCancel->setCheck(true);
-    }
+GNEFixDemandElementsDialog::FixVehicleOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
 }
 
 
-void
-GNEFixDemandElementsDialog::FixVehicleOptions::fixElements(bool& abortSaving) {
+bool
+GNEFixDemandElementsDialog::FixVehicleOptions::applyFixOption() {
     if (myInvalidElements.size() > 0) {
-        if (removeInvalidVehicles->getCheck() == TRUE) {
+        if (myRemoveInvalidVehicles->getCheck() == TRUE) {
             // begin undo list
-            myMainWindow->getUndoList()->begin(GUIIcon::VEHICLE, "delete invalid vehicles");
+            myMainWindow->getUndoList()->begin(GUIIcon::VEHICLE, TL("delete invalid vehicles"));
             // iterate over invalid vehicles to delete it
             for (const auto& invalidVehicle : myInvalidElements) {
                 // check that vehicle was not removed previously in cascade
@@ -388,9 +273,9 @@ GNEFixDemandElementsDialog::FixVehicleOptions::fixElements(bool& abortSaving) {
             }
             // end undo list
             myMainWindow->getUndoList()->end();
-        } else if (selectInvalidVehiclesAndCancel->getCheck() == TRUE) {
+        } else if (mySelectInvalidVehiclesAndCancel->getCheck() == TRUE) {
             // begin undo list
-            myMainWindow->getUndoList()->begin(GUIIcon::ROUTE, "select invalid routes");
+            myMainWindow->getUndoList()->begin(GUIIcon::ROUTE, TL("select invalid routes"));
             // iterate over invalid single lane elements to select all elements
             for (const auto& invalidVehicle : myInvalidElements) {
                 invalidVehicle->setAttribute(GNE_ATTR_SELECTED, "true", myMainWindow->getUndoList());
@@ -398,10 +283,10 @@ GNEFixDemandElementsDialog::FixVehicleOptions::fixElements(bool& abortSaving) {
             // end undo list
             myMainWindow->getUndoList()->end();
             // abort saving
-            abortSaving = true;
+            return false;
         }
         // check if remove stops
-        if (removeStopsOutOfVehicle->getCheck() == TRUE) {
+        if (myRemoveStopsOutOfVehicle->getCheck() == TRUE) {
             // get all stops to remove
             std::vector<GNEDemandElement*> stopsToRemove;
             for (const auto& invalidVehicle : myInvalidElements) {
@@ -410,7 +295,7 @@ GNEFixDemandElementsDialog::FixVehicleOptions::fixElements(bool& abortSaving) {
                 stopsToRemove.insert(stopsToRemove.end(), invaldstops.begin(), invaldstops.end());
             }
             // begin undo list
-            myMainWindow->getUndoList()->begin(GUIIcon::STOP, "delete invalid stops");
+            myMainWindow->getUndoList()->begin(GUIIcon::STOP, TL("delete invalid stops"));
             // remove all
             for (const auto& stopToRemove : stopsToRemove) {
                 myMainWindow->getViewNet()->getNet()->deleteDemandElement(stopToRemove, myMainWindow->getUndoList());
@@ -419,24 +304,44 @@ GNEFixDemandElementsDialog::FixVehicleOptions::fixElements(bool& abortSaving) {
             myMainWindow->getUndoList()->end();
         }
     }
+    return true;
+}
+
+
+long
+GNEFixDemandElementsDialog::FixVehicleOptions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+    if (obj == myRemoveInvalidVehicles) {
+        myRemoveInvalidVehicles->setCheck(true);
+        mySaveInvalidVehicles->setCheck(false);
+        mySelectInvalidVehiclesAndCancel->setCheck(false);
+    } else if (obj == mySaveInvalidVehicles) {
+        myRemoveInvalidVehicles->setCheck(false);
+        mySaveInvalidVehicles->setCheck(true);
+        mySelectInvalidVehiclesAndCancel->setCheck(false);
+    } else if (obj == mySelectInvalidVehiclesAndCancel) {
+        myRemoveInvalidVehicles->setCheck(false);
+        mySaveInvalidVehicles->setCheck(false);
+        mySelectInvalidVehiclesAndCancel->setCheck(true);
+    }
+    return 1;
 }
 
 
 void
 GNEFixDemandElementsDialog::FixVehicleOptions::enableOptions() {
-    removeInvalidVehicles->enable();
-    saveInvalidVehicles->enable();
-    selectInvalidVehiclesAndCancel->enable();
-    removeStopsOutOfVehicle->enable();
+    myRemoveInvalidVehicles->enable();
+    mySaveInvalidVehicles->enable();
+    mySelectInvalidVehiclesAndCancel->enable();
+    myRemoveStopsOutOfVehicle->enable();
 }
 
 
 void
 GNEFixDemandElementsDialog::FixVehicleOptions::disableOptions() {
-    removeInvalidVehicles->disable();
-    saveInvalidVehicles->disable();
-    selectInvalidVehiclesAndCancel->disable();
-    removeStopsOutOfVehicle->disable();
+    myRemoveInvalidVehicles->disable();
+    mySaveInvalidVehicles->disable();
+    mySelectInvalidVehiclesAndCancel->disable();
+    myRemoveStopsOutOfVehicle->disable();
 }
 
 // ---------------------------------------------------------------------------
@@ -446,69 +351,48 @@ GNEFixDemandElementsDialog::FixVehicleOptions::disableOptions() {
 GNEFixDemandElementsDialog::FixStopPositionOptions::FixStopPositionOptions(GNEFixDemandElementsDialog* fixDemandElementsParent) :
     FixOptions(fixDemandElementsParent->myApplicationWindow, fixDemandElementsParent->myRightFrame, TL("Stop positions")) {
     // Activate friendlyPos and save
-    activateFriendlyPositionAndSave = new FXRadioButton(myLeftFrame, TL("Activate friendlyPos and save"),
+    myActivateFriendlyPositionAndSave = new FXRadioButton(myLeftFrameOptions, TL("Activate friendlyPos and save"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid position
-    saveInvalid = new FXRadioButton(myLeftFrame, TL("Save invalid positions"),
+    mySaveInvalid = new FXRadioButton(myLeftFrameOptions, TL("Save invalid positions"),
                                     fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid Stops
-    selectInvalidStopsAndCancel = new FXRadioButton(myRightFrame, TL("Select conflicted Stops"),
+    mySelectInvalidStopsAndCancel = new FXRadioButton(myRightFrameOptions, TL("Select conflicted Stops"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Fix positions and save
-    fixPositionsAndSave = new FXRadioButton(myRightFrame, TL("Fix positions and save"),
+    myFixPositionsAndSave = new FXRadioButton(myRightFrameOptions, TL("Fix positions and save"),
                                             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // leave option "activateFriendlyPositionAndSave" as default
-    activateFriendlyPositionAndSave->setCheck(true);
+    myActivateFriendlyPositionAndSave->setCheck(true);
 }
 
 
 void
-GNEFixDemandElementsDialog::FixStopPositionOptions::selectOption(FXObject* option) {
-    if (option == activateFriendlyPositionAndSave) {
-        activateFriendlyPositionAndSave->setCheck(true);
-        fixPositionsAndSave->setCheck(false);
-        saveInvalid->setCheck(false);
-        selectInvalidStopsAndCancel->setCheck(false);
-    } else if (option == fixPositionsAndSave) {
-        activateFriendlyPositionAndSave->setCheck(false);
-        fixPositionsAndSave->setCheck(true);
-        saveInvalid->setCheck(false);
-        selectInvalidStopsAndCancel->setCheck(false);
-    } else if (option == saveInvalid) {
-        activateFriendlyPositionAndSave->setCheck(false);
-        fixPositionsAndSave->setCheck(false);
-        saveInvalid->setCheck(true);
-        selectInvalidStopsAndCancel->setCheck(false);
-    } else if (option == selectInvalidStopsAndCancel) {
-        activateFriendlyPositionAndSave->setCheck(false);
-        fixPositionsAndSave->setCheck(false);
-        saveInvalid->setCheck(false);
-        selectInvalidStopsAndCancel->setCheck(true);
-    }
+GNEFixDemandElementsDialog::FixStopPositionOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
 }
 
 
-void
-GNEFixDemandElementsDialog::FixStopPositionOptions::fixElements(bool& abortSaving) {
+bool
+GNEFixDemandElementsDialog::FixStopPositionOptions::applyFixOption() {
     // check options for stops
     if (myInvalidElements.size() > 0) {
-        if (activateFriendlyPositionAndSave->getCheck() == TRUE) {
+        if (myActivateFriendlyPositionAndSave->getCheck() == TRUE) {
             // begin undo list
-            myMainWindow->getUndoList()->begin(GUIIcon::STOP, "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid stops");
+            myMainWindow->getUndoList()->begin(GUIIcon::STOP, TLF("change % of invalid stops", toString(SUMO_ATTR_FRIENDLY_POS)));
             // iterate over invalid stops to enable friendly position
             for (const auto& stop : myInvalidElements) {
                 stop->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myMainWindow->getUndoList());
             }
             myMainWindow->getUndoList()->end();
-        } else if (fixPositionsAndSave->getCheck() == TRUE) {
-            myMainWindow->getUndoList()->begin(GUIIcon::STOP, "fix positions of invalid stops");
+        } else if (myFixPositionsAndSave->getCheck() == TRUE) {
+            myMainWindow->getUndoList()->begin(GUIIcon::STOP, TL("fix positions of invalid stops"));
             // iterate over invalid stops to fix positions
             for (const auto& stop : myInvalidElements) {
                 stop->fixDemandElementProblem();
             }
             myMainWindow->getUndoList()->end();
-        } else if (selectInvalidStopsAndCancel->getCheck() == TRUE) {
-            myMainWindow->getUndoList()->begin(GUIIcon::STOP, "select invalid stops");
+        } else if (mySelectInvalidStopsAndCancel->getCheck() == TRUE) {
+            myMainWindow->getUndoList()->begin(GUIIcon::STOP, TL("select invalid stops"));
             // iterate over invalid stops to select all elements
             for (const auto& stop : myInvalidElements) {
                 stop->setAttribute(GNE_ATTR_SELECTED, "true", myMainWindow->getUndoList());
@@ -516,27 +400,55 @@ GNEFixDemandElementsDialog::FixStopPositionOptions::fixElements(bool& abortSavin
             // end undo list
             myMainWindow->getUndoList()->end();
             // abort saving
-            abortSaving = true;
+            return false;
         }
     }
+    return true;
+}
+
+
+long
+GNEFixDemandElementsDialog::FixStopPositionOptions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+    if (obj == myActivateFriendlyPositionAndSave) {
+        myActivateFriendlyPositionAndSave->setCheck(true);
+        myFixPositionsAndSave->setCheck(false);
+        mySaveInvalid->setCheck(false);
+        mySelectInvalidStopsAndCancel->setCheck(false);
+    } else if (obj == myFixPositionsAndSave) {
+        myActivateFriendlyPositionAndSave->setCheck(false);
+        myFixPositionsAndSave->setCheck(true);
+        mySaveInvalid->setCheck(false);
+        mySelectInvalidStopsAndCancel->setCheck(false);
+    } else if (obj == mySaveInvalid) {
+        myActivateFriendlyPositionAndSave->setCheck(false);
+        myFixPositionsAndSave->setCheck(false);
+        mySaveInvalid->setCheck(true);
+        mySelectInvalidStopsAndCancel->setCheck(false);
+    } else if (obj == mySelectInvalidStopsAndCancel) {
+        myActivateFriendlyPositionAndSave->setCheck(false);
+        myFixPositionsAndSave->setCheck(false);
+        mySaveInvalid->setCheck(false);
+        mySelectInvalidStopsAndCancel->setCheck(true);
+    }
+    return 1;
 }
 
 
 void
 GNEFixDemandElementsDialog::FixStopPositionOptions::enableOptions() {
-    activateFriendlyPositionAndSave->enable();
-    fixPositionsAndSave->enable();
-    saveInvalid->enable();
-    selectInvalidStopsAndCancel->enable();
+    myActivateFriendlyPositionAndSave->enable();
+    myFixPositionsAndSave->enable();
+    mySaveInvalid->enable();
+    mySelectInvalidStopsAndCancel->enable();
 }
 
 
 void
 GNEFixDemandElementsDialog::FixStopPositionOptions::disableOptions() {
-    activateFriendlyPositionAndSave->disable();
-    fixPositionsAndSave->disable();
-    saveInvalid->disable();
-    selectInvalidStopsAndCancel->disable();
+    myActivateFriendlyPositionAndSave->disable();
+    myFixPositionsAndSave->disable();
+    mySaveInvalid->disable();
+    mySelectInvalidStopsAndCancel->disable();
 }
 
 // ---------------------------------------------------------------------------
@@ -544,54 +456,40 @@ GNEFixDemandElementsDialog::FixStopPositionOptions::disableOptions() {
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElementsDialog::FixPersonPlanOptions::FixPersonPlanOptions(GNEFixDemandElementsDialog* fixDemandElementsParent) :
-    FixOptions(fixDemandElementsParent->myApplicationWindow, fixDemandElementsParent->myRightFrame, "Person/container plans") {
+    FixOptions(fixDemandElementsParent->myApplicationWindow, fixDemandElementsParent->myRightFrame, TL("Person/container plans")) {
     // Delete person plan
-    deletePersonPlan = new FXRadioButton(myLeftFrame, TL("Delete person plan"),
+    myDeletePersonPlan = new FXRadioButton(myLeftFrameOptions, TL("Delete person plan"),
                                          fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid person plans
-    saveInvalid = new FXRadioButton(myLeftFrame, TL("Save invalid person plans"),
+    mySaveInvalid = new FXRadioButton(myLeftFrameOptions, TL("Save invalid person plans"),
                                     fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid person plans
-    selectInvalidPersonPlansAndCancel = new FXRadioButton(myRightFrame, TL("Select conflicted person plans"),
+    mySelectInvalidPersonPlansAndCancel = new FXRadioButton(myRightFrameOptions, TL("Select conflicted person plans"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // leave option "activateFriendlyPositionAndSave" as default
-    deletePersonPlan->setCheck(true);
+    myDeletePersonPlan->setCheck(true);
 }
 
 
 void
-GNEFixDemandElementsDialog::FixPersonPlanOptions::selectOption(FXObject* option) {
-    if (option == deletePersonPlan) {
-        deletePersonPlan->setCheck(true);
-        saveInvalid->setCheck(false);
-        selectInvalidPersonPlansAndCancel->setCheck(false);
-        selectInvalidPersonPlansAndCancel->setCheck(false);
-    } else if (option == saveInvalid) {
-        deletePersonPlan->setCheck(false);
-        saveInvalid->setCheck(true);
-        selectInvalidPersonPlansAndCancel->setCheck(false);
-    } else if (option == selectInvalidPersonPlansAndCancel) {
-        deletePersonPlan->setCheck(false);
-        saveInvalid->setCheck(false);
-        selectInvalidPersonPlansAndCancel->setCheck(true);
-    }
+GNEFixDemandElementsDialog::FixPersonPlanOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
 }
 
 
-void
-GNEFixDemandElementsDialog::FixPersonPlanOptions::fixElements(bool& abortSaving) {
+bool 
+GNEFixDemandElementsDialog::FixPersonPlanOptions::applyFixOption() {
     // check options for person plans
     if (myInvalidElements.size() > 0) {
-        if (deletePersonPlan->getCheck() == TRUE) {
+        if (myDeletePersonPlan->getCheck() == TRUE) {
             // begin undo list
-            myMainWindow->getUndoList()->begin(GUIIcon::MODEPERSONPLAN, "delete invalid person plans");
+            myMainWindow->getUndoList()->begin(GUIIcon::MODEPERSONPLAN, TL("delete invalid person plans"));
             // remove all invalid person plans
             for (const auto& personPlan : myInvalidElements) {
                 myMainWindow->getViewNet()->getNet()->deleteDemandElement(personPlan, myMainWindow->getUndoList());
             }
             myMainWindow->getUndoList()->end();
-        } else if (selectInvalidPersonPlansAndCancel->getCheck() == TRUE) {
-            myMainWindow->getUndoList()->begin(GUIIcon::MODEPERSONPLAN, "select invalid person plans");
+        } else if (mySelectInvalidPersonPlansAndCancel->getCheck() == TRUE) {
+            myMainWindow->getUndoList()->begin(GUIIcon::MODEPERSONPLAN, TL("select invalid person plans"));
             // iterate over invalid person plans to select all elements
             for (const auto& personPlan : myInvalidElements) {
                 personPlan->setAttribute(GNE_ATTR_SELECTED, "true", myMainWindow->getUndoList());
@@ -599,25 +497,45 @@ GNEFixDemandElementsDialog::FixPersonPlanOptions::fixElements(bool& abortSaving)
             // end undo list
             myMainWindow->getUndoList()->end();
             // abort saving
-            abortSaving = false;
+            return false;
         }
     }
+    return true;
+}
+
+
+long
+GNEFixDemandElementsDialog::FixPersonPlanOptions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+    if (obj == myDeletePersonPlan) {
+        myDeletePersonPlan->setCheck(true);
+        mySaveInvalid->setCheck(false);
+        mySelectInvalidPersonPlansAndCancel->setCheck(false);
+    } else if (obj == mySaveInvalid) {
+        myDeletePersonPlan->setCheck(false);
+        mySaveInvalid->setCheck(true);
+        mySelectInvalidPersonPlansAndCancel->setCheck(false);
+    } else if (obj == mySelectInvalidPersonPlansAndCancel) {
+        myDeletePersonPlan->setCheck(false);
+        mySaveInvalid->setCheck(false);
+        mySelectInvalidPersonPlansAndCancel->setCheck(true);
+    }
+    return true;
 }
 
 
 void
 GNEFixDemandElementsDialog::FixPersonPlanOptions::enableOptions() {
-    deletePersonPlan->enable();
-    saveInvalid->enable();
-    selectInvalidPersonPlansAndCancel->enable();
+    myDeletePersonPlan->enable();
+    mySaveInvalid->enable();
+    mySelectInvalidPersonPlansAndCancel->enable();
 }
 
 
 void
 GNEFixDemandElementsDialog::FixPersonPlanOptions::disableOptions() {
-    deletePersonPlan->disable();
-    saveInvalid->disable();
-    selectInvalidPersonPlansAndCancel->disable();
+    myDeletePersonPlan->disable();
+    mySaveInvalid->disable();
+    mySelectInvalidPersonPlansAndCancel->disable();
 }
 
 /****************************************************************************/
