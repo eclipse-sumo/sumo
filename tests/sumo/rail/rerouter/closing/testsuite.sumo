@@ -1,6 +1,9 @@
 # see #16431
 reroute_after_signal
 
+# see #16958
+reroute_after_signal2
+
 # see #16421
 detour_default
 
