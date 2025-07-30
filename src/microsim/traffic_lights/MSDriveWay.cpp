@@ -1822,9 +1822,12 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 
     // copy trains that are currently on this driveway (and associated entry events)
     for (SUMOVehicle* veh : myTrains) {
-        if (std::find(sub->myRoute.begin(), sub->myRoute.end(), veh->getEdge()) != sub->myRoute.end()) {
+        auto itOnSub = std::find(sub->myRoute.begin(), sub->myRoute.end(), veh->getEdge());
+        if (itOnSub != sub->myRoute.end()) {
             sub->myTrains.insert(veh);
-            dynamic_cast<MSBaseVehicle*>(veh)->addReminder(sub);
+            // non-zero is enough to avoid superfluous activation via activateReminders (and removal)
+            const double pos = itOnSub == sub->myRoute.begin() ? 0 : sub->myRoute.front()->getLength();
+            dynamic_cast<MSBaseVehicle*>(veh)->addReminder(sub, pos);
             for (const VehicleEvent& ve : myVehicleEvents) {
                 if (ve.id == veh->getID()) {
                     sub->myVehicleEvents.push_back(ve);
