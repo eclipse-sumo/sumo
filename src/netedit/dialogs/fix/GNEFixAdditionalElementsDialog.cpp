@@ -21,6 +21,7 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNETagProperties.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEFixAdditionalElementsDialog.h"
@@ -53,104 +54,28 @@ GNEFixAdditionalElementsDialog::runInternalTest(const InternalTestStep::DialogAr
 
 
 GNEDialog::Result
-GNEFixAdditionalElementsDialog::openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals,
-                                     const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) {
-    myAdditionalList->updateList(invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
-    // check if position options has to be disabled
-    if (myAdditionalList->myInvalidSingleLaneAdditionals.empty()) {
-        myPositionOptions->disablePositionOptions();
+GNEFixAdditionalElementsDialog::openDialog(const std::vector<GNEAdditional*>& element) {
+    // split invalidDemandElements in four groups
+    std::vector<ConflictElement> invalidSingleLanes, invalidMultiLanes;
+    // fill groups
+    for (const auto& invalidAdditionalElement : element) {
+        // create conflict element
+        auto fixElement = ConflictElement(invalidAdditionalElement,
+                                          invalidAdditionalElement->getID(),
+                                          invalidAdditionalElement->getACIcon(),
+                                          invalidAdditionalElement->getAdditionalProblem());
+        // add depending of element type
+        if (invalidAdditionalElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANE)) {
+            invalidSingleLanes.push_back(fixElement);
+        } else if (invalidAdditionalElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANES)) {
+            invalidMultiLanes.push_back(fixElement);
+        }
     }
-    // check if consecutive lane options has to be disabled
-    if (myAdditionalList->myInvalidMultiLaneAdditionals.empty()) {
-        myConsecutiveLaneOptions->disableConsecutiveLaneOptions();
-    }
+    // fill options
+    myPositionOptions->setInvalidElements(invalidSingleLanes);
+    myConsecutiveLaneOptions->setInvalidElements(invalidMultiLanes);
     // open modal dialog
     return openModal();
-}
-
-
-long
-GNEFixAdditionalElementsDialog::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
-    myPositionOptions->selectOption(obj);
-    myConsecutiveLaneOptions->selectOption(obj);
-    return 1;
-}
-
-
-long
-GNEFixAdditionalElementsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    bool continueSaving = true;
-    // first check options from single lane additionals
-    if (myAdditionalList->myInvalidSingleLaneAdditionals.size() > 0) {
-        if (myPositionOptions->activateFriendlyPosition->getCheck() == TRUE) {
-            myApplicationWindow->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
-                                            "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
-            // iterate over invalid single lane elements to enable friendly position
-            for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                invalidSingleLaneAdditional->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myApplicationWindow->getUndoList());
-            }
-            myApplicationWindow->getUndoList()->end();
-        } else if (myPositionOptions->fixPositions->getCheck() == TRUE) {
-            myApplicationWindow->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
-                                            "fix positions of invalid additionals");
-            // iterate over invalid single lane elements to fix positions
-            for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                invalidSingleLaneAdditional->fixAdditionalProblem();
-            }
-            myApplicationWindow->getUndoList()->end();
-        } else if (myPositionOptions->selectInvalids->getCheck() == TRUE) {
-            myApplicationWindow->getUndoList()->begin(myAdditionalList->myInvalidSingleLaneAdditionals.front(),
-                                            "select invalid additionals");
-            // iterate over invalid single lane elements to select all elements
-            for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                invalidSingleLaneAdditional->setAttribute(GNE_ATTR_SELECTED, "true", myApplicationWindow->getUndoList());
-            }
-            myApplicationWindow->getUndoList()->end();
-            // abort saving
-            continueSaving = false;
-        }
-    }
-    // now check options from multi lane additionals
-    if (myAdditionalList->myInvalidMultiLaneAdditionals.size() > 0) {
-        myApplicationWindow->getUndoList()->begin(myAdditionalList->myInvalidMultiLaneAdditionals.front(),
-                                        "fix multilane additionals problems");
-        // fix problems of consecutive lanes
-        if (myConsecutiveLaneOptions->buildConnectionBetweenLanes->getCheck() == TRUE) {
-            // iterate over invalid single lane elements to enable friendly position
-            for (const auto& invalidMultiLaneAdditional : myAdditionalList->myInvalidMultiLaneAdditionals) {
-                invalidMultiLaneAdditional->fixAdditionalProblem();
-            }
-            // we need to check if after first fix there is still  Invalid MultiL-ane Additionals with errors
-            const auto copyOfInvalidMultiLaneAdditionals = myAdditionalList->myInvalidMultiLaneAdditionals;
-            myAdditionalList->myInvalidMultiLaneAdditionals.clear();
-            for (const auto& invalidMultiLaneAdditional : copyOfInvalidMultiLaneAdditionals) {
-                if (!invalidMultiLaneAdditional->isAdditionalValid()) {
-                    myAdditionalList->myInvalidMultiLaneAdditionals.push_back(invalidMultiLaneAdditional);
-                }
-            }
-        } else if (myConsecutiveLaneOptions->removeInvalidElements->getCheck() == TRUE) {
-            // iterate over invalid single lane elements to fix positions
-            for (const auto& invalidMultiLaneAdditional : myAdditionalList->myInvalidMultiLaneAdditionals) {
-                myApplicationWindow->getViewNet()->getNet()->deleteAdditional(invalidMultiLaneAdditional, myApplicationWindow->getUndoList());
-            }
-            // clear myInvalidMultiLaneAdditionals due there isn't more invalid multi lane additionals
-            myAdditionalList->myInvalidMultiLaneAdditionals.clear();
-        }
-        // fix problem of positions
-        if (myPositionOptions->activateFriendlyPosition->getCheck() == TRUE) {
-            // iterate over invalid single lane elements to enable friendly position
-            for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                invalidSingleLaneAdditional->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myApplicationWindow->getUndoList());
-            }
-        } else if (myPositionOptions->fixPositions->getCheck() == TRUE) {
-            // iterate over invalid single lane elements to fix positions
-            for (const auto& invalidSingleLaneAdditional : myAdditionalList->myInvalidSingleLaneAdditionals) {
-                invalidSingleLaneAdditional->fixAdditionalProblem();
-            }
-        }
-        myApplicationWindow->getUndoList()->end();
-    }
-    return closeFixDialog(continueSaving);
 }
 
 // ---------------------------------------------------------------------------
@@ -202,6 +127,38 @@ GNEFixAdditionalElementsDialog::PositionOptions::runInternalTest(const InternalT
 
 bool
 GNEFixAdditionalElementsDialog::PositionOptions::applyFixOption() {
+    if (myConflictedElements.size() > 0) {
+        auto undoList = myFixElementDialogParent->getApplicationWindow()->getUndoList();
+        // continue depending of solution
+        if (myActivateFriendlyPosition->getCheck() == TRUE) {
+            undoList->begin(myConflictedElements.front().getElement(),
+                            TL("change % of invalid additionals", toString(SUMO_ATTR_FRIENDLY_POS)));
+            // iterate over invalid single lane elements to enable friendly position
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", undoList);
+            }
+            undoList->end();
+        } else if (myFixPositions->getCheck() == TRUE) {
+            undoList->begin(myConflictedElements.front().getElement(),
+                            TL("fix positions of invalid additionals"));
+            // iterate over invalid single lane elements to fix positions
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->fixAdditionalProblem();
+            }
+            undoList->end();
+        } else if (mySelectInvalids->getCheck() == TRUE) {
+            undoList->begin(myConflictedElements.front().getElement(),
+                            TL("select invalid additionals"));
+            // iterate over invalid single lane elements to select all elements
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+            undoList->end();
+            // abort saving
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -289,7 +246,50 @@ GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::runInternalTest(const In
 
 bool
 GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::applyFixOption() {
-
+    if (myConflictedElements.size() > 0) {
+        auto net = myFixElementDialogParent->getApplicationWindow()->getViewNet()->getNet();
+        auto undoList = myFixElementDialogParent->getApplicationWindow()->getUndoList();
+        // all fix implies undo-redo
+        undoList->begin(myConflictedElements.front().getElement(),
+                        TL("fix multilane additionals problems"));
+        // continue depending of solution
+        if (myBuildConnectionBetweenLanes->getCheck() == TRUE) {
+            // iterate over invalid single lane elements to enable friendly position
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->fixAdditionalProblem();
+            }
+            // we need to check if after first fix there is still invalid MultiLane Additionals with errors
+            const std::vector<ConflictElement> copyOfConflictedElements = myConflictedElements;
+            myConflictedElements.clear();
+            for (const auto& conflictedElement : copyOfConflictedElements) {
+                if (!conflictedElement.getElement()->isAdditionalValid()) {
+                    myConflictedElements.push_back(conflictedElement);
+                }
+            }
+        } else if (myRemoveInvalidElements->getCheck() == TRUE) {
+            // iterate over invalid single lane elements to fix positions
+            for (const auto& conflictedElement : myConflictedElements) {
+                net->deleteAdditional(conflictedElement.getElement(), undoList);
+            }
+            // clear myInvalidMultiLaneAdditionals due there isn't more invalid multi lane additionals
+            myConflictedElements.clear();
+        }
+        // fix problem of positions
+        if (myActivateFriendlyPosition->getCheck() == TRUE) {
+            // iterate over invalid single lane elements to enable friendly position
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", undoList);
+            }
+        } else if (myFixPositions->getCheck() == TRUE) {
+            // iterate over invalid single lane elements to fix positions
+            for (const auto& conflictedElement : myConflictedElements) {
+                conflictedElement.getElement()->fixAdditionalProblem();
+            }
+        }
+        // end undo list
+        undoList->end();
+    }
+    return true;
 }
 
 
@@ -311,6 +311,7 @@ GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::onCmdSelectOption(FXObje
         myActivateFriendlyPosition->setCheck(false);
         myFixPositions->setCheck(true);
     }
+    return true;
 }
 
 

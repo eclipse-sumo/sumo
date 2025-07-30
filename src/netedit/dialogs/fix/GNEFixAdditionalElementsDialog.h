@@ -20,8 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXGroupBoxModule.h>
-
 #include "GNEFixElementsDialog.h"
 
 // ===========================================================================
@@ -46,17 +44,8 @@ public:
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-    /// @brief open fix additional dialog
-    GNEDialog::Result openDialog(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals,
-                                 const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
-
-    /// @name FOX-callbacks
-    /// @{
-
-    /// @brief event when user select a option
-    long onCmdSelectOption(FXObject* obj, FXSelector, void*);
-
-    /// @}
+    /// @brief open fix dialog
+    GNEDialog::Result openDialog(const std::vector<GNEAdditional*>& element);
 
 protected:
     /// @brief Position options
