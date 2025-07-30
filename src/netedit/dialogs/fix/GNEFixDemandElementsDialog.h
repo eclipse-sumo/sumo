@@ -34,7 +34,7 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNEFixDemandElementsDialog : public GNEFixElementsDialog {
+class GNEFixDemandElementsDialog : public GNEFixElementsDialog<GNEDemandElement*> {
 
 public:
     /// @brief Constructor
@@ -55,86 +55,42 @@ public:
     /// @brief event when user select a option
     long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
-    /// @brief event after press accept button
-    long onCmdAccept(FXObject*, FXSelector, void*);
-
-    /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:
-
-    /// @brief general GroupBox for fix options
-    class FixOptions : public MFXGroupBoxModule {
-
-    public:
-        /// @brief constructor
-        FixOptions(GNEApplicationWindow *mainWindow, FXVerticalFrame* frameParent, const std::string& title);
-
-        /// @brief set invalid demand elements
-        void setInvalidElements(const std::vector<GNEDemandElement*>& invalidElements);
-
-        /// @brief fix elements
-        virtual void fixElements(bool& abortSaving) = 0;
-
-    protected:
-        /// @brief save contents
-        bool saveContents() const;
-
-        /// @brief pointer to view Net
-        GNEApplicationWindow *myMainWindow = nullptr;
-
-        /// @brief vertical left frame
-        FXVerticalFrame* myLeftFrame = nullptr;
-
-        /// @brief vertical right frame
-        FXVerticalFrame* myRightFrame = nullptr;
-
-        /// @brief vector with the invalid demand elements
-        std::vector<GNEDemandElement*> myInvalidElements;
-
-    private:
-        /// @brief enable options
-        virtual void enableOptions() = 0;
-
-        /// @brief disable options
-        virtual void disableOptions() = 0;
-
-        /// @brief Table with the demand elements
-        FXTable* myTable = nullptr;
-
-        /// @brief Invalidated copy constructor.
-        FixOptions(const FixOptions&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        FixOptions& operator=(const FixOptions&) = delete;
-    };
-
     /// @brief groupbox for all radio buttons related with fix route options
-    class FixRouteOptions : public FixOptions {
+    class FixRouteOptions : public GNEFixElementsDialog::FixOptions {
 
     public:
         /// @brief constructor
         FixRouteOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
-        /// @brief select option
-        void selectOption(FXObject* option);
+        /// @brief run internal test
+        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+		
+		/// @brief apply selected fix option
+        bool applyFixOption();
+		
+		/// @name FOX-callbacks
+        /// @{
 
-        /// @brief fix elements
-        void fixElements(bool& abortSaving);
+        /// @brief called when user select a option
+        long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
+        /// @}
+
+    protected
         /// @brief Option "Remove invalid routes"
-        FXRadioButton* removeInvalidRoutes;
+        FXRadioButton* myRemoveInvalidRoutes;
 
         /// @brief Option "Save invalid routes"
-        FXRadioButton* saveInvalidRoutes;
+        FXRadioButton* mySaveInvalidRoutes;
 
         /// @brief Option "Select invalid routes and cancel"
-        FXRadioButton* selectRouteInvalids;
+        FXRadioButton* mySelectRouteInvalids;
 
         /// @brief Option "Remove stops out of route"
-        FXCheckButton* removeStopsOutOfRoute;
+        FXCheckButton* myRemoveStopsOutOfRoute;
 
     private:
         /// @brief enable route options
@@ -151,29 +107,38 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix vehicle options
-    class FixVehicleOptions : public FixOptions {
+    class FixVehicleOptions : public GNEFixElementsDialog::FixOptions {
 
     public:
         /// @brief constructor
         FixVehicleOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
-        /// @brief select option
-        void selectOption(FXObject* option);
+        /// @brief run internal test
+        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+		
+		/// @brief apply selected fix option
+        bool applyFixOption();
+		
+		/// @name FOX-callbacks
+        /// @{
 
-        /// @brief fix elements
-        void fixElements(bool& abortSaving);
+        /// @brief called when user select a option
+        long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
+        /// @}
+
+    protected:
         /// @brief Option "remove invalid elements"
-        FXRadioButton* removeInvalidVehicles;
+        FXRadioButton* myRemoveInvalidVehicles;
 
         /// @brief Option "save invalid vehicles"
-        FXRadioButton* saveInvalidVehicles;
+        FXRadioButton* mySaveInvalidVehicles;
 
         /// @brief Option "Select invalid vehicles and cancel"
-        FXRadioButton* selectInvalidVehiclesAndCancel;
+        FXRadioButton* mySelectInvalidVehiclesAndCancel;
 
         /// @brief Option "Remove stops out of vehicle"
-        FXCheckButton* removeStopsOutOfVehicle;
+        FXCheckButton* myRemoveStopsOutOfVehicle;
 
     private:
         /// @brief enable vehicle options
@@ -190,29 +155,38 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix stop options
-    class FixStopPositionOptions : public FixOptions {
+    class FixStopPositionOptions : public GNEFixElementsDialog::FixOptions {
 
     public:
         /// @brief build Position Options
         FixStopPositionOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
-        /// @brief select option
-        void selectOption(FXObject* option);
+        /// @brief run internal test
+        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+		
+		/// @brief apply selected fix option
+        bool applyFixOption();
+		
+		/// @name FOX-callbacks
+        /// @{
 
-        /// @brief fix elements
-        void fixElements(bool& abortSaving);
+        /// @brief called when user select a option
+        long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
+        /// @}
+
+    protected:
         /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPositionAndSave;
+        FXRadioButton* myActivateFriendlyPositionAndSave;
 
         /// @brief Option "Fix Positions and save"
-        FXRadioButton* fixPositionsAndSave;
+        FXRadioButton* myFixPositionsAndSave;
 
         /// @brief Option "Save invalid"
-        FXRadioButton* saveInvalid;
+        FXRadioButton* mySaveInvalid;
 
         /// @brief Option "Select invalid stops and cancel"
-        FXRadioButton* selectInvalidStopsAndCancel;
+        FXRadioButton* mySelectInvalidStopsAndCancel;
 
     private:
         /// @brief enable stop options
@@ -229,26 +203,35 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix person plan options
-    class FixPersonPlanOptions : public FixOptions {
+    class FixPersonPlanOptions : public GNEFixElementsDialog::FixOptions {
 
     public:
         /// @brief build Position Options
         FixPersonPlanOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
-        /// @brief select option
-        void selectOption(FXObject* option);
+        /// @brief run internal test
+        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+		
+		/// @brief apply selected fix option
+        bool applyFixOption();
+		
+		/// @name FOX-callbacks
+        /// @{
 
-        /// @brief fix elements
-        void fixElements(bool& abortSaving);
+        /// @brief called when user select a option
+        long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
+        /// @}
+
+    protected:
         /// @brief Option "delete person plan"
-        FXRadioButton* deletePersonPlan;
+        FXRadioButton* myDeletePersonPlan;
 
         /// @brief Option "Save invalid"
-        FXRadioButton* saveInvalid;
+        FXRadioButton* mySaveInvalid;
 
         /// @brief Option "Select invalid person plans and cancel"
-        FXRadioButton* selectInvalidPersonPlansAndCancel;
+        FXRadioButton* mySelectInvalidPersonPlansAndCancel;
 
     private:
         /// @brief enable personPlan options
@@ -263,12 +246,6 @@ protected:
         /// @brief Invalidated assignment operator.
         FixPersonPlanOptions& operator=(const FixPersonPlanOptions&) = delete;
     };
-
-    /// @brief vertical left frame
-    FXVerticalFrame* myLeftFrame = nullptr;
-
-    /// @brief vertical right frame
-    FXVerticalFrame* myRightFrame = nullptr;
 
     /// @brief fix route options
     FixRouteOptions* myFixRouteOptions = nullptr;
