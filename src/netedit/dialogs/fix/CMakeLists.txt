@@ -3,7 +3,6 @@ set(netedit_dialogs_fix_SRCS
    GNEFixAdditionalElementsDialog.h
    GNEFixDemandElementsDialog.cpp
    GNEFixDemandElementsDialog.h
-   GNEFixElementsDialog.cpp
    GNEFixElementsDialog.h
    GNEFixNetworkElements.cpp
    GNEFixNetworkElements.h

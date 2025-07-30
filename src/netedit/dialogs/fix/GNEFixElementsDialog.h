@@ -33,27 +33,56 @@ class GNEFixOptions;
 // class definitions
 // ===========================================================================
 
+template <typename T>
 class GNEFixElementsDialog : protected GNEDialog {
 
 public:
     /// @brief Constructor
     GNEFixElementsDialog(GNEApplicationWindow *mainWindow, const std::string title,
-                         GUIIcon icon, const int sizeX, const int sizeY);
+                         GUIIcon icon, const int sizeX, const int sizeY):
+        GNEDialog(mainWindow, title.c_str(), icon, GNEDialog::Buttons::ACCEPT_CANCEL,
+        GUIDesignDialogBoxExplicitStretchable(sizeX, sizeY)) {
+        // create left and right frames
+        myLeftFrame = new FXVerticalFrame(myContentFrame, GUIDesignAuxiliarFrame);
+        myRightFrame = new FXVerticalFrame(myContentFrame, GUIDesignAuxiliarFrame);
+    }
 
     /// @brief destructor
-    ~GNEFixElementsDialog();
+    ~GNEFixElementsDialog() {}
 
     /// @brief add fix options to the dialog (called automatically during GNEFixOptions constructor)
-    void addFixOptions(GNEFixOptions* fixOptions);
+    void addFixOptions(GNEFixOptions* fixOptions) {
+        myFixOptions.push_back(fixOptions);
+    }
 
     /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+        // run internal test for each fix option
+        for (auto fixOption : myFixOptions) {
+            fixOption->runInternalTest(dialogArgument);
+        }
+    }
 
     /// @name FOX-callbacks
     /// @{
 
     /// @brief event after press accept button
-    long onCmdAccept(FXObject*, FXSelector, void*);
+    long onCmdAccept(FXObject*, FXSelector, void*) {
+        bool abortSaving = false;
+        // apply each fix option in their correspond fixOption
+        for (auto fixOption : myFixOptions) {
+            // if applyFixOption returns false, abort saving (usually for selecting invalid elements)
+            if (fixOption->applyFixOption() == false) {
+                abortSaving = true;
+            }
+        }
+        // continue depending of abortSaving
+        if (abortSaving == false) {
+            return closeDialogAccepting();
+        } else {
+            return closeDialogCanceling();
+        }
+    }
 
     /// @}
 
