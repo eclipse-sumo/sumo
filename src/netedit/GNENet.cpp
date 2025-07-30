@@ -2222,24 +2222,21 @@ GNENet::removeExplicitTurnaround(std::string id) {
 bool
 GNENet::saveAdditionals() {
     // obtain invalid additionals depending of number of their parent lanes
-    std::vector<GNEAdditional*> invalidSingleLaneAdditionals;
-    std::vector<GNEAdditional*> invalidMultiLaneAdditionals;
+    std::vector<GNEAdditional*> invalidAdditionals;
     // iterate over additionals and obtain invalids
     for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
         for (const auto& addditional : additionalPair.second) {
             // check if has to be fixed
-            if (addditional.second->getTagProperty()->hasAttribute(SUMO_ATTR_LANE) && !addditional.second->isAdditionalValid()) {
-                invalidSingleLaneAdditionals.push_back(addditional.second);
-            } else if (addditional.second->getTagProperty()->hasAttribute(SUMO_ATTR_LANES) && !addditional.second->isAdditionalValid()) {
-                invalidMultiLaneAdditionals.push_back(addditional.second);
+            if (!addditional.second->isAdditionalValid()) {
+                invalidAdditionals.push_back(addditional.second);
             }
         }
     }
-    // if there are invalid StoppingPlaces or detectors, open GNEFixAdditionalElementsDialog
-    if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
+    // if there are invalid additionls, open GNEFixAdditionalElementsDialog
+    if (invalidAdditionals.size() > 0) {
         // open fix additional elements dialog
         auto fixAdditionalElements = GNEFixAdditionalElementsDialog(myViewNet->getViewParent()->getGNEAppWindows());
-        if (fixAdditionalElements.openDialog(invalidSingleLaneAdditionals, invalidMultiLaneAdditionals) == GNEDialog::Result::ACCEPT) {
+        if (fixAdditionalElements.openDialog(invalidAdditionals) == GNEDialog::Result::ACCEPT) {
             return false;
         } else {
             saveAdditionalsConfirmed();
