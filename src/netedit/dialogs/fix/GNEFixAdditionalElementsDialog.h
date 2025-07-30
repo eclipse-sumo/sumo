@@ -28,14 +28,13 @@
 // class declarations
 // ===========================================================================
 
-class GNEStoppingPlace;
-class GNEDetector;
+class GNEAdditional;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEFixAdditionalElementsDialog : public GNEFixElementsDialog {
+class GNEFixAdditionalElementsDialog : public GNEFixElementsDialog<GNEAdditional*> {
 
 public:
     /// @brief Constructor
@@ -57,71 +56,50 @@ public:
     /// @brief event when user select a option
     long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
-    /// @brief event after press accept button
-    long onCmdAccept(FXObject*, FXSelector, void*);
-
-    /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:
-    /// @brief groupbox for list
-    class AdditionalList : protected FXGroupBox {
-
-    public:
-        /// @brief constructor
-        AdditionalList(GNEFixAdditionalElementsDialog* fixAdditionalPositions);
-
-        /// @brief update list with the invalid additionals
-        void updateList(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
-
-        /// @brief vector with the invalid single-lane additionals
-        std::vector<GNEAdditional*> myInvalidSingleLaneAdditionals;
-
-        /// @brief vector with the invalid multi-lane additionals
-        std::vector<GNEAdditional*> myInvalidMultiLaneAdditionals;
-
-        /// @brief list with the stoppingPlaces and detectors
-        FXTable* myTable;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        AdditionalList(const AdditionalList&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        AdditionalList& operator=(const AdditionalList&) = delete;
-    };
-
-    /// @brief groupbox for group all radio buttons related to additionals with single lanes
-    class PositionOptions : public MFXGroupBoxModule {
+    /// @brief Position options
+    class PositionOptions : public GNEFixElementsDialog::FixOptions {
 
     public:
         /// @brief build Position Options
         PositionOptions(GNEFixAdditionalElementsDialog* fixAdditionalPositions);
 
-        /// @brief select option
-        void selectOption(FXObject* option);
+        /// @brief run internal test
+        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-        /// @brief enable position options
-        void enablePositionOptions();
+        /// @brief apply selected fix option
+        bool applyFixOption();
 
-        /// @brief disable position options
-        void disablePositionOptions();
+        /// @name FOX-callbacks
+        /// @{
 
+        /// @brief called when user select a option
+        long onCmdSelectOption(FXObject* obj, FXSelector, void*);
+
+        /// @}
+
+    protected:
         /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPosition;
+        FXRadioButton* myActivateFriendlyPosition;
 
         /// @brief Option "Fix Positions and save"
-        FXRadioButton* fixPositions;
+        FXRadioButton* myFixPositions;
 
         /// @brief Option "Save invalid"
-        FXRadioButton* saveInvalids;
+        FXRadioButton* mySaveInvalids;
 
         /// @brief Option "Select invalid stops and cancel"
-        FXRadioButton* selectInvalids;
+        FXRadioButton* mySelectInvalids;
 
     private:
+        /// @brief enable position options
+        void enableOptions();
+
+        /// @brief disable position options
+        void disableOptions();
+
         /// @brief Invalidated copy constructor.
         PositionOptions(const PositionOptions&) = delete;
 
@@ -129,44 +107,53 @@ protected:
         PositionOptions& operator=(const PositionOptions&) = delete;
     };
 
-    /// @brief groupbox for group all radio buttons related to additionals with consecutive lanes
-    class ConsecutiveLaneOptions : public MFXGroupBoxModule {
+    /// @brief fix consecutive lane options
+    class ConsecutiveLaneOptions : public GNEFixElementsDialog::FixOptions {
 
     public:
         /// @brief build consecutive lane Options
         ConsecutiveLaneOptions(GNEFixAdditionalElementsDialog* fixAdditionalPositions);
 
-        /// @brief select option
-        void selectOption(FXObject* option);
+        /// @brief run internal test
+        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
-        /// @brief enable consecutive lane options
-        void enableConsecutiveLaneOptions();
+        /// @brief apply selected fix option
+        bool applyFixOption();
 
-        /// @brief disable consecutive lane options
-        void disableConsecutiveLaneOptions();
+        /// @name FOX-callbacks
+        /// @{
 
+        /// @brief called when user select a option
+        long onCmdSelectOption(FXObject* obj, FXSelector, void*);
+
+        /// @}
+
+    protected:
         /// @brief Option "build connections between lanes"
-        FXRadioButton* buildConnectionBetweenLanes;
+        FXRadioButton* myBuildConnectionBetweenLanes;
 
         /// @brief Option "remove invalid elements"
-        FXRadioButton* removeInvalidElements;
+        FXRadioButton* myRemoveInvalidElements;
 
         /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPosition;
+        FXRadioButton* myActivateFriendlyPosition;
 
         /// @brief Option "Fix Positions and save"
-        FXRadioButton* fixPositions;
+        FXRadioButton* myFixPositions;
 
     private:
+        /// @brief enable position options
+        void enableOptions();
+
+        /// @brief disable position options
+        void disableOptions();
+
         /// @brief Invalidated copy constructor.
         ConsecutiveLaneOptions(const ConsecutiveLaneOptions&) = delete;
 
         /// @brief Invalidated assignment operator.
         ConsecutiveLaneOptions& operator=(const ConsecutiveLaneOptions&) = delete;
     };
-
-    /// @brief Additional List
-    AdditionalList* myAdditionalList;
 
     /// @brief position options
     PositionOptions* myPositionOptions;

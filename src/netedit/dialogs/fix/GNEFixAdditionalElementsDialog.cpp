@@ -31,8 +31,6 @@
 
 GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow) :
     GNEFixElementsDialog(mainWindow, TL("Fix additional problems"), GUIIcon::MODEADDITIONAL, 500, 380) {
-    // create AdditionalList
-    myAdditionalList = new AdditionalList(this);
     // create position options
     myPositionOptions = new PositionOptions(this);
     // create consecutive lane options
@@ -46,16 +44,9 @@ GNEFixAdditionalElementsDialog::~GNEFixAdditionalElementsDialog() {
 
 void
 GNEFixAdditionalElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // chooose solution
-    if (dialogArgument->fixSolution == "savePositionInvalids") {
-        myPositionOptions->saveInvalids->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "fixPositions") {
-        myPositionOptions->fixPositions->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "selectPositionInvalids") {
-        myPositionOptions->selectInvalids->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "activatePositionFriendlyPos") {
-        myPositionOptions->activateFriendlyPosition->setCheck(TRUE, TRUE);
-    }
+    // run internal test in all modules
+    myPositionOptions->runInternalTest(dialogArgument);
+    myConsecutiveLaneOptions->runInternalTest(dialogArgument);
     // accept changes
     onCmdAccept(nullptr, 0, nullptr);
 }
@@ -162,149 +153,100 @@ GNEFixAdditionalElementsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     return closeFixDialog(continueSaving);
 }
 
-
-long
-GNEFixAdditionalElementsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    return closeFixDialog(false);
-}
-
-// ---------------------------------------------------------------------------
-// GNEFixDemandElementsDialog::DemandList - methods
-// ---------------------------------------------------------------------------
-
-GNEFixAdditionalElementsDialog::AdditionalList::AdditionalList(GNEFixAdditionalElementsDialog* fixAdditionalPositions) :
-    FXGroupBox(fixAdditionalPositions->myMainFrame, "Stopping places and E2 detectors with conflicts", GUIDesignGroupBoxFrameFill) {
-    // Create table
-    myTable = new FXTable(this, this, MID_GNE_FIXSTOPPINGPLACES_CHANGE, GUIDesignTableAdditionals);
-}
-
-
-void
-GNEFixAdditionalElementsDialog::AdditionalList::updateList(const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) {
-    // update containers
-    myInvalidSingleLaneAdditionals = invalidSingleLaneAdditionals;
-    myInvalidMultiLaneAdditionals = invalidMultiLaneAdditionals;
-    // clear table
-    myTable->clearItems();
-    // set number of rows
-    myTable->setTableSize(int(myInvalidSingleLaneAdditionals.size() + myInvalidMultiLaneAdditionals.size()), 3);
-    // configure table
-    myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
-    myTable->setEditable(false);
-    myTable->setVisibleColumns(4);
-    myTable->setColumnWidth(0, GUIDesignHeight);
-    myTable->setColumnWidth(1, 160);
-    myTable->setColumnWidth(2, 280);
-    myTable->setColumnText(0, "");
-    myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
-    myTable->setColumnText(2, "Conflict");
-    myTable->getRowHeader()->setWidth(0);
-    // Declare index for rows and pointer to FXTableItem
-    int indexRow = 0;
-    FXTableItem* item = nullptr;
-    // iterate over single lane additionals
-    for (const auto& invalidSingleLaneAdditional : myInvalidSingleLaneAdditionals) {
-        // Set icon
-        item = new FXTableItem("", invalidSingleLaneAdditional->getACIcon());
-        item->setIconPosition(FXTableItem::CENTER_X);
-        myTable->setItem(indexRow, 0, item);
-        // Set ID
-        item = new FXTableItem(invalidSingleLaneAdditional->getID().c_str());
-        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
-        myTable->setItem(indexRow, 1, item);
-        // Set conflict
-        item = new FXTableItem(invalidSingleLaneAdditional->getAdditionalProblem().c_str());
-        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
-        myTable->setItem(indexRow, 2, item);
-        // Update index
-        indexRow++;
-    }
-    // iterate over multi lane additionals
-    for (const auto& invalidMultiLaneAdditional : myInvalidMultiLaneAdditionals) {
-        // Set icon
-        item = new FXTableItem("", invalidMultiLaneAdditional->getACIcon());
-        item->setIconPosition(FXTableItem::CENTER_X);
-        myTable->setItem(indexRow, 0, item);
-        // Set ID
-        item = new FXTableItem(invalidMultiLaneAdditional->getID().c_str());
-        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
-        myTable->setItem(indexRow, 1, item);
-        // set conflict
-        item = new FXTableItem((invalidMultiLaneAdditional->getAdditionalProblem()).c_str());
-        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
-        myTable->setItem(indexRow, 2, item);
-        // Update index
-        indexRow++;
-    }
-}
-
 // ---------------------------------------------------------------------------
 // GNEFixAdditionalElementsDialog::PositionOptions - methods
 // ---------------------------------------------------------------------------
 
 GNEFixAdditionalElementsDialog::PositionOptions::PositionOptions(GNEFixAdditionalElementsDialog* fixAdditionalPositions) :
-    MFXGroupBoxModule(fixAdditionalPositions->myMainFrame, "Select a solution for StoppingPlaces and E2 detectors") {
-    // create horizontal frames for radio buttons
-    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-    // create Vertical Frame for left options
-    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    activateFriendlyPosition = GUIDesigns::buildFXRadioButton(RadioButtonsLeft, TL("Activate friendlyPos and save"), "", TL("Friendly pos parameter will be activated in all stopping places and E2 detectors"),
-                               fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    saveInvalids = GUIDesigns::buildFXRadioButton(RadioButtonsLeft, TL("Save invalid positions"), "", TL("Save stopping places and E2 detectors with invalid positions"),
-                   fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // create Vertical Frame for right options
-    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    fixPositions = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Fix positions and save"), "", TL("Position of stopping places and E2 detectors will be fixed"),
-                   fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    selectInvalids = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Select invalid additionals"), "", TL("Cancel saving of additionals and select invalid stopping places and E2 detectors"),
-                     fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // leave option "activateFriendlyPosition" as default
-    activateFriendlyPosition->setCheck(true);
+    GNEFixElementsDialog<GNEAdditional*>::FixOptions(fixAdditionalPositions, fixAdditionalPositions->myLeftFrame,
+                                                     TL("Select a solution for StoppingPlaces and E2 detectors")) {
+    // activate friendly position
+    myActivateFriendlyPosition = GUIDesigns::buildFXRadioButton(myLeftFrameOptions, 
+                                                                TL("Activate friendlyPos and save"), "",
+                                                                TL("Friendly pos parameter will be activated in all stopping places and E2 detectors"),
+                                                                this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // save invalid positions
+    mySaveInvalids = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
+                                                    TL("Save invalid positions"), "", 
+                                                    TL("Save stopping places and E2 detectors with invalid positions"),
+                                                    this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // fix positions
+    myFixPositions = GUIDesigns::buildFXRadioButton(myRightFrameOptions, 
+                                                    TL("Fix positions and save"), "",
+                                                    TL("Position of stopping places and E2 detectors will be fixed"),
+                                                    this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // select invalids
+    mySelectInvalids = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
+                                                      TL("Select invalid additionals"), "",
+                                                      TL("Cancel saving of additionals and select invalid stopping places and E2 detectors"),
+                                                      this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // set option "activateFriendlyPosition" as default
+    myActivateFriendlyPosition->setCheck(true);
 }
 
 
 void
-GNEFixAdditionalElementsDialog::PositionOptions::selectOption(FXObject* option) {
-    if (option == activateFriendlyPosition) {
-        activateFriendlyPosition->setCheck(true);
-        fixPositions->setCheck(false);
-        saveInvalids->setCheck(false);
-        selectInvalids->setCheck(false);
-    } else if (option == fixPositions) {
-        activateFriendlyPosition->setCheck(false);
-        fixPositions->setCheck(true);
-        saveInvalids->setCheck(false);
-        selectInvalids->setCheck(false);
-    } else if (option == saveInvalids) {
-        activateFriendlyPosition->setCheck(false);
-        fixPositions->setCheck(false);
-        saveInvalids->setCheck(true);
-        selectInvalids->setCheck(false);
-    } else if (option == selectInvalids) {
-        activateFriendlyPosition->setCheck(false);
-        fixPositions->setCheck(false);
-        saveInvalids->setCheck(false);
-        selectInvalids->setCheck(true);
+GNEFixAdditionalElementsDialog::PositionOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // chooose solution
+    if (dialogArgument->fixSolution == "savePositionInvalids") {
+        mySaveInvalids->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "fixPositions") {
+        myFixPositions->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "selectPositionInvalids") {
+        mySelectInvalids->setCheck(TRUE, TRUE);
+    } else if (dialogArgument->fixSolution == "activatePositionFriendlyPos") {
+        myActivateFriendlyPosition->setCheck(TRUE, TRUE);
     }
 }
 
 
-void
-GNEFixAdditionalElementsDialog::PositionOptions::enablePositionOptions() {
-    activateFriendlyPosition->enable();
-    fixPositions->enable();
-    saveInvalids->enable();
-    selectInvalids->enable();
+bool
+GNEFixAdditionalElementsDialog::PositionOptions::applyFixOption() {
+}
+
+
+long
+GNEFixAdditionalElementsDialog::PositionOptions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+    if (obj == myActivateFriendlyPosition) {
+        myActivateFriendlyPosition->setCheck(true);
+        myFixPositions->setCheck(false);
+        mySaveInvalids->setCheck(false);
+        mySelectInvalids->setCheck(false);
+    } else if (obj == myFixPositions) {
+        myActivateFriendlyPosition->setCheck(false);
+        myFixPositions->setCheck(true);
+        mySaveInvalids->setCheck(false);
+        mySelectInvalids->setCheck(false);
+    } else if (obj == mySaveInvalids) {
+        myActivateFriendlyPosition->setCheck(false);
+        myFixPositions->setCheck(false);
+        mySaveInvalids->setCheck(true);
+        mySelectInvalids->setCheck(false);
+    } else if (obj == mySelectInvalids) {
+        myActivateFriendlyPosition->setCheck(false);
+        myFixPositions->setCheck(false);
+        mySaveInvalids->setCheck(false);
+        mySelectInvalids->setCheck(true);
+    }
+    return 1;
 }
 
 
 void
-GNEFixAdditionalElementsDialog::PositionOptions::disablePositionOptions() {
-    activateFriendlyPosition->disable();
-    fixPositions->disable();
-    saveInvalids->disable();
-    selectInvalids->disable();
+GNEFixAdditionalElementsDialog::PositionOptions::enableOptions() {
+    myActivateFriendlyPosition->enable();
+    myFixPositions->enable();
+    mySaveInvalids->enable();
+    mySelectInvalids->enable();
+}
+
+
+void
+GNEFixAdditionalElementsDialog::PositionOptions::disableOptions() {
+    myActivateFriendlyPosition->disable();
+    myFixPositions->disable();
+    mySaveInvalids->disable();
+    mySelectInvalids->disable();
 }
 
 // ---------------------------------------------------------------------------
@@ -312,65 +254,81 @@ GNEFixAdditionalElementsDialog::PositionOptions::disablePositionOptions() {
 // ---------------------------------------------------------------------------
 
 GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::ConsecutiveLaneOptions(GNEFixAdditionalElementsDialog* fixAdditionalPositions) :
-    MFXGroupBoxModule(fixAdditionalPositions->myMainFrame, "Select a solution for Multilane E2 detectors") {
-    // create horizontal frames for radio buttons
-    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-    // create Vertical Frame for left options
-    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    buildConnectionBetweenLanes = GUIDesigns::buildFXRadioButton(RadioButtonsLeft, TL("Build connections between lanes"), "", TL("New connections will be created between non-connected lanes"),
-                                  fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    removeInvalidElements = GUIDesigns::buildFXRadioButton(RadioButtonsLeft, TL("Remove invalid E2 detectors"), "", TL("Remove Multilane E2 Detectors with non-connected lanes"),
-                            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // add a vertical separator between both options
-    new FXVerticalSeparator(RadioButtons, GUIDesignVerticalSeparator);
-    // create Vertical Frame for right options
-    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    activateFriendlyPosition = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Activate friendlyPos and save"), "", TL("Friendly pos parameter will be activated in all stopping places and E2 detectors"),
-                               fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    fixPositions = GUIDesigns::buildFXRadioButton(RadioButtonsRight, TL("Fix positions and save"), "", TL("Position of stopping places and E2 detectors will be fixed"),
-                   fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    GNEFixElementsDialog<GNEAdditional*>::FixOptions(fixAdditionalPositions, fixAdditionalPositions->myLeftFrame,
+                                                     TL("Select a solution for Multilane E2 detectors")) {
+    // build connection between lanes
+    myBuildConnectionBetweenLanes = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
+                                                                   TL("Build connections between lanes"), "",
+                                                                   TL("New connections will be created between non-connected lanes"),
+                                                                   this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // remove invalid elements
+    myRemoveInvalidElements = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
+                                                             TL("Remove invalid E2 detectors"), "", 
+                                                             TL("Remove Multilane E2 Detectors with non-connected lanes"),
+                                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // activate friendly position
+    myActivateFriendlyPosition = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
+                                                                TL("Activate friendlyPos and save"), "",
+                                                                TL("Friendly pos parameter will be activated in all stopping places and E2 detectors"),
+                                                                this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // fix positions
+    myFixPositions = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
+                                                    TL("Fix positions and save"), "",
+                                                    TL("Position of stopping places and E2 detectors will be fixed"),
+                                                     this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "buildConnectionBetweenLanes" and "activateFriendlyPosition" as default
-    buildConnectionBetweenLanes->setCheck(true);
-    activateFriendlyPosition->setCheck(true);
+    myBuildConnectionBetweenLanes->setCheck(true);
+    myActivateFriendlyPosition->setCheck(true);
 }
 
 
 void
-GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::selectOption(FXObject* option) {
+GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+}
+
+
+bool
+GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::applyFixOption() {
+
+}
+
+
+long
+GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     // set top buttons
-    if (option == buildConnectionBetweenLanes) {
-        buildConnectionBetweenLanes->setCheck(true);
-        removeInvalidElements->setCheck(false);
-    } else if (option == removeInvalidElements) {
-        buildConnectionBetweenLanes->setCheck(false);
-        removeInvalidElements->setCheck(true);
+    if (obj == myBuildConnectionBetweenLanes) {
+        myBuildConnectionBetweenLanes->setCheck(true);
+        myRemoveInvalidElements->setCheck(false);
+    } else if (obj == myRemoveInvalidElements) {
+        myBuildConnectionBetweenLanes->setCheck(false);
+        myRemoveInvalidElements->setCheck(true);
     }
     // set down buttons
-    if (option == activateFriendlyPosition) {
-        activateFriendlyPosition->setCheck(true);
-        fixPositions->setCheck(false);
-    } else if (option == fixPositions) {
-        activateFriendlyPosition->setCheck(false);
-        fixPositions->setCheck(true);
+    if (obj == myActivateFriendlyPosition) {
+        myActivateFriendlyPosition->setCheck(true);
+        myFixPositions->setCheck(false);
+    } else if (obj == myFixPositions) {
+        myActivateFriendlyPosition->setCheck(false);
+        myFixPositions->setCheck(true);
     }
 }
 
 
 void
-GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::enableConsecutiveLaneOptions() {
-    buildConnectionBetweenLanes->enable();
-    removeInvalidElements->enable();
-    activateFriendlyPosition->enable();
-    fixPositions->enable();
+GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::enableOptions() {
+    myBuildConnectionBetweenLanes->enable();
+    myRemoveInvalidElements->enable();
+    myActivateFriendlyPosition->enable();
+    myFixPositions->enable();
 }
 
 
 void
-GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::disableConsecutiveLaneOptions() {
-    buildConnectionBetweenLanes->disable();
-    removeInvalidElements->disable();
-    activateFriendlyPosition->disable();
-    fixPositions->disable();
+GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::disableOptions() {
+    myBuildConnectionBetweenLanes->disable();
+    myRemoveInvalidElements->disable();
+    myActivateFriendlyPosition->disable();
+    myFixPositions->disable();
 }
 
 /****************************************************************************/
