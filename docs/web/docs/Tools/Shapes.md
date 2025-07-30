@@ -123,7 +123,7 @@ Further options:
 - **--angle-tolerance**: avoid matching if edge and shape angle are too different (default 20 degrees)
 
 !!! note
-    polygons can be obtained from OSM, shapefiles or geojson with the help of [../polyconvert.md]
+    polygons can be obtained from OSM, shapefiles or geojson with the help of [polyconvert](../polyconvert.md)
 
 ## patches
 Option **--patchfile** loads instructions to modify the matching in special cases.
