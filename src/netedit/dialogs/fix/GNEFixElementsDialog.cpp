@@ -23,18 +23,8 @@
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GUIDesigns.h>
 
+#include "GNEFixOptions.h"
 #include "GNEFixElementsDialog.h"
-
-// ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNEFixElementsDialog) GNEFixElementsDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixElementsDialog::onCmdSelectOption),
-};
-
-// Object implementation
-FXIMPLEMENT_ABSTRACT(GNEFixElementsDialog, GNEDialog, GNEFixElementsDialogMap, ARRAYNUMBER(GNEFixElementsDialogMap))
 
 // ===========================================================================
 // member method definitions
@@ -43,23 +33,46 @@ FXIMPLEMENT_ABSTRACT(GNEFixElementsDialog, GNEDialog, GNEFixElementsDialogMap, A
 GNEFixElementsDialog::GNEFixElementsDialog(GNEApplicationWindow *mainWindow, const std::string title, GUIIcon icon, const int sizeX, const int sizeY) :
     GNEDialog(mainWindow, title.c_str(), icon, GNEDialog::Buttons::ACCEPT_CANCEL,
               GUIDesignDialogBoxExplicitStretchable(sizeX, sizeY)) {
+    // create left and right frames
+    myLeftFrame = new FXVerticalFrame(myContentFrame, GUIDesignAuxiliarFrame);
+    myRightFrame = new FXVerticalFrame(myContentFrame, GUIDesignAuxiliarFrame);
 }
 
 
 GNEFixElementsDialog::~GNEFixElementsDialog() {}
 
 
-long
-GNEFixElementsDialog::closeFixDialog(const bool success) {
-    if (success) {
-        // stop modal with TRUE (continue saving)
-        getApp()->stopModal(this, TRUE);
-    } else {
-        // stop modal with FALSE (abort saving)
-        getApp()->stopModal(this, FALSE);
+void
+GNEFixElementsDialog::addFixOptions(GNEFixOptions* fixOptions) {
+    myFixOptions.push_back(fixOptions);
+}
+
+
+void
+GNEFixElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // run internal test for each fix option
+    for (auto fixOption : myFixOptions) {
+        fixOption->runInternalTest(dialogArgument);
     }
-    hide();
-    return 1;
+}
+
+
+long
+GNEFixElementsDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    bool abortSaving = false;
+    // apply each fix option in their correspond fixOption
+    for (auto fixOption : myFixOptions) {
+        // if applyFixOption returns false, abort saving (usually for selecting invalid elements)
+        if (fixOption->applyFixOption() == false) {
+            abortSaving = true;
+        }
+    }
+    // continue depending of abortSaving
+    if (abortSaving == false) {
+        return closeDialogAccepting();
+    } else {
+        return closeDialogCanceling();
+    }
 }
 
 /****************************************************************************/
