@@ -34,7 +34,7 @@ class GNENetworkElement;
 // class definitions
 // ===========================================================================
 
-class GNEFixNetworkElements : public GNEFixElementsDialog {
+class GNEFixNetworkElements : public GNEFixElementsDialog<GNENetworkElement*> {
 
 public:
     /// @brief Constructor
@@ -55,82 +55,40 @@ public:
     /// @brief event when user select a option
     long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
-    /// @brief event after press accept button
-    long onCmdAccept(FXObject*, FXSelector, void*);
-
-    /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:
-    /// @brief general GroupBox for fix options
-    class FixOptions : public MFXGroupBoxModule {
-
-    public:
-        /// @brief constructor
-        FixOptions(GNEApplicationWindow *mainWindow, FXVerticalFrame* frameParent, const std::string& title);
-
-        /// @brief set invalid network elements
-        void setInvalidElements(const std::vector<GNENetworkElement*>& invalidElements);
-
-        /// @brief fix elements
-        virtual void fixElements(bool& abortSaving) = 0;
-
-    protected:
-        /// @brief save contents
-        bool saveContents() const;
-
-        /// @brief main window
-        GNEApplicationWindow *myMainWindow = nullptr;
-
-        /// @brief vertical left frame
-        FXVerticalFrame* myLeftFrame = nullptr;
-
-        /// @brief vertical right frame
-        FXVerticalFrame* myRightFrame = nullptr;
-
-        /// @brief vector with the invalid network elements
-        std::vector<GNENetworkElement*> myInvalidElements;
-
-    private:
-        /// @brief enable options
-        virtual void enableOptions() = 0;
-
-        /// @brief disable options
-        virtual void disableOptions() = 0;
-
-        /// @brief Table with the network elements
-        FXTable* myTable = nullptr;
-
-        /// @brief Invalidated copy constructor.
-        FixOptions(const FixOptions&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        FixOptions& operator=(const FixOptions&) = delete;
-    };
 
     /// @brief groupbox for all radio buttons related with fix edges options
-    class FixEdgeOptions : public FixOptions {
+    class FixEdgeOptions : public GNEFixElementsDialog::FixOptions {
 
     public:
         /// @brief constructor
         FixEdgeOptions(GNEFixNetworkElements* fixNetworkElementsParent);
 
-        /// @brief select option
-        void selectOption(FXObject* option);
+        /// @brief run internal test
+        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+		
+		/// @brief apply selected fix option
+        bool applyFixOption();
+		
+		/// @name FOX-callbacks
+        /// @{
 
-        /// @brief fix elements
-        void fixElements(bool& abortSaving);
+        /// @brief called when user select a option
+        long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
+        /// @}
+
+    protected:
         /// @brief Option "Remove invalid edges"
-        FXRadioButton* removeInvalidEdges;
+        FXRadioButton* myRemoveInvalidEdges = nullptr;
 
         /// @brief Option "Save invalid edges"
-        FXRadioButton* saveInvalidEdges;
+        FXRadioButton* mySaveInvalidEdges = nullptr;
 
         /// @brief Option "Select invalid edges and cancel"
-        FXRadioButton* selectInvalidEdgesAndCancel;
+        FXRadioButton* mySelectInvalidEdgesAndCancel = nullptr;
 
     private:
         /// @brief enable edge options
@@ -147,26 +105,35 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix crossing options
-    class FixCrossingOptions : public FixOptions {
+    class FixCrossingOptions : public GNEFixElementsDialog::FixOptions {
 
     public:
         /// @brief constructor
         FixCrossingOptions(GNEFixNetworkElements* fixNetworkElementsParent);
 
-        /// @brief select option
-        void selectOption(FXObject* option);
+        /// @brief run internal test
+        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+		
+		/// @brief apply selected fix option
+        bool applyFixOption();
+		
+		/// @name FOX-callbacks
+        /// @{
 
-        /// @brief fix elements
-        void fixElements(bool& abortSaving);
+        /// @brief called when user select a option
+        long onCmdSelectOption(FXObject* obj, FXSelector, void*);
 
+        /// @}
+
+    protected:
         /// @brief Option "remove invalid elements"
-        FXRadioButton* removeInvalidCrossings;
+        FXRadioButton* myRemoveInvalidCrossings = nullptr;
 
         /// @brief Option "save invalid crossings"
-        FXRadioButton* saveInvalidCrossings;
+        FXRadioButton* mySaveInvalidCrossings = nullptr;
 
         /// @brief Option "Select invalid crossings and cancel"
-        FXRadioButton* selectInvalidCrossings;
+        FXRadioButton* mySelectInvalidCrossings = nullptr;
 
     private:
         /// @brief enable crossing options
@@ -181,12 +148,6 @@ protected:
         /// @brief Invalidated assignment operator.
         FixCrossingOptions& operator=(const FixCrossingOptions&) = delete;
     };
-
-    /// @brief vertical left frame
-    FXVerticalFrame* myLeftFrame = nullptr;
-
-    /// @brief vertical right frame
-    FXVerticalFrame* myRightFrame = nullptr;
 
     /// @brief fix edge options
     FixEdgeOptions* myFixEdgeOptions = nullptr;
