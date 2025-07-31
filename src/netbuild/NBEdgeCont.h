@@ -617,6 +617,9 @@ public:
     int removeEdgesByPermissions(NBDistrictCont& dc);
     int removeLanesByWidth(NBDistrictCont& dc, const double minWidth);
 
+    /// @brief return number of edges split
+    int attachRemoved(NBNodeCont& nc, NBDistrictCont& dc, const double maxDist); 
+
 private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);

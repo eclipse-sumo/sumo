@@ -2245,4 +2245,58 @@ NBEdgeCont::removeLanesByWidth(NBDistrictCont& dc, const double minWidth) {
 }
 
 
+int
+NBEdgeCont::attachRemoved(NBNodeCont& nc, NBDistrictCont& dc, const double maxDist) {
+    int numSplit = 0;
+    std::map<std::string, std::vector<std::string> > node2edge;
+    for (auto item : myEdges) {
+        if (item.second->hasParameter(SUMO_PARAM_REMOVED_NODES)) {
+            for (std::string& nodeID : StringTokenizer(item.second->getParameter(SUMO_PARAM_REMOVED_NODES)).getVector()) {
+                node2edge[nodeID].push_back(item.first);
+            }
+        }
+    }
+    for (auto item : nc) {
+        NBNode* n = item.second;
+        auto itRN = node2edge.find(n->getID());
+        if (itRN != node2edge.end()) {
+            bool rebuildConnections = false;
+            // make a copy because we modify the original
+            std::vector<std::string> edgeIDs = itRN->second;
+            for (const std::string& eID : edgeIDs) {
+                NBEdge* e = retrieve(eID);
+                assert(e != nullptr);
+                const double dist = e->getGeometry().distance2D(n->getPosition(), true);
+                if (dist != GeomHelper::INVALID_OFFSET && dist <= maxDist) {
+                    std::string idAfter = e->getID();
+                    int index = 1;
+                    size_t spos = idAfter.find("#");
+                    if (spos != std::string::npos && spos > 1) {
+                        idAfter = idAfter.substr(0, spos);
+                    }
+                    while (retrieve(idAfter + "#" + toString(index), true) != nullptr) {
+                        index++;
+                    }
+                    idAfter += "#" + toString(index);
+                    const bool ok = splitAt(dc, e, n, e->getID(), idAfter, e->getNumLanes(), e->getNumLanes());
+                    if (ok) {
+                        rebuildConnections = true;
+                        numSplit++;
+                        NBEdge* e = retrieve(eID); // original was extracted on splitting
+                        for (std::string& nodeID : StringTokenizer(e->getParameter(SUMO_PARAM_REMOVED_NODES)).getVector()) {
+                            node2edge[nodeID].push_back(idAfter);
+                        }
+                    }
+                }
+            }
+            if (rebuildConnections) {
+                for (NBEdge* e : n->getIncomingEdges()) {
+                    e->invalidateConnections(true);
+                }
+            }
+        }
+    }
+    return numSplit;
+}
+
 /****************************************************************************/
