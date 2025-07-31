@@ -69,7 +69,7 @@ public:
         FXRadioButton* mySaveInvalidEdges = nullptr;
 
         /// @brief Option "Select invalid edges and cancel"
-        FXRadioButton* mySelectInvalidEdgesAndCancel = nullptr;
+        FXRadioButton* mySelectInvalidEdges = nullptr;
 
     private:
         /// @brief enable edge options

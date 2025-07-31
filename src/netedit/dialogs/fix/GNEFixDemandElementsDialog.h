@@ -122,7 +122,7 @@ public:
         FXRadioButton* mySaveInvalidVehicles;
 
         /// @brief Option "Select invalid vehicles and cancel"
-        FXRadioButton* mySelectInvalidVehiclesAndCancel;
+        FXRadioButton* mySelectInvalidVehicles;
 
         /// @brief Option "Remove stops out of vehicle"
         FXCheckButton* myRemoveStopsOutOfVehicle;
@@ -169,16 +169,16 @@ public:
         FOX_CONSTRUCTOR(FixStopPositionOptions)
 
         /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* myActivateFriendlyPositionAndSave;
+        FXRadioButton* myActivateFriendlyPosition;
 
         /// @brief Option "Fix Positions and save"
-        FXRadioButton* myFixPositionsAndSave;
+        FXRadioButton* myFixPositions;
 
         /// @brief Option "Save invalid"
         FXRadioButton* mySaveInvalid;
 
         /// @brief Option "Select invalid stops and cancel"
-        FXRadioButton* mySelectInvalidStopsAndCancel;
+        FXRadioButton* mySelectInvalidStops;
 
     private:
         /// @brief enable stop options
@@ -195,13 +195,13 @@ public:
     };
 
     /// @brief groupbox for all radio buttons related with fix person plan options
-    class FixPersonPlanOptions : public GNEFixElementsDialog::FixOptions {
+    class FixPlanOptions : public GNEFixElementsDialog::FixOptions {
         /// @brief FOX-declaration
-        FXDECLARE(FixPersonPlanOptions)
+        FXDECLARE(FixPlanOptions)
 
     public:
         /// @brief build Position Options
-        FixPersonPlanOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
+        FixPlanOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
         /// @brief run internal test
         void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
@@ -219,16 +219,16 @@ public:
 
     protected:
         /// @brief FOX needs this
-        FOX_CONSTRUCTOR(FixPersonPlanOptions)
+        FOX_CONSTRUCTOR(FixPlanOptions)
 
-        /// @brief Option "delete person plan"
-        FXRadioButton* myDeletePersonPlan;
+        /// @brief Option "remove invalid plan"
+        FXRadioButton* myRemoveInvalidPlan;
 
         /// @brief Option "Save invalid"
         FXRadioButton* mySaveInvalid;
 
         /// @brief Option "Select invalid person plans and cancel"
-        FXRadioButton* mySelectInvalidPersonPlansAndCancel;
+        FXRadioButton* mySelectInvalidPlans;
 
     private:
         /// @brief enable personPlan options
@@ -238,10 +238,10 @@ public:
         void disableOptions();
 
         /// @brief Invalidated copy constructor.
-        FixPersonPlanOptions(const FixPersonPlanOptions&) = delete;
+        FixPlanOptions(const FixPlanOptions&) = delete;
 
         /// @brief Invalidated assignment operator.
-        FixPersonPlanOptions& operator=(const FixPersonPlanOptions&) = delete;
+        FixPlanOptions& operator=(const FixPlanOptions&) = delete;
     };
 
     /// @brief Constructor
@@ -267,7 +267,7 @@ protected:
     FixStopPositionOptions* myFixStopPositionOptions = nullptr;
 
     /// @brief fix person plan options
-    FixPersonPlanOptions* myFixPersonPlanOptions = nullptr;
+    FixPlanOptions* myFixPlanOptions = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
