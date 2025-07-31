@@ -56,22 +56,27 @@ GNEFixAdditionalElementsDialog::PositionOptions::PositionOptions(GNEFixAdditiona
     myActivateFriendlyPosition = GUIDesigns::buildFXRadioButton(myLeftFrameOptions, 
                                                                 TL("Activate friendlyPos and save"), "",
                                                                 TL("Friendly pos parameter will be activated in all stopping places and E2 detectors"),
-                                                                this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                                                this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // save invalid positions
     mySaveInvalids = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
                                                     TL("Save invalid positions"), "", 
                                                     TL("Save stopping places and E2 detectors with invalid positions"),
-                                                    this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                                    this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // fix positions
     myFixPositions = GUIDesigns::buildFXRadioButton(myRightFrameOptions, 
                                                     TL("Fix positions and save"), "",
                                                     TL("Position of stopping places and E2 detectors will be fixed"),
-                                                    this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                                    this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // select invalids
     mySelectInvalids = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
                                                       TL("Select invalid additionals"), "",
                                                       TL("Cancel saving of additionals and select invalid stopping places and E2 detectors"),
-                                                      this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                                      this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    // register options
+    registerOption(myActivateFriendlyPosition);
+    registerOption(mySaveInvalids);
+    registerOption(myFixPositions);
+    registerOption(mySelectInvalids);
     // set option "activateFriendlyPosition" as default
     myActivateFriendlyPosition->setCheck(true);
 }
@@ -184,22 +189,27 @@ GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::ConsecutiveLaneOptions(G
     myBuildConnectionBetweenLanes = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
                                                                    TL("Build connections between lanes"), "",
                                                                    TL("New connections will be created between non-connected lanes"),
-                                                                   this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                                                   this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // remove invalid elements
     myRemoveInvalidElements = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
                                                              TL("Remove invalid E2 detectors"), "", 
                                                              TL("Remove Multilane E2 Detectors with non-connected lanes"),
-                                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // activate friendly position
     myActivateFriendlyPosition = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
                                                                 TL("Activate friendlyPos and save"), "",
                                                                 TL("Friendly pos parameter will be activated in all stopping places and E2 detectors"),
-                                                                this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                                                this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // fix positions
     myFixPositions = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
                                                     TL("Fix positions and save"), "",
                                                     TL("Position of stopping places and E2 detectors will be fixed"),
-                                                     this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                                     this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    // register options
+    registerOption(myBuildConnectionBetweenLanes);
+    registerOption(myRemoveInvalidElements);
+    registerOption(myActivateFriendlyPosition);
+    registerOption(myFixPositions);
     // leave option "buildConnectionBetweenLanes" and "activateFriendlyPosition" as default
     myBuildConnectionBetweenLanes->setCheck(true);
     myActivateFriendlyPosition->setCheck(true);

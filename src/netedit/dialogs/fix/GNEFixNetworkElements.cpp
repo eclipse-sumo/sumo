@@ -52,17 +52,24 @@ FXIMPLEMENT(GNEFixNetworkElements::FixCrossingOptions, MFXGroupBoxModule, FixCro
 GNEFixNetworkElements::FixEdgeOptions::FixEdgeOptions(GNEFixNetworkElements* fixNetworkElementsParent) :
     GNEFixElementsDialog<GNENetworkElement*>::FixOptions(fixNetworkElementsParent, fixNetworkElementsParent->myLeftFrame, "Edges") {
     // Remove invalid edges
-    myRemoveInvalidEdges = new FXRadioButton(myLeftFrameOptions,
-                                             TL("Remove invalid edges"),
-                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    myRemoveInvalidEdges = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
+                                                          TL("Remove invalid edges"), "",
+                                                          TL("Remove invalid edges"),
+                                                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid edges
-    mySaveInvalidEdges = new FXRadioButton(myLeftFrameOptions,
-                                           TL("Save invalid edges"),
-                                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    mySaveInvalidEdges = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
+                                                        TL("Save invalid edges"), "",
+                                                        TL("Save invalid edges"),
+                                                        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid edges
-    mySelectInvalidEdgesAndCancel = new FXRadioButton(myRightFrameOptions,
-                                                      TL("Select conflicted edges"),
-                                                      this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    mySelectInvalidEdges = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
+                                                          TL("Select invalid edges"), "",
+                                                          TL("Select invalid edges and abort saving"),
+                                                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    // register options
+    registerOption(myRemoveInvalidEdges);
+    registerOption(mySaveInvalidEdges);
+    registerOption(mySelectInvalidEdges);
     // set option "removeInvalidEdges" as default
     myRemoveInvalidEdges->setCheck(true);
 }
@@ -89,7 +96,7 @@ GNEFixNetworkElements::FixEdgeOptions::applyFixOption() {
             }
             // end undo list
             undoList->end();
-        } else if (mySelectInvalidEdgesAndCancel->getCheck() == TRUE) {
+        } else if (mySelectInvalidEdges->getCheck() == TRUE) {
             // begin undo list
             undoList->begin(GUIIcon::EDGE, TL("select invalid edges"));
             // iterate over invalid single lane elements to select all elements
@@ -111,15 +118,15 @@ GNEFixNetworkElements::FixEdgeOptions::onCmdSelectOption(FXObject* obj, FXSelect
     if (obj == myRemoveInvalidEdges) {
         myRemoveInvalidEdges->setCheck(true);
         mySaveInvalidEdges->setCheck(false);
-        mySelectInvalidEdgesAndCancel->setCheck(false);
+        mySelectInvalidEdges->setCheck(false);
     } else if (obj == mySaveInvalidEdges) {
         myRemoveInvalidEdges->setCheck(false);
         mySaveInvalidEdges->setCheck(true);
-        mySelectInvalidEdgesAndCancel->setCheck(false);
-    } else if (obj == mySelectInvalidEdgesAndCancel) {
+        mySelectInvalidEdges->setCheck(false);
+    } else if (obj == mySelectInvalidEdges) {
         myRemoveInvalidEdges->setCheck(false);
         mySaveInvalidEdges->setCheck(false);
-        mySelectInvalidEdgesAndCancel->setCheck(true);
+        mySelectInvalidEdges->setCheck(true);
     }
     return 1;
 }
@@ -129,7 +136,7 @@ void
 GNEFixNetworkElements::FixEdgeOptions::enableOptions() {
     myRemoveInvalidEdges->enable();
     mySaveInvalidEdges->enable();
-    mySelectInvalidEdgesAndCancel->enable();
+    mySelectInvalidEdges->enable();
 }
 
 
@@ -137,7 +144,7 @@ void
 GNEFixNetworkElements::FixEdgeOptions::disableOptions() {
     myRemoveInvalidEdges->disable();
     mySaveInvalidEdges->disable();
-    mySelectInvalidEdgesAndCancel->disable();
+    mySelectInvalidEdges->disable();
 }
 
 // ---------------------------------------------------------------------------
@@ -147,17 +154,24 @@ GNEFixNetworkElements::FixEdgeOptions::disableOptions() {
 GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkElements* fixNetworkElementsParent) :
     GNEFixElementsDialog<GNENetworkElement*>::FixOptions(fixNetworkElementsParent, fixNetworkElementsParent->myLeftFrame, "Crossings") {
     // Remove invalid crossings
-    myRemoveInvalidCrossings = new FXRadioButton(myLeftFrameOptions,
-                                                 TL("Remove invalid crossings"),
-                                                 this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    myRemoveInvalidCrossings = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
+                                                              TL("Remove invalid crossings"), "",
+                                                              TL("Remove invalid crossings"),
+                                                              this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid crossings
-    mySaveInvalidCrossings = new FXRadioButton(myLeftFrameOptions,
-                                               TL("Save invalid crossings"),
-                                               this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    mySaveInvalidCrossings = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
+                                                            TL("Save invalid crossings"), "",
+                                                            TL("Save invalid crossings"),
+                                                            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid crossing
-    mySelectInvalidCrossings = new FXRadioButton(myRightFrameOptions,
-                                                 TL("Select conflicted crossing"),
-                                                 this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    mySelectInvalidCrossings = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
+                                                              TL("Select invalid crossing"), "",
+                                                              TL("Select invalid crossing and abort saving"),
+                                                              this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    // register options
+    registerOption(myRemoveInvalidCrossings);
+    registerOption(mySaveInvalidCrossings);
+    registerOption(mySelectInvalidCrossings);
     // by default remove invalid crossings
     myRemoveInvalidCrossings->setCheck(TRUE);
 }
