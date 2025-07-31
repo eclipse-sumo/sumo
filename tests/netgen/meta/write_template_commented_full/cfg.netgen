@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-31 00:37:52 by Eclipse SUMO netgenerate Version v1_24_0+0070-fe27b6051ef
+<!-- generated on 2025-07-31 09:33:23 by Eclipse SUMO netgenerate Version v1_24_0+0075-71a5f23f8f8
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -206,6 +206,9 @@
 
         <!-- Writes original names, if given, as parameter -->
         <output.original-names value="false" type="BOOL"/>
+
+        <!-- Writes IDs of nodes remove with --geometry.remove into edge param -->
+        <output.removed-nodes value="false" type="BOOL"/>
 
         <!-- Writes street signs as POIs to FILE -->
         <street-sign-output value="" type="FILE"/>

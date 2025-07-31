@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_24_0+0070-fe27b6051ef
+Eclipse SUMO netconvert Version v1_24_0+0075-71a5f23f8f8
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -93,6 +93,8 @@ Output Options:
                                         output (if available)
   --output.original-names              Writes original names, if given, as
                                         parameter
+  --output.removed-nodes               Writes IDs of nodes remove with
+                                        --geometry.remove into edge param
   --street-sign-output FILE            Writes street signs as POIs to FILE
   --ptstop-output FILE                 Writes public transport stops to FILE
   --ptline-output FILE                 Writes public transport lines to FILE
