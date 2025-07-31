@@ -92,14 +92,17 @@ public:
         FixOptions(GNEFixElementsDialog<T> *fixElementDialog, FXVerticalFrame* frameParent, const std::string& title) :
             MFXGroupBoxModule(frameParent, title, MFXGroupBoxModule::Options::SAVE),
             myFixElementDialogParent(fixElementDialog) {
-            // add this fix option to list of fix options
-            fixElementDialog->addFixOptions(this);
+            // register this fix option to list of fix options
+            fixElementDialog->registerFixOptions(this);
             // Create table
             myTable = new FXTable(getCollapsableFrame(), this, MID_TABLE, GUIDesignTableFixElements);
             // create frames for options
             FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-            myLeftFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarVerticalFrame);
-            myRightFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarVerticalFrame);
+            myLeftFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrameFixWidth);
+            myRightFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrameFixWidth);
+            // adjust size
+            myLeftFrameOptions->setWidth(myTable->getWidth() * 0.5);
+            myRightFrameOptions->setWidth(myTable->getWidth() * 0.5);
         }
 
         /// @brief run internal test
@@ -127,13 +130,17 @@ public:
             myTable->setEditable(false);
             // configure header
             myTable->setVisibleColumns(4);
-            myTable->setColumnWidth(0, GUIDesignHeight);
-            myTable->setColumnWidth(1, 150);
-            myTable->setColumnWidth(2, 390);
-            myTable->setColumnText(0, "");
-            myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
-            myTable->setColumnText(2, TL("Conflict"));
+            myTable->setColumnHeaderHeight(GUIDesignHeight);
             myTable->getRowHeader()->setWidth(0);
+            // icon
+            myTable->setColumnWidth(0, GUIDesignHeight);
+            myTable->setColumnText(0, "");
+            // ID
+            myTable->setColumnWidth(1, 110);
+            myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
+            // description
+            myTable->setColumnWidth(2, myTable->getWidth() - GUIDesignHeight - 110 - 15);
+            myTable->setColumnText(2, TL("Conflict"));
             // Declare pointer to FXTableItem
             FXTableItem* item = nullptr;
             // iterate over invalid edges
@@ -150,6 +157,8 @@ public:
                 item = new FXTableItem(myConflictedElements.at(i).getDescription().c_str());
                 item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
                 myTable->setItem(i, 2, item);
+                // set row height
+                myTable->setRowHeight(i, GUIDesignHeight);
             }
             // check if enable or disable options
             if (myConflictedElements.size() > 0) {
@@ -163,6 +172,13 @@ public:
         /// @brief default constructor
         FixOptions() :
             MFXGroupBoxModule() {
+        }
+
+        /// @brief add option to options container (used for adjust width and enable/disable)
+        void registerOption(FXWindow *option) {
+            myOptions.push_back(option);
+            // adjust width
+            option->setWidth(myTable->getWidth() * 0.5);
         }
 
         /// @brief pointer to the parent dialog
@@ -181,6 +197,9 @@ public:
         std::vector<ConflictElement> myConflictedElements;
 
     private:
+        /// @brief list of options
+        std::vector<FXWindow*> myOptions;
+
         /// @brief enable options
         virtual void enableOptions() = 0;
 
@@ -233,7 +252,7 @@ public:
                          GUIIcon icon, const int sizeX, const int sizeY):
         GNEDialog(mainWindow, title.c_str(), icon, GNEDialog::Buttons::ACCEPT_CANCEL) {
         // create left and right frames
-        FXHorizontalFrame* columnFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
+        FXHorizontalFrame* columnFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
         myLeftFrame = new FXVerticalFrame(columnFrame, GUIDesignAuxiliarVerticalFrame);
         myRightFrame = new FXVerticalFrame(columnFrame, GUIDesignAuxiliarVerticalFrame);
     }
@@ -249,8 +268,8 @@ public:
         return myApplicationWindow;
     }
 
-    /// @brief add fix options to the dialog (called automatically during FixOptions constructor)
-    void addFixOptions(FixOptions* fixOptions) {
+    /// @brief register fix options to the dialog (called automatically during FixOptions constructor)
+    void registerFixOptions(FixOptions* fixOptions) {
         myFixOptions.push_back(fixOptions);
     }
 
