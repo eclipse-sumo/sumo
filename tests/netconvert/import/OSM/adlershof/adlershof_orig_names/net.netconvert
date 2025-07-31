@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-12 17:31:42 by Eclipse SUMO netconvert Version v1_22_0+0186-b0bf0be436b
+<!-- generated on 2025-07-31 09:22:25 by Eclipse SUMO netconvert Version v1_24_0+0074-9dcf139930c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,12 +14,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <osm-files value="osm.xml"/>
+        <osm-files value="osm2.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
         <output.original-names value="true"/>
+        <output.removed-nodes value="true"/>
     </output>
 
     <projection>
@@ -362,6 +363,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="5784968"/>
         </lane>
         <param key="osmDefaults" value="numLanes speed"/>
+        <param key="removedNodeIds" value="306982585"/>
     </edge>
     <edge id="-6137233#0" from="38919880" to="38919927" priority="3" type="highway.residential">
         <lane id="-6137233#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="42.56" shape="332.42,454.61 297.07,447.58">
@@ -470,6 +472,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="7727483"/>
         </lane>
         <param key="osmDefaults" value="numLanes speed"/>
+        <param key="removedNodeIds" value="261647692 261647702"/>
     </edge>
     <edge id="-7730464" from="56231598" to="56242441" priority="10" type="highway.tertiary">
         <lane id="-7730464_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="10.25" shape="616.87,422.73 616.86,422.93">
@@ -800,6 +803,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="27445000 20430080"/>
         </lane>
         <param key="osmDefaults" value="numLanes speed"/>
+        <param key="removedNodeIds" value="57343359"/>
     </edge>
     <edge id="27445003" from="56231397" to="301292612" priority="10" type="highway.tertiary" spreadType="center">
         <lane id="27445003_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="14.40" shape="499.52,389.86 498.76,393.83">
@@ -1058,6 +1062,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="5784968"/>
         </lane>
         <param key="osmDefaults" value="numLanes speed"/>
+        <param key="removedNodeIds" value="306982585"/>
     </edge>
     <edge id="6137233#0" from="38919927" to="38919880" priority="3" type="highway.residential">
         <lane id="6137233#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="42.56" shape="297.70,444.45 333.05,451.47">
@@ -1178,6 +1183,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <param key="origId" value="7727483"/>
         </lane>
         <param key="osmDefaults" value="numLanes speed"/>
+        <param key="removedNodeIds" value="261647692 261647702"/>
     </edge>
     <edge id="7730463" from="56242425" to="36268408" priority="1" type="highway.footway" spreadType="center">
         <lane id="7730463_0" index="0" allow="pedestrian" speed="2.78" length="96.77" width="2.00" shape="664.60,433.06 721.69,365.23">
