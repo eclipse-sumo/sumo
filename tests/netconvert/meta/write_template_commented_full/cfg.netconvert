@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-31 11:54:07 by Eclipse SUMO netconvert Version v1_24_0+0079-c3c28f7325e
+<!-- generated on 2025-07-31 12:33:56 by Eclipse SUMO netconvert Version v1_24_0+0083-3372591c45b
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -705,8 +705,8 @@
         <!-- Interprets STR[] as list of junctions to exclude from joining -->
         <junctions.join-exclude value="" type="STR[]"/>
 
-        <!-- Joins junctions that have the same coordinates even if not connected -->
-        <junctions.join-same value="false" type="BOOL"/>
+        <!-- Joins junctions that have similar coordinates even if not connected -->
+        <junctions.join-same value="-1" type="FLOAT"/>
 
         <!-- Attach junction to the closest edge within FLOAT distance that has it&apos;s id in param removedNodeIDs (for joining networks) -->
         <junctions.attach-removed value="-1" type="FLOAT"/>

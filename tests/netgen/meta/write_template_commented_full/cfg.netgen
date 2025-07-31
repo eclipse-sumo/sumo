@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-31 09:33:23 by Eclipse SUMO netgenerate Version v1_24_0+0075-71a5f23f8f8
+<!-- generated on 2025-07-31 12:28:47 by Eclipse SUMO netgenerate Version v1_24_0+0083-3372591c45b
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -591,8 +591,8 @@
         <!-- The angular threshold in degress for rejection of parallel edges when joining junctions -->
         <junctions.join.parallel-threshold value="30" type="FLOAT"/>
 
-        <!-- Joins junctions that have the same coordinates even if not connected -->
-        <junctions.join-same value="false" type="BOOL"/>
+        <!-- Joins junctions that have similar coordinates even if not connected -->
+        <junctions.join-same value="-1" type="FLOAT"/>
 
         <!-- Abbreviate junction or TLS id if it joins more than INT junctions -->
         <max-join-ids value="4" type="INT"/>
