@@ -134,6 +134,16 @@ GUIDesigns::buildFXButton(FXComposite* p, const std::string& text, const std::st
 }
 
 
+FXCheckButton*
+GUIDesigns::buildFXCheckButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help, FXObject* tgt,
+                               FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) {
+    FXCheckButton* checkButton = new FXCheckButton(p, text.c_str(), tgt, sel, opts, x, y, w, h, pl, pr, pt, pb);
+    checkButton->setTipText(tip.c_str());
+    checkButton->setHelpText(help.c_str());
+    return checkButton;
+}
+
+
 FXRadioButton*
 GUIDesigns::buildFXRadioButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help, FXObject* tgt,
                                FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) {
