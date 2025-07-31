@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-28 11:23:08 by Eclipse SUMO netconvert Version v1_24_0+0021-fe10debbdad
+<!-- generated on 2025-07-31 17:19:52 by Eclipse SUMO netconvert Version v1_24_0+0089-4213760b7ff
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="orig.nod.xml"/>
-        <edge-files value="orig.edg.xml"/>
+        <sumo-net-file value="simple.net.xml"/>
     </input>
 
     <output>
@@ -19,34 +18,54 @@
         <numerical-ids value="true"/>
         <numerical-ids.node-start value="0"/>
         <numerical-ids.edge-start value="0"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
     </processing>
+
+    <building_defaults>
+        <default.spreadtype value="roadCenter"/>
+    </building_defaults>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
 
 </netconvertConfiguration>
 -->
 
 <edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <location netOffset="-392117.44,-4987400.01" convBoundary="0.00,0.00,420.57,237.75" origBoundary="7.572009,44.988228,7.747752,45.132593" projParameter="+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0         +units=m +no_defs +north"/>
+    <location netOffset="-389915.13,-4985775.11" convBoundary="2202.31,1624.90,2622.88,1853.10" origBoundary="7.572009,44.988228,7.747752,45.132593" projParameter="+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0         +units=m +no_defs +north"/>
 
-    <edge id="E0" from="J8" to="J5" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="1" speed="8.33" shape="288.03,237.75 284.73,143.82 284.63,135.37" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E1" from="J5" to="J8" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="1" speed="11.81" shape="284.63,135.37 284.73,143.82 288.03,237.75" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E10" from="J4" to="J18" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="2" speed="11.11" shape="266.06,100.96 262.11,94.13" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E11" from="J10" to="J18" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.11" shape="239.68,82.51 244.74,80.05 253.33,76.01" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E12" from="J18" to="J14" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.81" shape="273.23,65.99 280.63,61.78 283.60,60.40 377.92,13.37 393.71,5.17" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E13" from="J17" to="J13" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" numLanes="1" speed="11.81" shape="420.57,23.45 410.31,28.71 337.99,65.24 296.49,86.23" spreadType="center" allow="passenger taxi bus delivery motorcycle bicycle"/>
-    <edge id="E14" from="J13" to="J6" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" numLanes="1" speed="9.72" shape="296.49,86.23 293.50,87.69 284.64,92.20" spreadType="center" allow="passenger taxi bus delivery motorcycle bicycle"/>
-    <edge id="E15" from="J7" to="J15" name="Corso Enrico Tazzoli" priority="4" type="highway.unclassified" numLanes="2" speed="7.08" shape="268.34,56.04 275.62,52.32 301.34,39.58 381.27,0.00" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E16" from="J11" to="J7" name="Corso Enrico Tazzoli" priority="4" type="highway.unclassified" numLanes="2" speed="6.66" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E17" from="J16" to="J12" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.81" shape="417.11,17.18 407.15,22.12 342.46,54.39 315.36,67.86 293.62,79.00" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E18" from="J3" to="J10" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.81" shape="5.17,198.87 159.24,122.03 229.88,87.07 239.68,82.51" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E19" from="J7" to="J18" name="Corso Siracusa" priority="4" type="highway.unclassified" numLanes="1" speed="11.11" shape="268.34,56.04 273.23,65.99" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E2" from="J6" to="J5" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="1" speed="8.33" shape="284.64,92.20 285.33,100.89 286.57,117.27 284.63,135.37" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E20" from="J0" to="J11" name="Corso Enrico Tazzoli" priority="4" type="highway.unclassified" numLanes="2" speed="7.08" shape="0.00,188.21 24.23,176.10 151.61,112.47 176.63,100.46 195.34,91.47 239.17,70.42 244.01,68.14 255.48,62.73" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E3" from="J5" to="J9" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="1" speed="11.81" shape="284.63,135.37 279.75,123.33 271.35,110.03" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E4" from="J9" to="J4" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="1" speed="11.11" shape="271.35,110.03 269.99,107.72 266.06,100.96" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E5" from="J18" to="J6" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="1" speed="9.72" shape="281.88,84.55 284.64,92.20" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E6" from="J4" to="J2" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" numLanes="1" speed="11.81" shape="266.06,100.96 258.86,105.05 238.31,115.56 179.30,145.75 140.57,165.56 99.14,186.90 18.92,228.20" spreadType="center" allow="passenger taxi bus delivery motorcycle bicycle"/>
-    <edge id="E7" from="J6" to="J4" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" numLanes="2" speed="11.11" spreadType="center" allow="passenger taxi bus delivery motorcycle bicycle"/>
-    <edge id="E8" from="J18" to="J1" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.81" shape="262.11,94.13 254.47,98.05 196.53,126.74 169.27,140.51 41.68,204.16 14.30,217.89" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
-    <edge id="E9" from="J12" to="J18" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.11" shape="293.62,79.00 290.35,80.57 281.88,84.55" spreadType="center" allow="passenger taxi bus delivery truck motorcycle bicycle"/>
+    <edge id="E0" from="J6" to="J5" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="1" speed="8.33" shape="2486.95,1717.10 2487.64,1725.79 2488.88,1742.17 2486.94,1760.27" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E1" from="J5" to="J8" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="1" speed="11.81" shape="2486.94,1760.27 2482.06,1748.23 2473.66,1734.93" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E10" from="J17" to="J13" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.81" shape="2475.54,1690.89 2482.94,1686.68 2485.91,1685.30 2580.23,1638.27 2596.02,1630.07" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E11" from="J16" to="J12" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" numLanes="1" speed="11.81" shape="2622.88,1648.35 2612.62,1653.61 2540.30,1690.14 2498.80,1711.13" spreadType="center" allow="passenger taxi bus delivery bicycle"/>
+    <edge id="E12" from="J12" to="J6" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" numLanes="1" speed="9.72" shape="2498.80,1711.13 2495.81,1712.59 2486.95,1717.10" spreadType="center" allow="passenger taxi bus delivery bicycle"/>
+    <edge id="E13" from="J7" to="J14" name="Corso Enrico Tazzoli" priority="4" type="highway.unclassified" numLanes="2" speed="7.08" shape="2470.65,1680.94 2477.93,1677.22 2503.65,1664.48 2583.58,1624.90" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E14" from="J10" to="J7" name="Corso Enrico Tazzoli" priority="4" type="highway.unclassified" numLanes="2" speed="6.66" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E15" from="J15" to="J11" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.81" shape="2619.42,1642.08 2609.46,1647.02 2544.77,1679.29 2517.67,1692.76 2495.93,1703.90" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E16" from="J3" to="J9" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.81" shape="2207.48,1823.77 2361.55,1746.93 2432.19,1711.97 2441.99,1707.41" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E17" from="J7" to="J17" name="Corso Siracusa" priority="4" type="highway.unclassified" numLanes="1" speed="11.11" shape="2470.65,1680.94 2475.54,1690.89" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E18" from="J0" to="J10" name="Corso Enrico Tazzoli" priority="4" type="highway.unclassified" numLanes="2" speed="7.08" shape="2202.31,1813.11 2226.54,1801.00 2353.92,1737.37 2378.94,1725.36 2397.65,1716.37 2441.48,1695.32 2446.32,1693.04 2457.79,1687.63" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E2" from="J8" to="J4" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="1" speed="11.11" shape="2473.66,1734.93 2472.30,1732.62 2468.37,1725.86" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E3" from="J17" to="J6" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="1" speed="9.72" shape="2484.19,1709.45 2486.95,1717.10" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E4" from="J4" to="J2" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" numLanes="1" speed="11.81" shape="2468.37,1725.86 2461.17,1729.95 2440.62,1740.46 2381.61,1770.65 2342.88,1790.46 2301.45,1811.80 2221.23,1853.10" spreadType="center" allow="passenger taxi bus delivery bicycle"/>
+    <edge id="E5" from="J6" to="J4" name="Corso Enrico Tazzoli" priority="3" type="highway.residential" numLanes="2" speed="11.11" spreadType="center" allow="passenger taxi bus delivery bicycle"/>
+    <edge id="E6" from="J17" to="J1" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.81" shape="2464.42,1719.03 2456.78,1722.95 2398.84,1751.64 2371.58,1765.41 2243.99,1829.06 2216.61,1842.79" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E7" from="J11" to="J17" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.11" shape="2495.93,1703.90 2492.66,1705.47 2484.19,1709.45" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E8" from="J4" to="J17" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="2" speed="11.11" shape="2468.37,1725.86 2464.42,1719.03" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+    <edge id="E9" from="J9" to="J17" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.11" shape="2441.99,1707.41 2447.05,1704.95 2455.64,1700.91" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
+
+    <roundabout nodes="J17 J4 J6" edges="E3 E5 E8"/>
 
 </edges>
