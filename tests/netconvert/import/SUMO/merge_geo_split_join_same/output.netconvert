@@ -1,4 +1,4 @@
-Parsing sumo-net from 'input_net.net.xml' ... done (54ms).
+Parsing sumo-net from 'input_net.net.xml' ... done (40ms).
 Parsing sumo-net from 'input_net2.net.xml' ...
  done (1ms).
  Import done:
@@ -6,16 +6,16 @@ Parsing sumo-net from 'input_net2.net.xml' ...
    6 types loaded.
    171 edges loaded.
 Removing self-loops ... done (0ms).
-Joining junctions with similar coordinates ... done (1ms).
+Joining junctions with similar coordinates ... done (0ms).
 Removing empty nodes ... done (0ms).
    0 nodes removed.
-Splitting geometry edges ... done (20ms).
+Splitting geometry edges ... done (2ms).
  Joined 47 junctions after splitting geometry.
-Computing turning directions ... done (0ms).
+Computing turning directions ... done (1ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (21ms).
-Computing edge shapes ... done (1ms).
+Computing node shapes ... done (3ms).
+Computing edge shapes ... done (37ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
@@ -24,7 +24,7 @@ Computing approaching lanes ... done (1ms).
 Dividing of lanes on approached lanes ... done (0ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
-Computing traffic light control information ... done (12ms).
+Computing traffic light control information ... done (0ms).
 Computing node logics ... done (1ms).
 Computing traffic light logics ...
  done (0ms).
@@ -34,7 +34,7 @@ Summary:
  Node type statistics:
   Unregulated junctions       : 0
   Dead-end junctions          : 19
-  Priority junctions          : 149
+  Priority junctions          : 145
   Right-before-left junctions : 6
   Traffic light junctions      : 3
  Network boundaries:
@@ -42,5 +42,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,1737.68,767.39
 -----------------------------------------------------
-Writing network ... done (37ms).
+Writing network ... done (35ms).
 Success.
