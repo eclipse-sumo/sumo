@@ -56,7 +56,7 @@ FXIMPLEMENT(GNERunPythonToolDialog, GNEDialog, GNERunPythonToolDialogMap, ARRAYN
 GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* GNEApp) :
     GNEDialog(GNEApp, TL("Python Tool"), GUIIcon::TOOL_PYTHON,
               GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE,
-              GUIDesignAuxiliarDialogBoxResizable),
+              ResizeMode::RESIZABLE, 640, 480),
     myGNEApp(GNEApp) {
     // build the thread - io
     myThreadEvent.setTarget(this);
@@ -77,10 +77,6 @@ GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* GNEApp) :
     // set styled
     myText->setHiliteStyles(GUIMessageWindow::getStyles());
     myText->setStyled(true);
-    // add separator
-    new FXSeparator(myContentFrame);
-    // resize
-    resize(640, 480);
 }
 
 

@@ -56,7 +56,7 @@ FXIMPLEMENT(GNENetgenerateDialog, GNEDialog, GNENetgenerateDialogMap, ARRAYNUMBE
 // ===========================================================================
 
 GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    GNEDialog(GNEApp, "Netgenerate", GUIIcon::NETGENERATE, GNEDialog::Buttons::RUN_ADVANCED_CANCEL, GUIDesignDialogBox),
+    GNEDialog(GNEApp, "Netgenerate", GUIIcon::NETGENERATE, GNEDialog::Buttons::RUN_ADVANCED_CANCEL),
     myGNEApp(GNEApp) {
     // build labels
     auto horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);

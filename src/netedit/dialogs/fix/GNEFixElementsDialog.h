@@ -95,11 +95,11 @@ public:
             // add this fix option to list of fix options
             fixElementDialog->addFixOptions(this);
             // Create table
-            myTable = new FXTable(frameParent, this, MID_TABLE, GUIDesignTableFixElements);
+            myTable = new FXTable(getCollapsableFrame(), this, MID_TABLE, GUIDesignTableFixElements);
             // create frames for options
-            FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(frameParent, GUIDesignAuxiliarFrame);
-            myLeftFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
-            myRightFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
+            FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+            myLeftFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarVerticalFrame);
+            myRightFrameOptions = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarVerticalFrame);
         }
 
         /// @brief run internal test
@@ -231,12 +231,11 @@ public:
     /// @brief Constructor
     GNEFixElementsDialog(GNEApplicationWindow *mainWindow, const std::string title,
                          GUIIcon icon, const int sizeX, const int sizeY):
-        GNEDialog(mainWindow, title.c_str(), icon, GNEDialog::Buttons::ACCEPT_CANCEL,
-        GUIDesignDialogBoxExplicitStretchable(sizeX, sizeY)) {
+        GNEDialog(mainWindow, title.c_str(), icon, GNEDialog::Buttons::ACCEPT_CANCEL) {
         // create left and right frames
         FXHorizontalFrame* columnFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
-        myLeftFrame = new FXVerticalFrame(columnFrame, GUIDesignAuxiliarFrame);
-        myRightFrame = new FXVerticalFrame(columnFrame, GUIDesignAuxiliarFrame);
+        myLeftFrame = new FXVerticalFrame(columnFrame, GUIDesignAuxiliarVerticalFrame);
+        myRightFrame = new FXVerticalFrame(columnFrame, GUIDesignAuxiliarVerticalFrame);
     }
 
     /// @brief destructor

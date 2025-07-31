@@ -454,7 +454,7 @@ GNEVTypeDistributionsDialog::ParametersOperations::GNEParameterHandler::myStartE
 GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(GNETypeFrame* typeFrameParent) :
     GNEDialog(typeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
               TL("Edit attributes"), GUIIcon::APP_TABLE, GNEDialog::Buttons::ACCEPT_CANCEL,
-              GUIDesignDialogBoxExplicitStretchable(400, 300)),
+              GNEDialog::ResizeMode::RESIZABLE, 400, 300),
     myTypeFrameParent(typeFrameParent) {
     // create frame for Parameters and operations
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);

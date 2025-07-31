@@ -593,25 +593,10 @@ class MFXMenuCheckIcon;
 /// @name design for dialog boxes
 /// @{
 /// @brief design for standard dialog box with close button (for example, about dialog)
-#define GUIDesignDialogBox                                      (DECOR_CLOSE | DECOR_TITLE)
-
-/// @brief design for standard dialog box that can be stretched (But not shrunk)
-#define GUIDesignDialogBoxStretchable                           (DECOR_CLOSE | DECOR_TITLE | DECOR_STRETCHABLE)
-
-/// @brief design for standard dialog box that can be shrunk (But not stretched)
-#define GUIDesignDialogBoxShrinkable                            (DECOR_CLOSE | DECOR_TITLE | DECOR_SHRINKABLE)
-
-/// @brief design for standard dialog box (for example, about dialog)
-#define GUIDesignDialogBoxResizable                             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)
-
-/// @brief design for standard dialog box (for example, about dialog)
-#define GUIDesignAuxiliarDialogBoxResizable                     (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE), 0, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignDialogBox                          (DECOR_CLOSE | DECOR_TITLE)
 
 /// @brief design for dialog box with specific width and height (for example, additional dialogs)
-#define GUIDesignDialogBoxExplicit(width, height)               (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT), 0, 0, width, height, 4, 4, 4, 4, 4, 4
-
-/// @brief design for dialog box with specific width and height that can be stretched (But not shrunk)
-#define GUIDesignDialogBoxExplicitStretchable(width, height)    (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_STRETCHABLE), 0, 0, width, height, 4, 4, 4, 4, 4, 4
+#define GUIDesignDialogBoxExplicit(width, height)   (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT), 0, 0, width, height, 4, 4, 4, 4, 4, 4
 
 /// @}
 
@@ -631,7 +616,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignTableAdditionals       (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief design for tables used in GNEFixDemandElementsDialog dialogs
-#define GUIDesignTableFixElements       (LAYOUT_FILL_X | LAYOUT_FILL_Y | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 0, 0, 2, 2, 2, 2
+#define GUIDesignTableFixElements       (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | VSCROLLER_ALWAYS | HSCROLLER_NEVER | TABLE_NO_ROWSELECT | TABLE_NO_COLSELECT), 0, 0, 0, 250, 2, 2, 2, 2
 
 /// @}
 
