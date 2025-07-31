@@ -71,6 +71,7 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEDemandElementDialog)
 
     /// @brief pointer to edited additional
