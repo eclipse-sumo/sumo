@@ -139,6 +139,8 @@ public:
      */
     void deselect(GUIGlID id);
 
+    void deselect(GUIGlObjectType type, GUIGlID id);
+
     /** @brief Toggles selection of an object
      *
      * If the object can not be obtained a ProcessError is thrown.

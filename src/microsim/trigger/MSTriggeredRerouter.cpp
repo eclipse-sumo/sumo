@@ -884,7 +884,12 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         // not driving towards the right type of stop
         return nullptr;
     }
-    std::vector<StoppingPlaceVisible> parks = rerouteDef->parkProbs.getVals();
+    std::vector<StoppingPlaceVisible> parks;
+    for (auto cand : rerouteDef->parkProbs.getVals()) {
+        if (cand.first->accepts(&veh)) {
+            parks.push_back(cand);
+        }
+    }
     StoppingPlaceParamMap_t addInput = {};
     return dynamic_cast<MSParkingArea*>(rerouteStoppingPlace(destStoppingPlace, parks, rerouteDef->parkProbs.getProbs(), veh, newDestination, newRoute, addInput, rerouteDef->getClosed()));
 }

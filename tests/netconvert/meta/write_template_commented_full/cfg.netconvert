@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-16 12:01:37 by Eclipse SUMO netconvert Version v1_23_1+1107-78f51b0269e
+<!-- generated on 2025-07-31 00:37:46 by Eclipse SUMO netconvert Version v1_24_0+0070-fe27b6051ef
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -132,7 +132,7 @@
         <!-- Defines a prefix for edge and junction IDs -->
         <prefix value="" type="STR"/>
 
-        <!-- Defines a prefix for unction IDs -->
+        <!-- Defines a prefix for junction IDs -->
         <prefix.junction value="" type="STR"/>
 
         <!-- Defines a prefix for edge IDs -->

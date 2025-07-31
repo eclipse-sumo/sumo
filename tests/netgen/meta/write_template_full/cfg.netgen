@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-16 12:01:43 by Eclipse SUMO netgenerate Version v1_23_1+1107-78f51b0269e
+<!-- generated on 2025-07-31 00:37:52 by Eclipse SUMO netgenerate Version v1_24_0+0070-fe27b6051ef
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -73,7 +73,7 @@
         <plain-output.lanes value="false" type="BOOL" help="Write all lanes and their attributes even when they are not customized"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
         <prefix value="" type="STR" help="Defines a prefix for edge and junction IDs"/>
-        <prefix.junction value="" type="STR" help="Defines a prefix for unction IDs"/>
+        <prefix.junction value="" type="STR" help="Defines a prefix for junction IDs"/>
         <prefix.edge value="" type="STR" help="Defines a prefix for edge IDs"/>
         <amitran-output value="" type="FILE" help="The generated net will be written to FILE using Amitran format"/>
         <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATSim format"/>

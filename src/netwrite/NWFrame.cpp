@@ -69,7 +69,7 @@ NWFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addDescription("prefix", "Output", TL("Defines a prefix for edge and junction IDs"));
 
     oc.doRegister("prefix.junction", new Option_String(""));
-    oc.addDescription("prefix.junction", "Output", TL("Defines a prefix for unction IDs"));
+    oc.addDescription("prefix.junction", "Output", TL("Defines a prefix for junction IDs"));
 
     oc.doRegister("prefix.edge", new Option_String(""));
     oc.addDescription("prefix.edge", "Output", TL("Defines a prefix for edge IDs"));

@@ -144,6 +144,13 @@ GUISelectedStorage::deselect(GUIGlID id) {
 
 
 void
+GUISelectedStorage::deselect(GUIGlObjectType type, GUIGlID id) {
+    mySelections[type].deselect(id);
+    myAllSelected.erase(id);
+}
+
+
+void
 GUISelectedStorage::toggleSelection(GUIGlID id) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {

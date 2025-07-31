@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
@@ -378,7 +379,12 @@ SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
     // only continue if key isn't empty
     if (ok && (key.size() > 0)) {
         // circumventing empty string test
-        const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+        std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+        // check special params that must be interpreted as relative paths
+        if ((myVehicleParameter != nullptr || myCurrentVType != nullptr)
+                && (key == "device.toc.file" || key == "device.ssm.file")) {
+            val = FileHelpers::checkForRelativity(val, getFileName());
+        }
         // add parameter in current created element
         if (!myParamStack.empty()) {
             myParamStack.back()->setParameter(key, val);

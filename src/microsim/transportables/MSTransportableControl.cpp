@@ -209,6 +209,10 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
                 nextStep.insert(nextStep.begin(), transportables.begin(), transportables.end());
                 transportables.clear();
                 break;
+            } else if (myMaxTransportableNumber == 0) {
+                erase(t);
+                it = transportables.erase(it);
+                continue;
             }
             it = transportables.erase(it);
             myWaitingForDepartureNumber--;
