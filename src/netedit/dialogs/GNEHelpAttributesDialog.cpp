@@ -31,8 +31,7 @@
 
 GNEHelpAttributesDialog::GNEHelpAttributesDialog(GNEApplicationWindow* applicationWindow, const GNEAttributeCarrier* AC) :
     GNEDialog(applicationWindow, TLF("Parameters of %", AC->getTagStr()).c_str(),
-              GUIIcon::MODEINSPECT, GNEDialog::Buttons::OK,
-              GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4) {
+              GUIIcon::MODEINSPECT, GNEDialog::Buttons::OK) {
     // Create FXTable
     FXTable* myTable = new FXTable(myContentFrame, this, MID_TABLE, GUIDesignTableNotEditable);
     // configure table

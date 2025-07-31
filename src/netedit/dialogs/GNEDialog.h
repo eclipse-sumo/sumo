@@ -51,6 +51,13 @@ public:
         ABORT_RERUN_BACK_CLOSE  // abort/rerun/back buttons, and close in a lower line (used in tools dialogs)
     };
 
+    /// @name Resize mode
+    enum class ResizeMode {
+        SHRINKABLE,     // dialog is shrinkable
+        STRETCHABLE,    // dialog is stretchable
+        RESIZABLE       // dialog is resizable (in both directions)
+    };
+
     /// @brief list of possible results when closing the dialog
     enum class Result {
         ACCEPT, // dialog was closed accepting changes (used in ok, accept, yes buttons)
@@ -58,10 +65,22 @@ public:
         ABORT,  // dialog was closed aborting changes (used in abort button)
     };
 
-    /// @brief constructor
-    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, GUIIcon titleIcon, Buttons buttons,
-              FXuint opts = DECOR_TITLE | DECOR_BORDER, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
-              FXint pl = 10, FXint pr = 10, FXint pt = 10, FXint pb = 10, FXint hs = 4, FXint vs = 4);
+    /// @brief constructor for rigid dialogs
+    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
+              GUIIcon titleIcon, Buttons buttons);
+
+    /// @brief constructor for rigid dialogs with layout explicit
+    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
+              GUIIcon titleIcon, Buttons buttons, const int width, const int height);
+
+    /// @brief constructor for resizable dialogs
+    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
+              GUIIcon titleIcon, Buttons buttons, ResizeMode resizeMode);
+
+    /// @brief constructor for resizable dialogs with layout explicit
+    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
+              GUIIcon titleIcon, Buttons buttons, ResizeMode resizeMode,
+              const int width, const int height);
 
     /// @brief open modal dialog
     Result openModal(FXuint placement = PLACEMENT_CURSOR);
@@ -115,6 +134,9 @@ protected:
     long closeDialogCanceling();
 
 private:
+    /// @brief build dialog
+    void buildDialog(GUIIcon titleIcon, Buttons buttons);
+
     /// @brief Invalidated copy constructor.
     GNEDialog(const GNEDialog&) = delete;
 

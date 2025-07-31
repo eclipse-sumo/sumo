@@ -55,7 +55,7 @@ FXIMPLEMENT(GNERunNetgenerateDialog, GNEDialog, GNERunNetgenerateDialogMap, ARRA
 GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
     GNEDialog(GNEApp, TL("Running NetGenerate results"), GUIIcon::NETGENERATE,
               GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE,
-              GUIDesignDialogBoxExplicit(0, 0)),
+              GNEDialog::ResizeMode::RESIZABLE, 640, 480),
     myGNEApp(GNEApp) {
     // build the thread - io
     myThreadEvent.setTarget(this);
@@ -76,8 +76,6 @@ GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
     // set styled
     myText->setHiliteStyles(GUIMessageWindow::getStyles());
     myText->setStyled(true);
-    // resize
-    resize(640, 480);
 }
 
 

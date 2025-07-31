@@ -50,7 +50,7 @@ FXIMPLEMENT(GNEAllowVClassesDialog, GNEDialog, GNEAllowVClassesDialogMap, ARRAYN
 
 GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEApplicationWindow *mainWindow) :
     GNEDialog(mainWindow, TL("Edit allowed and disallowed vClasses"), GUIIcon::GREENVEHICLE,
-              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, GUIDesignDialogBox) {
+              GNEDialog::Buttons::ACCEPT_CANCEL_RESET) {
     // create groupbox for options
     FXGroupBox* myGroupBoxOptions = new FXGroupBox(myContentFrame, TL("Selection options"), GUIDesignGroupBoxFrame);
     FXHorizontalFrame* myOptionsFrame = new FXHorizontalFrame(myGroupBoxOptions, GUIDesignAuxiliarHorizontalFrame);
