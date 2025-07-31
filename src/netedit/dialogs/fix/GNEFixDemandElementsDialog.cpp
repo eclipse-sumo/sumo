@@ -179,24 +179,6 @@ GNEFixDemandElementsDialog::FixRouteOptions::onCmdSelectOption(FXObject* obj, FX
     return 1;
 }
 
-
-void
-GNEFixDemandElementsDialog::FixRouteOptions::enableOptions() {
-    myRemoveInvalidRoutes->enable();
-    mySaveInvalidRoutes->enable();
-    mySelectRouteInvalids->enable();
-    myRemoveStopsOutOfRoute->enable();
-}
-
-
-void
-GNEFixDemandElementsDialog::FixRouteOptions::disableOptions() {
-    myRemoveInvalidRoutes->disable();
-    mySaveInvalidRoutes->disable();
-    mySelectRouteInvalids->disable();
-    myRemoveStopsOutOfRoute->disable();
-}
-
 // ---------------------------------------------------------------------------
 // GNEFixDemandElementsDialog::FixVehicleOptions - methods
 // ---------------------------------------------------------------------------
@@ -311,24 +293,6 @@ GNEFixDemandElementsDialog::FixVehicleOptions::onCmdSelectOption(FXObject* obj, 
     return 1;
 }
 
-
-void
-GNEFixDemandElementsDialog::FixVehicleOptions::enableOptions() {
-    myRemoveInvalidVehicles->enable();
-    mySaveInvalidVehicles->enable();
-    mySelectInvalidVehicles->enable();
-    myRemoveStopsOutOfVehicle->enable();
-}
-
-
-void
-GNEFixDemandElementsDialog::FixVehicleOptions::disableOptions() {
-    myRemoveInvalidVehicles->disable();
-    mySaveInvalidVehicles->disable();
-    mySelectInvalidVehicles->disable();
-    myRemoveStopsOutOfVehicle->disable();
-}
-
 // ---------------------------------------------------------------------------
 // GNEFixDemandElementsDialog::FixStopPositionOptions - methods
 // ---------------------------------------------------------------------------
@@ -433,24 +397,6 @@ GNEFixDemandElementsDialog::FixStopPositionOptions::onCmdSelectOption(FXObject* 
     return 1;
 }
 
-
-void
-GNEFixDemandElementsDialog::FixStopPositionOptions::enableOptions() {
-    myActivateFriendlyPosition->enable();
-    myFixPositions->enable();
-    mySaveInvalid->enable();
-    mySelectInvalidStops->enable();
-}
-
-
-void
-GNEFixDemandElementsDialog::FixStopPositionOptions::disableOptions() {
-    myActivateFriendlyPosition->disable();
-    myFixPositions->disable();
-    mySaveInvalid->disable();
-    mySelectInvalidStops->disable();
-}
-
 // ---------------------------------------------------------------------------
 // GNEFixDemandElementsDialog::FixPlanOptions - methods
 // ---------------------------------------------------------------------------
@@ -533,22 +479,6 @@ GNEFixDemandElementsDialog::FixPlanOptions::onCmdSelectOption(FXObject* obj, FXS
         mySelectInvalidPlans->setCheck(true);
     }
     return true;
-}
-
-
-void
-GNEFixDemandElementsDialog::FixPlanOptions::enableOptions() {
-    myRemoveInvalidPlan->enable();
-    mySaveInvalid->enable();
-    mySelectInvalidPlans->enable();
-}
-
-
-void
-GNEFixDemandElementsDialog::FixPlanOptions::disableOptions() {
-    myRemoveInvalidPlan->disable();
-    mySaveInvalid->disable();
-    mySelectInvalidPlans->disable();
 }
 
 // ---------------------------------------------------------------------------

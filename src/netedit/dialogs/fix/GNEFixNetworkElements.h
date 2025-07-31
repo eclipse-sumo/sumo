@@ -72,12 +72,6 @@ public:
         FXRadioButton* mySelectInvalidEdges = nullptr;
 
     private:
-        /// @brief enable edge options
-        void enableOptions();
-
-        /// @brief disable edge options
-        void disableOptions();
-
         /// @brief Invalidated copy constructor.
         FixEdgeOptions(const FixEdgeOptions&) = delete;
 
@@ -122,12 +116,6 @@ public:
         FXRadioButton* mySelectInvalidCrossings = nullptr;
 
     private:
-        /// @brief enable crossing options
-        void enableOptions();
-
-        /// @brief disable crossing options
-        void disableOptions();
-
         /// @brief Invalidated copy constructor.
         FixCrossingOptions(const FixCrossingOptions&) = delete;
 
