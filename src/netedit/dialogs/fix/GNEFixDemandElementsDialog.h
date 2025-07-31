@@ -35,21 +35,10 @@ class GNEDemandElement;
 class GNEFixDemandElementsDialog : public GNEFixElementsDialog<GNEDemandElement*> {
 
 public:
-    /// @brief Constructor
-    GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow);
-
-    /// @brief destructor
-    ~GNEFixDemandElementsDialog();
-
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-
-    /// @brief open fix dialog
-    GNEDialog::Result openDialog(const std::vector<GNEDemandElement*>& element);
-
-protected:
     /// @brief groupbox for all radio buttons related with fix route options
     class FixRouteOptions : public GNEFixElementsDialog::FixOptions {
+        /// @brief FOX-declaration
+        FXDECLARE(FixRouteOptions)
 
     public:
         /// @brief constructor
@@ -69,7 +58,10 @@ protected:
 
         /// @}
 
-    protected
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(FixRouteOptions)
+
         /// @brief Option "Remove invalid routes"
         FXRadioButton* myRemoveInvalidRoutes;
 
@@ -98,6 +90,8 @@ protected:
 
     /// @brief groupbox for all radio buttons related with fix vehicle options
     class FixVehicleOptions : public GNEFixElementsDialog::FixOptions {
+        /// @brief FOX-declaration
+        FXDECLARE(FixVehicleOptions)
 
     public:
         /// @brief constructor
@@ -118,6 +112,9 @@ protected:
         /// @}
 
     protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(FixVehicleOptions)
+
         /// @brief Option "remove invalid elements"
         FXRadioButton* myRemoveInvalidVehicles;
 
@@ -146,6 +143,8 @@ protected:
 
     /// @brief groupbox for all radio buttons related with fix stop options
     class FixStopPositionOptions : public GNEFixElementsDialog::FixOptions {
+        /// @brief FOX-declaration
+        FXDECLARE(FixStopPositionOptions)
 
     public:
         /// @brief build Position Options
@@ -166,6 +165,9 @@ protected:
         /// @}
 
     protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(FixStopPositionOptions)
+
         /// @brief Option "Activate friendlyPos and save"
         FXRadioButton* myActivateFriendlyPositionAndSave;
 
@@ -194,6 +196,8 @@ protected:
 
     /// @brief groupbox for all radio buttons related with fix person plan options
     class FixPersonPlanOptions : public GNEFixElementsDialog::FixOptions {
+        /// @brief FOX-declaration
+        FXDECLARE(FixPersonPlanOptions)
 
     public:
         /// @brief build Position Options
@@ -214,6 +218,9 @@ protected:
         /// @}
 
     protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(FixPersonPlanOptions)
+
         /// @brief Option "delete person plan"
         FXRadioButton* myDeletePersonPlan;
 
@@ -237,6 +244,19 @@ protected:
         FixPersonPlanOptions& operator=(const FixPersonPlanOptions&) = delete;
     };
 
+    /// @brief Constructor
+    GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow);
+
+    /// @brief destructor
+    ~GNEFixDemandElementsDialog();
+
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
+    /// @brief open fix dialog
+    GNEDialog::Result openDialog(const std::vector<GNEDemandElement*>& element);
+
+protected:
     /// @brief fix route options
     FixRouteOptions* myFixRouteOptions = nullptr;
 

@@ -18,84 +18,42 @@
 // Dialog used to fix demand elements during saving
 /****************************************************************************/
 
-#include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
-#include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEFixDemandElementsDialog.h"
 
 // ===========================================================================
-// member method definitions
+// FOX callback mapping
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNEFixDemandElementsDialog - methods
-// ---------------------------------------------------------------------------
+FXDEFMAP(GNEFixDemandElementsDialog::FixRouteOptions) FixRouteOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixDemandElementsDialog::FixRouteOptions::onCmdSelectOption)
+};
 
-GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow) :
-    GNEFixElementsDialog(mainWindow, TL("Fix demand elements problems"), GUIIcon::SUPERMODEDEMAND, 800, 620) {
-    // create fix route options
-    myFixRouteOptions = new FixRouteOptions(this);
-    // create fix vehicle  options
-    myFixVehicleOptions = new FixVehicleOptions(this);
-    // create fix stops options
-    myFixStopPositionOptions = new FixStopPositionOptions(this);
-    // create fix person plans options
-    myFixPersonPlanOptions = new FixPersonPlanOptions(this);
-}
+FXDEFMAP(GNEFixDemandElementsDialog::FixVehicleOptions) FixVehicleOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixDemandElementsDialog::FixVehicleOptions::onCmdSelectOption)
+};
 
+FXDEFMAP(GNEFixDemandElementsDialog::FixStopPositionOptions) FixStopPositionOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixDemandElementsDialog::FixStopPositionOptions::onCmdSelectOption)
+};
 
-GNEFixDemandElementsDialog::~GNEFixDemandElementsDialog() {
-}
+FXDEFMAP(GNEFixDemandElementsDialog::FixPersonPlanOptions) FixPersonPlanOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixDemandElementsDialog::FixPersonPlanOptions::onCmdSelectOption)
+};
 
+// Object abstract implementation
+FXIMPLEMENT(GNEFixDemandElementsDialog::FixRouteOptions,        MFXGroupBoxModule, FixRouteOptionsMap,          ARRAYNUMBER(FixRouteOptionsMap))
+FXIMPLEMENT(GNEFixDemandElementsDialog::FixVehicleOptions,      MFXGroupBoxModule, FixVehicleOptionsMap,        ARRAYNUMBER(FixVehicleOptionsMap))
+FXIMPLEMENT(GNEFixDemandElementsDialog::FixStopPositionOptions, MFXGroupBoxModule, FixStopPositionOptionsMap,   ARRAYNUMBER(FixStopPositionOptionsMap))
+FXIMPLEMENT(GNEFixDemandElementsDialog::FixPersonPlanOptions,   MFXGroupBoxModule, FixPersonPlanOptionsMap,     ARRAYNUMBER(FixPersonPlanOptionsMap))
 
-void
-GNEFixDemandElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // run internal test in all modules
-    myFixRouteOptions->runInternalTest(dialogArgument);
-    myFixVehicleOptions->runInternalTest(dialogArgument);
-    myFixStopPositionOptions->runInternalTest(dialogArgument);
-    myFixPersonPlanOptions->runInternalTest(dialogArgument);
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
-}
-
-
-GNEDialog::Result
-GNEFixDemandElementsDialog::openDialog(const std::vector<GNEDemandElement*>& element) {
-    // split invalidDemandElements in four groups
-    std::vector<ConflictElement> invalidRoutes, invalidVehicles, invalidStops, invalidPlans;
-    // fill groups
-    for (const auto& invalidDemandElement : element) {
-        // create conflict element
-        auto fixElement = ConflictElement(invalidDemandElement,
-                                          invalidDemandElement->getID(),
-                                          invalidDemandElement->getACIcon(),
-                                          invalidDemandElement->getDemandElementProblem());
-        // add depending of element type
-        if (invalidDemandElement->getTagProperty()->isRoute()) {
-            invalidRoutes.push_back(fixElement);
-        } else if (invalidDemandElement->getTagProperty()->isVehicle()) {
-            invalidVehicles.push_back(fixElement);
-        } else if (invalidDemandElement->getTagProperty()->isVehicleStop()) {
-            invalidStops.push_back(fixElement);
-        } else {
-            invalidPlans.push_back(fixElement);
-        }
-    }
-    // fill options
-    myFixRouteOptions->setInvalidElements(invalidRoutes);
-    myFixVehicleOptions->setInvalidElements(invalidVehicles);
-    myFixStopPositionOptions->setInvalidElements(invalidStops);
-    myFixPersonPlanOptions->setInvalidElements(invalidPlans);
-    // open modal dialog
-    return openModal();
-}
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 
 // ---------------------------------------------------------------------------
 // GNEFixDemandElementsDialog::FixRouteOptions - methods
@@ -557,6 +515,70 @@ GNEFixDemandElementsDialog::FixPersonPlanOptions::disableOptions() {
     myDeletePersonPlan->disable();
     mySaveInvalid->disable();
     mySelectInvalidPersonPlansAndCancel->disable();
+}
+
+// ---------------------------------------------------------------------------
+// GNEFixDemandElementsDialog - methods
+// ---------------------------------------------------------------------------
+
+GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow) :
+    GNEFixElementsDialog(mainWindow, TL("Fix demand elements problems"), GUIIcon::SUPERMODEDEMAND, 800, 620) {
+    // create fix route options
+    myFixRouteOptions = new FixRouteOptions(this);
+    // create fix vehicle  options
+    myFixVehicleOptions = new FixVehicleOptions(this);
+    // create fix stops options
+    myFixStopPositionOptions = new FixStopPositionOptions(this);
+    // create fix person plans options
+    myFixPersonPlanOptions = new FixPersonPlanOptions(this);
+}
+
+
+GNEFixDemandElementsDialog::~GNEFixDemandElementsDialog() {
+}
+
+
+void
+GNEFixDemandElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // run internal test in all modules
+    myFixRouteOptions->runInternalTest(dialogArgument);
+    myFixVehicleOptions->runInternalTest(dialogArgument);
+    myFixStopPositionOptions->runInternalTest(dialogArgument);
+    myFixPersonPlanOptions->runInternalTest(dialogArgument);
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
+}
+
+
+GNEDialog::Result
+GNEFixDemandElementsDialog::openDialog(const std::vector<GNEDemandElement*>& element) {
+    // split invalidDemandElements in four groups
+    std::vector<ConflictElement> invalidRoutes, invalidVehicles, invalidStops, invalidPlans;
+    // fill groups
+    for (const auto& invalidDemandElement : element) {
+        // create conflict element
+        auto fixElement = ConflictElement(invalidDemandElement,
+                                          invalidDemandElement->getID(),
+                                          invalidDemandElement->getACIcon(),
+                                          invalidDemandElement->getDemandElementProblem());
+        // add depending of element type
+        if (invalidDemandElement->getTagProperty()->isRoute()) {
+            invalidRoutes.push_back(fixElement);
+        } else if (invalidDemandElement->getTagProperty()->isVehicle()) {
+            invalidVehicles.push_back(fixElement);
+        } else if (invalidDemandElement->getTagProperty()->isVehicleStop()) {
+            invalidStops.push_back(fixElement);
+        } else {
+            invalidPlans.push_back(fixElement);
+        }
+    }
+    // fill options
+    myFixRouteOptions->setInvalidElements(invalidRoutes);
+    myFixVehicleOptions->setInvalidElements(invalidVehicles);
+    myFixStopPositionOptions->setInvalidElements(invalidStops);
+    myFixPersonPlanOptions->setInvalidElements(invalidPlans);
+    // open modal dialog
+    return openModal();
 }
 
 /****************************************************************************/
