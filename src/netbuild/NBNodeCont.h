@@ -107,7 +107,7 @@ public:
      * @param[in] offset An offset which can be applied in the case positions are blurred
      * @return The node at the given position, or 0 if no such node exists
      */
-    NBNode* retrieve(const Position& position, const double offset = 0.) const;
+    std::vector<NBNode*> retrieveByPos(const Position& position, const double offset = 0.) const;
 
     /// @brief Returns the pointer to the begin of the stored nodes
     std::map<std::string, NBNode*>::const_iterator begin() const {
@@ -159,8 +159,8 @@ public:
     /// @brief Joins junctions that are very close together
     int joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, NBPTStopCont& sc);
 
-    /// @brief Joins junctions with the same coordinates regardless of topology
-    int joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
+    /// @brief Joins junctions with similar coordinates regardless of topology
+    int joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, double maxDist);
 
     /// @brief return all cluster neighbors for the given node
     static NodeSet getClusterNeighbors(const NBNode* n, double longThreshold, NodeSet& cluster);

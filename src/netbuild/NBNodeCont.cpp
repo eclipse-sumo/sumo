@@ -123,8 +123,9 @@ NBNodeCont::retrieve(const std::string& id) const {
 }
 
 
-NBNode*
-NBNodeCont::retrieve(const Position& position, const double offset) const {
+std::vector<NBNode*>
+NBNodeCont::retrieveByPos(const Position& position, const double offset) const {
+    std::vector<NBNode*> result;
     const double extOffset = offset + POSITION_EPS;
     const float cmin[2] = {(float)(position.x() - extOffset), (float)(position.y() - extOffset)};
     const float cmax[2] = {(float)(position.x() + extOffset), (float)(position.y() + extOffset)};
@@ -136,10 +137,10 @@ NBNodeCont::retrieve(const Position& position, const double offset) const {
         if (fabs(node->getPosition().x() - position.x()) <= offset
                 &&
                 fabs(node->getPosition().y() - position.y()) <= offset) {
-            return node;
+            result.push_back(node);
         }
     }
-    return nullptr;
+    return result;
 }
 
 
@@ -462,10 +463,10 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                                 NBPTLineCont& lc,
                                 NBParkingCont& pc,
                                 bool removeGeometryNodes) {
+    const OptionsCont& oc = OptionsCont::getOptions();
     // load edges that shall not be modified
     std::set<std::string> edges2keep;
     if (removeGeometryNodes) {
-        const OptionsCont& oc = OptionsCont::getOptions();
         if (oc.isSet("geometry.remove.keep-edges.input-file")) {
             NBHelpers::loadEdgesFromFile(oc.getString("geometry.remove.keep-edges.input-file"), edges2keep);
         }
@@ -489,7 +490,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             tlsLookup[e] = to->getControllingTLS();
         }
     }
-
+    const bool outputRemoved = oc.getBool("output.removed-nodes");
     std::vector<NBNode*> toRemove;
     for (const auto& i : myNodes) {
         NBNode* const current = i.second;
@@ -524,6 +525,9 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             sc.replaceEdge(continuation->getID(), { begin });
             lc.replaceEdge(continuation->getID(), { begin });
             ec.extract(dc, continuation, true);
+            if (outputRemoved) {
+                begin->updateRemovedNodes(current->getID());
+            }
         }
         toRemove.push_back(current);
     }
@@ -936,27 +940,27 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
 
 
 int
-NBNodeCont::joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
+NBNodeCont::joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, double maxDist) {
 #ifdef DEBUG_JOINJUNCTIONS
     std::cout << "joinSameJunctions...\n";
 #endif
-    std::map<std::string, NodeSet> positions;
-    for (auto& item : myNodes) {
-        const Position& pos = item.second->getPosition();
-        const std::string rounded = toString(pos.x()) + "_" + toString(pos.y()) + "_" + toString(pos.z());
-        positions[rounded].insert(item.second);
-    }
+    std::set<NBNode*> checked;
     NodeClusters clusters;
-    for (auto& item : positions) {
-        if (item.second.size() > 1) {
-            for (NBNode* n : item.second) {
-                if (myJoinExclusions.count(n->getID()) > 0) {
-                    item.second.erase(n);
-                }
+    for (auto& item : myNodes) {
+        NBNode* n = item.second;
+        if (myJoinExclusions.count(item.first) > 0) {
+            continue;
+        }
+        std::vector<NBNode*> nearby = retrieveByPos(n->getPosition(), maxDist);
+        NodeSet cluster;
+        for (NBNode* n2 : nearby) {
+            if (myJoinExclusions.count(n2->getID()) == 0 && checked.count(n2) == 0) {
+                cluster.insert(n2);
             }
-            if (item.second.size() > 1) {
-                clusters.push_back(item.second);
-            }
+        }
+        if (cluster.size() > 1) {
+            checked.insert(cluster.begin(), cluster.end());
+            clusters.push_back(cluster);
         }
     }
     joinNodeClusters(clusters, dc, ec, tlc, true);

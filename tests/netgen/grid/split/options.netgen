@@ -1,4 +1,4 @@
 --grid --grid.number 3 --grid.length=200 --output=net.net.xml
 --geometry.max-segment-length 100 --geometry.split
---junctions.join-same
+--junctions.join-same 0.1
 -v

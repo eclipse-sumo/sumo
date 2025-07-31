@@ -4090,6 +4090,7 @@ NBEdge::append(NBEdge* e) {
     myTurnDestination = e->myTurnDestination;
     myPossibleTurnDestination = e->myPossibleTurnDestination;
     myConnectionsToDelete = e->myConnectionsToDelete;
+    updateRemovedNodes(e->getParameter(SUMO_PARAM_REMOVED_NODES));
     // set the node
     myTo = e->myTo;
     myTurnSignTarget = e->myTurnSignTarget;
@@ -4099,6 +4100,19 @@ NBEdge::append(NBEdge* e) {
         mySignalPosition = e->mySignalPosition;
     }
     computeAngle(); // myEndAngle may be different now
+}
+
+
+void
+NBEdge::updateRemovedNodes(const std::string& removed) {
+    std::string result = getParameter(SUMO_PARAM_REMOVED_NODES);
+    if (!result.empty() && !removed.empty()) {
+        result += " ";
+    }
+    result += removed;
+    if (!result.empty()) {
+        setParameter(SUMO_PARAM_REMOVED_NODES, result);
+    }
 }
 
 
