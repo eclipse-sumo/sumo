@@ -2,17 +2,17 @@
    9 nodes generated.
    24 edges generated.
 Removing self-loops ... done (0ms).
-Joining junctions with identical coordinates ... done (0ms).
+Joining junctions with similar coordinates ... done (0ms).
 Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin ... done (1ms).
+Moving network to origin ... done (0ms).
 Splitting geometry edges ... done (0ms).
  Joined 12 junctions after splitting geometry.
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (0ms).
-Computing edge shapes ... done (1ms).
+Computing node shapes ... done (1ms).
+Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
@@ -37,5 +37,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,400.00,400.00
 -----------------------------------------------------
-Writing network ... done (4ms).
+Writing network ... done (5ms).
 Success.

@@ -1,6 +1,6 @@
 -e input_plain.edg.xml,input_plain2.edg.xml
 -n input_plain.nod.xml,input_plain2.nod.xml
 --edges.join
---junctions.join-same
+--junctions.join-same 0.1
 --ignore-errors.edge-type
 --output=net.net.xml
