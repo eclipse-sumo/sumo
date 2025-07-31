@@ -76,7 +76,7 @@ the following formats:
 - any input files may be combined
 - "plain XML" files will be applied last and can be used to patch/update previously loaded elements
 - multiple sumo networks (.net.xml) may be merged by giving a list of files: **--sumo-net-file FILE1,FILE2**. The offsets will be handled automatically for geo-referenced network data
-- To merge nodes and edges which occupy the same location but have different ids, the options **--junctions.join-same --edges.join** can be set
+- To merge nodes and edges which occupy the same location but have different ids, the options **--junctions.join-same FLOAT --edges.join** can be set. It may be useful tp combine this with option **--geometry.split** to create additional attachment points (or see below for an alternative). When using **--geometry.split** it is recommended to call netconvert a second time with **--geometry.remove** afterwards.
 - If a network was processed with option **--geometry.remove**, this may have removed intermediate junctions that would be needed when merging networks (i.e. when later adding roads with a lower road class). If the network provides edge param `removedNodeIds` (which is accomplished by combining **--geometry.remove** with **--output.removed-nodes**), then option **--junctions.attach-removed FLOAT** can be used to split edges as need and re-attach the merged roads.  
 
 ## Export
