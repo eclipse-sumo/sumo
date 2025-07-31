@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-07-21 09:15+0000\n"
+"PO-Revision-Date: 2025-07-31 09:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/applications/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2461,11 +2462,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:518
 msgid "Select default depart speed"
-msgstr ""
+msgstr "Standardabfahrtsgeschwindigkeit wählen"
 
 #: src/microsim/MSFrame.cpp:521
 msgid "Select default depart lane"
-msgstr ""
+msgstr "Standardabfahrtsfahrtstreifen wählen"
 
 #: src/microsim/MSFrame.cpp:524
 msgid ""
@@ -5613,7 +5614,7 @@ msgstr "Grünphase in tlLogic '%' im Programm '%' für tl-index % fehlt."
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:263
 #, c-format
 msgid " Overall % lanes in % phases are unsafe."
-msgstr ""
+msgstr " Insgesamt % Fahrstreifen aus % Phasen sind unsicher signalisiert."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:264
 msgid ""
@@ -6504,6 +6505,8 @@ msgstr ""
 #: src/netbuild/NBEdge.cpp:3192
 msgid "Opposite lane '%' does not reverse-connect the same nodes as edge '%'!"
 msgstr ""
+"Der Fahrstreifen '%' der Gegenrichtung verbindet nicht die gleichen Knoten "
+"wie die Kante '%'!"
 
 #: src/netbuild/NBEdge.cpp:3197 src/netbuild/NBEdge.cpp:3209
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
@@ -6518,10 +6521,14 @@ msgstr "Passe fehlenden gegenüberliegenden Fahrstreifen '%' für Kante '%' an."
 #: src/netbuild/NBEdge.cpp:3213
 msgid "Opposite edge '%' does not reverse-connect the same nodes as edge '%'!"
 msgstr ""
+"Die Gegenrichtungskante '%' verbindet nicht die gleichen Knoten wie die "
+"Kante '%'!"
 
 #: src/netbuild/NBEdge.cpp:3215
 msgid "Adapting inconsistent opposite lanes for edges '%', '%' and '%'."
 msgstr ""
+"Die inkonsistenten Gegenrichtungsfahrstreifen der Kanten '%', '%' und '%' "
+"werden angepasst."
 
 #: src/netbuild/NBEdge.cpp:3227
 msgid ""
@@ -6812,6 +6819,8 @@ msgid ""
 "Ensures that objects with typed IDs from FILE (sumo-gui selection file "
 "format) are not renamed"
 msgstr ""
+"Stellt sicher, dass Objekte mit typenspezifischer ID aus FILE (sumo-gui-"
+"Auswahldatei) nicht umbenannt werden können"
 
 #: src/netbuild/NBFrame.cpp:140
 msgid "Removes vehicle class restrictions from imported edges"
@@ -11103,11 +11112,11 @@ msgstr ""
 
 #: src/netwrite/NWFrame.cpp:72
 msgid "Defines a prefix for junction IDs"
-msgstr ""
+msgstr "Definiert ein Präfix für Kreuzungs-ID"
 
 #: src/netwrite/NWFrame.cpp:75
 msgid "Defines a prefix for edge IDs"
-msgstr ""
+msgstr "Definiert ein Präfix für Kanten-ID"
 
 #: src/netwrite/NWFrame.cpp:80
 msgid "Write geo coordinates in plain-xml"
@@ -12791,7 +12800,7 @@ msgstr ""
 
 #: src/utils/common/SystemFrame.cpp:143
 msgid "Separator in CSV output"
-msgstr ""
+msgstr "Trennzeichen in der CSV-Ausgabe"
 
 #: src/utils/common/SystemFrame.cpp:146
 msgid ""
@@ -13382,6 +13391,8 @@ msgid ""
 "Unexpected attribute '%', this file format does not support Parquet output "
 "yet."
 msgstr ""
+"Unerwartetes Attribut '%' - dieses Dateiformat unterstützt noch keine "
+"Parquet-Ausgabe."
 
 #: src/utils/options/Option.cpp:352
 #, c-format
