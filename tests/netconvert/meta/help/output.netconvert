@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_24_0+0075-71a5f23f8f8
+Eclipse SUMO netconvert Version v1_24_0+0079-c3c28f7325e
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -460,6 +460,10 @@ Junctions Options:
                                         exclude from joining
   --junctions.join-same                Joins junctions that have the same
                                         coordinates even if not connected
+  --junctions.attach-removed FLOAT     Attach junction to the closest edge
+                                        within FLOAT distance that has it's id
+                                        in param removedNodeIDs (for joining
+                                        networks)
   --max-join-ids INT                   Abbreviate junction or TLS id if it
                                         joins more than INT junctions
   --junctions.corner-detail INT        Generate INT intermediate points to
