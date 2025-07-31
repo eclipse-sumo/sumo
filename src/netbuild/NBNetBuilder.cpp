@@ -260,9 +260,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (numJoined > 0) {
         WRITE_MESSAGEF(TL(" Joined % junction cluster(s)."), toString(numJoined));
     }
-    if (mayAddOrRemove && oc.exists("junctions.join-same") && oc.getBool("junctions.join-same")) {
-        before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Joining junctions with identical coordinates"));
-        int numJoined2 = myNodeCont.joinSameJunctions(myDistrictCont, myEdgeCont, myTLLCont);
+    if (mayAddOrRemove && oc.getFloat("junctions.join-same") >= 0) {
+        before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Joining junctions with similar coordinates"));
+        int numJoined2 = myNodeCont.joinSameJunctions(myDistrictCont, myEdgeCont, myTLLCont, oc.getFloat("junctions.join-same"));
         PROGRESS_TIME_MESSAGE(before);
         if (numJoined2 > 0) {
             WRITE_MESSAGEF(TL(" Joined % junctions."), toString(numJoined2));
@@ -311,7 +311,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // @note: likewise splitting can destroy similarities so joinSimilarEdges must come before
     if (mayAddOrRemove && oc.getBool("edges.join")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Joining similar edges"));
-        const bool removeDuplicates = oc.exists("junctions.join-same") && oc.getBool("junctions.join-same");
+        const bool removeDuplicates = oc.getFloat("junctions.join-same") >= 0;
         myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont, removeDuplicates);
         // now we may have new chances to remove geometry if wished
         if (oc.exists("geometry.remove") && oc.getBool("geometry.remove")) {
@@ -330,8 +330,8 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myEdgeCont.splitGeometry(myDistrictCont, myNodeCont);
         // newly split junctions might also be joinable
         PROGRESS_TIME_MESSAGE(before);
-        if (oc.getBool("junctions.join-same")) {
-            int numJoined3 = myNodeCont.joinSameJunctions(myDistrictCont, myEdgeCont, myTLLCont);
+        if (oc.getFloat("junctions.join-same") >= 0) {
+            int numJoined3 = myNodeCont.joinSameJunctions(myDistrictCont, myEdgeCont, myTLLCont, oc.getFloat("junctions.join-same"));
             if (numJoined3 > 0) {
                 WRITE_MESSAGEF(TL(" Joined % junctions after splitting geometry."), toString(numJoined3));
             }

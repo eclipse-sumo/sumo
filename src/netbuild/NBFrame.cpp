@@ -359,9 +359,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
         oc.addDescription("junctions.join-exclude", "Junctions", TL("Interprets STR[] as list of junctions to exclude from joining"));
     }
 
-    oc.doRegister("junctions.join-same", new Option_Bool(false));
+    oc.doRegister("junctions.join-same", new Option_Float(-1));
     oc.addDescription("junctions.join-same", "Junctions",
-                      "Joins junctions that have the same coordinates even if not connected");
+                      "Joins junctions that have similar coordinates even if not connected");
 
     if (!forNetgen) {
         oc.doRegister("junctions.attach-removed", new Option_Float(-1));

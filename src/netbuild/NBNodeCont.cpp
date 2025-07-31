@@ -123,8 +123,9 @@ NBNodeCont::retrieve(const std::string& id) const {
 }
 
 
-NBNode*
-NBNodeCont::retrieve(const Position& position, const double offset) const {
+std::vector<NBNode*>
+NBNodeCont::retrieveByPos(const Position& position, const double offset) const {
+    std::vector<NBNode*> result;
     const double extOffset = offset + POSITION_EPS;
     const float cmin[2] = {(float)(position.x() - extOffset), (float)(position.y() - extOffset)};
     const float cmax[2] = {(float)(position.x() + extOffset), (float)(position.y() + extOffset)};
@@ -136,10 +137,10 @@ NBNodeCont::retrieve(const Position& position, const double offset) const {
         if (fabs(node->getPosition().x() - position.x()) <= offset
                 &&
                 fabs(node->getPosition().y() - position.y()) <= offset) {
-            return node;
+            result.push_back(node);
         }
     }
-    return nullptr;
+    return result;
 }
 
 
@@ -939,7 +940,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
 
 
 int
-NBNodeCont::joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
+NBNodeCont::joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, double maxDist) {
 #ifdef DEBUG_JOINJUNCTIONS
     std::cout << "joinSameJunctions...\n";
 #endif

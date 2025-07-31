@@ -282,7 +282,10 @@ NIImporter_ArcView::load() {
         NBNode* from = myNodeCont.retrieve(from_node);
         if (from == nullptr) {
             Position from_pos = shape[0];
-            from = myNodeCont.retrieve(from_pos, nodeJoinDist);
+            std::vector<NBNode*> cands = myNodeCont.retrieveByPos(from_pos, nodeJoinDist);
+            if (!cands.empty()) {
+                from = cands.front();
+            }
             if (from == nullptr) {
                 from = new NBNode(from_node, from_pos);
                 if (!myNodeCont.insert(from)) {
@@ -296,7 +299,10 @@ NIImporter_ArcView::load() {
         NBNode* to = myNodeCont.retrieve(to_node);
         if (to == nullptr) {
             Position to_pos = shape[-1];
-            to = myNodeCont.retrieve(to_pos, nodeJoinDist);
+            std::vector<NBNode*> cands = myNodeCont.retrieveByPos(to_pos, nodeJoinDist);
+            if (!cands.empty()) {
+                to = cands.front();
+            }
             if (to == nullptr) {
                 to = new NBNode(to_node, to_pos);
                 if (!myNodeCont.insert(to)) {
