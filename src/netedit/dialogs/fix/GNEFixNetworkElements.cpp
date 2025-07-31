@@ -22,67 +22,28 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
-#include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEFixNetworkElements.h"
 
 // ===========================================================================
-// member method definitions
+// FOX callback mapping
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNEFixNetworkElements - methods
-// ---------------------------------------------------------------------------
+FXDEFMAP(GNEFixNetworkElements::FixEdgeOptions) FixEdgeOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixNetworkElements::FixEdgeOptions::onCmdSelectOption)
+};
 
-GNEFixNetworkElements::GNEFixNetworkElements(GNEApplicationWindow *mainWindow) :
-    GNEFixElementsDialog(mainWindow, TL("Fix network elements problems"), GUIIcon::SUPERMODENETWORK, 600, 620) {
-    // create fix edge options
-    myFixEdgeOptions = new FixEdgeOptions(this);
-    // create fix crossing  options
-    myFixCrossingOptions = new FixCrossingOptions(this);
-}
+FXDEFMAP(GNEFixNetworkElements::FixCrossingOptions) FixCrossingOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixNetworkElements::FixCrossingOptions::onCmdSelectOption)
+};
 
+// Object abstract implementation
+FXIMPLEMENT(GNEFixNetworkElements::FixEdgeOptions,     MFXGroupBoxModule, FixEdgeOptionsMap,        ARRAYNUMBER(FixEdgeOptionsMap))
+FXIMPLEMENT(GNEFixNetworkElements::FixCrossingOptions, MFXGroupBoxModule, FixCrossingOptionsMap,    ARRAYNUMBER(FixCrossingOptionsMap))
 
-GNEFixNetworkElements::~GNEFixNetworkElements() {}
-
-
-void
-GNEFixNetworkElements::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // run internal test in all modules
-    myFixEdgeOptions->runInternalTest(dialogArgument);
-    myFixCrossingOptions->runInternalTest(dialogArgument);
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
-}
-
-
-GNEDialog::Result
-GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& element) {
-    // split invalidNetworkElements in four groups
-    std::vector<ConflictElement> invalidEdges, invalidCrossings;
-    // fill groups
-    for (const auto& invalidNetworkElement : element) {
-        // create conflict element
-        auto fixElement = ConflictElement(invalidNetworkElement,
-                                          invalidNetworkElement->getID(),
-                                          invalidNetworkElement->getACIcon(),
-                                          invalidNetworkElement->getNetworkElementProblem());
-        // add depending of element type
-        if (invalidNetworkElement->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
-            invalidEdges.push_back(fixElement);
-        } else if (invalidNetworkElement->getTagProperty()->getTag() == SUMO_TAG_CROSSING) {
-            invalidCrossings.push_back(fixElement);
-        }
-    }
-    // fill options
-    myFixEdgeOptions->setInvalidElements(invalidEdges);
-    myFixCrossingOptions->setInvalidElements(invalidCrossings);
-    // open modal dialog
-    return openModal();
-}
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 
 // ---------------------------------------------------------------------------
 // GNEFixNetworkElements::FixEdgeOptions - methods
@@ -279,6 +240,57 @@ GNEFixNetworkElements::FixCrossingOptions::disableOptions() {
     myRemoveInvalidCrossings->disable();
     mySaveInvalidCrossings->disable();
     mySelectInvalidCrossings->disable();
+}
+
+// ---------------------------------------------------------------------------
+// GNEFixNetworkElements - methods
+// ---------------------------------------------------------------------------
+
+GNEFixNetworkElements::GNEFixNetworkElements(GNEApplicationWindow *mainWindow) :
+    GNEFixElementsDialog(mainWindow, TL("Fix network elements problems"), GUIIcon::SUPERMODENETWORK, 600, 620) {
+    // create fix edge options
+    myFixEdgeOptions = new FixEdgeOptions(this);
+    // create fix crossing  options
+    myFixCrossingOptions = new FixCrossingOptions(this);
+}
+
+
+GNEFixNetworkElements::~GNEFixNetworkElements() {}
+
+
+void
+GNEFixNetworkElements::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // run internal test in all modules
+    myFixEdgeOptions->runInternalTest(dialogArgument);
+    myFixCrossingOptions->runInternalTest(dialogArgument);
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
+}
+
+
+GNEDialog::Result
+GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& element) {
+    // split invalidNetworkElements in four groups
+    std::vector<ConflictElement> invalidEdges, invalidCrossings;
+    // fill groups
+    for (const auto& invalidNetworkElement : element) {
+        // create conflict element
+        auto fixElement = ConflictElement(invalidNetworkElement,
+                                          invalidNetworkElement->getID(),
+                                          invalidNetworkElement->getACIcon(),
+                                          invalidNetworkElement->getNetworkElementProblem());
+        // add depending of element type
+        if (invalidNetworkElement->getTagProperty()->getTag() == SUMO_TAG_EDGE) {
+            invalidEdges.push_back(fixElement);
+        } else if (invalidNetworkElement->getTagProperty()->getTag() == SUMO_TAG_CROSSING) {
+            invalidCrossings.push_back(fixElement);
+        }
+    }
+    // fill options
+    myFixEdgeOptions->setInvalidElements(invalidEdges);
+    myFixCrossingOptions->setInvalidElements(invalidCrossings);
+    // open modal dialog
+    return openModal();
 }
 
 /****************************************************************************/

@@ -35,30 +35,10 @@ class GNENetworkElement;
 class GNEFixNetworkElements : public GNEFixElementsDialog<GNENetworkElement*> {
 
 public:
-    /// @brief Constructor
-    GNEFixNetworkElements(GNEApplicationWindow *mainWindow);
-
-    /// @brief destructor
-    ~GNEFixNetworkElements();
-
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-
-    /// @brief open fix dialog
-    GNEDialog::Result openDialog(const std::vector<GNENetworkElement*>& element);
-
-    /// @name FOX-callbacks
-    /// @{
-
-    /// @brief event when user select a option
-    long onCmdSelectOption(FXObject* obj, FXSelector, void*);
-
-    /// @}
-
-protected:
-
     /// @brief groupbox for all radio buttons related with fix edges options
     class FixEdgeOptions : public GNEFixElementsDialog::FixOptions {
+        /// @brief FOX-declaration
+        FXDECLARE(FixEdgeOptions)
 
     public:
         /// @brief constructor
@@ -79,6 +59,9 @@ protected:
         /// @}
 
     protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(FixEdgeOptions)
+
         /// @brief Option "Remove invalid edges"
         FXRadioButton* myRemoveInvalidEdges = nullptr;
 
@@ -104,6 +87,8 @@ protected:
 
     /// @brief groupbox for all radio buttons related with fix crossing options
     class FixCrossingOptions : public GNEFixElementsDialog::FixOptions {
+        /// @brief FOX-declaration
+        FXDECLARE(FixCrossingOptions)
 
     public:
         /// @brief constructor
@@ -124,6 +109,9 @@ protected:
         /// @}
 
     protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(FixCrossingOptions)
+
         /// @brief Option "remove invalid elements"
         FXRadioButton* myRemoveInvalidCrossings = nullptr;
 
@@ -147,6 +135,27 @@ protected:
         FixCrossingOptions& operator=(const FixCrossingOptions&) = delete;
     };
 
+    /// @brief Constructor
+    GNEFixNetworkElements(GNEApplicationWindow *mainWindow);
+
+    /// @brief destructor
+    ~GNEFixNetworkElements();
+
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
+    /// @brief open fix dialog
+    GNEDialog::Result openDialog(const std::vector<GNENetworkElement*>& element);
+
+    /// @name FOX-callbacks
+    /// @{
+
+    /// @brief event when user select a option
+    long onCmdSelectOption(FXObject* obj, FXSelector, void*);
+
+    /// @}
+
+protected:
     /// @brief fix edge options
     FixEdgeOptions* myFixEdgeOptions = nullptr;
 
