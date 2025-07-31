@@ -2,5 +2,5 @@ Warning: Ignoring loaded location attribute nr. 2 for tracking of original locat
 Warning: Found angle of 126.52 degrees at edge '27445000', segment 4.
 Warning: Minor green from edge '7216737#3' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '-24214693#0' to edge '-7727483#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '7727483#0' to edge '-7216737#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '7727483#1' to edge '-7216737#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
