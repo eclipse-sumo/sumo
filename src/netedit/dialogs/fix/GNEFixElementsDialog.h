@@ -13,9 +13,9 @@
 /****************************************************************************/
 /// @file    GNEFixElementsDialog.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Nov 2023
+/// @date    Jul 2025
 ///
-// Dialog used to fix elements during saving
+// template used to fix elements during saving
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -160,6 +160,11 @@ public:
         }
     
     protected:
+        /// @brief default constructor
+        FixOptions() :
+            MFXGroupBoxModule() {
+        }
+
         /// @brief pointer to the parent dialog
         GNEFixElementsDialog *myFixElementDialogParent = nullptr; 
 
