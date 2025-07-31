@@ -462,10 +462,10 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
                                 NBPTLineCont& lc,
                                 NBParkingCont& pc,
                                 bool removeGeometryNodes) {
+    const OptionsCont& oc = OptionsCont::getOptions();
     // load edges that shall not be modified
     std::set<std::string> edges2keep;
     if (removeGeometryNodes) {
-        const OptionsCont& oc = OptionsCont::getOptions();
         if (oc.isSet("geometry.remove.keep-edges.input-file")) {
             NBHelpers::loadEdgesFromFile(oc.getString("geometry.remove.keep-edges.input-file"), edges2keep);
         }
@@ -489,7 +489,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             tlsLookup[e] = to->getControllingTLS();
         }
     }
-
+    const bool outputRemoved = oc.getBool("output.removed-nodes");
     std::vector<NBNode*> toRemove;
     for (const auto& i : myNodes) {
         NBNode* const current = i.second;
@@ -524,6 +524,9 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             sc.replaceEdge(continuation->getID(), { begin });
             lc.replaceEdge(continuation->getID(), { begin });
             ec.extract(dc, continuation, true);
+            if (outputRemoved) {
+                begin->updateRemovedNodes(current->getID());
+            }
         }
         toRemove.push_back(current);
     }

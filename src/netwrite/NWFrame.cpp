@@ -105,6 +105,9 @@ NWFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("output.original-names", new Option_Bool(false));
     oc.addDescription("output.original-names", "Output", TL("Writes original names, if given, as parameter"));
 
+    oc.doRegister("output.removed-nodes", new Option_Bool(false));
+    oc.addDescription("output.removed-nodes", "Output", TL("Writes IDs of nodes remove with --geometry.remove into edge param"));
+
     oc.doRegister("street-sign-output", new Option_FileName());
     oc.addDescription("street-sign-output", "Output", TL("Writes street signs as POIs to FILE"));
 

@@ -1482,6 +1482,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
 
 
 const std::string SUMO_PARAM_ORIGID("origId");
+const std::string SUMO_PARAM_REMOVED_NODES("removedNodeIds");
 
 
 StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[] = {

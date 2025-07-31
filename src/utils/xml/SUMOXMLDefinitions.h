@@ -1973,6 +1973,7 @@ enum SumoXMLAttr {
  * than enum values we do not bother with a StringBijection
  */
 extern const std::string SUMO_PARAM_ORIGID;
+extern const std::string SUMO_PARAM_REMOVED_NODES;
 
 /**
  * @enum SumoXMLNodeType

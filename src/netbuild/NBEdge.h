@@ -1275,6 +1275,9 @@ public:
     /// @brief append another edge
     void append(NBEdge* continuation);
 
+    /// @brief update parameter with removed nodes
+    void updateRemovedNodes(const std::string& removed);
+
     /// @brief Check if edge has signalised connections
     bool hasSignalisedConnectionTo(const NBEdge* const e) const;
 
