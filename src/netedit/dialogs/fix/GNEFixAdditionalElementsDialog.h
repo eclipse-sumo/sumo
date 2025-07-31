@@ -35,21 +35,10 @@ class GNEAdditional;
 class GNEFixAdditionalElementsDialog : public GNEFixElementsDialog<GNEAdditional*> {
 
 public:
-    /// @brief Constructor
-    GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow);
-
-    /// @brief destructor
-    ~GNEFixAdditionalElementsDialog();
-
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-
-    /// @brief open fix dialog
-    GNEDialog::Result openDialog(const std::vector<GNEAdditional*>& element);
-
-protected:
     /// @brief Position options
     class PositionOptions : public GNEFixElementsDialog::FixOptions {
+        /// @brief FOX-declaration
+        FXDECLARE(PositionOptions)
 
     public:
         /// @brief build Position Options
@@ -70,6 +59,9 @@ protected:
         /// @}
 
     protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(PositionOptions)
+
         /// @brief Option "Activate friendlyPos and save"
         FXRadioButton* myActivateFriendlyPosition;
 
@@ -98,6 +90,8 @@ protected:
 
     /// @brief fix consecutive lane options
     class ConsecutiveLaneOptions : public GNEFixElementsDialog::FixOptions {
+        /// @brief FOX-declaration
+        FXDECLARE(ConsecutiveLaneOptions)
 
     public:
         /// @brief build consecutive lane Options
@@ -118,6 +112,9 @@ protected:
         /// @}
 
     protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(ConsecutiveLaneOptions)
+
         /// @brief Option "build connections between lanes"
         FXRadioButton* myBuildConnectionBetweenLanes;
 
@@ -144,6 +141,19 @@ protected:
         ConsecutiveLaneOptions& operator=(const ConsecutiveLaneOptions&) = delete;
     };
 
+    /// @brief Constructor
+    GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow);
+
+    /// @brief destructor
+    ~GNEFixAdditionalElementsDialog();
+
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
+    /// @brief open fix dialog
+    GNEDialog::Result openDialog(const std::vector<GNEAdditional*>& element);
+
+protected:
     /// @brief position options
     PositionOptions* myPositionOptions;
 

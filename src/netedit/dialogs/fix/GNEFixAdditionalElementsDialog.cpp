@@ -20,63 +20,30 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNETagProperties.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <netedit/GNEUndoList.h>
 
 #include "GNEFixAdditionalElementsDialog.h"
 
 // ===========================================================================
-// member method definitions
+// FOX callback mapping
 // ===========================================================================
 
-GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow) :
-    GNEFixElementsDialog(mainWindow, TL("Fix additional problems"), GUIIcon::MODEADDITIONAL, 500, 380) {
-    // create position options
-    myPositionOptions = new PositionOptions(this);
-    // create consecutive lane options
-    myConsecutiveLaneOptions = new ConsecutiveLaneOptions(this);
-}
+FXDEFMAP(GNEFixAdditionalElementsDialog::PositionOptions) PositionOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixAdditionalElementsDialog::PositionOptions::onCmdSelectOption)
+};
 
+FXDEFMAP(GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions) ConsecutiveLaneOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,  GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::onCmdSelectOption)
+};
 
-GNEFixAdditionalElementsDialog::~GNEFixAdditionalElementsDialog() {
-}
+// Object abstract implementation
+FXIMPLEMENT(GNEFixAdditionalElementsDialog::PositionOptions,        MFXGroupBoxModule, PositionOptionsMap,          ARRAYNUMBER(PositionOptionsMap))
+FXIMPLEMENT(GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions, MFXGroupBoxModule, ConsecutiveLaneOptionsMap,   ARRAYNUMBER(ConsecutiveLaneOptionsMap))
 
-
-void
-GNEFixAdditionalElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // run internal test in all modules
-    myPositionOptions->runInternalTest(dialogArgument);
-    myConsecutiveLaneOptions->runInternalTest(dialogArgument);
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
-}
-
-
-GNEDialog::Result
-GNEFixAdditionalElementsDialog::openDialog(const std::vector<GNEAdditional*>& element) {
-    // split invalidDemandElements in four groups
-    std::vector<ConflictElement> invalidSingleLanes, invalidMultiLanes;
-    // fill groups
-    for (const auto& invalidAdditionalElement : element) {
-        // create conflict element
-        auto fixElement = ConflictElement(invalidAdditionalElement,
-                                          invalidAdditionalElement->getID(),
-                                          invalidAdditionalElement->getACIcon(),
-                                          invalidAdditionalElement->getAdditionalProblem());
-        // add depending of element type
-        if (invalidAdditionalElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANE)) {
-            invalidSingleLanes.push_back(fixElement);
-        } else if (invalidAdditionalElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANES)) {
-            invalidMultiLanes.push_back(fixElement);
-        }
-    }
-    // fill options
-    myPositionOptions->setInvalidElements(invalidSingleLanes);
-    myConsecutiveLaneOptions->setInvalidElements(invalidMultiLanes);
-    // open modal dialog
-    return openModal();
-}
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 
 // ---------------------------------------------------------------------------
 // GNEFixAdditionalElementsDialog::PositionOptions - methods
@@ -330,6 +297,58 @@ GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::disableOptions() {
     myRemoveInvalidElements->disable();
     myActivateFriendlyPosition->disable();
     myFixPositions->disable();
+}
+
+// ---------------------------------------------------------------------------
+// GNEFixAdditionalElementsDialog - methods
+// ---------------------------------------------------------------------------
+
+GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow) :
+    GNEFixElementsDialog(mainWindow, TL("Fix additional problems"), GUIIcon::MODEADDITIONAL, 500, 380) {
+    // create position options
+    myPositionOptions = new PositionOptions(this);
+    // create consecutive lane options
+    myConsecutiveLaneOptions = new ConsecutiveLaneOptions(this);
+}
+
+
+GNEFixAdditionalElementsDialog::~GNEFixAdditionalElementsDialog() {
+}
+
+
+void
+GNEFixAdditionalElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // run internal test in all modules
+    myPositionOptions->runInternalTest(dialogArgument);
+    myConsecutiveLaneOptions->runInternalTest(dialogArgument);
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
+}
+
+
+GNEDialog::Result
+GNEFixAdditionalElementsDialog::openDialog(const std::vector<GNEAdditional*>& element) {
+    // split invalidDemandElements in four groups
+    std::vector<ConflictElement> invalidSingleLanes, invalidMultiLanes;
+    // fill groups
+    for (const auto& invalidAdditionalElement : element) {
+        // create conflict element
+        auto fixElement = ConflictElement(invalidAdditionalElement,
+                                          invalidAdditionalElement->getID(),
+                                          invalidAdditionalElement->getACIcon(),
+                                          invalidAdditionalElement->getAdditionalProblem());
+        // add depending of element type
+        if (invalidAdditionalElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANE)) {
+            invalidSingleLanes.push_back(fixElement);
+        } else if (invalidAdditionalElement->getTagProperty()->hasAttribute(SUMO_ATTR_LANES)) {
+            invalidMultiLanes.push_back(fixElement);
+        }
+    }
+    // fill options
+    myPositionOptions->setInvalidElements(invalidSingleLanes);
+    myConsecutiveLaneOptions->setInvalidElements(invalidMultiLanes);
+    // open modal dialog
+    return openModal();
 }
 
 /****************************************************************************/
