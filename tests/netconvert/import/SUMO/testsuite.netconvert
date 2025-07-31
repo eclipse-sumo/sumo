@@ -104,6 +104,9 @@ merge_geo_overlap
 # see #12824
 merge_geo_overlap2
 
+# see #16968
+merge_geo_removedNodeIDs
+
 # load geo-encoded patch into geo network
 patch_geo
 
