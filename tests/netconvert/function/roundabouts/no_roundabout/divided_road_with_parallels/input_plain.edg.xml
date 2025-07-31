@@ -66,6 +66,4 @@
     <edge id="E8" from="J4" to="J17" name="Corso Siracusa" priority="10" type="highway.tertiary" numLanes="2" speed="11.11" shape="2468.37,1725.86 2464.42,1719.03" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
     <edge id="E9" from="J9" to="J17" name="Corso Enrico Tazzoli" priority="10" type="highway.tertiary" numLanes="2" speed="11.11" shape="2441.99,1707.41 2447.05,1704.95 2455.64,1700.91" spreadType="center" allow="passenger taxi bus delivery truck bicycle"/>
 
-    <roundabout nodes="J17 J4 J6" edges="E3 E5 E8"/>
-
 </edges>
