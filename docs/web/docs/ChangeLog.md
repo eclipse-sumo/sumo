@@ -6,6 +6,26 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed crash in rail simulation after rerouting #16958
+  - Rerouters with parkingAreaReroute now take into account `parkingBadges` and `acceptedBadges` #16966
+  - Output file paths defined with param keys `device.ssm.file` and `device.toc.file` are now interpreted relative to the file in which they are defined. #16967
+
+- netconvert
+  - Fixed crash when importing OSM data with public transport relations that reference unknown nodes #16953 (regression in 1.24.0)
+  - Fixed inconsistent behavior when setting option **--default.spreadtype** for OSM import #16952
+
+- sumo-gui
+  - Fixed bug where an unrelated vehicle becomes selected after a selected vehicle has left the simulation #16955
+
+- meso
+  - Fixed error when loading state with high event times #16936
+ 
+### Enhancements
+
+- sumo
+  - Option **--max-num-persons 0** can now be used to run a simulation without persons. #16965
+
 ## Version 1.24.0 (22.07.2025)
 
 ### Bugfixes
