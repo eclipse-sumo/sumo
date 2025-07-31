@@ -75,12 +75,6 @@ public:
         FXCheckButton* myRemoveStopsOutOfRoute;
 
     private:
-        /// @brief enable route options
-        void enableOptions();
-
-        /// @brief disable route options
-        void disableOptions();
-
         /// @brief Invalidated copy constructor.
         FixRouteOptions(const FixRouteOptions&) = delete;
 
@@ -128,12 +122,6 @@ public:
         FXCheckButton* myRemoveStopsOutOfVehicle;
 
     private:
-        /// @brief enable vehicle options
-        void enableOptions();
-
-        /// @brief disable vehicle options
-        void disableOptions();
-
         /// @brief Invalidated copy constructor.
         FixVehicleOptions(const FixVehicleOptions&) = delete;
 
@@ -181,12 +169,6 @@ public:
         FXRadioButton* mySelectInvalidStops;
 
     private:
-        /// @brief enable stop options
-        void enableOptions();
-
-        /// @brief disable stop options
-        void disableOptions();
-
         /// @brief Invalidated copy constructor.
         FixStopPositionOptions(const FixStopPositionOptions&) = delete;
 
@@ -231,12 +213,6 @@ public:
         FXRadioButton* mySelectInvalidPlans;
 
     private:
-        /// @brief enable personPlan options
-        void enableOptions();
-
-        /// @brief disable personPlan options
-        void disableOptions();
-
         /// @brief Invalidated copy constructor.
         FixPlanOptions(const FixPlanOptions&) = delete;
 

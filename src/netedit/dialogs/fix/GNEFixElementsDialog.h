@@ -169,18 +169,6 @@ public:
         }
     
     protected:
-        /// @brief default constructor
-        FixOptions() :
-            MFXGroupBoxModule() {
-        }
-
-        /// @brief add option to options container (used for adjust width and enable/disable)
-        void registerOption(FXWindow *option) {
-            myOptions.push_back(option);
-            // adjust width
-            option->setWidth(myTable->getWidth() * 0.5);
-        }
-
         /// @brief pointer to the parent dialog
         GNEFixElementsDialog *myFixElementDialogParent = nullptr; 
 
@@ -196,15 +184,37 @@ public:
         /// @brief list of elements to fix
         std::vector<ConflictElement> myConflictedElements;
 
+        /// @brief default constructor
+        FixOptions() :
+            MFXGroupBoxModule() {
+        }
+
+        /// @brief add option to options container (used for adjust width and enable/disable)
+        void registerOption(FXWindow *option) {
+            myOptions.push_back(option);
+            // adjust width
+            option->setWidth(myTable->getWidth() * 0.5);
+        }
+
     private:
         /// @brief list of options
         std::vector<FXWindow*> myOptions;
 
         /// @brief enable options
-        virtual void enableOptions() = 0;
+        void enableOptions() {
+            // enable each option
+            for (auto option : myOptions) {
+                option->enable();
+            }
+        }
 
         /// @brief disable options
-        virtual void disableOptions() = 0;
+        void disableOptions() {
+            // disable each option
+            for (auto option : myOptions) {
+                option->disable();
+            }
+        }
 
         /// @brief save save list of conflicted items to a file (Reimplemented from MFXGroupBoxModule)
         bool saveContents() const {

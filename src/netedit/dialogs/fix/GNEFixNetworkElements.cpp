@@ -131,22 +131,6 @@ GNEFixNetworkElements::FixEdgeOptions::onCmdSelectOption(FXObject* obj, FXSelect
     return 1;
 }
 
-
-void
-GNEFixNetworkElements::FixEdgeOptions::enableOptions() {
-    myRemoveInvalidEdges->enable();
-    mySaveInvalidEdges->enable();
-    mySelectInvalidEdges->enable();
-}
-
-
-void
-GNEFixNetworkElements::FixEdgeOptions::disableOptions() {
-    myRemoveInvalidEdges->disable();
-    mySaveInvalidEdges->disable();
-    mySelectInvalidEdges->disable();
-}
-
 // ---------------------------------------------------------------------------
 // GNEFixNetworkElements::FixCrossingOptions - methods
 // ---------------------------------------------------------------------------
@@ -238,22 +222,6 @@ GNEFixNetworkElements::FixCrossingOptions::onCmdSelectOption(FXObject* obj, FXSe
         mySelectInvalidCrossings->setCheck(true);
     }
     return 1;
-}
-
-
-void
-GNEFixNetworkElements::FixCrossingOptions::enableOptions() {
-    myRemoveInvalidCrossings->enable();
-    mySaveInvalidCrossings->enable();
-    mySelectInvalidCrossings->enable();
-}
-
-
-void
-GNEFixNetworkElements::FixCrossingOptions::disableOptions() {
-    myRemoveInvalidCrossings->disable();
-    mySaveInvalidCrossings->disable();
-    mySelectInvalidCrossings->disable();
 }
 
 // ---------------------------------------------------------------------------

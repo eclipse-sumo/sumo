@@ -160,24 +160,6 @@ GNEFixAdditionalElementsDialog::PositionOptions::onCmdSelectOption(FXObject* obj
     return 1;
 }
 
-
-void
-GNEFixAdditionalElementsDialog::PositionOptions::enableOptions() {
-    myActivateFriendlyPosition->enable();
-    myFixPositions->enable();
-    mySaveInvalids->enable();
-    mySelectInvalids->enable();
-}
-
-
-void
-GNEFixAdditionalElementsDialog::PositionOptions::disableOptions() {
-    myActivateFriendlyPosition->disable();
-    myFixPositions->disable();
-    mySaveInvalids->disable();
-    mySelectInvalids->disable();
-}
-
 // ---------------------------------------------------------------------------
 // GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions - methods
 // ---------------------------------------------------------------------------
@@ -289,24 +271,6 @@ GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::onCmdSelectOption(FXObje
         myFixPositions->setCheck(true);
     }
     return true;
-}
-
-
-void
-GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::enableOptions() {
-    myBuildConnectionBetweenLanes->enable();
-    myRemoveInvalidElements->enable();
-    myActivateFriendlyPosition->enable();
-    myFixPositions->enable();
-}
-
-
-void
-GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::disableOptions() {
-    myBuildConnectionBetweenLanes->disable();
-    myRemoveInvalidElements->disable();
-    myActivateFriendlyPosition->disable();
-    myFixPositions->disable();
 }
 
 // ---------------------------------------------------------------------------

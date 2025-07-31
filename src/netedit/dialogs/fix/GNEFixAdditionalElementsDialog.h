@@ -75,12 +75,6 @@ public:
         FXRadioButton* mySelectInvalids;
 
     private:
-        /// @brief enable position options
-        void enableOptions();
-
-        /// @brief disable position options
-        void disableOptions();
-
         /// @brief Invalidated copy constructor.
         PositionOptions(const PositionOptions&) = delete;
 
@@ -128,12 +122,6 @@ public:
         FXRadioButton* myFixPositions;
 
     private:
-        /// @brief enable position options
-        void enableOptions();
-
-        /// @brief disable position options
-        void disableOptions();
-
         /// @brief Invalidated copy constructor.
         ConsecutiveLaneOptions(const ConsecutiveLaneOptions&) = delete;
 
