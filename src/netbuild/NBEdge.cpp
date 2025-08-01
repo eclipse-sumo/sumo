@@ -579,6 +579,15 @@ NBEdge::roundGeometry() {
 
 
 void
+NBEdge::roundSpeed() {
+    mySpeed = roundDecimalToEven(mySpeed, gPrecision);
+    // lane speeds are not used for computation but are compared to mySpeed in hasLaneSpecificSpeed
+    for (Lane& l : myLanes) {
+        l.speed = roundDecimalToEven(l.speed, gPrecision);
+    }
+}
+
+void
 NBEdge::mirrorX() {
     myGeom.mirrorX();
     for (int i = 0; i < (int)myLanes.size(); i++) {
