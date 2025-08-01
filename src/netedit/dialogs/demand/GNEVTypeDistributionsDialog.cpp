@@ -390,10 +390,10 @@ GNEVTypeDistributionsDialog::ParametersOperations::onCmdHelpParameter(FXObject*,
     // set help text
     std::ostringstream help;
     help
-        << TL("- Parameters are defined by a Key and a Value.") << "\n"
-        << TL("- In Netedit can be defined using format key1=parameter1|key2=parameter2|...") << "\n"
-        << TL(" - Duplicated and empty Keys aren't valid.") << "\n"
-        << TL(" - Whitespace and certain characters aren't allowed (@$%^&/|\\....)");
+            << TL("- Parameters are defined by a Key and a Value.") << "\n"
+            << TL("- In Netedit can be defined using format key1=parameter1|key2=parameter2|...") << "\n"
+            << TL(" - Duplicated and empty Keys aren't valid.") << "\n"
+            << TL(" - Whitespace and certain characters aren't allowed (@$%^&/|\\....)");
     // create help dialog
     GNEHelpBasicDialog(myParameterDialogParent->myTypeFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
                        TL("Parameters Help"), help);

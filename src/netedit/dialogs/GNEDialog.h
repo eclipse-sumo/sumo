@@ -72,21 +72,21 @@ public:
     };
 
     /// @brief constructor for rigid dialogs
-    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
+    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
               GUIIcon titleIcon, Buttons buttons, OpenType openType);
 
     /// @brief constructor for rigid dialogs with layout explicit
-    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
+    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
               GUIIcon titleIcon, Buttons buttons, OpenType openType,
               const int width, const int height);
 
     /// @brief constructor for resizable dialogs
-    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
+    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
               GUIIcon titleIcon, Buttons buttons, OpenType openType,
               ResizeMode resizeMode);
 
     /// @brief constructor for resizable dialogs with layout explicit
-    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
+    GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
               GUIIcon titleIcon, Buttons buttons, OpenType openType,
               ResizeMode resizeMode, const int width, const int height);
 
@@ -108,7 +108,7 @@ public:
     /// @brief called when cancel or nobutton is pressed (can be reimplemented in children)
     virtual long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief called when abort is called (either closing dialog or pressing abort button) 
+    /// @brief called when abort is called (either closing dialog or pressing abort button)
     long onCmdAbort(FXObject*, FXSelector, void*);
 
     /// @}

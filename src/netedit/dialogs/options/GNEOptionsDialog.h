@@ -57,7 +57,7 @@ public:
      * @param[in] optionsContainer edited option container
      * @param[in] originalOptionsContainer original options container
      */
-    GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, const std::string &titleName,
+    GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, const std::string& titleName,
                      GNEDialog::Buttons buttons, OptionsCont& optionsContainer,
                      const OptionsCont& originalOptionsContainer);
 

@@ -157,7 +157,7 @@ GNECalibratorFlowDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     std::string title;
     std::string infoA;
     std::string infoB;
-    const auto &parentTagString = myEditedAdditional->getParentAdditionals().at(0)->getTagStr();
+    const auto& parentTagString = myEditedAdditional->getParentAdditionals().at(0)->getTagStr();
     // set title
     if (myUpdatingElement) {
         title = TLF("Error updating %'s %", myEditedAdditional->getTagStr(), parentTagString);

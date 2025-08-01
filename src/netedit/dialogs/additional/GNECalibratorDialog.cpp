@@ -166,7 +166,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
         if (myRouteList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains route to delete as "route" parameter
             std::vector<GNEAdditional*> calibratorFlowsToErase;
-            for (const auto &additional : myEditedAdditional->getChildAdditionals()) {
+            for (const auto& additional : myEditedAdditional->getChildAdditionals()) {
                 if (additional->getAttribute(SUMO_ATTR_ROUTE) == myRouteList->getItem(i, 0)->getText().text()) {
                     calibratorFlowsToErase.push_back(additional);
                 }
@@ -179,16 +179,16 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                 // continue depending of number of flows to erase
                 if (calibratorFlowsToErase.size() == 1) {
                     title = TLF("Remove %", toString(GNE_TAG_CALIBRATOR_FLOW));
-                    info = TLF ("Deletion of % '%' will remove one %. Continue?", toString(SUMO_TAG_ROUTE),
-                                myRouteList->getItem(i, 0)->getText().text(), toString(GNE_TAG_CALIBRATOR_FLOW));
+                    info = TLF("Deletion of % '%' will remove one %. Continue?", toString(SUMO_TAG_ROUTE),
+                               myRouteList->getItem(i, 0)->getText().text(), toString(GNE_TAG_CALIBRATOR_FLOW));
                 } else {
                     title = TLF("Remove %s", toString(GNE_TAG_CALIBRATOR_FLOW));
-                    info = TLF ("Deletion of % '%' will remove % %s. Continue?", toString(SUMO_TAG_ROUTE),
-                                myRouteList->getItem(i, 0)->getText().text(), toString(calibratorFlowsToErase.size()), toString(GNE_TAG_CALIBRATOR_FLOW));
+                    info = TLF("Deletion of % '%' will remove % %s. Continue?", toString(SUMO_TAG_ROUTE),
+                               myRouteList->getItem(i, 0)->getText().text(), toString(calibratorFlowsToErase.size()), toString(GNE_TAG_CALIBRATOR_FLOW));
                 }
                 // open question dialog box
-                const auto questionDialog = GNEQuestionBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), 
-                                                                   GNEDialog::Buttons::YES_NO, title, info);
+                const auto questionDialog = GNEQuestionBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                                            GNEDialog::Buttons::YES_NO, title, info);
                 // continue depending of answer
                 if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
                     // remove affected flows of calibrator flows
@@ -301,16 +301,16 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                 // continue depending of number of flows to erase
                 if (calibratorFlowsToErase.size() == 1) {
                     title = TLF("Remove %", toString(GNE_TAG_CALIBRATOR_FLOW));
-                    info = TLF ("Deletion of % '%' will remove one %. Continue?", toString(SUMO_TAG_VTYPE),
-                                myRouteList->getItem(i, 0)->getText().text(), toString(GNE_TAG_CALIBRATOR_FLOW));
+                    info = TLF("Deletion of % '%' will remove one %. Continue?", toString(SUMO_TAG_VTYPE),
+                               myRouteList->getItem(i, 0)->getText().text(), toString(GNE_TAG_CALIBRATOR_FLOW));
                 } else {
                     title = TLF("Remove %s", toString(GNE_TAG_CALIBRATOR_FLOW));
-                    info = TLF ("Deletion of % '%' will remove % %s. Continue?", toString(SUMO_TAG_VTYPE),
-                                myRouteList->getItem(i, 0)->getText().text(), toString(calibratorFlowsToErase.size()), toString(GNE_TAG_CALIBRATOR_FLOW));
+                    info = TLF("Deletion of % '%' will remove % %s. Continue?", toString(SUMO_TAG_VTYPE),
+                               myRouteList->getItem(i, 0)->getText().text(), toString(calibratorFlowsToErase.size()), toString(GNE_TAG_CALIBRATOR_FLOW));
                 }
                 // open question dialog box
-                const auto questionDialog = GNEQuestionBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(), 
-                                                                   GNEDialog::Buttons::YES_NO, title, info);
+                const auto questionDialog = GNEQuestionBasicDialog(myEditedAdditional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+                                            GNEDialog::Buttons::YES_NO, title, info);
                 // continue depending of answer
                 if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
                     // remove affected flows of calibrator flows

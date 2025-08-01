@@ -840,7 +840,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
                                  TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
                                  toString(sinks.size()) + TL(" sinks from ") + toString(TAZs.size()) + TL(" TAZs?");
         // open question dialog
-        const auto questionDialog = GNEQuestionBasicDialog(myTAZFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), 
+        const auto questionDialog = GNEQuestionBasicDialog(myTAZFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
                                                            GNEDialog::Buttons::YES_NO, TL("Set zero fringe probabilities"), text);
         // continue depending of answer
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
@@ -855,7 +855,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
         }
     } else {
         // show information box
-        GNEInformationBasicDialog(myTAZFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(), 
+        GNEInformationBasicDialog(myTAZFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
                                   TL("Set zero fringe probabilities"), TL("No source/sinks to update."));
     }
     return 1;

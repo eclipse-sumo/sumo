@@ -33,8 +33,8 @@ public:
     using GNEDialog::getResult;
 
     /// @brief Constructor
-    GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string &title,
-                   const std::string &info, GNEDialog::Buttons buttons, GUIIcon titleIcon,
+    GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& title,
+                   const std::string& info, GNEDialog::Buttons buttons, GUIIcon titleIcon,
                    GUIIcon largeIcon);
 
     /// @brief Destructor

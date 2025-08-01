@@ -1649,9 +1649,9 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         if ((junction.second->getPositionInView() == pos) && (cluster.find(junction.second->getNBNode()) == cluster.end())) {
             // open dialog
             const auto questionDialog = GNEQuestionBasicDialog(myViewNet->getViewParent()->getGNEAppWindows(), GNEDialog::Buttons::YES_NO,
-                                                               TL("Position of joined junction"),
-                                                               TL("There is another unselected junction in the same position of joined junction."),
-                                                               TL("It will be joined with the other selected junctions. Continue?"));
+                                        TL("Position of joined junction"),
+                                        TL("There is another unselected junction in the same position of joined junction."),
+                                        TL("It will be joined with the other selected junctions. Continue?"));
             // check dialog result
             if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
                 // select conflicted junction an join all again
@@ -2236,7 +2236,7 @@ GNENet::saveAdditionals() {
     if (invalidAdditionals.size() > 0) {
         // open fix additional elements dialog
         const auto fixAdditionalElements = GNEFixAdditionalElementsDialog(myViewNet->getViewParent()->getGNEAppWindows(),
-                                                                          invalidAdditionals);
+                                           invalidAdditionals);
         if (fixAdditionalElements.getResult() == GNEDialog::Result::ACCEPT) {
             return false;
         } else {
@@ -2288,7 +2288,7 @@ GNENet::saveDemandElements() {
     if (invalidSingleLaneDemandElements.size() > 0) {
         // open fix demand elements dialog
         const auto fixDemandElement = GNEFixDemandElementsDialog(myViewNet->getViewParent()->getGNEAppWindows(),
-                                                                 invalidSingleLaneDemandElements);
+                                      invalidSingleLaneDemandElements);
         if (fixDemandElement.getResult() == GNEDialog::Result::ACCEPT) {
             saveDemandElementsConfirmed();
             return true;
