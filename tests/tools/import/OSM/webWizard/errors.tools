@@ -81,7 +81,7 @@ Warning: Ambiguity in turnarounds computation at junction '1206481808'.
 Warning: Ambiguity in turnarounds computation at junction '1575952504'.
 Warning: Ambiguity in turnarounds computation at junction '1661927181'.
 Warning: Ambiguity in turnarounds computation at junction '196721246'.
-Warning: Found sharp turn with radius 6.03 at the start of edge '122820534#0'.
+Warning: Found sharp turn with radius 6.02 at the start of edge '122820534#0'.
 Warning: Invalid pedestrian topology: crossing ':cluster_2010745295_2010745299_2045862310_4603453643_#2more_c3' across [-195411601#1 195411601#1 -4402228 4402228 165409971#1 -165409971#1] has no target.
 Warning: Discarding invalid crossing ':cluster_2010745295_2010745299_2045862310_4603453643_#2more_c0' at junction 'cluster_2010745295_2010745299_2045862310_4603453643_#2more' with edges [190447766#2] (no walkingarea found).
 Warning: Discarding invalid crossing ':cluster_2010745295_2010745299_2045862310_4603453643_#2more_c1' at junction 'cluster_2010745295_2010745299_2045862310_4603453643_#2more' with edges [190447768#1 195411601#0 -22820560#3 -165409971#2 195411594#0] (no walkingarea found).

@@ -10,6 +10,6 @@ Warning: Converting invalid rail_crossing to priority junction '11663088177'.
 Warning: Converting invalid rail_crossing to priority junction '11663088180'.
 Warning: Converting invalid rail_crossing to priority junction '11956581822'.
 Warning: Reducing junction cluster 100148217,100148221,100150570,11663088175,11663088177,11956581822,11956581823,11956581824,12297648733,12297648758,12297648759,1540496418,1806879098,244149489,28250597,28250611,28250929,3600009179,3600009182,517482930,9887627102,9887627103,9887627108,9887627109,9893628557,9893628558 (parallel outgoing 1329066857#0,152046245#0).
-Warning: Found sharp turn with radius 6.41 at the end of edge '-220690532'.
-Warning: Found sharp turn with radius 6.41 at the start of edge '889210239'.
+Warning: Found sharp turn with radius 6.57 at the end of edge '-220690532'.
+Warning: Found sharp turn with radius 6.57 at the start of edge '889210239'.
 Warning: 12 total messages of type: Converting invalid rail_crossing to priority junction '%'.

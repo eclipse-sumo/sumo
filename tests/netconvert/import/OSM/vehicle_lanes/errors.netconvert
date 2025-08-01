@@ -11,4 +11,4 @@ Warning: Ignoring restriction relation '1205706' with unknown from-way.
 Warning: Ignoring restriction relation '1205706' with unknown via.
 Warning: Ignoring restriction relation '7892483' with unknown to-way.
 Warning: Ignoring restriction relation '7892483' with unknown via.
-Warning: Speed of straight connection '596514118#1_0->-313465298#1_0' reduced by 7.09 due to turning radius of 8.41 (length=2.84, angle=36.43).
+Warning: Speed of straight connection '596514118#1_0->-313465298#1_0' reduced by 7.09 due to turning radius of 8.41 (length=2.84, angle=36.41).

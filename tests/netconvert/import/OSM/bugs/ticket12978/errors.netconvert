@@ -40,8 +40,8 @@ Warning: The traffic light '2923898716' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '2923898716'
 Warning: The traffic light '5176233944' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '5176233944'
-Warning: Speed of straight connection '32391477#1_1->4730804_1' reduced by 7.95 due to turning radius of 6.42 (length=1.58, angle=31.11).
-Warning: Speed of straight connection '4310918#1_0->30581192#0_0' reduced by 5.37 due to turning radius of 13.19 (length=3.88, angle=32.93).
+Warning: Speed of straight connection '32391477#1_1->4730804_1' reduced by 7.93 due to turning radius of 6.46 (length=1.57, angle=30.92).
+Warning: Speed of straight connection '4310918#1_0->30581192#0_0' reduced by 5.37 due to turning radius of 13.18 (length=3.88, angle=32.94).
 Warning: 6 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
 Warning: 10 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 30 total messages of type: Discarding way '%' because it has only % node(s)

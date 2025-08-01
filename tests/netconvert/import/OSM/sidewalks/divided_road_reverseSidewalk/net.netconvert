@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-23 13:42:37 by Eclipse SUMO netconvert Version v1_21_0+1978-9485604f7bf
+<!-- generated on 2025-08-01 13:22:21 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <proj.utm value="true"/>
     </projection>
 
+    <formats>
+        <osm.oneway-reverse-sidewalk value="true"/>
+    </formats>
+
     <report>
         <xml-validation value="never"/>
     </report>
@@ -41,27 +45,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="highway.tertiary" priority="10" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0" sidewalkWidth="3.00"/>
 
     <edge id=":1877290319_0" function="internal">
-        <lane id=":1877290319_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="4.70" length="9.18" shape="17.81,9.22 12.09,16.41"/>
+        <lane id=":1877290319_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="4.70" length="9.19" shape="17.77,9.19 12.05,16.38"/>
     </edge>
 
     <edge id="-177272023" from="1877289102" to="1877290319" name="Rue de l&amp;apos;Amiral de Ruyter" priority="10" type="highway.tertiary" shape="0.00,9.74 6.23,11.33 9.30,12.68 11.48,13.91 27.15,26.05 30.61,28.58 33.91,30.89 37.94,33.50 50.32,41.13">
-        <lane id="-177272023_0" index="0" allow="pedestrian" speed="13.89" length="14.58" width="3.00" shape="0.37,8.28 6.72,9.91 9.97,11.34 12.31,12.66 13.72,13.75"/>
+        <lane id="-177272023_0" index="0" allow="pedestrian" speed="13.89" length="14.53" width="3.00" shape="0.37,8.29 6.72,9.91 9.97,11.34 12.31,12.66 13.69,13.72"/>
     </edge>
     <edge id="-177272024" from="1877290319" to="10030618826" name="Rue de l&amp;apos;Amiral de Ruyter" priority="10" type="highway.tertiary" shape="50.32,41.13 40.16,30.84 36.44,27.15 32.49,23.65 28.91,20.42 14.51,8.58 12.91,7.00 11.31,5.07 10.24,3.37 8.46,0.00">
-        <lane id="-177272024_0" index="0" allow="pedestrian" speed="13.89" length="13.80" width="3.00" shape="15.59,11.41 13.50,9.69 11.81,8.02 10.09,5.95 8.94,4.12 7.14,0.70"/>
+        <lane id="-177272024_0" index="0" allow="pedestrian" speed="13.89" length="13.75" width="3.00" shape="15.55,11.38 13.50,9.70 11.80,8.01 10.09,5.95 8.94,4.12 7.13,0.70"/>
     </edge>
     <edge id="177272023" from="1877290319" to="1877289102" name="Rue de l&amp;apos;Amiral de Ruyter" priority="10" type="highway.tertiary" shape="50.32,41.13 37.94,33.50 33.91,30.89 30.61,28.58 27.15,26.05 11.48,13.91 9.30,12.68 6.23,11.33 0.00,9.74">
-        <lane id="177272023_0" index="0" allow="pedestrian" speed="13.89" length="13.17" width="3.00" shape="10.45,19.06 8.87,17.83 7.19,16.89 4.69,15.79 -1.16,14.29"/>
-        <lane id="177272023_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="13.17" shape="12.09,16.41 10.59,15.25 8.58,14.11 5.71,12.85 -0.40,11.29"/>
+        <lane id="177272023_0" index="0" allow="pedestrian" speed="13.89" length="13.12" width="3.00" shape="10.41,19.03 8.87,17.84 7.19,16.89 4.69,15.79 -1.16,14.29"/>
+        <lane id="177272023_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="13.12" shape="12.05,16.38 10.59,15.25 8.58,14.11 5.71,12.85 -0.40,11.29"/>
     </edge>
     <edge id="177272024" from="10030618826" to="1877290319" name="Rue de l&amp;apos;Amiral de Ruyter" priority="10" type="highway.tertiary" shape="8.46,0.00 10.24,3.37 11.31,5.07 12.91,7.00 14.51,8.58 28.91,20.42 32.49,23.65 36.44,27.15 40.16,30.84 50.32,41.13">
-        <lane id="177272024_0" index="0" allow="pedestrian" speed="13.89" length="12.43" width="3.00" shape="12.62,-2.19 14.31,1.01 15.13,2.31 16.38,3.82 17.66,5.08 20.02,7.03"/>
-        <lane id="177272024_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="12.43" shape="9.88,-0.75 11.62,2.57 12.61,4.13 14.09,5.92 15.58,7.39 17.81,9.22"/>
+        <lane id="177272024_0" index="0" allow="pedestrian" speed="13.89" length="12.39" width="3.00" shape="12.62,-2.20 14.31,1.02 15.12,2.31 16.38,3.82 17.66,5.09 19.99,7.00"/>
+        <lane id="177272024_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="12.39" shape="9.87,-0.75 11.63,2.57 12.61,4.13 14.09,5.92 15.58,7.39 17.77,9.19"/>
     </edge>
 
-    <junction id="10030618826" type="dead_end" x="8.46" y="0.00" incLanes="-177272024_0" intLanes="" shape="8.46,0.00 5.81,1.40 8.46,0.00"/>
-    <junction id="1877289102" type="dead_end" x="0.00" y="9.74" incLanes="177272023_0 177272023_1" intLanes="" shape="0.00,9.74 -1.54,15.74 0.00,9.74"/>
-    <junction id="1877290319" type="priority" x="50.32" y="41.13" incLanes="177272024_0 177272024_1 -177272023_0" intLanes=":1877290319_0_0" shape="21.09,5.97 14.52,12.47 9.66,20.35">
+    <junction id="10030618826" type="dead_end" x="8.46" y="0.00" incLanes="-177272024_0" intLanes="" shape="8.46,-0.00 5.81,1.40 8.46,0.00"/>
+    <junction id="1877289102" type="dead_end" x="0.00" y="9.74" incLanes="177272023_0 177272023_1" intLanes="" shape="-0.00,9.74 -1.53,15.75 0.00,9.74"/>
+    <junction id="1877290319" type="priority" x="50.32" y="41.13" incLanes="177272024_0 177272024_1 -177272023_0" intLanes=":1877290319_0_0" shape="21.06,5.94 14.48,12.44 9.62,20.31">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

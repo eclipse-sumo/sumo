@@ -19,13 +19,13 @@ Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' i
 Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231713 seems to be split, only keeping first part.
 Warning: PT line 'Buslinie 164: S Kaulsdorf => S Flughafen Berlin-Schönefeld' in relation 2064835 seems to be split, only keeping first part.
 Warning: PT stop '851572693' has been moved to edge '-46150481#0'.
-Warning: Edge '-142575745' has a grade of 12.35%.
-Warning: Edge '-172014854#1' has a grade of 11.09%.
-Warning: Edge '-172014854#2' has a grade of 10.79%.
-Warning: Edge '-24214694#1' has a grade of 15.00%.
-Warning: Edge '-24214694#4' has a grade of 13.97%.
+Warning: Edge '-142575745' has a grade of 12.36%.
+Warning: Edge '-172014854#1' has a grade of 11.33%.
+Warning: Edge '-172014854#2' has a grade of 10.78%.
+Warning: Edge '-24214694#1' has a grade of 14.95%.
+Warning: Edge '-24214694#4' has a grade of 13.96%.
 Warning: Removing pt stop '735390157' on non existing edge ''.
 Warning: Removing pt stop '852932403' on non existing edge ''.
 Warning: Removed 2 pt stops because they could not be assigned to the network
-Warning: 22 total messages of type: Edge '%' has a grade of %%.
+Warning: 23 total messages of type: Edge '%' has a grade of %%.
 Warning: 9 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.

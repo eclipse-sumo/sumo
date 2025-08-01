@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-29 10:36:57 by Eclipse SUMO netconvert Version v1_22_0+1806-33294317c71
+<!-- generated on 2025-08-01 13:22:31 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -112,7 +112,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster_1791264882_1791264883_5451501353_8_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="4.67" shape="2246.02,2612.68 2247.23,2611.89 2248.12,2611.84 2248.70,2612.52 2248.96,2613.94"/>
     </edge>
     <edge id=":cluster_1791264882_1791264883_5451501353_c0" function="crossing" crossingEdges="23809678#2 143931934">
-        <lane id=":cluster_1791264882_1791264883_5451501353_c0_0" index="0" allow="pedestrian" speed="2.78" length="5.09" width="4.00" shape="2246.71,2612.92 2246.69,2607.83" outlineShape="2244.71,2612.11 2244.69,2607.73 2248.69,2608.33 2244.69,2607.83 2248.69,2608.33 2248.71,2613.39 2244.71,2612.11 2247.49,2613.31 2250.43,2614.57 2252.79,2614.34 2251.21,2613.90 2249.87,2613.62 2248.71,2613.39"/>
+        <lane id=":cluster_1791264882_1791264883_5451501353_c0_0" index="0" allow="pedestrian" speed="2.78" length="5.09" width="4.00" shape="2246.71,2612.92 2246.69,2607.83" outlineShape="2244.71,2612.92 2244.69,2607.83 2248.69,2608.33 2244.69,2607.83 2248.69,2608.33 2248.71,2613.39 2248.54,2613.35 2246.94,2612.93"/>
     </edge>
     <edge id=":cluster_1791264882_1791264883_5451501353_w0" function="walkingarea">
         <lane id=":cluster_1791264882_1791264883_5451501353_w0_0" index="0" allow="pedestrian" speed="2.78" length="5.23" width="4.00" shape="2255.21,2610.16 2253.35,2609.42 2251.49,2608.68 2244.69,2607.83 2248.69,2607.82"/>

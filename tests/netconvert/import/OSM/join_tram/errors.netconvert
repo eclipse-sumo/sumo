@@ -19,7 +19,7 @@ Warning: PT stop '3901927130' has been moved to edge '-32035133'.
 Warning: Ambiguity in turnarounds computation at junction '2526575765'.
 Warning: Ambiguity in turnarounds computation at junction '632909234'.
 Warning: Ambiguity in turnarounds computation at junction '768038181'.
-Warning: Found sharp turn with radius 8.78 at the start of edge '197740390#1'.
+Warning: Found sharp turn with radius 8.74 at the start of edge '197740390#1'.
 Warning: Converting invalid rail_crossing to priority junction '1428640919'.
 Warning: Converting invalid rail_crossing to priority junction '1828307001'.
 Warning: Converting invalid rail_crossing to priority junction '1828354123'.
