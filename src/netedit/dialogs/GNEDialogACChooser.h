@@ -47,9 +47,10 @@ public:
      * @param[in] viewParent GNEViewParent of Netedit
      * @param[in] icon The icon to use
      * @param[in] title The title to use
-     * @param[in] ACs list of choosen ACs
+     * @param[in] ACs map with choosen ACs sorted by IDs
      */
-    GNEDialogACChooser(GNEViewParent* viewParent, int messageId, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs);
+    GNEDialogACChooser(GNEViewParent* viewParent, int messageId, FXIcon* icon, const std::string& title,
+                       const std::map<std::string, GNEAttributeCarrier*>& ACs);
 
     /// @brief Destructor
     ~GNEDialogACChooser();
