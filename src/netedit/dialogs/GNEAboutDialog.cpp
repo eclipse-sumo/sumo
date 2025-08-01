@@ -61,6 +61,8 @@ GNEAboutDialog::GNEAboutDialog(GNEApplicationWindow* applicationWindow) :
     (new MFXLinkLabel(myContentFrame, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
     // link to homepage
     (new MFXLinkLabel(myContentFrame, "https://www.eclipse.dev/sumo", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.dev/sumo");
+    // open modal dialog
+    openModalDialog();
 }
 
 

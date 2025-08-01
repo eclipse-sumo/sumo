@@ -82,6 +82,8 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
     GUIDesigns::buildFXButton(horizontalFrame, "", "", TL("Select filename"),
                               GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GNE_OPEN, GUIDesignButtonIcon);
     myOutputTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // open dialog
+    openDialog();
 }
 
 

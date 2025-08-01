@@ -221,16 +221,14 @@ public:
     };
 
     /// @brief Constructor
-    GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow);
+    GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow, 
+                               const std::vector<GNEDemandElement*>& elements);
 
     /// @brief destructor
     ~GNEFixDemandElementsDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-
-    /// @brief open fix dialog
-    GNEDialog::Result openDialog(const std::vector<GNEDemandElement*>& element);
 
 protected:
     /// @brief fix route options

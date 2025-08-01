@@ -154,6 +154,8 @@ GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, c
     }
     // set myShowToolTipsMenu
     myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
+    // open modal dialog
+    openModalDialog();
 }
 
 

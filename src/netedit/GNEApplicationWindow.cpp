@@ -1251,7 +1251,7 @@ GNEApplicationWindow::onCmdLoadDemandInSUMOGUI(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
     // create and open about dialog
-    GNEAboutDialog(this).openModal();
+    GNEAboutDialog(this);
     return 1;
 }
 
@@ -1791,12 +1791,12 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
     neteditOptions.set("junctions.join", "true");
     neteditOptions.set("tls.guess-signals", "true");
     neteditOptions.set("tls.discard-simple", "true");
-    // create wizard dialog
-    auto neteditOptionsDialog = GNEOptionsDialog(this, GUIIcon::SUPERMODENETWORK, TL("Select Import Options"), 
-                                                 GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OptionsCont::getOptions(),
-                                                 myOriginalNeteditOptions);
+    // open netedit options dialog
+    const auto neteditOptionsDialog = GNEOptionsDialog(this, GUIIcon::SUPERMODENETWORK, TL("Select Import Options"), 
+                                                       GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OptionsCont::getOptions(),
+                                                       myOriginalNeteditOptions);
     // open wizard dialog
-    if (neteditOptionsDialog.openModal() == GNEDialog::Result::ACCEPT) {
+    if (neteditOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // needed to set projection parameters
         NIFrame::checkOptions(neteditOptions); 
         // set file to load
@@ -2507,12 +2507,12 @@ GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
-    // create netedit option dialog
-    auto neteditOptionsDialog = GNEOptionsDialog(this, GUIIcon::OPTIONS, TL("Netedit options"),
-                                                 GNEDialog::Buttons::ACCEPT_CANCEL_RESET, 
-                                                 neteditOptions, myOriginalNeteditOptions);
-    // open dialog
-    if (neteditOptionsDialog.openModal() == GNEDialog::Result::ACCEPT) {
+    // open netedit option dialog
+    const auto neteditOptionsDialog = GNEOptionsDialog(this, GUIIcon::OPTIONS, TL("Netedit options"),
+                                                       GNEDialog::Buttons::ACCEPT_CANCEL_RESET, 
+                                                       neteditOptions, myOriginalNeteditOptions);
+    // continue depending of result
+    if (neteditOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) {
         NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
         NBFrame::checkOptions(neteditOptions);
         NWFrame::checkOptions(neteditOptions);
@@ -2528,12 +2528,12 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
-    // create sumo option dialog
-    auto sumoOptionsDialog = GNEOptionsDialog(this, GUIIcon::SUMO_MINI, TL("Sumo options"), 
-                                              GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
-                                              mySumoOptions, myOriginalSumoOptions);
-    // open dialog and check if mark sumoConfig as unsaved
-    if ((sumoOptionsDialog.openModal() == GNEDialog::Result::ACCEPT) && sumoOptionsDialog.isOptionModified() && myNet) {
+    // open sumo option dialog
+    const auto sumoOptionsDialog = GNEOptionsDialog(this, GUIIcon::SUMO_MINI, TL("Sumo options"), 
+                                                    GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
+                                                    mySumoOptions, myOriginalSumoOptions);
+    // continue depending of result
+    if ((sumoOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) && sumoOptionsDialog.isOptionModified() && myNet) {
         myNet->getSavingStatus()->requireSaveSumoConfig();
     }
     return 1;
@@ -2551,7 +2551,7 @@ GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, v
     // open netgenerate options dialog
     GNEOptionsDialog(this, GUIIcon::NETGENERATE, TL("Netgenerate options"),
                      GNEDialog::Buttons::RUN_CANCEL_RESET, myNetgenerateOptions,
-                     myOriginalNetgenerateOptions).openModal();
+                     myOriginalNetgenerateOptions);
     return 1;
 }
 
@@ -3307,8 +3307,10 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             }
             // if there are invalid network elements, open GNEFixNetworkElements
             if (invalidNetworkElements.size() > 0) {
-                auto fixNetworkElementsDialog = GNEFixNetworkElements(this);
-                if (fixNetworkElementsDialog.openDialog(invalidNetworkElements) == GNEDialog::Result::ACCEPT) {
+                // create fix network elements dialog
+                const auto fixNetworkElementsDialog = GNEFixNetworkElements(this, invalidNetworkElements);
+                // continue depending of result
+                if (fixNetworkElementsDialog.getResult() == GNEDialog::Result::ACCEPT) {
                     // Save network
                     myNet->saveNetwork();
                     saved = true;

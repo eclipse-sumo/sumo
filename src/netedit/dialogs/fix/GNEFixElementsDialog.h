@@ -30,7 +30,7 @@
 // ===========================================================================
 
 template <typename T>
-class GNEFixElementsDialog : protected GNEDialog {
+class GNEFixElementsDialog : public GNEDialog {
 
 public:
     /// @brief Conflict
@@ -269,9 +269,6 @@ public:
 
     /// @brief destructor
     ~GNEFixElementsDialog() {}
-
-    /// @brief open fix dialog
-    virtual GNEDialog::Result openDialog(const std::vector<T>& element) = 0;
 
     /// @brief pointer to the main window
     GNEApplicationWindow* getApplicationWindow() {

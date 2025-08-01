@@ -228,34 +228,17 @@ GNEFixNetworkElements::FixCrossingOptions::onCmdSelectOption(FXObject* obj, FXSe
 // GNEFixNetworkElements - methods
 // ---------------------------------------------------------------------------
 
-GNEFixNetworkElements::GNEFixNetworkElements(GNEApplicationWindow *mainWindow) :
+GNEFixNetworkElements::GNEFixNetworkElements(GNEApplicationWindow *mainWindow, 
+                                             const std::vector<GNENetworkElement*>& elements) :
     GNEFixElementsDialog(mainWindow, TL("Fix network elements problems"), GUIIcon::SUPERMODENETWORK, 600, 620) {
     // create fix edge options
     myFixEdgeOptions = new FixEdgeOptions(this);
     // create fix crossing  options
     myFixCrossingOptions = new FixCrossingOptions(this);
-}
-
-
-GNEFixNetworkElements::~GNEFixNetworkElements() {}
-
-
-void
-GNEFixNetworkElements::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // run internal test in all modules
-    myFixEdgeOptions->runInternalTest(dialogArgument);
-    myFixCrossingOptions->runInternalTest(dialogArgument);
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
-}
-
-
-GNEDialog::Result
-GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& element) {
     // split invalidNetworkElements in four groups
     std::vector<ConflictElement> invalidEdges, invalidCrossings;
     // fill groups
-    for (const auto& invalidNetworkElement : element) {
+    for (const auto& invalidNetworkElement : elements) {
         // create conflict element
         auto fixElement = ConflictElement(invalidNetworkElement,
                                           invalidNetworkElement->getID(),
@@ -272,7 +255,20 @@ GNEFixNetworkElements::openDialog(const std::vector<GNENetworkElement*>& element
     myFixEdgeOptions->setInvalidElements(invalidEdges);
     myFixCrossingOptions->setInvalidElements(invalidCrossings);
     // open modal dialog
-    return openModal();
+    openModalDialog();
+}
+
+
+GNEFixNetworkElements::~GNEFixNetworkElements() {}
+
+
+void
+GNEFixNetworkElements::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // run internal test in all modules
+    myFixEdgeOptions->runInternalTest(dialogArgument);
+    myFixCrossingOptions->runInternalTest(dialogArgument);
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
 }
 
 /****************************************************************************/

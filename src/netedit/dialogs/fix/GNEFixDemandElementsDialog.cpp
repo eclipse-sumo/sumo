@@ -485,7 +485,8 @@ GNEFixDemandElementsDialog::FixPlanOptions::onCmdSelectOption(FXObject* obj, FXS
 // GNEFixDemandElementsDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow) :
+GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow,
+                                                       const std::vector<GNEDemandElement*>& elements) :
     GNEFixElementsDialog(mainWindow, TL("Fix demand elements problems"), GUIIcon::SUPERMODEDEMAND, 800, 620) {
     // create fix route options
     myFixRouteOptions = new FixRouteOptions(this);
@@ -495,31 +496,10 @@ GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow *mai
     myFixStopPositionOptions = new FixStopPositionOptions(this);
     // create fix person plans options
     myFixPlanOptions = new FixPlanOptions(this);
-}
-
-
-GNEFixDemandElementsDialog::~GNEFixDemandElementsDialog() {
-}
-
-
-void
-GNEFixDemandElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // run internal test in all modules
-    myFixRouteOptions->runInternalTest(dialogArgument);
-    myFixVehicleOptions->runInternalTest(dialogArgument);
-    myFixStopPositionOptions->runInternalTest(dialogArgument);
-    myFixPlanOptions->runInternalTest(dialogArgument);
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
-}
-
-
-GNEDialog::Result
-GNEFixDemandElementsDialog::openDialog(const std::vector<GNEDemandElement*>& element) {
     // split invalidDemandElements in four groups
     std::vector<ConflictElement> invalidRoutes, invalidVehicles, invalidStops, invalidPlans;
     // fill groups
-    for (const auto& invalidDemandElement : element) {
+    for (const auto& invalidDemandElement : elements) {
         // create conflict element
         auto fixElement = ConflictElement(invalidDemandElement,
                                           invalidDemandElement->getID(),
@@ -542,7 +522,23 @@ GNEFixDemandElementsDialog::openDialog(const std::vector<GNEDemandElement*>& ele
     myFixStopPositionOptions->setInvalidElements(invalidStops);
     myFixPlanOptions->setInvalidElements(invalidPlans);
     // open modal dialog
-    return openModal();
+    openModalDialog();
+}
+
+
+GNEFixDemandElementsDialog::~GNEFixDemandElementsDialog() {
+}
+
+
+void
+GNEFixDemandElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // run internal test in all modules
+    myFixRouteOptions->runInternalTest(dialogArgument);
+    myFixVehicleOptions->runInternalTest(dialogArgument);
+    myFixStopPositionOptions->runInternalTest(dialogArgument);
+    myFixPlanOptions->runInternalTest(dialogArgument);
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
 }
 
 /****************************************************************************/

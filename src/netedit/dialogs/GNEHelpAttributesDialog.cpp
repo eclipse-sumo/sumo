@@ -83,6 +83,8 @@ GNEHelpAttributesDialog::GNEHelpAttributesDialog(GNEApplicationWindow* applicati
     header->setItemSize(2, sizeColumnDescription * 8);
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(3, sizeColumnDefinitions * 6);
+    // open modal dialog
+    openModalDialog();
 }
 
 

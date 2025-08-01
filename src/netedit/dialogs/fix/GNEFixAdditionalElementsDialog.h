@@ -130,16 +130,14 @@ public:
     };
 
     /// @brief Constructor
-    GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow);
+    GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow, 
+                                   const std::vector<GNEAdditional*>& elements);
 
     /// @brief destructor
     ~GNEFixAdditionalElementsDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-
-    /// @brief open fix dialog
-    GNEDialog::Result openDialog(const std::vector<GNEAdditional*>& element);
 
 protected:
     /// @brief position options

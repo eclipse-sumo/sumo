@@ -490,6 +490,8 @@ GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEAttributesEditorType
     myParametersOptions = new ParametersOptions(verticalFrame);
     // reset
     onCmdReset(nullptr, 0, nullptr);
+    // open modal dialog
+    openModalDialog();
 }
 
 

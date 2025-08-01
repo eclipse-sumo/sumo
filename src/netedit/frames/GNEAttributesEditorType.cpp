@@ -407,8 +407,10 @@ GNEAttributesEditorType::onCmdOpenExtendedAttributesDialog(FXObject*, FXSelector
 
 long
 GNEAttributesEditorType::onCmdOpenEditParametersDialog(FXObject*, FXSelector, void*) {
-    // open dialog
-    if (GNESingleParametersDialog(this).openModal() == GNEDialog::Result::ACCEPT) {
+    // create parameters dialog
+    const auto singleParametersDialog = GNESingleParametersDialog(this);
+    // continue depending of result
+    if (singleParametersDialog.getResult() == GNEDialog::Result::ACCEPT) {
         refreshAttributesEditor();
     }
     return 1;
