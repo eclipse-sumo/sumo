@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-08-01 13:04+0000\n"
+"PO-Revision-Date: 2025-08-01 13:05+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -13858,11 +13858,11 @@ msgstr "Routenverteilungen"
 
 #: src/netedit/frames/demand/GNERouteFrame.cpp:59
 msgid "non consecutive edges"
-msgstr ""
+msgstr "nicht aufeinanderfolgende Kanten"
 
 #: src/netedit/frames/demand/GNERouteFrame.cpp:60
 msgid "consecutive edges"
-msgstr ""
+msgstr "aufeinanderfolgende Kanten"
 
 #: src/netedit/frames/demand/GNEStopFrame.cpp:76
 #: src/netedit/frames/demand/GNEStopFrame.cpp:82
@@ -14101,7 +14101,7 @@ msgstr ""
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:423
 #: src/netedit/frames/network/GNEWireFrame.cpp:201
 msgid "A % must be selected before insertion of %."
-msgstr ""
+msgstr "Zunächst muss ein % ausgewählt werden, um% einzufügen."
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:67
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:77
@@ -14424,7 +14424,7 @@ msgstr "Start- und Endpunkt einer Kante müssen verschieden sein!"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:71
 msgid "Edited"
-msgstr ""
+msgstr "Bearbeitet"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:95
 msgid "selection of edges"
