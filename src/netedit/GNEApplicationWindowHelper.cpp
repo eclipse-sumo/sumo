@@ -2063,7 +2063,9 @@ GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
         delete tool;
     }
     // delete dialogs
-    delete myPythonToolDialog;
+    if (myPythonToolDialog) {
+        delete myPythonToolDialog;
+    }
     delete myNetgenerateDialog;
     delete myRunPythonToolDialog;
     delete myRunNetgenerateDialog;
@@ -2088,7 +2090,6 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
         }
     }
     // build dialogs
-    myPythonToolDialog = new GNEPythonToolDialog(myGNEApp);
     myNetgenerateDialog = new GNENetgenerateDialog(myGNEApp);
     myRunPythonToolDialog = new GNERunPythonToolDialog(myGNEApp);
     myRunNetgenerateDialog = new GNERunNetgenerateDialog(myGNEApp);
@@ -2096,11 +2097,14 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
 
 
 long
-GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) const {
+GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) {
     // iterate over all tools and find menu command
     for (const auto& tool : myPythonTools) {
         if (tool->getMenuCommand() == menuCommand) {
-            myPythonToolDialog->openDialog(tool);
+            if (myPythonToolDialog) {
+                delete myPythonToolDialog;
+            }
+            myPythonToolDialog = new GNEPythonToolDialog(myGNEApp, tool);
             return 1;
         }
     }

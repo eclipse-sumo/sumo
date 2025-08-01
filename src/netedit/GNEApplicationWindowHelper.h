@@ -999,7 +999,7 @@ struct GNEApplicationWindowHelper {
         void buildTools(FXMenuPane* toolsMenu, const std::map<std::string, FXMenuPane*>& menuPaneToolMaps);
 
         /// @brief show tool
-        long showTool(FXObject* menuCommand) const;
+        long showTool(FXObject* menuCommand);
 
         /// @brief show netgenerate dialog
         long showNetgenerateDialog() const;
