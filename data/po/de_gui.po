@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-07-27 12:55+0000\n"
+"PO-Revision-Date: 2025-08-01 13:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10314,7 +10315,7 @@ msgstr "Ungültige Anzahl an Lichtsignalanlagen"
 
 #: src/netedit/dialogs/GNEFixAdditionalElements.cpp:47
 msgid "Fix additional problems"
-msgstr ""
+msgstr "Probleme bei weiteren Elementen beheben"
 
 #: src/netedit/dialogs/GNEFixAdditionalElements.cpp:269
 #: src/netedit/dialogs/GNEFixAdditionalElements.cpp:345
@@ -10382,7 +10383,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEFixDemandElements.cpp:53
 msgid "Fix demand elements problems"
-msgstr ""
+msgstr "Probleme bei Nachfrageelementen beheben"
 
 #: src/netedit/dialogs/GNEFixDemandElements.cpp:213
 #: src/netedit/dialogs/GNEFixNetworkElements.cpp:198
@@ -12647,7 +12648,7 @@ msgstr "Attribute"
 
 #: src/netedit/frames/GNEFrame.cpp:201
 msgid "Category"
-msgstr ""
+msgstr "Kategorie"
 
 #: src/netedit/frames/GNEFrame.cpp:202
 msgid "Description"
@@ -12786,7 +12787,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:492
 msgid "Show all attributes"
-msgstr ""
+msgstr "Alle Attribute anzeigen"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:494
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:506
@@ -12796,7 +12797,7 @@ msgstr "<alle>"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:497
 msgid "No common attributes defined"
-msgstr ""
+msgstr "Keine gemeinsamen Attribute definiert"
 
 #: src/netedit/frames/GNEOverlappedInspection.cpp:51
 msgid "Overlapped junctions"
@@ -13193,7 +13194,7 @@ msgstr "Ausgewählte verwenden"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:54
 msgid "Selected elements"
-msgstr ""
+msgstr "Ausgewählte Elemente"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:84
 msgid ""
@@ -13224,7 +13225,7 @@ msgstr ""
 #: src/netedit/frames/GNEViewObjectSelector.cpp:150
 #, c-format
 msgid "List of % cannot be empty"
-msgstr ""
+msgstr "Eine %-Liste kann nicht leer sein"
 
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:62
 msgid "Delete geometry points"
@@ -13333,7 +13334,7 @@ msgstr "Ausgewählte Kantengeometrie verschieben"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:216
 msgid "Shift value"
-msgstr ""
+msgstr "Versatzwert"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:220
 msgid "Apply shift value"
@@ -13352,7 +13353,7 @@ msgstr "Z in der Auswahl ändern"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:296
 msgid "Z value"
-msgstr ""
+msgstr "Z-Wert"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:300
 msgid "Absolute value"
