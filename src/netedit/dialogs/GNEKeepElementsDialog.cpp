@@ -29,11 +29,12 @@
 
 GNEKeepElementsDialog::GNEKeepElementsDialog(GNEApplicationWindow* applicationWindow, const std::string elementType) :
     GNEDialog(applicationWindow, TLF("Keep % elements", elementType).c_str(), GUIIcon::QUESTION_SMALL,
-              GNEDialog::Buttons::KEEPNEW_KEEPOLD_CANCEL, 400, 100) {
+              GNEDialog::Buttons::KEEPNEW_KEEPOLD_CANCEL, GNEDialog::OpenType::MODAL) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create label
-    new FXLabel(mainFrame, ("Selected " + elementType + " file was already loaded.\n Keep new or old elements?").c_str(), nullptr, GUIDesignLabelKeepElements);
+    new FXLabel(mainFrame, (TLF("Selected % file was already loaded.", elementType) + "\n" +
+                TL("Keep new or old elements?")).c_str(), nullptr, GUIDesignLabelKeepElements);
     // open modal dialog
     openModalDialog();
 }

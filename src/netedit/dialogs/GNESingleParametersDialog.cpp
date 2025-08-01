@@ -459,9 +459,8 @@ GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartEle
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditorType* attributesEditor) :
     GNEDialog(attributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(),
-              TL("Edit parameters"), GUIIcon::APP_TABLE,
-              GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
-              GNEDialog::ResizeMode::RESIZABLE, 400, 300),
+              TL("Edit parameters"), GUIIcon::APP_TABLE, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
+              OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 400, 300),
     myAttributesEditor(attributesEditor) {
     // create frame for Parameters and operations
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
@@ -479,7 +478,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditorType* at
 GNESingleParametersDialog::GNESingleParametersDialog(GNEApplicationWindow* applicationWindow,
                                                      GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow) :
     GNEDialog(applicationWindow, TL("Edit parameters"), GUIIcon::APP_TABLE,
-              GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
+              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, 
               GNEDialog::ResizeMode::RESIZABLE, 400, 300),
     VTypeAttributeRow(VTypeAttributeRow) {
     // create frame for Parameters and operations
@@ -497,9 +496,8 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEApplicationWindow* appli
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attributeCarrier) :
     GNEDialog(attributeCarrier->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
-              TL("Edit parameters"), GUIIcon::APP_TABLE,
-              GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
-              GNEDialog::ResizeMode::RESIZABLE, 400, 300),
+              TL("Edit parameters"), GUIIcon::APP_TABLE, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
+              OpenType::MODAL, GNEDialog::ResizeMode::RESIZABLE, 400, 300),
     myAttributeCarrier(attributeCarrier) {
     // create frame for Parameters and operations
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
@@ -514,9 +512,10 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attrib
 }
 
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEApplicationWindow* applicationWindow, NBLoadedSUMOTLDef* TLDef) :
+GNESingleParametersDialog::GNESingleParametersDialog(GNEApplicationWindow* applicationWindow,
+                                                     NBLoadedSUMOTLDef* TLDef) :
     GNEDialog(applicationWindow, TL("Edit parameters"), GUIIcon::APP_TABLE,
-              GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
+              GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, 
               GNEDialog::ResizeMode::RESIZABLE, 400, 300),
     myTLDef(TLDef) {
     // create frame for Parameters and operations

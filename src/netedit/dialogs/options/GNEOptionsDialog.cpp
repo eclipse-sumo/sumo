@@ -59,9 +59,10 @@ FXIMPLEMENT(GNEOptionsDialog, GNEDialog, GUIDialogOptionsMap, ARRAYNUMBER(GUIDia
 // method definitions
 // ===========================================================================
 
-GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, const std::string &titleName, GNEDialog::Buttons buttons,
-                                   OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer) :
-    GNEDialog(GNEApp, titleName, icon, buttons, GNEDialog::ResizeMode::STRETCHABLE, 800, 600),
+GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, const std::string &titleName,
+                                   GNEDialog::Buttons buttons, OptionsCont& optionsContainer,
+                                   const OptionsCont& originalOptionsContainer) :
+    GNEDialog(GNEApp, titleName, icon, buttons, OpenType::MODAL, GNEDialog::ResizeMode::STRETCHABLE, 800, 600),
     myGNEApp(GNEApp),
     myOptionsContainer(optionsContainer),
     myOriginalOptionsContainer(originalOptionsContainer) {
