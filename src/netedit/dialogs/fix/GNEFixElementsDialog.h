@@ -260,7 +260,8 @@ public:
     /// @brief Constructor
     GNEFixElementsDialog(GNEApplicationWindow *mainWindow, const std::string title,
                          GUIIcon icon, const int sizeX, const int sizeY):
-        GNEDialog(mainWindow, title.c_str(), icon, GNEDialog::Buttons::ACCEPT_CANCEL) {
+        GNEDialog(mainWindow, title.c_str(), icon,
+                  GNEDialog::Buttons::ACCEPT_CANCEL, GNEDialog::OpenType::MODAL) {
         // create left and right frames
         FXHorizontalFrame* columnFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
         myLeftFrame = new FXVerticalFrame(columnFrame, GUIDesignAuxiliarVerticalFrame);

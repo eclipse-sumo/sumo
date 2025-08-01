@@ -56,7 +56,7 @@ FXIMPLEMENT(GNERunPythonToolDialog, GNEDialog, GNERunPythonToolDialogMap, ARRAYN
 GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* GNEApp) :
     GNEDialog(GNEApp, TL("Python Tool"), GUIIcon::TOOL_PYTHON,
               GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE,
-              ResizeMode::RESIZABLE, 640, 480),
+              OpenType::MODAL, ResizeMode::RESIZABLE, 640, 480),
     myGNEApp(GNEApp) {
     // build the thread - io
     myThreadEvent.setTarget(this);

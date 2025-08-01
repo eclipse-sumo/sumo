@@ -294,6 +294,35 @@ class MFXMenuCheckIcon;
 /// @}
 
 
+/// @name GNEDialog
+/// @{
+/// @brief design for GNEDialogs
+#define GUIDesignGNEDialog                      (DECOR_TITLE | DECOR_BORDER),
+
+/// @brief design for GNEDialogs explicit
+#define GUIDesignGNEDialogExplicit              (DECOR_TITLE | DECOR_BORDER | LAYOUT_EXPLICIT)
+
+/// @brief design for GNEDialogs shrinkable
+#define GUIDesignGNEDialogShrinkable            (DECOR_TITLE | DECOR_BORDER | DECOR_SHRINKABLE)
+
+/// @brief design for GNEDialogs stretchable
+#define GUIDesignGNEDialogStretchable           (DECOR_TITLE | DECOR_BORDER | DECOR_STRETCHABLE)
+
+/// @brief design for GNEDialogs resizable
+#define GUIDesignGNEDialogResizable             (DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE)
+
+/// @brief design for GNEDialogs shrinkable izable with explicit layout
+#define GUIDesignGNEDialogShrinkableExplicit    (DECOR_TITLE | DECOR_BORDER | DECOR_SHRINKABLE | LAYOUT_EXPLICIT)
+
+/// @brief design for GNEDialogs stretchable izable with explicit layout
+#define GUIDesignGNEDialogStretchableExplicit   (DECOR_TITLE | DECOR_BORDER | DECOR_STRETCHABLE | LAYOUT_EXPLICIT)
+
+/// @brief design for GNEDialogs resizable with explicit layout
+#define GUIDesignGNEDialogResizableExplicit     (DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE | LAYOUT_EXPLICIT)
+
+/// @}
+
+
 /// @name FXPackers
 /// @{
 /// @brief Horizontal frame extended over X-frame parent used in MFXGroupBoxModule

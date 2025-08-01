@@ -476,7 +476,7 @@ GNEMultipleParametersDialog::ParametersOptions::onlyForExistentKeys() const {
 GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEAttributesEditorType* attributesEditor) :
     GNEDialog(attributesEditor->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows(), 
               TL("Edit parameters"), GUIIcon::APP_TABLE, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
-              GNEDialog::ResizeMode::STRETCHABLE, 430, 300),
+              OpenType::MODAL, GNEDialog::ResizeMode::STRETCHABLE, 430, 300),
     myAttributesEditor(attributesEditor) {
     // create frame for Parameters, operations and options
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);

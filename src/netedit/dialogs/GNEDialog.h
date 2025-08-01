@@ -51,6 +51,12 @@ public:
         ABORT_RERUN_BACK_CLOSE  // abort/rerun/back buttons, and close in a lower line (used in tools dialogs)
     };
 
+    /// @brief Open dialog type
+    enum class OpenType {
+        MODAL,      // Modal dialog
+        NON_MODAL   // Non-modal dialog
+    };
+
     /// @name Resize mode
     enum class ResizeMode {
         SHRINKABLE,     // dialog is shrinkable
@@ -67,20 +73,22 @@ public:
 
     /// @brief constructor for rigid dialogs
     GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
-              GUIIcon titleIcon, Buttons buttons);
+              GUIIcon titleIcon, Buttons buttons, OpenType openType);
 
     /// @brief constructor for rigid dialogs with layout explicit
     GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
-              GUIIcon titleIcon, Buttons buttons, const int width, const int height);
+              GUIIcon titleIcon, Buttons buttons, OpenType openType,
+              const int width, const int height);
 
     /// @brief constructor for resizable dialogs
     GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
-              GUIIcon titleIcon, Buttons buttons, ResizeMode resizeMode);
+              GUIIcon titleIcon, Buttons buttons, OpenType openType,
+              ResizeMode resizeMode);
 
     /// @brief constructor for resizable dialogs with layout explicit
     GNEDialog(GNEApplicationWindow* applicationWindow, const std::string& name, 
-              GUIIcon titleIcon, Buttons buttons, ResizeMode resizeMode,
-              const int width, const int height);
+              GUIIcon titleIcon, Buttons buttons, OpenType openType,
+              ResizeMode resizeMode, const int width, const int height);
 
     /// @brief get result to indicate if this dialog was closed accepting or rejecting changes
     Result getResult() const;
@@ -134,6 +142,9 @@ protected:
     long closeDialogCanceling();
 
 private:
+    /// @brief open type
+    OpenType myOpenType;
+
     /// @brief build dialog
     void buildDialog(GUIIcon titleIcon, Buttons buttons);
 

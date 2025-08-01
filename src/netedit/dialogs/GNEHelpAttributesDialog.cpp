@@ -29,9 +29,10 @@
 // method definitions
 // ===========================================================================
 
-GNEHelpAttributesDialog::GNEHelpAttributesDialog(GNEApplicationWindow* applicationWindow, const GNEAttributeCarrier* AC) :
+GNEHelpAttributesDialog::GNEHelpAttributesDialog(GNEApplicationWindow* applicationWindow,
+                                                 const GNEAttributeCarrier* AC) :
     GNEDialog(applicationWindow, TLF("Parameters of %", AC->getTagStr()).c_str(),
-              GUIIcon::MODEINSPECT, GNEDialog::Buttons::OK) {
+              GUIIcon::MODEINSPECT, GNEDialog::Buttons::OK, OpenType::MODAL) {
     // Create FXTable
     FXTable* myTable = new FXTable(myContentFrame, this, MID_TABLE, GUIDesignTableNotEditable);
     // configure table

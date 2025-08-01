@@ -58,7 +58,8 @@ FXIMPLEMENT(GNEPythonToolDialog, GNEDialog, GNEPythonToolDialogMap, ARRAYNUMBER(
 // ===========================================================================
 
 GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp, GNEPythonTool* tool) :
-    GNEDialog(GNEApp, TL("Tool"), GUIIcon::TOOL_PYTHON, GNEDialog::Buttons::RUN_CANCEL_RESET, ResizeMode::RESIZABLE),
+    GNEDialog(GNEApp, TL("Tool"), GUIIcon::TOOL_PYTHON, GNEDialog::Buttons::RUN_CANCEL_RESET,
+              OpenType::NON_MODAL, ResizeMode::RESIZABLE),
     myGNEApp(GNEApp) {
     // create options
     auto horizontalOptionsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrameNoPadding);
