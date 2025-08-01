@@ -4841,6 +4841,7 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
                 tmp.move2side(neededOffset - dist);
                 tmp[i].round(gPrecision);
                 myGeom[i] = tmp[i];
+                computeAngle();
                 //std::cout << getID() << " shiftPositionAtNode needed=" << neededOffset << " dist=" << dist << " needed2=" << neededOffset2 << " dist2=" << dist2 << "  by=" << (neededOffset - dist) << " other=" << other->getID() << "\n";
             } catch (InvalidArgument&) {
                 WRITE_WARNINGF(TL("Could not avoid overlapping shape at node '%' for edge '%'."), node->getID(), getID());
