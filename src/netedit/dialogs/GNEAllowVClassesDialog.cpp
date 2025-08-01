@@ -48,9 +48,13 @@ FXIMPLEMENT(GNEAllowVClassesDialog, GNEDialog, GNEAllowVClassesDialogMap, ARRAYN
 // member method definitions
 // ===========================================================================
 
-GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEApplicationWindow *mainWindow) :
+GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEApplicationWindow *mainWindow, SumoXMLAttr attr, const std::string originalVClasses) :
     GNEDialog(mainWindow, TL("Edit allowed and disallowed vClasses"), GUIIcon::GREENVEHICLE,
-              GNEDialog::Buttons::ACCEPT_CANCEL_RESET) {
+              GNEDialog::Buttons::ACCEPT_CANCEL_RESET),
+    myOriginalVClasses(originalVClasses),
+    myEditedVClasses(originalVClasses) {
+    // set title
+    setTitle(TLF("Edit vClasses of attribute '%'", toString(attr)).c_str());
     // create groupbox for options
     FXGroupBox* myGroupBoxOptions = new FXGroupBox(myContentFrame, TL("Selection options"), GUIDesignGroupBoxFrame);
     FXHorizontalFrame* myOptionsFrame = new FXHorizontalFrame(myGroupBoxOptions, GUIDesignAuxiliarHorizontalFrame);
@@ -109,22 +113,14 @@ GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEApplicationWindow *mainWindow)
     buildVClass(myContentRightFrame, SVC_DRONE, GUIIcon::VCLASS_DRONE, TL("A small unmanned robot"));
     buildVClass(myContentRightFrame, SVC_CUSTOM1, GUIIcon::VCLASS_CUSTOM1, TL("Reserved for user-defined semantics"));
     buildVClass(myContentRightFrame, SVC_CUSTOM2, GUIIcon::VCLASS_CUSTOM2, TL("Reserved for user-defined semantics"));
+    // reset dialog
+    onCmdReset(nullptr, 0, nullptr);
+    // open modal dialog
+    openModalDialog();
 }
 
 
 GNEAllowVClassesDialog::~GNEAllowVClassesDialog() {
-}
-
-
-GNEDialog::Result
-GNEAllowVClassesDialog::openDialog(SumoXMLAttr attr, const std::string originalVClasses) {
-    setTitle(TLF("Edit vClasses of attribute '%'", toString(attr)).c_str());
-    myOriginalVClasses = originalVClasses;
-    myEditedVClasses = originalVClasses;
-    // reset dialog
-    onCmdReset(nullptr, 0, nullptr);
-    // run it as modal
-    return openModal();
 }
 
 

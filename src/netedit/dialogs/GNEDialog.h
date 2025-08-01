@@ -82,9 +82,6 @@ public:
               GUIIcon titleIcon, Buttons buttons, ResizeMode resizeMode,
               const int width, const int height);
 
-    /// @brief open modal dialog
-    Result openModal(FXuint placement = PLACEMENT_CURSOR);
-
     /// @brief get result to indicate if this dialog was closed accepting or rejecting changes
     Result getResult() const;
 
@@ -126,6 +123,9 @@ protected:
 
     /// @brief flag to indicate if this dialog is being tested using internal test
     bool myTesting = false;
+
+    /// @brief open dialog in modal mode
+    void openModalDialog();
 
     /// @brief close dialog accepting the changes
     long closeDialogAccepting();

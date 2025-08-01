@@ -57,7 +57,7 @@ FXIMPLEMENT(GNEPythonToolDialog, GNEDialog, GNEPythonToolDialogMap, ARRAYNUMBER(
 // member method definitions
 // ===========================================================================
 
-GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
+GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp, GNEPythonTool* tool) :
     GNEDialog(GNEApp, TL("Tool"), GUIIcon::TOOL_PYTHON, GNEDialog::Buttons::RUN_CANCEL_RESET, ResizeMode::RESIZABLE),
     myGNEApp(GNEApp) {
     // create options
@@ -81,14 +81,6 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     auto horizontalRowFrames = new FXHorizontalFrame(contentScrollWindow, LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH);
     myArgumentFrameLeft = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
     myArgumentFrameRight = new FXVerticalFrame(horizontalRowFrames, GUIDesignAuxiliarFrame);
-}
-
-
-GNEPythonToolDialog::~GNEPythonToolDialog() {}
-
-
-void
-GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     // set tool
     myPythonTool = tool;
     // set title
@@ -111,6 +103,9 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     // refresh APP
     getApp()->refresh();
 }
+
+
+GNEPythonToolDialog::~GNEPythonToolDialog() {}
 
 
 void

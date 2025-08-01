@@ -277,35 +277,17 @@ GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::onCmdSelectOption(FXObje
 // GNEFixAdditionalElementsDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow) :
+GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow,
+                                                               const std::vector<GNEAdditional*>& elements) :
     GNEFixElementsDialog(mainWindow, TL("Fix additional problems"), GUIIcon::MODEADDITIONAL, 500, 380) {
     // create position options
     myPositionOptions = new PositionOptions(this);
     // create consecutive lane options
     myConsecutiveLaneOptions = new ConsecutiveLaneOptions(this);
-}
-
-
-GNEFixAdditionalElementsDialog::~GNEFixAdditionalElementsDialog() {
-}
-
-
-void
-GNEFixAdditionalElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // run internal test in all modules
-    myPositionOptions->runInternalTest(dialogArgument);
-    myConsecutiveLaneOptions->runInternalTest(dialogArgument);
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
-}
-
-
-GNEDialog::Result
-GNEFixAdditionalElementsDialog::openDialog(const std::vector<GNEAdditional*>& element) {
     // split invalidDemandElements in four groups
     std::vector<ConflictElement> invalidSingleLanes, invalidMultiLanes;
     // fill groups
-    for (const auto& invalidAdditionalElement : element) {
+    for (const auto& invalidAdditionalElement : elements) {
         // create conflict element
         auto fixElement = ConflictElement(invalidAdditionalElement,
                                           invalidAdditionalElement->getID(),
@@ -322,7 +304,21 @@ GNEFixAdditionalElementsDialog::openDialog(const std::vector<GNEAdditional*>& el
     myPositionOptions->setInvalidElements(invalidSingleLanes);
     myConsecutiveLaneOptions->setInvalidElements(invalidMultiLanes);
     // open modal dialog
-    return openModal();
+    openModalDialog();
+}
+
+
+GNEFixAdditionalElementsDialog::~GNEFixAdditionalElementsDialog() {
+}
+
+
+void
+GNEFixAdditionalElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // run internal test in all modules
+    myPositionOptions->runInternalTest(dialogArgument);
+    myConsecutiveLaneOptions->runInternalTest(dialogArgument);
+    // accept changes
+    onCmdAccept(nullptr, 0, nullptr);
 }
 
 /****************************************************************************/

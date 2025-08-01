@@ -41,13 +41,11 @@ class GNEAllowVClassesDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEAllowVClassesDialog(GNEApplicationWindow *mainWindow);
+    GNEAllowVClassesDialog(GNEApplicationWindow *mainWindow, SumoXMLAttr attr,
+                           const std::string originalVClasses);
 
     /// @brief destructor
     ~GNEAllowVClassesDialog();
-
-    /// @brief open dialog
-    GNEDialog::Result openDialog(SumoXMLAttr attr, const std::string originalVClasses);
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);

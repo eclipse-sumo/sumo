@@ -101,35 +101,6 @@ GNEDialog::GNEDialog(GNEApplicationWindow* applicationWindow, const std::string&
 
 
 GNEDialog::Result
-GNEDialog::openModal(FXuint placement) {
-    // create and show dialog
-    create();
-    show(placement);
-    // refresh the application
-    getApp()->refresh();
-    // set focus in button
-    myFocusButon->setFocus();
-    // continue depending on whether we are testing or not
-    if (myApplicationWindow->getInternalTest()) {
-        myTesting = true;
-        // execute every modal dialog test step
-        for (const auto& modalStep : myApplicationWindow->getInternalTest()->getCurrentStep()->getModalDialogTestSteps()) {
-            // this will be unified
-            if (modalStep->getEvent()) {
-                handle(myApplicationWindow->getInternalTest(), modalStep->getSelector(), modalStep->getEvent());
-            } else if (modalStep->getDialogArguments()) {
-                handle(myApplicationWindow->getInternalTest(), modalStep->getSelector(), modalStep->getDialogArguments());
-            }
-        }
-    } else {
-        myTesting = false;
-        getApp()->runModalFor(this);
-    }
-    return myResult;
-}
-
-
-GNEDialog::Result
 GNEDialog::getResult() const {
     return myResult;
 }
@@ -164,6 +135,35 @@ GNEDialog::onCmdAbort(FXObject*, FXSelector, void*) {
     // set result
     myResult = Result::ABORT;
     return 1;
+}
+
+
+void
+GNEDialog::openModalDialog() {
+    // create and show dialog
+    create();
+    // show in the center of app
+    show(PLACEMENT_OWNER);
+    // refresh the application
+    getApp()->refresh();
+    // set focus in button
+    myFocusButon->setFocus();
+    // continue depending on whether we are testing or not
+    if (myApplicationWindow->getInternalTest()) {
+        myTesting = true;
+        // execute every modal dialog test step
+        for (const auto& modalStep : myApplicationWindow->getInternalTest()->getCurrentStep()->getModalDialogTestSteps()) {
+            // this will be unified
+            if (modalStep->getEvent()) {
+                handle(myApplicationWindow->getInternalTest(), modalStep->getSelector(), modalStep->getEvent());
+            } else if (modalStep->getDialogArguments()) {
+                handle(myApplicationWindow->getInternalTest(), modalStep->getSelector(), modalStep->getDialogArguments());
+            }
+        }
+    } else {
+        myTesting = false;
+        getApp()->runModalFor(this);
+    }
 }
 
 

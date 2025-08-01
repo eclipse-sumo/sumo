@@ -45,13 +45,10 @@ class GNEPythonToolDialog : protected GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEPythonToolDialog(GNEApplicationWindow* GNEApp);
+    GNEPythonToolDialog(GNEApplicationWindow* GNEApp, GNEPythonTool* tool);
 
     /// @brief destructor
     ~GNEPythonToolDialog();
-
-    /// @brief open dialog
-    void openDialog(GNEPythonTool* tool);
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
