@@ -303,43 +303,43 @@ class Connectionresults(am.ArrayObjman):
             elif routeresults.ids_ptline[trip] > 0:
                 mode = self._edges.parent.modes.names[self._trips.parent.vtypes.ids_mode[self._trips.parent.ptlines.ids_vtype[routeresults.ids_ptline[trip]]]]
             else:
-                print 'WARNING: there is a not considered route typology'
+                print('WARNING: there is a not considered route typology')
             modes_tot.append(mode)
 
-        print 'n route', len(modes_tot)
+        print('n route', len(modes_tot))
         if len(modes_tot) != len(ids_edges):
-            print 'WARNING: modes and ids_edges have a different length - total flow'
-        print 'n car routes', len(modes_car)
+            print('WARNING: modes and ids_edges have a different length - total flow')
+        print('n car routes', len(modes_car))
         if len(modes_car) != len(ids_edges_car):
-            print 'WARNING: modes and ids_edges have a different length - car'
-        print 'n bike routes', len(modes_bike)
+            print('WARNING: modes and ids_edges have a different length - car')
+        print('n bike routes', len(modes_bike))
         if len(modes_bike) != len(ids_edges_bike):
-            print 'WARNING: modes and ids_edges have a different length - bike'
-        print 'n moto routes', len(modes_moto)
+            print('WARNING: modes and ids_edges have a different length - bike')
+        print('n moto routes', len(modes_moto))
         if len(modes_moto) != len(ids_edges_moto):
-            print 'WARNING: modes and ids_edges have a different length - moto'
-        print 'n od routes', len(modes_od)
+            print('WARNING: modes and ids_edges have a different length - moto')
+        print('n od routes', len(modes_od))
         if len(modes_od) != len(ids_edges_od):
-            print 'WARNING: modes and ids_edges have a different length - od'
-        print 'n od car routes', modes_od.count('passenger')
-        print 'n od taxi routes', modes_od.count('taxi')
-        print 'n od bike routes', modes_od.count('bicycle')
-        print 'n od moto routes', modes_od.count('motorcycle')
-        print 'n vp routes',  len(modes_vp)
+            print('WARNING: modes and ids_edges have a different length - od')
+        print('n od car routes', modes_od.count('passenger'))
+        print('n od taxi routes', modes_od.count('taxi'))
+        print('n od bike routes', modes_od.count('bicycle'))
+        print('n od moto routes', modes_od.count('motorcycle'))
+        print('n vp routes',  len(modes_vp))
         if len(modes_vp) != len(ids_edges_vp):
-            print 'WARNING: modes and ids_edges have a different length - vp'
-        print 'n iauto routes',  len(modes_iauto)
+            print('WARNING: modes and ids_edges have a different length - vp')
+        print('n iauto routes',  len(modes_iauto))
         if len(modes_iauto) != len(ids_edges_iauto):
-            print 'WARNING: modes and ids_edges have a different length - iauto'
-        print 'n ibike routes',  len(modes_ibike)
+            print('WARNING: modes and ids_edges have a different length - iauto')
+        print('n ibike routes',  len(modes_ibike))
         if len(modes_ibike) != len(ids_edges_ibike):
-            print 'WARNING: modes and ids_edges have a different length - ibike'
-        print 'n imoto routes',  len(modes_imoto)
+            print('WARNING: modes and ids_edges have a different length - ibike')
+        print('n imoto routes',  len(modes_imoto))
         if len(modes_imoto) != len(ids_edges_imoto):
-            print 'WARNING: modes and ids_edges have a different length - imoto'
-        print 'n pt routes',  len(modes_ptline)
+            print('WARNING: modes and ids_edges have a different length - imoto')
+        print('n pt routes',  len(modes_ptline))
         if len(modes_ptline) != len(ids_edges_ptline):
-            print 'WARNING: modes and ids_edges have a different length - bus'
+            print('WARNING: modes and ids_edges have a different length - bus')
 
         ids_connections_tot, flows_tot = self.evaluate_connection_flows('tot', modes_tot, ids_edges)
         self.add_rows(ids_connection=ids_connections_tot, total_flows=flows_tot)
@@ -389,7 +389,7 @@ class Connectionresults(am.ArrayObjman):
         the available maneuvers, between the connections allowed for the specific MODE.
         Return both the traveled connections and the related flows
         '''
-        print 'analyzing', ident, 'routes'
+        print('analyzing', ident, 'routes')
         edges = self._edges
         lanes = edges.parent.lanes
         connections = edges.parent.connections
@@ -451,9 +451,9 @@ class Connectionresults(am.ArrayObjman):
                         connections_list.append(element)
 
                 if connections_list == []:
-                    print 'Warning: no connections between a couple of successive edges for mode', mode
-                    print 'ids_lane_from_all', ids_lane_from_all
-                    print 'ids_lane_to_all', ids_lane_to_all
+                    print('Warning: no connections between a couple of successive edges for mode', mode)
+                    print('ids_lane_from_all', ids_lane_from_all)
+                    print('ids_lane_to_all', ids_lane_to_all)
                     n_wrong_connections += 1
                     if mode == 'motorcycle':
                         n_wrong_connections_moto += 1
@@ -477,7 +477,7 @@ class Connectionresults(am.ArrayObjman):
                     elif mode == 'taxi':
                         keep_right = self._is_keep_right_taxi
                     else:
-                        print 'WARNING - Not recognized mode'
+                        print('WARNING - Not recognized mode')
                         keep_right = True
 
                     n_good_connections += 1
@@ -495,8 +495,8 @@ class Connectionresults(am.ArrayObjman):
                             ids_traveled_connections.append(connection)
                         connection_flows[connection] += 1.
 # print ids_traveled_connections, connection_flows[ids_traveled_connections]
-        print 'n_good_connections:', n_good_connections
-        print 'n_wrong_connections:', n_wrong_connections
+        print('n_good_connections:', n_good_connections)
+        print('n_wrong_connections:', n_wrong_connections)
 # print 'n_wrong_connections_moto:', n_wrong_connections_moto
 # print 'n_wrong_connections_auto:', n_wrong_connections_auto
 # print 'n_wrong_connections_bike:', n_wrong_connections_bike
@@ -595,7 +595,7 @@ class Routeresults(am.ArrayObjman):
                                   'default': 0.0, 'info': 'Arrival speed', 'groupnames': ['routedata']}),
         ])
 
-        for attrname, kwargs in attrinfos.iteritems():
+        for attrname, kwargs in attrinfos.items():
             self.add_resultattr(attrname, **kwargs)
 
         # this is special for route info
@@ -611,7 +611,7 @@ class Routeresults(am.ArrayObjman):
         # default cannot be kwarg
         default = kwargs['default']
         del kwargs['default']
-        if kwargs.has_key('groupnames'):
+        if 'groupnames' in kwargs:
             kwargs['groupnames'].append('results')
         else:
             kwargs['groupnames'] = ['results']
@@ -628,7 +628,7 @@ class Routeresults(am.ArrayObjman):
 
     def import_xml(self, sumo, datapaths):
         datapathkey = self.datapathkey.get_value()
-        if datapaths.has_key(datapathkey):
+        if datapathkey in datapaths:
             self.import_sumoxml(datapaths[datapathkey], sumo, self.get_group('routedata'))
 
     def import_sumoxml(self, filepath, sumo, attrconfigs):
@@ -674,13 +674,13 @@ class Routeresults(am.ArrayObjman):
             attrname = attrconfig.attrname
             if attrname != 'ids_sumo':
                 default = attrconfig.get_default()
-                if type(default) in (types.IntType, types.LongType):
+                if type(default) in (int, int):
                     conversion = 'i'  # int
                     values_attr = np.zeros(n, int)
-                elif type(default) in (types.FloatType, types.ComplexType):
+                elif type(default) in (float, complex):
                     conversion = 'f'  # float
                     values_attr = np.zeros(n, dtype=np.float32)
-                if type(default) in (types.BooleanType,):
+                if type(default) in (bool,):
                     conversion = 'b'  # str
                     values_attr = np.zeros(n, dtype=np.bool)
                 else:
@@ -774,7 +774,7 @@ class Tripresults(am.ArrayObjman):
             #('speeds_av',   {'name':'Average speeds', 'xmltag':'speed',   'unit':'m/s',     'default':0, 'info':'Average speed','groupnames':['tripdata'],'is_average' : True}),
         ])
 
-        for attrname, kwargs in attrinfos.iteritems():
+        for attrname, kwargs in attrinfos.items():
             self.add_resultattr(attrname, **kwargs)
 
         # this is special for route info
@@ -793,7 +793,7 @@ class Tripresults(am.ArrayObjman):
         # default cannot be kwarg
         default = kwargs['default']
         del kwargs['default']
-        if kwargs.has_key('groupnames'):
+        if 'groupnames' in kwargs:
             kwargs['groupnames'].append('results')
         else:
             kwargs['groupnames'] = ['results']
@@ -809,9 +809,9 @@ class Tripresults(am.ArrayObjman):
     #    self.import_sumoxml(filepath,self.get_group('tripdata'))
 
     def import_xml(self, sumo, datapaths):
-        print 'Tripresults.import_xml datapaths', datapaths
+        print('Tripresults.import_xml datapaths', datapaths)
         datapathkey = 'tripdatapath'
-        if datapaths.has_key(datapathkey):
+        if datapathkey in datapaths:
             self.import_tripdata_sumoxml(datapaths[datapathkey], sumo)
 
         #datapathkey = 'electricenergypath'
@@ -820,7 +820,7 @@ class Tripresults(am.ArrayObjman):
 
     def import_electricenergy_sumoxml_broke(self, filepath, sumo):
         element = 'vehicle'
-        print 'Tripresults.import_electricenergy_sumoxml', self.get_trips().ident, element, filepath
+        print('Tripresults.import_electricenergy_sumoxml', self.get_trips().ident, element, filepath)
         #id_type = 'edge',
         #reader = 'interval',
         attrconfigs = self.get_group('electricenergydata')
@@ -859,10 +859,10 @@ class Tripresults(am.ArrayObjman):
             attrname = attrconfig.attrname
 
             default = attrconfig.get_default()
-            if type(default) in (types.IntType, types.LongType):
+            if type(default) in (int, int):
                 conversion = 'i'  # int
                 values_attr = np.zeros(n, int)
-            elif type(default) in (types.FloatType, types.ComplexType):
+            elif type(default) in (float, complex):
                 conversion = 'f'  # float
                 values_attr = np.zeros(n, float)
             else:
@@ -897,7 +897,7 @@ class Tripresults(am.ArrayObjman):
 
     def import_tripdata_sumoxml(self, filepath, sumo):
         element = 'tripinfo'
-        print 'Tripresults.import_tripdata_sumoxml', self.get_trips().ident, 'element', element, filepath
+        print('Tripresults.import_tripdata_sumoxml', self.get_trips().ident, 'element', element, filepath)
         #id_type = 'edge',
         #reader = 'interval',
         attrconfigs = self.get_group('tripdata')
@@ -924,13 +924,13 @@ class Tripresults(am.ArrayObjman):
         for attrconfig in attrconfigs:
             attrname = attrconfig.attrname
             default = attrconfig.get_default()
-            if type(default) in (types.IntType, types.LongType):
+            if type(default) in (int, int):
                 conversion = 'i'  # int
                 values_attr = np.zeros(n, int)
-            elif type(default) in (types.FloatType, types.ComplexType):
+            elif type(default) in (float, complex):
                 conversion = 'f'  # float
                 values_attr = np.zeros(n, dtype=np.float32)
-            if type(default) in (types.BooleanType,):
+            if type(default) in (bool,):
                 conversion = 'b'  # str
                 values_attr = np.zeros(n, dtype=np.bool)
             else:
@@ -1065,7 +1065,7 @@ class Edgeresults(am.ArrayObjman):
             #
         ])
 
-        for attrname, kwargs in attrinfos.iteritems():
+        for attrname, kwargs in attrinfos.items():
             self.add_resultattr(attrname, **kwargs)
 
     def add_resultattr(self, attrname, **kwargs):
@@ -1073,7 +1073,7 @@ class Edgeresults(am.ArrayObjman):
         # default cannot be kwarg
         default = kwargs['default']
         del kwargs['default']
-        if kwargs.has_key('groupnames'):
+        if 'groupnames' in kwargs:
             kwargs['groupnames'].append('results')
         else:
             kwargs['groupnames'] = ['results']
@@ -1110,7 +1110,7 @@ class Edgeresults(am.ArrayObjman):
         """
         Keep only results of edges that belong to zone id_zone
         """
-        print 'filter_zoneedges', ids_zone
+        print('filter_zoneedges', ids_zone)
 
         zones = self.parent.parent.parent.landuse.zones
         ids_zoneedge = set()
@@ -1122,7 +1122,7 @@ class Edgeresults(am.ArrayObjman):
 
             ids_res = self.get_ids()
             inds = np.zeros(len(ids_res), dtype=np.bool)
-            for i, id_res, id_edge in zip(xrange(len(ids_res)), ids_res, self.ids_edge[ids_res]):
+            for i, id_res, id_edge in zip(range(len(ids_res)), ids_res, self.ids_edge[ids_res]):
                 inds[i] = id_edge in ids_zoneedge
             if not is_invert:
                 inds = np.logical_not(inds)
@@ -1130,7 +1130,7 @@ class Edgeresults(am.ArrayObjman):
             self.del_rows(ids_res[inds])
 
     def import_edgedata(self, sumo,  filepath):
-        print 'import_edgedata', filepath
+        print('import_edgedata', filepath)
         # print '  group',self.get_group('edgedata')
         #attrnames_data = ['entered','left','arrived','departed']
         #attrnames_averaged = ['traveltime','density','waitingTime','speed',]
@@ -1242,11 +1242,11 @@ class Edgeresults(am.ArrayObjman):
         return True
 
     def import_edgenoise(self, sumo,  filepath):
-        print 'import_edgenoise', filepath
+        print('import_edgenoise', filepath)
         self.import_sumoxml(filepath, sumo, self.get_group('edgenoise'))
 
     def import_edgeemissions(self, sumo, filepath):
-        print 'import_edgeemissions', filepath
+        print('import_edgeemissions', filepath)
         #attrnames_data = ['fuel_abs','CO_abs','CO2_abs','NOx_abs','PMx_abs']
         #attrnames_averaged = ['fuel_normed','CO_normed','CO2_normed',]
         self.import_sumoxml(filepath, sumo, self.get_group('edgeemissions'))
@@ -1288,10 +1288,10 @@ class Edgeresults(am.ArrayObjman):
             attrname = attrconfig.attrname
 
             default = attrconfig.get_default()
-            if type(default) in (types.IntType, types.LongType):
+            if type(default) in (int, int):
                 conversion = 'i'  # int
                 values_attr = np.zeros(n, int)
-            elif type(default) in (types.FloatType, types.ComplexType):
+            elif type(default) in (float, complex):
                 conversion = 'f'  # float
                 values_attr = np.zeros(n, float)
             else:
@@ -1355,7 +1355,7 @@ class Edgeresults(am.ArrayObjman):
                                           }),
             ])
 
-            for attrname, kwargs in attrinfos.iteritems():
+            for attrname, kwargs in attrinfos.items():
                 self.add_resultattr(attrname, **kwargs)
 
         attrconfigs = self.get_group('marouter')
@@ -1365,7 +1365,7 @@ class Edgeresults(am.ArrayObjman):
 
 class EdgeresultFilter(Process):
     def __init__(self, edgeresults,  logger=None, **kwargs):
-        print 'EdgeresultFilter.__init__'
+        print('EdgeresultFilter.__init__')
 
         # TODO: let this be independent, link to it or child??
 
@@ -1382,7 +1382,7 @@ class EdgeresultFilter(Process):
         zonechoices = {}
         for id_zone, name_zone in zip(ids_zone, zones.ids_sumo[ids_zone]):
             zonechoices[name_zone] = id_zone
-        print '  zonechoices', zonechoices
+        print('  zonechoices', zonechoices)
         # make for each possible pattern a field for prob
         # if len(zonechoices) > 0:
         self.ids_zone = attrsman.add(cm.ListConf('ids_zone', [],
@@ -1408,7 +1408,7 @@ class EdgeresultFilter(Process):
                                                   ))
 
     def do(self):
-        print 'EdgeresultFilter'
+        print('EdgeresultFilter')
         # links
         edgeresults = self.parent
         edgeresults.filter_zoneedges(self.ids_zone, self.is_invert)
@@ -1477,13 +1477,13 @@ class TrajectoryResults(am.ArrayObjman):
 
     def import_xml(self, sumo, datapaths):
         datapathkey = self.datapathkey.get_value()
-        print 'TrajectoryResults.import_xml datapathkey', datapathkey, datapaths.has_key(datapathkey)
-        if datapaths.has_key(datapathkey):
+        print('TrajectoryResults.import_xml datapathkey', datapathkey, datapathkey in datapaths)
+        if datapathkey in datapaths:
             self.import_trajectories_sumoxml(datapaths[datapathkey], sumo)
 
     def import_trajectories_sumoxml(self, filepath, sumo):
         element = 'vehicle'
-        print 'TrajectoryResults.import_trajectories_sumoxml', element, filepath
+        print('TrajectoryResults.import_trajectories_sumoxml', element, filepath)
 
         ids_sumo, times, trajectories, angles, speeds = read_trajectories(
             filepath, sumo, element)
@@ -1499,15 +1499,15 @@ class TrajectoryResults(am.ArrayObjman):
     def print_trajectories(self):
         ids_res = self.get_ids()
         times = self.times.get_value()
-        for i, t in zip(xrange(len(times)), times):
-            print 79*'-'
-            print 'time=', t, 's', len(times)
+        for i, t in zip(range(len(times)), times):
+            print(79*'-')
+            print('time=', t, 's', len(times))
             for id_res, id_sumo_veh, traj, a, v in zip(ids_res, self.ids_sumo[ids_res], self.trajectories[ids_res], self.angles[ids_res], self.speeds[ids_res]):
                 # print '  id_sumo_veh',id_sumo_veh,id_res
                 # print '    v',v[i]
                 # print '    traj',traj[i]
                 # print '    a',a[i]
-                print '  id_sumo_veh', id_sumo_veh, ': (x,y)', traj[i], 'a=%.2f', a[i], ' v=%.2fm/s' % v[i], len(a), len(v), len(traj)
+                print('  id_sumo_veh', id_sumo_veh, ': (x,y)', traj[i], 'a=%.2f', a[i], ' v=%.2fm/s' % v[i], len(a), len(v), len(traj))
 
 
 class ElectricEnergyVehicleResults(am.ArrayObjman):
@@ -1566,7 +1566,7 @@ class ElectricEnergyVehicleResults(am.ArrayObjman):
                              'info': 'Average speed', 'groupnames': ['electricenergydata'], 'is_average': True}),
         ])
 
-        for attrname, kwargs in attrinfos.iteritems():
+        for attrname, kwargs in attrinfos.items():
             self.add_resultattr(attrname, **kwargs)
 
     def on_energy_total(self):
@@ -1578,7 +1578,7 @@ class ElectricEnergyVehicleResults(am.ArrayObjman):
         # default cannot be kwarg
         default = kwargs['default']
         del kwargs['default']
-        if kwargs.has_key('groupnames'):
+        if 'groupnames' in kwargs:
             kwargs['groupnames'].append('results')
         else:
             kwargs['groupnames'] = ['results']
@@ -1595,12 +1595,12 @@ class ElectricEnergyVehicleResults(am.ArrayObjman):
 
     def import_xml(self, sumo, datapaths):
         datapathkey = self.datapathkey.get_value()
-        if datapaths.has_key(datapathkey):
+        if datapathkey in datapaths:
             self.import_electricenergy_sumoxml(datapaths[datapathkey], sumo)
 
     def import_electricenergy_sumoxml(self, filepath, sumo):
         element = 'vehicle'
-        print 'ElectricEnergyresults.import_electricenergy_sumoxml', element, filepath
+        print('ElectricEnergyresults.import_electricenergy_sumoxml', element, filepath)
         #id_type = 'edge',
         #reader = 'interval',
         attrconfigs = self.get_group('electricenergydata')
@@ -1613,8 +1613,8 @@ class ElectricEnergyVehicleResults(am.ArrayObjman):
         self.times.set_value(times)
         self.energies.set_value(energies)
 
-        print '  times=\n', self.times.get_value()
-        print '  energies=\n', self.energies.get_value()
+        print('  times=\n', self.times.get_value())
+        print('  energies=\n', self.energies.get_value())
 
         # print '  ids_sumo',ids_sumo
         # print '  results.keys()',results.keys()
@@ -1627,7 +1627,7 @@ class ElectricEnergyVehicleResults(am.ArrayObjman):
         #ids_sumotrip = self.ids_trip.get_linktab().ids_sumo
         n = len(ids_sumo)
         ids = self.add_rows(n=n, ids_sumo=ids_sumo)
-        print '  n', n
+        print('  n', n)
         ind_range = np.arange(n, dtype=np.int32)
 
         #ids = np.zeros(n, dtype=np.int32)
@@ -1648,10 +1648,10 @@ class ElectricEnergyVehicleResults(am.ArrayObjman):
             attrname = attrconfig.attrname
 
             default = attrconfig.get_default()
-            if type(default) in (types.IntType, types.LongType):
+            if type(default) in (int, int):
                 conversion = 'i'  # int
                 values_attr = np.zeros(n, int)
-            elif type(default) in (types.FloatType, types.ComplexType):
+            elif type(default) in (float, complex):
                 conversion = 'f'  # float
                 values_attr = np.zeros(n, float)
             else:
@@ -1719,8 +1719,8 @@ class Simresults(cm.BaseObjman):
         self.routeresults = attrsman.add(cm.ObjConf(Routeresults('routeresults', self, scenario.demand.trips,
                                                                  scenario.net.edges), groupnames=['Route results']))
         # add trip results from all demand objects
-        print 'Simresults._init_attributes'
-        print '  scenario.demand.get_demandobjects()', scenario.demand.get_demandobjects()
+        print('Simresults._init_attributes')
+        print('  scenario.demand.get_demandobjects()', scenario.demand.get_demandobjects())
         for demandobj in scenario.demand.get_demandobjects():
             demandobj.config_results(self)
 
@@ -1759,7 +1759,7 @@ class Simresults(cm.BaseObjman):
             getattr(self, resultobj.get_ident()).clear()
 
         if not hasattr(self, resultobj.get_ident()):
-            if kwargs.has_key('groupnames'):
+            if 'groupnames' in kwargs:
                 kwargs['groupnames'].append('Results')
             else:
                 kwargs['groupnames'] = ['Results']
@@ -1776,32 +1776,32 @@ class Simresults(cm.BaseObjman):
     #    #edgedatapath=None, edgenoisepath=None, edgeemissionspath = None, routesdatapath=None, tripdatapath=None
 
     def import_xml(self, sumo, **datapaths):
-        print 'Simresults.import_xml', self.get_ident_abs()
+        print('Simresults.import_xml', self.get_ident_abs())
 # print '  datapaths',datapaths
         # import first all edge oriented results for the whole net
-        if datapaths.has_key('edgedatapath'):
-            print 'import edge data'
+        if 'edgedatapath' in datapaths:
+            print('import edge data')
             self.edgeresults.import_edgedata(sumo, datapaths['edgedatapath'])
 
-        if datapaths.has_key('edgenoisepath'):
-            print 'import edge noise'
+        if 'edgenoisepath' in datapaths:
+            print('import edge noise')
             self.edgeresults.import_edgenoise(sumo, datapaths['edgenoisepath'])
 
-        if datapaths.has_key('edgeemissionspath'):
-            print 'import edge emissons'
+        if 'edgeemissionspath' in datapaths:
+            print('import edge emissons')
             self.edgeresults.import_edgeemissions(sumo, datapaths['edgeemissionspath'])
 
         # import all other resultobjects
-        for resultobj in self.get_attrsman().get_group_attrs('Results').values():
-            print '  import other resultobject', resultobj.ident
+        for resultobj in list(self.get_attrsman().get_group_attrs('Results').values()):
+            print('  import other resultobject', resultobj.ident)
             resultobj.import_xml(sumo, datapaths)
 
-        if datapaths.has_key('routesdatapath'):
-            print 'import route results'
+        if 'routesdatapath' in datapaths:
+            print('import route results')
             self.routeresults.import_xml(sumo, datapaths)
-            print 'importedge flows'
+            print('importedge flows')
             self.edgeresults.import_edgeflows(sumo, datapaths['edgedatapath'])
-            print 'import connection flows'
+            print('import connection flows')
             self.connectionresults.evaluate_results(sumo, datapaths)
 
     # def process(self, process = None):
@@ -1811,7 +1811,7 @@ class Simresults(cm.BaseObjman):
     #        demandobj.process_results(self, process)
 
     def get_tripresults(self):
-        return self.get_attrsman().get_group_attrs('Trip results').values()
+        return list(self.get_attrsman().get_group_attrs('Trip results').values())
 
     # def import_routesdata(self, routesdatapath):
     #    for tripresult in self.get_tripresults():
@@ -1885,12 +1885,12 @@ class MarouterLoadReader(handler.ContentHandler):
                 xmltag = attrsconfig.xmltag
                 attrname = attrsconfig.attrname
 
-                if attrs.has_key(xmltag):
+                if xmltag in attrs:
                     # print '  attrname cum',attrname,attrs.has_key(attrname),'*'+attrs[attrname]+'*'
                     a = attrs[xmltag]
 
                     if a.strip() != '':
-                        if self._values[attrname].has_key(id_elem):
+                        if id_elem in self._values[attrname]:
                             self._values[attrname][id_elem] += float(a)
                             # print '    added val',xmltag,attrname,self._values[attrname][id_elem],'val',float(a)
                         else:
@@ -1908,12 +1908,12 @@ class MarouterLoadReader(handler.ContentHandler):
             for attrsconfig in self._attrsconfigs_average:
                 xmltag = attrsconfig.xmltag
                 attrname = attrsconfig.attrname
-                if attrs.has_key(xmltag):
+                if xmltag in attrs:
                     # print '  attrname',attrname,attrs.has_key(attrname),'*'+attrs[attrname]+'*'
                     # n=float(self.n_inter)
                     a = attrs[xmltag]
                     if a.strip() != '':
-                        if self._values[attrname].has_key(id_elem):
+                        if id_elem in self._values[attrname]:
                             valcum, n = self._values[attrname][id_elem]
                             valcum += float(a)
                             n += 1
@@ -1942,7 +1942,7 @@ class IntervalAvReader2(handler.ContentHandler):
         element is "lane" or "edge" or "tripinfo"
         attrnames is a list of attribute names to read.
         """
-        print 'IntervalAvReader2', element
+        print('IntervalAvReader2', element)
         # print '  attrsconfigs_cumulative'
         # for attrconfig in attrsconfigs_cumulative: print '    ',attrconfig.attrname
 
@@ -2020,12 +2020,12 @@ class IntervalAvReader2(handler.ContentHandler):
                 xmltag = attrsconfig.xmltag
                 attrname = attrsconfig.attrname
 
-                if attrs.has_key(xmltag):
+                if xmltag in attrs:
                     # print '  attrname cum',attrname,attrs.has_key(attrname),'*'+attrs[attrname]+'*'
                     a = attrs[xmltag]
 
                     if a.strip() != '':
-                        if self._values[attrname].has_key(id_elem):
+                        if id_elem in self._values[attrname]:
                             self._values[attrname][id_elem] += float(a)
                             # print '    added val',xmltag,attrname,self._values[attrname][id_elem],'val',float(a)
                         else:
@@ -2043,12 +2043,12 @@ class IntervalAvReader2(handler.ContentHandler):
             for attrsconfig in self._attrsconfigs_average:
                 xmltag = attrsconfig.xmltag
                 attrname = attrsconfig.attrname
-                if attrs.has_key(xmltag):
+                if xmltag in attrs:
                     # print '  attrname',attrname,attrs.has_key(attrname),'*'+attrs[attrname]+'*'
                     # n=float(self.n_inter)
                     a = attrs[xmltag]
                     if a.strip() != '':
-                        if self._values[attrname].has_key(id_elem):
+                        if id_elem in self._values[attrname]:
                             valcum, n = self._values[attrname][id_elem]
                             valcum += float(a)
                             n += 1
@@ -2085,7 +2085,7 @@ class ElectricalEnergyReader(IntervalAvReader2):
         element is "lane" or "edge" or "tripinfo"
         attrnames is a list of attribute names to read.
         """
-        print 'ElectricalEnergyReader', element
+        print('ElectricalEnergyReader', element)
         # print '  attrsconfigs_cumulative',attrsconfigs_cumulative
         # print '  attrsconfigs_average',attrsconfigs_average
         IntervalAvReader2.__init__(self, element, sumo,  attrsconfigs_cumulative, attrsconfigs_average)
@@ -2142,13 +2142,13 @@ class ElectricalEnergyReader(IntervalAvReader2):
                 xmltag = attrsconfig.xmltag
                 attrname = attrsconfig.attrname
                 # print '    attrname (cum)',attrname,xmltag,attrs.has_key(xmltag)
-                if attrs.has_key(xmltag):
+                if xmltag in attrs:
 
                     a = attrs[xmltag]
 
                     if a.strip() != '':
                         a = float(a)
-                        if self._values[attrname].has_key(id_elem):
+                        if id_elem in self._values[attrname]:
                             self._values[attrname][id_elem] += a
                             # print '      added val',xmltag,attrname,self._values[attrname][id_elem],'val',float(a)
                         else:
@@ -2162,12 +2162,12 @@ class ElectricalEnergyReader(IntervalAvReader2):
                 xmltag = attrsconfig.xmltag
                 attrname = attrsconfig.attrname
                 # print '    attrname (av)',attrname,xmltag,attrs.has_key(xmltag)
-                if attrs.has_key(xmltag):
+                if xmltag in attrs:
 
                     a = attrs[xmltag]
                     if a.strip() != '':
                         a = float(a)
-                        if self._values[attrname].has_key(id_elem):
+                        if id_elem in self._values[attrname]:
                             valcum, n = self._values[attrname][id_elem]
                             # print '    add val', float(a),'to',valcum
                             valcum += a
@@ -2244,15 +2244,15 @@ class TripresultReader(IntervalAvReader2):
                 xmltag = attrsconfig.xmltag
                 attrname = attrsconfig.attrname
 
-                if attrs.has_key(xmltag):
+                if xmltag in attrs:
                     # print '  attrname',attrname,attrs.has_key(attrname)
-                    if attrs.has_key(attrname):
+                    if attrname in attrs:
 
                         # print '   val *'+attrs[xmltag]+'*'
                         a = attrs[xmltag]
 
                         if a.strip() != '':
-                            if self._values[attrname].has_key(id_elem):
+                            if id_elem in self._values[attrname]:
                                 self._values[attrname][id_elem] += float(a)
                             else:
                                 self._values[attrname][id_elem] = float(a)
@@ -2268,11 +2268,11 @@ class TripresultReader(IntervalAvReader2):
             for attrsconfig in self._attrsconfigs_average:
                 xmltag = attrsconfig.xmltag
                 attrname = attrsconfig.attrname
-                if attrs.has_key(xmltag):
+                if xmltag in attrs:
                     # n=float(self.n_inter)
                     a = attrs[xmltag]
                     if a.strip() != '':
-                        if self._values[attrname].has_key(id_elem):
+                        if id_elem in self._values[attrname]:
                             valcum, n = self._values[attrname][id_elem]
                             valcum += float(a)
                             n += 1
@@ -2295,7 +2295,7 @@ class TripresultReader(IntervalAvReader2):
 
 
 def read_electrical_energy(filepath, sumo,  element, attrsconfigs):
-    print 'read_electrical_energy'
+    print('read_electrical_energy')
     attrsconfigs_cumulative = []
     attrsconfigs_average = []
     for attrsconfig in attrsconfigs:
@@ -2323,7 +2323,7 @@ class ElectricalEnergyReader(IntervalAvReader2):
         element is "lane" or "edge" or "tripinfo"
         attrnames is a list of attribute names to read.
         """
-        print 'ElectricalEnergyReader', element
+        print('ElectricalEnergyReader', element)
         # print '  attrsconfigs_cumulative',attrsconfigs_cumulative
         # print '  attrsconfigs_average',attrsconfigs_average
         IntervalAvReader2.__init__(self, element, sumo,  attrsconfigs_cumulative, attrsconfigs_average)
@@ -2380,13 +2380,13 @@ class ElectricalEnergyReader(IntervalAvReader2):
                 xmltag = attrsconfig.xmltag
                 attrname = attrsconfig.attrname
                 # print '    attrname (cum)',attrname,xmltag,attrs.has_key(xmltag)
-                if attrs.has_key(xmltag):
+                if xmltag in attrs:
 
                     a = attrs[xmltag]
 
                     if a.strip() != '':
                         a = float(a)
-                        if self._values[attrname].has_key(id_elem):
+                        if id_elem in self._values[attrname]:
                             self._values[attrname][id_elem] += a
                             # print '      added val',xmltag,attrname,self._values[attrname][id_elem],'val',float(a)
                         else:
@@ -2400,12 +2400,12 @@ class ElectricalEnergyReader(IntervalAvReader2):
                 xmltag = attrsconfig.xmltag
                 attrname = attrsconfig.attrname
                 # print '    attrname (av)',attrname,xmltag,attrs.has_key(xmltag)
-                if attrs.has_key(xmltag):
+                if xmltag in attrs:
 
                     a = attrs[xmltag]
                     if a.strip() != '':
                         a = float(a)
-                        if self._values[attrname].has_key(id_elem):
+                        if id_elem in self._values[attrname]:
                             valcum, n = self._values[attrname][id_elem]
                             # print '    add val', float(a),'to',valcum
                             valcum += a
@@ -2435,7 +2435,7 @@ class TrajectoryReader(IntervalAvReader2):
         element is "lane" or "edge" or "tripinfo"
         attrnames is a list of attribute names to read.
         """
-        print 'TrajectoryReader', element
+        print('TrajectoryReader', element)
         # print '  attrsconfigs_cumulative',attrsconfigs_cumulative
         # print '  attrsconfigs_average',attrsconfigs_average
         IntervalAvReader2.__init__(self, element, sumo,  [], [])
@@ -2518,7 +2518,7 @@ class TrajectoryReader(IntervalAvReader2):
 
 
 def read_trajectories(filepath, sumo,  element):
-    print 'read_trajectories', element
+    print('read_trajectories', element)
 
     reader = TrajectoryReader(element, sumo)
     parse(filepath, reader)
@@ -2529,7 +2529,7 @@ def read_trajectories(filepath, sumo,  element):
     angles = np.ones(n_veh, dtype=np.object)
     speeds = np.ones(n_veh, dtype=np.object)
 
-    for i, id_sumo in zip(xrange(n_veh), ids_sumo):
+    for i, id_sumo in zip(range(n_veh), ids_sumo):
         trajectories[i] = reader.trajectories[id_sumo]
         angles[i] = reader.angles[id_sumo]
         speeds[i] = reader.speeds[id_sumo]
@@ -2563,7 +2563,7 @@ def read_interval2(filepath, sumo,  element, attrsconfigs):
 
 
 def read_tripresult(filepath, sumo,  trips, element, attrsconfigs):
-    print 'read_tripresult', filepath, trips.ident, 'element', element
+    print('read_tripresult', filepath, trips.ident, 'element', element)
     attrsconfigs_cumulative = []
     attrsconfigs_average = []
     for attrsconfig in attrsconfigs:
