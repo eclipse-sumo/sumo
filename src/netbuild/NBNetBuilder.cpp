@@ -776,14 +776,12 @@ NBNetBuilder::roundInputs() {
     }
     // ensure that derived junction and lane geometry computation is done with the same input
     // edge coordinates as those that will be written to the output.
-    /*
     for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
         (*i).second->roundGeometry();
     }
     for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
         (*i).second->roundGeometry();
     }
-    */
 }
 
 
