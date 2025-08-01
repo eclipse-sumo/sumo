@@ -92,7 +92,7 @@ private:
      *  all edges within the value-vector which direction at the node differs
      *  less than 1 from the key-edge's direction.
      */
-    void joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same, bool useEndpoints);
+    void joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*, ComparatorIdLess> >& same, bool useEndpoints);
 
     /** @brief Joins edges
      *
@@ -102,7 +102,7 @@ private:
      */
     EdgeVector computeUniqueDirectionList(
         const EdgeVector& all,
-        std::map<NBEdge*, std::set<NBEdge*> >& same,
+        std::map<NBEdge*, std::set<NBEdge*, ComparatorIdLess> >& same,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW);
 
@@ -143,20 +143,20 @@ private:
 
     /// @brief whether the given edges (along with those in the same direction) requires a large turning radius
     bool needsLargeTurn(NBEdge* e1, NBEdge* e2,
-                        std::map<NBEdge*, std::set<NBEdge*> >& same) const;
+                        std::map<NBEdge*, std::set<NBEdge*, ComparatorIdLess> >& same) const;
 
     /// @brief determine the default radius appropriate for the current junction
     double getDefaultRadius(const OptionsCont& oc);
 
     void computeSameEnd(PositionVector& l1, PositionVector& l2);
 
-    bool isDivided(const NBEdge* e, std::set<NBEdge*> same, const PositionVector& ccw, const PositionVector& cw) const;
+    bool isDivided(const NBEdge* e, std::set<NBEdge*, ComparatorIdLess> same, const PositionVector& ccw, const PositionVector& cw) const;
 
     /// @brief compute with of rightmost lanes that exlude the given permissions
     static double getExtraWidth(const NBEdge* e, SVCPermissions exclude);
 
     /// @brief compute the width of the divider space for divided roads
-    static double divisionWidth(const NBEdge* e, std::set<NBEdge*> same, const Position& p, const Position& p2);
+    static double divisionWidth(const NBEdge* e, std::set<NBEdge*, ComparatorIdLess> same, const Position& p, const Position& p2);
 
 private:
     /// The node to compute the geometry for
