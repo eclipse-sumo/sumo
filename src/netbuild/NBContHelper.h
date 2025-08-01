@@ -118,6 +118,7 @@ public:
      */
     class edge_by_priority_sorter {
     public:
+        edge_by_priority_sorter(SVCPermissions permissions) : myPermissions(permissions) {}
         /// comparing operator
         int operator()(NBEdge* e1, NBEdge* e2) const {
             if (e1->getPriority() != e2->getPriority()) {
@@ -126,8 +127,11 @@ public:
             if (e1->getSpeed() != e2->getSpeed()) {
                 return e1->getSpeed() > e2->getSpeed();
             }
-            return e1->getNumLanes() > e2->getNumLanes();
+            return e1->getNumLanesThatAllow(myPermissions, false) > e2->getNumLanesThatAllow(myPermissions, false);
         }
+
+    private:
+        SVCPermissions myPermissions;
     };
 
     // ---------------------------

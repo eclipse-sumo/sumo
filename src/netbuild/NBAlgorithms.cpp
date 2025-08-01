@@ -437,13 +437,23 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
     int maxPrio = -std::numeric_limits<int>::max();
     int maxNumLanes = -std::numeric_limits<int>::max();
     double maxSpeed = -std::numeric_limits<double>::max();
+    // check available vClasses to consider for lane number comparison 
+    SVCPermissions all = 0;
+    for (NBEdge* const edge : n.myAllEdges) {
+        all |= edge->getPermissions();
+    }
+    if ((all & (SVC_PASSENGER & SVC_TRAM & SVC_BUS)) != 0) {
+        all = (SVC_PASSENGER & SVC_TRAM & SVC_BUS);
+    } else if ((all & ~SVC_VULNERABLE) != 0) {
+        all &= ~SVC_VULNERABLE;
+    }
     if (forceStraight) {
         // called a second time, preset all junction's edge priorities to zero
         for (NBEdge* const edge : n.myAllEdges) {
             edge->setJunctionPriority(&n, NBEdge::JunctionPriority::MINOR_ROAD);
             minPrio = MIN2(minPrio, edge->getPriority());
             maxPrio = MAX2(maxPrio, edge->getPriority());
-            maxNumLanes = MAX2(maxNumLanes, edge->getNumLanes());
+            maxNumLanes = MAX2(maxNumLanes, edge->getNumLanesThatAllow(all, false));
             maxSpeed = MAX2(maxSpeed, edge->getSpeed());
         }
     }
@@ -452,19 +462,19 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
     // what we do want to have is to extract the pair of roads that are
     //  the major roads for this junction
     // let's get the list of incoming edges with the highest priority
-    std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_priority_sorter());
+    std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_priority_sorter(all));
     EdgeVector bestIncoming;
     NBEdge* bestIn = incoming[0];
-    while (incoming.size() > 0 && (forceStraight || samePriority(bestIn, incoming[0]))) {
+    while (incoming.size() > 0 && (forceStraight || samePriority(bestIn, incoming[0], all))) {
         bestIncoming.push_back(*incoming.begin());
         incoming.erase(incoming.begin());
     }
     // now, let's get the list of best outgoing
     assert(outgoing.size() != 0);
-    sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_priority_sorter());
+    sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_priority_sorter(all));
     EdgeVector bestOutgoing;
     const NBEdge* const firstOut = outgoing[0];
-    while (outgoing.size() > 0 && (forceStraight || samePriority(firstOut, outgoing[0]))) { //->getPriority()==best->getPriority())
+    while (outgoing.size() > 0 && (forceStraight || samePriority(firstOut, outgoing[0], all))) { //->getPriority()==best->getPriority())
         bestOutgoing.push_back(*outgoing.begin());
         outgoing.erase(outgoing.begin());
     }
@@ -499,7 +509,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
         for (auto item : counterOutgoingEdges) {
             tmp2[item.first->getID()] = item.second->getID();
         }
-        std::cout << "n=" << n.getID() << " bestIn=" << bestIn->getID() << " bestOut=" << toString(bestOutgoing)
+        std::cout << "n=" << n.getID() << " forceStraight=" << forceStraight << " bestIn=" << bestIn->getID() << " bestOut=" << toString(bestOutgoing)
                   << " counterBest=" << counterIncomingEdges.find(bestIncoming[0])->second->getID()
                   << " mainExplicit=" << mainDirectionExplicit
                   << " forceStraight=" << forceStraight
@@ -577,7 +587,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
             if (angle2 >= 360) {
                 angle2 -= 360;
             }
-            double score = forceStraight ? getScore(t1, t2, minPrio, maxPrio, maxNumLanes, maxSpeed) : 0;
+            double score = forceStraight ? getScore(t1, t2, minPrio, maxPrio, maxNumLanes, maxSpeed, all) : 0;
             double angle = GeomHelper::getMinAngleDiff(angle1, angle2) + 45 * score;
             if (angle > bestAngle) {
                 //if (forceStraight) std::cout << " node=" << n.getID() << " t1=" << t1->getID() << " t2=" << t2->getID() << " angle=" << angle << " bestAngle=" << bestAngle << " score=" << score << " minPrio=" << minPrio << " maxPrio=" << maxPrio << "\n";
@@ -618,7 +628,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
 }
 
 double
-NBEdgePriorityComputer::getScore(const NBEdge* e1, const NBEdge* e2, int minPrio, int maxPrio, int maxNumLanes, double maxSpeed) {
+NBEdgePriorityComputer::getScore(const NBEdge* e1, const NBEdge* e2, int minPrio, int maxPrio, int maxNumLanes, double maxSpeed, SVCPermissions permissions) {
     // normalize priorities to [0.1,1]
     double normPrio1 = 1;
     double normPrio2 = 1;
@@ -627,10 +637,10 @@ NBEdgePriorityComputer::getScore(const NBEdge* e1, const NBEdge* e2, int minPrio
         normPrio2 = ((e2->getPriority() - minPrio) / (maxPrio - minPrio)) * 0.9 + 0.1;
     }
     return (normPrio1
-            * e1->getNumLanes() / maxNumLanes
+            * e1->getNumLanesThatAllow(permissions, false) / maxNumLanes
             * e1->getSpeed() / maxSpeed
             * normPrio2
-            * e2->getNumLanes() / maxNumLanes
+            * e2->getNumLanesThatAllow(permissions, false) / maxNumLanes
             * e2->getSpeed() / maxSpeed);
 }
 
@@ -667,7 +677,7 @@ NBEdgePriorityComputer::extractAndMarkFirst(NBNode& n, std::vector<NBEdge*>& s, 
 
 
 bool
-NBEdgePriorityComputer::samePriority(const NBEdge* const e1, const NBEdge* const e2) {
+NBEdgePriorityComputer::samePriority(const NBEdge* const e1, const NBEdge* const e2, SVCPermissions permissions) {
     if (e1 == e2) {
         return true;
     }
@@ -677,7 +687,7 @@ NBEdgePriorityComputer::samePriority(const NBEdge* const e1, const NBEdge* const
     if ((int) e1->getSpeed() != (int) e2->getSpeed()) {
         return false;
     }
-    return (int) e1->getNumLanes() == (int) e2->getNumLanes();
+    return e1->getNumLanesThatAllow(permissions, false) == (int) e2->getNumLanesThatAllow(permissions, false);
 }
 
 
