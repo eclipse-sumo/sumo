@@ -567,6 +567,27 @@ NBEdge::reshiftPosition(double xoff, double yoff) {
 
 
 void
+NBEdge::roundGeometry() {
+    myGeom.round(gPrecision);
+    for (Lane& lane : myLanes) {
+        lane.customShape.round(gPrecision);
+    }
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        (*i).customShape.round(gPrecision);
+    }
+}
+
+
+void
+NBEdge::roundSpeed() {
+    mySpeed = roundDecimalToEven(mySpeed, gPrecision);
+    // lane speeds are not used for computation but are compared to mySpeed in hasLaneSpecificSpeed
+    for (Lane& l : myLanes) {
+        l.speed = roundDecimalToEven(l.speed, gPrecision);
+    }
+}
+
+void
 NBEdge::mirrorX() {
     myGeom.mirrorX();
     for (int i = 0; i < (int)myLanes.size(); i++) {
@@ -4818,6 +4839,7 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
             //tmp.move2side(MIN2(neededOffset - dist, neededOffset2 - dist2));
             try {
                 tmp.move2side(neededOffset - dist);
+                tmp[i].round(gPrecision);
                 myGeom[i] = tmp[i];
                 //std::cout << getID() << " shiftPositionAtNode needed=" << neededOffset << " dist=" << dist << " needed2=" << neededOffset2 << " dist2=" << dist2 << "  by=" << (neededOffset - dist) << " other=" << other->getID() << "\n";
             } catch (InvalidArgument&) {

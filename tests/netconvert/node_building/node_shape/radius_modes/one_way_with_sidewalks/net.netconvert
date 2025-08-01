@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:55:50 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2025-08-01 10:11:18 by Eclipse SUMO netconvert Version v1_24_0+0102-c3f50d280c3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -27,7 +27,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -44,7 +44,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_2_0" index="0" speed="13.89" length="14.40" shape="101.60,92.80 101.60,107.20"/>
     </edge>
     <edge id=":C_3" function="internal">
-        <lane id=":C_3_0" index="0" speed="8.00" length="14.19" shape="101.60,92.80 101.05,96.65 99.40,99.40 96.65,101.05 92.80,101.60"/>
+        <lane id=":C_3_0" index="0" speed="8.00" length="7.62" shape="101.60,92.80 101.05,96.65 99.40,99.40 98.95,99.67"/>
+    </edge>
+    <edge id=":C_4" function="internal">
+        <lane id=":C_4_0" index="0" speed="8.00" length="6.57" shape="98.95,99.67 96.65,101.05 92.80,101.60"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="-1">
@@ -72,25 +75,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="92.80" shape="0.00,98.40 92.80,98.40"/>
     </edge>
 
-    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="NC_0 EC_0 SC_0 WC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0" shape="96.80,107.20 103.20,107.20 103.64,104.98 104.20,104.20 104.98,103.64 105.98,103.31 107.20,103.20 107.20,96.80 104.98,96.36 104.20,95.80 103.64,95.02 103.31,94.02 103.20,92.80 96.80,92.80 96.36,95.02 95.80,95.80 95.02,96.36 94.02,96.69 92.80,96.80 92.80,103.20 95.02,103.64 95.80,104.20 96.36,104.98 96.69,105.98">
-        <request index="0" response="0100" foes="0100" cont="0"/>
-        <request index="1" response="1100" foes="1100" cont="0"/>
-        <request index="2" response="0000" foes="0011" cont="0"/>
-        <request index="3" response="0000" foes="0010" cont="0"/>
+    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="NC_0 EC_0 SC_0 WC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_4_0" shape="96.80,107.20 103.20,107.20 103.64,104.98 104.20,104.20 104.98,103.64 105.98,103.31 107.20,103.20 107.20,96.80 104.98,96.36 104.20,95.80 103.64,95.02 103.31,94.02 103.20,92.80 96.80,92.80 96.36,95.02 95.80,95.80 95.02,96.36 94.02,96.69 92.80,96.80 92.80,103.20 95.02,103.64 95.80,104.20 96.36,104.98 96.69,105.98">
+        <request index="0" response="0000" foes="0100" cont="0"/>
+        <request index="1" response="0000" foes="1100" cont="0"/>
+        <request index="2" response="0011" foes="0011" cont="0"/>
+        <request index="3" response="0010" foes="0010" cont="1"/>
     </junction>
     <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0" intLanes="" shape="200.00,100.00 200.00,96.80 200.00,100.00"/>
     <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0" intLanes="" shape="100.00,200.00 103.20,200.00 100.00,200.00"/>
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0" intLanes="" shape="100.00,0.00 96.80,0.00 100.00,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0" intLanes="" shape="0.00,100.00 0.00,103.20 0.00,100.00"/>
 
-    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="m"/>
-    <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_1_0" dir="s" state="m"/>
-    <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_2_0" dir="s" state="M"/>
-    <connection from="SC" to="CW" fromLane="0" toLane="0" via=":C_3_0" dir="l" state="M"/>
+    <junction id=":C_4_0" type="internal" x="98.95" y="99.67" incLanes=":C_3_0 EC_0" intLanes=":C_1_0"/>
+
+    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="M"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_1_0" dir="s" state="M"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_2_0" dir="s" state="m"/>
+    <connection from="SC" to="CW" fromLane="0" toLane="0" via=":C_3_0" dir="l" state="m"/>
 
     <connection from=":C_0" to="CN" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_1" to="CW" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_2" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_3" to="CW" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":C_3" to="CW" fromLane="0" toLane="0" via=":C_4_0" dir="l" state="m"/>
+    <connection from=":C_4" to="CW" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>

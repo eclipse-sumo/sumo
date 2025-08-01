@@ -23,10 +23,10 @@ Warning: PT stop '4589475948' has been moved to edge '-572772256#3'.
 Warning: PT stop '4701534125' has been moved to edge '-253362216#2'.
 Warning: PT stop '4701534129' has been moved to edge '-66924592#7'.
 Warning: PT stop '4701534132' has been moved to edge '-66924592#4'.
-Warning: Found sharp turn with radius 2.22 at the start of edge '-24787423'.
-Warning: Found sharp turn with radius 2.22 at the end of edge '24787423'.
-Warning: Speed of straight connection '24546642#0_0->24546642#1_0' reduced by 5.99 due to turning radius of 10.02 (length=1.40, angle=23.69).
-Warning: Speed of straight connection '300873532#2_0->300873532#3_0' reduced by 7.31 due to turning radius of 6.77 (length=2.24, angle=36.47).
-Warning: Speed of straight connection '300873532#2_1->300873532#3_1' reduced by 8.92 due to turning radius of 3.67 (length=1.07, angle=36.47).
+Warning: Found sharp turn with radius 2.24 at the start of edge '-24787423'.
+Warning: Found sharp turn with radius 2.24 at the end of edge '24787423'.
+Warning: Speed of straight connection '24546642#0_0->24546642#1_0' reduced by 6.01 due to turning radius of 9.96 (length=1.41, angle=23.80).
+Warning: Speed of straight connection '300873532#2_0->300873532#3_0' reduced by 7.30 due to turning radius of 6.78 (length=2.27, angle=36.72).
+Warning: Speed of straight connection '300873532#2_1->300873532#3_1' reduced by 8.93 due to turning radius of 3.65 (length=1.08, angle=36.72).
 Warning: 6 total messages of type: No way found for reference '%' in relation '%'
 Warning: 8 total messages of type: PT stop '%' has been moved to edge '%'.

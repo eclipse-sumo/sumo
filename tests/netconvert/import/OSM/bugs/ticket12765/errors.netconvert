@@ -9,6 +9,6 @@ Warning: PT line in relation 66869 with no stops ignored. Probably OSM file is i
 Warning: PT line in relation 349308 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 2277611 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 2277612 with no stops ignored. Probably OSM file is incomplete.
-Warning: Speed of straight connection '23209055#1_1->23209055#2_1' reduced by 5.12 due to turning radius of 13.99 (length=4.01, angle=32.41).
+Warning: Speed of straight connection '23209055#1_1->23209055#2_1' reduced by 5.09 due to turning radius of 14.07 (length=4.01, angle=32.31).
 Warning: 15 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 281 total messages of type: The referenced geometry information (ref='%') is not known

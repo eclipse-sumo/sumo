@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-29 10:36:42 by Eclipse SUMO netconvert Version v1_22_0+1806-33294317c71
+<!-- generated on 2025-08-01 13:22:15 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -79,16 +79,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="9889_0" index="0" speed="13.90" length="97.53" shape="81.53,209.23 142.84,273.92"/>
     </edge>
     <edge id="a" from="17200" to="-9890.20" priority="-1" spreadType="center" shape="73.35,209.78 71.60,210.93 67.71,213.02 62.84,214.62 57.48,215.70 54.58,215.70">
-        <lane id="a_0" index="0" speed="13.90" length="24.72" shape="71.99,210.67 71.60,210.93 67.71,213.02 62.84,214.62 57.48,215.70 54.58,215.70"/>
+        <lane id="a_0" index="0" speed="13.90" length="24.73" shape="71.99,210.67 71.60,210.93 67.71,213.02 62.84,214.62 57.48,215.70 54.58,215.70"/>
     </edge>
     <edge id="b" from="-9890.20" to="-9890.-20" priority="-1" spreadType="center" shape="54.58,215.70 52.94,215.70 48.65,215.25 44.34,214.15 40.41,212.44 36.91,210.57 33.80,208.10 30.27,204.85 27.50,201.18 24.74,196.03 22.82,190.01 22.30,185.03 22.33,183.06">
-        <lane id="b_0" index="0" speed="13.90" length="51.17" shape="54.58,215.70 52.94,215.70 48.65,215.25 44.34,214.15 40.41,212.44 36.91,210.57 33.80,208.10 30.27,204.85 27.50,201.18 24.74,196.03 22.82,190.01 22.30,185.03 22.33,183.06"/>
+        <lane id="b_0" index="0" speed="13.90" length="51.16" shape="54.58,215.70 52.94,215.70 48.65,215.25 44.34,214.15 40.41,212.44 36.91,210.57 33.80,208.10 30.27,204.85 27.50,201.18 24.74,196.03 22.82,190.01 22.30,185.03 22.33,183.21"/>
     </edge>
     <edge id="c" from="-9890.-20" to="17199" priority="-1" spreadType="center" shape="22.33,183.06 22.36,180.66 23.01,176.54 24.23,172.11 25.72,168.35 28.34,164.34">
-        <lane id="c_0" index="0" speed="13.90" length="24.53" shape="22.33,183.06 22.36,180.66 23.01,176.54 24.23,172.11 25.72,168.35 27.40,165.78"/>
+        <lane id="c_0" index="0" speed="13.90" length="24.53" shape="22.33,182.91 22.36,180.66 23.01,176.54 24.23,172.11 25.72,168.35 27.40,165.78"/>
     </edge>
 
-    <junction id="-9890.-20" type="priority" x="22.33" y="183.06" incLanes="b_0" intLanes="" shape="23.93,183.08 20.73,183.04 23.93,183.08">
+    <junction id="-9890.-20" type="priority" x="22.33" y="183.06" incLanes="b_0" intLanes="" shape="23.93,182.93 20.73,182.89 20.73,183.19 23.93,183.23">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="-9890.20" type="priority" x="54.58" y="215.70" incLanes="a_0" intLanes="" shape="54.58,217.30 54.58,214.10 54.58,217.30">

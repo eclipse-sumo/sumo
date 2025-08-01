@@ -7,4 +7,4 @@ Warning: No way found for reference '24565690' in relation '3314167'
 Warning: Ignoring restriction relation '3314167' with unknown from-way.
 Warning: The traffic light '41003136' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '41003136'
-Warning: Speed of straight connection '4218825#0_0->166045378_0' reduced by 6.32 due to turning radius of 25.05 (length=6.06, angle=29.33).
+Warning: Speed of straight connection '4218825#0_0->166045378_0' reduced by 6.29 due to turning radius of 25.18 (length=6.07, angle=29.26).

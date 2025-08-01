@@ -13,7 +13,7 @@ Warning: Could not assign stop '424052409' to pt line '36134' (closest edge 'NUL
 Warning: Could not assign stop '289751411' to pt line '36134' (closest edge 'NULL', distance 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00). Ignoring!
 Warning: Removed invalid stop '424052409' from line '36134'.
 Warning: Removed invalid stop '289751411' from line '36134'.
-Warning: Found angle of 101.37 degrees at edge '151059738#0', segment 0.
+Warning: Found angle of 101.30 degrees at edge '151059738#0', segment 0.
 Warning: The traffic light '249536359' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '249536359'
 Warning: The traffic light '255072664' does not control any links; it will not be build.

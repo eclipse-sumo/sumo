@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <limits>
+#include "GeomHelper.h"
 #include "Position.h"
 
 
@@ -46,4 +47,12 @@ Position::rotateAround2D(double rad, const Position& origin) {
                p.x() * c - p.y() * s,
                p.x() * s + p.y() * c) + origin;
 
+}
+
+void
+Position::round(int precision) {
+    // bankers rounding as in iostream
+    myX = roundDecimalToEven(myX, precision);
+    myY = roundDecimalToEven(myY, precision);
+    myZ = roundDecimalToEven(myZ, precision);
 }

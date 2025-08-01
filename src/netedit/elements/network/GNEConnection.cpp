@@ -72,21 +72,51 @@ GNEConnection::updateGeometry() {
         // Get shape of from and to lanes
         const NBEdge::Connection& nbCon = getNBEdgeConnection();
         // obtain lane shapes
-        const auto& laneShapeFrom = getParentLanes().front()->getLaneShape();
-        const auto& laneShapeTo = getParentLanes().back()->getLaneShape();
+        PositionVector laneShapeFrom = getParentLanes().front()->getLaneShape();
+        PositionVector laneShapeTo = getParentLanes().back()->getLaneShape();
         // Calculate shape of connection depending of the size of Junction shape
         if (nbCon.customShape.size() > 0) {
             myConnectionGeometry.updateGeometry(nbCon.customShape);
         } else if (nbCon.shape.size() > 1) {
             PositionVector connectionShape;
             if ((nbCon.shape.length() < 3) && !nbCon.haveVia) {
-                if (laneShapeFrom.length() > 1) {
-                    connectionShape.push_back(laneShapeFrom.positionAtOffset(laneShapeFrom.length() - 1));
+                // apply offset to lane shape if we're in lane spread function center
+                if (getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneSpreadFunction() == LaneSpreadFunction::CENTER) {
+                    laneShapeFrom.move2side(0.3);
                 }
+                if (getParentLanes().back()->getParentEdge()->getNBEdge()->getLaneSpreadFunction() == LaneSpreadFunction::CENTER) {
+                    laneShapeTo.move2side(0.3);
+                }
+                // check if this connetion is a turn around
+                bool turnAround = false;
+                const auto fromOppositeEdges = getParentLanes().front()->getParentEdge()->getOppositeEdges();
+                for (const auto& edge : fromOppositeEdges) {
+                    if (edge == getParentLanes().back()->getParentEdge()) {
+                        turnAround = true;
+                        break;
+                    }
+                }
+                // add from lane shape one step before
+                if (laneShapeFrom.length() > 1) {
+                    // set lenght depending of turn arounds
+                    if (turnAround) {
+                        connectionShape.push_back(laneShapeFrom.positionAtOffset(laneShapeFrom.length() - 0.5));
+                    } else {
+                        connectionShape.push_back(laneShapeFrom.positionAtOffset(laneShapeFrom.length() - 1));
+                    }
+                }
+                // add from lane shape
                 connectionShape.push_back(laneShapeFrom.back());
+                // add to lane shape
                 connectionShape.push_back(laneShapeTo.front());
+                // add to lane shape one step after
                 if (laneShapeTo.length() > 1) {
-                    connectionShape.push_back(laneShapeTo.positionAtOffset(1));
+                    // set lenght depending of turn arounds
+                    if (turnAround) {
+                        connectionShape.push_back(laneShapeTo.positionAtOffset(0.5));
+                    } else {
+                        connectionShape.push_back(laneShapeTo.positionAtOffset(1));
+                    }
                 }
             } else {
                 connectionShape = nbCon.shape;
@@ -711,6 +741,10 @@ GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisual
     RGBColor connectionColor = getConnectionColor(s);
     // Push layer matrix
     GLHelper::pushMatrix();
+    // move top if is selected
+    if (mySelected) {
+        glTranslated(0, 0, 0.2);
+    }
     // translate to front
     if (myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement() == this) {
         drawInLayer(GLO_CONNECTION, 200);
@@ -760,9 +794,9 @@ GNEConnection::drawConnectionArrows(const GUIVisualizationSettings& s, const GUI
         GLHelper::setColor(color.changedBrightness(51));
         // draw triangles
         for (int i = 1; i < (int)superposedGeometry.getShape().size(); i++) {
-            const auto posA = superposedGeometry.getShape()[i - 1];
-            const auto posB = superposedGeometry.getShape()[i];
-            GLHelper::drawTriangleAtEnd(posA, posB, (double) 1, (double) .2);
+            const auto& posA = superposedGeometry.getShape()[i - 1];
+            const auto& posB = superposedGeometry.getShape()[i];
+            GLHelper::drawTriangleAtEnd(posA, posB, (double) .2, (double) .1);
         }
         // Pop matrix
         GLHelper::popMatrix();

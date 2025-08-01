@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-29 10:36:57 by Eclipse SUMO netconvert Version v1_22_0+1806-33294317c71
+<!-- generated on 2025-08-01 13:22:31 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -211,7 +211,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":gneJ21_c6_0" index="0" allow="pedestrian" speed="2.78" length="9.04" width="2.50" customShape="1" shape="5765.89,5684.03 5757.08,5682.02" outlineShape="5765.61,5685.25 5756.80,5683.24 5757.36,5680.80 5766.17,5682.81 5765.61,5685.25 5766.17,5682.81"/>
     </edge>
     <edge id=":gneJ21_c7" function="crossing" crossingEdges="-30399663#1">
-        <lane id=":gneJ21_c7_0" index="0" allow="pedestrian" speed="2.78" length="3.21" width="2.50" customShape="1" shape="5770.91,5685.52 5767.80,5684.73" outlineShape="5770.70,5686.76 5767.49,5685.94 5765.61,5685.25 5766.17,5682.81 5768.11,5683.52 5772.45,5684.62 5770.60,5686.73 5772.42,5687.22 5772.99,5685.15 5773.50,5683.70 5773.93,5682.85 5774.30,5682.61 5774.60,5682.98 5774.83,5683.95 5776.81,5683.65 5772.45,5684.62"/>
+        <lane id=":gneJ21_c7_0" index="0" allow="pedestrian" speed="2.78" length="3.21" width="2.50" customShape="1" shape="5770.91,5685.52 5767.80,5684.73" outlineShape="5770.60,5686.73 5767.49,5685.94 5765.61,5685.25 5766.17,5682.81 5768.11,5683.52 5772.45,5684.62 5770.60,5686.73 5772.42,5687.22 5772.99,5685.15 5773.50,5683.70 5773.93,5682.85 5774.30,5682.61 5774.60,5682.98 5774.83,5683.95 5776.81,5683.65 5772.45,5684.62"/>
     </edge>
     <edge id=":gneJ21_w0" function="walkingarea">
         <lane id=":gneJ21_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.47" width="2.80" shape="5781.50,5687.03 5783.49,5686.79 5783.02,5684.17 5782.66,5683.82 5782.11,5684.08 5781.75,5684.69 5781.55,5685.55 5781.50,5686.55"/>

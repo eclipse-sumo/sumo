@@ -129,7 +129,7 @@ private:
      * @param[in] noNames Whether names shall be ignored
      * @see writeLane()
      */
-    static void writeEdge(OutputDevice& into, const NBEdge& e, bool noNames);
+    static void writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, LaneSpreadFunction defaultSpread);
 
 
     /** @brief Writes a lane (<lane ...) of an edge

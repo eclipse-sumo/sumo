@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-29 10:36:58 by Eclipse SUMO netconvert Version v1_22_0+1806-33294317c71
+<!-- generated on 2025-08-01 13:21:57 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -366,12 +366,12 @@
     <edge id="27437972#0" from="38918157" to="cluster_306982585_36268398_38920778" priority="10" type="highway.tertiary" spreadType="center" shape="1068.74,767.39 1041.64,740.05 984.17,684.68 957.65,657.32 939.78,639.63 926.70,628.25 908.96,616.96 891.80,605.66">
         <lane id="27437972#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="242.44" shape="1068.74,767.39 1041.64,740.05 984.17,684.68 957.65,657.32 939.78,639.63 926.70,628.25 908.96,616.96 900.57,611.44"/>
     </edge>
-    <edge id="27437972#1" from="cluster_306982585_36268398_38920778" to="27437972#1-AddedOffRampNode" priority="10" type="highway.tertiary" spreadType="center" shape="891.80,605.66 803.74,552.14 766.37,525.27">
-        <lane id="27437972#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="155.39" shape="888.36,603.57 803.74,552.14 769.62,527.60"/>
+    <edge id="27437972#1" from="cluster_306982585_36268398_38920778" to="27437972#1-AddedOffRampNode" priority="10" type="highway.tertiary" spreadType="center" shape="891.80,605.66 803.74,552.14 766.37,525.28">
+        <lane id="27437972#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="155.39" shape="888.36,603.57 803.74,552.14 769.62,527.62"/>
     </edge>
-    <edge id="27437972#1-AddedOffRampEdge" from="27437972#1-AddedOffRampNode" to="38919668" priority="10" type="highway.tertiary" spreadType="center" shape="765.43,526.57 732.30,502.75 684.86,467.31">
-        <lane id="27437972#1-AddedOffRampEdge_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="100.92" shape="761.25,525.54 731.35,504.04 685.40,469.71"/>
-        <lane id="27437972#1-AddedOffRampEdge_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="100.92" shape="763.12,522.94 733.25,501.46 687.32,467.15"/>
+    <edge id="27437972#1-AddedOffRampEdge" from="27437972#1-AddedOffRampNode" to="38919668" priority="10" type="highway.tertiary" spreadType="center" shape="765.44,526.58 732.29,502.75 684.86,467.31">
+        <lane id="27437972#1-AddedOffRampEdge_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="100.93" shape="761.26,525.54 731.34,504.04 685.40,469.71"/>
+        <lane id="27437972#1-AddedOffRampEdge_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="100.93" shape="763.12,522.95 733.24,501.46 687.32,467.15"/>
     </edge>
     <edge id="27437972#2" from="38919668" to="38919703" priority="10" type="highway.tertiary" spreadType="center">
         <lane id="27437972#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="26.24" shape="684.25,464.90 669.20,454.12"/>
@@ -603,7 +603,7 @@
         <request index="6" response="00000000" foes="00010010"/>
         <request index="7" response="00001100" foes="00001100"/>
     </junction>
-    <junction id="27437972#1-AddedOffRampNode" type="priority" x="766.37" y="525.27" incLanes="27437972#1_0" intLanes="" shape="768.68,528.90 770.55,526.30 764.05,521.64 760.32,526.83 763.26,527.93 765.74,527.81 767.09,528.05">
+    <junction id="27437972#1-AddedOffRampNode" type="priority" x="766.37" y="525.28" incLanes="27437972#1_0" intLanes="" shape="768.69,528.91 770.55,526.32 764.06,521.65 760.32,526.84 763.27,527.94 765.74,527.82 767.09,528.06">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

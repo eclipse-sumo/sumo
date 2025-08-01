@@ -76,10 +76,10 @@ Warning: Not joining junctions 30731510,588181257,588181258,588181259 (only 1 ex
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
 Warning: Ambiguity in turnarounds computation at junction '5527777343'.
-Warning: Found sharp turn with radius 6.03 at the start of edge '122820534#0'.
-Warning: Found sharp turn with radius 8.49 at the start of edge '23852053#1'.
-Warning: Found angle of 179.72 degrees at edge '32590429', segment 0.
-Warning: Found angle of 179.79 degrees at edge '32590435#1', segment 11.
+Warning: Found sharp turn with radius 6.02 at the start of edge '122820534#0'.
+Warning: Found sharp turn with radius 8.48 at the start of edge '23852053#1'.
+Warning: Found angle of 179.67 degrees at edge '32590429', segment 0.
+Warning: Found angle of 179.75 degrees at edge '32590435#1', segment 11.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '4402536776' does not have any roads.
 Warning: The rail crossing '4567083492' does not have any roads.
@@ -87,7 +87,7 @@ Warning: The rail crossing '4567083494' does not have any roads.
 Warning: The rail crossing '4603453625' does not have any roads.
 Warning: The traffic light '4363312288' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '4363312288'
-Warning: Speed of turning connection '27080261_0->177195505#1_0' reduced by 24.90 due to turning radius of 1.51 (length=1.66, angle=168.28).
+Warning: Speed of turning connection '27080261_0->177195505#1_0' reduced by 24.89 due to turning radius of 1.51 (length=1.66, angle=168.26).
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 16 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.

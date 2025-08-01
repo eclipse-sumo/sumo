@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-07-31 17:19:52 by Eclipse SUMO netconvert Version v1_24_0+0089-4213760b7ff
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="simple.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <prefix.junction value="J"/>
+        <prefix.edge value="E"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="0"/>
+        <numerical-ids.edge-start value="0"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <building_defaults>
+        <default.spreadtype value="roadCenter"/>
+    </building_defaults>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</netconvertConfiguration>
+-->
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="E0" to="E1" fromLane="0" toLane="0"/>
+
+    <connection from="E1" to="E2" fromLane="0" toLane="0"/>
+
+    <connection from="E11" to="E12" fromLane="0" toLane="0"/>
+
+    <connection from="E12" to="E0" fromLane="0" toLane="0"/>
+    <connection from="E12" to="E5" fromLane="0" toLane="0" visibility="9.00"/>
+    <connection from="E12" to="E5" fromLane="0" toLane="1" visibility="9.00"/>
+
+    <connection from="E14" to="E13" fromLane="0" toLane="0"/>
+    <connection from="E14" to="E17" fromLane="1" toLane="0"/>
+
+    <connection from="E15" to="E7" fromLane="0" toLane="0"/>
+    <connection from="E15" to="E7" fromLane="1" toLane="1"/>
+
+    <connection from="E16" to="E9" fromLane="0" toLane="0"/>
+    <connection from="E16" to="E9" fromLane="1" toLane="1"/>
+
+    <connection from="E17" to="E10" fromLane="0" toLane="0"/>
+    <connection from="E17" to="E3" fromLane="0" toLane="0" visibility="9.00"/>
+    <connection from="E17" to="E6" fromLane="0" toLane="0"/>
+    <connection from="E17" to="E6" fromLane="0" toLane="1"/>
+
+    <connection from="E18" to="E14" fromLane="0" toLane="0"/>
+    <connection from="E18" to="E14" fromLane="1" toLane="1"/>
+
+    <connection from="E2" to="E4" fromLane="0" toLane="0"/>
+    <connection from="E2" to="E8" fromLane="0" toLane="0" visibility="9.00"/>
+    <connection from="E2" to="E8" fromLane="0" toLane="1" visibility="9.00"/>
+
+    <connection from="E3" to="E0" fromLane="0" toLane="0"/>
+    <connection from="E3" to="E5" fromLane="0" toLane="1"/>
+
+    <connection from="E5" to="E4" fromLane="0" toLane="0"/>
+    <connection from="E5" to="E8" fromLane="1" toLane="1"/>
+
+    <connection from="E7" to="E3" fromLane="0" toLane="0"/>
+    <connection from="E7" to="E6" fromLane="0" toLane="0"/>
+    <connection from="E7" to="E6" fromLane="1" toLane="1"/>
+
+    <connection from="E8" to="E6" fromLane="0" toLane="0"/>
+    <connection from="E8" to="E10" fromLane="0" toLane="0"/>
+    <connection from="E8" to="E10" fromLane="1" toLane="1"/>
+
+    <connection from="E9" to="E10" fromLane="0" toLane="0"/>
+    <connection from="E9" to="E10" fromLane="1" toLane="1"/>
+    <connection from="E9" to="E3" fromLane="1" toLane="0" visibility="9.00"/>
+
+</connections>

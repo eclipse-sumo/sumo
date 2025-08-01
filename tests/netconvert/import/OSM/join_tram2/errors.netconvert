@@ -14,7 +14,7 @@ Warning: Not joining tram edge '316682910#1' with 2 lanes.
 Warning: Not joining tram edge '316682910#2' with 2 lanes.
 Warning: Not joining tram edge '316682910#3' with 2 lanes.
 Warning: Not joining tram edge '316682910#4' with 2 lanes.
-Warning: Found sharp turn with radius 3.86 at the end of edge '18963300#1'.
+Warning: Found sharp turn with radius 3.83 at the end of edge '18963300#1'.
 Warning: Converting invalid rail_crossing to priority junction '1365387680'.
 Warning: Converting invalid rail_crossing to priority junction '1408801147'.
 Warning: Converting invalid rail_crossing to priority junction '1755789444'.

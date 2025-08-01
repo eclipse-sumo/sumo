@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-14 13:25:23.157297 by osmWebWizard.py v1_23_1+1056-485580ee618
+<!-- generated on 2025-08-01 13:22:08.877148 by osmWebWizard.py v1_24_0+0106-0f6f79163ff
 <configuration>
-    <net-file value="/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz"/>
-    <additional-files value="/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml,/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm_pt.rou.xml"/>
-    <output-trip-file value="/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm.pedestrian.trips.xml"/>
-    <route-file value="/home/erdm_ja/.texttest/tmp/tools.14Jul132520.2615300/tools/import/OSM/webWizard_missingEdges/test/osm.pedestrian.rou.xml"/>
+    <net-file value="/home/erdm_ja/.texttest/tmp/tools.01Aug132207.1656923/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz"/>
+    <additional-files value="/home/erdm_ja/.texttest/tmp/tools.01Aug132207.1656923/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml,/home/erdm_ja/.texttest/tmp/tools.01Aug132207.1656923/tools/import/OSM/webWizard_missingEdges/test/osm_pt.rou.xml"/>
+    <output-trip-file value="/home/erdm_ja/.texttest/tmp/tools.01Aug132207.1656923/tools/import/OSM/webWizard_missingEdges/test/osm.pedestrian.trips.xml"/>
+    <route-file value="/home/erdm_ja/.texttest/tmp/tools.01Aug132207.1656923/tools/import/OSM/webWizard_missingEdges/test/osm.pedestrian.rou.xml"/>
     <persontrips value="True"/>
     <persontrip.walk-opposite-factor value="0.8"/>
     <prefix value="ped"/>
@@ -27,19 +27,19 @@
     <person id="ped1" depart="137.47" type="ped_pedestrian">
         <personTrip from="44716313" to="-277345333#0" modes="public"/>
     </person>
-    <person id="ped2" depart="274.94" type="ped_pedestrian">
+    <person id="ped2" depart="274.95" type="ped_pedestrian">
         <personTrip from="-277345333#3" to="-1104403394" modes="public"/>
     </person>
-    <person id="ped3" depart="412.41" type="ped_pedestrian">
+    <person id="ped3" depart="412.42" type="ped_pedestrian">
         <personTrip from="-1104406803#0" to="-1104401073" modes="public"/>
     </person>
-    <person id="ped4" depart="549.88" type="ped_pedestrian">
+    <person id="ped4" depart="549.89" type="ped_pedestrian">
         <personTrip from="-860420241#0" to="-860420242" modes="public"/>
     </person>
-    <person id="ped5" depart="687.35" type="ped_pedestrian">
+    <person id="ped5" depart="687.36" type="ped_pedestrian">
         <personTrip from="277345333#2" to="-62450100#0" modes="public"/>
     </person>
-    <person id="ped6" depart="824.82" type="ped_pedestrian">
+    <person id="ped6" depart="824.84" type="ped_pedestrian">
         <personTrip from="-1104406339#1" to="33911688" modes="public"/>
     </person>
 </routes>

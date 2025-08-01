@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-16 22:38:27 by Eclipse SUMO netconvert Version v1_23_1+0083-8d98c775f14
+<!-- generated on 2025-08-01 13:22:31 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -216,7 +216,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":104_c3_0" index="0" allow="pedestrian" speed="2.78" length="6.33" width="4.00" shape="26.85,51.15 28.90,45.16" outlineShape="24.95,50.50 27.01,44.51 29.89,44.91 31.21,44.59 28.67,51.98 27.83,51.58"/>
     </edge>
     <edge id=":104_c4" function="crossing" crossingEdges="2 9">
-        <lane id=":104_c4_0" index="0" allow="pedestrian" speed="2.78" length="14.88" width="4.00" shape="47.47,61.18 33.82,55.25" outlineShape="46.67,63.02 33.03,57.08 32.94,57.04 33.03,57.08 33.22,55.96 32.79,54.84 31.75,53.74 34.62,53.42 48.27,59.35 46.67,63.01 46.77,63.05"/>
+        <lane id=":104_c4_0" index="0" allow="pedestrian" speed="2.78" length="14.88" width="4.00" shape="47.47,61.18 33.82,55.25" outlineShape="46.67,63.02 33.03,57.08 32.94,57.04 33.03,57.08 33.22,55.96 32.79,54.84 31.75,53.74 34.62,53.42 48.27,59.35 46.77,63.05 49.42,64.21 49.66,64.31 51.20,60.62 50.10,60.15"/>
     </edge>
     <edge id=":104_c5" function="crossing" crossingEdges="13">
         <lane id=":104_c5_0" index="0" allow="pedestrian" speed="2.78" length="1.00" width="4.00" shape="51.35,62.85 50.43,62.47" outlineShape="50.67,64.74 49.56,64.28 49.66,64.31 51.20,60.62 53.41,61.55 50.58,64.70 50.77,64.81 52.62,65.58 59.64,61.30 57.47,60.93 55.56,60.90 53.92,61.27 53.41,61.55"/>
@@ -240,7 +240,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":104_w5_0" index="0" allow="pedestrian" speed="2.78" length="5.48" width="4.00" shape="50.58,64.70 50.77,64.81 52.62,65.58 59.64,61.30 57.47,60.93 55.56,60.90 53.92,61.27 52.55,62.03 51.43,63.17"/>
     </edge>
     <edge id=":106_c0" function="crossing" crossingEdges="3 10">
-        <lane id=":106_c0_0" index="0" allow="pedestrian" speed="2.78" length="16.76" width="4.00" shape="82.11,1.97 67.77,-6.69" outlineShape="81.08,3.69 66.73,-4.97 68.80,-8.40 83.15,0.26"/>
+        <lane id=":106_c0_0" index="0" allow="pedestrian" speed="2.78" length="16.76" width="4.00" shape="82.11,1.97 67.77,-6.69" outlineShape="81.08,3.69 66.73,-4.97 68.80,-8.40 68.04,-7.92 68.80,-8.40 83.15,0.26"/>
     </edge>
     <edge id=":106_w0" function="walkingarea">
         <lane id=":106_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.24" width="4.00" shape="83.15,0.26 81.08,3.69 82.80,4.72"/>
@@ -255,7 +255,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":108_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="3.65" length="4.68" shape="-0.48,40.42 -1.37,39.29 -1.50,38.40 -0.86,37.76 0.53,37.38"/>
     </edge>
     <edge id=":108_c0" function="crossing" crossingEdges="0 7">
-        <lane id=":108_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.41" width="4.00" shape="-0.86,35.23 -2.88,41.32" outlineShape="1.04,35.86 -0.98,41.95 -1.02,42.04 -0.99,41.94 -4.78,40.69 -2.76,34.60 1.07,35.77 1.67,33.97 -2.76,34.60"/>
+        <lane id=":108_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.41" width="4.00" shape="-0.86,35.23 -2.88,41.32" outlineShape="1.04,35.86 -0.98,41.95 -1.02,42.04 -0.99,41.94 -4.78,40.69 -4.15,41.32 -4.78,40.69 -2.76,34.60 1.07,35.77 1.67,33.97 -1.87,34.48"/>
     </edge>
     <edge id=":108_w0" function="walkingarea">
         <lane id=":108_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.23" width="4.00" shape="-2.76,34.60 1.03,35.86 1.67,33.97"/>

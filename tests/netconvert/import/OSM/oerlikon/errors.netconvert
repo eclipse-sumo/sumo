@@ -46,7 +46,7 @@ Warning: Cannot assign stop 538163640 on edge '525176584' to pt line '53208'. Ig
 Warning: Cannot assign stop 3115234152 on edge '572322449' to pt line '5601863'. Ignoring!
 Warning: Ambiguous tram edges '12089777#1' and '219012222' for lane '-163302813#0_0'.
 Warning: Ambiguous tram edges '218990870#0' and '219014586#1' for lane '163302813#0_0'.
-Warning: Found sharp turn with radius 8.40 at the start of edge '11990237#0'.
+Warning: Found sharp turn with radius 8.45 at the start of edge '11990237#0'.
 Warning: Converting invalid rail_crossing to priority junction '10268308575'.
 Warning: Converting invalid rail_crossing to priority junction '10268308584'.
 Warning: Converting invalid rail_crossing to priority junction '10268336874'.

@@ -292,7 +292,7 @@
             <xsd:element name="junctions.join-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join.parallel-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-exclude" type="strArrayOptionType" minOccurs="0"/>
-            <xsd:element name="junctions.join-same" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.join-same" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="max-join-ids" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.corner-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.internal-link-detail" type="intOptionType" minOccurs="0"/>

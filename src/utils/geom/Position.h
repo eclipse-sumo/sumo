@@ -315,6 +315,10 @@ public:
         return (std::isnan(myX) || std::isnan(myY) || std::isnan(myZ));
     }
 
+    /// @brief round all coordinates to the given precision
+    void round(int precision);
+
+
     /// @brief used to indicate that a position is valid
     static const Position INVALID;
 

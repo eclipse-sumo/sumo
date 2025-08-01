@@ -353,9 +353,10 @@ class AttributeStore:
                 (tag == TAG_EDGE and name == "type")):
             return None
         elif destValue is None:
-            return DEFAULT_VALUES[name]
-        else:
-            return destValue
+            destValue = DEFAULT_VALUES[name]
+            if sourceValue == destValue:
+                return None
+        return destValue
 
     def hasChangedConnection(self, tagid, attrs):
         tag, id = tagid
@@ -558,6 +559,7 @@ def create_plain(netfile, netconvert, plain_geo):
     call([netconvert,
           "--sumo-net-file", netfile,
           "--plain-output-prefix", prefix,
+          "--default.spreadtype", "right",  # overwrite value in net
           "--roundabouts.guess", "false"]
          + (["--proj.plain-geo"] if plain_geo else []))
     return prefix
@@ -649,6 +651,9 @@ def handle_children(xmlfile, handle_parsenode):
                     elif root == "tlLogics":
                         schema = "tllogic_file.xsd"
                     if parsenode.hasAttribute("version"):
+                        version = ' version="%s"' % parsenode.getAttribute("version")
+                    if parsenode.hasAttribute("spreadType"):
+                        DEFAULT_VALUES["spreadType"] = parsenode.getAttribute("spreadType")
                         version = ' version="%s"' % parsenode.getAttribute("version")
                     if root not in ("edges", "nodes", "connections", "tlLogics"):
                         # do not write schema information
