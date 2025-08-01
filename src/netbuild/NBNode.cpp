@@ -381,6 +381,21 @@ NBNode::reshiftPosition(double xoff, double yoff) {
 
 
 void
+NBNode::roundGeometry() {
+    myPosition.round(gPrecision);
+    if (myHaveCustomPoly) {
+        myPoly.round(gPrecision);
+    }
+    for (auto& wacs : myWalkingAreaCustomShapes) {
+        wacs.shape.round(gPrecision);
+    }
+    for (auto& c : myCrossings) {
+        c->customShape.round(gPrecision);
+    }
+}
+
+
+void
 NBNode::mirrorX() {
     myPosition.mul(1, -1);
     myPoly.mirrorX();

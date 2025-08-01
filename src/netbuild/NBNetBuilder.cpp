@@ -300,6 +300,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (!oc.getBool("offset.disable-normalization") && oc.isDefault("offset.x") && oc.isDefault("offset.y")) {
         moveToOrigin(geoConvHelper, lefthand);
     }
+    //roundCoordinates();
     geoConvHelper.computeFinal(lefthand); // information needed for location element fixed at this point
 
     if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
@@ -764,6 +765,19 @@ NBNetBuilder::moveToOrigin(GeoConvHelper& geoConvHelper, bool lefthand) {
     }
     geoConvHelper.moveConvertedBy(x, y);
     PROGRESS_TIME_MESSAGE(before);
+}
+
+
+void
+NBNetBuilder::roundCoordinates() {
+    // ensure that derived junction and lane geometry computation is done with the same input
+    // edge coordinates as those that will be written to the output.
+    for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
+        (*i).second->roundGeometry();
+    }
+    for (std::map<std::string, NBEdge*>::const_iterator i = myEdgeCont.begin(); i != myEdgeCont.end(); ++i) {
+        (*i).second->roundGeometry();
+    }
 }
 
 

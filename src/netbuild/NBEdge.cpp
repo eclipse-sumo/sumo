@@ -567,6 +567,18 @@ NBEdge::reshiftPosition(double xoff, double yoff) {
 
 
 void
+NBEdge::roundGeometry() {
+    myGeom.round(gPrecision);
+    for (Lane& lane : myLanes) {
+        lane.customShape.round(gPrecision);
+    }
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+        (*i).customShape.round(gPrecision);
+    }
+}
+
+
+void
 NBEdge::mirrorX() {
     myGeom.mirrorX();
     for (int i = 0; i < (int)myLanes.size(); i++) {

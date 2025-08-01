@@ -507,6 +507,9 @@ public:
      */
     void reshiftPosition(double xoff, double yoff);
 
+    /// @brief ensure consistency between input and output geometries
+    void roundGeometry();
+
     /// @brief mirror coordinates along the x-axis
     void mirrorX();
     /// @}

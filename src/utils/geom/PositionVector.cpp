@@ -1482,6 +1482,14 @@ PositionVector::isNAN() const {
 
 
 void
+PositionVector::round(int precision) {
+    for (int i = 0; i < (int)size(); i++) {
+        (*this)[i].round(precision);
+    }
+}
+
+
+void
 PositionVector::removeDoublePoints(double minDist, bool assertLength, int beginOffset, int endOffset, bool resample) {
     int curSize = (int)size() - beginOffset - endOffset;
     if (curSize > 1) {

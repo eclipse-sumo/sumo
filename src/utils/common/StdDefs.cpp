@@ -58,6 +58,11 @@ double roundDecimal(double x, int precision) {
     return (x2 < 0 ? ceil(x2 - 0.5) : floor(x2 + 0.5)) / p;
 }
 
+double roundDecimalToEven(double x, int precision) {
+    const int p = pow(10, precision);
+    return std::nearbyint(x * p) / p;
+}
+
 int
 getScalingQuota(double frac, int loaded) {
     if (frac < 0 || frac == 1.) {
