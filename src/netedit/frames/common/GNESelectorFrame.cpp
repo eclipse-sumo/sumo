@@ -602,10 +602,10 @@ bool
 GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
     // open question dialog box
     const auto questionDialog = GNEQuestionBasicDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
-                                                       GNEDialog::Buttons::YES_NO,
-                                                       TL("Confirm selection operation"),
-                                                       TL("There are locked elements in the current selection."),
-                                                       TL("Apply operation to locked elements?"));
+                                GNEDialog::Buttons::YES_NO,
+                                TL("Confirm selection operation"),
+                                TL("There are locked elements in the current selection."),
+                                TL("Apply operation to locked elements?"));
     // check result
     return (questionDialog.getResult() == GNEDialog::Result::ACCEPT);
 }

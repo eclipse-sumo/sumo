@@ -117,19 +117,19 @@ GNERunPythonToolDialog::runTool(GNEPythonTool* tool) {
 void
 GNERunPythonToolDialog::updateDialog() {
     // update buttons
-/*
-    if (myRunTool->isRunning()) {
-        myAbortButton->enable();
-        myRerunButton->disable();
-        myBackButton->disable();
-        myCloseButton->disable();
-    } else {
-        myAbortButton->disable();
-        myRerunButton->enable();
-        myBackButton->enable();
-        myCloseButton->enable();
-    }
-*/
+    /*
+        if (myRunTool->isRunning()) {
+            myAbortButton->enable();
+            myRerunButton->disable();
+            myBackButton->disable();
+            myCloseButton->disable();
+        } else {
+            myAbortButton->disable();
+            myRerunButton->enable();
+            myBackButton->enable();
+            myCloseButton->enable();
+        }
+    */
     // update dialog
     GNEDialog::update();
 }

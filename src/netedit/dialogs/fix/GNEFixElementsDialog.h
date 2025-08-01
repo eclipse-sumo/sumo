@@ -40,8 +40,8 @@ public:
         /// @brief constructor
         ConflictElement(T element, const std::string& id, FXIcon* icon, const std::string& description) :
             myElement(element),
-            myIcon(icon), 
-            myID(id), 
+            myIcon(icon),
+            myID(id),
             myDescription(description) {}
 
         /// @brief destructor
@@ -89,7 +89,7 @@ public:
 
     public:
         /// @brief constructor
-        FixOptions(GNEFixElementsDialog<T> *fixElementDialog, FXVerticalFrame* frameParent, const std::string& title) :
+        FixOptions(GNEFixElementsDialog<T>* fixElementDialog, FXVerticalFrame* frameParent, const std::string& title) :
             MFXGroupBoxModule(frameParent, title, MFXGroupBoxModule::Options::SAVE),
             myFixElementDialogParent(fixElementDialog) {
             // register this fix option to list of fix options
@@ -120,7 +120,7 @@ public:
         /// @}
 
         /// @brief set invalid elements to fix
-        void setInvalidElements(const std::vector<ConflictElement> &conflictedElements) {
+        void setInvalidElements(const std::vector<ConflictElement>& conflictedElements) {
             // parse invalid elements
             myConflictedElements = conflictedElements;
             // configure table
@@ -167,10 +167,10 @@ public:
                 disableOptions();
             }
         }
-    
+
     protected:
         /// @brief pointer to the parent dialog
-        GNEFixElementsDialog *myFixElementDialogParent = nullptr; 
+        GNEFixElementsDialog* myFixElementDialogParent = nullptr;
 
         /// @brief Table with the demand elements
         FXTable* myTable = nullptr;
@@ -190,7 +190,7 @@ public:
         }
 
         /// @brief add option to options container (used for adjust width and enable/disable)
-        void registerOption(FXWindow *option) {
+        void registerOption(FXWindow* option) {
             myOptions.push_back(option);
             // adjust width
             option->setWidth(myTable->getWidth() * 0.5);
@@ -258,7 +258,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEFixElementsDialog(GNEApplicationWindow *mainWindow, const std::string title,
+    GNEFixElementsDialog(GNEApplicationWindow* mainWindow, const std::string title,
                          GUIIcon icon, const int sizeX, const int sizeY):
         GNEDialog(mainWindow, title.c_str(), icon,
                   GNEDialog::Buttons::ACCEPT_CANCEL, GNEDialog::OpenType::MODAL) {

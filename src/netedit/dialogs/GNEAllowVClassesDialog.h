@@ -41,7 +41,7 @@ class GNEAllowVClassesDialog : public GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEAllowVClassesDialog(GNEApplicationWindow *mainWindow, SumoXMLAttr attr,
+    GNEAllowVClassesDialog(GNEApplicationWindow* mainWindow, SumoXMLAttr attr,
                            const std::string originalVClasses);
 
     /// @brief destructor

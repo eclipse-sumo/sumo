@@ -34,7 +34,7 @@ GNEKeepElementsDialog::GNEKeepElementsDialog(GNEApplicationWindow* applicationWi
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create label
     new FXLabel(mainFrame, (TLF("Selected % file was already loaded.", elementType) + "\n" +
-                TL("Keep new or old elements?")).c_str(), nullptr, GUIDesignLabelKeepElements);
+                            TL("Keep new or old elements?")).c_str(), nullptr, GUIDesignLabelKeepElements);
     // open modal dialog
     openModalDialog();
 }

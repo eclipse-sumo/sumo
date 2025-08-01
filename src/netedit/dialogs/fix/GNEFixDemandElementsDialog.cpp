@@ -63,24 +63,24 @@ GNEFixDemandElementsDialog::FixRouteOptions::FixRouteOptions(GNEFixDemandElement
     FixOptions(fixDemandElementsParent, fixDemandElementsParent->myLeftFrame, TL("Routes")) {
     // Remove invalid routes
     myRemoveInvalidRoutes = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
-                                                           TL("Remove invalid routes"), "",
-                                                           TL("Remove invalid routes and save"),
-                                                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+                            TL("Remove invalid routes"), "",
+                            TL("Remove invalid routes and save"),
+                            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid routes
     mySaveInvalidRoutes = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
-                                                         TL("Save invalid routes"), "",
-                                                         TL("Save invalid routes"),
-                                                         this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+                          TL("Save invalid routes"), "",
+                          TL("Save invalid routes"),
+                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid routes
-    mySelectRouteInvalids = GUIDesigns::buildFXRadioButton(myRightFrameOptions, 
-                                                           TL("Select invalid routes"), "",
-                                                           TL("Select invalid routes and stop saving"),
-                                                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    mySelectRouteInvalids = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
+                            TL("Select invalid routes"), "",
+                            TL("Select invalid routes and stop saving"),
+                            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Remove stops out of route
     myRemoveStopsOutOfRoute = GUIDesigns::buildFXCheckButton(myRightFrameOptions,
-                                                             TL("Remove stops out of route"), "",
-                                                             TL("Remove stops out of route"),
-                                                             this, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
+                              TL("Remove stops out of route"), "",
+                              TL("Remove stops out of route"),
+                              this, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
     // register options
     registerOption(myRemoveInvalidRoutes);
     registerOption(mySaveInvalidRoutes);
@@ -187,24 +187,24 @@ GNEFixDemandElementsDialog::FixVehicleOptions::FixVehicleOptions(GNEFixDemandEle
     FixOptions(fixDemandElementsParent, fixDemandElementsParent->myLeftFrame, TL("Vehicles")) {
     // Remove invalid vehicles
     myRemoveInvalidVehicles = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
-                                                             TL("Remove invalid vehicles"), "",
-                                                             TL("Remove invalid vehicles and save"),
-                                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+                              TL("Remove invalid vehicles"), "",
+                              TL("Remove invalid vehicles and save"),
+                              this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid vehicles
-    mySaveInvalidVehicles = GUIDesigns::buildFXRadioButton(myLeftFrameOptions, 
-                                                           TL("Save invalid vehicles"), "",
-                                                           TL("Save invalid vehicles"),
-                                                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    mySaveInvalidVehicles = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
+                            TL("Save invalid vehicles"), "",
+                            TL("Save invalid vehicles"),
+                            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid vehicle
     mySelectInvalidVehicles = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
-                                                             TL("Select invalid vehicles"), "",
-                                                             TL("Select invalid vehicles and stop saving"),
-                                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+                              TL("Select invalid vehicles"), "",
+                              TL("Select invalid vehicles and stop saving"),
+                              this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Remove stops out of route
     myRemoveStopsOutOfVehicle = GUIDesigns::buildFXCheckButton(myRightFrameOptions,
-                                                               TL("Remove stops out of route"), "",
-                                                               TL("Remove stops out of vehicle's route"),
-                                                               this, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
+                                TL("Remove stops out of route"), "",
+                                TL("Remove stops out of vehicle's route"),
+                                this, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
     // register options
     registerOption(myRemoveInvalidVehicles);
     registerOption(mySaveInvalidVehicles);
@@ -300,25 +300,25 @@ GNEFixDemandElementsDialog::FixVehicleOptions::onCmdSelectOption(FXObject* obj, 
 GNEFixDemandElementsDialog::FixStopPositionOptions::FixStopPositionOptions(GNEFixDemandElementsDialog* fixDemandElementsParent) :
     FixOptions(fixDemandElementsParent, fixDemandElementsParent->myRightFrame, TL("Stop positions")) {
     // Activate friendlyPos and save
-    myActivateFriendlyPosition = GUIDesigns::buildFXRadioButton(myLeftFrameOptions, 
-                                                                TL("Activate friendlyPos"), "",
-                                                                TL("Activate friendlyPos and save"),
-                                                                this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    myActivateFriendlyPosition = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
+                                 TL("Activate friendlyPos"), "",
+                                 TL("Activate friendlyPos and save"),
+                                 this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid position
     mySaveInvalid = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
-                                                   TL("Save invalid stops"), "",
-                                                   TL("Save elements with invalid positions"),
-                                                   this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+                    TL("Save invalid stops"), "",
+                    TL("Save elements with invalid positions"),
+                    this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid Stops
     mySelectInvalidStops = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
-                                                          TL("Select conflicted stops"), "",
-                                                          TL("Select conflicted stops and abort saving"),
-                                                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+                           TL("Select conflicted stops"), "",
+                           TL("Select conflicted stops and abort saving"),
+                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Fix positions and save
     myFixPositions = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
-                                                    TL("Fix positions and save"), "",
-                                                    TL("Fix stop positions and save"),
-                                                    this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+                     TL("Fix positions and save"), "",
+                     TL("Fix stop positions and save"),
+                     this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // register options
     registerOption(myActivateFriendlyPosition);
     registerOption(mySaveInvalid);
@@ -404,20 +404,20 @@ GNEFixDemandElementsDialog::FixStopPositionOptions::onCmdSelectOption(FXObject* 
 GNEFixDemandElementsDialog::FixPlanOptions::FixPlanOptions(GNEFixDemandElementsDialog* fixDemandElementsParent) :
     FixOptions(fixDemandElementsParent, fixDemandElementsParent->myRightFrame, TL("Person/container plans")) {
     // Delete person plan
-    myRemoveInvalidPlan = GUIDesigns::buildFXRadioButton(myLeftFrameOptions, 
-                                                         TL("Remove invalid plans"), "",
-                                                         TL("Remove invalid plans"),
-                                                         this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    myRemoveInvalidPlan = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
+                          TL("Remove invalid plans"), "",
+                          TL("Remove invalid plans"),
+                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid person plans
     mySaveInvalid = GUIDesigns::buildFXRadioButton(myLeftFrameOptions,
-                                                   TL("Save invalid plans"), "",
-                                                   TL("Save invalid plans"),
-                                                   this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+                    TL("Save invalid plans"), "",
+                    TL("Save invalid plans"),
+                    this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid person plans
     mySelectInvalidPlans = GUIDesigns::buildFXRadioButton(myRightFrameOptions,
-                                                          TL("Select conflicted plans"), "",
-                                                          TL("Select conflicted plans and abort saving"),
-                                                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+                           TL("Select conflicted plans"), "",
+                           TL("Select conflicted plans and abort saving"),
+                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // register options
     registerOption(myRemoveInvalidPlan);
     registerOption(mySaveInvalid);
@@ -432,7 +432,7 @@ GNEFixDemandElementsDialog::FixPlanOptions::runInternalTest(const InternalTestSt
 }
 
 
-bool 
+bool
 GNEFixDemandElementsDialog::FixPlanOptions::applyFixOption() {
     // check options for person plans
     if (myConflictedElements.size() > 0) {
@@ -485,8 +485,8 @@ GNEFixDemandElementsDialog::FixPlanOptions::onCmdSelectOption(FXObject* obj, FXS
 // GNEFixDemandElementsDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow,
-                                                       const std::vector<GNEDemandElement*>& elements) :
+GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow* mainWindow,
+        const std::vector<GNEDemandElement*>& elements) :
     GNEFixElementsDialog(mainWindow, TL("Fix demand elements problems"), GUIIcon::SUPERMODEDEMAND, 800, 620) {
     // create fix route options
     myFixRouteOptions = new FixRouteOptions(this);

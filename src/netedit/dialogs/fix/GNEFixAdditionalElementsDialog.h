@@ -130,7 +130,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEFixAdditionalElementsDialog(GNEApplicationWindow *mainWindow, 
+    GNEFixAdditionalElementsDialog(GNEApplicationWindow* mainWindow,
                                    const std::vector<GNEAdditional*>& elements);
 
     /// @brief destructor

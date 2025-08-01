@@ -117,20 +117,20 @@ GNERunNetgenerateDialog::run(const OptionsCont* netgenerateOptions) {
 
 void
 GNERunNetgenerateDialog::updateDialog() {
-/*
-    // update buttons
-    if (myRunNetgenerate->isRunning()) {
-        myAbortButton->enable();
-        myRerunButton->disable();
-        myBackButton->disable();
-        myCloseButton->disable();
-    } else {
-        myAbortButton->disable();
-        myRerunButton->enable();
-        myBackButton->enable();
-        myCloseButton->enable();
-    }
-*/
+    /*
+        // update buttons
+        if (myRunNetgenerate->isRunning()) {
+            myAbortButton->enable();
+            myRerunButton->disable();
+            myBackButton->disable();
+            myCloseButton->disable();
+        } else {
+            myAbortButton->disable();
+            myRerunButton->enable();
+            myBackButton->enable();
+            myCloseButton->enable();
+        }
+    */
     // update dialog
     GNEDialog::update();
 }

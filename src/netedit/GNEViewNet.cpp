@@ -925,7 +925,7 @@ GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunctio
         alreadyAsked = true;
         // open question box
         const std::string header = TL("Confirm Junction Merger");
-        const std::string body = TLF("Do you wish to merge junctions '%' and '%'?\n('%' will be eliminated and its roads added to '%')", 
+        const std::string body = TLF("Do you wish to merge junctions '%' and '%'?\n('%' will be eliminated and its roads added to '%')",
                                      movedJunction->getMicrosimID(),
                                      targetJunction->getMicrosimID(),
                                      movedJunction->getMicrosimID(),
@@ -959,7 +959,7 @@ GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedS
     }
     // open question dialog
     const auto questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(), GNEDialog::Buttons::YES_NO,
-                                                       TL("Confirm switch mode"), body);
+                                TL("Confirm switch mode"), body);
     // continue depending of result
     if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
         myEditModes.setSupermode(expectedSupermode, true);

@@ -30,7 +30,7 @@
 // ===========================================================================
 
 GNEHelpAttributesDialog::GNEHelpAttributesDialog(GNEApplicationWindow* applicationWindow,
-                                                 const GNEAttributeCarrier* AC) :
+        const GNEAttributeCarrier* AC) :
     GNEDialog(applicationWindow, TLF("Parameters of %", AC->getTagStr()).c_str(),
               GUIIcon::MODEINSPECT, GNEDialog::Buttons::OK, OpenType::MODAL) {
     // Create FXTable

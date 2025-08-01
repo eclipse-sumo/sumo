@@ -46,10 +46,10 @@ public:
 
         /// @brief run internal test
         void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-		
+
 		/// @brief apply selected fix option
         bool applyFixOption();
-		
+
 		/// @name FOX-callbacks
         /// @{
 
@@ -90,10 +90,10 @@ public:
 
         /// @brief run internal test
         void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-		
+
 		/// @brief apply selected fix option
         bool applyFixOption();
-		
+
 		/// @name FOX-callbacks
         /// @{
 

@@ -46,11 +46,11 @@ public:
 
         /// @brief run internal test
         void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-		
-		/// @brief apply selected fix option
+
+        /// @brief apply selected fix option
         bool applyFixOption();
-		
-		/// @name FOX-callbacks
+
+        /// @name FOX-callbacks
         /// @{
 
         /// @brief called when user select a option
@@ -93,11 +93,11 @@ public:
 
         /// @brief run internal test
         void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-		
-		/// @brief apply selected fix option
+
+        /// @brief apply selected fix option
         bool applyFixOption();
-		
-		/// @name FOX-callbacks
+
+        /// @name FOX-callbacks
         /// @{
 
         /// @brief called when user select a option
@@ -140,11 +140,11 @@ public:
 
         /// @brief run internal test
         void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-		
-		/// @brief apply selected fix option
+
+        /// @brief apply selected fix option
         bool applyFixOption();
-		
-		/// @name FOX-callbacks
+
+        /// @name FOX-callbacks
         /// @{
 
         /// @brief called when user select a option
@@ -187,11 +187,11 @@ public:
 
         /// @brief run internal test
         void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-		
-		/// @brief apply selected fix option
+
+        /// @brief apply selected fix option
         bool applyFixOption();
-		
-		/// @name FOX-callbacks
+
+        /// @name FOX-callbacks
         /// @{
 
         /// @brief called when user select a option
@@ -221,7 +221,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEFixDemandElementsDialog(GNEApplicationWindow *mainWindow, 
+    GNEFixDemandElementsDialog(GNEApplicationWindow* mainWindow,
                                const std::vector<GNEDemandElement*>& elements);
 
     /// @brief destructor
