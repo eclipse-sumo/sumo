@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 14:11:35 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
+<!-- generated on 2025-08-01 09:43:44 by Eclipse SUMO netconvert Version v1_24_0+0100-25c19f191b9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -273,8 +273,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="joinedS_32048730_36832210_cluster_359942_359943" type="static" programID="0" offset="0">
-        <phase duration="20" state="rGGGGGGrGGGGrrrrr"/>
-        <phase duration="5"  state="rGGGyyyrGGGGrrrrr"/>
+        <phase duration="20" state="rGGGGGGrGGGGgrrrr"/>
+        <phase duration="5"  state="rGGGyyyrGGGGgrrrr"/>
         <phase duration="6"  state="rGGGrrrrGGGGGrrrr"/>
         <phase duration="5"  state="ryyyrrrryyyyyrrrr"/>
         <phase duration="22" state="GrrrrrrGrrrrrGGGg"/>
