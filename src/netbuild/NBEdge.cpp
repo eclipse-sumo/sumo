@@ -4820,7 +4820,7 @@ NBEdge::shiftToLanesToEdge(NBEdge* to, int laneOff) {
 }
 
 
-void
+bool
 NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
     if (myLaneSpreadFunction == LaneSpreadFunction::CENTER
             && !isRailway(getPermissions())
@@ -4842,12 +4842,14 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
                 tmp[i].round(gPrecision);
                 myGeom[i] = tmp[i];
                 computeAngle();
+                return true;
                 //std::cout << getID() << " shiftPositionAtNode needed=" << neededOffset << " dist=" << dist << " needed2=" << neededOffset2 << " dist2=" << dist2 << "  by=" << (neededOffset - dist) << " other=" << other->getID() << "\n";
             } catch (InvalidArgument&) {
                 WRITE_WARNINGF(TL("Could not avoid overlapping shape at node '%' for edge '%'."), node->getID(), getID());
             }
         }
     }
+    return false;
 }
 
 
