@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-07-31 12:06+0000\n"
+"PO-Revision-Date: 2025-08-04 06:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5621,6 +5621,9 @@ msgid ""
 "Unsafe green phase % in tlLogic '%', program '%'. Lane '%' is targeted by % "
 "'G'-links. (use 'g' instead)%"
 msgstr ""
+"Unsichere Grünphase % in der LSA-Logik '%' (Signalprogramm '%'). Der "
+"Fahrstreifen '%' wird von % mit 'G' signalisierten Verbindungen angebunden. ("
+"Nutze stattdessen 'g')%"
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:333
 msgid ""
@@ -8056,12 +8059,16 @@ msgid ""
 "Custom crossing linkIndex % conflicts with vehicular connections at tlLogic "
 "'%'"
 msgstr ""
+"Der benutzerdefinierte linkIndex % steht mit den in der LSA-Logik '%' "
+"genutzten Verbindungen in Konflikt"
 
 #: src/netbuild/NBOwnTLDef.cpp:983
 msgid ""
 "Custom crossing linkIndex2 % conflicts with vehicular connections at tlLogic"
 " '%'"
 msgstr ""
+"Der benutzerdefinierte linkIndex2 % steht mit den in der LSA-Logik '%' "
+"genutzten Verbindungen in Konflikt"
 
 #: src/netbuild/NBPTLine.cpp:208
 msgid "Could not retrieve edge '%' for first stop of line '%'."
@@ -10763,6 +10770,8 @@ msgstr "Unsymmetrischer Nachbarfahrstreifen '%' für den Fahrstreifen '%'"
 msgid ""
 "Mutually inconsistent neigh lane definitions for lanes '%', '%' and '%'"
 msgstr ""
+"Gegenseitig widersprechende Nachbarfahrstreifenangaben bei den Fahrstreifen "
+"'%', '%' und '%'"
 
 #: src/netload/NLEdgeControlBuilder.cpp:228
 #, c-format
