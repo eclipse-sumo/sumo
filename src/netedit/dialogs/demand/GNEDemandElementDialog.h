@@ -20,27 +20,26 @@
 #pragma once
 #include <config.h>
 
-#include <vector>
-#include <utils/foxtools/fxheader.h>
+#include <netedit/dialogs/GNEDialog.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNEDemandElement;
-class GNEUndoList;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEDemandElementDialog : protected FXTopWindow {
+class GNEDemandElementDialog : public GNEDialog {
     /// @brief FOX-declaration abstract
     FXDECLARE_ABSTRACT(GNEDemandElementDialog)
 
 public:
     /// @brief constructor
-    GNEDemandElementDialog(GNEDemandElement* parent, bool updatingElement, int width, int height);
+    GNEDemandElementDialog(GNEDemandElement* demandElement, bool updatingElement,
+                           int width, int height);
 
     /// @brief destructor
     ~GNEDemandElementDialog();
@@ -48,8 +47,12 @@ public:
     /// @brief get edited DemandElement
     GNEDemandElement* getEditedDemandElement() const;
 
+    /// @brief run internal test
+    virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
+
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event after press accept button
     virtual long onCmdAccept(FXObject* sender, FXSelector sel, void* ptr) = 0;
 
@@ -59,32 +62,17 @@ public:
     /// @brief event after press cancel button
     virtual long onCmdReset(FXObject*, FXSelector, void*) = 0;
 
-    /// @brief event after press a key
-    long onKeyPress(FXObject* sender, FXSelector sel, void* ptr);
-
-    /// @brief event after release a key
-    long onKeyRelease(FXObject* sender, FXSelector sel, void* ptr);
-
-    /// @brief focus on frame
-    long onCmdFocusOnFrame(FXObject* sender, FXSelector sel, void* ptr);
-
     /// @}
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEDemandElementDialog)
+    GNEDemandElementDialog();
 
     /// @brief pointer to edited additional
     GNEDemandElement* myEditedDemandElement;
 
     /// @brief flag to indicate if additional are being created or modified (cannot be changed after open dialog)
     bool myUpdatingElement;
-
-    /// @brief frame for contents
-    FXVerticalFrame* myContentFrame;
-
-    /// @brief execute dialog as modal
-    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
 
     /// @brief change additional dialog header
     void changeDemandElementDialogHeader(const std::string& newHeader);
@@ -102,18 +90,6 @@ protected:
     void resetChanges();
 
 private:
-    /// @brief accept button
-    FXButton* myKeepOldButton;
-
-    /// @brief cancel button
-    FXButton* myCancelButton;
-
-    /// @brief cancel button
-    FXButton* myResetButton;
-
-    /// @brief focus button
-    FXButton* myFocusButton;
-
     /// @brief description of changes did in this additional dialog
     std::string myChangesDescription;
 

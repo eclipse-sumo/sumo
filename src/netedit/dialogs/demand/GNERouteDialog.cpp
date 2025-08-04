@@ -45,8 +45,8 @@ FXIMPLEMENT(GNERouteDialog, GNEDemandElementDialog, GNERouteDialogMap, ARRAYNUMB
 // member method definitions
 // ===========================================================================
 
-GNERouteDialog::GNERouteDialog(GNEDemandElement* editedCalibratorRoute, bool updatingElement) :
-    GNEDemandElementDialog(editedCalibratorRoute, updatingElement, 400, 120),
+GNERouteDialog::GNERouteDialog(GNEDemandElement* route, bool updatingElement) :
+    GNEDemandElementDialog(route, updatingElement, 400, 120),
     myCalibratorRouteValid(true) {
     // change default header
     std::string typeOfOperation =  + " for ";
@@ -82,13 +82,16 @@ GNERouteDialog::GNERouteDialog(GNEDemandElement* editedCalibratorRoute, bool upd
         myCalibratorRouteValid = false;
         myInvalidAttr = SUMO_ATTR_EDGES;
     }
-
-    // open as modal dialog
-    openAsModalDialog();
 }
 
 
 GNERouteDialog::~GNERouteDialog() {}
+
+
+void
+GNERouteDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    //
+}
 
 
 long
