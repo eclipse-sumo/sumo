@@ -30,7 +30,7 @@
 // ===========================================================================
 
 GNERunNetgenerate::GNERunNetgenerate(GNERunNetgenerateDialog* runDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
-    MFXSingleEventThread(runDialog->getGNEApp()->getApp(), runDialog->getGNEApp()),
+    MFXSingleEventThread(runDialog->getApplicationWindow()->getApp(), runDialog->getApplicationWindow()),
     myEventQueue(eq),
     myEventThrow(ev) {
 }

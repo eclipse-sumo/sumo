@@ -109,6 +109,12 @@ GNEDialog::getResult() const {
 }
 
 
+GNEApplicationWindow*
+GNEDialog::getApplicationWindow() const {
+    return myApplicationWindow;
+}
+
+
 long
 GNEDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     return closeDialogAccepting();
