@@ -57,7 +57,7 @@ public:
      * @param[in] optionsContainer edited option container
      * @param[in] originalOptionsContainer original options container
      */
-    GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, const std::string& titleName,
+    GNEOptionsDialog(GNEApplicationWindow* applicationWindow, GUIIcon icon, const std::string& titleName,
                      GNEDialog::Buttons buttons, OptionsCont& optionsContainer,
                      const OptionsCont& originalOptionsContainer);
 
@@ -105,9 +105,6 @@ public:
 protected:
     /// @brief FOX needs this
     GNEOptionsDialog();
-
-    /// @brief pointer to main window parent
-    GNEApplicationWindow* myGNEApp;
 
     /// @brief reference to edited Option container
     OptionsCont& myOptionsContainer;
