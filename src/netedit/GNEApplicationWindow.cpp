@@ -21,31 +21,33 @@
 
 #include <gui/dialogs/GUIDialog_Feedback.h>
 #include <netbuild/NBFrame.h>
-#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
 #include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
 #include <netedit/dialogs/basic/GNEQuestionBasicDialog.h>
+#include <netedit/dialogs/fix/GNEFixNetworkElements.h>
 #include <netedit/dialogs/GNEAboutDialog.h>
 #include <netedit/dialogs/GNEKeepElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
-#include <netedit/dialogs/fix/GNEFixNetworkElements.h>
 #include <netedit/dialogs/options/GNEOptionsDialog.h>
-#include <netedit/elements/GNEGeneralHandler.h>
+#include <netedit/dialogs/tools/GNENetgenerateDialog.h>
+#include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEMeanData.h>
+#include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
-#include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/GNEAttributesEditor.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/GNETagPropertiesDatabase.h>
 #include <netedit/templates.h>
 #include <netimport/NIFrame.h>
 #include <netimport/NITypeLoader.h>
@@ -2320,7 +2322,8 @@ GNEApplicationWindow::onUpdRequireRecomputing(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
-    return myToolsMenuCommands.runNetgenerateDialog(&myNetgenerateOptions);
+    GNERunNetgenerateDialog netgenerateDialog(this, &myNetgenerateOptions);
+    return 1;
 }
 
 
@@ -2542,7 +2545,8 @@ GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetgenerateDialog(FXObject*, FXSelector, void*) {
-    return myToolsMenuCommands.showNetgenerateDialog();
+    GNENetgenerateDialog(this);
+    return 1;
 }
 
 
