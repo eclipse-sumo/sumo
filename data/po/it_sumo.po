@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-08-01 16:05+0000\n"
+"PO-Revision-Date: 2025-08-04 15:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11094,11 +11094,11 @@ msgstr "Arco sconosciuto ('%') referenziato in un vaporizer."
 
 #: src/netload/NLTriggerBuilder.cpp:92
 msgid "A vaporization begin time is negative (edge id='%')."
-msgstr ""
+msgstr "Un'ora iniziale di vaporizzazione è negativa (arco id='%')."
 
 #: src/netload/NLTriggerBuilder.cpp:96
 msgid "A vaporization ends before it starts (edge id='%')."
-msgstr ""
+msgstr "Una vaporizzazione termina prima di iniziare (arco id='%')."
 
 #: src/netload/NLTriggerBuilder.cpp:198
 msgid ""
@@ -13311,7 +13311,7 @@ msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:327
 msgid "Overwritting % with ID '%'"
-msgstr ""
+msgstr "Sovrascrittura di % con il codice identificativo '%' in corso"
 
 #: src/utils/handlers/CommonHandler.cpp:333
 msgid ""
@@ -13427,7 +13427,7 @@ msgstr "Errore nel chiudere gli dispositivi di uscita."
 
 #: src/utils/iodevices/OutputDevice.cpp:309
 msgid "Unknown attribute '%' to write in %."
-msgstr ""
+msgstr "Attributo sconosciuto '%' da scrivere in %."
 
 #: src/utils/iodevices/OutputDevice_File.cpp:46
 msgid "Could not redirect to NUL device (%)."
@@ -13697,7 +13697,7 @@ msgstr ""
 
 #: src/utils/router/IntermodalRouter.h:199
 msgid "No connection between % '%' and % '%' found."
-msgstr ""
+msgstr "Non è stato trovato nessun collegamento tra % '%' e % '%'."
 
 #: src/utils/router/IntermodalRouter.h:227
 #: src/utils/router/PedestrianRouter.h:126
@@ -13730,7 +13730,7 @@ msgstr ""
 
 #: src/utils/shapes/ShapeHandler.cpp:144
 msgid "Invalid characters for PoI ID '%'"
-msgstr ""
+msgstr "Caratteri invalidi nel codice identificativo del punto di interesse '%'"
 
 #: src/utils/shapes/ShapeHandler.cpp:175
 msgid ""
@@ -13938,6 +13938,8 @@ msgstr "Parametro mancante '%' per % '%'."
 #: src/utils/vehicle/SUMOTrafficObject.cpp:65
 msgid "Invalid float value '%' for parameter '%' in % '%' (%)."
 msgstr ""
+"Valore numerico in virgola mobile invalido '%' del parametro '%' in % '%' "
+"(%)."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:78
 msgid "Invalid distribution / float value '%' for parameter '%' in % '%' (%)."
