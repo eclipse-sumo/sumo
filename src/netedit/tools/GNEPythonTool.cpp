@@ -34,14 +34,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEPythonTool::GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string& toolPath,
+GNEPythonTool::GNEPythonTool(GNEApplicationWindow* applicationWindow, const std::string& toolPath,
                              const std::string& templateStr, FXMenuPane* menu) :
-    myGNEApp(GNEApp),
+    myApplicationWindow(applicationWindow),
     myToolPath(toolPath),
     myPythonToolName(FileHelpers::getFileFromPath(toolPath, true)) {
     // build menu command
     myMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(menu, myPythonToolName, "", TL("Execute python tool '") + myPythonToolName + "'.",
-                    GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, MID_GNE_OPENPYTHONTOOLDIALOG);
+                    GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), applicationWindow, MID_GNE_OPENPYTHONTOOLDIALOG);
     // parse tool options
     if (templateStr.size() > 0) {
         try {
@@ -56,12 +56,6 @@ GNEPythonTool::GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string& to
 
 
 GNEPythonTool::~GNEPythonTool() {}
-
-
-GNEApplicationWindow*
-GNEPythonTool::getGNEApp() const {
-    return myGNEApp;
-}
 
 
 const std::string&
