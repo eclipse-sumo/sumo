@@ -52,11 +52,10 @@ FXIMPLEMENT(GNERunNetgenerateDialog, GNEDialog, GNERunNetgenerateDialogMap, ARRA
 // member method definitions
 // ===========================================================================
 
-GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    GNEDialog(GNEApp, TL("Running NetGenerate results"), GUIIcon::NETGENERATE,
+GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* applicationWindow, const OptionsCont* netgenerateOptions) :
+    GNEDialog(applicationWindow, TL("Running NetGenerate results"), GUIIcon::NETGENERATE,
               GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE, OpenType::MODAL,
-              GNEDialog::ResizeMode::RESIZABLE, 640, 480),
-    myGNEApp(GNEApp) {
+              GNEDialog::ResizeMode::RESIZABLE, 640, 480) {
     // build the thread - io
     myThreadEvent.setTarget(this);
     myThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -76,8 +75,14 @@ GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
     // set styled
     myText->setHiliteStyles(GUIMessageWindow::getStyles());
     myText->setStyled(true);
-    // open modal dialog
+    // set netgenerate options
+    myNetgenerateOptions = netgenerateOptions;
+    // reset error flag
+    myError = false;
+    // open modal dialog before running netgenerate
     openModalDialog();
+    // run tool
+    myRunNetgenerate->run(myNetgenerateOptions);
 }
 
 
@@ -87,31 +92,6 @@ GNERunNetgenerateDialog::~GNERunNetgenerateDialog() {}
 void
 GNERunNetgenerateDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
     // finish
-}
-
-
-GNEApplicationWindow*
-GNERunNetgenerateDialog::getGNEApp() const {
-    return myGNEApp;
-}
-
-
-void
-GNERunNetgenerateDialog::run(const OptionsCont* netgenerateOptions) {
-    // set title
-    setTitle("Netgenerate output");
-    // refresh APP
-    getApp()->refresh();
-    // clear text
-    myText->setText("");
-    // show dialog
-    GNEDialog::show(PLACEMENT_SCREEN);
-    // set netgenerate options
-    myNetgenerateOptions = netgenerateOptions;
-    // reset error flag
-    myError = false;
-    // run tool
-    myRunNetgenerate->run(myNetgenerateOptions);
 }
 
 
@@ -177,7 +157,7 @@ long
 GNERunNetgenerateDialog::onCmdBack(FXObject*, FXSelector, void*) {
     // close run dialog and open tool dialog
     onCmdCancel(nullptr, 0, nullptr);
-    return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_NETGENERATE), nullptr);
+    return myApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_GNE_NETGENERATE), nullptr);
 }
 
 
@@ -192,7 +172,7 @@ GNERunNetgenerateDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     } else {
         // don't run this again
         myError = true;
-        return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
+        return myApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
     }
 }
 
@@ -253,10 +233,6 @@ GNERunNetgenerateDialog::onThreadEvent(FXObject*, FXSelector, void*) {
     }
 
     return 1;
-}
-
-GNERunNetgenerateDialog::GNERunNetgenerateDialog() :
-    myGNEApp(nullptr) {
 }
 
 /****************************************************************************/
