@@ -99,7 +99,7 @@ GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // accept changes before closing dialog
         acceptChanges();
         // Stop Modal
-        getApp()->stopModal(this, TRUE);
+        closeDialogAccepting();
     }
     return 1;
 }
@@ -110,8 +110,7 @@ GNERerouterDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // cancel changes
     cancelChanges();
     // Stop Modal
-    getApp()->stopModal(this, FALSE);
-    return 1;
+    return closeDialogCanceling();
 }
 
 
