@@ -53,11 +53,10 @@ FXIMPLEMENT(GNERunPythonToolDialog, GNEDialog, GNERunPythonToolDialogMap, ARRAYN
 // member method definitions
 // ===========================================================================
 
-GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* GNEApp) :
-    GNEDialog(GNEApp, TL("Python Tool"), GUIIcon::TOOL_PYTHON,
+GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool) :
+    GNEDialog(applicationWindow, TL("Python Tool"), GUIIcon::TOOL_PYTHON,
               GNEDialog::Buttons::ABORT_RERUN_BACK_CLOSE,
-              OpenType::MODAL, ResizeMode::RESIZABLE, 640, 480),
-    myGNEApp(GNEApp) {
+              OpenType::MODAL, ResizeMode::RESIZABLE, 640, 480) {
     // build the thread - io
     myThreadEvent.setTarget(this);
     myThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -77,28 +76,6 @@ GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* GNEApp) :
     // set styled
     myText->setHiliteStyles(GUIMessageWindow::getStyles());
     myText->setStyled(true);
-    // open modal dialog
-    openModalDialog();
-}
-
-
-GNERunPythonToolDialog::~GNERunPythonToolDialog() {}
-
-
-void
-GNERunPythonToolDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogTest*/) {
-    // finish
-}
-
-
-GNEApplicationWindow*
-GNERunPythonToolDialog::getGNEApp() const {
-    return myGNEApp;
-}
-
-
-void
-GNERunPythonToolDialog::runTool(GNEPythonTool* tool) {
     // set title
     setTitle((tool->getToolName()  + " output").c_str());
     // refresh APP
@@ -109,8 +86,19 @@ GNERunPythonToolDialog::runTool(GNEPythonTool* tool) {
     GNEDialog::show(PLACEMENT_SCREEN);
     // set tool
     myPythonTool = tool;
+    // open modal dialog
+    openModalDialog();
     // run tool
     myRunTool->runTool(tool);
+}
+
+
+GNERunPythonToolDialog::~GNERunPythonToolDialog() {}
+
+
+void
+GNERunPythonToolDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogTest*/) {
+    // finish
 }
 
 
@@ -175,7 +163,7 @@ long
 GNERunPythonToolDialog::onCmdBack(FXObject*, FXSelector, void*) {
     // close runTool dialog and open tool dialog
     onCmdClose(nullptr, 0, nullptr);
-    return myGNEApp->handle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_OPENPYTHONTOOLDIALOG), nullptr);
+    return myApplicationWindow->handle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_OPENPYTHONTOOLDIALOG), nullptr);
 }
 
 
@@ -194,7 +182,7 @@ GNERunPythonToolDialog::onCmdAccept(FXObject* obj, FXSelector, void*) {
     // abort tool
     myRunTool->abortTool();
     // execute post processing
-    myGNEApp->handle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL), nullptr);
+    myApplicationWindow->handle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL), nullptr);
     // hide dialog
     hide();
     return 1;
@@ -234,11 +222,6 @@ GNERunPythonToolDialog::onThreadEvent(FXObject*, FXSelector, void*) {
         updateDialog();
     }
     return 1;
-}
-
-
-GNERunPythonToolDialog::GNERunPythonToolDialog() :
-    myGNEApp(nullptr) {
 }
 
 /****************************************************************************/
