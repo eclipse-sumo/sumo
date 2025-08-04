@@ -23,12 +23,6 @@
 #include "GNEAdditionalDialog.h"
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNECalibratorFlow;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -38,13 +32,17 @@ class GNECalibratorFlowDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorFlowDialog(GNEAdditional* editedCalibratorFlow, bool updatingElement);
+    GNECalibratorFlowDialog(GNEAdditional* calibratorFlow, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorFlowDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
@@ -56,6 +54,7 @@ public:
 
     /// @brief event after change value
     long onCmdSetVariable(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:

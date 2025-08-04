@@ -19,69 +19,33 @@
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
 #include <utils/gui/div/GUIDesigns.h>
-
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEAdditionalDialog.h"
 
 // ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNEAdditionalDialog) GNEAdditionalDialogMap[] = {
-    FXMAPFUNC(SEL_KEYPRESS,     0,                      GNEAdditionalDialog::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,   0,                      GNEAdditionalDialog::onKeyRelease),
-    FXMAPFUNC(SEL_CLOSE,        0,                      GNEAdditionalDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_ACCEPT,  GNEAdditionalDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_CANCEL,  GNEAdditionalDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_RESET,   GNEAdditionalDialog::onCmdReset),
-};
-
-// Object abstract implementation
-FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXTopWindow, GNEAdditionalDialogMap, ARRAYNUMBER(GNEAdditionalDialogMap))
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* editedAdditional, bool updatingElement, int width, int height) :
-    FXTopWindow(editedAdditional->getNet()->getViewNet(), ("Edit '" + editedAdditional->getID() + "' data").c_str(), editedAdditional->getACIcon(), editedAdditional->getACIcon(), GUIDesignDialogBoxExplicit(width, height)),
-    myEditedAdditional(editedAdditional),
+GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* additional, const bool updatingElement,
+                                         const int width, const int height) :
+    GNEDialog(additional->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+              TLF("Edit '%' data", additional->getID()), additional->getTagProperty()->getGUIIcon(),
+              Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, width, height),
+    myEditedAdditional(additional),
     myUpdatingElement(updatingElement),
-    myChangesDescription("change " + editedAdditional->getTagStr() + " values"),
+    myChangesDescription(TLF("change % values", additional->getTagStr())),
     myNumberOfChanges(0) {
-    // create main frame
-    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // Create frame for contents
-    myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignContentsFrame);
-    // create buttons centered
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myKeepOldButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Accept"), "", TL("Close accepting changes"),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
-    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", TL("Close discarding changes"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
-    myResetButton = GUIDesigns::buildFXButton(buttonsFrame, TL("Reset"), "", TL("Reset to previous values"),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonDialog);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
 
 GNEAdditionalDialog::~GNEAdditionalDialog() {
-    // return focus to GNEViewNet to avoid minimization
-    getParent()->setFocus();
-}
-
-
-FXint
-GNEAdditionalDialog::openAsModalDialog(FXuint placement) {
-    // create Dialog
-    create();
-    // show in the given position
-    show(placement);
-    // refresh APP
-    getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    return getApp()->runModalFor(this);
 }
 
 
@@ -91,16 +55,7 @@ GNEAdditionalDialog::getEditedAdditional() const {
 }
 
 
-long
-GNEAdditionalDialog::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
-    return FXTopWindow::onKeyPress(sender, sel, ptr);
-}
-
-
-long
-GNEAdditionalDialog::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
-    return FXTopWindow::onKeyRelease(sender, sel, ptr);
-}
+GNEAdditionalDialog::GNEAdditionalDialog() {}
 
 
 void
@@ -142,6 +97,5 @@ GNEAdditionalDialog::resetChanges() {
     myEditedAdditional->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
     myEditedAdditional->getNet()->getViewNet()->getUndoList()->begin(myEditedAdditional, myChangesDescription);
 }
-
 
 /****************************************************************************/

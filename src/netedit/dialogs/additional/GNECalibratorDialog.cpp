@@ -58,8 +58,8 @@ FXIMPLEMENT(GNECalibratorDialog, GNEAdditionalDialog, GNECalibratorDialogMap, AR
 // member method definitions
 // ===========================================================================
 
-GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
-    GNEAdditionalDialog(editedCalibrator, false, 640, 480) {
+GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
+    GNEAdditionalDialog(calibrator, false, 640, 480) {
 
     // Create two columns, one for Routes and VehicleTypes, and other for Flows
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -106,13 +106,16 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
 
     // start a undo list for editing local to this additional
     initChanges();
-
-    // Open dialog as modal
-    openAsModalDialog();
 }
 
 
 GNECalibratorDialog::~GNECalibratorDialog() {}
+
+
+void
+GNECalibratorDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // finish
+}
 
 
 long

@@ -204,13 +204,16 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     if (!myUpdatingElement) {
         myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
     }
-
-    // Open as modal dialog
-    openAsModalDialog();
 }
 
 
 GNERerouterIntervalDialog::~GNERerouterIntervalDialog() {}
+
+
+void
+GNERerouterIntervalDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // finish
+}
 
 
 long

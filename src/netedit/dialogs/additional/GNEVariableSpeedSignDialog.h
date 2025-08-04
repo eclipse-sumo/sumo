@@ -23,12 +23,6 @@
 #include "GNEAdditionalDialog.h"
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEVariableSpeedSign;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -38,10 +32,13 @@ class GNEVariableSpeedSignDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNEVariableSpeedSignDialog(GNEVariableSpeedSign* editedVariableSpeedSign);
+    GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign);
 
     /// @brief destructor
     ~GNEVariableSpeedSignDialog();
+
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// @name FOX-callbacks
     /// @{

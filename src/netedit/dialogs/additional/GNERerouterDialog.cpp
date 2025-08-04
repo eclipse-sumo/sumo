@@ -51,8 +51,8 @@ FXIMPLEMENT(GNERerouterDialog, GNEAdditionalDialog, GNERerouterDialogMap, ARRAYN
 // member method definitions
 // ===========================================================================
 
-GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
-    GNEAdditionalDialog(rerouterParent, false, 320, 240) {
+GNERerouterDialog::GNERerouterDialog(GNEAdditional* rerouter) :
+    GNEAdditionalDialog(rerouter, false, 320, 240) {
 
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddIntervalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -74,13 +74,16 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
 
     // start a undo list for editing local to this additional
     initChanges();
-
-    // Open dialog as modal
-    openAsModalDialog();
 }
 
 
 GNERerouterDialog::~GNERerouterDialog() {}
+
+
+void
+GNERerouterDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // finish
+}
 
 
 long

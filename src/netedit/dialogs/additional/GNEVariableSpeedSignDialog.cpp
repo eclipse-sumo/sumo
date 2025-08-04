@@ -53,8 +53,8 @@ FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEAdditionalDialog, GNERerouterDialogMa
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* editedVariableSpeedSign) :
-    GNEAdditionalDialog(editedVariableSpeedSign, false, 300, 400),
+GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEAdditional* variableSpeedSign) :
+    GNEAdditionalDialog(variableSpeedSign, false, 300, 400),
     myStepsValids(false) {
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -72,12 +72,16 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
     updateTableSteps();
     // start a undo list for editing local to this additional
     initChanges();
-    // Open dialog as modal
-    openAsModalDialog();
 }
 
 
 GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {}
+
+
+void
+GNEVariableSpeedSignDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // finish
+}
 
 
 long

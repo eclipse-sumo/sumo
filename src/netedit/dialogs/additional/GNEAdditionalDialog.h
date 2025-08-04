@@ -20,34 +20,33 @@
 #pragma once
 #include <config.h>
 
-#include <vector>
-#include <map>
-#include <utils/foxtools/fxheader.h>
+#include <netedit/dialogs/GNEDialog.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNEAdditional;
-class GNEUndoList;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEAdditionalDialog : protected FXTopWindow {
-    /// @brief FOX-declaration abstract
-    FXDECLARE_ABSTRACT(GNEAdditionalDialog)
+class GNEAdditionalDialog : public GNEDialog {
 
 public:
     /// @brief constructor
-    GNEAdditionalDialog(GNEAdditional* parent, bool updatingElement, int width, int height);
+    GNEAdditionalDialog(GNEAdditional* editedAdditional, const bool updatingElement,
+                        const int width, const int height);
 
     /// @brief destructor
     ~GNEAdditionalDialog();
 
     /// @brief get edited Additional
     GNEAdditional* getEditedAdditional() const;
+
+    /// @brief run internal test
+    virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
 
     /// @name FOX-callbacks
     /// @{
@@ -60,28 +59,17 @@ public:
     /// @brief event after press cancel button
     virtual long onCmdReset(FXObject*, FXSelector, void*) = 0;
 
-    /// @brief event after press a key
-    long onKeyPress(FXObject* sender, FXSelector sel, void* ptr);
-
-    /// @brief event after release a key
-    long onKeyRelease(FXObject* sender, FXSelector sel, void* ptr);
-
     /// @}
 
 protected:
-    FOX_CONSTRUCTOR(GNEAdditionalDialog)
+    /// @brief default constructor
+    GNEAdditionalDialog();
 
     /// @brief pointer to edited additional
-    GNEAdditional* myEditedAdditional;
+    GNEAdditional* myEditedAdditional = nullptr;
 
     /// @brief flag to indicate if additional are being created or modified (cannot be changed after open dialog)
-    bool myUpdatingElement;
-
-    /// @brief frame for contents
-    FXVerticalFrame* myContentFrame;
-
-    /// @brief execute dialog as modal
-    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
+    bool myUpdatingElement = false;
 
     /// @brief change additional dialog header
     void changeAdditionalDialogHeader(const std::string& newHeader);
@@ -99,15 +87,6 @@ protected:
     void resetChanges();
 
 private:
-    /// @brief accept button
-    FXButton* myKeepOldButton;
-
-    /// @brief cancel button
-    FXButton* myCancelButton;
-
-    /// @brief cancel button
-    FXButton* myResetButton;
-
     /// @brief description of changes did in this additional dialog
     std::string myChangesDescription;
 
