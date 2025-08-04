@@ -55,10 +55,9 @@ FXIMPLEMENT(GNENetgenerateDialog, GNEDialog, GNENetgenerateDialogMap, ARRAYNUMBE
 // member method definitions
 // ===========================================================================
 
-GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    GNEDialog(GNEApp, "Netgenerate", GUIIcon::NETGENERATE,
-              GNEDialog::Buttons::RUN_ADVANCED_CANCEL, GNEDialog::OpenType::MODAL),
-    myGNEApp(GNEApp) {
+GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* applicationWindow) :
+    GNEDialog(applicationWindow, "Netgenerate", GUIIcon::NETGENERATE,
+              GNEDialog::Buttons::RUN_ADVANCED_CANCEL, GNEDialog::OpenType::MODAL) {
     // build labels
     auto horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     myGridNetworkLabel = new FXLabel(horizontalFrame, TL("Grid"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
@@ -67,13 +66,13 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
     myRandomNetworkLabel = new FXLabel(horizontalFrame, TL("Random"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
     // build buttons
     horizontalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
-    myGridNetworkButton = new MFXCheckableButton(false, horizontalFrame, GNEApp->getStaticTooltipMenu(), "",
+    myGridNetworkButton = new MFXCheckableButton(false, horizontalFrame, applicationWindow->getStaticTooltipMenu(), "",
             GUIIconSubSys::getIcon(GUIIcon::NETGENERATE_GRID), this, MID_GNE_NETGENERATE_GRID, GUIDesignMFXCheckableButtonBig);
-    mySpiderNetworkButton = new MFXCheckableButton(false, horizontalFrame, GNEApp->getStaticTooltipMenu(), "",
+    mySpiderNetworkButton = new MFXCheckableButton(false, horizontalFrame, applicationWindow->getStaticTooltipMenu(), "",
             GUIIconSubSys::getIcon(GUIIcon::NETGENERATE_SPIDER), this, MID_GNE_NETGENERATE_SPIDER, GUIDesignMFXCheckableButtonBig);
-    myRandomGridNetworkButton = new MFXCheckableButton(false, horizontalFrame, GNEApp->getStaticTooltipMenu(), "",
+    myRandomGridNetworkButton = new MFXCheckableButton(false, horizontalFrame, applicationWindow->getStaticTooltipMenu(), "",
             GUIIconSubSys::getIcon(GUIIcon::NETGENERATE_RANDOMGRID), this, MID_GNE_NETGENERATE_RANDOMGRID, GUIDesignMFXCheckableButtonBig);
-    myRandomNetworkButton = new MFXCheckableButton(false, horizontalFrame, GNEApp->getStaticTooltipMenu(), "",
+    myRandomNetworkButton = new MFXCheckableButton(false, horizontalFrame, applicationWindow->getStaticTooltipMenu(), "",
             GUIIconSubSys::getIcon(GUIIcon::NETGENERATE_RANDOM), this, MID_GNE_NETGENERATE_RANDOM, GUIDesignMFXCheckableButtonBig);
     // add invisible separator
     new FXSeparator(myContentFrame, SEPARATOR_NONE);
@@ -84,16 +83,7 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
                               GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GNE_OPEN, GUIDesignButtonIcon);
     myOutputTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // open dialog
-    openDialog();
-}
-
-
-GNENetgenerateDialog::~GNENetgenerateDialog() {}
-
-
-void
-GNENetgenerateDialog::openDialog() {
-    auto& generateOptions = myGNEApp->getNetgenerateOptions();
+    auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
     // reset buttons
     if (generateOptions.getBool("grid")) {
         if (generateOptions.getBool("rand.grid")) {
@@ -112,11 +102,12 @@ GNENetgenerateDialog::openDialog() {
     }
     // set output
     myOutputTextField->setText(generateOptions.getValueString("output-file").c_str());
-    // show dialog
-    GNEDialog::show(PLACEMENT_SCREEN);
-    // refresh APP
-    getApp()->refresh();
+    // open dialog
+    openModalDialog();
 }
+
+
+GNENetgenerateDialog::~GNENetgenerateDialog() {}
 
 
 void
@@ -139,7 +130,7 @@ GNENetgenerateDialog::onCmdOpenOutputFile(FXObject*, FXSelector, void*) {
 
 long
 GNENetgenerateDialog::onCmdSetOutput(FXObject*, FXSelector, void*) {
-    auto& generateOptions = myGNEApp->getNetgenerateOptions();
+    auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
     generateOptions.resetWritable();
     // check if filename is valid
     if (SUMOXMLDefinitions::isValidFilename(myOutputTextField->getText().text()) == false) {
@@ -154,7 +145,7 @@ GNENetgenerateDialog::onCmdSetOutput(FXObject*, FXSelector, void*) {
 
 long
 GNENetgenerateDialog::onCmdSetGrid(FXObject*, FXSelector, void*) {
-    auto& generateOptions = myGNEApp->getNetgenerateOptions();
+    auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
     // reset all flags
     generateOptions.resetWritable();
     generateOptions.set("grid", "true");
@@ -177,7 +168,7 @@ GNENetgenerateDialog::onCmdSetGrid(FXObject*, FXSelector, void*) {
 
 long
 GNENetgenerateDialog::onCmdSetSpider(FXObject*, FXSelector, void*) {
-    auto& generateOptions = myGNEApp->getNetgenerateOptions();
+    auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
     // reset all flags
     generateOptions.resetWritable();
     generateOptions.set("grid", "false");
@@ -201,7 +192,7 @@ GNENetgenerateDialog::onCmdSetSpider(FXObject*, FXSelector, void*) {
 
 long
 GNENetgenerateDialog::onCmdSetRandomGrid(FXObject*, FXSelector, void*) {
-    auto& generateOptions = myGNEApp->getNetgenerateOptions();
+    auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
     // reset all flags
     generateOptions.resetWritable();
     generateOptions.set("grid", "false");
@@ -224,7 +215,7 @@ GNENetgenerateDialog::onCmdSetRandomGrid(FXObject*, FXSelector, void*) {
 
 long
 GNENetgenerateDialog::onCmdSetRandom(FXObject*, FXSelector, void*) {
-    auto& generateOptions = myGNEApp->getNetgenerateOptions();
+    auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
     // reset all flags
     generateOptions.resetWritable();
     generateOptions.set("grid", "false");
@@ -250,7 +241,7 @@ GNENetgenerateDialog::onCmdRun(FXObject*, FXSelector, void*) {
     // hide dialog
     hide();
     // run netgenerate
-    return myGNEApp->tryHandle(this, FXSEL(SEL_COMMAND, MID_GNE_RUNNETGENERATE), nullptr);
+    return myApplicationWindow->tryHandle(this, FXSEL(SEL_COMMAND, MID_GNE_RUNNETGENERATE), nullptr);
 }
 
 
@@ -259,13 +250,13 @@ GNENetgenerateDialog::onCmdAdvanced(FXObject*, FXSelector, void*) {
     // hide dialog
     hide();
     // open netgenerate option dialog
-    return myGNEApp->tryHandle(this, FXSEL(SEL_COMMAND, MID_GNE_NETGENERATEOPTIONS), nullptr);
+    return myApplicationWindow->tryHandle(this, FXSEL(SEL_COMMAND, MID_GNE_NETGENERATEOPTIONS), nullptr);
 }
 
 
 long
 GNENetgenerateDialog::onUpdSettingsConfigured(FXObject* sender, FXSelector, void*) {
-    auto& generateOptions = myGNEApp->getNetgenerateOptions();
+    auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
     // check conditions
     if ((generateOptions.getBool("grid") == false) &&
             (generateOptions.getBool("spider") == false) &&
@@ -288,11 +279,6 @@ GNENetgenerateDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 long
 GNENetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     return closeDialogCanceling();
-}
-
-
-GNENetgenerateDialog::GNENetgenerateDialog() :
-    myGNEApp(nullptr) {
 }
 
 /****************************************************************************/

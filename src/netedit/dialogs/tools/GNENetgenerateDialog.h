@@ -41,13 +41,10 @@ class GNENetgenerateDialog : protected GNEDialog {
 
 public:
     /// @brief Constructor
-    GNENetgenerateDialog(GNEApplicationWindow* GNEApp);
+    GNENetgenerateDialog(GNEApplicationWindow* applicationWindow);
 
     /// @brief destructor
     ~GNENetgenerateDialog();
-
-    /// @brief open dialog
-    void openDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
@@ -92,12 +89,9 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNENetgenerateDialog();
+    FOX_CONSTRUCTOR(GNENetgenerateDialog);
 
 private:
-    /// @brief pointer to GNEApplicationWindow
-    GNEApplicationWindow* myGNEApp;
-
     /// @brief grid network
     FXLabel* myGridNetworkLabel = nullptr;
 
