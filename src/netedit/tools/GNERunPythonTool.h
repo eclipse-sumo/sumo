@@ -32,10 +32,6 @@ class GNERunPythonToolDialog;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNERunPythonTool
- * @brief Abstract dialog for tools
- */
 class GNERunPythonTool : protected MFXSingleEventThread  {
 
 public:
