@@ -123,7 +123,7 @@ GNEPythonToolDialogElements::Argument::Argument(GNEPythonToolDialog* toolDialogP
     myOption(option),
     myDefaultValue(toolDialogParent->getPythonTool()->getDefaultValue(parameter)) {
     // create parameter label
-    myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->myGNEApp->getStaticTooltipMenu(), parameter.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
+    myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->getApplicationWindow()->getStaticTooltipMenu(), parameter.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
     myParameterLabel->setTipText((option->getTypeName() + ": " + option->getDescription()).c_str());
     // set color if is required
     if (option->isRequired()) {
@@ -237,13 +237,13 @@ GNEPythonToolDialogElements::FileNameArgument::FileNameArgument(GNEPythonToolDia
     Argument(toolDialogParent, argumentFrame, name, option) {
     // check if create current button
     if (useCurrent.size() > 0) {
-        myCurrentButton = new MFXButtonTooltip(myElementsFrame, toolDialogParent->myGNEApp->getStaticTooltipMenu(), "",
+        myCurrentButton = new MFXButtonTooltip(myElementsFrame, toolDialogParent->getApplicationWindow()->getStaticTooltipMenu(), "",
                                                GUIIconSubSys::getIcon(GUIIcon::CURRENT), this, MID_GNE_USE_CURRENT, GUIDesignButtonIcon);
         myCurrentButton->setTipText(TLF("Use current % file", useCurrent).c_str());
         myCurrentButton->create();
     }
     // Create Open button
-    myOpenFilenameButton = new MFXButtonTooltip(myElementsFrame, toolDialogParent->myGNEApp->getStaticTooltipMenu(), "",
+    myOpenFilenameButton = new MFXButtonTooltip(myElementsFrame, toolDialogParent->getApplicationWindow()->getStaticTooltipMenu(), "",
             GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SELECT, GUIDesignButtonIcon);
     myOpenFilenameButton->setTipText(TLF("Select % file", useCurrent).c_str());
     myOpenFilenameButton->create();
@@ -266,7 +266,7 @@ GNEPythonToolDialogElements::FileNameArgument::getValue() const {
 GNEPythonToolDialogElements::EdgeVectorArgument::EdgeVectorArgument(GNEPythonToolDialog* toolDialogParent, FXVerticalFrame* argumentFrame,
         const std::string name, Option* option) :
     Argument(toolDialogParent, argumentFrame, name, option) {
-    myCurrentEdgesButton = new MFXButtonTooltip(myElementsFrame, toolDialogParent->myGNEApp->getStaticTooltipMenu(), "",
+    myCurrentEdgesButton = new MFXButtonTooltip(myElementsFrame, toolDialogParent->getApplicationWindow()->getStaticTooltipMenu(), "",
             GUIIconSubSys::getIcon(GUIIcon::EDGE), this, MID_GNE_USE_CURRENT, GUIDesignButtonIcon);
     myCurrentEdgesButton->setTipText(TL("Use current selected edges"));
     myCurrentEdgesButton->create();
@@ -301,7 +301,7 @@ GNEPythonToolDialogElements::EdgeVectorArgument::onCmdSetValue(FXObject*, FXSele
 long
 GNEPythonToolDialogElements::EdgeVectorArgument::onCmdUseCurrent(FXObject*, FXSelector, void*) {
     // obtain list of selected edges
-    const auto selectedEdges = myToolDialogParent->getGNEApplicationWindow()->getViewNet()->getNet()->getAttributeCarriers()->getSelectedEdges();
+    const auto selectedEdges = myToolDialogParent->getApplicationWindow()->getViewNet()->getNet()->getAttributeCarriers()->getSelectedEdges();
     // convert list to string
     std::string selectedEdgesStr;
     for (const auto& edge : selectedEdges) {
@@ -318,7 +318,7 @@ GNEPythonToolDialogElements::EdgeVectorArgument::onCmdUseCurrent(FXObject*, FXSe
 long
 GNEPythonToolDialogElements::EdgeVectorArgument::onUpdUseCurrent(FXObject* sender, FXSelector, void*) {
     // get view net
-    const auto viewNet = myToolDialogParent->getGNEApplicationWindow()->getViewNet();
+    const auto viewNet = myToolDialogParent->getApplicationWindow()->getViewNet();
     if (viewNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (viewNet->getNet()->getAttributeCarriers()->getNumberOfSelectedEdges() == 0) {
@@ -368,7 +368,7 @@ GNEPythonToolDialogElements::NetworkArgument::onCmdUseCurrentNetworkFile(FXObjec
 
 long
 GNEPythonToolDialogElements::NetworkArgument::onUpdUseCurrentNetworkFile(FXObject* sender, FXSelector, void*) {
-    if (myToolDialogParent->getGNEApplicationWindow()->getViewNet() == nullptr) {
+    if (myToolDialogParent->getApplicationWindow()->getViewNet() == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("sumo-net-file").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -411,7 +411,7 @@ GNEPythonToolDialogElements::AdditionalArgument::onCmdUseCurrentAdditionalFile(F
 
 long
 GNEPythonToolDialogElements::AdditionalArgument::onUpdUseCurrentAdditionalFile(FXObject* sender, FXSelector, void*) {
-    if (myToolDialogParent->getGNEApplicationWindow()->getViewNet() == nullptr) {
+    if (myToolDialogParent->getApplicationWindow()->getViewNet() == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("additional-files").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -454,7 +454,7 @@ GNEPythonToolDialogElements::RouteArgument::onCmdUseCurrentRouteFile(FXObject*, 
 
 long
 GNEPythonToolDialogElements::RouteArgument::onUpdUseCurrentRouteFile(FXObject* sender, FXSelector, void*) {
-    if (myToolDialogParent->getGNEApplicationWindow()->getViewNet() == nullptr) {
+    if (myToolDialogParent->getApplicationWindow()->getViewNet() == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("route-files").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -497,7 +497,7 @@ GNEPythonToolDialogElements::DataArgument::onCmdUseCurrentDataFile(FXObject*, FX
 
 long
 GNEPythonToolDialogElements::DataArgument::onUpdUseCurrentDataFile(FXObject* sender, FXSelector, void*) {
-    if (myToolDialogParent->getGNEApplicationWindow()->getViewNet() == nullptr) {
+    if (myToolDialogParent->getApplicationWindow()->getViewNet() == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("data-files").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -540,7 +540,7 @@ GNEPythonToolDialogElements::SumoConfigArgument::onCmdUseCurrentSumoConfigFile(F
 
 long
 GNEPythonToolDialogElements::SumoConfigArgument::onUpdUseCurrentSumoConfigFile(FXObject* sender, FXSelector, void*) {
-    if (myToolDialogParent->getGNEApplicationWindow()->getViewNet() == nullptr) {
+    if (myToolDialogParent->getApplicationWindow()->getViewNet() == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("sumocfg-file").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);

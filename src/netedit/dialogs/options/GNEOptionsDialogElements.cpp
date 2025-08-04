@@ -69,7 +69,7 @@ GNEOptionsDialogElements::InputOption::InputOption(GNEOptionsDialog* GUIDialogOp
     myDescription(description),
     myDefaultValue(defaultValue) {
     // build label with name (default width 150)
-    myNameLabel = new MFXLabelTooltip(this, myGUIDialogOptions->myGNEApp->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelThickedFixed(MINNAMEWIDTH));
+    myNameLabel = new MFXLabelTooltip(this, myGUIDialogOptions->getApplicationWindow()->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelThickedFixed(MINNAMEWIDTH));
     // set description as tooltip
     myNameLabel->setTipText(description.c_str());
     // create content frame

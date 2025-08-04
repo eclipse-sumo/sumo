@@ -93,6 +93,9 @@ public:
     /// @brief get result to indicate if this dialog was closed accepting or rejecting changes
     Result getResult() const;
 
+    /// @brief get pointer to the application window
+    GNEApplicationWindow* getApplicationWindow() const;
+
     /// @brief run internal test
     virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
 
