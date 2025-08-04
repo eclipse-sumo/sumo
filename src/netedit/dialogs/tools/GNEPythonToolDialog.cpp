@@ -57,20 +57,19 @@ FXIMPLEMENT(GNEPythonToolDialog, GNEDialog, GNEPythonToolDialogMap, ARRAYNUMBER(
 // member method definitions
 // ===========================================================================
 
-GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp, GNEPythonTool* tool) :
-    GNEDialog(GNEApp, TL("Tool"), GUIIcon::TOOL_PYTHON, GNEDialog::Buttons::RUN_CANCEL_RESET,
-              OpenType::NON_MODAL, ResizeMode::RESIZABLE),
-    myGNEApp(GNEApp) {
+GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool) :
+    GNEDialog(applicationWindow, TL("Tool"), GUIIcon::TOOL_PYTHON, GNEDialog::Buttons::RUN_CANCEL_RESET,
+              OpenType::NON_MODAL, ResizeMode::RESIZABLE) {
     // create options
     auto horizontalOptionsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrameNoPadding);
     // build options
     myShowToolTipsMenu = new MFXCheckableButton(false, horizontalOptionsFrame,
-            GNEApp->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
+            applicationWindow->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
             GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
-    auto saveFile = new MFXButtonTooltip(horizontalOptionsFrame, GNEApp->getStaticTooltipMenu(), TL("Save toolcfg"),
+    auto saveFile = new MFXButtonTooltip(horizontalOptionsFrame, applicationWindow->getStaticTooltipMenu(), TL("Save toolcfg"),
                                          GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
     saveFile->setTipText(TL("Save file with tool configuration"));
-    auto loadFile = new MFXButtonTooltip(horizontalOptionsFrame, GNEApp->getStaticTooltipMenu(), TL("Load toolcfg"),
+    auto loadFile = new MFXButtonTooltip(horizontalOptionsFrame, applicationWindow->getStaticTooltipMenu(), TL("Load toolcfg"),
                                          GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
     loadFile->setTipText(TL("Load file with tool configuration"));
     mySortedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Sorted by name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
@@ -115,12 +114,6 @@ GNEPythonToolDialog::runInternalTest(const InternalTestStep::DialogArgument* /*d
 }
 
 
-GNEApplicationWindow*
-GNEPythonToolDialog::getGNEApplicationWindow() const {
-    return myGNEApp;
-}
-
-
 const GNEPythonTool*
 GNEPythonToolDialog::getPythonTool() const {
     return myPythonTool;
@@ -131,12 +124,12 @@ long
 GNEPythonToolDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
     // toggle check
     myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
-    if (myGNEApp->getViewNet()) {
-        myGNEApp->getViewNet()->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
-        myGNEApp->getViewNet()->getViewParent()->getShowToolTipsMenu()->update();
+    if (myApplicationWindow->getViewNet()) {
+        myApplicationWindow->getViewNet()->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
+        myApplicationWindow->getViewNet()->getViewParent()->getShowToolTipsMenu()->update();
     }
     // enable/disable static tooltip
-    myGNEApp->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
+    myApplicationWindow->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
     // save in registry
     getApp()->reg().writeIntEntry("gui", "menuToolTips", myShowToolTipsMenu->amChecked() ? 0 : 1);
     update();
@@ -183,7 +176,7 @@ GNEPythonToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
     // hide dialog
     hide();
     // run tool
-    return myGNEApp->tryHandle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL), nullptr);
+    return myApplicationWindow->tryHandle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL), nullptr);
 }
 
 
@@ -230,11 +223,6 @@ void
 GNEPythonToolDialog::CategoryOptions::sortByName() {
     // just sort vector with options
     std::sort(myOptions.begin(), myOptions.end());
-}
-
-
-GNEPythonToolDialog::GNEPythonToolDialog() :
-    myGNEApp(nullptr) {
 }
 
 

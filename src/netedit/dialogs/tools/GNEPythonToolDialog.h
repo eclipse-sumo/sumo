@@ -45,16 +45,13 @@ class GNEPythonToolDialog : protected GNEDialog {
 
 public:
     /// @brief Constructor
-    GNEPythonToolDialog(GNEApplicationWindow* GNEApp, GNEPythonTool* tool);
+    GNEPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool);
 
     /// @brief destructor
     ~GNEPythonToolDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-
-    /// @brief get pointer to GNEApplicationWindow
-    GNEApplicationWindow* getGNEApplicationWindow() const;
 
     /// @brief get python tool
     const GNEPythonTool* getPythonTool() const;
@@ -111,7 +108,7 @@ protected:
     };
 
     /// @brief FOX needs this
-    GNEPythonToolDialog();
+    FOX_CONSTRUCTOR(GNEPythonToolDialog);
 
     /// @brief build arguments
     void buildArguments(bool sortByName, bool groupedByCategories);
@@ -144,9 +141,6 @@ protected:
     std::vector<GNEPythonToolDialogElements::Category*> myCategories;
 
 private:
-    /// @brief pointer to GNEApplicationWindow
-    GNEApplicationWindow* myGNEApp;
-
     /// @brief menu for tooltips menu
     MFXCheckableButton* myShowToolTipsMenu = nullptr;
 
