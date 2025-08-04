@@ -471,7 +471,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributesEditorType* at
     // fill myParametersValues
     myParametersValues->setParameters(attributesEditor->getEditedAttributeCarriers().front()->getACParameters<std::vector<std::pair<std::string, std::string> > >());
     // open modal dialog
-    openModalDialog();
+    openDialog();
 }
 
 
@@ -490,7 +490,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEApplicationWindow* appli
     // fill myEditedParameters
     myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());
     // open modal dialog
-    openModalDialog();
+    openDialog();
 }
 
 
@@ -508,7 +508,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attrib
     // fill myEditedParameters
     myParametersValues->setParameters(myAttributeCarrier->getACParameters<std::vector<std::pair<std::string, std::string> > >());
     // open modal dialog
-    openModalDialog();
+    openDialog();
 }
 
 
@@ -533,7 +533,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEApplicationWindow* appli
     // set parameters
     myParametersValues->setParameters(parametersStr);
     // open modal dialog
-    openModalDialog();
+    openDialog();
 }
 
 

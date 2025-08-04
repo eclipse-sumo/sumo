@@ -522,7 +522,7 @@ GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow* mai
     myFixStopPositionOptions->setInvalidElements(invalidStops);
     myFixPlanOptions->setInvalidElements(invalidPlans);
     // open modal dialog
-    openModalDialog();
+    openDialog();
 }
 
 

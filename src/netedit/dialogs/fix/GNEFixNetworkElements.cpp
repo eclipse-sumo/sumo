@@ -255,7 +255,7 @@ GNEFixNetworkElements::GNEFixNetworkElements(GNEApplicationWindow* mainWindow,
     myFixEdgeOptions->setInvalidElements(invalidEdges);
     myFixCrossingOptions->setInvalidElements(invalidCrossings);
     // open modal dialog
-    openModalDialog();
+    openDialog();
 }
 
 

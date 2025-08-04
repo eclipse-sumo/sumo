@@ -304,7 +304,7 @@ GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWin
     myPositionOptions->setInvalidElements(invalidSingleLanes);
     myConsecutiveLaneOptions->setInvalidElements(invalidMultiLanes);
     // open modal dialog
-    openModalDialog();
+    openDialog();
 }
 
 

@@ -80,7 +80,7 @@ GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* applicati
     // reset error flag
     myError = false;
     // open modal dialog before running netgenerate
-    openModalDialog();
+    openDialog();
     // run tool
     myRunNetgenerate->run(myNetgenerateOptions);
 }
