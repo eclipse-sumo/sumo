@@ -30,30 +30,25 @@
 
 class GNERunPythonTool;
 class GNEPythonTool;
+class GUIEvent;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNERunPythonToolDialog : protected GNEDialog {
+class GNERunPythonToolDialog : public GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNERunPythonToolDialog)
 
 public:
     /// @brief Constructor
-    GNERunPythonToolDialog(GNEApplicationWindow* GNEApp);
+    GNERunPythonToolDialog(GNEApplicationWindow* applicationWindow, GNEPythonTool* tool);
 
     /// @brief destructor
     ~GNERunPythonToolDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-
-    /// @brief get to GNEApplicationWindow
-    GNEApplicationWindow* getGNEApp() const;
-
-    /// @brief run tool (this open windows)
-    void runTool(GNEPythonTool* tool);
 
     /// @name FOX-callbacks
     /// @{
@@ -83,15 +78,12 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNERunPythonToolDialog();
+    FOX_CONSTRUCTOR(GNERunPythonToolDialog);
 
     /// @brief update toolDialog
     void updateDialog();
 
 private:
-    /// @brief pointer to GNEApplicationWindow
-    GNEApplicationWindow* myGNEApp;
-
     /// @brief tool
     GNEPythonTool* myPythonTool = nullptr;
 
