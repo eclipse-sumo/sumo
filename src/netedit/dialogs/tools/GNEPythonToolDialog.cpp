@@ -98,10 +98,8 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* applicationWindow
     const int maximumHeight = myArgumentFrameLeft->numChildren() * GUIDesignHeight + 120;
     // resize
     resize(1024, maximumHeight <= 768 ? maximumHeight : 768);
-    // show dialog
-    GNEDialog::show(PLACEMENT_SCREEN);
-    // refresh APP
-    getApp()->refresh();
+    // open dialog
+    openModalDialog();
 }
 
 
@@ -266,29 +264,29 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
             argumentFrame = (numInsertedArguments < halfNumArguments) ? myArgumentFrameLeft : myArgumentFrameRight;
             // continue depending of type
             if (option.second->isInteger()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isFloat()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isBool()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isFileName()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isNetwork()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::NetworkArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::NetworkArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isAdditional()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::AdditionalArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::AdditionalArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isRoute()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::RouteArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isData()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::DataArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isSumoConfig()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::SumoConfigArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::SumoConfigArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isEdge()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::EdgeArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::EdgeArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else if (option.second->isEdgeVector()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::EdgeVectorArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::EdgeVectorArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             } else {
-                myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, argumentFrame, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, myPythonTool, getApplicationWindow(), argumentFrame, option.first, option.second));
             }
             numInsertedArguments++;
         }
