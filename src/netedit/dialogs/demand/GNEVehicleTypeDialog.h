@@ -620,13 +620,17 @@ public:
     };
 
     /// @brief constructor
-    GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement);
+    GNEVehicleTypeDialog(GNEDemandElement* vehicleType, bool updatingElement);
 
     /// @brief destructor
     ~GNEVehicleTypeDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 

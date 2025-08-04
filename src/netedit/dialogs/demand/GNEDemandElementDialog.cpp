@@ -15,77 +15,37 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2018
 ///
-// A abstract class for editing additional elements
+// A abstract class for editing demand elements
 /****************************************************************************/
 
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
+#include <netedit/GNETagProperties.h>
+#include <netedit/GNEUndoList.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEDemandElementDialog.h"
-
-// ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNEDemandElementDialog) GNEDemandElementDialogMap[] = {
-    FXMAPFUNC(SEL_KEYPRESS,     0,                      GNEDemandElementDialog::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,   0,                      GNEDemandElementDialog::onKeyRelease),
-    FXMAPFUNC(SEL_CLOSE,        0,                      GNEDemandElementDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_ACCEPT,  GNEDemandElementDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_CANCEL,  GNEDemandElementDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_RESET,   GNEDemandElementDialog::onCmdReset),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_FOCUS,   GNEDemandElementDialog::onCmdFocusOnFrame),
-};
-
-// Object abstract implementation
-FXIMPLEMENT_ABSTRACT(GNEDemandElementDialog, FXTopWindow, GNEDemandElementDialogMap, ARRAYNUMBER(GNEDemandElementDialogMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEDemandElementDialog::GNEDemandElementDialog(GNEDemandElement* editedDemandElement, bool updatingElement, int width, int height) :
-    FXTopWindow(editedDemandElement->getNet()->getViewNet(), ("Edit '" + editedDemandElement->getID() + "' data").c_str(), editedDemandElement->getACIcon(), editedDemandElement->getACIcon(), GUIDesignDialogBoxExplicit(width, height)),
-    myEditedDemandElement(editedDemandElement),
+GNEDemandElementDialog::GNEDemandElementDialog(GNEDemandElement* demandElement, bool updatingElement,
+                                               int width, int height) :
+    GNEDialog(demandElement->getNet()->getViewNet()->getViewParent()->getGNEAppWindows(),
+              TLF("Edit '%' data", demandElement->getID()), demandElement->getTagProperty()->getGUIIcon(),
+              Buttons::ACCEPT_CANCEL_RESET, OpenType::MODAL, width, height),    
+    myEditedDemandElement(demandElement),
     myUpdatingElement(updatingElement),
-    myChangesDescription("Change " + editedDemandElement->getTagStr() + " values"),
+    myChangesDescription(TLF("Change % values", demandElement->getTagStr())),
     myNumberOfChanges(0) {
-    // create main frame
-    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // Create frame for contents
-    myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignContentsFrame);
-    // create buttons centered
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myKeepOldButton = GUIDesigns::buildFXButton(buttonsFrame, TL("&Accept"), "", TL("close accepting changes"),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
-    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("&Cancel"), "", TL("close discarding changes"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonDialog);
-    myResetButton = GUIDesigns::buildFXButton(buttonsFrame, TL("&Reset"), "", TL("reset to previous values"),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonDialog);
-    myFocusButton = GUIDesigns::buildFXButton(buttonsFrame, "&F", "", "", nullptr, this, MID_GNE_BUTTON_FOCUS, GUIDesignButtonFocus);
-
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
 
-GNEDemandElementDialog::~GNEDemandElementDialog() {
-    // return focus to GNEViewNet to avoid minimization
-    getParent()->setFocus();
-}
-
-
-FXint
-GNEDemandElementDialog::openAsModalDialog(FXuint placement) {
-    // create Dialog
-    create();
-    // show in the given position
-    show(placement);
-    // refresh APP
-    getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    return getApp()->runModalFor(this);
-}
+GNEDemandElementDialog::~GNEDemandElementDialog() {}
 
 
 GNEDemandElement*
@@ -94,23 +54,7 @@ GNEDemandElementDialog::getEditedDemandElement() const {
 }
 
 
-long
-GNEDemandElementDialog::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
-    return FXTopWindow::onKeyPress(sender, sel, ptr);
-}
-
-
-long
-GNEDemandElementDialog::onKeyRelease(FXObject* sender, FXSelector sel, void* ptr) {
-    return FXTopWindow::onKeyRelease(sender, sel, ptr);
-}
-
-
-long
-GNEDemandElementDialog::onCmdFocusOnFrame(FXObject*, FXSelector, void*) {
-    setFocus();
-    return 1;
-}
+GNEDemandElementDialog::GNEDemandElementDialog() {}
 
 
 void

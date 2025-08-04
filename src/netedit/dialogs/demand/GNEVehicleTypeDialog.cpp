@@ -1774,8 +1774,8 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // GNEVehicleTypeDialog - public methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement) :
-    GNEDemandElementDialog(editedVehicleType, updatingElement, 1372, 575),
+GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* vehicleType, bool updatingElement) :
+    GNEDemandElementDialog(vehicleType, updatingElement, 1372, 575),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
 
@@ -1804,13 +1804,16 @@ GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, 
 
     // update values of Car Following Model Parameters
     myCarFollowingModelParameters->updateValues();
-
-    // open as modal dialog
-    openAsModalDialog();
 }
 
 
 GNEVehicleTypeDialog::~GNEVehicleTypeDialog() {}
+
+
+void
+GNEVehicleTypeDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    //
+}
 
 
 long

@@ -20,13 +20,9 @@
 #pragma once
 #include <config.h>
 
+#include <utils/xml/SUMOXMLDefinitions.h>
+
 #include "GNEDemandElementDialog.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNERoute;
 
 // ===========================================================================
 // class definitions
@@ -38,13 +34,17 @@ class GNERouteDialog : public GNEDemandElementDialog {
 
 public:
     /// @brief constructor
-    GNERouteDialog(GNEDemandElement* editedCalibratorRoute, bool updatingElement);
+    GNERouteDialog(GNEDemandElement* route, bool updatingElement);
 
     /// @brief destructor
     ~GNERouteDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
@@ -56,6 +56,7 @@ public:
 
     /// @brief event after change value
     long onCmdSetVariable(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
