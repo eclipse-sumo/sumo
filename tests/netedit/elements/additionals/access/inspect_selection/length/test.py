@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
 netedit.modifyAttributeOverlapped(netedit.attrs.access.inspectSelection.length, "")
 
 # Change length (invalid, dummy)
-netedit.modifyAttributeOverlapped(netedit.attrs.access.inspectSelection.length, "dummyLenght")
+netedit.modifyAttributeOverlapped(netedit.attrs.access.inspectSelection.length, "dummyLength")
 
 # Change length (invalid, negative)
 netedit.modifyAttributeOverlapped(netedit.attrs.access.inspectSelection.length, "-7")
