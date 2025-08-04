@@ -115,7 +115,7 @@ GNERouteDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         // accept changes before closing dialog
         acceptChanges();
         // stop dialog successfully
-        getApp()->stopModal(this, TRUE);
+        return closeDialogAccepting();
     }
     return 1;
 }
@@ -126,8 +126,7 @@ GNERouteDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // cancel changes
     cancelChanges();
     // Stop Modal
-    getApp()->stopModal(this, FALSE);
-    return 1;
+    return closeDialogCanceling();
 }
 
 
