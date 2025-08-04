@@ -77,11 +77,6 @@ NBNetBuilder::applyOptions(OptionsCont& oc) {
 
 void
 NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurnarounds, bool mayAddOrRemove) {
-    // reset shapes and angles for stable netedit computation
-    if (myNodeCont.resetNodeShapes()) {
-        myEdgeCont.computeAngles();
-    }
-
     GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
 
     const bool lefthand = oc.getBool("lefthand");
@@ -302,6 +297,11 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     roundInputs();
     geoConvHelper.computeFinal(lefthand); // information needed for location element fixed at this point
+
+    // reset shapes and angles for stable re-computation
+    if (myNodeCont.resetNodeShapes()) {
+        myEdgeCont.computeAngles();
+    }
 
     if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Reducing geometries"));

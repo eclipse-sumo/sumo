@@ -843,8 +843,8 @@ public:
     /// @brief linearly extend the geometry at the given node
     void shortenGeometryAtNode(const NBNode* node, double reduction);
 
-    /// @brief shift geometry at the given node to avoid overlap
-    void shiftPositionAtNode(NBNode* node, NBEdge* opposite);
+    /// @brief shift geometry at the given node to avoid overlap and return whether geometry was changed
+    bool shiftPositionAtNode(NBNode* node, NBEdge* opposite);
 
     /// @brief return position taking into account loaded length
     Position geometryPositionAtOffset(double offset) const;

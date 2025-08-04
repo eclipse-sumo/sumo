@@ -155,7 +155,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     // initialise
     EdgeVector::const_iterator i;
     // edges located in the value-vector have the same direction as the key edge
-    std::map<NBEdge*, std::set<NBEdge*> > same;
+    std::map<NBEdge*, std::set<NBEdge*, ComparatorIdLess> > same;
     // the counter-clockwise boundary of the edge regarding possible same-direction edges
     GeomsMap geomsCCW;
     // the clockwise boundary of the edge regarding possible same-direction edges
@@ -548,7 +548,7 @@ NBNodeShapeComputer::closestIntersection(const PositionVector& geom1, const Posi
 
 bool
 NBNodeShapeComputer::needsLargeTurn(NBEdge* e1, NBEdge* e2,
-                                    std::map<NBEdge*, std::set<NBEdge*> >& same) const {
+                                    std::map<NBEdge*, std::set<NBEdge*, ComparatorIdLess> >& same) const {
     const SVCPermissions p1 = e1->getPermissions();
     const SVCPermissions p2 = e2->getPermissions();
     if ((p1 & p2 & SVC_LARGE_TURN) != 0) {
@@ -694,7 +694,7 @@ NBNodeShapeComputer::computeEdgeBoundaries(const EdgeVector& edges,
 }
 
 void
-NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same, bool useEndpoints) {
+NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*, ComparatorIdLess> >& same, bool useEndpoints) {
     // compute same (edges where an intersection doesn't work well
     // (always check an edge and its cw neighbor)
     const double angleChangeLookahead = 35; // distance to look ahead for a misleading angle
@@ -732,6 +732,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
 #ifdef DEBUG_NODE_SHAPE
         if (DEBUGCOND) {
             std::cout << "   checkSameDirection " << (*i)->getID() << " " << (*j)->getID()
+                      << " sameGeom=" << sameGeom
                       << " diffDirs=" << differentDirs
                       << " isOpposite=" << (differentDirs && foundOpposite.count(*i) == 0)
                       << " angleDiff=" << angleDiff
@@ -834,7 +835,7 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, double 
 EdgeVector
 NBNodeShapeComputer::computeUniqueDirectionList(
     const EdgeVector& all,
-    std::map<NBEdge*, std::set<NBEdge*> >& same,
+    std::map<NBEdge*, std::set<NBEdge*, ComparatorIdLess> >& same,
     GeomsMap& geomsCCW,
     GeomsMap& geomsCW) {
     // store relationships
@@ -1098,7 +1099,7 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
 
 
 bool
-NBNodeShapeComputer::isDivided(const NBEdge* e, std::set<NBEdge*> same, const PositionVector& ccw, const PositionVector& cw) const {
+NBNodeShapeComputer::isDivided(const NBEdge* e, std::set<NBEdge*, ComparatorIdLess> same, const PositionVector& ccw, const PositionVector& cw) const {
     if (same.size() < 2) {
         return false;
     }
@@ -1138,7 +1139,7 @@ NBNodeShapeComputer::getExtraWidth(const NBEdge* e, SVCPermissions exclude) {
 
 
 double
-NBNodeShapeComputer::divisionWidth(const NBEdge* e, std::set<NBEdge*> same, const Position& p, const Position& p2) {
+NBNodeShapeComputer::divisionWidth(const NBEdge* e, std::set<NBEdge*, ComparatorIdLess> same, const Position& p, const Position& p2) {
     double result = p.distanceTo2D(p2);
     result -= e->getTotalWidth();
     for (NBEdge* e2 : same) {

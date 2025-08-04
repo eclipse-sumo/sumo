@@ -20,11 +20,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "-142575691#0_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Magnusstra\u00dfe"
+                "name": "Magnusstra\u00dfe",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -48,11 +50,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "r,t",
                 "element": "lane",
                 "id": "-142575691#0_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Magnusstra\u00dfe"
+                "name": "Magnusstra\u00dfe",
+                "outgoingLanes": "142575691#0_1,143308542#6_1,143308542#6_2"
             },
             "type": "Feature"
         },
@@ -72,11 +76,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "128643753#0_0",
                 "index": 0,
                 "maxSpeed": 2.78,
-                "name": ""
+                "name": "",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -116,11 +122,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "128643753#1_0",
                 "index": 0,
                 "maxSpeed": 2.78,
-                "name": ""
+                "name": "",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -144,11 +152,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "142575691#0_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Magnusstra\u00dfe"
+                "name": "Magnusstra\u00dfe",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -172,11 +182,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "t",
                 "element": "lane",
                 "id": "142575691#0_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Magnusstra\u00dfe"
+                "name": "Magnusstra\u00dfe",
+                "outgoingLanes": "-142575691#0_1"
             },
             "type": "Feature"
         },
@@ -216,11 +228,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "142575692#0_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Max-Born-Stra\u00dfe"
+                "name": "Max-Born-Stra\u00dfe",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -260,11 +274,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "r,s",
                 "element": "lane",
                 "id": "142575692#0_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Max-Born-Stra\u00dfe"
+                "name": "Max-Born-Stra\u00dfe",
+                "outgoingLanes": "142575692#2_1,312889498_0"
             },
             "type": "Feature"
         },
@@ -304,11 +320,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "142575692#2_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Max-Born-Stra\u00dfe"
+                "name": "Max-Born-Stra\u00dfe",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -348,11 +366,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "",
                 "element": "lane",
                 "id": "142575692#2_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Max-Born-Stra\u00dfe"
+                "name": "Max-Born-Stra\u00dfe",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -400,11 +420,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "142575693#0_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Max-Born-Stra\u00dfe"
+                "name": "Max-Born-Stra\u00dfe",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -452,11 +474,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "r",
                 "element": "lane",
                 "id": "142575693#0_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Max-Born-Stra\u00dfe"
+                "name": "Max-Born-Stra\u00dfe",
+                "outgoingLanes": "143308546#7_1,143308546#7_2"
             },
             "type": "Feature"
         },
@@ -500,11 +524,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "143308542#0_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -548,11 +574,13 @@
             },
             "properties": {
                 "allow": "bicycle",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308542#0_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308542#2_1"
             },
             "type": "Feature"
         },
@@ -596,11 +624,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308542#0_2",
                 "index": 2,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308542#2_2"
             },
             "type": "Feature"
         },
@@ -644,11 +674,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308542#0_3",
                 "index": 3,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308542#2_3"
             },
             "type": "Feature"
         },
@@ -680,11 +712,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "143308542#2_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -716,11 +750,13 @@
             },
             "properties": {
                 "allow": "bicycle",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308542#2_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308542#4_1"
             },
             "type": "Feature"
         },
@@ -752,11 +788,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308542#2_2",
                 "index": 2,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308542#4_2"
             },
             "type": "Feature"
         },
@@ -788,11 +826,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308542#2_3",
                 "index": 3,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308542#4_3"
             },
             "type": "Feature"
         },
@@ -816,11 +856,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "143308542#4_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -844,11 +886,13 @@
             },
             "properties": {
                 "allow": "bicycle",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308542#4_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308542#5_1"
             },
             "type": "Feature"
         },
@@ -872,11 +916,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308542#4_2",
                 "index": 2,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308542#5_2"
             },
             "type": "Feature"
         },
@@ -900,11 +946,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308542#4_3",
                 "index": 3,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308542#5_3"
             },
             "type": "Feature"
         },
@@ -924,11 +972,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "143308542#5_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -948,11 +998,13 @@
             },
             "properties": {
                 "allow": "bicycle",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308542#5_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308542#6_1"
             },
             "type": "Feature"
         },
@@ -972,11 +1024,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "r,s",
                 "element": "lane",
                 "id": "143308542#5_2",
                 "index": 2,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "142575691#0_1,143308542#6_2"
             },
             "type": "Feature"
         },
@@ -996,11 +1050,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308542#5_3",
                 "index": 3,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308542#6_3"
             },
             "type": "Feature"
         },
@@ -1084,11 +1140,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "143308542#6_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -1172,11 +1230,13 @@
             },
             "properties": {
                 "allow": "bicycle",
+                "directions": "",
                 "element": "lane",
                 "id": "143308542#6_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -1260,11 +1320,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "",
                 "element": "lane",
                 "id": "143308542#6_2",
                 "index": 2,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -1348,11 +1410,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "",
                 "element": "lane",
                 "id": "143308542#6_3",
                 "index": 3,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -1384,11 +1448,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "143308546#0_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -1420,11 +1486,13 @@
             },
             "properties": {
                 "allow": "bicycle",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#0_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#1_1"
             },
             "type": "Feature"
         },
@@ -1456,11 +1524,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#0_2",
                 "index": 2,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#1_2"
             },
             "type": "Feature"
         },
@@ -1492,11 +1562,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#0_3",
                 "index": 3,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#1_3"
             },
             "type": "Feature"
         },
@@ -1524,11 +1596,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "143308546#1_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -1556,11 +1630,13 @@
             },
             "properties": {
                 "allow": "bicycle",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#1_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#3_1"
             },
             "type": "Feature"
         },
@@ -1588,11 +1664,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#1_2",
                 "index": 2,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#3_2"
             },
             "type": "Feature"
         },
@@ -1620,11 +1698,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#1_3",
                 "index": 3,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#3_3"
             },
             "type": "Feature"
         },
@@ -1644,11 +1724,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "143308546#3_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -1668,11 +1750,13 @@
             },
             "properties": {
                 "allow": "bicycle",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#3_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#7_1"
             },
             "type": "Feature"
         },
@@ -1692,11 +1776,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "R,s",
                 "element": "lane",
                 "id": "143308546#3_2",
                 "index": 2,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "142575692#0_1,143308546#7_2"
             },
             "type": "Feature"
         },
@@ -1716,11 +1802,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#3_3",
                 "index": 3,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#7_3"
             },
             "type": "Feature"
         },
@@ -1740,11 +1828,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "143308546#7_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -1764,11 +1854,13 @@
             },
             "properties": {
                 "allow": "bicycle",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#7_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#8_1"
             },
             "type": "Feature"
         },
@@ -1788,11 +1880,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#7_2",
                 "index": 2,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#8_2"
             },
             "type": "Feature"
         },
@@ -1812,11 +1906,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#7_3",
                 "index": 3,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#8_3"
             },
             "type": "Feature"
         },
@@ -1836,11 +1932,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "143308546#8_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -1860,11 +1958,13 @@
             },
             "properties": {
                 "allow": "bicycle",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#8_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#9_1"
             },
             "type": "Feature"
         },
@@ -1884,11 +1984,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#8_2",
                 "index": 2,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#9_2"
             },
             "type": "Feature"
         },
@@ -1908,11 +2010,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "s",
                 "element": "lane",
                 "id": "143308546#8_3",
                 "index": 3,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": "143308546#9_3"
             },
             "type": "Feature"
         },
@@ -1952,11 +2056,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "143308546#9_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -1996,11 +2102,13 @@
             },
             "properties": {
                 "allow": "bicycle",
+                "directions": "",
                 "element": "lane",
                 "id": "143308546#9_1",
                 "index": 1,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -2040,11 +2148,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "",
                 "element": "lane",
                 "id": "143308546#9_2",
                 "index": 2,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -2084,11 +2194,13 @@
             },
             "properties": {
                 "allow": "aircraft,army,authority,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
+                "directions": "",
                 "element": "lane",
                 "id": "143308546#9_3",
                 "index": 3,
                 "maxSpeed": 13.89,
-                "name": "Rudower Chaussee"
+                "name": "Rudower Chaussee",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -2164,11 +2276,13 @@
             },
             "properties": {
                 "allow": "tram",
+                "directions": "s",
                 "element": "lane",
                 "id": "158236729#0_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": ""
+                "name": "",
+                "outgoingLanes": "158236729#1_0"
             },
             "type": "Feature"
         },
@@ -2212,11 +2326,13 @@
             },
             "properties": {
                 "allow": "tram",
+                "directions": "s",
                 "element": "lane",
                 "id": "158236729#1_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": ""
+                "name": "",
+                "outgoingLanes": "220198808#1_0"
             },
             "type": "Feature"
         },
@@ -2240,11 +2356,13 @@
             },
             "properties": {
                 "allow": "tram",
+                "directions": "s",
                 "element": "lane",
                 "id": "206889079#5_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": ""
+                "name": "",
+                "outgoingLanes": "206889079#6_0"
             },
             "type": "Feature"
         },
@@ -2308,11 +2426,13 @@
             },
             "properties": {
                 "allow": "tram",
+                "directions": "s",
                 "element": "lane",
                 "id": "206889079#6_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": ""
+                "name": "",
+                "outgoingLanes": "206889079#7_0"
             },
             "type": "Feature"
         },
@@ -2356,11 +2476,13 @@
             },
             "properties": {
                 "allow": "tram",
+                "directions": "s",
                 "element": "lane",
                 "id": "206889079#7_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": ""
+                "name": "",
+                "outgoingLanes": "220198810#1_0"
             },
             "type": "Feature"
         },
@@ -2428,11 +2550,13 @@
             },
             "properties": {
                 "allow": "tram",
+                "directions": "s",
                 "element": "lane",
                 "id": "220198808#1_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": ""
+                "name": "",
+                "outgoingLanes": "220198808#2_0"
             },
             "type": "Feature"
         },
@@ -2456,11 +2580,13 @@
             },
             "properties": {
                 "allow": "tram",
+                "directions": "",
                 "element": "lane",
                 "id": "220198808#2_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": ""
+                "name": "",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -2532,11 +2658,13 @@
             },
             "properties": {
                 "allow": "tram",
+                "directions": "",
                 "element": "lane",
                 "id": "220198810#1_0",
                 "index": 0,
                 "maxSpeed": 13.89,
-                "name": ""
+                "name": "",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -2572,11 +2700,13 @@
             },
             "properties": {
                 "allow": "bicycle,pedestrian",
+                "directions": "r",
                 "element": "lane",
                 "id": "312889498_0",
                 "index": 0,
                 "maxSpeed": 2.78,
-                "name": ""
+                "name": "",
+                "outgoingLanes": "143308546#3_1,143308546#3_2"
             },
             "type": "Feature"
         },
@@ -2604,11 +2734,13 @@
             },
             "properties": {
                 "allow": "bicycle,pedestrian",
+                "directions": "r",
                 "element": "lane",
                 "id": "328287315_0",
                 "index": 0,
                 "maxSpeed": 2.78,
-                "name": ""
+                "name": "",
+                "outgoingLanes": "143308546#9_1"
             },
             "type": "Feature"
         },
@@ -2628,11 +2760,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "81096580#0_0",
                 "index": 0,
                 "maxSpeed": 2.78,
-                "name": ""
+                "name": "",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -2652,11 +2786,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "81096580#3_0",
                 "index": 0,
                 "maxSpeed": 2.78,
-                "name": ""
+                "name": "",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -2684,11 +2820,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "81096589#0_0",
                 "index": 0,
                 "maxSpeed": 2.78,
-                "name": ""
+                "name": "",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         },
@@ -2712,11 +2850,13 @@
             },
             "properties": {
                 "allow": "pedestrian",
+                "directions": "",
                 "element": "lane",
                 "id": "81096589#3_0",
                 "index": 0,
                 "maxSpeed": 2.78,
-                "name": ""
+                "name": "",
+                "outgoingLanes": ""
             },
             "type": "Feature"
         }

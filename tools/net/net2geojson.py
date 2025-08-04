@@ -108,13 +108,18 @@ def addFeature(options, features, addLanes):
             if geomType == 'lane':
                 feature["properties"]["allow"] = ','.join(sorted(net.getLane(id).getPermissions()))
                 feature["properties"]["index"] = net.getLane(id).getIndex()
+                outgoingLanes = [lane.getID() for lane in net.getLane(id).getOutgoingLanes()]
+                feature["properties"]["outgoingLanes"] = ','.join(sorted(outgoingLanes))
+                directions = [conn.getDirection() for conn in net.getLane(id).getOutgoing()]
+                feature["properties"]["directions"] = ','.join(sorted(set(directions)))
             else:
                 feature["properties"]["numLanes"] = net.getEdge(edgeID).getLaneNumber()
                 permissions_union = set()
                 for lane in net.getEdge(edgeID).getLanes():
                     permissions_union.update(lane.getPermissions())
                 feature["properties"]["allow"] = ",".join(sorted(permissions_union))
-
+                feature["properties"]["fromNode"] = net.getEdge(edgeID).getFromNode().getID()
+                feature["properties"]["toNode"] = net.getEdge(edgeID).getToNode().getID()
         if options.boundary:
             geometry = gh.line2boundary(geometry, width)
         feature["geometry"] = shape2json(net, geometry, options.boundary)
