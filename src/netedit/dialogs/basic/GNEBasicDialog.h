@@ -26,12 +26,9 @@
 // class definitions
 // ===========================================================================
 
-class GNEBasicDialog : protected GNEDialog {
+class GNEBasicDialog : public GNEDialog {
 
 public:
-    // make get result public
-    using GNEDialog::getResult;
-
     /// @brief Constructor
     GNEBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& title,
                    const std::string& info, GNEDialog::Buttons buttons, GUIIcon titleIcon,

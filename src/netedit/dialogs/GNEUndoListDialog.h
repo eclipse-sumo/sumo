@@ -20,50 +20,34 @@
 #pragma once
 #include <config.h>
 
-#include <vector>
-#include <string>
-#include <utils/foxtools/fxheader.h>
+#include "GNEDialog.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEUndoList;
-class GNEApplicationWindow;
 class MFXTextFieldTooltip;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEUndoListDialog : protected FXTopWindow {
+class GNEUndoListDialog : public GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNEUndoListDialog)
 
 public:
     /// @brief Constructor
-    GNEUndoListDialog(GNEApplicationWindow* GNEApp);
+    GNEUndoListDialog(GNEApplicationWindow* applicationWindow);
 
     /// @brief destructor
     ~GNEUndoListDialog();
 
-    /// @brief show window
-    void show();
-    using FXTopWindow::show; // to silence the warning C4266 about a hidden function
-
-    /// @brief hide window
-    void hide();
-
-    /// @brief check if dialog is shown
-    bool shown() const;
-
-    /// @brief Move the focus to this window
-    void setFocus();
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief event after press close button
-    long onCmdClose(FXObject*, FXSelector, void*);
 
     /// @brief event after select row
     long onCmdSelectRow(FXObject*, FXSelector, void*);
@@ -142,9 +126,6 @@ protected:
         /// @brief textField timeStamp
         FXTextField* myTextFieldTimeStamp = nullptr;
     };
-
-    /// @brief pointer to GNEApplicationWindow
-    GNEApplicationWindow* myGNEApp;
 
     /// @brief frame for rows
     FXVerticalFrame* myRowFrame = nullptr;
