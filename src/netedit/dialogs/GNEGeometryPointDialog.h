@@ -20,32 +20,32 @@
 #pragma once
 #include <config.h>
 
-#include <vector>
-#include <utils/foxtools/fxheader.h>
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEViewNet;
+#include "GNEDialog.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEGeometryPointDialog : protected FXTopWindow {
+class GNEGeometryPointDialog : public GNEDialog {
     /// @brief FOX-declaration abstract
     FXDECLARE_ABSTRACT(GNEGeometryPointDialog)
 
 public:
     /// @brief constructor
-    GNEGeometryPointDialog(GNEViewNet* viewNet, Position* pos);
+    GNEGeometryPointDialog(GNEApplicationWindow* applicationWindow, const Position &pos);
 
     /// @brief destructor
     ~GNEGeometryPointDialog();
 
+    /// @brief get edited position
+    const Position &getEditedPosition() const;
+
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event after change position in TextFields
     long onCmdChangeGeometryPoint(FXObject* sender, FXSelector sel, void* ptr);
 
@@ -73,8 +73,8 @@ protected:
     /// @brief text field for lon, Lat
     FXTextField* myTextFieldLonLat = nullptr;
 
-    /// @brief position to be edited
-    Position* myPos = nullptr;
+    /// @brief edited position
+    Position myEditedPosition;
 
     /// @brief original position (used for reset)
     const Position myOriginalPos;

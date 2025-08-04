@@ -3072,14 +3072,12 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         auto edgeGeometry = edge->getNBEdge()->getGeometry();
         // get index position
         const int index = edgeGeometry.indexOfClosest(getPositionInformation(), true);
-        // get new position
-        Position newPosition = edgeGeometry[index];
-        // edit using modal GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR, constructor returns after dialog has been closed
+        // edit position using GNEGeometryPointDialog
+        const auto geometryPointDialog = GNEGeometryPointDialog(myViewParent->getGNEAppWindows(), edgeGeometry[index]);
         // now check position
-        if (newPosition != edgeGeometry[index]) {
+        if ((geometryPointDialog.getResult() == GNEDialog::Result::ACCEPT) && (geometryPointDialog.getEditedPosition() != edgeGeometry[index])) {
             // update new position
-            edgeGeometry[index] = newPosition;
+            edgeGeometry[index] = geometryPointDialog.getEditedPosition();
             // begin undo list
             myUndoList->begin(edge, TL("change edge Geometry Point position"));
             // continue depending of index
@@ -3104,14 +3102,12 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         PositionVector polygonGeometry = poly->getShape();
         // get index position
         const int index = polygonGeometry.indexOfClosest(getPositionInformation(), true);
-        // get new position
-        Position newPosition = polygonGeometry[index];
-        // edit using modal GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR, constructor returns after dialog has been closed
+        // edit position using GNEGeometryPointDialog
+        const auto geometryPointDialog = GNEGeometryPointDialog(myViewParent->getGNEAppWindows(), polygonGeometry[index]);
         // now check position
-        if (newPosition != polygonGeometry[index]) {
+        if ((geometryPointDialog.getResult() == GNEDialog::Result::ACCEPT) && (geometryPointDialog.getEditedPosition() != polygonGeometry[index])) {
             // update new position
-            polygonGeometry[index] = newPosition;
+            polygonGeometry[index] = geometryPointDialog.getEditedPosition();
             // begin undo list
             myUndoList->begin(poly, TL("change polygon Geometry Point position"));
             // change shape
@@ -3124,14 +3120,12 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         PositionVector TAZGeometry = TAZ->getAdditionalGeometry().getShape();
         // get index position
         const int index = TAZGeometry.indexOfClosest(getPositionInformation(), true);
-        // get new position
-        Position newPosition = TAZGeometry[index];
-        // edit using modal GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR, constructor returns after dialog has been closed
+        // edit position using GNEGeometryPointDialog
+        const auto geometryPointDialog = GNEGeometryPointDialog(myViewParent->getGNEAppWindows(), TAZGeometry[index]);
         // now check position
-        if (newPosition != TAZGeometry[index]) {
+        if ((geometryPointDialog.getResult() == GNEDialog::Result::ACCEPT) && (geometryPointDialog.getEditedPosition() != TAZGeometry[index])) {
             // update new position
-            TAZGeometry[index] = newPosition;
+            TAZGeometry[index] = geometryPointDialog.getEditedPosition();
             // begin undo list
             myUndoList->begin(TAZ, TL("change TAZ Geometry Point position"));
             // change shape
