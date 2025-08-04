@@ -31,8 +31,8 @@ GNEWarningBasicDialog::GNEWarningBasicDialog(GNEApplicationWindow* applicationWi
 }
 
 
-GNEWarningBasicDialog::GNEWarningBasicDialog(GNEApplicationWindow* applicationWindow, const std::string& name,
-        const std::string& infoLineA, const std::string& infoLineB) :
+GNEWarningBasicDialog::GNEWarningBasicDialog(GNEApplicationWindow* applicationWindow,
+        const std::string& name, const std::string& infoLineA, const std::string& infoLineB) :
     GNEBasicDialog(applicationWindow, name, infoLineA + "\n" + infoLineB, GNEDialog::Buttons::OK,
                    GUIIcon::WARNING_SMALL, GUIIcon::WARNING_LARGE) {
 }

@@ -22,14 +22,11 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
-#include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNERerouterInterval.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNERerouterDialog.h"
 #include "GNERerouterIntervalDialog.h"

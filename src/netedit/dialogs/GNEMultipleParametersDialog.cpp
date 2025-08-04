@@ -27,7 +27,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/xml/XMLSubSys.h>
 
-
 #include "GNEMultipleParametersDialog.h"
 
 // ===========================================================================

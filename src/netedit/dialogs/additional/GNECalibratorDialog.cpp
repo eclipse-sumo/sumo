@@ -28,12 +28,10 @@
 #include <netedit/dialogs/basic/GNEWarningBasicDialog.h>
 #include <netedit/dialogs/demand/GNERouteDialog.h>
 #include <netedit/dialogs/demand/GNEVehicleTypeDialog.h>
-#include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNECalibratorFlow.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/demand/GNEVType.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNECalibratorDialog.h"
 #include "GNECalibratorFlowDialog.h"

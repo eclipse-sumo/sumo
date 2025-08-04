@@ -18,10 +18,7 @@
 // A basic dialog with simple buttons (ok, accept, cancel, etc.)
 /****************************************************************************/
 
-#include <utils/common/MsgHandler.h>
-#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEBasicDialog.h"
 
