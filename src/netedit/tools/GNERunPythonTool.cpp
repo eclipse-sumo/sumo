@@ -31,7 +31,7 @@
 // ===========================================================================
 
 GNERunPythonTool::GNERunPythonTool(GNERunPythonToolDialog* runToolDialog, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
-    MFXSingleEventThread(runToolDialog->getGNEApp()->getApp(), runToolDialog->getGNEApp()),
+    MFXSingleEventThread(runToolDialog->getApplicationWindow()->getApp(), runToolDialog->getApplicationWindow()),
     myEventQueue(eq),
     myEventThrow(ev) {
 }
