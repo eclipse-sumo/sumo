@@ -23,14 +23,6 @@
 #include "GNEAdditionalDialog.h"
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNERerouter;
-class GNERerouterInterval;
-class GNERerouterIntervalDialog;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -40,13 +32,17 @@ class GNERerouterDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief Constructor
-    GNERerouterDialog(GNERerouter* rerouterParent);
+    GNERerouterDialog(GNEAdditional* rerouter);
 
     /// @brief destructor
     ~GNERerouterDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
@@ -61,6 +57,7 @@ public:
 
     /// @brief remove or edit interval
     long onCmdClickedInterval(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:

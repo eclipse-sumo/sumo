@@ -23,32 +23,22 @@
 #include "GNEAdditionalDialog.h"
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNECalibrator;
-class GNERoute;
-class GNECalibratorFlow;
-class GNEVType;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNECalibratorDialog
- * @brief Dialog for edit calibrators
- */
 class GNECalibratorDialog : public GNEAdditionalDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNECalibratorDialog)
 
 public:
     /// @brief Constructor
-    GNECalibratorDialog(GNECalibrator* editedCalibrator);
+    GNECalibratorDialog(GNEAdditional* calibrator);
 
     /// @brief destructor
     ~GNECalibratorDialog();
+
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// @name FOX-callbacks
     /// @{

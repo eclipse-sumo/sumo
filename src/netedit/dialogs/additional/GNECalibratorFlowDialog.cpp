@@ -35,9 +35,6 @@
 // ===========================================================================
 
 FXDEFMAP(GNECalibratorFlowDialog) GNECalibratorFlowDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,   GNECalibratorFlowDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,   GNECalibratorFlowDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,    GNECalibratorFlowDialog::onCmdReset),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,   GNECalibratorFlowDialog::onCmdSetVariable),
 };
 
@@ -48,8 +45,8 @@ FXIMPLEMENT(GNECalibratorFlowDialog, GNEAdditionalDialog, GNECalibratorFlowDialo
 // member method definitions
 // ===========================================================================
 
-GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibratorFlow, bool updatingElement) :
-    GNEAdditionalDialog(editedCalibratorFlow, updatingElement, 600, 280),
+GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* calibratorFlow, bool updatingElement) :
+    GNEAdditionalDialog(calibratorFlow, updatingElement, 600, 280),
     myCalibratorFlowValid(false),
     myInvalidAttr(SUMO_ATTR_VEHSPERHOUR) {
     // change default header
@@ -143,13 +140,16 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibrator
     if (!myUpdatingElement) {
         myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
     }
-
-    // open as modal dialog
-    openAsModalDialog();
 }
 
 
 GNECalibratorFlowDialog::~GNECalibratorFlowDialog() {}
+
+
+void
+GNECalibratorFlowDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    // finish
+}
 
 
 long

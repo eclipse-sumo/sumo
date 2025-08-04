@@ -23,12 +23,6 @@
 #include "GNEAdditionalDialog.h"
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNERerouterInterval;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -43,8 +37,12 @@ public:
     /// @brief destructor
     ~GNERerouterIntervalDialog();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
 
