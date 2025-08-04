@@ -33,8 +33,6 @@ class GNEDemandElement;
 // ===========================================================================
 
 class GNEDemandElementDialog : public GNEDialog {
-    /// @brief FOX-declaration abstract
-    FXDECLARE_ABSTRACT(GNEDemandElementDialog)
 
 public:
     /// @brief constructor
