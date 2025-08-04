@@ -135,8 +135,8 @@ protected:
     /// @brief flag to indicate if this dialog is being tested using internal test
     bool myTesting = false;
 
-    /// @brief open dialog in modal mode
-    void openModalDialog();
+    /// @brief open dialog
+    void openDialog();
 
     /// @brief close dialog accepting the changes
     long closeDialogAccepting();

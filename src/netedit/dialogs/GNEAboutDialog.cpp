@@ -62,7 +62,7 @@ GNEAboutDialog::GNEAboutDialog(GNEApplicationWindow* applicationWindow) :
     // link to homepage
     (new MFXLinkLabel(myContentFrame, "https://www.eclipse.dev/sumo", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.dev/sumo");
     // open modal dialog
-    openModalDialog();
+    openDialog();
 }
 
 

@@ -115,7 +115,7 @@ GNEAllowVClassesDialog::GNEAllowVClassesDialog(GNEApplicationWindow* mainWindow,
     // reset dialog
     onCmdReset(nullptr, 0, nullptr);
     // open modal dialog
-    openModalDialog();
+    openDialog();
 }
 
 

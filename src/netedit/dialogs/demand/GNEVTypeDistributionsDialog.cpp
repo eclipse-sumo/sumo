@@ -463,7 +463,7 @@ GNEVTypeDistributionsDialog::GNEVTypeDistributionsDialog(GNETypeFrame* typeFrame
     // create parameters operations
     myParametersOperations = new ParametersOperations(horizontalFrame, this);
     // open modal dialog
-    openModalDialog();
+    openDialog();
 }
 
 

@@ -99,7 +99,7 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* applicationWindow
     // resize
     resize(1024, maximumHeight <= 768 ? maximumHeight : 768);
     // open dialog
-    openModalDialog();
+    openDialog();
 }
 
 

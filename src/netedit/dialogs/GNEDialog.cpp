@@ -148,15 +148,19 @@ GNEDialog::onCmdAbort(FXObject*, FXSelector, void*) {
 
 
 void
-GNEDialog::openModalDialog() {
-    // create and show dialog
+GNEDialog::openDialog() {
+    // create dialog
     create();
-    // show in the center of app
-    show(PLACEMENT_OWNER);
-    // refresh the application
-    getApp()->refresh();
     // set focus in button
     myFocusButon->setFocus();
+    // show in the center of app
+    show(PLACEMENT_OWNER);
+    // continue depending of open type
+    if (myOpenType == OpenType::MODAL) {
+        // run modal dialog
+        getApp()->runModalFor(this);
+    }
+    /*
     // continue depending on whether we are testing or not
     if (myApplicationWindow->getInternalTest()) {
         myTesting = true;
@@ -173,13 +177,14 @@ GNEDialog::openModalDialog() {
         myTesting = false;
         getApp()->runModalFor(this);
     }
+    */
 }
 
 
 long
 GNEDialog::closeDialogAccepting() {
-    // only stop modal if we're not testing
-    if (myTesting == false) {
+    // check if stopping modal dialog
+    if (myOpenType == OpenType::MODAL) {
         getApp()->stopModal(this, TRUE);
     }
     // hide dialog
@@ -192,8 +197,8 @@ GNEDialog::closeDialogAccepting() {
 
 long
 GNEDialog::closeDialogCanceling() {
-    // only stop modal if we're not testing
-    if (myTesting == false) {
+    // check if stopping modal dialog
+    if (myOpenType == OpenType::MODAL) {
         getApp()->stopModal(this, TRUE);
     }
     // hide dialog

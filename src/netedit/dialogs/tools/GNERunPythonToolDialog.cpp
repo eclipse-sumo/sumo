@@ -87,7 +87,7 @@ GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* application
     // set tool
     myPythonTool = tool;
     // open modal dialog
-    openModalDialog();
+    openDialog();
     // run tool
     myRunTool->runTool(tool);
 }

@@ -103,7 +103,7 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* applicationWind
     // set output
     myOutputTextField->setText(generateOptions.getValueString("output-file").c_str());
     // open dialog
-    openModalDialog();
+    openDialog();
 }
 
 
