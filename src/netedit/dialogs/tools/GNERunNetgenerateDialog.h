@@ -36,25 +36,19 @@ class OptionsCont;
 // class definitions
 // ===========================================================================
 
-class GNERunNetgenerateDialog : protected GNEDialog {
+class GNERunNetgenerateDialog : public GNEDialog {
     /// @brief FOX-declaration
     FXDECLARE(GNERunNetgenerateDialog)
 
 public:
     /// @brief Constructor
-    GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp);
+    GNERunNetgenerateDialog(GNEApplicationWindow* applicationWindow, const OptionsCont* netgenerateOptions);
 
     /// @brief destructor
     ~GNERunNetgenerateDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
-
-    /// @brief get to GNEApplicationWindow
-    GNEApplicationWindow* getGNEApp() const;
-
-    /// @brief run tool (this open windows)
-    void run(const OptionsCont* netgenerateOptions);
 
     /// @name FOX-callbacks
     /// @{
@@ -84,15 +78,12 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNERunNetgenerateDialog();
+    FOX_CONSTRUCTOR(GNERunNetgenerateDialog);
 
     /// @brief update toolDialog
     void updateDialog();
 
 private:
-    /// @brief pointer to GNEApplicationWindow
-    GNEApplicationWindow* myGNEApp;
-
     /// @brief thread for running tool
     GNERunNetgenerate* myRunNetgenerate = nullptr;
 
