@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-07-29 08:53+0000\n"
+"PO-Revision-Date: 2025-08-01 16:05+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/applications/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -11205,11 +11206,11 @@ msgstr ""
 
 #: src/netwrite/NWFrame.cpp:72
 msgid "Defines a prefix for junction IDs"
-msgstr ""
+msgstr "Definisce un prefisso per codici identificativi di incroci"
 
 #: src/netwrite/NWFrame.cpp:75
 msgid "Defines a prefix for edge IDs"
-msgstr ""
+msgstr "Definisce un prefisso per codici identificativi di archi"
 
 #: src/netwrite/NWFrame.cpp:80
 msgid "Write geo coordinates in plain-xml"
@@ -12880,16 +12881,20 @@ msgid ""
 "Defines the standard output format if not derivable from the file name "
 "('xml', 'csv', 'parquet')"
 msgstr ""
+"Definisce il formato uscita standard laddove non lo si può derivare dal "
+"percorso di file ('xml', 'csv', 'parquet')"
 
 #: src/utils/common/SystemFrame.cpp:140
 msgid ""
 "How to derive column headers from attribute names ('none', 'tag', 'auto', "
 "'plain')"
 msgstr ""
+"Come derivare i nomi delle colonne dai nomi degli attributi ('none', 'tag', "
+"'auto', 'plain')"
 
 #: src/utils/common/SystemFrame.cpp:143
 msgid "Separator in CSV output"
-msgstr ""
+msgstr "Carattere separatore nell'uscita CSV"
 
 #: src/utils/common/SystemFrame.cpp:146
 msgid ""

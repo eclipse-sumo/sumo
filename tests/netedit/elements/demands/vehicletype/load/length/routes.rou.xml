@@ -38,7 +38,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <!-- non valid length -->
-    <vType id="vType0" length="dummyLenght"/>
+    <vType id="vType0" length="dummyLength"/>
 
     <!-- non valid length -->
     <vType id="vType1" length="-3"/>

@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-07-21 09:15+0000\n"
+"PO-Revision-Date: 2025-08-04 06:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/applications/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2461,11 +2462,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:518
 msgid "Select default depart speed"
-msgstr ""
+msgstr "Standardabfahrtsgeschwindigkeit wählen"
 
 #: src/microsim/MSFrame.cpp:521
 msgid "Select default depart lane"
-msgstr ""
+msgstr "Standardabfahrtsfahrtstreifen wählen"
 
 #: src/microsim/MSFrame.cpp:524
 msgid ""
@@ -5613,13 +5614,16 @@ msgstr "Grünphase in tlLogic '%' im Programm '%' für tl-index % fehlt."
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:263
 #, c-format
 msgid " Overall % lanes in % phases are unsafe."
-msgstr ""
+msgstr " Insgesamt % Fahrstreifen aus % Phasen sind unsicher signalisiert."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:264
 msgid ""
 "Unsafe green phase % in tlLogic '%', program '%'. Lane '%' is targeted by % "
 "'G'-links. (use 'g' instead)%"
 msgstr ""
+"Unsichere Grünphase % in der LSA-Logik '%' (Signalprogramm '%'). Der "
+"Fahrstreifen '%' wird von % mit 'G' signalisierten Verbindungen angebunden. ("
+"Nutze stattdessen 'g')%"
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:333
 msgid ""
@@ -6504,6 +6508,8 @@ msgstr ""
 #: src/netbuild/NBEdge.cpp:3192
 msgid "Opposite lane '%' does not reverse-connect the same nodes as edge '%'!"
 msgstr ""
+"Der Fahrstreifen '%' der Gegenrichtung verbindet nicht die gleichen Knoten "
+"wie die Kante '%'!"
 
 #: src/netbuild/NBEdge.cpp:3197 src/netbuild/NBEdge.cpp:3209
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
@@ -6518,10 +6524,14 @@ msgstr "Passe fehlenden gegenüberliegenden Fahrstreifen '%' für Kante '%' an."
 #: src/netbuild/NBEdge.cpp:3213
 msgid "Opposite edge '%' does not reverse-connect the same nodes as edge '%'!"
 msgstr ""
+"Die Gegenrichtungskante '%' verbindet nicht die gleichen Knoten wie die "
+"Kante '%'!"
 
 #: src/netbuild/NBEdge.cpp:3215
 msgid "Adapting inconsistent opposite lanes for edges '%', '%' and '%'."
 msgstr ""
+"Die inkonsistenten Gegenrichtungsfahrstreifen der Kanten '%', '%' und '%' "
+"werden angepasst."
 
 #: src/netbuild/NBEdge.cpp:3227
 msgid ""
@@ -6812,6 +6822,8 @@ msgid ""
 "Ensures that objects with typed IDs from FILE (sumo-gui selection file "
 "format) are not renamed"
 msgstr ""
+"Stellt sicher, dass Objekte mit typenspezifischer ID aus FILE (sumo-gui-"
+"Auswahldatei) nicht umbenannt werden können"
 
 #: src/netbuild/NBFrame.cpp:140
 msgid "Removes vehicle class restrictions from imported edges"
@@ -8047,12 +8059,16 @@ msgid ""
 "Custom crossing linkIndex % conflicts with vehicular connections at tlLogic "
 "'%'"
 msgstr ""
+"Der benutzerdefinierte linkIndex % steht mit den in der LSA-Logik '%' "
+"genutzten Verbindungen in Konflikt"
 
 #: src/netbuild/NBOwnTLDef.cpp:983
 msgid ""
 "Custom crossing linkIndex2 % conflicts with vehicular connections at tlLogic"
 " '%'"
 msgstr ""
+"Der benutzerdefinierte linkIndex2 % steht mit den in der LSA-Logik '%' "
+"genutzten Verbindungen in Konflikt"
 
 #: src/netbuild/NBPTLine.cpp:208
 msgid "Could not retrieve edge '%' for first stop of line '%'."
@@ -10754,6 +10770,8 @@ msgstr "Unsymmetrischer Nachbarfahrstreifen '%' für den Fahrstreifen '%'"
 msgid ""
 "Mutually inconsistent neigh lane definitions for lanes '%', '%' and '%'"
 msgstr ""
+"Gegenseitig widersprechende Nachbarfahrstreifenangaben bei den Fahrstreifen "
+"'%', '%' und '%'"
 
 #: src/netload/NLEdgeControlBuilder.cpp:228
 #, c-format
@@ -11099,15 +11117,15 @@ msgstr ""
 
 #: src/netwrite/NWFrame.cpp:69
 msgid "Defines a prefix for edge and junction IDs"
-msgstr ""
+msgstr "Definiert ein Präfix für Kanten- und Kreuzungs-ID"
 
 #: src/netwrite/NWFrame.cpp:72
 msgid "Defines a prefix for junction IDs"
-msgstr ""
+msgstr "Definiert ein Präfix für Kreuzungs-ID"
 
 #: src/netwrite/NWFrame.cpp:75
 msgid "Defines a prefix for edge IDs"
-msgstr ""
+msgstr "Definiert ein Präfix für Kanten-ID"
 
 #: src/netwrite/NWFrame.cpp:80
 msgid "Write geo coordinates in plain-xml"
@@ -12776,22 +12794,28 @@ msgid ""
 "Defines the standard compression algorithm (currently only for parquet "
 "output)"
 msgstr ""
+"Definiert den Standardkompressionsalgorithmus (derzeit nur für Parquet-"
+"Ausgabe genutzt)"
 
 #: src/utils/common/SystemFrame.cpp:137
 msgid ""
 "Defines the standard output format if not derivable from the file name "
 "('xml', 'csv', 'parquet')"
 msgstr ""
+"Definiert das Standardausgabeformat, falls dies nicht aus dem Dateinamen "
+"abgeleitet werden kann ('xml', 'csv', 'parquet')"
 
 #: src/utils/common/SystemFrame.cpp:140
 msgid ""
 "How to derive column headers from attribute names ('none', 'tag', 'auto', "
 "'plain')"
 msgstr ""
+"Wie Spaltenüberschriften aus den Attributnamen abgeleitet werden ('none', "
+"'tag', 'auto', 'plain')"
 
 #: src/utils/common/SystemFrame.cpp:143
 msgid "Separator in CSV output"
-msgstr ""
+msgstr "Trennzeichen in der CSV-Ausgabe"
 
 #: src/utils/common/SystemFrame.cpp:146
 msgid ""
@@ -13382,6 +13406,8 @@ msgid ""
 "Unexpected attribute '%', this file format does not support Parquet output "
 "yet."
 msgstr ""
+"Unerwartetes Attribut '%' - dieses Dateiformat unterstützt noch keine "
+"Parquet-Ausgabe."
 
 #: src/utils/options/Option.cpp:352
 #, c-format
@@ -13938,10 +13964,14 @@ msgstr "Ungültige Zeitangabe '%' für Parameter #%' in % '%'."
 msgid ""
 "Invalid size of % table for vType '%' (at least 2 values are required)."
 msgstr ""
+"Ungültige Dimension % der Tabelle für den Fahrzeugtyp '%' (es werden "
+"mindestens 2 Werte benötigt)."
 
 #: src/utils/vehicle/SUMOVTypeParameter.cpp:677
 msgid "Mismatching size of speedTable (%) and % table (%) for vType '%'."
 msgstr ""
+"Dimensionen der Geschwindigkeitstabelle (%) und der %-Tabelle (%) des "
+"Fahrzeugtyps '%' passen nicht zueinander."
 
 #: src/utils/vehicle/SUMOVehicleParameter.cpp:695
 msgid "Invalid % % given for %. Using edge end instead."
@@ -14084,6 +14114,8 @@ msgstr ""
 #, c-format
 msgid "Entry '%' of % table for vType '%' cannot be parsed as 'double'"
 msgstr ""
+"Der Eintrag '%' der %-Tabelle des Fahrzeugtyps '%' kann nicht als "
+"Fließkommazahl gelesen werden"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1821
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1837
@@ -14176,7 +14208,7 @@ msgstr "Der XML-Einleseprozess konnte nicht erstellt werden."
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1876
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1887
 msgid "XML files (*.xml,*.xml.gz)"
-msgstr ""
+msgstr "XML-Dateien (*.xml,*.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1737
@@ -14347,7 +14379,7 @@ msgstr "XMl-Dateien (*.xml)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1805
 msgid "View settings files (*.xml,*.xml.gz)"
-msgstr ""
+msgstr "Ansichtseinstellungsdateien (*.xml,*.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1810
 msgid "State GZipped XML files (*.xml.gz)"
@@ -14367,31 +14399,31 @@ msgstr "Netconvert-Konfigurationsdateien (*.netccfg)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1834
 msgid "OSM network files (*.osm,*.osm.gz)"
-msgstr ""
+msgstr "OSM-Netzdateien (*.osm,*.osm.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1840
 msgid "SUMO network files (*.net.xml,*.net.xml.gz)"
-msgstr ""
+msgstr "SUMO-Netzdateien (*.net.xml,*.net.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1846
 msgid "TLS files (*.ttl.xml,*.ttl.xml.gz)"
-msgstr ""
+msgstr "LSA-Dateien (*.ttl.xml,*.ttl.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1852
 msgid "Junction files (*.nod.xml,*.nod.xml.gz)"
-msgstr ""
+msgstr "Knotendateien (*.nod.xml,*.nod.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1858
 msgid "Edge type files (*.ttl.xml,*.ttl.xml.gz)"
-msgstr ""
+msgstr "Kantentypdateien (*.ttl.xml,*.ttl.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1864
 msgid "Additional files (*.add.xml,*.add.xml.gz)"
-msgstr ""
+msgstr "Dateien mit weiteren Elementen (*.add.xml,*.add.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1875
 msgid "Route files (*.rou.xml,*.rou.xml.gz)"
-msgstr ""
+msgstr "Routen-Dateien (*.rou.xml,*.rou.xml.gz)"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1881
 msgid "Edge data files (*.xml,*.xml.gz)"

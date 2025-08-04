@@ -39,7 +39,7 @@ netedit.changeElement("additionalFrame", "access")
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 
 # set invalid length
-netedit.modifyAttribute(netedit.attrs.access.create.length, "dummyLenght")
+netedit.modifyAttribute(netedit.attrs.access.create.length, "dummyLength")
 
 # set invalid length
 netedit.modifyAttribute(netedit.attrs.access.create.length, "-4")

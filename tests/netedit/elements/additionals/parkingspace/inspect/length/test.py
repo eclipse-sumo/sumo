@@ -48,7 +48,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace)
 
 # Change parameter Length with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.length, "dummyLenght")
+netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.length, "dummyLength")
 
 # Change parameter Length with a non valid value (negative)
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.length, "-6")

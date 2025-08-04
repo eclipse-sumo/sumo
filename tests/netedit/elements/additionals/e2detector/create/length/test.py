@@ -32,7 +32,7 @@ netedit.changeMode("additional")
 netedit.changeElement("additionalFrame", "laneAreaDetector")
 
 # set invalid  length (dummy)
-netedit.modifyAttribute(netedit.attrs.E2.create.length, "dummyLenght")
+netedit.modifyAttribute(netedit.attrs.E2.create.length, "dummyLength")
 
 # try to create E2 with invalid length
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)

@@ -38,7 +38,7 @@ netedit.changeMode("inspect")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # Change parameter Length with a non valid value (dummy)
-netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspectSelection.length, "dummyLenght")
+netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspectSelection.length, "dummyLength")
 
 # Change parameter Length with a non valid value (negative)
 netedit.modifyAttributeOverlapped(netedit.attrs.parkingArea.inspectSelection.length, "-6")
