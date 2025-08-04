@@ -27,7 +27,7 @@
 // ===========================================================================
 
 GNEHelpBasicDialog::GNEHelpBasicDialog(GNEApplicationWindow* applicationWindow,
-                                       const std::string& name, const std::ostringstream& stream) :
+        const std::string& name, const std::ostringstream& stream) :
     GNEBasicDialog(applicationWindow, name, stream.str(), GNEDialog::Buttons::OK,
                    GUIIcon::HELP, GUIIcon::EMPTY) {
 }

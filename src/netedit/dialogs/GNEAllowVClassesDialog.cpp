@@ -18,8 +18,6 @@
 // Dialog for edit allow VClass attribute
 /****************************************************************************/
 
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
