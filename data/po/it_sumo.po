@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-08-04 15:14+0000\n"
+"PO-Revision-Date: 2025-08-05 08:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -13286,28 +13286,38 @@ msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero (%)."
 msgstr ""
+"% con il codice identificativo '%' non poteva essere costruito in netedit; "
+"L'attributo % deve essere maggiore di zero (%)."
 
 #: src/utils/handlers/CommonHandler.cpp:284
 msgid "Could not build % with ID '%' in netedit; % is invalid % ()"
 msgstr ""
+"% con il codice identificativo '%' non poteva essere costruito in netedit; % "
+"è invalido % ()"
 
 #: src/utils/handlers/CommonHandler.cpp:292
 #: src/utils/handlers/CommonHandler.cpp:304
 #: src/utils/handlers/CommonHandler.cpp:316
 msgid "Could not build %; ID cannot be empty"
 msgstr ""
+"% non poteva essere costruito; Il codice identificativo non può essere "
+"lasciato vuoto"
 
 #: src/utils/handlers/CommonHandler.cpp:294
 #: src/utils/handlers/CommonHandler.cpp:318
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
+"% con il codice identificativo '%' non poteva essere costruito in netedit; "
+"Il codice identificativo contiene dei caratteri invalidi."
 
 #: src/utils/handlers/CommonHandler.cpp:306
 msgid ""
 "Could not build % with ID '%' in netedit; detector ID contains invalid "
 "characters."
 msgstr ""
+"% con il codice identificativo '%' non poteva essere costruito in netedit; "
+"Il codice identificativo del rivelatore contiene dei caratteri invalidi."
 
 #: src/utils/handlers/CommonHandler.cpp:327
 msgid "Overwritting % with ID '%'"
@@ -13317,19 +13327,27 @@ msgstr "Sovrascrittura di % con il codice identificativo '%' in corso"
 msgid ""
 "Could not build % with ID '%' in netedit; Found another % with the same ID."
 msgstr ""
+"% con il codice identificativo '%' non poteva essere costruito in netedit; "
+"Ce n'è un altro % con lo stesso codice identificativo."
 
 #: src/utils/handlers/CommonHandler.cpp:347
 msgid "Could not build % with ID '%' in netedit; Invalid position over lane."
 msgstr ""
+"% con il codice identificativo '%' non poteva essere costruito in netedit; "
+"Posizione invalida sulla corsia."
 
 #: src/utils/handlers/CommonHandler.cpp:353
 msgid ""
 "Could not build % with ID '%' in netedit; List of edges cannot be empty."
 msgstr ""
+"% con il codice identificativo '%' non poteva essere costruito in netedit; "
+"L'elenco di archi non può essere vuoto."
 
 #: src/utils/handlers/CommonHandler.cpp:359
 msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
 msgstr ""
+"% con il codice identificativo '%' non poteva essere costruito in netedit; "
+"L'elenco di corsie non è valido."
 
 #: src/utils/handlers/CommonHandler.cpp:365
 msgid ""
