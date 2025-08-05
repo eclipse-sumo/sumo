@@ -40,7 +40,8 @@ public:
         VIEW,           // send signal to view (either GUIView or GNEViewNet)
         TLS_PHASES,     // send signal to TLS Phases module (used for TLS Phases)
         TLS_PHASETABLE, // send signal to TLSTable (used for TLS Phases)
-        COLOR,          // send signal to color dialog
+        DIALOG,         // send signal to dialog (used for modal dialogs)    
+        COLOR,          // send signal to color dialog (temporal)
     };
 
     /// @brief dialog arguments (used for certain functions that opens modal dialogs)
@@ -123,12 +124,6 @@ public:
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, Category category,
                      FXEvent* event, const bool updateView, const std::string description);
 
-    /// @brief constructor for fix dialogs
-    InternalTestStep(InternalTestStep* parent, const std::string& solution, const std::string description);
-
-    /// @brief constructor for key steps (only used for dialog steps)
-    InternalTestStep(InternalTestStep* parent, FXSelector messageType, FXEvent* event, const std::string description);
-
     /// @brief destructor
     ~InternalTestStep();
 
@@ -149,9 +144,6 @@ public:
     /// @brief get message ID
     FXSelector getMessageID() const;
 
-    /// @brief get dialog arguments
-    DialogArgument* getDialogArguments() const;
-
     /// @brief get TLS Table test
     TLSTableTest* getTLSTableTest() const;
 
@@ -166,9 +158,6 @@ public:
 
     /// @brief get event associated with this step
     void* getEvent() const;
-
-    /// @brief get key events used in certain dialogs (allowDialog, etc.)
-    const std::vector<const InternalTestStep*>& getModalDialogTestSteps() const;
 
     ///  @brief get description
     const std::string& getDescription() const;
@@ -201,14 +190,8 @@ private:
     /// @brief list of events associated with this step
     FXEvent* myEvent = nullptr;
 
-    /// @brief dialog argument
-    DialogArgument* myDialogArgument = nullptr;
-
     /// @brief TLS Table test
     TLSTableTest* myTLSTableTest = nullptr;
-
-    /// @brief Test steps used in dialog test
-    std::vector<const InternalTestStep*> myDialogTestSteps;
 
     /// @brief parse function and arguments
     std::string parseStep(const std::string& rowText);
@@ -451,10 +434,10 @@ private:
     /// @{
 
     /// @brief modify attribute
-    void modifyStringAttribute(const int tabs, const int overlappedTabs, const std::string& value) const;
+    void modifyStringAttribute(Category category, const int tabs, const int overlappedTabs, const std::string& value) const;
 
     /// @brief modify bool attribute
-    void modifyBoolAttribute(const int tabs, const int overlappedTabs) const;
+    void modifyBoolAttribute(Category category, const int tabs, const int overlappedTabs) const;
 
     /// @}
 
@@ -482,16 +465,10 @@ private:
     FXEvent* buildKeyReleaseEvent(const std::string& key) const;
 
     /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
-    void buildPressKeyEvent(const std::string& key, const bool updateView) const;
-
-    /// @brief build a key press and key release (used for tabs, spaces, enter, etc)
-    void buildPressKeyEvent(InternalTestStep* parent, const std::string& key) const;
+    void buildPressKeyEvent(Category category, const std::string& key, const bool updateView) const;
 
     /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
-    void buildTwoPressKeyEvent(const std::string& keyA, const std::string& keyB, const bool updateView) const;
-
-    /// @brief build a two key press and key release (used for tabs, spaces, enter, etc)
-    void buildTwoPressKeyEvent(InternalTestStep* parent, const std::string& keyA, const std::string& keyB) const;
+    void buildTwoPressKeyEvent(Category category, const std::string& keyA, const std::string& keyB, const bool updateView) const;
 
     /// @}
 
