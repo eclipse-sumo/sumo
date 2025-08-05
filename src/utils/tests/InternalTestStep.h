@@ -132,6 +132,17 @@ public:
     /// @brief destructor
     ~InternalTestStep();
 
+    /// @name next step management
+    /// @{
+
+    /// @brief get next step
+    InternalTestStep* getNextStep() const;
+
+    /// @brief set next step
+    void setNextStep(InternalTestStep* nextStep);
+
+    /// @}
+
     /// @brief get message type
     FXSelector getMessageType() const;
 
@@ -165,6 +176,9 @@ public:
 private:
     /// @brief test system parent
     InternalTest* myTestSystem = nullptr;
+
+    /// @brief next step in the test
+    InternalTestStep* myNextStep = nullptr;
 
     /// @brief message type (by default SEL_COMMAND)
     FXSelector myMessageType = SEL_COMMAND;

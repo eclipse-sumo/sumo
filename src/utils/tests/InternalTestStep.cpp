@@ -355,6 +355,18 @@ InternalTestStep::~InternalTestStep() {
 }
 
 
+InternalTestStep*
+InternalTestStep::getNextStep() const {
+    return myNextStep;
+}
+
+
+void
+InternalTestStep::setNextStep(InternalTestStep* nextStep) {
+    myNextStep = nextStep;
+}
+
+
 FXSelector
 InternalTestStep::getMessageType() const {
     return myMessageType;

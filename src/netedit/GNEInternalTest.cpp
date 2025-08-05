@@ -49,8 +49,9 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
     const auto viewNet = applicationWindow->getViewNet();
     const auto viewParent = viewNet->getViewParent();
     // process every step
-    while (myCurrentStep < myTestSteps.size()) {
-        const auto testStep = myTestSteps.at(myCurrentStep);
+    while (getCurrentStep()) {
+        // get current step and set next step
+        const auto testStep = setNextStep();
         // check if debug internal tests
 #ifdef DEBUG_INTERNAL_TESTS
          std::cout << "TestFunctions: Executing step " << myCurrentStep + 1
@@ -81,7 +82,6 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
         if (testStep->updateView()) {
             applicationWindow->getViewNet()->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
         }
-        myCurrentStep++;
     }
     // check if print netedit closed sucessfully
     if (writeClosedSucessfully) {

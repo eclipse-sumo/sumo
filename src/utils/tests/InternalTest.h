@@ -140,11 +140,8 @@ public:
     /// @brief destructor
     ~InternalTest();
 
-    /// @brief check if test is running
-    bool isRunning() const;
-
-    /// @brief get currentTime
-    FXint getTime() const;
+    /// @name functions related with test steps
+    /// @{
 
     /// @brief add test steps
     void addTestSteps(InternalTestStep* internalTestStep);
@@ -152,8 +149,16 @@ public:
     /// @brief get current step
     InternalTestStep* getCurrentStep() const;
 
-    /// @brief get last test step
-    InternalTestStep* getLastTestStep() const;
+    /// @brief get current step and set next step
+    InternalTestStep* setNextStep();
+
+    /// @}
+
+    /// @brief check if test is running
+    bool isRunning() const;
+
+    /// @brief get currentTime
+    FXint getTime() const;
 
     /// @brief get map with attributesEnum jump steps
     const std::map<std::string, int>& getAttributesEnum() const;
@@ -181,14 +186,17 @@ public:
         const int offsetEndX, const int offsetEndY) const;
 
 protected:
-    /// @brief test steps
-    std::vector<InternalTestStep*> myTestSteps;
+    /// @brief initial test steps
+    InternalTestStep* myInitialTestStep = nullptr;
+
+    /// @brief last test steps
+    InternalTestStep* myLastTestStep = nullptr;
+
+    /// @brief current test step
+    InternalTestStep* myCurrentTestStep = nullptr;
 
     /// @brief flag to indicate if test is running
     bool myRunning = false;
-
-    /// @brief current step index
-    size_t myCurrentStep = 0;
 
     /// @brief vector with attributesEnum jump steps
     std::map<std::string, int> myAttributesEnum;
