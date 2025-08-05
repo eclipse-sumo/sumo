@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(["--sidewalks.guess", 
 netedit.computeJunctions()
 
 # Recompute with volatile options
-netedit.computeJunctionsVolatileOptions()
+netedit.computeJunctionsVolatileOptions("yes")
 
 # create new connections
 netedit.fixStoppingPlace("activatePositionFriendlyPos")
