@@ -29,9 +29,13 @@
 // ===========================================================================
 
 FXDEFMAP(GNEDialog) MFXDialogBoxMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT, GNEDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL, GNEDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET, GNEDialog::onCmdReset),
+    // interaction
+    FXMAPFUNC(SEL_KEYPRESS,     0,  GNEDialog::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,   0,  GNEDialog::onKeyRelease),
+    // buttons
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEDialog::onCmdReset),
     // abort dialog
     FXMAPFUNC(SEL_CLOSE,    0,              GNEDialog::onCmdAbort),
     FXMAPFUNC(SEL_CHORE,    MID_GNE_ABORT,  GNEDialog::onCmdAbort),
@@ -147,6 +151,26 @@ GNEDialog::onCmdAbort(FXObject*, FXSelector, void*) {
 }
 
 
+long
+GNEDialog::onKeyPress(FXObject* obj, FXSelector sel, void* ptr) {
+    if (myTesting && (obj != myApplicationWindow->getInternalTest())) {
+        return 1;
+    } else {
+        return FXDialogBox::onKeyPress(obj, sel, ptr);
+    }
+}
+
+
+long
+GNEDialog::onKeyRelease(FXObject* obj, FXSelector sel, void* ptr) {
+    if (myTesting && (obj != myApplicationWindow->getInternalTest())) {
+        return 1;
+    } else {
+        return FXDialogBox::onKeyRelease(obj, sel, ptr);
+    }
+}
+
+
 void
 GNEDialog::openDialog() {
     // create dialog
@@ -155,12 +179,6 @@ GNEDialog::openDialog() {
     myFocusButon->setFocus();
     // show in the center of app
     show(PLACEMENT_OWNER);
-    // continue depending of open type
-    if (myOpenType == OpenType::MODAL) {
-        // run modal dialog
-        getApp()->runModalFor(this);
-    }
-    /*
     // continue depending on whether we are testing or not
     if (myApplicationWindow->getInternalTest()) {
         myTesting = true;
@@ -175,16 +193,19 @@ GNEDialog::openDialog() {
         }
     } else {
         myTesting = false;
-        getApp()->runModalFor(this);
+        // continue depending on the dialog type
+        if (myOpenType == OpenType::MODAL) {
+            // run modal dialog
+            getApp()->runModalFor(this);
+        }
     }
-    */
 }
 
 
 long
 GNEDialog::closeDialogAccepting() {
     // check if stopping modal dialog
-    if (myOpenType == OpenType::MODAL) {
+    if (!myTesting && (myOpenType == OpenType::MODAL)) {
         getApp()->stopModal(this, TRUE);
     }
     // hide dialog
@@ -198,7 +219,7 @@ GNEDialog::closeDialogAccepting() {
 long
 GNEDialog::closeDialogCanceling() {
     // check if stopping modal dialog
-    if (myOpenType == OpenType::MODAL) {
+    if (!myTesting && (myOpenType == OpenType::MODAL)) {
         getApp()->stopModal(this, TRUE);
     }
     // hide dialog
