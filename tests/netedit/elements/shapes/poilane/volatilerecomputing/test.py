@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(["--sidewalks.guess", "--crossings.guess"])
 
 # Recompute with volatile options
-netedit.computeJunctionsVolatileOptions()
+netedit.computeJunctionsVolatileOptions("yes")
 
 # save Netedit config
 netedit.saveExistentShortcut("neteditConfig")

@@ -27,7 +27,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(["--crossings.guess"])
 
 # Recompute with volatile options
-netedit.computeJunctionsVolatileOptions()
+netedit.computeJunctionsVolatileOptions("yes")
 
 # recompute
 netedit.computeJunctions()
