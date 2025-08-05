@@ -114,6 +114,12 @@ public:
     /// @brief called when abort is called (either closing dialog or pressing abort button)
     long onCmdAbort(FXObject*, FXSelector, void*);
 
+    /// @brief called when user presses a key on the dialog
+    long onKeyPress(FXObject* obj, FXSelector sel, void* ptr);
+
+    /// @brief called when user releases a key on the dialog
+    long onKeyRelease(FXObject* obj, FXSelector sel, void* ptr);
+
     /// @}
 
 protected:
