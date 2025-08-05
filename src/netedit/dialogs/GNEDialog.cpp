@@ -180,16 +180,15 @@ GNEDialog::openDialog() {
     // show in the center of app
     show(PLACEMENT_OWNER);
     // continue depending on whether we are testing or not
-    if (myApplicationWindow->getInternalTest()) {
+    const auto internalTest = myApplicationWindow->getInternalTest();
+    if (internalTest) {
         myTesting = true;
-        // execute every modal dialog test step
-        for (const auto& modalStep : myApplicationWindow->getInternalTest()->getCurrentStep()->getModalDialogTestSteps()) {
-            // this will be unified
-            if (modalStep->getEvent()) {
-                handle(myApplicationWindow->getInternalTest(), modalStep->getSelector(), modalStep->getEvent());
-            } else if (modalStep->getDialogArguments()) {
-                handle(myApplicationWindow->getInternalTest(), modalStep->getSelector(), modalStep->getDialogArguments());
-            }
+        // execute every dialog step
+        while (internalTest->getCurrentStep() && internalTest->getCurrentStep()->getCategory() == InternalTestStep::Category::DIALOG) {
+            // get current step and set next step
+            const auto testStep = internalTest->setNextStep();
+            // handle the step
+            handle(internalTest, testStep->getSelector(), testStep->getEvent());
         }
     } else {
         myTesting = false;
