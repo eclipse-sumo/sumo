@@ -181,9 +181,44 @@ InternalTest::InternalTest(const std::string& testFile) {
 
 
 InternalTest::~InternalTest() {
-    for (auto testStep : myTestSteps) {
-        delete testStep;
+    // delete all test steps
+    while (myInitialTestStep != nullptr) {
+        // store next step
+        auto nextStep = myInitialTestStep->getNextStep();
+        // delete current step
+        delete myInitialTestStep;
+        // set next step as initial step
+        myInitialTestStep = nextStep;
     }
+}
+
+
+void
+InternalTest::addTestSteps(InternalTestStep* internalTestStep) {
+    if (myLastTestStep == nullptr) {
+        // set initial step
+        myInitialTestStep = internalTestStep;
+        myLastTestStep = internalTestStep;
+        myCurrentTestStep = internalTestStep;
+    } else {
+        // set next step
+        myLastTestStep->setNextStep(internalTestStep);
+        myLastTestStep = internalTestStep;
+    }
+}
+
+
+InternalTestStep*
+InternalTest::setNextStep() {
+    const auto currentStep = myCurrentTestStep;
+    myCurrentTestStep = myCurrentTestStep->getNextStep();
+    return currentStep;
+}
+
+
+InternalTestStep*
+InternalTest::getCurrentStep() const {
+    return myCurrentTestStep;
 }
 
 
@@ -199,32 +234,6 @@ InternalTest::getTime() const {
                std::chrono::duration_cast<std::chrono::milliseconds>(
                    std::chrono::steady_clock::now().time_since_epoch()
                ).count());
-}
-
-
-void
-InternalTest::addTestSteps(InternalTestStep* internalTestStep) {
-    myTestSteps.push_back(internalTestStep);
-}
-
-
-InternalTestStep*
-InternalTest::getCurrentStep() const {
-    if (myCurrentStep < myTestSteps.size()) {
-        return myTestSteps.at(myCurrentStep);
-    } else {
-        return nullptr;
-    }
-}
-
-
-InternalTestStep*
-InternalTest::getLastTestStep() const {
-    if (myTestSteps.empty()) {
-        return nullptr;
-    } else {
-        return myTestSteps.back();
-    }
 }
 
 
