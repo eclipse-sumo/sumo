@@ -12359,7 +12359,7 @@ msgstr "Sposta l'elemento una corsia più giù"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:454
 #, c-format
-msgid "Select existent o create new file for % attribute"
+msgid "Select existent or create new file for % attribute"
 msgstr "Seleziona un file esistente o ne crea uno nuovo per l'attributo %"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:455

@@ -451,7 +451,7 @@ long
 GNEAttributesEditorRow::onCmdOpenFileDialog(FXObject*, FXSelector, void*) {
     // set title depending if we're loading or saving
     const std::string title = myAttrProperty->isFileSave() ?
-                              TLF("Select existent o create new file for % attribute", myAttrProperty->getAttrStr()) :
+                              TLF("Select existent or create new file for % attribute", myAttrProperty->getAttrStr()) :
                               TLF("Select existent file for % attribute", myAttrProperty->getAttrStr());
     // open dialog
     const std::string value = GNEApplicationWindowHelper::openFileDialog(
