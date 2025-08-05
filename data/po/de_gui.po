@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-08-01 13:05+0000\n"
+"PO-Revision-Date: 2025-08-05 09:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -8752,6 +8752,8 @@ msgstr "Die RGBA-Farbe mit der % dargestellt werden soll"
 msgid ""
 "The aggregation period the values the % detector collects shall be summed up"
 msgstr ""
+"Der Aggregationszeitraum, über den die Werte des %-Detektor summiert werden "
+"sollen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8749
 msgid ""
@@ -12368,12 +12370,12 @@ msgstr "Element einen Fahrstreifen zurückschieben"
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:454
 #, c-format
 msgid "Select existent o create new file for % attribute"
-msgstr ""
+msgstr "Bestehende Datei auswählen oder eine neue für das %-Attribut erstellen"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:455
 #, c-format
 msgid "Select existent file for % attribute"
-msgstr ""
+msgstr "Bestehende Datei für das %-Attribut auswählen"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:650
 msgid "Reparent"
@@ -13042,15 +13044,15 @@ msgstr "Ungültige Spalte"
 
 #: src/netedit/frames/GNETLSTable.cpp:286
 msgid "Invalid row in table test"
-msgstr ""
+msgstr "Ungültige Zeile in Tabelle test"
 
 #: src/netedit/frames/GNETLSTable.cpp:288
 msgid "Invalid column in table test"
-msgstr ""
+msgstr "Ungültige Spalte in Tabelle test"
 
 #: src/netedit/frames/GNETLSTable.cpp:317
 msgid "Unknown operation in table test"
-msgstr ""
+msgstr "Unbekannter Vorgang in Tabelle test"
 
 #: src/netedit/frames/GNETLSTable.cpp:642
 msgid "Accumulated: "
@@ -13220,7 +13222,7 @@ msgstr ""
 #: src/netedit/frames/GNEViewObjectSelector.cpp:89
 #, c-format
 msgid "% selector"
-msgstr ""
+msgstr "%-Auswahldialog"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:150
 #, c-format
@@ -15128,7 +15130,7 @@ msgstr "doppeltes Programm '%' für die LSA '%'"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1847
 msgid "Traffic Light does not control any links"
-msgstr ""
+msgstr "Der LSA fehlen zu steuernde Verbindungen"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1859
 msgid "Phases"
@@ -17069,7 +17071,7 @@ msgstr "Sprache zu Spanisch ändern. (es)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:349
 msgid "Change language to portuguese. (pt)"
-msgstr ""
+msgstr "Sprache zu Portugiesisch ändern. (pt)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:351
 msgid "Change language to french. (fr)"
@@ -17178,6 +17180,8 @@ msgstr "(Keine Projektion definiert)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1738
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr ""
+"Die Koordinaten des Hintergrundbilds % konnten nicht aus WGS84 transformiert "
+"werden, weshalb UTM angenommen wird."
 
 #~ msgid "Traffic light Attributes"
 #~ msgstr "LSA-Attribute"
