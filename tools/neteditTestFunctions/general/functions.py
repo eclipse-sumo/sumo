@@ -30,18 +30,20 @@ def computeJunctions():
     time.sleep(DELAY_RECOMPUTE)
 
 
-def computeJunctionsVolatileOptions(question=True):
+def computeJunctionsVolatileOptions(question):
     """
     @brief rebuild network with volatile options
     """
     typeTwoKeys('shift', 'F5')
     # confirm recompute
-    if question is True:
+    if question is "yes":
         waitQuestion('y')
-    # wait for output
+        # wait for output
         time.sleep(DELAY_RECOMPUTE_VOLATILE)
-    else:
+    elif question is "no":
         waitQuestion('n')
+    else:
+        waitQuestion('esc')
 
 
 def joinSelectedJunctions():
@@ -65,9 +67,17 @@ def waitQuestion(answer):
     """
     # wait some second to question dialog
     time.sleep(DELAY_QUESTION)
-    if (answer == 'n'):
-        typeKey('tab')
-    typeKey('space')
+    # continue depending on answer
+    if (answer == 'esc'):
+        typeKey('esc')
+    else:
+        if (answer == 'n'):
+            typeKey('tab')
+        elif (answer == 'a'):
+            for _ in range(2):
+                typeKey('tab')
+        # press space to answer question
+        typeKey('space')
 
 
 def overwritte(value):
