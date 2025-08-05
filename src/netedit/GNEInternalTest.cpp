@@ -28,8 +28,6 @@
 
 #include "GNEInternalTest.h"
 
-//#define DEBUG_INTERNAL_TESTS
-
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -52,24 +50,13 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
     while (getCurrentStep()) {
         // get current step and set next step
         const auto testStep = setNextStep();
-        // check if debug internal tests
-#ifdef DEBUG_INTERNAL_TESTS
-         std::cout << "TestFunctions: Executing step " << myCurrentStep + 1
-                   << " of " << myTestSteps.size() << ": "
-                   << testStep->getDescription() << std::endl;
-#endif
-        // get argument (either event or modalDialogArgument or nullptr)
-        void* argument = nullptr;
-        if (testStep->getEvent()) {
-            argument = testStep->getEvent();
-        }
         // check if we have to process it in main windows, abstract view or specific view
         if (testStep->getCategory() == InternalTestStep::Category::APP) {
-            applicationWindow->handle(this, testStep->getSelector(), argument);
+            applicationWindow->handle(this, testStep->getSelector(), testStep->getEvent());
         } else if (testStep->getCategory() == InternalTestStep::Category::VIEW) {
-            viewNet->handle(this, testStep->getSelector(), argument);
+            viewNet->handle(this, testStep->getSelector(), testStep->getEvent());
         } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASES) {
-            viewParent->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), argument);
+            viewParent->getTLSEditorFrame()->getTLSPhases()->handle(this, testStep->getSelector(), testStep->getEvent());
         } else if (testStep->getCategory() == InternalTestStep::Category::TLS_PHASETABLE) {
             viewParent->getTLSEditorFrame()->getTLSPhases()->getPhaseTable()->testTable(testStep->getTLSTableTest());
         } else if (testStep->getCategory() == InternalTestStep::Category::INIT) {
@@ -77,7 +64,7 @@ GNEInternalTest::runNeteditInternalTests(GNEApplicationWindow* applicationWindow
         }
         // check if update view after execute step
         if (testStep->updateView()) {
-            applicationWindow->getViewNet()->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
+            viewNet->handle(this, FXSEL(SEL_PAINT, 0), nullptr);
         }
     }
     // check if print netedit closed sucessfully
