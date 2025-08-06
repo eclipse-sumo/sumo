@@ -8,9 +8,11 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-08-05 18:04+0100\n"
-"PO-Revision-Date: 2025-07-28 23:04+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/applications/pt/>\n"
+"PO-Revision-Date: 2025-08-07 10:02+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -194,25 +196,30 @@ msgstr "Salva definições de emissores para detectores de origem em um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:98
 msgid "Add vehicle types to the emitters file (PKW, LKW)"
-msgstr ""
+msgstr "Adicionar tipos de veículos ao arquivo de emissores (PKW, LKW)"
 
 #: src/dfrouter/RODFFrame.cpp:101
 msgid ""
 "Write generated vehicle types into separate FILE instead of including them "
 "into the emitters-output"
 msgstr ""
+"Escreva os tipos de veículos gerados em um ARQUIVO separado em vez de incluí-"
+"los na saída dos emissores"
 
 #: src/dfrouter/RODFFrame.cpp:104
 msgid "Saves emitter positions as pois to FILE"
-msgstr ""
+msgstr "Salva as posições do emissor como POIs para um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:108
 msgid "Saves variable seed sign definitions for sink detectors to FILE"
 msgstr ""
+"Salva definições de sinal de semente variável para detectores de saida da "
+"rede em um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:111
 msgid "Saves rerouter definitions for sink detectors to FILE"
 msgstr ""
+"Salva definições de rerouter para detectores de saida da rede em um arquivo"
 
 #: src/dfrouter/RODFFrame.cpp:114
 msgid ""
