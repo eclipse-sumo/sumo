@@ -8,9 +8,11 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-08-05 15:56+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/pt/>\n"
+"PO-Revision-Date: 2025-08-07 10:02+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5958,7 +5960,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2423
 msgid "OverheadWireClamp"
-msgstr ""
+msgstr "Braçadeira de fio aéreo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2430
 msgid ""
@@ -6006,7 +6008,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2529
 msgid "RouteDistribution"
-msgstr ""
+msgstr "Distribuição de rota"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2558
 msgid "Route (Ref)"
@@ -6030,7 +6032,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2615
 msgid "VehicleType"
-msgstr ""
+msgstr "Tipo de veículo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2631
 msgid "VType (Ref)"
@@ -6046,7 +6048,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2661
 msgid "TripEdges"
-msgstr ""
+msgstr "Viagem entre arestas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2670
 #: src/netedit/GNETagPropertiesDatabase.cpp:2710
@@ -6068,7 +6070,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2701
 msgid "TripJunctions"
-msgstr ""
+msgstr "Viagem entre cruzamentos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2716
 msgid "The name of the junction the trip starts at"
@@ -6080,7 +6082,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2736
 msgid "TripTAZs"
-msgstr ""
+msgstr "Viagem entre TAZs"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2751
 msgid "The name of the TAZ the trip starts at"
@@ -6092,7 +6094,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2771
 msgid "VehicleRoute"
-msgstr ""
+msgstr "Rota do veículo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2780
 #: src/netedit/GNETagPropertiesDatabase.cpp:2820
@@ -6111,11 +6113,11 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2811
 msgid "VehicleEmbeddedRoute"
-msgstr ""
+msgstr "Rota de veículo embutida"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2846
 msgid "FlowEdges"
-msgstr ""
+msgstr "Fluxo entre arestas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2855
 #: src/netedit/GNETagPropertiesDatabase.cpp:2896
@@ -6139,7 +6141,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2887
 msgid "FlowJunctions"
-msgstr ""
+msgstr "Fluxo entre cruzamentos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2902
 msgid "The name of the junction the flow starts at"
@@ -6249,7 +6251,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3193
 msgid "WaypointLane"
-msgstr ""
+msgstr "Faixa de ponto de referência"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3213
 msgid ""
@@ -6258,7 +6260,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3243
 msgid "WaypointBusStop"
-msgstr ""
+msgstr "Ponto de referência de parada de ônibus"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3249
 msgid "BusWaypoint associated with this waypoint"
@@ -6266,7 +6268,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3262
 msgid "WaypointTrainStop"
-msgstr ""
+msgstr "Ponto de referência de parada de trem"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3268
 msgid "TrainWaypoint associated with this waypoint"
@@ -6274,7 +6276,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3281
 msgid "WaypointContainerStop"
-msgstr ""
+msgstr "Ponto de referência de parada de contêiner"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3287
 msgid "ContainerWaypoint associated with this waypoint"
@@ -6282,7 +6284,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3300
 msgid "WaypointChargingStation"
-msgstr ""
+msgstr "Ponto de referência de estação de carregamento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3306
 msgid "ChargingStation associated with this waypoint"
@@ -6290,7 +6292,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3319
 msgid "WaypointParkingArea"
-msgstr ""
+msgstr "Ponto de referência de área de estacionamento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3325
 msgid "ParkingArea associated with this waypoint"
@@ -6298,11 +6300,11 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3360
 msgid "PersonFlow"
-msgstr ""
+msgstr "Fluxo de pessoas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3397
 msgid "ContainerFlow"
-msgstr ""
+msgstr "Fluxo de contêineres"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3426
 #: src/netedit/GNETagPropertiesDatabase.cpp:3436
@@ -6370,7 +6372,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:4064
 #: src/netedit/frames/common/GNESelectorFrame.cpp:117
 msgid "Transport"
-msgstr ""
+msgstr "Transporte"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3426
 #: src/netedit/GNETagPropertiesDatabase.cpp:3436
@@ -6446,7 +6448,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6853
 #: src/utils/gui/div/GUIMessageWindow.cpp:71
 msgid "edge"
-msgstr ""
+msgstr "aresta"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3436
 #: src/netedit/GNETagPropertiesDatabase.cpp:3507
@@ -6524,7 +6526,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6687
 #: src/netedit/GNETagPropertiesDatabase.cpp:6768
 msgid "taz"
-msgstr ""
+msgstr "TAZ"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3446
 #: src/netedit/GNETagPropertiesDatabase.cpp:3527
@@ -6603,7 +6605,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6778
 #: src/utils/gui/div/GUIMessageWindow.cpp:73
 msgid "junction"
-msgstr ""
+msgstr "Cruzamento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3456
 #: src/netedit/GNETagPropertiesDatabase.cpp:3537
@@ -6684,7 +6686,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6864
 #: src/utils/gui/div/GUIMessageWindow.cpp:77
 msgid "busStop"
-msgstr ""
+msgstr "parada de ônibus"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3466
 #: src/netedit/GNETagPropertiesDatabase.cpp:3547
@@ -6765,7 +6767,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6875
 #: src/utils/gui/div/GUIMessageWindow.cpp:78
 msgid "trainStop"
-msgstr ""
+msgstr "parada de trem"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3476
 #: src/netedit/GNETagPropertiesDatabase.cpp:3557
@@ -6846,7 +6848,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6886
 #: src/utils/gui/div/GUIMessageWindow.cpp:79
 msgid "containerStop"
-msgstr ""
+msgstr "parada de contêiner"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3486
 #: src/netedit/GNETagPropertiesDatabase.cpp:3567
@@ -6927,7 +6929,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6896
 #: src/utils/gui/div/GUIMessageWindow.cpp:80
 msgid "chargingStation"
-msgstr ""
+msgstr "estação de carregamento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3496
 #: src/netedit/GNETagPropertiesDatabase.cpp:3577
@@ -7008,7 +7010,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6907
 #: src/utils/gui/div/GUIMessageWindow.cpp:82
 msgid "parkingArea"
-msgstr ""
+msgstr "área de estacionamento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:4090
 #: src/netedit/GNETagPropertiesDatabase.cpp:4101
@@ -7076,12 +7078,12 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:4728
 #: src/netedit/GNETagPropertiesDatabase.cpp:4738
 msgid "Tranship"
-msgstr ""
+msgstr "Transbordo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:4090
 #: src/netedit/GNETagPropertiesDatabase.cpp:5507
 msgid "edges"
-msgstr ""
+msgstr "arestas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:4844
 #: src/netedit/GNETagPropertiesDatabase.cpp:4854
@@ -7148,7 +7150,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:5471
 #: src/netedit/GNETagPropertiesDatabase.cpp:5481
 msgid "PersonTrip"
-msgstr ""
+msgstr "Viagem de pessoas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:5507
 #: src/netedit/GNETagPropertiesDatabase.cpp:5517
@@ -7217,12 +7219,12 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6155
 #: src/netedit/GNETagPropertiesDatabase.cpp:6165
 msgid "Walk"
-msgstr ""
+msgstr "Caminhada"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:5517
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:435
 msgid "route"
-msgstr ""
+msgstr "rota"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6191
 #: src/netedit/GNETagPropertiesDatabase.cpp:6201
@@ -7289,7 +7291,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6818
 #: src/netedit/GNETagPropertiesDatabase.cpp:6828
 msgid "Ride"
-msgstr ""
+msgstr "Viagem"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6853
 #: src/netedit/GNETagPropertiesDatabase.cpp:6864
@@ -7298,7 +7300,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6896
 #: src/netedit/GNETagPropertiesDatabase.cpp:6907
 msgid "PersonStop"
-msgstr ""
+msgstr "Parada de pessoas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6924
 #, c-format
@@ -7357,7 +7359,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6992
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:560
 msgid "parameters"
-msgstr ""
+msgstr "parâmetros"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7028
 msgid "Length of %"
@@ -8203,11 +8205,11 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8351
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:71
 msgid "DataSet"
-msgstr ""
+msgstr "Conjunto de dados"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8365
 msgid "DataInterval"
-msgstr ""
+msgstr "Intervalo de dados"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8375
 msgid "Data interval begin time"
@@ -8219,11 +8221,11 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8393
 msgid "EdgeRelationSingle"
-msgstr ""
+msgstr "Relação de aresta única"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8403
 msgid "EdgeRelation"
-msgstr ""
+msgstr "Relação das arestas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8409
 msgid "The ID of the edge the edgeRel starts at"
@@ -8235,7 +8237,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8424
 msgid "TAZRelation"
-msgstr ""
+msgstr "Relação das TAZs"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8431
 msgid "The name of the TAZ the TAZRel starts at"
@@ -8247,11 +8249,11 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8446
 msgid "MeanDataEdge"
-msgstr ""
+msgstr "MeanDataEdge"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8459
 msgid "MeanDataLane"
-msgstr ""
+msgstr "MeanDataLane"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8477
 msgid ""
@@ -8849,11 +8851,11 @@ msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:1996
 msgid " height:"
-msgstr ""
+msgstr " altura:"
 
 #: src/netedit/GNEViewNetHelper.cpp:1997
 msgid " diagonal:"
-msgstr ""
+msgstr " diagonal:"
 
 #: src/netedit/GNEViewNetHelper.cpp:2157
 msgid "selection using rectangle"
@@ -8926,7 +8928,7 @@ msgstr ""
 
 #: src/netedit/GNEViewNetHelper.cpp:2402
 msgid "Network"
-msgstr ""
+msgstr "Rede"
 
 #: src/netedit/GNEViewNetHelper.cpp:2402
 msgid "Edit network elements"
