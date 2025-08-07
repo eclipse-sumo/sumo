@@ -105,8 +105,8 @@ public:
             myRightFrameOptions->setWidth(myTable->getWidth() * 0.5);
         }
 
-        /// @brief run internal test
-        virtual void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) = 0;
+        /// @brief select internal test solution (used in internal tests)
+        virtual void selectInternalTestSolution(const std::string &solution) = 0;
 
         /// @brief apply selected fix option
         virtual bool applyFixOption() = 0;
@@ -285,7 +285,7 @@ public:
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
         // run internal test for each fix option
         for (auto fixOption : myFixOptions) {
-            fixOption->runInternalTest(dialogArgument);
+            fixOption->selectInternalTestSolution(dialogArgument->customAction);
         }
     }
 

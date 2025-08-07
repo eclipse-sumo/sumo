@@ -44,8 +44,8 @@ public:
         /// @brief constructor
         FixRouteOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
-        /// @brief run internal test
-        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+        /// @brief select internal test solution
+        void selectInternalTestSolution(const std::string &solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -91,8 +91,8 @@ public:
         /// @brief constructor
         FixVehicleOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
-        /// @brief run internal test
-        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+        /// @brief select internal test solution
+        void selectInternalTestSolution(const std::string &solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -138,8 +138,8 @@ public:
         /// @brief build Position Options
         FixStopPositionOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
-        /// @brief run internal test
-        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+        /// @brief select internal test solution
+        void selectInternalTestSolution(const std::string &solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -185,8 +185,8 @@ public:
         /// @brief build Position Options
         FixPlanOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
-        /// @brief run internal test
-        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+        /// @brief select internal test solution
+        void selectInternalTestSolution(const std::string &solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -226,9 +226,6 @@ public:
 
     /// @brief destructor
     ~GNEFixDemandElementsDialog();
-
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
 protected:
     /// @brief fix route options

@@ -76,7 +76,7 @@ GNEFixNetworkElements::FixEdgeOptions::FixEdgeOptions(GNEFixNetworkElements* fix
 
 
 void
-GNEFixNetworkElements::FixEdgeOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+GNEFixNetworkElements::FixEdgeOptions::selectInternalTestSolution(const std::string &solution) {
     // finish
 }
 
@@ -162,13 +162,13 @@ GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkEleme
 
 
 void
-GNEFixNetworkElements::FixCrossingOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+GNEFixNetworkElements::FixCrossingOptions::selectInternalTestSolution(const std::string &solution) {
     // chooose solution
-    if (dialogArgument->customAction == "removeInvalidCrossings") {
+    if (solution == "removeInvalidCrossings") {
         myRemoveInvalidCrossings->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->customAction == "saveInvalidCrossings") {
+    } else if (solution == "saveInvalidCrossings") {
         mySaveInvalidCrossings->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->customAction == "selectInvalidCrossings") {
+    } else if (solution == "selectInvalidCrossings") {
         mySelectInvalidCrossings->setCheck(TRUE, TRUE);
     }
 }
@@ -260,15 +260,5 @@ GNEFixNetworkElements::GNEFixNetworkElements(GNEApplicationWindow* mainWindow,
 
 
 GNEFixNetworkElements::~GNEFixNetworkElements() {}
-
-
-void
-GNEFixNetworkElements::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // run internal test in all modules
-    myFixEdgeOptions->runInternalTest(dialogArgument);
-    myFixCrossingOptions->runInternalTest(dialogArgument);
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
-}
 
 /****************************************************************************/

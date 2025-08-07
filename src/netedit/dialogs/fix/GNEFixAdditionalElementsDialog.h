@@ -44,8 +44,8 @@ public:
         /// @brief build Position Options
         PositionOptions(GNEFixAdditionalElementsDialog* fixAdditionalPositions);
 
-        /// @brief run internal test
-        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+        /// @brief select internal test solution
+        void selectInternalTestSolution(const std::string &solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -91,8 +91,8 @@ public:
         /// @brief build consecutive lane Options
         ConsecutiveLaneOptions(GNEFixAdditionalElementsDialog* fixAdditionalPositions);
 
-        /// @brief run internal test
-        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+        /// @brief select internal test solution
+        void selectInternalTestSolution(const std::string &solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -135,9 +135,6 @@ public:
 
     /// @brief destructor
     ~GNEFixAdditionalElementsDialog();
-
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
 protected:
     /// @brief position options

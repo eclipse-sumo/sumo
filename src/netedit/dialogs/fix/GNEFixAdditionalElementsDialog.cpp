@@ -83,15 +83,15 @@ GNEFixAdditionalElementsDialog::PositionOptions::PositionOptions(GNEFixAdditiona
 
 
 void
-GNEFixAdditionalElementsDialog::PositionOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+GNEFixAdditionalElementsDialog::PositionOptions::selectInternalTestSolution(const std::string &solution) {
     // chooose solution
-    if (dialogArgument->customAction == "savePositionInvalids") {
+    if (solution == "savePositionInvalids") {
         mySaveInvalids->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->customAction == "fixPositions") {
+    } else if (solution == "fixPositions") {
         myFixPositions->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->customAction == "selectPositionInvalids") {
+    } else if (solution == "selectPositionInvalids") {
         mySelectInvalids->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->customAction == "activatePositionFriendlyPos") {
+    } else if (solution == "activatePositionFriendlyPos") {
         myActivateFriendlyPosition->setCheck(TRUE, TRUE);
     }
 }
@@ -199,7 +199,7 @@ GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::ConsecutiveLaneOptions(G
 
 
 void
-GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::selectInternalTestSolution(const std::string &solution) {
 }
 
 
@@ -309,16 +309,6 @@ GNEFixAdditionalElementsDialog::GNEFixAdditionalElementsDialog(GNEApplicationWin
 
 
 GNEFixAdditionalElementsDialog::~GNEFixAdditionalElementsDialog() {
-}
-
-
-void
-GNEFixAdditionalElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // run internal test in all modules
-    myPositionOptions->runInternalTest(dialogArgument);
-    myConsecutiveLaneOptions->runInternalTest(dialogArgument);
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
 }
 
 /****************************************************************************/
