@@ -36,11 +36,11 @@ def computeJunctionsVolatileOptions(question):
     """
     typeTwoKeys('shift', 'F5')
     # confirm recompute
-    if question is "yes":
+    if question == "yes":
         waitQuestion('y')
         # wait for output
         time.sleep(DELAY_RECOMPUTE_VOLATILE)
-    elif question is "no":
+    elif question == "no":
         waitQuestion('n')
     else:
         waitQuestion('esc')
