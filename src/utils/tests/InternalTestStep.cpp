@@ -275,6 +275,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         createDataSet();
     } else if (function == "createDataInterval") {
         createDataInterval();
+    } else if (function == "openAboutDialog") {
+        openAboutDialog();
     } else if (function == "undo") {
         undo();
     } else if (function == "redo") {
@@ -1582,6 +1584,19 @@ InternalTestStep::createDataInterval() const {
         buildPressKeyEvent(Category::APP, "tab", false);
         // press button
         buildPressKeyEvent(Category::APP, "space", true);
+    }
+}
+
+
+void
+InternalTestStep::openAboutDialog() {
+    if (myArguments.size() != 0) {
+        writeError("openAboutDialog", 0, "<>");
+    } else {
+        myCategory = Category::APP;
+        myMessageID = MID_HOTKEY_F12_ABOUT;
+        // close dialog pressing space
+        buildPressKeyEvent(Category::DIALOG, "space", true);
     }
 }
 
