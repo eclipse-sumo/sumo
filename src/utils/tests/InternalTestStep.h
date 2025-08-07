@@ -352,40 +352,43 @@ private:
     /// @brief process createDataInterval function
     void createDataInterval() const;
 
-    /// @brief process check undo function
+    /// @brief process openAboutDialog function
+    void openAboutDialog();
+
+    /// @brief process undo function
     void undo() const;
 
-    /// @brief process check redo function
+    /// @brief process redo function
     void redo() const;
 
-    /// @brief process supermode function
+    /// @brief process changeSupermode function
     void changeSupermode();
 
-    /// @brief process change mode function
+    /// @brief process changeMode function
     void changeMode();
 
-    /// @brief process change element function
+    /// @brief process changeElement function
     void changeElement() const;
 
-    /// @bief process change plan function
+    /// @bief process changePlan function
     void changePlan() const;
 
-    /// @brief process compute junctions function
+    /// @brief process computeJunctions function
     void computeJunctions();
 
-    /// @brief process compute junctions with volatile options function
+    /// @brief process computeJunctionsVolatileOptions function
     void computeJunctionsVolatileOptions();
 
-    /// @brief create rectangle shape
+    /// @brief process selectChild function
     void selectAdditionalChild();
 
-    /// @brief process create rectangle shape function
+    /// @brief process createRectangledShape function
     void createRectangledShape();
 
-    /// @brief process create squared shape function
+    /// @brief process createSquaredShape function
     void createSquaredShape();
 
-    /// @brief process create line shape function
+    /// @brief process createLineShape function
     void createLineShape();
 
     /// @brief process createMeanData function
