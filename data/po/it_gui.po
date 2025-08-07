@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-08-07 10:02+0000\n"
+"PO-Revision-Date: 2025-08-08 08:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -16621,7 +16621,7 @@ msgstr "Mostra binari"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1908
 msgid "Spread bidirectional railways/roads"
-msgstr ""
+msgstr "Traslati ferrovie/strade bidirezionali"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1909
 msgid ""
@@ -16845,7 +16845,7 @@ msgstr "Grado di dettaglio dei punti di interesse"
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2263
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2300
 msgid "Custom Layer"
-msgstr ""
+msgstr "Livello personalizzato"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2269
 msgid "Show poi id"
@@ -16926,6 +16926,7 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2439
 msgid "Disable dotted contours during selection/deletion"
 msgstr ""
+"Disattiva contorni a forma di punti quando si seleziona o rimuove un oggetto"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2442
 msgid "Recalculate boundaries"
@@ -16953,7 +16954,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2464
 msgid "Show auto-generated TLS models"
-msgstr ""
+msgstr "Mostra semafori autogenerati"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2466
 msgid "Show head-up display"
