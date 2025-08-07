@@ -1792,13 +1792,22 @@ InternalTestStep::computeJunctions() {
 
 void
 InternalTestStep::computeJunctionsVolatileOptions() {
-    if (myArguments.size() > 1) {
-        writeError("computeJunctionsVolatileOptions", 0, "<True/False>");
+    if (myArguments.size() != 1) {
+        writeError("computeJunctionsVolatileOptions", 0, "<yes/no/esc>");
     } else {
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE;
-        // press enter to confirm changes (updating view)
-        buildPressKeyEvent(Category::DIALOG, "enter", true);
+        // get argument
+        const auto dialogArgument = getStringArgument(myArguments[0]);
+        // press space to confirm changes (updating view)
+        if (dialogArgument == "yes") {
+            buildPressKeyEvent(Category::DIALOG, "space", true);
+        } else if (dialogArgument == "no") { 
+            buildPressKeyEvent(Category::DIALOG, "tab", false);
+            buildPressKeyEvent(Category::DIALOG, "space", true);
+        } else {
+            buildPressKeyEvent(Category::DIALOG, "esc", true);
+        }
     }
 }
 
