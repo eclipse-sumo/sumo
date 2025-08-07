@@ -728,10 +728,10 @@ InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) con
         const int vClass = getIntArgument(myArguments[1]);
         // go to vClass
         for (int i = 0; i < vClass; i++) {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::INVERT_TAB), "go to vClass");
+            buildPressKeyEvent(Category::DIALOG, "tab", false);
         }
         // select vclass
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
+        buildPressKeyEvent(Category::DIALOG, "space", false);
         // press accept
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept vClasses");
     }
@@ -750,20 +750,16 @@ InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const
         const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
+            buildPressKeyEvent(Category::DIALOG, "tab", false);
         }
         // disallow all vehicles
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
+        buildPressKeyEvent(Category::DIALOG, "space", false);
         // go to vClass
         for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
+            buildPressKeyEvent(Category::DIALOG, "tab", false);
         }
         // select vClass
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
-        // go to accept button
-        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.accept") - vClass); i++) {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
-        }
+        buildPressKeyEvent(Category::DIALOG, "space", false);
         // press accept
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept vClasses");
     }
@@ -783,16 +779,16 @@ InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
         const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
+            buildPressKeyEvent(Category::DIALOG, "tab", false);
         }
         // disallow all vehicles
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
+        buildPressKeyEvent(Category::DIALOG, "space", false);
         // go to vClass
         for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
+            buildPressKeyEvent(Category::DIALOG, "tab", false);
         }
         // select vClass
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
+        buildPressKeyEvent(Category::DIALOG, "space", false);
         // press cancel
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::CANCEL), "cancel vClasses");
     }
@@ -811,22 +807,16 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
         const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
+            buildPressKeyEvent(Category::DIALOG, "tab", false);
         }
         // disallow all vehicles
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
+        buildPressKeyEvent(Category::DIALOG, "space", false);
         // go to vClass
         for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
+            buildPressKeyEvent(Category::DIALOG, "tab", false);
         }
         // select vClass
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
-        // go to reset button
-        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.reset") - vClass); i++) {
-            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
-        }
-        // press reset
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
+        buildPressKeyEvent(Category::DIALOG, "space", false);
         // press accept
         new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::RESET), "reset vClasses");
     }

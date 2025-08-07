@@ -24,7 +24,6 @@
 
 #include "InternalTest.h"
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -50,12 +49,10 @@ public:
     public:
         /// @name basic actions
         enum class Action {
-            ACCEPT,     // accept action
-            CANCEL,     // cancel action
-            ABORT,      // abort action
-            RESET,      // reset action
-            SPACE,      // space action
-            INVERT_TAB, // invert tab action
+            ACCEPT,     // press accept button
+            CANCEL,     // press cancel button
+            RESET,      // press reset button
+            ABORT,      // abort dialog
             CUSTOM      // custom action
         };
 

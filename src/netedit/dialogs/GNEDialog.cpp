@@ -187,8 +187,27 @@ GNEDialog::openDialog() {
         while (internalTest->getCurrentStep() && internalTest->getCurrentStep()->getCategory() == InternalTestStep::Category::DIALOG) {
             // get current step and set next step
             const auto testStep = internalTest->setNextStep();
-            // handle the step
-            handle(internalTest, testStep->getSelector(), testStep->getEvent());
+            // continue depending on the dialog argument action
+            switch (testStep->getDialogArgument()->action) {
+                case InternalTestStep::DialogArgument::Action::ACCEPT:
+                    onCmdAccept(internalTest, 0, nullptr);
+                    break;
+                case InternalTestStep::DialogArgument::Action::CANCEL:
+                    onCmdCancel(internalTest, 0, nullptr);
+                    break;
+                case InternalTestStep::DialogArgument::Action::RESET:
+                    onCmdReset(internalTest, 0, nullptr);
+                    break;
+                case InternalTestStep::DialogArgument::Action::ABORT:
+                    onCmdAbort(nullptr, 0, nullptr);
+                    break;
+                case InternalTestStep::DialogArgument::Action::CUSTOM:
+                    runInternalTest(testStep->getDialogArgument());
+                    break;
+                default:
+                    handle(internalTest, testStep->getSelector(), testStep->getEvent());
+                    break;
+            }
         }
     } else {
         myTesting = false;
