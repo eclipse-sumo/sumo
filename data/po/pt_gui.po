@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-08-07 10:02+0000\n"
+"PO-Revision-Date: 2025-08-08 08:44+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -644,17 +644,19 @@ msgstr "\tExecutar \tInicia / resume a simulação carregada."
 
 #: src/gui/GUIApplicationWindow.cpp:699
 msgid "\tStop\tHalt the running simulation."
-msgstr ""
+msgstr "\tParar\tPara a execução da simulação."
 
 #: src/gui/GUIApplicationWindow.cpp:701
 msgid "\tStep\tPerform a single simulation step."
-msgstr ""
+msgstr "\tPasso\tAvança um passo da simulação."
 
 #: src/gui/GUIApplicationWindow.cpp:709
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and "
 "hour:minute:seconds display."
 msgstr ""
+"Tempo:\tAlterna entre formaros de tempo\tAlterna entre segundos e "
+"hora:minuto:segundos."
 
 #: src/gui/GUIApplicationWindow.cpp:723
 msgid ""
@@ -5924,7 +5926,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2352
 msgid "TractionSubstation"
-msgstr ""
+msgstr "Subestação de tração"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2365
 msgid "Voltage of at connection point for the overhead wire"
@@ -5936,7 +5938,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2382
 msgid "WireSection"
-msgstr ""
+msgstr "Seção de fio"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2389
 msgid "Substation to which the circuit is connected"
@@ -8941,7 +8943,7 @@ msgstr ""
 #: src/netedit/GNEViewNetHelper.cpp:2407
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2195
 msgid "Demand"
-msgstr ""
+msgstr "Demanda"
 
 #: src/netedit/GNEViewNetHelper.cpp:2407
 msgid "Edit traffic demand elements"
@@ -8954,7 +8956,7 @@ msgstr ""
 #: src/netedit/GNEViewNetHelper.cpp:2412
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2353
 msgid "Data"
-msgstr ""
+msgstr "Dados"
 
 #: src/netedit/GNEViewNetHelper.cpp:2412
 msgid "Edit data elements"
@@ -9667,7 +9669,7 @@ msgstr ""
 #: src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:914
 msgid "Accept"
-msgstr ""
+msgstr "Aceitar"
 
 #: src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 msgid "Close accepting changes"
@@ -9681,7 +9683,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:916
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1361
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 msgid "Close discarding changes"
@@ -9691,7 +9693,7 @@ msgstr ""
 #: src/netedit/dialogs/options/GNEOptionsDialog.cpp:390
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:101
 msgid "Reset"
-msgstr ""
+msgstr "Reiniciar"
 
 #: src/netedit/dialogs/GNEAdditionalDialog.cpp:65
 msgid "Reset to previous values"
@@ -9852,7 +9854,7 @@ msgstr ""
 #: src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:488
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:137
 msgid "accept"
-msgstr ""
+msgstr "aceitar"
 
 #: src/netedit/dialogs/GNEAllowVClassesDialog.cpp:121
 #: src/netedit/dialogs/GNEAllowVClassesDialog.cpp:122
@@ -9873,20 +9875,20 @@ msgstr ""
 #: src/netedit/frames/GNEOverlappedInspection.cpp:244
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:138
 msgid "close"
-msgstr ""
+msgstr "fechar"
 
 #: src/netedit/dialogs/GNEAllowVClassesDialog.cpp:122
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:641
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:641
 #: src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:489
 msgid "cancel"
-msgstr ""
+msgstr "cancelar"
 
 #: src/netedit/dialogs/GNEAllowVClassesDialog.cpp:123
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:642
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:642
 msgid "reset"
-msgstr ""
+msgstr "restaurar"
 
 #: src/netedit/dialogs/GNEAllowVClassesDialog.cpp:134
 msgid "Edit vClasses of attribute '%'"
@@ -9903,7 +9905,7 @@ msgstr ""
 #: src/netedit/dialogs/GNEDemandElementDialog.cpp:65
 #: src/netedit/dialogs/GNEFixElementsDialog.cpp:87
 msgid "&Accept"
-msgstr ""
+msgstr "&Aceitar"
 
 #: src/netedit/dialogs/GNEDemandElementDialog.cpp:65
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:75
@@ -9918,7 +9920,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEDemandElementDialog.cpp:67
 msgid "&Reset"
-msgstr ""
+msgstr "&Reiniciar"
 
 #: src/netedit/dialogs/GNEDemandElementDialog.cpp:67
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:77
@@ -10060,7 +10062,7 @@ msgstr ""
 #: src/netedit/dialogs/GNEFixNetworkElements.cpp:165
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:348
 msgid "Conflict"
-msgstr ""
+msgstr "Conflito"
 
 #: src/netedit/dialogs/GNEFixNetworkElements.cpp:214
 msgid "Saving successfully"
@@ -10134,14 +10136,14 @@ msgstr ""
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:284
 #: src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:277
 msgid "Sort"
-msgstr ""
+msgstr "Ordenar"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:286
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:285
 #: src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:278
 #: src/netedit/frames/common/GNESelectorFrame.cpp:252
 msgid "Clear"
-msgstr ""
+msgstr "Limpar"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:289
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:288
@@ -10154,7 +10156,7 @@ msgstr ""
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:85
 #: src/netedit/frames/network/GNECrossingFrame.cpp:205
 msgid "Help"
-msgstr ""
+msgstr "Ajuda"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:299
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:298
@@ -10348,11 +10350,11 @@ msgstr ""
 
 #: src/netedit/dialogs/options/GNEOptionsDialog.cpp:321
 msgid "Topics"
-msgstr ""
+msgstr "Tópicos"
 
 #: src/netedit/dialogs/options/GNEOptionsDialog.cpp:374
 msgid "Search"
-msgstr ""
+msgstr "Pesquisar"
 
 #: src/netedit/dialogs/options/GNEOptionsDialog.cpp:376
 msgid "Include description in search"
@@ -10371,7 +10373,7 @@ msgstr ""
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:746
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:760
 msgid "true"
-msgstr ""
+msgstr "verdadeiro"
 
 #: src/netedit/dialogs/options/GNEOptionsDialogElements.cpp:232
 #: src/netedit/dialogs/options/GNEOptionsDialogElements.cpp:244
@@ -10381,7 +10383,7 @@ msgstr ""
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:749
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:766
 msgid "false"
-msgstr ""
+msgstr "falso"
 
 #: src/netedit/dialogs/options/GNEOptionsDialogElements.cpp:523
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:86
