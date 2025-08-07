@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-07-30 09:53+0100\n"
-"PO-Revision-Date: 2025-07-22 16:49+0000\n"
+"PO-Revision-Date: 2025-08-07 10:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13845,11 +13846,11 @@ msgstr "Distribuzioni di itinerari"
 
 #: src/netedit/frames/demand/GNERouteFrame.cpp:59
 msgid "non consecutive edges"
-msgstr ""
+msgstr "archi non consecutivi"
 
 #: src/netedit/frames/demand/GNERouteFrame.cpp:60
 msgid "consecutive edges"
-msgstr ""
+msgstr "archi consecutivi"
 
 #: src/netedit/frames/demand/GNEStopFrame.cpp:76
 #: src/netedit/frames/demand/GNEStopFrame.cpp:82
@@ -14411,7 +14412,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:71
 msgid "Edited"
-msgstr ""
+msgstr "Modificato"
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:95
 msgid "selection of edges"
@@ -15116,7 +15117,7 @@ msgstr "raddoppia programma '%' del semaforo '%'"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1847
 msgid "Traffic Light does not control any links"
-msgstr ""
+msgstr "Il semaforo non controlla nessun collegamento"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1859
 msgid "Phases"
@@ -17052,7 +17053,7 @@ msgstr "Cambia lingua in spagnolo. (es)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:349
 msgid "Change language to portuguese. (pt)"
-msgstr ""
+msgstr "Cambia lingua in portoghese. (pt)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:351
 msgid "Change language to french. (fr)"
@@ -17092,7 +17093,7 @@ msgstr "spagnolo"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:385
 msgid "portuguese"
-msgstr ""
+msgstr "portoghese"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:389
 msgid "french"
