@@ -96,11 +96,11 @@ GNEFixDemandElementsDialog::FixRouteOptions::FixRouteOptions(GNEFixDemandElement
 void
 GNEFixDemandElementsDialog::FixRouteOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
     // chooose solution
-    if (dialogArgument->fixSolution == "saveRouteInvalids") {
+    if (dialogArgument->customAction == "saveRouteInvalids") {
         mySaveInvalidRoutes->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "removeRouteInvalids") {
+    } else if (dialogArgument->customAction == "removeRouteInvalids") {
         myRemoveInvalidRoutes->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "selectRouteInvalids") {
+    } else if (dialogArgument->customAction == "selectRouteInvalids") {
         mySelectRouteInvalids->setCheck(TRUE, TRUE);
     }
 }

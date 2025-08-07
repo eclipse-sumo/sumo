@@ -44,36 +44,35 @@ public:
         COLOR,          // send signal to color dialog (temporal)
     };
 
-    /// @brief dialog arguments (used for certain functions that opens modal dialogs)
+    /// @brief dialog arguments, used for certain modal dialogs that can not be edited using tab
     class DialogArgument {
 
     public:
-        /// @brief constructor for yes/no argument
-        DialogArgument(const FXuint value);
+        /// @name basic actions
+        enum class Action {
+            ACCEPT,     // accept action
+            CANCEL,     // cancel action
+            ABORT,      // abort action
+            RESET,      // reset action
+            SPACE,      // space action
+            INVERT_TAB, // invert tab action
+            CUSTOM      // custom action
+        };
 
-        /// @brief constructor for question dialogs
-        DialogArgument(const std::vector<FXuint>& values);
+        /// @brief constructor for basic actions
+        DialogArgument(Action action);
 
-        /// @brief constructor fix dialogs
-        DialogArgument(const std::string& solution);
+        /// @brief constructor
+        DialogArgument(const std::string& customAction);
 
-        /// @brief yes value
-        static const FXuint yes = 1;
+        /// @brief basic action
+        const Action action = Action::CUSTOM;
 
-        /// @brief no value
-        static const FXuint no = 2;
+        /// @brief action to be carried out in the dialog
+        const std::string customAction;
 
-        /// @brief ESC or cancel value
-        static const FXuint esc = 4;
-
-        /// @brief color dialog value
+        /// @brief color used in color dialogs (temporal)
         static const std::string colorValue;
-
-        /// @brief used if we have multiple modal dialogs
-        const std::vector<FXuint> questionDialogValues;
-
-        /// @brief solution for fix dialogs
-        const std::string fixSolution;
 
     private:
         /// @brief invalidated default constructor
@@ -118,11 +117,15 @@ public:
 
     /// @brief constructor for shortcuts
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, FXSelector messageID,
-                     Category category, const std::string description);
+                     Category category, const std::string &description);
 
     /// @brief constructor for input events (click, keyPress, etc.)
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, Category category,
-                     FXEvent* event, const bool updateView, const std::string description);
+                     FXEvent* event, const bool updateView, const std::string &description);
+
+    /// @brief constructor for dialog arguments
+    InternalTestStep(InternalTest* testSystem, DialogArgument* dialogArgument,
+                     const std::string &description);
 
     /// @brief destructor
     ~InternalTestStep();
@@ -143,6 +146,9 @@ public:
 
     /// @brief get message ID
     FXSelector getMessageID() const;
+
+    /// @brief get dialog argument
+    DialogArgument* getDialogArgument() const;
 
     /// @brief get TLS Table test
     TLSTableTest* getTLSTableTest() const;
@@ -189,6 +195,9 @@ private:
 
     /// @brief list of events associated with this step
     FXEvent* myEvent = nullptr;
+
+    /// @brief dialog argument
+    DialogArgument* myDialogArgument = nullptr;
 
     /// @brief TLS Table test
     TLSTableTest* myTLSTableTest = nullptr;

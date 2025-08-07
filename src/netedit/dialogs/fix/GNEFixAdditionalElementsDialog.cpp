@@ -85,13 +85,13 @@ GNEFixAdditionalElementsDialog::PositionOptions::PositionOptions(GNEFixAdditiona
 void
 GNEFixAdditionalElementsDialog::PositionOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
     // chooose solution
-    if (dialogArgument->fixSolution == "savePositionInvalids") {
+    if (dialogArgument->customAction == "savePositionInvalids") {
         mySaveInvalids->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "fixPositions") {
+    } else if (dialogArgument->customAction == "fixPositions") {
         myFixPositions->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "selectPositionInvalids") {
+    } else if (dialogArgument->customAction == "selectPositionInvalids") {
         mySelectInvalids->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "activatePositionFriendlyPos") {
+    } else if (dialogArgument->customAction == "activatePositionFriendlyPos") {
         myActivateFriendlyPosition->setCheck(TRUE, TRUE);
     }
 }

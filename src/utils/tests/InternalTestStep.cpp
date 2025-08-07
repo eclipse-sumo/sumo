@@ -45,18 +45,12 @@ constexpr int MOUSE_REFERENCE_Y = 168;
 // InternalTestStep::DialogArgument - public methods
 // ---------------------------------------------------------------------------
 
-InternalTestStep::DialogArgument::DialogArgument(const FXuint value) :
-    questionDialogValues({value}) {
+InternalTestStep::DialogArgument::DialogArgument(InternalTestStep::DialogArgument::Action _action) :
+    action(_action) {
 }
 
-
-InternalTestStep::DialogArgument::DialogArgument(const std::vector<FXuint>& values) :
-    questionDialogValues(values) {
-}
-
-
-InternalTestStep::DialogArgument::DialogArgument(const std::string& solution) :
-    fixSolution(solution) {
+InternalTestStep::DialogArgument::DialogArgument(const std::string& _customAction) :
+    customAction(_customAction) {
 }
 
 // ---------------------------------------------------------------------------
@@ -291,7 +285,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
 
 
 InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageType,
-                                   FXSelector messageID, Category category, const std::string description) :
+                                   FXSelector messageID, Category category, 
+                                   const std::string &description) :
     myTestSystem(testSystem),
     myMessageType(messageType),
     myMessageID(messageID),
@@ -304,7 +299,7 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
 
 InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageType,
                                    Category category, FXEvent* event, const bool updateView,
-                                   const std::string description) :
+                                   const std::string &description) :
     myTestSystem(testSystem),
     myMessageType(messageType),
     myCategory(category),
@@ -316,9 +311,24 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
 }
 
 
+InternalTestStep::InternalTestStep(InternalTest* testSystem, DialogArgument* dialogArgument,
+                                   const std::string &description) :
+    myTestSystem(testSystem),
+    myCategory(InternalTestStep::Category::DIALOG),
+    myUpdateView(false),
+    myDescription(description),
+    myDialogArgument(dialogArgument) {
+    // add this testStep to test system
+    testSystem->addTestSteps(this);
+}
+
+
 InternalTestStep::~InternalTestStep() {
     if (myEvent) {
         delete myEvent;
+    }
+    if (myDialogArgument) {
+        delete myDialogArgument;
     }
     if (myTLSTableTest) {
         delete myTLSTableTest;
@@ -347,6 +357,12 @@ InternalTestStep::getMessageType() const {
 FXSelector
 InternalTestStep::getMessageID() const {
     return myMessageID;
+}
+
+
+InternalTestStep::DialogArgument*
+InternalTestStep::getDialogArgument() const {
+    return myDialogArgument;
 }
 
 
@@ -710,18 +726,14 @@ InternalTestStep::modifyVClassDialog_NoDisallowAll(const int overlappedTabs) con
         modifyBoolAttribute(Category::APP, getIntArgument(myArguments[0]), overlappedTabs);
         // get vClass
         const int vClass = getIntArgument(myArguments[1]);
-        // jump to vClass
+        // go to vClass
         for (int i = 0; i < vClass; i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::INVERT_TAB), "go to vClass");
         }
         // select vclass
-        buildPressKeyEvent(Category::DIALOG, "space", false);
-        // go to accept button
-        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.accept") - vClass); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
-        }
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
         // press accept
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
@@ -738,22 +750,22 @@ InternalTestStep::modifyVClassDialog_DisallowAll(const int overlappedTabs) const
         const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
         }
         // disallow all vehicles
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
         // go to vClass
         for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
         }
         // select vClass
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
         // go to accept button
         for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.accept") - vClass); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
         }
         // press accept
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept vClasses");
     }
 }
 
@@ -771,22 +783,18 @@ InternalTestStep::modifyVClassDialog_Cancel(const int overlappedTabs) const {
         const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
         }
         // disallow all vehicles
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
         // go to vClass
         for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
         }
         // select vClass
-        buildPressKeyEvent(Category::DIALOG, "space", false);
-        // go to cancel button
-        for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.cancel") - vClass); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
-        }
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
         // press cancel
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::CANCEL), "cancel vClasses");
     }
 }
 
@@ -803,28 +811,24 @@ InternalTestStep::modifyVClassDialog_Reset(const int overlappedTabs) const {
         const int vClass = getIntArgument(myArguments[1]);
         // go to disallow all vehicles
         for (int i = 0; i < myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll"); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
         }
         // disallow all vehicles
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
         // go to vClass
         for (int i = 0; i < (vClass - myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.disallowAll")); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
         }
         // select vClass
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
         // go to reset button
         for (int i = 0; i < (myTestSystem->getAttributesEnum().at("netedit.attrs.dialog.allowVClass.reset") - vClass); i++) {
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "tab");
         }
         // press reset
-        buildPressKeyEvent(Category::DIALOG, "space", false);
-        // go to accept button
-        for (int i = 0; i < 2; i++) {
-            buildTwoPressKeyEvent(Category::DIALOG, "shift", "tab", false);
-        }
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::SPACE), "select vClass");
         // press accept
-        buildPressKeyEvent(Category::DIALOG, "space", false);
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::RESET), "reset vClasses");
     }
 }
 
@@ -965,8 +969,10 @@ InternalTestStep::fixCrossings() {
         // save config
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
                              Category::APP, "save netedit config");
-        // create fix dialog test
-        //new InternalTestStep(saveConfig, getStringArgument(myArguments[0]), "fix crossing in dialog");
+        // fix crossings
+        new InternalTestStep(myTestSystem, new DialogArgument(myArguments[0]), "fix crossings");
+        // accept changes
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept fix");
     }
 }
 
@@ -979,8 +985,10 @@ InternalTestStep::fixStoppingPlace() {
         // save config
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
                              Category::APP, "save netedit config");
-        // create fix dialog test
-        //new InternalTestStep(saveConfig, getStringArgument(myArguments[0]), "fix stoppingPlace in dialog");
+        // fix stoppingPlace
+        new InternalTestStep(myTestSystem, new DialogArgument(myArguments[0]), "fix stoppingPlace in dialog");
+        // accept changes
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept fix");
     }
 }
 
@@ -993,8 +1001,10 @@ InternalTestStep::fixRoute() {
         // save config
         new InternalTestStep(myTestSystem, SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
                              Category::APP, "save netedit config");
-        // create fix dialog test
-        //new InternalTestStep(saveConfig, getStringArgument(myArguments[0]), "fix route in dialog");
+        // fix route
+        new InternalTestStep(myTestSystem, new DialogArgument(myArguments[0]), "fix route in dialog");
+        // accept changes
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "accept fix");
     }
 }
 
@@ -1595,8 +1605,8 @@ InternalTestStep::openAboutDialog() {
     } else {
         myCategory = Category::APP;
         myMessageID = MID_HOTKEY_F12_ABOUT;
-        // close dialog pressing space
-        buildPressKeyEvent(Category::DIALOG, "space", true);
+        // close dialog
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "close about dialog");
     }
 }
 
@@ -1816,12 +1826,11 @@ InternalTestStep::computeJunctionsVolatileOptions() {
         const auto dialogArgument = getStringArgument(myArguments[0]);
         // press space to confirm changes (updating view)
         if (dialogArgument == "yes") {
-            buildPressKeyEvent(Category::DIALOG, "space", true);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "close accepting");
         } else if (dialogArgument == "no") { 
-            buildPressKeyEvent(Category::DIALOG, "tab", false);
-            buildPressKeyEvent(Category::DIALOG, "space", true);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::CANCEL), "close canceling");
         } else {
-            buildPressKeyEvent(Category::DIALOG, "esc", true);
+            new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ABORT), "close aborting");
         }
     }
 }
