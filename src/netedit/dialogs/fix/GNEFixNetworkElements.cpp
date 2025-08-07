@@ -164,11 +164,11 @@ GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkEleme
 void
 GNEFixNetworkElements::FixCrossingOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
     // chooose solution
-    if (dialogArgument->fixSolution == "removeInvalidCrossings") {
+    if (dialogArgument->customAction == "removeInvalidCrossings") {
         myRemoveInvalidCrossings->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "saveInvalidCrossings") {
+    } else if (dialogArgument->customAction == "saveInvalidCrossings") {
         mySaveInvalidCrossings->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->fixSolution == "selectInvalidCrossings") {
+    } else if (dialogArgument->customAction == "selectInvalidCrossings") {
         mySelectInvalidCrossings->setCheck(TRUE, TRUE);
     }
 }
