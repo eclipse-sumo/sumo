@@ -138,9 +138,6 @@ protected:
     /// @brief result to indicate if this dialog was closed accepting or rejecting changes
     Result myResult = Result::CANCEL;
 
-    /// @brief flag to indicate if this dialog is being tested using internal test
-    bool myTesting = false;
-
     /// @brief open dialog
     void openDialog();
 
@@ -153,6 +150,9 @@ protected:
 private:
     /// @brief open type
     OpenType myOpenType;
+
+    /// @brief flag to indicate if this dialog is being tested using internal test
+    bool myTesting = false;
 
     /// @brief build dialog
     void buildDialog(GUIIcon titleIcon, Buttons buttons);

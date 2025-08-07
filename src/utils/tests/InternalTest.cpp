@@ -164,8 +164,12 @@ InternalTest::InternalTest(const std::string& testFile) {
         std::vector<std::pair<bool, std::string> > linesRaw;
         // read full lines until end of file
         while (std::getline(strm, line)) {
-            // ignore comments (#) and all lines that doesn't start with netedit.
-            if (!line.empty() && (line[0] != '#')) {
+            // filter lines
+            if (!line.empty() &&                // emty lines
+                !(line[0] == '#') &&            // comments
+                !startWith(line, "import") &&   // imports
+                !startWith(line, "time.") &&    // time calls
+                !startWith(line, "sys.")) {     // sys calls
                 linesRaw.push_back(std::make_pair(startWith(line, "netedit."), line));
             }
         }
