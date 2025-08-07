@@ -125,7 +125,7 @@ GNEAllowVClassesDialog::~GNEAllowVClassesDialog() {
 
 void
 GNEAllowVClassesDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // finish
+    // nothing to do
 }
 
 

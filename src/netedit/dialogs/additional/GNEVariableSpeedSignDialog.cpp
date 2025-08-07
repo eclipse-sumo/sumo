@@ -76,8 +76,8 @@ GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {}
 
 
 void
-GNEVariableSpeedSignDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // finish
+GNEVariableSpeedSignDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // nothing to do
 }
 
 

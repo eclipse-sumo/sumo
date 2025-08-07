@@ -78,8 +78,8 @@ GNERerouterDialog::~GNERerouterDialog() {}
 
 
 void
-GNERerouterDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // finish
+GNERerouterDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // nothing to do
 }
 
 

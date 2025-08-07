@@ -87,8 +87,8 @@ GNERouteDialog::~GNERouteDialog() {}
 
 
 void
-GNERouteDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    //
+GNERouteDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // nothing to do
 }
 
 

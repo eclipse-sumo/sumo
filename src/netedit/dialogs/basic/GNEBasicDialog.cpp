@@ -49,7 +49,7 @@ GNEBasicDialog::~GNEBasicDialog() {
 
 void
 GNEBasicDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // finish runInternalTest
+    // nothing to do
 }
 
 /****************************************************************************/

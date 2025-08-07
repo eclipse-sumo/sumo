@@ -210,8 +210,8 @@ GNERerouterIntervalDialog::~GNERerouterIntervalDialog() {}
 
 
 void
-GNERerouterIntervalDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // finish
+GNERerouterIntervalDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // nothing to do
 }
 
 

@@ -111,8 +111,8 @@ GNECalibratorDialog::~GNECalibratorDialog() {}
 
 
 void
-GNECalibratorDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // finish
+GNECalibratorDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // nothing to do
 }
 
 
