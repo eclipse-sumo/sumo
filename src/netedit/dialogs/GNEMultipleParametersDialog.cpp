@@ -499,7 +499,7 @@ GNEMultipleParametersDialog::~GNEMultipleParametersDialog() {}
 
 void
 GNEMultipleParametersDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // finish
+    // nothing to do
 }
 
 

@@ -162,7 +162,7 @@ GNEOptionsDialog::~GNEOptionsDialog() { }
 
 void
 GNEOptionsDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // finish runInternalTest
+    // nothing to do
 }
 
 

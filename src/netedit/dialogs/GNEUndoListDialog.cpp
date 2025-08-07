@@ -53,8 +53,8 @@ GNEUndoListDialog::~GNEUndoListDialog() {}
 
 
 void
-GNEUndoListDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    //
+GNEUndoListDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // nothing to do
 }
 
 

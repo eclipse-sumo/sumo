@@ -108,7 +108,7 @@ GNEPythonToolDialog::~GNEPythonToolDialog() {}
 
 void
 GNEPythonToolDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // finish
+    // nothing to do
 }
 
 

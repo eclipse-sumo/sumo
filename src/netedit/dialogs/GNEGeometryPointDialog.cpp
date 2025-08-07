@@ -92,8 +92,8 @@ GNEGeometryPointDialog::getEditedPosition() const {
 
 
 void
-GNEGeometryPointDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    //
+GNEGeometryPointDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // nothing to do
 }
 
 

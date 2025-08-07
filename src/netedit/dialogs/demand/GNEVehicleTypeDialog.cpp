@@ -1811,8 +1811,8 @@ GNEVehicleTypeDialog::~GNEVehicleTypeDialog() {}
 
 
 void
-GNEVehicleTypeDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    //
+GNEVehicleTypeDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // nothing to do
 }
 
 

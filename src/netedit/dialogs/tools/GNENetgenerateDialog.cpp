@@ -112,7 +112,7 @@ GNENetgenerateDialog::~GNENetgenerateDialog() {}
 
 void
 GNENetgenerateDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // finish
+    // nothing to do
 }
 
 

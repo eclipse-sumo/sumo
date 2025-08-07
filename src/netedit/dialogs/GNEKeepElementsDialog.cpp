@@ -46,7 +46,7 @@ GNEKeepElementsDialog::~GNEKeepElementsDialog() {
 
 void
 GNEKeepElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // finish
+    // nothing to do
 }
 
 /****************************************************************************/

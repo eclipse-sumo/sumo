@@ -95,7 +95,7 @@ GNEHelpAttributesDialog::~GNEHelpAttributesDialog() {
 
 void
 GNEHelpAttributesDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // finish runInternalTest
+    // nothing to do
 }
 
 /****************************************************************************/

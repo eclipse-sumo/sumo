@@ -91,7 +91,7 @@ GNERunNetgenerateDialog::~GNERunNetgenerateDialog() {}
 
 void
 GNERunNetgenerateDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // finish
+    // nothing to do
 }
 
 
