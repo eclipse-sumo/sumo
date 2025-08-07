@@ -44,13 +44,13 @@ public:
         /// @brief constructor
         FixEdgeOptions(GNEFixNetworkElements* fixNetworkElementsParent);
 
-        /// @brief run internal test
-        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+        /// @brief select internal test solution
+        void selectInternalTestSolution(const std::string &solution);
 
-		/// @brief apply selected fix option
+        /// @brief apply selected fix option
         bool applyFixOption();
 
-		/// @name FOX-callbacks
+        /// @name FOX-callbacks
         /// @{
 
         /// @brief called when user select a option
@@ -88,13 +88,13 @@ public:
         /// @brief constructor
         FixCrossingOptions(GNEFixNetworkElements* fixNetworkElementsParent);
 
-        /// @brief run internal test
-        void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+        /// @brief select internal test solution
+        void selectInternalTestSolution(const std::string &solution);
 
-		/// @brief apply selected fix option
+        /// @brief apply selected fix option
         bool applyFixOption();
 
-		/// @name FOX-callbacks
+        /// @name FOX-callbacks
         /// @{
 
         /// @brief called when user select a option
@@ -129,9 +129,6 @@ public:
 
     /// @brief destructor
     ~GNEFixNetworkElements();
-
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
 
     /// @name FOX-callbacks
     /// @{

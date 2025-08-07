@@ -94,13 +94,13 @@ GNEFixDemandElementsDialog::FixRouteOptions::FixRouteOptions(GNEFixDemandElement
 
 
 void
-GNEFixDemandElementsDialog::FixRouteOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+GNEFixDemandElementsDialog::FixRouteOptions::selectInternalTestSolution(const std::string &solution) {
     // chooose solution
-    if (dialogArgument->customAction == "saveRouteInvalids") {
+    if (solution == "saveRouteInvalids") {
         mySaveInvalidRoutes->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->customAction == "removeRouteInvalids") {
+    } else if (solution == "removeRouteInvalids") {
         myRemoveInvalidRoutes->setCheck(TRUE, TRUE);
-    } else if (dialogArgument->customAction == "selectRouteInvalids") {
+    } else if (solution == "selectRouteInvalids") {
         mySelectRouteInvalids->setCheck(TRUE, TRUE);
     }
 }
@@ -218,7 +218,7 @@ GNEFixDemandElementsDialog::FixVehicleOptions::FixVehicleOptions(GNEFixDemandEle
 
 
 void
-GNEFixDemandElementsDialog::FixVehicleOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+GNEFixDemandElementsDialog::FixVehicleOptions::selectInternalTestSolution(const std::string &solution) {
 }
 
 
@@ -330,7 +330,7 @@ GNEFixDemandElementsDialog::FixStopPositionOptions::FixStopPositionOptions(GNEFi
 
 
 void
-GNEFixDemandElementsDialog::FixStopPositionOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+GNEFixDemandElementsDialog::FixStopPositionOptions::selectInternalTestSolution(const std::string &solution) {
 }
 
 
@@ -428,7 +428,7 @@ GNEFixDemandElementsDialog::FixPlanOptions::FixPlanOptions(GNEFixDemandElementsD
 
 
 void
-GNEFixDemandElementsDialog::FixPlanOptions::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+GNEFixDemandElementsDialog::FixPlanOptions::selectInternalTestSolution(const std::string &solution) {
 }
 
 
@@ -527,18 +527,6 @@ GNEFixDemandElementsDialog::GNEFixDemandElementsDialog(GNEApplicationWindow* mai
 
 
 GNEFixDemandElementsDialog::~GNEFixDemandElementsDialog() {
-}
-
-
-void
-GNEFixDemandElementsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
-    // run internal test in all modules
-    myFixRouteOptions->runInternalTest(dialogArgument);
-    myFixVehicleOptions->runInternalTest(dialogArgument);
-    myFixStopPositionOptions->runInternalTest(dialogArgument);
-    myFixPlanOptions->runInternalTest(dialogArgument);
-    // accept changes
-    onCmdAccept(nullptr, 0, nullptr);
 }
 
 /****************************************************************************/
