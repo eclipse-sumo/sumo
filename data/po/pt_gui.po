@@ -7,12 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-07-29 11:04+0200\n"
-"PO-Revision-Date: 2025-07-28 23:04+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
-"br>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
-"sumo-gui-netedit/pt/>\n"
+"POT-Creation-Date: 2025-07-30 09:53+0100\n"
+"PO-Revision-Date: 2025-08-05 15:56+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -563,11 +561,11 @@ msgstr "Mostra/oculta o atraso da simulação."
 #: src/gui/GUIApplicationWindow.cpp:648
 #: src/netedit/GNEApplicationWindowHelper.cpp:2172
 msgid "Clear Message Window"
-msgstr ""
+msgstr "Limpar janela de mensagens"
 
 #: src/gui/GUIApplicationWindow.cpp:648
 msgid "Clear the message window."
-msgstr ""
+msgstr "Limpa a janela de mensagens."
 
 #: src/gui/GUIApplicationWindow.cpp:655
 #: src/netedit/GNEApplicationWindow.cpp:1540
@@ -576,12 +574,12 @@ msgstr "&Ajuda"
 
 #: src/gui/GUIApplicationWindow.cpp:657
 msgid "&Online Documentation"
-msgstr ""
+msgstr "&Documentação Online"
 
 #: src/gui/GUIApplicationWindow.cpp:657
 #: src/netedit/GNEApplicationWindowHelper.cpp:2188
 msgid "Open Online documentation."
-msgstr ""
+msgstr "Abre a documentação online."
 
 #: src/gui/GUIApplicationWindow.cpp:660
 msgid "&Changelog"
@@ -590,7 +588,7 @@ msgstr "&Registro de alterações"
 #: src/gui/GUIApplicationWindow.cpp:660
 #: src/netedit/GNEApplicationWindowHelper.cpp:2191
 msgid "Open Changelog."
-msgstr ""
+msgstr "Abre registro de mudanças."
 
 #: src/gui/GUIApplicationWindow.cpp:662
 msgid "&Hotkeys"
@@ -599,7 +597,7 @@ msgstr "&Atalhos"
 #: src/gui/GUIApplicationWindow.cpp:662
 #: src/netedit/GNEApplicationWindowHelper.cpp:2193
 msgid "Open Hotkeys."
-msgstr ""
+msgstr "Abre atalhos."
 
 #: src/gui/GUIApplicationWindow.cpp:664
 msgid "&Tutorial"
@@ -608,7 +606,7 @@ msgstr "&Tutorial"
 #: src/gui/GUIApplicationWindow.cpp:664
 #: src/netedit/GNEApplicationWindowHelper.cpp:2195
 msgid "Open Tutorial."
-msgstr ""
+msgstr "Abrir tutorial."
 
 #: src/gui/GUIApplicationWindow.cpp:666
 msgid "&Feedback"
@@ -616,7 +614,7 @@ msgstr "&Feedback"
 
 #: src/gui/GUIApplicationWindow.cpp:666
 msgid "Open feedback dialog."
-msgstr ""
+msgstr "Abre a janela de feedbacks."
 
 #: src/gui/GUIApplicationWindow.cpp:669
 msgid "&About"
@@ -624,23 +622,23 @@ msgstr "&Sobre"
 
 #: src/gui/GUIApplicationWindow.cpp:669
 msgid "About sumo-gui."
-msgstr ""
+msgstr "Sobre sumo-gui."
 
 #: src/gui/GUIApplicationWindow.cpp:684
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
-msgstr ""
+msgstr "\tAbrir simulação\tAbre uma simulação (arquivo de configuração)."
 
 #: src/gui/GUIApplicationWindow.cpp:686
 msgid "\tOpen network\tOpen a network."
-msgstr ""
+msgstr "\tAbrir rede\tAbre uma rede."
 
 #: src/gui/GUIApplicationWindow.cpp:688
 msgid "\tReload\tReloads the simulation / the network."
-msgstr ""
+msgstr "\tRecarregar \tRecarrega a simulação / rede."
 
 #: src/gui/GUIApplicationWindow.cpp:697
 msgid "\tRun\tStart/Resume the loaded simulation."
-msgstr ""
+msgstr "\tExecutar \tInicia / resume a simulação carregada."
 
 #: src/gui/GUIApplicationWindow.cpp:699
 msgid "\tStop\tHalt the running simulation."
@@ -11916,7 +11914,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:454
 #, c-format
-msgid "Select existent o create new file for % attribute"
+msgid "Select existent or create new file for % attribute"
 msgstr ""
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:455

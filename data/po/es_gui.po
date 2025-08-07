@@ -12317,7 +12317,7 @@ msgstr "Mover elemento un carril hacia abajo"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:454
 #, c-format
-msgid "Select existent o create new file for % attribute"
+msgid "Select existent or create new file for % attribute"
 msgstr "Seleccionar archivo existente o crear uno nuevo para el atributo %"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:455

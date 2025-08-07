@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-07-30 09:53+0100\n"
+"POT-Creation-Date: 2025-08-05 18:04+0100\n"
 "PO-Revision-Date: 2024-12-11 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/projects/eclipse-sumo/applications/zh_Hans/>\n"
@@ -3885,194 +3885,194 @@ msgid ""
 "Crossing point between traffic from links % and % not found."
 msgstr "由于路口'%'处的内部车道几何形状不佳，无法计算SSM。未找到从路段%和%的交通流之间的交叉点。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3891
-#: src/microsim/devices/MSDevice_SSM.cpp:4170
+#: src/microsim/devices/MSDevice_SSM.cpp:3892
+#: src/microsim/devices/MSDevice_SSM.cpp:4174
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.measures'."
 msgstr "车辆参数'ssm.measures'的数值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3897
-#: src/microsim/devices/MSDevice_SSM.cpp:4176
+#: src/microsim/devices/MSDevice_SSM.cpp:3898
+#: src/microsim/devices/MSDevice_SSM.cpp:4180
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.measures'."
 msgstr "车辆类型（vType）参数'ssm.measures'的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3902
+#: src/microsim/devices/MSDevice_SSM.cpp:3903
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.file'. Using "
 "default of '%'."
 msgstr "车辆'%'没有提供车辆参数'device.ssm.file'文件。使用默认的'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3925
+#: src/microsim/devices/MSDevice_SSM.cpp:3929
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.geo'."
 msgstr "车辆参数'ssm.geo'的数值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3931
+#: src/microsim/devices/MSDevice_SSM.cpp:3935
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.geo'."
 msgstr "vType参数'ssm.geo'的无效值'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3936
+#: src/microsim/devices/MSDevice_SSM.cpp:3940
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.geo'. Using "
 "default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.sm.geo'。使用默认的'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3952
+#: src/microsim/devices/MSDevice_SSM.cpp:3956
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-positions'."
 msgstr "车辆参数'SSM.Write-positions'的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3958
+#: src/microsim/devices/MSDevice_SSM.cpp:3962
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-positions'."
 msgstr "vType参数'ssm.write-positions'的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3963
+#: src/microsim/devices/MSDevice_SSM.cpp:3967
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-positions'. "
 "Using default of '%'."
 msgstr "车辆'%'没有提供车辆参数'device.sm.write-positions'记录的位置。使用默认的'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3979
+#: src/microsim/devices/MSDevice_SSM.cpp:3983
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-lane-positions'."
 msgstr "车辆参数'ssm.write-lan-positions'记录的位置值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3985
+#: src/microsim/devices/MSDevice_SSM.cpp:3989
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-lane-positions'."
 msgstr "vType参数'ssm.write-lan-positions'记录的位置值'%无效'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:3990
+#: src/microsim/devices/MSDevice_SSM.cpp:3994
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-lane-"
 "positions'. Using default of '%'."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4006
+#: src/microsim/devices/MSDevice_SSM.cpp:4010
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.conflict-order'."
 msgstr "车辆参数 'ssm.conflict-order' 的值 '%' 无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4012
+#: src/microsim/devices/MSDevice_SSM.cpp:4016
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.conflict-order'."
 msgstr "vType 参数 'ssm.conflict-order '的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4017
+#: src/microsim/devices/MSDevice_SSM.cpp:4021
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.exclude-conflict-"
 "types'. Using default of '%'."
 msgstr "车辆 '%' 不提供车辆参数 'device.ssm.exclude-conflict-types'。使用默认的'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4037
+#: src/microsim/devices/MSDevice_SSM.cpp:4041
 msgid ""
 "SSM exclude-conflict-type '%' is not supported. Aborting construction of SSM"
 " device '%'."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4054
+#: src/microsim/devices/MSDevice_SSM.cpp:4058
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.range'."
 msgstr "车辆参数'ssm.range'的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4060
+#: src/microsim/devices/MSDevice_SSM.cpp:4064
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.range'."
 msgstr "vType参数'ssm.range'的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4065
+#: src/microsim/devices/MSDevice_SSM.cpp:4069
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.range'. Using "
 "default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.sm.range'。使用默认的'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4081
+#: src/microsim/devices/MSDevice_SSM.cpp:4085
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.mdrac.prt'."
 msgstr "车辆参数 'ssm.mdrac.prt '的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4087
+#: src/microsim/devices/MSDevice_SSM.cpp:4091
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.mdrac.prt'."
 msgstr "vType 参数 'ssm.mdrac.prt '的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4092
+#: src/microsim/devices/MSDevice_SSM.cpp:4096
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.mdrac.prt'. Using "
 "default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.ssm.mdrac.prt'。使用默认的'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4110
+#: src/microsim/devices/MSDevice_SSM.cpp:4114
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.extratime'."
 msgstr "车辆参数'ssm.extratime'的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4116
+#: src/microsim/devices/MSDevice_SSM.cpp:4120
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.extratime'."
 msgstr "vType参数'ssm.extratime'的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4121
+#: src/microsim/devices/MSDevice_SSM.cpp:4125
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.extratime'. Using "
 "default of '%'."
 msgstr "车辆'%'没有提供车辆参数'device.sm.extratime'。使用默认的'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4127
+#: src/microsim/devices/MSDevice_SSM.cpp:4131
 #, c-format
 msgid ""
 "Negative (or no) value encountered for vehicle parameter "
 "'device.ssm.extratime' in vehicle '%' using default value % instead."
 msgstr "车辆参数'device.sm.extratime'在车辆'%'中遇到了负值（或没有），使用默认值%代替。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4141
+#: src/microsim/devices/MSDevice_SSM.cpp:4145
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.trajectories'."
 msgstr "车辆参数'ssm.trajectories'的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4147
+#: src/microsim/devices/MSDevice_SSM.cpp:4151
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.trajectories'."
 msgstr "vType参数'SSM.trajectories'的无效值'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4152
+#: src/microsim/devices/MSDevice_SSM.cpp:4156
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.trajectories'. "
 "Using default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.sm.trajectories'。使用默认的'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4181
+#: src/microsim/devices/MSDevice_SSM.cpp:4185
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.measures'. Using "
 "default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.sm.measures'。使用默认的'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4198
+#: src/microsim/devices/MSDevice_SSM.cpp:4202
 msgid ""
 "SSM identifier '%' is not supported. Aborting construction of SSM device "
 "'%'."
 msgstr "不支持SSM标识符'%'。正在终止SSM装置'%'的构建。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4209
+#: src/microsim/devices/MSDevice_SSM.cpp:4213
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.thresholds'."
 msgstr "车辆参数'ssm.thresholds'的值'%'无效。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4215
+#: src/microsim/devices/MSDevice_SSM.cpp:4219
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.thresholds'."
 msgstr "vType参数'ssm.thresholds'的无效值'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4220
+#: src/microsim/devices/MSDevice_SSM.cpp:4224
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.thresholds'. Using"
 " default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.sm.thresholds'。使用默认的'%'。"
 
-#: src/microsim/devices/MSDevice_SSM.cpp:4235
+#: src/microsim/devices/MSDevice_SSM.cpp:4239
 msgid ""
 "Given list of thresholds ('%') is not of the same size as the list of measures ('%').\n"
 "Please specify exactly one threshold for each measure."
@@ -4664,15 +4664,15 @@ msgstr "未知的车道区域检测器'%'作为基于延迟_的触动式信号�
 msgid "Found circular block after % (% edges, length %)"
 msgstr ""
 
-#: src/microsim/traffic_lights/MSDriveWay.cpp:2093
+#: src/microsim/traffic_lights/MSDriveWay.cpp:2096
 msgid "Unknown driveWay '%' with route '%'"
 msgstr ""
 
-#: src/microsim/traffic_lights/MSDriveWay.cpp:2103
+#: src/microsim/traffic_lights/MSDriveWay.cpp:2106
 msgid "Unknown parent driveway '%' for subDriveWay '%'"
 msgstr ""
 
-#: src/microsim/traffic_lights/MSDriveWay.cpp:2122
+#: src/microsim/traffic_lights/MSDriveWay.cpp:2125
 msgid "Unknown vehicle '%' in driveway '%'"
 msgstr ""
 
@@ -5231,7 +5231,7 @@ msgid ""
 "Terminating route."
 msgstr "由于封闭路段，无法为车辆'%'保留目的地路段'%'。终止路径。"
 
-#: src/microsim/trigger/MSTriggeredRerouter.cpp:1169
+#: src/microsim/trigger/MSTriggeredRerouter.cpp:1174
 msgid ""
 "ParkingArea '%' is targeted by rerouter '%' but doesn't have its own "
 "rerouter. This may cause parking search to abort."
@@ -5249,7 +5249,7 @@ msgstr "将无效的平交道(rail_crossing)转换为以优先等级(priority)�
 msgid "Converting invalid rail_crossing to traffic_light at junction '%'."
 msgstr "在路口'%'处将无效的铁路交叉口转换为交通灯。"
 
-#: src/netbuild/NBAlgorithms.cpp:378 src/netbuild/NBNodeCont.cpp:1854
+#: src/netbuild/NBAlgorithms.cpp:378 src/netbuild/NBNodeCont.cpp:1858
 #: src/netimport/NIImporter_OpenStreetMap.cpp:438
 #: src/netimport/NIXMLNodesHandler.cpp:360
 msgid "Could not allocate tls '%'."
@@ -5411,200 +5411,200 @@ msgstr "路段 '%' 至少需要一个车道。"
 msgid "Invalid edge id '%'."
 msgstr "无效的路段识别名(id) '%'。"
 
-#: src/netbuild/NBEdge.cpp:501 src/netbuild/NBEdge.cpp:647
+#: src/netbuild/NBEdge.cpp:501 src/netbuild/NBEdge.cpp:668
 #, c-format
 msgid "Edge's '%' from- and to-node are at the same position."
 msgstr "路段的 '%' 起点及终点在相同的位置。"
 
-#: src/netbuild/NBEdge.cpp:1054
+#: src/netbuild/NBEdge.cpp:1075
 msgid "Removing sharp angle of % degrees at edge '%', segment %."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:1063
+#: src/netbuild/NBEdge.cpp:1084
 msgid "Found angle of % degrees at edge '%', segment %."
 msgstr "在路段 '%',区段 % 处找到 % 度的角度。"
 
-#: src/netbuild/NBEdge.cpp:1076
+#: src/netbuild/NBEdge.cpp:1097
 msgid "Removing sharp turn with radius % at the % of edge '%'."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:1077 src/netbuild/NBEdge.cpp:1086
+#: src/netbuild/NBEdge.cpp:1098 src/netbuild/NBEdge.cpp:1107
 msgid "start"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:1077 src/netbuild/NBEdge.cpp:1086
+#: src/netbuild/NBEdge.cpp:1098 src/netbuild/NBEdge.cpp:1107
 msgid "end"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:1085
+#: src/netbuild/NBEdge.cpp:1106
 msgid "Found sharp turn with radius % at the % of edge '%'."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:1224
+#: src/netbuild/NBEdge.cpp:1245
 msgid "Could not set connection from '%' to '%'."
 msgstr "无法从'%' 到 '%' 设定连接线(connection)。"
 
-#: src/netbuild/NBEdge.cpp:1743
+#: src/netbuild/NBEdge.cpp:1764
 msgid "Connection '%_%->%_%' is only %m short."
 msgstr "接线(connection) '%_%->%_%' 只有 % 米短。"
 
-#: src/netbuild/NBEdge.cpp:1846
+#: src/netbuild/NBEdge.cpp:1867
 msgid ""
 "Intersecting left turns at junction '%' from lane '%' and lane '%' (increase"
 " junction radius to avoid this)."
 msgstr "从车道 '%' 和车道 '%' 在路口 '%' 与左转交会 (增加路口半径以避免这种情況)。"
 
-#: src/netbuild/NBEdge.cpp:1951
+#: src/netbuild/NBEdge.cpp:1972
 msgid ""
 "Speed of % connection '%' reduced by % due to turning radius of % (length=%,"
 " angle=%)."
 msgstr "由于转弯半径为 %,连接线'%' 的速度 % 降低了 % （长度=%，角度=%）。"
 
-#: src/netbuild/NBEdge.cpp:2293
+#: src/netbuild/NBEdge.cpp:2314
 msgid "In lane '%': lane shape could not be determined (%)."
 msgstr "在车道 '%':无法确定车道形状 (%)。"
 
-#: src/netbuild/NBEdge.cpp:2306
+#: src/netbuild/NBEdge.cpp:2327
 msgid "In lane '%': Could not build shape (%)."
 msgstr "在车道 '%':无法建立形状 (%)。"
 
-#: src/netbuild/NBEdge.cpp:2736
+#: src/netbuild/NBEdge.cpp:2757
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions but only % targets"
 msgstr "无法在路段 '%' 上应用转弯标志信息，因为有 % 的方向,但只有 % 的目标(targets)"
 
-#: src/netbuild/NBEdge.cpp:2777
+#: src/netbuild/NBEdge.cpp:2798
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions and % targets (after target pruning)"
 msgstr "无法在路段 '%' 上应用转弯标志信息，因为有 % 的方向,但只有 % 的目标(targets)(目标修剪后)"
 
-#: src/netbuild/NBEdge.cpp:2794
+#: src/netbuild/NBEdge.cpp:2815
 msgid ""
 "Cannot apply turn sign information for edge '%' because the target edge '%' "
 "has no suitable lanes"
 msgstr "无法於路段 '%' 应用转弯标志信息，因为目标路段 '%' 没有合适的车道"
 
-#: src/netbuild/NBEdge.cpp:2800
+#: src/netbuild/NBEdge.cpp:2821
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "connections with directions '%' but target edge '%' has only % suitable "
 "lanes"
 msgstr "无法在路段'%'上应用转弯标志信息，因为有具有%方向的'%'连接线，但目标路段'%'只有%的合适车道"
 
-#: src/netbuild/NBEdge.cpp:2827
+#: src/netbuild/NBEdge.cpp:2848
 msgid ""
 "Cannot apply turn sign information for edge '%' because not enough target "
 "lanes could be determined for direction '%'"
 msgstr "无法在路段\"%\"应用转弯标志信息，因为无法为方向\"%\"确定有足够的目标车道"
 
-#: src/netbuild/NBEdge.cpp:3090
+#: src/netbuild/NBEdge.cpp:3111
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
 msgstr "路段 '%' 在路口 '%' 未与任何离开(outgoing)路段连接。"
 
-#: src/netbuild/NBEdge.cpp:3104
+#: src/netbuild/NBEdge.cpp:3125
 msgid "Lane '%' is not connected from any incoming edge at junction '%'."
 msgstr "车道 '%' 在路口 '%' 未与任何进入(incoming)路段连接。"
 
-#: src/netbuild/NBEdge.cpp:3121
+#: src/netbuild/NBEdge.cpp:3142
 #, c-format
 msgid "Ignoring changeLeft prohibition for '%' to avoid dead-end"
 msgstr "忽略 '%' 的 禁止换左(changeLeft)以避免造成死结(dead-end)"
 
-#: src/netbuild/NBEdge.cpp:3124
+#: src/netbuild/NBEdge.cpp:3145
 #, c-format
 msgid "Ignoring changeRight prohibition for '%' to avoid dead-end"
 msgstr "忽略 '%' 的 禁止换右(changeRight)以避免造成死结(dead-end)"
 
-#: src/netbuild/NBEdge.cpp:3177
+#: src/netbuild/NBEdge.cpp:3198
 msgid "Moving opposite lane '%' from invalid lane '%' to lane index %."
 msgstr "將对向车道 '%' 从无效车道 '%' 移动到车道索引(lane index) %。"
 
-#: src/netbuild/NBEdge.cpp:3179
+#: src/netbuild/NBEdge.cpp:3200
 msgid "Removing opposite lane '%' for invalid lane '%'."
 msgstr "移除无效车道 '%' 的对向车道 '%'。"
 
-#: src/netbuild/NBEdge.cpp:3188
+#: src/netbuild/NBEdge.cpp:3209
 msgid "Removing unknown opposite lane '%' for edge '%'."
 msgstr "移除路段 '%' 的未知对向车道 '%'。"
 
-#: src/netbuild/NBEdge.cpp:3192
+#: src/netbuild/NBEdge.cpp:3213
 msgid "Opposite lane '%' does not reverse-connect the same nodes as edge '%'!"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:3197 src/netbuild/NBEdge.cpp:3209
+#: src/netbuild/NBEdge.cpp:3218 src/netbuild/NBEdge.cpp:3230
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
 msgstr "將路段 '%' 的无效对向车道 '%' 调整为 '%'。"
 
-#: src/netbuild/NBEdge.cpp:3203
+#: src/netbuild/NBEdge.cpp:3224
 msgid "Adapting missing opposite lane '%' for edge '%'."
 msgstr "为路段 '%' 调整缺失的对向车道“ '%'。"
 
-#: src/netbuild/NBEdge.cpp:3213
+#: src/netbuild/NBEdge.cpp:3234
 msgid "Opposite edge '%' does not reverse-connect the same nodes as edge '%'!"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:3215
+#: src/netbuild/NBEdge.cpp:3236
 msgid "Adapting inconsistent opposite lanes for edges '%', '%' and '%'."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:3227
+#: src/netbuild/NBEdge.cpp:3248
 msgid ""
 "Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."
 msgstr "车道 '%' (长度 %)和路段 '%' (长度 %)的平均路段长度。"
 
-#: src/netbuild/NBEdge.cpp:3251
+#: src/netbuild/NBEdge.cpp:3272
 msgid "Invalid endOffset % at lane '%' with length % (startOffset %)."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:3254
+#: src/netbuild/NBEdge.cpp:3275
 msgid ""
 "Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:3256
+#: src/netbuild/NBEdge.cpp:3277
 #, c-format
 msgid "Lane '%' has a maximum allowed speed of 0."
 msgstr "车道 '%' 的最大允许速度为 0。"
 
-#: src/netbuild/NBEdge.cpp:3886
+#: src/netbuild/NBEdge.cpp:3907
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
 msgstr "路段 '%' 上的车道 '%'已经有交通信号。"
 
-#: src/netbuild/NBEdge.cpp:3892
+#: src/netbuild/NBEdge.cpp:3913
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
 msgstr "无法设定信号逻辑(tlLogic) '%' 的任何信号 （未知群组）。"
 
-#: src/netbuild/NBEdge.cpp:4381
+#: src/netbuild/NBEdge.cpp:4416
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
 msgstr "忽略路段 '%' 的无效 stopOffset （负偏移值(offset)）。"
 
-#: src/netbuild/NBEdge.cpp:4390
+#: src/netbuild/NBEdge.cpp:4425
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
 msgstr "忽略车道 '%' 的无效 stopOffset （负偏移值(offset)）。"
 
-#: src/netbuild/NBEdge.cpp:4396
+#: src/netbuild/NBEdge.cpp:4431
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr "忽略车道 '%' 的无效 stopOffset （无效的车道索引）。"
 
-#: src/netbuild/NBEdge.cpp:4660
+#: src/netbuild/NBEdge.cpp:4695
 #, c-format
 msgid "Edge % allows pedestrians on all lanes"
 msgstr "路段 '%' 允许行人在所有车道上"
 
-#: src/netbuild/NBEdge.cpp:4718
+#: src/netbuild/NBEdge.cpp:4753
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr "路段 '%' 已经有用于 %s 的专用车道。不再增加另一个。"
 
-#: src/netbuild/NBEdge.cpp:4758
+#: src/netbuild/NBEdge.cpp:4793
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr "路段 '%' 沒有用于 %s 的专用车道。无法恢复。"
 
-#: src/netbuild/NBEdge.cpp:4810
+#: src/netbuild/NBEdge.cpp:4848
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
 msgstr "无法避免在路段 '%' 的节点 '%' 上重叠形状(shape)。"
 
@@ -6068,66 +6068,66 @@ msgstr "假设路网內为左行(left-hand)交通"
 msgid "Interprets STR[] as list of junctions to exclude from joining"
 msgstr "將 STR[]解释为要从整合(joining)中排除的路口清单"
 
-#: src/netbuild/NBFrame.cpp:371
+#: src/netbuild/NBFrame.cpp:377
 msgid "Modifies all edge speeds by adding FLOAT"
 msgstr "通过增加 FLOAT 修改所有路段速度"
 
-#: src/netbuild/NBFrame.cpp:374
+#: src/netbuild/NBFrame.cpp:380
 msgid "Modifies all edge speeds by multiplying by FLOAT"
 msgstr "通过乘以 FLOAT 修改所有路段速度"
 
-#: src/netbuild/NBFrame.cpp:377
+#: src/netbuild/NBFrame.cpp:383
 msgid "Modifies all edge speeds to at least FLOAT"
 msgstr "將所有路段速度修改为至少 FLOAT"
 
-#: src/netbuild/NBFrame.cpp:385
+#: src/netbuild/NBFrame.cpp:391
 msgid "Generate INT intermediate points to smooth out intersection corners"
 msgstr "产生 INT 中间点以平滑路口角落的曲线"
 
-#: src/netbuild/NBFrame.cpp:388
+#: src/netbuild/NBFrame.cpp:394
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the intersection"
 msgstr "产生 INT 中间点以平滑路口內的车道曲线"
 
-#: src/netbuild/NBFrame.cpp:391
+#: src/netbuild/NBFrame.cpp:397
 msgid ""
 "Generate longer intersections to allow for smooth s-curves when the number "
 "of lanes changes"
 msgstr "产生较长的路口，以便在车道数量发生变化时能允许有平滑的 s 曲线"
 
-#: src/netbuild/NBFrame.cpp:438
+#: src/netbuild/NBFrame.cpp:444
 msgid "Forces rectangular cuts between lanes and intersections"
 msgstr "强制在车道和路口之间进行矩形切割"
 
-#: src/netbuild/NBFrame.cpp:501
+#: src/netbuild/NBFrame.cpp:507
 msgid "Always build walking areas even if there are no crossings"
 msgstr "即使沒有人行穿越道，也要一直建立步行区"
 
-#: src/netbuild/NBFrame.cpp:504
+#: src/netbuild/NBFrame.cpp:510
 msgid ""
 "Do not create a walkingarea between sidewalks that are connected by a "
 "pedestrian junction within FLOAT"
 msgstr "不要在 FLOAT 中由行人路口连接的人行道之间建立步行区"
 
-#: src/netbuild/NBFrame.cpp:543
+#: src/netbuild/NBFrame.cpp:549
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
 msgstr "将 STR[] 解释为要从连接中排除的 tls id 列表"
 
-#: src/netbuild/NBFrame.cpp:652
+#: src/netbuild/NBFrame.cpp:658
 msgid "Only keep edges with speed in meters/second > FLOAT"
 msgstr "只保留以米/秒为单位的速度 > FLOAT 的路段"
 
-#: src/netbuild/NBFrame.cpp:656
+#: src/netbuild/NBFrame.cpp:662
 msgid "Remove edges in STR[]"
 msgstr "移除在 STR[]中的路段"
 
-#: src/netbuild/NBFrame.cpp:660
+#: src/netbuild/NBFrame.cpp:666
 msgid ""
 "Only keep edges in STR[] or those which are kept due to other keep-edges or "
 "remove-edges options"
 msgstr "仅保留 STR[] 中的路段或由于其他保留路段(keep-edges)或刪除路段(remove-edges)选项而保留的路段"
 
-#: src/netbuild/NBFrame.cpp:663
+#: src/netbuild/NBFrame.cpp:669
 msgid ""
 "Only keep edges in FILE (Each id on a single line. Selection files from "
 "sumo-gui are also supported) or those which are kept due to other keep-edges"
@@ -6136,17 +6136,17 @@ msgstr ""
 "只保留文件中的路段（每个识别名（ID）在每个单一的列上，也支持来自sumo-gui的选择文件(Selection "
 "files)）或由于其他保留路段（keep-edges）或删除路段（remove-edges）选项而被保留的路段"
 
-#: src/netbuild/NBFrame.cpp:666
+#: src/netbuild/NBFrame.cpp:672
 msgid ""
 "Remove edges in FILE. (Each id on a single line. Selection files from sumo-"
 "gui are also supported)"
 msgstr "移除文件中的路段。 (每个识别名(id)在每个单一的列上。也支持來自 sumo-gui 的选项文件(Selection files))"
 
-#: src/netbuild/NBFrame.cpp:670
+#: src/netbuild/NBFrame.cpp:676
 msgid "Remove edges after loading, patching and joining"
 msgstr ""
 
-#: src/netbuild/NBFrame.cpp:674
+#: src/netbuild/NBFrame.cpp:680
 msgid ""
 "Only keep edges which are located within the given boundary (given either as"
 " CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon "
@@ -6155,7 +6155,7 @@ msgstr ""
 "仅保留位于给定边界內的路段(边界以CARTESIAN角坐标 <xmin,ymin,xmax,ymax> 或）多边形 <x0,y0,x1, y1,...>"
 " 给定)"
 
-#: src/netbuild/NBFrame.cpp:677
+#: src/netbuild/NBFrame.cpp:683
 msgid ""
 "Only keep edges which are located within the given boundary (given either as"
 " GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon"
@@ -6164,154 +6164,154 @@ msgstr ""
 "仅保留位于给定边界內的路段（边界以大地(GEODETIC)端点坐标 <lon-min,lat-min,lon-max,lat-max> 或多边形 "
 "<lon0,lat0,lon1,lat1,...> 给定)"
 
-#: src/netbuild/NBFrame.cpp:681
+#: src/netbuild/NBFrame.cpp:687
 msgid "Only keep edges which allow one of the vclasses in STR[]"
 msgstr "仅保留允许在 STR[] 內其中一个车辆类别(vclass)的路段"
 
-#: src/netbuild/NBFrame.cpp:684
+#: src/netbuild/NBFrame.cpp:690
 msgid "Remove edges which allow only vclasses from STR[]"
 msgstr "移除只允许在 STR[] 內的车辆类别(vclasses)的路段"
 
-#: src/netbuild/NBFrame.cpp:687
+#: src/netbuild/NBFrame.cpp:693
 msgid "Only keep edges where type is in STR[]"
 msgstr "仅保留类型(type)在 STR[] 內的路段"
 
-#: src/netbuild/NBFrame.cpp:690
+#: src/netbuild/NBFrame.cpp:696
 msgid "Only keep the INT largest weakly connected components"
 msgstr "仅保留 INT 最大的弱连接组件(connected components)"
 
-#: src/netbuild/NBFrame.cpp:693
+#: src/netbuild/NBFrame.cpp:699
 msgid "Remove edges where type is in STR[]"
 msgstr "移除类型(type)在 STR[] 內的路段"
 
-#: src/netbuild/NBFrame.cpp:697
+#: src/netbuild/NBFrame.cpp:703
 msgid "Removes isolated edges"
 msgstr "移除孤立的路段"
 
-#: src/netbuild/NBFrame.cpp:701
+#: src/netbuild/NBFrame.cpp:707
 msgid "Only keep lanes with width in meters > FLOAT"
 msgstr ""
 
-#: src/netbuild/NBFrame.cpp:707
+#: src/netbuild/NBFrame.cpp:713
 msgid "All nodes will be unregulated"
 msgstr "所有节点將不受控制(unregulated)"
 
-#: src/netbuild/NBFrame.cpp:712
+#: src/netbuild/NBFrame.cpp:718
 msgid "Do not regulate nodes in STR[]"
 msgstr "不控制在 STR[] 內的节点"
 
-#: src/netbuild/NBFrame.cpp:716
+#: src/netbuild/NBFrame.cpp:722
 msgid "Do not regulate district nodes"
 msgstr "不控制分区节点"
 
-#: src/netbuild/NBFrame.cpp:722
+#: src/netbuild/NBFrame.cpp:728
 msgid "Enable ramp-guessing"
 msgstr "启用匝道猜测"
 
-#: src/netbuild/NBFrame.cpp:725
+#: src/netbuild/NBFrame.cpp:731
 msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
 msgstr "猜测入口匝道并标记加速车道（如果存在）,但不增加新的车道"
 
-#: src/netbuild/NBFrame.cpp:729
+#: src/netbuild/NBFrame.cpp:735
 msgid "Treat edges with speed > FLOAT as no ramps"
 msgstr "將速度 > FLOAT 的路段视为非匝道"
 
-#: src/netbuild/NBFrame.cpp:733
+#: src/netbuild/NBFrame.cpp:739
 msgid "Treat edges with speed < FLOAT as no highways"
 msgstr "將速度 < FLOAT 的路段视为非高速公路"
 
-#: src/netbuild/NBFrame.cpp:737
+#: src/netbuild/NBFrame.cpp:743
 msgid "Use FLOAT as ramp-length"
 msgstr "使用 FLOAT 为匝道长度"
 
-#: src/netbuild/NBFrame.cpp:741
+#: src/netbuild/NBFrame.cpp:747
 msgid "Use FLOAT as minimum ramp-length"
 msgstr "使用 FLOAT 为最短匝道长度"
 
-#: src/netbuild/NBFrame.cpp:745
+#: src/netbuild/NBFrame.cpp:751
 msgid "Tries to handle the given edges as ramps"
 msgstr "尝试将给定的路段设定为匝道"
 
-#: src/netbuild/NBFrame.cpp:748
+#: src/netbuild/NBFrame.cpp:754
 msgid "Do not consider the given edges as ramps"
 msgstr "不將给定的路段视为匝道"
 
-#: src/netbuild/NBFrame.cpp:752
+#: src/netbuild/NBFrame.cpp:758
 msgid "Avoids edge splitting"
 msgstr "避免路段分割(splitting)"
 
-#: src/netbuild/NBFrame.cpp:762
+#: src/netbuild/NBFrame.cpp:768
 #, c-format
 msgid "unsupported value '%' for option '--tls.default-type'"
 msgstr "不支持选项'--tls.default-type' 的值 '%'"
 
-#: src/netbuild/NBFrame.cpp:766
+#: src/netbuild/NBFrame.cpp:772
 msgid ""
 "only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-"
 "boundary' may be given"
 msgstr "只能給定 'keep-edges.in-boundary' 或 'keep-edges.in-geo-boundary' 其中一个选项"
 
-#: src/netbuild/NBFrame.cpp:770
+#: src/netbuild/NBFrame.cpp:776
 msgid ""
 "only one of the options 'no-internal-links' or 'crossings.guess' may be "
 "given"
 msgstr "只能给定 'no-internal-links' 或 'crossings.guess' 其中一个选项"
 
-#: src/netbuild/NBFrame.cpp:774
+#: src/netbuild/NBFrame.cpp:780
 msgid ""
 "only one of the options 'no-internal-links' or 'walkareas' may be given"
 msgstr "只能给定 'no-internal-links' 或 'walkareas' 其中一个选项"
 
-#: src/netbuild/NBFrame.cpp:778
+#: src/netbuild/NBFrame.cpp:784
 msgid ""
 "only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"
 msgstr "只能给定 'tls.green.time' 或 'tls.cycle.time' 其中一个选项"
 
-#: src/netbuild/NBFrame.cpp:782
+#: src/netbuild/NBFrame.cpp:788
 msgid "'tls.green.time' must be positive"
 msgstr ""
 
-#: src/netbuild/NBFrame.cpp:786
+#: src/netbuild/NBFrame.cpp:792
 msgid "default.lanenumber must be at least 1"
 msgstr "default.lanenumber 必须至少为1"
 
-#: src/netbuild/NBFrame.cpp:794
+#: src/netbuild/NBFrame.cpp:800
 msgid ""
 "only one of the options 'default.disallow' or 'default.allow' may be given"
 msgstr "只能给定 'default.disallow' 或 'default.allow' 其中一个选项"
 
-#: src/netbuild/NBFrame.cpp:798
+#: src/netbuild/NBFrame.cpp:804
 msgid "junctions.internal-link-detail must >= 2"
 msgstr "junctions.internal-link-detail 必须>= 2"
 
-#: src/netbuild/NBFrame.cpp:803
+#: src/netbuild/NBFrame.cpp:809
 msgid ""
 "Option 'junctions.scurve-stretch' requires internal lanes to work. Option '"
 "--no-internal-links' will be disabled."
 msgstr ""
 "选项 'junctions.scurve-stretch' 需要內部车道才能使用。 选项 '--no-internal-links' 將被禁用。"
 
-#: src/netbuild/NBFrame.cpp:810
+#: src/netbuild/NBFrame.cpp:816
 msgid ""
 "option 'default.junctions.radius' is smaller than option 'junctions.small-"
 "radius'"
 msgstr "选项 'default.junctions.radius' 小于选项 'junctions.small-radius'"
 
-#: src/netbuild/NBFrame.cpp:818
+#: src/netbuild/NBFrame.cpp:824
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
 msgstr "tls.layout 必须是 'opposites', 'incoming' 或 'alternateOneWay'"
 
-#: src/netbuild/NBFrame.cpp:823
+#: src/netbuild/NBFrame.cpp:829
 msgid "default.right-of-way must be one of '%'"
 msgstr "default.right-of-way 必须是 '%' 其中之一"
 
-#: src/netbuild/NBFrame.cpp:827
+#: src/netbuild/NBFrame.cpp:833
 msgid "roundabouts.visibility-distance must be positive or -1"
 msgstr "roundabouts.visibility-distance 必须为正数或 -1"
 
-#: src/netbuild/NBFrame.cpp:843
+#: src/netbuild/NBFrame.cpp:849
 msgid "Unknown value for default.spreadtype '%'."
 msgstr "default.spreadtype '%' 的值未知。"
 
@@ -6405,263 +6405,268 @@ msgstr "无法设定连接线(connection)的交通信号 （交通信号: %, 群
 msgid "myNeedsContRelation was not properly initialized\n"
 msgstr "myNeedsContRelation 未被正确初始化\n"
 
-#: src/netbuild/NBNetBuilder.cpp:94
+#: src/netbuild/NBNetBuilder.cpp:89
 msgid "Removing self-loops"
 msgstr "移除自我感应线圈(self-loops)"
 
-#: src/netbuild/NBNetBuilder.cpp:99
+#: src/netbuild/NBNetBuilder.cpp:94
 msgid "Finding isolated roads"
 msgstr "寻找孤立的道路"
 
-#: src/netbuild/NBNetBuilder.cpp:104
+#: src/netbuild/NBNetBuilder.cpp:99
 msgid "Finding largest components"
 msgstr "寻找最大的组件(components)"
 
-#: src/netbuild/NBNetBuilder.cpp:112 src/netbuild/NBNetBuilder.cpp:160
+#: src/netbuild/NBNetBuilder.cpp:107 src/netbuild/NBNetBuilder.cpp:161
 msgid "Revising public transport stops based on pt lines"
 msgstr "根据大众运输路线修改大众运输停靠点"
 
-#: src/netbuild/NBNetBuilder.cpp:117
+#: src/netbuild/NBNetBuilder.cpp:112
 msgid "Removing unwished edges"
 msgstr "移除不需要的路段"
 
-#: src/netbuild/NBNetBuilder.cpp:124
+#: src/netbuild/NBNetBuilder.cpp:119
 #, c-format
 msgid " Removed % edges because by minimum speed."
 msgstr ""
 
-#: src/netbuild/NBNetBuilder.cpp:129
+#: src/netbuild/NBNetBuilder.cpp:124
 #, c-format
 msgid " Removed % edges based on vClass."
 msgstr ""
 
-#: src/netbuild/NBNetBuilder.cpp:136
+#: src/netbuild/NBNetBuilder.cpp:131
 #, c-format
 msgid " Removed % edges because of lane width."
 msgstr ""
 
-#: src/netbuild/NBNetBuilder.cpp:141
+#: src/netbuild/NBNetBuilder.cpp:137
+#, c-format
+msgid " Split % edges to attach removed nodes"
+msgstr ""
+
+#: src/netbuild/NBNetBuilder.cpp:142
 msgid "Processing public transport stops"
 msgstr "正在处理大众运输停靠站"
 
-#: src/netbuild/NBNetBuilder.cpp:166
+#: src/netbuild/NBNetBuilder.cpp:167
 msgid "Align pt stop id signs with corresponding edge id signs"
 msgstr "將大众运输停靠点识别名(id)标志与相应的路段识别名(id)标志对齐"
 
-#: src/netbuild/NBNetBuilder.cpp:207
+#: src/netbuild/NBNetBuilder.cpp:208
 msgid "Joining tram edges"
 msgstr "正在合并轻轨电车(tram)路段"
 
-#: src/netbuild/NBNetBuilder.cpp:211
+#: src/netbuild/NBNetBuilder.cpp:212
 msgid " Joined % tram edges into roads."
 msgstr " % 轻轨电车(tram)路段合并于道路內。"
 
-#: src/netbuild/NBNetBuilder.cpp:250
+#: src/netbuild/NBNetBuilder.cpp:251
 msgid "Joining junction clusters"
 msgstr "正在合并路口群集(clusters)"
 
-#: src/netbuild/NBNetBuilder.cpp:255
+#: src/netbuild/NBNetBuilder.cpp:256
 #, c-format
 msgid " Joined % junction cluster(s)."
 msgstr " 合并的 % 路口群集(cluster(s))。"
 
-#: src/netbuild/NBNetBuilder.cpp:258
-msgid "Joining junctions with identical coordinates"
-msgstr "正在合并具有相同坐标的路口"
+#: src/netbuild/NBNetBuilder.cpp:259
+msgid "Joining junctions with similar coordinates"
+msgstr ""
 
-#: src/netbuild/NBNetBuilder.cpp:262
+#: src/netbuild/NBNetBuilder.cpp:263
 #, c-format
 msgid " Joined % junctions."
 msgstr " 合并的 % 路口。"
 
-#: src/netbuild/NBNetBuilder.cpp:267
+#: src/netbuild/NBNetBuilder.cpp:268
 msgid "Joining lanes"
 msgstr "正在合并车道"
 
-#: src/netbuild/NBNetBuilder.cpp:270
+#: src/netbuild/NBNetBuilder.cpp:271
 #, c-format
 msgid "   Joined lanes on % edges."
 msgstr "   在 % 路段上合并的车道。"
 
-#: src/netbuild/NBNetBuilder.cpp:280
+#: src/netbuild/NBNetBuilder.cpp:281
 #, c-format
 msgid "   % nodes removed."
 msgstr "   % 节点已移除。"
 
-#: src/netbuild/NBNetBuilder.cpp:300
+#: src/netbuild/NBNetBuilder.cpp:307
 msgid "Reducing geometries"
 msgstr "正在減少几何形狀"
 
-#: src/netbuild/NBNetBuilder.cpp:307
+#: src/netbuild/NBNetBuilder.cpp:314
 msgid "Joining similar edges"
 msgstr "正在合并相似路段"
 
-#: src/netbuild/NBNetBuilder.cpp:317
+#: src/netbuild/NBNetBuilder.cpp:324
 msgid "guessing opposite direction edges"
 msgstr "正在猜测对向路段"
 
-#: src/netbuild/NBNetBuilder.cpp:323
+#: src/netbuild/NBNetBuilder.cpp:330
 msgid "Splitting geometry edges"
 msgstr "正在分割(splitting)几何路段"
 
-#: src/netbuild/NBNetBuilder.cpp:330
+#: src/netbuild/NBNetBuilder.cpp:337
 #, c-format
 msgid " Joined % junctions after splitting geometry."
 msgstr " 分割(split)几何后,合并的 % 路口。"
 
-#: src/netbuild/NBNetBuilder.cpp:335
+#: src/netbuild/NBNetBuilder.cpp:342
 msgid "Computing turning directions"
 msgstr "正在计算转弯方向"
 
-#: src/netbuild/NBNetBuilder.cpp:344
+#: src/netbuild/NBNetBuilder.cpp:351
 msgid "Assigning nodes to traffic lights"
 msgstr "正在將节点指派分配給交通信号灯"
 
-#: src/netbuild/NBNetBuilder.cpp:367
+#: src/netbuild/NBNetBuilder.cpp:374
 msgid "Guessing and setting on-/off-ramps"
 msgstr "正在猜测及设定进出口匝道"
 
-#: src/netbuild/NBNetBuilder.cpp:385
+#: src/netbuild/NBNetBuilder.cpp:392
 msgid "Guessed % bike lanes."
 msgstr "猜测的 % 自行车车道。"
 
-#: src/netbuild/NBNetBuilder.cpp:396
+#: src/netbuild/NBNetBuilder.cpp:403
 #, c-format
 msgid "Guessed % sidewalks."
 msgstr "猜测的 % 人行道。"
 
-#: src/netbuild/NBNetBuilder.cpp:409
+#: src/netbuild/NBNetBuilder.cpp:416
 #, c-format
 msgid "Remapped % edge IDs and % node IDs."
 msgstr "重新映射的(remapped) % 路段识别名(IDs)和 % 节点识别名(IDs)。"
 
-#: src/netbuild/NBNetBuilder.cpp:425
+#: src/netbuild/NBNetBuilder.cpp:432
 msgid "Sorting nodes' edges"
 msgstr "正在排序节点的路段"
 
-#: src/netbuild/NBNetBuilder.cpp:430
+#: src/netbuild/NBNetBuilder.cpp:437
 msgid "Computing node shapes"
 msgstr "正在计算节点形狀"
 
-#: src/netbuild/NBNetBuilder.cpp:438
+#: src/netbuild/NBNetBuilder.cpp:445
 msgid "Computing edge shapes"
 msgstr "正在计算路段形狀"
 
-#: src/netbuild/NBNetBuilder.cpp:451
+#: src/netbuild/NBNetBuilder.cpp:458
 msgid "Applying speed modifications"
 msgstr "使用修改后的速度"
 
-#: src/netbuild/NBNetBuilder.cpp:464
+#: src/netbuild/NBNetBuilder.cpp:471
 msgid "Computing node types"
 msgstr "正在计算节点类型"
 
-#: src/netbuild/NBNetBuilder.cpp:476
+#: src/netbuild/NBNetBuilder.cpp:483
 #, c-format
 msgid "Guessed % pedestrian crossings."
 msgstr "猜测的 % 行人穿越道。"
 
-#: src/netbuild/NBNetBuilder.cpp:504
+#: src/netbuild/NBNetBuilder.cpp:511
 msgid "Computing priorities"
 msgstr "正在计算优先顺序等級"
 
-#: src/netbuild/NBNetBuilder.cpp:508
+#: src/netbuild/NBNetBuilder.cpp:515
 msgid "Computing approached edges"
 msgstr "正在计算接近的(approached)路段"
 
-#: src/netbuild/NBNetBuilder.cpp:513
+#: src/netbuild/NBNetBuilder.cpp:520
 msgid "Guessing and setting roundabouts"
 msgstr "正在猜测及设定圆环"
 
-#: src/netbuild/NBNetBuilder.cpp:516
+#: src/netbuild/NBNetBuilder.cpp:523
 msgid " Guessed % roundabout(s)."
 msgstr " 猜测的 % 圆环。"
 
-#: src/netbuild/NBNetBuilder.cpp:522
+#: src/netbuild/NBNetBuilder.cpp:529
 msgid "Computing approaching lanes"
 msgstr "正在计算接近的(approached)车道"
 
-#: src/netbuild/NBNetBuilder.cpp:526
+#: src/netbuild/NBNetBuilder.cpp:533
 msgid "Dividing of lanes on approached lanes"
 msgstr "在接近的(approached)车道上划分(divide)车道"
 
-#: src/netbuild/NBNetBuilder.cpp:532
+#: src/netbuild/NBNetBuilder.cpp:539
 msgid "Guessing Network fringe"
 msgstr "正在猜测路网边缘"
 
-#: src/netbuild/NBNetBuilder.cpp:535
+#: src/netbuild/NBNetBuilder.cpp:542
 #, c-format
 msgid " Guessed % fringe nodes."
 msgstr " 猜测的 % 边缘节点。"
 
-#: src/netbuild/NBNetBuilder.cpp:540
+#: src/netbuild/NBNetBuilder.cpp:547
 msgid "Processing turnarounds"
 msgstr "正在处理掉头(turnarounds)"
 
-#: src/netbuild/NBNetBuilder.cpp:558
+#: src/netbuild/NBNetBuilder.cpp:565
 msgid "Rechecking of lane endings"
 msgstr "重新检查车道末端"
 
-#: src/netbuild/NBNetBuilder.cpp:580
+#: src/netbuild/NBNetBuilder.cpp:587
 msgid "Joining traffic light nodes"
 msgstr "正在合并交通信号节点"
 
-#: src/netbuild/NBNetBuilder.cpp:587
+#: src/netbuild/NBNetBuilder.cpp:594
 msgid "Computing traffic light control information"
 msgstr "正在计算交通信号控制信息"
 
-#: src/netbuild/NBNetBuilder.cpp:594
+#: src/netbuild/NBNetBuilder.cpp:601
 msgid "Computing node logics"
 msgstr "正在计算节点逻辑"
 
-#: src/netbuild/NBNetBuilder.cpp:599
+#: src/netbuild/NBNetBuilder.cpp:606
 msgid "Computing traffic light logics"
 msgstr "正在计算交通信号逻辑"
 
-#: src/netbuild/NBNetBuilder.cpp:606
+#: src/netbuild/NBNetBuilder.cpp:613
 msgid " % traffic light(s) %computed."
 msgstr " % 交通信号%已计算完成。"
 
-#: src/netbuild/NBNetBuilder.cpp:617
+#: src/netbuild/NBNetBuilder.cpp:624
 msgid "Building inner edges"
 msgstr "正在建立內部路段"
 
-#: src/netbuild/NBNetBuilder.cpp:630
+#: src/netbuild/NBNetBuilder.cpp:637
 msgid "stretching junctions to smooth geometries"
 msgstr "拉伸路口以平滑几何形狀"
 
-#: src/netbuild/NBNetBuilder.cpp:659
+#: src/netbuild/NBNetBuilder.cpp:666
 msgid "Generating street signs"
 msgstr "正在产生街道标志"
 
-#: src/netbuild/NBNetBuilder.cpp:670
+#: src/netbuild/NBNetBuilder.cpp:677
 msgid "Checking overlapping edges"
 msgstr "正在检查重叠的路段"
 
-#: src/netbuild/NBNetBuilder.cpp:675
+#: src/netbuild/NBNetBuilder.cpp:682
 msgid "Checking edge grade"
 msgstr "正在检查路段坡度(grade)"
 
-#: src/netbuild/NBNetBuilder.cpp:692
+#: src/netbuild/NBNetBuilder.cpp:699
 msgid "Find accesses for pt rail stops"
 msgstr "寻找火车站停靠点的连通通道(accesses)"
 
-#: src/netbuild/NBNetBuilder.cpp:706
+#: src/netbuild/NBNetBuilder.cpp:713
 msgid "Cleaning up public transport stops that are not served by any line"
 msgstr "清除沒有服务任何路线的大众运输停靠点"
 
-#: src/netbuild/NBNetBuilder.cpp:713
+#: src/netbuild/NBNetBuilder.cpp:720
 #, c-format
 msgid "Removed % pt stops because they could not be assigned to the network"
 msgstr "刪除了 % 个大众运输停靠点，因为它们无法在路网上定位"
 
-#: src/netbuild/NBNetBuilder.cpp:726
+#: src/netbuild/NBNetBuilder.cpp:733
 msgid ""
 "Network contains very large coordinates and will probably flicker in the "
 "GUI. Check for outlying nodes and make sure the network is shifted to the "
 "coordinate origin"
 msgstr "路网包含非常大的坐标，且可能会在 GUI 中闪烁(flicker)。检查外围节点,並确保路网已移动到坐标原点"
 
-#: src/netbuild/NBNetBuilder.cpp:740
+#: src/netbuild/NBNetBuilder.cpp:747
 msgid "Moving network to origin"
 msgstr "正在移动路网到坐标原点"
 
@@ -6669,213 +6674,213 @@ msgstr "正在移动路网到坐标原点"
 msgid "Invalid node id '%'."
 msgstr "无效的节点识别点(id) '%'。"
 
-#: src/netbuild/NBNode.cpp:488
+#: src/netbuild/NBNode.cpp:503
 msgid " Removing self-looping edge '%'"
 msgstr " 移除自我线圈(self-looping)路段 '%'"
 
-#: src/netbuild/NBNode.cpp:796
+#: src/netbuild/NBNode.cpp:811
 msgid "Could not compute indirect left turn shape at node '%'"
 msgstr "无法计算节点 '%' 处间接左转形狀"
 
-#: src/netbuild/NBNode.cpp:812
+#: src/netbuild/NBNode.cpp:827
 #, c-format
 msgid "Connection '%' starts at a non-existant lane."
 msgstr "连接线 '%' 从一个不存在的车道开始。"
 
-#: src/netbuild/NBNode.cpp:815
+#: src/netbuild/NBNode.cpp:830
 #, c-format
 msgid "Connection '%' targets a non-existant lane."
 msgstr "连接线 '%' 以一个不存在的车道为目标。"
 
-#: src/netbuild/NBNode.cpp:829 src/netbuild/NBNode.cpp:847
+#: src/netbuild/NBNode.cpp:844 src/netbuild/NBNode.cpp:862
 msgid "Could not use custom shape for connection %."
 msgstr "无法与连接线% 使用自定形狀。"
 
-#: src/netbuild/NBNode.cpp:838
+#: src/netbuild/NBNode.cpp:853
 msgid "Custom shape has distance % to incoming lane for connection %."
 msgstr "自定形狀与连接线 % 的进入(incoming)车道的距离为 %。"
 
-#: src/netbuild/NBNode.cpp:855
+#: src/netbuild/NBNode.cpp:870
 msgid "Custom shape has distance % to outgoing lane for connection %."
 msgstr "自定形狀与连接线 % 的离开(outgoing)车道的距离为 %。"
 
-#: src/netbuild/NBNode.cpp:1054
+#: src/netbuild/NBNode.cpp:1069
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
 msgstr "路口 '%' 太复杂 (% 连接线，最大 %); 將被設定为 %。"
 
-#: src/netbuild/NBNode.cpp:1195
+#: src/netbuild/NBNode.cpp:1210
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
 msgstr "路口 '%' 的形狀与其給定位置的距离为 %。"
 
-#: src/netbuild/NBNode.cpp:1199
+#: src/netbuild/NBNode.cpp:1214
 msgid "For junction '%': could not compute shape."
 msgstr "路口 '%': 无法计算形狀。"
 
-#: src/netbuild/NBNode.cpp:2005
+#: src/netbuild/NBNode.cpp:2020
 msgid "Something went wrong during the building of a connection..."
 msgstr "建立连接线(connection)时,发生了问题..."
 
-#: src/netbuild/NBNode.cpp:3045
+#: src/netbuild/NBNode.cpp:3060
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr "废除连接路段 [%] 的路口 '%' 处的无效穿越道 '%' （未找到步行区域）。"
 
-#: src/netbuild/NBNode.cpp:3211
+#: src/netbuild/NBNode.cpp:3226
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr "在具有路段 [%] 的路口 '%' 处废除无效的人行道 '%' （无车道可穿越）。"
 
-#: src/netbuild/NBNode.cpp:3232
+#: src/netbuild/NBNode.cpp:3247
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr "在具有路段 [%] 的路口 '%' 处废除无效的人行道 '%' （无效的形狀(shape)）。"
 
-#: src/netbuild/NBNode.cpp:3356
+#: src/netbuild/NBNode.cpp:3371
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
 msgstr ""
 
-#: src/netbuild/NBNode.cpp:3472
+#: src/netbuild/NBNode.cpp:3487
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr "路口 '%' 处的行人拓扑结构(topology)无效； 穿越道 '%' 目标 '%' 和 '%'。"
 
-#: src/netbuild/NBNode.cpp:3498
+#: src/netbuild/NBNode.cpp:3513
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%'"
 " and '%'."
 msgstr "路口 '%' 处的行人拓扑结构(topology)无效； 穿越道 '%' 是 '%' 和 '%' 的目标。"
 
-#: src/netbuild/NBNode.cpp:3503
+#: src/netbuild/NBNode.cpp:3518
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at"
 " walkingarea '%'."
 msgstr "路口 '%'处的行人拓扑结构(topology)无效；穿越道 '%' 的起点和终点都在步行区域 '%'。"
 
-#: src/netbuild/NBNode.cpp:3763
+#: src/netbuild/NBNode.cpp:3778
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr "无效的行人拓扑结构(topology): 跨越 [%] 的人行穿越道 '%'沒有目标。"
 
-#: src/netbuild/NBNode.cpp:4102
+#: src/netbuild/NBNode.cpp:4117
 msgid "Request for unknown crossing '%'"
 msgstr "请求未知人行穿越道 '%'"
 
-#: src/netbuild/NBNode.cpp:4118
+#: src/netbuild/NBNode.cpp:4133
 msgid "Request for unknown crossing for the given Edges"
 msgstr "请求给定路段的未知人行穿越道"
 
-#: src/netbuild/NBNode.cpp:4143
+#: src/netbuild/NBNode.cpp:4158
 msgid "Request for unknown walkingarea '%'."
 msgstr ""
 
-#: src/netbuild/NBNodeCont.cpp:323
+#: src/netbuild/NBNodeCont.cpp:324
 msgid "Removed a road without junctions: %."
 msgstr "移除了沒有路口的道路: %。"
 
-#: src/netbuild/NBNodeCont.cpp:411
+#: src/netbuild/NBNodeCont.cpp:412
 msgid "Found % components and removed % (% edges)."
 msgstr "找到 % 组件并移除 % (% 路段)。"
 
-#: src/netbuild/NBNodeCont.cpp:453
+#: src/netbuild/NBNodeCont.cpp:454
 msgid "Removed % railway components (% edges)."
 msgstr "移除了 % 火车组件 (% 路段)。"
 
-#: src/netbuild/NBNodeCont.cpp:697
+#: src/netbuild/NBNodeCont.cpp:701
 #, c-format
 msgid ""
 "Ignoring join exclusion for junction '%' since it already occurred in a list"
 " of nodes to be joined."
 msgstr "忽略路口 '%' 的合并排除,因为它已经出现在要连接的节点清单中。"
 
-#: src/netbuild/NBNodeCont.cpp:730
+#: src/netbuild/NBNodeCont.cpp:734
 msgid ""
 "Ignoring join-cluster because junction '%' was already excluded from "
 "joining."
 msgstr "忽略合并群集(join-cluster),因为联路口 '%' 已被排除在合并之外。"
 
-#: src/netbuild/NBNodeCont.cpp:733
+#: src/netbuild/NBNodeCont.cpp:737
 #, c-format
 msgid ""
 "Ignoring join-cluster because junction '%' already occurred in another join-"
 "cluster."
 msgstr "忽略合并群集(join-cluster),因为路口 '%' 已出现在另一个合并群集中。"
 
-#: src/netbuild/NBNodeCont.cpp:739
+#: src/netbuild/NBNodeCont.cpp:743
 #, c-format
 msgid "Unknown junction '%' in join-cluster."
 msgstr "有未知的路口 '%' 在合并群集(join-cluster)內。"
 
-#: src/netbuild/NBNodeCont.cpp:747
+#: src/netbuild/NBNodeCont.cpp:751
 msgid "Ignoring join-cluster '%' because it has size '%'."
 msgstr "忽略合并群集(join-cluster) '%' ,因为它的大小为 '%'。"
 
-#: src/netbuild/NBNodeCont.cpp:761
+#: src/netbuild/NBNodeCont.cpp:765
 msgid "unknown junction '%' while joining."
 msgstr "当合并时,未知的路口 '%'。"
 
-#: src/netbuild/NBNodeCont.cpp:819 src/netbuild/NBNodeCont.cpp:868
-#: src/netbuild/NBNodeCont.cpp:874 src/netbuild/NBNodeCont.cpp:881
-#: src/netbuild/NBNodeCont.cpp:886 src/netbuild/NBNodeCont.cpp:892
+#: src/netbuild/NBNodeCont.cpp:823 src/netbuild/NBNodeCont.cpp:872
+#: src/netbuild/NBNodeCont.cpp:878 src/netbuild/NBNodeCont.cpp:885
+#: src/netbuild/NBNodeCont.cpp:890 src/netbuild/NBNodeCont.cpp:896
 msgid "Not joining junctions % (%)."
 msgstr "沒有合并的路口% (%)。"
 
-#: src/netbuild/NBNodeCont.cpp:841 src/netbuild/NBNodeCont.cpp:854
-#: src/netbuild/NBNodeCont.cpp:864
+#: src/netbuild/NBNodeCont.cpp:845 src/netbuild/NBNodeCont.cpp:858
+#: src/netbuild/NBNodeCont.cpp:868
 msgid "Reducing junction cluster % (%)."
 msgstr "減少路口群集(cluster) % (%)。"
 
-#: src/netbuild/NBNodeCont.cpp:1824
+#: src/netbuild/NBNodeCont.cpp:1828
 msgid "Could not join junctions %."
 msgstr "无法合并路口 %。"
 
-#: src/netbuild/NBNodeCont.cpp:2081
+#: src/netbuild/NBNodeCont.cpp:2085
 msgid "Ambiguous traffic light type for node cluster '%', setting to '%'."
 msgstr "节点群集(cluster) '%' 的交通信号类型不明确, 设定为 '%'。"
 
-#: src/netbuild/NBNodeCont.cpp:2177
+#: src/netbuild/NBNodeCont.cpp:2181
 #, c-format
 msgid " The junction '%' to set as not-controlled is not known."
 msgstr " 设置为不受控制的路口 '%'为未知。"
 
-#: src/netbuild/NBNodeCont.cpp:2346
+#: src/netbuild/NBNodeCont.cpp:2350
 msgid "Could not build joined tls '%'."
 msgstr "无法建立合并的交通信号(tls) '%'。"
 
-#: src/netbuild/NBNodeCont.cpp:2391
+#: src/netbuild/NBNodeCont.cpp:2395
 msgid "Could not build guessed, joined tls."
 msgstr "无法建立猜测的,合并的交通信号(tls)。"
 
-#: src/netbuild/NBNodeCont.cpp:2514
+#: src/netbuild/NBNodeCont.cpp:2518
 msgid "Could not build a joined tls."
 msgstr "无法建立一个合并的交通信号(tls)。"
 
-#: src/netbuild/NBNodeCont.cpp:2531
+#: src/netbuild/NBNodeCont.cpp:2535
 msgid "Building a tl-logic for junction '%' twice is not possible."
 msgstr "不可能为路口 '%' 建立一个信号逻辑(tl-logic)两次。"
 
-#: src/netbuild/NBNodeCont.cpp:2613 src/netbuild/NBNodeCont.cpp:2705
+#: src/netbuild/NBNodeCont.cpp:2617 src/netbuild/NBNodeCont.cpp:2709
 msgid "-----------------------------------------------------"
 msgstr "-----------------------------------------------------"
 
-#: src/netbuild/NBNodeCont.cpp:2614
+#: src/netbuild/NBNodeCont.cpp:2618
 msgid "Summary:"
 msgstr "总结:"
 
-#: src/netbuild/NBNodeCont.cpp:2672
+#: src/netbuild/NBNodeCont.cpp:2676
 msgid " Node type statistics:"
 msgstr " 节点模型统计:"
 
-#: src/netbuild/NBNodeCont.cpp:2701
+#: src/netbuild/NBNodeCont.cpp:2705
 msgid " Network boundaries:"
 msgstr " 路网边界:"
 
-#: src/netbuild/NBNodeCont.cpp:2734
+#: src/netbuild/NBNodeCont.cpp:2738
 msgid "Attempt to rename node using existing id '%'"
 msgstr "当试使用现有识别名(id) '%' 去重新命名节点"
 
@@ -7831,35 +7836,35 @@ msgstr "无法找到地理坐标系统,假设为 WGS84。"
 msgid "Unable to project coordinates for edge '%'."
 msgstr "无法投影路段 '%' 的坐标。"
 
-#: src/netimport/NIImporter_ArcView.cpp:289
-#: src/netimport/NIImporter_ArcView.cpp:303
+#: src/netimport/NIImporter_ArcView.cpp:292
+#: src/netimport/NIImporter_ArcView.cpp:309
 #, c-format
 msgid "Node '%' could not be added"
 msgstr "无法增加节点 '%'"
 
-#: src/netimport/NIImporter_ArcView.cpp:311
+#: src/netimport/NIImporter_ArcView.cpp:317
 #, c-format
 msgid "Edge '%' connects identical nodes, skipping."
 msgstr "路段 '%' 连接相同的节点, 跳过。"
 
-#: src/netimport/NIImporter_ArcView.cpp:328
+#: src/netimport/NIImporter_ArcView.cpp:334
 #, c-format
 msgid "Edge '%' is not unique."
 msgstr "路段 '%' 不是唯一的。"
 
-#: src/netimport/NIImporter_ArcView.cpp:337
+#: src/netimport/NIImporter_ArcView.cpp:343
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
 msgstr "路段 '%' 不是唯一的。 将随后的路段重新命名为 '%'。"
 
-#: src/netimport/NIImporter_ArcView.cpp:356
+#: src/netimport/NIImporter_ArcView.cpp:362
 msgid "Could not create edge '%'. An edge with the same id already exists."
 msgstr "无法建立路段 '%'。 已存在具有相同识别名(id)的路段。"
 
-#: src/netimport/NIImporter_ArcView.cpp:373
+#: src/netimport/NIImporter_ArcView.cpp:379
 msgid "Could not create edge '-%'. An edge with the same id already exists."
 msgstr "无法建立路段    '-%'。 已存在具有相同识别名(id)的路段。"
 
-#: src/netimport/NIImporter_ArcView.cpp:387
+#: src/netimport/NIImporter_ArcView.cpp:393
 #: src/polyconvert/PCLoaderArcView.cpp:337
 msgid "SUMO was compiled without GDAL support."
 msgstr "SUMO 是在沒有 GDA支持的情況下编译的。"
@@ -9709,72 +9714,76 @@ msgid "Writes original names, if given, as parameter"
 msgstr "写出原始名称（如果给定）作为参数"
 
 #: src/netwrite/NWFrame.cpp:109
+msgid "Writes IDs of nodes remove with --geometry.remove into edge param"
+msgstr ""
+
+#: src/netwrite/NWFrame.cpp:112
 msgid "Writes street signs as POIs to FILE"
 msgstr "将街道标志作为兴趣点(POIs)写入文件"
 
-#: src/netwrite/NWFrame.cpp:113
+#: src/netwrite/NWFrame.cpp:116
 msgid "Writes public transport stops to FILE"
 msgstr "将大众运输停靠电写入文件"
 
-#: src/netwrite/NWFrame.cpp:115
+#: src/netwrite/NWFrame.cpp:118
 msgid "Writes public transport lines to FILE"
 msgstr "将大众运输路线写入文件"
 
-#: src/netwrite/NWFrame.cpp:117
+#: src/netwrite/NWFrame.cpp:120
 msgid "Clean-up pt stops that are not served by any line"
 msgstr "清理未提供服务的路线停靠点"
 
-#: src/netwrite/NWFrame.cpp:120
+#: src/netwrite/NWFrame.cpp:123
 msgid "Writes parking areas to FILE"
 msgstr "将停车区域写入文件"
 
-#: src/netwrite/NWFrame.cpp:123
+#: src/netwrite/NWFrame.cpp:126
 msgid "Analyze topology of the railway network"
 msgstr "分析铁路网的拓扑结构(topology)"
 
-#: src/netwrite/NWFrame.cpp:127
+#: src/netwrite/NWFrame.cpp:130
 msgid ""
 "Write shapes that are embedded in the network input and that are not "
 "supported by polyconvert (OpenDRIVE)"
 msgstr "写出在路网输入內且不受 polyconvert 支持的形状 (OpenDRIVE)"
 
-#: src/netwrite/NWFrame.cpp:132
+#: src/netwrite/NWFrame.cpp:135
 msgid ""
 "Builds parameterized curves whenever the angular change between straight "
 "segments exceeds FLOAT degrees"
 msgstr "当直线段之间的角度变化超过 FLOAT 度时,构建参数化曲线"
 
-#: src/netwrite/NWFrame.cpp:136
+#: src/netwrite/NWFrame.cpp:139
 msgid "Write lanes in lefthand networks on the left side (positive indices)"
 msgstr "在左行(lefthand)路网內的左侧写入车道 (正索引值)"
 
-#: src/netwrite/NWFrame.cpp:139
+#: src/netwrite/NWFrame.cpp:142
 msgid ""
 "Match loaded shapes to the closest edge within FLOAT and export as road "
 "objects"
 msgstr "将载入的形状在 FLOAT 范围內与最近的路段匹配并导出(export)为道路物件"
 
-#: src/netwrite/NWFrame.cpp:162
+#: src/netwrite/NWFrame.cpp:165
 msgid "OpenDRIVE export needs internal links computation."
 msgstr "exportOpenDRIVE 导出需要內部路段計算。"
 
-#: src/netwrite/NWFrame.cpp:172
+#: src/netwrite/NWFrame.cpp:175
 msgid ""
 "OpenDRIVE cannot represent oblique lane cuts and should use option "
 "'rectangular-lane-cut'."
 msgstr "OpenDRIVE 不能表示出斜的车道切割，应该使用选项 'rectangular-lane-cut'。"
 
-#: src/netwrite/NWFrame.cpp:182
+#: src/netwrite/NWFrame.cpp:185
 msgid "public transport lines output requires 'ptstop-output' to be set"
 msgstr "大众运输路线输出需要设置 'ptstop-output'"
 
-#: src/netwrite/NWFrame.cpp:186
+#: src/netwrite/NWFrame.cpp:189
 msgid ""
 "'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring "
 "invalid option."
 msgstr "'ptline-clean-up' 只能与 'ptline-output' 一起结合使用。忽略无效选项。"
 
-#: src/netwrite/NWFrame.cpp:201
+#: src/netwrite/NWFrame.cpp:204
 msgid "Writing network"
 msgstr "正在写出路网"
 
@@ -9806,13 +9815,13 @@ msgid ""
 "Uneven stop line at lane '%' (dist=%) cannot be represented in OpenDRIVE."
 msgstr "OpenDRIVE 中无法表示出车道 '%' (距离=%) 处的不均勻停止线。"
 
-#: src/netwrite/NWWriter_SUMO.cpp:241
+#: src/netwrite/NWWriter_SUMO.cpp:239
 msgid ""
 "Embedding TAZ-data inside the network is deprecated. Use option --taz-output"
 " instead"
 msgstr "在路网中嵌入 的分区(TAZ)数据已不适用。 使用选项 --taz-output 代替"
 
-#: src/netwrite/NWWriter_SUMO.cpp:478
+#: src/netwrite/NWWriter_SUMO.cpp:476
 msgid "Could not find bidi-connection for edge '%'"
 msgstr "找不到路段 '%' 的双向连接线 (bidi-connection)"
 
@@ -11391,11 +11400,11 @@ msgstr "GeomHelper::makeCircle() 要求 nPoints>=3"
 msgid "Splitting vector close to end (pos: %, length: %)"
 msgstr "分割(splitting)的向量接近末端 (位置: %, 长度: %)"
 
-#: src/utils/geom/PositionVector.cpp:1542
+#: src/utils/geom/PositionVector.cpp:1550
 msgid "Trying to subtract PositionVectors of different lengths."
 msgstr "尝试減去不同长度的 PositionVectors。"
 
-#: src/utils/geom/PositionVector.cpp:1556
+#: src/utils/geom/PositionVector.cpp:1564
 msgid "Trying to add PositionVectors of different lengths."
 msgstr ""
 
@@ -11562,7 +11571,7 @@ msgid ""
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:327
-msgid "Overwritting % with ID '%'"
+msgid "Overwriting % with ID '%'"
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:333
@@ -11631,7 +11640,7 @@ msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:1143
-#: src/utils/vehicle/SUMORouteHandler.cpp:205
+#: src/utils/vehicle/SUMORouteHandler.cpp:206
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType"
 " '%', use attributes instead!"
@@ -11639,8 +11648,8 @@ msgstr "在车辆类型(vType) '%' 的鸟巢状元素(nested element)內定义�
 
 #: src/utils/handlers/RouteHandler.cpp:1151
 #: src/utils/handlers/RouteHandler.cpp:1153
-#: src/utils/vehicle/SUMORouteHandler.cpp:208
-#: src/utils/vehicle/SUMORouteHandler.cpp:210
+#: src/utils/vehicle/SUMORouteHandler.cpp:209
+#: src/utils/vehicle/SUMORouteHandler.cpp:211
 msgid "Invalid parsing embedded VType"
 msgstr "解析嵌入的(embedded)车辆类型(vType)无效"
 
@@ -12135,27 +12144,27 @@ msgstr ""
 msgid "Undefined element type for '%'."
 msgstr "'%' 有未定义的元素类型。"
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:64
+#: src/utils/vehicle/SUMORouteHandler.cpp:65
 msgid "Route file should be sorted by departure time, ignoring '%'!"
 msgstr "路径文件应按出发时间排序, 忽略 '%'!"
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:493
+#: src/utils/vehicle/SUMORouteHandler.cpp:499
 msgid "Speed cannot be negative for stop%."
 msgstr ""
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:509
+#: src/utils/vehicle/SUMORouteHandler.cpp:515
 msgid "Invalid duration or end time is given for a stop%."
 msgstr ""
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:513
+#: src/utils/vehicle/SUMORouteHandler.cpp:519
 msgid "Triggers and waypoints cannot be combined%."
 msgstr ""
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:520
+#: src/utils/vehicle/SUMORouteHandler.cpp:526
 msgid "Stop at parkingArea overrides attribute 'parking' for stop%."
 msgstr ""
 
-#: src/utils/vehicle/SUMORouteHandler.cpp:561
+#: src/utils/vehicle/SUMORouteHandler.cpp:567
 msgid "Invalid 'index' for stop%."
 msgstr ""
 
@@ -12381,29 +12390,7 @@ msgstr "XML解析器(parser)无法初始化。"
 msgid "The XML-parser could not be build."
 msgstr "无法建立XML解析器(parser)。"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1731
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1835
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1841
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1847
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1853
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1859
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1865
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1870
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1876
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1887
-msgid "XML files (*.xml,*.xml.gz)"
-msgstr ""
-
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1737
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1742
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1747
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1806
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1836
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1842
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1848
@@ -12412,203 +12399,225 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1866
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1871
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1877
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1882
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1888
+msgid "XML files (*.xml,*.xml.gz)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1733
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1738
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1743
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1748
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1802
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1807
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1813
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1819
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1825
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1831
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1837
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1843
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1849
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1855
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1861
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1867
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1872
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1878
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1883
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1889
 msgid "All files (*)"
 msgstr "所有档案 (*)"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1736
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1737
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
 msgid "Plain text files (*.txt)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1741
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1742
 msgid "CSV files (*.txt)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1746
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1747
 msgid "Open scene graph  files (*.osg)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1751
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1752
 msgid ""
 "All Image Files "
 "(*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1752
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1778
-msgid "GIF Image (*.gif)"
-msgstr ""
-
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1779
-msgid "BMP Image (*.bmp)"
+msgid "GIF Image (*.gif)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1754
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1780
-msgid "XPM Image (*.xpm)"
+msgid "BMP Image (*.bmp)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1755
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1781
-msgid "PCX Image (*.pcx)"
+msgid "XPM Image (*.xpm)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1756
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1782
-msgid "ICO Image (*.ico)"
+msgid "PCX Image (*.pcx)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1757
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
-msgid "RGB Image (*.rgb)"
+msgid "ICO Image (*.ico)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1758
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1784
-msgid "XBM Image (*.xbm)"
+msgid "RGB Image (*.rgb)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1759
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1785
-msgid "TARGA Image (*.tga)"
+msgid "XBM Image (*.xbm)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1760
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1786
-msgid "PNG Image (*.png)"
+msgid "TARGA Image (*.tga)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1761
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1787
-msgid "JPEG Image (*.jpg,*.jpeg)"
+msgid "PNG Image (*.png)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1762
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1788
-msgid "TIFF Image (*.tif,*.tiff)"
+msgid "JPEG Image (*.jpg,*.jpeg)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1763
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1789
-msgid "Postscript (*.ps)"
+msgid "TIFF Image (*.tif,*.tiff)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1764
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1790
-msgid "Encapsulated Postscript (*.eps)"
+msgid "Postscript (*.ps)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1791
-msgid "Portable Document Format (*.pdf)"
+msgid "Encapsulated Postscript (*.eps)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1766
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1792
-msgid "Scalable Vector Graphics (*.svg)"
+msgid "Portable Document Format (*.pdf)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1767
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1793
-msgid "LATEX text strings (*.tex)"
+msgid "Scalable Vector Graphics (*.svg)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1768
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1794
-msgid "Portable LaTeX Graphics (*.pgf)"
+msgid "LATEX text strings (*.tex)"
 msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1769
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1795
+msgid "Portable LaTeX Graphics (*.pgf)"
+msgstr ""
+
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1770
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1796
 msgid "All Files (*)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1773
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1774
 msgid ""
 "All Image and Video Files "
 "(*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc,*.mp4)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1774
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1775
 msgid "All Video Files (*.h264,*.hevc,*.mp4)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1775
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1776
 msgid "G264 Video (*.h264)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1776
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 msgid "HEVC Video (*.hevc)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1777
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1778
 msgid "MP4 Video (*.mp4)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1799
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1811
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1817
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1823
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1829
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
 msgid "XML files (*.xml)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1805
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1806
 msgid "View settings files (*.xml,*.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1810
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1811
 msgid "State GZipped XML files (*.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1816
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1817
 msgid "Sumo config files (*.sumocfg)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1822
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1823
 msgid "Netedit config files (*.netecfg)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1828
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1829
 msgid "Netconvert config files (*.netccfg)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1834
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1835
 msgid "OSM network files (*.osm,*.osm.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1840
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1841
 msgid "SUMO network files (*.net.xml,*.net.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1846
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1847
 msgid "TLS files (*.ttl.xml,*.ttl.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1852
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1853
 msgid "Junction files (*.nod.xml,*.nod.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1858
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1859
 msgid "Edge type files (*.ttl.xml,*.ttl.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1864
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1865
 msgid "Additional files (*.add.xml,*.add.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1875
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1876
 msgid "Route files (*.rou.xml,*.rou.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1881
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1882
 msgid "Edge data files (*.xml,*.xml.gz)"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1886
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1887
 msgid "Mean data files (*.add.xml,*.add.xml.gz)"
 msgstr ""
 
@@ -12655,6 +12664,9 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "当解析'%'时,发生未指定的错误"
+
+#~ msgid "Joining junctions with identical coordinates"
+#~ msgstr "正在合并具有相同坐标的路口"
 
 #~ msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
 #~ msgstr "对面车道'%'与路段%'不能连接在同一节点!"

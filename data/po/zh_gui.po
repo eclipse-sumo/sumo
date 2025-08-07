@@ -11913,7 +11913,7 @@ msgstr "将元素下移一条车道"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:454
 #, c-format
-msgid "Select existent o create new file for % attribute"
+msgid "Select existent or create new file for % attribute"
 msgstr ""
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:455
