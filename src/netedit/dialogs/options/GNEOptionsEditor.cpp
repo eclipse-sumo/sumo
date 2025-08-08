@@ -158,16 +158,23 @@ GNEOptionsEditor::~GNEOptionsEditor() {
 }
 
 
+void
+GNEOptionsEditor::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
+    // not finished yet
+}
+
+
 bool
 GNEOptionsEditor::isOptionModified() const {
     return myOptionsModified;
 }
 
 void
-GNEOptionsEditor::reset() {
+GNEOptionsEditor::resetAllOptions() {
     for (const auto& entry : myOptionRowEntries) {
         entry->onCmdResetOption(nullptr, 0, nullptr);
     }
+    myOptionsModified = false;
 }
 
 
