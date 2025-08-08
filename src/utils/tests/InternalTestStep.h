@@ -39,7 +39,7 @@ public:
         VIEW,           // send signal to view (either GUIView or GNEViewNet)
         TLS_PHASES,     // send signal to TLS Phases module (used for TLS Phases)
         TLS_PHASETABLE, // send signal to TLSTable (used for TLS Phases)
-        DIALOG,         // send signal to dialog (used for modal dialogs)    
+        DIALOG,         // send signal to dialog (used for modal dialogs)
         COLOR,          // send signal to color dialog (temporal)
     };
 
@@ -114,15 +114,15 @@ public:
 
     /// @brief constructor for shortcuts
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, FXSelector messageID,
-                     Category category, const std::string &description);
+                     Category category, const std::string& description);
 
     /// @brief constructor for input events (click, keyPress, etc.)
     InternalTestStep(InternalTest* testSystem, FXSelector messageType, Category category,
-                     FXEvent* event, const bool updateView, const std::string &description);
+                     FXEvent* event, const bool updateView, const std::string& description);
 
     /// @brief constructor for dialog arguments
     InternalTestStep(InternalTest* testSystem, DialogArgument* dialogArgument,
-                     const std::string &description);
+                     const std::string& description);
 
     /// @brief destructor
     ~InternalTestStep();

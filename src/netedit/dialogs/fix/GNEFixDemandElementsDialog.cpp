@@ -94,7 +94,7 @@ GNEFixDemandElementsDialog::FixRouteOptions::FixRouteOptions(GNEFixDemandElement
 
 
 void
-GNEFixDemandElementsDialog::FixRouteOptions::selectInternalTestSolution(const std::string &solution) {
+GNEFixDemandElementsDialog::FixRouteOptions::selectInternalTestSolution(const std::string& solution) {
     // chooose solution
     if (solution == "saveRouteInvalids") {
         mySaveInvalidRoutes->setCheck(TRUE, TRUE);
@@ -218,7 +218,7 @@ GNEFixDemandElementsDialog::FixVehicleOptions::FixVehicleOptions(GNEFixDemandEle
 
 
 void
-GNEFixDemandElementsDialog::FixVehicleOptions::selectInternalTestSolution(const std::string &solution) {
+GNEFixDemandElementsDialog::FixVehicleOptions::selectInternalTestSolution(const std::string& solution) {
 }
 
 
@@ -330,7 +330,7 @@ GNEFixDemandElementsDialog::FixStopPositionOptions::FixStopPositionOptions(GNEFi
 
 
 void
-GNEFixDemandElementsDialog::FixStopPositionOptions::selectInternalTestSolution(const std::string &solution) {
+GNEFixDemandElementsDialog::FixStopPositionOptions::selectInternalTestSolution(const std::string& solution) {
 }
 
 
@@ -428,7 +428,7 @@ GNEFixDemandElementsDialog::FixPlanOptions::FixPlanOptions(GNEFixDemandElementsD
 
 
 void
-GNEFixDemandElementsDialog::FixPlanOptions::selectInternalTestSolution(const std::string &solution) {
+GNEFixDemandElementsDialog::FixPlanOptions::selectInternalTestSolution(const std::string& solution) {
 }
 
 

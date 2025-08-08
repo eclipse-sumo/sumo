@@ -285,8 +285,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
 
 
 InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageType,
-                                   FXSelector messageID, Category category, 
-                                   const std::string &description) :
+                                   FXSelector messageID, Category category,
+                                   const std::string& description) :
     myTestSystem(testSystem),
     myMessageType(messageType),
     myMessageID(messageID),
@@ -299,7 +299,7 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
 
 InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageType,
                                    Category category, FXEvent* event, const bool updateView,
-                                   const std::string &description) :
+                                   const std::string& description) :
     myTestSystem(testSystem),
     myMessageType(messageType),
     myCategory(category),
@@ -312,7 +312,7 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, FXSelector messageT
 
 
 InternalTestStep::InternalTestStep(InternalTest* testSystem, DialogArgument* dialogArgument,
-                                   const std::string &description) :
+                                   const std::string& description) :
     myTestSystem(testSystem),
     myCategory(InternalTestStep::Category::DIALOG),
     myUpdateView(false),
@@ -1817,7 +1817,7 @@ InternalTestStep::computeJunctionsVolatileOptions() {
         // press space to confirm changes (updating view)
         if (dialogArgument == "yes") {
             new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ACCEPT), "close accepting");
-        } else if (dialogArgument == "no") { 
+        } else if (dialogArgument == "no") {
             new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::CANCEL), "close canceling");
         } else {
             new InternalTestStep(myTestSystem, new DialogArgument(DialogArgument::Action::ABORT), "close aborting");

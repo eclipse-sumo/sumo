@@ -83,7 +83,7 @@ GNEFixAdditionalElementsDialog::PositionOptions::PositionOptions(GNEFixAdditiona
 
 
 void
-GNEFixAdditionalElementsDialog::PositionOptions::selectInternalTestSolution(const std::string &solution) {
+GNEFixAdditionalElementsDialog::PositionOptions::selectInternalTestSolution(const std::string& solution) {
     // chooose solution
     if (solution == "savePositionInvalids") {
         mySaveInvalids->setCheck(TRUE, TRUE);
@@ -199,7 +199,7 @@ GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::ConsecutiveLaneOptions(G
 
 
 void
-GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::selectInternalTestSolution(const std::string &solution) {
+GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions::selectInternalTestSolution(const std::string& solution) {
 }
 
 

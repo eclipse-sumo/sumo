@@ -262,13 +262,13 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             // check if parse vType or Ref
             if (obj->hasStringAttribute(SUMO_ATTR_REFID)) {
                 if (buildVTypeRef(obj,
-                                    obj->getStringAttribute(SUMO_ATTR_REFID),
-                                    obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
+                                  obj->getStringAttribute(SUMO_ATTR_REFID),
+                                  obj->getDoubleAttribute(SUMO_ATTR_PROB))) {
                     obj->markAsCreated();
                 }
             } else {
                 if (buildVType(obj,
-                                obj->getVehicleTypeParameter())) {
+                               obj->getVehicleTypeParameter())) {
                     obj->markAsCreated();
                 }
             }

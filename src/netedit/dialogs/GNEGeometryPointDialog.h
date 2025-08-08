@@ -32,13 +32,13 @@ class GNEGeometryPointDialog : public GNEDialog {
 
 public:
     /// @brief constructor
-    GNEGeometryPointDialog(GNEApplicationWindow* applicationWindow, const Position &pos);
+    GNEGeometryPointDialog(GNEApplicationWindow* applicationWindow, const Position& pos);
 
     /// @brief destructor
     ~GNEGeometryPointDialog();
 
     /// @brief get edited position
-    const Position &getEditedPosition() const;
+    const Position& getEditedPosition() const;
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
