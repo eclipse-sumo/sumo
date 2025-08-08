@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEOptionsDialogElements.cpp
+/// @file    GNEOptionsEditorRow.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2023
 ///
-// A Dialog for setting options (see OptionsCont)
+// Row used in GNEOptionsEditor to edit options
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
@@ -24,7 +24,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 
-#include "GNEOptionsDialogElements.h"
+#include "GNEOptionsEditorRow.h"
 #include "GNEOptionsDialog.h"
 
 // ===========================================================================
@@ -38,29 +38,29 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEOptionsDialogElements::InputOption) InputOptionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEOptionsDialogElements::InputOption::onCmdSetOption),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,          GNEOptionsDialogElements::InputOption::onCmdResetOption),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_RESET,          GNEOptionsDialogElements::InputOption::onUpdResetOption),
+FXDEFMAP(GNEOptionsEditorRow::OptionRow) OptionRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEOptionsEditorRow::OptionRow::onCmdSetOption),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,          GNEOptionsEditorRow::OptionRow::onCmdResetOption),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_RESET,          GNEOptionsEditorRow::OptionRow::onUpdResetOption),
 };
 
-FXDEFMAP(GNEOptionsDialogElements::InputFilename) InputFilenameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,  GNEOptionsDialogElements::InputFilename::onCmdOpenDialog),
+FXDEFMAP(GNEOptionsEditorRow::OptionFilename) OptionFilenameMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,  GNEOptionsEditorRow::OptionFilename::onCmdOpenDialog),
 };
 
 // Object implementation
-FXIMPLEMENT_ABSTRACT(GNEOptionsDialogElements::InputOption,     FXHorizontalFrame,                      InputOptionMap,     ARRAYNUMBER(InputOptionMap))
-FXIMPLEMENT_ABSTRACT(GNEOptionsDialogElements::InputFilename,   GNEOptionsDialogElements::InputOption,  InputFilenameMap,   ARRAYNUMBER(InputFilenameMap))
+FXIMPLEMENT_ABSTRACT(GNEOptionsEditorRow::OptionRow,     FXHorizontalFrame,                      OptionRowMap,     ARRAYNUMBER(OptionRowMap))
+FXIMPLEMENT_ABSTRACT(GNEOptionsEditorRow::OptionFilename,   GNEOptionsEditorRow::OptionRow,  OptionFilenameMap,   ARRAYNUMBER(OptionFilenameMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEOptionsDialogElements::InputOption - methods
+// GNEOptionsEditorRow::OptionRow - methods
 // ---------------------------------------------------------------------------
 
-GNEOptionsDialogElements::InputOption::InputOption(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+GNEOptionsEditorRow::OptionRow::OptionRow(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
         const std::string& name, const std::string& description, const std::string& defaultValue) :
     FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
     myGUIDialogOptions(GUIDialogOptions),
@@ -80,7 +80,7 @@ GNEOptionsDialogElements::InputOption::InputOption(GNEOptionsDialog* GUIDialogOp
 
 
 void
-GNEOptionsDialogElements::InputOption::adjustNameSize() {
+GNEOptionsEditorRow::OptionRow::adjustNameSize() {
     const int nameWidth = myNameLabel->getFont()->getTextWidth(myNameLabel->getText().text(), myNameLabel->getText().length() + MARGIN);
     if (nameWidth > MINNAMEWIDTH) {
         myNameLabel->setWidth(nameWidth);
@@ -89,25 +89,25 @@ GNEOptionsDialogElements::InputOption::adjustNameSize() {
 
 
 const std::string&
-GNEOptionsDialogElements::InputOption::getTopic() const {
+GNEOptionsEditorRow::OptionRow::getTopic() const {
     return myTopic;
 }
 
 
 const std::string
-GNEOptionsDialogElements::InputOption::getNameLower() const {
+GNEOptionsEditorRow::OptionRow::getNameLower() const {
     return StringUtils::to_lower_case(myName);
 }
 
 
 const std::string
-GNEOptionsDialogElements::InputOption::getDescriptionLower() const {
+GNEOptionsEditorRow::OptionRow::getDescriptionLower() const {
     return StringUtils::to_lower_case(myDescription);
 }
 
 
 long
-GNEOptionsDialogElements::InputOption::onUpdResetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionRow::onUpdResetOption(FXObject*, FXSelector, void*) {
     if (getValue() != myDefaultValue) {
         myResetButton->enable();
     } else {
@@ -117,12 +117,12 @@ GNEOptionsDialogElements::InputOption::onUpdResetOption(FXObject*, FXSelector, v
 }
 
 // ---------------------------------------------------------------------------
-// GNEOptionsDialogElements::InputString - methods
+// GNEOptionsEditorRow::OptionString - methods
 // ---------------------------------------------------------------------------
 
-GNEOptionsDialogElements::InputString::InputString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+GNEOptionsEditorRow::OptionString::OptionString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
-    InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
+    OptionRow(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myStringTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myStringTextField->setText(myGUIDialogOptions->myOptionsContainer.getString(name).c_str());
     updateOption();
@@ -130,19 +130,19 @@ GNEOptionsDialogElements::InputString::InputString(GNEOptionsDialog* GUIDialogOp
 
 
 void
-GNEOptionsDialogElements::InputString::updateOption() {
+GNEOptionsEditorRow::OptionString::updateOption() {
     myStringTextField->setText(myGUIDialogOptions->myOptionsContainer.getString(myName).c_str());
 }
 
 
 void
-GNEOptionsDialogElements::InputString::restoreOption() {
+GNEOptionsEditorRow::OptionString::restoreOption() {
     myStringTextField->setText(myGUIDialogOptions->myOriginalOptionsContainer.getString(myName).c_str());
 }
 
 
 long
-GNEOptionsDialogElements::InputString::onCmdSetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionString::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer.resetWritable();
     myGUIDialogOptions->myOptionsContainer.set(myName, myStringTextField->getText().text());
     myGUIDialogOptions->myOptionsModified = true;
@@ -151,40 +151,40 @@ GNEOptionsDialogElements::InputString::onCmdSetOption(FXObject*, FXSelector, voi
 
 
 long
-GNEOptionsDialogElements::InputString::onCmdResetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionString::onCmdResetOption(FXObject*, FXSelector, void*) {
     myStringTextField->setText(myDefaultValue.c_str());
     return 1;
 }
 
 
 std::string
-GNEOptionsDialogElements::InputString::getValue() const {
+GNEOptionsEditorRow::OptionString::getValue() const {
     return myStringTextField->getText().text();
 }
 
 
-GNEOptionsDialogElements::InputStringVector::InputStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+GNEOptionsEditorRow::OptionStringVector::OptionStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
-    InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
+    OptionRow(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myStringVectorTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     updateOption();
 }
 
 
 void
-GNEOptionsDialogElements::InputStringVector::updateOption() {
+GNEOptionsEditorRow::OptionStringVector::updateOption() {
     myStringVectorTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getStringVector(myName)).c_str());
 }
 
 
 void
-GNEOptionsDialogElements::InputStringVector::restoreOption() {
+GNEOptionsEditorRow::OptionStringVector::restoreOption() {
     myStringVectorTextField->setText(toString(myGUIDialogOptions->myOriginalOptionsContainer.getStringVector(myName)).c_str());
 }
 
 
 long
-GNEOptionsDialogElements::InputStringVector::onCmdSetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionStringVector::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer.resetWritable();
     myGUIDialogOptions->myOptionsContainer.set(myName, myStringVectorTextField->getText().text());
     myGUIDialogOptions->myOptionsModified = true;
@@ -193,31 +193,31 @@ GNEOptionsDialogElements::InputStringVector::onCmdSetOption(FXObject*, FXSelecto
 
 
 long
-GNEOptionsDialogElements::InputStringVector::onCmdResetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionStringVector::onCmdResetOption(FXObject*, FXSelector, void*) {
     myStringVectorTextField->setText(myDefaultValue.c_str());
     return 1;
 }
 
 
 std::string
-GNEOptionsDialogElements::InputStringVector::getValue() const {
+GNEOptionsEditorRow::OptionStringVector::getValue() const {
     return myStringVectorTextField->getText().text();
 }
 
 // ---------------------------------------------------------------------------
-// GNEOptionsDialogElements::InputBool - methods
+// GNEOptionsEditorRow::OptionBool - methods
 // ---------------------------------------------------------------------------
 
-GNEOptionsDialogElements::InputBool::InputBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+GNEOptionsEditorRow::OptionBool::OptionBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
-    InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
+    OptionRow(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myCheckButton = new FXCheckButton(myContentFrame, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     updateOption();
 }
 
 
 void
-GNEOptionsDialogElements::InputBool::updateOption() {
+GNEOptionsEditorRow::OptionBool::updateOption() {
     if (myGUIDialogOptions->myOptionsContainer.getBool(myName)) {
         myCheckButton->setCheck(TRUE);
         myCheckButton->setText(TL("true"));
@@ -229,7 +229,7 @@ GNEOptionsDialogElements::InputBool::updateOption() {
 
 
 void
-GNEOptionsDialogElements::InputBool::restoreOption() {
+GNEOptionsEditorRow::OptionBool::restoreOption() {
     if (myGUIDialogOptions->myOriginalOptionsContainer.getBool(myName)) {
         myCheckButton->setCheck(TRUE);
         myCheckButton->setText(TL("true"));
@@ -241,7 +241,7 @@ GNEOptionsDialogElements::InputBool::restoreOption() {
 
 
 long
-GNEOptionsDialogElements::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     myGUIDialogOptions->myOptionsContainer.resetWritable();
     if (myCheckButton->getCheck()) {
         myGUIDialogOptions->myOptionsContainer.set(myName, "true");
@@ -263,7 +263,7 @@ GNEOptionsDialogElements::InputBool::onCmdSetOption(FXObject*, FXSelector, void*
 
 
 long
-GNEOptionsDialogElements::InputBool::onCmdResetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionBool::onCmdResetOption(FXObject*, FXSelector, void*) {
     if (StringUtils::toBool(myDefaultValue)) {
         myCheckButton->setCheck(TRUE);
         myCheckButton->setText(TL("true"));
@@ -276,36 +276,36 @@ GNEOptionsDialogElements::InputBool::onCmdResetOption(FXObject*, FXSelector, voi
 
 
 std::string
-GNEOptionsDialogElements::InputBool::getValue() const {
+GNEOptionsEditorRow::OptionBool::getValue() const {
     return myCheckButton->getCheck() ? "true" : "false";
 }
 
 // ---------------------------------------------------------------------------
-// GNEOptionsDialogElements::InputInt - methods
+// GNEOptionsEditorRow::OptionInt - methods
 // ---------------------------------------------------------------------------
 
-GNEOptionsDialogElements::InputInt::InputInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+GNEOptionsEditorRow::OptionInt::OptionInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
-    InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
+    OptionRow(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myIntTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
     updateOption();
 }
 
 
 void
-GNEOptionsDialogElements::InputInt::updateOption() {
+GNEOptionsEditorRow::OptionInt::updateOption() {
     myIntTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getInt(myName)).c_str());
 }
 
 
 void
-GNEOptionsDialogElements::InputInt::restoreOption() {
+GNEOptionsEditorRow::OptionInt::restoreOption() {
     myIntTextField->setText(toString(myGUIDialogOptions->myOriginalOptionsContainer.getInt(myName)).c_str());
 }
 
 
 long
-GNEOptionsDialogElements::InputInt::onCmdSetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionInt::onCmdSetOption(FXObject*, FXSelector, void*) {
     if (myIntTextField->getText().empty()) {
         myIntTextField->setText(myDefaultValue.c_str());
     } else {
@@ -318,24 +318,24 @@ GNEOptionsDialogElements::InputInt::onCmdSetOption(FXObject*, FXSelector, void*)
 
 
 long
-GNEOptionsDialogElements::InputInt::onCmdResetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionInt::onCmdResetOption(FXObject*, FXSelector, void*) {
     myIntTextField->setText(myDefaultValue.c_str());
     return 1;
 }
 
 
 std::string
-GNEOptionsDialogElements::InputInt::getValue() const {
+GNEOptionsEditorRow::OptionInt::getValue() const {
     return myIntTextField->getText().text();
 }
 
 // ---------------------------------------------------------------------------
-// GNEOptionsDialogElements::InputIntVector - methods
+// GNEOptionsEditorRow::OptionIntVector - methods
 // ---------------------------------------------------------------------------
 
-GNEOptionsDialogElements::InputIntVector::InputIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
+GNEOptionsEditorRow::OptionIntVector::OptionIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description, const std::string& defaultValue) :
-    InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
+    OptionRow(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myIntVectorTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myIntVectorTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getIntVector(name)).c_str());
     updateOption();
@@ -343,19 +343,19 @@ GNEOptionsDialogElements::InputIntVector::InputIntVector(GNEOptionsDialog* GUIDi
 
 
 void
-GNEOptionsDialogElements::InputIntVector::updateOption() {
+GNEOptionsEditorRow::OptionIntVector::updateOption() {
     myIntVectorTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getIntVector(myName)).c_str());
 }
 
 
 void
-GNEOptionsDialogElements::InputIntVector::restoreOption() {
+GNEOptionsEditorRow::OptionIntVector::restoreOption() {
     myIntVectorTextField->setText(toString(myGUIDialogOptions->myOriginalOptionsContainer.getIntVector(myName)).c_str());
 }
 
 
 long
-GNEOptionsDialogElements::InputIntVector::onCmdSetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionIntVector::onCmdSetOption(FXObject*, FXSelector, void*) {
     try {
         // check that int vector can be parsed
         const auto intVector = StringTokenizer(myIntVectorTextField->getText().text()).getVector();
@@ -374,24 +374,24 @@ GNEOptionsDialogElements::InputIntVector::onCmdSetOption(FXObject*, FXSelector, 
 
 
 long
-GNEOptionsDialogElements::InputIntVector::onCmdResetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionIntVector::onCmdResetOption(FXObject*, FXSelector, void*) {
     myIntVectorTextField->setText(myDefaultValue.c_str());
     return 1;
 }
 
 
 std::string
-GNEOptionsDialogElements::InputIntVector::getValue() const {
+GNEOptionsEditorRow::OptionIntVector::getValue() const {
     return myIntVectorTextField->getText().text();
 }
 
 // ---------------------------------------------------------------------------
-// GNEOptionsDialogElements::InputFloat - methods
+// GNEOptionsEditorRow::OptionFloat - methods
 // ---------------------------------------------------------------------------
 
-GNEOptionsDialogElements::InputFloat::InputFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+GNEOptionsEditorRow::OptionFloat::OptionFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
         const std::string& name, const std::string& description, const std::string& defaultValue) :
-    InputOption(GUIDialogOptions, parent, topic, name, description, parseFloat(defaultValue)) {
+    OptionRow(GUIDialogOptions, parent, topic, name, description, parseFloat(defaultValue)) {
     myFloatTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myFloatTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getFloat(name)).c_str());
     updateOption();
@@ -399,19 +399,19 @@ GNEOptionsDialogElements::InputFloat::InputFloat(GNEOptionsDialog* GUIDialogOpti
 
 
 void
-GNEOptionsDialogElements::InputFloat::updateOption() {
+GNEOptionsEditorRow::OptionFloat::updateOption() {
     myFloatTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getFloat(myName)).c_str());
 }
 
 
 void
-GNEOptionsDialogElements::InputFloat::restoreOption() {
+GNEOptionsEditorRow::OptionFloat::restoreOption() {
     myFloatTextField->setText(toString(myGUIDialogOptions->myOriginalOptionsContainer.getFloat(myName)).c_str());
 }
 
 
 long
-GNEOptionsDialogElements::InputFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
     // avoid empty values
     if (myFloatTextField->getText().empty()) {
         myFloatTextField->setText(myDefaultValue.c_str());
@@ -425,20 +425,20 @@ GNEOptionsDialogElements::InputFloat::onCmdSetOption(FXObject*, FXSelector, void
 
 
 long
-GNEOptionsDialogElements::InputFloat::onCmdResetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionFloat::onCmdResetOption(FXObject*, FXSelector, void*) {
     myFloatTextField->setText(myDefaultValue.c_str());
     return 1;
 }
 
 
 std::string
-GNEOptionsDialogElements::InputFloat::getValue() const {
+GNEOptionsEditorRow::OptionFloat::getValue() const {
     return myFloatTextField->getText().text();
 }
 
 
 std::string
-GNEOptionsDialogElements::InputFloat::parseFloat(const std::string& value) const {
+GNEOptionsEditorRow::OptionFloat::parseFloat(const std::string& value) const {
     try {
         return toString(StringUtils::toDouble(value));
     } catch (...) {
@@ -447,12 +447,12 @@ GNEOptionsDialogElements::InputFloat::parseFloat(const std::string& value) const
 }
 
 // ---------------------------------------------------------------------------
-// GNEOptionsDialogElements::InputTime - methods
+// GNEOptionsEditorRow::OptionTime - methods
 // ---------------------------------------------------------------------------
 
-GNEOptionsDialogElements::InputTime::InputTime(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+GNEOptionsEditorRow::OptionTime::OptionTime(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
         const std::string& name, const std::string& description, const std::string& defaultValue) :
-    InputOption(GUIDialogOptions, parent, topic, name, description, parseTime(defaultValue)) {
+    OptionRow(GUIDialogOptions, parent, topic, name, description, parseTime(defaultValue)) {
     myTimeTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTimeTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getString(name)).c_str());
     updateOption();
@@ -460,19 +460,19 @@ GNEOptionsDialogElements::InputTime::InputTime(GNEOptionsDialog* GUIDialogOption
 
 
 void
-GNEOptionsDialogElements::InputTime::updateOption() {
+GNEOptionsEditorRow::OptionTime::updateOption() {
     myTimeTextField->setText(toString(myGUIDialogOptions->myOptionsContainer.getString(myName)).c_str());
 }
 
 
 void
-GNEOptionsDialogElements::InputTime::restoreOption() {
+GNEOptionsEditorRow::OptionTime::restoreOption() {
     myTimeTextField->setText(toString(myGUIDialogOptions->myOriginalOptionsContainer.getString(myName)).c_str());
 }
 
 
 long
-GNEOptionsDialogElements::InputTime::onCmdSetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionTime::onCmdSetOption(FXObject*, FXSelector, void*) {
     // avoid empty values
     if (myTimeTextField->getText().empty()) {
         myTimeTextField->setText(myDefaultValue.c_str());
@@ -486,20 +486,20 @@ GNEOptionsDialogElements::InputTime::onCmdSetOption(FXObject*, FXSelector, void*
 
 
 long
-GNEOptionsDialogElements::InputTime::onCmdResetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionTime::onCmdResetOption(FXObject*, FXSelector, void*) {
     myTimeTextField->setText(myDefaultValue.c_str());
     return 1;
 }
 
 
 std::string
-GNEOptionsDialogElements::InputTime::getValue() const {
+GNEOptionsEditorRow::OptionTime::getValue() const {
     return myTimeTextField->getText().text();
 }
 
 
 std::string
-GNEOptionsDialogElements::InputTime::parseTime(const std::string& value) const {
+GNEOptionsEditorRow::OptionTime::parseTime(const std::string& value) const {
     try {
         return time2string(string2time(value));
     } catch (...) {
@@ -508,12 +508,12 @@ GNEOptionsDialogElements::InputTime::parseTime(const std::string& value) const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEOptionsDialogElements::InputFilename - methods
+// GNEOptionsEditorRow::OptionFilename - methods
 // ---------------------------------------------------------------------------
 
-GNEOptionsDialogElements::InputFilename::InputFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+GNEOptionsEditorRow::OptionFilename::OptionFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
         const std::string& name, const std::string& description, const std::string& defaultValue) :
-    InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
+    OptionRow(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myOpenFilenameButton = GUIDesigns::buildFXButton(myContentFrame, "", "", TL("Select filename"),
                            GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonIcon);
     myFilenameTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -522,19 +522,19 @@ GNEOptionsDialogElements::InputFilename::InputFilename(GNEOptionsDialog* GUIDial
 
 
 void
-GNEOptionsDialogElements::InputFilename::updateOption() {
+GNEOptionsEditorRow::OptionFilename::updateOption() {
     myFilenameTextField->setText(myGUIDialogOptions->myOptionsContainer.getString(myName).c_str());
 }
 
 
 void
-GNEOptionsDialogElements::InputFilename::restoreOption() {
+GNEOptionsEditorRow::OptionFilename::restoreOption() {
     myFilenameTextField->setText(myGUIDialogOptions->myOriginalOptionsContainer.getString(myName).c_str());
 }
 
 
 long
-GNEOptionsDialogElements::InputFilename::onCmdOpenDialog(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionFilename::onCmdOpenDialog(FXObject*, FXSelector, void*) {
     // get file
     const auto file = GNEApplicationWindowHelper::openXMLFileDialog(this, (myName.find("output") != std::string::npos), false);
     // check that file is valid
@@ -546,7 +546,7 @@ GNEOptionsDialogElements::InputFilename::onCmdOpenDialog(FXObject*, FXSelector, 
 
 
 long
-GNEOptionsDialogElements::InputFilename::onCmdSetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionFilename::onCmdSetOption(FXObject*, FXSelector, void*) {
     if (SUMOXMLDefinitions::isValidFilename(myFilenameTextField->getText().text())) {
         myGUIDialogOptions->myOptionsContainer.resetWritable();
         myGUIDialogOptions->myOptionsContainer.set(myName, myFilenameTextField->getText().text());
@@ -560,17 +560,17 @@ GNEOptionsDialogElements::InputFilename::onCmdSetOption(FXObject*, FXSelector, v
 
 
 long
-GNEOptionsDialogElements::InputFilename::onCmdResetOption(FXObject*, FXSelector, void*) {
+GNEOptionsEditorRow::OptionFilename::onCmdResetOption(FXObject*, FXSelector, void*) {
     myFilenameTextField->setText(myDefaultValue.c_str());
     return 1;
 }
 
 
-GNEOptionsDialogElements::InputFilename::InputFilename() {}
+GNEOptionsEditorRow::OptionFilename::OptionFilename() {}
 
 
 std::string
-GNEOptionsDialogElements::InputFilename::getValue() const {
+GNEOptionsEditorRow::OptionFilename::getValue() const {
     return myFilenameTextField->getText().text();
 }
 

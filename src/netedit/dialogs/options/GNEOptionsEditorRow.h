@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEOptionsDialogElements.h
+/// @file    GNEOptionsEditorRow.h
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2023
 ///
-// A Dialog for setting options (see OptionsCont)
+// Row used in GNEOptionsEditor to edit options
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -34,19 +34,19 @@ class MFXLabelTooltip;
 // class definitions
 // ===========================================================================
 
-class GNEOptionsDialogElements {
+class GNEOptionsEditorRow {
 
 public:
 
     /// @brief input option
-    class InputOption : public FXHorizontalFrame {
+    class OptionRow : public FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE_ABSTRACT(GNEOptionsDialogElements::InputOption)
+        FXDECLARE_ABSTRACT(GNEOptionsEditorRow::OptionRow)
 
     public:
         /// @brief constructor
-        InputOption(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
-                    const std::string& name, const std::string& description, const std::string& defaultValue);
+        OptionRow(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+                  const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief adjust input name size
         void adjustNameSize();
@@ -77,7 +77,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        FOX_CONSTRUCTOR(InputOption)
+        FOX_CONSTRUCTOR(OptionRow)
 
         /// @brief GNEOptionsDialog parent
         GNEOptionsDialog* myGUIDialogOptions = nullptr;
@@ -109,12 +109,12 @@ public:
     };
 
     /// @brief input string
-    class InputString : public InputOption {
+    class OptionString : public OptionRow {
 
     public:
         /// @brief constructor
-        InputString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
-                    const std::string& name, const std::string& description, const std::string& defaultValue);
+        OptionString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+                     const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
         void updateOption();
@@ -137,12 +137,12 @@ public:
     };
 
     /// @brief input string vector
-    class InputStringVector : public InputOption {
+    class OptionStringVector : public OptionRow {
 
     public:
         /// @brief constructor
-        InputStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
-                          const std::string& name, const std::string& description, const std::string& defaultValue);
+        OptionStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+                           const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
         void updateOption();
@@ -165,12 +165,12 @@ public:
     };
 
     /// @brief input bool
-    class InputBool : public InputOption {
+    class OptionBool : public OptionRow {
 
     public:
         /// @brief constructor
-        InputBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
-                  const std::string& name, const std::string& description, const std::string& defaultValue);
+        OptionBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+                   const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
         void updateOption();
@@ -193,12 +193,12 @@ public:
     };
 
     /// @brief input int
-    class InputInt : public InputOption {
+    class OptionInt : public OptionRow {
 
     public:
         /// @brief
-        InputInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
-                 const std::string& name, const std::string& description, const std::string& defaultValue);
+        OptionInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+                  const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
         void updateOption();
@@ -221,12 +221,12 @@ public:
     };
 
     /// @brief input int vector
-    class InputIntVector : public InputOption {
+    class OptionIntVector : public OptionRow {
 
     public:
         /// @brief
-        InputIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
-                       const std::string& name, const std::string& description, const std::string& defaultValue);
+        OptionIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+                        const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
         void updateOption();
@@ -249,12 +249,12 @@ public:
     };
 
     /// @brief input float
-    class InputFloat : public InputOption {
+    class OptionFloat : public OptionRow {
 
     public:
         /// @brief constructor
-        InputFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
-                   const std::string& name, const std::string& description, const std::string& defaultValue);
+        OptionFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+                    const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
         void updateOption();
@@ -280,12 +280,12 @@ public:
     };
 
     /// @brief input float
-    class InputTime : public InputOption {
+    class OptionTime : public OptionRow {
 
     public:
         /// @brief constructor
-        InputTime(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
-                  const std::string& name, const std::string& description, const std::string& defaultValue);
+        OptionTime(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+                   const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
         void updateOption();
@@ -311,14 +311,14 @@ public:
     };
 
     /// @brief input filename
-    class InputFilename : public InputOption {
+    class OptionFilename : public OptionRow {
         /// @brief FOX-declaration
-        FXDECLARE(GNEOptionsDialogElements::InputFilename)
+        FXDECLARE(GNEOptionsEditorRow::OptionFilename)
 
     public:
         /// @brief constructor
-        InputFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
-                      const std::string& name, const std::string& description, const std::string& defaultValue);
+        OptionFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+                       const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
         void updateOption();
@@ -337,7 +337,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        InputFilename();
+        OptionFilename();
 
     private:
         /// @brief get value
