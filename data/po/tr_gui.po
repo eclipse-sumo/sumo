@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-07-30 09:53+0100\n"
+"POT-Creation-Date: 2025-08-08 10:03+0000\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,8 +20,8 @@ msgstr ""
 "X-Generator: Weblate 5.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:308 src/gui/GUIApplicationWindow.cpp:311
-#: src/gui/GUIApplicationWindow.cpp:2269 src/gui/GUIApplicationWindow.cpp:2270
-#: src/gui/GUIApplicationWindow.cpp:2272
+#: src/gui/GUIApplicationWindow.cpp:2268 src/gui/GUIApplicationWindow.cpp:2269
+#: src/gui/GUIApplicationWindow.cpp:2271
 #: src/netedit/GNEApplicationWindow.cpp:564
 #: src/netedit/GNEApplicationWindow.cpp:568
 #: src/netedit/GNEApplicationWindow.cpp:572
@@ -193,8 +194,7 @@ msgstr "Görselleştirmeyi Düzenle"
 #: src/gui/GUIApplicationWindow.cpp:524
 #: src/netedit/GNEApplicationWindowHelper.cpp:1303
 msgid "Opens a dialog for editing visualization settings."
-msgstr ""
-"Görselleştirme Ayarlarının Düzenlenmesi İçin Bir İletişim Kutusu Açar."
+msgstr "Görselleştirme Ayarlarının Düzenlenmesi İçin Bir İletişim Kutusu Açar."
 
 #: src/gui/GUIApplicationWindow.cpp:527
 #: src/netedit/GNEApplicationWindowHelper.cpp:1306
@@ -647,8 +647,8 @@ msgstr "\tAdım\tBir Simülasyon Adımı Çalıştır."
 
 #: src/gui/GUIApplicationWindow.cpp:709
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and "
-"hour:minute:seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
+"seconds display."
 msgstr ""
 "Zaman:\tDüzenler Arasında Geçiş Yap\tSaniye ve Saat:Dakika:Saniye Düzenleri "
 "Arasında Geçiş Yap."
@@ -737,23 +737,23 @@ msgstr "Son Yapılandırma Yok"
 msgid "Recent Configs"
 msgstr "Son Yapılandırmalar"
 
-#: src/gui/GUIApplicationWindow.cpp:1012 src/gui/GUIApplicationWindow.cpp:1038
+#: src/gui/GUIApplicationWindow.cpp:1011 src/gui/GUIApplicationWindow.cpp:1037
 msgid "Running %."
 msgstr "Çalışıyor %."
 
-#: src/gui/GUIApplicationWindow.cpp:1048
+#: src/gui/GUIApplicationWindow.cpp:1047
 msgid "Open Simulation Configuration"
 msgstr "Simülasyon Yapılandırması Aç"
 
-#: src/gui/GUIApplicationWindow.cpp:1068
+#: src/gui/GUIApplicationWindow.cpp:1067
 msgid "Open Network"
 msgstr "Ağ Aç"
 
-#: src/gui/GUIApplicationWindow.cpp:1088
+#: src/gui/GUIApplicationWindow.cpp:1087
 msgid "Open Shapes"
 msgstr "Şekilleri Aç"
 
-#: src/gui/GUIApplicationWindow.cpp:1102 src/gui/GUIApplicationWindow.cpp:1130
+#: src/gui/GUIApplicationWindow.cpp:1101 src/gui/GUIApplicationWindow.cpp:1129
 #: src/netedit/GNEApplicationWindow.cpp:4801
 #: src/netedit/GNEApplicationWindow.cpp:4857
 #: src/netedit/GNEApplicationWindow.cpp:4903
@@ -762,128 +762,128 @@ msgstr "Şekilleri Aç"
 msgid "Loading of % failed."
 msgstr "% Yüklemesi Başarısız."
 
-#: src/gui/GUIApplicationWindow.cpp:1119
+#: src/gui/GUIApplicationWindow.cpp:1118
 msgid "Open EdgeData"
 msgstr "Kesim Verisi (EdgeData) Aç"
 
-#: src/gui/GUIApplicationWindow.cpp:1154
+#: src/gui/GUIApplicationWindow.cpp:1153
 msgid "Auto-Reloading."
 msgstr "Otomatik Yeniden Yükleme."
 
-#: src/gui/GUIApplicationWindow.cpp:1154
+#: src/gui/GUIApplicationWindow.cpp:1153
 msgid "TraCI-Loading."
 msgstr "TraCI-Yükleniyor."
 
-#: src/gui/GUIApplicationWindow.cpp:1156
+#: src/gui/GUIApplicationWindow.cpp:1155
 msgid "Reloading."
 msgstr "Tekrar Yükleniyor."
 
-#: src/gui/GUIApplicationWindow.cpp:1167
+#: src/gui/GUIApplicationWindow.cpp:1166
 msgid "Quick-Reloading."
 msgstr "Hızlı Yeniden Yükleme."
 
-#: src/gui/GUIApplicationWindow.cpp:1177
+#: src/gui/GUIApplicationWindow.cpp:1176
 #: src/netedit/GNEApplicationWindow.cpp:1145
 msgid "Already loading!"
 msgstr "Zaten Yükleniyor!"
 
-#: src/gui/GUIApplicationWindow.cpp:1189
+#: src/gui/GUIApplicationWindow.cpp:1188
 msgid "Save SUMO Configuration"
 msgstr "SUMO Yapılandırmasını Kaydet"
 
-#: src/gui/GUIApplicationWindow.cpp:1203
+#: src/gui/GUIApplicationWindow.cpp:1202
 msgid "Configuration saved to %."
 msgstr "Yapılandırma konuma % kaydedildi."
 
-#: src/gui/GUIApplicationWindow.cpp:1205
+#: src/gui/GUIApplicationWindow.cpp:1204
 msgid "Could not save configuration to %."
 msgstr "Yapılandırma konuma % kaydedilemedi."
 
-#: src/gui/GUIApplicationWindow.cpp:1261 src/gui/GUIApplicationWindow.cpp:1287
-#: src/gui/GUIApplicationWindow.cpp:2195
+#: src/gui/GUIApplicationWindow.cpp:1260 src/gui/GUIApplicationWindow.cpp:1286
+#: src/gui/GUIApplicationWindow.cpp:2194
 msgid "No simulation loaded!"
 msgstr "Herhangi Bir Simülasyon Yüklenmedi!"
 
-#: src/gui/GUIApplicationWindow.cpp:1303
+#: src/gui/GUIApplicationWindow.cpp:1302
 msgid "Save Simulation State"
 msgstr "Simülasyon Durumunu Kaydet"
 
-#: src/gui/GUIApplicationWindow.cpp:1315
+#: src/gui/GUIApplicationWindow.cpp:1314
 msgid "Simulation state saved to '%'."
 msgstr "Simülasyon durumu '%' konumuna kaydedildi."
 
-#: src/gui/GUIApplicationWindow.cpp:1323
+#: src/gui/GUIApplicationWindow.cpp:1322
 msgid "Load Simulation State"
 msgstr "Simülasyon Durumu Yükle"
 
-#: src/gui/GUIApplicationWindow.cpp:1335
+#: src/gui/GUIApplicationWindow.cpp:1334
 msgid "State loaded from '%'."
 msgstr "Durum '%' konumundan yüklendi."
 
-#: src/gui/GUIApplicationWindow.cpp:1337
+#: src/gui/GUIApplicationWindow.cpp:1336
 msgid "Failed to load state from '%' (%)."
 msgstr "Durum '%' (%) konumundan yüklenemedi."
 
-#: src/gui/GUIApplicationWindow.cpp:1484
+#: src/gui/GUIApplicationWindow.cpp:1483
 msgid "Scale number of vehicles in simulation"
 msgstr "Simülasyondaki araçların ölçek sayısı"
 
-#: src/gui/GUIApplicationWindow.cpp:1501
+#: src/gui/GUIApplicationWindow.cpp:1500
 msgid "Open sumo config in netedit"
 msgstr "Sumo config'i netedit'te açın"
 
-#: src/gui/GUIApplicationWindow.cpp:1505
+#: src/gui/GUIApplicationWindow.cpp:1504
 msgid "Open network in netedit"
 msgstr "Ağı Netedit'te aç"
 
-#: src/gui/GUIApplicationWindow.cpp:1834
+#: src/gui/GUIApplicationWindow.cpp:1833
 #, c-format
 msgid "Loading of '%' failed!"
 msgstr "'%' Yüklemesi Başarısız!"
 
-#: src/gui/GUIApplicationWindow.cpp:1848
+#: src/gui/GUIApplicationWindow.cpp:1847
 #, c-format
 msgid "'%' loaded."
 msgstr "'%' yüklendi."
 
-#: src/gui/GUIApplicationWindow.cpp:1951
+#: src/gui/GUIApplicationWindow.cpp:1950
 msgid "SUMO Interactive Traffic Light"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:1953
+#: src/gui/GUIApplicationWindow.cpp:1952
 msgid "SUMO Interactive Demand-Responsive-Transport"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:2082
+#: src/gui/GUIApplicationWindow.cpp:2081
 msgid "Simulation ended at time: %. (%)"
 msgstr "Simülasyon şu saatte sona erdi: %. (%)"
 
-#: src/gui/GUIApplicationWindow.cpp:2085
+#: src/gui/GUIApplicationWindow.cpp:2084
 msgid "Simulation ended at time: %."
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:2086
+#: src/gui/GUIApplicationWindow.cpp:2085
 msgid "Reason:"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:2087
+#: src/gui/GUIApplicationWindow.cpp:2086
 msgid "Do you want to close all open files and views?"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:2088
+#: src/gui/GUIApplicationWindow.cpp:2087
 msgid "Simulation ended"
 msgstr "Simülasyon Sona Erdi"
 
-#: src/gui/GUIApplicationWindow.cpp:2186
+#: src/gui/GUIApplicationWindow.cpp:2185
 msgid "Loading '%'."
 msgstr "'%' Yükleniyor."
 
-#: src/gui/GUIApplicationWindow.cpp:2339 src/gui/GUIApplicationWindow.cpp:2341
-#: src/gui/GUIApplicationWindow.cpp:2342 src/gui/GUIApplicationWindow.cpp:2343
+#: src/gui/GUIApplicationWindow.cpp:2338 src/gui/GUIApplicationWindow.cpp:2340
+#: src/gui/GUIApplicationWindow.cpp:2341 src/gui/GUIApplicationWindow.cpp:2342
 msgid "seconds"
 msgstr "saniye"
 
-#: src/gui/GUIApplicationWindow.cpp:2486
+#: src/gui/GUIApplicationWindow.cpp:2485
 msgid "Set breakpoint at %"
 msgstr ""
 
@@ -1050,11 +1050,10 @@ msgstr "Eclipse SUMO sumo-gui hakkında"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:54
 msgid ""
-"Graphical user interface for the microscopic, multi-modal traffic simulation"
-" SUMO."
+"Graphical user interface for the microscopic, multi-modal traffic simulation "
+"SUMO."
 msgstr ""
-"Mikroskobik, çok modlu trafik simülasyonu SUMO için grafik kullanıcı "
-"arayüzü."
+"Mikroskobik, çok modlu trafik simülasyonu SUMO için grafik kullanıcı arayüzü."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:57
 msgid "Includes JuPedSim %.%.%"
@@ -1062,8 +1061,7 @@ msgstr ""
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:64
 #: src/netedit/dialogs/GNEAbout.cpp:64
-msgid ""
-"This application is based on code provided by the Eclipse SUMO project."
+msgid "This application is based on code provided by the Eclipse SUMO project."
 msgstr ""
 "Bu uygulama, Eclipse SUMO projesi tarafından sağlanan koda dayanmaktadır."
 
@@ -1274,7 +1272,7 @@ msgstr "Dur"
 msgid "Remove"
 msgstr "Kaldır"
 
-#: src/guisim/GUIBaseVehicle.cpp:882 src/guisim/GUIVehicle.cpp:634
+#: src/guisim/GUIBaseVehicle.cpp:882 src/guisim/GUIVehicle.cpp:635
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
 msgstr "Araç parametresi '%' anahtar '%', '%' aracı için bir sayı değildir."
 
@@ -1389,23 +1387,23 @@ msgid "charge type"
 msgstr "şarj tipi"
 
 #: src/guisim/GUIChargingStation.cpp:93 src/guisim/GUIContainer.cpp:175
-#: src/guisim/GUIPerson.cpp:242 src/guisim/GUIVehicle.cpp:135
+#: src/guisim/GUIPerson.cpp:243 src/guisim/GUIVehicle.cpp:136
 msgid "waiting time [s]"
 msgstr "bekleme süresi [s]"
 
-#: src/guisim/GUIContainer.cpp:164 src/guisim/GUIPerson.cpp:229
+#: src/guisim/GUIContainer.cpp:164 src/guisim/GUIPerson.cpp:230
 msgid "stage"
 msgstr "aşama"
 
-#: src/guisim/GUIContainer.cpp:166 src/guisim/GUIPerson.cpp:231
+#: src/guisim/GUIContainer.cpp:166 src/guisim/GUIPerson.cpp:232
 msgid "stage index"
 msgstr "aşama indeksi"
 
-#: src/guisim/GUIContainer.cpp:167 src/guisim/GUIPerson.cpp:232
+#: src/guisim/GUIContainer.cpp:167 src/guisim/GUIPerson.cpp:233
 msgid "start edge [id]"
 msgstr "başlangıç kenarı [id]"
 
-#: src/guisim/GUIContainer.cpp:168 src/guisim/GUIPerson.cpp:233
+#: src/guisim/GUIContainer.cpp:168 src/guisim/GUIPerson.cpp:234
 msgid "dest edge [id]"
 msgstr "hedef kenar [id]"
 
@@ -1413,66 +1411,66 @@ msgstr "hedef kenar [id]"
 msgid "arrivalPos [m]"
 msgstr "varışKon [m]"
 
-#: src/guisim/GUIContainer.cpp:170 src/guisim/GUIPerson.cpp:236
+#: src/guisim/GUIContainer.cpp:170 src/guisim/GUIPerson.cpp:237
 msgid "edge [id]"
 msgstr "kenar [id]"
 
 #: src/guisim/GUIContainer.cpp:171 src/guisim/GUIE2Collector.cpp:131
 #: src/guisim/GUIInductLoop.cpp:141 src/guisim/GUIInstantInductLoop.cpp:97
-#: src/guisim/GUIPerson.cpp:238 src/guisim/GUIVehicle.cpp:117
+#: src/guisim/GUIPerson.cpp:239 src/guisim/GUIVehicle.cpp:118
 msgid "position [m]"
 msgstr "konum [m]"
 
 #: src/guisim/GUIContainer.cpp:172 src/guisim/GUIInductLoop.cpp:152
-#: src/guisim/GUILaneSpeedTrigger.cpp:303 src/guisim/GUIPerson.cpp:239
-#: src/guisim/GUIVehicle.cpp:121
+#: src/guisim/GUILaneSpeedTrigger.cpp:303 src/guisim/GUIPerson.cpp:240
+#: src/guisim/GUIVehicle.cpp:122
 msgid "speed [m/s]"
 msgstr "hız [m/s]"
 
-#: src/guisim/GUIContainer.cpp:173 src/guisim/GUIPerson.cpp:240
-#: src/guisim/GUIVehicle.cpp:131
+#: src/guisim/GUIContainer.cpp:173 src/guisim/GUIPerson.cpp:241
+#: src/guisim/GUIVehicle.cpp:132
 msgid "speed factor"
 msgstr "hız faktörü"
 
-#: src/guisim/GUIContainer.cpp:174 src/guisim/GUIPerson.cpp:241
-#: src/guisim/GUIVehicle.cpp:127
+#: src/guisim/GUIContainer.cpp:174 src/guisim/GUIPerson.cpp:242
+#: src/guisim/GUIVehicle.cpp:128
 msgid "angle [degree]"
 msgstr "açı [derece]"
 
-#: src/guisim/GUIContainer.cpp:176 src/guisim/GUIPerson.cpp:245
-#: src/guisim/GUIVehicle.cpp:147
+#: src/guisim/GUIContainer.cpp:176 src/guisim/GUIPerson.cpp:246
+#: src/guisim/GUIVehicle.cpp:148
 msgid "desired depart [s]"
 msgstr "istenilen kalkış [s]"
 
-#: src/guisim/GUIContainer.cpp:186 src/guisim/GUIPerson.cpp:255
+#: src/guisim/GUIContainer.cpp:186 src/guisim/GUIPerson.cpp:256
 msgid "length"
 msgstr "uzunluk"
 
-#: src/guisim/GUIContainer.cpp:187 src/guisim/GUIPerson.cpp:256
+#: src/guisim/GUIContainer.cpp:187 src/guisim/GUIPerson.cpp:257
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2202
 msgid "width"
 msgstr "genişlik"
 
-#: src/guisim/GUIContainer.cpp:188 src/guisim/GUIPerson.cpp:257
+#: src/guisim/GUIContainer.cpp:188 src/guisim/GUIPerson.cpp:258
 msgid "height"
 msgstr "yükseklik"
 
-#: src/guisim/GUIContainer.cpp:189 src/guisim/GUIPerson.cpp:258
+#: src/guisim/GUIContainer.cpp:189 src/guisim/GUIPerson.cpp:259
 msgid "minGap"
 msgstr "minGap"
 
-#: src/guisim/GUIContainer.cpp:190 src/guisim/GUIPerson.cpp:259
-#: src/guisim/GUIVehicle.cpp:240
+#: src/guisim/GUIContainer.cpp:190 src/guisim/GUIPerson.cpp:260
+#: src/guisim/GUIVehicle.cpp:241
 msgid "mass [kg]"
 msgstr "kütle [kg]"
 
-#: src/guisim/GUIContainer.cpp:191 src/guisim/GUIPerson.cpp:261
-#: src/guisim/GUIVehicle.cpp:244
+#: src/guisim/GUIContainer.cpp:191 src/guisim/GUIPerson.cpp:262
+#: src/guisim/GUIVehicle.cpp:245
 msgid "maximum speed [m/s]"
 msgstr "maksimum hız [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:130 src/guisim/GUIEdge.cpp:185
-#: src/guisim/GUILane.cpp:1061 src/guisim/GUIVehicle.cpp:234
+#: src/guisim/GUILane.cpp:1061 src/guisim/GUIVehicle.cpp:235
 msgid "length [m]"
 msgstr "uzunluk [m]"
 
@@ -1740,8 +1738,7 @@ msgid "last interval entered vehicles [#]"
 msgstr "son aralığa girilen araçlar [#]"
 
 #: src/guisim/GUIJunctionWrapper.cpp:121 src/guisim/GUILane.cpp:1073
-#: src/guisim/GUITrafficLightLogicWrapper.cpp:239
-#: src/guisim/GUIVehicle.cpp:233
+#: src/guisim/GUITrafficLightLogicWrapper.cpp:239 src/guisim/GUIVehicle.cpp:234
 msgid "type"
 msgstr "tür"
 
@@ -1793,7 +1790,7 @@ msgstr "Ulaşılabilir olanı seç"
 msgid "allowed speed [m/s]"
 msgstr "izin verilen hız [m/s]"
 
-#: src/guisim/GUILane.cpp:1062 src/guisim/GUIVehicle.cpp:235
+#: src/guisim/GUILane.cpp:1062 src/guisim/GUIVehicle.cpp:236
 msgid "width [m]"
 msgstr "genişlik [m]"
 
@@ -1848,8 +1845,7 @@ msgstr "çift şeritli"
 #: src/guisim/GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
 msgstr ""
-"Ağ boyutu 1 Işıkyılı'nı aşıyor. Lütfen girdilerinizi tekrar gözden "
-"geçirin.\n"
+"Ağ boyutu 1 Işıkyılı'nı aşıyor. Lütfen girdilerinizi tekrar gözden geçirin.\n"
 
 #: src/guisim/GUINet.cpp:470 src/netedit/GNENet.cpp:213
 msgid "Copy view geo-boundary to clipboard"
@@ -2038,27 +2034,27 @@ msgstr "alternatifler [#]"
 msgid "access badges"
 msgstr ""
 
-#: src/guisim/GUIPerson.cpp:234
+#: src/guisim/GUIPerson.cpp:235
 msgid "dest stop [id]"
 msgstr "hedef durağı [id]"
 
-#: src/guisim/GUIPerson.cpp:235
+#: src/guisim/GUIPerson.cpp:236
 msgid "arrival position [m]"
 msgstr "varış konumu [m]"
 
-#: src/guisim/GUIPerson.cpp:237 src/guisim/GUIVehicle.cpp:107
+#: src/guisim/GUIPerson.cpp:238 src/guisim/GUIVehicle.cpp:108
 msgid "lane [id]"
 msgstr "şerit [id]"
 
-#: src/guisim/GUIPerson.cpp:243
+#: src/guisim/GUIPerson.cpp:244
 msgid "vehicle [id]"
 msgstr "araç [id]"
 
-#: src/guisim/GUIPerson.cpp:244
+#: src/guisim/GUIPerson.cpp:245
 msgid "stop duration [s]"
 msgstr "durma süresi [s]"
 
-#: src/guisim/GUIPerson.cpp:260
+#: src/guisim/GUIPerson.cpp:261
 msgid "desired max speed [m/s]"
 msgstr "istenilen maksimum hız [m/s]"
 
@@ -2166,300 +2162,300 @@ msgstr "rakip"
 msgid "constraint"
 msgstr "kısıtlama"
 
-#: src/guisim/GUIVehicle.cpp:109
+#: src/guisim/GUIVehicle.cpp:110
 msgid "shadow lane [id]"
 msgstr "gölge şerit [id]"
 
-#: src/guisim/GUIVehicle.cpp:112
+#: src/guisim/GUIVehicle.cpp:113
 msgid "target lane [id]"
 msgstr "hedef şerit [id]"
 
-#: src/guisim/GUIVehicle.cpp:115
+#: src/guisim/GUIVehicle.cpp:116
 msgid "back lanes [id,..]"
 msgstr "geri şeritleri [id,..]"
 
-#: src/guisim/GUIVehicle.cpp:119
+#: src/guisim/GUIVehicle.cpp:120
 msgid "lateral offset [m]"
 msgstr "yanal ofset [m]"
 
-#: src/guisim/GUIVehicle.cpp:123
+#: src/guisim/GUIVehicle.cpp:124
 msgid "lateral speed [m/s]"
 msgstr "yanal hız [m/s]"
 
-#: src/guisim/GUIVehicle.cpp:125
+#: src/guisim/GUIVehicle.cpp:126
 msgid "acceleration [m/s^2]"
 msgstr "ivme [m/s^2]"
 
-#: src/guisim/GUIVehicle.cpp:129
+#: src/guisim/GUIVehicle.cpp:130
 msgid "slope [degree]"
 msgstr "eğim [derece]"
 
-#: src/guisim/GUIVehicle.cpp:133
+#: src/guisim/GUIVehicle.cpp:134
 msgid "time gap on lane [s]"
 msgstr "şeritteki zaman boşluğu [s]"
 
-#: src/guisim/GUIVehicle.cpp:137
+#: src/guisim/GUIVehicle.cpp:138
 #, c-format
 msgid "waiting time (accumulated, % s) [s]"
 msgstr "bekleme süresi (birikmiş, % s) [s]"
 
-#: src/guisim/GUIVehicle.cpp:139
+#: src/guisim/GUIVehicle.cpp:140
 msgid "time since startup [s]"
 msgstr "başlangıçtan bu yana geçen süre [s]"
 
-#: src/guisim/GUIVehicle.cpp:141
+#: src/guisim/GUIVehicle.cpp:142
 msgid "time loss [s]"
 msgstr "zaman kaybı [s]"
 
-#: src/guisim/GUIVehicle.cpp:143
+#: src/guisim/GUIVehicle.cpp:144
 msgid "impatience"
 msgstr "sabırsızlık"
 
-#: src/guisim/GUIVehicle.cpp:145
+#: src/guisim/GUIVehicle.cpp:146
 msgid "last lane change [s]"
 msgstr "son şerit değiştirme [s]"
 
-#: src/guisim/GUIVehicle.cpp:148
+#: src/guisim/GUIVehicle.cpp:149
 msgid "depart delay [s]"
 msgstr "kalkış gecikmesi [s]"
 
-#: src/guisim/GUIVehicle.cpp:149
+#: src/guisim/GUIVehicle.cpp:150
 msgid "odometer [m]"
 msgstr "kilometre sayacı [m]"
 
-#: src/guisim/GUIVehicle.cpp:152
+#: src/guisim/GUIVehicle.cpp:153
 msgid "remaining [#]"
 msgstr "kalan [#]"
 
-#: src/guisim/GUIVehicle.cpp:155
+#: src/guisim/GUIVehicle.cpp:156
 msgid "insertion period [s]"
 msgstr "ekleme süresi [s]"
 
-#: src/guisim/GUIVehicle.cpp:158
+#: src/guisim/GUIVehicle.cpp:159
 msgid "insertion probability"
 msgstr "ekleme olasılığı"
 
-#: src/guisim/GUIVehicle.cpp:161 src/mesogui/GUIMEVehicle.cpp:97
+#: src/guisim/GUIVehicle.cpp:162 src/mesogui/GUIMEVehicle.cpp:97
 msgid "poisson rate"
 msgstr ""
 
-#: src/guisim/GUIVehicle.cpp:163
+#: src/guisim/GUIVehicle.cpp:164
 msgid "stop info"
 msgstr "dur bilgisi"
 
-#: src/guisim/GUIVehicle.cpp:164
+#: src/guisim/GUIVehicle.cpp:165
 msgid "line"
 msgstr "çizgi"
 
-#: src/guisim/GUIVehicle.cpp:165
+#: src/guisim/GUIVehicle.cpp:166
 msgid "CO2 [mg/s]"
 msgstr "CO2 [mg/s]"
 
-#: src/guisim/GUIVehicle.cpp:167
+#: src/guisim/GUIVehicle.cpp:168
 msgid "CO [mg/s]"
 msgstr "CO [mg/s]"
 
-#: src/guisim/GUIVehicle.cpp:169
+#: src/guisim/GUIVehicle.cpp:170
 msgid "HC [mg/s]"
 msgstr "HC [mg/s]"
 
-#: src/guisim/GUIVehicle.cpp:171
+#: src/guisim/GUIVehicle.cpp:172
 msgid "NOx [mg/s]"
 msgstr "NOx [mg/s]"
 
-#: src/guisim/GUIVehicle.cpp:173
+#: src/guisim/GUIVehicle.cpp:174
 msgid "PMx [mg/s]"
 msgstr "PMx [mg/s]"
 
-#: src/guisim/GUIVehicle.cpp:175
+#: src/guisim/GUIVehicle.cpp:176
 msgid "fuel [mg/s]"
 msgstr "yakıt [mg/s]"
 
-#: src/guisim/GUIVehicle.cpp:177
+#: src/guisim/GUIVehicle.cpp:178
 msgid "electricity [Wh/s]"
 msgstr "elektrik [Wh/s]"
 
-#: src/guisim/GUIVehicle.cpp:179
+#: src/guisim/GUIVehicle.cpp:180
 msgid "noise (Harmonoise) [dB]"
 msgstr "gürültü (Harmonoise) [dB]"
 
-#: src/guisim/GUIVehicle.cpp:181
+#: src/guisim/GUIVehicle.cpp:182
 msgid "devices"
 msgstr "cihazlar"
 
-#: src/guisim/GUIVehicle.cpp:182
+#: src/guisim/GUIVehicle.cpp:183
 msgid "persons"
 msgstr "kişiler"
 
-#: src/guisim/GUIVehicle.cpp:184
+#: src/guisim/GUIVehicle.cpp:185
 msgid "containers"
 msgstr "konteynerler"
 
-#: src/guisim/GUIVehicle.cpp:186
+#: src/guisim/GUIVehicle.cpp:187
 msgid "lcState right"
 msgstr "lcState sağ"
 
-#: src/guisim/GUIVehicle.cpp:187
+#: src/guisim/GUIVehicle.cpp:188
 msgid "lcState left"
 msgstr "lcState sol"
 
-#: src/guisim/GUIVehicle.cpp:188
+#: src/guisim/GUIVehicle.cpp:189
 msgid "parking badges"
 msgstr ""
 
-#: src/guisim/GUIVehicle.cpp:191
+#: src/guisim/GUIVehicle.cpp:192
 msgid "lcState center"
 msgstr "lcState orta"
 
-#: src/guisim/GUIVehicle.cpp:192
+#: src/guisim/GUIVehicle.cpp:193
 msgid "right side on edge [m]"
 msgstr "kenarda sağ taraf [m]"
 
-#: src/guisim/GUIVehicle.cpp:193
+#: src/guisim/GUIVehicle.cpp:194
 msgid "left side on edge [m]"
 msgstr "kenarda sol taraf [m]"
 
-#: src/guisim/GUIVehicle.cpp:194
+#: src/guisim/GUIVehicle.cpp:195
 msgid "rightmost edge sublane [#]"
 msgstr "en sağ kenar alt şerit [#]"
 
-#: src/guisim/GUIVehicle.cpp:195
+#: src/guisim/GUIVehicle.cpp:196
 msgid "leftmost edge sublane [#]"
 msgstr "en sol kenar alt şeridi [#]"
 
-#: src/guisim/GUIVehicle.cpp:196
+#: src/guisim/GUIVehicle.cpp:197
 msgid "lane change maneuver distance [m]"
 msgstr "şerit değiştirme manevra mesafesi [m]"
 
-#: src/guisim/GUIVehicle.cpp:199
+#: src/guisim/GUIVehicle.cpp:200
 msgid "driveways"
 msgstr ""
 
-#: src/guisim/GUIVehicle.cpp:202
+#: src/guisim/GUIVehicle.cpp:203
 msgid "present state of charge [Wh]"
 msgstr "mevcut şarj durumu [Wh]"
 
-#: src/guisim/GUIVehicle.cpp:206
+#: src/guisim/GUIVehicle.cpp:207
 msgid "relative state of charge (SoC) [-]"
 msgstr "göreli şarj durumu (SoC) [-]"
 
-#: src/guisim/GUIVehicle.cpp:208
+#: src/guisim/GUIVehicle.cpp:209
 msgid "current timestep charge [Wh]"
 msgstr "şu anda şarj oluyor [Wh]"
 
-#: src/guisim/GUIVehicle.cpp:210
+#: src/guisim/GUIVehicle.cpp:211
 msgid "maximum charge rate [W]"
 msgstr ""
 
-#: src/guisim/GUIVehicle.cpp:214
+#: src/guisim/GUIVehicle.cpp:215
 msgid "present electric current [A]"
 msgstr "mevcut elektrik akımı [A]"
 
-#: src/guisim/GUIVehicle.cpp:219
+#: src/guisim/GUIVehicle.cpp:220
 msgid "speed mode"
 msgstr "hız modu"
 
-#: src/guisim/GUIVehicle.cpp:222
+#: src/guisim/GUIVehicle.cpp:223
 msgid "lane change mode"
 msgstr "şerit değiştirme modu"
 
-#: src/guisim/GUIVehicle.cpp:236
+#: src/guisim/GUIVehicle.cpp:237
 msgid "height [m]"
 msgstr "yükseklik [m]"
 
-#: src/guisim/GUIVehicle.cpp:237
+#: src/guisim/GUIVehicle.cpp:238
 msgid "minGap [m]"
 msgstr "minGap [m]"
 
-#: src/guisim/GUIVehicle.cpp:238
+#: src/guisim/GUIVehicle.cpp:239
 msgid "vehicle class"
 msgstr "araç sınıfı"
 
-#: src/guisim/GUIVehicle.cpp:239
+#: src/guisim/GUIVehicle.cpp:240
 msgid "emission class"
 msgstr "emi̇syon sinifi"
 
-#: src/guisim/GUIVehicle.cpp:241
+#: src/guisim/GUIVehicle.cpp:242
 msgid "car-following model"
 msgstr "araç takip modeli"
 
-#: src/guisim/GUIVehicle.cpp:242
+#: src/guisim/GUIVehicle.cpp:243
 msgid "lane-change model"
 msgstr "şerit değiştirme modeli"
 
-#: src/guisim/GUIVehicle.cpp:243
+#: src/guisim/GUIVehicle.cpp:244
 msgid "guiShape"
 msgstr "guiShape"
 
-#: src/guisim/GUIVehicle.cpp:245
+#: src/guisim/GUIVehicle.cpp:246
 msgid "desired maximum speed [m/s]"
 msgstr "istenen maksimum hız [m/s]"
 
-#: src/guisim/GUIVehicle.cpp:246
+#: src/guisim/GUIVehicle.cpp:247
 msgid "maximum acceleration [m/s^2]"
 msgstr "maksimum ivme [m/s^2]"
 
-#: src/guisim/GUIVehicle.cpp:247
+#: src/guisim/GUIVehicle.cpp:248
 msgid "maximum deceleration [m/s^2]"
 msgstr "maksimum yavaşlama [m/s^2]"
 
-#: src/guisim/GUIVehicle.cpp:248
+#: src/guisim/GUIVehicle.cpp:249
 msgid "emergency deceleration [m/s^2]"
 msgstr "acil durum yavaşlaması [m/s^2]"
 
-#: src/guisim/GUIVehicle.cpp:249
+#: src/guisim/GUIVehicle.cpp:250
 msgid "apparent deceleration [m/s^2]"
 msgstr "görünür yavaşlama [m/s^2]"
 
-#: src/guisim/GUIVehicle.cpp:250
+#: src/guisim/GUIVehicle.cpp:251
 msgid "imperfection (sigma)"
 msgstr "kusurluluk (sigma)"
 
-#: src/guisim/GUIVehicle.cpp:251
+#: src/guisim/GUIVehicle.cpp:252
 msgid "desired headway (tau) [s]"
 msgstr "istenen ilerleme mesafesi (tau) [s]"
 
-#: src/guisim/GUIVehicle.cpp:252
+#: src/guisim/GUIVehicle.cpp:253
 msgid "speedfactor"
 msgstr "hız faktörü"
 
-#: src/guisim/GUIVehicle.cpp:253
+#: src/guisim/GUIVehicle.cpp:254
 msgid "startupDelay [s]"
 msgstr ""
 
-#: src/guisim/GUIVehicle.cpp:255
+#: src/guisim/GUIVehicle.cpp:256
 msgid "action step length [s]"
 msgstr "eylem adımı uzunluğu [s]"
 
-#: src/guisim/GUIVehicle.cpp:257
+#: src/guisim/GUIVehicle.cpp:258
 msgid "person capacity"
 msgstr "kişi kapasitesi"
 
-#: src/guisim/GUIVehicle.cpp:258 src/mesogui/GUIMEVehicle.cpp:149
+#: src/guisim/GUIVehicle.cpp:259 src/mesogui/GUIMEVehicle.cpp:149
 msgid "boarding time [s]"
 msgstr "biniş süresi [s]"
 
-#: src/guisim/GUIVehicle.cpp:259
+#: src/guisim/GUIVehicle.cpp:260
 msgid "container capacity"
 msgstr "konteyner kapasitesi"
 
-#: src/guisim/GUIVehicle.cpp:260 src/mesogui/GUIMEVehicle.cpp:151
+#: src/guisim/GUIVehicle.cpp:261 src/mesogui/GUIMEVehicle.cpp:151
 msgid "loading time [s]"
 msgstr "yükleme süresi [s]"
 
-#: src/guisim/GUIVehicle.cpp:262
+#: src/guisim/GUIVehicle.cpp:263
 msgid "minGapLat [m]"
 msgstr "minGapLat [m]"
 
-#: src/guisim/GUIVehicle.cpp:263 src/guisim/GUIVehicle.cpp:266
+#: src/guisim/GUIVehicle.cpp:264 src/guisim/GUIVehicle.cpp:267
 msgid "maxSpeedLat [m/s]"
 msgstr "maxSpeedLat [m/s]"
 
-#: src/guisim/GUIVehicle.cpp:264
+#: src/guisim/GUIVehicle.cpp:265
 msgid "latAlignment"
 msgstr "enlemHizalama"
 
-#: src/guisim/GUIVehicle.cpp:275
+#: src/guisim/GUIVehicle.cpp:276
 msgid "manoeuver Angle vs Times"
 msgstr "Manevra Açısı vs Zamanlar"
 
@@ -3073,8 +3069,8 @@ msgstr "Birleştirilmiş Kavşakları Kaydet..."
 #: src/netedit/GNEApplicationWindowHelper.cpp:255
 msgid "Save log of joined junctions (allows reproduction of joins)."
 msgstr ""
-"Birleştirilmiş kavşakların günlüğünü kaydet (birleştirmelerin çoğaltılmasına"
-" izin verir)."
+"Birleştirilmiş kavşakların günlüğünü kaydet (birleştirmelerin çoğaltılmasına "
+"izin verir)."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:262
 msgid "Reload"
@@ -3205,8 +3201,7 @@ msgid "Save TLS Programs As..."
 msgstr "TIS Programlarını Farklı Kaydet..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:410
-msgid ""
-"Save all traffic light programs of the current network to another file."
+msgid "Save all traffic light programs of the current network to another file."
 msgstr "Mevcut ağdaki tüm trafik ışık programlarını başka bir dosyaya kaydet."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:416
@@ -4330,8 +4325,8 @@ msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
 msgstr ""
-"Geçersiz giriş ağı seçeneği. sumo/netedit/netconvert yapılandırması ile veya"
-" -new seçeneği ile yükle"
+"Geçersiz giriş ağı seçeneği. sumo/netedit/netconvert yapılandırması ile veya "
+"-new seçeneği ile yükle"
 
 #: src/netedit/GNELoadThread.cpp:134
 msgid "Invalid Options. Nothing loaded"
@@ -4417,8 +4412,8 @@ msgstr "Öznitelik yardımını dosyaya yaz"
 #: src/netedit/GNELoadThread.cpp:325
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr ""
-"Geri al-yinele'de süpermodlar arasında geçiş yaparken soru iletişim kutusunu"
-" yok sayma"
+"Geri al-yinele'de süpermodlar arasında geçiş yaparken soru iletişim kutusunu "
+"yok sayma"
 
 #: src/netedit/GNELoadThread.cpp:328
 msgid "Ignore additional elements during loading of sumo-configs"
@@ -4773,8 +4768,7 @@ msgstr "Birleştirilmiş kavşağın konumu"
 
 #: src/netedit/GNENet.cpp:1655
 msgid ""
-"There is another unselected junction in the same position of joined "
-"junction."
+"There is another unselected junction in the same position of joined junction."
 msgstr ""
 "Birleştirilmiş kavşağın aynı konumunda seçilmemiş başka bir kavşak var."
 
@@ -5220,8 +5214,8 @@ msgstr "SUMO kesim tipi dosyası içindeki bir tipin adı"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:778
 msgid ""
-"If the shape is given it should start and end with the positions of the "
-"from-node and to-node"
+"If the shape is given it should start and end with the positions of the from-"
+"node and to-node"
 msgstr ""
 "Şekil verilmişse, düğümden gelen ve düğüme giden konumlarıyla başlamalı ve "
 "bitmelidir"
@@ -5279,8 +5273,8 @@ msgstr "Şerit"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:863
 msgid ""
-"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1"
-" is the leftmost one)"
+"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
+"is the leftmost one)"
 msgstr ""
 "Şeridin numaralandırma indeksi (0 en sağdaki şerittir, <NUMBER_LANES>-1 en "
 "soldaki şerittir)"
@@ -5397,8 +5391,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1043
 msgid ""
-"if set to false, vehicles which pass this (lane-2-lane) connection) will not"
-" worry about blocking the intersection"
+"if set to false, vehicles which pass this (lane-2-lane) connection) will not "
+"worry about blocking the intersection"
 msgstr ""
 "false olarak ayarlanırsa, bu (şeritten şeride) bağlantıyı geçen araçlar "
 "kavşağı engelleme konusunda endişelenmeyecektir"
@@ -5426,8 +5420,8 @@ msgstr "Araçlar arası görüş mesafesi"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1067
 msgid ""
-"sets index of this connection within the controlling traffic light (-1 means"
-" automatic assignment)"
+"sets index of this connection within the controlling traffic light (-1 means "
+"automatic assignment)"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1073
@@ -5480,14 +5474,14 @@ msgid ""
 "Meant to be the names of the bus lines that stop at this bus stop. This is "
 "only used for visualization purposes"
 msgstr ""
-"Bu otobüs durağında duran otobüs hatlarının adları anlamına gelir. Bu sadece"
-" görselleştirme amacıyla kullanılır"
+"Bu otobüs durağında duran otobüs hatlarının adları anlamına gelir. Bu sadece "
+"görselleştirme amacıyla kullanılır"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1168
 #: src/netedit/GNETagPropertiesDatabase.cpp:1199
 msgid ""
-"Larger numbers of persons trying to enter will create an upstream jam on the"
-" sidewalk"
+"Larger numbers of persons trying to enter will create an upstream jam on the "
+"sidewalk"
 msgstr ""
 "İçeri girmeye çalışan çok sayıda kişi kaldırımda sıkışıklık yaratacaktır"
 
@@ -5565,8 +5559,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1299
 msgid ""
-"Time delay after the vehicles has reached / stopped on the charging station,"
-" before the energy transfer (charging) begins"
+"Time delay after the vehicles has reached / stopped on the charging station, "
+"before the energy transfer (charging) begins"
 msgstr ""
 "Araçlar şarj istasyonuna ulaştıktan / durduktan sonra, enerji aktarımı "
 "(şarj) başlamadan önce zaman gecikmesi"
@@ -5604,8 +5598,7 @@ msgstr " Yol kenarı park için park yeri sayısı"
 msgid ""
 "If set, vehicles will park on the road lane and thereby reducing capacity"
 msgstr ""
-"Ayarlanırsa, araçlar yol şeridine park edecek ve böylece kapasite "
-"azalacaktır"
+"Ayarlanırsa, araçlar yol şeridine park edecek ve böylece kapasite azalacaktır"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1359
 #: src/netedit/GNETagPropertiesDatabase.cpp:1402
@@ -5614,11 +5607,11 @@ msgstr "Yol kenarındaki park yerlerinin genişliği"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1365
 msgid ""
-"The length of the road-side parking spaces. By default (endPos - startPos) /"
-" roadsideCapacity"
+"The length of the road-side parking spaces. By default (endPos - startPos) / "
+"roadsideCapacity"
 msgstr ""
-"Yol kenarı park alanlarının uzunluğu. Varsayılan olarak (endPos - startPos) "
-"/ roadsideCapacity"
+"Yol kenarı park alanlarının uzunluğu. Varsayılan olarak (endPos - "
+"startPos) / roadsideCapacity"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1371
 #: src/netedit/GNETagPropertiesDatabase.cpp:1412
@@ -5824,8 +5817,8 @@ msgstr "Aracın yeniden yönlendirilme olasılığı (0-1)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1924
 msgid ""
-"The waiting time threshold (in s) that must be reached to activate rerouting"
-" (default -1 which disables the threshold)"
+"The waiting time threshold (in s) that must be reached to activate rerouting "
+"(default -1 which disables the threshold)"
 msgstr ""
 "Yeniden yönlendirmeyi etkinleştirmek için ulaşılması gereken bekleme süresi "
 "eşiği (s cinsinden) (varsayılan -1 eşiği devre dışı bırakır)"
@@ -5886,8 +5879,8 @@ msgstr "Park Alanı Kimliği (ID)"
 #: src/netedit/GNETagPropertiesDatabase.cpp:2050
 msgid "Enable or disable visibility for parking area reroutes"
 msgstr ""
-"Park alanı yeniden yönlendirmeleri için görünürlüğü etkinleştirme veya devre"
-" dışı bırakma"
+"Park alanı yeniden yönlendirmeleri için görünürlüğü etkinleştirme veya devre "
+"dışı bırakma"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2061
 msgid "RouteProbabilityReroute"
@@ -6070,16 +6063,15 @@ msgstr "Havai kablo segmenti şeridinin kimliği (overheadWireIDStartClamp)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2440
 msgid ""
-"ID of the overhead wire segment, to the end of which the overhead wire clamp"
-" is connected"
+"ID of the overhead wire segment, to the end of which the overhead wire clamp "
+"is connected"
 msgstr ""
 "Havai kablo kelepçesinin ucuna bağlı olduğu havai kablo segmentinin kimliği "
 "(ID)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2445
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
-msgstr ""
-"Havai kablo segmenti şeridinin kimliği (overheadWireIDStartClamp) (ID)"
+msgstr "Havai kablo segmenti şeridinin kimliği (overheadWireIDStartClamp) (ID)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2461
 msgid "JuPedSim WalkableArea"
@@ -6357,8 +6349,7 @@ msgid "WaypointLane"
 msgstr "YönlendirmeNoktasıYolu"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3213
-msgid ""
-"The lateral offset on the named lane at which the vehicle must waypoint"
+msgid "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
 "Aracın yol ara noktası olması gereken, adlandırılmış şeritteki yanal sapma"
 
@@ -7503,8 +7494,8 @@ msgstr "İşlenen görüntünün metre cinsinden yüksekliği"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7100
 msgid ""
-"The edges the vehicle shall drive along, given as their ids, separated using"
-" spaces"
+"The edges the vehicle shall drive along, given as their ids, separated using "
+"spaces"
 msgstr ""
 "Aracın üzerinde ilerleyeceği kesimler, boşluklarla ayrılmış kimlikleri "
 "olarak verilir"
@@ -7546,16 +7537,14 @@ msgid ""
 "The vehicle's expected multiplicator for lane speed limits (or a "
 "distribution specifier)"
 msgstr ""
-"Şerit hız sınırları için aracın beklenen çarpanı (veya bir dağıtım "
-"belirteci)"
+"Şerit hız sınırları için aracın beklenen çarpanı (veya bir dağıtım belirteci)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7153
 msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
 msgstr "Aracın istenen maksimum hızı (HızFactor ile etkileşim halindedir)."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7154
-msgid ""
-"Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
+msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr ""
 "Hız sınırı olmadığında uygulanabilir (bisikletler, bazı otoyollar) [m/s]"
 
@@ -7658,8 +7647,8 @@ msgstr "Aracın ağdan ayrılacağı hız"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7327
 msgid ""
-"A string specifying the id of a public transport line which can be used when"
-" specifying person rides"
+"A string specifying the id of a public transport line which can be used when "
+"specifying person rides"
 msgstr ""
 "Kişi yolculuklarını belirtirken kullanılabilecek bir toplu taşıma hattının "
 "kimliğini belirten bir dize"
@@ -7749,8 +7738,8 @@ msgstr "Bu tip araçların yavaşlama kabiliyeti [m/s^2]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7445
 msgid ""
-"The apparent deceleration of the vehicle as used by the standard model "
-"[m/s^2]"
+"The apparent deceleration of the vehicle as used by the standard model [m/"
+"s^2]"
 msgstr ""
 "Standart model tarafından kullanılan aracın görünür yavaşlaması [m/s^2]"
 
@@ -7821,10 +7810,9 @@ msgstr "EIDM maksimum sarsıntı parametresi [m/s^3]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7552
 msgid ""
-"EIDM maximal negative acceleration between two Action Points (threshold) "
-"[m/s^2]"
-msgstr ""
-"EIDM iki Eylem Noktası arasındaki maksimum negatif ivme (eşik) [m/s^2]"
+"EIDM maximal negative acceleration between two Action Points (threshold) [m/"
+"s^2]"
+msgstr "EIDM iki Eylem Noktası arasındaki maksimum negatif ivme (eşik) [m/s^2]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7558
 msgid ""
@@ -7843,8 +7831,8 @@ msgstr "EIDM Başlangıç/kalkış eğrisinin kaydırma parametresi [-]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7576
 msgid ""
-"EIDM parameter if model shall include vehicle dynamics into the acceleration"
-" calculation [0/1]"
+"EIDM parameter if model shall include vehicle dynamics into the acceleration "
+"calculation [0/1]"
 msgstr ""
 "Modelin hızlanma hesabına araç dinamiklerini dahil etmesi gerekiyorsa EIDM "
 "parametresi [0/1]"
@@ -7933,16 +7921,16 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7731
 msgid ""
-"This value causes vehicles to violate a red light if the duration of the red"
-" phase is lower than the given threshold."
+"This value causes vehicles to violate a red light if the duration of the red "
+"phase is lower than the given threshold."
 msgstr ""
 "Bu değer, kırmızı fazın süresi verilen eşikten düşükse araçların kırmızı "
 "ışık ihlali yapmasına neden olur."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7737
 msgid ""
-"This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
-" violating a red light."
+"This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
+"violating a red light."
 msgstr ""
 "Bu değer, jmDriveAfterRedTime tarafından etkilenen araçların kırmızı ışık "
 "ihlali yaparken yavaşlamasına neden olur."
@@ -8015,8 +8003,8 @@ msgid ""
 "The eagerness for following the obligation to keep right. Higher values "
 "result in earlier lane-changing."
 msgstr ""
-"Sağda kalma zorunluluğunu takip etme isteği. Daha yüksek değerler daha erken"
-" şerit değiştirmeye neden olur."
+"Sağda kalma zorunluluğunu takip etme isteği. Daha yüksek değerler daha erken "
+"şerit değiştirmeye neden olur."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7803
 msgid ""
@@ -8073,8 +8061,8 @@ msgstr "Saniye başına maksimum yanal ivme."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7852
 msgid ""
-"Factor for configuring the strategic lookahead distance when a change to the"
-" left is necessary (relative to right lookahead)."
+"Factor for configuring the strategic lookahead distance when a change to the "
+"left is necessary (relative to right lookahead)."
 msgstr ""
 "Sola doğru bir değişiklik gerektiğinde (sağ önden görüşe göre) stratejik "
 "önden bakış mesafesini yapılandırma faktörü."
@@ -8101,8 +8089,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7876
 msgid ""
-"Distance to an upcoming turn on the vehicles route, below which the "
-"alignment"
+"Distance to an upcoming turn on the vehicles route, below which the alignment"
 msgstr ""
 "Araç güzergahında, hizalamanın altında kalan yaklaşan bir dönüşe olan mesafe"
 
@@ -8199,8 +8186,8 @@ msgid ""
 "New line attribute to be set on the vehicle when reaching this stop (for "
 "cyclical public transport route)"
 msgstr ""
-"Bu durağa ulaşıldığında araçta ayarlanacak yeni hat niteliği (döngüsel toplu"
-" taşıma rotası için)"
+"Bu durağa ulaşıldığında araçta ayarlanacak yeni hat niteliği (döngüsel toplu "
+"taşıma rotası için)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8016
 msgid "Speed to be kept while driving between startPos and endPos"
@@ -8208,8 +8195,7 @@ msgstr "StartPos ve endPos arasında sürüş sırasında korunacak hız"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8022
 msgid ""
-"Whether the stop may be skipped if no passengers wants to embark or "
-"disembark"
+"Whether the stop may be skipped if no passengers wants to embark or disembark"
 msgstr ""
 "Hiçbir yolcunun binmek veya inmek istememesi durumunda durağın atlanıp "
 "atlanamayacağı"
@@ -8341,8 +8327,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8234
 msgid "list of vehicle alternatives to take for the person trip"
-msgstr ""
-"Yolcu seyahati̇ i̇çi̇n alınabi̇lecek araç alternati̇fleri̇ni̇n li̇stesi̇"
+msgstr "Yolcu seyahati̇ i̇çi̇n alınabi̇lecek araç alternati̇fleri̇ni̇n li̇stesi̇"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8239
 msgid "Walk factor"
@@ -8457,8 +8442,8 @@ msgid ""
 "If set to true, edges/lanes which were not used by a vehicle during this "
 "period will not be written"
 msgstr ""
-"Doğru olarak ayarlanırsa, bu süre zarfında bir araç tarafından kullanılmayan"
-" kesimler/şeritler yazılmayacaktır"
+"Doğru olarak ayarlanırsa, bu süre zarfında bir araç tarafından kullanılmayan "
+"kesimler/şeritler yazılmayacaktır"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8502
 msgid "If set, junction internal edges/lanes will be written as well"
@@ -8469,8 +8454,8 @@ msgid ""
 "The maximum travel time in seconds to write if only very small movements "
 "occur"
 msgstr ""
-"Yalnızca çok küçük hareketlerin meydana gelmesi durumunda yazmak için saniye"
-" cinsinden maksimum seyahat süresi"
+"Yalnızca çok küçük hareketlerin meydana gelmesi durumunda yazmak için saniye "
+"cinsinden maksimum seyahat süresi"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8514
 msgid ""
@@ -8509,8 +8494,8 @@ msgstr "Çıktıyı dosyada verilen kesimlerin listesiyle kısıtlayın"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8555
 msgid ""
-"Whether the traffic statistic of all edges shall be aggregated into a single"
-" value"
+"Whether the traffic statistic of all edges shall be aggregated into a single "
+"value"
 msgstr ""
 "Tüm kesimlerin trafik istatistiğinin tek bir değerde toplanıp toplanmayacağı"
 
@@ -8535,10 +8520,8 @@ msgid "The name of the lane the % shall be located at"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8624
-msgid ""
-"If set, no error will be reported if element is placed behind the lane."
-msgstr ""
-"Ayarlanırsa, eleman şeridin arkasına yerleştirilirse hata bildirilmez."
+msgid "If set, no error will be reported if element is placed behind the lane."
+msgstr "Ayarlanırsa, eleman şeridin arkasına yerleştirilirse hata bildirilmez."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8625
 msgid ""
@@ -8611,8 +8594,8 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8749
 msgid ""
-"List of edge ids that must all be part of the future route of the vehicle to"
-" qualify for detection"
+"List of edge ids that must all be part of the future route of the vehicle to "
+"qualify for detection"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8758
@@ -9219,8 +9202,8 @@ msgid ""
 "Show grid and restrict movement to the grid - define grid size in "
 "visualization options. (Ctrl+G)"
 msgstr ""
-"Izgarayı göster ve ızgaraya hareketi kısıtla - görselleştirme seçeneklerinde"
-" ızgara boyutunu tanımla. (Ctrl+G)"
+"Izgarayı göster ve ızgaraya hareketi kısıtla - görselleştirme seçeneklerinde "
+"ızgara boyutunu tanımla. (Ctrl+G)"
 
 #: src/netedit/GNEViewNetHelper.cpp:2721 src/netedit/GNEViewNetHelper.cpp:3005
 #: src/netedit/GNEViewNetHelper.cpp:3277
@@ -9307,11 +9290,10 @@ msgid "Edge chain mode"
 msgstr "Kesim zinciri modu"
 
 #: src/netedit/GNEViewNetHelper.cpp:2796
-msgid ""
-"Create consecutive edges with a single click (hit ESC to cancel chain)."
+msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
-"Tek bir tıklamayla ardışık kesimler oluştur (zinciri iptal etmek için ESC'ye"
-" basın)."
+"Tek bir tıklamayla ardışık kesimler oluştur (zinciri iptal etmek için ESC'ye "
+"basın)."
 
 #: src/netedit/GNEViewNetHelper.cpp:2803
 msgid "Edge opposite direction"
@@ -10142,11 +10124,11 @@ msgstr "Sıfırla"
 msgid "reset to previous values"
 msgstr "Önceki değerlere sıfırla"
 
-#: src/netedit/dialogs/GNEDialogACChooser.cpp:110
+#: src/netedit/dialogs/GNEDialogACChooser.cpp:118
 msgid "Invalid Junction"
 msgstr "Geçersiz Kavşak"
 
-#: src/netedit/dialogs/GNEDialogACChooser.cpp:116
+#: src/netedit/dialogs/GNEDialogACChooser.cpp:124
 msgid "Invalid number of TLSs"
 msgstr "Geçersiz TIS sayısı"
 
@@ -10412,11 +10394,11 @@ msgstr "- Parametreler Bir Anahtar ve Değere Göre Tanımlanmıştır.\n"
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:404
 #: src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:395
 msgid ""
-"- In Netedit can be defined using format "
-"key1=parameter1|key2=parameter2|...\n"
+"- In Netedit can be defined using format key1=parameter1|"
+"key2=parameter2|...\n"
 msgstr ""
-"- Netedit'te Format Kullanılarak Tanımlanabilir "
-"key1=parameter1|key2=parameter2|...\n"
+"- Netedit'te Format Kullanılarak Tanımlanabilir key1=parameter1|"
+"key2=parameter2|...\n"
 
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:405
@@ -10883,8 +10865,8 @@ msgstr "park alanı ekle '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:374
 msgid ""
-"Could not build parking space in netedit; attribute width cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute width cannot be parse to "
+"float."
 msgstr ""
 "Netedit'te park yeri oluşturulamadı; öznitelik genişliği ondalıklı olarak "
 "ayrıştırılamıyor."
@@ -10899,8 +10881,8 @@ msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:378
 msgid ""
-"Could not build parking space in netedit; attribute angle cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute angle cannot be parse to "
+"float."
 msgstr ""
 "Netedit'te park yeri oluşturulamadı; öznitelik açısı ondalıklı olarak "
 "ayrıştırılamıyor."
@@ -10934,8 +10916,8 @@ msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr ""
-"Netedit'te ID '%' ile şerit alanı dedektörü oluşturulamadı; Şeritler ardışık"
-" değil."
+"Netedit'te ID '%' ile şerit alanı dedektörü oluşturulamadı; Şeritler ardışık "
+"değil."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:612
 msgid "add entry-exit detector '"
@@ -11024,8 +11006,7 @@ msgstr "' içine VSS Adımı ekle"
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
-"Netedit'te '%' ID'li Buharlaştırıcı oluşturulamadı; başlangıç bitişten "
-"büyük."
+"Netedit'te '%' ID'li Buharlaştırıcı oluşturulamadı; başlangıç bitişten büyük."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1271
 msgid "add vaporizer in '"
@@ -11466,8 +11447,7 @@ msgid "delete % '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:123
-msgid ""
-"VType '%' with probability % cannot be referenced with distribution '%'"
+msgid "VType '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:127
@@ -11493,8 +11473,7 @@ msgid "add % '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:227
-msgid ""
-"Route '%' with probability % cannot be referenced with distribution '%'"
+msgid "Route '%' with probability % cannot be referenced with distribution '%'"
 msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:268
@@ -11762,7 +11741,7 @@ msgstr "kalkışPos %"
 msgid "arrivalPos of %"
 msgstr "varışPos %"
 
-#: src/netedit/elements/network/GNEConnection.cpp:648
+#: src/netedit/elements/network/GNEConnection.cpp:678
 msgid "Could not set attribute '%' (tls is broken)"
 msgstr "'%' özniteliği ayarlanamadı (tıs bozuk)"
 
@@ -12483,8 +12462,8 @@ msgstr "Netedit Parametreleri Yardım"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:318
 msgid ""
-"- The 'Match Attribute' controls allow to specify a set of objects which are"
-" then applied to the current selection\n"
+"- The 'Match Attribute' controls allow to specify a set of objects which are "
+"then applied to the current selection\n"
 msgstr ""
 "- 'Eşleştirme Özelliği' kontrolleri, daha sonra geçerli seçime uygulanacak "
 "bir dizi nesnenin belirlenmesine olanak tanır\n"
@@ -12506,8 +12485,8 @@ msgid ""
 "     3. Enter a 'match expression' in the third input box and press "
 "<return>\n"
 msgstr ""
-"     3. Üçüncü giriş kutusuna bir 'eşleşme ifadesi' girin ve <return> tuşuna"
-" basın\n"
+"     3. Üçüncü giriş kutusuna bir 'eşleşme ifadesi' girin ve <return> tuşuna "
+"basın\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:324
 msgid "- The empty expression matches all objects\n"
@@ -12515,8 +12494,8 @@ msgstr "- Boş ifade tüm nesnelerle eşleşir\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:325
 msgid ""
-"- For numerical attributes the match expression must consist of a comparison"
-" operator ('<', '>', '=') and a number.\n"
+"- For numerical attributes the match expression must consist of a comparison "
+"operator ('<', '>', '=') and a number.\n"
 msgstr ""
 "- Sayısal öznitelikler için eşleşme ifadesi bir karşılaştırma operatörü "
 "('<', '>', '=') ve bir sayıdan oluşmalıdır.\n"
@@ -12563,8 +12542,7 @@ msgstr "- Örnekler:\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:335
 msgid ""
-"     junction; id; 'foo' -> match all junctions that have 'foo' in their "
-"id\n"
+"     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
 msgstr ""
 "     Kavşak; Kimliği; 'foo' -> kimliklerinde 'foo' bulunan tüm kavşaklarla "
 "eşleşir\n"
@@ -12575,8 +12553,7 @@ msgid ""
 "but not of type 'priority_stop'\n"
 msgstr ""
 "     Kavşak; tür; '=priority' -> 'priority' türündeki tüm kavşaklarla "
-"eşleşir, ancak 'priority_stop' türündeki tüm kavşaklarla eşleşmezse "
-"eşleşir\n"
+"eşleşir, ancak 'priority_stop' türündeki tüm kavşaklarla eşleşmezse eşleşir\n"
 
 #: src/netedit/frames/GNEMatchAttribute.cpp:337
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
@@ -13144,8 +13121,7 @@ msgstr "Kaydırma değerini uygula"
 msgid ""
 "Shift edge geometry orthogonally to driving direction for all selected edges"
 msgstr ""
-"Seçilen tüm kesimler için kesim geometrisini sürüş yönüne dikey olarak "
-"kaydır"
+"Seçilen tüm kesimler için kesim geometrisini sürüş yönüne dikey olarak kaydır"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:291
 msgid "Change Z in selection"
@@ -13205,8 +13181,7 @@ msgid ""
 "Shift shape geometry orthogonally to driving direction for all selected "
 "shapes"
 msgstr ""
-"Seçilen tüm şekiller için şekil geometrisini sürüş yönüne dikey olarak "
-"kaydır"
+"Seçilen tüm şekiller için şekil geometrisini sürüş yönüne dikey olarak kaydır"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:655
 msgid "Click over edge to create or edit geometry point."
@@ -14023,8 +13998,8 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:317
 msgid ""
-"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper"
-" nodes or with incompatible permissions)"
+"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
+"nodes or with incompatible permissions)"
 msgstr ""
 "Çakışan bağlantılar oluşturmak için tıklarken <CTRL> tuşunu basılı tutun "
 "(örn. fermuar düğümlerinde veya uyumsuz izinlerle)"
@@ -14191,8 +14166,7 @@ msgstr "Kesim Oluştur"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:688
 msgid ""
-"Select either default edgeType or short edge or a custom edgeType or "
-"template"
+"Select either default edgeType or short edge or a custom edgeType or template"
 msgstr ""
 "Varsayılan kesimTürü veya kısa kenar ya da özel bir kesimTürü veya şablon "
 "seçin"
@@ -14250,8 +14224,8 @@ msgid ""
 "There is already another crossing with the same edges in the junction; "
 "Duplicated crossing aren't allowed."
 msgstr ""
-"Kavşakta aynı kesimlere sahip başka bir geçit zaten var; Yinelenen geçitlere"
-" izin verilmez."
+"Kavşakta aynı kesimlere sahip başka bir geçit zaten var; Yinelenen geçitlere "
+"izin verilmez."
 
 #: src/netedit/frames/network/GNECrossingFrame.cpp:506
 msgid "Click over junction to mark candidate edges."
@@ -14926,8 +14900,7 @@ msgid "Clean unused states from all phase"
 msgstr "Kullanılmayan evreleri tüm fazlardan temizle"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1872
-msgid ""
-"Clean unused states from all phase. (Not allowed for multiple programs)"
+msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
 "Kullanılmayan evreleri tüm fazlardan temizle. (Birden fazla program için "
 "izin verilmez)"
@@ -15195,21 +15168,21 @@ msgstr "Dinamik"
 msgid "Open in new Tracker"
 msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:216
+#: src/utils/gui/div/GUISelectedStorage.cpp:223
 msgid "Ignoring item '%' because of invalid type %\n"
-msgstr ""
-
-#: src/utils/gui/div/GUISelectedStorage.cpp:230
-#, c-format
-msgid "Item '%' not found\n"
 msgstr ""
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:237
 #, c-format
+msgid "Item '%' not found\n"
+msgstr ""
+
+#: src/utils/gui/div/GUISelectedStorage.cpp:244
+#, c-format
 msgid "% objects ignored, % objects not found\n"
 msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:248
+#: src/utils/gui/div/GUISelectedStorage.cpp:255
 msgid "Could not open '%'.\n"
 msgstr ""
 
@@ -15381,8 +15354,7 @@ msgid "Invalid vClass"
 msgstr "Geçersiz Araç Sınıfı (vClass)"
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:77
-msgid ""
-"The 'value' attribute is deprecated for breakpoints. Please use 'time'."
+msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr ""
 "'value' niteliği kesme noktaları için kullanımdan kaldırılmıştır. Lütfen "
 "'time' kullanın."
@@ -16802,8 +16774,7 @@ msgstr "Görünüm Araç İpuçlarını Değiştir"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:138
 msgid "Toggles whether tooltips in the view shall be shown."
-msgstr ""
-"Görünümdeki araç ipuçlarının gösterilip gösterilmeyeceğini değiştirir."
+msgstr "Görünümdeki araç ipuçlarının gösterilip gösterilmeyeceğini değiştirir."
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:160
 msgid "Edit Coloring Schemes"
@@ -16937,8 +16908,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:431
 msgid ""
-"For the Debug build you might also need to set the LANG environment "
-"variable."
+"For the Debug build you might also need to set the LANG environment variable."
 msgstr ""
 "Hata Ayıklama derlemesi için LANG ortam değişkenini de ayarlamanız "
 "gerekebilir."
@@ -17124,8 +17094,8 @@ msgstr ""
 #~ "If attributes mask the start and end position, both attributes have to be "
 #~ "defined"
 #~ msgstr ""
-#~ "Öznitelikler başlangıç ve bitiş konumunu maskeliyorsa, her iki özniteliğin "
-#~ "de tanımlanması gerekir"
+#~ "Öznitelikler başlangıç ve bitiş konumunu maskeliyorsa, her iki "
+#~ "özniteliğin de tanımlanması gerekir"
 
 #~ msgid "Attributes aren't combinables"
 #~ msgstr "Öznitelikler birleştirilemez"
@@ -17196,7 +17166,8 @@ msgstr ""
 #~ msgstr "Otobüs durağının adı (busStop)"
 
 #~ msgid ""
-#~ "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1"
+#~ "Instead, it will be placed 0.1 meters from the lanes end or at position "
+#~ "0.1"
 #~ msgstr ""
 #~ "Bunun yerine, şerit sonundan 0,1 metre uzağa veya 0,1 konumuna "
 #~ "yerleştirilecektir"
@@ -17268,8 +17239,8 @@ msgstr ""
 #~ msgstr "E1'in kimliği"
 
 #~ msgid ""
-#~ "The id of the lane the detector shall be laid on. The lane must be a part of"
-#~ " the network used"
+#~ "The id of the lane the detector shall be laid on. The lane must be a part "
+#~ "of the network used"
 #~ msgstr ""
 #~ "Dedektörün yerleştirileceği şeridin kimliği. Şerit, kullanılan ağın bir "
 #~ "parçası olmalıdır"
@@ -17359,8 +17330,8 @@ msgstr ""
 #~ "space separated list of vehicle type ids to consider (empty to affect all "
 #~ "types)"
 #~ msgstr ""
-#~ "dikkate alınması gereken araç türü kimliklerinin boşlukla ayrılmış listesi "
-#~ "(tüm türleri etkileyecek şekilde boş)"
+#~ "dikkate alınması gereken araç türü kimliklerinin boşlukla ayrılmış "
+#~ "listesi (tüm türleri etkileyecek şekilde boş)"
 
 #~ msgid "The id of lane in the simulation network"
 #~ msgstr "Simülasyon ağındaki şeridin kimliği"
@@ -17375,11 +17346,11 @@ msgstr ""
 #~ msgstr "Yönlendiricinin Adı (Rerouter)"
 
 #~ msgid ""
-#~ "The list of vehicle types that shall be affected by this rerouter (empty to "
-#~ "affect all types)"
+#~ "The list of vehicle types that shall be affected by this rerouter (empty "
+#~ "to affect all types)"
 #~ msgstr ""
-#~ "Bu yeniden yönlendiriciden etkilenecek araç tiplerinin listesi (tüm tipleri "
-#~ "etkilemek için boş)"
+#~ "Bu yeniden yönlendiriciden etkilenecek araç tiplerinin listesi (tüm "
+#~ "tipleri etkilemek için boş)"
 
 #~ msgid "allowed vehicles"
 #~ msgstr "izin verilen araçlar"
@@ -17410,8 +17381,8 @@ msgstr ""
 
 #~ msgid "Enable or disable use image file as a relative path"
 #~ msgstr ""
-#~ "Görüntü dosyasını göreli yol olarak kullanmayı etkinleştirin veya devre dışı"
-#~ " bırakın"
+#~ "Görüntü dosyasını göreli yol olarak kullanmayı etkinleştirin veya devre "
+#~ "dışı bırakın"
 
 #~ msgid "The id of the POI"
 #~ msgstr "EN'in kimliği"
@@ -17420,8 +17391,8 @@ msgstr ""
 #~ msgstr "EN'in bulunduğu şeridin adı"
 
 #~ msgid ""
-#~ "The position on the named lane or in the net in meters at which the POI is "
-#~ "located at"
+#~ "The position on the named lane or in the net in meters at which the POI "
+#~ "is located at"
 #~ msgstr ""
 #~ "Belirtilen şerit üzerinde veya ağda EN'in bulunduğu metre cinsinden konum"
 
@@ -17474,8 +17445,8 @@ msgstr ""
 #~ msgstr "Bu türün rengi"
 
 #~ msgid ""
-#~ "Image file for rendering vehicles of this type (should be grayscale to allow"
-#~ " functional coloring)"
+#~ "Image file for rendering vehicles of this type (should be grayscale to "
+#~ "allow functional coloring)"
 #~ msgstr ""
 #~ "Bu tip araçların işlenmesi için görüntü dosyası (işlevsel renklendirmeye "
 #~ "izin vermek için gri tonlamalı olmalıdır)"
@@ -17574,8 +17545,8 @@ msgstr ""
 #~ msgstr "Çıktı dosyasının yolu. Yol göreceli olabilir"
 
 #~ msgid ""
-#~ "Whether pedestrians shall be recorded instead of vehicles. Allowed value is "
-#~ "walk"
+#~ "Whether pedestrians shall be recorded instead of vehicles. Allowed value "
+#~ "is walk"
 #~ msgstr ""
 #~ "Araçlar yerine yayaların kaydedilip kaydedilmeyeceği. İzin verilen değer "
 #~ "yürümektir"
@@ -17649,11 +17620,11 @@ msgstr ""
 #~ msgstr "- Referans Noktası: Ek Elemanın Başlangıç Pozisyonunu İşaretle."
 
 #~ msgid ""
-#~ "  Example: If you want to create a busStop with a length of 30 in the point "
-#~ "100 of the lane:"
+#~ "  Example: If you want to create a busStop with a length of 30 in the "
+#~ "point 100 of the lane:"
 #~ msgstr ""
-#~ "  Örnek: Şeridin 100 Noktasında 30 Uzunluğunda Bir Otobüs Durağı Oluşturmak "
-#~ "İstiyorsanız:"
+#~ "  Örnek: Şeridin 100 Noktasında 30 Uzunluğunda Bir Otobüs Durağı "
+#~ "Oluşturmak İstiyorsanız:"
 
 #~ msgid "  - Reference Left: will have startPos = 70 and endPos = 100."
 #~ msgstr ""
@@ -17669,8 +17640,8 @@ msgstr ""
 #~ msgid ""
 #~ "  - Extended Left: will have startPos = 85 and endPos until lane's length."
 #~ msgstr ""
-#~ "  - Genişletilmiş Sol: BaşlangıçPos = 85 ve şerit uzunluğu kadar bitişPos'a "
-#~ "sahip olacaktır."
+#~ "  - Genişletilmiş Sol: BaşlangıçPos = 85 ve şerit uzunluğu kadar "
+#~ "bitişPos'a sahip olacaktır."
 
 #~ msgid "  - Extended Right: will have startPos from start and endPos = 115."
 #~ msgstr ""
@@ -17678,7 +17649,8 @@ msgstr ""
 #~ "olacaktır."
 
 #~ msgid ""
-#~ "  - Extended: will have startPos from start and endPos until lane's length."
+#~ "  - Extended: will have startPos from start and endPos until lane's "
+#~ "length."
 #~ msgstr ""
 #~ "  - Genişletilmiş: başlangıçtan itibaren başlangıçPos'una ve şerit "
 #~ "uzunluğuna kadar bitişPos'una sahip olacaktır."
@@ -17696,7 +17668,8 @@ msgstr ""
 #~ msgid ""
 #~ "- Center view: if is enabled, view will be center over created element."
 #~ msgstr ""
-#~ "- Merkez Görünüm: Eğer Aktifse, Görünüm Oluşturulmuş Elemanları Ortalayacak."
+#~ "- Merkez Görünüm: Eğer Aktifse, Görünüm Oluşturulmuş Elemanları "
+#~ "Ortalayacak."
 
 #~ msgid "-Click over an edge to select"
 #~ msgstr "-Seçmek için bir kesimin üzerine tıkla"
