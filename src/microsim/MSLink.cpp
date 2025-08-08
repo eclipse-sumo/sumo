@@ -249,7 +249,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
     if (lane != nullptr) {
         const bool beforeInternalJunction = lane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal();
         if (lane->getIncomingLanes().size() != 1) {
-            throw ProcessError("Internal lane '" + lane->getID() + "' has " + toString(lane->getIncomingLanes().size()) + " predecessors");
+            throw ProcessError(TLF("Internal lane '%' has % predecessors", lane->getID(), toString(lane->getIncomingLanes().size())));
         }
         const MSLink* junctionEntryLink = lane->getEntryLink();
         const bool isSecondPart = isExitLinkAfterInternalJunction();

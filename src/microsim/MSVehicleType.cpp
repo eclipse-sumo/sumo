@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <cassert>
+#include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RandHelper.h>
@@ -436,8 +437,8 @@ MSVehicleType::duplicateType(const std::string& id, bool persistent) const {
         vtype->myOriginalType = this;
     }
     if (!MSNet::getInstance()->getVehicleControl().addVType(vtype)) {
-        std::string singular = persistent ? "" : "singular ";
-        throw ProcessError("could not add " + singular + "type " + vtype->getID());
+        std::string singular = persistent ? "" : TL("singular ");
+        throw ProcessError(TLF("could not add %type %", singular, vtype->getID()));
     }
     return vtype;
 }

@@ -1223,7 +1223,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
         try {
             return evalExpression(cond2);
         } catch (ProcessError& e) {
-            throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
+            throw ProcessError(TLF("Error when evaluating expression '%':\n  %", condition, e.what()));
         }
     }
     std::vector<std::string> tokens = StringTokenizer(condition).getVector();
@@ -1234,14 +1234,14 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
         try {
             return evalAtomicExpression(tokens[0]);
         } catch (ProcessError& e) {
-            throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
+            throw ProcessError(TLF("Error when evaluating expression '%':\n  %", condition, e.what()));
         }
     } else if (tokens.size() == 2) {
         if (tokens[0] == "not") {
             try {
                 return evalAtomicExpression(tokens[1]) == 0. ? 1. : 0.;
             } catch (ProcessError& e) {
-                throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
+                throw ProcessError(TLF("Error when evaluating expression '%':\n  %", condition, e.what()));
             }
         } else {
             throw ProcessError(TLF("Unsupported condition '%'", condition));
@@ -1255,7 +1255,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
         try {
             return evalTernaryExpression(a, o, b, condition);
         } catch (ProcessError& e) {
-            throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
+            throw ProcessError(TLF("Error when evaluating expression '%':\n  %", condition, e.what()));
         }
     } else {
         const int iEnd = (int)tokens.size() - 1;
@@ -1271,12 +1271,12 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
                         newTokens.insert(newTokens.end(), tokens.begin() + (i + 2), tokens.end());
                         return evalExpression(toString(newTokens));
                     } catch (ProcessError& e) {
-                        throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
+                        throw ProcessError(TLF("Error when evaluating expression '%':\n  %", condition, e.what()));
                     }
                 }
             }
         }
-        throw ProcessError("Parsing expressions with " + toString(tokens.size()) + " elements ('" + condition + "') is not supported");
+        throw ProcessError(TLF("Parsing expressions with % elements ('%') is not supported", toString(tokens.size()), condition));
     }
     return true;
 }
@@ -1316,7 +1316,7 @@ MSActuatedTrafficLightLogic::evalTernaryExpression(double a, const std::string& 
     } else if (o == "**" || o == "^") {
         return pow(a, b);
     } else  {
-        throw ProcessError("Unsupported operator '" + o + "' in condition '" + condition + "'");
+        throw ProcessError(TLF("Unsupported operator '%' in condition '%'", o, condition));
     }
 }
 
@@ -1325,7 +1325,7 @@ MSActuatedTrafficLightLogic::evalCustomFunction(const std::string& fun, const st
     std::vector<std::string> args = StringTokenizer(arg, ",").getVector();
     const Function& f = myFunctions.find(fun)->second;
     if ((int)args.size() != f.nArgs) {
-        throw ProcessError("Function '" + fun + "' requires " + toString(f.nArgs) + " arguments but " + toString(args.size()) + " were given");
+        throw ProcessError(TLF("Function '%' requires % arguments but % were given", fun, toString(f.nArgs), toString(args.size())));
     }
     std::vector<double> args2;
     for (auto a : args) {
@@ -1340,7 +1340,7 @@ MSActuatedTrafficLightLogic::evalCustomFunction(const std::string& fun, const st
         ConditionMap empty;
         executeAssignments(f.assignments, empty, myConditions);
     } catch (ProcessError& e) {
-        throw ProcessError("Error when evaluating function '" + fun + "' with args '" + joinToString(args2, ",") + "' (" + e.what() + ")");
+        throw ProcessError(TLF("Error when evaluating function '%' with args '%' (%)", fun, joinToString(args2, ","), e.what()));
     }
     double result = myStack.back()["$0"];
     myStack.pop_back();
@@ -1435,12 +1435,12 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                         }
                     }
                 } catch (NumberFormatException&) { }
-                throw ProcessError("Invalid link index '" + arg + "' in expression '" + expr + "'");
+                throw ProcessError(TLF("Invalid link index '%' in expression '%'", arg, expr));
             } else if (fun == "c") {
                 return STEPS2TIME(getTimeInCycle());
             } else {
                 if (myFunctions.find(fun) == myFunctions.end()) {
-                    throw ProcessError("Unsupported function '" + fun + "' in expression '" + expr + "'");
+                    throw ProcessError(TLF("Unsupported function '%' in expression '%'", fun, expr));
                 }
                 return evalCustomFunction(fun, arg);
             }
@@ -1499,7 +1499,7 @@ MSActuatedTrafficLightLogic::getParameter(const std::string& key, const std::str
         if (it != myConditions.end()) {
             return toString(evalExpression(it->second));
         } else {
-            throw InvalidArgument("Unknown condition '" + cond + "' for actuated traffic light '" + getID() + "'");
+            throw InvalidArgument(TLF("Unknown condition '%' for actuated traffic light '%'", cond, getID()));
         }
     } else {
         return MSSimpleTrafficLightLogic::getParameter(key, defaultValue);
@@ -1530,7 +1530,7 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
                 return;
             }
         }
-        throw InvalidArgument("Invalid lane '" + laneID + "' in key '" + key + "' for actuated traffic light '" + getID() + "'");
+        throw InvalidArgument(TLF("Invalid lane '%' in key '%' for actuated traffic light '%'", laneID, key, getID()));
     } else if (key == "jam-threshold") {
         myJamThreshold = StringUtils::toDouble(value);
         // overwrite custom values
@@ -1547,7 +1547,7 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
                 return;
             }
         }
-        throw InvalidArgument("Invalid lane '" + laneID + "' in key '" + key + "' for actuated traffic light '" + getID() + "'");
+        throw InvalidArgument(TLF("Invalid lane '%' in key '%' for actuated traffic light '%'", laneID, key, getID()));
     } else if (key == "show-detectors") {
         myShowDetectors = StringUtils::toBool(value);
         Parameterised::setParameter(key, value);
