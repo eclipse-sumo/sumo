@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEOptionsDialog.h
+/// @file    GNESumoOptionsDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2023
 ///
-// A Dialog for setting options (see OptionsCont)
+// A Dialog for setting SUMO options
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -33,24 +33,20 @@ class GNEOptionsEditor;
 // class definitions
 // ===========================================================================
 
-class GNEOptionsDialog : public GNEDialog {
+class GNESumoOptionsDialog : public GNEDialog {
 
 public:
     /**@brief Constructor
      *
-     * @param[in] GNEApp netedit App
-     * @param[in] icon windows icon
-     * @param[in] titleName The title to show
-     * @param[in] buttons (either run/cancel/reset or accept/cancel/reset)
+     * @param[in] applicationWindow netedit application window
      * @param[in] optionsContainer edited option container
      * @param[in] originalOptionsContainer original options container
      */
-    GNEOptionsDialog(GNEApplicationWindow* applicationWindow, GUIIcon icon, const std::string& titleName,
-                     GNEDialog::Buttons buttons, OptionsCont& optionsContainer,
-                     const OptionsCont& originalOptionsContainer);
+    GNESumoOptionsDialog(GNEApplicationWindow* applicationWindow, OptionsCont& optionsContainer,
+                         const OptionsCont& originalOptionsContainer);
 
     /// @brief Destructor
-    ~GNEOptionsDialog();
+    ~GNESumoOptionsDialog();
 
     /// @brief run internal test
     void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
@@ -75,8 +71,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEOptionsDialog(const GNEOptionsDialog&) = delete;
+    GNESumoOptionsDialog(const GNESumoOptionsDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEOptionsDialog& operator=(const GNEOptionsDialog&) = delete;
+    GNESumoOptionsDialog& operator=(const GNESumoOptionsDialog&) = delete;
 };
