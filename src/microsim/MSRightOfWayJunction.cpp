@@ -32,6 +32,7 @@
 #include "MSLane.h"
 #include "MSLink.h"
 #include "MSRightOfWayJunction.h"
+#include <utils/common/MsgHandler.h>
 
 
 // ===========================================================================
@@ -87,7 +88,7 @@ MSRightOfWayJunction::postloadInit() {
                 continue;
             }
             if (myLogic->getLogicSize() <= requestPos) {
-                throw ProcessError("Found invalid logic position of a link for junction '" + getID() + "' (" + toString(requestPos) + ", max " + toString(myLogic->getLogicSize()) + ") -> (network error)");
+                throw ProcessError(TLF("Found invalid logic position of a link for junction '%' (%, max %) -> (network error)", getID(), toString(requestPos), toString(myLogic->getLogicSize())));
             }
             const MSLogicJunction::LinkBits& linkResponse = myLogic->getResponseFor(requestPos); // SUMO_ATTR_RESPONSE
             const MSLogicJunction::LinkBits& linkFoes = myLogic->getFoesFor(requestPos); // SUMO_ATTR_FOES

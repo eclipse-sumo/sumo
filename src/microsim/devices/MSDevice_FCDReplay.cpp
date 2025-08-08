@@ -349,7 +349,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
             }
             MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vType);
             if (vehicleType == nullptr) {
-                throw ProcessError("Unknown vType '" + vType + "'.");
+                throw ProcessError(TLF("Unknown vType '%'.", vType));
             }
             if (routeEdges.front() == nullptr) {
                 if (isPerson) {
@@ -365,7 +365,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                 MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, nullptr);
                 person->getSingularType().setVClass(SVC_IGNORING);
                 if (!MSNet::getInstance()->getPersonControl().add(person)) {
-                    throw ProcessError("Duplicate person '" + id + "'.");
+                    throw ProcessError(TLF("Duplicate person '%'.", id));
                 }
                 MSTransportableDevice_FCDReplay* device = static_cast<MSTransportableDevice_FCDReplay*>(person->getDevice(typeid(MSTransportableDevice_FCDReplay)));
                 if (device == nullptr) {  // Person did not get a replay device
@@ -378,7 +378,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                 const StopParVector stops;
                 ConstMSRoutePtr route = std::make_shared<MSRoute>(dummyRouteID, routeEdges, true, nullptr, stops);
                 if (!MSRoute::dictionary(dummyRouteID, route)) {
-                    throw ProcessError("Could not add route '" + dummyRouteID + "'.");
+                    throw ProcessError(TLF("Could not add route '%'.", dummyRouteID));
                 }
                 if (t.front().edgeOrLane != "") {
                     params->departPosProcedure = DepartPosDefinition::GIVEN;
@@ -387,7 +387,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                 }
                 SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, false, MSVehicleControl::VehicleDefinitionSource::OTHER);
                 if (!MSNet::getInstance()->getVehicleControl().addVehicle(id, vehicle)) {
-                    throw ProcessError("Duplicate vehicle '" + id + "'.");
+                    throw ProcessError(TLF("Duplicate vehicle '%'.", id));
                 }
                 MSNet::getInstance()->getInsertionControl().add(vehicle);
                 MSDevice_FCDReplay* device = static_cast<MSDevice_FCDReplay*>(vehicle->getDevice(typeid(MSDevice_FCDReplay)));

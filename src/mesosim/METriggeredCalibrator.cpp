@@ -29,6 +29,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/output/MSRouteProbe.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
@@ -80,7 +81,7 @@ bool
 METriggeredCalibrator::tryEmit(MESegment* s, MEVehicle* vehicle) {
     if (s->initialise(vehicle, vehicle->getParameter().depart)) {
         if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {
-            throw ProcessError("Emission of vehicle '" + vehicle->getID() + "' in calibrator '" + getID() + "'failed!");
+            throw ProcessError(TLF("Emission of vehicle '%' in calibrator '%' failed!", vehicle->getID(), getID()));
         }
         return true;
     }

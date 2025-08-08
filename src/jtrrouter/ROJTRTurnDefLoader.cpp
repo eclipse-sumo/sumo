@@ -96,7 +96,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
                 const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
                 ROEdge* edge = myNet.getEdge(edgeID);
                 if (edge == nullptr) {
-                    throw ProcessError("The from-edge '" + edgeID + "' in flow '" + flowID + "' is not known.");
+                    throw ProcessError(TLF("The from-edge '%' in flow '%' is not known.", edgeID, flowID));
                 }
                 if (mySourcesAreSinks) {
                     edge->setSink();
