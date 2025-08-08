@@ -41,7 +41,6 @@
 FXDEFMAP(GNEOptionsEditorRow::OptionRow) OptionRowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEOptionsEditorRow::OptionRow::onCmdSetOption),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,          GNEOptionsEditorRow::OptionRow::onCmdResetOption),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_RESET,          GNEOptionsEditorRow::OptionRow::onUpdResetOption),
 };
 
 FXDEFMAP(GNEOptionsEditorRow::OptionFilename) OptionFilenameMap[] = {
@@ -49,8 +48,8 @@ FXDEFMAP(GNEOptionsEditorRow::OptionFilename) OptionFilenameMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT_ABSTRACT(GNEOptionsEditorRow::OptionRow,     FXHorizontalFrame,                      OptionRowMap,     ARRAYNUMBER(OptionRowMap))
-FXIMPLEMENT_ABSTRACT(GNEOptionsEditorRow::OptionFilename,   GNEOptionsEditorRow::OptionRow,  OptionFilenameMap,   ARRAYNUMBER(OptionFilenameMap))
+FXIMPLEMENT_ABSTRACT(GNEOptionsEditorRow::OptionRow,        FXHorizontalFrame,              OptionRowMap,       ARRAYNUMBER(OptionRowMap))
+FXIMPLEMENT_ABSTRACT(GNEOptionsEditorRow::OptionFilename,   GNEOptionsEditorRow::OptionRow, OptionFilenameMap,  ARRAYNUMBER(OptionFilenameMap))
 
 // ===========================================================================
 // method definitions
@@ -106,14 +105,13 @@ GNEOptionsEditorRow::OptionRow::getDescriptionLower() const {
 }
 
 
-long
-GNEOptionsEditorRow::OptionRow::onUpdResetOption(FXObject*, FXSelector, void*) {
+void
+GNEOptionsEditorRow::OptionRow::updateResetButton() {
     if (getValue() != myDefaultValue) {
         myResetButton->enable();
     } else {
         myResetButton->disable();
     }
-    return 1;
 }
 
 // ---------------------------------------------------------------------------
@@ -146,6 +144,7 @@ GNEOptionsEditorRow::OptionString::onCmdSetOption(FXObject*, FXSelector, void*) 
     myGUIDialogOptions->myOptionsContainer.resetWritable();
     myGUIDialogOptions->myOptionsContainer.set(myName, myStringTextField->getText().text());
     myGUIDialogOptions->myOptionsModified = true;
+    updateResetButton();
     return 1;
 }
 
@@ -153,6 +152,7 @@ GNEOptionsEditorRow::OptionString::onCmdSetOption(FXObject*, FXSelector, void*) 
 long
 GNEOptionsEditorRow::OptionString::onCmdResetOption(FXObject*, FXSelector, void*) {
     myStringTextField->setText(myDefaultValue.c_str());
+    updateResetButton();
     return 1;
 }
 
@@ -188,6 +188,7 @@ GNEOptionsEditorRow::OptionStringVector::onCmdSetOption(FXObject*, FXSelector, v
     myGUIDialogOptions->myOptionsContainer.resetWritable();
     myGUIDialogOptions->myOptionsContainer.set(myName, myStringVectorTextField->getText().text());
     myGUIDialogOptions->myOptionsModified = true;
+    updateResetButton();
     return 1;
 }
 
@@ -195,6 +196,7 @@ GNEOptionsEditorRow::OptionStringVector::onCmdSetOption(FXObject*, FXSelector, v
 long
 GNEOptionsEditorRow::OptionStringVector::onCmdResetOption(FXObject*, FXSelector, void*) {
     myStringVectorTextField->setText(myDefaultValue.c_str());
+    updateResetButton();
     return 1;
 }
 
@@ -258,6 +260,7 @@ GNEOptionsEditorRow::OptionBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     if ((myName == "gui-testing-debug-gl") && myGUIDialogOptions->myOptionsContainer.isSet("gui-testing-debug-gl")) {
         MsgHandler::enableDebugGLMessages(myGUIDialogOptions->myOptionsContainer.getBool("gui-testing-debug-gl"));
     }
+    updateResetButton();
     return 1;
 }
 
@@ -271,6 +274,7 @@ GNEOptionsEditorRow::OptionBool::onCmdResetOption(FXObject*, FXSelector, void*) 
         myCheckButton->setCheck(FALSE);
         myCheckButton->setText(TL("false"));
     }
+    updateResetButton();
     return 1;
 }
 
@@ -313,6 +317,7 @@ GNEOptionsEditorRow::OptionInt::onCmdSetOption(FXObject*, FXSelector, void*) {
         myGUIDialogOptions->myOptionsContainer.set(myName, myIntTextField->getText().text());
         myGUIDialogOptions->myOptionsModified = true;
     }
+    updateResetButton();
     return 1;
 }
 
@@ -320,6 +325,7 @@ GNEOptionsEditorRow::OptionInt::onCmdSetOption(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditorRow::OptionInt::onCmdResetOption(FXObject*, FXSelector, void*) {
     myIntTextField->setText(myDefaultValue.c_str());
+    updateResetButton();
     return 1;
 }
 
@@ -369,6 +375,7 @@ GNEOptionsEditorRow::OptionIntVector::onCmdSetOption(FXObject*, FXSelector, void
     } catch (...) {
         myIntVectorTextField->setTextColor(FXRGB(255, 0, 0));
     }
+    updateResetButton();
     return 1;
 }
 
@@ -376,6 +383,7 @@ GNEOptionsEditorRow::OptionIntVector::onCmdSetOption(FXObject*, FXSelector, void
 long
 GNEOptionsEditorRow::OptionIntVector::onCmdResetOption(FXObject*, FXSelector, void*) {
     myIntVectorTextField->setText(myDefaultValue.c_str());
+    updateResetButton();
     return 1;
 }
 
@@ -420,6 +428,7 @@ GNEOptionsEditorRow::OptionFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
         myGUIDialogOptions->myOptionsContainer.set(myName, myFloatTextField->getText().text());
         myGUIDialogOptions->myOptionsModified = true;
     }
+    updateResetButton();
     return 1;
 }
 
@@ -427,6 +436,7 @@ GNEOptionsEditorRow::OptionFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditorRow::OptionFloat::onCmdResetOption(FXObject*, FXSelector, void*) {
     myFloatTextField->setText(myDefaultValue.c_str());
+    updateResetButton();
     return 1;
 }
 
@@ -481,6 +491,7 @@ GNEOptionsEditorRow::OptionTime::onCmdSetOption(FXObject*, FXSelector, void*) {
         myGUIDialogOptions->myOptionsContainer.set(myName, myTimeTextField->getText().text());
         myGUIDialogOptions->myOptionsModified = true;
     }
+    updateResetButton();
     return 1;
 }
 
@@ -488,6 +499,7 @@ GNEOptionsEditorRow::OptionTime::onCmdSetOption(FXObject*, FXSelector, void*) {
 long
 GNEOptionsEditorRow::OptionTime::onCmdResetOption(FXObject*, FXSelector, void*) {
     myTimeTextField->setText(myDefaultValue.c_str());
+    updateResetButton();
     return 1;
 }
 
@@ -555,6 +567,7 @@ GNEOptionsEditorRow::OptionFilename::onCmdSetOption(FXObject*, FXSelector, void*
     } else {
         myFilenameTextField->setTextColor(FXRGB(255, 0, 0));
     }
+    updateResetButton();
     return 1;
 }
 
@@ -562,6 +575,7 @@ GNEOptionsEditorRow::OptionFilename::onCmdSetOption(FXObject*, FXSelector, void*
 long
 GNEOptionsEditorRow::OptionFilename::onCmdResetOption(FXObject*, FXSelector, void*) {
     myFilenameTextField->setText(myDefaultValue.c_str());
+    updateResetButton();
     return 1;
 }
 
