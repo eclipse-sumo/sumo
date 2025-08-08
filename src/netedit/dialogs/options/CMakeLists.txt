@@ -1,8 +1,10 @@
 set(netedit_dialogs_options_SRCS
    GNEOptionsDialog.h
    GNEOptionsDialog.cpp
-   GNEOptionsDialogElements.h
-   GNEOptionsDialogElements.cpp
+   GNEOptionsEditor.h
+   GNEOptionsEditor.cpp
+   GNEOptionsEditorRow.h
+   GNEOptionsEditorRow.cpp
    )
 
 add_library(netedit_dialogs_options STATIC ${netedit_dialogs_options_SRCS})
