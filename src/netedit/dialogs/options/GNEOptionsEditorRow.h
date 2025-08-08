@@ -72,9 +72,6 @@ public:
         /// @brief called when user press reset button
         virtual long onCmdResetOption(FXObject*, FXSelector, void*) = 0;
 
-        /// @brief update reset button
-        long onUpdResetOption(FXObject*, FXSelector, void*);
-
     protected:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(OptionRow)
@@ -96,6 +93,9 @@ public:
 
         /// @brief content frame
         FXHorizontalFrame* myContentFrame = nullptr;
+
+        /// @brief update reset button
+        void updateResetButton();
 
     private:
         /// @brief get value
