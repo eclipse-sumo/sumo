@@ -122,6 +122,12 @@ GNEDialog::getApplicationWindow() const {
 }
 
 
+FXVerticalFrame*
+GNEDialog::getContentFrame() const {
+    return myContentFrame;
+}
+
+
 long
 GNEDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     return closeDialogAccepting();

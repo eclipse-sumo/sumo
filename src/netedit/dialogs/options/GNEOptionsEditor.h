@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEOptionsDialog.h
+/// @file    GNEOptionsEditor.h
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2023
 ///
@@ -20,9 +20,9 @@
 #pragma once
 #include <config.h>
 
+#include <map>
 #include <set>
-#include <netedit/dialogs/GNEDialog.h>
-#include <utils/gui/images/GUIIcons.h>
+#include <vector>
 
 #include "GNEOptionsEditorRow.h"
 
@@ -30,7 +30,7 @@
 // class declaration
 // ===========================================================================
 
-class GNEApplicationWindow;
+class GNEDialog;
 class MFXCheckableButton;
 class MFXTextFieldSearch;
 class MFXCheckButtonTooltip;
@@ -40,9 +40,9 @@ class OptionsCont;
 // class definitions
 // ===========================================================================
 
-class GNEOptionsDialog : public GNEDialog {
+class GNEOptionsEditor : public FXVerticalFrame {
     /// @brief FOX-declaration
-    FXDECLARE(GNEOptionsDialog)
+    FXDECLARE(GNEOptionsEditor)
 
     /// @brief declare friend class
     friend class GNEOptionsEditorRow;
@@ -50,37 +50,25 @@ class GNEOptionsDialog : public GNEDialog {
 public:
     /**@brief Constructor
      *
-     * @param[in] GNEApp netedit App
-     * @param[in] icon windows icon
+     * @param[in] dialog GNEDialog in which this editor is shown
      * @param[in] titleName The title to show
-     * @param[in] buttons (either run/cancel/reset or accept/cancel/reset)
      * @param[in] optionsContainer edited option container
      * @param[in] originalOptionsContainer original options container
      */
-    GNEOptionsDialog(GNEApplicationWindow* applicationWindow, GUIIcon icon, const std::string& titleName,
-                     GNEDialog::Buttons buttons, OptionsCont& optionsContainer,
+    GNEOptionsEditor(GNEDialog* dialog, const std::string& titleName, OptionsCont& optionsContainer,
                      const OptionsCont& originalOptionsContainer);
 
     /// @brief Destructor
-    ~GNEOptionsDialog();
-
-    /// @brief run internal test
-    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+    ~GNEOptionsEditor();
 
     /// @brief check if option was modified
     bool isOptionModified() const;
 
+    /// @brief reset options
+    void reset();
+
     /// @name FOX-callbacks
     /// @{
-
-    /// @brief called when cancel button is pressed (or dialog is closed)
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press reset button
-    long onCmdReset(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press reset button
-    long onCmdRunNetgenerate(FXObject*, FXSelector, void*);
 
     /// @brief called when user select a topic in the list
     long onCmdSelectTopic(FXObject*, FXSelector, void*);
@@ -104,7 +92,10 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNEOptionsDialog();
+    GNEOptionsEditor();
+
+    /// @brief reference to dialog
+    GNEDialog* myDialog = nullptr;
 
     /// @brief reference to edited Option container
     OptionsCont& myOptionsContainer;
@@ -156,8 +147,8 @@ private:
     bool loadConfiguration(const std::string& file);
 
     /// @brief Invalidated copy constructor.
-    GNEOptionsDialog(const GNEOptionsDialog&) = delete;
+    GNEOptionsEditor(const GNEOptionsEditor&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEOptionsDialog& operator=(const GNEOptionsDialog&) = delete;
+    GNEOptionsEditor& operator=(const GNEOptionsEditor&) = delete;
 };
