@@ -53,7 +53,7 @@ public:
      * @param[in] dialog GNEDialog in which this editor is shown
      * @param[in] titleName The title to show
      * @param[in] optionsContainer edited option container
-     * @param[in] originalOptionsContainer original options container
+     * @param[in] originalOptionsContainer original options container used for restoring
      */
     GNEOptionsEditor(GNEDialog* dialog, const std::string& titleName, OptionsCont& optionsContainer,
                      const OptionsCont& originalOptionsContainer);
@@ -100,7 +100,10 @@ protected:
     /// @brief reference to edited Option container
     OptionsCont& myOptionsContainer;
 
-    /// @brief reference to original Option container
+    /// @brief copy of edited Option container, used for reset
+    OptionsCont* myCopyOfOptionsContainer;
+
+    /// @brief reference to original Option container, used for restoring
     const OptionsCont& myOriginalOptionsContainer;
 
     /// @brief flag for check if options was modified

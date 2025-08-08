@@ -11,23 +11,24 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEOptionsDialog.cpp
+/// @file    GNEOptionsEditor.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2023
 ///
 // A Dialog for setting options (see OptionsCont)
 /****************************************************************************/
 
+#include <netedit/dialogs/GNEDialog.h>
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <utils/foxtools/MFXCheckButtonTooltip.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/options/OptionsLoader.h>
 #include <xercesc/parsers/SAXParser.hpp>
-#include <utils/foxtools/MFXCheckButtonTooltip.h>
 
-#include "GNEOptionsDialog.h"
+#include "GNEOptionsEditor.h"
 
 // ===========================================================================
 // Defines
@@ -39,51 +40,50 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE,         GNEOptionsDialog::onCmdRunNetgenerate),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                 GNEOptionsDialog::onCmdSelectTopic),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SEARCH_USEDESCRIPTION,  GNEOptionsDialog::onCmdSearch),
-    FXMAPFUNC(SEL_COMMAND,  MID_MTEXTFIELDSEARCH_UPDATED,   GNEOptionsDialog::onCmdSearch),
-    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,          GNEOptionsDialog::onCmdShowToolTipsMenu),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,               GNEOptionsDialog::onCmdSaveOptions),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,               GNEOptionsDialog::onCmdLoadOptions),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_DEFAULT,         GNEOptionsDialog::onCmdResetDefault),
+FXDEFMAP(GNEOptionsEditor) GNEOptionsEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                 GNEOptionsEditor::onCmdSelectTopic),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SEARCH_USEDESCRIPTION,  GNEOptionsEditor::onCmdSearch),
+    FXMAPFUNC(SEL_COMMAND,  MID_MTEXTFIELDSEARCH_UPDATED,   GNEOptionsEditor::onCmdSearch),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,          GNEOptionsEditor::onCmdShowToolTipsMenu),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,               GNEOptionsEditor::onCmdSaveOptions),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,               GNEOptionsEditor::onCmdLoadOptions),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_DEFAULT,         GNEOptionsEditor::onCmdResetDefault),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEOptionsDialog, GNEDialog, GUIDialogOptionsMap, ARRAYNUMBER(GUIDialogOptionsMap))
+FXIMPLEMENT(GNEOptionsEditor, FXVerticalFrame, GNEOptionsEditorMap, ARRAYNUMBER(GNEOptionsEditorMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* applicationWindow, GUIIcon icon, const std::string& titleName,
-                                   GNEDialog::Buttons buttons, OptionsCont& optionsContainer,
+GNEOptionsEditor::GNEOptionsEditor(GNEDialog* dialog, const std::string& titleName, OptionsCont& optionsContainer,
                                    const OptionsCont& originalOptionsContainer) :
-    GNEDialog(applicationWindow, titleName, icon, buttons, OpenType::MODAL, GNEDialog::ResizeMode::STRETCHABLE, 800, 600),
+    FXVerticalFrame(dialog->getContentFrame(), GUIDesignAuxiliarFrame),
+    myDialog(dialog),
     myOptionsContainer(optionsContainer),
+    myCopyOfOptionsContainer(optionsContainer.clone()),
     myOriginalOptionsContainer(originalOptionsContainer) {
-    // set icon
-    setIcon(GUIIconSubSys::getIcon(icon));
+    // get staticTooltipMenu
+    auto staticTooltipMenu = dialog->getApplicationWindow()->getStaticTooltipMenu();
     // add buttons frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignHorizontalFrameNoPadding);
-    myShowToolTipsMenu = new MFXCheckableButton(false, buttonsFrame,
-            applicationWindow->getStaticTooltipMenu(),
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrameNoPadding);
+    myShowToolTipsMenu = new MFXCheckableButton(false, buttonsFrame, staticTooltipMenu,
             (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
             GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
-    auto saveFile = new MFXButtonTooltip(buttonsFrame, applicationWindow->getStaticTooltipMenu(), TL("Save options"),
+    auto saveFile = new MFXButtonTooltip(buttonsFrame, staticTooltipMenu, TL("Save options"),
                                          GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
     saveFile->setTipText(TL("Save configuration file"));
-    auto loadFile = new MFXButtonTooltip(buttonsFrame, applicationWindow->getStaticTooltipMenu(), TL("Load options"),
+    auto loadFile = new MFXButtonTooltip(buttonsFrame, staticTooltipMenu, TL("Load options"),
                                          GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
     loadFile->setTipText(TL("Load configuration file"));
-    auto resetDefault = new MFXButtonTooltip(buttonsFrame, applicationWindow->getStaticTooltipMenu(), TL("Default options"),
+    auto resetDefault = new MFXButtonTooltip(buttonsFrame, staticTooltipMenu, TL("Default options"),
             GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_DEFAULT, GUIDesignButtonConfiguration);
     resetDefault->setTipText(TL("Reset all options to default"));
     // add separator
-    new FXSeparator(myContentFrame);
+    new FXSeparator(this);
     // create elements frame
-    FXHorizontalFrame* elementsFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarFrame);
+    FXHorizontalFrame* elementsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     FXVerticalFrame* elementsFrameTree = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarVerticalFrame);
     FXVerticalFrame* elementsFrameValues = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarFrame);
     // Create GroupBox modules
@@ -139,70 +139,40 @@ GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* applicationWindow, GUII
         }
     }
     // create search elements
-    FXHorizontalFrame* searchFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* searchFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(searchFrame, TL("Search"), nullptr, GUIDesignLabelThickedFixed(TREELISTWIDTH - GUIDesignHeight + 14));
-    myDescriptionSearchCheckButton = new MFXCheckButtonTooltip(searchFrame, myApplicationWindow->getStaticTooltipMenu(), "", this, MID_GNE_SEARCH_USEDESCRIPTION, GUIDesignCheckButtonThick);
+    myDescriptionSearchCheckButton = new MFXCheckButtonTooltip(searchFrame, staticTooltipMenu, "", this, MID_GNE_SEARCH_USEDESCRIPTION, GUIDesignCheckButtonThick);
     myDescriptionSearchCheckButton->setToolTipText(TL("Include description in search"));
     mySearchButton = new MFXTextFieldSearch(searchFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create dialog
-    create();
     // after creation, adjust entries name sizes
     for (const auto& entry : myOptionRowEntries) {
         entry->adjustNameSize();
     }
     // set myShowToolTipsMenu
     myShowToolTipsMenu->setChecked(getApp()->reg().readIntEntry("gui", "menuToolTips", 0) != 1);
-    // open modal dialog
-    openDialog();
 }
 
 
-GNEOptionsDialog::~GNEOptionsDialog() { }
-
-
-void
-GNEOptionsDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // nothing to do
+GNEOptionsEditor::~GNEOptionsEditor() {
+    delete myCopyOfOptionsContainer;
 }
 
 
 bool
-GNEOptionsDialog::isOptionModified() const {
+GNEOptionsEditor::isOptionModified() const {
     return myOptionsModified;
 }
 
-
-long
-GNEOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // reset entries
+void
+GNEOptionsEditor::reset() {
     for (const auto& entry : myOptionRowEntries) {
         entry->onCmdResetOption(nullptr, 0, nullptr);
     }
-    return closeDialogCanceling();
 }
 
 
 long
-GNEOptionsDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // reset entries
-    for (const auto& entry : myOptionRowEntries) {
-        entry->onCmdResetOption(nullptr, 0, nullptr);
-    }
-    return 1;
-}
-
-
-long
-GNEOptionsDialog::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
-    // close dialog accepting changes
-    handle(this, FXSEL(SEL_COMMAND, FXDialogBox::ID_ACCEPT), nullptr);
-    // run tool in mainWindow
-    return myApplicationWindow->handle(this, FXSEL(SEL_COMMAND, MID_GNE_RUNNETGENERATE), nullptr);
-}
-
-
-long
-GNEOptionsDialog::onCmdSelectTopic(FXObject*, FXSelector, void*) {
+GNEOptionsEditor::onCmdSelectTopic(FXObject*, FXSelector, void*) {
     if (mySearchButton->getText().count() == 0) {
         updateVisibleEntriesByTopic();
     }
@@ -211,7 +181,7 @@ GNEOptionsDialog::onCmdSelectTopic(FXObject*, FXSelector, void*) {
 
 
 long
-GNEOptionsDialog::onCmdSearch(FXObject*, FXSelector, void*) {
+GNEOptionsEditor::onCmdSearch(FXObject*, FXSelector, void*) {
     if (mySearchButton->getText().count() > 0) {
         updateVisibleEntriesBySearch(mySearchButton->getText().text());
     } else {
@@ -222,15 +192,17 @@ GNEOptionsDialog::onCmdSearch(FXObject*, FXSelector, void*) {
 
 
 long
-GNEOptionsDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
+GNEOptionsEditor::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
+    // get staticTooltipMenu
+    auto viewNet = myDialog->getApplicationWindow()->getViewNet();
     // toggle check
     myShowToolTipsMenu->setChecked(!myShowToolTipsMenu->amChecked());
-    if (myApplicationWindow->getViewNet()) {
-        myApplicationWindow->getViewNet()->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
-        myApplicationWindow->getViewNet()->getViewParent()->getShowToolTipsMenu()->update();
+    if (viewNet) {
+        viewNet->getViewParent()->getShowToolTipsMenu()->setChecked(myShowToolTipsMenu->amChecked());
+        viewNet->getViewParent()->getShowToolTipsMenu()->update();
     }
     // enable/disable static tooltip
-    myApplicationWindow->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
+    myDialog->getApplicationWindow()->getStaticTooltipMenu()->enableStaticToolTip(myShowToolTipsMenu->amChecked());
     // save in registry
     getApp()->reg().writeIntEntry("gui", "menuToolTips", myShowToolTipsMenu->amChecked() ? 0 : 1);
     update();
@@ -240,7 +212,7 @@ GNEOptionsDialog::onCmdShowToolTipsMenu(FXObject*, FXSelector, void*) {
 
 
 long
-GNEOptionsDialog::onCmdSaveOptions(FXObject*, FXSelector, void*) {
+GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
     // open save dialog
     const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, true);
     // check file
@@ -254,7 +226,7 @@ GNEOptionsDialog::onCmdSaveOptions(FXObject*, FXSelector, void*) {
 
 
 long
-GNEOptionsDialog::onCmdLoadOptions(FXObject*, FXSelector, void*) {
+GNEOptionsEditor::onCmdLoadOptions(FXObject*, FXSelector, void*) {
     // open file dialog
     const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, false);
     // check file
@@ -269,7 +241,7 @@ GNEOptionsDialog::onCmdLoadOptions(FXObject*, FXSelector, void*) {
 
 
 long
-GNEOptionsDialog::onCmdResetDefault(FXObject*, FXSelector, void*) {
+GNEOptionsEditor::onCmdResetDefault(FXObject*, FXSelector, void*) {
     // restore entries
     for (const auto& entry : myOptionRowEntries) {
         entry->restoreOption();
@@ -278,14 +250,14 @@ GNEOptionsDialog::onCmdResetDefault(FXObject*, FXSelector, void*) {
 }
 
 
-GNEOptionsDialog::GNEOptionsDialog() :
+GNEOptionsEditor::GNEOptionsEditor() :
     myOptionsContainer(OptionsCont::EMPTY_OPTIONS),
     myOriginalOptionsContainer(OptionsCont::EMPTY_OPTIONS) {
 }
 
 
 bool
-GNEOptionsDialog::updateVisibleEntriesByTopic() {
+GNEOptionsEditor::updateVisibleEntriesByTopic() {
     // iterate over tree elements and get the selected item
     for (const auto& treeItemTopic : myTreeItemTopics) {
         if (treeItemTopic.first->isSelected()) {
@@ -313,7 +285,7 @@ GNEOptionsDialog::updateVisibleEntriesByTopic() {
 
 
 void
-GNEOptionsDialog::updateVisibleEntriesBySearch(std::string searchText) {
+GNEOptionsEditor::updateVisibleEntriesBySearch(std::string searchText) {
     // first lower case search text
     searchText = StringUtils::to_lower_case(searchText);
     // iterate over entries
@@ -336,7 +308,7 @@ GNEOptionsDialog::updateVisibleEntriesBySearch(std::string searchText) {
 
 
 bool
-GNEOptionsDialog::loadConfiguration(const std::string& file) {
+GNEOptionsEditor::loadConfiguration(const std::string& file) {
     // make all options writable
     myOptionsContainer.resetWritable();
     // build parser

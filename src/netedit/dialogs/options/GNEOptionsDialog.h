@@ -20,32 +20,20 @@
 #pragma once
 #include <config.h>
 
-#include <set>
 #include <netedit/dialogs/GNEDialog.h>
-#include <utils/gui/images/GUIIcons.h>
-
-#include "GNEOptionsEditorRow.h"
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEApplicationWindow;
-class MFXCheckableButton;
-class MFXTextFieldSearch;
-class MFXCheckButtonTooltip;
 class OptionsCont;
+class GNEOptionsEditor;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GNEOptionsDialog : public GNEDialog {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEOptionsDialog)
-
-    /// @brief declare friend class
-    friend class GNEOptionsEditorRow;
 
 public:
     /**@brief Constructor
@@ -79,82 +67,13 @@ public:
     /// @brief called when user press reset button
     long onCmdReset(FXObject*, FXSelector, void*);
 
-    /// @brief called when user press reset button
-    long onCmdRunNetgenerate(FXObject*, FXSelector, void*);
-
-    /// @brief called when user select a topic in the list
-    long onCmdSelectTopic(FXObject*, FXSelector, void*);
-
-    /// @brief called when user searches
-    long onCmdSearch(FXObject*, FXSelector, void*);
-
-    /// @brief enable/disable show toolTip
-    long onCmdShowToolTipsMenu(FXObject*, FXSelector, void*);
-
-    /// @brief save options
-    long onCmdSaveOptions(FXObject*, FXSelector, void*);
-
-    /// @brief load options
-    long onCmdLoadOptions(FXObject*, FXSelector, void*);
-
-    /// @brief reset default
-    long onCmdResetDefault(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNEOptionsDialog();
-
-    /// @brief reference to edited Option container
-    OptionsCont& myOptionsContainer;
-
-    /// @brief reference to original Option container
-    const OptionsCont& myOriginalOptionsContainer;
-
-    /// @brief flag for check if options was modified
-    bool myOptionsModified = false;
+    /// @brief the options editor
+    GNEOptionsEditor* myOptionsEditor = nullptr;
 
 private:
-    /// @brief checkable button for show toolTips
-    MFXCheckableButton* myShowToolTipsMenu = nullptr;
-
-    /// @brief Topics elements tree
-    FXTreeList* myTopicsTreeList = nullptr;
-
-    /// @brief root item
-    FXTreeItem* myRootItem = nullptr;
-
-    /// @brief vertical frame for entries
-    FXVerticalFrame* myEntriesFrame = nullptr;
-
-    /// @brief checkbox for enable/disable search by description
-    MFXCheckButtonTooltip* myDescriptionSearchCheckButton = nullptr;
-
-    /// @brief search button
-    MFXTextFieldSearch* mySearchButton = nullptr;
-
-    /// @brief map with topics and their associated FXTreeItem
-    std::map<FXTreeItem*, std::string> myTreeItemTopics;
-
-    /// @brief Input option entries
-    std::vector<GNEOptionsEditorRow::OptionRow*> myOptionRowEntries;
-
-    /// @brief ignores topics
-    const std::set<std::string> myIgnoredTopics = {"Configuration"};
-
-    /// @brief ignores entries
-    const std::set<std::string> myIgnoredEntries = {"geometry.remove", "edges.join", "geometry.split", "ramps.guess", "ramps.set"};
-
-    /// @brief update visible entries by selected topic
-    bool updateVisibleEntriesByTopic();
-
-    /// @brief update visible entries by search
-    void updateVisibleEntriesBySearch(std::string searchText);
-
-    /// @brief load configuration
-    bool loadConfiguration(const std::string& file);
-
     /// @brief Invalidated copy constructor.
     GNEOptionsDialog(const GNEOptionsDialog&) = delete;
 
