@@ -45,7 +45,7 @@ public:
         FixRouteOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
         /// @brief select internal test solution
-        void selectInternalTestSolution(const std::string &solution);
+        void selectInternalTestSolution(const std::string& solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -92,7 +92,7 @@ public:
         FixVehicleOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
         /// @brief select internal test solution
-        void selectInternalTestSolution(const std::string &solution);
+        void selectInternalTestSolution(const std::string& solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -139,7 +139,7 @@ public:
         FixStopPositionOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
         /// @brief select internal test solution
-        void selectInternalTestSolution(const std::string &solution);
+        void selectInternalTestSolution(const std::string& solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -186,7 +186,7 @@ public:
         FixPlanOptions(GNEFixDemandElementsDialog* fixDemandElementsParent);
 
         /// @brief select internal test solution
-        void selectInternalTestSolution(const std::string &solution);
+        void selectInternalTestSolution(const std::string& solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();

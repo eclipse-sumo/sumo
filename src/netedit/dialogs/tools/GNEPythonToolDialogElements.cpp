@@ -116,8 +116,8 @@ GNEPythonToolDialogElements::Category::~Category() {}
 // ---------------------------------------------------------------------------
 
 GNEPythonToolDialogElements::Argument::Argument(GNEPythonToolDialog* toolDialogParent, const GNEPythonTool* pythonTool,
-                                                GNEApplicationWindow* applicationWindow, FXVerticalFrame* argumentFrame,
-                                                const std::string& parameter, Option* option) :
+        GNEApplicationWindow* applicationWindow, FXVerticalFrame* argumentFrame,
+        const std::string& parameter, Option* option) :
     FXHorizontalFrame(argumentFrame, GUIDesignAuxiliarHorizontalFrame),
     myToolDialogParent(toolDialogParent),
     myOption(option),

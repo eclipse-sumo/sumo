@@ -41,7 +41,7 @@
 // ===========================================================================
 
 GNENetgenerateOptionsDialog::GNENetgenerateOptionsDialog(GNEApplicationWindow* applicationWindow, OptionsCont& optionsContainer,
-                                                         const OptionsCont& originalOptionsContainer) :
+        const OptionsCont& originalOptionsContainer) :
     GNEDialog(applicationWindow, TL("Run Netgenerate with advanced options"), GUIIcon::NETGENERATE,
               GNEDialog::Buttons::RUN_CANCEL_RESET, OpenType::MODAL, GNEDialog::ResizeMode::STRETCHABLE, 800, 600) {
     // build options editor

@@ -106,7 +106,7 @@ public:
         }
 
         /// @brief select internal test solution (used in internal tests)
-        virtual void selectInternalTestSolution(const std::string &solution) = 0;
+        virtual void selectInternalTestSolution(const std::string& solution) = 0;
 
         /// @brief apply selected fix option
         virtual bool applyFixOption() = 0;

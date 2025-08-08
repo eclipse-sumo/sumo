@@ -342,7 +342,7 @@ GNETypeFrame::TypeEditor::deleteType() {
         std::string info;
         const std::string numChildren = toString(myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size());
         // continue depending of plural
-        if(myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size() == 1) {
+        if (myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size() == 1) {
             info = TLF("Delete % '%' will remove one vehicle. Continue?", toString(SUMO_TAG_VTYPE), myTypeFrameParent->myTypeSelector->getCurrentType()->getID());
         } else {
             info = TLF("Delete % '%' will remove % vehicles. Continue?", toString(SUMO_TAG_VTYPE), myTypeFrameParent->myTypeSelector->getCurrentType()->getID(), numChildren);

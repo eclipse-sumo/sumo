@@ -166,10 +166,10 @@ InternalTest::InternalTest(const std::string& testFile) {
         while (std::getline(strm, line)) {
             // filter lines
             if (!line.empty() &&                // emty lines
-                !(line[0] == '#') &&            // comments
-                !startWith(line, "import") &&   // imports
-                !startWith(line, "time.") &&    // time calls
-                !startWith(line, "sys.")) {     // sys calls
+                    !(line[0] == '#') &&            // comments
+                    !startWith(line, "import") &&   // imports
+                    !startWith(line, "time.") &&    // time calls
+                    !startWith(line, "sys.")) {     // sys calls
                 linesRaw.push_back(std::make_pair(startWith(line, "netedit."), line));
             }
         }

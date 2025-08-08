@@ -45,7 +45,7 @@ public:
         PositionOptions(GNEFixAdditionalElementsDialog* fixAdditionalPositions);
 
         /// @brief select internal test solution
-        void selectInternalTestSolution(const std::string &solution);
+        void selectInternalTestSolution(const std::string& solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();
@@ -92,7 +92,7 @@ public:
         ConsecutiveLaneOptions(GNEFixAdditionalElementsDialog* fixAdditionalPositions);
 
         /// @brief select internal test solution
-        void selectInternalTestSolution(const std::string &solution);
+        void selectInternalTestSolution(const std::string& solution);
 
         /// @brief apply selected fix option
         bool applyFixOption();

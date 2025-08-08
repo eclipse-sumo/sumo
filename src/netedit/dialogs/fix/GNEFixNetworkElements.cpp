@@ -76,7 +76,7 @@ GNEFixNetworkElements::FixEdgeOptions::FixEdgeOptions(GNEFixNetworkElements* fix
 
 
 void
-GNEFixNetworkElements::FixEdgeOptions::selectInternalTestSolution(const std::string &solution) {
+GNEFixNetworkElements::FixEdgeOptions::selectInternalTestSolution(const std::string& solution) {
     // finish
 }
 
@@ -162,7 +162,7 @@ GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkEleme
 
 
 void
-GNEFixNetworkElements::FixCrossingOptions::selectInternalTestSolution(const std::string &solution) {
+GNEFixNetworkElements::FixCrossingOptions::selectInternalTestSolution(const std::string& solution) {
     // chooose solution
     if (solution == "removeInvalidCrossings") {
         myRemoveInvalidCrossings->setCheck(TRUE, TRUE);
