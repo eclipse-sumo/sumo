@@ -105,11 +105,20 @@ public:
     /// @brief called when accept or yes button is pressed (can be reimplemented in children)
     virtual long onCmdAccept(FXObject*, FXSelector, void*);
 
-    /// @brief called when cancel or nobutton is pressed (can be reimplemented in children)
+    /// @brief called when cancel or no button is pressed (can be reimplemented in children)
     virtual long onCmdCancel(FXObject*, FXSelector, void*);
 
-    /// @brief called when cancel or nobutton is pressed (can be reimplemented in children)
+    /// @brief called when reset button is pressed (must be reimplemented in children)
     virtual long onCmdReset(FXObject*, FXSelector, void*);
+
+    /// @brief called when run button is pressed (must be reimplemented in children)
+    virtual long onCmdRun(FXObject*, FXSelector, void*);
+
+    /// @brief called when back button is pressed (must be reimplemented in children)
+    virtual long onCmdBack(FXObject*, FXSelector, void*);
+
+    /// @brief called when advanced button is pressed (must be reimplemented in children)
+    virtual long onCmdAdvanced(FXObject*, FXSelector, void*);
 
     /// @brief called when abort is called (either closing dialog or pressing abort button)
     long onCmdAbort(FXObject*, FXSelector, void*);

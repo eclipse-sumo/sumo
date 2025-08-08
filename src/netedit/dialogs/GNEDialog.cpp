@@ -33,9 +33,12 @@ FXDEFMAP(GNEDialog) MFXDialogBoxMap[] = {
     FXMAPFUNC(SEL_KEYPRESS,     0,  GNEDialog::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,   0,  GNEDialog::onKeyRelease),
     // buttons
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,      GNEDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,      GNEDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,       GNEDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,         GNEDialog::onCmdRun),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_BACK,        GNEDialog::onCmdBack),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADVANCED,    GNEDialog::onCmdAdvanced),
     // abort dialog
     FXMAPFUNC(SEL_CLOSE,    0,              GNEDialog::onCmdAbort),
     FXMAPFUNC(SEL_CHORE,    MID_GNE_ABORT,  GNEDialog::onCmdAbort),
@@ -133,7 +136,25 @@ GNEDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    throw ProcessError("onCmdReset not implemented in GNEDialog, must be reimplemented in children");
+    throw ProcessError("onCmdReset function must be reimplemented in GNEDialog children");
+}
+
+
+long
+GNEDialog::onCmdRun(FXObject*, FXSelector, void*) {
+    throw ProcessError("onCmdRun function must be reimplemented in GNEDialog children");
+}
+
+
+long
+GNEDialog::onCmdBack(FXObject*, FXSelector, void*) {
+    throw ProcessError("onCmdBack function must be reimplemented in GNEDialog children");
+}
+
+
+long
+GNEDialog::onCmdAdvanced(FXObject*, FXSelector, void*) {
+    throw ProcessError("onCmdAdvanced function must be reimplemented in GNEDialog children");
 }
 
 
@@ -380,7 +401,7 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
             // run button
             myFocusButon = GUIDesigns::buildFXButton(buttonsFrame, TL("Run"), "", TL("Run"),
                            GUIIconSubSys::getIcon(GUIIcon::START), this,
-                           MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+                           MID_GNE_BUTTON_RUN, GUIDesignButtonDialog);
             // buttons separator
             new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
             // cancel button
@@ -403,13 +424,13 @@ GNEDialog::buildDialog(GUIIcon titleIcon, GNEDialog::Buttons buttons) {
             new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
             GUIDesigns::buildFXButton(buttonsFrame, TL("Rerun"), "", TL("Rerun tool"),
                                       GUIIconSubSys::getIcon(GUIIcon::RESET), this,
-                                      MID_GNE_BUTTON_ACCEPT, GUIDesignButtonDialog);
+                                      MID_GNE_BUTTON_RUN, GUIDesignButtonDialog);
             // buttons separator
             new FXHorizontalFrame(buttonsFrame, GUIDesignDialogButtonSeparator);
             // back button
             GUIDesigns::buildFXButton(buttonsFrame, TL("Back"), "", TL("Back to tool dialog"),
                                       GUIIconSubSys::getIcon(GUIIcon::BACK), this,
-                                      MID_GNE_BUTTON_RESET, GUIDesignButtonDialog);
+                                      MID_GNE_BUTTON_BACK, GUIDesignButtonDialog);
             break;
         }
         default:
