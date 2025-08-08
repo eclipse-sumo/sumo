@@ -141,7 +141,28 @@ protected:
     /// @brief content frame
     FXVerticalFrame* myContentFrame = nullptr;
 
-    /// @brief butto used to focus the dialog
+    /// @brief accept button
+    FXButton* myAcceptButton = nullptr;
+
+    /// @brief cancel button
+    FXButton* myCancelButton = nullptr;
+
+    /// @brief abort button
+    FXButton* myAbortButton = nullptr;
+
+    /// @brief reset button
+    FXButton* myResetButton = nullptr;
+
+    /// @brief run button
+    FXButton* myRunButton = nullptr;
+
+    /// @brief back button
+    FXButton* myBackButton = nullptr;
+
+    /// @brief advanced button
+    FXButton* myAdvancedButton = nullptr;
+
+    /// @brief focus button, used for focusing the dialog when it is opened
     FXButton* myFocusButon = nullptr;
 
     /// @brief result to indicate if this dialog was closed accepting or rejecting changes

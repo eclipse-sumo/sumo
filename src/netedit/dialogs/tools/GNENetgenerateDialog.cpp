@@ -38,14 +38,11 @@
 FXDEFMAP(GNENetgenerateDialog) GNENetgenerateDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN,                   GNENetgenerateDialog::onCmdOpenOutputFile),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNENetgenerateDialog::onCmdSetOutput),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_GRID,       GNENetgenerateDialog::onCmdSetGrid),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_SPIDER,     GNENetgenerateDialog::onCmdSetSpider),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_RANDOMGRID, GNENetgenerateDialog::onCmdSetRandomGrid),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_RANDOM,     GNENetgenerateDialog::onCmdSetRandom),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,             GNENetgenerateDialog::onCmdRun),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_RUN,             GNENetgenerateDialog::onUpdSettingsConfigured),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_GRID,       GNENetgenerateDialog::onCmdSetGridNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_SPIDER,     GNENetgenerateDialog::onCmdSetSpiderNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_RANDOMGRID, GNENetgenerateDialog::onCmdSetRandomNetworkGridNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_RANDOM,     GNENetgenerateDialog::onCmdSetRandomNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADVANCED,        GNENetgenerateDialog::onCmdAdvanced),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_ADVANCED,        GNENetgenerateDialog::onUpdSettingsConfigured),
 };
 
 // Object implementation
@@ -88,20 +85,22 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* applicationWind
     if (generateOptions.getBool("grid")) {
         if (generateOptions.getBool("rand.grid")) {
             myRandomGridNetworkButton->setChecked(true);
-            onCmdSetRandomGrid(nullptr, 0, nullptr);
+            onCmdSetRandomNetworkGridNetwork(nullptr, 0, nullptr);
         } else {
             myGridNetworkButton->setChecked(true);
-            onCmdSetGrid(nullptr, 0, nullptr);
+            onCmdSetGridNetwork(nullptr, 0, nullptr);
         }
     } else if (generateOptions.getBool("spider")) {
         mySpiderNetworkButton->setChecked(true);
-        onCmdSetSpider(nullptr, 0, nullptr);
+        onCmdSetSpiderNetwork(nullptr, 0, nullptr);
     } else if (generateOptions.getBool("random")) {
         myRandomNetworkButton->setChecked(true);
-        onCmdSetRandom(nullptr, 0, nullptr);
+        onCmdSetRandomNetwork(nullptr, 0, nullptr);
     }
     // set output
     myOutputTextField->setText(generateOptions.getValueString("output-file").c_str());
+    // disable run and advanced
+    updateRunButtons();
     // open dialog
     openDialog();
 }
@@ -135,16 +134,23 @@ GNENetgenerateDialog::onCmdSetOutput(FXObject*, FXSelector, void*) {
     // check if filename is valid
     if (SUMOXMLDefinitions::isValidFilename(myOutputTextField->getText().text()) == false) {
         myOutputTextField->setTextColor(FXRGB(255, 0, 0));
+        mySelectedOutputFileFlag = false;
     } else {
         generateOptions.set("output-file", myOutputTextField->getText().text());
         myOutputTextField->setTextColor(FXRGB(0, 0, 0));
+        if (myOutputTextField->getText().length() > 0) {
+            mySelectedOutputFileFlag = true;
+        } else {
+            mySelectedOutputFileFlag = false;
+        }
     }
+    updateRunButtons();
     return 1;
 }
 
 
 long
-GNENetgenerateDialog::onCmdSetGrid(FXObject*, FXSelector, void*) {
+GNENetgenerateDialog::onCmdSetGridNetwork(FXObject*, FXSelector, void*) {
     auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
     // reset all flags
     generateOptions.resetWritable();
@@ -162,12 +168,15 @@ GNENetgenerateDialog::onCmdSetGrid(FXObject*, FXSelector, void*) {
     mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 0));
     myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
     myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    // enable flag
+    mySelectedNetworktypeFlag = true;
+    updateRunButtons();
     return 1;
 }
 
 
 long
-GNENetgenerateDialog::onCmdSetSpider(FXObject*, FXSelector, void*) {
+GNENetgenerateDialog::onCmdSetSpiderNetwork(FXObject*, FXSelector, void*) {
     auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
     // reset all flags
     generateOptions.resetWritable();
@@ -186,12 +195,15 @@ GNENetgenerateDialog::onCmdSetSpider(FXObject*, FXSelector, void*) {
     mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 255));
     myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
     myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    // enable flag
+    mySelectedNetworktypeFlag = true;
+    updateRunButtons();
     return 1;
 }
 
 
 long
-GNENetgenerateDialog::onCmdSetRandomGrid(FXObject*, FXSelector, void*) {
+GNENetgenerateDialog::onCmdSetRandomNetworkGridNetwork(FXObject*, FXSelector, void*) {
     auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
     // reset all flags
     generateOptions.resetWritable();
@@ -209,12 +221,15 @@ GNENetgenerateDialog::onCmdSetRandomGrid(FXObject*, FXSelector, void*) {
     mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 0));
     myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 255));
     myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    // enable flag
+    mySelectedNetworktypeFlag = true;
+    updateRunButtons();
     return 1;
 }
 
 
 long
-GNENetgenerateDialog::onCmdSetRandom(FXObject*, FXSelector, void*) {
+GNENetgenerateDialog::onCmdSetRandomNetwork(FXObject*, FXSelector, void*) {
     auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
     // reset all flags
     generateOptions.resetWritable();
@@ -232,14 +247,17 @@ GNENetgenerateDialog::onCmdSetRandom(FXObject*, FXSelector, void*) {
     mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 0));
     myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
     myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 255));
+    // enable flag
+    mySelectedNetworktypeFlag = true;
+    updateRunButtons();
     return 1;
 }
 
 
 long
 GNENetgenerateDialog::onCmdRun(FXObject*, FXSelector, void*) {
-    // hide dialog
-    hide();
+    // close dialog
+    closeDialogCanceling();
     // run netgenerate
     return myApplicationWindow->tryHandle(this, FXSEL(SEL_COMMAND, MID_GNE_RUNNETGENERATE), nullptr);
 }
@@ -247,38 +265,23 @@ GNENetgenerateDialog::onCmdRun(FXObject*, FXSelector, void*) {
 
 long
 GNENetgenerateDialog::onCmdAdvanced(FXObject*, FXSelector, void*) {
-    // hide dialog
-    hide();
+    // close dialog
+    closeDialogCanceling();
     // open netgenerate option dialog
     return myApplicationWindow->tryHandle(this, FXSEL(SEL_COMMAND, MID_GNE_NETGENERATEOPTIONS), nullptr);
 }
 
 
-long
-GNENetgenerateDialog::onUpdSettingsConfigured(FXObject* sender, FXSelector, void*) {
-    auto& generateOptions = myApplicationWindow->getNetgenerateOptions();
-    // check conditions
-    if ((generateOptions.getBool("grid") == false) &&
-            (generateOptions.getBool("spider") == false) &&
-            (generateOptions.getBool("rand") == false)) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (generateOptions.getValueString("output-file").empty()) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+void
+GNENetgenerateDialog::updateRunButtons() {
+    // enable or disable run and advanced buttons depending of flags
+    if (mySelectedOutputFileFlag && mySelectedNetworktypeFlag) {
+        myRunButton->enable();
+        myAdvancedButton->enable();
     } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        myRunButton->disable();
+        myAdvancedButton->disable();
     }
-}
-
-
-long
-GNENetgenerateDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    return closeDialogAccepting();
-}
-
-
-long
-GNENetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    return closeDialogCanceling();
 }
 
 /****************************************************************************/

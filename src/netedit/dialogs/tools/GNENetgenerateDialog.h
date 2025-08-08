@@ -59,31 +59,22 @@ public:
     long onCmdSetOutput(FXObject*, FXSelector, void*);
 
     /// @brief set grid mode
-    long onCmdSetGrid(FXObject*, FXSelector, void*);
+    long onCmdSetGridNetwork(FXObject*, FXSelector, void*);
 
     /// @brief set spider
-    long onCmdSetSpider(FXObject*, FXSelector, void*);
+    long onCmdSetSpiderNetwork(FXObject*, FXSelector, void*);
 
     /// @brief set random grid
-    long onCmdSetRandomGrid(FXObject*, FXSelector, void*);
+    long onCmdSetRandomNetworkGridNetwork(FXObject*, FXSelector, void*);
 
     /// @brief set random
-    long onCmdSetRandom(FXObject*, FXSelector, void*);
+    long onCmdSetRandomNetwork(FXObject*, FXSelector, void*);
 
     /// @brief event after press run button
     long onCmdRun(FXObject*, FXSelector, void*);
 
     /// @brief event after press advanced button
     long onCmdAdvanced(FXObject*, FXSelector, void*);
-
-    /// @brief check if settings are enabled
-    long onUpdSettingsConfigured(FXObject*, FXSelector, void*);
-
-    /// @brief called when accept button is pressed
-    long onCmdAccept(FXObject*, FXSelector, void*);
-
-    /// @brief called when cancel button is pressed (or dialog is closed)
-    long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @}
 
@@ -92,6 +83,12 @@ protected:
     FOX_CONSTRUCTOR(GNENetgenerateDialog);
 
 private:
+    /// @brief flag to indicate if networkType was selected
+    bool mySelectedNetworktypeFlag = false;
+
+    /// @brief flag to indicate if output was established
+    bool mySelectedOutputFileFlag = false;
+
     /// @brief grid network
     FXLabel* myGridNetworkLabel = nullptr;
 
@@ -118,6 +115,9 @@ private:
 
     /// @brief output text field
     FXTextField* myOutputTextField = nullptr;
+
+    /// @brief update run buttons
+    void updateRunButtons();
 
     /// @brief Invalidated copy constructor.
     GNENetgenerateDialog(const GNENetgenerateDialog&) = delete;
