@@ -132,12 +132,14 @@ GNEOptionsEditorRow::OptionString::OptionString(GNEOptionsEditor* optionsEditor,
 void
 GNEOptionsEditorRow::OptionString::updateOption() {
     myStringTextField->setText(myOptionsEditor->myOptionsContainer.getString(myName).c_str());
+    updateResetButton();
 }
 
 
 void
 GNEOptionsEditorRow::OptionString::restoreOption() {
     myStringTextField->setText(myOptionsEditor->myOriginalOptionsContainer.getString(myName).c_str());
+    onCmdSetOption(nullptr, 0, nullptr);
 }
 
 
@@ -176,12 +178,14 @@ GNEOptionsEditorRow::OptionStringVector::OptionStringVector(GNEOptionsEditor* op
 void
 GNEOptionsEditorRow::OptionStringVector::updateOption() {
     myStringVectorTextField->setText(toString(myOptionsEditor->myOptionsContainer.getStringVector(myName)).c_str());
+    updateResetButton();
 }
 
 
 void
 GNEOptionsEditorRow::OptionStringVector::restoreOption() {
     myStringVectorTextField->setText(toString(myOptionsEditor->myOriginalOptionsContainer.getStringVector(myName)).c_str());
+    onCmdSetOption(nullptr, 0, nullptr);
 }
 
 
@@ -229,6 +233,7 @@ GNEOptionsEditorRow::OptionBool::updateOption() {
         myCheckButton->setCheck(FALSE);
         myCheckButton->setText(TL("false"));
     }
+    updateResetButton();
 }
 
 
@@ -241,6 +246,7 @@ GNEOptionsEditorRow::OptionBool::restoreOption() {
         myCheckButton->setCheck(FALSE);
         myCheckButton->setText(TL("false"));
     }
+    onCmdSetOption(nullptr, 0, nullptr);
 }
 
 
@@ -269,7 +275,10 @@ GNEOptionsEditorRow::OptionBool::onCmdSetOption(FXObject*, FXSelector, void*) {
 
 long
 GNEOptionsEditorRow::OptionBool::onCmdResetOption(FXObject*, FXSelector, void*) {
-    if (StringUtils::toBool(myDefaultValue)) {
+    if (myDefaultValue.empty()) {
+        myCheckButton->setCheck(FALSE);
+        myCheckButton->setText(TL("false"));
+    } else if (StringUtils::toBool(myDefaultValue)) {
         myCheckButton->setCheck(TRUE);
         myCheckButton->setText(TL("true"));
     } else {
@@ -301,12 +310,14 @@ GNEOptionsEditorRow::OptionInt::OptionInt(GNEOptionsEditor* optionsEditor, FXCom
 void
 GNEOptionsEditorRow::OptionInt::updateOption() {
     myIntTextField->setText(toString(myOptionsEditor->myOptionsContainer.getInt(myName)).c_str());
+    updateResetButton();
 }
 
 
 void
 GNEOptionsEditorRow::OptionInt::restoreOption() {
     myIntTextField->setText(toString(myOptionsEditor->myOriginalOptionsContainer.getInt(myName)).c_str());
+    onCmdSetOption(nullptr, 0, nullptr);
 }
 
 
@@ -353,12 +364,14 @@ GNEOptionsEditorRow::OptionIntVector::OptionIntVector(GNEOptionsEditor* optionsE
 void
 GNEOptionsEditorRow::OptionIntVector::updateOption() {
     myIntVectorTextField->setText(toString(myOptionsEditor->myOptionsContainer.getIntVector(myName)).c_str());
+    updateResetButton();
 }
 
 
 void
 GNEOptionsEditorRow::OptionIntVector::restoreOption() {
     myIntVectorTextField->setText(toString(myOptionsEditor->myOriginalOptionsContainer.getIntVector(myName)).c_str());
+    onCmdSetOption(nullptr, 0, nullptr);
 }
 
 
@@ -411,12 +424,14 @@ GNEOptionsEditorRow::OptionFloat::OptionFloat(GNEOptionsEditor* optionsEditor, F
 void
 GNEOptionsEditorRow::OptionFloat::updateOption() {
     myFloatTextField->setText(toString(myOptionsEditor->myOptionsContainer.getFloat(myName)).c_str());
+    updateResetButton();
 }
 
 
 void
 GNEOptionsEditorRow::OptionFloat::restoreOption() {
     myFloatTextField->setText(toString(myOptionsEditor->myOriginalOptionsContainer.getFloat(myName)).c_str());
+    onCmdSetOption(nullptr, 0, nullptr);
 }
 
 
@@ -474,12 +489,14 @@ GNEOptionsEditorRow::OptionTime::OptionTime(GNEOptionsEditor* optionsEditor, FXC
 void
 GNEOptionsEditorRow::OptionTime::updateOption() {
     myTimeTextField->setText(toString(myOptionsEditor->myOptionsContainer.getString(myName)).c_str());
+    updateResetButton();
 }
 
 
 void
 GNEOptionsEditorRow::OptionTime::restoreOption() {
     myTimeTextField->setText(toString(myOptionsEditor->myOriginalOptionsContainer.getString(myName)).c_str());
+    onCmdSetOption(nullptr, 0, nullptr);
 }
 
 
@@ -538,12 +555,14 @@ GNEOptionsEditorRow::OptionFilename::OptionFilename(GNEOptionsEditor* optionsEdi
 void
 GNEOptionsEditorRow::OptionFilename::updateOption() {
     myFilenameTextField->setText(myOptionsEditor->myOptionsContainer.getString(myName).c_str());
+    updateResetButton();
 }
 
 
 void
 GNEOptionsEditorRow::OptionFilename::restoreOption() {
     myFilenameTextField->setText(myOptionsEditor->myOriginalOptionsContainer.getString(myName).c_str());
+    onCmdSetOption(nullptr, 0, nullptr);
 }
 
 
@@ -555,6 +574,7 @@ GNEOptionsEditorRow::OptionFilename::onCmdOpenDialog(FXObject*, FXSelector, void
     if (file.size() > 0) {
         myFilenameTextField->setText(file.c_str(), TRUE);
     }
+    updateResetButton();
     return 1;
 }
 

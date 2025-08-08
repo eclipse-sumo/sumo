@@ -57,8 +57,8 @@ GNEOptionsDialog::~GNEOptionsDialog() { }
 
 
 void
-GNEOptionsDialog::runInternalTest(const InternalTestStep::DialogArgument* /*dialogArgument*/) {
-    // nothing to do
+GNEOptionsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+    myOptionsEditor->runInternalTest(dialogArgument);
 }
 
 
@@ -70,15 +70,17 @@ GNEOptionsDialog::isOptionModified() const {
 
 long
 GNEOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-
-
+    // reset options
+    myOptionsEditor->resetAllOptions();
+    // close dialog canceling
     return closeDialogCanceling();
 }
 
 
 long
 GNEOptionsDialog::onCmdReset(FXObject*, FXSelector, void*) {
-
+    // reset options
+    myOptionsEditor->resetAllOptions();
     return 1;
 }
 

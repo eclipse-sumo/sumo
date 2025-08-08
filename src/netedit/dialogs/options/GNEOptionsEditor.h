@@ -61,11 +61,14 @@ public:
     /// @brief Destructor
     ~GNEOptionsEditor();
 
+    /// @brief run internal test
+    void runInternalTest(const InternalTestStep::DialogArgument* dialogArgument);
+
     /// @brief check if option was modified
     bool isOptionModified() const;
 
     /// @brief reset options
-    void reset();
+    void resetAllOptions();
 
     /// @name FOX-callbacks
     /// @{
@@ -101,7 +104,7 @@ protected:
     OptionsCont& myOptionsContainer;
 
     /// @brief copy of edited Option container, used for reset
-    OptionsCont* myCopyOfOptionsContainer;
+    OptionsCont* myCopyOfOptionsContainer = nullptr;
 
     /// @brief reference to original Option container, used for restoring
     const OptionsCont& myOriginalOptionsContainer;
