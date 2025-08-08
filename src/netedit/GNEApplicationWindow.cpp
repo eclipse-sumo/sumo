@@ -28,7 +28,9 @@
 #include <netedit/dialogs/GNEAboutDialog.h>
 #include <netedit/dialogs/GNEKeepElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
-#include <netedit/dialogs/options/GNEOptionsDialog.h>
+#include <netedit/dialogs/options/GNESumoOptionsDialog.h>
+#include <netedit/dialogs/options/GNENeteditOptionsDialog.h>
+#include <netedit/dialogs/options/GNENetgenerateOptionsDialog.h>
 #include <netedit/dialogs/tools/GNENetgenerateDialog.h>
 #include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
 #include <netedit/elements/data/GNEDataHandler.h>
@@ -1794,9 +1796,7 @@ GNEApplicationWindow::loadOSM(const std::string& OSMFile) {
     neteditOptions.set("tls.guess-signals", "true");
     neteditOptions.set("tls.discard-simple", "true");
     // open netedit options dialog
-    const auto neteditOptionsDialog = GNEOptionsDialog(this, GUIIcon::SUPERMODENETWORK, TL("Select Import Options"),
-                                      GNEDialog::Buttons::ACCEPT_CANCEL_RESET, OptionsCont::getOptions(),
-                                      myOriginalNeteditOptions);
+    const auto neteditOptionsDialog = GNENeteditOptionsDialog(this, neteditOptions, myOriginalNeteditOptions);
     // open wizard dialog
     if (neteditOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // needed to set projection parameters
@@ -2511,9 +2511,7 @@ long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // open netedit option dialog
-    const auto neteditOptionsDialog = GNEOptionsDialog(this, GUIIcon::OPTIONS, TL("Netedit options"),
-                                      GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
-                                      neteditOptions, myOriginalNeteditOptions);
+    const auto neteditOptionsDialog = GNENeteditOptionsDialog(this, neteditOptions, myOriginalNeteditOptions);
     // continue depending of result
     if (neteditOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) {
         NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
@@ -2532,9 +2530,7 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
     // open sumo option dialog
-    const auto sumoOptionsDialog = GNEOptionsDialog(this, GUIIcon::SUMO_MINI, TL("Sumo options"),
-                                   GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
-                                   mySumoOptions, myOriginalSumoOptions);
+    const auto sumoOptionsDialog = GNESumoOptionsDialog(this, mySumoOptions, myOriginalSumoOptions);
     // continue depending of result
     if ((sumoOptionsDialog.getResult() == GNEDialog::Result::ACCEPT) && sumoOptionsDialog.isOptionModified() && myNet) {
         myNet->getSavingStatus()->requireSaveSumoConfig();
@@ -2553,9 +2549,7 @@ GNEApplicationWindow::onCmdOpenNetgenerateDialog(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*) {
     // open netgenerate options dialog
-    GNEOptionsDialog(this, GUIIcon::NETGENERATE, TL("Netgenerate options"),
-                     GNEDialog::Buttons::RUN_CANCEL_RESET, myNetgenerateOptions,
-                     myOriginalNetgenerateOptions);
+    GNENetgenerateOptionsDialog(this, myNetgenerateOptions, myOriginalNetgenerateOptions);
     return 1;
 }
 

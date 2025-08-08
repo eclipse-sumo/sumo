@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEOptionsDialog.cpp
+/// @file    GNESumoOptionsDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2023
 ///
@@ -27,7 +27,7 @@
 #include <xercesc/parsers/SAXParser.hpp>
 #include <utils/foxtools/MFXCheckButtonTooltip.h>
 
-#include "GNEOptionsDialog.h"
+#include "GNESumoOptionsDialog.h"
 #include "GNEOptionsEditor.h"
 
 // ===========================================================================
@@ -40,36 +40,34 @@
 // method definitions
 // ===========================================================================
 
-GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* applicationWindow, GUIIcon icon, const std::string& titleName,
-                                   GNEDialog::Buttons buttons, OptionsCont& optionsContainer,
-                                   const OptionsCont& originalOptionsContainer) :
-    GNEDialog(applicationWindow, titleName, icon, buttons, OpenType::MODAL, GNEDialog::ResizeMode::STRETCHABLE, 800, 600) {
-    // set icon
-    setIcon(GUIIconSubSys::getIcon(icon));
+GNESumoOptionsDialog::GNESumoOptionsDialog(GNEApplicationWindow* applicationWindow, OptionsCont& optionsContainer,
+                                           const OptionsCont& originalOptionsContainer) :
+    GNEDialog(applicationWindow, TL("Edit SUMO Options"), GUIIcon::SUMO_MINI, GNEDialog::Buttons::ACCEPT_CANCEL_RESET,
+              OpenType::MODAL, GNEDialog::ResizeMode::STRETCHABLE, 800, 600) {
     // build options editor
-    myOptionsEditor = new GNEOptionsEditor(this, titleName, optionsContainer, originalOptionsContainer);
+    myOptionsEditor = new GNEOptionsEditor(this, "SUMO", optionsContainer, originalOptionsContainer);
     // open modal dialog
     openDialog();
 }
 
 
-GNEOptionsDialog::~GNEOptionsDialog() { }
+GNESumoOptionsDialog::~GNESumoOptionsDialog() { }
 
 
 void
-GNEOptionsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
+GNESumoOptionsDialog::runInternalTest(const InternalTestStep::DialogArgument* dialogArgument) {
     myOptionsEditor->runInternalTest(dialogArgument);
 }
 
 
 bool
-GNEOptionsDialog::isOptionModified() const {
+GNESumoOptionsDialog::isOptionModified() const {
     return myOptionsEditor->isOptionModified();
 }
 
 
 long
-GNEOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+GNESumoOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // reset options
     myOptionsEditor->resetAllOptions();
     // close dialog canceling
@@ -78,7 +76,7 @@ GNEOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 long
-GNEOptionsDialog::onCmdReset(FXObject*, FXSelector, void*) {
+GNESumoOptionsDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset options
     myOptionsEditor->resetAllOptions();
     return 1;
