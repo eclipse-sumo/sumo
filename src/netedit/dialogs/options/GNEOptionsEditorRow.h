@@ -27,7 +27,7 @@
 // class declaration
 // ===========================================================================
 
-class GNEOptionsDialog;
+class GNEOptionsEditor;
 class MFXLabelTooltip;
 
 // ===========================================================================
@@ -45,7 +45,7 @@ public:
 
     public:
         /// @brief constructor
-        OptionRow(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+        OptionRow(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
                   const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief adjust input name size
@@ -76,8 +76,8 @@ public:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(OptionRow)
 
-        /// @brief GNEOptionsDialog parent
-        GNEOptionsDialog* myGUIDialogOptions = nullptr;
+        /// @brief GNEOptionsEditor parent
+        GNEOptionsEditor* myOptionsEditor = nullptr;
 
         /// @brief topic
         const std::string myTopic;
@@ -113,7 +113,7 @@ public:
 
     public:
         /// @brief constructor
-        OptionString(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+        OptionString(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
                      const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
@@ -141,7 +141,7 @@ public:
 
     public:
         /// @brief constructor
-        OptionStringVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+        OptionStringVector(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
                            const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
@@ -169,7 +169,7 @@ public:
 
     public:
         /// @brief constructor
-        OptionBool(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+        OptionBool(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
                    const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
@@ -197,7 +197,7 @@ public:
 
     public:
         /// @brief
-        OptionInt(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+        OptionInt(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
                   const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
@@ -225,7 +225,7 @@ public:
 
     public:
         /// @brief
-        OptionIntVector(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+        OptionIntVector(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
                         const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
@@ -253,7 +253,7 @@ public:
 
     public:
         /// @brief constructor
-        OptionFloat(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+        OptionFloat(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
                     const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
@@ -284,7 +284,7 @@ public:
 
     public:
         /// @brief constructor
-        OptionTime(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+        OptionTime(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
                    const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
@@ -317,7 +317,7 @@ public:
 
     public:
         /// @brief constructor
-        OptionFilename(GNEOptionsDialog* GUIDialogOptions, FXComposite* parent, const std::string& topic,
+        OptionFilename(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
                        const std::string& name, const std::string& description, const std::string& defaultValue);
 
         /// @brief update option
